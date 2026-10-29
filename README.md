@@ -2,7 +2,7 @@
 ## Beating prime puzzle records with AI reasoning 
 This repository is an experiment in how far AI can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected hundreds of prime challenges since 1999, many with records that stood for decades. No racks of computers grinding through billions of candidates, just careful reasoning about why each old record worked and a trick that made the hard part happen by itself. 
 
-**The result: 39 records broken and 25 open questions answered.**
+**The result: 39 records broken and 25 open questions answered (a few of them partial or conditional), each with a script that verifies it.**
 
 ## Results
 #### Beaten records
@@ -73,8 +73,8 @@ This repository is an experiment in how far AI can go with hard math: puzzles, l
 | [639](https://www.primepuzzles.net/puzzles/puzz_639.htm) | Composite solutions for every m | no contributions | [yes, under the prime-quadruple conjecture](results/639.md) |
 | [677](https://www.primepuzzles.net/puzzles/puzz_677.htm) | Primes in a row with square sums | no solution | [tried values impossible, range narrowed](results/677.md) |
 | [890 Q1](https://www.primepuzzles.net/puzzles/puzz_890.htm) | Magic square from Pythagorean triples | no contributions | [impossible (proof)](results/890.md) |
-| [1080](https://www.primepuzzles.net/puzzles/puzz_1080.htm) | Third term a(3) | none known | [1.9·10³²](results/1080.md) |
-| [1145](https://www.primepuzzles.net/puzzles/puzz_1145.htm) | Covering set behind the listed k | no contributions | [found; listed k is its minimum](results/1145.md) |
+| [1080](https://www.primepuzzles.net/puzzles/puzz_1080.htm) | Third term a(3) | none known | [a(3) ≤ 1.9·10³² (exactly 3 solutions)](results/1080.md) |
+| [1145](https://www.primepuzzles.net/puzzles/puzz_1145.htm) | Covering set behind the listed k | no contributions | [found; listed k is its minimum (bounded search)](results/1145.md) |
 | [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](results/1204.md) |
 
 
