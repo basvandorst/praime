@@ -80,12 +80,12 @@ This repository is an experiment in how far AI can go with hard math: puzzles, l
 ## LLM Instructions
 ### Puzzle reasoning
 - **Ask for reasoning before code.** "Explain why the old record works, then propose a construction" gets far better ideas than "find a better one".
-- **Forbid brute force.** Say explicitly: computation is only for checking a construction. Otherwise the model drifts into giant searches.
+- **Forbid brute force, not bounded search.** Say explicitly: no open-ended hunts, otherwise the model drifts into giant searches. A bounded exhaustive search is fine once reasoning has made the search space small: the least squares in 81, the edge cases in 106 and the ordered candidate list in 75 all rest on one.
 - **Demand several angles.** "Try at least three different approaches and write down why each one failed" stops it from giving up after the first dead end.
 - **Give it the toolbox.** List tricks that worked before (fix a remainder, reuse record primes, stack building blocks). It applies them to new puzzles surprisingly well.
-- **Split the work.** Separate agents for page ranges (e.g. puzzles 1–66, 67–133, …) scout in parallel. One agent per hard puzzle digs deeper.
+- **Split the work, within limits.** Separate agents for page ranges (e.g. puzzles 1–66, 67–133, …) scout in parallel. One agent per hard puzzle digs deeper. Cap it at 2-3 agents on a small machine, and re-check everything they report: one agent went beyond its brief and invented an explanation.
 - **Never trust a claim without a re-check.** Re-run every claimed beat in a separate script yourself. Several "records" didn't survive.
-- **Make it read the whole page.** Models often read only the top or a truncated page. The fix: decode it properly (these pages are Windows-1252) and read to the last line. An audit like this withdrew six false claims.
+- **Make it read the whole page.** Models often read only the top or a truncated page. The fix: decode it properly (these pages are Windows-1252) and read to the last line. An audit like this withdrew seven false claims (855, 872, 933, 969, 854, 1136 and the k = 14 part of 522).
 - **Watch for overclaiming.** "Proved", "minimal" and "first" need evidence. Ask "what exactly was checked, and what is assumed?"
 - **Set hard limits.** Per-command CPU caps, no background jobs, low priority. LLM agents will happily start a 5-hour run.
 - **Keep a running log.** One results file and one submission file, updated after every check. That makes the final write-up easy.
@@ -96,10 +96,10 @@ This repository is an experiment in how far AI can go with hard math: puzzles, l
 - **Search inside that class only.** Fix the remainder in the coefficients, then search just those polynomials. Far fewer candidates, much higher hit rate.
 - **Plug in known record objects.** Before computing anything, try the Prime Pages records, PrimeGrid's AP-27 and the Dress–Landreau polynomials. They often win outright.
 - **Sieve before testing.** Throw out candidates with small factors first using a `numpy` boolean sieve, then run `gmpy2.is_prime` only on the survivors.
-- **Vectorise exhaustive checks.** When proving "this is the minimum" or "this can't exist", use `numpy` arrays instead of Python loops. Whole ranges get checked in seconds.
+- **Vectorise exhaustive checks.** When proving "this is the minimum" or "this can't exist", use `numpy` arrays instead of Python loops. Whole ranges get checked in seconds. When Python is still too slow, write the check in C.
 - **Keep runs short.** Cap every job (`timeout`, `nice`) so one bad idea can't eat a day of CPU.
 - **Verify with a second, separate script.** Recompute the result from scratch with `sympy.isprime` and plain integer arithmetic before calling it a record.
-- **Mark probable primes "PRP".** Huge numbers that pass the tests but aren't formally proven get the label, as the site expects.
+- **Mark probable primes "PRP".** Anything above 2^64 is PRP unless a real primality proof was run: `sympy.isprime` only proves primes below 2^64, above that it runs a probable-prime test. Puzzles 419, 793 and 908 had to be relabelled for this.
 
 
 ## Personal
