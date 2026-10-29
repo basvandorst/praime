@@ -102,6 +102,11 @@ This repository is an experiment in how far AI can go with hard math: puzzles, l
 - **Verify with a second, separate script.** Recompute the result from scratch with `sympy.isprime` and plain integer arithmetic before calling it a record.
 - **Mark probable primes "PRP".** Anything above 2^64 is PRP unless a real primality proof was run: `sympy.isprime` only proves primes below 2^64, above that it runs a probable-prime test. Puzzles 419, 793 and 908 had to be relabelled for this.
 
+## Models
+
+The work started on **Claude Fable 5.1** at medium effort, which found about half of the results. When the credits ran out, **Claude Opus 5.5** at high effort did the rest.
+
+Both got a short prompt and the tips above. When a model got stuck, two things helped. Telling it to think harder often made it find a new way. Asking why other solutions worked let it use the same idea on the new puzzle.
 
 ## Personal
 I wanted to see what happens when you pair AI and point them at some of the hardest little problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the prime distribution itself :)
