@@ -1,5 +1,5 @@
 # Praime
-An experiment in how far AI can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected hundreds of prime challenges since 1999, many with records that stood for decades. No racks of computers grinding through billions of candidates, just careful reasoning about why each old record worked and a trick that made the hard part happen by itself. 
+This repository is an experiment in how far AI can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected hundreds of prime challenges since 1999, many with records that stood for decades. No racks of computers grinding through billions of candidates, just careful reasoning about why each old record worked and a trick that made the hard part happen by itself. 
 
 **The result: 40 records broken and 24 open questions answered.**
 
@@ -78,16 +78,7 @@ An experiment in how far AI can go with hard math: puzzles, logical reasoning, a
 
 
 ## LLM Instructions
-- **Read the full puzzle page.** Download it, read it to the bottom, and note the best answer and who found it. Later contributions often beat the one at the top.
-- **Factor the record numbers.** Run them through `sympy.factorint` and check their remainders mod 3, 4, 5, 8 and 40. Patterns show up fast.
-- **Turn the condition into a remainder.** Ask whether "even period", "unlucky" or "no digit 6" depends only on p mod m. If it does, build a formula that is always ≡ that value mod m.
-- **Search inside that class only.** Fix the remainder in the coefficients, then search just those polynomials. Far fewer candidates, much higher hit rate.
-- **Plug in known record objects.** Before computing anything, try the Prime Pages records, PrimeGrid's AP-27 and the Dress–Landreau polynomials. They often win outright.
-- **Sieve before testing.** Throw out candidates with small factors first using a `numpy` boolean sieve, then run `gmpy2.is_prime` only on the survivors.
-- **Vectorise exhaustive checks.** When proving "this is the minimum" or "this can't exist", use `numpy` arrays instead of Python loops. Whole ranges get checked in seconds.
-- **Keep runs short.** Cap every job (`timeout`, `nice`) so one bad idea can't eat a day of CPU.
-- **Verify with a second, separate script.** Recompute the result from scratch with `sympy.isprime` and plain integer arithmetic before calling it a record.
-- **Mark probable primes "PRP".** Huge numbers that pass the tests but aren't formally proven get the label, as the site expects.
+### Puzzle reasoning
 - **Ask for reasoning before code.** "Explain why the old record works, then propose a construction" gets far better ideas than "find a better one".
 - **Forbid brute force.** Say explicitly: computation is only for checking a construction. Otherwise the model drifts into giant searches.
 - **Demand several angles.** "Try at least three different approaches and write down why each one failed" stops it from giving up after the first dead end.
@@ -98,6 +89,18 @@ An experiment in how far AI can go with hard math: puzzles, logical reasoning, a
 - **Watch for overclaiming.** "Proved", "minimal" and "first" need evidence. Ask "what exactly was checked, and what is assumed?"
 - **Set hard limits.** Per-command CPU caps, no background jobs, low priority. LLM agents will happily start a 5-hour run.
 - **Keep a running log.** One results file and one submission file, updated after every check. That makes the final write-up easy.
+### Code writing
+- **Read the full puzzle page.** Download it, read it to the bottom, and note the best answer and who found it. Later contributions often beat the one at the top.
+- **Factor the record numbers.** Run them through `sympy.factorint` and check their remainders mod 3, 4, 5, 8 and 40. Patterns show up fast.
+- **Turn the condition into a remainder.** Ask whether "even period", "unlucky" or "no digit 6" depends only on p mod m. If it does, build a formula that is always ≡ that value mod m.
+- **Search inside that class only.** Fix the remainder in the coefficients, then search just those polynomials. Far fewer candidates, much higher hit rate.
+- **Plug in known record objects.** Before computing anything, try the Prime Pages records, PrimeGrid's AP-27 and the Dress–Landreau polynomials. They often win outright.
+- **Sieve before testing.** Throw out candidates with small factors first using a `numpy` boolean sieve, then run `gmpy2.is_prime` only on the survivors.
+- **Vectorise exhaustive checks.** When proving "this is the minimum" or "this can't exist", use `numpy` arrays instead of Python loops. Whole ranges get checked in seconds.
+- **Keep runs short.** Cap every job (`timeout`, `nice`) so one bad idea can't eat a day of CPU.
+- **Verify with a second, separate script.** Recompute the result from scratch with `sympy.isprime` and plain integer arithmetic before calling it a record.
+- **Mark probable primes "PRP".** Huge numbers that pass the tests but aren't formally proven get the label, as the site expects.
+
 
 ## Personal
-I wanted to see what happens when you pair AI and point them at some of the hardest little problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the distribution itself :)
+I wanted to see what happens when you pair AI and point them at some of the hardest little problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the prime distribution itself :)
