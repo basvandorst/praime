@@ -109,4 +109,4 @@ The work started on **Claude Fable 5.1** at medium effort, which found about hal
 Both got a short prompt and the tips above. When a model got stuck, two things helped. Telling it to think harder often made it find a new way. Asking why other solutions worked let it use the same idea on the new puzzle.
 
 ## Personal
-I wanted to see what happens when you pair AI and point them at some of the hardest little problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the prime distribution itself :)
+I wanted to see what happens when you use AI on some of the hardest small problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the prime distribution itself :)
