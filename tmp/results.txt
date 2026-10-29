@@ -1,0 +1,407 @@
+PRIME PUZZLES: RESULTS WITH METHOD
+Bas van Dorst, 2026
+
+For each puzzle: how it was solved (the key idea), then the solution.
+PRP = probable prime. Explanations and verification scripts:
+https://github.com/basvandorst/praime/tree/main/results
+Data files: https://github.com/basvandorst/praime/tree/main/results/data
+
+
+======================================================================
+RECORDS BEATEN
+======================================================================
+
+Puzzle 65
+How: Equal power sums survive shifting and scaling, so we took a known degree-5
+Prouhet-Tarry-Escott solution, doubled it (gaps between odd primes are even) and
+sieved for a start c where all 12 numbers are consecutive primes.
+Solution: p = 19765897565467; the consecutive primes p+{0,16,22,54,60,76} and
+p+{4,6,36,40,70,72} have equal sums of k-th powers for k = 1..5 (degree 5).
+
+Puzzle 87 (Q1, Q2)
+How: The centre of a 3x3 magic square is a third of its constant, so small totals
+need small parts; we listed every 3x3 prime magic square with entries below 2000
+by centre and tried pairs and triples from the smallest up.
+Solution Q1 (total 1041): [53 251 197 / 311 167 23 / 137 83 281]
+  + [257 11 269 / 191 179 167 / 89 347 101] + 1 = [311 263 467 / 503 347 191 / 227 431 383]
+Solution Q2 (total 789): [41 113 59 / 89 71 53 / 83 29 101] + [29 167 71 / 131 89 47 / 107 11 149]
+  + [67 79 163 / 199 103 7 / 43 127 139] = [137 359 293 / 419 263 107 / 233 167 389]
+
+Puzzle 92 (n = 5)
+How: The bottom level decides the whole pile, so we fixed the bottom balls'
+remainders mod 3 (and a few small primes) so no upper ball can be divisible by
+them, then filled the bottom with small primes by a guided depth-first search.
+Solution: bottom layers 23 | 61 127 | 41 29 71 | 139 43 7 103 | 17 101 137 89 37
+(each ball above = sum of the three below), top 4999, total 16561.
+
+Puzzle 99
+How: If p is a palindrome and squaring p causes no carries, p^2 is a palindrome
+too and the condition holds by itself; so we only needed a sparse palindrome whose
+square stays carry-free, then a primality test.
+Solution: p = 10^3000 + 10^1889 + 10^1500 + 10^1111 + 1 (3001 digits, PRP).
+
+Puzzle 134 (Q3)
+How: Make the last digit the only active one, so the four images are the decade
+10B+1, 10B+3, 10B+7, 10B+9; we built B (digits 0,2,4,5,6,8) with the Chinese
+remainder theorem so no small prime divides any of the four.
+Solution: 201-digit carrousel prime 10*B + {1,3,7,9}, B in
+https://github.com/basvandorst/praime/blob/main/results/134.md
+
+Puzzle 227
+How: Each new prime narrows the interval for t; starting near t = 3000 keeps the
+interval for t^k wide enough to hold a prime, and we backtracked instead of
+stopping at a dead end.
+Solution: t = a / 2^2760 with floor(t) = 3001 (a has 835 digits); floor(t^j) is
+prime for j = 1..239. a in https://github.com/basvandorst/praime/blob/main/results/data/227.txt
+
+Puzzle 249
+How: Split each 12-digit number into two halves that each use five of the ten
+digits, so pandigitality is automatic and only primality has to be searched.
+Solution: [c-b, c+a+b, c-a / c-a+b, c, c+a-b / c+a, c-a-b, c+b] with
+c = 320515678943, a = 3000000, b = 4554; magic sum 961547036829.
+
+Puzzle 307
+How: Costello's recipe small prime x Mersenne prime x power of 10, applied to the
+newest Mersenne prime with the smallest small prime that balances the digit sums.
+Solution: 7 * (2^136279841 - 1) * 10^2192 (41,026,513 digits).
+
+Puzzle 324
+How: Reordering the pairs of a self-descriptive number keeps it self-descriptive,
+so we took the largest possible one (74 digits, Manning 2025) and listed its pair
+orderings from the top down until one was prime.
+Solution: 99989897979696968585858484848473737373737373626262626262515140405151404051
+
+Puzzle 340
+How: Resta's idea: aim for a square of fixed shape (prefix, then p, then a tail),
+which turns into a quadratic whose root gives p directly.
+Solution: p = ceil(10^3923 * (1 + sqrt(22001)) / 2) (3925 digits, PRP); p^2
+contains p right after the digits "55".
+
+Puzzle 342
+How: Every face is at most the total, so below 658 only 1^2..25^2 can occur, and
+the corner sums depend only on the 15 ways to split six faces into opposite pairs;
+an exhaustive check of that small space.
+Solution: opposite faces (4, 64), (36, 144), (49, 361); total 658, minimal.
+
+Puzzle 356
+How: Greedy choice dead-ends, so simulated annealing: swap primes to lower the
+number of colliding pair sums until zero, then lower the target maximum.
+Solution:
+  max 661:  2 3 5 29 79 97 107 193 239 311 349 401 461 541 577 599 607 641 647 661
+  max 1297: 2 3 13 31 103 151 281 307 347 389 433 449 577 599 673 761 797 983 1033 1063
+            1097 1117 1289 1291 1297
+  max 2213: 2 3 7 23 89 139 193 211 467 503 547 631 659 719 877 997 1021 1301 1439 1451
+            1549 1613 1811 1873 1907 2053 2083 2161 2207 2213
+
+Puzzle 359
+How: Exactly 101 of the first 202 primes contain a 1 and no two may touch, so they
+must alternate; with that fixed, simulated annealing finished the circle. The same
+count shows N = 202 is the maximum.
+Solution: circle in https://github.com/basvandorst/praime/blob/main/results/data/359.txt
+
+Puzzle 373
+How: A generator of n differs from n only in the last few digits, so the self test
+collapses to two small equations on the last 9 digits (Pebody's test), which we
+ran on the known giant primes.
+Solution: 2^82589933 - 1 (24,862,048 digits) is a self number.
+
+Puzzle 398 and 438
+How: Shape N = A*10^900 + 1 so insertions in the zero run depend only on digit and
+position mod 240; A chosen by CRT makes 31 small primes kill about 90% of them,
+the rest are tested. N - 1 is almost fully factored, so N is proven prime.
+Solution: N = A*10^900 + 1 (1057 digits, proven prime),
+A = 1057447767801982899810936078986870322855097083184870799512294142679453394807877910422539690997221686644824565309308629748242833059104863529225434120688108130
+
+Puzzle 419
+How: Use only primes q with q + 1 = 2^a 3^b 5^c, so sigma(N) is a product of 2, 3
+and 5, and pick 336 of them whose exponent sums and prime sum match a 47th power.
+Solution: N = product of 336 primes, SOPF = 3^42 * 5^25, sigma(N) = (SOPF*tau(N))^47.
+Primes in https://github.com/basvandorst/praime/blob/main/results/data/419.txt
+
+Puzzle 450
+How: Twin primes k*2^n +- 1 are consecutive and sum to k*2^(n+1), so the count is
+n + 1 plus the factors of k; the largest known twin primes win.
+Solution: 2996863034895*2^1290000 +- 1; their sum has 1,290,006 prime factors.
+
+Puzzle 476
+How: Build the chain backwards (q = (p*2^n - 1)/3 leads into p), but keep the 40
+smallest predecessors per step (beam search) instead of only the smallest.
+Solution: 458-digit seed with 30 consecutive prime odd terms (PRP):
+https://github.com/basvandorst/praime/blob/main/results/data/476.txt
+
+Puzzle 522
+How: The condition only depends on remainders, so each run gets a key (x_i mod p_i)
+and two runs fit when one key is the negative of the other: sorting instead of
+pairing, over all runs below 2*10^10.
+Solution: x1 = 3355845769, y1 = 5130974053, k = 15 (divisors 2..47).
+
+Puzzle 553
+How: The 18 known solutions share a pattern: k+1 is a product of run primes, k/2
+avoids them, and p + k/2 = product/(k+1) fixes p exactly; no search needed.
+Solution: p = (523*541*...*3001)/2593 - 1296, q = p + 2592 (1060 digits);
+p + (p+1) + ... + q = 523*541*...*3001 (333 primes).
+
+Puzzle 597
+How: Shift the best known quadratic so its middle sits in the middle of the range;
+smaller values are more often prime or semiprime.
+Solution: x^2 - 9999x + 25242757 gives 9743.
+
+Puzzle 607
+How: Powers of a prime with few nonzero digits are long runs of 9s and 0s with
+small blocks between, so most digits never appear; we used the largest known
+palindromic prime.
+Solution: (10^1888529 - 10^944264 - 1)^7 has 13,219,703 digits and no digit 6.
+
+Puzzle 793
+How: Read the digits as towns and each pair as a road that must be used, so the
+shortest number is the shortest walk covering every road (an Euler path).
+Solution (PRP):
+  K = 6:  1012031234062461463
+  K = 8:  10203123405142534560716273657467
+  K = 10: 101203123405142534560716273647567809182938495869789
+
+Puzzle 808
+How: A 3-digit palindrome [1, c, 1] in base b means p - 1 = b(b + c), so every
+divisor of p - 1 near sqrt(p) gives a base; we chose p = 1 mod 720720 so p - 1
+has a huge number of divisors.
+Solution: 108864424468801 is palindromic in 227 bases.
+
+Puzzle 830
+How: Let the largest prime that still has to cancel decide the next factor, which
+builds the product step by step instead of searching.
+Solution:
+  K = 2012: N = 3520 * 21 * 4 * 2^11 * 3^10 = 35757277839360
+  K = 2013: N = 60 * 54 * 2^13 * 3^8 = 174142586880
+
+Puzzle 905
+How: Any polynomial that agrees with x + d on the 26 points of PrimeGrid's AP-27
+walks along the same primes, so we added c*(x - a0)...(x - a25), which vanishes
+there, and chose c to make the 28th value prime.
+Solution: P(x) = x + d + 18*(x - a0)(x - a1)...(x - a25), a0 = 224584605939537911,
+d = 81292139*223092870; 28 primes by iteration (last one PRP).
+
+Puzzle 908
+How: Choose q = p^2 - p + r1 so the first remainder is forced to be r1, then steer
+the rest of the chain with the Chinese remainder theorem.
+Solution: p = 68516818704324257201795329467591133865835633315118443095966860117,
+q = p^2 - p + 199; remainders 199, 197, 193, ..., 5, 2, 1 (34 numbers, PRP).
+
+Puzzle 957
+How: Aim for the size where there are enough candidate expressions to expect a
+prime while each primality test is still fast.
+Solution (PRP):
+  1-2+3*(4*5^6)^(7*89)    = 3*62500^623 - 1  (2989 digits)
+  -(1+2)+34^(5*6*7+890)   = 34^1100 - 3      (1685 digits)
+  -9+8*7^(6*54*3^2)*1     = 8*7^2916 - 9     (2466 digits)
+  -9+8*76^(54-3+2^10)     = 8*76^1075 - 9    (2023 digits)
+
+Puzzle 1001
+How: For a prime P, SAD(P) = sigma(2P-1) + sigma(2P+1) - 4P, and Q is only odd when
+2P - 1 is a square; choosing that square root with many small factors makes Q large.
+Solution: P = 391177608521960466267478281835624430526821956454882813,
+Q/P = 5.5201061257.
+
+Puzzle 1028
+How: (A*n mod (A+1)) is a falling line and a nearly-multiple modulus gives a step
+every L values; together they build a staircase through blocks of ten primes in
+arithmetic progression with difference 9699690 = 19#.
+Solution: (35968n mod 35969) + (9481023n mod 94764426) + (204182n mod 4083624)
++ (1230n mod 36886) + (13256n mod 530202): 49 primes for n = 1..49.
+
+Puzzle 1097
+How: Same blocks of ten primes as 1099, glued with Paolo Lava's trick: a sum
+sum e_j*((m + j) mod k) can hit any k values by solving a linear system for e_j.
+Solution: 9699690*(n mod 10) + sum_j e_j*((floor(n/10) + j) mod 13),
+e = [933516151, -104434997, 23700127, -128911085, 56766199, 48442819, -1599797,
+-152799521, 32343931, -71698241, 45728731, 44720503, 43956415] / 1014; 130 distinct primes.
+
+Puzzle 1099
+How: The record is groups of ten primes in progression with difference 19#; such
+progressions are common, so we kept adding groups, each one floor term more.
+Solution: H(n) = 35969 + 9699690n + sum_j c_j*floor(n/(10j)): 570 primes for n = 0..569.
+Coefficients: https://github.com/basvandorst/praime/blob/main/results/data/1099.txt
+
+Puzzle 1135
+How: A number whose last two digits are both odd can never alternate parity; our
+quartic is always 17 mod 40, so every value ends in "odd digit, 7".
+Solution: 5n^4 - 330n^3 + 9395n^2 - 130510n + 709337, 30 primes for n = 0..29.
+
+Puzzle 1190
+How: Take the largest 10-digit prime, 10^10 - 33: eight 9s build 10^10, and 6, 7
+with one more 9 give -33. The very largest candidate works, so the case is closed.
+Solution: 9999999967 = ((9*9+9)/9)^(9+9/9) - 6*7 + 9.
+
+Puzzle 1209
+How: The second step of the lucky sieve removes every number that is 5 mod 6, so
+a polynomial that is always 5 mod 6 gives only unlucky values; we searched that
+family only.
+Solution: -3x^2 + 2799x + 22433, 34 unlucky primes for x = 0..33. (The listed 45
+uses absolute values, which turns 5 mod 6 into 1 mod 6: five values are lucky.)
+
+Puzzle 1217
+How: Prime gaps stay small for a very long time, so feed half the gap into a
+polynomial that is prime on a whole window of small inputs (Euler's, Dress-Landreau).
+Solution: with h = (p(n+1) - p(n))/2, h^2 - 79h + 1601 is prime for 1,319,943
+successive n; |S(h - 43)| with the Dress-Landreau sextic S for 103,518 n (53 distinct primes).
+
+Puzzle 1230
+How: Primes that are 17 or 11 mod 40 have (10/p) = -1, which forces an even period
+of 1/p; so we built a polynomial that is always 17 mod 40.
+Solution: 5n^4 - 330n^3 + 9395n^2 - 130510n + 709337, 30 primes for n = 0..29.
+
+Puzzle 1251
+How: When b + 1 has very many divisors, each way of splitting it into factors
+builds a cycle almost by itself.
+Solution: b = 518918399 (b + 1 = 2^8*3^4*5^2*7*11*13) gives 477 cycles below 10^9:
+https://github.com/basvandorst/praime/blob/main/results/data/1251.txt
+
+
+======================================================================
+FIRST ANSWERS TO OPEN QUESTIONS
+======================================================================
+
+Puzzle 75 (Q2)
+How: A 2000-digit palindrome is divisible by 11, which kills three variants; for
+digit sum 2000 we listed the candidates in increasing order and tested them.
+Solution: 10^223 - 1 - (10^221 + 10^220 + 10^124 + 10^111 + 10^98 + 10^2 + 10)
+(223 digits, PRP).
+
+Puzzle 77
+How: Make every entry 1 mod 3, 5, 7 and 11 so those primes can never divide any
+of the 55 numbers.
+Solution: bottom row 3548161 12418561 54405121 351859201 368417281 3437575681
+8200980481 18681062401 47753502721 809036659201 (each row above = average of the
+two below; 55 distinct primes, all ending in 1).
+
+Puzzle 81 (c)
+How: The magic sum is three times the centre, so we searched centres in increasing
+order and stopped at the first that works.
+Solution: squares [c+x, c-x-y, c+y / c-x+y, c, c+x-y / c-y, c+x+y, c-x]
+  p, 2p+1, 4p+3: c = 48353471, x = 38813580, y = 8220240 (magic sum 145060413)
+  p, 2p-1, 4p-3: c = 47722789, x = 39390450, y = 2801400 (magic sum 143168367)
+
+Puzzle 87 (Q3)
+How: Same complete-list method as Q1/Q2, for 4x4 squares.
+Solution: constants 548 and 570, squares in
+https://github.com/basvandorst/praime/blob/main/results/87.md
+
+Puzzle 92 (n = 6, 7)
+How: Same remainder-fixing and guided search as n = 5.
+Solution (bottom layers):
+  n = 6: 43 | 137 19 | 61 59 79 | 173 37 197 211 | 223 53 13 191 17 | 5 229 71 67 73 283
+  n = 7: 409 | 457 131 | 61 83 139 | 47 281 313 71 | 241 331 79 41 379 |
+         7 59 11 431 181 593 | 13 557 127 211 19 347 109
+
+Puzzle 106
+How: A magic square plus the same square turned upside down is a constant square,
+so pairs of squares do the work; two squares can never give 2000.
+Solution for 2000, k = 4 (least):
+  [17 89 71 / 113 59 5 / 47 29 101] + [101 29 47 / 5 59 113 / 71 89 17]
+  + [269 1493 1061 / 1733 941 149 / 821 389 1613] + [1613 389 821 / 149 941 1733 / 1061 1493 269]
+Largest k = 26. For 2001: least 3, largest 27.
+
+Puzzle 134 (Q4)
+How: Here almost all digits are active, so we kept a single 0 and searched
+100-digit numbers of 1, 3, 7, 9 whose four images all pass the prime test.
+Solution: 9773317917193993331131917339173977131919931391113371131103919313311737119331717179393197317197911119
+
+Puzzle 170 (Q10)
+How: n + 1 is even, and the pseudoprime condition then hands a nontrivial divisor
+of n.
+Solution: impossible (short proof).
+
+Puzzle 172
+How: A ruler of K primes has length w + (sum of the first K primes), so we
+minimised w with an exhaustive C search.
+Solution (minimal):
+  K = 9,  L = 113: 1.1.1.1.1.1.1.3.19.17.7.23.2.13.5.11.1.1.1.1.1.1
+  K = 10, L = 144: 1.1.1.1.1.1.23.1.11.17.3.13.19.29.5.7.1.1.1.2.1.1.1.1.1
+
+Puzzle 179 (Q1)
+How: First balance the words (3 + 11 = 7 + 7), then each alphametic is one linear
+equation in at most ten letters, so numpy checks all 3.6 million digit assignments.
+Solution: TROIS + ONZE = SEPT + SEPT -> 12689 + 6053 = 9371 + 9371, all prime.
+Also CINQ + CINQ + ONZE = 3*SEPT -> 2879 + 2879 + 6701 = 3*4153.
+
+Puzzle 189
+How: Hamiltonian path search with two pruning rules (a number with one free
+neighbour must be the last; a number whose only free neighbour is the current end
+must come next).
+Solution: paths exist for 52, 53, 56, 58 and every open n above; none for 44, 45,
+46, 47, 49, 51, 54 and 57, so n0 = 57. Paths:
+https://github.com/basvandorst/praime/blob/main/results/data/189.txt
+
+Puzzle 299 (Q2)
+How: Every increasing run of 9 has the fixed shape m*3^k*2^(9-k) - 1, which makes
+the search small.
+Solution: 35014031359.
+
+Puzzle 325 (Q4)
+How: Choose the first two primes yourself; the rule A, B then follows from them,
+so only the third prime needs luck.
+Solution: p1 = 12487, p2 = (10^21 + 1245)*7723# + 1, A = (p2 - 1)/12486 - 1,
+B = 12487 - A, p3 = A*p2 + B; Z = p1*p2*p3 has 10,008 digits (p3 PRP).
+
+Puzzle 435
+How: Build all of m except its largest prime; that last prime then follows from a
+linear equation, so it never has to be searched for.
+Solution: m = 60493590969525342720 = 2^9*3^5*5*7^3*13^2*31^2*41*42577,
+phi(m) + sigma(m) = 5m.
+
+Puzzle 458
+How: Start from Pebody's number (all three prime sets equal) and multiply by 47^3:
+that adds 47 to n, 23 to phi(n), and leaves sigma(n)'s primes unchanged.
+Solution: n = 678395112906914180368298499070649370.
+
+Puzzle 490
+How: Rewritten as y^2 + (2^k - 1) = 2^n, this is Ramanujan's equation for k = 3 and
+a theorem of Beukers for every other k.
+Solution: no other odd n exists, and k = 3 always.
+
+Puzzle 493
+How: Expand (sqrt(x) + i*sqrt(y))^p; its size squared is (x + y)^p = p^p.
+Solution: yes, solvable for every odd prime p and every split x + y = p.
+
+Puzzle 516 (Q1)
+How: A digit product grows far more slowly than the number, so beyond 7 digits it
+can never catch up; a direct check below 10^7 does the rest.
+Solution: 59 is the only solution (proof).
+
+Puzzle 631
+How: Shiu's theorem gives four consecutive primes all 1 mod q, so the three gaps
+between them are all multiples of q.
+Solution: yes, three consecutive gaps can all be arbitrarily large.
+
+Puzzle 639
+How: n = P*(P + 6m + 2) works whenever P, P+2, P+6m, P+6m+2 are all prime.
+Solution: checked for every m up to 3.3*10^7; true for all m under the prime
+k-tuples conjecture.
+
+Puzzle 677
+How: A square sum forces neighbours to alternate between primes 1 and 3 mod 4,
+and there are almost always too many primes 3 mod 4 (Chebyshev's bias).
+Solution: the values tried on the page are impossible; the possible range is narrowed.
+
+Puzzle 890 (Q1)
+How: Parity fixes where the even numbers sit, mod 4 fixes the hypotenuses, and
+what is left is three quadratic equations whose solutions repeat a number or go
+negative.
+Solution: impossible (proof).
+
+Puzzle 1080
+How: Combine two known pairs with equal sigma3 by multiplication (sigma3 is
+multiplicative for coprime factors).
+Solution: sigma3(54608832726) = sigma3(56689652415) = sigma3(57381413815)
+= 190592992522906181161863557566464, exactly three solutions, so a(3) <= 1.9*10^32.
+
+Puzzle 1145
+How: Factor the listed k and reconstruct the primes that cover k*2^n + 1 for every
+odd n, then check that no cheaper covering exists up to period 1440.
+Solution: covering set {5, 7, 11, 31, 73, 97, 151, 241, 631, 673, 1321, 23311};
+a = 153479820268467961 is minimal for it.
+
+Puzzle 1204
+How: 30030 = 2*3*5*7*11*13, so 30030 - p can't be divisible by those six primes,
+making it about 5 times more likely to be prime; Hardy-Littlewood quantifies it.
+Solution: predicted 51.7% vs observed 51.6%; no n between 15015 and 2*10^6 gets
+above 50%.
