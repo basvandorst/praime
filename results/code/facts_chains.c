@@ -1,5 +1,5 @@
 // Count Euler-Rodriguez chains of exactly k consecutive primes: forward (gaps 2,4,...,2(k-1)) and
-// mirrored (gaps 2(k-1),...,4,2), for FACTS.md fact 88. Build: gcc -O3 -o facts_chains facts_chains.c -lm
+// mirrored (gaps 2(k-1),...,4,2), for FACTS.md fact 4010. Build: gcc -O3 -o facts_chains facts_chains.c -lm
 // Run: ./facts_chains 10000000000   (about 13 s)
 #include <stdio.h>
 #include <stdlib.h>
