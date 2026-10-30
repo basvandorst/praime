@@ -459,4 +459,151 @@ gp = lambda R: sum(1 for a in range(-R, R + 1) for b in range(-R, R + 1) if a * 
                    (isprime(a * a + b * b) if a and b else (isprime(abs(a + b)) and abs(a + b) % 4 == 3)))
 assert gp(10) == 100 and gp(100) == 4928
 assert int(gmpy2.next_prime(10**999)) == 10**999 + 7
+# --- second research pass (October 2026) ---------------------------------------------------------
+u, idx = np.unique(g, return_index=True); fo = {int(a): int(P[i]) for a, i in zip(u, idx)}      # first occurrence of each gap
+assert [fo[k] for k in range(2, 42, 2)] == [3, 7, 23, 89, 139, 199, 113, 1831, 523, 887, 1129, 1669, 2477, 2971, 4297, 5591, 1327, 9551, 30593, 19333]
+assert all(k in fo for k in range(2, 200, 2)) and 200 not in fo and max(fo) == 248
+pi_ = lambda x: np.searchsorted(P, np.asarray(x), side='right')                                    # pi(x)
+nn = np.arange(1, 14142); leg = pi_((nn + 1) ** 2) - pi_(nn ** 2)
+assert leg.min() == 2 and [int(nn[leg <= k].max()) for k in range(2, 8)] == [5, 9, 14, 17, 23, 26]
+lo, hi = pi_(nn[1:] ** 2 - 1) - pi_(nn[1:] ** 2 - nn[1:]), pi_(nn[1:] ** 2 + nn[1:]) - pi_(nn[1:] ** 2)
+assert lo.min() >= 1 and hi.min() >= 1 and int(nn[1:][lo == 1].max()) == 11 and int(nn[1:][hi == 1].max()) == 17   # Oppermann
+bp = P[(P >= 3) & (P < 14142)]
+assert int((pi_(bp[1:] ** 2) - pi_(bp[:-1] ** 2)).min()) == 5                                      # Brocard: p_n^2 .. p_(n+1)^2
+lmax, lq = 0, 0
+for q in range(3, 501):
+    r = P[:300000] % q; uu, ii = np.unique(r, return_index=True); ok = np.gcd(uu, q) == 1
+    assert ok.sum() == totient(q)
+    far = int(P[ii[ok]].max()); assert far < q * q
+    if far / (q * math.log(q) ** 2) > lmax: lmax, lq = far / (q * math.log(q) ** 2), (q, far)
+assert lq == (461, 37363) and round(lmax, 3) == 2.154
+# --- second pass: digits, Lucas sequences, explicit bounds -----------------------------------------
+from itertools import permutations
+from sympy import lucas
+def fib_mod(n, m):                                                  # (F_n, F_(n+1)) mod m by fast doubling
+    if n == 0: return 0, 1
+    a, b = fib_mod(n // 2, m); c = a * (2 * b - a) % m; d = (a * a + b * b) % m
+    return (d, (c + d) % m) if n % 2 else (c, d)
+assert not any(fib_mod(p - legendre_symbol(5, p), p * p)[0] == 0 for p in primerange(7, 10**6))   # Wall-Sun-Sun
+assert [n for n in range(1, 1001) if gmpy2.is_prime(int(fibonacci(n)))] == [3, 4, 5, 7, 11, 13, 17, 23, 29, 43, 47, 83, 131, 137, 359, 431, 433, 449, 509, 569, 571]
+assert [n for n in range(0, 1001) if gmpy2.is_prime(int(lucas(n)))] == [0, 2, 4, 5, 7, 8, 11, 13, 16, 17, 19, 31, 37, 41, 47, 53, 61, 71, 79, 113, 313, 353, 503, 613, 617, 863]
+pell = [0, 1]
+for _ in range(1000): pell.append(2 * pell[-1] + pell[-2])
+assert [n for n in range(1001) if gmpy2.is_prime(pell[n])] == [2, 3, 5, 11, 13, 29, 41, 53, 59, 89, 97, 101, 167, 181, 191, 523, 929]
+assert all(sorted([fibonacci(2 * n + 1) + 2, fibonacci(2 * n + 1) - 2]) == sorted([fibonacci(n + 2) * lucas(n - 1), fibonacci(n - 1) * lucas(n + 2)]) for n in range(2, 300))
+pol = [n for n in range(1, 4000, 2) if not any(isprime(n - 2**k) for k in range(n.bit_length()) if n - 2**k > 1)]
+assert pol[:10] == [1, 127, 149, 251, 331, 337, 373, 509, 599, 701] and min(n for n in pol if not isprime(n) and n > 1) == 905 and 959 in pol
+assert all(any((1260327937 - pow(2, k, q)) % q == 0 for q in (3, 5, 7, 13, 17, 241)) for k in range(24)) and 2863311360 == 2**9 * 3 * 5 * 7 * 13 * 17 * 241
+assert [k for k in range(3, 2001) if gmpy2.is_prime(2**k - 7)] == [39, 715, 1983]
+a_, b_, c_ = 2, 3**10 * 109, 23**5; assert a_ + b_ == c_ and round(math.log(c_) / math.log(2 * 3 * 109 * 23), 5) == 1.62991
+assert all(n % 30 in (1, 7, 13, 19) for n in range(1, 400) if int(''.join(map(str, range(1, n + 1)))) % 2 and int(''.join(map(str, range(1, n + 1)))) % 3 and int(''.join(map(str, range(1, n + 1)))) % 5)
+# explicit bounds of Dusart, and theta
+lnP = np.log(P.astype(np.float64)); xs = P.astype(np.float64); idx = np.arange(1, len(P) + 1, dtype=np.float64)
+def last_fail(lower, f):                                            # pi is a step function: test at p and just below p
+    bad_hi = (idx < f(xs)) if lower else (idx > f(xs))             # at x = p
+    bad_lo = (idx - 1 < f(xs - 1e-9)) if lower else np.zeros(len(P), bool)
+    b = np.nonzero(bad_hi | bad_lo)[0]; return float(P[b[-1]]) if len(b) else None
+f1 = lambda x: x / np.log(x) * (1 + 1 / np.log(x))                 # holds for x >= 599, fails just below 599
+assert P[np.nonzero(idx < f1(xs))[0][-1]] < 599 and P[np.nonzero(idx - 1 < f1(xs - 1e-9))[0][-1]] == 599
+fb = lambda x: x / np.log(x) * (1 + 1 / np.log(x) + 2 / np.log(x) ** 2)
+assert 88783 < 88789 and int(np.searchsorted(P, 88783, 'right')) < fb(88783) and all(int(np.searchsorted(P, x, 'right')) >= fb(x) for x in range(88789, 200000))
+assert np.all(idx[1:] <= xs[1:] / lnP[1:] * (1 + 1.2762 / lnP[1:]))
+th = np.cumsum(lnP)
+assert np.all(th < xs) and round(float((th / xs)[100:].max()), 6) == 0.999976
+i0 = int(np.searchsorted(P, 3594641)); bnd = 0.2 * xs / lnP ** 2           # |theta(x) - x| <= 0.2 x / ln^2 x from 3594641 on
+assert np.all(np.abs(th[i0:] - xs[i0:]) <= bnd[i0:]) and np.all(xs[i0 + 1:] - th[i0:-1] <= bnd[i0 + 1:])
+assert xs[i0] - th[i0 - 1] > bnd[i0] and P[i0 - 1] == 3594631                # x just below 3594641 fails
+h25 = xs[:-1] / (25 * lnP[:-1] ** 2); j0 = int(np.searchsorted(P, 396738))   # a prime in [x, x + x/(25 ln^2 x)] for x >= 396738
+assert np.all(g[j0:] <= h25[j0:]) and P[j0] <= 396738 * (1 + 1 / (25 * math.log(396738) ** 2)) and int(P[np.nonzero(g > h25)[0][-1]]) == 396733
+Q3 = P[(P % 4 == 3) & (P < 10**7)].astype(np.float64)
+assert abs(float(np.prod((1 - Q3 ** -2) ** -0.5)) / math.sqrt(2) - 0.7642236535) < 3e-9
+r_ = g[1:] / g[:-1]; assert r_.max() == 104 and int(P[np.argmax(r_)]) == 192983849 and int(P[np.argmin(r_)]) == 195208231
+w = [2, 4, 8, 16, 32]; ok = np.ones(len(g) - 5, bool)
+for j, v in enumerate(w): ok &= g[j:len(g) - 5 + j] == v
+assert int(P[np.argmax(ok)]) == 6824897
+# special families of consecutive primes
+mid = P[1:-1]; bal = mid[2 * mid == P[:-2] + P[2:]]; assert bal[:10].tolist() == [5, 53, 157, 173, 211, 257, 263, 373, 563, 593]
+stg = mid[2 * mid > P[:-2] + P[2:]]; wk = mid[2 * mid < P[:-2] + P[2:]]
+assert stg[:4].tolist() == [11, 17, 29, 37] and wk[:5].tolist() == [3, 7, 13, 19, 23] and int(np.argmax(stg[:30000] < wk[:30000])) + 1 == 19799
+gp_ = [int(P[n]) for n in range(1, 40) if all(int(P[n]) ** 2 > int(P[n - i]) * int(P[n + i]) for i in range(1, n + 1))]
+assert gp_[:10] == [5, 11, 17, 29, 37, 41, 53, 59, 67, 71]
+chen = [p for p in primerange(2, 100) if sum(factorint(p + 2).values()) <= 2]
+assert chen[:14] == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 47] and [p for p in primerange(2, 100) if p not in chen] == [43, 61, 73, 79, 97]
+sup = [int(P[int(p) - 1]) for p in P[:3000]]; reach = 1
+for s_ in sup: reach |= reach << s_
+reach &= (1 << 20001) - 1
+assert sup[:10] == [3, 5, 11, 17, 31, 41, 59, 67, 83, 109] and max(n for n in range(20001) if not reach >> n & 1) == 96
+lk = list(range(1, 2000, 2)); i = 1
+while i < len(lk) and lk[i] <= len(lk):
+    st = lk[i]; del lk[st - 1::st]; i += 1
+assert [x for x in lk if isprime(x)][:13] == [3, 7, 13, 31, 37, 43, 67, 73, 79, 127, 151, 163, 193]
+pil = [p for p in primerange(2, 80) if any((math.factorial(m) + 1) % p == 0 and p % m != 1 for m in range(2, p))]
+assert pil == [23, 29, 59, 61, 67, 71, 79]
+dsum = lambda n: sum(map(int, str(n)))
+gen = {n + dsum(n) for n in range(1, 3000)}; assert [p for p in primerange(2, 250) if p not in gen] == [3, 5, 7, 31, 53, 97, 211, 233]
+def primeval(n):
+    d = str(n); found = set()
+    for r in range(1, len(d) + 1):
+        for t in permutations(d, r):
+            if t[0] != '0' and isprime(int(''.join(t))): found.add(int(''.join(t)))
+    return len(found)
+assert primeval(1379) == 31 and primeval(13679) == 106
+# digit families
+def trunc(left):
+    layer, tot = [2, 3, 5, 7], [2, 3, 5, 7]
+    while layer:
+        layer = [int(d + str(p)) if left else p * 10 + int(d) for p in layer for d in ('123456789' if left else '1379')]
+        layer = [q for q in layer if isprime(q)]; tot += layer
+    return tot
+lt, rt = trunc(True), trunc(False)
+assert len(lt) == 4260 and max(lt) == 357686312646216567629137 and len(rt) == 83 and max(rt) == 73939133
+assert sorted(set(lt) & set(rt)) == [2, 3, 5, 7, 23, 37, 53, 73, 313, 317, 373, 797, 3137, 3797, 739397]
+P7s = set(int(p) for p in P[P < 10**7])
+circ = sorted({min(int(str(p)[i:] + str(p)[:i]) for i in range(len(str(p)))) for p in P7s
+               if all(int(str(p)[i:] + str(p)[:i]) in P7s for i in range(len(str(p))))})
+assert circ == [2, 3, 5, 7, 11, 13, 17, 37, 79, 113, 197, 199, 337, 1193, 3779, 11939, 19937, 193939, 199933]
+perm = sorted(p for p in P7s if set(str(p)) <= set('1379') or p < 10 if all(int(''.join(t)) in P7s for t in set(permutations(str(p)))))
+assert perm == [2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97, 113, 131, 199, 311, 337, 373, 733, 919, 991]
+mins = ['2', '3', '5', '7', '11', '19', '41', '61', '89', '409', '449', '499', '881', '991', '6469', '6949', '9001', '9049', '9649', '9949', '60649', '666649', '946669', '60000049', '66000049', '66600049']
+def subseq(a, b):
+    it = iter(b); return all(c in it for c in a)
+assert all(isprime(int(m)) for m in mins) and not any(subseq(a, b) for a in mins for b in mins if a != b)
+assert all(any(subseq(m, str(p)) for m in mins) for p in P[P < 10**6].tolist())
+def happy(n):
+    seen = set()
+    while n != 1 and n not in seen: seen.add(n); n = sum(int(c) ** 2 for c in str(n))
+    return n == 1
+hp = [int(p) for p in P[P < 10**6] if happy(int(p))]; assert [sum(x < 10**k for x in hp) for k in (4, 5, 6)] == [200, 1465, 11144]
+assert happy(sum(int(c) ** 2 for c in (gmpy2.mpz(2) ** 42643801 - 1).digits()))
+spf = np.zeros(10**5 + 1, np.int64)
+for p in P[P <= 316].tolist():
+    m_ = spf[p * p::p] == 0; spf[p * p::p][m_] = p
+def factors(n):
+    out = []
+    while spf[n]: out.append(int(spf[n])); n //= int(spf[n])
+    return out + [n]
+assert sum(1 for n in range(4, 10**5) if spf[n] and dsum(n) == sum(dsum(q) for q in factors(n))) == 3294
+def home(n):
+    while not isprime(n): n = int(''.join(str(q) * e for q, e in sorted(factorint(n).items())))
+    return n
+assert home(8) == 3331113965338635107
+strob = {'0': '0', '1': '1', '8': '8', '6': '9', '9': '6'}
+assert [p for p in P[P < 70000].tolist() if set(str(p)) <= set(strob) and int(''.join(strob[c] for c in str(p)[::-1])) == p] == [11, 101, 181, 619, 16091, 18181, 19861, 61819]
+pd = [p for p in P[P < 10000].tolist() if sorted(str(p)) == ['2', '3', '5', '7']]; assert pd[0] == 2357 and pd[-1] == 7523
+assert all(any(((82 * 10**n + 17) // 9) % q == 0 for q in (3, 7, 11, 13)) for n in range(1, 200))
+assert all(any((9175 * 10**n + 1) % q == 0 for q in (7, 11, 13, 37)) and any((10176 * 10**n - 1) % q == 0 for q in (7, 11, 13, 37)) for n in range(1, 200))
+import mpmath
+mpmath.mp.dps = 1020
+for const, lens in ((mpmath.pi, [1, 2, 6, 38]), (mpmath.e, [1, 3, 7, 85])):
+    dig = mpmath.nstr(const, 1010, strip_zeros=False).replace('.', '')
+    assert [k for k in range(1, 1001) if gmpy2.is_prime(int(dig[:k]))] == lens
+dig = mpmath.nstr(mpmath.e, 1010).replace('.', '')
+assert next(i for i in range(1000) if gmpy2.is_prime(int(dig[i:i + 10])) and dig[i] != '0') == 99 and dig[99:109] == '7427466391'
+ce = ''.join(str(p) for p in primerange(2, 2000)); lo_ = Fraction(int(ce[:300]), 10**300)
+cfr, x_ = [], lo_
+for _ in range(12):
+    a = x_.numerator // x_.denominator; cfr.append(a); x_ = 1 / (x_ - a)
+assert cfr == [0, 4, 4, 8, 16, 18, 5, 1, 1, 1, 1, 7]
+mpmath.mp.dps = 20
+assert mpmath.nzeros(100) == 29 and mpmath.nzeros(1000) == 649
 print("all FACTS.md checks passed")
