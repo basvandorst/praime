@@ -1,0 +1,183 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_480.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 480. Primes on an Dodecahedron
+Source: https://www.primepuzzles.net/puzzles/puzz_480.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0480.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://en.wikipedia.org/wiki/Dodecahedron
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_479.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_481.htm
+  https://www.primepuzzles.net/puzzles/puzz_480.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 480. Primes on an Dodecahedron
+
+Problems & Puzzles: Puzzles
+
+Puzzle 480. Primes on an Dodecahedron
+
+Anton Vrba sent the following nice puzzle:
+
+A Dodecahedron has 12 faces, 30 edges and 20 vertices.
+
+Q1: Place a unique prime on each vertex such that the sum of the five primes on each corner of each face is prime.
+
+Q2: Same as Q1 with the added condition that the sum of the two primes at each end of an edge is twice a prime.
+
+Send your solutions using this scheme (20 primes values from A to T). Needles to say that the winner is the minimal sum of these 20 primes...
+
+Contributions came from Jacques Tramu, Farideh Firoozbakht & Fred Schneider.
+
+***
+
+Jacques wrote:
+
+Q1- I assume all primes different (if not, too easy)
+
+Optimal solution using all first 20 primes > 2 :
+
+3 5 7 11 17 13 19 23 29 43 31 41 47 73 71 53 59 37 61 67
+
+total:710
+
+Q2: 3 7 19 139 163 211 67 331 283 271 43 127 367 79 31 103 151 199 307 223 total:3124
+
+***
+
+Farideh wrote:
+
+Answer to Q1:
+
+There exist many solutions. Between those that I found the following solution has minimal sum 1100 and minimal maximal value 151.
+
+{ A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T} =
+
+{ 73, 131, 127, 79, 53, 47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 151, 67, 101}
+
+S1 = A+B+C+D+E = 463; S2 = M+S+D+C+R = 443; S3 = R+L+Q+B+C = 439;
+
+S4 = Q+K+P+A+B = 251; S5 = P+O+T+E+A = 251; S6 = T+N+S+D+E = 317 ;
+
+S7 = F+G+H+I+J = 199 ; S8 = F+G+L+Q+K = 149 ; S9 = G+L+R+M+H = 277;
+
+S10 = M+S+N+I+H = 181; S11 = O+T+N+I+J = 199 ; S12 = P+O+J+F+K = 131
+
+**
+
+Frederick Schneider wrote:
+
+Q1. 3 5 11 17 23 29 41 47 53 59 71 83 89 101 107 191 173 149 131 167 (Sum=1550). Hopefully this is minimal.
+
+***
+
+On my request in order to know the opinion from the work of all of them, this is what I answer & get on return:
+
+Me: You all gave different results for Puzzle 480. Can you check please your and the other results just to find out if every of them are correct and what is the minimal for Q1?
+
+Farideh: All answers to Q1 are correct so Jacques's answer is the minimal. Also the solution of Q2, Jacques's solution, is correct and for these 30 edges we have:
+
+1/2*{J+I, I+H, H+G, G+F, F+J, C+D, D+E, E+A, A+B, B+C, G+L, H+M, I+N, J+O, F+K,
+
+B+Q, A+P, E+T, D+S, C+R, N+T, S+N,M+S, R+M, L+R, T+O, Q+L, Q+K, K+P, P+O} =
+
+{277, 307, 199, 139, 241, 79, 151, 83, 5, 13, 97, 349, 181, 151, 127, 79, 53, 193, 223,
+
+109, 151, 193, 337, 283, 163, 127, 139, 97, 73, 67}. Congratulations to Jacques Tramu!
+
+Fred: Great work, Jacques!
+
+So this continues to be a great fair play around prime puzzles!!!
+
+***
+
+Mr. Tramu (The winner in this puzzle) shares his approach on my request:
+
+The game is to assign prime numbers p to vertices v_i,
+
+according to the constraints Q1 or Q1+Q2 : we call this a legal move : (v_i,p)
+
+We use brute force search , with the usual recursive depth-first algorithm :
+
+play(v_i)
+
+{
+
+if all played, check if we have a minimum
+
+else
+
+for all unused primes p = 3 to pmax
+
+if (v_i,p) is legal // (cut the search if no legal)
+
+{
+
+move(v_i,p) ;
+
+play(v_i+1);
+
+unmove(v_i,p);
+
+}
+
+}
+
+This could lead to exponential explosion, unless we carefully choose the ORDERING
+
+of the vertices, to maximize the number of cuts:
+
+Q2) v_i+1 must be adjacent to v_i (162 possible path starting from A)
+
+Q1) faces must be closed as soon as possible : vi,vi_i+1and v_i+2 on same face (if possible)
+
+So , before playing moves, the program chooses the following ordering
+
+A B C D E T N S M R L Q K P O J I H G F
+
+and we find :
+
+Q1 - total:710 - optimal (as 20 first prime are used), after 4251 tries -
+
+Q2 - total:3214 - optimal ?? after 1456518 tries - (a few seconds)
+
+Optimizations :
+
+---- limit the number of primes to try : 30 first primes for Q1, 100 first primes for Q2 . (heuristic for pmax)
+
+---- cut the search as soon as current total >= best total
+
+---- use a table : vertex -> faces (3) to quickly check which face is impacted when you play a vertex
+
+---- use a count (5,..0) of number of assigned vertex for each face, to see if it is needed to check it
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

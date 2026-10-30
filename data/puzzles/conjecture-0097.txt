@@ -1,0 +1,183 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_097.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 97. Another conjecture related to Mersenne primes
+Source: https://www.primepuzzles.net/conjectures/conj_097.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0097.htm
+
+References (local copies):
+  ../../references/C97factorsSMALL.txt  (from https://www.primepuzzles.net/conjectures/C97factorsSMALL.txt)
+  ../../references/C97factorsPRIMES.txt  (from https://www.primepuzzles.net/conjectures/C97factorsPRIMES.txt)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/C97factorsSMALL.txt
+  https://www.primepuzzles.net/conjectures/C97factorsPRIMES.txt
+  https://www.primepuzzles.net/conjectures/conj_096.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/index.html
+  https://www.primepuzzles.net/conjectures/conj_097.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 97. Another conjecture related to Mersenne primes
+
+Problems & Puzzles: Conjectures
+
+Conjecture 97. Another conjecture related to Mersenne primes
+
+Sebastian Martín Ruiz sent the following conjecture:
+
+Let p a prime number.
+
+If p+1=2^(k1)(q2)^(k2)....(qn)^(kn) is the prime number decomposition
+
+of p+1 where qi are odd primes i=2,...,n we have
+
+(qi)^(ki) divides p+2^Phi(p+1)
+
+that is to say p+2^Phi(p+1) is a composite number except at most
+
+in the case that p is a Mersenne prime.
+
+p=3 3+2^Phi(4)=7
+
+p=7 7+2^Phi(8)=23
+
+I have not found more primes.
+
+Q1 Prove the conjecture or find a counterexample.
+
+Q2 Find more prime values of p+2^Phi(p+1) searching for p Mersenne primes.
+
+During the week from March 25-31, 2023 contributions came from Emmanuel Vantieghem and Oscar Volpatti
+
+***
+
+Emmanuel wrote:
+
+***
+
+Oscar wrote:
+
+Conjecture 97 is true.
+
+Function F(n) = n+2^Phi(n+1) is well defined for every non-negative integer n.
+
+Consider sequence M(k) = 2^k-1 (OEIS A000225, sometimes called Mersenne integers).
+
+THEOREM: if n doesn't belong to sequence M(k), then F(n) is composite.
+
+Let's distinguish two cases, according to the parity of n.
+
+CASE 1: n is odd.
+
+Then n+1 is even; let 2^e be the largest power of 2 dividing n+1, so that n+1 = d*2^e, with d odd.
+
+Cofactor d must be greater than 1, otherwise n = 2^e-1 = M(e), belonging to sequence M(k).
+
+Define constant b = 2^Phi(2^e) = 2^(2^(e-1)), clearly coprime with d.
+
+Totient function is multiplicative, so we can rewrite term 2^Phi(n+1) as follows:
+
+2^Phi(n+1) = 2^(Phi(d)*Phi(2^e)) = (2^Phi(2^e))^Phi(d) = b^Phi(d).
+
+But b^Phi(d) == 1 mod d by Euler's totient theorem, so F(n) == n+1 == 0 mod d.
+
+Hence, d is a proper factor of F(n).
+
+CASE 2: n is even.
+
+Then n is not smaller than 2, otherwise n = 0 = 2^0-1 = M(0), belonging to sequence M(k).
+
+Inequality Phi(n+1) >= 2 holds for every integer n >= 2, because numbers 1 and n are distinct and both coprime with n+1.
+
+Therefore:
+
+2^Phi(n+1) is even too, and not smaller than 2^2 = 4;
+
+F(n) is even too, and not smaller than 2+4 = 6.
+
+Hence, 2 is a proper factor of F(n).
+
+QED.
+
+Let's restrict our attention to arguments n belonging to sequence M(k).
+
+For compactness, define function G(k) = F(M(k)) = 2^k-1+2^Phi(2^k).
+
+G(k) is prime for exponents 0 <= k <= 4:
+
+G(0) = 2,
+
+G(1) = 3,
+
+G(2) = 7,
+
+G(3) = 23,
+
+G(4) = 271.
+
+For larger k, trial factoring up to 2^32 often suffices to detect proper factors of G(k).
+
+The first few exceptions are exponents 15, 18, 23, 51, 60, 73, 78, 84, 89...
+
+Some small prime factors appear frequently, with simple divisibility rules:
+
+7 divides G(k) iff k == 2 mod 6;
+
+11 divides G(k) iff k == 7 or 16 mod 20;
+
+13 divides G(k) iff k == 7 mod 12;
+
+19 divides G(k) iff k == 11 or 13 mod 18;
+
+23 divides G(k) iff k == 3, 17, 20, 59, or 76 mod 110;
+
+29 divides G(k) iff k == 34, 50 or 69 mod 84;
+
+31 divides G(k) iff k == 19 mod 20;
+
+and so on.
+
+About exceptions, PRP test proved both G(15) and G(18) as composites.
+
+Function G(k) is strictly increasing: G(23) has 1262612 digits, while G(51) has 3.389*10^14 digits!
+
+Therefore, k=23 seems to be last exponent for which a PRP test is currently feasible, but it would still take ages of work on my laptop.
+
+For larger exponents, the only chance is to prove G(k) as composite by finding some small factor.
+
+As an example, trial factoring up to 10^11 allows to discard some more exponents:
+
+4599739031 divides G(60),
+
+55084086769 divides G(89)...
+
+Let's further restrict our attention to prime arguments p belonging to sequence M(k); any such prime is by definition a Mersenne prime, so I checked the exponents of all 51 known Mersenne primes. After prime values G(2) and G(3), trial factoring up to 2^32 detected proper factors of G(k) for 47 exponents, the only exceptions being k=89 (solved) and k=13466917 (no factors below 10^11).
+
+See attached files C97factorsSMALL.txt and C97factorsPRIMES.txt for my factorization results.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

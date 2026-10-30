@@ -1,0 +1,159 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_911.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 911. Follow up to Puzzle 910
+Source: https://www.primepuzzles.net/puzzles/puzz_911.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0911.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_910.htm
+  https://www.primepuzzles.net/puzzles/puzz_908.htm
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Prime_gap
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_912.htm
+  https://www.primepuzzles.net/puzzles/puzz_911.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 911. Follow up to Puzzle 910
+
+Problems & Puzzles: Puzzles
+
+Puzzle 911. Follow up to Puzzle 910
+
+Emmanuel Vantieghem sent a follow up to Puzzle 910, which is a follow up to Puzzle 908.
+
+"In my contribution to puzzle 910 I proved that, for every p there exists a biggest number m such that (p,m) -> {..., 1}.
+
+It is easy to show that m is equal to p^3 - p - 1 (exercise for the reader/puzzler).
+
+Example : p = 11 => p^3 - p - 1 = 1319. Thus, 1319 is the biggest number m such that (p,m) -> {..., 1}.
+
+Since 1319 is prime, the biggest prime q such that ( p, q ) -> {... , 1} is 1319.
+
+Taking p = 13 gives p^3 - p - 1 = 2183. So, the biggest number m such that (p,m) -> {..., 1} is 2183.
+
+But, 2183 is not prime (it is 37*59). Thus, the biggest prime q such that (p,q) -> {..., 1} must be a prime smaller than 2183.
+
+The biggest candidate turns out to be 2179, which is the biggest prime <= 2183. When we compute (p, q) we find
+
+{2023, 5, 2, 1}, thus our q is 2179.
+
+I searched the biggest prime q for all p less than 10^9. In each case -with just one exception- q was nothing else but the biggest prime <= p^3 - p - 1.
+
+So the questions now are:"
+
+Q1. Can it be proved that for all p -with one exception- the biggest prime q such that (p, q) -> {..., 1} coincides with the greatest prime <= p^3 - p - 1.
+Q2. Can you locate the p exception mentioned above, below 10^9? Can you find three more exceptions, if these exist?
+
+Contribution came from Jan van Delden
+
+***
+
+Jan wrote on Feb 9, 2018:
+
+Q1.
+
+Not a full proof, but one based on a conjecture by Farideh Firoozbakht concerning prime gaps:
+
+p[n+1]-p[n]< ln(p[n])^2-ln(p[n]) for all n>4 Wikipedia. [With p[n] the n’th prime].
+
+We have:
+
+r[i] = pq mod r[i-1], with r[0]=p+q and q=q[k]=p^3-p-k.
+
+Define the last residue r[n] as the first n for which r[n]<=1. (I)
+
+The question is whether the previous prime of q[0]=p^3-p has r[n]=0 or r[n]=1.
+
+And I wish to show that if Farideh is right there is only one prime p=5 such that r[n]=0.
+
+Let’s investigate when r[n]=0 and q[k] is prime:
+
+Necessarily 0<=r[i]<r[i-1] (II)
+
+p+q = p^3-k
+
+r[1]= (p(p+q)-p^2) mod (p+q) = -p^2 mod (p+q) = p^3-p^2-k
+
+r[2]= p(p^3-p-k) mod (p^3-p^2-k) = p (p^3-p^2-k+p^2-p) mod (p^3-p^2-k) = p^3-p^2 mod (p^3-p^2-k) = k
+
+It seems that the analysis breaks down here, so restart from the other end:
+
+r[n]=0=pq mod r[n-1]
+
+Since p and q are relatively prime we must have r[n-1]|p or r[n-1]|q. We also must have r[n-1]<>1, otherwise n is not defined correctly (I).
+
+Therefore r[n-1]=p or r[n-1]=q. Since r[n-1]<r[2] (II), the last possibility q[k]=p^3-p-k<k gives the bound k> (p^3-p)/2. Since there is always a prime
+
+between q[0]/2 and q[0], Bertrand’s postulate, and we wish to find the first prime q[k]<q[0], r[n-1]=q is not allowed.
+
+So we must have r[n-1]=p<r[2]=k and therefore k>p.
+
+A small detail is that since p>1 we can’t have r[n-1]=1, so n is defined correctly.
+
+We arrive at:
+
+r[n]=0 and q[k] prime implies k>p.
+
+A consequence is that the primegap induced by k is at least |q[0]+1-q[k]|=k+1. Since q[0] is not prime.
+
+Now we apply the conjecture by Farideh:
+
+p+1<k+1<ln(q[k])^2-ln(q[k])<ln(q[k])^2<ln(q[0])^2<ln(p^3)^2<9 ln(p)^2 so
+
+p< 9*ln(p)^2-1
+
+This inequality gives 2<=p<=287. For 11<=p<=287 the condition of Farideh’s conjecture is satisfied.
+
+[The inequality could be made slightly sharper for odd p]
+
+Checking the p in the largest given interval gives the only solution: p=5, k=7. (q.e.d.?)
+
+Notes:
+
+Farideh’s conjecture is very strong. If one replaces this conjecture by Opperman’s conjecture: p[n+1]-p[n]<sqrt(p[n]) the given proof fails.
+
+If one solves r[3]=p, n=4 , than one could find the condition k|q[1], see below. One solution is p=5, k=7.
+
+For n>=4 this method of backtracking becomes tricky because:
+
+r[n-1]= p = pq mod r[n-2] gives: p(q-1) mod r[n-2]=0
+
+Or:
+
+gcd(r[n-2],p)=1: r[n-2]|q-1
+
+gcd(r[n-2],p)=p: ( r[n-2]/p)|q-1 (r[n-2] is a multiple of p)
+
+I see no direct way to estimate the size of the divisors of q[1]=q-1, preferably expressed in p, when solutions exist.
+
+The second situation would give a sharper bound on k: k>ap with a>1. But that bound is not large enough to apply a weaker conjecture. We would need something like a>sqrt(p) to apply Opperman’s conjecture.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

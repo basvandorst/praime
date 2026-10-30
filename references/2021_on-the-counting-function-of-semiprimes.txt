@@ -1,0 +1,1139 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://math.colgate.edu/~integers/v122/v122.pdf. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://math.colgate.edu/~integers/v122/v122.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+#A122 INTEGERS 21 (2021)
+ON THE COUNTING FUNCTION OF SEMIPRIMES
+Dragos, Cris,an
+Merton College, University of Oxford, United Kingdom
+dragos.crisan@merton.ox.ac.uk
+Radek Erban
+Mathematical Institute, University of Oxford, United Kingdom
+erban@maths.ox.ac.uk
+Received: 10/9/20, Accepted: 12/7/21, Published: 12/13/21
+Abstract
+A semiprime is a natural number which can be written as the product of two primes.
+The asymptotic behavior of the function π2(x), the number of semiprimes less than
+or equal to x, is studied. Using a combinatorial argument, the asymptotic series
+of π2(x) is determined, with all the terms explicitly given. An algorithm for the
+calculation of the constants involved in the asymptotic series is presented and the
+constants are computed to 20 signiﬁcant digits. The errors of the partial sums of the
+asymptotic series are investigated. A generalization of this approach to products of
+k primes, for k≥ 3, is also proposed.
+1. Introduction
+For a positive integer k and a positive integer (or real number) x, let πk(x) be
+the number of integers less than or equal x which can be written as the product
+of k prime factors. The behavior of πk(x) has been extensively studied during
+the last two centuries, with the main focus on the case k = 1, where π1(x) is the
+prime counting function, denoted π(x) in the rest of this paper. The prime number
+theorem states that π(x)∼ li(x), where the logarithmic integral function li( x) =∫x
+0 log−1t dt can be written as an asymptotic expansion li( x)∼ xlogx∑∞n=0 n!(logx)n .
+Bounds on the error term have been established in the literature, including the
+recent work of Trudgian [22], who proved that, for suﬃciently large x,
+⏐⏐π(x)− li(x)⏐⏐≤ 0.2795 x(logx)3/4 exp
+(
+−
+√
+logx
+6.455
+)
+.
+This implies the existence of constants d1 and d2 such that
+⏐⏐π(x)− li(x)⏐⏐≤ d1 x(logx)3/4 exp(−d2√logx), for all x≥ 2. (1)
+
+--- page 2 ---
+INTEGERS: 21 (2021) 2
+Assuming the Riemann hypothesis, Rosser and Schoenfeld [19, 20] established even
+sharper bounds on the error term, including
+|π(x)− li(x)|<
+√x logx
+8π
+for large enough x. Other explicit estimates of π(x), in terms of x and logx are
+achievable, as proved by Axler [1].
+In this paper, we focus on the case k = 2, where the numbers written as prod-
+ucts of two (not necessarily distinct) primes are called semiprimes. In this case,
+Ishmukhametov and Sharifullina [14] recently used probabilistic arguments to ap-
+proximate the behavior of π2(x) as
+π2(x)≈ x log(logx)logx + 0.265 xlogx− 1.540 x(logx)2 . (2)
+The ﬁrst term of (2) has already been known to Landau [15, Section 56], with his
+result stated, for general k∈ N, as
+πk(x)∼ 1(k− 1)! x (log(logx))k−1logx . (3)
+Delange [6, Theorem 1] obtained the asymptotic expansion of πk(x) in the form
+πk(x)∼ xlogx
+∞∑
+n=0
+Pn,k(log(logx))
+(logx)n , (4)
+where Pn,k are polynomials of degree k− 1, which have their leading coeﬃcient
+equal to n!/(k− 1)!. Tenenbaum [21] proved a similar result, giving an expression
+for the coeﬃcients in the polynomial P0,k in terms of the derivatives of function
+1
+Γ(z+1)
+∏
+p
+(
+1 + zp−1)(1− 1p)z evaluated at z = 0. Considering k = 2 in (4), we can
+write an asymptotic expansion for π2(x) as
+π2(x)∼
+∞∑
+n=1
+(n− 1)!x log(logx)(logx)n +
+∞∑
+n=1
+Cn−1
+x
+(logx)n . (5)
+In Theorem 1, we prove thatC0 =M, whereM = 0.261497... is the Meissel–Mertens
+constant deﬁned by
+M = lim
+x→∞
+(∑
+p≤x
+1
+p − log(logx)
+)
+, (6)
+where we sum over all primes such that p≤ x. In Section 3, we calculate the rest
+of constantsCn appearing in Equation (5). They are given in Table 1 and obtained
+by the formula
+Cn =n!
+( n∑
+i=0
+Bi
+i! −
+n∑
+i=1
+1
+i
+)
+=n!
+( n∑
+i=0
+Bi
+i! −Hi
+)
+, (7)
+
+--- page 3 ---
+INTEGERS: 21 (2021) 3
+whereHi is the i-th harmonic number, B0 =M and constantsBi are deﬁned using
+the asymptotic behavior of sums [15, Section 56]
+∑
+p≤x
+(logp)i
+p = (logx)ii +Bi +O(e− 14√logx), fori∈ N. (8)
+Constants Bi are given as limits (29) in Section 3, where we present an algorithm
+to eﬃciently calculate them to a desired accuracy. They are computed in Table 1
+to 20 signiﬁcant digits. Rosser and Schoenfeld [18] prove that the error term in (8)
+can be given explicitly in terms of an integral, which contains the error terms in
+the prime number theorem. For the case i = 1 in Equation (8), explicit estimates
+of this sum and, in particular, of the constant B1 involved, were recently obtained
+by Dusart [8].
+A related arithmetic function, Ω(m), is deﬁned to be the number of prime divi-
+sors ofm∈ N, where prime divisors are counted with their multiplicity. Considering
+ﬁxed x in Equation (3), we can view this approximation of πk(x)/x as the proba-
+bility mass function of the Poisson distribution with mean log(log( x)). Erd˝ os and
+Kac [9] showed that the distribution of Ω(x) is Gaussian with mean log(log(x)) (see
+also results of R´ enyi and Tur´ an [17] and Harper [13] for generalizations and better
+bounds). Diaconis [7] obtained the asymptotic expansions for the average number
+of prime divisors as (see also [11, Section 1.4.3])
+1
+x
+∑
+m≤x
+Ω(m)∼ log(logx) + 1.0346538818··· +
+∞∑
+n=1
+(
+−1 +
+n−1∑
+i=0
+γi
+i!
+)
+(n− 1)!
+lognx , (9)
+where the constants γi are the Stieltjes constants, numerically computed in [3] to
+20 signiﬁcant digits. An asymptotic series for the variance of Ω have also been
+obtained [11, Section 1.4.3]. The Stieltjes constants γi are used in Section 3 during
+our calculation of the values of constants Bn and Cn, for n∈ N.
+This paper is organized as follows. Section 2 begins with a counting lemma
+for expressing the semiprime counting function π2 in terms of the prime counting
+function π. Using this lemma, the main results on the asymptotic behavior of π2
+are stated and proved in Section 2 as Theorem 1 and Theorem 2. While Theorem 1
+only gives the ﬁrst two terms, its proof is more concise than the proof of Theorem 2,
+which gives the full asymptotic series of π2. The constants Cn which appear in this
+asymptotic series are computed in Section 3, where we present an eﬃcient approach
+to calculate both constants Bn and Cn, based on the diﬀerentiation of the prime
+zeta function. In Section 4, we investigate the behavior of the error terms given by
+the partial sums of the asymptotic series of π2. We conclude with a generalization
+of the counting argument in Section 5, discussing the extensions of the presented
+results to the general case of the counting functions πk for k≥ 3.
+
+--- page 4 ---
+INTEGERS: 21 (2021) 4
+2. Asymptotic Behavior of the Counting F unction of semiprimes
+As in Equation (6), we denote primes by p and the sums overp shall be understood
+as sums over all primes satisfying the given condition. In the case of summing over
+primes twice, we denote the corresponding prime summation indices by p1 and p2.
+We begin with a simple counting formula [14], that gives a way of computingπ2(x).
+Lemma 1. For a positive integer x, the following holds
+π2(x) = π(√x)−π(√x)22 + ∑
+p≤√x
+π
+(x
+p
+)
+. (10)
+Proof. By the deﬁnition of the counting functions π2 and π, we have
+π2(x) =
+∑
+p1≤p2
+p1p2≤x
+1 =
+∑
+p1≤√x
+∑
+p1≤p2≤ xp1
+1 =
+∑
+p1≤√x
+(
+π
+(x
+p1
+)
+−π(p1) + 1
+)
+and formula (10) follows by renaming p1 to p in the ﬁrst term and observing that
+the rest of the right-hand side is the sum of all natural numbers from 1 up to
+π(√x)− 1.
+Formula (10) gives an expression of π2(x) in terms of the prime counting function
+π(x), which can be approximated using the prime number theorem [21] as
+π(x) =αn(x) +O
+( x
+(logx)n+1
+)
+, (11)
+where n∈ N and
+αn(x) = xlogx
+(n−1∑
+i=0
+i!
+(logx)i
+)
+. (12)
+By using a result from [15, Section 56], we can rewrite Equation (6) for any integer
+n∈ N as ∑
+p≤√x
+1
+p = log(logx)− log 2 +M +o
+( 1
+(logx)n
+)
+, (13)
+where we use the little o asymptotic notation [5], as opposed to the big O asymp-
+totic notation used in the prime number theorem (11). First we use this result to
+approximate the sum on the right-hand side of Equation (10).
+Lemma 2. Letn∈ N and αn(x) be deﬁned by (12). Then we have
+∑
+p≤√x
+π
+(x
+p
+)
+=
+∑
+p≤√x
+αn
+(x
+p
+)
++O
+(x log(logx)
+(logx)n+1
+)
+. (14)
+
+--- page 5 ---
+INTEGERS: 21 (2021) 5
+Proof. Using Equation (11), we have
+⏐⏐⏐⏐⏐⏐∑p≤√xπ(xp)− ∑p≤√xαn(xp)⏐⏐⏐⏐⏐⏐≤ ∑p≤√x⏐⏐⏐⏐π(xp)−αn(xp)⏐⏐⏐⏐
+≤ cx
+∑
+p≤√x
+1
+p (logx− logp)n+1 ,
+wherec> 0 is a constant. Equation (14) then follows by estimating the right-hand
+side by
+cx 2n+1
+(logx)n+1
+∑
+p≤√x
+1
+p =O
+(x log(logx)
+(logx)n+1
+)
+,
+where the last equality follows from Equation (13).
+2.1. The First Two T erms of the Asymptotic Series for π2(x)
+Using (14) for n = 1, we obtain
+∑
+p≤√x
+π
+(x
+p
+)
+=
+∑
+p≤√x
+x
+p (logx− logp) +O
+(x log(logx)
+(logx)2
+)
+. (15)
+By using a result from [15, Section 56], we can rewrite Equation (8) for any integers
+i∈ N and n∈ N as
+∑
+p≤√x
+(logp)i
+p = (logx)ii 2i +Bi +o( 1(logx)n). (16)
+We will use this to prove the ﬁrst theorem of this section.
+Theorem 1. LetM be the Meissel–Mertens constant deﬁned by (6). Then
+π2(x) = x log(logx)logx +M xlogx +o( xlogx). (17)
+Proof. Using Equations (10), (11) for n = 1, and (15), we obtain
+π2(x) =
+∑
+p≤√x
+π
+(x
+p
+)
++o
+( x
+logx
+)
+= xlogx ∑
+p≤√x
+logx
+p (logx− logp) +o
+( x
+logx
+)
+. (18)
+We have the following identity
+logx
+p (logx− logp) = 1p + logplogx( logxp (logx− logp)).
+
+--- page 6 ---
+INTEGERS: 21 (2021) 6
+Substituting the left-hand side into the right-hand side, we obtain, for any natural
+numbern∈ N, that
+logx
+p (logx− logp) = 1p
+n∑
+i=0
+( logp
+logx
+)i
++
+( logp
+logx
+)n+1( logx
+p (logx− logp)
+)
+.
+Summing over all primes p≤√x , we get
+∑
+p≤√x
+logx
+p (logx− logp) =
+n∑
+i=0
+(
+1
+(logx)i
+∑
+p≤√x
+(logp)i
+p
+)
++ 1(logx)n∑
+p≤√x
+(logp)n+1
+p (logx− logp).
+Each term on the right-hand side can be evaluated using Equations (13) and (16),
+with o(1) accuracy, as
+∑
+p≤√x
+logx
+p (logx− logp) = log(logx)− log 2 +M +
+n∑
+i=1
+1
+i 2i +f(n) +o(1), (19)
+where f(n) is a decreasing function of n satisfying f(n)→ 0 as n→∞ . This can
+be deduced by applying Equation (16) to the error term
+1
+(logx)n
+∑
+p≤√x
+(logp)n+1
+p (logx− logp)≤ 2(logx)n+1 ∑
+p≤√x
+(logp)n+1
+p
+= 1(n + 1) 2n +o(1).
+Since we have
+− log 2 +
+n∑
+i=1
+1
+i 2i +f(n)→ 0, as n→∞,
+Equation (19) implies that
+∑
+p≤√x
+logx
+p (logx− logp) = log(logx) +M +o(1).
+Substituting into Equation (18), we obtain formula (17).
+2.2. Asymptotic Series for the Counting F unction of Semiprimes
+To derive formulas for all terms in the asymptotic series of π2, we ﬁrst deﬁne an
+auxiliary sequence of numbers qn for n∈ N by
+qn =
+n−1∑
+i=1
+2i− 1
+i , for n≥ 2, and q1 = 0. (20)
+
+--- page 7 ---
+INTEGERS: 21 (2021) 7
+Thenqn is an increasing sequence of rational numbers with the ﬁrst few terms given
+asq1 = 0,q 2 = 1,q3 = 5/2,q4 = 29/6,q5 = 103/12 andq6 = 887/60, which satisﬁes
+the following identity.
+Lemma 3. Letn∈ N and let qn be given by Equation (20). Then we have
+∞∑
+i=1
+(n +i− 1
+n− 1
+) 1
+i 2i =qn + log 2. (21)
+Proof. Considering the binomial series
+(1−t)−n = 1 +t
+∞∑
+i=0
+(n +i
+n− 1
+)
+ti, fort∈ (−1, 1),
+we can rewrite it as
+∞∑
+i=0
+(n +i
+n− 1
+)
+ti = (1−t)−n− 1t = n∑i=1(1−t)−i.
+Integrating, we get
+∞∑
+i=0
+(n +i
+n− 1
+) ti+1
+i + 1 =− log(1−t) +
+n∑
+i=2
+(1−t)−i+1− 1
+i− 1 ,
+which holds for t∈ (−1, 1). Substituting t = 1/2, we obtain (21).
+We will use Lemma 3 in the proof of the following theorem, giving the asymptotic
+series for the semiprime counting function π2(x).
+Theorem 2. The constantsCn appearing in the asymptotic expansion (5) are given
+by Equation (7) for n∈ N and as C0 =B0 =M for n = 0.
+Proof. The case n = 0 is studied in Theorem 1, which states that C0 = M. To
+derive Equation (7), we again use formula (10) from Lemma 1 and approximate
+each term using the prime number theorem (11). We need to analyze sums of the
+form
+Sn(x) =
+∑
+p≤√x
+(logx)n
+p (logx− logp)n =
+∑
+p≤√x
+1
+p
+(
+1− logplogx)−n. (22)
+Using the binomial series on the right-hand side, we get
+Sn(x) =
+∑
+p≤√x
+1
+p
+∞∑
+i=0
+(n +i− 1
+n− 1
+)( logp
+logx
+)i
+=
+∞∑
+i=0
+(n +i− 1
+n− 1
+) 1
+(logx)i
+∑
+p≤√x
+(logp)i
+p . (23)
+
+--- page 8 ---
+INTEGERS: 21 (2021) 8
+Substituting x2 for x, we obtain
+Sn(x2) =
+∞∑
+i=0
+(n +i− 1
+n− 1
+) 1
+2i(logx)i
+∑
+p≤x
+(logp)i
+p . (24)
+To estimate the sums over primes on the right-hand side, we apply the result of
+Rosser and Schoenfeld [18, Equation (2.26)], which can be formulated as
+∑
+p≤x
+1
+p = log(logx) +L0(x),
+∑
+p≤x
+(logp)i
+p = (logx)ii +Li(x),
+where the error terms Li(x) are deﬁned by
+L0(x) = − log(log 2) + li(2)2 + π(x)− li(x)x +∫ x2 π(y)− li(y)y2 dy,
+Li(x) = −(log 2)ii + (log 2)i li(2)2 + (logx)ix (π(x)− li(x))
++
+∫ x
+2
+(logy−i) (logy)i−1
+y2
+(
+π(y)− li(y)
+)
+dy, fori∈ N.
+Using this notation and identity (21) in Lemma 3, we rewrite Equation (24) as
+Sn(x2) = log(logx) +qn + log(2) +
+∞∑
+i=0
+(n +i− 1
+n− 1
+) 1
+2i
+Li(x)
+(logx)i . (25)
+Using the inequality (1), there exist constants d1 and d2 such that
+⏐⏐⏐⏐ Li(x)(logx)i⏐⏐⏐⏐< 2(logx)i +|π(x)− li(x)|x
++ 1(logx)i
+∫ x
+2
+|i− logy| (logy)i−1
+y2
+⏐⏐π(y)− li(y)⏐⏐ dy
+≤ 2(logx)i +d1 exp
+(
+−d2
+√logx)
+(logx)3/4 + iI (i− 1,x ) +I(i,x )(logx)i , (26)
+where we deﬁne (note that we allow the second argument to be∞ in this deﬁnition):
+I(i,x ) =d1
+∫ x
+2
+(logy)i−3/4 exp
+(
+−d2
+√logy)
+y dy.
+Choose 𝓁∈ N. Our goal is to use (26) to estimate the rate of convergence of the
+sum on the right-hand of Equation (25). To do this we ﬁrst observe that, for i≥𝓁,
+we have
+I(i,x )
+(logx)i≤ d1(logx)𝓁
+∫ x
+2
+(logy)𝓁−3/4 exp
+(
+−d2
+√logy)
+y dy≤ I(𝓁,∞)(logx)𝓁 . (27)
+
+--- page 9 ---
+INTEGERS: 21 (2021) 9
+Using inequalities (26) and (27) and assuming log( x)≥ 1, we can estimate the
+remainder of the series on the right-hand of Equation (25) as
+⏐⏐⏐⏐⏐⏐ ∞∑i=𝓁+1(n +i− 1n− 1 ) 12i Li(x)(logx)i⏐⏐⏐⏐⏐⏐ ≤ ( 2(logx)𝓁+1 +d1 exp(−d2√logx)(logx)3/4 ) ∞∑i=𝓁+1(n +i− 1n− 1 ) 12i
++ I(𝓁,∞)(logx)𝓁+1 ∞∑i=𝓁+1(n +i− 1n− 1 ) i2i + I(𝓁 + 1,∞)(logx)𝓁+1 ∞∑i=𝓁+1(n +i− 1n− 1 ) 12i .
+Since all three sums on the right-hand side converge independently of x, we deduce
+that the remainder is of the order O
+(
+(logx)−(𝓁+1))). Therefore, Equation (25)
+becomes
+Sn(x2) = log(log x) + qn + log(2) +
+𝓁∑
+i=0
+(
+n + i− 1
+n− 1
+)
+1
+2i
+Li(x)
+(log x)i +O
+( 1
+(log x)𝓁+1
+)
+.
+This means that an asymptotic expansion of Sn(x2) in terms of negative powers of
+logx is given by the sum of the asymptotic series of terms in Equation (24). The
+same is true for Sn(x) in Equation (23). Thus, using Equations (13), (16), (21)
+and (23), we obtain
+Sn(x) =
+𝓁∑
+i=0
+(n +i− 1
+n− 1
+) 1
+(logx)i
+∑
+p≤√x
+(logp)i
+p +O
+( 1
+(logx)𝓁+1
+)
+= log(log x) +M +qn +
+𝓁∑
+i=1
+(n +i− 1
+n− 1
+) Bi
+(logx)i +O
+( 1
+(logx)𝓁+1
+)
+. (28)
+Using Equations (12) and (14), we have
+∑
+p≤√x
+π
+(x
+p
+)
++o
+( x
+(logx)𝓁
+)
+=
+𝓁∑
+n=1
+∑
+p≤√x
+x (n− 1)!
+p (logx− logp)n =
+𝓁∑
+n=1
+(n− 1)! xSn(x)(logx)n ,
+where we used the deﬁnition (22) of Sn(x) to get the second equality. Using Equa-
+tion (28) and notation B0 =M, we obtain
+∑
+p≤√x
+π
+(x
+p
+)
+=
+𝓁∑
+n=1
+(n− 1)!x log(logx)(logx)n
++
+𝓁∑
+n=1
+(n− 1)!
+(
+qn +
+n−1∑
+i=0
+Bi
+i!
+)
+x
+(logx)n +o
+( x
+(logx)𝓁
+)
+.
+Thus, using formula (10) and the prime number theorem (11), we obtain the asymp-
+totic expansion (5), where we have
+Cn =n!
+(
+qn+1 +
+n∑
+i=0
+Bi
+i!
+)
+− 2n
+n∑
+i=1
+(i− 1)! (n−i)!.
+
+--- page 10 ---
+INTEGERS: 21 (2021) 10
+This can be further simpliﬁed by using deﬁnition (20) of qn. We get
+Cn =n!
+( n∑
+i=1
+2i− 1
+i +
+n∑
+i=0
+Bi
+i! − 2nn n−1∑i=0 1(n−1i ))
+=n!
+( n∑
+i=1
+2i− 1
+i +
+n∑
+i=0
+Bi
+i! −
+n∑
+i=1
+2i
+i
+)
+.
+Subtracting the ﬁrst and the third sum, we obtain (7).
+3. Computing the Constants
+In this section, we use a fast converging series to determine the values of the con-
+stants Bn and, as a result, of the constants Cn given by Equation (7). The ﬁrst
+constant, B0 = C0 = M, is the well-studied Meissel–Mertens constant, so we will
+focus on constants Bn in the case n≥ 1. They have been deﬁned by Equations (8)
+or (16), which can be rewritten as
+Bn = limx→∞
+
+∑
+p≤√x
+(logp)n
+p − (logx)nn 2n
+
+ = lim
+x→∞
+
+∑
+p≤x
+(logp)n
+p − (logx)nn
+
+. (29)
+To derive a formula for evaluating Bn on a computer, we use the prime zeta func-
+tion [12] deﬁned by
+P (s) =
+∑
+p
+1
+ps , for s∈ (1,∞). (30)
+Diﬀerentiating Equation (30), we get the formula for the n-th derivative of the
+prime zeta function as
+P (n)(s) = (−1)n∑
+p
+(logp)n
+ps = (−1)n ∑p≤x (logp)nps + (−1)n ∑p>x (logp)nps . (31)
+The prime zeta function P (s) can also be related to the Riemann zeta function ζ(s)
+through the formula [12]
+P (s) =
+∞∑
+i=1
+µ(i) log
+(
+ζ(is )
+)
+i , for s∈ (1,∞),
+whereµ(n) is the M¨ obius function. Taking the derivative of ordern of this expres-
+sion, we obtain
+P (n)(s) =
+∞∑
+i=1
+µ(i)in−1
+(ζ′
+ζ
+)(n−1)
+(is ).
+
+--- page 11 ---
+INTEGERS: 21 (2021) 11
+Substituting into (31), we obtain
+∑
+p≤x
+(logp)n
+ps = (−1)n
+∞∑
+i=1
+µ(i)in−1
+(ζ′
+ζ
+)(n−1)
+(is ) −
+∑
+p>x
+(logp)n
+ps . (32)
+Using integration by parts, we obtain
+∫ ∞
+1
+(logu)n−1
+us du = (n− 1)!(s− 1)n =−((−1)ns− 1)(n−1).
+Thus, the second sum on the right-hand side of Equation (32) can be approximated
+by
+∑
+p>x
+(logp)n
+ps =
+∫ ∞
+x
+(logu)n−1
+us du +o(1)
+= −
+((−1)n
+s− 1
+)(n−1)
+−
+∫ x
+1
+(logu)n−1
+us du +o(1).
+Substituting into Equation (32), we get
+∑
+p≤x
+(logp)n
+ps −
+∫ x
+1
+(logu)n−1
+us du
+= ( −1)n
+∞∑
+i=1
+µ(i)in−1
+(ζ′
+ζ
+)(n−1)
+(is ) +
+((−1)n
+s− 1
+)(n−1)
++ o(1).
+Taking the limit as s→ 1 and substituting into Equation (29), we obtain
+Bn = (−1)n
+∞∑
+i=2
+µ(i)in−1
+(ζ′
+ζ
+)(n−1)
+(i) + (−1)n lim
+s→1
+(ζ′(s)
+ζ(s) + 1s− 1)(n−1), (33)
+where the ﬁrst term on the right-hand side is a quickly converging series and the
+limit in the second term can be evaluated using the Laurent expansion of ζ(s)
+around s = 1. This is given by
+ζ(s) = 1s− 1 +
+∞∑
+n=0
+(−1)n
+n! γn (s− 1)n,
+where the Stieltjes constants γn are computed to 20 signiﬁcant digits in [3]. Then,
+the Laurent expansion of the logarithmic derivative [4] of the Riemann zeta function
+is
+ζ′(s)
+ζ(s) = − 1s− 1 +γ0 + (−2γ1−γ20)(s− 1) +(32γ2 + 3γ0γ1 +γ30) (s− 1)2
++
+(
+−23γ3− 2γ0γ2− 2γ21− 4γ20γ1−γ40
+)
+(s− 1)3 + .... (34)
+
+--- page 12 ---
+INTEGERS: 21 (2021) 12
+n Bn Cn
+0 0.26149721284764278375 0.26149721284764278375
+1 −1.3325822757332208817 −2.0710850628855780875
+2 −2.5551076154464547041 −7.6972777412176108802
+3 −10.253827096911327612 −35.345660320564161516
+4 −59.332397971808450296 −206.71503925406509339
+5 −453.62459086132753356 −1.5111997871316530251× 103
+6 −4.3591249600559955673× 103 −1.3546323682845914021× 104
+7 −5.0684840978914262902× 104 −1.4622910675883565523× 105
+8 −6.9270677393697978276× 105 −1.8675796280076650637× 106
+9 −1.0884508606344556845× 107 −2.7733045258413542557× 107
+10 −1.9329009099289751454× 108 −4.7098342357703294361× 108
+Table 1: Constants Bn and Cn, for n = 0, 1, 2,..., 10, deﬁned by Equations (16)
+and (7), which appear in the asymptotic expansion ofπ2(x). The values of constants
+Bn are computed by formula (33) using the Laurent series (34). The values of
+constantsCn are computed by Equation (7).
+Constants Bn computed by formula (33) using the Laurent series (34) are pre-
+sented in Table 1. Once we know constants Bn to the desired accuracy, we can use
+Equation (7) to calculate constants Cn. They are also presented in Table 1 to 20
+signiﬁcant digits.
+4. Computational Results: Behavior of Error T erms
+In this section, we illustrate the accuracy of the asymptotic series (5) by calculating
+its error terms at each order. Since (5) is a sum of two formal asymptotic series,
+we have two ways to deﬁne its errors. First, we can truncate both sums after the
+same number, 𝓁, of terms to deﬁne the relative error
+ε2𝓁(x) = 1π2(x)
+⏐⏐⏐⏐⏐( 𝓁∑n=1(n− 1)!x log(logx)(logx)n + 𝓁∑n=1Cn−1 x(logx)n)−π2(x)⏐⏐⏐⏐⏐, (35)
+which is plotted in Figure 1(a) for x = 106,x = 108 andx = 1010. Combining both
+sums in the asymptotic expansion (5) into one, we can write it as
+π2(x)∼ x log(logx)logx +C0 xlogx + x log(logx)(logx)2 +C1 x(logx)2 +...,
+
+--- page 13 ---
+INTEGERS: 21 (2021) 13
+(a) (b)
+1 2 3 4 5 6 7 8 9 10
+10 -5
+10 -4
+10 -3
+10 -2
+1 4 7 10 15 20
+10 -5
+10 -4
+10 -3
+10 -2
+10 -1
+Figure 1: (a) Relative errors calculated by (35) for x = 106,x = 108 andx = 1010.
+(b) Relative errors calculated by (39) for x = 10 8 and x = 10 10. The relative
+error of Landau’s approximation (36) is plotted as ε1(x). The relative error of the
+approximation given in Theorem 1 is plotted as ε2(x).
+so we can deﬁne the n-th approximation, an(x), by
+a1(x) = x log(logx)logx , (36)
+a2𝓁(x) =
+𝓁∑
+i=1
+(i− 1)!x log(logx)(logx)i +
+𝓁∑
+i=1
+Ci−1
+x
+(logx)i , (37)
+for𝓁 = 1, 2, 3, ...,
+a2𝓁+1(x) =
+𝓁+1∑
+i=1
+(i− 1)!x log(logx)(logx)i +
+𝓁∑
+i=1
+Ci−1
+x
+(logx)i , (38)
+for𝓁 = 1, 2, 3, ...,
+where approximation a1(x) is used in Equation (3) and α2(x) is the approximation
+given in Equation (17). With deﬁnitions (36)–(38), we can deﬁne the relative error
+by
+εn(x) =|an(x)−π2(x)|π2(x) . (39)
+This deﬁnition is consistent with (35) for even values of n. The results computed
+by (39) are plotted in Figure 1(b) for x = 108 and x = 1010.
+In Figure 1, we study the behavior of the relative error (39) for a ﬁxed value of
+x. We observe that the relative error εn(x) is initially a decreasing sequence (for
+smaller values of n). It reaches its minimum and then it starts increasing again.
+Denoting the value of n where the relative error reaches its minimum as nmin(x),
+we observe that nmin(x) is an increasing function of x, at least for the three values
+of x considered in Figure 1(a).
+
+--- page 14 ---
+INTEGERS: 21 (2021) 14
+(a) (b)
+10 5 10 6 10 7 10 8 10 9 10 10
+10 -3
+10 -2
+10 -1
+10 5 10 6 10 7 10 8 10 9 10 1010 -4
+10 -3
+10 -2
+Figure 2: (a) Relative errors εn(x), for n = 1, 2, 3 and 4, calculated by (39) as a
+function ofx. The relative error of Landau’s approximation (36) is plotted as ε1(x).
+The relative error of the approximation given in Theorem 1 is plotted as ε2(x).
+(b) Relative errors εn(x), for n = 5, 6, 7 and 8 as a function of x.
+Since x is ﬁxed in Figure 1, the relative error (39) is a constant multiple of the
+absolute error |an(x)−π2(x)|. In particular, the same conclusion about nmin(x)
+could be reached when considering the absolute errors instead of relative errors.
+Since we plot results for two or three diﬀerent (ﬁxed) values of x in Figure 1, we
+can also observe that the relative error is (for many of the values of n) a decreasing
+function of x, although this does not look to be true for n = 2 in Figure 1.
+To conﬁrm this observation, we plot the behavior of the relative error εn(x) as
+a function of x in Figure 2. We use the ﬁrst eight values of n and conﬁrm that the
+relative errorεn(x) resembles a decreasing function ofx forn = 1, 3, 4, . . . , 8, while
+ε2(x) reaches its minimum between 2 × 105 and 3× 105. For smaller values of x,
+the approximationa2(x) overestimatesπ2(x), while it is an underestimate for larger
+values ofx. The graphs of a2(x) andπ2(x) cross for the values of x between 2× 105
+and 3× 105, so in this interval we can get very close to the correct answer, which
+results in the minimum of ε2(x) in Figure 2(a), because our error deﬁnition (39)
+includes the absolute value. In Figure 2, we also observe that the other errors are
+not strictly decreasing, but they ﬂuctuate with a decreasing trend, see, for example,
+the plot of ε8(x) in Figure 2(b).
+5. Discussion
+In this paper, we have studied the behavior of the semiprime counting function
+π2(x), which is a special case (k = 2) of thek-almost prime counting functionπk(x).
+To generalize the presented results to the case k≥ 3, we need to ﬁrst generalize the
+
+--- page 15 ---
+INTEGERS: 21 (2021) 15
+counting Lemma 1. Using the inclusion-exclusion principle, it is possible to deduce
+the following counting formula
+πk(x) =
+k∑
+i=1
+(−1)i−1 ∑
+p1<p2<...<pi≤ k√x
+πk−i
+( x
+p1p2...p i
+)
+, (40)
+where we deﬁne function π0(x) to be identically equal to 1, i.e. π0(x) = 1, and the
+sum over p1 < p2 < ... < pi≤ k√x means that we are summing i-times over all
+primes satisfying the given condition. Substituting k = 2 into Equation (40), we
+obtain
+π2(x) =
+∑
+p1≤√x
+π1
+(x
+p1
+)
+−
+∑
+p1<p2≤√x
+π0
+( x
+p1p2
+)
+.
+Using π0(x) = 1, we deduce Equation (10). Thus, Equation (40) provides a gen-
+eralization of Equation (10), which expresses the k-almost prime counting function
+πk(x) in terms of the counting functions π1(x), π2(x), . . . ,πk−1(x). It can be in-
+ductively used to derive forms of coeﬃcients of polynomials Pn,k in the asymptotic
+series (4). In addition to constants Bn andCn, certain new constants will appear in
+such calculations, including the (converging) sums of the form ∑p(logp)ip−𝓁 with
+𝓁≥ 2 and i∈ N. For a detailed discussion of the asymptotic behavior of these
+sums for 𝓁 = 1, see reference [2]. Substituting n = π(x) in [2, Theorem 5] gives a
+diﬀerent expansion for the sums in (8), which may be further examined using the
+prime number theorem.
+There are, also, other possible approximations for πk(x). For example, Erd˝ os
+and S´ ark˝ ozy [10] prove that
+πk(x)<
+
+
+
+c(δ) xlogx (log(logx))k−1(k− 1)! , for 1≤k≤ (2−δ) log(logx);
+ck 4 2−kx logx, for k≥ 1;
+for some constants c(δ) and c. Other approximations, relating the function πk to
+some other products over primes are possible to obtain, as explained in [21].
+Functionsπk(x) and Ω(x), used in expansion (9), count the prime divisors with
+their multiplicity. Another possible generalization is to investigate the related func-
+tions Nk(x) and ω(x), counting prime divisors without multiplicity. That is, func-
+tionsNk(x) andω(x) are deﬁned to be the number of natural numbers n≤x which
+have exactly k distinct prime divisors and the number of distinct prime divisors of
+x, respectively. Finch [11, page 26] shows that
+1
+x
+∑
+m≤x
+ω(m)∼ log(logx) + 0.2614972128··· +
+∞∑
+n=1
+(
+−1 +
+n−1∑
+i=0
+γi
+i!
+)
+(n− 1)!
+lognx ,
+which has the higher order terms in the same form as in the expansion (9). Using the
+prime number theorem, we observe thatN1(x) =π (x)+π (√x)+π ( 3√x)+... ∼ li(x)
+
+--- page 16 ---
+INTEGERS: 21 (2021) 16
+admits an identical asymptotic expansion as π(x). Delange [6, Theorem 1] and
+Tenenbaum [21] obtained the asymptotic expansion of Nk(x) in the form
+Nk(x)∼ xlogx
+∞∑
+n=0
+Qn,k(log(logx))
+(logx)n ,
+where Qn,k are polynomials of degree k− 1. Here, the expansion is similar to
+the expansion (4) for πk(x), but the polynomials Pn,k and Qn,k are diﬀerent. Re-
+sults about the leading terms of polynomials Qn,k and about Q0,k have also been
+obtained, as in the case of πk. Several diﬀerent approximations for Nk(x) are also
+possible to derive, as shown by Tenenbaum [21], who points out that the functionNk
+is easier to analyse thanπk, for larger values ofk, relative to log(logx). For example,
+the following holds uniformly for x≥ 3 and (2 +δ) log(logx)≤k≤A log(logx):
+Nk(x) =C x logx2k (1 +O((logx)−δ2/5)),
+where A> 0, 0 <δ < 1 and C≈ 0.378694. Similar results, but for larger values of
+k, can be obtained for functions πk as well [16].
+Acknowledgements. Authors would like to thank Julia Stadlmann for helpful
+comments during the preparation of this manuscript.
+References
+[1] Axler, C., New bounds for the prime counting function, Integers 16 (2006), A22.
+[2] Axler, C., On a family of functions deﬁned over sums of primes, J. Integer Seq. 22 (2019), no.
+5, Article 19.5.7.
+[3] Bohman, J. and Fr¨ oberg, C., The Stieltjes function – deﬁnition and properties, Math. Comp
+51 (1988), no. 163, 281-289.
+[4] Broughan, K., Extension of the Riemann ζ-function’s logarithmic derivative positivity region
+to near the critical strip, Canad. Math. Bull. 52 (2009), no. 2, 186-194.
+[5] de Bruijn, N., Asymptotic Methods in Analysis , North-Holland Publishing Co., Amsterdam,
+1958.
+[6] Delange, H., Sur des formules de Atle Selberg, Acta Arith. 19 (1971), 105-146.
+[7] Diaconis, P., Asymptotic expansion for the mean and variance of the number of prime factors
+of a number n, Technical Report, Department of Statistics, Stanford University 96 (1976).
+[8] Dusart, P., Explicit estimates of some functions over primes, Ramanujan J. 45 (2018), 227-
+251.
+[9] Erd˝ os, P. and Kac, M., The Gaussian law of errors in the theory of additive number theoretic
+functions, Amer. J. Math 62 (1940), no. 1, 738-742.
+
+--- page 17 ---
+INTEGERS: 21 (2021) 17
+[10] Erd˝ os, P. and S´ ark˝ ozy, A., On the number of prime factors of integers, Acta Sci. Math.
+(Szeged) 42 (1980), 237-246.
+[11] Finch, S., Mathematical Constants II , Cambridge University Press, Cambridge, 2018.
+[12] Fr¨ oberg, C., On the prime zeta function, BIT 8 (1968), 187-202.
+[13] Harper, A., Two new proofs of the Erd˝ os-Kac theorem, with bound on the rate of convergence,
+by Stein’s method for distributional approximations, Math. Proc. Cambridge Philos. Soc. 147
+(2009), no. 1, 95–114.
+[14] Ishmukhametov, S. and Sharifullina, F., On distribution of semiprime numbers, Izv. Vyssh.
+Uchebn. Zaved. Mat. 8 (2014), 53-59.
+[15] Landau, E., Handbuch der Lehre von der Verteilung der Primzahlen , Druck und Verlag von
+B.G.Teubner, Lepzig und Berlin, 1909.
+[16] Nicolas, J., Sur la distribution des nombres entiers ayant une quantit´ e ﬁx´ ee de facteurs pre-
+miers, Acta Arith. 44 (1984), no. 3, 191-200.
+[17] R´ enyi, A. and Tur´ an, P., On a theorem of Erd˝ os-Kac,Acta Arith. 4 (1958), no. 1, 71-84.
+[18] Rosser, J. and Schoenfeld, L., Approximate formulas for some functions of prime numbers,
+Illinois J. Math. 6 (1962), no. 1, 64-94.
+[19] Rosser, J. and Schoenfeld, L., Sharper bounds for the Chebyshev functions θ(x) and ψ(x),
+Math. Comp. 29 (1975), no. 129, 243-269.
+[20] Schoenfeld, L., Sharper bounds for the Chebyshev functions θ(x) and ψ(x). II, Math. Comp.
+30 (1976), no. 134, 337-360.
+[21] Tenenbaum, G., Introduction to Analytic and Probabilistic Number Theory , Graduate Studies
+in Mathematics, 163, American Mathematical Society, 2015
+[22] Trudgian, T., Updating the error term in the prime number theorem, Ramanujan J. 39
+(2016), 225-234.

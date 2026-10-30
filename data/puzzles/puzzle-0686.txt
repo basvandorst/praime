@@ -1,0 +1,190 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_686.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 686 Filling the grid (Le Monde puzzle)
+Source: https://www.primepuzzles.net/puzzles/puzz_686.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0686.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.lemonde.fr/sciences/video/2013/04/12/les-defis-mathematiques-du-monde-episode-3-la-grille-de-sommes_3159020_1650684.html
+  http://simplementenumeros.blogspot.mx/
+  http://simplementenumeros.blogspot.mx/2013/04/1123-llenando-la-grilla.html#comment-form
+  http://oeis.org/A224784
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_685.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_687.htm
+  https://www.primepuzzles.net/puzzles/puzz_686.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 686 Filling the grid (Le Monde puzzle)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 686 Filling the grid (Le Monde puzzle)
+
+Again, from the always interesting site by Claudio Meller, I will use his entry 1122 in order to create a slightly distinct primepuzzle.
+
+Here you are asked to fill a nxn grid this way:
+
+1. Fill the upper-left cell with the number "1"
+
+2. Fill any other cell you want with the sum of the numbers already saved in all of its (3, 5 or 8) neighbor cells. Repeat this step until you fill all the grid.
+
+3. The last filled cell has the largest value M for the chosen path.
+
+Example:
+
+A grid 4x4, where each one of its 16 cells are identified this way...
+
+1 | 2 | 3 | 4
+
+5 | 6 | 7 | 8
+
+9 | 10 | 11 | 12
+
+13 | 14 | 15 | 16
+
+...will be filled using the following arbitrary path: 1-2-5-9-6-3-4-7-10-13-14-11-8-12-15-16
+
+1 | 1 | 7 | 7
+
+2 | 6 | 21 | 159
+
+2 | 31 | 124 | 304
+
+33 | 66 | 525 | 953
+
+M=953
+
+Know what? 953 is prime!
+
+Of course that 953 is only the maximal number M obtained for a 4x4 grid following this particular path, not the maximal M, Mmax (prime or not), that you can get following another specific path or paths.
+
+For example for a grid 3x3 Mmax=44 following the path 1-2-4-7-5-3-6-8-9 but Mmaxprime=31 following the path 1-2-3-4-5-7-9-6-8.
+
+In general for each grid of size nxn, you are allowed:
+
+a) to start in the upper-left cell
+
+b) to follow any path of the (n^2)! possible paths (a kind of less discarding the symmetry analogues).
+
+Some obtained results may be seen at A224784 . There you will find that for n=2, 3, 4 & 5 Mmax has been solved: 4, 44, 2473(prime!) & 297136
+
+Here we will ask only for Mmaxprime. The known solutions are only for n=3 & 4: 31 & 2473, respectively.
+
+Q. Find Mmaxprime (or the largest prime you can get) for grid 5x5, 6x6, ...
+
+_________________
+
+Note: Please always send four things: n, Mmaxprime, the path & the filled grid.
+
+Contributions came from Emmanuel Vantieghem, Jan van Delden & Hakan Summakoglu.
+
+In short:
+
+Dimension | Author | Best
+
+5x5 | Emmanuel
+
+Hakan
+
+Jan | 217979
+
+243671
+
+267959
+
+6x6 | Hakan
+
+Jan | 83252809
+
+101682283
+
+7x7 | Jan | 127336304371
+
+8x8 | Jan | 541047952101649
+
+9x9 | Jan | 5268176506006195842
+
+***
+
+Emmanuel wrote:
+
+The maxprime for the 5x5 grid is certainly >= 217979.
+
+I could not find a grid with a bigger prime number (eventually smaller than the maximum in the grid). But I did not examined all grids.
+
+***
+
+Jan wrote:
+
+Writing a fast routine is quite a challenge. My routine does check every possible path, however it prefers to test a greedy path with “large values on the inside” first. I think the real trick is to define “inside” correctly. I doubt that I succeeded in this, considering the computing time to find the Maxima. Although my routine only pursues paths that don’t run into “dead ends”, I still had to abort for n=6 and larger.
+
+It looks like Max prime(n) is growing like g^(n^2) with g slowly growing, [g=1.65 for n=5 and g=1.70 for n=8], which is about right, if one compares this with the Fibonacci series.
+
+P.S.: For n=9 I found 5136733235146310089, it is still running (The running value of the “snail” only turns odd shortly before the end). (Current max 5268176506006195842).
+
+***
+
+Hakan wrote:
+
+I used similar Christian Boyer “snail” strategy at A224784.
+
+For N=5, My largest prime I can get 243671.
+
+Path:1-2-6-11-7-12-13-8-3-4-9-5-10-14-15-20-19-25-24-23-18-17-16-22-21
+
+1 1 40 73 235
+
+2 6 33 162 470
+
+2 10 16 681 1313
+
+48747 48735 32707 4004 1994
+
+243671 146189 16000 11996 5998
+
+For N=6, My largest prime I can get 83252809.
+
+Path:1-7-2-8-3-9-4-10-5-6-11-12-17-18-24-23-30-36-29-35-34-28-33-27-32-31-26-25-20-13-19-14-21-22-15-16
+
+1 2 6 18 54 54
+
+1 4 12 36 162 270
+
+2632037 12957723 49419601 83252809 468 900
+
+7693637 2632032 16771707 17058087 2736 1368
+
+1518480 911088 202464 68400 12312 4104
+
+303696 303696 101232 32832 20520 4104
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

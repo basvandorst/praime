@@ -1,0 +1,249 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_207.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 207.  The inventory sequences and the self-inventoried 
+numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_207.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0207.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_206.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_208.htm
+  https://www.primepuzzles.net/puzzles/puzz_207.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 207. The inventory sequences and the self-inventoried numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 207. The inventory sequences and the self-inventoried numbers
+
+For sure you know the popular look and say infinite sequence (A005150):
+
+1, 11, 21, 1211, 111221, 312211, 13112221, 1113213211, 31131211131221, 13211311123113112211, 11131221133112132113212221, 3113112221232112111312211312113211, ...
+
+Let's take a closer examination of the way of calculating each member of the sequence.
+
+For example from 1211 you look the first group of 1's and say '11'; then you see the next group of 2's and say "12"; finally you see the last group of 1's and say "'21', giving the whole next member of the sequence 111221.
+
+But what if instead of taking partial views of the digits of 1211 you take exhaustive views of all the digits, as encountered, and say the total of each? In doing so, the next member to 1211 would be 3112 instead of 111221.
+
+Proceeding this way from a starting number "1" this is what is obtained (A063850)
+
+1, 11, 21, 1211, 3112, 132112, 311322, 232122, 421311, 14123113, 41141223, 24312213, 32142321, 23322114, 32232114.
+
+Now the sequence 'ends' in a cycle of 'period 2' because from 23322114 follows 32232114 but from 32232114 follows 23322114.
+
+Up to here we are just reviewing well known facts about two well known sequences.
+
+A. Now here comes a challenging assertion from Clifford A. Pickover. He says ^(*) that this last kind of sequences were studied by certain Roger Hargrave from West Sussex, U.K. and that:
+
+"oddly, he [Hargrave] believes that all his sequences [starting in any number?] finally oscillate between 23322114, 32232114. Can you prove this?"
+
+Maybe a better phrase would have been "can you prove or disapprove this"? Because the real fact is that the Hargrave's statement is easily disapproved.
+
+Just a couple of examples:
+
+1) If the starting number is 22, the sequences 'ends' immediately in a cycle of period 1.
+
+2) If the starting number is 40, the sequence 'ends' in a cycle of period 4:
+
+40, 1410, 211410, 12311410, 4112131410, 2451121310, 221415411310, 225124151310, 322541141310, 232215244110, 421331152410, 242241231510, 422431131510, 242223411510, 422413311510
+
+BTW, Hargrave named these sequences Gleichniszahleninventar, name that I like it because of the "inventory-action" idea reflected in the name.
+
+Following this idea I will call these sequences as "inventory sequences" and "self-inventoried numbers" to such starting numbers that immediately end in a cycle of period 1, as the number 22 does.
+
+B. Other than 22, are there more self-inventoried composite numbers?
+
+Yes; they are a lot of them. Here are the first 10 of them:
+
+Self-inventoried composites, by C: Rivera, January, 2003
+
+22, 33311012, 33311014, 33311015, 33311016, 33311018, 33311019, 33311210, 33311214, 33311215, ...
+
+C. Are there self-inventoried primes?
+
+Yes, but they are sparser than the self-inventoried composites. Here are the first 10 of them that I have gotten by an exhaustive search below 2^32:
+
+Self-inventoried primes, by C: Rivera, January, 2003
+
+33311017, 33311417, 33311519, 2233311419, 2233311617, 3322311017, 3322311617, 3331102219, 3331192217, 3331221917, more?
+
+D. Now, let's see the inventory sequence starting with the prime 7:
+
+7, 17, 1117, 3117, 132117, 31131217, 23411217, 2213143117, 2241231417, 3224311317, 3322143117, 3322311417, 3322311417
+
+In this case we notice that a) there are 3 consecutive primes (7, 17 & 1117) b) the sequence ends in a cycle of period 1 with a self-inventoried composite number (3322311417)
+
+Here is a list of the starting prime number that generates a sequence of K primes in its corresponding inventory sequence:
+
+K | Inventory sequence of K primes (1 to 7 by CR)
+
+1 | 2
+
+2 | 3, 13
+
+3 | 7, 17, 1117
+
+4 | 11173, 311713, 233117, 12232117
+
+5 | 29527, 22191517, 2231191517, 221341191517, 22511314191517
+
+6 | 8986717, 2819162711, 221841191617, 22511814191617, 2215611814191617 2271152618141917
+
+7 | 2222228557 62182517 162221181517 511632181517 25511613121817 22256116131817 32152651131817
+
+8 | See below a solution by Jon Wharf. Is this the least solution?
+
+And our questions are:
+
+Do all the inventory sequences end in a cycle, or is there a starting number generating an endless inventory sequence?
+
+Is there a finite number of cycles at the end of the inventory sequences? If so, what is the cycle with the largest period?
+
+Can you find a starting prime number that generates more than 7 consecutive primes in its corresponding inventory sequence?
+
+Are there infinite self-inventoried composite numbers? If not, can you find the largest one of these?
+
+Are there infinite self-inventoried prime numbers? If not, can you find the largest one of these?
+
+Can you extend the list of the self-inventoried primes given above?
+
+Can you find a starting number that, in its own inventory sequence, generates an ending cycle composed only of prime numbers?
+
+__________
+
+^(*)^ See p. 321, "Wonders of Numbers", Oxford 2001
+
+Solution:
+
+Joseph L. Pe and Jon Wharf sent excellent answers for this puzzle. Jon Wharf brings as a follow up of his search new specific challenges to question 3, 4 & 5.
+
+Joseph L. Pe wrote:
+
+ANSWER TO Q1. Any inventory sequence ends in a cycle.
+
+Proof. Let D(n) denote the number of digits in the decimal expansion of n, and let g denote the inventory sequence generator function (for example, g(1211) = 3112). Then the inventory sequence beginning with N, denoted IS(N), can be written as: N, g(N), g(g(N)),.... Note that if any two terms of IS(N) are equal, then IS(N) ends in a cycle.
+
+I. If the digit d = 0, 1, ..., 9 appears exactly once in n, then d contributes two digits to g(n), hence d increases the number of digits by 1 in going from n to g(n). (For example, g(5) = 15 and g(12) = 1112.) If d appears exactly twice in n, then the corresponding increase is 0. (For example, g(33) = 23). But if d appears exactly k > 2 times in n, then d decreases the number of digits by k-D(k)-1 > 1. (For example, g(2222) = 42 where k = 4 and the net decrease is 4-1-1 = 2 digits; and g(1111111111) = 101 where k = 10 and the net decrease is 10-2-1=7 digits.)
+
+II. Lemma. If D(n) <= 20, then D(g(n)) <= 20.
+
+For suppose that n has at most 20 digits. The digits of n can be partitioned into two finite sequences: S, consisting of the first occurrences of digits of n, and S', consisting of the other occurrences of the digits. (For example, if n = 11133245, then S = {1,3,2,4,5} and S' = {1,1,3}.) By I above, each member of S increases the number of digits by 1 in going from n to g(n), whereas each member of S' either cancels a potential increase of 1 (when the digit occurs exactly twice in n) or decreases the number by at least 1 (when the digit occurs more than twice in n). But S has at most 10 members, so there are at most 10 increases in the number of digits from n to g(n). Hence, in the case that 1 <= D(n) <= 10, clearly D(g(n)) <= 20. In the case that 11 <= D(n) <= 20, then S' has at least D(n) - 10 elements, and the net increase can be at most 10 - (D(n) - 10) = 20 - D(n), so that, D(g(n)) <= D(n) + (20 - D(n)) = 20. In any case, if D(n) <= 20, then D(g(n)) <= 20.
+
+III. Lemma. If D(n) > 20, then g(n) < n.
+
+For using the notation of II above, S can have at most 10 terms, whereas S' must have at least 11 terms, one of which must decrease the number of digits going from n to g(n) (since there can be no more than 10 of the digits that occur exactly twice). That is, S has fewer terms than S'. Hence, g(n) will have fewer digits than n, implying g(n) < n.
+
+IV. By repeatedly applying III above, if necessary, one obtains a term M of IS(N) such that M <= 10^20 (that is, D(M) <= 20). By II, all terms of IS(N) from M onwards are <= 10^20. Since these infinitely many terms can take only 10^20 possible values, at least two of them must be equal. Therefore, as noted above, IS(N) must end in a cycle. Note: 10^20 is probably the sharpest upper bound for cycle terms. For example, if
+
+N = 12345678901234543212456778605948376273848494934857594839304384/ 000000009303030, then IS(n) ends in the cycle 24228118271513161910, 42142871171513161910, 24228118271513161910, .... which are 20-digit numbers.
+
+ANSWER TO Q2.
+
+I. There are only a finite number of cycles at the end of inventory sequences.
+
+Proof. Since all but finitely many terms of IS(N) are <= 10^20, all the terms of a cycle must be <= 10^20. But each cycle is just a finite sequence of integers which are all distinct. Hence, the number of possible cycles <= the number of permutations of the set {1, 2, ..., 10^20} = (10^20)!, which is a finite number.
+
+II. Of course, this is an absurdly large upper bound. Probably the largest period is 4, first attained at N = 40: 40, 1410, 211410, 12311410, 4112131410, 2451121310, 221415411310, 225124151310, 322541141310, 232215244110, 421331152410, 242241231510, 422431131510, 242223411510, 422413311510, 242241231510, .... I have checked that no number < 10^6 has a greater period.
+
+In principle, it would be simple to prove that no inventory sequence has a cycle length > 4. By the previous proof, any cycle begins with a number <= 10^20. Hence, the claim would be proved by just checking that IS(N) has cycle length <= 4, for all N <= 10^20. I leave the verification up to someone with sufficient computing resources.
+
+Q4 and Q5: There can be only finitely many self-inventoried numbers (hence, only finitely many self-inventoried prime numbers and composite numbers.) This is because, by the lemma III I proved below, any n > 10^20 must have g(n) > n; so if n is self-inventoried, then we must have n <= 10^20 [This is slightly incorrect, see Jon Wharf's solution to the question Q4.]
+
+***
+
+Jon Wharf wrote:
+
+I've looked at that first 5 questions and the short version is:
+
+1) all the inventory sequences end in a cycle
+
+2) there is a finite number of cycles, largest period appears to be 4 (not definite)
+
+3) 222222222222222222222288577755557777777777777777777 (which is probably prime) leads to seven more primes, eight in all
+
+4) Finite selfinv composites; my largest is 221111918171615141310.
+
+5) Finite selfinv primes; my largest is 1111918171614101513.
+
+...
+
+Define the inventory function inv(n) as the inventory number generator.
+
+An inventory number is one that can be generated as an inventory for another number (a result of inv(n)). Almost all numbers are inventory numbers; the requirements are:
+
+a) at least two digits and the last digit not zero -> inventory
+
+b) at least four digits, ends in zero, and contains two consecutive non-zero digits excluding the leading digit -> inventory
+
+c) the number ten -> inventory (inv(0))
+
+Otherwise it is not an inventory number, eg 10000, 120304050. Interestingly this means all primes > 10 are inventory numbers.
+
+Define a stable inventory number m as an inventory number whose own inventory number inv(m) has at least as many digits as m. Clearly any terminal cycle sequence must include a stable inventory number (at least every other term, in fact).
+
+Now an inventory number consists of at most ten q-d sets, where q is quantity and d is digit. Sum of q<i> is the number of digits in the original number. In order for an inventory number k to have 100 digits it must inventorise a number of at least 10^9 (=10*10^8) digits, and inv(k) will have at most 30 digits (=(2+1)*10), inv(inv(k)) will have at most 22 digits (=3+3+2*8), and inv(inv(inv(k))) can only have at most 21 digits. So it is clear that a stable inventory number has 21 or less digits. It's also clear that any 21-digit number will inventorise to 21 or less digits, so this is a one-way limit - no inventories 21 digits or less will produce inventories over 21 digits. Also, a sequence starting in non-stable numbers will quickly move to include stable numbers.
+
+This gives us directly that (Q1) the number of stable inventory numbers is finite and so there are no endless inventory sequences, (Q2) there are a finite number of end cycles, and (Q4 & 5) there are only finite self-inventoried composites and primes.
+
+(Q2) Looking at the ending cycle of any sequence, it must have a constant number of q-d sets, since once a particular d occurs it never leaves. Some of these will be "active" and some "passive" - "active" meaning that the q changes for this d in the cycle and "passive" meaning it never does. All active q-d sets occur before any passive q-d set, in the end cycle. There is obviously an opportunity to reorder the passive sets at the end to produce primes.
+
+For stable 21 digits, one q<i> must be 10 or more, so there will be at least 7 q<i> == 1. So it must be q<1> >= 10. The largest other possible q value would be 3 (10+3+8*1=21). The possibilities for non-unit q are {10,3}, {10,2,2}, {11,2} and {12}. {10,3} -> {10,2,2} is non-stable -> 20 digits -> {8,2,2,2}. {12} -> {11,2} becomes selfinventorising.
+
+For 20 digits, there are more possibilities for non-unit q: {11}, {10,2}*, {9,3}*, {9,2,2}*, {8,4}*, {8,3,2}*, {8,2,2,2}*, {7,5}*, {7,4,2}*, {7,3,3}*, {7,3,2,2}#, {7,2,2,2,2}*, {6,6}*, {6,5,2}*, {6,4,3}*, {6,4,2,2}#, {6,3,3,2}#, {6,3,2,2,2}#, {6,2,2,2,2,2}*, {5,5,3}*, {5,5,2,2}*, {5,4,3,2}*, {5,4,2,2,2}#, {5,3,3,3}*, {5,3,3,2,2}#, {5,3,2,2,2,2}*, {5,2,2,2,2,2,2}*, {4,4,4,2}*, {4,4,3,3}*, {4,4,3,2,2}#, {4,4,2,2,2,2}*, {4,3,3,3,2}#, {4,3,3,2,2,2}*, {4,3,2,2,2,2,2}#, {4,2,2,2,2,2,2,2}#, {3,3,3,3,3}*, {3,3,3,3,2,2}*, {3,3,3,2,2,2,2}*, {3,3,2,2,2,2,2,2}*, {3,2,2,2,2,2,2,2,2}* and {2,2,2,2,2,2,2,2,2,2}. ({7,4,2} and {8,2,2,2}) form a 2-cycle reached by all *, {7,3,2,2} self 2-cycles, reached by all #, and both {11} and {all 2} get to 21 digits and {11,2}. None are self-inventorised.
+
+For 19 digits, only the set missing 2, {11}\2 is stable, and self-inventorises.
+
+18 digits strongly resembles 20 digits, with end 2-cycles
+
+({6,4,2},{7,2,2,2}) and ({6,3,2,2})
+
+17 and lower odd numbers of digits cannot give end-cycles.
+
+And so on. Once the number of ones starts to interact with the number of twos or threes we stand some chance of more interesting behavior, but I haven't yet found an end-cycle of more than 4.
+
+(Q3) No doubt there is a prime which inventorises to 2222228557 or one of the similar primes, eg 2222855227 (22:2, 2:8, 5:5, 22:7, should be plenty there and "only" 51 digits). 222222222222222222222288577755557777777777777777777 seems to work. (thanks to Joe Crump's ZZMath Excel addin)
+
+(Q4) The largest (21-digit) self-inventoried number I've thought of is 221111918171615141310. This and all scrambling are divisible by 3. Eleven ones, two twos and one of each other digit is the only possible self-inventoried solution set for 21 digits so primes will be smaller.
+
+(Q5) There are no 20 digit self-inventoried numbers so we drop to the {11}\2 solution for 19 digits and 1111918171614101513 is my candidate for largest self-inventoried prime.
+
+***
+
+And the added challenges by J. Wharf are: can you improve his findings for the questions 3, 4 & 5 (numbers in bold-red)?
+
+***
+
+Reviewing (Feb. 2004) the Warf's candidate for the largest self-inventoried prime I (C. Rivera) found that he was too close to find the real largest one: 1111918171614121013 !!!
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

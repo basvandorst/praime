@@ -1,0 +1,669 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 829. Dividing the first k prime to obtain new primes. </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+span.apple-converted-space
+	{}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font><font color="#0000FF">Puzzles </font></b></font></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1" height="106">
+        <tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+        <tr>
+          <td height="88" valign="top">
+          <blockquote>
+            <p><b><span style="font-family: Verdana">Puzzle 829. Dividing the 
+			first k prime to obtain new primes.</span></b></p>
+			<blockquote style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+				<wbr>
+				<div dir="ltr" style="color: rgb(0, 0, 0); font-family: HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px">
+					<font face="Verdana" size="2">It's well known that if you 
+					have the set {P} first k primes, then may partition them in 
+					two disjoint sets {A} and {B} such that </font>
+					<font face="Verdana" size="2">{A}U{B}={P} with the following 
+					properties:</font><blockquote>
+						<p><font face="Verdana" size="2">Let [A] to be the 
+						product of all the primes of the set {A} and the 
+						corresponding for set {B}</font></p>
+						<p><font face="Verdana" size="2">Then both [A]+[B] and 
+						abs([A]-[B]), for any partition possible, produce new 
+						prime numbers provided that these quantities are grater 
+						than 1 and less than (p<sub>k+1</sub>)^2; defining [&#934;]=1</font></p>
+					</blockquote>
+					<p><font face="Verdana" size="2">Example: for k=3. {P}={2, 3 
+					5}, here are all the partitions and new primes produced:</font></p>
+					<blockquote>
+						<p>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">2 × 3 + 5 = 11</font></span><font size="2"><br style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						</font>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">2 × 5 + 3 = 13</font></span><font size="2"><br style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						</font>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">2 × 5 – 3 = 7</font></span><font size="2"><br style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						</font>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">3 × 5 + 2 = 17</font></span><font size="2"><br style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						</font>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">3 × 5 – 2 = 13</font></span><font size="2"><br style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						</font>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">2 × 3 × 5 + 1 = 31</font></span><font size="2"><br style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						</font>
+						<span style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 21px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+						<font size="2">2 × 3 × 5 – 1 = 29</font></span></p>
+					</blockquote>
+					<p><font face="Verdana" size="2">Sometimes distinct 
+					partitions generate the same new prime (as 13 in the example 
+					above), so all the new primes are not necessarily distinct. 
+					In the example above the new distinct primes generated are 
+					7, 11, 13, 17, 31 &amp; 29, six (6) in total.</font></p>
+					<p><font face="Verdana" size="2">Additionally, not all the 
+					primes in between p<sub>k</sub> and </font>
+					<font face="Verdana" size="2">(p<sub>k+1</sub>)^2 are 
+					generated. In the example above, there are not generated the 
+					primes 19, 23, 37, 41 43 &amp; 47, six (6) in total.</font></p>
+					<p><font face="Verdana" size="2">For the example above we 
+					can say that for the case k=3 <b>the quantity of new 
+					distinct primes</b> <b>produced</b>, <b>ndpp</b>, are 6; and
+					<b>the quantity of new primes not produced, ndpnp</b> are 6 
+					too.</font></p>
+					<p><font face="Verdana" size="2">In short&nbsp; (k, ndpp, 
+					ndpnp) = (3,6,6)</font></p>
+					<p><b><font face="Verdana" size="2" color="#000080">Q1. 
+					Construct that table (k, ndpp, ndpnp) for k= 1 to 20.<br>
+					Q2. Can you make any generalizations related to the table obtained?</font></b></p></div>
+			</blockquote>
+			<wbr style="color: rgb(0, 0, 0); font-family: monospace; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: -16px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          <p></p>
+			<p>
+          </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+		<p>
+      Contributions came from Emmanuel Vantieghem and Jan van Delden.</p>
+		<p>
+      ***</p>
+		<p>
+      Emmanuel wrote:</p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Here comes {k,ndpp,ndpnp} for k = 
+				1 to 25</font><p>&nbsp;</div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {1, 1, 2}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {2, 2, 5}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {3, 6, 6}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {4, 12, 15}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {5, 25, 20}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {6, 49, 48}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {7, 78, 62}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {8, 148, 88}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {9, 255, 134}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {10, 470, 152}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {11, 886, 208}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {12, 1568, 251}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {13, 2808, 270}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {14, 5173, 315}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {15, 10405, 394}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {16, 17478, 471}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {17, 34450, 502}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {18, 62698, 591}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {19, 120504, 656}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {20, 215446, 685}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {21, 418223, 790}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {22, 802499, 864}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {23, 1597836, 977}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {24, 3165767, 1139}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; {25, 5926266, 1227}</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;<p><font face="Verdana" size="2">For &nbsp;k = 1, 2, 3, all &nbsp;ndpp &nbsp;are &lt; 
+				(p(k+1))^2</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For k = 4 to 9, the number of &nbsp;ndpp 
+				that are less than (p(k+1))^2 is resp. : 11, 14, 7, 3, 3, 3.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For &nbsp;9 &nbsp;&lt; k &lt; 500, none of the 
+				ndpp is less than (p(k+1))^2.</font></div>
+		</blockquote>
+		<p>
+      ***</p>
+		<p>
+      Jan wrote:</p>
+		<blockquote>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><strong>Q1: </strong>For k&lt;10 the 
+				table looks like:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">1&nbsp;&nbsp; 1&nbsp;&nbsp; 2</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2&nbsp;&nbsp; 2&nbsp;&nbsp; 5</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3&nbsp;&nbsp; 6&nbsp;&nbsp; 6</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">4&nbsp; 11&nbsp; 15</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">5&nbsp; 14&nbsp; 20</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">6&nbsp;&nbsp; 7&nbsp; 48</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">7&nbsp;&nbsp; 3&nbsp; 62</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8&nbsp;&nbsp; 3&nbsp; 88</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">9&nbsp;&nbsp; 3 134</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For 10&lt;=k&lt;=20 we have:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">ndpp=0 and thus ndpnp=pi(p[k+1]^2)-pi(p[k+1])+<wbr>1=pi(p[k+1]^2)-pi(p[k])</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><strong>Q2: </strong>Write A=primorial[k], 
+				A=P*Q, with P&gt;Q.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We have A=P*Q, we assume P&gt;Q.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">P+Q&lt;p[k+1]^2</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font color="#ff0000" face="Verdana" size="2"><strong>SUM=P+Q</strong>:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We have both P,Q&lt;p[k+1]^2.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We use Bertrand’s postulate: There 
+				is always a prime between n and 2n:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">p[k+1]&lt;2p[k].</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Or more general:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">p[k+1]&lt; 2^a p[k+1-a]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Substitute a=1,2 (We need a factor 
+				of 2*4=8):</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If we combine {2,5,p[k-1],p[k]}&nbsp; 
+				the product &gt; p[k+1]^2</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Substitute a=3,4 (We need a factor 
+				of 8*16=128)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If we combine 
+				{3,7,11,p[k-2],p[k-3]}&nbsp; the product&nbsp; &gt; p[k+1]^2</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">So if we have at least 9 factors, 
+				either P or Q or both are &gt; p[k+1]^2.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">A simple check for k&lt;9 shows:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><strong>If k&gt;=6 then P+Q integer &lt; 
+				p[k+1]^2 has no solutions.</strong></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<strong><font color="#ff0000" face="Verdana" size="2">
+				DIFFERENCE=P-Q</font></strong></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We may write:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">P=sqrt(A)+a</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Q=sqrt(A)-b</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">with</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">P-Q&lt;p[k+1]^2</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">with a&gt;0 (a=0 is not possible, 
+				since every prime that divides A occurs once).</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">From the first two equations we 
+				have:&nbsp; P-Q=a+b is in N. (a and b are not in N!)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Substitute these two equations 
+				into the third and solve:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">a-b = ab/sqrt(A)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We infer that a&gt;b.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">With a+b&lt;p[k+1]^2 we have 
+				a&lt;p[k+1]^2 and if we also use a&gt;b</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">we have b&lt;a&lt;p[k+1]^2-b or 
+				2b&lt;p[k+1]^2 so 0&lt;b&lt;p[k+1]^2/2, a&lt;p[k+1]^2.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Giving:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">max(a-b) &lt; sup(ab)/sqrt(A) or</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">max(a-b) &lt; p[k+1]^4/(2*sqrt(A))</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">[[a slightly more carefull 
+				analysis upon using a=b+e:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">e=b^2/(sqrt(A)-b)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Where the right hand side has a 
+				supremum for b=p[k+1]^2/2:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">max(a-b) &lt; p[k+1]^4 / (4(sqrt(A)- 
+				p[k+1]^2/2))]]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If round(sqrt(A))=ceil(sqrt(A)), 
+				i.e. frac(sqrt(A))&gt;0.50.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">The idea is to construct an 
+				interval around sqrt(A) where only 1 integer is present.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For this we use the criterium 
+				max(a-b)&lt;0.5.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For instance if frac(sqrt(A))=.51 
+				so frac(a)=.49, we have&nbsp; 0&lt;a-b=frac(a-b)=frac(a)-frac(<wbr>b)&lt;0.50</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">and thus -0.01&lt;frac(b)&lt;0.49 hence 
+				0.02&lt;frac(Q)=frac(sqrt(A)-b)&lt;<wbr>0.52 never reaches 0.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Then we can only find one integer 
+				P, but not Q and therefore no solution to P*Q=A.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Find k for which max(a-b)&lt;0.5 (or 
+				p[k+1]^8&lt;4A).</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">By combining primes p[j] to terms 
+				which must exceed p[k+1] and show there are still primes left, 
+				for instance upon using Bertrand’s postulate again:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If we use the 8 largest primes we 
+				need 2^(1+..+8-2)=2^34 Which we can achieve by using the first 
+				85 primes [Which is an huge overestimate, we would need 85+8=93 
+				primes or more].</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Lucky for us the extension of 
+				Bertrand's postulate, by Ramanujan can be used, there is a 
+				number a(n) such that pi(x)-pi(x/2)&gt;=n for x&gt;=a(n). Here we are 
+				interested in a(9)=71.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">So if x=p[k+1]&gt;=71, we have that 
+				the previous 8 primes are all &gt; x/2 (x is prime). So 2*these 
+				primes &gt; p[k+1].</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Assume p[k+1]&gt;=71. We need to 
+				compensate a factor 2^(8-2)=2^6=64. Which we can achieve by 
+				using the primes in the set {2,3,5,7}. So we'll need at least 
+				4+8=12 primes. Since 71 is the 20'th prime,</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">we'll have to use at least 19 
+				primes, by using this theorem. However by inspecting the table 
+				we have:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font color="#000000" face="Verdana" size="2"><strong>If 
+				frac(sqrt(A))&gt;0.50 and k&gt;=10 then P-Q integer &lt;p[k+1]^2 has no 
+				solutions.</strong></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If round(sqrt(A))=floor(sqrt(A)), 
+				i.e. frac(sqrt(A))&lt;0.50 the previous trick does not apply:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For instance if frac(sqrt(A))=.49 
+				so frac(a)=.51, we have&nbsp; 0&lt;a-b=frac(a-b)=frac(a)-frac(<wbr>b)&lt;0.50 
+				and thus&nbsp; 0.01&lt;frac(b)&lt;0.51 hence -0.02&lt;frac(Q)=frac(sqrt(A)-b)&lt;<wbr>0.48 
+				can reach 0.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Even worse it doesn't help to 
+				decrease the bound on max(a-b).</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">However there can only be one 
+				solution in this case (if present).</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Solving x-A/x=d gives&nbsp; x=sqrt(A+(d/2)^2)+/-d/2, 
+				with previous notation P (+ sign), Q (- sign), d=P-Q</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We want 1 solution in N for P:&nbsp; 
+				sqrt(A)&lt;sqrt(A+(d/2)^2)&lt;sqrt(<wbr>A)+1. Squaring both sides 
+				gives:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">A &lt; A + (d/2)^2&lt; A + 2*sqrt(A) + 
+				1&nbsp; or</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0 &lt; (d/2)^2 &lt; 2*sqrt(A) + 1 if we 
+				substitute sup(d)=p[k+1]^2 we get a lowerbound on sqrt(A) for 
+				which we have a maximum of 1 solution:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">p[k+1]^4/8 &lt; sqrt(A)+1 gives</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">p[k+1]^8/64&lt; A</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">This criterium is less strict, 
+				compared to the previous one, showing that<strong>:</strong></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><strong>If frac(sqrt(A))&lt;0.50 and 
+				k&gt;=10 then P-Q integer &lt;p[k+1]^2 has no solutions or 1 solution.</strong></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Note: We do have that sqrt(A+(d/2)^2) 
+				is very close to sqrt(A) if A is large, so the probability that 
+				we hit an integer in (sqrt(A),sqrt(A)+1) is</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">sqrt(A+(d/2)^2)-sqrt(A) assuming 
+				that sqrt(A) is uniform distributed in (0,1)<span class="Apple-converted-space">&nbsp;</span><br>
+&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">sqrt(A+(d/2)^2)-sqrt(A)=sqrt(<wbr>A) 
+				((sqrt(1+ (d/2)^2/A)-1) which is about&nbsp; (d/2)^2/(2*sqrt(A)) 
+				which decreases rapidly with k.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">[For d one could substitute 
+				p[k+1]^2].</font></div>
+		</blockquote>
+		<p>
+      ***</p>
+      </font>
+		<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); -webkit-text-size-adjust:auto">
+    </blockquote>
+	<o:p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+		
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="21">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td>
+      <font SIZE="2">
+            <p><a href="puzz_828.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></p>
+      </font></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_830.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      &nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

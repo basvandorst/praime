@@ -1,0 +1,215 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_160.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 160.  s(n) and p(n)
+Source: https://www.primepuzzles.net/puzzles/puzz_160.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0160.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/PartitionFunctionP.html
+  https://www.primepuzzles.net/puzzles/puzz_159.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_161.htm
+  https://www.primepuzzles.net/puzzles/puzz_160.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 160. s(n) and p(n)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 160. s(n) and p(n)
+
+Two weekends ago I was taking an overview to a book^1 of my friend Enoch Haga when I saw, in the page 56, the following recursive formula to calculate s(n) the symbol for the sum of divisors of a number n :
+
+s(n) = s(n-1)+s(n-2)-s(n-5)-s(n-7)+s(n-12)+s(n-15)-s(n-22)-s(n-26)+s(n-35)+s(n-40) ...
+
+I remember that I almost jumped out of my seat saying "Oh heck!... Enoch made a mistake... This formula is not for the sum of the divisors of n, s(n), but for the partitions of n, p(n)".
+
+As maybe you know p(n) is the the symbol commonly used for the "partitions of n", that is to say, the "distinct number of ways that a number n can be expressed as a sum of other numbers, disregarding the order of them".
+
+I confirmed my guess opening my book "Mathematical Mysteries" by Calvin C. Clawson. There at the page 233 was the right formula:
+
+p(n) = p(n-1)+p(n-2)-p(n-5)-p(n-7)+p(n-12)+p(n-15)-p(n-22)-p(n-26)+p(n-35)+p(n-40) ...
+
+But... but the examples given by Enoch to calculate s(n) at the page 57 where absolutely correct, far beyond any doubt... so, the first formula is also a valid equation to calculate what is promised, s(n) ...
+
+I must say that I wrote to Enoch expressing not only my surprise for this strange (to me) fact but also with the little and secret hope that on return he accepted to have made some kind of typo.
+
+On the contrary he revealed to me that the origin of this issue in his book was the G. Polya's book "Mathematics and Plausible Reasoning", Vol 1. Polya -on his turn - "was discussing Euler's French work, Opera Omnia, ser 1, vol 2, p.241-253", commented Enoch.
+
+So, there is no doubt, s(n) and p(n) can be calculated by exactly the same recurrence formula, under the following conditions. When using any of these formulas:
+
+a) both formulas can be applied for all n=>1
+
+b) no argument (n-k) can be negative
+
+c) if the last term of any of these equations happens to have a null argument you must use s(0) = n and p(0)=1, respectively.
+
+d) the k values to use in the arguments are these values from the so-called "generalized pentagonal numbers" ( 1, 2, 5, 7, 12, 15, 22, 26, 35, 40, ...) that can be calculated by
+
+k_m = m(3m-1)/2, where m = +1, -1, +2, -2, +3, -3, ...
+
+***
+
+Before making the final questions let's offer some examples.
+
+1. Examples calculated from the respective original definitions :
+
+a) s(22) = 1 + 2 + 11 + 12 = 36
+
+b) p(5) = 7 because 1+1+1+1+1 = 2+1+1+1 = 2+2+1 = 3+1+1 = 3+2 = 4+1 = 5
+
+2. Examples calculated using the recurrence formulas, and supposing known the values employed in the recurrences (for this purpose I have added the table in the Appendix A):
+
+c) s(22) = s(21)+s(20)-s(17)-s(15)+s(10)+s(7)-s(0) = 32+42-18-24+18+8-22 = 36
+
+d) p(5) = p(4)+p(3)-p(0)) = 5+3-1 = 7
+
+***
+
+Questions
+
+1. Can you give a simple explanation of this strange fact: s(n) and p(n) can be calculated by exactly the same recurrence formula?
+
+2. Is this indicative that we should have a function that relates directly s(n) to p(n)?
+
+Final comment: As probably you have already devised The Euler's recurrence formula applied successively to the natural numbers 2, 3, 4, 5, ... provides a recurrence method to produce the set of the prime numbers, being these prime numbers n such that s(n) = n+1.
+
+Despite to the fact that this is a method that consumes a lot of memory (in order to keep all the s(n) values produced and needed in further calculations), we can no doubt that we have here a strange way of producing the primes through the generalized pentagonal numbers and the Euler's recurrence formula, that is to say a method to produce the sequence of the prime numbers executing only elemental and regular-recursive operations...
+
+3. Being this method to produce a list of prime, of scarce if any practical value, do you devise for it any theoretical/logical value ?
+
+__________________________
+
+(1) "Exploring Prime numbers on your PC and the Internet", EHP, 2001
+
+Appendix A:
+
+n | s(n) | p(n) | n | s(n) | p(n)
+
+1 | 1 | 1 | 26 | 42 | 2436
+
+2 | 3 | 2 | 27 | 40 | 3019
+
+3 | 4 | 3 | 28 | 56 | 3718
+
+4 | 7 | 5 | 29 | 30 | 4565
+
+5 | 6 | 7 | 30 | 72 | 5604
+
+6 | 12 | 11 | 31 | 32 | 6842
+
+7 | 8 | 15 | 32 | 63 | 8349
+
+8 | 15 | 22 | 33 | 48 | 10143
+
+9 | 13 | 30 | 34 | 54 | 12310
+
+10 | 18 | 42 | 35 | 48 | 14883
+
+11 | 12 | 56 | 36 | 91 | 17977
+
+12 | 28 | 77 | 37 | 38 | 21637
+
+13 | 14 | 101 | 38 | 60 | 26015
+
+14 | 24 | 135 | 39 | 56 | 31185
+
+15 | 24 | 176 | 40 | 90 | 37338
+
+16 | 31 | 231 | 41 | 42 | 44583
+
+17 | 18 | 297 | 42 | 96 | 53174
+
+18 | 39 | 385 | 43 | 44 | 63261
+
+19 | 20 | 490 | 44 | 84 | 75175
+
+20 | 42 | 627 | 45 | 78 | 89134
+
+21 | 32 | 792 | 46 | 72 | 105558
+
+22 | 36 | 1002 | 47 | 48 | 124754
+
+23 | 24 | 1255 | 48 | 124 | 147273
+
+24 | 60 | 1575 | 49 | 57 | 173525
+
+25 | 31 | 1958 | 50 | 93 | 204226
+
+At first sight nothing exhibits a relationship between these two functions. On the contrary, the most striking fact against any kind of relationship between these two quantities is that p(n) increases monotonously while s(n) doesn't. Another striking fact is that s(n) keeps a close and direct relationship with the prime numbers ( s(p) = p+1 ) while p(n) doesn't.
+
+Solution:
+
+Daniel Gronau makes a challenging observation and adds a new question.
+
+The observation is that the same recursive function produce one or another concept (sum of divisors or partitions) entirely depending on the initial respective terms: {s(0)=n & s(1)=1} and {p(0)=1 & p(1)=1}.
+
+The question is: what would happen varying these initial conditions? Could it be produced the sequence of another number-theory basic concept?
+
+***
+
+Chris Nash makes an attempt to the question 1:
+
+"I thought I would attempt an explanation of what is going on in Puzzle 160 - with, of course, Eric Weisstein's help (it is so good that MathWorld is back online!). Eric's page http://mathworld.wolfram.com/PartitionFunctionP.html does mention a few connections and similarities, including a very startling one. The main clue is that both sequences can be derived from very similar 'basic' sequences.
+
+Let Q_r(x) = 1-x^r. Euler's pentagonal number result follows by considering the product of these Q_r as r ranges from 1 to infinity. The coefficients in the resulting product give the recurrence relation. How does this connect with s(n) and p(n)? Consider the generating polynomials
+
+S(x) = \sum s(r).x^r
+
+P(x) = \sum p(r).x^r
+
+in other words, the coefficient of x^r is the value of the function at r. In terms of the Q_r, we notice that 1/Q_r(x) = 1 + x^r + x^2r + x^3r + ... and so the partition function is the *product* of all these 1/Q_r(x) - since from each term in the product we can take 0, 1, 2... occurrences of the number 'r' in each partition.
+
+Now S(x) can similarly be expressed as the *sum* of r(1/Q_r(x) - 1), since each term in the sum adds an r to the coefficient of all entries that have r as a factor. The connection is not quite complete - since in one case there is a sum, in the other case, a product, and the two polynomials have different scale factors applied. *However*, there is a connection - watch what happens when the polynomial S(x) is multiplied by P(x)....
+
+S(x) = 0 + 1x + 3x^2 + 4x^3 + 7x^4 + 6x^5 + .....
+
+P(x) = 1 + 1x + 2x^2 + 3x^3 + 5x^4 + 7x^5 + .....
+
+S(x).P(x) = 0 + 1x + 4x^2 + 9x^3 + 20x^4 + 35x^5 + ......
+
+The new polynomial has coefficients equal to n*p(n). (This is equation 9 on Eric's page). Or in fact we can write this polynomial as x*P'(x), where P' is the derivative. So P(x) satisfies the equation S(x).P(x) = x.P'(x)
+
+How mysterious!
+
+***
+
+Another relationship between is s(n) and p(n) now reported by Marc Fonoll (1/12/2001):
+
+Searching in the way Chris Nash told, so through generating functions, I've found a really amazing relation between 's' and 'p' I mean sigma and partitions (not S(x) nor P(x))
+
+Relation is: s(n) = sum ((-1)^k * p(n - e(k)) * e(k) )
+
+where e(k) are Euler pentagonal numbers: e(k) = (3k +- 1) / 2 and n - e(k)=>0.
+
+This interprets sigma as an integral of partitions weighted conveniently to seem a little bit random ...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

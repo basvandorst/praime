@@ -1,0 +1,240 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_503.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 503. phi(x)*sigma(x) = x^2 - (1/n)*x
+Source: https://www.primepuzzles.net/puzzles/puzz_503.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0503.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_502.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_504.htm
+  https://www.primepuzzles.net/puzzles/puzz_503.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 503. phi(x)*sigma(x) = x^2 - (1/n)*x
+
+Problems & Puzzles: Puzzles
+
+Puzzle 503. phi(x)*sigma(x) = x^2 - (1/n)*x
+
+Farideh Firoozbakht sent the following puzzle:
+
+Related to the equation:
+
+phi(x)*sigma(x) = x^2 - (1/n)*x, n=integer.
+
+Q1. Prove that has solution iff n is prime
+
+Q2. Prove that if n=p is prime all solutions of the equation are all natural powers of p (p, p^2, p^3, .... ).
+
+Contributions came from Steve Zook and Fred Schneider
+
+***
+
+Steve wrote:
+
+Question 2 Sufficiency proof:
+
+For p prime and a an integer, phi(p^a) = (p-1)*p^(a-1) and sigma(p^a) = (p^(a+1)-1)/(p-1). Thus phi(p^a)*sigma(p^a) = (p-1)*p^(a-1)*(p^(a+1)-1)/(p-1) = p^(a-1)*(p^(a+1)-1)
+
+For n = p and x = p^a, x^2-(1/n)*x = (p^a)^2-(1/p)*p^a = p^(2*a)-p^(a-1) = p^(a-1)*(p^(a+1)-1)
+
+Therefore phi(x)*sigma(x) = x^2-(1/n)*x when n = p prime and x = p^a for any a >= 1.
+
+***
+
+Fred wrote:
+
+Hola Senor! ...
+
+Let x1 = p1^a1 where p1 is a prime and a1 is a positive integer
+
+Then:
+
+phi(x1) = (p1-1)*p1^(a1-1)
+
+sigma(x1) = (p1^(a1+1)-1)/(p1-1)
+
+Let ps(x) = phi(x) * sigma(x)
+
+ps(x1) simplifies to : (p1^(a1-1)) * (p1^(a1+1)-1) = x1^2 - x1/p1.
+
+So where x is a prime power, n (from the problem) = p1.
+
+============================================
+
+Let x2 = p2^a2 where p2 is prime and is greater than p1, and a2 is again a positive integer.
+
+Similarly, ps(x2) = x2^2 - x2/p2
+
+============================================
+
+Let y2 = x1 * x2;
+
+Because f(ab) = f(a)*f(b) (where f is function phi or sigma and gcd(a,b)=1),
+
+ps(y2) = ps(x1) * ps(x2)
+
+= (x1^2 - x1/p1) * (x2^2 -x2/p2)
+
+= y2^2 - x2*y/p1 - x1y/p2 + y/(p1*p2)
+
+After rearranging the terms we have:
+
+= y2^2 - ((p1^(a1+1) + p2^(a2+1) -1)/(p1*p2) ) * y
+
+n = (p1*p2) / (p1^(a1+1) + p2^(a2+1) -1)
+
+p1 and p2 are primes, specifically positive integers. So clearly, the values of
+
+n is maximxed when a1 = a2 = 1
+
+giving us: (p1*p2) / (p1^2 + p2^2 -1)
+
+Further, for postive integers, the value is maximized when p1 == p2 and
+
+this expression will evaulate to p^2/(2*p^2-1).
+
+But p1 and p2 are not equal so the maximal value would be 1/2 for n
+
+Now we know that numbers of y2's form can not have an integral n.
+
+We can use that upper bound of 1/2 for an inductive proof to show that n
+
+is never an integer for numbers which are product of more than 2 distinct
+
+prime powers.
+
+==================================================
+
+Let y(m) = x1 * x2 ... * x(m) = p1^a1 * p2^a2 .. * p(m)^a(m)
+
+where p1 < p2 ... < p(m),p(i) are prime numbers and a(i) are positive integers
+
+ps(y(m)) = y(m)^2 - 2*y(m) [ n is set to an upper bound of 1/2 ]
+
+Let x(m+1) = p(m+1)^a(m+1) [ p(m+1) is a prime > p(m) and a(m+1) is a positive integer ]
+
+and y(m+1) = y(m) * x(m+1)
+
+Then,
+
+ps(y(m+1)) = ps(y(m)) * ps(x(m+1)) =
+
+(y(m)^2 - 2*y(m)) * ( x(m+1)^2 - x(m+1)/p(m+1) ) =
+
+y(m+1)^2 - (2 * x(m+1) + (y(m) -2)/(p(m+1) ) * y(m+1)
+
+n = 1/(2 * x(m+1) + (y(m) -2)/(p(m+1))
+
+x(m+1) is a prime power and (y(m) -2)/(p(m+1) is always a positive value.
+
+Therfore: If the relation is not true for the m-th case, it's not true for the (m+1)-th
+
+case.
+
+It was shown earlier that an integral n is not possible.
+
+So by induction, n can never be an integer (much less prime)
+
+for integers that aren't prime powers.
+
+One final note: one see that even if n is set to a higher upper bound less than 1
+
+(for instance, by plugging in 1/(9/10)=10/9 for 1/(1/2)=2 in the expression for n above),
+
+n at the next iteration can not be greater than one, much less a positive integer.
+
+***
+
+Antoine Verroken wrote (Set. 09) & Farideh slightly corrected:
+
+About Q1. I proved that if the equation has solution then n is square-free and each
+
+solution of the equation is a multiple of n.
+
+Proof : phi(x) * sigma(x) = x^2 – x / n (1)
+
+Suppose x = a^m * b^r * c^ q (a,b, c primes m,r & q are natural numbers,
+
+we can take an arbitrary number of distinct prime factors for x) be a solution
+
+for (1); then
+
+phi(x) = a^m * b^r * c^q * ( a-1)*(b-1)*(c-1) / ( a*b*c )
+
+and sigma (x) = [a^( m + 1 ) – 1] * [ b^( r + 1 ) – 1]*[ c^( q + 1 ) – 1] /
+
+[( a – 1 ) * ( b – 1 ) * ( c – 1 )]
+
+(1) --> a^m * b^r *c^q * [a^( m + 1 ) – 1]*[ b^( r + 1 ) – 1]*[ c^( q + 1 ) – 1] /
+
+( a*b*c ) = a^ ( 2*m ) * b^ ( 2*r ) * c^ ( 2*q ) – a^m * b^r * c^q / n
+
+or [a^( m + 1 ) – 1]*[ b^( r + 1 ) – 1]* [ c^( q + 1 ) – 1] =
+
+a^ ( m + 1 ) * b^( r + 1 ) * c^( q + 1 ) – a*b*c / n
+
+Similarly if x = p1^a1*p2^a2*...*pk^ak is a solution for (1) then we have
+
+(p1^(a1+1) - 1)*(p2^(a2+1) - 1)* ... * (pk^(ak+1) - 1) =
+
+p1^(a1+1) *p2^(a2+1)* ... * pk^(ak+1) - (p1*p2* ...*pk) / n (**)
+
+because (p1*p2* ...*pk) / n must be an integer, n must be square-free and x
+
+is a multiple of n.
+
+About Q2. I proved that if n = a is prime then numbers of the form a^m, (m is a natural
+
+number) are in the set of solutions of (1).
+
+Proof :
+
+x = 1 phi(1) = 1 ; sigma(1) = 1 ; ( 1 ) à 1 * 1 = 1 – 1 / n à impossible.
+
+x = a^m (a is prime and m is a natural number)
+
+phi(x) = a^m * (1 – 1 / a) = a^(m – 1) * (a – 1)
+
+sigma(x) = 1 + a + a^2 + … + a^m
+
+(1) --> a^( m – 1 ) * ( a – 1 ) * ( 1 + a + a^2 + … + a^m ) = a^ ( 2*m ) – a^m / a
+
+or a^m * ( a – 1 ) * ( 1 + a + a^2 + … + a^m ) = a^m * [ a^( m + 1 ) – 1 ]
+
+a^m * ( a – 1 ) * (a^( m + 1 ) – 1) / ( a - 1) = a^m * [ a^( m + 1 ) – 1 ]
+
+and this is an equality.
+
+So all numbers of the form a^m ( m is a natural number) are in the set of solutions.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

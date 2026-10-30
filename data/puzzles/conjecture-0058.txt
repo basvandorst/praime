@@ -1,0 +1,204 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_058.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 58. Primes m^2+1
+Source: https://www.primepuzzles.net/conjectures/conj_058.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0058.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_057.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_059.htm
+  https://www.primepuzzles.net/conjectures/conj_058.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 58. Primes m^2+1
+
+Problems & Puzzles: Conjectures
+
+Conjecture 58. Primes m^2+1
+
+Luis Rodríguez sent the following conjecture:
+
+Conjecture:
+
+The number of primes of the form m^2 + 1 and less than m, is asymptotic to 4m / 3Log(m).
+
+Experimental evidence:
+
+m
+
+Number of primes
+
+4m / 3Log(m)
+
+1000
+
+110
+
+108
+
+10000
+
+839
+
+814
+
+50000
+
+3610
+
+3465
+
+100000
+
+6654
+
+6514
+
+200000
+
+12389
+
+12288
+
+Q1.- Can you find an heuristic argument to justify that formula?
+
+Q2.- can you extend the table
+
+Contributrions came from Jan van Delden, Farideh Firoozbakht & J. K. Andersen.
+
+***
+
+Jan wrote:
+
+Did a small test until m=10^7 (or actually for all k<10^7, since it stated less than m).
+
+I found:
+
+I) The column with the number of primes is 2 off: (There should be 2 more then specified).
+
+II) The column with the expected number of primes is always rounded downwards.
+
+If one rounds in the usual sense:
+
+m=10^3 should be 109
+
+m=2*10^5 should be 12289
+
+III) There is a misprint with regard to the asymptotic behaviour! The 3 and 4 should be switched!
+
+Q2:
+
+Next three powers of 10 (first three expected numbers rounded downwards, rounding normally would make them 1 bigger):
+
+I extended the table by adding number of primes/ (m/ln(m))
+
+10^6 54110 54286 0.748
+
+10^7 456362 465315 0.736
+
+10^8 3954181 4071510 0.728
+
+[Calculated the first two rows myself, can be extended simply by using Sloane’s A083844!
+
+Q1:
+
+It looks like the fraction [number of primes/ (m/ln(m))] is steadily decreasing below 0.75. So the conjectured asymptotic behaviour is probably false.
+
+In fact more is known on the conjectured asymptotic behaviour.
+
+On the same page: A083844 there is a link to an article of C.K. Caldwell: http://www.utm.edu/~caldwell/preprints/Heuristics.pdf . In paragraph 3.7 he conjectures that the limiting constant should be C/2 with C=1.3728134628 and C represented by an specific integral (like the twins constant).
+
+***
+
+Farideh wrote:
+
+I think he made some mistakes in definition, formula and
+
+Experimental evidences.
+
+And Instead of
+
+" The number of primes of the form m^2 + 1 and less than m, is asymptotic to 4m / 3Log(m). " must be
+
+" The number of k's less than m such that k^2 + 1 is prime, is
+
+asymptotic to 3m / 4Log(m). ".
+
+Also the table must change in this way:
+
+m number of primes 3m/4Log(m)
+
+1000 112 108
+
+10000 841 814
+
+50000 3613 3465
+
+100000 6656 6514
+
+200000 12391 12288
+
+Answer to Q2:
+
+m number of primes 3m/4Log(m)
+
+500000 28563 28577
+
+1000000 54110 54286
+
+2000000 102205 103386
+
+5000000 239185 243112
+
+10000000 456362 465315
+
+***
+
+Andersen wrote:
+
+The puzzle is full of errors. It's apparently about the number of primes of form x^2+1 with x < m. All the listed prime counts are 2 too small. The table column "4m / 3Log(m)" does not display the claimed value (which is far from the prime count) for any of the listed m.
+
+Marek Wolf's paper "Search for primes of the form m^2+1" at http://arxiv.org/abs/0803.1456 includes the number of primes of form x^2+1 with x <= 10^n for n = 3 to 10:
+
+112, 841, 6656, 54110, 456362, 3954181, 34900213, 312357934.
+
+By common conjectures, the asymptotically expected number of primes of form x^2+1 with x < m is C/2 * m/log m, where C = 1.372813... is the product over all odd primes p of 1 - ((-1)^((p-1)/2)) / (p-1).
+
+The puzzle formula 4m / 3Log(m) corresponds to setting C = 8/3 = 2.666... which seems far too high.
+
+A better (but asymptotically identical) estimate than C/2 * m/log m is
+
+C/2 * (integral from x = 2 to m^2 of 1/(sqrt(x)*log x))
+
+Wolf's paper shows this gives 312353428 instead of 298102838 for m = 10^10, where the real prime count is 312357934.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

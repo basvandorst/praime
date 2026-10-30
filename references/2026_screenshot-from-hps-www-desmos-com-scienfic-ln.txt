@@ -1,0 +1,114 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/Pu%2050%20AB_2.pdf. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://www.primepuzzles.net/puzzles/Pu%2050%20AB_2.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+*screenshot from hƩps://www.desmos.com/scienƟﬁc? 
+(((((ln(sqrt[e]{sqrt[e]{e}}))^sqrt[e]{e})/ sqrt[e]{sqrt[e]{e}} + ln(sqrt[e]{sqrt[e]{e}}))*2)/ ln(sqrt[e]{sqrt[e]{e}}))^(sqrt[e]{sqrt[e]{e}}) 
+Digit ok/digit used: 7/1 (700%) 
+ 
+ 
+LaTex: \left(\left(\frac{\left(\left(\left(\frac{\left(\left(\left(\sqrt{e}^{\ln\left(\sqrt[e]{\sqrt[e]{e}}\right)} + \sqrt[e]{e} + \ln\left(\sqrt[e]{e}\right) + 
+\ln\left(\sqrt[e]{\sqrt[e]{e}}\right)\right)^{\sqrt[e]{e}} + \ln\left(\sqrt[e]{\sqrt{e}}\right)\right)^{\ln\left(\sqrt[e]{\sqrt{e}}\right)} - 
+\ln\left(\sqrt[e]{\sqrt[e]{e}}\right)\right)^{\sqrt[e]{e}} \cdot \ln\left(\sqrt[e]{\sqrt{e}}\right) \cdot \sqrt{e}}{\sqrt[e]{e}} - \ln\left(\sqrt[e]{\sqrt{e}}\right) + 
+e^e\right)^{\sqrt[e]{\sqrt{e}}} \cdot \sqrt[e]{e} + \ln\left(\sqrt[e]{\sqrt[e]{e}}\right)\right) \cdot 5\right)^{\ln\left(\sqrt[e]{\sqrt{e}}\right)}}{e} - 
+\ln\left(\sqrt[e]{\sqrt[e]{e}}\right)\right)^{\ln\left(\sqrt[e]{e}\right)} + e^e\right) \cdot \sqrt[e]{e} \cdot \ln\left(\sqrt[e]{\sqrt[e]{e}}\right) 
+Symbolic: (((((((((((((((((((((((((sqrt(e) ** ln(sqrt[e]{sqrt[e]{e}})) + sqrt[e]{e}) + ln(sqrt[e]{e})) + ln(sqrt[e]{sqrt[e]{e}})) ** sqrt[e]{e}) + ln(sqrt[e]{sqrt(e)})) ** 
+ln(sqrt[e]{sqrt(e)})) - ln(sqrt[e]{sqrt[e]{e}})) ** sqrt[e]{e}) * ln(sqrt[e]{sqrt(e)})) * sqrt(e)) / sqrt[e]{e}) - ln(sqrt[e]{sqrt(e)})) + e^e) ** sqrt[e]{sqrt(e)}) * 
+sqrt[e]{e}) + ln(sqrt[e]{sqrt[e]{e}})) * 5) ** ln(sqrt[e]{sqrt(e)})) / e) - ln(sqrt[e]{sqrt(e)})) ** ln(sqrt[e]{e})) + e^e) * sqrt[e]{e}) * ln(sqrt[e]{sqrt[e]{e}}))
+
+--- page 2 ---
+Python veriﬁcaƟon:  
+from decimal import Decimal, getcontext 
+ 
+getcontext().prec = 60 
+ 
+# Define Euler's number e as a high-precision Decimal 
+e = Decimal(1).exp() 
+ 
+# Define helper functions to maintain high precision 
+def ln(x): 
+    return x.ln() 
+ 
+def sqrt(x): 
+    return x.sqrt() 
+ 
+def root_e(x): 
+    # The e-th root of x, meaning x^(1/e) 
+    # In the decimal library, it is safer and more accurate to calculate this as exp(ln(x)/e) 
+    return (ln(x) / e).exp() 
+ 
+# Preparing precise symbolic components of the formula --- 
+s_e = e 
+s_sqrt_e = sqrt(e) 
+s_e_e = e ** e 
+s_root_e_e = root_e(e) 
+s_ln_root_e_e = ln(s_root_e_e) 
+s_root_e_sqrt_e = root_e(s_sqrt_e) 
+s_ln_root_e_sqrt_e = ln(s_root_e_sqrt_e) 
+s_root_e_root_e_e = root_e(s_root_e_e) 
+s_ln_root_e_root_e_e = ln(s_root_e_root_e_e)
+
+--- page 3 ---
+# Inside the first large block 
+step_1 = (((s_sqrt_e ** s_ln_root_e_root_e_e) + s_root_e_e) + s_ln_root_e_e) + s_ln_root_e_root_e_e 
+step_2 = step_1 ** s_root_e_e 
+step_3 = step_2 + s_ln_root_e_sqrt_e 
+step_4 = step_3 ** s_ln_root_e_sqrt_e 
+step_5 = step_4 - s_ln_root_e_root_e_e 
+step_6 = step_5 ** s_root_e_e 
+ 
+# First fraction and adding e^e 
+step_7 = (step_6 * s_ln_root_e_sqrt_e * s_sqrt_e) / s_root_e_e 
+step_8 = step_7 - s_ln_root_e_sqrt_e + s_e_e 
+step_9 = step_8 ** s_root_e_sqrt_e 
+ 
+# Multiplying by 5 and exponentiation 
+step_10 = (step_9 * s_root_e_e) + s_ln_root_e_root_e_e 
+step_11 = step_10 * 5 
+step_12 = step_11 ** s_ln_root_e_sqrt_e 
+ 
+# Second large fraction and exponentiation by ln(root_e(e)) 
+step_13 = (step_12 / s_e) - s_ln_root_e_sqrt_e 
+step_14 = step_13 ** s_ln_root_e_e 
+ 
+# Final addition of e^e and multiplying the tail of the formula 
+step_15 = step_14 + s_e_e 
+final_result = step_15 * s_root_e_e * s_ln_root_e_root_e_e 
+ 
+# Displaying the result rounded exactly to 30 decimal places 
+print(f"Expression result with 30 decimal places precision:") 
+print(f"{final_result:.30f}") 
+ 
+3.141592654422839442429480287976
+
+--- page 4 ---
+Or: 
+(((((((((((((((((((((((((1.648721270700128 ** 0.135335283236613) + 1.444667861009766) + 0.367879441171442) + 0.135335283236613) ** 
+1.444667861009766) + 0.183939720585721) ** 0.183939720585721) - 0.135335283236613) ** 1.444667861009766) * 0.183939720585721) * 
+1.648721270700128) / 1.444667861009766) - 0.183939720585721) + 15.154262241479260) ** 1.201943368470314) * 1.444667861009766) + 
+0.135335283236613) * 5) ** 0.183939720585721) / 2.718281828459045) - 0.183939720585721) ** 0.367879441171442) + 15.154262241479260) * 
+1.444667861009766) * 0.135335283236613)  
+ 
+Score from SageMath: 3.14159265442285 
+ 
+Where:  
+e = 2.718281828459045  
+sqrt(e) = 1.648721270700128  
+e^e = 15.154262241479260  
+sqrt[e]{e} = 1.444667861009766  
+ln(sqrt[e]{e}) = 0.367879441171442  
+sqrt[e]{sqrt(e)} = 1.201943368470314  
+ln(sqrt[e]{sqrt(e)}) = 0.183939720585721  
+sqrt[e]{sqrt[e]{e}} = 1.144920592687449  
+ln(sqrt[e]{sqrt[e]{e}}) = 0.135335283236613 
+ 
+Digit ok/digit used: 8/1 (800%) 
+ 
+ApproximaƟon of pi that uses only e and gives 8 OK digits: 
+ 
+((((((((((((((((((((((e + sqrt[e]{e}) + sqrt[e]{sqrt[e]{e}}) ** e) + ln(sqrt[e]{e})) - sqrt[e]{e}) / ln(sqrt[e]{e})) - ln(sqrt[e]{e})) ** sqrt{e}) / sqrt[e]{sqrt{e}}) * 
+ln(sqrt[e]{sqrt[e]{e}})) - e^e) / e^{e^e}) + e) * e^e) ** sqrt[e]{sqrt[e]{e}}) - e) + ln(sqrt[e]{e})) ** ln(sqrt[e]{sqrt{e}})) * sqrt[e]{e} 
+Score from SageMath: 3.1415926513438

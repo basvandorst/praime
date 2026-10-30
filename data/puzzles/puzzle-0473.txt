@@ -1,0 +1,213 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_473.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 473. N = n^p + p^n
+Source: https://www.primepuzzles.net/puzzles/puzz_473.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0473.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.leyland.vispa.com/numth/primes/xyyx.htm
+  https://www.primepuzzles.net/puzzles/puzz_472.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_474.htm
+  https://www.primepuzzles.net/puzzles/puzz_473.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 473. N = n^p + p^n
+
+Problems & Puzzles: Puzzles
+
+Puzzle 473. N = n^p + p^n
+
+Philippe Fondanaiche sent the following nice puzzle:
+
+Let N = n^p + p^n with n and p natural integers. If n and p are of the same parities, N is obviously even. So N is always composite.
+
+Q1. What happens to the primality of N if n and p are of opposite parities?
+
+Q2. For every p<30 value, find the smallest n value producing N prime.
+
+Farideh wrote:
+
+Q1: It's obvious that if gcd (n, p) >1 then N is composite.
+
+Also if p is of the form m^m^k where m and k are natural numbers and m is odd greater than 1 then n^p+p^n = (n^m^(m^k-1))^m + (m^((m^(k-1))*n))^m so (n^m^(m^k-1)) + (m^((m^(k-1))*n)) divides N. Hence in this case N can't be prime.
+
+The first 15 such numbers p (we know for these p always N = n^p+ p^n is composite) are:
+
+27, 3125, 19683, 823543, 387420489, 285311670611, 7625597484987,
+
+302875106592253, 98023223876953125, 437893890380859375,
+
+827240261886336764177, 1978419655660313589123979,
+
+5842587018385982521381124421,
+
+443426488243037769948249630619149892803 &
+
+256923577521058878088611477224235621321607.
+
+Q2 : If p is a member of {13, 17, 19, 23, 25, 26} then smallest number n such that
+
+n^p+p^n is prime if it exists is greater than 22222.
+
+For p=27 as I wrote there is no number n such that N is prime.
+
+If p+1 is prime then the smallest number n such that N is prime is n=1. Namely if
+
+p = 1, 2, 4, 6, 10, 12,16, 18, 22 & 28 then n=1.
+
+For others p, p<30 (p, smallest number n) such that N is prime are:
+
+(3, 2), (5, 24), (7, 54), (8, 69), (9, 2), (11, 3100), (14, 2763), (15, 2), (20, 357),
+
+(21,2), (24, 5) & (29, 6886).
+
+J. K. Andersen wrote:
+
+This form of prime is well known. See http://www.leyland.vispa.com/numth/primes/xyyx.htm
+
+Q1.
+
+If p=1 then n^p + p^n = n+1, so N is prime iff n+1 is prime.
+
+From now on I will assume p>1 and n>1.
+
+Below are two restrictions on the primality of N = n^p + p^n.
+
+1) n and p must be relatively prime, because gcd(p, n) divides n^p + p^n.
+
+n and p having different parities is a special case of this.
+
+2) If p+1 is an odd prime then n must be a multiple of p+1. Proof:
+
+Assume p+1 is an odd prime and n is not a multiple of p+1.
+
+p must be even. If n is also even then 2 divides N.
+
+Now consider odd n. Then p^n == (-1)^n == -1 (mod p+1).
+
+p+1 is prime and gcd(n, p+1) = 1, so by Fermat's little theorem:
+
+n^p == 1 (mod p+1).
+
+Then n^p + p^n == 1 + -1 == 0 (mod p+1), so p+1 divides N.
+
+The currently (9 January 2009) 875 known primes and prp's of
+
+form n^p + p^n are shown at http://xyyxf.at.tut.by/primes.html.
+
+The form is usually written x^y + y^x and is sometimes called
+
+Leyland numbers, with prime values called Leyland primes.
+
+The only known way to show that more primes or prp's of this form
+
+exist is to find them. After seeing this puzzle I reserved a range
+
+and found 3 of the listed prp's with MultiSieve and PrimeForm/GW:
+
+12049^1588 + 1588^12049 (38568 digits)
+
+12004^1935 + 1935^12004 (39454 digits)
+
+12030^9503 + 9503^12030 (47854 digits)
+
+This gives the only known prp for p = 1935, 9503, 12004, 12030, 12049.
+
+Two other prp's were already known for p = 1588.
+
+The 17 known cases where p+1 is prime are:
+
+n^2 + 2^n, for n in {3, 9, 15, 21, 33, 2007, 2127, 3759,
+
+29355, 34653, 57285, 99069}
+
+185^36 + 36^185, where 185 = 5*37
+
+5041^70 + 70^5041, where 5041 = 71*71
+
+3237^82 + 82^3237, where 3237 = 39*83
+
+2659^2658 + 2658^2659
+
+9377^9376 + 9376^9377
+
+Q2.
+
+The known primes or prp's with 1 < p < 30 are shown below.
+
+p: n values
+
+-----------
+
+2: 3, 9, 15, 21, 33, 2007, 2127, 3759, 29355, 34653, 57285, 99069
+
+3: 2, 56, 10112, 63880, 78296
+
+5: 24, 1036
+
+7: 54, 3076, 11796
+
+8: 69, 519, 2385, 11889, 26205
+
+9: 2, 76, 122, 422, 2300, 5090, 7166, 58046, 91382
+
+11: 3100
+
+14: 2763
+
+15: 2, 32, 15044
+
+20: 357, 471
+
+21: 2, 68, 782
+
+24: 5
+
+29: 6886
+
+For p<29, the first listed n is proven to be the smallest producing a prime.
+
+For p=29, 6886^29 + 29^6886 with 10071 digits is the smallest prp.
+
+There are no primes for p=4. Proof:
+
+4^n + n^4 is even for even n.
+
+4^n + n^4 = (2^n+n^2-n*2^((n+1)/2)) * (2^n+n^2+n*2^((n+1)/2)).
+
+This gives a factorization for odd n, where (n+1)/2 is an integer.
+
+I don't know whether primes exist for the 14 remaining p values:
+
+6, 10, 12, 13, 16-19, 22, 23, 25-28.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

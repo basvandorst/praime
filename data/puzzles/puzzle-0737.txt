@@ -1,0 +1,174 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_737.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 737. Maximize  log(s) / log(maxPrimeFactor(s))
+Source: https://www.primepuzzles.net/puzzles/puzz_737.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0737.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  tel:8.327092355
+  tel:17053917  %20477
+  https://www.primepuzzles.net/puzzles/puzz_736.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_738.htm
+  https://www.primepuzzles.net/puzzles/puzz_737.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 737. Maximize log(s) / log(maxPrimeFactor(s))
+
+Problems & Puzzles: Puzzles
+
+Puzzle 737. Maximize log(s) / log(maxPrimeFactor(s))
+
+Fred Schneider sent the following nice puzzle:
+
+Maximize log(s) / log(maxPrimeFactor(s)) where s = sigma(p^x), p is prime and x >=2
+
+Consider the prime number: 10889273
+
+10889273^5 is interesting with respect to its sigma (or divisor sum)
+
+Let s = sigma(10889273^5) = 153106796458831178584646446634328654
+
+s is quite smooth for a largish number, 373-smooth in fact.
+
+factor(sigma(10889273^5)) =
+
+2 * 3^2 * 7 * 11^2 * 19^3 * 53 * 73 * 109 * 163 * 181 * 211 * 223 * 229 * 283 * 307 * 337 * 373
+
+If we take the log(s) / log(maxPrimeFactor(s)) = log(s) / log(373, we get 13.6816 roughly.
+
+Q. Can you find a higher ratio of log(s) / log(maxPrimeFactor(s)) where s = sigma(p^x), p is a prime, and x >=2 and give some insight into how you found the solution?
+
+____________
+
+(Note: x=1 is not for consideration because it's relatively simple to create find a 3-smooth sigma(p) )
+
+Contributions came from Jaroslaw Wroblewski, Jan van Delden and Vicente Felipe Izquierdo.
+
+***
+
+Wroblewski wrote:
+
+Regarding Puzzle 737, the ratio can be arbitrarily large.
+
+For any x the polynomial sigma(p^x)=1+p+p^2+...+p^x=(p^(x+1)-1)/(p-1)
+
+in variable p splits into factors of degree at most EulerPhi[x+1]. In
+
+the worse scenario those factors are primes and even in such a case
+
+the ratio tends to x/EulerPhi[x+1] as p goes to infinity. Since the
+
+ratio x/EulerPhi[x+1] can be arbitrarily large, so can be the ratio
+
+given in the puzzle.
+
+Unfortunately the above proof does not produce any example small
+
+enough to leave hope for factoring sigma(p^x).
+
+***
+
+Jan wrote:
+
+We have sigma(p^a)=(p^(a+1)-1)/(p-1).
+
+The polynom x^a-1 is divisible by x^b-1 if b|a.
+
+For instance x^6-1 is divisible by x-1,x^2-1 and x^3-1.
+
+Giving x^6-1/(x-1)=(x+1)(x^2+x+1)(x^2-x+1)=Phi(2).Phi(3).Phi(6)
+
+[For more information look up: Cyclotomic polynomials]
+
+If these factors don't split upon substitution of a prime p, the worst that can happen is that
+
+f=max(log(s))/log(maxPrimeFactor(s))=log(p^5)/log(p^2)=2.5 (if a=5) approximately.
+
+This minimum could be increased by increasing a. It could therefore be wise to choose a+1
+
+equal to a product of small primes, forcing the highest power of x to be small compared to a.
+
+x^30-1=(x^6-1)(x^4+x^3+x^2+x+1)(x^4-x^3+x^2-x+1)(x^8+x^7-x^5-x^4-x^3+x+1)(x^8-x^7+x^5-x^4+x^3
+
+-x+1). Here we would have a minimum f=log(p^29)/log(p^8)=3.625.
+
+However now we have more factors which simultaneously have to split upon substituting a prime
+
+p. Which might be too much to ask for.
+
+The found value of 13.68 is huge in the sense that it tells us that (x+1) splits into at least
+
+3 primefactors and 6 primefactors for the other two terms (if the primefactors are about
+
+the same size..).
+
+In fact we have, for x=10889273:
+
+x+1=2.3.11.11.53.283 (2 or 1 mod 2,i.e. empty statement)
+
+x^2-x+1=3.7.19.19.19.73.109.307.337 (3 or 1 mod 6)
+
+x^2+x+1=163.181.211.223.229.373 (3 or 1 mod 6)
+
+My routine uses these polynomial splits combined with trial division given a list of
+
+primes<=B, where B depends on p,a and the current maximum value of the constant f. I used
+
+B=trunc(p^(a/f)). I didn't use the above "mod" relations. If a/f>1, the primelist will
+
+increase in size rather fast. To save memory capacity one could either search for f at least
+
+equal to a and hope for the best, or factorise s instead.
+
+a p q f upb(p)
+
+2 1389087499 157 8.327092355 265.10^7
+
+5 10889273 373 13.68156225 125.10^7
+
+11 19658641 1234687 13.17053917 477.10^5
+
+***
+
+Vicente wrote:
+
+Un punto de partida donde se pueden encontrar valores muy grandes para la solución pedida sería el caso donde:
+
+p^k = (2r+1)^s
+
+Donde 2r+1 debe ser mínimo.
+
+O sea, sería encontrar la potencia de un primo que equivalga a la potencia de un impar pequeño.
+
+En este caso sigma(p^k) sería máximo respecto a 2r+1.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,633 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://www.primepuzzles.net/problems/Prob73,%20JvD.pdf. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://www.primepuzzles.net/problems/Prob73,%20JvD.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+Minimal symmetrical tuples of consecutive Twin primes
+Jan van Delden
+April 4, 2020
+It is the purpose of this article to give some insight into the number of minimal symmetrical tuples of Twin
+primes with length 2n less than a given bound x. We will use the Hardy-Littlewood conjecture to estimate the
+number of primes that comply to the associated admissible prime constellation . A ﬁnal correction is necessary
+to make sure that these primes are actually consecutive .
+1 Deﬁnition
+A symmetrical tuple of consecutive twin primes is a list of 2 n consecutive primes [p1,p 2,··· ,p 2n−1,p 2n],n∈ N
+such that:
+• The list constists of pairs of twin primes: p2k =p2k−1 + 1,k∈{ 1,··· ,n}
+• The list is symmetrical (around its center): pk +p2n+1−k =c for some constant c
+• The primes in the list are consecutive.
+The tuple is called minimal if its diameter p2n−p1 is minimal. Such a tuple is called a prime constellation.
+2 Admissible constellations
+If, for the moment, we drop the requirement that the primes are consecutive, we may ﬁrst focus on ﬁnding
+conditions on primes p∈ P and a list of numbers ak where pk =p +ak is prime:
+An = [a1,a 2,··· ,a 2n]
+We are to ﬁnd a constellation, thus multiple values of p, such that all the pk are prime. This means that
+we can’t ﬁnd a divisor q (other than the pk). The residue of pk modulo q should not equal 0. This is equivalent
+to ﬁnding ak such that the set:
+An,q ={a1 mod q,··· ,a 2n mod q}
+contains at least one free residue modulo q. For every prime q there are q residues to consider. This means that
+if q >2n there is at least one free residue. In order to ﬁnd a condition on p it is therefore suﬃcient to consider
+q≤ 2n. For every qi we obtain a set of free residues Sqi. An application of the Chinese remainder theorem may
+give us a set of residues modulo the product of the primes qi, from which we may choose p.
+It is not my intention to ﬁnd these constellations. These are precomputed by Natalia Makarova 12.
+2.1 A2 = [0, 2, 6, 8]
+The reduced residue sets are:
+q A2,q
+2 {0}
+3 {0, 2}
+1 Natalia Makarova, A3 privately communicated
+2 Problem 73, primepuzzles.net
+1
+
+--- page 2 ---
+This means that we should have:
+{ p≡ 1 mod 2
+p≡ 2 mod 3
+And the Chinese remainder theorem (or just trying) gives: p≡ 5 mod 6.
+2.2 A3 = [0, 2, 12, 14, 24, 26]
+The reduced residue sets are:
+q A3,q
+2 {0}
+3 {0, 2}
+5 {0, 1, 2, 4}
+This means3 that we should have:
+
+
+
+p≡ 1 mod 2
+p≡ 2 mod 3
+p≡ 2 mod 5
+And the Chinese remainder theorem gives: p≡ 17 mod 30.
+The given constellation does not contain [4 , 6, 8, 10, 16, 18, 20, 22]. Given the previously computed condition
+p mod 30 = 17, we have p +{4, 10, 16, 22} mod 3 = {0}; or 3 is a divisor in these cases. We further have
+p +{8, 18} mod 5 ={0}, so 5 is a divisor in these cases. We additionally need p +{6, 20} to be not prime in
+order for the constellation to consist of consecutive primes.
+2.3 A4 = [0, 2, 12, 14, 18, 20, 30, 32]
+q A4,q
+2 {0}
+3 {0, 2}
+5 {0, 2, 3, 4}
+7 {0, 2, 4, 5, 6}
+This means that we should have:
+
+
+
+p≡ 1 mod 2
+p≡ 2 mod 3
+p≡ 4 mod 5
+p≡{ 4, 6} mod 7
+And the Chinese remainder theorem gives: p≡{ 179, 209} mod 210.
+The given constellation does not contain [4 , 6, 8, 10, 16, 22, 24, 26, 28]. Given the previously computed residues,
+we havep +{4, 10, 16, 22, 28} mod 3 ={0},p +{6, 26} mod 5 ={0}. Only [8, 24] might generate an additional
+prime, which we would like to avoid since we seek consecutive primes. If p≡ 4 mod 7, p≡ 179 mod 210 we
+should additionally have that p + 8 is not prime and similarly if p≡ 6 mod 7, p≡ 209 mod 210 we should
+impose that p + 24 is not prime.
+2.4 A5 = [0, 2, 6, 8, 18, 20, 30, 32, 36, 38]
+We should have:
+
+
+
+p≡ 1 mod 2
+p≡ 2 mod 3
+p≡ 1 mod 5
+p≡ 2 mod 7
+And the Chinese remainder theorem gives: p≡ 191 mod 210.
+3 Find the missing residues in the complement of the displayed residue sets. For instance {0, 1, 2, 4}↦→{ 0, 4, 3, 1}
+thus residue 2 mod 5 is missing
+2
+
+--- page 3 ---
+2.5 A6 = [0, 2, 12, 14, 24, 26, 30, 32, 42, 44, 54, 56]
+Deﬁne the primorial function pk# =
+k∏
+m=1
+pm.
+The residues of p mod p5#, p5# = 2310, are in the set:
+{587, 797, 1007, 1247, 1457, 1667}.
+2.6 A7 = [0, 2, 24, 26, 30, 32, 42, 44, 54, 56, 60, 62, 84, 86]
+The residues of p mod p6# are in the set:
+{797, 3737, 10037, 14657, 15287, 19907, 26207, 29147}.
+2.7 A8 = [0, 2, 30, 32, 42, 44, 54, 56, 60, 62, 72, 74, 84, 86, 114, 116]
+The residues of p mod p6# are in the set:
+{6047, 14627, 15287, 23867}.
+2.8 A9 = [0, 2, 18, 20, 30, 32, 42, 44, 60, 62, 78, 80, 90, 92, 102, 104, 120, 122]
+The residues of p mod p7# are in the set:
+{150089, 240179, 270209, 360299}.
+2.9 A10a = [0, 2, 12, 14, 30, 32, 42, 44, 54, 56, 90, 92, 102, 104, 114, 116, 132, 134, 144, 146]
+There are 108 residues of p mod p8#:
+{59987, 96947, 203207, 217067, 360287, 397247, 517367, 623627, 660587, 780707, 817667, 923927, 937787, 1081007,
+1238087, 1314317, 1538387, 1614617, 1771697, 1801727, 1928777, 1958807, 2035037, 2192117, 2335337, 2455457,
+2492417, 2635637, 2649497, 2755757, 2792717, 2912837, 2949797, 3056057, 3069917, 3176177, 3213137, 3333257,
+3370217, 3476477, 3513437, 3633557, 3670517, 3776777, 3790637, 3933857, 4090937, 4167167, 4197197, 4354277,
+4391237, 4511357, 4654577, 4811657, 4887887, 5044967, 5188187, 5308307, 5345267, 5502347, 5532377, 5608607,
+5765687, 5908907, 5922767, 6029027, 6065987, 6186107, 6223067, 6329327, 6366287, 6486407, 6523367, 6629627,
+6643487, 6749747, 6786707, 6906827, 6943787, 7050047, 7063907, 7207127, 7244087, 7364207, 7507427, 7664507,
+7740737, 7770767, 7897817, 7927847, 8084927, 8161157, 8385227, 8461457, 8618537, 8761757, 8775617, 8881877,
+8918837, 9038957, 9075917, 9182177, 9302297, 9339257, 9482477, 9496337, 9602597, 9639557}.
+2.10 A10b = [0, 2, 12, 14, 42, 44, 54, 56, 60, 62, 84, 86, 90, 92, 102, 104, 132, 134, 144, 146]
+There are 16 residues of p mod p8#:
+{143357, 263477, 877517, 1284497, 1360727, 2381747, 2501867, 3522887,
+6176657, 7197677, 7317797, 8338817, 8415047, 8822027, 9436067, 9556187}.
+2.11 A11 = [0, 2, 12, 14, 30, 32, 42, 44, 54, 56, 72, 74, 90, 92, 102, 104, 114, 116, 132, 134, 144, 146]
+There are 16 residues of p mod p8#:
+{360287, 660587, 780707, 1801727, 2192117, 3213137, 3333257, 4354277,
+5345267, 6366287, 6486407, 7507427, 7897817, 8918837, 9038957, 9339257}.
+3
+
+--- page 4 ---
+2.12 A12 = [0, 2, 30, 32, 42, 44, 60, 62, 72, 74, 84, 86, 120, 122, 132, 134, 144, 146, 162, 164, 174, 176, 204, 206]
+There are 40 residues of p mod p9#:
+{6906797, 12492377, 16486367, 22192067, 26186057, 26306177, 36005867, 42732587, 45585437, 52432277, 64984817,
+69669497, 71831657, 74684507, 79369187, 91231037, 95225027, 98768567, 100930727, 104924717, 118167947, 122161937,
+124324097, 127867637, 131861627, 143723477, 148408157, 151261007, 153423167, 158107847, 170660387, 177507227,
+180360077, 187086797, 196786487, 196906607, 200900597, 206606297, 210600287, 216185867}.
+2.13 A13
+There are 4 diﬀerent admissible constellations, giving a total of 197 residues of p modulo p9#.
+3 Hardy-Littlewood conjecture
+The length of the admissible constellation 2 n deﬁnes some prime qmax, the largest prime q for which q≤ 2n.
+The admissible initial values of p are conﬁned to a set of residues modulo a primorial qmax#, thereby greatly
+reducing the amount of work in ﬁnding a solution for an admissible constellation, i.e. ﬁnding an explicit values
+for p. On the downside the number of conditions on p have increased, it should have eﬀect on the number
+of possible solutions p under a given bound x. The Hardy-Littlewood conjecture adresses this point. As the
+name suggests it is not a theorem, it is based on reasonable assumptions. It can be derived using a probabilis-
+tic argument, as shown in Prime Numbers and Computer Methods for Factorization (Riesel,1994). I will use
+a more direct approach, for which I’ll use the article ’Hardy-Littlewood constants’ by Keith Conrad 4. See also 5.
+Givenfi(t) =t +ai, with ai a term deﬁned by the constellation, deﬁne:
+πf1,··· ,f2n(x) = #{k≤x :f1(k),··· f2n(k) are all prime}
+This function counts the number of prime constellations, with the smallest prime less than or equal to x.
+We need the various ai to be distinct and f(k), the product of the fi(k), may not be divisible by a prime q for
+all integers k, i.e. we need a free residu ai modulo q for all values of i,q .
+Conjecture) (Hardy-Littlewood):
+πf1,··· ,f2n(x)
+c
+∼C(f1,··· ,f 2n) xln(x)2n or πf1,··· ,f2n(x) c∼C(f1,··· ,f 2n)∫ x2 1ln(t)2n dt6
+where:
+Cf
+.=C(f1,··· ,f 2n) =∏
+q∈P
+1−wf(q)/q
+(1− 1/q)2n
+and wf(q) is the number of roots of f(t) =f1(t)··· f2n(t) in Z/qZ.
+In other words: to compute the constant Cf we have to ﬁnd the number of occupied residues modulo a prime q
+within our constellation deﬁned by ai, for every prime q.
+In order to compute this constant we need to split the primes q. If q > a2n we know that the values of
+fi(t) mod q =fi(t) are distinct and we have wf(q) = 2n. This leads to a socalled 2 n-tuple constant of Hardy-
+Littlewood, which covers the ’large portion’ of the primes q:
+C2n =
+∏
+q∈P,q>a2n
+1− 2n/q
+(1− 1/q)2n =
+∏
+q∈P,q>a2n
+q2n−1(q− 2n)
+(q− 1)2n =
+∏
+q∈P,q>a2n
+q− 2n
+q(q− 1
+q
+)2n
+4 Hardy-Littlewood constants, Keith Conrad
+5 On The Asymptotic Density Of Prime k-tuples and a Conjecture of Hardy and Littlewood , L´ asl´ o T´ oth
+6 We have
+∫ x
+2
+1
+ln(t)k dt∼ xln(x)k
+(
+1 + kln(x)), for large x
+4
+
+--- page 5 ---
+The second product has q− 2n in the numerator, the number of free residues. The last product is a conse-
+quence of a probabilistic argument, it displays a fraction of two probabilities. In the numerator the probability
+that the t +ai are prime and that these events are dependent, divided by the probability that each of the t +ai
+are prime and that these events are independent.
+For q ≤ a2n we have to compute the number of free residues for each prime q separately. (I’ll use F , the
+contribution of a ﬁnite number of q):
+Fa2n =
+∏
+q∈P,q≤a2n
+q2n−1· #free residues mod q
+(q− 1)2n
+For the given constellations we already computed the number of free residues for q ≤ qmax. We also need
+to check the (possible) values 2n<q ≤a2n
+Thereby splitting the requested constant into two parts: Cf =Fa2n·C2n
+Example - The twin prime constant
+The admissible constellation is p + [0, 2]. We ﬁnd that qmax = 2. The twin prime constant, or 2-tuple constant
+equals
+C2 =
+∏
+q∈P,q>2
+1− 2/q
+(1− 1/q)2 =
+∏
+q∈P,q>2
+q(q− 2)
+(q− 1)2 =
+∏
+q∈P,q>2
+(
+1− 1(1−q)2
+)
+≈ 0.66016181587
+We necessarily havep mod 2 = 1. There is one free residue and ﬁnd:
+F2 = 21· 1(2− 1)2 = 2.
+4 Computation of Hardy-Littlewood constants Cn
+The question is how to eﬀectively compute an inﬁnite product over the primes:
+Cn =
+∏
+q∈P,q≥q0
+qn−1(q−n)
+(q− 1)n
+The index n is changed for convenience, we’ll use even n later on. We necessarily have q0 >n . Lets change the
+product into a sum by applying the natural logarithm:
+ln(Cn) = ln
+
+ ∏
+q∈P,q≥q0
+qn−1(q−n)
+(q− 1)n
+
+
+ln(Cn) =
+∑
+q∈P,q≥q0
+ln
+(qn−1(q−n)
+(q− 1)n
+)
+ln(Cn) =
+∑
+q∈P,q≥q0
+ln
+( qn(1−n/q)
+qn(1− 1/q)n
+)
+ln(Cn) =
+∑
+q∈P,q≥q0
+(ln(1−n/q)−n ln(1− 1/q)) (4.1)
+We now apply the series representation of ln(1−x) =−(x +x2/2 +x3/3 +··· ):
+ln(Cn) =
+∑
+q∈P,q≥q0
+(
+−(n/q +n2/(2q2) +n3/(3q3) +··· ) +n(1/q + 1/(2q2) + 1/(3q3) +··· ))
+ln(Cn) =
+∑
+q∈P,q≥q0
+∞∑
+j=2
+n−nj
+j
+1
+qj =−
+∞∑
+j=2
+nj−n
+j
+∑
+q∈P,q≥q0
+1
+qj (4.2)
+7 The on-line encyclopedia of integer sequences, A005597
+5
+
+--- page 6 ---
+We may write:
+∑
+q∈P,q≥q0
+1
+qj =P (j)−
+∑
+q∈P,q<q0
+1
+qj (4.3)
+Where P (s) equals the prime zeta function:
+P (s) =
+∑
+q∈P
+1
+qs (4.4)
+In a similar manner, by using the Euler product deﬁnition of the Riemann zeta function, one may derive:
+ln(ζ(s)) =−
+∑
+q∈P
+ln(1−q−s) =
+∞∑
+k=1
+P (ks)
+k
+Inversion using the Moebius function µ(·) gives:
+P (s) =
+∞∑
+k=1
+µ(k)
+k ln(ζ(ks)) (4.5)
+If we substitute (4.5) into (4.3) and ﬁnally in (4.2) we arrive at:
+ln(Cn) =−
+∞∑
+j=2
+nj−n
+j
+
+
+∞∑
+k=1
+µ(k)
+k ln(ζ(kj))−
+∑
+q∈P,q<q0
+1
+qj
+
+ (4.6)
+Thus converting the task of computing an inﬁnite product to summing an inﬁnite numbers of values of the
+Riemann zeta function. Since time is limited, we need to bound both series to say jmax,k max. The good news
+is that good algorithms exist in order to compute ζ(·).
+The convergence may be enhanced 8 by splitting (4.4)
+P (s) =
+∑
+q∈P,q<q1
+1
+qs +
+∑
+q∈P,q≥q1
+1
+qs
+And subsequently alter ζ(s) to:
+ζq≥q1(s) =ζ(s)
+∏
+q∈P,q<q1
+(
+1− 1qs
+)
+(4.7)
+Which leads to ln( ζq≥q1(s)) = O(q−s1 ), this gives a handle to inﬂuence the speed of convergence, by suitably
+choosing q1 large enough. And (4.4) is generalized to:
+P (s) =
+∑
+q∈P,q<q1
+1
+qs +
+∞∑
+k=1
+µ(k)
+k ln(ζq≥q1(ks)) (4.8)
+If we assume that q1 >q 0 we may write:
+ln(Cn) =−
+∞∑
+j=2
+nj−n
+j
+
+
+∞∑
+k=1
+µ(k)
+k ln(ζq≥q1(kj)) +
+∑
+q∈P,q0≤q<q1
+1
+qj
+
+ (4.9)
+8 High precision computation of Hardy-Littlewoord constants, Henri Cohen
+6
+
+--- page 7 ---
+If we take a close look at (4.9) we may observe that after splitting the right hand side, or by retracing the
+steps all the way back to (4.1) that we may write:
+ln(Cn) =
+∑
+q∈P,q0≤q<q1
+(ln(1−n/q)−n ln(1− 1/q))−
+∞∑
+j=2
+nj−n
+j
+(∞∑
+k=1
+µ(k)
+k ln(ζq≥q1(kj))
+)
+(4.10)
+The sum on the left hand side is computed for a limited number of primes q. One may even choose q1 =q0 with
+the understanding that this sum is set to 0. The sum on the right hand side can be computed as is, but that
+would entail recomputing ζq≥q1(N) for every possible factorisation of N =kj. Change the outer sum in a sum
+overN and the inner sum over divisors k of N. We may choose k<N :
+∞∑
+j=2
+nj−n
+j
+(∞∑
+k=1
+µ(k)
+k ln(ζq≥q1(kj))
+)
+=
+∞∑
+N =2
+
+ ∑
+k|N,k<N
+µ(k)
+(
+nN/k−n)
+
+ ln(ζq≥q1(N))
+N (4.11)
+One needs suitable values for A,N max, an implementation for µ(·),ζ (·) and possibly a sieve to ﬁnd k|N. We
+may put ln(ζq≥q1(N)) =C·q−N1 for some constant C. A rather tight bound on the inner sum only considers its
+main contribution k = 1:
+⏐⏐⏐⏐⏐⏐ ∑k|N,k<Nµ(k)(nN/k−n)⏐⏐⏐⏐⏐⏐<n N
+This leads to the following estimate of the summand in the outer sum:
+C
+N
+(n
+q1
+)N
+Equating with the required accuracy, say 10−m, gives a relation between q1 and Nmax:
+ln(Nmax) +Nmax ln
+(q1
+n
+)
+=m ln(10) + ln(C)
+If one chooses q1/n≈ 10 one would arrive at Nmax < m, if C = 1. Note that C > 1 and will tend to 1
+fast ifN increases, soC = 1 is a safe choice if the resulting N is large enough. One could set Nmax =m in order
+to be on the safe side, or recompute with a larger Nmax as a check. A simple rough estimate of the remainder,
+with N >Nmax may be found by using:
+C
+∑
+N≥Nmax+1
+(n/q1)N
+N < CNmax + 1 ∑N≥Nmax+1(n/q1)N = CNmax + 1 (n/q1)Nmax+11−n/q1 10−m≈ n/q11−n/q1 10−m
+Example - The twin prime constant
+We haven = 2,q 0 = 3, choose m = 10 and assume C = 1.
+• q1 = 5 Which leads to Nmax≈ 21.8, choose Nmax = 22. Realised signiﬁcant digits: 10.
+• q1 = 23 Which leads to Nmax≈ 8.5, choose Nmax = 9. Realised signiﬁcant digits: 11.
+Example - A8
+We haven = 16,q 0 = 47, choose m = 10 and assume C = 1.
+• q1 = 53 Which leads to Nmax≈ 16.9, choose Nmax = 17. Realised signiﬁcant digits: 10.
+• q1 = 163 Which leads to Nmax≈ 8.9, choose Nmax = 9. Realised signiﬁcant digits: 10.
+7
+
+--- page 8 ---
+5 Computed values of C2n, Fa2n
+In order to estimate the number of symmetrical prime constellations Ak less than a given bound x we found
+that we have (where a diﬀerent notation is introduced):
+πAn(x) .=πf1,··· ,f2n(x) =Cf xln(x)2n =CAn xln(x)2n
+If n increases, the number of constellations less than x drop. The only hope is that the constant Cf is rel-
+atively large to counter this eﬀect. Its value will at least give some insight into the amount of work that is
+involved to ﬁnd a constellation or that all hope is lost from the very start.
+5.1 A2 = [0, 2, 6, 8]
+The number of free residues are:
+q # free residues
+2 1
+3 1
+5 1
+7 3
+We already have 5− 4 = 1, 7− 4 = 3 free residues, we may take q0 = 5. We thus ﬁnd:
+F8 = 23· 114 33· 124 = 272 = 13.5
+and:
+C4 =
+∏
+q∈P,q≥5
+q3(q− 4)
+(q− 1)4 ≈.307494878758
+We ﬁnd:
+CA2≈ 4.15118086329
+I chose to include as many terms as possible in the constant Cn. As an alternative one could always choose
+the maximum value for q0≤ a2n. That would have been more inline with the choices discussed earlier. The
+downside is that one should include all these primes in F2n. It is of no consequence to the value of CAn.
+5.2 A3 = [0, 2, 12, 14, 24, 26]
+The number of free residues are:
+q # free residues
+2 1
+3 1
+5 1
+7 3
+11 6
+q # free residues
+13 8
+17 11
+19 13
+23 17
+We have 23− 6 = 17, 19− 6 = 13, 17− 6 = 11 free residues, we may take q0 = 17. We thus ﬁnd:
+F16 = 25· 116 35· 126 55· 146 75· 365 115· 6106 135· 8126 = 96.2951142008421
+and:
+C6 =
+∏
+q∈P,q≥17
+q5(q− 6)
+(q− 1)6 ≈.73909703624310
+9 The on-line encyclopedia of integer sequences, A061642
+10 Compare withThe on-line encyclopedia of integer sequences, A269846
+8
+
+--- page 9 ---
+We ﬁnd:
+CA3≈ 71.1714335105
+5.3 A4 = [0, 2, 12, 14, 18, 20, 30, 32]
+A check reveals that q0 = 11 suﬃces. We have
+F32 = 27· 118 37· 128 57· 148 77· 268 = 1278.306978444258372
+and:
+C8 =
+∏
+q∈P,q≥11
+q7(q− 8)
+(q− 1)8 ≈.2324193345867
+We ﬁnd:
+CA4≈ 297.1032573276
+5.4 A5 = [0, 2, 6, 8, 18, 20, 30, 32, 36, 38]
+Here q0 = 23 suﬃces. We have
+F38 = 29· 1110 39· 1210 59· 1410 79· 1610 119· 21010 139· 41210 179· 81610 199· 101810 ≈ 3082.1300015483156102
+and:
+C8 =
+∏
+q∈P,q≥23
+q9(q− 10)
+(q− 1)10 ≈.561884255151
+We ﬁnd:
+CA5≈ 1731.8003201998
+5.5 A6 through A13
+Instead of giving all the details for the remaining values CAn, a summary of the results:
+n q0 F2n Cn CAn
+6 17 322292 .42 .17608349 56750 .37
+7 47 625235 .66 .63814423 398990 .53
+8 47 1979786 .18 .54635368 1081663 .46
+9 67 62117967 .16 .59989868 37264486 .50
+10a 79 9430329685 .26 .60747747 5728712858 .35
+10b 79 1593897580 .55 .60747747 968256876 .41
+11 79 39835337400 .00 .54172319 21579725856 .15
+12 107 567180030239 .48 .61136188 346752246821 .55
+13a 113 6900553412737 .26 .59628958 4114728064971 .66
+13b 113 11445368568398 .75 .59628958 6824753964719 .15
+13c 113 16945940845980 .42 .59628958 10104687872946 .43
+13d 113 21105314296815 .85 .59628958 12584878902155 .73
+The constants are accurate up to the implied displayed accuracy. The constellations for A13:
+A13a = [0, 2, 6, 8, 36, 38, 48, 50, 66, 68, 78, 80, 108, 110, 138, 140, 150, 152, 168, 170, 180, 182, 210, 212, 216, 218]
+A13b = [0, 2, 6, 8, 36, 38, 48, 50, 66, 68, 90, 92, 108, 110, 126, 128, 150, 152, 168, 170, 180, 182, 210, 212, 216, 218]
+A13c = [0, 2, 6, 8, 36, 38, 66, 68, 78, 80, 90, 92, 108, 110, 126, 128, 138, 140, 150, 152, 180, 182, 210, 212, 216, 218]
+A13d = [0, 2, 36, 38, 48, 50, 66, 68, 78, 80, 90, 92, 108, 110, 126, 128, 138, 140, 150, 152, 168, 170, 180, 182, 216, 218]
+9
+
+--- page 10 ---
+6 Consecutive primes
+A value for p such that the p +ai are prime, with ai in An does ensure that we found a minimal symmetrical
+set of twin primes, but it does not ensure that these primes are consecutive.
+As shown previously we have that A4 does not contain the values in the set B4 ={bi} ={8, 24} where p +bi
+might be prime. In this case we may choose p from a set of 2 residues modulo 210. For each residu, there is
+one such number bi that might be prime as well. We know, by construction, that p +bi is not divisible by any
+number in{2, 3, 5, 7}.
+We could extend A4 by using both values in {8, 24} separately and compute the corresponding estimate of
+the number of constellations as a function of x. We ﬁnd:
+πA4,8(x)≈πA4,24(x)
+c
+∼ 504.1 xln(x)9
+We need to subtract these estimates for both elements in {8, 24} from πA4. We therefore estimate that the
+number of symmetrical set of consecutive twin primes is equal to:
+πA4,consecutive(x)≈πA4− 2πA4,8(x)
+c
+∼ 297.1 xln(x)8
+(
+1− 3.394ln(x)) (6.1)
+or its logarithmic integral counterpart:
+πA4,consecutive(x)
+c
+∼ 297.1
+∫ x
+2
+1
+ln(t)8 dt− 1008.2
+∫ x
+2
+1
+ln(t)9 dt (6.2)
+The given estimates are quite diﬀerent for small values of x. The ﬁrst estimate (6.1) will return positive values
+forx≥ 30 and the second estimate (6.2), is positive for x≥ 2. In fact one may estimate that they will approxi-
+mately diﬀer by 5 percent or less if x≥e160≈ 3· 1069.
+A test reveals that even for n = 4 both estimates have diﬃculty to capture the behaviour of the exact value of
+πA4,consecutive(x):
+πA4,consecutive(x)
+x exact (6.1) (6.2)
+106 1 0.17 1041.13
+107 1 0.51 1041.83
+108 5 1.83 1944.19
+109 13 7.30 1053.22
+1010 48 32.06 1091.50
+1011 228 151.90 1267.89
+1012 1132 767.02 2138.54
+2· 1012 1817 1262.53 2827.45
+This means that one has to extend this table to rather large x in order to be able to see whether the estimates
+are any good. For n >4 the density of these prime constellations decreases even further. In fact ﬁnding just
+one prime constellation for n≥ 8 could take quite some computing time.
+In general this type of computation will get more intricate with increasing n. For A8 we found that p should
+fall into one of four possible residue classes mod p6#, lets call these pi. Similar to n = 4 there is one num-
+ber bi for each of these values of pi, with bi ∈ B = {24, 50, 66, 92}. Unlike n = 4 there is a second set
+C ={6, 12, 20, 26, 90, 96, 110} for which pi +ck may not be prime for all pi and ck.
+10

@@ -1,0 +1,173 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_685.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 685 Follow up to puzzle 683
+Source: https://www.primepuzzles.net/puzzles/puzz_685.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0685.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_683.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_684.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_686.htm
+  https://www.primepuzzles.net/puzzles/puzz_685.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 685 Follow up to puzzle 683
+
+Problems & Puzzles: Puzzles
+
+Puzzle 685 Follow up to puzzle 683
+
+Emmanuel Vantieghem sent the following follow up to Puzzle 683:
+
+A possible follow up of puzzle 683 is to ask for an arrangement of all the numbers from 1 to N in a row such that the sum of two adjacent members is NOT prime. So, this is our first question :
+
+Q1. Prove that it is possible to arrange the numbers from 1 to N in a row such that the sum of two adjacent members is NOT prime
+
+Another possible follow up is to asks for an arrangement of all the numbers from 1 to N in a row such that the sum of two adjacent members is ODD composite.
+
+This situation is quite different since not all N allow a solution. For instance:
+
+N = 2 ; possible rows (1,2) and (2,1). Clearly no one is a solution
+
+N = 3 ; possible rows (1,2,3), (1,3,2),(2,1,3),(2,3,1), (3,1,2), (3,2,1). Also none is a solution.
+
+...
+
+But there is a solution for N = 20 : (20,19,14,1,8,7,2,13,12,3,6,9,16,5,4,11,10,15,18,17).
+
+So, this are our next questions :
+
+Q2. Find the smallest N0 for which there is a solution (it is not 20).
+
+Q3. Is there a solution for N > N0 ?
+
+Contributions came from W. E. Clark, Antoine Verroken, Hakan Summakoglu & Emmauel Vantieghem
+
+***
+W. E. Clark wrote:
+This puzzle may be restated in graph theoretic terms as follows
+
+Let G(n) = graph whose vertices are 1,...,n and whose edges are pairs {i,j}
+
+where i+j is composite.
+
+Let H(n) = graph whose vertices are 1,...,n and whose edges are pairs {i,j}
+
+where i+j is odd and composite.
+
+Then the question becomes which of these graphs has a Hamiltonian path?
+
+And, we may add, if so, then does it have a Hamiltonian cycle?
+
+With the help of Maple 17's GraphTheory package I find that:
+
+1. G(n) has no Hamiltonian path for n = 1,2,3,4. For n = 5,..., 200, G(n) has a
+
+Hamiltonian path. For n from 6 to 200 G(n) has a Hamiltonian cycle.
+
+For example here is a Hamiltonian cycle for n = 50:
+
+1, 3, 5, 4, 2, 6, 8, 7, 9, 11, 10, 12, 13, 14, 16, 17, 15, 18, 20, 19, 21, 23, 22, 24,
+
+25, 26, 28, 27, 29, 31, 32, 30, 33, 35, 34, 36, 38, 37, 39, 41, 40, 42, 43, 44, 46,
+
+45, 47, 48, 50, 49, 1
+
+2. H(n) has no Hamiltonian path for n = 1,2, . . . , 13. For n = 14,..., 200, H(n) has a
+
+Hamiltonian path. For EVEN n from 18 to 200 H(n) has a Hamiltonian cycle.
+
+Here is a Hamiltonian path for n = 14:
+
+4, 5, 10, 11, 14, 1, 8, 7, 2, 13, 12, 3, 6, 9
+
+And here is a Hamiltonian cycle for n = 50:
+
+1, 8, 7, 2, 13, 12, 3, 6, 9, 16, 5, 4, 11, 10, 15, 18, 17, 22, 23, 26, 19, 14, 21, 24,
+
+25, 20, 29, 28, 27, 30, 33, 32, 31, 34, 35, 40, 37, 38, 39, 36, 41, 44, 43, 42, 45,
+
+48, 47, 46, 49, 50, 1
+
+***
+
+Antoine wrote:
+
+Q1.
+
+1. N > 4
+
+2. Sum of 2 odd different numbers cannot be a prime
+
+3. Sum of 2 even different numbers cannot be a prime
+
+4. In the row “ any permutation of the odd numbers from 1 to N the digit 5 excepted, 5 , 4 , any
+
+permutation of the even numbers from 1 to N except the digit 4 “ the sum of 2 adjacent
+
+numbers is not a prime.
+
+***
+
+Hakan wrote:
+
+Q1: If arranged even and odd numbers separately, all sums of two adjacent members except one will be even numbers and greater than 2.(therefore not prime)
+
+It is possible to arrange for N>4. Because for N<5, there aren't an even and an odd number whose sums are not prime.
+
+For example if N=20:
+
+2,4,6,8,10,12,14,16,18,20,1,3,5,7,9,11,13,15,17,19
+
+Q2: Smallest N0 is 14. (3,6,9,12,13,2,7,8,1,14,11,4,5,10)
+
+Q3: Yes,we showed that there is a solution for all N> 4.
+
+Therefore There is a solution for N>N0=14.
+
+***
+
+Emmanuel wrote:
+
+Q1. If N < 5, it is impossible to find such an arrangement. If N >= 5, every arrangement of the form : ( all odd numbers < 5, 5, 4, all even numbers >= 4 ) is obviously a solution.
+
+Example (1, 3, 7, 9, 11, 5, 4, 2, 6, 8, 10, 12).
+
+Q2. N = 14 is the smallest N for which there is a solution.
+
+Q3. I conjecture 'yes'. Actually, the best strategy for me was to take one of the solutions for N = 14, say : ( 9,6,3,12,13,2,7,8,1,14,11,4,5,10) and expand it to the right or to the left as long as possible. For all N < 20000 there were solutions, except for N = 17 and N = 39 which I solved 'by hand' :(13,2,7,14,1,8,17,16,5,4,11,10,15,6,3,12,9) and (37,38,39,36,3,6,9,12,13,2,7,8,1,14,11,4,5,10,15,18,17,16,19,20,25,24,21,28,23,22,27,30,33,32,31,26,29,34,35)
+
+But I cannot prove this will work for all N. (To save time for the bigger N, I replaced my initial 14-solution by a bigger one).
+
+The most surprising for me was that it was much more difficult to find a working strategy. Since there are more odd composites than primes (for N > 121) one may expect this would have been easier than puzzle 683...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

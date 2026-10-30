@@ -1,0 +1,124 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_625.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 625. Sum of squares of prime divisors
+Source: https://www.primepuzzles.net/puzzles/puzz_625.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0625.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.contestcen.com/prime.htm
+  http://www.contestcen.com
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_624.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_626.htm
+  https://www.primepuzzles.net/puzzles/puzz_625.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 625. Sum of squares of prime divisors
+
+Problems & Puzzles: Puzzles
+
+Puzzle 625. Sum of squares of prime divisors
+
+After the generous acceptance of my friend Frank Rubin, I bring -from one of his always interesting pages, Contest Center- the following nice and unsolved puzzle:
+
+Which whole numbers are equal to the sum of the squares of their prime divisors?
+
+For example:
+
+16=2×2×2×2=2²+2²+2²+2² and
+
+27=3×3×3=3²+3²+3².
+
+Q. Are there more cases, or these two are the unique examples?
+
+Contributions came from J. K. Andersen
+
+***
+
+Andersen wrote:
+
+There are no other cases below 10^11.
+
+***
+
+Giorgos Kalogeropoulos wrote on Set 18, 2020:
+
+31980599086523546548147351491272676211458715997231784732063781637489066745716387150725397533911738728
+
+841877998280065787261857594370930355385463920685184046649444274178977072736045 =
+
+3 x 3 x 5 x 3975008818510860570063178521896626877423134543956742110665444401955840619438206454686489 x 178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609 =
+
+3^2 + 3^2 + 5^2 + 3975008818510860570063178521896626877423134543956742110665444401955840619438206454686489^2 + 178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609 ^2
+
+My method:
+Firstly I found some tuples (containing only primes and 1) that fit the equation Sum(squares of factors) = Product(factors)
+{1, 1, 3, 3, 5},{1, 1, 1, 2, 2, 2, 3}, {1, 1, 1, 2, 2, 2, 5}....
+
+So starting from 1^2+1^2+3^2+3^2+5^2 = 1*1*3*3*5 , I kept {3,3,5} and tried to find 2 other primes (x and y) using Mathematica
+
+The following program tried to solve the equation 3^2+3^2+5^2+x^2+y^2 = 3*3*5*x*y for x,y greater than different powers of 10
+
+It searched the first 100 powers of 10 trying to find any x or any y solutions that were primes (NOT both of them should be primes)
+
+ClearAll[x, y]
+
+Monitor[Union[Table[Select[Flatten[{x, y} /. FindInstance[x^2 + y^2 - 45 x*y + 43 == 0 && x > 10^k && y > 10^k, {x, y},Integers]], PrimeQ], {k, 100}]], k]
+
+this returned three primes
+
+{{},{1979},{736938099701099},{178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609}}
+
+then, I tried the same thing using these primes as x and see if I could get a y that was a prime
+
+When I used the big prime as x,
+
+x=178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609;
+
+y/.FindInstance[x^2+y^2-45*x*y+43==0&&y>10^85,{y},Integers,5]
+
+I got 2 results for y,
+
+{3975008818510860570063178521896626877423134543956742110665444401955840619438206454686489,
+
+8041440874939023184572179930735391848546966482174522004565520846483281791738161037022885916}
+
+and luckily the first one was Prime!
+
+So, the final answer is 3*3*5*x*y
+
+319805990865235465481473514912726762114587159972317847320637816374890667457163871507253975
+
+33911738728841877998280065787261857594370930355385463920685184046649444274178977072736045 = 3 x
+
+3 x 5 x 3975008818510860570063178521896626877423134543956742110665444401955840619438206454686489 x 178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609 = 3^2 + 3^2 + 5^2 + 3975008818510860570063178521896626877423134543956742110665444401955840619438206454686489^2 + 178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609 ^2
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

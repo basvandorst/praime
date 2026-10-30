@@ -1,0 +1,181 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_949.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 949. Another Collatz-like sequence
+Source: https://www.primepuzzles.net/puzzles/puzz_949.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0949.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://deref-gmx.net/mail/client/YzkWbCcZL0A/dereferrer/?redirectUrl=https%3A%2F%2Fgmplib.org%2F
+  https://www.primepuzzles.net/puzzles/puzz_948.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_950.htm
+  https://www.primepuzzles.net/puzzles/puzz_949.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 949. Another Collatz-like sequence
+
+Problems & Puzzles: Puzzles
+
+Puzzle 949. Another Collatz-like sequence
+
+Dmitry Kamenetsky sent the following nice puzzle:
+
+I came up with a very interesting problem:
+
+Start with a number k=2. If the current number k is prime then replace it with k*k+9. Otherwise replace it with k/2 (integer division). The sequence starts as
+
+2 (prime), 13 (prime), 178, 89 (prime), 7930, 3965, 1982, 991 (prime), ...
+
+Q. Does this sequence ever reach a cycle or does it continue forever?
+
+Contributions came from Adam Stinchcombe, Pierandrea Formusa, Jeff Heleen and Simon Cavegn
+
+***
+
+Adam wrote:
+
+I did find a cycle starting with 3251:
+
+[3251, 10569010, 5284505, 2642252, 1321126, 660563, 436343476978, 218171738489, 109085869244, 54542934622, 27271467311, 13635733655, 6817866827, 3408933413, 1704466706, 852233353, 426116676, 213058338, 106529169, 53264584, 26632292, 13316146, 6658073, 3329036, 1664518, 832259, 416129, 208064, 104032, 52016, 26008, 13004, 6502, 3251]
+
+Using Maple, I limited my isprime test to a number with fewer than 90 digits, so most sequences went over the limit w/o cycling back. I went out to a starting value of 104052 and the only cycle (that also stayed below 10^90) contained 3251.
+
+***
+
+Pierandrea wrote:
+
+This sequence reaches a cycle for an infinite number of starting terms; the minimum length of cycle is 33. Below 1M we have ten starting terms that cycles in the lowest step number (i.e. 33):
+
+3251
+
+6502
+
+13004
+
+26008
+
+52016
+
+104032
+
+208064
+
+...
+
+416129
+
+660563
+
+832259
+
+Lowest starting term with minimum cycle is 3251, all the other ones are substantially multiple of 3251 (perfect multiples, apart 416129 that is 3251*128+1 and 832259 that is 3251*256+3, corrections absorbed by integer division in the chain rule) with the exception of 660563.
+
+***
+
+Jeff wrote:
+
+I have taken this (starting k=2) to the 7089th step which produced a 1013 digit
+
+prime 13347...41611 (proven by YAFU aprcl). No cycles.
+
+***
+
+Simon wrote:
+
+Because primes become very rare for large k, it tends to divide by 2 almost always for large k. Therefore I think it is possible to proof that any
+
+k = k*k + n (starting with k=2, n positive or 0) will always end in a loop. No loop would require k to grow towards infinity.
+
+I wrote some code to check k*k+9, did not yet find a loop after this many steps:
+
+step:1000 kdigits=54
+
+step:3000 kdigits=12
+
+step:10000 kdigits=2381
+
+step:100000 kdigits=14402
+
+step:200000 kdigits=2289
+
+step:300000 kdigits=12813
+
+step:309000 kdigits=42701
+
+For those interested, here some hopefully efficient c# code, where "Integer" is using an old version 4.2 of https://gmplib.org/ compiled to a 64bit dll:
+
+HashSet<Integer> hashSet = new HashSet<Integer>();
+
+long count = 0;
+
+Integer k = 2;
+
+while (true)
+
+{
+
+count++;
+
+if (k.IsProbablyPrime(20)) // This function performs some trial divisions, then 20 Miller-Rabin probabilistic primality tests. Error chance: 4^-20 per check
+
+{
+
+Integer.Mul(k, k, k);
+
+Integer.Add(k, k, n);
+
+} else {
+
+Integer.Div(k, k, 2u);
+
+}
+
+if (hashSet.Contains(k))
+
+{
+
+Log("Found loop for k*k+{0} at stepCount: {1}", n, count);
+
+break;
+
+}
+
+if (count % 1000 == 0)
+
+{
+
+hashSet.Add(new Integer(k));
+
+}
+
+}
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

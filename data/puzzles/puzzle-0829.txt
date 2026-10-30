@@ -1,0 +1,306 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_829.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 829. Dividing the first k prime to obtain new primes.
+Source: https://www.primepuzzles.net/puzzles/puzz_829.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0829.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_828.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_830.htm
+  https://www.primepuzzles.net/puzzles/puzz_829.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 829. Dividing the first k prime to obtain new primes.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 829. Dividing the first k prime to obtain new primes.
+
+It's well known that if you have the set {P} first k primes, then may partition them in two disjoint sets {A} and {B} such that {A}U{B}={P} with the following properties:
+
+Let [A] to be the product of all the primes of the set {A} and the corresponding for set {B}
+
+Then both [A]+[B] and abs([A]-[B]), for any partition possible, produce new prime numbers provided that these quantities are grater than 1 and less than (p_k+1)^2; defining [Φ]=1
+
+Example: for k=3. {P}={2, 3 5}, here are all the partitions and new primes produced:
+
+2 × 3 + 5 = 11
+
+2 × 5 + 3 = 13
+
+2 × 5 – 3 = 7
+
+3 × 5 + 2 = 17
+
+3 × 5 – 2 = 13
+
+2 × 3 × 5 + 1 = 31
+
+2 × 3 × 5 – 1 = 29
+
+Sometimes distinct partitions generate the same new prime (as 13 in the example above), so all the new primes are not necessarily distinct. In the example above the new distinct primes generated are 7, 11, 13, 17, 31 & 29, six (6) in total.
+
+Additionally, not all the primes in between p_k and (p_k+1)^2 are generated. In the example above, there are not generated the primes 19, 23, 37, 41 43 & 47, six (6) in total.
+
+For the example above we can say that for the case k=3 the quantity of new distinct primes produced, ndpp, are 6; and the quantity of new primes not produced, ndpnp are 6 too.
+
+In short (k, ndpp, ndpnp) = (3,6,6)
+
+Q1. Construct that table (k, ndpp, ndpnp) for k= 1 to 20.
+
+Q2. Can you make any generalizations related to the table obtained?
+
+Contributions came from Emmanuel Vantieghem and Jan van Delden.
+
+***
+
+Emmanuel wrote:
+
+Here comes {k,ndpp,ndpnp} for k = 1 to 25
+
+{1, 1, 2}
+
+{2, 2, 5}
+
+{3, 6, 6}
+
+{4, 12, 15}
+
+{5, 25, 20}
+
+{6, 49, 48}
+
+{7, 78, 62}
+
+{8, 148, 88}
+
+{9, 255, 134}
+
+{10, 470, 152}
+
+{11, 886, 208}
+
+{12, 1568, 251}
+
+{13, 2808, 270}
+
+{14, 5173, 315}
+
+{15, 10405, 394}
+
+{16, 17478, 471}
+
+{17, 34450, 502}
+
+{18, 62698, 591}
+
+{19, 120504, 656}
+
+{20, 215446, 685}
+
+{21, 418223, 790}
+
+{22, 802499, 864}
+
+{23, 1597836, 977}
+
+{24, 3165767, 1139}
+
+{25, 5926266, 1227}
+
+For k = 1, 2, 3, all ndpp are < (p(k+1))^2
+
+For k = 4 to 9, the number of ndpp that are less than (p(k+1))^2 is resp. : 11, 14, 7, 3, 3, 3.
+
+For 9 < k < 500, none of the ndpp is less than (p(k+1))^2.
+
+***
+
+Jan wrote:
+
+Q1: For k<10 the table looks like:
+
+1 1 2
+
+2 2 5
+
+3 6 6
+
+4 11 15
+
+5 14 20
+
+6 7 48
+
+7 3 62
+
+8 3 88
+
+9 3 134
+
+For 10<=k<=20 we have:
+
+ndpp=0 and thus ndpnp=pi(p[k+1]^2)-pi(p[k+1])+1=pi(p[k+1]^2)-pi(p[k])
+
+Q2: Write A=primorial[k], A=P*Q, with P>Q.
+
+We have A=P*Q, we assume P>Q.
+
+P+Q<p[k+1]^2
+
+SUM=P+Q:
+
+We have both P,Q<p[k+1]^2.
+
+We use Bertrand’s postulate: There is always a prime between n and 2n:
+
+p[k+1]<2p[k].
+
+Or more general:
+
+p[k+1]< 2^a p[k+1-a]
+
+Substitute a=1,2 (We need a factor of 2*4=8):
+
+If we combine {2,5,p[k-1],p[k]} the product > p[k+1]^2
+
+Substitute a=3,4 (We need a factor of 8*16=128)
+
+If we combine {3,7,11,p[k-2],p[k-3]} the product > p[k+1]^2
+
+So if we have at least 9 factors, either P or Q or both are > p[k+1]^2.
+
+A simple check for k<9 shows:
+
+If k>=6 then P+Q integer < p[k+1]^2 has no solutions.
+
+DIFFERENCE=P-Q
+
+We may write:
+
+P=sqrt(A)+a
+
+Q=sqrt(A)-b
+
+with
+
+P-Q<p[k+1]^2
+
+with a>0 (a=0 is not possible, since every prime that divides A occurs once).
+
+From the first two equations we have: P-Q=a+b is in N. (a and b are not in N!)
+
+Substitute these two equations into the third and solve:
+
+a-b = ab/sqrt(A)
+
+We infer that a>b.
+
+With a+b<p[k+1]^2 we have a<p[k+1]^2 and if we also use a>b
+
+we have b<a<p[k+1]^2-b or 2b<p[k+1]^2 so 0<b<p[k+1]^2/2, a<p[k+1]^2.
+
+Giving:
+
+max(a-b) < sup(ab)/sqrt(A) or
+
+max(a-b) < p[k+1]^4/(2*sqrt(A))
+
+[[a slightly more carefull analysis upon using a=b+e:
+
+e=b^2/(sqrt(A)-b)
+
+Where the right hand side has a supremum for b=p[k+1]^2/2:
+
+max(a-b) < p[k+1]^4 / (4(sqrt(A)- p[k+1]^2/2))]]
+
+If round(sqrt(A))=ceil(sqrt(A)), i.e. frac(sqrt(A))>0.50.
+
+The idea is to construct an interval around sqrt(A) where only 1 integer is present.
+
+For this we use the criterium max(a-b)<0.5.
+
+For instance if frac(sqrt(A))=.51 so frac(a)=.49, we have 0<a-b=frac(a-b)=frac(a)-frac(b)<0.50
+
+and thus -0.01<frac(b)<0.49 hence 0.02<frac(Q)=frac(sqrt(A)-b)<0.52 never reaches 0.
+
+Then we can only find one integer P, but not Q and therefore no solution to P*Q=A.
+
+Find k for which max(a-b)<0.5 (or p[k+1]^8<4A).
+
+By combining primes p[j] to terms which must exceed p[k+1] and show there are still primes left, for instance upon using Bertrand’s postulate again:
+
+If we use the 8 largest primes we need 2^(1+..+8-2)=2^34 Which we can achieve by using the first 85 primes [Which is an huge overestimate, we would need 85+8=93 primes or more].
+
+Lucky for us the extension of Bertrand's postulate, by Ramanujan can be used, there is a number a(n) such that pi(x)-pi(x/2)>=n for x>=a(n). Here we are interested in a(9)=71.
+
+So if x=p[k+1]>=71, we have that the previous 8 primes are all > x/2 (x is prime). So 2*these primes > p[k+1].
+
+Assume p[k+1]>=71. We need to compensate a factor 2^(8-2)=2^6=64. Which we can achieve by using the primes in the set {2,3,5,7}. So we'll need at least 4+8=12 primes. Since 71 is the 20'th prime,
+
+we'll have to use at least 19 primes, by using this theorem. However by inspecting the table we have:
+
+If frac(sqrt(A))>0.50 and k>=10 then P-Q integer <p[k+1]^2 has no solutions.
+
+If round(sqrt(A))=floor(sqrt(A)), i.e. frac(sqrt(A))<0.50 the previous trick does not apply:
+
+For instance if frac(sqrt(A))=.49 so frac(a)=.51, we have 0<a-b=frac(a-b)=frac(a)-frac(b)<0.50 and thus 0.01<frac(b)<0.51 hence -0.02<frac(Q)=frac(sqrt(A)-b)<0.48 can reach 0.
+
+Even worse it doesn't help to decrease the bound on max(a-b).
+
+However there can only be one solution in this case (if present).
+
+Solving x-A/x=d gives x=sqrt(A+(d/2)^2)+/-d/2, with previous notation P (+ sign), Q (- sign), d=P-Q
+
+We want 1 solution in N for P: sqrt(A)<sqrt(A+(d/2)^2)<sqrt(A)+1. Squaring both sides gives:
+
+A < A + (d/2)^2< A + 2*sqrt(A) + 1 or
+
+0 < (d/2)^2 < 2*sqrt(A) + 1 if we substitute sup(d)=p[k+1]^2 we get a lowerbound on sqrt(A) for which we have a maximum of 1 solution:
+
+p[k+1]^4/8 < sqrt(A)+1 gives
+
+p[k+1]^8/64< A
+
+This criterium is less strict, compared to the previous one, showing that:
+
+If frac(sqrt(A))<0.50 and k>=10 then P-Q integer <p[k+1]^2 has no solutions or 1 solution.
+
+Note: We do have that sqrt(A+(d/2)^2) is very close to sqrt(A) if A is large, so the probability that we hit an integer in (sqrt(A),sqrt(A)+1) is
+
+sqrt(A+(d/2)^2)-sqrt(A) assuming that sqrt(A) is uniform distributed in (0,1)
+
+sqrt(A+(d/2)^2)-sqrt(A)=sqrt(A) ((sqrt(1+ (d/2)^2/A)-1) which is about (d/2)^2/(2*sqrt(A)) which decreases rapidly with k.
+
+[For d one could substitute p[k+1]^2].
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

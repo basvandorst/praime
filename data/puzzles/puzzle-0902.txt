@@ -1,0 +1,320 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_902.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 902. two vectors of consecutive primes such that...
+Source: https://www.primepuzzles.net/puzzles/puzz_902.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0902.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/Pu902_SC.txt
+  https://www.primepuzzles.net/puzzles/Puzzle%20902_JvD.txt
+  https://www.primepuzzles.net/puzzles/puzz_901.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_903.htm
+  https://www.primepuzzles.net/puzzles/puzz_902.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 902. two vectors of consecutive primes such that...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 902. two vectors of consecutive primes such that...
+
+Vic Bold noticed that the following two vectors P & Q of not necessarily ordered consecutive primes:
+
+P={2, 3, 5}, Q={17, 13, 11}
+
+could be combined by the sumproduct operation giving a power of 2:
+
+2*17+3*13+5*11 = 34+39+55 = 128 = 2^7
+
+Vic bold ask for more vectors P & Q like these two, for other powers of 2.
+
+Q. Find more pair of vectors P & Q of the same length k such that sumproduct(P,Q)=2^n for some n and k>1
+
+Contributions came from Simon Cavegn, Dmitry Kamenetsky, Emmanuel Vantieghem and Jan van Delden
+
+***
+
+Simon wrote:
+
+In the attachment you will find a file with solutions, allowing max vector length 8 and only including the first about 100 primes.
+
+There are many solutions, especially when allowing long vectors.
+
+Here just a few:
+
+n:4, list1:2, list2:2
+
+n:128, list1:17,13,11, list2:2,3,5
+
+n:256, list1:19,23, list2:5,7
+
+n:512, list1:59,53,47, list2:2,3,5
+
+n:2048, list1:5,7,11,13, list2:47,53,59,61
+
+n:16384, list1:41,43, list2:193,197
+
+...
+
+Some more examples with vector length 8:
+
+n:131072, list1:571,541,547,557,563,569,523,521, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,547,569,541,557,521,523,563, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,557,541,547,569,523,563,521, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,557,547,563,521,569,541,523, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,557,547,569,541,521,523,563, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,557,563,541,547,521,523,569, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,563,523,557,569,541,547,521, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,563,541,547,557,521,569,523, list2:17,19,23,29,31,37,41,43
+
+n:131072, list1:571,563,541,569,521,557,523,547, list2:17,19,23,29,31,37,41,43
+
+...
+
+The major parts of the algorithm in c#:
+
+private static List<uint> primes; // List of primes, loaded before DoWork
+
+protected override void DoWork(BaseWorkItemInfo info) // This method is enqueued into ThreadPool 800 times, with info.Id = 0 .. 800
+
+{
+
+int len = (int)info.Id / primesLimit + 1; // vector length 1 .. 8
+
+int index = (int)info.Id % primesLimit; // primes index 0..100
+
+List<uint> list1 = new List<uint>(len);
+
+List<ulong> list2 = new List<ulong>(len);
+
+list1.AddRange(primes.Skip(index).Take(len));
+
+foreach (IEnumerable<uint> permutation in GetPermutations<uint>(list1, len))
+
+{
+
+uint[] list1permut = permutation.ToArray();
+
+for (int index2 = 0; index2 < primesLimit; index2++)
+
+{
+
+ulong n = 0;
+
+for (int i = 0; i < len; i++)
+
+{
+
+n += list1permut[i] * primes[index2 + i];
+
+}
+
+if (0 == (n & (n - 1))) // if n is power of 2
+
+{
+
+// Log method needs to be multithreading safe.
+
+Log("n:{0}, list1:{1}, list2:{2}", n, string.Join(",", list1permut), string.Join(",", primes.Skip(index2).Take(len)));
+
+}
+
+}
+
+}
+
+}
+
+static IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> list, int length)
+
+{
+
+if (length == 1) return list.Select(t => new T[] { t });
+
+return GetPermutations(list, length - 1).SelectMany(t => list.Where(e => !t.Contains(e)), (t1, t2) => t1.Concat(new T[] { t2 }));
+
+***
+
+Dmitry wrote:
+
+This is a nice puzzle. I only looked at consecutive lists of primes and found the following solutions (in increasing number of terms):
+
+(2) + (2) = 2^2
+
+(5 7) + (19 23) = 2^8
+
+(41 43) + (193 197) = 2^14
+
+(3 5) + (262139 262147) = 2^21
+
+(3613 3617) + (9281 9283) = 2^26
+
+(419 421) + (159779 159787) = 2^27
+
+(5 7 11 13) + (47 53 59 61) = 2^11
+
+(19 23 29 31) + (151 157 163 167) = 2^14
+
+(1483 1487 1489 1493) + (45077 45083 45119 45121) = 2^28
+
+(5 7 11 13 17 19) + (7243 7247 7253 7283 7297 7307) = 2^19
+
+(139 149 151 157 163 167) + (2243 2251 2267 2269 2273 2281) = 2^21
+
+***
+
+Emmanuel wrote:
+
+I found many solutions.
+
+Some examples :
+
+{5, 3, 2} x {47, 53, 59} -> 2^ 9
+
+{5, 7, 11, 13} x {47, 53, 59, 61} -> 2^11 (*)
+
+{13, 11, 17, 7} x {17, 19, 23, 29} -> {2, 10}
+
+{19, 13, 17, 11} x {4357, 4363, 4373, 4391} -> {2, 18}
+
+{13, 19, 17, 23}, {232963, 232987, 233021, 233069} -> {2, 24}
+
+{2, 7, 3, 5, 11} x {11, 13, 17, 19, 23} -> {2, 9}
+
+{3, 17, 7, 11, 5, 13} x {61, 67, 71, 73, 79, 83} -> {2, 12}
+
+{5, 7, 11, 13, 17, 19} x {7243, 7247, 7253, 7283, 7297, 7307} -> {2, 19} (*)
+
+{7, 19, 17, 13, 11, 5} x {7, 11, 13, 17, 19, 23} -> {2, 10}
+
+{7, 11, 23, 19, 17, 13} x {13, 17, 19, 23, 29, 31} -> {2, 11}
+
+{11, 13, 29, 23, 19, 17} x {61, 67, 71, 73, 79, 83} -> {2, 13}
+
+The solutions with (*) are those in which the consecutive primes in the two vectors are in natural order.
+
+I thought that it would be more interesting to search for such cases, but I could not find any more of them.
+
+***
+
+Jan wrote:
+
+I only investigated the situation where k is odd. In this case, as in the given example, one of the two vectors must start with prime 2.
+
+So assume p=[2,3,..,p[n]] and q=[q[1],..,q[n]].
+
+Given vector p and q we know that we must have the bounds: sum(p[i]q[k-i+1],i=1..k)<=2^n<=sum(p[i]*q[i],i=1..k).
+
+This criterium can be used to find bounds for q[1], given n.
+
+It is easy to see that the number of admissible q[1] given n is slowly increasing with n.
+
+However the number of possible solutions given a solution starting with q[1] will increase fast with k, since the order of the q[i] (or p[i]) is not prescribed.
+
+k=3 (n<=1000):
+
+n, [order of p[i]],q[1]
+
+7, [5,3,2],11 <The solution of the example>
+
+9, [5,3,2],47
+
+65, [3,2,5],3689348814741910261
+
+67, [2,5,3],14757395258967641237
+
+115,[3,5,2],4153837486827862102824397063376009
+
+398,[2,3,5],64556246952172714741397979300075296858242644820730587820766483913516190550421029865741133832003445785897579299318687053
+
+k=5:
+
+n,[order of p[i]],q[1]
+
+8,[5,11,7,2,3],5
+
+8,[7,11,3,2,5],5
+
+8,[11,3,5,7,2],5
+
+8,[2,3,7,11,5],3
+
+8,[2,5,7,3,11],3
+
+8,[3,7,2,5,11],3
+
+8,[5,3,2,11,7],3
+
+k=7,n=9 (n=9: smallest value):
+
+There are 22 different values if q[1]=3
+
+k=9,n=10 (n=10: mallest value):
+
+There are 157 different solutions if q[1]=3
+
+There are 197 different solutions if q[1]=2
+
+k=11,n=12 (n=11: smallest value):
+
+There are 2476 different solutions if q[1]=13
+
+There are 39400 different solutions if q[1]=11
+
+There are 62742 different solutions if q[1]=7
+
+There are 17605 different solutions if q[1]=5
+
+k=13,n=12 (n=12: smallest value):
+
+There are 55722 different solutions if q[1]=5
+
+There are 2437818 different solutions if q[1]=3
+
+There are ???? different solutions if q[1]=2 <Stopped the routine>
+
+For those interested I include the raw output for k=3,5,7,9 (n<=1000).
+
+It shows n,permutation of the p[i] and after a newline the q[1] used and the number of different solutions using this q[1].
+
+For even k the number of solutions must be much larger; p[1] doesn't have to be 2.
+
+See the attached file.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,271 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_095.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 95. Pascal triangle (2,1), two Conjectures
+Source: https://www.primepuzzles.net/conjectures/conj_095.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0095.htm
+
+References (local copies):
+  ../../references/2023_jan-van-delden-january-21-2023.pdf  (from https://www.primepuzzles.net/conjectures/Conjecture%2095,%20JvD.pdf)
+  ../../references/2023_jan-van-delden-january-21-2023.txt  (extracted text)
+
+Links on the page:
+  http://oeis.org/wiki/(2,1)-Pascal_triangle
+  mailto:cbrfgm@gmail.com
+  http://www.bitman.name/math/article/1279
+  https://www.primepuzzles.net/conjectures/Conjecture%2095,%20JvD.pdf
+  https://www.primepuzzles.net/conjectures/conj_094.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_096.htm
+  https://www.primepuzzles.net/conjectures/conj_095.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 95. Pascal triangle (2,1), two Conjectures
+
+Problems & Puzzles: Conjectures
+
+Conjecture 95. Pascal triangle (2,1), two Conjectures
+
+On Jan 14, 2023, Davide Rotondo sent these nice Conjectures:
+
+Consider the 2,1 Pascal triangle ( http://oeis.org/wiki/(2,1)-Pascal_triangle )
+
+1
+
+2. 1.
+
+2. 3. 1.
+
+2. 5. 4. 1.
+
+2. 7. 9. 5. 1.
+
+2. 9. 16. 14. 6. 1.
+
+2. 11. 25. 30. 20. 7. 1.
+
+2. 13. 36. 55. 50. 27. 8. 1
+
+...
+
+First conjecture.
+
+If the second coefficient starting from the right of a row is a prime number, then also the other coefficients in the same row will be divisible by the second coefficient. To do this, the coefficients must be properly corrected as follows:
+
+3rd coefficient +1
+
+4th coefficient -2
+
+5th coefficient +3
+
+6th coefficient -4
+
+...
+
+where +1,-2,+3,-4, ... are the natural numbers with alternating signs.
+
+For example
+
+the coefficients in the fifth row have
+
+2. 7. 9. 5. 1.
+
+(9+1)/5 = 2
+
+(7-2)/5 = 1
+
+(2+3)/5 = 1
+
+5 is a prime number
+
+Second conjecture
+
+If the second coefficient from the right is prime, then also the other coefficients taken diagonally to find the Lucas numbers excluding 1 are divisible by the second coefficient.
+For example in the seventh row we have 7 as the second coefficient and on its diagonal 1. 7. 14. 7. that are all divisible by 7.
+7 is a prime number
+
+Q1. prove that the two conjectures are true or false
+.
+
+During the week 21-27 Jan 2923, contributions from Mauro Fiorentini, Jan van Delden, Emmanuel Vantieghem,Giorgos Kalogeropoulos
+
+***
+
+Mauro wrote:
+
+Both conjectures are true.
+
+First one.
+
+The k-th term of row n is the absolute values of the (n – k)-th
+
+coefficient of the Dickson polynomials of first kind (
+
+http://www.bitman.name/math/article/1279) D2n – k – 1(α, x) and the
+
+next to last number of row n (numbering from 1) is n.
+
+The k-th coefficient of Dn(α, x) is n / (n – k) * C(n – k, k), thus the
+
+k-th term of row n is P(n, k) = (2n – k – 1) / (n – 1) * (n – 1)! / ((n
+
+– k)! * (k – 1)!) ≡ –(k + 1) * (n – 2)! / ((n – k)! * (k – 1)!) mod n.
+
+Now if n is prime, from wilson's theorem (n – 2)! ≡ 1 mod n and ((n –
+
+k)! * (k – 1)!) ≡ (–1)^k mod n, so P(n, k) ≡ (–1)^(k + 1) * (k + 1) mod
+
+n.
+
+Second one.
+
+The diagonals are the absolute values of the coefficients of a single
+
+Dickson polynomials of first kind.
+
+For example D7(α, x) = x7 – 7αx5 + 14α2x3 – 7α3x.
+
+They are D(n, k) = n / (n – k) * C(n – k, k); as C(n – k, k) is an
+
+integer, if n is prime, all of them, except the first one, are
+
+multiples of n so all numbers of the diagonal, except 1, are multiples
+
+of n.
+
+***
+
+Jan wrote:
+
+My contribution in the form of a pdf, this way the typesetting is nicer, I think.
+
+***
+
+Emmanuel wrote:
+
+First of all, let us denote the rows of the triangle by
+
+T(0), T(1), T(2), ...
+
+and let the elements of the row T(n) be denoted as
+
+T(n,0), T(n,1), T(n,2), ..., T(n,n).
+
+Proof of conjecture 1 :
+
+We know (following the given link) that T(n) is the coefficient list of the polynomial
+
+(2 + x)(1 + x)^(n-1) = (1 + (1 + x))(1 + x)^(n-1) = (1 + x)^(n-1) + (1 + x)^n
+
+(the powers of x must being in ascending order).
+
+Thus,we have :
+
+T(n,k) = B(n-1,k) + B(n,k) (*)
+
+where B(m,u) is the binomial coefficient m(m-1)...(m-i+1) / u! ( and 0 when u > m).
+
+Let p, the second element of T(p-1) counted from the right be an odd prime.
+
+For k = 1 to p - 2 we then have
+
+B(p - 2, k) = (p - 2)(p - 3) ...(p - k - 1) / k! === (-2)(-3)...(-k-1) / k! === (k+1)*(-1)^k (mod p)
+
+and
+
+B(p - 1, k) = (p - 1)(p - 2) ...(p - k) / k! === (-1)(-2)...(-k) / k! === (-1)^k (mod p).
+
+Thus :
+
+T(p - 1,k) === (k + 2)*(-1)^k (mod p). (*)
+
+Since T(p - 1,0) = 2, this congruence holds for k = 0, 1, ..., p - 1.
+
+To make this result match with the formulation of the conjecture we sometimes must replace (*) by
+
+T(p - 1,k) === +or -p + (k + 2)*(-1)^k (mod p), for k = 0 to p - 1,
+
+which is precisely the formulation of the conjecture 1.
+
+Proof of conjecture 2 :
+
+For n > k >= 1 we have :
+
+T(n,k) = [(n-1)(n-2)...(n-k) + n(n-1)...(n-k+1)] / k! = (n-1)(n-2)...(n-k)*[n - k +n] / k!.
+
+If we take k and n such that 2n - k = p, an odd prime, then T(n,k) will be divisible by p.
+
+The smallest n for which this is the case is (p + 1) / 2 = u. The next cases are then T(u+1, 3), T(u+2, 5), ..., T(p-1, p-2) = p.
+
+These are precisely the elements on the "diagonal" as formulated in conjecture 2.
+
+***
+
+Giorgos wrote:
+
+The first conjecture is true.
+
+For binomial(n,k) we will use the notation b(n,k).We can express our starting triangle in the form:
+
+T(n,k) = b(n, k+1) - b(n-2, k-1) for n>1 and -1<= k <= p-2
+
+If we adjust the coefficients with +1,-2,+3,-4,+5... then we get
+
+T(n,k) = b(n, k+1) - b(n-2, k-1) + (-1)^(k+1)*k for n>1 and -1<= k <= p-2.
+
+We want b(n, k+1) - b(n-2, k-1) + (-1)^(k+1)*k ≡ 0 mod n for any n prime.
+
+If p is prime we know that b(p,k) ≡ 0 mod p for 0<k<p
+
+So, in our case b(n, k+1) ≡ 0 mod n if n is prime for -1<k<p-1.
+
+Now, we have to show that - b(n-2, k-1) + (-1)^(k+1)*k ≡ 0 mod n for any n prime.
+
+Let's assume that it is true
+
+b(n-2, k-1) ≡ (-1)^(k+1)*k mod n for any n prime.
+
+(n-2)! / ((n-1-k)! (k-1)!) ≡ (-1)^(k+1)*k mod n for any n prime.
+
+(n-2)! / ((n-1-k)! (k-1)! * k) ≡ (-1)^(k+1) mod n for any n prime because gcd(k,n)=1
+
+(n-2)! / ((n-1-k)! k!) ≡ (-1)^(k+1) mod n for any n prime
+
+(n-1)*(n-2)! / ((n-1-k)! k!) ≡ (n-1) (-1)^(k+1) mod n for any n prime
+
+b(n-1, k) ≡ (n-1) (-1)^(k+1) mod n for any n prime
+
+We know from Lucas that b(p-1, k) ≡ (-1)^k mod p for p prime and 0<k<p-1
+
+So, (-1)^k ≡ (n-1) (-1)^(k+1) mod n for any n prime
+
+1 ≡ - (n - 1) mod n for any n prime
+
+n ≡ 0 mod n for any n prime
+
+which is true.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

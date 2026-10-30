@@ -1,0 +1,138 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_941.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 941. nxtprime(p) inside p^2
+Source: https://www.primepuzzles.net/puzzles/puzz_941.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0941.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A052073
+  https://oeis.org/wiki/User:Giovanni_Resta
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_940.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_942.htm
+  https://www.primepuzzles.net/puzzles/puzz_941.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 941. nxtprime(p) inside p^2
+
+Problems & Puzzles: Puzzles
+
+Puzzle 941. nxtprime(p) inside p^2
+
+Carlos Rivera poses the following puzzle:
+
+Regarding this statement: "Primes whose square has the next prime as substring', is already known (see A052073): 23, 83, 113, 1123, 200003, 328127, 381289, 714597769, 4916552822383", in a subsequent comment to this sequence we may read:
+
+"The prime 482564152712479922509389813571 is also a term. -Giovanni Resta, May 24 2018"
+
+Q1. Can you guess the method that Giovanni used to found this large prime?
+
+Q2. If you get the method asked in Q1, can you produce a second prime like that?
+
+Contribution came from Emmanuel Vantieghem.
+
+***
+
+Emmanuel wrote:
+
+Q1.
+
+I guess Giovanni could have worked along the following lines :
+
+Let's search for numbers m (not necessarily prime) for which there exist a number g such that the number m+g is 'visible' in m^2.
+
+Say, on the left of some k-digit number b.
+
+If n is the number of digits of m then we should have :
+
+m^2 = a*10(n+k) + (m+g)*10^k + b,
+
+If we fix some values for k and g, we can try to find m from the equation :
+
+m^2 - m*10^k - g*10^k - b === 0 (mod 10^(n+k)) for some k-digit b.
+
+This is a modular quadratic equation of type
+
+Ax^2 + 2Bx + C === 0 (mod M)
+
+whose solutions are x === -B + s, x === -B - s (mod M),
+
+provided s is a number such that s^2 === B^2 - AC (mod M).
+
+This is of course possible if and only if B^2 - AC is a quadratic residue modulo M.
+
+So, we must look for a value b which makes the number
+
+d = 5*10^(2k-2) + g*10^k + b
+
+congruent to a square s^2 mod 10^(n+k). We then only must see if 5*g*10^(2k-2)+s (or - s) has indeed n digits.
+
+I illustrate this by the example that finally lead to Giovanni's prime number.
+
+We take k = 4 and g = 6. So, we try to solve the congruence
+
+m^2 - 10000m - 60000g + b == 0 (mod 10n+4).
+
+for some b and some n.
+
+When we take b in the set of quadratic residues modulo 10000 (which is easy to compute with the aid of some mathematical program),
+
+we will be 'lucky' for some values of n.
+
+For instance, if you take b = 1, you find m = 437474999 (not prime); m+g = 437475005 (also not prime)
+
+and indeed : m^2 = 191384374750050001.
+
+Whith a littlebit of patience, we find Giovanni's prime for b = 2041 and n = 30.
+
+Q2.
+
+I tried many values for k, g, b, n.
+
+Unfortunately,primality for m was very rare, primality for m+g was even more rare : most rare was when m+g was the nextprime of m.
+
+Finally I found the prime p = 9433515143067535217 when k = 3, g = 20, n = 19.
+
+NextPrime(p) = 9433515143067535237 ; p^2 = 88991207954484499433515143067535237089.
+
+________________________________
+
+If this can be useful : here is the Mathematicapromgram that I used (I only had to choose the value k) :
+
+k=3;B=Select[Range[1,10^k-1,2],Mod[#,8]==1&&JacobiSymbol[#,5^k]==1&];B=Select[B,Mod[#,5]!=0&];Lb=Length[B]
+
+g=0;While[g<20,g=g+2;
+
+i=1;While[i<Lb,i++;b=B[[i]];n=12;While[n<31,n++;d=25 10^(2k-2)+10^k g+b;M=Select[5 10^(k-1)+PowerModList[d,1/2,10^(n+k)],IntegerLength[#]==n&];If[M!={},
+
+m=M[[1]];If[PrimeQ[m],If[PrimeQ[m+g],Print[g," ",b," ",n," ",m," ",m+g," : ",NextPrime[m]==m+g]]]]]]]
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

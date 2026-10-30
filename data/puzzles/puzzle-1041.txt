@@ -1,0 +1,185 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1041.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1041. σ2(x)=σ2(x+1)
+Source: https://www.primepuzzles.net/puzzles/puzz_1041.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1041.htm
+
+References (local copies):
+  ../../references/2011_annales-univ-sci-budapest-sect-comp-21-2004.pdf  (from https://www.primepuzzles.net/puzzles/Puzzle%201041.pdf)
+  ../../references/2011_annales-univ-sci-budapest-sect-comp-21-2004.txt  (extracted text)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/Puzzle%201041.pdf
+  http://ac.inf.elte.hu/Vol_021_2002/127.pdf
+  https://en.wikipedia.org/wiki/Ramanujan's_sum
+  https://www.primepuzzles.net/puzzles/puzz_1040.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1042.htm
+  https://www.primepuzzles.net/puzzles/puzz_1041.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1041. σ2(x)=σ2(x+1)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1041. σ_2(x)=σ_2(x+1)
+
+Fred Schneider sent the following nice puzzle.
+Let's define σ_2(x) as "the sum of the square of the divisors of x".
+
+Now observe that:
+
+σ_2(6)=1^2+2^2+3^2+6^2=50, and
+
+σ_2(7)=1^2+7^2=50
+
+Q. Find another x such that σ_2(x)=σ_2(x+1) or prove that there are no other solutions.
+
+During the week 13-18 June,2021, contributions came from Giorgos Kalogeropoulos, Ivan Ianakiev, Emmanuel Vantieghem, Oscar Volpatti.
+
+***
+
+Giorgios wrote:
+
+It is proved that n=6 is the only solution.
+look at the third page of the pdf I am sending you. It is also stated in R.Guys book B13 (see the last paragraph)
+
+***
+
+Ivan wrote:
+
+According to J.-M. De Koninck (see link) there is no solution other than 6.
+
+***
+
+Emmanuel wrote:
+
+The problem of puzzle 1041 is mentioned in Richard K. Guy's "Unsolved Problems in Number Theory", section B13.
+
+On page 104 (of the 3d edition ) we read :
+
+The only solution of s2(n) = s2(n + 1) is n = 6, since
+
+(1) s2(2n) > s2(2n + 1) for n > 7 and
+
+(2) s2(2n) > 5n^2 > ((Pi^2)(2n - 1)^2)/8 > s2(2n - 1)
+
+These inequalities are not evident to me ; I guess they rely on deeper estimates for sigma2.
+
+Perhaps their proof can be found in :
+
+J.M. De Koninck, On the solutions of Sigma2(n) = Sigma2(n + l ), Ann. Univ. Sci. Budapest. Sect. Comput., 21 (2002), 127-133.
+
+(reference taken from Guy's book).
+...
+
+Maybe this reference can be useful to see the 'difficulty' of the maths involved :
+
+https://en.wikipedia.org/wiki/Ramanujan%27s_sum
+
+***
+
+Oscar wrote:
+
+We can prove that there are no other solutions.
+
+Step 1.
+
+The ratio f(n) = sigma2(n) / n^2 is bounded for every index n:
+
+A <= f(n) < B
+
+A = 1
+
+B = (pi^2)/6 ~ 1.6449
+
+Step 2.
+
+Sharper bounds can be found if we distinguish between even and odd indexes:
+
+A1 <= f(2*m-1) < B1
+
+A1 = A = 1
+
+B1 = (pi^2)/8 ~ 1.2337
+
+A2 <= f(2*m) < B2
+
+A2 = 5/4 = 1.25
+
+B2 = B = (pi^2)/6 ~ 1.6449
+
+Step 3.
+
+As A1 < B1 < A2 < B2, the "odd<even" inequality chain holds for every index m:
+
+sigma2(2*m-1) < B1*(2*m-1)^2 < A2*(2*m)^2 <= sigma2(2*m)
+
+For m > 75.93, the "even>odd" inequality chain holds too:
+
+sigma2(2*m) >= A2*(2*m)^2 > B1*(2*m+1)^2 > sigma2(2*m+1)
+
+So we can solve sigma2(n) = sigma2(n+1) only if n = 2*m and n+1 = 2*m+1 and m <= 75.
+
+Exaustive search provides only the known solution for m = 3.
+
+Bound A = A1 = 1
+
+The largest divisor of an integer n is n itself, so sigma2(n) >= n^2
+
+Bound A2 = 5/4
+
+The largest divisors of an even integer n are n itself and n/2, so sigma2(n) >= n^2 + (n/2)^2
+
+Bound B = B2 = (pi^2)/6
+
+If we know the factorization of n as a product of prime powers p_k^e_k,
+
+then we can compute sigma2(n) as a product of geometric sums Q_k:
+
+Q_k = 1 + p_k^2 + ... + p_k^(2*e_k)
+
+and the ratio f(n) = sigma2(n) / n^2 as a product of geometric sums R_k = Q_k/(p_k^(2*e_k)):
+
+R_k = 1 + p_k^(-2) + ... + p_k^(-2*e_k)
+
+An upper bound for R_k, not depending on e_k, is given by replacing the finite sum with a converging geometric series:
+
+R_k < 1 + p_k^(-2) + p_k^(-4) + ... = (p_k^2)/(p_k^2 - 1)
+
+A further upper bound on f(n) is given by replacing the finite product, extended to the prime factors p_k of n, with a converging infinite product, extended to all primes:
+
+f(n) < (4/3)*(9/8)*(25/24)*(49/48)*(121/120)*... = zeta(2) = (pi^2)/6 ~ 1.6449
+
+Euler proved the product formula for Riemann zeta function and the closed-form evaluation of zeta(2).
+
+Bound B1 = (p1^2)/8
+
+If we consider only odd integers, we must extend the infinite product to odd primes only, reducing the upper bound by the factor 4/3.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

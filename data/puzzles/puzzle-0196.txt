@@ -1,0 +1,236 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_196.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 196. Consecutive integers with the same quantity of prime factors
+Source: https://www.primepuzzles.net/puzzles/puzz_196.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0196.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_195.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_197.htm
+  https://www.primepuzzles.net/puzzles/puzz_196.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 196. Consecutive integers with the same quantity of prime factors
+
+Problems & Puzzles: Puzzles
+
+Puzzle 196. Consecutive integers with the same quantity of prime factors
+
+Here we will ask for K consecutive integers each having K prime factors:
+
+counting repetitions
+
+without counting repetitions.
+
+As a matter of fact I have gotten the earliest sets of consecutive integers for the first small K values for both ways of counting:
+
+First member of the earliest set of K integers with K prime factors
+
+K | counting repetitions | without counting repetitions
+
+1 | 5 | 11
+
+2 | 9 | 14
+
+3 | 170 | 644
+
+4 | 4023 | 134043
+
+5 | 632148 | 129963314
+
+6 | 4843161124 (by JKA) | 626804494291 (by JKA) no guarantee this is the smallest. See below.
+
+7 | ?
+
+8 | ?
+
+Examples:
+
+for K=3, counting repetitions: the earliest triplet is {170, 171, 172}, because 170 = 2*5*17; 171 = 3*3*19; 172 = 2*2*43.
+
+for K=3, without counting repetitions: the earliest triplet is {644, 645, 646}, because 644 = 2*2*7*23; 645= 3*5*43; 646 = 2*17*19.
+
+Questions:
+
+1. Can you extend the Tables shown above?
+
+2. Can you find a triplet of consecutive titanic integers (digits=>1000, each) all having 3 prime factors, a) counting repetitions, b) without counting repetitions?
+
+3. Redo 2 for gigantic integers (digits=>10000, each).
+
+Solution:
+
+J. K. Andersen solved questions 1 & 2 and explains the nowadays difficulty level for solving the question 3. Here is his very explicative email:
+
+Note a number with exactly k prime factors, counting repetitions, is called a k-almost prime. The On-Line Encyclopedia of Integer Sequences (EIS) has sequences for the start value in the smallest sets setting a new record for the number of consecutive k-almost primes for small k. The sequence numbers for k = 3, 4, 5, 6, 7 are A067813 (7), A067814 (15), A067820 (8), A067821 (5), A067822 (4) with the current record size in parentheses. The theoretical maximal size for k is 2^k-1 since every 2^k number has k 2's as prime factors.
+
+1. Can you extend the Tables shown above?
+
+I have confirmed the existing values.
+
+I have only found one extension, for K=6 with repetitions:
+
+The start value in the smallest set of 6 consecutive 6-almost primes is 4,843,161,124. This beats the EIS record (A067821).
+
+I found no set of 7 consecutive 7-almost primes below 320 billion. The first set with 5 numbers starts at 15,605,704,374. The first with 6 numbers starts at 242,576,758,750. These are both EIS records (A067822). 7 numbers seems considerably harder but I wanted to find some solution. I used the Miracl big integer library and searched for a non-minimal set with 6 small chosen prime factors in each of the 7 numbers. I used modulo arithmetic to ensure these factors and then trial factored and prp tested the 7 cofactors until they were simultaneously primes. After 350 million attempts, around the expectation, I found a solution starting at the 36-digit 6406046204123130430300895880515890624.
+
+With a similar method and 12 billion attempts I found 8 consecutive 8-almost primes with 52 digits starting at: x = 2964449574354034208097486674428289322182221197109370
+
+The small chosen factors can be seen in the prime factorizations:
+
+x = 2*5*17^5*208785080071727942186958734184378379103122441
+
+x+1 = 3*11^6*557784833893956461391485940822489191205236737
+
+x+2 = 2^2*19^5*299306446789287727196841349480401361393690357
+
+x+3 = 7^7*3599629374973783042412462584744560177406912811
+
+x+4 = 2*3*13^5*1330687432994981594992582980031174536095132953
+
+x+5 = 5^7*37944954551731637863647829432682103323932431323
+
+x+6 = 2^7*23159762299640892250761614643971010329548603102417
+
+x+7 = 3^7*1355486773824432651164831584100726713389218654371
+
+I have not even attempted to find the smallest solution. It seems hard.
+
+By the way, I have previously found the smallest solutions for 5-almost primes for 9, 10, 11, 12 consecutive numbers: 2674685524, 10077383364, 21117216104, 393370860205. These are all EIS records (A067820) and I will soon submit them along with the partial solutions for this puzzle.
+
+I found no extensions to the table without repetitions.
+
+I tried for K=6 but only found many sets with 5 consecutive numbers. The smallest starts at 45,212,320,502 and I have searched to 563 billion. I quickly modified an old program but I am not sure it is exhaustive for this purpose...
+
+One day after he added:
+
+I finally found 6 consecutive numbers with 6 prime factors, not counting repetitions, starting at 626804494291:
+
+626804494291 = 23*29*83*97*151*773
+
+626804494292 = 2*2*47*59*101*131*4271
+
+626804494293 = 3*61*127*191*337*419
+
+626804494294 = 2*11*19*71*197*107209
+
+626804494295 = 5*7*7*41*79*443*1783
+
+626804494296 = 2*2*2*3*31*37*107*212801
+
+I think this is the smallest solution but don't guarantee it. When this solution first eluded me, I searched for a big solution with the same method as I used for 7 7-almost primes and 8 8-almost primes. In a few minutes running I found a 46-digit solution starting at: 3647131239451640984080894089331004699693395490
+
+I never attempted the smallest solution for K=7.
+
+I only searched for 7 BIG consecutive numbers with 7 prime factors, not counting repetitions. I had bad luck but after 1.87 billion attempts I found a 72-digit solution when I statistically should have found 3 or 4. It starts at: x=151993490505870691152585084549639083745786795351538879922474718559486680
+
+I placed all primes below 152 in the prime factorizations:
+
+x = 2^3*3^2*5*83*89*97*
+
+589227020851740454045942000170414403068805572308690648622811717
+
+x+1 = 7*13*17*61*149*151*
+
+71588229911992679251455843995968200407607018933452288766015757
+
+x+2 = 2*31*37*47*137*139*
+
+74028397744827522773279336715586517697799565324786508237289843
+
+x+3 = 3*19*41*53*127*131*
+
+73759062830373046536742968812696003175519353677408737111229019
+
+x+4 = 2^2*29*43*67*79*101*
+
+57000055171617667420537588018975565411093878996616918313940201
+
+x+5 = 5*11*23*59*71*73*
+
+392917382844295104275200689014375288041229023634459921615246857
+
+x+6 = 2*3*103*107*109*113*
+
+186615535093289321161099939216519567603044070563449505573592333
+
+I will not attempt K=8 without counting repetitions.
+
+2. Can you find a triplet of consecutive titanic integers (digits=>1000,
+
+each) all having 3 prime factors, a) counting repetitions, b) without counting repetitions?
+
+I wanted a simultaneous solution with and without counting repetitions, i.e. a solution without repetitions. I found one with 1015 digits: x = 1848973165.....4372465653 I searched solutions on the form: x = a*b*c, x+1 = 2*7*d, x+2 = 3*5*e
+
+Here a, b, c are primes chosen to ensure:
+
+x+1 has factors 2 and 7. x+2 has factors 3 and 5.
+
+x+1 and x+2 have no other small factors (below 810).
+
+x-1 and x+3 have at least 3 small factors each.
+
+The last is necessary since the table for K=1 indicates that a solution is not allowed to be extendable to the previous or next number. I know of no feasible way to determine whether a titanic composite number is 3-almost prime if zero or one factor is known.
+
+I first computed sets of probable primes around 338 digits and then tried different combinations of these for a, b and c until the cofactors (x+1)/14 and (x+2)/15 were both probable primes. I used a C program with Miracl and tested 30000 a,b,c combinations in 80 minutes to find a solution around the expected time:
+
+a = (339 digits chosen to satisfy modulo conditions) = 1418845789815194177008153943513281697526261316184221913167427349283990\
+
+6460876131870899786524877509789171760202550593485313828967983234288801\
+
+8036966059425501526186690715788522168517373744622106007972312294677483\
+
+0090909674153882439063625059359342071470879614881090597549135091109249\
+
+69460187569862088688412392616783141901416611035121998707653
+
+b = 466*810#*420+1 (338 digits)
+
+c = 1104*810#*420+1 (339 digits)
+
+810# is the product of all primes below 810.
+
+Primo proved the primes a, b, c, d, e - actually b and c have easily provable forms but it takes Primo less than 1 minute.
+
+3. Redo 2 for gigantic integers (digits=>10000, each).
+
+I have not attempted this.
+
+The probability of a d-digit number being prime is O(d).
+
+A probabilistic primality test on d digits takes around O(d^2) time. The complexity of finding two simultaneous primes around d digits is then
+
+O(d*d*d^2) = O(d^4). A simple algorithm for the given problem would look for 3 primes and have complexity O(d^5). A gigantic solution is around 10000 times harder than a titanic solution with my algorithm. I doubt there is anything asymptotically faster with currently known methods of finding primes. I expect it would take me 6 months with some optimizations to my current program. Efficient trial factoring will only change the constants in the complexity. Proving the probable primes would take decades with Primo unless a method to search for solutions with easily provable prime factors can be found.
+
+I could probably find a 3000-digit solution in a day or two. I would have if the puzzle asked for it but not this much bigger.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,306 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_997.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 997. m - n + s - Floor[m*s/n]=1
+Source: https://www.primepuzzles.net/puzzles/puzz_997.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0997.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_996.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_998.htm
+  https://www.primepuzzles.net/puzzles/puzz_997.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 997. m - n + s - Floor[m*s/n]=1
+
+Problems & Puzzles: Puzzles
+
+Puzzle 997. m - n + s - Floor[m*s/n]=1
+
+Sebastián Martín Ruiz wrote on April 11, 2020:
+
+1) Demonstrate that m - n + s - Floor[m*s/n]=1 for all positive integers s<n<m iff m-s<Sqrt[m] .
+
+2) Verify if Sqrt[m] is the largest bound for m-s that assures the equality above be satisfied.
+
+3 )Demonstrate that for tor three consecutive primes and n>1 other that 3 & 8:
+
+Prime[n + 2] - Prime[n + 1] + Prime[n]
+
+- Floor[Prime[n + 2]Prime[n]/Prime[n + 1]] = 1
+
+(for this puropose, once proved 1, is enough to prove that
+
+p(n+2)-p(n)<Sqrt[p(n+2)])
+
+4)Proved 3, demonstrate: p(n+2)<(1/(p(n+1)-p(n))+1)p(n+1)
+
+Contributions came from Oscar Volpatti, Emmanuel Vantieghem, Jan van Delden and Sebastián Martín Ruiz. All of them during the week 18-25 April, 2020.
+
+***
+
+Oscar wrote:
+
+I have no complete answer this week, question 3 was beyond my reach.
+
+Questions 1 and 2.
+
+For convenience, rearrange the given equality as floor(m*s/n) = m-n+s-1;
+
+I claim that it holds for all positive integers s<n<m iff m-s <= sqrt(4*m+1)-1,
+
+essentially improving the bound m-s < sqrt(m) by a constant factor 2.
+
+If m-s <= 1, there are no integers n with s<n<m; let us assume m-s >= 2.
+
+From the definition of floor function, we obtain the following system of inequalities:
+
+(a) m*s/n >= m-n+s-1;
+
+(b) m*s/n < m-n+s.
+
+Multiply by n (strictly positive) and rearrange:
+
+(a) n^2 - (m+s-1)*n + m*s >= 0;
+
+(b) n^2 - (m+s)*n + m*s < 0;
+
+Let us call the quadratic polynomials Pa(n) and Pb(n) respectively.
+
+Pb(n) has two distinct integer roots s and m, so inequality (b) holds for s<n<m, precisely the range of interest.
+
+Therefore, the starting equality holds in such range iff inequality (a) holds too.
+
+Pa(n) has discriminant Da = (m+s-1)^2 - 4*m*s;
+
+I will prove that (a) holds for all integers s<n<m (actually, for all positive integers n) iff Da <= 1.
+
+We need to distinguish two cases.
+
+I) Da is even, m+s is odd, m-s >= 3.
+
+Pa(n) has a unique minimum at the integer point n1 = (m+s-1)/2, with Pa(n1) = -Da/4 and s<n1<m;
+
+iff Da<=0, inequality (a) holds for n1, and for any other positive integer n.
+
+II) Da is odd, m+s is even, m-s >= 2.
+
+Now n1 is not an integer; Pa(n) has two minima at the closest integer points n0 = (m+s)/2 and n2 = (m+s-2)/2 = n0-1,
+
+with Pa(n0) = Pa(n2) = (1-Da)/4 and s<n0<m (but s<n2<m holds too only if m-s>=4);
+
+iff Da<=1, inequality (a) holds for n0, and for any other positive integer n.
+
+So, inequality Da <= 1 actually covers both parity cases.
+
+Rewrite it as s^2 - 2*(m+1)*s + m*(m-2) <= 0, and solve for s:
+
+m+1-sqrt(4*m+1) <= s <= m+1+sqrt(4*m+1),
+
+or, after rearranging:
+
+-sqrt(4*m+1)-1 <= m-s <= sqrt(4*m+1)-1.
+
+But only the second inequality is meaningful, as we worked in the range m-s >= 2.
+
+Question 3.
+
+As done before, we can rewrite the given equality as a system of two inequalities:
+
+(a) p(n+2)*p(n)/p(n+1) > p(n+2)-p(n+1)+p(n)-1;
+
+(b) p(n+2)*p(n)/p(n+1) < p(n+2)-p(n+1)+p(n).
+
+Now both inequalities are strict, because p(n+1) doesn't divide the product p(n+2)*p(n) exactly.
+
+Again, (b) holds iff p(n)<p(n+1)<p(n+2), a true statement for every n.
+
+Multiply both sides of (a) by p(n+1), then rearrange:
+
+(p(n+2)-p(n+1))*(p(n+1)-p(n)) < p(n+1).
+
+Assuming the conjectured Oppermann's bound on prime gaps:
+
+p(n+1)-p(n) < sqrt(p(n)) for every n > 30,
+
+we obtain (for n> 30) the following chain of inequalities:
+
+(p(n+2)-p(n+1))*(p(n+1)-p(n)) < sqrt(p(n+1))*sqrt(p(n)) < p(n+1).
+
+It is easy to check that, in the range n <= 30, (a) fails only for n=3 and for n=8.
+
+Question 4.
+
+The given inequality can be obtained from previous inequality (a), by solving for p(n+2).
+
+***
+
+Emmanuel wrote:
+
+About Q1.
+
+Take two positive integers s, m such that s < m
+
+Consider the function f(x) = m - x + s - m*s / x for x between s and m (s < x < m).
+
+With a littlebit of elementary calculus we can show that f(x) reaches its maximum where f '(x) = 0, i.e. : when x0 = Sqrt(m*s).
+
+We then have :
+
+f(x0) = m - Sqrt(m*s) + s - Sqrt(m*s) = m + s - 2Sqrt(m)Sqrt(s) = (Sqrt(m) - Sqrt(s))^2.
+
+Now, if we want to have m - n + s -Floor[m*s / n] to be equal to 1 for all integers n between s and m
+
+we should have that m - x + s - m*s / x is a number N that satisfies 0 < N <= 1.
+
+Thus, that should be Sqrt(m) - Sqrt(s) <= 1.
+
+This is much more than m - Sqrt(m) < s.
+
+For the rest, the condition Sqrt(p(n+2)) - Sqrt(p(n) < 1 would imply that there is always a prime in an interval [ x^2, (x+1)^2 ].
+
+As far as I know this is still a conjecture.
+
+So, I think all subsequent inequalities are also conjectural.
+
+***
+
+Jan wrote:
+
+Q2
+
+For all n, with s<n<m and s,n,m integer we are given: m-n+s-floor[m*s/n]=1
+
+Write: Floor[m*s/n]=m*s/n-a with a in [0,1)
+
+We thus obtain: m-n+s-m*s/n=1-a=b, with b in (0,1]
+
+Multiply with n and simplify: (m-n)(n-s)/n=b
+
+The function f(x,s,m)=(m-x)(x-s)/x is 0 iff x=m or x=s. Its maximum value is attained for x=sqrt(ms).
+
+Given s<n<m we won’t have x=s or x=m, thus b>0. We want this maximum value b to be less than or equal to 1 for all values of n.
+
+We therefore need:
+
+(m-sqrt(ms))(sqrt(ms)-s)/ sqrt(ms) = (sqrt(m)-sqrt(s))^2<=1 or sqrt(m)-sqrt(s)<=1 (since m>s).
+
+If we multiply both sides of the last equation with sqrt(m)+sqrt(s) we arrive at:
+
+m-s<=sqrt(m)+sqrt(s)
+
+The reverse of this statement is that if we have m-s<=sqrt(m)+sqrt(s) we have:
+
+m-n+s-Floor[m*s/n]=1 for all n with: s<n<m.
+
+The proof just reverses every step and is left as an exercise.
+
+That means that the given condition in Q1: m-s<sqrt(m) is too strict. It is sufficient, but not necessary.
+
+Notes:
+
+The equation: m-n+s-Floor[m*s/n]=1 with s<n<m may have particular solutions n even if m-s>sqrt(m)+sqrt(s), but it can’t have solutions for all n in the given interval.
+
+This might happen if m-n or n-s is relatively small.
+
+Q3.
+
+It is very tempting to plug in: s=p[n], n=p[n+1], m=p[n+2]. But we can’t use our previous result. In order to be able to do that we definitely need to prove that we have:
+
+p[n+2]-p[n] < sqrt(p[n+2])+sqrt(p[n])
+
+But I don’t see how to prove that this condition applies. It might for large n, but even that is just a conjecture nowadays: Opperman’s conjecture, which is a statement regarding an average prime gap, for large n:
+
+p[n+2]-p[n+1]<sqrt(p[n+1]) and
+
+p[n+1]-p[n] < sqrt(p[n])
+
+Add the two ‘inequalities’ and arrive at:
+
+p[n+2]-p[n]<sqrt(p[n+1])+sqrt(p(n))<sqrt(p[n+2])+sqrt(p[n])
+
+So it seems to fit nicely, but there are two drawbacks. One Opperman’s is a conjecture and not a theorem. And two the conjecture is about an average prime gap and not a prime gap. This does not mean that the given equality we wish to use is not true; as stated before it might also happen that m-n or n-s are small enough, or to put it differently, at least one of the two prime gaps needs to be relatively small.
+
+Q4.
+
+If we plug in the same values for s,n,m into (m-n)(n-s)/n<=b with b=1 and rewrite we arrive at:
+
+p[n+2]<=p[n+1] (1+1/(p[n+1]-p[n]))
+
+Note the possibility of equality above. And again, this statement might very well be true, with a few exceptions, but I don’t see how to prove the condition stated in my answer of Q3.
+
+***
+
+Sebastián wrote:
+
+He hecho la demostración del apartado 1:
+
+Floor[ms/n]=m-n+s-1
+
+es equivalente a probar:
+
+m-n+s-1<=ms/n<m-n+s
+
+ms<mn-n^2+sn
+
+0<mn-n^2+sn-ms
+
+0<n(m-n)-s(m-n)
+
+0<(n-s)(m-n) los cual es obvio pues s<n<m
+
+por otro lado
+
+mn-n^2+sn-n<=ms
+
+mn-n^2+sn-ms<=n
+
+(m-n)(n-s)<=n
+
+la cota correcta sería (m-s)<Sqrt[n] en lugar de Sqrt[m]
+
+por lo que se tendría (m-n)(n-s)<(m-s)^2<=n
+
+y así estarían probadas la dos desigualdades.
+
+Para el recíproco buscamos un contraejemplo con (m-s)>Sqrt[n]
+
+no he encontrado ninguno poniendo como cota Sqrt[n]+1, tampoco para Sqrt[n]+2, he encontrado contraejemplos para Sqrt[2]+3
+
+m=5 n=2 s=1
+
+5-2+1-Floor[5*1/2]=4-2=2 5-1<=Sqrt[2]+3
+
+por lo que la mejor cota sería Sqrt[n]+2
+
+pero esto último no lo puedo asegurar.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

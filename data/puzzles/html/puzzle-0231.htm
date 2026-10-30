@@ -1,0 +1,469 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Puzzle 231. k-Persistent primes </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="616" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10" width="616">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td width="616"><p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">
+    Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span>
+
+        </p>
+
+      <p><b><span lang="en-us">Puzzle 231. </span></b>
+      <font color="#008080"><b><span lang="en-us">k-Persistent primes</span></b></font></p>
+
+      <p><span lang="en-us"><font size="2">A k-persistent number n, is such that 
+      all of the following numbers: n, 2</span><span lang="es-mx">.</span><span lang="en-us">n, 
+      3</span><span lang="es-mx">.</span><span lang="en-us">n, ..., k</span><span lang="es-mx">.</span><span lang="en-us">n 
+      contains all the digits from 0 to 9 (see
+      <a href="http://mathworld.wolfram.com/PersistentNumber.html">1</a>)</span></font></p>
+
+      <p><span lang="en-us"><font size="2"><b>Eric Weisstein</b> shows </font>
+      </span><span lang="en-us" style="font-family: Century Gothic">
+      <font size="2"><b><font color="#800080">526315789473684210</font></b>
+      </font></span><font size="2"><span lang="en-us">as an example of a 
+      18-persistent number. In the same article is said that:</span></font></p>
+
+      <p><font color="#008000"><b>
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Arial">“</span><span lang="EN-US"><font size="2">There 
+      exists at least one <i>k</i>-persistent number for each </font></span>
+      <font size="2"><span lang="EN-US">positive integer</span><span lang="en-us">
+      </span><i><span lang="EN-US">k</span></i></font><span lang="EN-US"><font size="2">.”</font></span></b></font></p>
+
+      <p><font size="2"><span lang="en-us">Here we will ask for k-persistent 
+      primes.</span></font></p>
+
+      <p><span lang="en-us"><font size="2">As a matter of fact I have calculated 
+      the earliest of these for a few k values:</font></span></p>
+
+      <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="32%" id="AutoNumber1">
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">k</font></span></td>
+          <td width="87%"><font size="2"><span lang="en-us">p</span><span lang="es-mx">=prime</span></font></td>
+          <td width="91%"><span lang="en-us"><font size="2">Author</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">2</font></span></td>
+          <td width="87%">
+          <span lang="EN-US" style="font-size: 10.0pt; font-family: Arial">
+          10123457689</span></td>
+          <td width="91%"><span lang="en-us"><font size="2">CR</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">3</font></span></td>
+          <td width="87%">
+          <span lang="EN-US" style="font-size: 10.0pt; font-family: Arial">
+          10512867493</span></td>
+          <td width="91%"><span lang="en-us"><font size="2">CR</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">4</font></span></td>
+          <td width="87%">
+          <span lang="EN-US" style="font-size: 10.0pt; font-family: Arial">
+          11267085493</span></td>
+          <td width="91%"><span lang="en-us"><font size="2">CR</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">5</font></span></td>
+          <td width="87%"><span lang="en-us"><font size="2">?</font></span></td>
+          <td width="91%"><span lang="en-us"><font size="2">?</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">6</font></span></td>
+          <td width="87%"><span lang="en-us"><font size="2">?</font></span></td>
+          <td width="91%"><span lang="en-us"><font size="2">?</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">7</font></span></td>
+          <td width="87%"><span lang="en-us"><font size="2">?</font></span></td>
+          <td width="91%"><span lang="en-us"><font size="2">?</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">8</font></span></td>
+          <td width="87%"><span lang="en-us"><font size="2">?</font></span></td>
+          <td width="91%"><span lang="en-us"><font size="2">?</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">9</font></span></td>
+          <td width="87%"><span lang="en-us"><font size="2">?</font></span></td>
+          <td width="91%"><span lang="en-us"><font size="2">?</font></span></td>
+        </tr>
+        <tr>
+          <td width="13%"><span lang="en-us"><font size="2">10</font></span></td>
+          <td width="87%"><span lang="en-us"><font size="2">?</font></span></td>
+          <td width="91%"><span lang="en-us"><font size="2">?</font></span></td>
+        </tr>
+    </table>
+
+      <p><b><span lang="en-us"><font size="2" color="#0000FF">Question</font></span><font size="2" color="#0000FF"><span lang="en-us">s:</span></font></b></p>
+
+      <p><span lang="en-us"><font size="2" color="#0000FF"><b>1. Can you 
+      complete the table above?</b></font></span></p>
+
+      <p><span lang="en-us"><font size="2" color="#0000FF"><b>2. </b></font>
+      </span><b><font size="2" color="#0000FF"><span lang="en-us">Is it true the 
+      following statement?</span></font></b></p>
+
+      <p><b><span lang="en-us"><font size="2" color="#008000">“There exists at 
+      least one k-persistent </font><font size="2" color="#FF0000">prime</font><font size="2" color="#008000"> 
+      for each positive integer k.”</font></span></b></p>
+
+      <p><b><span lang="en-us"><font size="2" color="#0000FF">3. Do you devise a
+      </font><font size="2" color="#FF00FF">regular smart-approach </font>
+      </span><font size="2" color="#0000FF"><span lang="en-us">in order to find 
+      a k-persistent </span></font><span lang="en-us">
+      <font size="2" color="#FF0000">prime</font><font size="2" color="#0000FF"> 
+      for a given k value?</font></span></b></p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <hr>
+      <p><span lang="en-us"><b><font color="#FF0000">Solution:</font></b></span></p>
+
+      <p><span lang="en-us"><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Adam Stinchcombe, Jim Fougeron, 
+      Luke Pebody </b>and<b> Gilles Blanchette</b> sent contributions to this 
+      puzzle.</font></span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Adam Stinchcombe</b> wrote for the 
+      questions 2 &amp; 3:</font></span></p>
+
+      <blockquote>
+        <p><span lang="en-us"><font size="2">Certainly, the k in k-persistent 
+        primes runs to infinity, that is, for arbitrarily large numbers K there 
+        is some p which is k-persistent with k&gt;=K. If you take p large enough, 
+        say 30 or 100 digits or thereabouts, it is going to be almost impossible 
+        for p and its multiples not to be k-persistent for relatively large k 
+        values. E.g., I used Maple to get a random 12 digit number, cubed this 
+        to get a 36 digit number, took the next prime and then tested the 
+        k-persistence and quickly found 416420764462383215203462851467280961 to 
+        be 43-persistent. </font></span></p>
+        <p></p>
+        <p><span lang="en-us"><font size="2">Note in my claim, that k&gt;=K. In 
+        fact, it might be hard to find some p value that is exactly K-persistent 
+        but NOT (K+1)-persistent for large K. </font></span></p>
+        <p></p>
+        <p><span lang="en-us"><font size="2">The search then becomes what is the 
+        smallest p value that gives a given k. </font></span></p>
+    </blockquote>
+
+      <p><span lang="en-us">***</span></p>
+
+      <p><font size="2"><span lang="en-us"><b>Jim Fougeron</b> obtained the next 
+      entries for the Table, question 1:</span></font></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">5: 48657940213<br>
+      6: 175647382901<br>
+      7: 6440261849537<br>
+      8: 6435409832617</span><span lang="es-mx"> </span>(the only length 8 found 
+      so far).</p>
+      <p><span lang="en-us">Here are all of the length 7's I have found so far:</span></p>
+      <p><span lang="en-us">6440261849537<br>
+      8189804352617<br>
+      8399476581203<br>
+      8545801642739<br>
+      8600567921483<br>
+      8901529806437<br>
+      8936758491203<br>
+      10180854731629<br>
+      10919651402873<br>
+      10973564701829<br>
+      10990182935647<br>
+      11727649358021</span></p>
+      <p><span lang="en-us">My method is very brute force. </span></p>
+      <p><span lang="en-us">1. generated a file of permutations of 0123456789. 
+      This file was trimmed to only store values if the last digit is 1,3,7 or 9</span></p>
+      <p><span lang="en-us">1a. All of these are divisible by 3, so there can be 
+      no 10 digit primes. (as was shown by the minimal 2-persistant being 11 
+      digits)</span></p>
+      <p><span lang="en-us">2. read this file, and append a 1, 2, 3, ... 9 to 
+      each line. Slightly Trial factor these to 53, and output what was not 
+      factored out.</span></p>
+      <p><span lang="en-us">3. Run PFGW on this.</span></p>
+      <p><span lang="en-us">4. The PFGW.LOG results are the primes to start from 
+      (only PRP here, but I only cared about proving prime once I found deep 
+      enough k-Persistent.</span></p>
+      <p><span lang="en-us">5. Rerun these candidates, multiplied by 2 using 
+      pfgw -d -od -l (only outputs decimal expansion, and logs the results)</span></p>
+      <p><span lang="en-us">6. I created a &quot;finder&quot; program which found the 
+      resultant numbers which had all 10 needed digits. This was run on the 
+      pfgw.out file.</span></p>
+      <p><span lang="en-us">7. goto Step 5 with the resultant, but multiply by 
+      3, 4, 5, 6 (no 6's found yet).</span></p>
+      <p><span lang="en-us">This is certainly not a very good way to proceed, 
+      but it does work. It could be extended, by changing step 2 to append 10, 
+      11, 12, 13, ... 99 then 100, 101, 102, ... 999 etc, until the required 
+      k-persistent prime(s) are found.</span></p>
+    </blockquote>
+    <p><span lang="en-us">***</span></p>
+    <p><span lang="en-us"><b>Luke Pebody</b> sent the following strategy, for 
+    the question 3:</span></p>
+    <blockquote>
+      <p><span lang="en-us">Take an n-persistent number k.</span></p>
+      <p><span lang="en-us">Then find a prime of the form k*l (here * is 
+      concatenation) where l is a sequence of t-digits (possibly starting with a 
+      0) such that nl&lt;10^t. Then k*l=10^tk+l, and hence for 1&lt;=i&lt;=n, 
+      i(k*l)=10^t(ik)+il. Since il&lt;10^t, all the digits of ik are digits of 
+      i(k*l), and hence k*l is n-persistent.</span></p>
+    </blockquote>
+    <p><span lang="en-us">***</span></p>
+    </font>
+
+      <p><span lang="en-us"><font size="2"><b>Gilles Blanchette</b>&nbsp; wrote 
+      for the question 2 &amp; 3:</font></span></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">Question #2 and #3</span></p>
+      <p><span lang="en-us">Here is an algorithm that generate a k-persistent 
+      prime for a positive integer up to k</span></p>
+      <p><span lang="en-us">// Start with a pandigital prime number<br>
+      // p = 10123456789<br>
+      //<br>
+      // [1]<br>
+      // let m = 2<br>
+      //<br>
+      // [2]<br>
+      // if m*p is pandigital<br>
+      // m = m + 1<br>
+      // elseif<br>
+      // let c = the catenation of missing digit<br>
+      // let t = 0<br>
+      // while ( m do not divide c.t || ((c.t)/m).p is not prime || ((c.t)/m).p 
+      is not pandigital ) let t = t + 1<br>
+      // let p = ((c.t)/m).p<br>
+      // goto [1]<br>
+      // endif<br>
+      //<br>
+      // if ( m &lt;= k ) goto [2]<br>
+      //<br>
+      // p is a k-persistent prime</span></p>
+      <p><span lang="en-us">Note : a.b is catenation of number a and b.<br>
+      Note : The while (...) t = t + 1 will not loop indefinitely, especially 
+      because there is infinite prime number ending with same digit as p.</span></p>
+      <p><span lang="en-us">Here is some kilo-persistent prime generated by an 
+      implementation slightly different from the algorithm.</span></p>
+      <p><span lang="en-us">k = 1485 --&gt; 
+      2902511412532342619044701292813017107352161725041764195705797485949876543201</span></p>
+      <p><span lang="en-us">k = 1747 --&gt; 
+      5022902511412532342619044701292813017107352161725041764195705797485949876543201</span></p>
+      <p><span lang="en-us">k = 1302 --&gt; 
+      253291602612432511430879554120442275104130070909568930570130485949876543021</span></p>
+      <p><span lang="en-us">k = 1487 --&gt; 
+      71841996227831827538516486910161635153401069558561312094152971023456789</span></p>
+      <p><span lang="en-us">k = 1485 --&gt; 
+      50620311533350132357510055408221582220301073013852065792275819641203456789</span></p>
+      <p><span lang="en-us">k = 1084 --&gt; 
+      9613412011013356332915450663013770120213025163520113698109062581941230456789</span></p>
+      <p><span lang="en-us">k = 5048 --&gt; 
+      4014130683952091511536094003195451109764411727213402060919322152601630451234056789</span></p>
+      <p><span lang="en-us">k = 1213 --&gt; 
+      189056174111492144775403011813423210204414116499130026049641234506789</span></p>
+      <p><span lang="en-us">k = 1550 --&gt; 
+      872189056174111492144775403011813423210204414116499130026049641234506789</span></p>
+      <p><span lang="en-us">k = 1636 --&gt; 
+      3979103316515292419613260110588511015017025034010572091041918064151234560789</span></p>
+      <p><span lang="en-us">k = 1521 --&gt; 
+      11873318548192835580355011768120262812301538441356115854152972345678901</span></p>
+      <p><span lang="en-us">k = 1060 --&gt; 
+      465213528414751273415776760141460163519650224935425290599819374567890123</span></p>
+      <p><span lang="en-us">k = 1646 --&gt; 
+      4800121226143752663735138701551730222201044321760810381964258901234567</span></p>
+    </blockquote>
+    </font>
+
+      <p><span lang="en-us">***</span></p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <hr>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20" width="616">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_230.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_232.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td width="616">
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td width="616"><font face="MS Sans Serif, Helvetica" size="1"> 
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

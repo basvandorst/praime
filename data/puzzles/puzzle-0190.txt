@@ -1,0 +1,131 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_190.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 190. A follow up for the puzzle 188
+Source: https://www.primepuzzles.net/puzzles/puzz_190.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0190.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_188.htm
+  https://www.primepuzzles.net/puzzles/puzz_189.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_191.htm
+  https://www.primepuzzles.net/puzzles/puzz_190.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 190. A follow up for the puzzle 188
+
+Problems & Puzzles: Puzzles
+
+Puzzle 190. A follow up for the puzzle 188
+
+Maybe is worthwhile to read first the Puzzle 188.
+
+Here you are asked to seek for these n values such that:
+
+n is prime
+
+n divides S where S is the concatenation of the first n natural numbers
+
+Jeff Heleen, who proposed this follow up, has gotten the first 5 solutions: n = 2, 3, 5, 8167 & 371321.
+
+BTW, S(371321) is a number having 2,116,821 decimal digits
+
+Question: Find 3 more solutions.
+
+______
+
+Note: if n is not asked to be prime, then the corresponding sequence is the EIS A029455, by Olivier Gerard.
+
+Solution:
+
+Jens Kruse Andersen wrote (24/9/2002): " I have tested all primes below 20 million with an efficient C program using inline assembler. The program reached the biggest known solution 371321 in 3.5 minutes and then ran for several days. I only found the known solutions. This looks hard unless someone can find a clever shortcut".
+
+***
+
+Jeff Heleen wrote on Set 2014:
+
+Using my original code to even reach what Mr. Andersen achieved would have taken
+
+forever. Therefore, I found a way to modify the approach to make it much faster. Using
+
+this approach over the last 2 months I was able to test all primes less than 100,000,000.
+
+No further solutions were found to that point.
+
+For the largest prime less than 100 million (99,999,989), S(99999989) has 788,888,809 decimal digits.
+
+...
+
+After much thought and playing with different ideas I found that trying
+
+multiple primes 'at once' seemed to be the way forward. The major part
+
+of the process that consumes the most time is building each individual
+
+number to use in the mod function. If fewer numbers needed to be built
+
+progress would be faster.
+
+Let me give you an example with small numbers.
+
+Let's say we're testing these three numbers:
+
+1234567891011121314151617 mod 17
+
+12345678910111213141516171819 mod 19
+
+1234567891011121314151617181920212223 mod 23
+
+for divisibility by 17, 19 and 23. Doing each one separately is time
+
+consuming. I noticed that if, beforehand, 17, 19 and 23 are multiplied
+
+together to get 7429, then 1234...1617 mod 7429 is 1001.
+
+1001 mod 17 == 15, so 17 is not a solution.
+
+1001 mod 19 == 13, 131819 mod 19 == 16, so 19 is not a solution.
+
+1001 mod 23 == 12, 12181920212223 mod 23 == 6, so 23 is not a solution.
+
+And when 1234...1617 is mod by 17, 19, and 23 the standard way the
+
+residues are indeed 15, 13 and 12.
+
+So in this way I was able to speed things up. My program used primes in
+
+groups of 10, thus I only had to build one multi-million digit number
+
+for every 10 primes, mod by the primes multiplied, then build the small
+
+remainder of each of the numbers to test.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

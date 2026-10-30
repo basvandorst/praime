@@ -1,0 +1,162 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_806.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 806. Extended n-Parasitic numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_806.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0806.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://eng.wikipedia.org/
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_805.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_807.htm
+  https://www.primepuzzles.net/puzzles/puzz_806.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 806. Extended n-Parasitic numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 806. Extended n-Parasitic numbers
+
+Jan van Delden sent the following nice puzzle:
+
+An n-parasitic number (in base 10) is a positive natural number which can be multiplied by n by moving the rightmost digit of its decimal representation to the front. Here n is itself a single-digit positive natural number.
+
+[Definition from eng.wikipedia.org]
+
+157894736842105263 x 2 =
+
+315789473684210526
+
+179487 x 4 =
+
+717948
+
+Let’s extend the definition of parasitic number in the following way:
+
+An extended n-parasitic number (in base 10) is a positive natural number which can be multiplied by n by moving the rightmost digits of its decimal representation to the front. Here n is itself a single-digit positive natural number.
+
+103678929765886287625418060200668896321070234113712374581939799331 x 3=
+
+311036789297658862876254180602006688963210702341137123745819397993
+
+The extended n-parasitic number is therefore a number m such that m=a.b (the concatenation of a and b) and n x a.b=b.a. In the given examples b is a prime number.
+
+It is straightforward to show that the first digit of b must be at least n. In the questions we assume n>1 (to keep it interesting).
+
+Q1: Show that there is at least one extended n-parasitic number m for which a<b. Why are these solutions rare?
+
+Q2: Are there extended n-parasitic numbers where the number of digits of a is smaller than the number of digits of b?
+
+Q3: Is m always composite?
+
+Q4: Show that an extended n-parasitic number m=a.b exists for every n and for every b prime (first digit of b >= n) or give a counterexample.
+
+Q5: Find the smallest extended n-parasitic number m, having the last digit of b in {1,3,5,7,9} and b prime.
+
+Contribution came from Emmanuel Vantieghem
+
+***
+
+Emmanuel wrote:
+
+Q1, Q2 and Q4.
+
+Let m = a.b be the concatenation of the k-digit a with the s-digit b and suppose m is extended n-parasitic.
+
+Then we have : n*(a*10^s + b) = b*10^k + a.
+
+Thus : a*(n*10^s - 1) = b*(10^k - n). (***)
+
+Set D = n*10^s - 1 and T = 10^k - n.
+
+It is easy to find solutions of (***) for given n and s by choosing k such that T is divisible by D.
+
+Indeed, T == 0 (mod D) means :
+
+10^k == n == 10^(-s) (mod D) or :
+
+10^(k+s) == 1 (mod D).
+
+That means that k+s must be equal to the multiplicative order u of 10 mod D.
+
+Since D and 10 have no divisor in common, this u certainly exists..
+
+(I used Mathematica to compute every u).
+
+This procedure gives lots of solutions (but not all) in which k will be bigger than s by choosing any b with s digits and leading digit >= n.
+
+To find solutions with given k and n we can try to make D divisible by T. But this is not allways evident since 10 and T may have a divisor in common.
+
+Therefore these solutions are less abundant (but not at all 'rare' !). Here are some of them :
+
+3*142857 = 428571
+
+9*109890 = 989010
+
+7*118279569892473 = 827956989247311
+
+Remark : there are also solutions in which n and 10 have a common divisor. Here is one :
+
+5*157894736842105263 = 789473684210526315
+
+Q3
+
+All n-parasitic numbers m are divisible by 3.
+
+Proof :
+
+Let z be the sum of the digits of m.
+
+Since n*m and m are composed of the same digits, we have modulo 9 :
+
+n*z == z. If m would be prime, z has no divisors in common with 9, hence n == 1 mod 9.
+
+Since the case n = 1 is out of consideration,we have QED.
+
+Q5.
+
+The smallest (extended) n-parasitic number is 128205 (n = 4)
+
+...
+
+I computed the sequence of all extended n-parasitic numbers.
+
+It was not very difficult to find all the terms < 1000000 of that sequence :
+
+102564, 109890, 128205, 142857, 153846, 179487, 190476, 205128, 230769, 238095, 285714, 307692, 428571.
+
+But, to find the next terms is not at all easy. I think the next is 1012658227848 but I'm not a 100% sure.. And what's the second next ?
+[What is the n value for each of your members sent?]... Some of them have more than one n. The sets of values n are respectively :
+
+{4}, {9}, {4}, {2, 3, 4, 5, 6}, {3, 4}, {4}, {4}, {4}, {3, 4}, {4}, {2, 3}, {3}, {2}... I think 102564102564 is a better candidate to be the next term (and not the 13-digit 1012658227848 I mentioned in the previous mails).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

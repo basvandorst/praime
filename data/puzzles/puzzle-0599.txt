@@ -1,0 +1,240 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_599.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 599. Weird numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_599.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0599.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://en.wikipedia.org/wiki/Weird_number
+  mailto:cbrfgm@gmail.com
+  http://www.amatyc.org/publications/Electronic-proceedings/Phoenix28/Benkoski/Hubris.pdf
+  https://www.primepuzzles.net/puzzles/puzz_598.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_600.htm
+  https://www.primepuzzles.net/puzzles/puzz_599.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 599. Weird numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 599. Weird numbers
+
+Adrian Chow sent the following puzzle.
+
+I got a result about Weird Number.
+
+P*N is a weird number if:
+
+1. N is a weird number and
+
+2. P is a prime larger than the sum of divisors of N.
+
+Example 70 is the smallest weird number and
+
+70 * 149 = 10430 is also a weird number.
+
+10430 * 21601 = 225298430 is also a weird number.
+
+But I don't know why?
+
+Q. Can you provide an explanation of find a counterxample?
+
+Contributions came from Jan van Delden, Fred Schneider, Paul Schmidt, Nick McGrath, Antoine Verroken & Emmanuel Vantieghem.
+
+***
+
+Jan, Fred, Paul & Antoine, basically sent the same proof for the explanation asked by Adrian:
+
+P*N is a weird number if:
+
+1. N is a weird number and
+
+2. P is a prime larger than the sum of divisors of N.
+
+Weird numbers, by definition are abundant but not semiperfect.
+
+Since P is prime and greater than N, the factors of P*N are the factors of N and P times each of the factors of N
+
+e.g.
+
+Factors of 70 = 1,2,5,7,10,14,35,70
+
+Factors of 70*149 = 1,2,5,7,10,14,35,70,149,298,745,1043,1490,2086,5215,10430
+
+The proper factors of P*N are the proper factors of N, N, and P times each of N
+
+First, P*N must be abundant.
+
+The sum of the proper divisors of P*N is F + N + P*F
+
+F will denote the sum of all the proper divisors of N
+
+F>N by definition of abundance
+
+P*F > P*N
+
+F + N + P*F > P*N
+
+so P*N is abundant
+
+P*N is semiperfect if the following two conditions hold:
+
+F1 + N + P*F2 <> P*N and F1 + P*F2 <> P*N
+
+Where F1 and F2 are equal to the sum of all or some of the proper divisors of N
+
+F1 <> N and F2 <> N by definition if N is weird.
+
+F will denote the sum of all the proper divisors of N
+
+Let's solve F1 + N + P*F2 <> P*N first
+
+Assume they are equal
+
+F1 + N + P*F2 = P*N
+
+(F1 + N + P*F2)/P = N
+
+(F1 + N)/P + F2 = N
+
+N and F2 are integers, so (F1 + N)/P must be an integer.
+
+But, from the definition of the problem, P > (F+N),
+
+F1 <= F, so F1+N < P
+
+N > 0 and F1 >= 0 so (F1+N)/P > 0
+
+therefore (F1+N)/P < 1 and is not an integer and
+
+F1 + N + P*F2 <> P*N
+
+The second equation: F1 + P*F2 <> P*N
+
+Assume they are equal
+
+F1 + P*F2 = P*N
+
+F1/P + F2 = N
+
+F1/P < 1 also, but, if F1=0, then F1/P is an integer
+
+0/P + F2 = N
+
+F2 = N but this contradicts the definition of F2 which must not equal N for N to be weird
+
+therefore
+
+F1 + P*F2 <> P*N
+
+Both equations cannot equal the number P*N, so P*N is not semiperfect.
+
+***
+
+Nick wrote:
+
+Proof by contradiction:
+
+Let's assume that P*N is not weird.
+
+Let S be the set of divisors of N. Then the set of divisors of N*P are (S) U (S)*P, (where U = union)
+
+Let s and t be any subsets of S.
+
+P*N is not weird therefore there must be subsets s and t such that s + P*t = P*N
+
+If s is the empty set then P*t = P*N or t = N. Contradiction because N is weird.
+
+Otherwise, s/P + t = N or N - t = s/P
+
+N - t is an integer but s/P is not because P>S and s is a subset of S. Another contradiction.
+
+Therefore our assumption that P*N is not weird is false.
+
+***
+
+Emmnanuel wrote:
+
+The result is not new. It occurs without proof in
+
+http://www.amatyc.org/publications/Electronic-proceedings/Phoenix28/Benkoski/Hubris.pdf (page 5, last frame).
+What follows now is my proof :
+
+Let N be a weird number and let { d(0), d(1), ..., d(k) } be the set of its divisorsBy definition of weirdness, s = d(0)+d(1)+...+d(k) > 2N and no partial sum of the d(i) equals N.
+Let P be a prime number, > s. Clearly, P is not a divisor of N, whence the set of divisors of P N is
+
+{d(0), d(1), ..., d(k), P d(0), P d(1), ..., P d(k) }.
+
+The sum of all the divisors of P N is thus equal to s + P s, > 2 P N. (***)
+
+Now, assume P N = d(i_1)+...+d(i_g)+P ( d(j_1)+...d(j_h) ) is a sum of some of its divisors. Clearly, P divides d(i_1)+...+d(i_g). Since such a sum is smaller than s, and s is smaller than P, that sum must be zero. Thus, P N = P ( d(j_1)+...d(j_h) ), which implies that N is a sum of some of its divisors, impossible. Thus, no partial sum of divisors of P N can equal P N, which together with (***) implies that P N is a weird number-
+
+***
+
+A. Verroken wrote:
+
+Please will find in annex solution of p.599a ( Vantieghem ).
+
+A weird number Q is abundant,sum of proper divisors > Q and no subset of the proper divisors sums to Q.
+
+Q = W*P^n W is a weird number P is prime > sigma (W ) n > 0
+
+1. because W is weird and a multiple of a abundant number is abundant ,Q is abundant
+
+2. abundant : sigma(Q) – 2*Q > 0 à sigma(Q) – Q > Q , thus sum of proper divisors is bigger than Q.
+
+3. no subset of the proper divisors of Q sums to Q.
+
+a. sigma(W) = A = d(0) + d(1) + … + d(k) ; A < P ; A maximum = P – 1
+
+b. sigma(Q) = B = A + A*P + A*P^2 + A*P^n because B = A * ( 1 + P + .. P^n ) = A * [ P^(n+1)-1 ] / [ P – 1 ] ; with A, max. P – 1 , B max. = P^(n+1) – 1 à P^(n+1) > B max.
+
+c. s(‘): sum of some of the divisors of A
+
+z’ : sum of some of the proper divisors of A
+
+C : sum of subset of proper divisors of Q
+
+C = s’ + s’’*P + s’’’*P^2 + s’’’’P^3 + ...+ s# *P^(n-1) + z’*P^n
+
+C/P^n = D = s’/P^n + s’’/P^(n-1) + … + s#/P + z’
+
+s(‘) max. = P – 1
+
+D max. = (P – 1 ) * [ 1/P^n + 1/P^(n-1) … 1/P ] + z’
+
+D max. = [ P^(n+1) – 1 ] / P^(n+1) + z’ = E + z’
+
+E max. is < 1 and z’ <> W à D <> W
+
+Thus Q is a weird number if W is a weird number and P(prime ) > sigma ( W )
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,125 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_056.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 56.  p1*p2*…*pk = q1+q2+…+qk
+Source: https://www.primepuzzles.net/problems/prob_056.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0056.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathforum.org/kb/message.jspa?messageID=6881701&tstart=0
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/problems/prob_055.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_057.htm
+
+========================================================================
+
+Problem 56. p1*p2*…*pk = q1+q2+…+qk
+
+Problems & Puzzles: Problems
+
+Problem 56. p1*p2*…*pk = q1+q2+…+qk
+
+JM Bergot made me notice the following problem:
+
+Let's seek for solutions to:
+
+p1*p2*…*pk = q1+q2+…+qk .......... (A)
+
+where sets {p1-pk} & {q1-qk} are two sets of consecutive primes.
+
+For k=odd solutions have been reported by Jim Ferry for K=3 to 25.
+
+Example. For k=3, the smallest solution is:
+
+29*31*37 = 11083 + 11087 + 11093
+
+For k=even, due to parity restriction, p1 must be 2. Then solutions should be unique when they exist.
+
+It seems that up to this moment no one single solution has been found for k=even
+
+Q1. Can you find one solution to (A) for k=even?
+
+Contributions came from Jan van Delden and J. K. Andersen.
+
+***
+
+van Delden wrote:
+
+I computed the minimal absolute difference between the sum and the product-term until n=240 (where the product consists of 639 decimals). I also computed the average gap between the consecutive primes, q1..qn, defining the sum. There are just a few values of n where this difference is smaller than the average gap (let alone zero):
+
+n=64; pn=311; difference=108 avg. gap=296.10
+
+n=66; pn=317; difference=110 avg. gap=308.46
+
+n=98; pn=521; difference=212 avg. gap=382.95
+
+n=112;pn=613; difference=262 avg. gap=552.34
+
+n=150;pn=863; difference=670 avg. gap=729.18
+
+n=230;pn=1451;difference=688 avg. gap=1205.59
+
+This suggests that finding a solution gets less and less probable with increasing n, although not improbable.
+
+***
+
+Andersen wrote:
+
+I found no solutions in a search to k=200 using prp's for sums with k>40.
+
+The sums could theoretically change if some of the prp's are composite.
+
+A PARI/GP prp test with no known composite pseudoprime was used.
+
+I expect around 0.08% chance of a solution existing.
+
+This is based on the following heuristics.
+
+p1*p2*...*pk = pk#.
+
+We want k consecutive primes around pk#/k with sum pk#.
+
+The average distance between primes near pk#/k is log(pk#/k).
+
+For large k this is roughly log(pk#) which is known to be around pk.
+
+Consider the largest sum below pk# of k consecutive primes.
+
+The next sum replaces the first of those k primes by a prime k places
+
+further along, so the sum is expected to be around k*pk larger.
+
+If k is even then the sum is even and the expected chance of hitting
+
+exactly the even number pk# is 2/(k*pk).
+
+If k is odd then the sum is odd and the chance is 0.
+
+The average expected chance over both odd and even k is 1/(k*pk).
+
+The expected number of solutions for k = a to b can then be
+
+approximated by the sum of 1/(k*pk) for k = a to b.
+
+This sum is convergent when b is infinite so the expected number
+
+of solutions is finite.
+
+The sum from 201 to infinite is approximately 0.0008, so this is the
+
+total number of solutions I expect, given the search limit of 200.
+
+The expected chance of at least one solution becomes around 0.08%.
+
+***
+
+Records | Conjectures | Problems | Puzzles

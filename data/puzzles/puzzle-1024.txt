@@ -1,0 +1,453 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1024.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1024. Primes from primes
+Source: https://www.primepuzzles.net/puzzles/puzz_1024.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1024.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.futilitycloset.com/2020/08/18/math-notes-129/
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1023.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1025.htm
+  https://www.primepuzzles.net/puzzles/puzz_1024.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1024. Primes from primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1024. Primes from primes
+
+Claudio Meller made me notice this nice curio:
+
+2^3+5^7+...+31^37 = 15148954872646850196557152427604893685308877022260348791 is prime.
+
+Q. Can you find more primes of these type.
+
+During the week 19-24. December 2020, we received the following contributions: Paul Cleary, Adam Stinchcombe, Oscar Volpatti, Jan van Delden, Giorgos Kalogeropoulos, Metin Sariyar, Simon Cavegn, Jeff Heleen
+
+***
+
+Paul wrote:
+
+If we allow the start Prime to be other than 2, then there are the following solutions of this type.
+
+{{257,263},{269,271},{277,281},{283,293},{307,311},{313,317},{331,337},{347,349},{353,359},{367,373},
+
+{379,383},{389,397},{401,409},{419,421},{431,433}} =
+
+535374867...81339
+
+{{653,659},{661,673},{677,683},{691,701},{709,719},{727,733},{739,743},{751,757},{761,769},{773,787},
+
+{797,809},{811,821},{823,827},{829,839},{853,857},{859,863},{877,881},{883,887},{907,911},{919,929},
+
+{937,941},{947,953},{967,971},{977,983},{991,997},{1009,1013},{1019,1021},{1031,1033},{1039,1049}} =
+
+268973...971857
+
+{{43,47},{53,59},{61,67},{71,73},{79,83},{89,97},{101,103},{107,109},{113,127},{131,137},{139,149},
+
+{151,157},{163,167},{173,179},{181,191},{193,197},{199,211},{223,227},{229,233},{239,241},{251,257},
+
+{263,269},{271,277},{281,283},{293,307},{311,313},{317,331},{337,347},{349,353},{359,367},{373,379},
+
+{383,389},{397,401},{409,419},{421,431},{433,439},{443,449},{457,461},{463,467},{479,487},{491,499},
+
+{503,509},{521,523},{541,547},{557,563},{569,571},{577,587},{593,599},{601,607},{613,617},{619,631},
+
+{641,643},{647,653},{659,661},{673,677},{683,691},{701,709},{719,727},{733,739},{743,751},{757,761},
+
+{769,773},{787,797},{809,811},{821,823},{827,829},{839,853},{857,859},{863,877},{881,883},{887,907},
+
+{911,919},{929,937},{941,947},{953,967},{971,977},{983,991},{997,1009},{1013,1019},{1021,1031},
+
+{1033,1039},{1049,1051},{1061,1063},{1069,1087},{1091,1093},{1097,1103},{1109,1117}} =
+
+154360...677681
+
+{{41,43},{47,53},{59,61},...{1607,1609},{1613,1619},{1621,1627}} =
+
+207474...769879
+
+...
+
+Have taken the primes up to the 4740 th prime with no solution found.
+
+***
+
+Adam wrote:
+
+It wasn't clear to me if the puzzle had to start at 2 or not. I found, starting at 257^263, including 15 summands, and ending with 431^433, results in the 1141 digit prime:
+
+53537486...0781339
+
+***
+
+Oscar wrote:
+
+I initially considered only sums of the "base" form:
+
+x(n) = 2^3 + 5^7 + ... + p(2*n-1)^p(2*n).
+
+I checked all candidates with index n <= 1500, finding no further primes after the known value:
+
+x(6) = 2^3 + 5^7 + ... + 31^37, 56 digits.
+
+The sequence grows very quickly; the largest tested value was:
+
+x(1500) = 2^3 + 5^7 + ... + 27437^27449, 121828 digits.
+
+Then I tried to start from an odd prime p(k) > 2, considering sums of the "extended" form:
+
+y(k,n) = p(k)^p(k+1) + p(k+2)^p(k+3) + ... + p(k+2*n-2)^p(k+2*n-1).
+
+As before, n is the number of addends within the given sum.
+
+I checked all candidates with less than 20000 digits, finding ten PRPs.
+
+I verified primality only for the smallest one.
+
+y(55,15) = 257^263 + 269^271 + ... + 431^433, 1141 digits (prime!);
+
+y(119,29) = 653^659 + 661^673 + ... + 1039^1049, 3165 digits;
+
+y(14,87) = 43^47 + 53^59 + ... + 1109^1117, 3402 digits;
+
+y(13,123) = 41^43 + 47^53 + ... + 1621^1627, 5223 digits;
+
+y(345,85) = 2333^2339 + 2341^2347 + ... + 3673^3677, 13109 digits;
+
+y(134,213) = 757^761 + 769^773 + ... + 4049^4051, 14614 digits;
+
+y(361,129) = 2437^2441 + 2447^2459 + ... + 4549^4561, 16684 digits;
+
+y(307,159) = 2027^2029 + 2039^2053 + ... + 4603^4621, 16927 digits;
+
+y(19,321) = 67^71 + 73^79 + ... + 4933^4937, 18233 digits;
+
+y(596,51) = 4363^4373 + 4391^4397 + ... + 5233^5237, 19476 digits.
+
+***
+
+Jan wrote:
+
+A search for all primes where I limited the sum to 25000 digits revealed the following solutions:
+
+Index
+
+Prime
+
+From
+
+To
+
+From
+
+To
+
+Digits
+
+1
+
+13
+
+2
+
+37
+
+(*) 56
+
+13
+
+258
+
+41
+
+1627
+
+5223
+
+14
+
+187
+
+43
+
+1117
+
+3402
+
+19
+
+660
+
+67
+
+4937
+
+18233
+
+55
+
+84
+
+257
+
+433
+
+1141
+
+119
+
+176
+
+653
+
+1049
+
+3165
+
+134
+
+559
+
+757
+
+4051
+
+14641
+
+307
+
+624
+
+2027
+
+4621
+
+16927
+
+345
+
+514
+
+2333
+
+3677
+
+13109
+
+361
+
+618
+
+2437
+
+4561
+
+16684
+
+596
+
+697
+
+4363
+
+5237
+
+19476
+
+739
+
+752
+
+5623
+
+5711
+
+21451
+
+I also searched for solutions where I reversed the order of the primes in base^exponent.
+
+The smallest solution was the prime:
+
+83^79+97^89+103^101+109^107+127^113+137^131+149^139+157^151+167^163
+
+A table comprising all solutions where the sum has less than 10000 digits:
+
+Index
+
+Prime
+
+From
+
+To
+
+From
+
+To
+
+Digits
+
+22
+
+39
+
+79
+
+167
+
+(*) 363
+
+27
+
+56
+
+103
+
+263
+
+(*) 622
+
+67
+
+232
+
+331
+
+1459
+
+4598
+
+111
+
+204
+
+607
+
+1249
+
+3831
+
+152
+
+329
+
+881
+
+2207
+
+7367
+
+171
+
+392
+
+1019
+
+2693
+
+9224
+
+185
+
+222
+
+1103
+
+1399
+
+4345
+
+247
+
+416
+
+1567
+
+2861
+
+9876
+
+All numbers are strong pseudo primes, I used 11 Miller-Rabin tests. The primes with an (*) are certified prime.
+
+***
+
+Giorgios wrote:
+Starting with 2^3..., no other primes were found. (I checked up to 4000 consecutive primes)
+If we start from an other prime than 2, here are some results (these sums contain only consecutive primes):
+
+257^263 + ... + 431^433 is a 1141-digit prime (30 consecutive primes)
+
+653^659 + ... + 1039^1049 is a 3165-digit prime (58 consecutive primes)
+
+2333^2339 + ... + 3673^3677 is a 13109-digit prime (170 consecutive primes)
+
+43^47 + ... + 1109^1117 is a 3402-digit prime (174 consecutive primes)
+
+41^43 + ... + 1621^1627 is a 5223-digit prime (246 consecutive primes)
+
+757^761 + ... + 4049^4051 is a 14614-digit prime (426 consecutive primes)
+
+67^71 + ... + 4933^4937 is a 18233-digit prime (642 consecutive primes)
+
+***
+
+Metin wrote:
+
+Q1: I didn't find a new prime or prp up to ...+15413^15427
+
+***
+
+Simon wrote:
+
+Found no more solutions up to last term 37747^37781.
+
+***
+
+Jeff wrote:
+
+I have checked up to p=499 and q=503 with no further primes.
+
+I have also checked 3 other versions of this puzzle and found only:
+
+2^3+3^5 = 251 prime
+
+3^2+5^3+7^5+11^7+13^11+17^13+19^17+23^19+29^23 = 4316720792370367095095683949638501 prime
+
+3^2+7^5+13^11+19^17+29^23 = 4316720717754896157600395335336781 prime
+
+and no others up to p=499 and q=503.
+
+Jeff Heleen
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

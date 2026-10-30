@@ -1,0 +1,238 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_521.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 521. p^p=p mod(q)
+Source: https://www.primepuzzles.net/puzzles/puzz_521.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0521.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_520.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_522.htm
+  https://www.primepuzzles.net/puzzles/puzz_521.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 521. p^p=p mod(q)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 521. p^p=p mod(q)
+
+JM Bergot poses the following nice puzzle:
+
+One notices that 13^13=13mod(17) is of the form for two consecutive primes p,q p^p=p mod(q).
+
+Q. Find larger examples
+
+Contributions came from Qu Shun Liang, Torbjörn Alm, Seiji Tomita, Jan van Delden, Fred Schneider, Gurmeet Singh, Giovanni Resta, Jean-Claude Rosa & Farideh Firoozbakht.
+
+***
+
+Qu Shun Liang wrote:
+
+1、p=65521,q=65537
+
+2、p=423746628825757810583848581127700861565685549, q=423746628825757810583848581127700861565685607
+
+***
+
+Torbjörn Alm wrote:
+
+p= 65521 q= 65537. Both solutions have q as Fermat primes.
+
+***
+
+Seiji wrote:
+
+I searched p and q where p < 10^8.
+
+Only one solution was found.
+
+65521^65521 = 65521 mod 65537.
+
+There are interesting relations between p and q where n=2 and 4.
+
+First, q is Fermat prime number.
+
+Next,if q=2^(2^n)+1 and p=q-2^n then p^(2^n) =1 mod q.
+
+Set n=4.
+
+q=65537=2^(2^4)+1.
+
+p=65521=q-2^4.
+
+65521^(2^4)=1 mod 65537.
+
+***
+
+Jan wrote:
+
+Given solution has q=F2=2^(2^2)+1=17, the next is q=F4=2^(2^4)+1=65537.
+
+Using a search, described below, I also found:
+
+[p,q]=[423746628825757810583848581127700861565685549,423746628825757810583848581127700861565685607].
+
+Here q cannot be a Fermat number, because the difference q-p=58 is not a divisor of q-1=2^(2^n) for any n. Smaller solutions [p,q] might exist, but q-p>64 in that case. (See further).
+
+Obviously the equation doesn't have solutions for p=2. For p>2 it can be rewritten as: d^d=1 (mod q) with d=q-p, becasuse d is even. Since (d,q)=1 we should also have d|q-1.
+
+If we drop the requirement that q=nextprime( p), then more solutions exist. Just a few [p,q] with increasing difference d:
+
+[13,17],[37,43],[5,13],[233,241],[31,41],[7,19],[17,29],[241,257],[65521,65537],[41,61] untill d=20. I searched untill d=64. There are no solutions for d=2,14,18,32,38,46,62 Constructing a table like this has the disadvantage that a large number d^d-1 has to be factored completely.
+
+***
+
+Fred wrote:
+
+Only solution through 10^5: 65521^65521 = 65521 (mod 65537)
+
+***
+
+Gurmeet wrote:
+
+Let p and q are consecutive primes
+
+The equation p^p=p mod(q) is equivalent to p^(p-1)=1 mod(q)
+
+And by fermat's little theorem p^(q-1)=1 mod(q)
+
+=> p^(p-1) * p^(q-p)=1 mod(q)
+
+=> p^(q-p)=1 mod(q)
+
+Now let q-p=d
+
+=> (q-d)^d=1 mod(q)
+
+=> (-d)^d=1 mod(q)
+
+As d is even so,
+
+=> d^d=1 mod(q)
+
+=> q is a prime factor of (d^d-1)
+
+Now d can be d=4,6.... so on any even number (for d=2 , p and q are 1 and 3 respectively from which1 is not a prime number )
+
+For d=4
+
+=> q is a prime factor of (4^4-1)
+
+=> q is a prime factor of 255 which are 3,5 and 17
+
+=> for q=17 , p=q-d=13
+
+=> as 13 and 17 are consecutive primes, so 13 and 17 follows the given condition which was noticed by J M Bergot
+
+After some investigation we can find out that the next such pair is for d=6 which is 37 & 43 but unfortunately these are not consecutive primes.
+
+But after some help of computer I had find out a pair of consecutive primes which follows the given condition
+
+And the pair is 65521 and 65537 for d=16.
+
+I had checked all possible pairs from d=4 to d=26 but
+
+I found only one such pair other than the one which was already given (13 & 17)
+
+I had used c++ program of my own for solving this problem.
+
+***
+
+Giovanni wrote:
+
+For puzzle 521 I searched for primes up to 4.25 x 10^12,
+
+but I only found the couple p=65521 q=65537.
+
+If the residues were distributed more or less uniformly, then
+
+the probability of a hit would be about 1/q. If this is
+
+the case, since the sum of the reciprocals of the primes diverges
+
+one would expect an infinite number of solutions.
+
+However, the sum 1/p diverges so slowly that a further solution, if exists, could be unreachable by brute force.
+
+***
+
+JC Rosa wrote:
+
+About this puzzle here is my solution:
+
+We have p^p=p mod q.
+
+Let q=p+k (k=even number)
+
+The equality p^p=p mod q gives k^k-1=0 mod q
+
+Indeed: p^p=p^(q-k) and p^p=p mod q becomes p^q=p^(k+1) mod q
+
+fromwhere p^(q-1)=p^k mod q. But p and q are prime numbers and
+
+from Fermat's theorem we know that p^(q-1)=1 mod q.
+
+Thus p^k=1 mod q
+
+(q-k)^k=1 mod q fromwhere k^k=1 mod q and k^k-1=0 mod q.
+
+So q is a prime divisor of k^k-1
+
+Examples: k=4 , 4^4-1=255=3.5.17.
+
+q=17 ; p=13 ; 13^13=13 mod 17
+
+k=6 ; 6^6-1=5.7.31.43
+
+q=43 ; p=37 ; 37^37=37 mod 43 but unfortunately 37 and 43 are not consecutive.
+
+I obtained a solution with two consecutive prime numbers for k=16.
+
+16^16-1=3.5.17.257.641.65537.6700417
+
+q=65537 ; p=65521 ; 65521^65521=65521 mod 65537
+
+***
+
+Farideh wrote:
+
+The only other prime p such that p^p = p (mod q) up to prime(366000) = 5270521
+
+is p = 65521, where q = next-prime(p) = 65537.
+
+Let G(n) = F(n) - 2^n = 2^2^n + 1 - 2^n, it is interesting that the first such pair (p, q )
+
+is (G(2), F(2)) and the second such pair is (G(4), F(4)).
+
+For odd numbers n we have F(n) | G(n)^2^n + 1.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

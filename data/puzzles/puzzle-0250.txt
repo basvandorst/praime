@@ -1,0 +1,217 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_250.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 250.  Euler, one more time.
+Source: https://www.primepuzzles.net/puzzles/puzz_250.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0250.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/Prime-GeneratingPolynomial.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_249.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_251.htm
+  https://www.primepuzzles.net/puzzles/puzz_250.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 250. Euler, one more time.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 250. Euler, one more time.
+
+Somewhere out there I have just read some beautiful (for me) questions about some well known
+
+prime-generating polynomials. Please, let me hide just for one week the source of these questions.
+
+I promise to open the references after I receive the solutions form you.
+
+As a matter of fact, I have twisted a little bit the original problem in order to make it a little bit harder and/or interesting to solve (I guess so)
+
+As you know f(x) = x^2 - 79.x + 1601 produces 80 primes, for 80 consecutive values of x
+
+(from x=0 up to x=79).Well this is all you need to know; now the questions are:
+
+1.1 Find 80 consecutive values of x such that the corresponding f(x) values are composite.
+
+1.2 Are there several sets like the asked in 1.1 or there is only just one set? If there are several
+
+of these sets please find a second/the earliest one.
+
+2. Demonstrate that f(x) is not divided by an integer larger than 1 and less than 41, for any x integer.
+
+Solution:
+
+Contributions came form Adam Stinchcombe, Jon Wharf, Faride Firoozbakht and J. C. Rosa.
+
+Stinchcombe wrote:
+
+I can resolve all aspects of this week's problem with the exception of "the earliest 80 successive composite values." I am still searching for that.
+
+Proposition: Let p(x) be a non-constant polynomial with integer coefficients. For any positive integer k there are infinitely many ranges S={x0, x0+1,...,x0+k-1} with p(xi) composite for xi from S.
+
+Proof: Find an integer M such that x>=M implies abs(p(x))>1. For each xi from S'={M,M+1,...,M+k-1} pick some prime pi that divides p(xi). Write N=product(pi). Then for x=xi+N*j, p(x) == p(xi) == 0 mod pi, so pi divides p(x). Now pick j0 such that abs(p(x))>N for x>M+N*j0. Then for each j>j0, for each xi from S', we have p(xi+N*j) composite. QED.
+
+As a result of this, with f(x)=x^2-79x+1601, if I write N=f(0)*f(1)*...*f(79), then for xi=i+N*j, j>0, we have f(xi) composite for each i=0..79. This number N is pretty large, so I don't include it here.
+
+For a prime p>2 relatively prime to the leading coefficient of a quadratic polynomial f(x), p divides some function value f(x0) iff the discriminant is a square mod p. The discriminant of the Euler polynomial is -163 and is not a square mod each prime under 41. So the function values for f(x) are never divisible by a number under 41.
+
+Later he added:
+
+I do not guarantee that the following is the best example, and I did not find an example with exactly 80 composites, but, starting at x=40042909672, x^2-79x+1601 is composite for 90 consecutive values.
+
+***
+
+Wharf wrote:
+
+Good ol' Euler again. Well I did enough thinking about the Euler parabola last time (Puzzle 232) that I can immediately say:
+
+You'll get 80 composites starting at
+
+x = 48907532216057059748987373239833948554423114069109397440502709729971998620606834566
+
+4148233217836490721
+
+where f(x) = 239194670746465917367967691602374476887333880450748229394016141833376865869
+
+22269888609609925278770447713636940136918500338267070977368679582189102784967285349924
+
+9034536676835062984020531118251431236334483
+
+actually there'll be at least 82 composites starting one earlier). This x is the product of the forty distinct primes encountered in the initial run of 80 primes. There'll be another 80 composites at
+
+x = 978150644321141194979747464796678971088462281382187948810054194599439972412136691
+
+328296466435672981442
+
+(twice the first figure), and another at each multiple of the first figure given. An infinite number of them in fact.
+
+Of course this won't be the first run of 80 composites, nor even close.
+
+In fact there will be an infinite number of any length of composite run you care to think of (N); just take the product of all the distinct primes in the first N values of the series and move to that number in the series.
+
+To get the "why" of this it's easiest to look at your Q2.
+
+The numbers generated by any quadratic equation have a constant second difference; that is, the difference between two terms changes by a fixed amount from the previous difference value (2 in this case). For a quadratic equation with integer coefficients, the differences and the second difference are both also integers (and incidentally the second difference is even).
+
+A consequence of this is that if an odd prime p divides an then p also divides an+p. To see this consider the difference between these terms. I'm using d for the difference between an-1 and an, and s for the second difference, so the difference between an and an+1 is (d+s).
+
+an+1 = an + d + s
+
+an+2 = an+1 + (d+2s) = an + 2d + 3s
+
+an+3 = an + 3d + 6s
+
+:
+
+an+p = an + p.d + p.(p+1)/2.s
+
+an is divisible by p and so are p.d and p.(p+1)/2.s, therefore an+p is divisible by p.
+
+This argument applies in both directions along the series. Therefore if any term is divisible by 3 for example then every 3rd term will also be divisible by 3. Similarly if any term is divisible by 5, so is every fifth term.
+
+Now we can examine our original series and we find that for the first 80 points, no term is divisible by a prime less than 41. Therefore no term anywhere in the series is divisible by such a prime. (Or indeed by the primes less than 80 which don't appear in this region: 59, 67, 73 and 79)
+
+This recurring pattern of divisibility is the foundation for the enormous number produced above. Since the pattern of divisibility recurs, then the number at that point in the sequence is divisible by 1601, the next one by 1523, then 1447, 1372, 1301 etc. down to two 41's and back up to 1601. I checked the sequence numbers and it works.
+
+***
+
+Faride wrote:
+
+1.1 The earliest solution is {186737345,186737346,186737347,...,186737432}for these 88 consecutive numbers the corresponding f(x) values are composite.
+
+The second set is {187162305,187162306,...,187162384} which has exactly 80 consecutive members that the corresponding f(x) values are composite.
+
+2.We know for each real number x ,f(x) >= 40.75 ,so if x is integer , then f(x) >= 41 .
+
+Now suppose that for x=n there exist m such that 1 < m < 41 and m divides f(n) so m divides f(n+k*m) for every integer k.
+
+Let n=q*m+r and 0 <= r < m ,so m divides f(r) because r=n+(-q)*m and also we know f(r) is prime because f(0),f(1),...,f(79) are prime numbers so f(r)=m then m >= 41 which is a contradiction.
+
+***
+
+J. C. Rosa wrote:
+
+Let P an integer that is a divisor of f(x). So we have:
+
+x^2-79x+1601=k*P (k is an integer )
+
+from where : x^2-79x+1601-k*P=0
+
+This equation has for solution :
+
+x=(79+/- sqrt(79^2-4*1601+4*k*P))/2
+
+But x is an integer so we must have:
+
+79^2-4*1601+4*k*P=C^2 (C is an integer )
+
+4*k*P-163=C^2 (1)
+
+and x=(79+/-C)/2 from where c is an odd number.
+
+If P=2 , the equation (1) becomes : 8*k-163=C^2
+
+C^2= - 163 mod 8 , that is to say : C^2=5 mod 8
+
+This equation has not any solution therefore 2 is not a
+
+divisor of f(x)
+
+Now , let P a prime divisor of f(x). The equation (1) means
+
+that : ( - 163 ) is a quadratic residue modulo P.
+
+We know that a number R is a quadratic residue modulo P
+
+if R^((P-1)/2)=1 mod P and R is not a quadratic residue modulo P
+
+if R^((P-1)/2)= - 1 mod P .
+
+For P=3,5,7,....,37 , each time we obtain : (-163)^((P-1)/2)= -1 mod P
+
+therefore f(x) is not divisible by a prime number from 2 to 37.
+
+Now if P is a composite number less than 41 then P has prime divisors
+
+less than 41 . Let P1 one of these divisors. We can use the previous
+
+method with P1 and therefore we have the following result :
+
+f(x) is not divisible by an integer larger than 1 and less than 41 for
+
+any x integer.
+
+Remark : By the same way we can search the prime divisors of f(x).
+
+We calculate ( (-163)^((P-1)/2) ) mod P , if the result is 1 then
+
+P is a divisor of f(x). For P<200 we have : 41,43,47,53,61,71,83,97,113,
+
+131,151,167,173,179,197,199
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

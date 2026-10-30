@@ -1,0 +1,212 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_968.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 968. Another property of primes 4m+1.
+Source: https://www.primepuzzles.net/puzzles/puzz_968.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0968.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_967.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_969.htm
+  https://www.primepuzzles.net/puzzles/puzz_968.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 968. Another property of primes 4m+1.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 968. Another property of primes 4m+1.
+
+Sebastián Martín Ruiz made the following empirical discovery:
+
+"when p is a prime of the form 4m + 1, the number of pairs (a,b) (with 1 <= a <= b <= p) for which a^2 + b^2 is a multiple of p, equals p."
+
+Examples given by Sebastián:
+
+For p=5, there are 5 of such pairs:
+1^2+2^2=5
+
+1^2+3^2=10
+
+2^2+4^2=20
+
+3^2+4^2=25
+
+5^2+5^2=50
+
+For p=13, there are 13 of such pairs:
+
+2^2+3^2
+
+1^2+5^2
+
+4^2+6^2
+
+4^2+7^2
+
+1^2+8^2
+
+6^2+9^2
+
+7^2+9^2
+
+2^2+10^2
+
+3^2+11^2
+
+10^2+11^2
+
+5^2+12^2
+
+8^2+12^2
+
+13^2+13^2
+
+As a matter of fact Sebastián tested his observation for all prime 4m+1 <= 509.
+
+Another friend of these pages verified the same observation for all prime 4m+1 <= 6301.
+
+Q. Can you find a proof of this empirical statement?
+
+Contributions came from Adam Stinchcombe, Emmanuel Vantieghem, Ken Wilke, Oscar Volpatti.
+
+***
+
+Adam wrote on Aug 31, 2019:
+
+Euler (and others) proved Fermat's claim that a prime of the form 4m+1 can be expressed as the sum of two squares, p=x^2+y^2. Then (x/y)^2==-1 mod p is a square root of -1, call it w: w==x/y mod p, w^2==-1 mod p. For each a, a^2 + (wa)^2 == a^2+w^2a^2 == a^2+(-1)a^2==0 mod p. So for each a, 1<=a<p, there exist (at least one) b (equal to w*a mod p) with a^2+b^2==0 mod p.
+
+Suppose (a,b1) and (a,b2) are two solutions to x^2+y^2==0 mod p with 1<=a,b1,b2<p. Then a^2+b1^2==0==a^2+b2^2 mod p so b1^2==b2^2 and (b1/b2)^2==1 and b1/b2==1 or -1 mod p. Either b1==b2 or b1==-b2==p-b1 mod p. Only one of these numbers is b1,b2 is less than p/2. Similarly, for the first coordinate a=a1=a2. So. for a given solution (a,b), there is a single (a',b') amongst the four {(a,b),(a,p-b),(p-a,b),(p-a,p-b)} with a' and b' both less than p/2.
+
+There are (p-1)/2 residues >=1 and <p/2, these pair off into (p-1)/4 pairs that solve x^2+y^2==1 mod p. Each pair generates the four solutions {(a,b),(a,p-b),(p-a,b),(p-a,p-b)}. This results in 4*(p-1)/4 = p-1 solutions.
+
+Then there is the solution (p,p), giving a total of p solutions.
+
+***
+
+Emmanuel wrote on Set 1, 2019:
+
+To every solution (a,b) of our problem corresponds a solution of the congruence
+
+x^2 + y^2 == 0 (mod p).
+
+but not conversely since we added the condition a <= b ((the solution (x,y) is considered different from (y,x), except when x == y == 0)
+
+It is easy to show that the congruence has exactly 2p-1 solutions.
+
+Indeed, if p is of the form 4m+1, there exist an integer w such that w^2 == -1 (mod p).
+
+Thus, the equation (*) can be written as (x-wy)(x+wy) == 0 (mod p).
+
+So, the solutions are (0,0), (wt,t), (-wt,t) with t = 1, 2, ..., p-1.
+
+Thus, the number of solutions of our problem is exactly p, Q.E.D.
+
+***
+
+Ken wrote on Set 2, 2019:
+
+Proof: Let p be a prime of the form 4m+1 for some integer m. Clearly if (a, b) = (p, p) then a^2 +b^2==0 (mod p). If (1 <= a <= b < p) , then a^2 +b^2==0 (mod p) and (a*b’)^2 + 1 ==0 (mod p) where b’ is the unique integer such that b*b’==1 (mod p).
+
+By [1], it is well known that congruence x^2 + 1 ==0 (mod p) (1)
+
+has the solution x == + ((p-1)/2))! (mod p).
+
+Let 1, 2,. . ., p be a complete set of residues (mod p). Let g denote ((p-1)/2))! (mod p). Then g^2 + 1 ==0 (mod p) (2)
+
+Multiplying the congruence (2) term wise by the residues 1, 2,. . ., p-1,p we generate p pairs of integers of the form (ci, di) where (ci)^2 +(di)^2 == (g*i)^2 +(i)^2 ==0 (mod p) for each residue I = 1,2, ,p. Note that if one uses the negative value of x, this merely changes the sign of (g*i) and does not otherwise affect the values of the congruences.
+
+(ci)^2 +(di)^2 == (g*i)^2 +(i)^2 ==0 (mod p)
+
+Finally looking at the list of pairs of integers (ci, di) by taking a_i as the smallest value in the pair(ci, di) and b_i as the largest value in the pair (ci, di), one easily generates the values of (a,b) discovered by the proposer.
+Nagell, Introduction to Number Theory, Chelseas Publishing Company, New York, Second Edition, (1964), pp.99-100, Theorem 58.n
+
+***
+
+Oscar wrote on Set 4, 2019
+
+Sebastián's statement is true.
+
+I'll use the following notations:
+
+"y = x % p" means "y is the remainder after division of x by p, with 0 <= y <= p-1";
+
+"y == x mod p" means "y is congruent with x modulo p".
+
+Choose a prime p of the form 4m+1.
+
+Lagrange proved the following lemma: p divides the number q = 1+r^2, with r = ((2m)!) % p.
+
+Apply Wilson's theorem to the prime p = 4m+1:
+
+(4m)! == -1 mod p.
+
+Break the left factorial into two products:
+
+(1)*(2)*...*(2m) == r mod p, by definition of r;
+
+(2m+1)*...*(4m-1)*(4m) == (-2m)*...*(-2)*(-1) == r*(-1)^(2m) == r mod p.
+
+Therefore, r^2 == -1 mod p, or equivalently 1+r^2 == 0 mod p, as claimed by Lagrange.
+
+Clearly, p doesn't divide r, otherwise it would divide the difference q - r^2 = 1.
+
+Lagrange's lemma helps us to find all the integer pairs (a,b) for which a^2 + b^2 is a multiple of p.
+
+a^2 + b^2 == 0 mod p;
+
+b^2 == (-1)*(a^2) == (r^2)*(a^2) == (ra)^2 mod p;
+
+0 == b^2 - (ra)^2 == (b-ra)(b+ra) mod p.
+
+If the prime p divides the product of two or more factors, then it divides at least one of the factors.
+
+Therefore, b == ra mod p, or b == -ra mod p.
+
+Such congruences simultaneously hold when p divides 2ra; in this case, as p is odd and coprime with r, it divides a (and it divides b too).
+
+The square 1 <= a,b <= p contains 2p-1 pairs (a,b) for which a^2 + b^2 is a multiple of p.
+
+Check, row by row, the congruences previously found:
+
+for 1 <= a <= p-1, we obtain two pairs (a, (ra) % p) and (a, (-ra) % p);
+
+for a = p, we obtain one pair (p,p).
+
+This set of solutions is necessarily symmetric around the axis b = a: if it contains the pair (x,y), it must contain the pair (y,x) too.
+
+The pair (p,p) is the only solution along the axis b = a: if p divides 2*a^2, then it must divide a.
+
+So, the inequality a < b must hold for exactly half of the remaining 2p-2 solutions.
+
+Therefore, the triangle 1 <= a <= b <= p contains 1+(p-1) = p solutions, as claimed by Sebastián
+.
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

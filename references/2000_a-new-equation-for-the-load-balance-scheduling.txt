@@ -1,0 +1,422 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: http://www.gallup.unm.edu/~smarandache/tabirca-sm-inf-part.pdf. These files are used for reasoning.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: http://www.gallup.unm.edu/~smarandache/tabirca-sm-inf-part.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+A NEW EQUATION FOR THE LOAD BALANCE SCHEDULING 
+BASED ON THE SMARANDACHE F-INFERIOR PART FUNCTION   
+ 
+Tatiana Tabirca*    Sabin Tabirca ** 
+* University of Manchester, Department of Computer Science 
+ ** University College Cork, Department of Computer Science 
+ 
+ 
+Abstract. This article represents an extension of [Tabirca, 2000a]. A new 
+equation for upper bounds is obtained based on the Smarandache f-inferior part 
+function. An example involving upper diagonal matrices is given in order to 
+illustrate that the new equation provide a better computation.  
+ 
+1.INTRODUCTION  
+ 
+Loop imbalance is the most important overhead in many parallel applications. Because loop 
+structures represents the main source of parallelism, the scheduling of parallel loop iterations 
+to processors can determine its decreasing. Among the many method for loop scheduling, the 
+load balance scheduling  is a recent one and was proposed by Bull [1998] and developed by 
+Freeman  et.al. [1999, 2000]. Tabirca [2000] studied this method and proposed an equation 
+for the case when the work is distributed to all the processors.   
+ 
+Consider that there are p processors denoted in the following by P1, P2, …, Pp and a single 
+parallel loop (see Figure 1.). 
+ 
+do parallel i=1,n 
+ call loop_body(i); 
+end do     
+ 
+Figure 1. Single Parallel Loop 
+ 
+We also assume that the work of the routine loop_body(i) can be evaluated and is given by 
+the function RNw →: , where iwiw =)(  represents the number of routine’s operations or 
+its running time (assume that w(0)=0). The total amount of work for the parallel loop is 
+∑
+=
+n
+i
+iw
+1
+)( . The efficient loop-scheduling algorithm distributes equally this total amount of
+
+--- page 2 ---
+work on processors such that a processor receives a quantity of work equal to ∑
+=
+⋅
+n
+i
+iwp 1 )(1 . 
+Let jl and jh  be the lower and upper bounds, pj ,...,2,1= , such that processor j executes all 
+the iterations between jl and jh . These bounds are found distributing equally the work on 
+processors by using  
+     () pjiwpiw
+n
+i
+h
+li
+j
+j
+,...,2,1)(1)(
+1
+=∀⋅≈ ∑∑
+==
+.      ( 1 )  
+Moreover, they satisfy the following equations  
+11 =l .              ( 2 . a )  
+if we know jl , then jh  is given by Wiwpiw
+n
+i
+h
+li
+j
+j
+=⋅≈ ∑∑
+== 1
+)(1)( .       (2.b) 
+11 +=+ jj hl .                ( 2 . c )  
+Suppose that Equation (2.b) is computed by a less approximation. This means that if we have 
+the value jl , then we find jh as follows: 
+hh j =   ⇔  ∑∑
++
+==
+<≤
+1
+)()(
+h
+li
+h
+li jj
+iwWiw .         ( 3 )  
+ 
+The Smarandache f-inferior part function represents a generalisation of the inferior part 
+function ZR →:][, , 1][ +<≤⇔= kxkkx . If RZf →:  is a strict increasing function 
+that satisfies −∞=
+−∞→
+)(lim nf
+n
+ and ∞=
+∞→
+)(lim nf
+n
+, then the Smarandache f-inferior part 
+function denoted by ZRf →:[]  is defined by [see  www.gallup.unm.edu/~smarandache] 
+)1()()([] +<≤⇔= kfxkfkxf .       ( 4 )  
+Tabirca [2000a] presented some Smarandache f-inferior part functions for which 
+∑
+=
+=
+k
+i
+aikf
+1
+)( . They are presented in the following: 
+ ∑
+=
+=
+k
+i
+ikf
+1
+)(   ⇒   02 811)([] ≥∀ ⋅++−= xxxf .    (5) 
+∑
+=
+=
+k
+i
+ikf
+1
+2)(  ⇒  [] 0)()([] ≥∀= xxrxf ,      (6) 
+where 3
+2
+3
+2
+1728
+1
+2
+3
+2
+3
+1728
+1
+2
+3
+2
+3
+2
+1)( + ⋅+⋅++ ⋅−⋅+−= xxxxxr .
+
+--- page 3 ---
+Tabirca [2000] also proposed an equation for the upper bounds of the load balance scheduling 
+method based on the Smarandache f-inferior part function. If the work w satisfies certain 
+conditions [Tabirca, 2000], then the upper bounds are given by  
+( ) pjWjfh j ,...,2,1,[])1( =⋅= .       ( 7 )  
+Moreover, Tabirca [2000a] applied this method to the product between an upper diagonal 
+matrix and a vector. It was proved that the load balance scheduling  method offers the lowest 
+running time in comparison with other static scheduling methods [Tabirca, 2000b]. 
+ 
+2. A NEW EQUATION FOR THE UPPER BOUNDS 
+In this section, a new equation for the upper bounds is introduced. Some theoretical 
+considerations about the new equation and Equation (7) are also made. Consider that 
+RNf →:  is defined by ∑
+=
+=
+k
+i
+iwkf
+1
+)( , 0)0( =f . For the work w, we assume the 
+following [Tabirca, 2000]: 
+A1: njwpw
+n
+i
+ij ,...,2,1,1
+1
+=⋅≤ ∑
+=
+.  
+A2: There are equations for the functions [], ff .   
+ 
+Theorem 1. The upper bounds of the load balance scheduling method are given by   
+ ( ) pjWhffh jj ,...,2,1,)( )2( 1[])2( =+= − .       ( 8 )  
+Proof. For easiness we denote in the following )2(jj hh = . Equation (3) gives the upper 
+bounds of the load balance scheduling method. We start from the equation 
+∑∑
++
+==
+<≤
+1
+)()(
+j
+j
+j
+j
+h
+li
+h
+li
+iwWiw  and add ∑
+−
+=
+− =
+1
+1
+1 )(
+jh
+i
+ij whf  to all the sides  
+∑∑
++
+=
+−
+=
+<+≤
+1
+1
+1
+1
+)()()(
+jj h
+i
+j
+h
+i
+iwWhfiw . 
+Based on the definition of []f , we find that ( )Whffh jj += − )( 1[] .               ♦  
+ 
+The following theorem illustrates how these bounds are.   
+Theorem 2. pjhh jj ,...,2,1,)1()2( =≤ . 
+Proof. Recall that these two upper bounds satisfy  
+∑∑
++
+==
+<⋅≤
+1
+11
+)1()1(
+jj h
+i
+i
+h
+i
+i wWjw        ( 9 . a )
+
+--- page 4 ---
+∑∑
++
+==
+<≤
+1)2(
+)2(
+)2(
+)2(
+j
+j
+j
+j
+h
+li
+i
+h
+li
+i wWw .        ( 9 . b )   
+All the sums from Equation (9.b.) are added finding  
+WjwWjw
+ji
+i
+h
+i
+i
+j
+i
+h
+lk
+k ⋅≤⇔⋅≤ ∑∑∑
+== =
+)2()2(
+)2( 11
+.   
+Because )1(jh  is the last index satisfying Equation (9.a) we find that )1()2( jj hh ≤  holds.      ♦    
+Consequence: pjWjhfhf jj ,...,2,1,)()( )1()2( =⋅≤≤ . 
+This consequence obviously comes from the monotony of f and the definition of the bounds. 
+ 
+Now, we have two equations for the upper bounds of the load balance scheduling method. 
+Equation (8) was obtained naturally by starting from the definition of the load balance. It 
+reflects that case when several load balances are performed consecutively. Equation (7) was 
+found by considering the last partial sum that is under Wj ⋅ . This option does not consider 
+any load balance such that we expect it to be not quit efficient. Moreover, it is difficult to 
+predict which equation is the best or is better to use it of a given computation. The best 
+practical advice is to apply both of them and to choose the one, which gives the lowest times. 
+ 
+3. COMPUTATIONAL RESULTS 
+In this section we present an example for the load balance scheduling method. This example 
+deals with the product between an upper diagonal matrix and a vector [Jaja, 1992]. All the 
+computations have been performed on SGI Power Challenge 2000 parallel machine with 16 
+processors. The dimension of the matrix was n=300.   
+DO PARALLEL i=1,n 
+ 11, xay ii ⋅=  
+DO j=2,i 
+     
+jjiii xayy ⋅+= ,   
+END DO     
+END DO     
+ 
+Figure 2. Parallel Computation for the Upper Matrix – Vector Product. 
+Recall that )()( ,1,, RMaa nnjiji ∈= =  is upper diagonal if jia ji <= ,0, . The product 
+xay ⋅=  between an upper diagonal matrix )()( ,1,, RMaa nnjiji ∈= =  and a vector 
+nRx ∈  is given by   
+nixay
+i
+j
+jjii ,...2,1
+1
+, =∀⋅= ∑
+=
+.           (10)
+
+--- page 5 ---
+The parallel computation of Equation (10) is shown in Figure 2.  
+ 
+The work of iteration i is given by niiiw ,...,2,1,)( == . We have that the total work is 
+2
+)1()(
+1
++⋅== ∑
+=
+nninf n
+i
+ and 
+p
+nnW ⋅+⋅= 2 )1( . The Smarandache f-inferior function is 
+02 811)([] ≥∀ ⋅++−= xxxf . Therefore, the upper bounds of the load balance 
+scheduling method are given by   
+pjp
+nnj
+h j ,...,2,1,2
+)1(411
+)1( =
+
+
+
+
+
+
+
+
+
+
+
+ +⋅⋅⋅++−
+=   or  (11) 
+pjp
+nnhh
+h
+jj
+j ,...,2,1,2
+)1(4)1(411 )2( 1)2( 1
+)2( =
+
+
+
+
+
+
+
+
+
+
+
+ +⋅⋅++⋅⋅++−
+=
+−−
+.  (12) 
+The running times for these two types of upper bounds are presented in Table 1. Figure 3 
+proves that these two types of bounds for the load balance scheduling are comparable the 
+same.  
+ 
+ P=1 P=2 P=3 P=6 P=8 
+)1(
+jh  1.847 1.347 0.987 0.750 0.482 
+)2(
+jh  1.842 1.258 0.832 0.639 0.412 
+ 
+Table 1. Times of the computation. 
+ 
+4. FINAL CONCLUSSION 
+An important remark that can be outlined is the Smarandache inferior part function was 
+applied successfully to solve an important scheduling problem. Based on it, two equations for 
+the upper bounds of the load balance scheduling methods have been found. These equations 
+have been used to solve the product between an upper diagonal matrix and vector and the 
+computational times were quite similar. The upper bounds given by the new equation have 
+provided a better computation for this problem.
+
+--- page 6 ---
+0
+0.5
+1
+1.5
+2
+P=1 P=2 P=3 P=6 P=8
+ 
+Figure 3. Graphics of the Running Times. 
+  
+ REFERENCES 
+Bull M.J. (1998) Feedback Guided Loop Scheduling: Algorithm and Experiments, 
+Proceedings of Euro-Par'98, Lecture Notes in Computer Science, Springer Verlang. 
+Bull M.J., R.W.Ford, T.L.Freeman and D.J.Hancock (1999) A Theoretical Investigation of 
+Feedback Guided Loop Scheduling, Proceedings of Ninth SIAM Conference on 
+Parallel Processing for Scientific Computing, SIAM Press. 
+J.M.Bull and T.L.Freeman (2000) Convergence of Feedback Guided Loop Scheduling, 
+Technical Report, Department of Computer Science, University of Manchester. 
+Jaja, J. (1992) Introduction to Parallel Algorithms , Adison-Wesley.   
+Tabirca, T. and S. Tabirca, (2000) Balanced Work Loop-Scheduling, Technical Report , 
+Department of Computer Science, Manchester University. [ In Preparation] 
+Tabirca, T. and S. Tabirca, (2000a) A Parallel Loop Scheduling Algorithm Based on The 
+Smarandache f-Inferior Part Function, Smarandache Notions Journal [to appear].

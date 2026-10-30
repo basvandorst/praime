@@ -1,0 +1,206 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_821.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 820. The  Sunduram's sieve
+Source: https://www.primepuzzles.net/puzzles/puzz_821.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0821.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_820.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_822.htm
+  https://www.primepuzzles.net/puzzles/puzz_821.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 820. The Sunduram's sieve
+
+Problems & Puzzles: Puzzles
+
+Puzzle 821. Prime numbers and complementary sequences
+
+Let's starts with the sequence of prime numbers:
+
+i | 1 | 2 | 3 | 4 | 5 | 6 | 7 | ...
+
+pi | 2 | 3 | 5 | 7 | 11 | 13 | 17 | ...
+
+Now, lets define qi as the quantity of integers less than i in pi:
+
+i | 1 | 2 | 3 | 4 | 5 | 6 | 7 | ...
+
+pi | 2 | 3 | 5 | 7 | 11 | 13 | 17 | ...
+
+qi | 0 | 0 | 1 | 2 | 2 | 3 | 3 | ...
+
+Now, let add i to pi and to qi, respectively:
+
+i | 1 | 2 | 3 | 4 | 5 | 6 | 7 | ...
+
+pi | 2 | 3 | 5 | 7 | 11 | 13 | 17 | ...
+
+qi | 0 | 0 | 1 | 2 | 2 | 3 | 3 | ...
+
+pi+i | 3 | 5 | 8 | 11 | 16 | 19 | 24 | ...
+
+qi+i | 1 | 2 | 4 | 6 | 7 | 9 | 10 | ...
+
+Q. Demonstrate that the sequences {pi+1} and {qi+i} are "complementary", that is to say that all and every integer greater than zero is present in one and only one of these two sequences.
+
+Contributions came from John Arioni and Jan van Delden
+
+***
+
+John wrote:
+
+Let A1, A2, A3, …......Ai ….. be any numeric sequence such that:
+
+A1 < A2 < A3< ….......<Ai < ...............
+
+The sequence of the prime numbers is one of these.
+
+The following is a general scheme to understand what happens:
+
+i ---> 1 2 3 …..... A1 A1+1 A1+2 ......... A2 A2+1 A2+2 …......... A3 A3+1 ….
+
+Ai ---> A1 A2 A3 …............................................... ..............................................................
+
+q i ---> 0 0 0 …...... 0 1 1 .............. 1 2 2 …......... 2 3
+
+qi+i ---> 1 2 3 A1 A1+2 A1+3 ....... A2+1 A2+3 …...... A3+2 A3+4 not present in qi+1 ---> A1+1 A2+2 A3+3
+
+The sequence qi starts with a 0 and continues with zeroes as long as i <= A1, so that qi+i = 0+i produces the sequence 1, 2, 3..... A1.
+
+When the index i passes the value A1 (from A1 to A1+1), qi has an increment of 1 and keeps the value 1 as long as i <=A2 , so that qi+i = 1+i produces the sequence A1+2, A1+3, A1+4 …......A2 of consecutive integers.
+
+So far qi+i has produced the sequence 1, 2, 3, …... A1, A1+2, A1+3, A1+4, …....A2, i.e. all the integers from 1 to A2, but the value A1+1.
+
+Every time the index i passes one of the values present in the sequence Ai, qi has an increment of 1 so that qi+i has an increment of 2 instead of an increment of 1, then the value Ai+i is regularly bypassed, while all of the remaining integers are present in the sequence qi+i.
+
+***
+
+Jan wrote:
+
+Let N = {i, i integer >0}
+
+Let S be an ascending ordered (denumerable) subset of N (for instance the primes), with elements S(i).
+
+Define the function M() on N: N->{0,1}
+
+M(i) = 1 if i-1 in S
+
+M(i) = 0 if i-1 not in S
+
+[Note since 0 is not in S we have M(1)=0]
+
+Define the monotic non decreasing counting function C() on N:
+
+C(i) = sum(M(j), j=1..i) [In the question this is qi(i)]
+
+[We have C(0)=0]
+
+We have C(i)-C(i-1)=M(i), so a jump indicates that i-1 is a (the next) member in S.
+
+This function counts the total number of j<i present in S, so we have:
+
+C(S(i))=i-1 and C(S(i)+1)=i
+
+[This is the essential part..]
+
+Define:
+
+T = { S(i)+i | i in N}
+
+U = { C(i)+i | i in N }
+
+To proof:
+
+For every k in N we either have k in T or k in U.
+
+A) 1 is in U. Because M(1)=0, C(1)=M(1)=0, C(1)+1=1.
+
+B) Proof that for all k in U we have that k+1 is either in T in U (but not in both)
+
+If k is in U, there exist an unique i such that C(i)+i=k, since the inverse exists.
+
+If C(i+1)=C(i), i.e. M(i+1)=0, we have C(i+1)+i+1=C(i)+i+1=k+1 is in U.
+
+If C(i+1)=C(i)+1, i.e. M(i+1)=1, we have C(i+1)+i+1=C(i)+i+2=k+2 is in U.
+
+Since M(i+1)=1 we know that i is in S, so we have i=S(j) for some j and
+
+k+1=C(i)+i+1=C(S(j))+S(j)+1=j-1+S(j)+1=j+S(j), therefore k+1 is in T.
+
+C) Proof that for all k in T we have that k+1 is in U.
+
+If k is in T, we know that there is a j for which S(j)+j=k.
+
+We know that if j increases S(j) increases as well, so S(j+1)+j+1>=S(j)+1+j+1=k+2,
+
+the sequence S(j)+j is an increasing sequence with jumps of size at least 2, so k+1 is not in T.
+
+We have i=S(j) for some i. Consider m=i+1. Then C(m)+m=C(i+1)+i+1=C(S(j)+1)+i+1=j+S(j)+1=k+1.
+
+Therefore k+1 is in U.
+
+So by induction we know that all k in N are present and every value of k is present in either T or U. q.e.d.
+
+An example where S is finite:
+
+i 1 2 3 4 5 6
+
+S 1 2 3 4
+
+M 0 1 1 1 1 0
+
+C 0 1 2 3 4 4
+
+S+i 2 4 6 8
+
+C+i 1 3 5 7 9 10
+
+Shows that we can also define the operations when sets are (finite or) empty,
+
+if we impose the condition that addition is only applied when meaningfull.
+
+i 1 2 3 4 5 6
+
+S 5 3 2 7 1 6
+
+M 0 1 1 1 0 1
+
+C 0 1 2 3 3 4
+
+S+i 6 5 5 11 6 12
+
+C+i 1 3 5 7 8 10
+
+Shows that we do need and ascending ordered set.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,300 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_052.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 52 : SMR Conjecture about consecutive primes
+Source: https://www.primepuzzles.net/conjectures/conj_052.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0052.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://en.wikipedia.org/wiki/Andrica's_conjecture
+  https://www.primepuzzles.net/conjectures/conj_051.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_053.htm
+  https://www.primepuzzles.net/conjectures/conj_052.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 52 : SMR Conjecture about consecutive primes
+
+Problems & Puzzles: Conjectures
+
+Conjecture 52 : SMR Conjecture about consecutive primes
+
+Sebastián Martín Ruiz has found empirically the following simple relationship between consecutive primes p, q:
+
+Floor[(p^2+q^2)/(2*q)]=p
+
+Later he has proved that this relationship follows from another well known conjecture about consecutive primes.
+
+Question.
+
+Can you obtain the SMR relationship from another conjecture or theorem about consecutive primes?
+
+Contributions came from: Patrick Capelle, Farideh Firoozbkaht, Luis Rodríguez, Werner Sand, Andreas Höglund.
+
+***
+
+Patrick wrote:
+
+I prefer the following formulation :
+
+floor(p/q + q/p) = 2.
+
+Proof :
+
+By Chebyshev's theorem there is always a prime between n and 2n for n > 1.
+
+Hence, p < q < 2p when p and q are consecutive primes.
+
+So, p/q < 1 < q/p < 2, which implies that p/q + q/p < 3 [1]
+
+On the other hand, (p - q)^2 > 0, which implies that p^2 + q^2 > 2pq.
+
+Hence, p/q + q/p = (p^2 + q^2)/(p.q) > (2p.q)/(p.q). So, p/q + q/p > 2 [2]
+
+Finally, by [1] and [2], 2 < p/q + q/p < 3. Hence, floor(p/q + q/p) = 2.
+
+Some remarks :
+
+1. floor(p/q + q/p) = 2
+
+<==> floor((p^2 + q^2)/pq) = floor(2)
+
+<==> floor((p^2 + q^2)/pq * p/2) = floor(2 * p/2)
+
+<==> floor((p^2 + q^2)/2q) = floor(p)
+
+<==> floor((p^2 + q^2)/2q) = p (SMR formulation).
+
+2. For p < q, floor(p/q) = 0, floor(q/p) = 1 and floor(p/q + q/p) = 2.
+
+3. lim(p/q + q/p) = lim(p/q) + lim(q/p) = 1 + 1 = 2, as p and q approach
+
+infinity.
+
+***
+
+Farideh wrote:
+
+Remi Eismann'conjecture(see A124129):
+
+All prime p for which there are no primes between p
+
+and p+sqrt(p) are: 3, 7, 13, 23, 31 & 113.
+
+So according to this conjecture if p & q are two consecutive
+
+primes and p doesn't belong to A = {3, 7, 13, 23, 31, 113} then
+
+q<p+sqrt(p)<p+sqrt(2q).
+
+Also if p is in A we have q<p+sqrt(2q).
+
+Hence if this conjecture is true then for all primes p we have
+
+q<p+sqrt(2q) or (q-p)^2<2q.
+
+So (p^2+q^2-2p*q)/(2*q)<1 or (p^2+q^2)/(2*q)<p+1 also since
+
+(p-q)^2>0 we have p<(p^2+q^2)/(2*q) hence p<(p^2+q^2)/(2*q)<p+1.
+
+From the last inequality we deduce that Floor[(p^2+q^2)/2q]=p.
+
+***
+
+Luis wrote:
+
+I found that the SMR conjecture depends on Cramer's.
+
+So: q^2 + p^2 = (q - p)^2 + 2pq
+
+(q^2 + p^2)/2q = (q -p)^2/2q + p
+
+(q - p) = Difference between consec. primes = d. Naturally, q > p
+
+If I can demonstrate that d^2 / 2q < 1 then the SMR conjecture is proved. Because floor[e + p] = p if e < 1.
+
+Cramer says: d / (log(p)^2 < 1
+
+By greater reason d^2 /(log(q))^4 < 1
+
+But 2q > (log(q))^4 for q > 1349
+
+Testing all the differences d between consecutive primes,d from 2 to 1349, we find that d^2 / 2q < 1
+
+Then the conjecture was proved on Cramer's.
+
+***
+
+Werner wrote:
+
+Floor is only a trick to avoid the limes. I am working with the limes:
+
+From PNT we know that the n-th prime number is asymptotically p(n) = n*ln n . Let be p(n)=p and p(n+1)=q two consecutive prime numbers, thus p ~ n*ln n und q ~ (n+1)*ln(n+1).
+
+Then q/p ~ (n+1)*ln(n+1) / (n*ln n) = (n*ln(n+1)+ln(n+1)) / (n*ln n) = (ln(n+1)) / ln n + (1/n)*(ln(n+1)) / ln n.
+
+ln(n+1) / ln n = (ln n + ln(1+1/n)) / ln n = 1 + (ln(1+1/n)) / ln n. Hence
+
+lim((ln(n+1)) / ln n), n->inf = 1. Hence
+
+lim (q/p), n->inf = lim (1+1/n), n->inf = 1 and
+
+lim (p/q), n->inf = 1
+
+qed
+
+Now once more the proof of Conjecture 52:
+
+lim (1/2*p/q + 1/2*q/p) = 1
+
+lim ((p² + q²)/2pq) = 1
+
+lim ((p² + q²)/2q) = p
+
+qed
+
+***
+
+Andreas wrote:
+
+Mensaje: If we write 2 consecutive primes as p and p+n, where n is the prime gap:
+
+Floor[(p^2+(p+n)^2]/(2*p)] = p + n =>
+
+Floor[ p + n + n^2/(2*p) ] = p + n =>
+
+n^2/(2*p) < 1 => p > n^2/2
+
+According to http://mathworld.wolfram.com/PrimeGaps.html:
+
+Cramér (1937) and Shanks (1964) conjectured that p(n) is approximately exp(sqrt(n)), and Wolf that p(n) is approximately sqrt(n)*exp(sqrt(n)). Both are bigger than n^2/2 for all primes p>=2.
+
+SMR and Wolf conjecture fails for 7 and 11 though, but they show the asymptotic behaviour of p(n).
+
+***
+
+Farideh found that the Capelle's proof and the Sand's proof contain an invalid step:
+
+...both of these two proofs aren't acceptable:
+
+1. The line " floor((p^2 + q^2)/pq) = floor(2) <==>
+
+floor((p^2 + q^2)/pq * p/2)= floor(2 * p/2) " of the first proof isn't acceptable
+
+and it needs to be proved. Because in general case if floor(x) = floor(y) we
+
+can't deduce that floor(x*z) = floor(y*z) , for example x=7/3, y=2 & z= 7/2.
+
+2. The line " lim((p^2+q^2)/(2pq)) = 1 ==> lim((p^2+q^2)/(2q)) = p " in the
+
+second proof isn't correct, because lim((p^2+q^2)/(2q)) = infinity = lim(p).
+
+From lim((p^2+q^2)/2pq) = 1 and the fact (p(n+1)-p(n))^2>0, we can
+
+only say that for each epsilon>0 there exist a number m such that if n>m
+
+then 1 < (p(n)^2+p(n+1)^2)/(2p(n)p(n+1)) < 1+epsilon.
+So, p(n) < (p(n)^2+p(n+1)^2)/(2p(n+1)) < p(n)+epsilon*p(n) and from this
+
+inequality we can't deduce that floor(p(n)^2+p(n+1)^2)/(2p(n+1)) = p(n).
+
+From these two proofs we only find that floor((p^2+q^2)/(pq)) = 2.
+
+It's easy to show that if a*floor(x) is an integer and 0<a<1 then
+
+a*floor(x) = floor(a*x). Now take a = 1/2 and x = (p^2+q^2)/(pq) where p & q are two arbitrary consecutive primes(p<q) then we deduce that floor((p^2+q^2)/(2pq)) = 1.
+
+Hence the SMR Conjecture is equivalent to the following nice relation.
+
+p * floor((p^2+q^2)/(2pq)) = floor(p * (p^2+q^2)/(2pq))
+
+Also we have the similar conjecture:
+
+floor((p^2+q^2)/(2p)) = q where p<>7 and p & q are two consecutive
+
+primes(p<q). Similarly this conjecture is a result of Remi Eismann's conjecture and is
+
+equivalent to the following nice relation.
+
+q * floor((p^2+q^2)/(2pq)) = floor(q * (p^2+q^2)/(2pq))
+
+***
+
+Werner points out that the conjecture 52 applies not only to neighbouring
+
+prime numbers, but to all positive real numbers a,b with b-a < 1+sqrt
+
+(2a+1). The proof for this results simply from the condition. The statement
+
+for prime numbers remains a conjecture. It can now be formulated more
+
+clearly this way:
+
+p(n+1) - p(n) < 1 + sqrt(2p(n) + 1).
+
+***
+
+Maximilian Hasler wrote (May 2007):
+
+We have : floor( (p^2+q^2) / 2q ) =p
+
+<=> floor( (p^2+q^2) / 2q -p ) =0
+
+<=> (p^2 - 2pq +q^2) / 2q < 1
+
+<=> (q-p)^2 < 2q
+
+<=> q-p < sqrt( 2q )
+
+The conjecture should be written in that way, which is obviously the
+
+simplest and clearest way of writing it. As shown, this is a result from Cramer's conjecture ( q-p < log(p)^2 ) or from the conjecture q < p + sqrt(p) for p>113.
+
+Conversely, it implies Andrica's conjecture
+
+http://en.wikipedia.org/wiki/Andrica%27s_conjecture
+
+(thanks to Patrick Capelle for correcting an error):
+
+sqrt(q) - sqrt(p) < 1 (Andrica's conjecture)
+
+<=> sqrt(q) < 1 + sqrt(p)
+
+<=> q < 1 + p + 2sqrt(p)
+
+<=> (q-p-1)^2 < 4p
+
+<=> q^2 + p^2 - 2pq - 2q + 2p +1 < 4p
+
+<=> (q-p)^2 < 2q + 2p - 1
+
+Thus we can see that SMR's conjecture implies Andrica's conjecture.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,183 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1100.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1100 Another function to produce only and all the primes
+Source: https://www.primepuzzles.net/puzzles/puzz_1100.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1100.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1099.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1101.htm
+  https://www.primepuzzles.net/puzzles/puzz_1100.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1100 Another function to produce only and all the primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1100 Another function to produce only and all the primes?
+
+Sebastián Martín Ruiz sent the following prime-function:
+
+Given the function:
+
+P(n, k) = GCD[2n + 1, k! n! + 1] + Floor[1/GCD[2n + 1, k! n! + 1]]
+
+where n>=1 and k takes only the following three values k=0,n,2n. Each prime greater than two appears only once, and the prime 2 repeats infinitely.
+
+Is this a "serious" prime function producer?
+
+Prove:
+
+Q1) The function P(n,k) ONLY generates primes.
+
+Q2) The function P(n,k) generates ALL prime numbers or find a counterexample.
+
+Q3) For a fixed n, if P(n,k) is prime greater than 2 only appears once for any k=0,n,2n
+
+During the week 20-26 August 29022, contributions came from Giorgos Kalogeropoulos, Emmanuel Vantieghem
+
+***
+
+Giorgos wrote:
+
+We are interested in the function GCD[2n + 1, k! n! + 1]
+
+If 2n+1 is prime then it divides k!n!+1 for one of the three cases for k={0,n,2n} as we will explain below in the proof.
+
+Because 2n+1 must be prime and it is smaller than k!n!+1 the gcd can only be 1 or 2n+1.
+
+If 2n+1 is not prime then obviously any divisor of 2n+1 is less than n and cannot divide k!n!+1 for k={0,n,2n}, this means that gcd is 1.
+
+So, the results can only be 1 or p=2n+1 with p prime
+
+The floor function is trivial and it just adds 1 if the result is 1 or 0 if the result is p.
+
+It was added on purpose in order that all 1's become 2 and all primes stay the same.
+
+Proof
+
+We will examine the three different cases for k
+
+a)k=0, gcd(2n+1,n!+1)
+
+b)k=n, gcd(2n+1,(n!)^2+1)
+
+c)k=2n, gcd(2n+1, 2n!*n!+1)
+
+If 2n+1=p then n=(p-1)/2 and we can rewrite the above three cases as follows:
+
+a)k=0, gcd(p, ((p-1)/2)!+1)
+
+b)k=n, gcd(p, (((p-1)/2)!)^2+1)
+
+c)k=2n, gcd(p, (p-1)! ((p-1)/2)! +1)
+
+we will examine the conditions needed for p to divide the second part of the gcd in the above cases.
+
+In the book ``History of the Theory of Numbers,'' Vol. 1 (p. 275)(Dickson 1919) we can find the following
+
+We can derive from Wilson's theorem that for prime p
+
+(1) (((p-1)/2)!)^2 = (-1)^((p+1))/2) mod p
+
+If we use this in case (b) for k=n we see that
+
+p divides (((p-1)/2)!)^2+1 only if (p+1)/2 is odd
+
+(p+1)/2 = 2m+1 which means p=4m+1
+
+This means that case (b) covers all primes congruent to 1 mod 4.
+
+If the other two cases (a) and (c) cover the primes congruent to 3 mod 4 in a unique way, then we are finished.
+
+In the same page of that book, it is written:
+
+for p prime of the form 4n+3, we have
+
+((p-1)/2)!=±1 mod p
+
+So, the primes of the form 4n+3 can be divided into two subgroups according to ((p-1)/2)! being congruent to 1 or -1 mod p.
+
+In case (a) with k=0 we can easily see that there belong the primes p such that ((p-1)/2)! = -1 mod p.
+
+The only thing that is left to prove is that the primes of the form 4n+3 with ((p-1)/2)! = 1 mod p belong in case (c).
+
+((p-1)/2)! = 1 mod p (1A)
+
+From Wilson's theorem we have
+
+(p-1)!= -1 mod p for any prime p (1B)
+
+if we multiply (1A) and (1B) we get
+
+(p-1)! ((p-1)/2)! = -1 mod p and p divides (p-1)! ((p-1)/2)!+1 which is exactly our case (c).
+
+So, gcd(p, (p-1)! ((p-1)/2)! +1) = p iff p is prime of the form 4n+3.
+
+In conclusion, this function returns {1,1,1} if 2n+1 is not prime, and divides the primes in three groups if 2n+1 is prime.
+
+Primes of the form 4n+1 are covered by the second case (b) for k=n.
+
+Primes of the form 4n+3 are covered by cases (a) and (b).
+
+This function generates all primes with no duplicates.
+
+But it is trivial as a result of Wilson's theorem, so it is not a "serious" prime generating function
+
+***
+
+Emmanuel wrote:
+
+If 2n + 1 is not prime, it is divisible by a prime less than n, whence GCD[2n + 1, k!*n! + 1] = 1 and hence F(n,k) = 2 for k = 0, n, 2n.
+
+If 2n + 1 = p is prime, then; by Wilson's theorem, it divides (2n)! + 1.
+
+But we have : (2n)! + 1 = 2n*(2n-1)*...*(n+1)*n! + 1 === ((-1)^n)*(n!)(n!) + 1 (mod p).
+
+* If n is odd, (1 + n!)(1 - n!) is divisible by p. Thus :
+
+either (1 + n!) is divisible by p which results in F(n,0) = p.
+
+We then have F(n, n) = 2 and F(n, 2n) = 2
+
+or : n! - 1 is divisible by p. In that case, F(n,0) = 2, F(n, n) = 2 and F(n, 2n) = p
+
+* If n is even then we have F(n, n) = p and F(n,0) = 2 = F(n,2n).
+
+No doubt, this is a "serious" prime producer.
+
+If 2n + 1 is not prime, it is divisible by a prime less than n, whence GCD[2n + 1, k!*n! + 1] = 1 and hence F(n,k) = 2 for k = 0, n, 2n.
+Of course, the computation of n! becomes very slow with growing n.
+
+For instance, Computing G(10^9) gives 2 after more than half an hour. In much less time we can detect that 2*10^9 + 1 is divisible by 3 ...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

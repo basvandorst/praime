@@ -1,0 +1,234 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_837.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 837. Kaprekar prime numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_837.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0837.htm
+
+References (local copies):
+  ../../references/b006886.txt  (from http://oeis.org/A006886/b006886.txt)
+
+Links on the page:
+  https://en.wikipedia.org/wiki/D._R._Kaprekar
+  http://oeis.org/A006886/b006886.txt
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Kaprekar_number
+  https://oeis.org/A004023
+  http://www.h4.dion.ne.jp/~rep/
+  https://www.primepuzzles.net/puzzles/puzz_836.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_838.htm
+  https://www.primepuzzles.net/puzzles/puzz_837.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 837. Kaprekar prime numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 837. Kaprekar prime numbers
+
+On June 26, 2016, G. L. Honaker asked to me by email for the minimal Kaprekar prime number, if it existed.
+
+According to the Wikipedia:
+
+"...a Kaprekar number for a given base is a non-negative integer, the representation of whose square in that base can be split into two parts that add up to the original number again. For instance, 45 is a Kaprekar number, because 45^2 = 2025 and 20+25 = 45. The Kaprekar numbers are named after D. R. Kaprekar."
+
+A few minutes ago I discovered the minimal prime Kaprekar number analyzing in Excel the list the first 51514 Kaprekar numbers computed by R. Gerbicz and given here, http://oeis.org/A006886/b006886.txt : 1111111111111111111 (the 764th Kaprekar number listed)
+
+BTW, 1111111111111111111 is the smallest prime Kaprekar number
+
+and also the second prime Repunit.
+1111111111111111111 is a Kaprekar number because 1111111111111111111^2 =
+
+1234567901234567900987654320987654321
+
+and
+
+123456790123456790 + 0987654320987654321 =
+
+1111111111111111111
+
+Q. Find three more Kaprekar prime numbers.
+
+Contributions came from Jan van Delden, Emmanuel Vantieghem and Shyam S. Gupta.
+
+Jan wrote:
+
+Given:
+
+X^2=A*N+B
+
+X=A+B
+
+0<B<N
+
+[Which we will use with N=10^k for some k]
+
+Theorem by Ianucci (2000):
+
+A number X is a Kaprekar number if and only if X=d*m with m=Inv(d,(N-1)/d), with Inv(a,b) the multiplicative inverse of a mod b and d an unitary divisor of N-1.
+
+[Source: Wikipedia]
+
+Given (a,b)=1: Inv(a,b)=m is defined by the smallest value 0<m<b such that a*m=1 mod b.
+
+We search X=d*m, with X prime and N=10^k.
+
+We must have that either:
+
+d=1 and m=p (prime) or
+
+m=1 and d=p (prime).
+
+d=1: m=Inv(1,N-1) or m=1 mod (N-1), so m=1 giving X=1 (not prime)
+
+d=p: m=1=Inv(p,(N-1)/p) or p=1 mod ((N-1)/p)
+
+Since p and (N-1)/p are odd we must have that p=(2t)(N-1)/p+1 (t>=1) or p>2(N-1)/p or p^2>2(N-1)>N-1.
+
+Thus p must be the largest prime divisor of N-1 having at least half the number of digits of 2(N-1).
+
+Write N-1=9*R[k], with R[k] the repunit having k digits.
+
+Write R[k]=3^a*B[k] where a is the multiplicity of the factor 3 in R[k]
+
+Since p cannot be 3 (it is not a unitary divisor of N-1):
+
+p=1 mod ((N-1)/p) or p=1 mod (3^(2+a) * B[k]/p) or
+
+p=1 mod (3^(2+a)) and
+
+p=1 mod (B[k]/p)
+
+If R[k] is prime, choose p=R[k], we have a=0 and B[k]=R[k] and get R[k]=1 mod 9 or k=1 mod 9.
+
+The first prime solution has k=19.
+
+The other known (probable) prime repunits having this property are:
+
+R[109297] probably prime (Harvey Dubner, april 3 2007)
+
+R[270343] probably prime (Maksym Voznyy, july 15 2007)
+
+The next one (when found) has k>2500000.
+
+[Source: sequence A004023 OEIS]
+
+If R[k] is not prime I used the factorisations of R[k] given by Yousuke Koide and checked k<=250.
+
+I found no other solutions.
+
+In short, prime Kaprekar may be other than certain prime repunits?... Possibly.
+
+***
+
+Emmanuel wrote:
+
+1) If k is a Kaprekar number we have :
+
+k = a+b and k^2 = b + a 10^n.
+
+Modulo 9 this leads to :
+
+k^2 = k (mod 9) or k(k-1) = 0 (mod 9).
+
+If in addition k is prime (and thus > 3), then it follows k = 1 (mod 9).
+
+2) On the other hand, it is a well known property that any Kaprekar number k can be written as a product
+
+d * u
+
+where d is a unitary divisor of N = 10^n - 1 (that is a divisor of N that has no divisor in common with N/d)
+
+and u is the smallest among all positive numbers x that have the property d*x = 1 (mod N/d).
+
+The converse is also true.
+
+3) Suppose r is a repunit with s ones, s = 1 (mod 9).
+
+Thus : r = (10^s - 1)/9, i.e. : r is a divisor of S = (10^s - 1)
+
+and it is also a unitary divisor of S, since S/r = 9 has no divisor in common with r.
+
+Furthermore, we have :
+
+r = 1 (mod S/s).
+
+Hence, r is a Kaprekar number with u = 1.
+
+Conclusion : when a repunit which is = 1 (mod 9) is prime; then it is a Kaprekar number.
+
+Unfortunately there is only one proved prime repunit : R(19).
+
+According to A004023, the other candidates are R(109297) and R(270343) which are probable primes.
+
+Of course, there might exist prime divisors d of N =10^n - 1 that are not repunits but that satisfy d = 1 (mod N/d).
+
+These numbers would be Kaprekar numbers when they are unitary divisors. But I could not find such one neither I could prove they do not exist
+
+***
+
+Shyam wrote:
+
+I have been investigating this issue since last one year and my results are as under:
+
+The Kaprekar numbers which are primes can be termed as Kaprekar Primes.
+
+The smallest Kaprekar prime is 1111111111111111111 i.e. R19
+
+On investigation of Kaprekar numbers I found that the next probable kaprekar primes are the following :
+
+(10^109297-1)/9
+
+and (10^270343-1)/9
+
+these are two largest known repunit probable primes.
+
+Based on the investigation of Kaprekar numbers I found that digital root of Kaprekar numbers can only
+
+be 1 or 9 that is if Kaprekar number is denoted by K then K (mod 9) can be 1 or 9. So for Kaprekar
+
+number to be prime, K (mod 9) must be 1.
+
+On checking all repunit primes including probable primes I found that all Repunit primes(mod 9) which
+
+are equal to 1 are all Kaprekar numbers.
+
+Based on my investigations I conjecture that :
+
+(i) A Kaprekar number can be prime only if it is Repunit prime with digital root as 1.
+
+(ii) Any Repunit Prime with digital root as 1 is a Kaprekar prime number.
+
+So following Known Repunit primes including probable primes are the only known Kaprekar primes.
+
+(10^19-1)/9 (R19 prime)
+
+, (10^109297-1)/9 ( R109297 probable prime)
+
+and (10^270343-1)/9 (R270343 probable prime).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

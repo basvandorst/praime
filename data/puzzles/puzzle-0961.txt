@@ -1,0 +1,224 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_961.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 961. Redo Puzzle 960
+Source: https://www.primepuzzles.net/puzzles/puzz_961.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0961.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://oeis.org/A053439
+  http://oeis.org/wiki/User:Peter_Kagey
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_960.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_962.htm
+  https://www.primepuzzles.net/puzzles/puzz_961.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 961. Redo Puzzle 960
+
+Problems & Puzzles: Puzzles
+
+Puzzle 961. Redo Puzzle 960
+
+Carlos Rivera asks this:
+
+Redo Puzzle 960 for K=9 (using only digits 1 to 9).
+
+My best and smaller prime solution is this one:
+
+Z=1293495697891846825837167457263514231 (37 digits, prime, zero-less-pandigital)
+
+Q1. Send your minimal prime solution for K=9.
+
+I think that the formula for the minimal quantity of total digits KD needed for a given K value, where K is the quantity of distinct digits, is this one:
+
+KD = {K*(K/2), if K=even; K*integer(K/2)+1 if K=odd}...(1)
+
+If this is so, the sequence for KD is:
+
+KD = 1,2,4,8,11,18,22,32,37,50 ... (2)*
+
+for K = 1,2,3,4,5,6,7,8,9,10...
+
+Q2. Can you confirm that the formula (1) for the sequence (2) for KD, is the correct formula for our puzzle?
+
+______________
+
+* BTW, (2) is the OEIS sequence A053439. But this sequence is the "Expansion of (1+x+2*x^3)/((1-x)*(1-x^2)^2)" given for "the number of vertices encountered along the shortest walk that encounters every edge at least once on the complete graph with n + 1 vertices. - Peter Kagey, Nov 17 2016"
+
+Contributions came from Claudio Meller, Simon Cavegn, Michael Hürter, Oscar Volpatti, Emmanuel Vantieghem.
+
+BTW, only Simon, Michael and Oscar got the same and minimal prime answer to Q1.
+
+***
+
+Claudio wrote on July 14, 2019
+
+Q1. 1231425162718493453647386956792857891
+
+***
+
+Simon wrote on July 14, 2019
+
+Q1.
+Probably the smallest prime solution:
+
+1231425162718293453647384957658978691
+
+***
+
+Michael wrote on July 16, 2019
+
+For Puzzle 961, I found the following solution:
+
+1231425162718293453647384957658978691
+
+***
+
+Oscar wrote on July 18, 2019
+
+I computed the sequence of the smallest zero-less prime solutions for 1<=K<=9:
+
+K, L, P:
+
+01, 01, 2
+
+02, 02, 13
+
+03, 04, 1231
+
+04, 08, 12314243
+
+05, 11, 12314253451
+
+06, 19, 1123142345172537457
+
+07, 22, 1231425162734576356471
+
+08, 32, 12314234516253645671927493796759
+
+09, 37, 1231425162718293453647384957658978691
+
+The given sequence (2) for KD is the correct sequence for our puzzle.
+
+In my previous submission, I obtained the given formula (1) as a lower bound for KD:
+
+ZB(K) = max(B1(K), B2(K)),
+
+with:
+
+B1(K) = K(K-1)/2+1,
+
+B2(K) = K*ceil((K-1)/2) = K*floor(K/2).
+
+If K = 2*n, then ZB(K) = B2(K), as:
+
+B1(2*n) = 2*n^2 - n + 1,
+
+B2(2*n) = 2*n^2.
+
+If K = 2*n+1, then ZB(K) = B1(K) = B2(K)+1, as:
+
+B1(2*n+1) = 2*n^2 + n + 1,
+
+B2(2*n+1) = 2*n^2 + n.
+
+A nice construction shows that such lower bound can always be achieved.
+
+I computed the smallest zero-less integer solutions for 1<=K<=9.
+
+For K = 2*n, a regular path emerges:
+
+_^ S(2) = 12
+
+S(4) = 12-314234
+
+S(6) = 12-314234-5162536456
+
+S(8) = 12-314234-5162536456-71827384758678
+
+Solution S(2*n+2) is obtained from solution S(2*n) by appending a new block of 4*n+2 digits,
+
+built as follows:
+
+odd positions: digits 2*n+1 and 2*n+2, alternating (with digit 2*n+1 appearing once more);
+
+even positions: digits 1, 2, …, 2*n, then digit 2*n+2.
+
+Within such block, digits 2*n+1 and 2*n+2 appear once contiguous to each other, and once
+
+contiguous to each of the first 2*n digits.
+
+Therefore, the union of the first n blocks is a solution S(2*n) with length 2*n^2.
+
+For 1<=i<=n, digits 2*i-1 and 2*i appear on the boundary of i-th block.
+
+So, if we add a new digit "0" at the beginning of the solution and again at the end of each block,
+
+we obtain a new solution S(2*n+1) with length 2*n^2 + n + 1:
+
+S(1) = 0
+
+S(3) = 0-12-0
+
+S(5) = 0-12-0-314234-0
+
+S(7) = 0-12-0-314234-0-5162536456-0
+
+S(9) = 0-12-0-314234-0-5162536456-0-71827384758678-0
+
+and so on.
+However, for K>5, these solutions are not the smallest ones in lexicographical order.
+
+OEIS description for sequence (2) is coherent with our puzzle.
+
+OEIS sequence A053439 is zero-indexed; therefore, the one-indexed sequence KD == a(K-1) is "the
+
+number of vertices encountered along the shortest walk that encounters every edge at least once
+
+on the complete graph with K vertices".
+
+A complete graph has one edge for each pair of vertices (i,j).
+
+A walk can be represented as an ordered list of encountered vertices.
+
+An edge (i,j) is encountered iff its vertices appear in contiguous positions at least once within the list.
+
+Hence, sequence (2) gives the minimal length of an ordered list of vertices, chosen among K vertices,
+
+such that every one of them appears at least once contiguous to each other within the list.
+
+***
+
+Emmanuel wrote on July 19, 2019
+
+I think this is the smallest prime: 1231425182716293453847364958756897691
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

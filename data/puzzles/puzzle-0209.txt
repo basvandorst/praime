@@ -1,0 +1,158 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_209.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 209. Triangles of primes
+Source: https://www.primepuzzles.net/puzzles/puzz_209.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0209.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_208.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_210.htm
+  https://www.primepuzzles.net/puzzles/puzz_209.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 209. Triangles of primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 209. Triangles of primes
+
+Here you asked to find a K-triangular arrange of the first K*(K+1)/2 odd primes, such that the sum of the three primes in the vertex of every equilateral triangle embedded in the triangular arrange, add up to a prime number.
+
+Example for K=3
+
+05
+
+17-07
+
+11-13-03
+
+05+17+07 = 29
+
+05+11+03 = 19
+
+17+11+13 = 41
+
+17+07+13 = 37
+
+07+13+03 = 23
+
+Example for K=4
+
+19
+
+11-23
+
+13-07-29
+
+31-17-05-03
+
+19+11+23 = 53
+
+19+13+29 = 61
+
+19+31+03 = 53
+
+11+13+07 = 31
+
+11+31+05 = 47
+
+23+07+29 = 59
+
+23+17+03 = 43
+
+13+31+17 = 61
+
+07+17+05 = 29
+
+07+11+23 = 41
+
+29+05+03 = 37
+
+17+13+07 = 37
+
+05+07+29 = 41
+
+Questions:
+
+1. Can you provide a formula to calculate the quantity of embedded equilateral triangles in an K-triangular array?
+
+2. Can you find one solution for every 4<K<=10?
+
+3. Do you devise a systematic approach in order to get the solutions asked in 2?
+
+Solution:
+
+Q1. Correct solutions were sent by: J. Wharf, J.C. Rosa, J. Arioni, J. L. Pe, J. Heleen, J. vanDelden, Rudolph Knjzek, J. K Andersen & J. Wiesenbauer.
+
+The formulas sent are in a variety of forms (A(k) is the asked quantity of embedded equilateral triangles):
+
+A(K+1) = A(K) + K(K+1)/2 + floor(K^2/4) ........Wharf
+
+A(K) = floor((K-1)(K+1)(2K-1)/8)...............Wharf
+
+A(k) = int[(k(k+2)(2k+1))/8] ............. Pe, Heleen, Andersen
+
+k=2*m even: sum f(2*m,2*s) s from 1 to m-1: A(n)=m*(4*m+1)*(m-1)/6
+
+k=2*m+1 odd: sum(2*m+1,2*s) s from 1 to m: A(m)=m*(4*m-1)*(m+1)/6.....vanDelden
+
+K even , K=2*m , N(K)=m*(4*m^2-m-1)/2
+
+K odd , K=2*m-1 , N(K)=m*(m-1)*(4*m-3)/2 ...........J. C. Rosa
+
+A(K) = 1/4*k^3 - 1/8*K^2 - 1/4*K + x/8 (x=0 when K even x=1 when K odd), J. Arioni
+
+A(k) := ((k^2 - 1)(2k - 1) - 0^MOD(k, 2))/8 .........Wiesenbauer
+
+Come of them also noticed that this question was also solved as a sequence in the OIS::
+
+ID Number: A002717 (Formerly M3827 and N1569) Sequence: 0,1,5,13,27,48,78,118,170,235,315,411,525,658,812,988,1188, 1413,1665,1945,2255,2596,2970,3378,3822,4303,4823,5383,5985, 6630,7320,8056,8840,9673,10557,11493,12483,13528,14630, 15790,17010,18291,19635,21043,22517 Name: Floor(n(n+2)(2n+1)/8). Comments: Number of triangles in triangular matchstick arrangement of side n.
+
+or in in the "Book of Numbers" by John H. Conway and Richard K. Guy on p.83.
+
+***
+
+Q2. Solutions for K=5 were sent by Wharf, Rosa, Andersen & Wiesenbauer.
+
+But only Wharf and Andersen discovered the reasons why there are no solutions for K=>6. Both more or less say the same:
+
+"I first tried my search program for K=6 and found no solutions. I suspected there would never be more solutions. This can be proved by considering potential solutions modulo 3. The only prime which is 0 (modulo 3) is 3. The sum of 3 triangle vertexes must not be divisible by 3 if it has to be a prime. This means the modulo 3 triples (0,1,2), (1,1,1) and (2,2,2) are impossible." (Andersen)
+
+Both also found all the solutions for K=4 & K=5
+
+There is a single solution for K=3. There are 104 solutions for K=4. There are 1261 solutions for K=5
+
+***
+
+Q3 becomes irrelevant after Q2.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

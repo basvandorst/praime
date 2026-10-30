@@ -1,0 +1,415 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_614.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 614. Always composite by insertion
+Source: https://www.primepuzzles.net/puzzles/puzz_614.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0614.htm
+
+References (local copies):
+  ../../references/2011_appending-digits-to-generate-an-infinite.pdf  (from http://www.cs.uwaterloo.ca/journals/JIS/VOL14/Jones/jones12.pdf)
+  ../../references/2011_appending-digits-to-generate-an-infinite.txt  (extracted text)
+
+Links on the page:
+  http://www.jstor.org/pss/10.4169/amer.math.monthly.118.02.153
+  http://homepage2.nifty.com/m_kamada/
+  https://www.primepuzzles.net/puzzles/puzz_197.htm
+  mailto:cbrfgm@gmail.com
+  http://www.cs.uwaterloo.ca/journals/JIS/VOL14/Jones/jones12.pdf
+  http://yves.gallot.pagesperso-orange.fr/primes/index.html
+  https://www.primepuzzles.net/puzzles/puzz_613.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_615.htm
+  https://www.primepuzzles.net/puzzles/puzz_614.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 614. Always composite by insertion
+
+Problems & Puzzles: Puzzles
+
+Puzzle 614. Always composite by insertion
+
+On Feb. 2011 Lenny Jones published a delicious article entitled "When Does Appending the Same Digit Repeatedly on the Right of a Positive Integer Generate a Sequence of Composite Integers?"
+
+More specifically Jones defined Sn=k(d)n, where k is a positive integer and (d)n is a concatenation of n digits d, appended to the right of k.
+
+In order to let aside trivial solutions Jones made the following restrictions:
+
+gcd(k,d)=1
+
+d is an element of the set of integers {1, 3, 7 & 9}
+
+and stated the following two questions:
+
+a) For a give d, is there an integer k such that Sn is composite for all integers n=>1?
+
+b) If the answer to a) is positive, find the smallest k for such d.
+
+I won't spoil your own pleasure giving you more details from this interesting article. I just will tell you that Jones demonstrated that the answer to a) is positive and found the smallest case for d=1, and some other results and related new questions!...
+
+Now I will switch a little bit the puzzle.
+
+Let k=a1a2a3...at, where ai is the i-th digit of k reading k from left to right.
+
+Let Sn= a1a2....at-1(d)nat (This mean to insert the n concatenated digits d at the left of the last digit of k, at).
+
+Let gcd(k,d)=1
+
+Q1. For d=1, is there an integer k such that Sn is composite for all n=>1?
+
+Q2. If the answer to Q1 is positive, what is the smallest k value for d=1?
+
+I made some empirical search & found two candidates for Q1 if k<100: k=77 & k=93. Both are composites for quantity of digits less than 1300. But I discovered in the web that J. K. Andersen found in 2002 that 7(1)n7 is PRP for n=10905. As a matter of fact this was also reported in my Puzzle 197.
+
+Q3. Is 9(1)n3 a solution to Q1? Can you prove it?
+
+Q4. Redo Q1 & Q2 questions for d=0 (discard trivial solutions)
+
+Contributions came from Claudio Meller, Jan van Delden & Emmanuel Vantieghem.
+
+***
+
+Claudio wrote:
+
+93 is multiple of 3
+
+913 is multiple of 11
+
+9113 is multiple of 13
+
+91113 is multiple of 3 and 11
+
+911113 is multiple of 7
+
+9111113 is a multiple of 11
+
+Adding 6 ones in a number before the last 3, is equal to multiply the number by 10^6 and substract 1888887.
+
+And 1888887 = 3*7*11*13*17*37
+
+So
+
+n=0+6m is always a múltiple 3
+
+n=1+6m is always a múltiple 11
+
+n=2+6m is always a múltiple 13
+
+n=3+6m is always a múltiple 3 and 11
+
+n=4+6m is always a múltiple 7
+
+n=5+6m is always a múltiple 11
+Generalizing, if the number is k, the last digit at, and the digit to insert is d, we must do the following account by inserting d:
+
+(k-at)*10+d*10+at = 10k -10at +10d +at = 10k -9at +10d
+
+then we can make the following table:
+
+Numbers to be added to 10k(ending in at) to inserting the digit d
+
+at= last digit
+
+d | 1 | 3 | 7 | 9
+
+1 | 1 | -17 | -53 | -71
+
+2 | 11 | -7 | -43 | -61
+
+3 | 21 | 3 | -33 | -51
+
+4 | 31 | 13 | -23 | -41
+
+5 | 41 | 23 | -13 | -31
+
+6 | 51 | 33 | -3 | -21
+
+7 | 61 | 43 | 7 | -11
+
+8 | 71 | 53 | 17 | -1
+
+9 | 81 | 63 | 27 | 9
+
+Always
+
+k | | multiple of
+
+99 | 9(7)n9 | 11
+
+117 | 11(5)n7 | 13
+
+121 | 12(2)n1 | 11
+
+143 | 14(4)n3 | 13
+
+187 | 18(8)n7 | 17
+
+207 | 20(4)n7 | 23
+
+253 | 25(5)n3 | 23
+
+279 | 27(5)n9 | 31
+
+341 | 34(4)n1 | 31
+
+369 | 36(4)n9 | 41
+
+387 | 38(2)n7 | 43
+
+451 | 45(5)n1 | 41
+
+473 | 47(7)n3 | 43
+
+477 | 47(1)n7 | 53
+
+559 | 55(2)n9 | 61
+
+583 | 58(8)n3 | 53
+
+639 | 63(1)9 | 71
+
+671 | 67(7)n1 | 61
+
+781 | 78(8)n1 | 71
+
+The values​in this table indicate that multiples of these numbers terminated in at will be always composite by inserting the digit d. So, the smallest numbers that which will be always composite by inserting digit d are:
+
+***
+
+Jan wrote:
+
+Write s[n]=a.10^(n+1)+d.10.(10^n-1)+b, so k=a.10+b.
+
+Q1,Q4 (I only searched for a solution, not the smallest)
+
+The idea is to use a set of (r[i],m[i],p[i]): residues r[i] modulo m[i] and primes p[i] such that:
+
+I) r[i] mod m[i] covers all integers in a reduced residuset [0..gcd(m[i])]
+
+(Each value of n can be assigned to at least 1 residue mod m[i])
+
+II) p[i]|(10^m[i]-1)/9
+
+(Make sure we have enough different divisors and that 9 has an inverse mod p[i]).
+
+III) s[r[i] mod m[i]]=0 mod p[i]
+
+(Make sure that each s[n] has a divisor, preferably different for each i).
+
+For even d I used the following cover set: {(0,3,37),(2,3,3),(1,6,7),(4,6,11)}.
+
+Because the second element of this cover set translates to a+b=0 mod 3 we automatically get s[n]=0 mod 3 for all n and thus trivial solutions if d=0 mod 3.
+
+For d=0 mod 3 I therefore used a different cover set: {(1,2,11),(0,3,37),(0,4,101),(4,6,7),(2,6,13)}.
+
+For above combinations of r[i],m[i] one could construct more cover sets by assigning the available primes differently. I didn’t pursue this further. For d=3 I further imposed a+b=1 mod 3 to make sure we don’t get a trivial solution. [Or one could not impose this condition and just add 11.37.101.7.13 to the found solution in these cases].
+
+We get: Example: (d=0,b=1), k=20564711 so s[n]=2056471{0}[n]1
+
+a
+
+d
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+b
+
+1
+
+2056471
+
+936
+
+1750
+
+5176866*
+
+3378
+
+4192
+
+815787
+
+5820
+
+6634
+
+195445
+
+3
+
+2428676
+
+1180
+
+1994
+
+5549071
+
+3622
+
+4436
+
+1187992**
+
+6064
+
+6878
+
+567659*
+
+7
+
+3173086*
+
+1668
+
+2482
+
+6293481**
+
+4110
+
+4924
+
+1932402
+
+6552
+
+7366
+
+1312060
+
+9
+
+3545291
+
+1912
+
+2726
+
+6665686
+
+4354
+
+5168
+
+2304607*
+
+6796
+
+7610
+
+1684265
+
+* Given the combination of these (b,d) we always have 7|s[n], proof omitted.
+
+** Given the combination of these (b,d) we always have 11|s[n], proof omitted.
+
+So the above exceptions need another cover set.
+
+Q3
+
+k=93, s[n]=9.10^(n+1)+10.(10^n-1)/9+3 is composite for every value of n.
+
+A quick check on prime divisors reveals:
+
+11|s[n] if n=1 mod 2 9.10^(2z+2)+10.(10^(2z+1)-1)/9+3=-2.1-1.1+3=0 mod 11
+
+13|s[n] if n=2 mod 6 9.10^(6z+3)+10.(10^(6z+2)-1)/9+3=-4.-1-3.-2+3=0 mod 13
+
+3|s[n] if n=0 mod 3 9.10^(3z+1)+10.(10^(3z)-1)/9+3=0+1.0+0=0 mod 3
+
+7|s[n] if n=4 mod 6 9.10^(6z+5)+10.(10^(6z+4)-1)/9+3=2.5+3.5+3=0 mod 7
+
+So we have found a cover set (and assignment of primes) which generates k=93.
+
+In above proof 10^m[i]=1 mod p[i] is used. For (10^(3z)-1)/9 mod 3 this reasoning can’t be used directly. However this number consists of 3z numbers 1, so the sum of the digits is 0 mod 3. The same kind of reasoning is used to construct relations for a mod p[i] in the first part (Q1/Q4), followed by the Chinese Remainder Theorem.
+
+I borrowed the second cover set from the following article by Lenny Jones and Daniel White:
+
+Appending digits to generate an infinite sequence of composite numbers
+
+in which other types of compositions are used than merely appending to the right.
+
+k=77
+
+A quick check on the period of divisors of s[n] reveal 5 apparent residue classes for n. However the cases n=9 mod 18 and n=15 mod 18 are not completely covered. The prime factors for these n appear random and are not divisors of (10^m-1)/9 with m<100 (if I spotted this correctly). One either should hope for some miracle Aurefeullian factorizations (see the article mentioned by Carlos for such a factorization) or some prime will pop up eventually. Apparently J.K. Andersen found such a prime.
+
+***
+
+Emmanuel wrote:
+
+About Q1 and Q2, the two smallest non trivial possible composite numbers of the form a (1)n b are indeed 7 (1)n 7 and 9 (1)n 3. By Andersen's work, only the second is left.
+
+The answer to Q3 is yes. Indeed, Sn equals 9x10^(n+1)+10(10^n -1)/9+3 in this case, and we have : Sn is divisible by 11 for n = 6m+1, n = 6m+3 and n = 6m+5,
+
+is divisible by 13 for n = 6m+2,
+
+is divisible by 3 for n = 6m (and 6m+3),
+
+is divisible by 7 for n = 6m+4.
+
+For d = 0, there are many trivial cases : a (0)n b is composite whenever b = 0, 2, 4, 5, 6, 8. and when GCD(a,b) is not 1. Also, when a+b is divisible by 3, every Sn is divisble by 3. Discarding these cases, the first a for which all Sn are composite can be 100 with b = 1.
+
+Indeed, there is no prime known of the form 10... 01 (with at least 2 zeros) (see http://yves.gallot.pagesperso-orange.fr/primes/index.html).
+
+The next candidate is a = 404 (with b = 3). And this one is a 'hit' since :
+
+404(0)n 3 = 404x10^(n+1) +3 is divisible by 11 when n = 6m+1, 6m+3 and 6m+5,
+
+is divisible by 13 when n = 6m
+
+is divisible by 37 when n = 6m+2
+
+is divisible by 7 when n = 6m+4.
+
+So, if someone find a prime of the form 10...01 [of course this is a joke of Emmanuel, for sure..., CR], the numbers 4040..03 will be the solution to Q4.
+
+***
+
+Richard Chen wrote on May 18, 2021:
+
+For d=0 and b=1, the smallest a (which a+b is not divisible by 3) such that a (0)n b is always composite is conjectured to be 9175, the covering set of it is {7, 11, 13, 37}, the only remain candidates of a (which a+b is not divisible by 3) below it are 100, 1000, 7666, and all of them are checked to >=3000000 digits with no prime found (since all such numbers can be written as a*10^(n+1)+1, all these primes are proven primes, i.e. not merely probable primes, since they can be proven prime using N-1 method).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

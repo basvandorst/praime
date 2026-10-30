@@ -1,0 +1,186 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_610.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 610. Rectangling the square-II.
+Source: https://www.primepuzzles.net/puzzles/puzz_610.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0610.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_609.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_611.htm
+  https://www.primepuzzles.net/puzzles/puzz_610.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 610. Rectangling the square-II.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 610. Rectangling the square-II.
+
+Let's continue rectangling the square using rectangles of unequal prime sides as we did in Puzzle 609.
+
+In puzzle 609 we accepted imperfect & compound dissection.
+
+In this new puzzle we will increase the requirements asking for perfect & simple dissections and will maintain the condition of using inner rectangles of unequal prime sides.
+
+First let's show a SPRR-UPS (simple & perfect rectangled rectangle, using unequal prime sides for each inner rectangle) that I produced during this week:
+
+This is a 10x15 SPRR-UPS, which means a 10x15 Simple (no two or more inner rectangles produce another inner rectangle) perfect (all the inner rectangles are distinct) Rectangle Rectangled using Unequal Prime Sides.
+
+Q1. Is this the smallest SPRR-UPS?
+
+Q2. Can you produce a SPSR-UPS (Simple Perfect Square Rectangled)
+
+Contributions came from Giovanni Resta, Jan van Delden & Hakan Summakoğlu.
+
+***
+
+Giovanni wrote:
+
+Q1: yes, your solution is the smallest one
+
+[Is minimal in the sense of using 5 rectangles, but is not the minimal in the sense of the area of the rectangle overall. See belo solutions by Jan & Hakan, CR]
+
+Q2: the smallest square is 18x18.
+
+I discovered that I actually attacked this problem
+
+during the Christmas holidays of 2006. It took me quite a while to
+
+understand my old outputs.
+
+All the sides up to 32 are possible, apart from 19 and 23.
+
+[New question: Can you get the SPSR-UPS for 19 & 23?]
+
+For sides from 18 to 25 I have explored all the possibilities.
+
+There are tilings with:
+
+S : Tiles
+
+------------
+
+18 : 7, 8
+
+20 ; 9, 11
+
+21 : 9, 11, 13
+
+22 : 11, 12, 14
+
+24 : 7, 8, 10, 11, 12, 13, 14, 15
+
+25 : 9, 12, 13, 14, 15
+
+Here are two examples: 18x18 & 27x27
+
+Any special approach for your solutions to Q2?
+
+Actually no, I do not exploit the fact that the numbers involved are primes. I have written a general little recursive program to pack a subset of a given set of rectangles into a larger one. The program is simple and not very clever.
+
+Given a goal rectangle of size R x C (rows x columns),
+
+I recursively try to fill it from the bottom to the top, without leaving holes. Given this property, the goal area can be represented by an array of C integers, one for each column, that tells me how many cells from the bottom are already filled.
+
+For example (assuming O=empty and X=fill), the half filled board:
+
+OOOOOX
+
+XXOOOX
+
+XXOOOX
+
+XXXXOX
+
+XXXXXX
+
+is represented by the numbers 4,4,2,2,1,5.
+
+At each recursive step, I detect the narrower "well" in the current board and I continue the filling from the bottom-left corner of it.
+
+Clearly, other heuristics are possible.
+
+2) Has some meaning that the only two unsolved cases in the range 18-27
+
+are prime numbers (19 & 23)?
+
+I really do not know. However, 29 and 31 are solvable.
+
+3) Where you solving a published/posted puzzle in 2006 from someone out
+
+there, or it was an idea from your own?
+
+Few years ago I was playing with my programs for packing rectangles and I explored several possibilities, some of them involving primes.
+
+***
+
+Jan wrote a short and a long contribution. The following is a copy of his short one explanation:
+
+Question 1:
+
+The only 5-configuration necessarily looks like (prove omitted):
+
+The rectangle with the smallest area (if no dissection exists with 6 tiles, prove omitted) 7x16:
+
+It has area 112.
+
+Question 2:
+
+An infinite number of rectangles/squares exist of the following 7-configuration:
+
+Conditions for this configuration to have a solution can be easily derived.
+
+For this configuration the above assignment of sidelengths, with p,r,s>2 is the only possibility.
+
+If we choose p=3 and r=s we get a square with sides s+7, area (s+7)^2.
+
+There is a square of this type for every value s, the lesser of a twin prime.
+
+The square 18x18 with the smallest area:
+
+The square [p,r,s]=[3,659,659] has side 666, a real monster.
+
+The rectangle with the smallest area of this type, [p,r,s]=[11,17,3], with sides 10,32 area 320.
+
+***
+
+Hakan wrote:
+
+I found 7x16 SPRR-UPS.
+
+[it's the same reported by Jan above, area 112]
+
+***
+
+On my request, Giovanni Resta sent his solutions for 19x19 & 23x23 squares relaxing the UPS condition to accept both rectangles & squares inside the squares. Here are his drawings:
+
+and this is the minimal square gotten with this relaxed condition, using rectangles &squares.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

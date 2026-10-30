@@ -1,0 +1,480 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Problem 43 . Catalan Numbers </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td><p><font face="sans-serif,arial,geneva" size="5"><span lang="en-us"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>P</b></font></span><font color="#3366FF"><b><span lang="es">roblems</span></b></font></font><span lang="en-us"> </span>
+
+        </p>
+
+      <p><b><span lang="en-us">Problem 
+      43 . </span><font color="#008080"><span lang="en-us">Catalan Numbers</span></font></p>
+
+      </b><font face="Arial">
+    <p class="MsoNormal"><b><span lang="EN-US"><font size="2">Bruce Fleming</font></span><font size="2"><span lang="en-us">
+    </span></font></b><span lang="en-us"><font size="2">sent (Feb. 2003) the 
+    following problem</font></span></p>
+    <blockquote>
+      <p class="MsoNormal"><span lang="EN-US"><font size="2">The Catalan 
+      numbers, C(n), have the form C(n) = (2n)!/((n!)^2)(n+1).&nbsp; The first few 
+      such numbers are 1, 2, 5, 14, 42, ...</font></span></p>
+      <p class="MsoNormal"><span lang="EN-US"><font size="2">&nbsp;The problem 
+      is to find all cases where C(n) has no squared (i.e. repeated 
+      prime)&nbsp;factor.</font></span></p>
+      <p class="MsoNormal"><span lang="EN-US"><font size="2">This appears to be 
+      the case where n = 1-5, 7-9, 11.17. 19 and 31.&nbsp; So is it necessary for n 
+      to be a prime or the power of a prime?&nbsp; No, since when n = 35 we find that
+      </font></span></p>
+      <p class="MsoNormal"><span lang="EN-US"><font size="2">C(n) = 
+      2.7.13.19.23.37.41.43.47.53.59.61.67.</font></span></p>
+      <p class="MsoNormal"><b><span lang="en-us"><font size="2" color="#0000FF">
+      Questions</font></span></b></p>
+      <ol>
+        <li>
+        <p class="MsoNormal"><b><span lang="EN-US">
+        <font size="2" color="#0000FF">Under what conditions is C(n) 
+        square-free?</font></span></b></li>
+        <li>
+        <p class="MsoNormal"><b><span lang="EN-US">
+        <font size="2" color="#0000FF">Can it be shown that there are finitely 
+        many (or infinitely many)&nbsp;such Catalan numbers?</font></span></b></li>
+      </ol>
+    </blockquote>
+    <p class="MsoNormal"><span lang="en-us">I<font size="2"> can not resist the 
+    temptation to add two more questions</font></span><font size="2"><span lang="en-us"> 
+    - being so close to these interesting numbers.</span></font></p>
+    <p class="MsoNormal"><font size="2"><span lang="en-us">It's well
+    <a href="http://mathworld.wolfram.com/CatalanNumber.html">known</a> that 
+    C(n) is odd only when n=2^k-1, and that the ending digit for C(n) is &quot;5&quot; for 
+    k=9 to 15; while C(n) is prime only for n=2 and n=3 for n&lt;=2^15-1.</span></font></p>
+    <blockquote>
+      <ol start="3">
+        <li>
+    <p class="MsoNormal"><b><span lang="en-us"><font size="2" color="#0000FF">
+    Can you get the next </font><font size="2" color="#008000">odd</font><font size="2" color="#0000FF"> 
+    Catalan number not ending in &quot;5&quot;</font></span><font size="2" color="#0000FF"><span lang="en-us">, 
+    for k&gt;15?</span></font></b></p>
+        </li>
+        <li>
+    <p class="MsoNormal"><b><span lang="en-us"><font size="2" color="#0000FF">Is 
+    it possible that C(n) is a </font><font size="2" color="#FF0000">prime</font><font size="2" color="#0000FF"> 
+    larger than 5?</font></span></b></p>
+        </li>
+      </ol>
+    </blockquote>
+    <p class="MsoNormal">&nbsp;</p>
+    </font>
+
+      <hr>
+      <p><a href="mailto:crivera@primepuzzles.net">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+
+      <p><font size="2"><span lang="en-us">Contributions to this problem came 
+      from <b>Jon Perry, Jon Bowker, Jon Wharf</b> &amp; </span><b>
+      <span lang="en-us">L. T. Peabody</span></b><span lang="en-us">.</span></font></p>
+
+      <p><span lang="en-us"><font size="2">Q1.</font></span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Jon Perry</b> wrote:</font></span></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">...there are no other square-frees up to n=5000...</span></p>
+    </blockquote>
+    <p><span lang="en-us"><b>Jon Wharf</b> wrote:</span></p>
+    <blockquote>
+      <p><span lang="en-us">Catalans are Sloane's A000108. One way of viewing 
+      the formula for this sequence:</span></p>
+      <p><span lang="en-us">Cn = product(i=2,n) [(n+i)/i] or Cn = 
+      product(i=2,n)[n+i] / i!</span></p>
+      <p><span lang="en-us">is where I've found most benefit.</span></p>
+      <p><span lang="en-us">First of all, compare prime factors in the numerator 
+      and denominator of this expression. For p&lt;=n, find r == p mod n and s = 
+      (n-r)/p. </span>Then there are s numbers divisible by p in 2..n and either 
+      s or (if 2r&gt;=p and r&lt;&gt;p-1) s+1 numbers divisible by p in n+2..2n</p>
+      <p><span lang="en-us">1. To see if a particular Catalan has a square, we 
+      only need to concern ourselves with primes p such that p^2 &lt;= 2n. Larger 
+      primes cannot produce a square. For each prime, check whether there are 
+      more instances multiplying than dividing (2r&gt;=p) and repeat for each 
+      higher power of p until greater than 2n.</span></p>
+      <p><span lang="en-us">In fact checking only the first 11 primes is enough 
+      to verify that there are no square-free Catalans after C35 up to 
+      C1073741823 = C(2^30-1).</span></p>
+    </blockquote>
+    <p>&nbsp;</p>
+    </font>
+
+      <p><span lang="en-us"><font size="2">Q2</font></span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Jon Perry</b> wrote:</font></span></p>
+
+      <blockquote>
+
+      <p><span lang="en-us"><font size="2">...</font></span><font SIZE="2"><span lang="en-us">I 
+      believe that this (</span></font><font size="2" face="Arial"><span lang="EN-US">n 
+      = 1-5, 7-9, 11</span><span lang="en-us">,</span><span lang="EN-US"> 17</span><span lang="en-us">,</span><span lang="EN-US"> 
+      19</span><span lang="en-us">,</span><span lang="EN-US"> 31</span><span lang="en-us"> 
+      &amp; 35</span></font><font SIZE="2"><span lang="en-us"> ) is the lot. This is 
+      backed up by the hazy impossibility of 2n!/n!(n+1)! continuing to be 
+      square-free for large n...</span></font></p>
+
+        <font SIZE="2">
+        <p><span lang="en-us">Just a quick observation, for C(n) to be 
+        square-free, n needs to be 2^k+/-1 or 2^k+/-3 or 2^k</span></p>
+    </blockquote>
+    <p><span lang="en-us"><b>Jon Wharf</b> wrote:</span></p>
+    </font>
+    <blockquote>
+      <font SIZE="2">
+      <p><span lang="en-us">My instincts after investigating questions 1 and 3 
+      suggest that the number of square-free Catalans is (very) finite. 
+      Difficult to verify though.</span></p>
+
+      </blockquote>
+
+      <p><span lang="es-mx">Later he added:</span></p>
+      </font>
+
+    <blockquote>
+      <font SIZE="2">
+      <p>To correct Mr Perry's quick observation, for C(n) to be squarefree in 
+      2, n = 2^k-1 (when C(n) is odd) or n = 2^k + 2^m -1, k&gt;m&gt;=0 (when C(n) == 
+      2 mod 4),</p>
+      <p>Using my modular tests on the first 18 primes to their first 5 powers, 
+      coupled with the above knowledge, I cleared out n&gt;35 (k=5, m=2) up beyond 
+      k=77605 ie. there are no more squarefreee Catalans for 35&lt;n&lt;=2^77605. At 
+      k=77605, m=41298 there is a number which survives my initial tests against 
+      a few small primes but will inevitably fall to a wider test. Thereafter 
+      the initial tests eliminate all candidates to 2^85000.<span lang="es-mx">.. 
+      (later) </span>2^77605 + 2^41298 - 1 is confirmed as not squarefree.</p>
+      <p>&nbsp;</p>
+      </font>
+
+      <p>&nbsp;</p>
+
+      </blockquote>
+
+      <p><span lang="en-us"><font size="2">Q3</font></span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Jon Perry</b> wrote:</font></span></p>
+
+      <blockquote>
+
+      <p><span lang="en-us"><font size="2">...I have managed to extend k 
+      significantly, to k=10000. I did this using some Pari/GP code and a 900Mhz 
+      machine in about 3 hours. I do not think there are any more k that do not 
+      end in a 5, the powers of 5 that remain are generally increasing...</font></span></p>
+
+      </blockquote>
+    <font SIZE="2">
+    <p><span lang="en-us"><b>Jon Wharf</b> wrote:</span></p>
+    <blockquote>
+      <p><span lang="en-us">I checked for factors of 5 in Catalans C(2^k-1) for 
+      k up to 95. From 9 onwards they all have 5 as a factor at least once and 
+      trending upwards. The other small odd primes follow a similar irregular 
+      pattern. I can send a full table if you'd like.</span></p>
+    </blockquote>
+    </font>
+
+      <p><span lang="en-us"><font size="2">Q4</font></span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Jon Perry</b> wrote:</font></span></p>
+
+      <blockquote>
+
+      <p><font SIZE="2"><span lang="en-us">Here is a proof of part 4:</span></p>
+
+        <p><span lang="en-us">[1] C(n+1) = 2(2n+1)/(n+2) . C(n) </span></p>
+        <p><span lang="en-us">C(n+1) &gt; C(n) for all n.</span></p>
+        <p><span lang="en-us">Assume the first few integers in Catalan's 
+        sequence as 1,2,5,14,42. Note that C(4)=14, and 14/(4+1)&gt;2, whereas 
+        C(3)=5, and 5/(3+1)&lt;2. This ratio obviously increases, as by [1], for 
+        n&gt;1, (2n+1)/(n+2)&gt;1. Also note that 2(2n+1) becomes a lot bigger than 
+        n+2, as does C(n). Now whatever happens, both 2(2n+1) and C(n) 
+        components of [1] are going to be greater than 1 after the division by 
+        (n+2), hence C(n+1) will never be prime again. It's a bit sketchy, but 
+        the essence is there.</span></p>
+    </blockquote>
+    </font>
+
+      <p><font size="2"><b><span lang="en-us">L. T. Peabody</span></b><span lang="en-us"> 
+      wrote:</span></font></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">Theorem: If n&gt;3, the nth Catalan number is not prime</span></p>
+      <p><span lang="en-us">Proof:</span></p>
+      <p><span lang="en-us">The nth Catalan number, from the formula, is a 
+      factor of (2n)!. Therefore if it is prime it must be less than 2n. 
+      Therefore if the nth Catalan number is larger than (2n-1), it is not 
+      prime.</span></p>
+      <p><span lang="en-us">That is to say, if (2n)!/(n!)((n+1)!)&gt;(2n-1) for all 
+      n&gt;3 we are done. This is equivalent to 
+      (2n)(2n-1)((2n-2)!)&gt;n(2n-1)((n-1)!)((n+1)!).</span></p>
+      <p><span lang="en-us">Canceling n(2n-1), this is equivalent to 
+      2*(2n-2)!&gt;((n-1)!)((n+1)!). We will prove this for n&gt;3 by induction. For 
+      n=4, 2*6!=1440&gt;3!*5!=720. Suppose true for n. Then in increasing n by 1, 
+      the LHS is multiplied by (2n)(2n-1), where as the RHS is multiplied by 
+      (n)(n+2). Since</span></p>
+      <p><span lang="en-us">(2n)(2n-1)=n(4n-2)=n(n+2)+n(3n-4)&gt;n(n+2) for n&gt;3, we 
+      are done. END OF PROOF</span></p>
+    </blockquote>
+    </font>
+
+      <p><span lang="en-us"><font size="2"><b>Jon Bowker</b> wrote:</font></span></p>
+
+      <blockquote>
+        <p><span lang="en-us"><font size="2">I've attached a zipped version of a 
+        very large text file (about 10000 lines, each of which is 2280 
+        characters long) which shows the factorizations of all the Catalan 
+        numbers up to C(9999). Each line looks like these :</font></span></p>
+        <p><span lang="en-us"><font size="2">C(5)*&nbsp;&nbsp; : 3&nbsp;&nbsp;&nbsp;&nbsp; : 11010000000...
+        <br>
+        C(6)&nbsp;&nbsp;&nbsp; : 3&nbsp;&nbsp;&nbsp;&nbsp; : 21001000000... <br>
+        C(7)*&nbsp;&nbsp; : 3&nbsp;&nbsp;&nbsp;&nbsp; : 01001100000... </font></span></p>
+        <p><span lang="en-us"><font size="2">This means, for example, that C(5) 
+        is squarefree (hence the *), it has 3 prime factors, and they are 2^1, 
+        3^1, and 7^1. Similarly, C(6) has the three prime factors 2^2, 3^1, and 
+        11^1. I hope this is clear! (By the way : where necessary, I've used 'a' 
+        to mean '10', 'b' to mean '11', etc, so as to preserve the column 
+        widths...).</font></span></p>
+        <p><span lang="en-us"><font size="2">I derived the factorizations using 
+        the well-known recurrence relation C(n+1) = C(n)*(4n+2)/(n+2), or, 
+        equivalently, C(n) = C(n-1)*(4n-2)/(n+1) = 2*C(n-1)*(2n-1)/(n+1).</font></span></p>
+        <p><span lang="en-us"><font size="2">The first thing that strikes me 
+        when I scroll around the large text file is that the answer to Q4 is 
+        'No' - it is *not* possible for C(n) to be a prime &gt; 5. <u>As a 
+        non-rigorous piece of reasoning</u> : C(n) has as factors all primes 
+        between n+2 and 2n-1. So if there are two or more primes between n+2 and 
+        2n-1 then C(n) cannot possibly be prime. This appears to be true for n 
+        &gt;= 7.</font></span></p>
+    </blockquote>
+
+      <p><font SIZE="2"><span lang="en-us"><b>Jon Wharf</b> wrote:</span></font></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">This can be simply answered by asking &quot;Is there more 
+      than one prime in the range (n+2,2n)?&quot;. For n&gt;6 the answer is always &quot;Yes&quot; 
+      and as a result the Catalan numbers are never prime, nor are they a single 
+      odd prime times a power of 2.</span></p>
+      <p><span lang="en-us">Follow-up question: How often does a Catalan number 
+      consist of the product of only the odd primes in (n+2,2n)? or those primes 
+      multiplied by some power of 2? My expectation is that C10 = 16796 = 
+      4.13.17.19 is the last.</span></p>
+    </blockquote>
+    </font>
+
+      <p>&nbsp;</p>
+
+      <p><span lang="en-us"><font size="2">***</font></span></p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <hr>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="prob_042.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; 
+          <a href="../puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="prob_044.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1"> <!--#exec cgi="/cgi-bin/footer.cgi"-->
+      <p><!--webbot bot="HTMLMarkup" startspan --><SCRIPT LANGUAGE="VBScript">
+<!-- 
+// Copyright (C) 1999 LiveUpdate division of LABTECH 
+// Permission for use granted to all music lovers on the net
+function PlayIE(musicFile)
+
+if IsObject(navigator) and (navigator.appName = "Microsoft Internet Explorer") then
+   dim cObj
+   dim objTag
+
+   on error resume next
+   set cObj = CreateObject("Crescendo")
+   cres = IsObject(cObj)
+   if (cres) then
+        document.write "<OBJECT ID=Crescendo " & _
+          "CLASSID=""clsid:0FC6BF2B-E16A-11CF-AB2E-0080AD08A326"" " & _
+          "HEIGHT=55 WIDTH=200> " 
+        document.write "<PARAM NAME=""Song"" VALUE=""" & musicFile & """>"
+        document.write "</OBJECT>"
+   else
+      document.write "<bgsound src=""" & musicFile & """ loop=infinite>"
+   end if
+end if
+
+end function
+//--> 
+</script>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- 
+function PlayNS(musicFile)
+{
+   if (navigator.appName == "Netscape")
+      {
+      var EmbedString
+      var musicFile
+
+      EmbedString = "<EMBED SRC='" + musicFile + "'"
+      EmbedString += "PLUGINSPAGE='http://www.liveupdate.com/dl.html' AUTOSTART=TRUE  LOOP=-1 CONTROLS=SMALLCONSOLE HEIGHT=15 WIDTH=140>"
+      document.write(EmbedString)
+      }
+}
+
+function PlaySong(SongURL)
+{
+   if (navigator.appName == "Netscape")
+       PlayNS(SongURL)
+   else PlayIE(SongURL)
+}
+//--> 
+</script>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- 
+PlaySong("../midi/midi.mid")
+//--> 
+</script><!--webbot bot="HTMLMarkup" endspan -->
+
+      </font> </td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

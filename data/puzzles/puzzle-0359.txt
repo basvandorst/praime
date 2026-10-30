@@ -1,0 +1,275 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_359.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 359. First N primes in a circle
+Source: https://www.primepuzzles.net/puzzles/puzz_359.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0359.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_358.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_360.htm
+  https://www.primepuzzles.net/puzzles/puzz_359.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 359. First N primes in a circle
+
+Problems & Puzzles: Puzzles
+
+Puzzle 359. First N primes in a circle
+
+Anurag Sahay sent the following puzzle:
+
+Arrange the first N primes in a circular pattern such that every two adjacent primes and every pair of diagonally opposite primes do not have any common digit.
+
+I solved for N up to 28. I think there is no solution for N>28. One solution for N=28 is:
+
+53 61 79 103 29 41 59 67 13 47 89 23 107 43
+
+17 3 11 97 31 2 37 101 7 5 73 19 83 71
+
+Questions:
+1. Are there solutions for N>28
+
+2. Can you devise a smart algorithm to find all the solutions for N = 28?
+
+Enoch Haga wrote on May 14, 06:
+
+Q1). Yes, here is a solution for N=30:
+
+11 2 107 83 17 5 103 7 31 29 13 47 109 23 71
+
+3 61 37 101 97 113 79 43 67 19 53 41 89 73 59
+
+(please notice that Enoch writes the second row as he sees the circle in two rows, a kind of different of the way Anurag writes his solutions)
+
+Q2). My algorithm was to make a grid of all possible matches and then to arrange the primes in order of greatest difficulty of finding matches. Even so, took a bit of tweaking at the end. The algorithm could be computerized.
+
+So, Anurag's was proved to be wrong about the maximal on 28. Then, what is the real maximal?
+
+***
+
+Edwin Clark wrote on May 31:
+
+Here's an example for N = 32, which was found by random computer search.
+
+Here the circle is completed by connecting 107 back to 2.
+
+[2, 113, 47, 109, 37, 41, 53, 89, 13, 79, 31, 59, 127, 83, 71, 3,
+
+61, 5, 101, 73, 19, 7, 29, 103, 67, 131, 97, 11, 43, 17, 23, 107]
+
+The number opposite 113 is 5.
+
+The number opposite 47 is 101.
+
+...
+
+As for the largest value of N, I make the following more or less
+
+trivial observation: There is no circle for N >= 298. Note that p =
+
+1973 is the 298th prime. There are only 2 primes, namely 2 and 5, that
+
+have disjoint digits with 1973, but to be in such a circle a prime must
+
+have 3 primes disjoint from it.
+
+Later he added:
+
+If we ignore the condition for diagonally opposite primes then the
+
+question becomes whether or not a particular graph is Hamiltonian:
+
+Consider the graph G(N) whose vertices are the first N primes and whose
+
+edges are the pairs {p,q} where p and q have no common digits. The
+
+problem of arranging these primes in a circle so that there is an
+
+edge between any two adjacent primes is equivalent to asking whether
+
+or not G(N) is a Hamiltonian graph. It is known that in general this is an
+
+NP-complete problem. See, for example,
+
+http://en.wikipedia.org/wiki/Hamiltonian_graph.
+
+In particular, if the graph G(N) is not Hamiltonian then the conditions
+
+of Puzzle 359 cannot be fulfilled for N.
+
+It is easy to find a Hamiltonian cycle for G(34), but I have so far
+
+not been able to find one where the opposite pairs of vertices on the
+
+cycle are adjacent.
+
+I have not been able to find any Hamiltonian cycle for G(36) using my
+
+random search technique. Also I tried using the free program
+
+Groups and Graphs (http://www.paddle.mb.ca/G&G/G&G.html). It almost
+
+instantaneously gives Hamiltonian cycles for G(N) when N < 36 (and N
+
+is even--I didn't try odd N), but the program crashes when I try to
+
+check whether or not G(36) is Hamiltonian. However, the program does
+
+find a Hamiltonian path fairly quickly.
+
+If someone has a good program for determining Hamiltonicity for a graph
+
+with 36 vertices and can prove that G(36) is not Hamiltonian then
+
+the maximum must be 32 (which we know is possible) or 34 (which may
+
+be possible).
+
+***
+
+So, who is the brave people to respond the Edwin's new question: Is G(36) Hamiltonian?
+***
+Daniele Giorgio Degiorgi wrote:
+
+In his last note, Edwin Clark claims that if there is no Hamiltonian cycle in G(36), then the solution is 32 or 34. The question is: can the non Hamiltonicity of G(36) be useful in proving the non Hamiltonicity of G(N) for an N > 36? As noted recently in Graphnet forum, a graph with at most 2n vertices is surely non Hamiltonian if it has an independent set of size at least n. This is the case of G(36), as 19 of the first 36 primes have the digit 1 in common. The same case happens for G(N), fN = 35 to 75. G(76) has a maximum independent set of size 38 and thus it could have an Hamiltonian cycle. The independent set rule show that G(N) is surely non Hamiltonian for 35 < N < 75, for 203 < N < 767 with possibly exception N = 759, and with N > 1341, at least up to 1000000 (i.e. up to the prime 15485863) Possibly none of them is still Hamiltonian, but this should be proved.
+
+Later he added:
+
+Edwin Clark observed that for N >= 298 there is no Hamiltonian cycle with diagonally opposite vertices connected in G(N), as the 298 prime is 1973 connected only to 2 and 5. Analogously ignoring the diagonal condition it easy to see that the upper bound need to be <= 519, as the 519. prime is 3719 also connected only to 2 and 5.
+
+***
+Edwin added too (10/06/06):
+
+The program Groups and Graphs found the following Hamiltonian cycle
+
+for G(202). I verified it by use of Maple.
+
+[2, 1193, 887, 199, 263, 197, 233, 191, 223, 181, 293, 167, 239, 157,
+
+83, 211, 79, 163, 47, 193, 67, 151, 73, 149, 53, 179, 43, 127, 5, 173,
+
+929, 137, 569, 701, 593, 761, 409, 1163, 907, 1153, 877, 1229, 883, 19,
+
+433, 271, 359, 241, 307, 491, 383, 461, 397, 541, 983, 41, 389, 61, 353,
+
+419, 367, 401, 379, 421, 373, 1129, 853, 1117, 839, 1051, 829, 1103,
+
+827, 1109, 823, 1097, 683, 1091, 787, 1093, 757, 1069, 773, 1049, 733,
+
+1021, 797, 1063, 727, 1039, 677, 1033, 769, 1031, 947, 1213, 977, 1231,
+
+967, 1223, 467, 521, 479, 601, 443, 617, 449, 571, 463, 751, 499, 613,
+
+457, 619, 503, 719, 523, 641, 509, 631, 547, 661, 557, 691, 487, 1201,
+
+997, 1123, 857, 13, 859, 1061, 347, 251, 349, 1171, 863, 1151, 937,
+
+1181, 439, 281, 337, 11, 283, 17, 229, 31, 277, 103, 257, 431, 269, 331,
+
+227, 313, 97, 311, 89, 317, 59, 1187, 659, 1087, 653, 1019, 743, 1009,
+
+673, 991, 647, 1013, 599, 881, 739, 821, 709, 811, 643, 971, 563, 941,
+
+607, 919, 587, 911, 577, 113, 29, 107, 23, 109, 37, 101, 3, 71, 953,
+
+1217, 809, 131, 7, 139]
+
+I claim that N = 202 is the largest value of N for which G(N) can be
+
+Hamiltonian. The proof below uses ideas from GraphNet provide by Geoff
+
+Exoo and Brendan Mckay as well as comments above and privately by Daniele:
+
+(1) Suppose N > 518 and G(N) has a Hamiltonian cycle. Then, the vertices
+
+include the 519th prime 3719 as well as the smaller prime 1973. But both
+
+of these primes are adjacent only to 2 and 5. Since each vertex in a cycle
+
+is adjacent to exactly two other vertices, this implies that the cycle
+
+contains only the four primes 2, 5, 1973 and 3719. So a lot of primes are
+
+left out. This contradiction shows that N is at most 518.
+
+(2) For N from 203 to 518 the number of primes in G(N) containing 1 is
+
+at least n+1 if N = 2n or 2n+1. The primes containing 1 form an
+
+independent set of vertices, but a cycle of length 2n or 2n+1 can have at
+
+most a set of n independent vertices. So these values are ruled out.
+
+Hence the largest possible N for which G(N) could be Hamiltonian is 202.
+
+Since we exhibited above a Hamiltonian cycle for G(202) we know that 202
+
+is indeed the largest value of N for which G(N) is Hamiltonian.
+
+As pointed by Daniele there are other values < 202 for which G(N) has no
+
+Hamiltonian cycle, we leave it as an exercise for the interested reader to
+
+figure out which they are. :-)
+
+Of course, since G(N) for N > 202 has no Hamiltonian cycle, it also can
+
+not satisfy the original conditions involving opposite vertices being
+
+adjacent. Thus N = 202 is the largest value for which the original problem
+
+#359 could possibly have a solution. But whether it is possible to arrange
+
+the cycle so that diagonals are adjacent remains open so far as I know.
+
+Maybe someone can do it?
+
+***
+Anurag Sahay found a solution for N=34:
+
+[11, 53, 107, 43, 71, 23, 41, 97, 13, 2, 139, 67, 113, 79, 103, 7, 19, 73, 101, 3, 127, 83, 17, 29, 131, 59, 137, 5, 31, 89, 61, 47, 109, 37]
+
+Later (21/6(06) he sent more and larger solutions. It seems that he has a good approach in order to solve this arrangements:
+
+n=106:
+
+101 359 271 83 149 577 103 269 137 449 571 43 277 113 97 131 467 31 227 353 197 383 541 367 109 463 179 283 419 307 521 439 157 443 61 379 151 349 251 79 233 191 263 41 523 11 563 211 409 317 229 347 509
+
+23 17 389 127 5 139 457 13 569 173 29 67 313 547 431 487 193 257 331 479 503 167 223 199 53 19 2 491 37 421 3 107 293 71 239 461 397 281 47 311 499 337 401 373 181 73 241 557 163 89 433 59 7
+
+n=108:
+
+101 359 271 83 149 577 443 269 137 449 71 53 277 113 97 131 467 31 227 353 197 383 541 367 109 463 179 283 199 307 521 439 157 43 61 379 151 349 251 79 233 191 263 487 223 11 563 211 509 317 229 347 569 181
+
+523 17 389 127 5 139 7 13 409 173 29 67 313 547 431 587 193 257 331 479 503 167 23 419 373 19 2 491 37 421 3 107 293 571 239 461 397 281 47 311 499 337 401 593 41 73 241 557 163 89 433 59 103 457
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

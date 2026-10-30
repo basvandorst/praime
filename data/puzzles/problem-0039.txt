@@ -1,0 +1,167 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_039.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 39.  The primes sequence and the Sebastian's function
+Source: https://www.primepuzzles.net/problems/prob_039.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0039.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://aleph0.clarku.edu/~djoyce/newton/method.html
+  http://www.rskey.org/gamma.htm
+  https://www.primepuzzles.net/puzzles/prob_038.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_040.htm
+
+========================================================================
+
+Problem 39. The primes sequence and the Sebastian's function
+
+Problems & Puzzles: Problems
+
+Problem 39. The primes sequence and the Sebastian's function
+
+Sebastián Martín Ruiz has developed a method to find the next prime p_n to a previously known complete sequence of primes {2, 3, 5, 7, ...p_n-1}, through the Newton's method to find - by successive approximations - the rightist root (p_n) to a very peculiar function F(x, n) introduced by him.
+
+The function F(x,n) needed by the target and created by Sebastian, has the following basic properties:
+
+F(x,n), for a fixed n:
+
+a) is discontinue, but zero by the right, in all and only the integer values 2, 3, 4, 5, 6, ..., p_n.
+
+b) is continuous by the right, concave and increasing in its continuity intervals.
+
+Something like this (in the neighborhood of x=3, for F(x,2) to obtain the prime p=3 ):
+
+Supposedly this is enough to apply the Newton's method, starting the iterations from a convenient initial point.
+
+Sebastian's recommendation for this convenient initial point to search p_n is x_0=2.p_n-1 because we know that p_n<2p_n-1
+
+What is this announced as peculiar function? This is it:
+
+where:
+
+and
+
+G(x) is the well known and named "Gamma Function"
+
+The Newton's method to find a root, simply calculates recursively successive x_i values, using the following basic formula:
+
+x_i+1 = x_i -F(x_i, n)/F'(x_i, n)
+
+For our particular case:
+
+x_i+1 = xi -F(x_i , n)/F'(x_i, n) = x_i -F(x_i, n) / G '(x_i)
+
+because for a constant n, F'(x,n) = G '(x)
+
+***
+
+When I first knew this new Sebastian's work I deplored the inclusion of the Gamma function because some big-numbers packages (like Ubasic) don't bring this as a library function, not to mention its derivative.
+
+Sebastián fixed this inconvenient (for me) substituting G (x) and G '(x) by:
+
+and
+
+respectively.
+
+Evidently both these "Gamma-like" functions are easily computable by any big-numbers package and keep for F(x,n) the properties provided by the real Gamma function.
+
+In the real program in Ubasic (or Matematica) where we have tested this method to calculate each p_n, the starting point for x is taken as p_n-1 +25
+
+This the Ubasic code that I made to test this method:
+
+10 'The prime sequence using the Newton's method and a function by Sebastián Martín Ruiz
+
+20 Z=50:dim P(Z):P(1)=2:ER=10^(-5):X=0:XPLUS=25:clr time:'sprnwt.ub
+
+30 for I=2 to Z:X=X+XPLUS
+
+40 for J=1 to 40
+
+50 gosub *F:DG4=!(int(X))-!(int(X)-1):X=X-F/DG4
+
+60 next J
+
+70 P(I)=int(X):print I,P(I):if prm(I)<>P(I) then print "Error":end
+
+80 next I
+
+90 print time:end
+
+100 *F:P=1
+
+110 for II=1 to I-1:gosub *S:P=P*P(II)^S:next II
+
+120 G4=(!(int(X))-!(int(X)-1))*(X-int(X))+!(int(X)-1):F=G4-P
+
+130 return
+
+140 *S:S=0:LL=log(X-1)/log(P(II)):EE=int(LL+ER)
+
+150 for JJ=1 to EE
+
+160 B=(X-1)/(P(II)^JJ):EB=int(B+ER):S=S+EB
+
+170 next JJ
+
+The code in Mathematica (which supports directly the Gamma funnction and its derivative) made by Sebastian, is the following one:
+
+(*NEWTON'S METHOD APPLIED TO THE CALCULATION OF PRIME NUMBERS *)
+
+ndiez[s_]:=N[s,10]
+
+$Post=ndiez
+
+ndiez
+
+P={}
+
+{}
+
+er=10.^(-5)
+
+0.00001
+
+B[x_,i_,j_]:=(x-1.)/P[[i]]^j
+
+EB[x_,i_,j_]:=Floor[B[x,i,j]+er]
+
+LL[x_,i_]:=Log[P[[i]],x-1.]
+
+EE[x_,i_]:=Floor[LL[x,i]+er]
+
+S[x_,i_]:=Sum[EB[x,i,j],{j,1,EE[x,i]}]
+
+F[x_,n_]:=Gamma[x]-Product[(P[[i]])^S[x,i],{i,1,n-1}]
+
+xx=0.
+
+0.
+
+Do[{xx=xx+25.,
+
+Do[xx=xx-F[xx,i]/ (Gamma[xx]*PolyGamma[0.,xx])
+
+,{175}],P=Join[P,{xx}],Print[xx," ",Prime[i]]},{i,1,50}]
+
+***
+
+What are the questions for this creation?
+
+1. Does effectively the Sebastian's function F(x, n) satisfy the convergence conditions in order to use the Newton's method? What is the order of computation of this method?
+
+2. Do you devise simpler functions to produce the same sequence (primes) using the Newton's method as the basic tool?
+
+3. Do you devise simpler functions to produce the same sequence (primes)?
+
+Solution:
+
+Records | Conjectures | Problems | Puzzles

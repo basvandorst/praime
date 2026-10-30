@@ -1,0 +1,247 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_231.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 231. k-Persistent primes
+Source: https://www.primepuzzles.net/puzzles/puzz_231.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0231.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/PersistentNumber.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_230.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_232.htm
+  https://www.primepuzzles.net/puzzles/puzz_231.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 231. k-Persistent primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 231. k-Persistent primes
+
+A k-persistent number n, is such that all of the following numbers: n, 2.n, 3.n, ..., k.n contains all the digits from 0 to 9 (see 1)
+
+Eric Weisstein shows 526315789473684210 as an example of a 18-persistent number. In the same article is said that:
+
+“There exists at least one k-persistent number for each positive integer k.”
+
+Here we will ask for k-persistent primes.
+
+As a matter of fact I have calculated the earliest of these for a few k values:
+
+k | p=prime | Author
+
+2 | 10123457689 | CR
+
+3 | 10512867493 | CR
+
+4 | 11267085493 | CR
+
+5 | ? | ?
+
+6 | ? | ?
+
+7 | ? | ?
+
+8 | ? | ?
+
+9 | ? | ?
+
+10 | ? | ?
+
+Questions:
+
+1. Can you complete the table above?
+
+2. Is it true the following statement?
+
+“There exists at least one k-persistent prime for each positive integer k.”
+
+3. Do you devise a regular smart-approach in order to find a k-persistent prime for a given k value?
+
+Solution:
+
+Adam Stinchcombe, Jim Fougeron, Luke Pebody and Gilles Blanchette sent contributions to this puzzle.
+
+Adam Stinchcombe wrote for the questions 2 & 3:
+
+Certainly, the k in k-persistent primes runs to infinity, that is, for arbitrarily large numbers K there is some p which is k-persistent with k>=K. If you take p large enough, say 30 or 100 digits or thereabouts, it is going to be almost impossible for p and its multiples not to be k-persistent for relatively large k values. E.g., I used Maple to get a random 12 digit number, cubed this to get a 36 digit number, took the next prime and then tested the k-persistence and quickly found 416420764462383215203462851467280961 to be 43-persistent.
+
+Note in my claim, that k>=K. In fact, it might be hard to find some p value that is exactly K-persistent but NOT (K+1)-persistent for large K.
+
+The search then becomes what is the smallest p value that gives a given k.
+
+***
+
+Jim Fougeron obtained the next entries for the Table, question 1:
+
+5: 48657940213
+
+6: 175647382901
+
+7: 6440261849537
+
+8: 6435409832617 (the only length 8 found so far).
+
+Here are all of the length 7's I have found so far:
+
+6440261849537
+
+8189804352617
+
+8399476581203
+
+8545801642739
+
+8600567921483
+
+8901529806437
+
+8936758491203
+
+10180854731629
+
+10919651402873
+
+10973564701829
+
+10990182935647
+
+11727649358021
+
+My method is very brute force.
+
+1. generated a file of permutations of 0123456789. This file was trimmed to only store values if the last digit is 1,3,7 or 9
+
+1a. All of these are divisible by 3, so there can be no 10 digit primes. (as was shown by the minimal 2-persistant being 11 digits)
+
+2. read this file, and append a 1, 2, 3, ... 9 to each line. Slightly Trial factor these to 53, and output what was not factored out.
+
+3. Run PFGW on this.
+
+4. The PFGW.LOG results are the primes to start from (only PRP here, but I only cared about proving prime once I found deep enough k-Persistent.
+
+5. Rerun these candidates, multiplied by 2 using pfgw -d -od -l (only outputs decimal expansion, and logs the results)
+
+6. I created a "finder" program which found the resultant numbers which had all 10 needed digits. This was run on the pfgw.out file.
+
+7. goto Step 5 with the resultant, but multiply by 3, 4, 5, 6 (no 6's found yet).
+
+This is certainly not a very good way to proceed, but it does work. It could be extended, by changing step 2 to append 10, 11, 12, 13, ... 99 then 100, 101, 102, ... 999 etc, until the required k-persistent prime(s) are found.
+
+***
+
+Luke Pebody sent the following strategy, for the question 3:
+
+Take an n-persistent number k.
+
+Then find a prime of the form k*l (here * is concatenation) where l is a sequence of t-digits (possibly starting with a 0) such that nl<10^t. Then k*l=10^tk+l, and hence for 1<=i<=n, i(k*l)=10^t(ik)+il. Since il<10^t, all the digits of ik are digits of i(k*l), and hence k*l is n-persistent.
+
+***
+
+Gilles Blanchette wrote for the question 2 & 3:
+
+Question #2 and #3
+
+Here is an algorithm that generate a k-persistent prime for a positive integer up to k
+
+// Start with a pandigital prime number
+
+// p = 10123456789
+
+//
+
+// [1]
+
+// let m = 2
+
+//
+
+// [2]
+
+// if m*p is pandigital
+
+// m = m + 1
+
+// elseif
+
+// let c = the catenation of missing digit
+
+// let t = 0
+
+// while ( m do not divide c.t || ((c.t)/m).p is not prime || ((c.t)/m).p is not pandigital ) let t = t + 1
+
+// let p = ((c.t)/m).p
+
+// goto [1]
+
+// endif
+
+//
+
+// if ( m <= k ) goto [2]
+
+//
+
+// p is a k-persistent prime
+
+Note : a.b is catenation of number a and b.
+
+Note : The while (...) t = t + 1 will not loop indefinitely, especially because there is infinite prime number ending with same digit as p.
+
+Here is some kilo-persistent prime generated by an implementation slightly different from the algorithm.
+
+k = 1485 --> 2902511412532342619044701292813017107352161725041764195705797485949876543201
+
+k = 1747 --> 5022902511412532342619044701292813017107352161725041764195705797485949876543201
+
+k = 1302 --> 253291602612432511430879554120442275104130070909568930570130485949876543021
+
+k = 1487 --> 71841996227831827538516486910161635153401069558561312094152971023456789
+
+k = 1485 --> 50620311533350132357510055408221582220301073013852065792275819641203456789
+
+k = 1084 --> 9613412011013356332915450663013770120213025163520113698109062581941230456789
+
+k = 5048 --> 4014130683952091511536094003195451109764411727213402060919322152601630451234056789
+
+k = 1213 --> 189056174111492144775403011813423210204414116499130026049641234506789
+
+k = 1550 --> 872189056174111492144775403011813423210204414116499130026049641234506789
+
+k = 1636 --> 3979103316515292419613260110588511015017025034010572091041918064151234560789
+
+k = 1521 --> 11873318548192835580355011768120262812301538441356115854152972345678901
+
+k = 1060 --> 465213528414751273415776760141460163519650224935425290599819374567890123
+
+k = 1646 --> 4800121226143752663735138701551730222201044321760810381964258901234567
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

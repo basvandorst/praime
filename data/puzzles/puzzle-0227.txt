@@ -1,0 +1,163 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_227.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 227. Research Problem 1.75
+Source: https://www.primepuzzles.net/puzzles/puzz_227.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0227.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/problems/prob_042.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_226.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_228.htm
+  https://www.primepuzzles.net/puzzles/puzz_227.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 227. Research Problem 1.75
+
+Problems & Puzzles: Puzzles
+
+Puzzle 227. Research Problem 1.75
+
+In the Research Problem 1.75 of the Crandall's and Pomerance book "Prime numbers, a computational perspective", p. 69 we may read:
+
+"for t=1287/545, the integer part of the first 8 powers are 2,5,13,31,73,173,409,967, each of which is prime. Find a longer chain"
+
+It's obvious that the integer part of the 9th power (2283) must be composite.
+
+For this puzzle we will interpret this "find a longer chain" in the following way:
+
+Q.1. Find another t value such that the integer part of the first 9 or more powers are primes.
+
+An additional question is this one:
+
+Q.2 Can you explain why Crandal & Pomerance (and others) used t as 1287/545 and not 111/47 or many other equivalent-for-the-purpose fractions?
+
+_____
+
+See Problem 42, posed by David Terr
+
+Solution:
+
+Contributions cam from Adam Stinchcombe, Luke Pebody & Giovanni Resta.
+
+Stinchcombe wrote:
+
+You can generate long list of such values as follows: Choose any prime p1, then t will be between p1 and 1+p1, square this inequality to get t^2 between p1^2 and (1+p1)^2, then list all the primes in this range. Say a sample prime here is p2. Then t^2 is between p2 and 1+p2, take this inequality to the 3/2 power to get an inequality for t^3, list primes in that range, take those primes to the 4/3, etc. Eventually this process will exhaust itself - the range for t^(high power) will contain no primes for t within the bounds previously established. Then take a rational approximation, e.g., continued fraction convergent, to the root of the final prime in the sequence and use this for t.
+
+The value t=227320025/12874973 produces the primes floor(t^j)= 17, 311, 5503, 97177, 1715761, 30293413, 534859331, 9443455657, 166733287613, 2943836473181, 51976262837953, 917690885078381 for the values j=1..12.
+
+As a "proof of concept," the prime p=1009 yielded the value t=395497033627864864932979264416357624654833134867/3916246697406797618710-64122844303957704237961 which produced 30 primes (actually, 30 prp's, using Maple's isprime feature). They are: 1009, 1019873, 1029958121, 1040142292613, 1050427164233453, 1060813732116394603,..., 1343370060330352532785078287202759129080447511955678414038366444593248871378411-352356866591
+
+***
+
+Pebody wrote:
+
+2077193/181012 produces 9
+
+5475543/477079 produces 10
+
+18973550/1440073 produces 11
+
+258868631/18620263 produces 12
+
+1678112765/95690094 produces 13
+
+12341592517/703747789 produces 14
+
+22093296417/1259813795 produces 15
+
+81211370385/4630870957 produces 16
+
+***
+
+Resta wrote:
+
+...here are some solutions for powers from 9 to 20 for puzzle 227
+
+powers 1..9 t = 941603 / 82041
+
+primes =
+
+11, 131, 1511, 17351, 199151, 2285711, 26233619, 301089149, 3455667857
+
+powers 1..10 t = 5475543 / 477079
+
+primes = 11, 131, 1511, 17351, 199151, 2285711, 26233621, 301089179, 3455668247, 39661481813
+
+powers 1..11 t = 18973550 / 1440073
+
+primes = 13, 173, 2287, 30133, 397027, 5230997, 68920531, 908056153, 11964010741, 157630728439, 2076849234433
+
+...
+
+powers 1..20 t = 9245545434233933 / 315724048003569
+
+primes = 29, 857, 25111, 735359, 21533983, 630593149, 18466054931, 540753075169, 15835211656507, 463712440521139, 13579182404278663, 397647720128968919, 11644567737299383501, 340995184744365951731, 9985575990630243623701, 292413888305789764542331, 8562939399223795207216823, 250753928206382544084651491, 7342984643407766159814138311, 215029227494071397857756115239
+
+Using my approach it will be very difficult to find a value for 50 primes and impossible to find values for 100 primes.
+
+My actual record (and I stopped my search there) is 35 powers for t=72013968170625248106344150215148/1334984596802709772861985688627 where the last prime, that is floor(t^(35)) has 61 digits.
+
+My approach is the following:
+
+I wrote a recursive Mathematica function which, given a power p and a floating point range (a,b), find which sub-ranges (aa,bb) of (a,b) such that floor(aa^p)=floor(bb^p)=a prime. Then it calls itself in the range (aa,bb) for power p+1. More or less. It then records the maximal p reached in the given starting interval. At the end I obtain a interval which is not further divisible.
+
+It has normally the form q^(1/p) ... (q+1)^(1/p) where q is the largest prime I will obtain as floor(t^p).
+
+At that point I use the Rationalize function of Mathematica to find a rational number (possibly with a relatively small denominator and numerator) which is inside the interval (I ask for a rational which approximate the middle of the interval with an approximation of half the interval span), so I obtain a rational t.
+
+The maximal power reachable grows (more or less) with the prime interval considered. For example I reached 20 (22 really) in the interval (29<t<30) and 35 in the interval (53<t<54).
+
+I estimated that 50 will be reached for t>75 and 100 for t>140. This means that the last primes obtained will be around (75)^(50) and (140)^(100) which are pretty big numbers and require a lot of precision digits during the floating point calculations.
+
+Moreover the recursive exploration of an interval (at least with my simple method) require a number of recursive calls with grows more or less exponentially with the interval considered. Say, they are 259098 calls for (47<t<48) and 595066 calls for (53<t<54) where Mathematica spent several hours. So I think that with this approach I can reach 50 only recoding the algorithm in C using a multiple precision library (but I do not have interest in it, actually), while the case of 100 primes is completely beyond this approach.
+
+***
+
+Phil Carmody wrote (12/03/04):
+
+For puzzle 227, I've found some smallest sequences of length 36 and 37.
+
+8327848885667459649905801739208369196325130888274609500504483297^(1/36)
+
+8327848885667459649905801739208369196325130888274609500504483337^(1/36)
+
+429770745544112650251740197448446451738502486973260949027731341197^(1/37)
+
+569831552238384205382549706997729158203052589452328929163635282383^(1/37)
+
+The smaller 37 has simplest continued fraction approximant 415362374334426054152330893235404659/6991266980150161592067385870604371
+
+As the initial prime range, [59-60) in the above, increases, I'd expect to see many more longer sequences. I believe that the starting point of [1009-1010) can be bettered for a length 100 sequence.
+
+I'm not sure I agree with David Terr's conjecture 5, as it seems to imply that for a starting point of 1009, the average length should be 145, in which case David's length 100 one was a particularly poor sequence, which makes no sense to give as an example. However, that might be the case, and the conjecture might be sound. I'll have to do some more investigating.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

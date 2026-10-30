@@ -1,0 +1,272 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_265.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 265.  Primes embedded
+Source: https://www.primepuzzles.net/puzzles/puzz_265.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0265.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.research.att.com/projects/OEIS?Anum=A093301
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_264.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_266.htm
+  https://www.primepuzzles.net/puzzles/puzz_265.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 265. Primes embedded
+
+Problems & Puzzles: Puzzles
+
+Puzzle 265. Primes embedded
+
+I have calculated the earliest integer having k distinct primes embedded, for 1<=k<=30. Here are my results (see A093301 )
+
+:
+
+k | Qty. of primes
+
+1 | 2
+
+2 | 13
+
+3 | 23
+
+4 | 113
+
+5 | 137
+
+6 | 1131
+
+7 | 1137
+
+8 | 1373
+
+10 | 11317
+
+11 | 23719
+
+12 | 111317
+
+13 | 113171
+
+14 | 211373
+
+15 | 1113171
+
+16 | 1113173
+
+17 | 1317971
+
+18 | 2313797
+
+19 | 11131733
+
+20 | 11317971
+
+21 | 13179719
+
+23 | 52313797
+
+24 | 113179719
+
+25 | 113733797
+
+26 | 523137971
+
+27 | 1113173331
+
+28 | 1131797193
+
+29 | 1797193373
+
+30 | 2113733797
+
+For example: 137 is the earliest number that has embedded 5 distinct primes: 3, 7, 13, 37 & 137.
+
+Questions
+
+1. Can you predict the quantity of digits of the smallest number having embedded k distinct primes?
+
+2. According with your prediction (or without any prediction at all) can you find a number having a) 100 b) 500 distinct primes embedded?
+
+Solution:
+
+Contributions came from Ray Opao and Faride Firoozbakht.
+
+Ray Opao wrote:
+
+1. If letters represent digits, then the following are the maximum possible imbedded primes: digits number primes k
+
+1 a a 1
+
+2 ab a,b,ab 3
+
+3 abc a,b,c,ab,bc,abc 6
+
+4 abcd a,b,c,d,ab,bc,cd,abc,bcd,abcd 10
+
+5 abcde a,b,c,d,e,ab,bc,cd,de,abc,bcd,cde,abcd,bcde,abcde 15
+
+etc etc etc etc
+
+if n represents the number of digits, then k <= (n^2+n)/2 using the quadratic formula: n >= (2k+.25)^.5-.5
+
+2.a. if k = 100, then n >= 13.7 The number with 100 distinct primes has at least 14 digits, but I haven't found that number yet.
+
+2.b. if k = 500, then n >= 31.1 The number with 500 distinct primes has at least 31 digits, but I also haven't found this number.
+
+***
+
+Faride wrote:
+
+Answer to Q.2: I found many numbers with 100 or 500 distinct embedded primes , the smallest of those for k=100 is a 35-digit number n1 and for k=500 is a 139-digit number n2,
+
+n1= 135793793791919137371711311331397173931359379 (35-digit)
+
+n2= 91813183113113111113111119111111191131117119311/ 19131979731537911379371937918759137371711397973/ 135793793791919137371711311331397173931359379 (139-digit)
+
+Can you find smaller numbers which having embedded 100 or 500 distinct primes?
+
+***
+
+Faride Firoozbakht has found the earliest integer having exactly 9 and 22 embedded primes:
+
+A093301(9)=101317
+
+A093301(22)= 82337397
+
+***
+
+Faride also sent the following contribution to my request ("Can you improve the approximation give by Opao?"):
+
+If f(n) is the largest number of embedded distinct primes of a n-digit number I think an approximation for f(n) which is better than sum(j, {j,1,n})=n(n+1)/2 regarding to Prime Number Theorem is ceiling(sum(j/log(j), {j,2,n})).
+
+Let, g1(1)=1, g1(n)=ceiling( sum(j/log[j], {j,2,n})) (for n > 1) , so I think, " A n-digit number embedded at most g1(n) distinct primes. "
+
+(I) I couldn't find a counter example for this statement.
+
+g1(n) for n=1,2,...,65 :
+
+1,3,6,9,12,15,19,23,27,31,36,41,46,51,57,62,68, 75,81,88,95,102,109,117,124,132,141,149,158,166 ,176,185,194,204,214,224,234,244,255,266,277,288 ,300,311,323,335,347,360,372,385,398,411,425,438 ,452,466,480,494,509,523,538,553,568,584,599
+
+For example a number which embedded 100 distinct primes has at least 22 digits because g1(21)=95 & g1(22)=102 and a number which embedded 500 distinct primes has at least 59 digits because g1(58)=494 & g1(59)=509.
+
+Let g2(m) be number of distinct embedded primes of m. I could find numbers m ,which g2(m)= 100,200,300,...,1000. Here are such numbers m with smallest number of digits, (that I could find ):
+
+m1 (27-digit) g2(m1)=100, m2 (49-digit) g2(m2)=200
+
+m3 (70-digit) g2(m3)=300, m4 (89-digit) g2(m4)=400
+
+m5 (107-digit) g2(m5)=500, m6 (127-digit) g2(m6)=600
+
+m7 (143-digit) g2(m7)=700, m8 (160-digit) g2(m8)=800
+
+m9 (177-digit) g2(m9)=900, m10 (192-digit) g2(m10)=1000
+
+m1= 179719337391131771739397731 (27-digit) g2(m1)=100
+
+m5= 28187696823241434725761797193373911317717393977317791
+
+733113933197137313779397911717737397191199733379371333 (107-digit) g2(m5)=500
+
+m10= 1818769682324143472576179719337391131771739397731779
+
+1733113933197137313779397911717737397191199733379379
+
+3397799133999139373991311971711937993939191337331193
+
+113997719991117319133911711177773173(192-digit) g2(m10)=1000.
+
+According to my empirical results I guess that:
+
+" f(n)< 6*n " (II)
+
+Opao proved that f(n)<= 1/2*n*(n+1).
+
+(II) implies g2(m) < 6/Ln(10)*log(10*m) (III).
+
+***
+
+On August 14, 2002, Paul Cleary wrote:
+
+Here’s an update for puzzle 265.
+
+Q2.
+
+My smallest Number with 100 embedded primes is the 26 digit
+
+35635993719333131977733179.
+
+My smallest Number with 500 embedded primes is the 101 digit
+
+11578881197649463622943665892313797193373911179173333131991314779337973371339199
+
+977399293939737931139.
+
+My smallest Number with 1000 embedded primes is the 180 digit
+
+174219547888119764946362294366589231379719337391117917333313199131477933797337133
+
+919997739929393973793113599934937679713971313999939791111913391911117793193179193
+
+799713173197137799.
+
+Later the same day he continued:
+
+A slight update on Puzzle 265.
+
+The smallest number with 100 embedded primes is this 26 digit number.
+
+21393861654799733311933739
+
+and smallest Number with 500 embedded primes is the 101 digit number.
+
+1157888119764946362294366589231379719337391117917333313199131477933797337133919997
+
+7399293939737931139.
+
+and smallest Number with 1000 embedded primes is the 180 digit number.
+
+17421954788811976494636229436658923137971933739111791733331319913147793379733713391
+
+99977399293939737931135999349376797139713139999397911119133919111177931931791937997
+
+13173197137799
+
+.
+***
+
+On August 28, 2022, Dmitry Kamenetsky wrote:
+
+I found a 25-digit number that has 102 primes embedded:
+
+2254379371933313997933739
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

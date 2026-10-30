@@ -1,0 +1,409 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_049.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: 49.  Sierpinski-like numbers
+Source: https://www.primepuzzles.net/problems/prob_049.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0049.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/problems/prob_029.htm
+  https://www.primepuzzles.net/problems/prob_030.htm
+  http://primes.utm.edu/primes/search.php
+  mailto:crivera@primepuzzles.net
+  https://oeis.org/A187716
+  https://oeis.org/A187714
+  https://oeis.org/A364412
+  https://oeis.org/A364413
+  https://www.primepuzzles.net/puzzles/prob_048.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_050.htm
+
+========================================================================
+
+49. Sierpinski-like numbers
+
+Problems & Puzzles: Problems
+
+Problem 49. Sierpinski-like numbers
+
+Let's remember some known concepts:
+
+A Sierpinski Number is an odd integer k such that k.2^n+1 is composite for any integer value of n. In 1962, John Selfridge discovered the Sierpinski number k = 78557, which is now believed to be in fact the smallest such number.
+
+A Riesel Number is an odd integer k such that k.2^n-1 is composite for any integer value of n. In 1956 Riesel showed that k = 509203 has this property.
+
+A Brier Number is an odd integer k such that k.2^n+1 and k.2^n-1 are composite for any value of n. Eric Brier computed the first one in September, 1998; but Yves Gallot computed, January 2002 (See Problem 29) the smallest known Brier number: 878503122374924101526292469 (27 digits).
+
+Well, a few days ago, Thomas Masser wrote to me to inform that he had discovered empirically certain numbers Sierpinski-alike but related to the twin numbers k*2^n+/-1. Here are the basic Masser lines:
+
+I recently found three values (k=79, 269, 1527) so that 3k*2^n+/-1 never forms a twin prime pair. The "covering sets" for these values are
+
+79: {5, 7, 13, 17, 241}
+
+269: {5, 7, 13, 19, 37, 73}
+
+1521: {5, 7, 13, 17, 241}
+
+As in the Sierpinski and Riesel Problems, one could conjecture that 79 is the smallest such k. There are eleven values of k<79 that exhibit no twin prime pairs for n<=8000. These values are {37, 41, 49, 51, 53, 57, 61, 63, 71, 73, 75}. Finding twin prime pairs for these values could be an arduous task. Has anyone ever considered this problem?
+
+The same day I wrote to Eric Brier and Wilfrid Keller, asking if they was knowing something about the Masser issue, and 24 hours later Keller responded the following lines:
+
+The problem and results proposed by Tom Masser have been known for many years.
+
+In my files, instead of k and 3k*2^n+/-1 I used the multipliers h=3k for h*2^n+/-1, keeping in mind that h must be divisible by 3.
+
+Many, many years ago I had produced a list of those h never giving a twin prime pair (with corresponding "covering sets"), which is appended below for h<10^6. The first entries, 237=3*79, 807=3*269, 4581=3*1527 coincide with Masser's findings.
+
+> There are eleven values of k<79 that exhibit no
+
+> twin prime pairs for n<=8000. These values are
+
+> {37, 41, 49, 51, 53, 57, 61, 63, 71, 73, 75}.
+
+> Finding twin prime pairs for these values could
+
+> be an arduous task.
+
+The eleven values would be h=111, 123, 147, 153, 159, 171, 183, 189, 213, 219, 225 in "my" notation.
+
+However, my computations showed that 147*2^n+/-1 are both prime for n=44, and that 213*2^n+/-1 are both prime for n=36, so h=147 and h=213 may be removed from the list.
+
+Drastically extending the limit of n<=8000, I can assure that for each of h=111, 123, 153, 159, 171, 183, 189, 219, 225 no twin prime pair exists for n<=140000. This follows from existing tables and some minor verifications I just did to thoroughly establish that high limit.
+
+I agree that finding a twin prime pair for any of the remaining h would be "an arduous task", if not almost impossible. That's the reason why an attempted coordinated effort to attack the Sierpinski analogue for twin primes (Chris Nash, 1998) has quickly been given up (to my recollection).
+
+Please feel free to forward this message to Tom Masser and Eric Brier, if you like.
+
+The next day Keller added:
+
+> Are these efforts-results somewhere in a web page available to public?
+
+Obviously not. They seem to have been withdrawn long ago. Maybe Chris (Nash) would tell you if he has preserved them somewhere.
+
+Actually, that coordinated search for twin pairs concerned two different sorts of pairs: twin primes, and also Sophie Germain pairs of the form h*2^(n+1)-1, h*2^n-1 (again, h must be a multiple of 3).
+
+Here the smallest h never giving a pair of Sophie Germain primes is h=807, with covering set {5, 7, 13, 19, 37, 73}. Again, one has determined the possible "candidates" h<807 without known prime pair so far (32 values of h), as follows.
+
+Values of h without known prime pair:
+
+h = 39, 183, 213, 219, 273, 279, 333, 351, 387, 393, 399, 417, 429, 471, 531, 543, 561, 567, 573, 591, 597, 603, 639, 681, 687, 693, 699, 723, 753, 759, 771, 795
+
+To eliminate one of these candidates h, one has "only" to find primes h*2^n-1 for two consecutive exponents n. I recall that Chris' search had reached substantial limits in this case. After 6 years, with improved hardware and software, they might be raised considerably these days.
+
+Note that h=807 is quite exceptional: it never produces a Sophie Germain pair, nor does it produce a twin prime pair.
+
+Summarizing, we have six kinds of constants k, related to the numbers k*2^n+1 and/or k*2^n-1, such that, these numbers, or pairs of these numbers, are composites for all n, in certain specific manner, as seen in the following scheme:
+
+k numbers (smallest proven known, smallest uncertain candidate) | N numbers | Condition
+
+Sierpinski (78557, 4847) | N=k*2^n+1 | N is never prime
+
+Riesel (509203, 2293) | N=k*2^n-1 | N is never prime
+
+Brier [Combined Sierpinski & Riesel] (878503122374924101526292469,
+
+2152690373) See Problem 30 | N1=k*2^n+1 & N2=k*2^n-1 | N1 & N2 are never primes
+
+No Twins (237, 111) | N1=k*2^n+1 & N2=k*2^n-1 | N1 & N2 are never primes for the same n
+
+No Sophie Germain (807, 39) | N1=k*2^n-1 & N2=k*2^(n+1)-1 | N1 & N2 are never primes for the same n
+
+Combined No Twins & No SG (807, 183) | N1=k*2^n+1 & N2=k*2^n-1; N2 & N2=k*2^(n+1)-1 | N1, N2 & N3 are never primes for the same n
+
+No Cunningham-2 (32469, 51)
+Added line after the kind submissions from V. Liskovets & W. Keller (see below)
+N1=k*2^n+1 & N2=k*2^(n+1)+1 | N1 & N2 are never primes for the same n
+
+Questions:
+
+1. Find a twin prime of the type k*2^n+/-1 for any of the following k values: 111, 123, 153, 159, 171, 183, 189, 219, 225 ^ (*)
+
+2. Find a SG prime pair of the type k*2^n-1 & k*2^(n+1)-1 for any of the following k values: 39, 183, 213, 219, 273, 279, 333, 351, 387, 393, 399, 417, 429, 471, 531, 543, 561, 567, 573, 591, 597, 603, 639, 681, 687, 693, 699, 723, 753, 759, 771, 795 ^(*)
+
+3. Are there any Sierpinski, Riesel or Brier numbers that are divisible by three? Any of these would automatically be a Never-Twin-multiplier (question posed by Masser).
+
+_________
+
+^(*) If you decide to search a bit for the primes asked in the questions 1 & 2, a good starting point for n could be stated consulting for the largest prime available in the Chris Caldwell primes database, for the corresponding form and k multiplier (see this page). For example inputting '111*2^' in the 'Mathematical description' box and checking the 'all verified primes' in the 'Type' option, we can see that 111 · 2^147346-1 is the largest prime found with this multiplier. On top of that "Wilfrid Keller can assert that any such twin prime pair must have n > 160000"
+Comment: Please take note that the search for Q1 & Q2 can be really hard and disappointing or boring for a long time; but of course that in getting just one of asked targets this will put your name in the Top twenties list of primes of Twin primes or SG primes. One more thing, if you find a solution to Q1, for a small value of k, you also increases your probability of finding a Fermat Divisor (thus, getting a double prize, if you get it...)
+
+Solution:
+
+Wilfrid Keller sent (3/5/04) a solution to Q3.
+
+Concerning Question 3, you asked "how hard" I would estimate it might be to solve it.
+
+Well, trying to give an "estimate" as realistic as possible, I have struggled with the problem for many hours in order to get more deeply acquainted with it.
+
+As a result, I can now give you a quite precise answer, since in the process I have finally found examples for Sierpinski and Riesel (I didn't look for Brier so far), which show that there are infinitely many Sierpinski numbers and (by "duality") infinitely many Riesel numbers divisible by three!
+
+The idea was the one I had told you the other day: to find a covering set not containing the prime 3, and an actual covering based on it, and then determine the sought numbers by applying the Chinese Remainder Theorem.
+
+I thought that a covering set published by R. G. Stanton in 1980 (with 16 primes) could be used, but I failed to establish a real covering with the listed primes. In fact I am now doubtful if this was a correct example of a covering set. However, adding three primes to the given example, I was able to construct a covering using 19 primes, which are all divisors of 2^720 - 1.
+
+The resulting Sierpinski and Riesel numbers have 34 digits each, and they are:
+
+Sierpinski k1 = 4423988484893019254861842753686117
+
+Riesel k2 = 3674515543532961928874271620966553
+
+In this connection, the number P = 2.3.5.7.11.13.17.19.31.37.41.61.73.97.109.151.181.241.257.331.673 = 8098504028425981183736114374652670 is essential, because every number k = k1 + h.P (h = 0, 1, 2, ...) is also a Sierpinski number, and every k = k2 + h.P is also a Riesel number (infinitely many). Note that once k1 was found, k2 = P - k1 was the appropriate Riesel number.
+
+The factors 5.7.11.13... of P are just the prime components of the covering set, while the additional factor 2 ensures that every other k is also odd, and the factor 3 ensures that every k is also a multiple of 3.
+
+Follow-up question: Would someone be able to construct a covering with a smaller P (which would lead to smaller Sierpinski and Riesel numbers)? Especially, would someone be able to exhibit a covering set (not including the prime 3) with a smaller number of primes?
+
+***
+
+Thomas Masser wrote (11/5/04)
+
+I have been working on Prof. Keller's new question on Problem 49 and recently found a 28 digit Sierpinski number, a multiple of three, with a smaller covering set than the example cited by Prof. Keller. Here are the details: k=1139634035240881514319907179
+
+CS={5,7,11,13,17,19,31,41,61,73,97,109,151,181,241,331,673}
+
+I spent several hours looking for a smaller example than the 28 digit Sierpinski number. It might be possible to find a smaller number, but that will probably require a smaller covering set.
+
+I found the reduced covering set
+
+{5,7,11,13,17,19,31,41,61,73,97,109,151,181,241,331,673}
+
+by studying and confirming the example Keller provided. In the process of this verification, I realized that the numbers 37 and 257 listed in his covering set were unnecessary. The reduced covering set was then used to find the smaller Sierpinski number.
+
+***
+
+On May 29, Thomas Masser wrote again:
+
+I recently found an even smaller covering set (15 primes), not containing 3, for Sierpinski/Riesel numbers. The covering set is:
+
+CS: {5 7 11 13 17 19 31 37 41 61 73 109 151 241 331}
+
+After communicating this result to Prof. Keller, he determined the smallest Sierpinski(k1) and smallest Riesel(k2) numbers, divisible by 3, covered by the set above:
+
+k1 = 4563308668738348027581
+
+k2 = 5785418219844359742627
+
+So we now have 22-digit numbers as the smallest known Sierpinski/Riesel numbers divisible by three. It may be possible to further refine this result, by finding an even smaller covering set; at any rate, I think we are getting close to the smallest provable (with covering set) Sierpinski/Riesel numbers divisible by three.
+
+...
+
+I found the new covering set after Prof. Keller asked me if I could confirm Stanton's claim that
+
+C = {5,7,11,13,17,19,31,37,41,61,73,97,109,151,241,257}
+
+is a covering set. I could not prove that the above set is a covering set, but by including 331 in the set, a covering set was obtained. After further study of this new covering set, I realized the primes 97 and 257 were unnecessary.
+
+Perhaps if someone is very clever they can find a covering set not containing 3 with less than 15 primes. So far, I have not been able to find any smaller covering sets.
+
+***
+
+Valery Liskovets wrote (November 3, 2004):
+
+Prob_49... contains plenty of highly interesting new facts and data. But in essence it is very CLOSE to your prob_36, where several similar questions including
+
+- Sierpinski-like numbers and
+
+- Sierpinski numbers divisible by 3
+
+are considered as well.
+
+Therefore in prob_49 it would be natural, I think, to refer to prob_36 and also:
+
+- to extend the table by the following ROW 7, with data taken from prob_036 (similar to row 5):
+
+No Cunningham-2 pair (66741?, 51)| N1=k*2^n+1 & N2=k*2^(n+1)+1
+
+N1 & N2 are never primes for the same n
+
+- to add the corresponding (intriguing but hopeless) PROBLEM (similar to Q2):
+
+Q2*: Find a Cunningham-2 prime pair of the type k*2^n+1 & k*2^(n+1)+1 for any of the following k values: 51, 87, 93, 111, 123, 129, 213, 279,...(*).
+
+Notice also that 213 and 279 are presented in BOTH lists in Q2 and Q2*.
+
+Hopefully Gallot's 66741 above is much greater than minimal provable k.
+
+But WHICH least provable value is known presently? Apparently, something significant is known to Professor W. Keller and/or other experts...
+
+This question is particularly interesting for me because:
+
+- I refer to your prob_036 (mentioning in particular 51, 87, 93 and
+
+66741) and to Keller's site http://www.prothsearch.net/riesel.html in my recent ARTICLE "Some identities for enumerators of circulant graphs", J. Algebr. Combin., v.18, No 3 (2003), 189-209, MR2036114 (2004m:05135) (available upon request), where a fairly unexpected (though modest) combinatorial role of Cunningham-2 pairs is established and discussed.
+
+One day after, Wilfrid Keller wrote:
+
+I am writing to you with regard to the recent note by Valery Liskovets. I just wanted to tell you that I would strongly support his suggestion to adding a line to the table for Problem 49, like this:
+
+> No Cunningham-2 pair (66741??, 51)
+
+> N1=k*2^n+1 & N2=k*2^(n+1)+1
+
+> N1 & N2 are never primes for the same n
+
+I am happy (but also unhappy, on the other hand) to be able to remove Valery's question marks, since I found the smaller k=32469. Unhappy I am because this is probably the smallest "provable" example.
+
+To give you some more details, here is what I wrote to Valery after completing my search:
+
+-------------------------------------------------------
+
+Thank you very much for letting me have a copy of your message concerning Problems 36 and 49 of Carlos Rivera's Prime puzzles site.
+
+I completely agree with you that in the table of "Sierpinski-like" numbers the case of (non-existent) pairs
+
+N1=k*2^n+1 & N2=k*2^(n+1)+1 should reasonably be in- cluded, as a natural analogue to N1=k*2^n-1 &
+
+N2=k*2^(n+1)-1 (Sophie Germain).
+
+I have to admit that I hadn't pay enough attention to Problem 36 before, so I was glad to learn on this occa- sion of Yves Gallot's examples of multipliers k such that k*2^n+1 (or k*2^n-1) is composite for all even n (or for all odd n).
+
+Although I hadn't considered the "Cunningham-2" case so far, it appeared to me (as you were also expecting) that k=66741 was unlikely to be the smallest provable Sierpinski-like number in this case.
+
+In order to force k*2^n+1 to never produce primes for consecutive values of n, the most simple way is to re- quire that n has always the same parity. But there might exist more involved "coverings" leading to the same result. In the case of Sophie Germain the "simple way" led to k=39939, while k=807 is the smallest proven Sierpinski-like number we know.
+
+By analogy, I hoped to find a much smaller k for "Cunningham-2" also, but after some careful calculation I dare to assert that probably only k=32469 is the smallest provable example. Altogether, I found 6 such numbers less than k=66741, which I give you along with the corresponding covering set of small primes:
+
+32469 {5,7,13,19,37,73}
+
+42717 {5,7,13,17,241}
+
+45009 {5,7,13,19,37,73}
+
+57669 {5,7,13,37,73,109}
+
+64377 {5,7,13,17,241}
+
+64893 {5,7,13,17,241}
+
+Looking at the "distribution" in the interval [3..66741] it's just unfortunate that a smaller example didn't emerge.
+
+As a result, your list of "undecided" values of k = 51, 87, 93, 111, 123, 129, 213, 279,... becomes unpleasantly long (about 1500 values, I guess).
+
+***
+Arkadiusz Wesolowski wrote (July, 2010):
+
+I found another pair (k1, k2).
+
+Sierpinski k1 = 1934207927446756722099
+
+Riesel k2 = 1636996998454706441457
+
+The integer k1 has the same covering set as the integer k2:
+
+{5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 109, 151, 241, 331}.
+
+***
+Arkadiusz Wesolowski wrote (July, 2017):
+
+Here is my best solution:
+
+Sierpinski k1 = 21484572547591559649
+
+https://oeis.org/A187716
+
+Riesel k2 = 7148695169714208807
+
+https://oeis.org/A187714
+
+***
+
+On July 27 2023, Arkadiusz Wesolowski wrote:
+
+I found a 19-digit Sierpinski number that is divisible by three:
+
+k1 = 7592506760633776533.
+
+This is the first known example with 19 digits
+later (August 1, 2023) he added:
+
+This is probably the smallest such number.
+
+And I believe (high probability bordering on certainty) that there are no such numbers with 17 digits (I used the Chinese remainder theorem and brute force algorithm in searching).
+
+...
+
+Now you can download all 34560 solutions:
+
+https://oeis.org/A364412
+
+https://oeis.org/A364413
+
+The second sequence is useful. You can easily create new covering sets from it:
+
+1) {5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 109, 151, 241, 331}
+
+2) {5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 257, 331}
+
+3) {5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 331, 673}
+
+4) {5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 109, 151, 257, 331, 673}
+
+5) {5, 7, 11, 13, 19, 31, 37, 41, 61, 73, 97, 109, 151, 241, 257, 331}
+
+6) {5, 7, 11, 13, 19, 31, 37, 41, 61, 73, 97, 109, 151, 241, 331, 673}
+
+7) {5, 7, 11, 13, 19, 31, 37, 41, 61, 73, 109, 151, 241, 257, 331, 673}
+
+8) {5, 7, 11, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 241, 257, 331}
+
+9) {5, 7, 11, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 241, 331, 673}
+
+10) {5, 7, 11, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 257, 331, 673}
+
+11) {5, 7, 11, 17, 19, 31, 37, 41, 61, 73, 109, 151, 241, 257, 331, 673}
+
+12) {5, 7, 11, 13, 17, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 257, 331}
+
+13) {5, 7, 11, 13, 17, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 331, 673}
+
+14) {5, 7, 11, 13, 17, 19, 31, 37, 41, 1321, 73, 109, 151, 257, 331, 673}
+
+15) {5, 7, 11, 13, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 241, 257, 331}
+
+16) {5, 7, 11, 13, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 241, 331, 673}
+
+17) {5, 7, 11, 13, 19, 31, 37, 41, 1321, 73, 109, 151, 241, 257, 331, 673}
+
+18) {5, 7, 11, 17, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 241, 257, 331}
+
+19) {5, 7, 11, 17, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 241, 331, 673}
+
+20) {5, 7, 11, 17, 19, 31, 37, 41, 1321, 73, 97, 109, 151, 257, 331, 673}
+
+21) {5, 7, 11, 17, 19, 31, 37, 41, 1321, 73, 109, 151, 241, 257, 331, 673}
+
+22) {5, 7, 11, 13, 17, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 257, 331}
+
+23) {5, 7, 11, 13, 17, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 331, 673}
+
+24) {5, 7, 11, 13, 17, 19, 31, 37, 1321, 61, 73, 109, 151, 257, 331, 673}
+
+25) {5, 7, 11, 13, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 241, 257, 331}
+
+26) {5, 7, 11, 13, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 241, 331, 673}
+
+27) {5, 7, 11, 13, 19, 31, 37, 1321, 61, 73, 109, 151, 241, 257, 331, 673}
+
+28) {5, 7, 11, 17, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 241, 257, 331}
+
+29) {5, 7, 11, 17, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 241, 331, 673}
+
+30) {5, 7, 11, 17, 19, 31, 37, 1321, 61, 73, 97, 109, 151, 257, 331, 673}
+
+31) {5, 7, 11, 17, 19, 31, 37, 1321, 61, 73, 109, 151, 241, 257, 331, 673}
+
+The Sierpiński number 7592506760633776533 has the covering set: {5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 331, 673} (the third).
+
+All others generate at least 20-digit numbers
+
+***
+
+Records | Conjectures | Problems | Puzzles

@@ -1,0 +1,189 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_797.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 797. Primes and perfect numbers related
+Source: https://www.primepuzzles.net/puzzles/puzz_797.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0797.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_796.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_798.htm
+  https://www.primepuzzles.net/puzzles/puzz_797.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 797. Primes and perfect numbers related
+
+Problems & Puzzles: Puzzles
+
+Puzzle 797. Primes and perfect numbers related
+
+José de Jesús Camacho has found a formula that produces one prime number A(x) for each even perfect number Px. As a matter of fact, if you run his formula for the first k Px, then you'll get the first k prime numbers p for which 2^p-1 is prime.
+
+A(x) = Sum{for n=0 to n max, floor[Px/2^n] mod 2}
+
+Where:
+
+Even perfect number x = Px = 6, 28, 496, ...
+
+n max =floor[log(Px)/log(2)]
+
+Q. Explain why this formula works like that.
+
+Contributions came from Jan van Delden, Aditya Bhattad. Antoine Verroken, Emmanuel Vantieghem
+
+***
+
+Jan wrote:
+
+Given P[n] = 2^(n-1)*(2^n-1)
+
+Let’s compute floor(P[n]/2^k) mod 2
+
+If k<n-1 P[n]/2^k is an even integer, hence floor(P[n]/2^k) mod 2=0
+
+If n-1<=k<2*(n-1) floor(P[n]/2^k) mod 2 =1 (* see below)
+
+If n>2*(n-1) P[n]/2^k<1 hence floor(P[n]/2^k)=0, so also equal to 0 mod 2.
+
+There are n numbers with a contributions equal to 1, hence the sum is equal to n.
+
+So we have:
+
+sum(floor(P[n]/2^k) mod 2,k=0..infinity)=n
+
+If n is prime and 2^n-1 is prime P[n] is an even perfect number. [Euclid]
+
+The reverse reads: if P[n] is an even perfect number then n is prime and 2^n-1 is prime. [Euler].
+
+It will therefore not generate the next prime but the next prime p for which 2^p-1 is prime.
+
+(*)
+
+Let’s substitute k=n-1+a, with a in [0..n-1].
+
+P[n]/2^k= (2^n-1)/2^a
+
+2^n-1 = sum(2^m,m=0..n-1)
+
+P[n]/2^k = sum(2^m/2^a,m=0..n-1)
+
+If m<a the summand is smaller than 1, in fact the sum of all these summands is equal to (2^a-1)/2^a<1.
+
+If m=a the summand is equal to 1, hence 1 mod 2.
+
+If m>a the summands are even, hence 0 mod 2.
+
+For m<a the contribution to the sum is smaller than 1 and for m>=a the sum is an odd integer. The floor() function will return this odd integer, hence the result mod 2 is 1.
+
+***
+
+Aditya wrote:
+
+Euler proved that every even perfect number is of the form (2^p-1)*(2^p-1). Therefore for all n up-to n=p-2, A(x)=0 since all the numbers are even.
+
+For n=(p-1), A(x)=1. Now continuing from n=p, note that the numbers mod(2) will be of the form [(2^p-1)/2^n-p+1] = [2^2p-n-1 – (1/2^n-p+1)] (the brackets denote the floor function) which is always odd and will give 1mod2. This will continue until n=2p-2 after which we will get 0’s until max. value. So all in all we have 0’s until n=(p-2) and 1’s from there until n=(2p-2). Therefore the sum is (2p-2)-(p-2)*1+(p-2)*0=p.
+
+The second part of the assertion is not true, the value of the function A(x) is p for the perfect number (2^p-1)*(2^p-1). Since not all p produce perfect numbers, A(x) will also miss out on those primes which do not produce perfect numbers. Note however that if the function is defined for all numbers of the form (2^p-1)*(2^p-1), whether perfect or not, then you will get all the primes in succession.
+
+***
+
+Antoine wrote:
+
+The 2^p – 1 primes ( with p prime ) are the Mersenne primes ( Mp ).Euclid proved that every number of
+
+the form 2^( p – 1) *Mp is a perfect number and Euler proved its converse that every even perfect
+
+number is of the form 2^( p – 1 )*Mp. Thus Px = 2^( p – 1 ) * ( 2^p – 1 ).
+
+1. a = y (mod. 2 ) y = 0 if a is even
+
+y = 1 if a is odd.
+
+2. n max.
+
+A. 2^p – 1 > 2^( p – 1 ) (1)
+
+B. Px / 2^n > 1  log (Px) / log (2) > n because both functions are rising functions ;
+
+Px / 2^n > 1 ( while else floor = 0 )
+
+Px > 2^n 2^(p-1)*(2^p-1) > 2^n  2^p-1 > 2^( n-p+1) 
+
+(1) n – p + 1 = p – 1  n max = 2*p – 2
+
+n is a fraction  n max = floor (log(Px)/log(2)) ( if n > n max floor = 0 ).
+
+3. A(x) = Sum
+
+2^(p-1)*(2^p-1)/2^n is an even number as long as n < p-1  in A(x) there are p-1 ( p-2-0+1 )
+
+even numbers with (mod. 2 ) = 0.
+
+2^(p-1)*(2^p-1)/2^n is an odd number if n >= p-1 and n =< 2*p-2  in A(x) there are
+
+2*p-2-(p-1)+1 = p odd numbers with (mod. 2 ) =1
+
+Sum = (p-1) * 0 + p*1 = p.
+
+***
+
+Emmanuel wrote:
+
+Let x be Px.
+
+Then, A(x) = Sum ( Mod[ Floor[x/(2^n)] , 2] for n = 0 to g = Floor(Log[2,x]) )
+
+where Log[2,x] is the base 2 logarithm.
+
+When x is an even perfect number, it is of the form 2^(p-1) (2^p - 1) (where p and 2^p - 1 are primes, which does not matter for what follows). Also, g = 2p - 2.
+
+The terms in the sum for n = 0 to p-2 all are trivially zero since x/(2^n) is then an even integer, equal to its floor.
+
+For n = p-1 we have x/(2^n) = Floor( x/(2^n)) = 2^p - 1 odd, thus mod 2 equal to 1.
+
+For n > p-1, x/(2^n) is of the form 2^k - 1/(2^j) whose floor is 2^k - 1, odd. Hence modulo 2 equal to 1.
+
+Conlusion : A(x) = p.
+
+We can apply an analogous reasoning to any x of the form 2^a (2^b - 1) when a and b are integers, We will find : A(x) = b.
+...
+
+If you want to compute the binary digits of a number x you also computes Floor[x/(2^n)] mod 2 for n = 0, 1, ... , Log[2,x]... Thus, A(x) is nothing else but the number of ones in the binary expansion of x .
+
+p | A(x) = 2^(p-1)(2^p-1) | Binary of A(x)
+
+2 | 6 | 110
+
+3 | 28 | 11100
+
+5 | 496 | 111110000
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

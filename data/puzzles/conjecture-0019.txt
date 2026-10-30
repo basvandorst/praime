@@ -1,0 +1,181 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_019.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 19.  A bound to the largest prime factor of certain
+Carmichael numbers
+Source: https://www.primepuzzles.net/conjectures/conj_019.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0019.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/PrimeNumber.html
+  http://mathworld.wolfram.com/Factor.html
+  http://mathworld.wolfram.com/CarmichaelNumber.html
+  ftp://ftp.dpmms.cam.ac.uk/pub/Carmichael/
+  https://www.primepuzzles.net/problems/prob_024.htm
+  http://www.chalcedon.demon.co.uk/publish.html#37
+  https://www.primepuzzles.net/conjectures/conj_018.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_020.htm
+  https://www.primepuzzles.net/conjectures/conj_019.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Conjecture 19. A bound to the largest prime factor of certain Carmichael numbers
+
+Problems & Puzzles: Conjectures
+
+Conjecture 19. A bound to the largest prime factor of certain Carmichael numbers
+
+A number n is said to be a "Carmichael number" if:
+
+* x^(n-1)=1 mod n, for all x such that:
+
+* gcd(x, n)=1
+
+* n= an odd composite number having 3 or more prime factors.
+
+It can be shown that the above definition is equivalent to say that for each Carmichael number n, for every prime p that divides n then p-1 divides n-1 also.
+
+From now on, let's discuss only about the C3 or Carmichael odd numbers composed of 3 prime factors such that C3 = n = p*q*r, p<q<r
+
+A few examples are:
+
+3*11*17
+
+5*13*17
+
+7*13*19
+
+...
+
+At the p.44, of "Recreations in the Theory of Numbers" by Albert H. Beiler we can read:
+
+"if... p is assigned value then there are only a finite number of values for the other two primes [q & r]; they can not be increased indefinitely"
+
+The same idea is said by Eric Weisstein:
+
+"For Carmichael numbers with exactly three prime factors, once one of the primes has been specified, there are only a finite number of Carmichael numbers which can be constructed." (See his article http://mathworld.wolfram.com/CarmichaelNumber.html)
+
+Then there are only finite values n, if any, for that p value. But then also it's true that for each p, r has some upper limit.
+
+Questions:
+
+1) Can you explain the Bailer & Weisstein's claims regarding the finitude of the C3 numbers for a fixed p?
+
+2) How large is r against p?
+
+3) A simple inspection of the first C3 numbers (*) shows that r < p^3 (let's take this as a starting conjecture to improve). The same data shows that very soon this bound is too wide... Exist a better (tighter) and simpler bound?
+
+_____
+
+Notes:
+
+(*) See the car3-18 file from the Richard Pinch's site: ftp://ftp.dpmms.cam.ac.uk/pub/Carmichael/
+
+See other problem related to Carmichael numbers in this site at Problem 24.
+
+Solution
+
+The Saturday 6 of May both Richard Pinch and Chris Nash solved the question of ths puzzle-conjecture, basically following the same reasoning and arriving to the same "better bound". The argument, not only the conclusion is interesting. Here are complete:
+
+Richard Pinch (10:00 am) wrote:
+
+"Let N = pqr be a Carmichael number with three prime factors p < q < r and assume p is given. We have N == 1 mod (p-1), mod (q-1), mod (r-1). Hence qr == 1 mod (p-1), pr == 1 mod (q-1) and pq == 1 mod (r-1). Say pr-1 = a(q-1) and pq-1 = b(r-1).
+
+Since q < r, we have q < r-1 and so p(r-1) > p(r-1)-1 > pq-1 = b(r-1). Hence b < p. Similarly, a(q-1) = pr-1 > p(q-1) so p > a. In fact we see that b=1 is impossible, otherwise we would have pq-1 = r-1, that is, pq=r, but r is prime. Put D = ab - p^2. After a little algebra, we find that q-1 = (p-1)(p+b) / D and r-1 = (p-1)(p+a)/D, which shows that D > 0 and that D = (p-1)(p+b)/(q-1) < p+b < 2p. So there are only a fixed number of possible values of D. For each value of D, there are only finitely many values of a and b, since ab = D+p^2. Hence the are only finitely many pairs (a,b) and hence (q,r) for given p.
+
+Further, we can bound r as follows. a = (D+p^2)/b and a > p. So (p+a)/D < 2a/D < 2(D+p^2)/bD < 2/b + 2p^2/bD <= 1 + p^2. So r-1 < (p^2+1)(p-1) = p^3-p^2+p-1 and so r < p^3-p^2+p < p^3. So (p+a)/D < p/D + (D+p^2)/bD = p/D + 1/b + p^2/bD <= (p^2+2p+1)/2 as b >= 2. So r-1 <= (p-1)(p+1)^2/2 = (p^3+p^2-p-1)/2..."
+
+Chris Nash (1:36 pm) wrote:
+
+"If pqr is a Carmichael number, then the following expressions
+
+I_0=(qr-1)/(p-1) (1)
+
+I_1=(rp-1)/(q-1) (2)
+
+I_2=(pq-1)/(r-1) (3)
+
+must all be integers. In fact, they must all be greater than 1. I_1 is "a little greater" than rp/q. I_2 is "a little greater" than pq/r. I_1*I_2 must also be an integer. I_1*I_2 is "a little greater" than (rp/q)*(pq/r)=p^2. So all you need to prove is that I_1*I_2 is less than p^2+1. (So then we have an integer I_1*I_2 that is between p^2 and p^2+1, which is impossible).
+
+Let p be a known prime, and choose a prime r. We need to find conditions on r to prove a solution does not exist. We proceed by solving for p, q, and r for every possible value of I_2 (all integers greater than one).
+
+Pick I_2, and calculate k such that r=(k.p^3+p-1)/I_2 + 1 Then q=k.p^2+1 by equation (3). By equation (2) I_1 = (rp-1)/(q-1) = (p2+1/k-1/kp)/I_2 + (p-1)/(kp^2) and must be an integer.
+
+Thus I_1.I_2 = p^2 + 1/k - 1/kp + I_2(p-1)/(kp^2) must also be an integer. Since p^2 is an integer, no solution exists if 0< 1/k - 1/kp + I_2(p-1)/(kp^2) < 1
+
+And so no solution exists if k > 1 - 1/p + I_2(p-1)/(p^2) and hence for every possible choice of I_2, there is a limiting value of r, beyond which no solutions exist. Substitute this value of k into the formula for r.
+
+Thus for each I_2, no solution exists for r > (p^3 - p^2 + I_2.p.(p-1) + p - 1)/I_2 + 1 = (p^2 - p + 1) + (p^3 -p^2 + p - 1)/I_2.
+
+This is a decreasing function of I_2. So a tight bound for r is found by putting I_2=2... (then) r<=(p^2-p+1) + (p^3 - p^2 + p - 1)/2 = (p^3 + p^2 -p + 1)/2"
+
+Both arguments reach to the same bound: r<=(p^3+p^2-p+1)/2
+
+But they have obtained some additional things than the originally asked.
+
+When I asked to Richard Pinch if a bound for q against p can be established he replied (2:43 pm) "Yes: I claim q < 2p^2. Using the same notation, one has q-1 = (p-1)(p+b)/D and b < p. So q-1 < (p-1).2p ...."
+
+This means that q<2p^2-2p+1
+
+By his side Chris Nash answered (7/5/2000, 10:12 am) to the same question: "... q<= 2p^2 - 3p +2 and make the comment that this bound cannot be attained unless p=3 ". (Does anybody wants the complete reasoning?)
+
+In this case Richard & Chris have reached to two slightly different results being the Chris's bound a little bit more tight than the Richard's bound
+
+***
+
+Regarding the limit of bound for r Chris Nash wrote (1:36 pm):
+
+"...The (limit of the) bound can only be attained if this is prime, and if I_2=2, i.e. if q=p^2+p-1 is also prime and satisfies the conditions. It is not a simpler bound, but it is definitely a tight bound. For instance, if p=3, the tight bound is (27+9-3+1)/2=17. And indeed, 3 *11*17 is a Carmichael number, so this bound is attained. p=5, the bound is (125+25-5+1)/2, which is 73. 5*29*73 is indeed a Carmichael number. The bound is attained yet again... To attain the bound, these three numbers need to be the prime factors: p, p^2+p-1 and (p^3+p^2-p+1)/2... Of course it is unlikely provable that an infinity of such prime triplets exist. Perhaps you would be interested in searching for the largest Carmichael number of this form?"
+
+Later (7/05/2000, 4:19 am), Richard Pinch added:
+
+"I should have added that the proof of the finiteness of qr given p is not original to myself: I think it in Carmichael's paper of 1912, referred to in Beiler's book. I did however give a version of it, similar to the one I sent you, in my paper Carmichael numbers up to 10^15, Math. Comp. 61:203 (Jul 1993) 381--391, which can be found on the net via URL http://www.chalcedon.demon.co.uk/publish.html#37 "
+
+***
+
+So we have two new questions:
+
+a) are there infinite triplets of extreme primes p, p^2+p-1 and (p^3+p^2-p+1)/2
+
+b) find larger and larger of such extreme triplets.
+
+***
+
+Just as a starting point I tackled the task of finding a kind of moderate large of such extreme triplets, hoping that readers may soon and happily beat it:
+
+p = 7352265*2^400+1 (is prime)
+
+q = p^2+p-1 (is prime)
+
+r = (p^3+P^2-p+1)/2 (is prime)
+
+Then we have here (Sunday morning) a C3 = p.q.r = an extreme Carmichael C3 number of 764 digits
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

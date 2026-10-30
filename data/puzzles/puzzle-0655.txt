@@ -1,0 +1,276 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_655.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 655 pq+rs, perfect square.
+Source: https://www.primepuzzles.net/puzzles/puzz_655.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0655.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://primes.utm.edu/glossary/xpage/Prime.html
+  http://www.primepuzzles.net/puzzles/puzz_498.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_498.htm
+  http://www.numbertheory.org/pdfs/patz5.pdf
+  https://www.primepuzzles.net/puzzles/puzz_654.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_656.htm
+  https://www.primepuzzles.net/puzzles/puzz_655.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 655 pq+rs, perfect square.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 655 pq+rs, perfect square.
+
+In one of the the Prime Curios! pages from Caldwell & Honaker, Jr. I found this curio:
+
+Let p < q < r < s be consecutive primes. The least prime p for which pq + rs is a perfect square is 203233.
+
+Q1 Find three more cases.
+
+_______
+
+BTW see our puzzle 498.
+
+Contributions came from Ryan Bailey & Emmanuel Vantieghem
+
+***
+
+Both weren't able to find more solutions than the reported one going up to 21940132061 and to 31*10^9, in their respectively search.
+
+***
+
+Jan van Delden wrote on May 11, 2018:
+
+I tried to find solutions to:
+
+pq+rs=y^2 (I)
+
+ps+qr=y^2 (II)
+
+pr+qs=y^2 (III)
+
+with p,q,r,s consecutive primes.
+
+The last two equations are added because of a remark of Farideh in Puzzle 498.
+
+Method:
+
+At first I decided to use a Sieve. I didn’t find another solution with p<4000*2^32.
+
+So time for a different attack. And I followed the suggestion by Carlos in Puzzle 498:
+
+p(p+a)+(p+b)(p+c)=y^2,
+
+where a=q-p, b=r-p, c=s-p, the prime gaps of q,r,s relative to p, so 0<a<b<c.
+
+From this we have that [0,a,b,c] mod 3 must be admissible, it may not form a complete residue set mod 3.
+
+2p^2+p(a+b+c)+bc=y^2
+
+Multiply by 2:
+
+4p^2+2p(a+b+c)+2bc=2y^2 (*)
+
+We know that 2|(a+b+c) and that 4|bc, so the expression can be divided by 4 and y must be even y=2z.
+
+p^2+p(a+b+c)/2+bc/2=2z^2
+
+Suppose that 4|(a+b+c). We can than complete the square:
+
+(p+(a+b+c)/4)^2-((a+b+c)/4)^2=2z^2-bc/2.
+
+The right hand side is even and the left hand side is odd.
+
+So we must have that a+b+c=2 mod 4. Let’s complete the square on (*) directly:
+
+(2p+(a+b+c)/2)^2+2bc-((a+b+c)/2)^2=2y^2
+
+Or after some manipulations:
+
+x^2-2y^2=-d (**)
+
+with:
+
+g = (a+b+c)/2
+
+d = 2bc-g^2
+
+x = 2p+g
+
+This diophantine equation (**) is well known. I would recommend reading The Diophantine Equation x^2-Dy^2=N, D>0 by Keith Matthews.
+
+In it he describes the method of simple continued fractions to solve this type of equation, without the necessity of using the fundamental solution of Pell’s equation (d=+/-1) in order to describe all solutions.
+
+In our case, a necessary condition for solutions to exist is x^2=2 mod (|d|).
+
+So this restricts the possibilities of d to those d for which 2 is a square residue mod abs(d).
+
+If |d| is prime the Lengendre symbol (2/|d|) should equal 1 to allow |d|.
+
+If |d| is not prime the Jacobi symbol (2/|d|) excludes cases if the result equals -1.
+
+The method requires to find all roots r in (0..|d|-1) such that r^2 = 2 mod |d|.
+
+[If d=+/-1 one could use the fundamental solution to the resulting Pell equation]
+
+So if the Jacobi symbol returns 1, it is not conclusive, one should just try to find roots r, we need them anyway.
+
+The method of continued fractions is used on (r+sqrt(2))/|d| for all roots r in a reduced residue set mod |d|.
+
+The other two equation types (II,III) are similar but have a different d:
+
+II) swap a-c
+
+III) swap a-b
+
+Search bounds:
+
+I searched all [a,b,c] with c<= 500, using the conditions on a,b,c as stated before.
+
+For these I computed a list of values of d (having 2 as a square mod |d|) and for each d I kept a list of values of g and the equation type that generated this combination (d,g). For every root r belonging to a value of d I tried to find solutions x such that:
+
+p=(x-g)/2 is prime and compute a,b,c belonging to this p and it’s realised values g* and d*. [For every possible g]
+
+Finaly check g* and d* against the values (g,d) used to generate this solution (x,p), using the correct type of equation belonging to (d,g).
+
+I found 16589 different d. The total number of combinations (d,g) is equal to 572122.
+
+I used a maximum of 105 iterates. (Limiting the primes p to approximately 40 digits). However I found no other solutions.
+
+As an example:
+
+For the given solution 203233, we have (a=16,b=46,c=60), so d=1799 and g=61.
+
+Within my search bounds for [a,b,c] there are 132 values of g, one of which is 61.
+
+1799 has 4 roots r (60,711,1088,1739) with r^2=2 mod 1799.
+
+The root 711 defines the number (711+sqrt(2))/1799.
+
+The associated simple periodic continued fraction is [0; 2 1 1 9 2], the last 2 repeats indefinitely.
+
+Its value as a fraction terminated at iterate 14 is equal to 113835/287458.
+
+So x = 113835*1799 – 287448*711 = 406527 is a solution to (A). The transform (x-g)/2 now gives a prime p.
+
+Which checks out o.k.
+
+Estimate of number of [a,b,c] with c<=N.
+
+Admissible mod 6: [0,0,0],[2,2,2],[4,4,4],[2,0,0],[0,2,0],[0,0,2],[4,0,0],[0,4,0],[0,0,4],[2,2,0],[2,0,2],[0,2,2],[4,4,0],[4,0,4] [0,4,4]
+
+There are 15 combinations [a,b,c] with are admissible mod 6 (or 3), out of 3^3=27 combinations.
+
+About half of the sums a+b+c are 2 mod 4.
+
+One can choose N/2 different even numbers 0<n<N.
+
+The total number of [a,b,c] to choose from is smaller than (N/2)^3/6=N^3/48. [Can be made precise].
+
+So I would estimate this with N^3/48*15/27*1/2 = 5/864*N^3.
+
+Some have to be descarded because we need d to have a square root of 2. Testing reveals that although we can discard about half the d, this is not true for the [a,b,c], the reason is that we have 3 d-values (depending on the type of equation) for 1 set of [a,b,c].
+
+P(keep [a,b,c] for any type)=1-P(discard [a,b,c] for one type)^3=7/8
+
+Leading to the final estimate 35/6912*N^3, which is too large, but this gives a fair clue to the amount of work needed.
+
+Notes:
+
+All d>0 are of type I. So type II,II have d<0.
+
+The situation d=-1 is possible. In fact I found 138 different values of g belonging to this d. All are type I.
+
+It would be helpful if one could prove that all these periodic continued fractions have period 1 with periodic part 2.
+
+Because d and g comprise 2 parameters derived from 3 parameters [a,b,c] this routine actually checks more combinations [a,b,c] than those used to compute d and g.
+
+To do:
+
+Either broaden the horizon and allow a larger set of (d,g) or increase the number of iterates (to check larger prime solutions) or both.
+
+Better would be to try and find a deeper relation to restrict the computations involved.
+
+As a sidenote I used Maple. But it’s memory management went ‘out of control’. So taking a next step would entail rewriting the routine in c, giving me more control on this aspect.
+
+***
+
+Jan van Delden wrote on May 23, 2018:
+
+I changed my routine:
+
+- The admissible d are computed differently. d is admissible if and only if d has prime divisors p=+/-1 mod 8.
+
+- It only computes roots r with 0<=r<=d/2 and uses these to find the primitive solution by using the associated continued fraction of (r+sqrt(2))/|d|.
+
+- This primitive solution is used to find solutions for roots r in -d/2<=r<=d/2, upon using the fundamental solution of the Pell equation x^2-2y^2=1.
+
+A primitive solution, x0+y0*sqrt(2) is multiplied by eta^n, with eta=3+2*sqrt(2), the fundamental solution.
+
+Or, for negative r, x0-y0*sqrt(2) or -x0+y0*sqrt(2) is used, depending on the sign of d.
+
+- One iteration using the new method has the same effect as 2 iterations using the old method (and is faster because one can precompute the values of eta^n).
+
+I found the following solutions with a<b<c<1000 with a maximum of 200 iterations:
+
+Type I) p*q+r*s=m^2:
+
+p=1150284232069964804556646431054740232316097446258616188423
+
+q=1150284232069964804556646431054740232316097446258616188907
+
+r=1150284232069964804556646431054740232316097446258616189033
+
+s=1150284232069964804556646431054740232316097446258616189083
+
+m=1626747561577264911166645336637586576005842096790439177520
+
+(a=484,b=610,c=660,g=887,d=36071)
+
+Type II) no solutions, given the search area and maximum # of iterations.
+
+Type III) p*s+q*r=m^2:
+
+p=11676583373868016849349945425661876543184231432061070831984678948459667093277
+
+q=11676583373868016849349945425661876543184231432061070831984678948459667093551
+
+r=11676583373868016849349945425661876543184231432061070831984678948459667093577
+
+s=11676583373868016849349945425661876543184231432061070831984678948459667093601
+
+m=16513182569504341270105478625128337761250074701752333413507554229387445670602
+
+(a=274,b=300,c=324,g=449,d=-37201)
+
+I checked all primes with PRIMO.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

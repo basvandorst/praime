@@ -1,0 +1,379 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_101.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 101. Digital Divisibility Tests
+Source: https://www.primepuzzles.net/puzzles/puzz_101.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0101.htm
+
+References (local copies):
+  ../../references/2015_phil-plummer-pu101.pdf  (from https://www.primepuzzles.net/images/Phil%20Plummer%20Pu101.pdf)
+  ../../references/2015_phil-plummer-pu101.txt  (extracted text)
+
+Links on the page:
+  http://www.mcn.net/~jimloy/divis.html
+  http://mathworld.wolfram.com/DivisibilityTests.html
+  http://www.nrich.maths.org.uk/mathsf/journalf/jan97/art1/index.html
+  http://uzweb.uz.ac.zw/science/maths/zimaths/div19.htm
+  http://forum.swarthmore.edu/k12/mathtips/ward2.html
+  http://www.cut-the-knot.com/blue/FurtherDivisibility.html
+  http://dmoz.org/Science/Math/Number_Theory/Divisibility/Division_Rules/
+  http://math.furman.edu/~mwoodard/fuejum/textv/volume3text.html
+  https://www.primepuzzles.net/images/Phil%20Plummer%20Pu101.pdf
+  https://www.primepuzzles.net/puzzles/puzz_100.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_102.htm
+  https://www.primepuzzles.net/puzzles/puzz_101.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 101. Digital Divisibility Tests
+
+Problems & Puzzles: Puzzles
+
+Puzzle 101. Digital Divisibility Tests
+
+For sure you know some of the popular "digital divisibility tests" of a given number N by another number p, based on certain operations/properties of the decimal digits of N.
+
+For the purposes of this puzzle we must understand a "divisibility test" as a procedure that operates over the decimal digits of N and that reduces the initial given number N into another N' such that N>N'. This procedure can be applied recursively producing a series of numbers N > N' > N'' >...> N* such that the last one, N*, can be easily divided by p; when this happens then the original number N also is divided by N.
+
+Here are some of these tests, for the first primes p:
+
+p | Divisibility test of N by p
+
+2 | If N is even (that is the say if the rightmost digit of N is zero or an even digit) then 2 divides N
+
+3 | If the sum of the digits of N is divided by 3 then N is divided by 3
+
+5 | If the rightmost digit of N is 0 or 5 then 5 divides N
+
+7 | "Double the units and subtract from the tens", e.g. 1365 ->136-(2x5)=126 ->12-(2x6)=0. If the chain ends in zero or a multiple of 7, then the original number is divisible by 7"
+
+11 | If N=a1a2a3a4...ak then if (a1-a2+a3-a4 ...) is divided by 11 then N is divided by 11
+"Subtract the units from the tens", e.g. 1364 -> 136-4 etc. If the chain ends in zero, then the original number is divisible by 11"
+
+13 | "Add the tens to 4 times the units", e.g. 1365 -> 136+20 etc. If the chain ends in a multiple of 13, then the original number is divisible by 13"
+
+17 | "Two times the hundreds less the last two digits, e.g. 8517 -> 2*85 -17, etc...."
+
+19 | "Add the hundreds to 4 times the rest", e.g. 1311 -> 13+44 etc. If the chain ends in a multiple of 19, then the original number is divisible by 19"
+
+23 | ?
+
+others | ?
+
+Questions:
+
+1. Find the divisibility rule for p = 23 and others
+
+2. Do you devise a general approach to determine the divisibility rule for any prime p?
+
+References:
+
+1. http://www.mcn.net/~jimloy/divis.html
+
+2. http://mathworld.wolfram.com/DivisibilityTests.html
+
+3. http://www.nrich.maths.org.uk/mathsf/journalf/jan97/art1/index.html
+
+4. http://uzweb.uz.ac.zw/science/maths/zimaths/div19.htm
+
+5. http://forum.swarthmore.edu/k12/mathtips/ward2.html
+
+6. http://www.cut-the-knot.com/blue/FurtherDivisibility.html
+
+A new one after the Nash solution:
+
+7. http://dmoz.org/Science/Math/Number_Theory/Divisibility/Division_Rules/
+
+Solution
+
+Chris Nash has solved (29/07/2000) both questions showing a general method to produce any "divisibility test". As part of his approach to the solution, new interesting and second level questions arise. Here is his email. Ready?... then, go!!!
+
+"I thought about looking at solving this problem, and split the divisibility criteria into two varieties.
+
+Case 1). Split the digits into groups of a specified size. Either add all the groups, or alternatively add or subtract the groups.
+
+Case 2). Take the last d digits. Multiply them by some small quantity, and add them to the rest.
+
+Case 3). Division by 2 or 5 is done merely by looking at the last digit, since 2 and 5 are factors of the base 10.
+
+Case 1) is actually a variant of case 2). (Make the small quantity either +1 or -1).
+
+So we look merely at case 2). Let our number be N, and let us choose to take d digits from the end. Then N can be written as X*10^d + Y, where Y is the last d digits of N. And we now wish to find an integer k such that N is divisible by p if and only if X+kY is divisible by p.
+
+We have the following logic, <=> denotes if and only if. p is a prime, and is not 2 or 5 X+kY is divisible by p <=> 10^d(X+kY) is divisible by p <=> (X*10^d + Y) + (k*10^d-1)Y is divisible by p
+
+Hence, for our required division rule, given d, we must choose k such that k*10^d-1 is divisible by p. Any choice of d will give us a division rule. However the idea is to choose a value of d that is not too large, and a value of k so that multiplication is not too difficult. We search by value of d, and we will assume that it is easy to multiply a d digit number by numbers 5 or less.
+
+d=1
+
+===
+
+Division rules exist with multiplier k if 10k-1 is divisible by p. So we attempt the k values from -5 to 5
+
+k=-5: -51 has factors 3*17. We already know easier division rules for these.
+
+k=-4: -41 has factors 41. So here is a division rule for 41: subtract four times the units from the rest.
+
+k=-3: -31, again produces a division rule for 31: subtract three times the units from the rest
+
+k=-2: -21, gives the division rule you list for 7: subtract twice the units from the rest
+
+k=-1: -11, gives the division rule you list for 11.
+
+k=1: 9, gives the familiar division rule you list for 3.
+
+k=2: 19, gives a different rule than you list for 19: double the units, add to the rest
+
+k=3: 29, gives a rule for 29: multiply the units by 3, add to the rest
+
+k=4: 39, gives the rule you list for 13: multiply the units by 4, add to the rest.
+
+k=5: 49, gives a rule for 7, but it is not so easy: multiply the units by 5, add to the rest.
+
+Before we continue with this search, we need to think, what is an 'easy' division rule? For instance, which rule is easier for 19?
+
+- double the units, add to the rest, or
+
+- add the hundreds to four times the rest
+
+It appears the easiest rule is the rule that gives the smallest value of k, however this may not always be true. For example, we can always construct a rule for any prime p, with k=1. Since 10^(p-1)-1 is divisible by p, a general division rule for p is take the last p-1 digits, and add to the rest. But this is not too helpful, since it may only reduce our problem to p-1 digits.
+
+So I started to search for division rules that work as follows. Find a division rule with the smallest value of d, and for k values in the range -5 to 5. Now we can reverse the process. Here is an algorithm to find a suitable division rule for p.
+
+1 Initialize R=1 and D=0
+
+2 Calculate X, such that 10X-1 is divisible by p.
+
+3 In a loop:
+
+3.1 increase D
+
+3.2 multiply R by X
+
+3.3 reduce R modulo P to it's smallest absolute value (-P/2<R<P/2)
+
+3.4 If R is in the 'acceptable' range for multiplication (-5 to +5) output the rule - take the last D digits, multiply by R, add to the rest, and exit the loop
+
+If you prefer, you can change this algorithm so the test for R tests against other values, for instance +-1, +-2, +-4 (if you do not want to multiply by 3 in your rule).
+
+Here is the list of division rules up to 100 generated using this algorithm (it is very easy to go much higher)
+
+13: take last 1 digits, multiply by 4, add to rest
+
+17: take last 1 digits, multiply by 5, subtract from rest
+
+19: take last 1 digits, multiply by 2, add to rest
+
+23: take last 2 digits, multiply by 3, add to rest
+
+29: take last 1 digits, multiply by 3, add to rest
+
+31: take last 1 digits, multiply by 3, subtract from rest
+
+37: take last 3 digits, multiply by 1, add to rest
+
+41: take last 1 digits, multiply by 4, subtract from rest
+
+43: take last 2 digits, multiply by 3, subtract from rest
+
+47: take last 5 digits, multiply by 3, subtract from rest
+
+53: take last 7 digits, multiply by 4, subtract from rest
+
+59: take last 4 digits, multiply by 2, subtract from rest
+
+61: take last 13 digits, multiply by 2, add to rest
+
+67: take last 2 digits, multiply by 2, subtract from rest
+
+71: take last 6 digits, multiply by 2, add to rest
+
+73: take last 4 digits, multiply by 1, subtract from rest
+
+79: take last 13 digits, multiply by 1, add to rest
+
+83: take last 15 digits, multiply by 3, add to rest
+
+89: take last 8 digits, multiply by 2, add to rest
+
+97: take last 10 digits, multiply by 2, add to rest
+
+Note some of them are not very easy to use, for instance, the rule for 61 only reduces you to a 13 digit number. Any smaller reductions produce more difficult multiplication needed. If you have an 8-digit calculator, a rule that reduces things to 7 digits may be good enough.
+
+Note there is an interesting feature of these rules. Any rule generated may work for more than one number. For instance, take 59. The rule is take the last four digits and multiply by -2. The rule works since -2*10^4-1 = -20001 is divisible by 59. The other factors are 3 (for which we already have a division rule) and 113. So the rule for 59 works for 113, too!
+
+So, there are now more questions:
+
+1) Does anyone have any better rules for 61, 79, 83, 89, and 97?
+
+2) Is the method I chose (smallest number of digits to produce a multiplier of 5 or less) the best algorithm?
+
+3) are there any smarter methods (such as splitting into alternate digits) that produce better rules?
+
+Finally, I revised the rules of the search a little. Suppose a division rule for p can reduce the number to a value p^2 or less, and we have division rules for smaller p. Then we can quickly factor the remaining number. So I defined a *difficult* division rule as one that would require the same number of digits (or more) than p^2 (and with the same range of k as above).
+
+Here are the hard division rules up to 1000:
+
+47, 53, 59, 61, 71, 73, 79, 83, 89, 97, 103, 107, 109, 127, 139, 149, 151, 157, 163, 173, 179, 191, 193, 197, 211, 223, 227, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 "
+
+Later he added:
+
+"Of course this is only one type of division rule - taking digits from the 'end' and adding or subtracting them into the beginning. There are definitely other rules that can work from the 'other end', but these rules are really the same as doing the entire division. (For instance, 97, take the first digit, multiply it by 3, move it down two decimal places and add to the remainder... eg 5723 = 5000 + 723 -> 150+723 = 873 = 800 + 73 -> 24+73).
+
+But I would be very interested if anyone can find some better rules - in particular I wonder if a rule for a large prime can be constructed by rules for smaller primes."
+
+***
+
+I feel very happy with this solution produced by Nash, because incidentally exhibits one of the most charming by candid aspects of the good scientific work: it opens more questions (4) that the closed ones (2) - without traces of harassment ...
+
+***
+
+The young Jordanian mathematician, Murad A. AlDamen, has sent (24/10/2000) a very simple & general method to find a rule of divisibility for any prime.
+
+I would like to show his general method with an example that - BTW - answers the question asked by Nash about of a better divisibility for the prime 61.
+
+The Murad's general method goes like this:
+
+Question: ¿Does p=61 divides - let's say to N=3598207?
+
+Answer: Write down the following list of numbers
+
+p=61 | N=3598207
+
+359820*1 - 6*7 | 359778
+
+35977*1 - 6*8 | 35929
+
+3592*1 - 6*9 | 3538
+
+353*1 - 6*8 | 305
+
+30*1 - 6*5 | 0
+
+If the last number is zero then 61 divides 3598207
+
+If, in another example, p=103 then 10 multiplies the units of N and 3 to the rest of it, in each step, etcetera...
+
+***
+
+Now here is the proof sent by Murad of his method:
+
+"Let N be a number that we will test it. M is a factor of N. N=n1+10n2, M=k1+10k2, [M/10]=k2 and [N/10]=n2. The First Theorem: n2k1-k2n1=0 (mod M) if and only if M|N
+
+The proof: Let L*M=N =n1+10n2, L(k1+10k2)=n1+10n2
+
+L*k1-n1=10a ….(1)
+
+-10Lk2=10a-10n2, Lk2=a-n2
+
+n2 –Lk2=a … (2)
+
+add one to two and by N=M*L
+
+we find ((n1+10n2)(k1-k2)+ (k1+10k2)(nn-n1))/(k1+10k2)=11a, then (n2k1-k2n1)=0 (mod M)"
+
+***
+
+A new approach has been sent (20/11/2000) by Jan van Delden:
+
+"Since it isn't mentioned explicitly, the next might be interesting, although I must add that Murad's method is simpler to do by hand. First establish the first k (the order, divisor of p-1) for which 10^k-1 has p as a divisor, or: smallest k for which 10^k congruent to 1 mod p.
+
+(To turn it around it's faster to calculate the primes being divisors of the repunits {1}k Since 10^k-1 is divisible by 9.
+
+11=11
+
+111=3.37
+
+1111=11.101 etc.
+
+Also interesting in this light is that: k even 10^(2r)-1=(10^r-1)(10^r+1) so for instance if k=4 the term 101 follows immediately.)
+
+Secondly calculate 10^r mod p with r=0..k-1. (Let answer fall into -(p-1)/2 and (p-1)/2 get alternate signs in sum later on, if possible).
+
+With p=37 (Order 3):
+
+1 mod 37 = 1 (Not too hard to calculate:-)
+
+10 mod 37 = 10
+
+100 mod 37 = -11
+
+1000 mod 37 = -110 mod 37 =1
+
+How big is the remainder of 12548 divided by 37? Write 12548 as 12 548 and add up these two groups of 3-digit numbers up to 560.
+
+Calculate the sum (multiplying by 1,10 and -11, counting from right to left)
+
+0*1+6*10+5*-11=5
+
+With p=13: (calculate until 10^k=-1 mod p, rest negate!)
+
+10^0 mod 13=1
+
+10^1 mod 13=10
+
+10^2 mod 13=9 or -4
+
+10^3 mod 13=90 mod 13=-1 (so order is 6, divisor of 12)
+
+10^4 mod 13=-10 or 3
+
+10^5 mod 13=4
+
+10^6 mod 13=1
+
+(13 is divisor of 111111)
+
+12458 gives 8+5*10+4*(-4)+2*(-1)+1*3=43
+
+12458 mod 13=43 mod 13=4
+
+To proof above use:
+
+- (a mod p)(b mod p)=ab mod p and
+
+- (a+b) mod p=a mod p + b mod p
+
+So the disadvantage is that all the remainders of 10^k have to be calculated modulo p, but the advantage is that you don't get stuck with a large remaining number to investigate".
+
+***
+
+Felice Russo sends the following reference about this subject:
+
+http://math.furman.edu/~mwoodard/fuejum/textv/volume3text.html
+
+***
+
+Phil Plummer wrote his collaboration to this puzzle on August 13, 2014:
+
+Here is a pdf copy of the journal. My paper starts on page 96. (The pages do not start at page 1). Note however that there are a couple of typos:
+
+a) The value in the table, column y=8 for prime= 89 should be 2, not 22.
+
+b) The equation on top of page 97 has the signs wrong. Instead of +, +, +, and - they should be -, +, -, and +.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

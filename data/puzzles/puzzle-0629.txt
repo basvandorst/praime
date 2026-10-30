@@ -1,0 +1,260 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_629.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 629. Non-primitive Carmichael numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_629.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0629.htm
+
+References (local copies):
+  ../../references/2002_a-generalization-of-the-korselt-s-criterion-nested.pdf  (from http://www.primenumbers.net/Renaud/eng/korseltg.pdf)
+  ../../references/2002_a-generalization-of-the-korselt-s-criterion-nested.txt  (extracted text)
+
+Links on the page:
+  http://www.primenumbers.net/Renaud/eng/korseltg.pdf
+  http://www.kobepharma-u.ac.jp/~math/notes/note02.html
+  https://oeis.org/A207041
+  mailto:cbrfgm@gmail.com
+  tel:5394826801
+  tel:116087568961
+  tel:12517265041
+  https://www.primepuzzles.net/puzzles/puzz_628.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_630.htm
+  https://www.primepuzzles.net/puzzles/puzz_629.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 629. Non-primitive Carmichael numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 629. Non-primitive Carmichael numbers
+
+Let's suppose that we define a Perfect Non-Primitive Carmichael number (PNPC) any Carmichael number such that it can be "factorized" completely in terms of k>1 smaller Carmichael numbers:
+
+C = C1*C2*..Ck = PNPC
+While we define a Simple Non-Primitive Carmichael number (SNPC) any Carmichael number such that it is not a PNPC but it can be "factorized" partially as a product of at least one Carmichael numbers and a Cofactor F>1 that is not a PNPC:
+
+C = (C1*C2*...Ck)*F = SNPC
+
+A Carmichael number C that is neither a PNPC nor a SNPC is defined as a Primitive Carmichael Number (PC)
+
+The smallest examples of each one are:
+
+Smallest PNPC = 509033161 = 1729*294409
+
+Smallest SNPC = 63973 = 1729*37
+
+Smallest PC = 561
+
+BTW, the smallest PNPC is given by the young Renaud Lifchitz in one of his papers, from 2002.
+
+Q1. Develop an efficient algorithm to determine if a given Carmichael number C is PNPC or SNPC or PC.
+
+Q2. Using the Yoshio Mimura table of Carmichael Numbers up to 10^12, classify each entry as PNPC or SNPC or PC and fill the following Table:
+
+Qty of factors | Total Carmichael numbers up to 10^12 | PNPC | SNPC | PC
+
+3 | 1000 | 0 | 0 | 1000
+
+4 | 2102
+
+5 | 3156
+
+6 | 1714
+
+7 | 262
+
+8 | 7
+
+Totals | 8241
+
+Another issue related to a PNPC Carmichael number C is to determine if its (perfect) factorization is unique or not, disregarding the factors order.
+
+As a matter of fact, Emmanuel Vantieghem studied the smallest Carmichael numbers that are the (perfect) product of two Carmichael numbers. See his very recent A207041 at the OEIS.
+
+Incidentally he found that 84127131361 = 7*13*31*37*61*73*181 -the 9th member of his sequence- accepts two ways of (perfect) factorization: 84127131361 = 15841 * 5310721 = 172081 * 488881, where all the integers are Carmichaels, of course.
+
+Nevertheless, for sure it must exist Carmichaels integers accepting W>2 distinct ways of (perfect) factorizations in terms of smaller Carmichael factors.
+
+Q3. Send your best Carmichael having the largest quantity of distinct Carmichael (perfect) factorizations, W.
+
+Contributions came from Fred Schneider, Emmanuel Vantieghem & Hakan Summakoğlu
+
+***
+
+Fred wrote:
+
+1) You can't have a PNPC of < 6 factors.
+
+2) Using Mr. Lifchitz's method, any Carmichael constructed as a product of 3 or more Carmichaels would have a non-unique "factorization" (NUF).
+
+c1 = 7207201
+
+c2 = 230630401
+
+c3 = 56951294401
+
+Example = C = (c1*c2) * c3 = c1 * (c2*c3)
+
+One thing that would be really interesting to me is a NUF-PNPC which is non-trivial
+
+Consider : C = x1x2 = y1y2 where C, x1, x2, y1, y2 are all Carmichael numbers
+
+and the gcd between any x(i) and y(j) is not a Carmichael.
+
+Let's call C strongly non-trivial if C can't be expressed as the product of three or more Carmichael numbers.
+
+I wonder if any such numbers exist. The effect would be have to prime factors of the Carmichael divisors interleaved.
+
+***
+
+Emmanuel wrote:
+
+Q1 : The situation is very complicated. If one denotes by Sn the set of all Carmichael numbers that can be written as a product of n Carmichael numbers, then these sets form a very chaotic structure for the relation of inclusion. I illustrate this with some examples :
+
+The first ones of S2 are:
+
+509033161, 1836304561, 5394826801, 20064165121, 25594002721, 47782272385, 59970791881,
+
+75527369281, 84127131361, 96578912521, 116087568961, 278585544601, .... (this is A207041 at the OEIS)
+
+The first ones of S3 are : 20891229960601, 130336910332993, 1858266723268501, 2094319836529921, 3452661598186801, 3963695148774361, 4137856167537001, 5665575729414601, 34047477574249321, 39877189446732001, 60524817082337881, ...
+
+(I submitted the first one at PrimeCurios! but it still awaits for approval).
+
+And here are the first ones of S4 starts like that : 521649490603448721200401, 2022869722846930429318561, 3349825341543271940706721, 6087026898915845017172401, 19677515205436601941185121, 25429332308691672225431281, 39431226379497756087285001, ...
+
+(I know many elements of S5 but off the first one, say a, I only know :
+
+g1 < a < g2
+
+with g1 = 2642016264494523233035163069625 (31 digits)
+
+g2 = 187368552845933395494213660170881 (33 digits)).
+
+There are elements in S2 that are not in S3 (509033161 of course)
+
+There are elements in S3 that are not in S2 (1858266723268501)
+
+There are elements in S3 that are also in S2 (20891229960601)
+
+There are elements in S4 that are in S3 and S2 (19677515205436601941185121)
+
+There are elements in S4 that are in S3 but not in S2 ( 521649490603448721200401)
+
+There are elements in S4 that are in S2 but not in S3 ( 3349825341543271940706721)
+
+There are elements in S4 that are not in S2 and not in S3 (6087026898915845017172401)
+
+All of this indicates that the question of finding all decompositions will become more and more complicated ...
+
+Q2, these are the results (I omitted the header) :
+
+3 1000 0 0 1000
+
+4 2102 0 103 1999
+
+5 3156 0 265 2891
+
+6 1714 5 253 1456
+
+7 262 10 90 162
+
+8 7 0 6 1
+
+t 8241 15 717 7509
+
+I made a more extensive table for all Carmichael numbers < 10^8 :
+
+3 35586 0 0 35586
+
+4 40685 0 1361 39324
+
+5 178063 0 4371 173692
+
+6 414660 79 13622 400959
+
+7 460553 373 29456 430724
+
+8 223997 735 35983 187279
+
+9 44993 640 17339 27014
+
+10 3058 175 2109 774
+
+11 49 8 39 2
+
+tt 1401644 2010 104280 1295354
+
+A little bit surprising is the fact that about 92% of the Carmichael numbers are PC (and that % seems to grow slightly. Does it becomes 100 ?).
+
+Q3 : my 'champion' for multiple representations is : 767120409871716014168927041 :
+
+767120409871716014168927041 = 488881*552721*3057601*928482241
+
+= 488881*3057601*10402561*49333201
+
+= 488881*552721*2838928228563841
+
+= 488881*10402561*150841244710801
+
+= 488881*49333201*31806880916161
+
+= 488881*140241361*11188819320001
+
+= 488881*928482241*1690000282321
+
+= 488881*12517265041*125357675521
+
+= 552721*12517265041*110878699681
+
+= 49333201*140241361*110878699681
+
+= 10402561*73743418555461103681
+
+= 110878699681*6918555250726561
+
+= 1041928957441*736250206305601
+
+= 2825226381601*271525289041441
+
+= 17193076256161*44617984498081
+
+(15 representations).
+
+***
+
+Hakan reported
+
+For Q2 exactly the same table that reported above Emmanuel.
+
+Q3: Smallest Carmichael Number For W=3:
+
+65121765643441 = 13 * 17 * 37 * 41 * 61 * 73 * 181 * 241 =
+
+115921 * 561777121 = 488881 * 133205761 = 5310721 * 12262321
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

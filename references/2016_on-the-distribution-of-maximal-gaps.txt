@@ -1,0 +1,816 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://arxiv.org/pdf/1610.03340. These files are used for reasoning.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://arxiv.org/pdf/1610.03340
+Retrieved: 2026-10-30
+
+--- page 1 ---
+arXiv:1610.03340v6  [math.NT]  30 Jul 2018
+On the Distribution of Maximal Gaps
+Between Primes in Residue Classes
+Alexei Kourbatov
+www.JavaScripter.net/math
+akourbatov@gmail.com
+Abstract
+Let q > r ≥ 1 be coprime positive integers. We empirically study the max imal gaps
+Gq,r (x) between primes p = qn + r ≤ x, n ∈ N. Extensive computations suggest that
+almost always Gq,r (x) < ϕ(q) log2 x. More precisely, the vast majority of maximal gaps
+are near a trend curve T predicted using a generalization of Wolf’s conjecture:
+Gq,r (x) ∼ T (q, x) = ϕ(q)xli x (2 log li xϕ(q) − log x + b),
+where b = b(q, x) = Oq(1). The distribution of properly rescaled maximal gaps Gq,r(x)
+is close to the Gumbel extreme value distribution. However, the question whether there
+exists a limiting distribution of Gq,r (x) is open. We discuss possible generalizations of
+Cram´ er’s, Shanks, and Firoozbakht’s conjectures to prime s in residue classes.
+Keywords: Cram´ er conjecture, Firoozbakht conjecture, Gumbel distribution, prime gap,
+residue class, Shanks conjecture, Wolf conjecture.
+1
+
+--- page 2 ---
+1 Introduction
+Let q and r be positive integers such that 1 ≤ r < q and gcd( q, r) = 1. A residue class
+is a set of integers that leave the same remainder r when divided by a given modulus q.
+Dirichlet proved in 1837 that for natural n the integer qn + r is prime inﬁnitely often;
+this is Dirichlet’s theorem on arithmetic progressions. The prime numb er theorem tells
+us that the total number of primes ≤ x is asymptotic to the logarithmic integral of x,
+i.e., π(x) ∼ li x. Moreover, the generalized Riemann hypothesis implies that primes a re
+distributed approximately equally among the ϕ(q) residue classes modulo q corresponding
+to speciﬁc values of r. Thus each residue class contains a positive proportion, about 1ϕ(q) ,
+of all primes below x. Accordingly, the average prime gap below x is about x/ li x ∼ log x,
+while the average gap between primes p = qn + r ≤ x is about ϕ(q)x/ li x ∼ ϕ(q) log x.
+In this paper we empirically study the growth and distribution of the v alues of the
+function Gq,r(x), the record (maximal) gap between primes of the form qn + r below x, for
+x < 1012. The special case G2,1(x), i.e. the maximal gaps between primes below x, has been
+studied by many authors; see e. g. [1, 3, 4, 5, 18, 19, 23, 27, 28]. C omputational experiments
+investigating the actual distribution of (properly rescaled) values Gq,r(x) are of interest, in
+part, because in Cram´ er’sprobabilistic model of primes [4] there exists a limiting distribution
+of maximal prime gaps [11], namely, the Gumbel extreme value distribu tion.
+The fact that values of certain arithmetic functions have limiting dist ributions is among
+the most beautiful results in number theory. A well-known example is the limiting distri-
+bution of ω(n), the number of distinct prime factors of n. The Erd˝ os-Kac theoremstates
+that, roughly speaking, the values of ω(n) for n ≤ x follow the normal distribution with
+the mean log log x and standard deviation √log log x, as x → ∞ . Note that it is virtually
+impossible to observe the Erd˝ os-Kac normal curve for ω(n) in a computational experiment
+because such an experiment would involve factoring a lot of gigantic v alues of n. By contrast,
+computations described in Section 3 and Appendix are quite manageable and do allow one to
+draw maximal gap histograms, which turn out to closely ﬁt the Gumbe l distribution. These
+results, together with [11], support the hypothesis that there is a limiting distribution of
+(properly rescaled) values of Gq,r(x). However, a formal proof or disproof of existence of a
+Gumbel limit law for maximal gaps between primes in residue classes see ms beyond reach.
+2
+
+--- page 3 ---
+2 Notation and abbreviations
+pk the k-th prime; {pk} = {2, 3, 5, 7, 11, . . .}
+π(x) the prime counting function: the total number of primes pk ≤ x
+πq,r(x) the prime counting function in residue class r modulo q:
+the total number of primes p = qn + r ≤ x, n ∈ N0
+gcd(q, r) the greatest common divisor of q and r
+ϕ(n) Euler’s ϕ function: the number of positive m ≤ n with gcd( m, n) = 1
+G(x) the record (maximal) gap between primes ≤ x
+Gq,r(x) the record (maximal) gap between primes p = qn + r ≤ x
+a = a(q, x) the expected average gap between primes p = qn + r ≤ x;
+deﬁned as a = ϕ(q)x/ li x
+b = b(q, x) the correction term in equation (1)
+N(x) the total number of maximal prime gaps G with endpoints p ≤ x
+Nq,r(x) the total number of maximal gaps Gq,r with endpoints p ≤ x
+i.i.d. independent and identically distributed
+cdf cumulative distribution function
+pdf probability density function
+EVT extreme value theory
+GRH generalized Riemann hypothesis
+Exp(x; α) the exponential distribution cdf: Exp( x; α) = 1 − e−x/α
+Gumbel(x; α, µ) the Gumbel distribution cdf: Gumbel( x; α, µ) = e−e
+− x−µα
+α the scale parameter of exponential/Gumbel distributions, as applicable
+µ the location parameter (mode) of the Gumbel distribution
+γ the Euler-Mascheroni constant: γ = 0.57721 . . .
+Π2 the twin prime constant: Π 2 = 0.66016 . . .
+log x the natural logarithm of x
+li x the logarithmic integral of x: li x =
+∫ x
+0
+dt
+log t =
+∫ x
+2
+dt
+log t + 1.04516 . . .
+ζ(s) the Riemann ζ-function: ζ(s) =
+∞∑
+k=1
+1
+ks
+3
+
+--- page 4 ---
+3 Numerical results
+Using the PARI/GP program maxgap.gp (see Appendix) we have computed the maximal
+gaps Gq,r(x) for x < 1012, with many values of q ∈ [4, 105]. We used all admissible values of
+r ∈ [1, q − 1], gcd( q, r) = 1, to assemble a complete data set of maximal gaps for a given q.
+This section summarizes our numerical results.
+Table 1. Example: record gaps between primes p = 1000n + 1
+Start of gap End of gap ( p) Gap Gq,r(p) Rescaled gap w, eq. (5)
+3001 4001 1000 −1.2053923292
+4001 7001 3000 −0.7312116351
+9001 13001 4000 −0.7329842896
+28001 51001 23000 3 .3272985119
+294001 318001 24000 1 .4713160904
+607001 633001 26000 1 .1176630346
+4105001 4132001 27000 −0.7751904271
+5316001 5352001 36000 0 .5041782491
+14383001 14424001 41000 0 .1458184959
+26119001 26163001 44000 −0.1041704135
+46291001 46336001 45000 −0.6486127233
+70963001 71011001 48000 −0.7238822913
+95466001 95515001 49000 −0.9421573040
+114949001 115003001 54000 −0.4549472918
+229690001 229752001 62000 −0.2205245619
+242577001 242655001 78000 1 .9009667495
+821872001 821958001 86000 1 .2346880297
+3242455001 3242545001 90000 −0.1834023117
+7270461001 7270567001 106000 0 .5642767037
+11281191001 11281302001 111000 0 .5051584212
+32970586001 32970700001 114000 −0.6900065927
+50299917001 50300032001 115000 −1.1757092375
+63937221001 63937353001 132000 0 .2732357356
+92751774001 92751909001 135000 0 .0415120508
+286086588001 286086729001 141000 −0.9866954146
+334219620001 334219767001 147000 −0.6218345554
+554981875001 554982043001 168000 0 .6629883248
+1322542861001 1322543032001 171000 −0.3590754946
+2599523890001 2599524073001 183000 −0.2691207470
+4651789531001 4651789729001 198000 0 .1945079654
+7874438322001 7874438536001 214000 0 .7901492021
+8761032430001 8761032657001 227000 1 .7539727990
+4
+
+--- page 5 ---
+3.1 The growth trend of maximal gaps Gq,r(x)
+Let us begin with a simple example. For q = 1000, r = 1, running the program maxgap.gp
+produces the results shown in Table 1. It is easy to check that all ga ps Gq,r(p) in the table
+satisfy the inequality Gq,r(p) < ϕ (q) log2 p, suggesting several possible generalizations of
+Cram´ er’s conjecture(see sect. 5.2).
+Figure 1 shows all gaps Gq,r(p) for q = 1000, ∀r ∈ [1, q − 1], gcd( q, r) = 1, p < 1012.
+The horizontal axis log 2 p reﬂects the actual end-of-gap prime p = qn + r of each maximal
+gap. The results for other values of q closely resemble Fig. 1. We once again observe that
+Gq,r(p) < ϕ(q) log2 p. (For rare examples with Gq,r(p) > ϕ(q) log2 p, see Appendix 7.4.)
+Figure 1: Record gaps Gq,r(p) between primes p = qn + r < 1012 in residue classes mod q,
+with q = 1000, ϕ(q) = 400, gcd( q, r) = 1. Plotted (bottom to top): average gaps a = ϕ(q)·pli p
+between primes ≤ p in residue classes mod q (solid curve); trend curve T of eq. (1) (white
+dotted curve); the conjectural (a.s.) upper bound for Gq,r(p): y = ϕ(q) log2 p (dashed line).
+The vast majority of record gaps Gq,r(x) are near a smooth trend curve T :
+Gq,r(x) ∼ T (q, x) = a ·
+(
+2 log li xϕ(q) − log x + b) , cf. [29], (1)
+where a is the expected average gap between primes in a residue class mod q, deﬁned as
+a = a(q, x) = ϕ(q) xli x, (2)
+5
+
+--- page 6 ---
+and b = b(q, x) = Oq(1) is a correction term. Clearly, for q = const and x → ∞ we have
+T (q, x) ≲ ϕ(q) log2 x and a(q, x) ≲ ϕ(q) log x.
+The trend equation (1) is derived from a new generalization [29] of Wo lf’s conjecture
+on maximal prime gaps [26, Conjecture 3]; see also [27, eq. (31)] and [28, eq. (15)]. Wolf’s
+heuristic implies that in eq. (1) the term b tends to a constant for large x. Indeed, empirically
+we ﬁnd
+b = b(q, x) ≈
+(
+b0 + b1(log log x)d
+)
+log ϕ(q), (3)
+where the parameter values
+b0 = 1, b 1 = 4, d = 2.7 (4)
+are close to optimal for q ∈ [102, 105] and x ∈ [106, 1012]. (Sometimes the parameter values
+may need a little adjustment, especially when ϕ(q) is small; usually it is enough to adjust b1
+and/or d while keeping b0 = 1.) We stress that eqs. (3), (4) are purely empirical.
+3.2 The distribution of maximal gaps
+We have thus found that the maximal gaps between primes in each re sidue class are mainly
+observed within a strip of increasing width O(a) around the trend curve T (q, x) of eq. (1),
+where a = a(q, x) is the expected average gap between primes in the respective res idue class.
+Now let us take a closer look at the distribution of maximal gaps in the n eighborhood of this
+trend curve. We perform a rescaling transformation: subtract t he trend T (q, x) from actual
+gap sizes, and then divide the result by the “natural unit” a. All record gaps Gq,r(p) are
+mapped to rescaled values w:
+Gq,r(x) ↦→ w = Gq,r(x) − T (q, x)a(q, x) , where a(q, x) = ϕ(q)xli x . (5)
+Figure 2 shows the histograms of rescaled maximal gaps for q = 10007. (Histograms
+for other q look similar to Fig. 2.) We can see at once that the histograms and ﬁttin g
+distributions are skewed: the right tail is longer and heavier. This sk ewness is a well-known
+feature of extreme value distributions. Among all two-parameter distributions supplied by
+the distribution ﬁtting software [17], the best ﬁt is the Gumbel distribution . This opens up
+the question whether the Gumbel distribution is the limit law for prope rly rescaled sequences
+of the Gq,r(x) values as x → ∞; cf. [10, 11]. Does such a limiting distribution exist at all?
+If we look at three-parameter distributions, then one of the best ﬁts is the Generalized
+Extreme Value (GEV) distribution, which includes the Gumbel distribution as a specia l case.
+The shape parameter in the best-ﬁt GEV distributions is very close to zero; note that the
+Gumbel distribution is a GEV distribution whose shape parameter is ex actly zero. Thus,
+convergence to the Gumbel limit law appears feasible for properly re scaled inﬁnite sequences
+6
+
+--- page 7 ---
+Figure 2: Histograms of rescaled maximal gaps w and ﬁtted Gumbel distributions (pdf) for
+8-, 9-, 10-, 11-, and 12-digit primes p = qn + r, with q = 10007, r ∈ [1, 10006].
+7
+
+--- page 8 ---
+Gq,r(p) as p → ∞. Clearly, a more precise knowledge of the trend function T (q, x) in (1) is
+crucial for proper rescaling.
+For best-ﬁt Gumbel distributions computed for 10 k < p < 10k+1, 7 ≤ k ≤ 11, with
+various values of q < 105, the Kolmogorov–Smirnov goodness-of-ﬁt statistic slowly improve s
+from about 0.1 (when ϕ(q) ≈ 30) to about 0.03 (when ϕ(q) ≈ 300), to about 0.01 (when
+ϕ(q) ≈ 3000), to about 0.003 (when ϕ(q) ≈ 30000).
+There are notable diﬀerences between our situation shown in Fig. 2 a nd the distributions
+of maximal gaps between prime k-tuples shown in [9, Fig. 4] — even though in either case
+the Gumbel distribution is a good ﬁt, with the vast majority of recor d gaps occurring within
+±2a of the respective trend curve.
+• In our case (Figs. 1 and 2), there is plenty of data: many thousand s of data points are
+available. On the other hand, data on maximal gaps between prime k-tuples are scarce;
+at present we have fewer than 100 data points for any given type o f prime k-tuple [9].
+• In case of gaps between prime k-tuples, k ≥ 2, maximal gap sizes are usually not too far
+from a log(x/a), where a denotes the expected average gap between k-tuples of a partic-
+ular type. Thus a trend equation based on extreme value theory pr oduces satisfactory
+results for maximal gaps between k-tuples; see [9, sect. 4-5]. (In the randomgap.gp
+control experiments, EVT also works well; see sect. 3.3.) By contra st, for maximal
+gaps Gq,r(p), eq. (1) appears to be a better ﬁt to the observed trend. 1
+As noted by Brent [2], primes seem to be less random than twin primes. We can add that,
+likewise, record gaps between primes in a residue class seem to be som ewhat less random
+than those for prime k-tuples. Our analysis also shows that primes p = qn +r do not go quite
+as far from each other as in the randomgap.gp model; see section 3.3. Pintz [20] discusses
+various other aspects of the “random” and not-so-random beha vior of primes.
+3.3 Control experiments: records among random gaps
+For comparison, we performed a series of computational experime nts studying the records
+in a growing sequence of integers p separated by random gaps ⌈ξ⌉, where ξ is an exponen-
+tially distributed random variable with mean ϕ(q) log p. In these experiments we used the
+PARI/GP program randomgap.gp (see Appendix).
+Trend equation for record random gaps. We observed that sizes of maximal random
+gaps below x mostly follow this trend:
+maximal random gap size g ∼ Trand(q, x) = ϕ(q)xli x · log li xϕ(q) . (6)
+1 If, instead of using Wolf’s conjecture-based equation (1), we wer e to model the trend of Gq,r(p) with
+an EVT-based equation akin to (6): Gq,r(x) ∼ a · (log li xϕ(q) + β), then our trend equation would need an
+unbounded correction term β = O(log log x); see also section 4.2.
+8
+
+--- page 9 ---
+We can heuristically derive equation (6) as follows. Extreme value theory predicts that, for
+N consecutive events occurring at i.i.d. random intervals with cdf Exp( ξ; α) = 1 − e−ξ/α (i. e.
+at average intervals α), the most probable maximal interval between events is about α log N,
+while the width of extreme value distribution is O(α); see [8]. As N → ∞, EVT predicts that
+the distribution of maximal intervals approaches the Gumbel distrib ution Gumbel( x; α, µ)
+with scale α and mode µ = α log N. To derive eq. (6) we simply take the estimate α log N
+with N ≈ li x/ϕ(q) and α ≈ a(q, x) ≈ x/N ≈ ϕ(q)x/ li x. For q = 2, expression (6) reduces
+to approximately log( x) log(x/ log x); cf. Cadwell [3, p. 912].
+Rescaling transformation. The observed trend curve (6) for random gaps diﬀers from
+T (q, x) of eq. (1). Accordingly, instead of eq. (5), for maximal random g aps g we have to use
+a diﬀerent rescaling transformation:
+g ↦→ h =
+g − a log li xϕ(q)
+a , (7)
+where a = a(q, x) = ϕ(q)xli x . Figure 3 shows a histogram of the rescaled values h obtained for
+q = 10007. The histogram closely approximates the Gumbel distributio n.
+Figure 3: Histogram of rescaled values h for records among exponentially distributed random
+gaps obtained in a computational experiment with randomgap.gp; q = 10007. The smooth
+curve is the Gumbel distribution (pdf) with scale α = 1.0477 and mode µ = 0.12903.
+Mode parameter µ. It was observed that the mode parameter µ of the best-ﬁt Gumbel
+distribution for the rescaled values h was close to 0; in most computational experiments we
+obtained |µ| < 0.3. This means that the most probable values of record random gaps g are
+a log li xϕ(q) + O(a) (before rescaling).
+Scale parameter α. In the best-ﬁt Gumbel distributions for the rescaled values h, the
+scale parameter α was close to 1; in most experiments with random gaps we obtained α
+ﬂuctuating in the range 0 .9 < α < 1.1; see Figure 3. On the other hand, our experiments
+of section 3.2 produced best-ﬁt Gumbel distributions for w (the rescaled values of Gq,r(x))
+whose scale parameter α seemed to slowly approach 1 from below and was mostly in the
+range 0 .7 < α < 1; see Figure 2.
+9
+
+--- page 10 ---
+3.4 How many record gaps are there?
+Let N(x) be the number of maximal gaps observed between primes ≤ x. Numerical data on
+the known maximal prime gaps allow us to make a conjecture: below th e k-th prime, there
+are about 2 log k maximal gaps, i.e., about twice as many as the expected number of re cords
+in a sequence of k i.i.d. random variables [24, A005250, A005669]. Taking into account th at
+π(x) ∼ li x, we can write the above conjecture as
+N(x) ∼ 2 log li x. (8)
+Can we generalize this formula to maximal gaps between primes in resid ue class r mod q?
+Denote by Nq,r(x) the total number of record gaps Gq,r with endpoints below x. Given
+a coprime pair ( q, r), we observe that usually the interval [ x, ex] contains an endpoint of at
+least one record gap Gq,r(p). (Of course, some intervals [ x, ex] contain no record gaps Gq,r(p)
+for a given pair ( q, r). For example, for q = 1000 and r = 1, the interval [10 5, 105e] does not
+contain endpoints of any record gaps G1000,1; see Table 1.)
+Figure 4: The average numbers of record gaps Gq,r(p) with end-of-gap primes p ∈ [ek, ek+1]
+computed for q = 20011, k ≤ 27. Averaging was performed for all r ∈ [1, 20010].
+A closer examination reveals that the average number of records in the interval [ x, ex]
+slowly grows as x → ∞ . To quantify this phenomenon, we used a modiﬁed version of the
+program maxgap.gp to compute average numbers of record gaps with endpoints p ∈ [ek, ek+1]
+for many diﬀerent q. With each q, the averaging was performed for all r ∈ [1, q − 1],
+gcd(q, r) = 1. Figure 4 gives the results of this computation for q = 20011.
+10
+
+--- page 11 ---
+Analysis of computation results shows that the average number of records in the interval
+[x, ex] is satisfactorily approximated by this rational function of log x (hyperbola in Fig. 4):
+mean
+r
+(
+Nq,r(ex) − Nq,r(x)
+)
+≈ 2 − κ(q)log x − δ(q). (9)
+The leading term 2 in this approximation is heuristically justiﬁed [14, sec t. 2.3]. But if we
+want to construct an empirical (almost sure) upper bound for the number of records in the
+interval [x, ex], we can simply use a function of the form (log log x)λ with some λ > 0. We
+will take advantage of this observation in the next section; see con jectures 4.1.1 and 4.1.2
+on the number of record gaps. If, in addition, we can assume the ex istence of the limiting
+distribution of Gq,r(x), this will allow us to predict how often Gq,r(x) > ϕ (q) log2 x; see
+section 4.3.
+4 New conjectures
+4.1 Conjectures on the number of record (maximal) gaps
+It is well known that in a sequence of n i.i.d. random variables with a continuous pdf the
+expected number of record values grows asymptotically as fast as log n; see e.g. [16]. Indeed,
+• the 1st term in an i.i.d. random sequence is guaranteed to be a record ,
+• the 2nd term is a record with probability 12, . . .
+• the kth term is a record with probability 1k (by symmetry).
+Thus the expected total number of records in an i.i.d. random seque nce of n elements is
+1 + 12 + 13 + . . . + 1n =
+n∑
+k=1
+1
+k ∼ log n + γ.
+As before, let Nq,r(x) be the total number of record (maximal) gaps observed below x
+in the sequence Gq,r. Although the gaps between primes of the form p = qn + r are not
+random variables , computations show that the total numbers of records Nq,r(x) behave
+somewhat like those for i.i.d. random variables. Based on computation al results we make
+the following conjectures.
+4.1.1 Conjectures on the total number of records Nq,r(x)
+Weak conjecture. For any q > r ≥ 1 with gcd( q, r) = 1, there exists λ > 0 such that
+Nq,r(x) < log x(log log x)λ almost always.
+11
+
+--- page 12 ---
+Strong conjecture. For any q > r ≥ 1 with gcd( q, r) = 1, there exists C > 2 such that
+Nq,r(x) < C log x.
+Remark. Here is a straightforward generalization of (8) for “guesstimating ” Nq,r(x):
+Nq,r(x) ≈ max
+(
+0, 2 log li xϕ(q) ) . (10)
+Computations show that formula (10) usually overestimates Nq,r(x). At the same time, the
+right-hand side of (10) is less than 2 log x. Note that a heuristic argument [14, sect. 2.3]
+suggests that if the limit lim
+x→∞
+Nq,r(x)/ log x exists, then the limit is 2.
+4.1.2 Conjecture on the number of records between x and ex
+For any q > r ≥ 1 with gcd( q, r) = 1, there exists λ > 0 such that
+Nq,r(ex) − Nq,r(x) < (log log x)λ almost always.
+Remark. We can also reformulate these conjectures using “for all x large enough” instead
+of “almost always” . However, both forms, “almost always” and “for x large enough” , are
+exceedingly diﬃcult to prove or disprove.
+4.2 Conjecture on Gq,r(x) trend. Wolf ’s conjecture
+Our extensive computations suggest the following interesting conj ecture describing the size
+of maximal gaps between primes in residue classes.
+Conjecture on the trend of Gq,r(x). For any q > r ≥ 1 with gcd( q, r) = 1, there exist
+real numbers c0 = c0(q) and c1 = c1(q) such that
+Gq,r(x) ∼ Tc(q, x) = ϕ(q)xli x ( log li xϕ(q) − c1 log log x + c0) as x → ∞, (11)
+and the diﬀerence Gq,r(x) − Tc(q, x) changes its sign inﬁnitely often.
+Remarks.
+(i) The trend (6) of record random gaps is a special case of (11), with c1 = 0.
+(ii) The trend equation (1) can also be regarded as a special case of (11), with c1 = 1, up to
+a correction term O(a).
+Wolf ’s conjecture on maximal gaps between primes (q = 2). Wolf [26, 27, 28] gives
+the following approximation for G(x), the maximal prime gap below x, in terms of the prime
+counting function π(x):
+G(x) ∼ g(x) = xπ(x) (2 log π(x) − log x + c) [27, p. 11] . (12)
+12
+
+--- page 13 ---
+Wolf’s reasoning also implies that the diﬀerence G(x) − g(x) changes its sign inﬁnitely often.
+Conjectures (11) and (12) are related. Taking c1 = 1, using the fact that ϕ(2) = 1 and
+applying the approximations
+x
+π(x) ≈ xli x ≈ log x − 1, log π(x) ≈ log li x ≈ log x − log log x,
+for q = 2 we can rewrite both (11) and (12) in this common form:
+G2,1(x) ∼ log2 x − 2 log x log log x + O(log x) as x → ∞. (13)
+So, for q = 2 and c1 = 1, the maximal prime gap predictions (11) and (12) agree up to
+O(log x). It is curious that the logarithm of twice the twin prime constant log(2Π 2) appears
+in c of (12) [27, eq. 31] — while it is not immediately clear whether Π 2 might explicitly
+appear in eqs. (1), (11). Note, however, that there might be mult iple meaningful choices of
+c0; e. g., three diﬀerent choices of c0 would map gaps near the corresponding trend Tc to the
+mode, mean, or median of the rescaled gaps w.
+4.3 Consequences of the new conjectures
+Let us assume for a moment that conjectures of sections 4.1 and 4 .2 are true. Assume further
+that for large x the maximal gaps Gq,r(x), after rescaling, obey the Gumbel distribution with
+scale parameter α ≲ 1 and mode µ ≈ 0. What consequences do these conjectures entail?
+Table 2. The c1 value in (11) allows to predict how often Gq,r(x) > ϕ(q) log2 x
+c1 Gq,r(x) < ϕ(q) log2 x G q,r(x) > ϕ(q) log2 x
+c1 < −1 almost never almost always
+c1 = −1 a positive proportion of max. gaps a positive proportion of max. ga ps
+−1 < c 1 ≤ 0 almost always almost never but inﬁnitely often
+c1 > 0 almost always at most ﬁnitely often
+Asymptotic analysis (see below) shows that under these assumptio ns the c1 value in (11)
+allows us to heuristically predict how often Gq,r(x) > ϕ(q) log2 x. Table 2 lists four particular
+cases distinguished by the c1 value.
+The observed trend equation (1) suggests that c1 = 1. If our conjectures remain valid for
+arbitrarily large x and if there is a limiting Gumbel distribution of record gaps, this further
+suggests that there are at most ﬁnitely many violations of the “naive” Cram´ er conjecture
+(G2,1(x) < log2 x) and Firoozbakht’s conjecture (sect. 5.4). Likewise, for any give n q > r ≥ 1,
+we can expect at most ﬁnitely many violations of the generalized Cram ´ er conjecture D in
+residue classes; see section 5.2 for further discussion.
+13
+
+--- page 14 ---
+Asymptotic analysis. Let us analyze the most interesting case c1 > −1. Suppose that p is
+the endpoint of a record gap Gq,r(p), and p is very large. Under the rescaling transformation
+Gq,r(x) ↦→ w = Gq,r(x) − Tc(q, x)a(q, x)
+we see from eq. (11) that
+• Gq,r(p) ≈ Tc(q, p) is mapped to w ≈ 0;
+• Gq,r(p) ≈ ϕ(q) log2 p is mapped to w ≈ (1 + c1) log log p.
+The standard Gumbel distribution cdf at (1 + c1) log log p is
+exp(− exp(−(1 + c1) log log p)) = exp( −1/ log1+c1 p) ≈ 1 − 1/ log1+c1 p.
+So for record gaps near p we have
+• Gq,r(p) < ϕ(q) log2 p with probability ≈ 1 − 1/ log1+c1 p;
+• Gq,r(p) > ϕ(q) log2 p with probability ≈ 1/ log1+c1 p.
+If there was exactly one record gap with endpoint p ∈ [ek, ek+1], then the total number of
+“exceptionally large” record gaps of size > ϕ(q) log2 p would be estimated as the series
+∞∑
+k=1
+1
+log1+c1 ek =
+∞∑
+k=1
+1
+k1+c1 . (14)
+However, by conjecture 4.1.2 the actual number of record gaps w ith p ∈ [ek, ek+1] may be
+more than one but is below (log log p)λ for some λ > 0. Therefore we can predict that
+(the total number of records exceeding ϕ(q) log2 p) <
+∞∑
+k=1
+(log log ek)λ
+log1+c1 ek =
+∞∑
+k=1
+logλ k
+k1+c1
+. (15)
+Both series (14), (15) diverge for c1 ≤ 0; both series converge for c1 > 0. In particular, if λ
+is a positive integer and c1 > 0, we have
+∞∑
+k=1
+logλ k
+k1+c1
+= |ζ (λ)(1 + c1)|,
+where ζ (λ) is the λth derivative of the Riemann ζ-function. In view of the Borel-Cantelli
+lemma, for c1 > 0 the convergence of series (14), (15) suggests that the numbe r of gaps
+exceeding ϕ(q) log2 p is at most ﬁnite for any given coprime pair ( q, r).
+Remark. In Cram´ er’s probabilistic model of primes [4, 11, 24, OEIS A235402 ] we have a
+situation corresponding to c1 = 0; so in Cram´ er’s model we should expect that G(p) > log2 p
+almost never but still inﬁnitely often.
+14
+
+--- page 15 ---
+5 Generalizations of some familiar conjectures
+corroborated by experimental data
+In this section we discuss several generalizations of familiar conjec tures that are related to
+(and in some cases suggested by) the numerical results of Section 3. This discussion places
+our computational experiments in a broader context. Some of the conjectures (sect. 5.2)
+have been proposed by the author earlier on the PrimePuzzles.net website [22]. We always
+assume that q > r ≥ 1 and gcd( q, r) = 1.
+5.1 Generalized Riemann hypothesis
+The Riemann hypothesis is a statement about non-trivial zeros of t he Riemann ζ-function.
+An “elementary” reformulation of the RH is the prime number theorem with an O(x1/2+ε)
+error term. It states that π(x), the total number of primes ≤ x, satisﬁes
+π(x) = li x + O(x1/2+ε) for any ε > 0, as x → ∞.
+The generalized Riemann hypothesis is a similar statement concerning non-trivial zeros of
+Dirichlet’s L-functions. An “elementary” reformulation of the GRH says that πq,r(x), the
+total number of primes p = qn + r ≤ x, n ∈ N0, satisﬁes
+πq,r(x) = li xϕ(q) + Oq(x1/2+ε) for any ε > 0, as x → ∞.
+Roughly speaking, the GRH means that for large x the numbers πq,r(x) and ⌊li x/ϕ(q)⌋
+almost agree in the left half of their digits. Thus the GRH justiﬁes our assumption that
+average gaps between primes ≤ x in each residue class mod q are nearly the same size,
+ϕ(q)x/ li x. Consequently, it is reasonable to expect that maximal gaps in each residue class
+have about the same growth trend and obey approximately the sam e distribution around
+their trend. This is indeed observed in our computational experimen ts.
+(A weaker unconditional result similar to the GRH is the Siegel–Walﬁsz t heorem. Fried-
+lander and Goldston [6] give more results for the distribution of prime s in residue classes.)
+5.2 Generalizations of Cram´ er’s conjecture
+If G(x) is the maximal gap between primes below x, Cram´ er [4] conjectured in the 1930s
+that G(x) = O(log2 x). Clearly G(x) = G2,1(x) for all x ≥ 5. We give four conjectures
+(from most to least plausible), each of which can be considered a gen eralization of Cram´ er’s
+conjecture to maximal gaps Gq,r(p) between primes in a residue class modulo q. Everywhere
+we assume that the maximal gap Gq,r(p) ends at the prime p.
+15
+
+--- page 16 ---
+5.2.1 “Big-O” formulation
+Generalized Cram´ er conjecture A. For any q > r ≥ 1 with gcd( q, r) = 1, we have
+Gq,r(p) = O(ϕ(q) log2 p).
+This weakest generalization of Cram´ er’s conjecture seems quite lik ely to be true.
+5.2.2 “Almost-all” formulation
+Generalized Cram´ er conjecture B. Almost all maximal gaps Gq,r(p) satisfy
+Gq,r(p) < ϕ (q) log2 p for any q > r ≥ 1 with gcd( q, r) = 1 .
+For q = 2 and r = 1, the above two generalizations of Cram´ er’s conjecture are compatible
+with the heuristics of Granville [7]. At the same time, the stronger for mulations in subsections
+5.2.3 and 5.2.4 contradict Granville’s heuristic reasoning which suggest s
+lim sup
+p→∞
+G2,1(p)
+log2 p ≥ 2e−γ = 1.12291 . . . [7, p. 24].
+5.2.3 “Limit superior” formulation
+Generalized Cram´ er conjecture C. For any q > r ≥ 1 with gcd( q, r) = 1, we have
+lim sup
+p→∞
+Gq,r(p)
+ϕ(q) log2 p = 1.
+5.2.4 “Naive” formulation
+Generalized Cram´ er conjecture D. For any q > r ≥ 1 with gcd( q, r) = 1, we have
+Gq,r(p) < ϕ (q) log2 p if p is large enough.
+Here p is the prime at the end of the maximal gap Gq,r(p).
+The latter generalization of Cram´ er’s conjecture seems a little far -fetched. Nevertheless,
+exceptionally large gaps with Gq,r(p) > ϕ(q) log2 p are extremely rare [22]. See Appendix 7.4
+for a list of examples of this kind.
+5.3 Generalizations of Shanks conjecture
+As above, let G(p) be the maximal prime gap ending at the prime p. Shanks [23] conjectured
+that the inﬁnite sequence of maximal prime gaps satisﬁes the asymp totic equivalence
+G(p) ∼ log2 p as p → ∞ [23, p. 648].
+Our numerical experiments suggest the following natural generaliz ations of the Shanks con-
+jecture to describe the behavior of Gq,r(p).
+16
+
+--- page 17 ---
+5.3.1 “Almost-all” formulation
+Generalized Shanks conjecture I. For any q > r ≥ 1 with gcd( q, r) = 1, there exists an
+inﬁnite sequence S that comprises almost all maximal gaps Gq,r(p) such that every gap in S
+satisﬁes the asymptotic equality
+Gq,r(p) ∼ ϕ(q) log2 p as p → ∞.
+For q = 2 and r = 1, this formulation is compatible with heuristics of Granville [7] implying
+that there should exist an exceptional inﬁnite subsequence of G2,1(p) satisfying
+G2,1(p) ∼ M log2 p for some M ≥ 2e−γ > 1.
+Indeed, our “almost-all” formulation simply means that any exceptio nal subsequence is very
+thin; that is, a zero proportion of maximal gaps G2,1(p) have exceptionally large sizes pre-
+dicted by Granville.
+5.3.2 Strong formulation
+Generalized Shanks conjecture II. All maximal gaps Gq,r(p) satisfy
+Gq,r(p) ∼ ϕ(q) log2 p as p → ∞.
+This strong formulation contradicts Granville’s heuristics cited abov e.
+5.4 Generalizations of Firoozbakht’s conjecture
+Firoozbakht [21] conjectured that ( p1/kk )k∈N is a decreasing sequence. Equivalently,
+pk+1 < p 1+1/kk for all k ≥ 1. (16)
+The conjecture has been veriﬁed for all pk < 1019 [12, 15]. An independent veriﬁcation was
+also performed by Wolf (unpublished); see [25]. Firoozbakht’s conje cture implies
+pk+1 − pk < log2 pk − log pk − 1 for all k > 9 [13, Th. 1] . (17)
+5.4.1 The Sun–Firoozbakht conjecture for primes in residue classes
+Z.-W. Sun [25, Conjecture 2.3] generalized Firoozbakht’s conjectu re (16) as follows:
+Let q > r ≥ 1 be positive integers with r odd, q even and gcd( r, q) = 1. Denote by pn(r, q)
+the n-th prime in the progression r, r + q, r + 2q . . . Then there exists n0(r, q) such that the
+sequence ( pn(r, q)1/n)n≥n0(r,q) is strictly decreasing. In particular, one can take n0(r, q) = 2
+for q ≤ 45.
+17
+
+--- page 18 ---
+Remark. If the latter conjecture is true, n0(r, q) may be quite large. For example, with
+q = 486 and r = 127 we must have n0(r, q) > 282866 because
+8977830671/282866 < 8978496491/282867
+(897783067 and 897849649 are the 282866th and 282867th prime s p ≡ 127 mod 486).
+Assuming the GRH and reasoning along the lines of [13], we can prove th at the Sun-
+Firoozbakht conjecture implies
+pn+1(r, q) − pn(r, q)
+ϕ(q) < log2 pn(r, q) − log pn(r, q) − 1 for all n large enough . (18)
+This in turn implies the generalized Cram´ er conjectures 5.2.1, 5.2.2, a nd 5.2.4, as well as a
+modiﬁed form of 5.2.3 with lim sup
+p→∞
+Gq,r(p)/(ϕ(q) log2 p) ≤ 1.
+5.4.2 “Almost all” form of the Sun–Firoozbakht conjecture
+The Sun–Firoozbakht conjecture of sect. 5.4.1 might be excessive ly strong. A weaker, more
+plausible statement is the “almost all” formulation below.
+For any coprime q > r ≥ 1, the endpoints pn(r, q), pn+1(r, q) of almost all record gaps
+Gq,r(x) satisfy inequality (18).
+Here, again, pn(r, q) denotes the n-th prime in the arithmetic progression r, r + q, r + 2q . . .
+18
+
+--- page 19 ---
+6 Summary
+The computational experiments described herein took many weeks of computer time. These
+experiments allow us to arrive at the following conclusions:
+• The observed growth trend of record (maximal) gaps Gq,r(x) is given by eqs. (1)–(4).
+In particular, for record prime gaps ( q = 2) the trend equation reduces to
+G2,1(x) ∼ log2 x − 2 log x log log x + O(log x) as x → ∞.
+• The Gumbel distribution, after proper rescaling, is a possible limit law f or Gq,r(p). The
+existence of such a limiting distribution is an open question.
+• Almost all maximal gaps Gq,r(p) between primes in residue classes modulo q appear
+to satisfy the asymptotic relation Gq,r(p) ≲ ϕ(q) log2 p.
+• Exceptions with Gq,r(p) > ϕ(q) log2 p are extremely rare (see Appendix 7.4).
+• In view of the Borel–Cantelli lemma, our observations suggest that the total number of
+such exceptions is ﬁnite for any given coprime pair ( q, r) if there is a limiting Gumbel
+distribution of rescaled gaps Gq,r(p) and if the trend (1) holds for x → ∞. (In Cram´ er’s
+probabilistic model of primes, on the contrary, we expect inﬁnitely m any exceptions
+G(p) > log2 p.)
+• We conjecture that the total number Nq,r(x) of record gaps up to x is almost always
+below log x(log log x)λ for some λ > 0. It is possible that a stronger conjecture is also
+true: Nq,r(x) < C log x for some C > 2.
+Some of our conjectures may well be undecidable. At any rate, suc h statements appear to
+be no easier to prove or disprove than the famous Riemann hypothe sis.
+19
+
+--- page 20 ---
+7 Appendix: Details of computational experiments
+Interested readers can reproduce and extend our results using the programs below.
+7.1 PARI/GP program maxgap.gp (ver. 2.0)
+\\ Usage example: q=1000;for(r=1,q-1,if(gcd(q,r)==1,ma xgap(q,r,1e12)))
+default(realprecision,11)
+\\ li(x) computes the logarithmic integral of x
+li(x) = return(real(-eint1(-log(x))))
+\\ pmin(q,r) computes the least prime p = qn + r, for n=0,1,2,3 ,...
+pmin(q,r) = forstep(p=r,1e99,q, if(isprime(p), return(p )))
+\\ maxgap(q,r,end [,b0,b1,d]) computes maximal gaps g
+\\ between primes p = qn + r, as well as rescaled values (w, u, h) :
+\\ w and u use Wolf’s conjecture (u - without correction term b );
+\\ h uses exteme value theory (cf. randomgap.gp).
+\\ Results are written on screen and in the c:\wgap folder.
+\\ Computation ends when primes exceed the end parameter.
+maxgap(q,r,end,b0=1,b1=4,d=2.7) = {
+re = 0;
+p = pmin(q,r);
+t = eulerphi(q);
+while(p<end,
+m = p + re;
+p = m + q;
+while(!isprime(p), p+=q);
+while(!isprime(m), m-=q);
+g = p - m;
+if(g>re,
+re=g; Lip=li(p); a=t*p/Lip; Logp=log(p);
+h = g/a-log(Lip/t);
+u = g/a-2*log(Lip/t)+Logp;
+w = g/a-2*log(Lip/t)+Logp-log(t)*(b0+b1/max(2,log(Log p))^d);
+f = ceil(Logp/log(10));
+write("c:\\wgap\\"q"_1e"f".txt", w" "u" "h" "g" "m" "p" q= "q" r="r);
+print(w" "u" "h" "g" "m" "p" q="q" r="r);
+if(g/t>log(p)^2, write("c:\\wgap\\"q"_1e"f".txt","ex tra large"));
+)
+)
+}
+20
+
+--- page 21 ---
+7.2 PARI/GP program randomgap.gp
+\\ Usage example: q=1000;for(r=1,q-1,if(gcd(q,r)==1,ra ndomgap(q,r,1e10)))
+default(realprecision,11)
+\\ exprv(m) returns an exponential random variable with mea n m
+exprv(m) = return(-m*log(random(1.0)))
+\\ randomgap(q,r,end) writes to c:\ygap\ a set of files with record gaps
+\\ in a growing sequence of integers p separated by "random" g aps which
+\\ are exponentially distributed with mean m = phi(q)*log(p ).
+\\ The parameter r is included to mimic maxgap(q,r,end).
+randomgap(q,r,end) = {
+re=0; p=max(2,r); t=eulerphi(q);
+while(p<end,
+g=ceil(exprv(t*log(p)));
+s=p;
+p+=g;
+if(g>re,
+re=g;
+Lip=real(-eint1(-log(p))); \\li(p)
+a=t*p/Lip;
+h=g/a-log(Lip/t);
+f=ceil(log(p)/log(10));
+write("c:\\ygap\\rand"q"_1e"f".txt",
+h" "g" "s" "p" q="q" r="r);
+print(h" "g" "s" "p" q="q" r="r);
+)
+)
+}
+7.3 Notes on distribution ﬁtting
+To study the distributions of standardized maximal gaps Gq,r(p) we used the distribution
+ﬁtting software EasyFit [17]. Data ﬁles created with maxgap.gp or randomgap.gp are easily
+imported into EasyFit: from the File menu, choose Open, select the data ﬁle, then specify
+Field Delimiter = space , click Update, then OK.
+Caution: PARI/GP writes real numbers near zero in a mantissa-exponent fo rmat with
+a space preceding the exponent (e.g. 1.7874829515 E-5 ), whereas EasyFit expects such
+numbers without a space (e.g. 1.7874829515E-5). Therefore, before importing into EasyFit,
+search the data ﬁles for " E-" and replace all occurrences with "E-".
+21
+
+--- page 22 ---
+7.4 Exceptionally large gaps: Gq,r(p) > ϕ(q) log2 p
+The following table lists exceptionally large maximal gaps Gq,r(p) > ϕ (q) log2 p. No other
+maximal gaps with this property were found for p < 109, q < 20000. Three sections of the
+table correspond to (i) odd q, r; (ii) even q; (iii) even r. (Overlap between sections is due to
+the fact that ϕ(q) = ϕ(2q) for odd q.) No such large gaps exist for p < 1010, q < 1000.
+Table 3. Exceptionally large maximal gaps: Gq,r (p) > ϕ(q) log2 p
+Gap Gq,r (p) Start of gap End of gap ( p) q r G q,r (p)/(ϕ(q) log2 p)
+(i) 208650 3415781 3624431 1605 341 1.0786589153
+316790 726611 1043401 2005 801 1.0309808771
+229350 1409633 1638983 2085 173 1.0145547849
+532602 355339 887941 4227 271 1.0081862161
+984170 5357381 6341551 4279 73 1.0339720553
+1263426 10176791 11440217 4897 825 1.0056800570
+2306938 82541821 84848759 6907 3171 1.0022590147
+3415794 376981823 380397617 8497 3921 1.0703375544
+2266530 198565889 200832419 8785 7319 1.0335372951
+(ii) 411480 470669167 471080647 3048 55 1.0235488825
+208650 3415781 3624431 3210 341 1.0786589153
+316790 726611 1043401 4010 801 1.0309808771
+229350 1409633 1638983 4170 173 1.0145547849
+657504 896016139 896673643 4566 2563 1.0179389550
+1530912 728869417 730400329 6896 3593 1.0684247390
+532602 355339 887941 8454 271 1.0081862161
+984170 5357381 6341551 8558 73 1.0339720553
+1263426 10176791 11440217 9794 825 1.0056800570
+2119706 665152001 667271707 10046 6341 1.0223668231
+1885228 163504573 165389801 10532 5805 1.0000704209
+1594416 145465687 147060103 13512 9007 1.0026889378
+2306938 82541821 84848759 13814 3171 1.0022590147
+3108778 524646211 527754989 15622 12585 1.0098218219
+1896608 164663 2061271 16934 12257 1.0598397341
+3415794 376981823 380397617 16994 3921 1.0703375544
+2266530 198565889 200832419 17570 7319 1.0335372951
+2937868 71725099 74662967 17698 12803 1.0103309882
+2823288 37906669 40729957 18098 9457 1.0162761199
+2453760 11626561 14080321 18176 12097 1.0107626289
+3906628 190071823 193978451 18692 11567 1.1480589845
+(iii) 657504 896016139 896673643 2283 280 1.0179389550
+2119706 665152001 667271707 5023 1318 1.0223668231
+3108778 524646211 527754989 7811 4774 1.0098218219
+1896608 164663 2061271 8467 3790 1.0598397341
+2937868 71725099 74662967 8849 3954 1.0103309882
+2823288 37906669 40729957 9049 408 1.0162761199
+3422630 735473 4158103 14881 6304 1.0368176014
+3758772 144803717 148562489 15927 11360 1.0000152764
+3002682 8462609 11465291 16869 11240 1.0107025944
+8083028 344107541 352190569 19619 9900 1.1134625422
+22
+
+--- page 23 ---
+8 Acknowledgments
+I am grateful to all contributors and editors of the websites OEIS.org and PrimePuzzles.net.
+Thanks also to Marek Wolf and Zhi-Wei Sun for putting forward many interesting conjectures
+[25]–[29]. I am especially grateful to Prof. Wolf for his very useful co mments via email.
+References
+[1] R. C. Baker, G. Harman, J. Pintz, The diﬀerence between con secutive primes, II. Proceedings
+of the London Mathematical Society. 83 (3) (2001), 532–562.
+[2] R. P. Brent, Twin primes (seem to be) more random than prim es, a talk at The Second Number
+Theory Down Under Conference , Newcastle, NSW, Australia, Oct. 24-25, 2014.
+http://maths-people.anu.edu.au/ ~brent/pd/twin_primes_and_primes.pdf
+[3] J. H. Cadwell, Large intervals between consecutive prim es, Math. Comp. 25 (1971), 909–913.
+[4] H. Cram´ er, On the order of magnitude of the diﬀerence betw een consecutive prime numbers,
+Acta Arith. 2 (1936), 23–46.
+[5] K. Ford, B. Green, S. Konyagin, J. Maynard, T. Tao, Long ga ps between primes, Journal of
+the American Mathematical Society 31 (2018), 65–105. https://doi.org/10.1090/jams/876
+http://arxiv.org/abs/1412.5029
+[6] J. B. Friedlander and D. A. Goldston, Variance of distrib ution of primes in residue classes,
+Quart. J. Math. Oxford 47 (1996), 313–336.
+[7] A. Granville, Harald Cram´ er and the distribution of pri me numbers, Scandinavian Actuarial
+Journal 1 (1995), 12–28.
+[8] E. J. Gumbel, Statistics of Extremes , Columbia University Press, 1958. Dover, 2004.
+[9] A. Kourbatov, Maximal gaps between prime k-tuples: a statistical approach, Journal of Integer
+Sequences 16 (2013), Article 13.5.2. http://arxiv.org/abs/1301.2242
+[10] A. Kourbatov, Is there a limiting distribution of maxim al gaps between primes? Poster pre-
+sentation at DIMACS Conference on Challenges of Identifying Integer Sequences , Oct. 9-10,
+2014. http://www.javascripter.net/math/publications/AKourbatovOEIS50poster.pdf
+[11] A. Kourbatov, The distribution of maximal prime gaps in Cram´ er’s probabilistic model of
+primes, Int. Journal of Statistics and Probability 3 (2) (2014), 18–29. arXiv:1401.6959
+[12] A. Kourbatov, Veriﬁcation of the Firoozbakht conjectu re for primes up to four quintillion,
+Int. Math. Forum 10 (2015), 283–288. http://arxiv.org/abs/1503.01744
+[13] A. Kourbatov, Upper bounds for prime gaps related to Fir oozbakht’s conjecture, Journal of
+Integer Sequences 18 (2015), Article 15.11.2. http://arxiv.org/abs/1506.03042
+23
+
+--- page 24 ---
+[14] A. Kourbatov, On the nth record gap between primes in an arithmetic progression,
+Int. Math. Forum 13 (2018), 65–78. http://arxiv.org/abs/1709.05508
+[15] A. Kourbatov, Checking the Firoozbakht conjecture: sa fe bounds, 2018.
+http://www.javascripter.net/math/primes/firoozbakhtconjecturebounds.htm
+[16] J. Krug, Records in a changing world, J. Stat. Mech.: Theory and Experiment P07001 (2007).
+http://iopscience.iop.org/article/10.1088/1742-5468 /2007/07/P07001
+[17] MathWave Technologies, EasyFit — Distribution Fitting Software , the company web site at
+http://www.mathwave.com/easyfit-distribution-fittin g.html (2013).
+[18] T. R. Nicely, First occurrence prime gaps, preprint, 20 14. Available at
+http://www.trnicely.net/gaps/gaplist.html.
+[19] T. Oliveira e Silva, S. Herzog, and S. Pardi, Empirical v eriﬁcation of the even Goldbach
+conjecture and computation of prime gaps up to 4 · 1018, Math. Comp. 83 (2014), 2033-2060.
+http://www.ams.org/journals/mcom/2014-83-288/S0025- 5718-2013-02787-1/
+[20] J. Pintz, Cram´ er vs Cram´ er: On Cram´ er’s probabilistic model of primes. Functiones et Ap-
+proximatio, 37 (2) (2007), 361–376.
+[21] C. Rivera (ed.), Conjecture 30. The Firoozbakht Conjec ture, 2002.
+Available at http://www.primepuzzles.net/conjectures/conj_030.htm.
+[22] C. Rivera (ed.), Conjecture 77. Gaps between primes of t he form p = qn + r, 2016.
+Available at http://www.primepuzzles.net/conjectures/conj_077.htm.
+[23] D. Shanks, On maximal gaps between successive primes. Math. Comp. 18 (1964), 646–651.
+[24] N. J. A. Sloane (ed.), The On-Line Encyclopedia of Integer Sequences , 2015. Published elec-
+tronically at http://oeis.org/.
+[25] Z.-W. Sun, Conjectures involving arithmetical sequen ces. In: S. Kanemitsu, H. Li, J. Liu (eds.)
+Number Theory: Arithmetic in Shangri-La. Proc. 6th China-Jap an Seminar (Shanghai, August
+15-17, 2011), World Sci., Singapore, 2013, pp. 244–258. http://arxiv.org/abs/1208.2683
+[26] M. Wolf, Some conjectures on the gaps between consecuti ve primes, preprint.
+http://www.researchgate.net/publication/2252793 (1998)
+[27] M. Wolf, Some heuristics on the gaps between consecutiv e primes, arXiv preprint.
+http://arxiv.org/abs/1102.0481 (2011)
+[28] M. Wolf, Nearest neighbor spacing distribution of prim e numbers and quantum chaos, Phys.
+Rev. E 89, 022922 (2014). http://arxiv.org/abs/1212.3841
+[29] M. Wolf, Maximal gaps Gq,r between primes ≤ x in residue class r mod q can be expressed in
+terms of the prime counting function: Gq,r (x) ∼ ϕ(q)xπ(x) (2 log π(x)ϕ(q) − log x + constant), personal
+communication (2016)
+24
+
+--- page 25 ---
+2010 Mathematics Subject Classiﬁcation : 11N05.
+Keywords: Cram´ er conjecture, Firoozbakht conjecture, Gumbel distr ibution, prime gap, residue
+class, Shanks conjecture, Wolf conjecture.
+(Concerned with sequences A005250 , A084162 , A235402 , A235492 , A268799 , A268925 , A268928 ,
+A268984, A269234 , A269238 , A269261 , A269420 , A269424 , A269513 , A269519 .)
+25

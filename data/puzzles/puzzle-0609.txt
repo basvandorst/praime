@@ -1,0 +1,204 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_609.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 609. Rectangling the square.
+Source: https://www.primepuzzles.net/puzzles/puzz_609.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0609.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/problems/prob_048.htm
+  mailto:cbrfgm@gmail.com
+  mailto:S@6=0
+  https://www.primepuzzles.net/puzzles/puzz_608.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_610.htm
+  https://www.primepuzzles.net/puzzles/puzz_609.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 609. Rectangling the square.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 609. Rectangling the square.*
+
+Paul Schmidt sent the following very nice puzzle.
+
+Given a square of integer size SxS, get the minimal quantity Q of inscribed rectangles of unequal prime sides, filling the square.
+
+Example: If S=8, then Q=7
+
+As a matter of fact Paul sent part of the solution:
+
+a) If S<5, Q=0
+
+b) If S=even>12, Q=4
+
+Q1. Find the solutions for S=even=6, 8, 10 & 12.
+
+Q2. Find the filling laws if S=odd.
+
+I would to add another question not posed by Paul.
+
+Q3. Find the filling laws if you are looking for the maximal quantity Q* of such rectangles.
+
+_____
+
+Note * Here you are not asked to make simple & perfect dissections of the square as defined in the Problem 48:
+
+"...We will call the dissection to be perfect if all the rectangles are distinct. Otherwise the dissection is called imperfect. We will call the dissection to be simple if in doing so we do not produce two or more smaller rectangles (than the original square). Otherwise the dissection is called compound..."
+
+Contributions came from Jan van Delden & Carlos Rivera
+
+***
+
+Jan wrote:
+
+Filling a square (n,n) with rectangles with unequal prime sides, all rectangles may have the same shape.
+
+The minimum number of rectangles. Call this Minimum(n).
+
+Odd(n)
+
+(I) n=3, no solution. So the minimum is 0.
+
+(II) n and n-2 prime
+
+There is a split in (n,n-2) and (n,2). So the minimum is 2.
+
+This covers n=5,7,13,19,etc.
+
+(IV) n prime and n-2k prime, k>1. (And k<>0 mod 3 because 0 mod 3 is not possible)
+
+Every primegap 2k can be written as a sum of two primes p,q <n (Assuming Goldbach). The minimum is 3, since we have the split (n,p) (n,q) (n,n-(p+q)).
+
+(V) n not prime and n-2k, n-2l prime (k<>l). (We have at least n>=9).
+
+Split into (n,n-2k) which can be split into (n-2l,n-2k)and (2l,n-2k) which splits into 2 or 3 tiles and
+
+(n,2k) which splits into (n-2l,2k) and (2l,2k), the first of which into 2 the latter in 4. A minimum of 8 or 9 tiles, which is probably just an upperbound.
+
+n=9 = 2+7 a tricky one. Use 2x7 4 times at the border of the main square and in the middle we have a tile of size: 5x5 which we can split in 2, so 6 tiles! 81=4.14+25.
+
+(VI) n not prime and n-2 prime and n can be written as a sum of 3 odd primes:
+
+Split into (n-2,n) and (2,n) split each of these 3 into 3 tiles, total 6 tiles.
+
+(V) n not prime and n-2 not prime with n two splits of 3 odd primes, such that the intersection of the two sets of 3 primes is empty.
+
+The splits are obvious, a total of 9 tiles. Which is probably an upperbound for the minimum.
+
+For instance n=27=3+7+17=5+11+11.
+
+Even(n)
+
+(A)
+
+No solutions for n=2, 4.
+
+(B)
+
+If n can be written as the sum of two different primes in at least two ways (hence n is even), we have n=p1+p2 =q1+q2, so (n,n) can be divided in (p1,q1),(p1,q2),(p2,q1) and (p2,q2). So an upperbound for the minimum is 4. It can’t be less than 4 because both sides with length n have to be dissected. So the minimum is 4. As I understand Paul has proven (an extension of) Goldbach for n>12. (Sorry Paul, you probably mentioned this as well).
+
+Minimum(6): The only splits are 6=3+3 and 6=2+2+2, so the minimum equals 6.
+
+Minimum(10): Since n=3+7=5+5 we can use (B), the minimum equals 4.
+
+Minimum(12): I would say: split into (5,5) and (7,7) and two (5,7)-tiles.
+
+The two squares can be further split into two tiles (II): 6 tiles in total.
+
+As an alternative: 12=5+7=3+3+3, so 3 tiles (3,5) and 3 tiles (3,7).
+
+The maximum number of rectangles. Call this Maximum(n).
+
+All tiles (p,q), p<>q, and both prime.
+
+Write n=a.pq+r, with r=n mod pq. Now n^2= r^2 mod pq. And r^2=0 mod pq if and only if r=0 mod pq. So the square (n,n) can only be divided into (p,q)-tiles if n is a multiple of pq.
+
+Maximum(6k): 6.k^2 tiles, size (2,3)
+
+Maximum(pqk): Maximum(pqk)>=Maximum(pq).k^2 >= pq.k^2 size (p,q).
+
+A better general procedure to find an lowerbound would entail finding solutions for Maximum(6k+l) with l in [1..5].
+
+If l=1: 6k+1=6(k-1)+7. Leading to:
+
+6.(k-1)^2 (2,3)-tiles.
+
+2.(k-1) rectangles of size (7,6)=(3+4,6) split (3,6) in 3 (2,3) tiles, (4,6) in 4 tiles: 7 tiles: 14.(k-1). <---!!!!
+
+1 rectangle of size (7,7)=(2,7)+(5,2.2+3) into 4 tiles (2,7)(2,7)(3,2)(3,5) or (2,7)(2,5)(2,5)(3,5)
+
+So a total of 6.(k-1)^2+14.(k-1)+4=6k^2+2k-4
+
+If 6k+1=pq(k-1), for instance 55=6.9+1=5.11.1, this estimate gives: 6.81-16.9+2=452 and the other rule gives: 55.
+
+6k+2,6k+3,6k+4 are even better, because 2 and 3 are divisors of 6.
+
+If l=5: 6k+5=6(k-1)+11. Leading to:
+
+6(k-1)^2 (2,3) tiles
+
+2(k-1) rectangles of size (11,6)=(2+3.3,6)=2 (2,3)+9(2,3), 11 tiles: 22(k-1) rectangles
+
+1 rectangle of size (11,11)=(6+5,2+3.3)=2 (2,3)+(2,5)+3(3,5)+ 9 (2,3): 15 tiles
+
+So a total of 6(k-1)^2+22(k-1)+15=6k^2+10k-1
+
+A good way to compare these kind of rules would be to define the average tile size = # area /#tiles, the smaller the better (or the reciprocal, the density the larger the better)
+
+Maximum(6k): 6 [Absolute minimum]
+
+Maximum(pqk): pq
+
+Maximum(6k+1): (6k+1)^2/(6.k^2-4k+2) which tends to 6 for k towards infinity.
+
+Maximum(6k+5): (6k+5)^2/(6k^2+10k-1) which is an even better lower bound! [We miss 26 tiles]
+
+_***
+
+Carlos Rivera wrote:
+
+Given a square of integer size SxS, the minimal quantity Q of inscribed rectangles of unequal integer prime sides is given by:
+
+a) No solution if S<5
+
+b) If S= Even then Q=6,6,4,8 for S=6,8,10,12; Q=4 for S>12
+
+c) If S=Odd then Q=2,3,6 or 9 according to the following rules:
+
+c1) If S=prime then Q=2 if S-2=prime, else Q=3
+
+c2) If S<>prime then Q=6 if S-2=prime, else Q=9
+
+Regarding the maximal quantity Q*, I can only say that:
+
+If S@6=0 then Q*=S^2/6 otherwise, Q*<S^2/6
+
+_***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

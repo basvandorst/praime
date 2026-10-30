@@ -1,0 +1,120 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_520.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 520. Prime divides Repunits
+Source: https://www.primepuzzles.net/puzzles/puzz_520.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0520.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_519.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_521.htm
+  https://www.primepuzzles.net/puzzles/puzz_520.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 520. Prime divides Repunits
+
+Problems & Puzzles: Puzzles
+
+Puzzle 520. Prime divides Repunits
+
+Seiji Tomita poses the following nice puzzle:
+
+1. Let p = 1, 13, and 19 (mod 20) be prime and q = 2p+1 is also prime. Then q divides repunit R(p) = (10^p-1)/9.
+
+2. There doesn't exist a prime q such that q^2 divides repunit where q < 10^9.
+
+Q: Can you prove these or find a counterexample?
+
+Contribution came from Farideh Firoozbakht.
+
+***
+
+Farideh wrote:
+
+The first statement is true.
+
+Proof : 10^((q-1)/2) = (10/q) (mod q) where (a/p) is the Jacobi symbol.
+
+q = 2p + 1, so
+
+10^p = (10/q) (mod q)
+
+= (2/q)*(5/q) (mod q)
+
+= (-1)^((q^2 - 1)/8)*(q/5) (mod q)
+
+but (q^2 - 1)/8 = ((2p + 1)^2 - 1)/8 = p(p+1)/2 is even if p = 20k + 3, 20k + 11,
+
+or 20k + 19 ( 4k' + 3) and is odd if p = 20k + 1, 20k + 9 or 20k + 13 ( 4k' + 1).
+
+Note that since p is a prime greater than 5 and q = 2p + 1 is prime, the
+
+cases p = 20k + 5, 20k + 7, 20k + 15 & 20k + 17 don't happen.
+
+(5/q) = (q/5) (since 5 = 1 (mod 4), and according to the low of quadratic resiprocity for Jacobi Symbol)
+
+p = 1 (mod 20) --> q = 3 (mod 20) --> (q/5) = (3/5) = (2^3/5) = (2/5) = (-1)^((5^2-1)/8) = -1
+
+p = 3 (mod 20) --> q = 7 (mod 20) --> (q/5) = (2/5) = -1
+
+p = 9 (mod 20) --> q = 19 (mod 20) --> (q/5) = (2^2/5) = 1
+
+p = 11 (mod 20) --> q = 23 (mod 20) --> (q/5) = (3/5) = -1
+
+p = 13 (mod 20) --> q = 27 (mod 20) --> (q/5) = (2/5) = -1
+
+p = 19 (mod 20) --> q = 39 (mod 20) --> (q/5) = (2^2/5) = 1
+
+By using these results we deduce that if p = 1, 13 or 19 (mod 20) then 10^p = 1 (mod q).
+
+Namely in this case q divides 10^p - 1 and since q =2p +1 > 3 we deduce that q divides
+
+R(p) = (10^p - 1)/9.
+
+***
+
+Jan van Delden wrote:
+
+A quote from "The mystique of Repunits" by S. Yates (1978):
+
+Although 3 and its square are both primitive divisors of 10^1-1, there are only two known primes which are primitive divisors of the same repunits in base 10 as their squares. They are 487 and 56598313, and both are full period primes. The latter was discovered during the past decade. Aside from such exceptions, the square of any prime p will divide a repunit only if its subscript is a multiple of p.lambda( p). For example, the smallest repunit that 11^2 divides is R[22], because lambda(11)=2, and the other repunits that are divisible by 11^2 are R[44], R[66], R[88], etc.
+
+Lambda( p) = length of period of 1/p.
+
+Translated to our case:
+
+Either q is a primitive divisor of R[p], with the rare quality (see above) that q^2|R[p] and the extra condition that q=2p+1. The three given exceptions q=3, 487 and 56598313 are not of the form 2p+1.
+
+Or: q^2|R[p] if q.lambda(q)|p. But q is no divisor of p since we have q=2p+1, so this is not a possibility.
+
+The three exceptions are in Sloane's A045616 (until 2.10^11). And of the form: 10^(p-1)=1 (mod p^2). Clearly Sloane's list is not allowed since p-1 is not prime (p>3). If this list generates all exceptions we're done.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

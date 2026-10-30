@@ -1,0 +1,200 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_189.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 189. Squares and primes in a row
+Source: https://www.primepuzzles.net/puzzles/puzz_189.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0189.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_188.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_190.htm
+  https://www.primepuzzles.net/puzzles/puzz_189.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 189. Squares and primes in a row
+
+Problems & Puzzles: Puzzles
+
+Puzzle 189. Squares and primes in a row
+
+Task 1
+
+For a given n value, find at least one arrangement of the first n squares such that:
+
+the sum of every two adjacent squares of the arrangement is a prime number (*).
+
+Example for n=8:
+
+{9, 64, 49, 4, 25, 16, 1, 36}
+
+9+64 is prime; 64+49 is prime; and so on...
+
+Question 1
+
+a) Find your own non-exhaustive algorithm (**) in order to produce at least one solution to Task 1, for every n>1.
+
+b) Find also the only one n value for which there is not any solution.
+
+Now we will increase the difficulty of the arrangements asked ruling two conditions instead of one:
+
+Task 2
+
+For a given n value, find an arrangement of the first n natural values such that, at the same time:
+
+The sum of every two adjacent numbers is a prime
+
+The sum of every two adjacent squares is a prime
+
+Example for n=10:
+
+{7, 10, 9, 4, 1, 6, 5, 8, 3, 2}
+
+{49, 100, 81, 16, 1, 36, 25, 64, 9, 4}
+
+Question 2
+
+a) Is there at least one solution for every n value greater than n_0 ?
+
+b) If so, what is that n_0 value?
+
+c) Is there a non-exhaustive algorithm to find at least one solution to this task 2, for every n>n_0 ?
+
+d) Find solutions - by any procedure - for n=50 & n=100.
+
+__________
+
+(*) The first part of this puzzle was suggested to me by T. D. Noe
+
+(**) Inside of the capabilities of the Ubasic program where my code works I guess that I have a general algorithm for doing this.
+
+Solution:
+
+For the Task 1, T. D. Noe has the following approach:
+
+First build a set of possible "neighbors" for each integer 1..n. For this problem, two numbers can be neighbors only if the sum of their squares is prime. For example, for n=10. the n sets are
+
+s(1) = {2,4,6,10}
+
+s(2) = {1,3,5,7}
+
+s(3) = {2,8,10}
+
+s(4) = {1,5,9}
+
+s(5) = {2,4,6,8}
+
+s(6) = {1,5}
+
+s(7) = {2,8,10}
+
+s(8) = {3,5,7}
+
+s(9) = {4,10}
+
+s(10)= {1,3,7,9}
+
+Note that some of these sets (e.g., s(6) and s(9)) are much smaller than others. Because 6 and 9 have fewer possible neighbors, they will be more difficult to use in building a solution. Hence, use the following heuristic when building a solution: at each step, take the largest number that has the fewest possible neighbors. After each step, we need to update the neighbor sets. Note that if n is odd, then we must begin the solution with an odd number because there are more odd numbers in 1..n than even numbers.
+
+For n=10, the first number in the solution is 9 because it is the largest number that has the fewest neighbors. So we remove 9 from all the neighbor sets and look at the possible neighbors of 9: 4 and 10. The number 4 now has 2 possible neighbors; the number 10 has 3 possible neighbors. We choose 4 because it has the fewest.
+
+Continuing with this algorithm, we find the solution
+
+{9,4,5,6,1,10,7,8,3,2}
+
+This method works in many sequential decision problems in which the solution is found without backtracking. In the language of graph theory, a solution to this problem is a Hamiltonian path. The sets s(i) are the adjacency lists for the graph.
+
+***
+
+For the Task 2 T. D. Noe has an answer for all the 4 questions:
+
+I have some results on task 2:
+
+a,b. I think that there is a solution for all n > 97. However, it is possible that the true n0 is less than 97. My non-exhaustive algorithm, given below, found solutions for n=98,99,...,200. It also found solutions for 2,3,4,6,10,11,59-66,71,73-79,81,84,87-96. It missed solutions for n=12 and 31.
+
+This problem can be viewed as a graph-theory problem. Two numbers
+
+(vertices) are connected by an edge if their sum is prime and the sum of their squares is prime. The problem is to determine whether there is a Hamiltonian path (not cycle) that visits each vertex just once. For each n, much can be learned by examining degree of each vertex -- the number of edges at each vertex. By looking at the vertices that have degree 0 or 1, it can be shown that there can be no solution for n=3,5,7,8,9,13-25,29,35,37-43,48,50,55,57. I have used exhaustive search to show that there are no solutions for n=26,27,28,30,32,33,34,36. That still leaves the following numbers with unknown status: n=44-47,49,51-54,56,58,67-70,72,80,82,83,85,86.
+
+c. In Mathematica, my greedy-type algorithm is:
+
+n=100;
+
+s=Table[{},{n}];
+
+For[i=1,i<=n,i++, (* 1 *)
+
+For[j=1,j<=n,j++,
+
+If[i+j>2&&PrimeQ[i^2+j^2]&&PrimeQ[i+j], AppendTo[s[[i]],j]]]];
+
+lst={}; solnSet=If[OddQ[n], Range[1,n,2], Range[n]]; While[Length[solnSet]>0,
+
+For[minVal=n; minPos=0; i=1,i<=Length[solnSet],i++, (* 2 *)
+
+j=solnSet[[i]]; len=Length[s[[j]]];
+
+If[len>0, If[len<=minVal, minVal=len; minPos=j]]];
+
+If[minPos==0&&Length[lst]<n-1, Print["No greedy solution for ",n]; Break[],
+
+If[minPos==0,
+
+AppendTo[lst,solnSet[[1]]]; solnSet={},
+
+AppendTo[lst,minPos];
+
+solnSet=s[[minPos]];
+
+For[i=1,i<=Length[solnSet],i++, (* 3 *)
+
+j=s[[minPos]][[i]];
+
+s[[j]]=DeleteCases[s[[j]],minPos]];
+
+s[[minPos]]={}]]];
+
+If[Length[lst]==n, Print[lst]];
+
+What it does, basically, is (1) compute the adjacency lists s[i] for each vertex i, (2) build the solution in "lst" sequentially by choosing the number that is connected to the previous vertex and has the fewest connections to other numbers not in the solution yet, and (3) remove the new vertex from the adjacency lists. Note that when n is odd, the solution must begin and end with an odd number. Also note that this algorithm works for task 1 also; just change the definition of the adjacency lists s[i].
+
+d. There is no solution for n=50 because there are two numbers (vertices), 37 and 47, that have only one edge. So any solution must begin and end with those two numbers. But when n is an even number, the solution must begin and end with numbers of opposite parity; one must be even and the other odd.
+
+A solution for n=100 is
+
+{89,74,29,44,39,34,49,40,63,38,93,98,83,18,23,48,53,78,35,68,95,54,59,24,19,
+
+84,79,94,99,50,87,92,17,62,47,80,69,70,37,72,7,12,77,30,73,58,55,96,31,76,61
+
+,90,91,66,71,36,65,86,11,6,1,16,51,56,41,60,97,42,5,32,57,82,67,22,25,88,85,
+
+64,9,4,75,52,45,14,15,46,21,26,81,100,13,28,43,10,27,2,3,20,33,8}
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

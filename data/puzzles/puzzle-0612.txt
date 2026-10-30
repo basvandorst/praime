@@ -1,0 +1,319 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_612.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 612. Prime-Doublets.
+Source: https://www.primepuzzles.net/puzzles/puzz_612.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0612.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://demonstrations.wolfram.com/Doublets/
+  mailto:cbrfgm@gmail.com
+  http://en.wikipedia.org/wiki/Dijkstra's_algorithm
+  https://www.primepuzzles.net/puzzles/puzz_438.htm
+  http://primes.utm.edu/curios/page.php/40144044691.html
+  https://oeis.org/A199428
+  https://www.primepuzzles.net/puzzles/puzz_611.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_613.htm
+  https://www.primepuzzles.net/puzzles/puzz_612.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 612. Prime-Doublets.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 612. Prime-Doublets.
+
+"Doublets is a type of word-puzzle invented by Lewis Carroll (author of Alice in Wonderland). The goal is to change one word into another by adding, removing, or changing one letter at a time. The tricky part is that each intermediate step must also be a valid word."*
+
+Example: Given the two valid words: poem & ice, the path that shows that these two words form a duplet (in English), is the following one:
+
+poem ↔ poet ↔ post ↔ host ↔ hot ↔ not ↔ note ↔ none ↔ nine ↔ nice ↔ ice
+
+We will switch this nice & old puzzle applying it to the prime numbers domain:
+
+For this puzzle, the goal is:
+
+To change one prime p1 into another p2 by adding, removing, or changing one digit at a time, such that each intermediate step must also be a prime number.
+
+Example: For the pair of primes 2719 & 8237 one path is this one:
+
+2719 ↔ 8719 ↔ 8219 ↔ 8269 ↔ 8263 ↔ 8233 ↔ 8237.
+
+According to my study of this goal:
+
+a) All pair of primes are doublets, that is to say it exists an always successful algorithm to get a path between any two primes according to the rules.
+
+b) I have developed such an algorithm (to get the path that shows that any given pair of primes is a doublet).
+
+c) But I realize that my algorithm does not guarantee the shortest path - and I have no idea how to get it.
+
+Q1. Develop an algorithm to determine the complete path between any given two primes (p1, p2)
+
+Q2. Redo Q1 to get the shortest path.
+
+Try your solutions to Q1 & Q2 with the following pair of primes (p1, p2)
+
+1. (1741, 5393)
+
+2. (369263, 505447)
+
+3. (1031, 2017693)
+
+_____
+
+* Quoted from http://demonstrations.wolfram.com/Doublets/. Contributed by: Christian Peccei.
+
+Contributions came from J. K. Andersen, Jan van Delden, Emmanuel Vantieghem & Giovanni Resta & Carlos Rivera.
+
+***
+
+Jan wrote:
+
+According to me (without trying Q1) I would say that Dijkstra’s algorithm: http://en.wikipedia.org/wiki/Dijkstra's_algorithmwould do the trick. (Using a graph with cost 1 at each edge).
+
+***
+
+Emmanuel wrote:
+
+I think I can connect a prime p with a prime q as follows :
+
+* write down all the primes different from p that can be obtained from p by applying the rules.
+
+* do the same for all the obtained primes : only retain the primes that have not appeared earlier.
+
+* continue this till you meet q.
+
+This will lead to the shortest path, though the method is not very efficient (a lot of memory will be needed even for modest p). However, I cannot prove that my first step gives me a non empty set for any p.
+
+***
+
+Andersen & Resta both independently discovered that my claim "All pair of primes are doublets" is not true.
+
+I will expose first their comments, then at the end I will expose my algorithm and will argue that perhaps, at the end and despite the primes pointed by Andersen & Resta, my claim can be partially saved, hopefully...
+
+Andresen wrote:
+
+In puzzle 438 I found 40144044691: The smallest prime that becomes
+
+composite if any digit is removed, changed, or inserted anywhere.
+
+It is also at http://primes.utm.edu/curios/page.php/40144044691.html
+
+I only computed the first term 40144044691. I expect there are infinitely many such terms and that a roughly constant proportion of all primes have this property.
+
+Resta wrote:
+
+... it is not true that there is always a path between two primes.
+
+In particular there are primes from which we can't start a path,
+
+because by changing, deleting or inserting a single digit
+
+it is not possible to obtain another prime.
+
+The first such primes are
+
+40144044691, 58058453543, 89797181359, 185113489357, 213022025663, 222498988079.
+
+The first one has been found by Anderson in response to your Puzzle 17.
+
+A rough heuristic argument suggests that probably there are infinite
+
+such primes from which it is impossible to start a path.
+
+Note however that even these primes are not unreachable.
+
+For example, 40144044691 can be reached from the prime 700040144044691
+
+by deleting the first digit (7).
+
+In general the problem is equivalent in finding a path or a shortest
+
+path on a directed graph in which the nodes are the primes and
+
+there is a link between two nodes A and B, if the prime corresponding
+
+to B can be reached by modifying the prime corresponding to A.
+
+(Note that the graph is directed, since some links are not bidirectional).
+
+The problem of finding a path in a graph between two nodes, even a
+
+shortest path, is a standard problem easily solved, but
+
+for large primes, to find the shortest path can be a little
+
+time consuming, since the number of primes that can be
+
+reached from a given prime grows quite fast.
+
+On the bright side, a simple heuristic argument suggests
+
+that the average degree of the graph (the number of outgoing
+
+links from a nodes) is limited.
+
+Indeed, given a number with n digits there are about 20*n number
+
+we can obtain from it. Among the numbers of that size about 1/ln(10^n)
+
+is prime, so very roughly speaking, we can expect that from a prime
+
+of n digits we reach 20*n/ln(10^n) = 20/ln(10) = 8.68 other primes on the average.
+
+I asked to Resta for his opinion about an algorithm to connect any two primes smaller than 40144044691. He responded:
+
+Are all these pairs (less than Z=40144044691) solvable? The answer is yes.
+
+In principle, this is not obvious. For example, there could be cycles, like a prime P that can only turned into a prime Q, which in turn can only be transformed back into P.
+
+So, to prove that all the pairs below Z are solvable I used the following approach.
+
+First of all, when considering the deletion of the first digit of a prime, I avoided to use this "move" if the resulting number has leading zeros. In general, one can go from 10007 to 7 by deleting the first digit. This move is not symmetric, i.e., I cannot reach 10007 from 7 in one step, so I decided to avoid it. Let me call this, "symmetric model".
+
+To prove that for each pair of primes P,Q < Z there is a path
+
+from P to Q, it is sufficient to check that for each P < Z there
+
+is a path P => R, in the symmetric model, where R is any prime smaller than P.
+
+Indeed, if this holds, it means that I can always reach the prime 3 starting
+
+from any prime, by means of a chain of paths each leading to a smaller prime. I can do this for both P and Q, and then, since I used the symmetric model, I can reverse the path from Q to 3 obtaining a single path from P to Q. Clearly here I'm not interested in the shortest path, but only in showing that there is always a path.
+
+Example: P=359, Q=1009.
+
+A path for P => 3 can be obtained joining the following
+
+decreasing subpaths:
+
+(359=>353) U (353=>53) U (53=>3) => 359=>353=>53=>3
+
+A path for Q => 3 is
+
+(1009=>1409=>409) U (409=>109) U (109=>103) U (103=>113=>13) U (13=>3)
+
+i.e., 1009=>1409=>409=>109=>103=>113=>13=>3 and reversing it we
+
+obtain
+
+359=>353=>53=>3=>13=>113=>103=>109=>409=>1409=>1009, that is P=>Q.
+
+I wrote a little program that checked that from each prime P < Z I
+
+can reach a smaller prime (in one or few symmetric moves).
+
+***
+
+Carlos Rivera wrote:
+
+Basically the algorithm I announced one week ago, was rediscovered by Giovanni.
+
+This is my algorithm as devised a week ago:
+
+Given two primes (P, Q) my strategy was to get any one-digit prime (2, 3, 5 or 7) from each of them, using only reversible steps under the permitted rules. Then connect both semi-paths.
+
+In order to privilege to go downward in the length of the string, you should use mainly deletion; as a second chance to use the change of digits, and only as last/third chance increase the length of the string using insertion.
+
+After devising this strategy, I made a small code to verify if this strategy was successful for all primes less than 2^32. The result was positive so I made an universal claim, because 40,144,044,691>2^32=4,294,967,296.
+
+Regarding the meaning of the primes like 40144044691 & my original claim "All pair of primes are doublets"...
+
+After I received the emails from Andersen & Resta my first reaction was to suppose that these primes like 40144044691 meant that my claim was false in general. But after thinking it twice, the following observation by Resta made me change of mind.
+
+Resta wrote:
+
+"Note however that even these primes are not unreachable. For example, 40144044691 can be reached from the prime 700040144044691 by deleting the first digit (7)"
+
+So, let's suppose that you are asked if (P & Q) is a doublet. Suppose that P=40144044691 & Q is not of the same nature than 40144044691. Suppose that 700040144044691 & Q are not of the same nature than 40144044691. So first solve the pair (700040144044691, Q) avoiding include in the path of 700040144044691 toward one-digit prime the prime 40144044691. If this can be done, so at least you can connect Q to 700040144044691 and using one more irreversible step to reach to 40144044691. Evidently you can not connect 40144044691 to Q, just Q to 40144044691.
+
+If both (P & Q) are of the same nature than 40144044691 then my original claim "All pair of primes are doublets" is necessarily false.
+
+I will call from now one the primes like 40144044691 "extreme weakly prime numbers" (See A199428)
+
+Accordingly, my new claim is this All pair of primes are doublets, except that both are extreme weakly primes.
+
+I will try to show soon a path for (P, 40144044691) when P is not an extremely weakly prime. That is to say I will try to show a path for 700040144044691 & some one-digit prime.
+
+...
+
+This is the promised reversible path from 700040144044691 to a one-digit prime:
+
+700040144044691, 700940144044691, 780940144044691, 780940144047691, 780940144047671, 80940144047671, 90940144047671, 9940144047671
+
+990144047671, 490144047671, 498144047671, 48144047671, 48154047671, 48154347671, 4815434761, 7815434761, 781434761, 381434761,
+
+31434761, 3144761, 314761, 114761, 11471, 1471, 5471, 571, 71, 7
+
+Can you send please your argument to your "A rough heuristic argument suggests that probably there are infinite of such primes"?
+
+It is very rough.
+
+Given a prime number of n digits, let us count how many
+
+candidate primes we can obtain:
+
+by deletion: n
+
+by substitution: 9*n-1 (the first digit cannot be changed into 0)
+
+by insertion: 10*(n+1)-1 (we cannot insert an initial zero digit)
+
+the total number of candidates are at most 20n+8 (some may coincide). We want to estimate the probability they are all composite numbers,
+
+assuming they are all independent from each other.
+
+A rough approximation of the probability that a random number of
+
+n digits is prime is given by 1/(ln(10^n)), i.e., 1/(ln(10)*n).
+
+Since here most of the numbers we obtain are odd, we can approximate
+
+this better with 2/(ln(10)*n).
+
+The probability that all these numbers are composite is equal to
+
+[1 - 2/(Ln(10)*n)]^(20n+8).
+
+Taking the limit of this quantity, as n goes to infinity, we obtain
+
+Exp[-40/Ln(10)] which is about 2.8*10^(-8).
+
+This means that for n large enough there is a constant probability
+
+that a prime of n digits is a strongly weakly prime. Since
+
+there are infinite primes, there should be also infinite strongly weakly primes.
+
+Note that the formula above is quite resilient to approximations, since
+
+in general the limit of [1+ c/n]^(k*n+h), where c,k,and h are constants,
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,250 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_267.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 267.  Talisman Squares
+Source: https://www.primepuzzles.net/puzzles/puzz_267.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0267.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/TalismanSquare.html
+  https://www.primepuzzles.net/melancholia.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_266.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_268.htm
+  https://www.primepuzzles.net/puzzles/puzz_267.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 267. Talisman Squares
+
+Problems & Puzzles: Puzzles
+
+Puzzle 267. Talisman Squares
+
+"The study of these squares is so new, in fact, that no rules for construction are known, nor are there any mathematical theories...". Joseph S. Madachy, 'Madachy's Mathematical Recreations', 1966.
+
+A square of order n, filled with the integers from 1 to n^2, has a 'Talisman constant' equal to the minimal difference between each of its elements and the immediate neighbors (diagonal ones included) to each one of it.
+
+But not all the squares are 'Talisman Squares'. This name is deserved for those squares that, for a given order n, has a maximal Talisman constant.
+
+Example. For n=4
+
+16 | 3 | 2 | 13 | | | 9 | 5 | 11 | 7
+
+5 | 10 | 11 | 8 | | | 13 | 1 | 15 | 3
+
+9 | 6 | 7 | 12 | | | 10 | 6 | 12 | 8
+
+4 | 15 | 14 | 1 | | | 14 | 2 | 16 | 4
+
+The left one is the well known magic square named "Dürer Magic Square" and has a Talisman constant equal to 1, while the right square has a Talisman constant equal to 3.
+
+So the left one square can not be a Talisman Square for this order (4), while we may assert (proof?) that the right one square certainly is a Talisman Square, because 3 is the largest Talisman constant possible for any square of order 4.
+
+But, how to construct a Talisman Square for any given order n?
+
+Rodolfo Kurchan and Carlos Rivera have been studying this problem the last two months, and they have found a pair of algorithms (one algorithm for even n values, the other one for odd n values) in order to produce (conjecturally) the asked Talisman squares for any given order n.
+
+Instead of providing long-winded and boring general instruction rules, we will display the algorithms using a couple of examples and some explanations about them.
+
+n = even, K_TS(n) = n^2/4 - 1
+
+Example n=6, K_TS(6) = 8
+
+19 | 10 | 22 | 13 | 25 | 16
+
+28 | 1 | 31 | 4 | 34 | 7
+
+20 | 11 | 23 | 14 | 26 | 17
+
+29 | 2 | 32 | 5 | 35 | 8
+
+21 | 12 | 24 | 15 | 27 | 18
+
+30 | 3 | 33 | 6 | 36 | 9
+
+As you have noticed, for sure, the filling pattern exhibited in the previous example, divides the numbers 1, 2, 3, …, n^2 into four sets (S1, S2, S3, S4) of n^2/4 consecutive numbers each, as follows:
+
+S1 = {1, 2, 3, …, X-1}
+
+S2 = {X, X+1, X+2, …, Y-1}
+
+S3 = {Y, Y+1, Y+2, …, Z-1}
+
+S2 = {Z, Z+1, Z+2, …, n^2}
+
+The n^2/4 consecutive numbers of each set are allocated in the same general trend:
+
+Starting from certain specific position inside the four cells of the upper-left corner, the rest of the numbers of each set are allocated consecutively 'every two cells downward and rightward'. In the same moment you finish allocating the last number of the first set you know what is the first number of the following set, and so on.
+
+So, the only important thing you should know in advance is the cells in which the first numbers of each set (1, X, Y & Z) must be allocated, and the answer is: 1 goes in the cell (2, 2), X goes in the cell (1, 2), Y goes in the cell (1, 1) and Z goes in the cell (2, 1). Moreover, if you know to know them in advance, the values of X, Y and Z are, respectively n^2/4+1, 2.n^2/4+1 and 3.n^2/4+1, but this is not necessary at all.
+
+Y | X
+
+Z | 1
+
+We will call this filling pattern "22A" (22 because it starts in the cell (2, 2) and "A" because the four starting numbers of each set - 1, X, Y & Z - describes the profile of an "A" letter)
+
+n = odd, K_TS(n) = (n.(n-1))\4 ^ (*)
+
+Example: n=7, K_TS(7) = 10
+
+13 | 40 | 17 | 32 | 21 | 36 | 25
+
+1 | 29 | 4 | 44 | 7 | 47 | 10
+
+14 | 41 | 18 | 33 | 22 | 37 | 26
+
+2 | 30 | 5 | 45 | 8 | 48 | 11
+
+15 | 42 | 19 | 34 | 23 | 38 | 27
+
+3 | 31 | 6 | 46 | 9 | 49 | 12
+
+16 | 43 | 20 | 35 | 24 | 39 | 28
+
+As before, here are four sets (S1, S2, S3 & S4) of consecutive numbers. Now the four sets have distinct quantity of integers. Again, the starting number of each set, 1, X, Y & Z are allocated in the four cells in the upper-left corner, but now 1 goes in the cell (2, 1), X goes in the cell (1, 1), Y goes in the cell (2, 2) and Z goes in the cell (1, 2). We will call this pattern "21N" for analogue reasons than before.
+
+X | Z
+
+1 | Y
+
+The consecutive numbers of the four sets, are allocated in the same general trend than before: 'every two cells, downward and rightward'.
+
+But we have a very important difference:
+
+When you allocate the numbers of the set S3, since the column 4+2.(c\4-1) you will shift upward one cell all the cells that will receive the corresponding numbers for this column. The same will happen with all the columns rightward of this column.
+
+Consequently, when you allocate the numbers of the set S4, since the column 4+2.(c\4-1) you will shift downward one cell all the cells that will receive the corresponding numbers for this column. The same will happen with all the columns rightward of this column.
+
+Summarizing:
+
+Talisman squares are constructed this way:
+
+For n even:
+
+Use the filling pattern 22A ^ (**)
+
+for the starting numbers (1, X, Y & Z) of the four sets (S1, S2, S3 & S4) of n2/4 consecutive numbers; allocate each integer of every set, using the general procedure 'every two cells downward, rightward'. Proceeding this way, K_TS(n) = n^2/4 - 1.
+For n odd:
+
+Use the filling pattern 21N for the starting numbers (1, X, Y & Z) of the four sets (S1, S2, S3 & S4) of consecutive numbers; allocate each integer of every set, using the general procedure 'every two cells downward, rightward'. For the sets S3 & S4 you will need to shift upward and downward, respectively, the starting cell in each column equal or grater than 4+2.(c\4-1). Proceeding this way, K_TS(n) = (n^.(n-1))\4
+
+n, order of a Talisman Square.
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+K_TS(n) = n^2/4 - 1, for n=even;
+
+K_TS(n) = (n^.(n-1))\4 for n= odd
+
+1
+
+3
+
+5
+
+8
+
+10
+
+15
+
+18
+
+24
+
+27
+
+First shifted column, 4+2.(c\4-1), sets S3 & S4, just for n odd
+
+-
+
+-
+
+4
+
+-
+
+4
+
+-
+
+6
+
+-
+
+6
+
+Question:
+
+Can you produce a square of any order with a talisman constant greater than the predicted by our algorithms?
+
+___________
+
+(*) " \ " is the symbol for integer division.
+
+(**) As a matter of fact, for the squares of order n even, we have found two more general patterns that produce the same Talisman constant. We have selected this pattern (22A) because it seems appropriate in order to produce Talisman rectangles also. Nevertheless this is a work still in process.
+
+Solution:
+
+Contribution came from Luke Pebody. On May 18 he wrote " I proved that no talisman square can be produced for even n, with Talisman Constant at least (n^2/4)-1, so that you got the correct answer". This his proof:
+
+Split the nxn grid into (n^2/4) 2x2 grids. The difference between any pair of squares in any of these subgrids is at most t. The smallest element of one of the grids is at least (n^2/4). Therefore (n^2/4)+3t<=n^2. Therefore t<=n^2/4.
+
+If t=n^2/4, this argument shows that each of these 2x2 grids contains numbers {k,k+t,k+2t,k+3t} for some 1<=k<=t.
+
+Now, let the square for {k,k+t,k+2t,k+3t} and {l,l+t,l+2t,l+3t} with k<l be orthogonally adjacent. Then there are a pair of squares from {k,k+t,k+2t,k+3t} adjacent to a pair from {l,l+t,l+2t,l+3t}. If k+it is adjacent to l+jt, then i!=j and i!=j+1. Therefore the adjacency must be k,k+t are adjacent to l+2t,l+3t. Therefore, looking at the square corresponding to k=1, 1 and 1+t must be on each internal edge of that square.
+
+...
+
+Let n=20, just to express the point clearly.
+
+We have split the 20x20 grid into 100 2x2 subgrids. Each of them has a different smallest element. Therefore 1 of them must have smallest element at least 100. Therefore, if k is the talisman constant of the whole thing, that small grid must contain numbers of size at least 100,100+k,100+2k and
+
+100+3k. Thus 100+3k<=400.
+
+(And what about the odd case?) No idea, I'm afraid. Too difficult.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

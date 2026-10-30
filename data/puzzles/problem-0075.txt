@@ -1,0 +1,128 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_075.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 75. The Castillo Toloza, Prime Counting Function, Q(x)
+Source: https://www.primepuzzles.net/problems/prob_075.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0075.htm
+
+References (local copies):
+  ../../references/2020_q-x-5.pdf  (from https://www.primepuzzles.net/problems/Q(x)5.pdf)
+  ../../references/2020_q-x-5.txt  (extracted text)
+
+Links on the page:
+  https://www.primepuzzles.net/problems/Q(x),%20JCT.jpg
+  https://www.primepuzzles.net/problems/Q(x)5.pdf
+  https://keisan.casio.com/exec/system/1180573428
+  https://en.wikipedia.org/wiki/Prime-counting_function
+  https://mathworld.wolfram.com/RiemannPrimeCountingFunction.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/problems/prob_074.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_076.htm
+  https://www.primepuzzles.net/problems/prob_075.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Problem 75. The Castillo Toloza, Prime Counting Function, Q(x)
+
+Problems & Puzzles: Puzzles
+
+Problem 75. The Castillo Toloza, Prime Counting Function, Q(x)
+
+On October 23, 2020, Jonás Castillo Toloza sent to me by email a function of his own, in order to estimate the quantity
+
+of primes up to certain integer x. Here you can see his original Q(x) function, that uses Greek letters.
+
+Castillo Toloza claims that his Q(x) function:
+
+"...Produce mejores resultados que cualquier fórmula o método viable, computacionalmente hablando,
+
+...la aproximación de Riemann, R(x), por ejemplo... El error en mis aproximaciones es casi despreciable...
+
+Además es fácil de programar..."
+
+In order to avoid the use of Greek letters and to avoid the use of a mathematical expressions editor, I made some changes to show
+
+you the same equation, Q(x):
+
+The Q(x) prime counting function
+
+PI(x)= Quantity of primes less or equal to x.
+
+Q(x) an estimation of PI(x), developed by Jonás Castillo Toloza.
+
+Validity range, e^8<=x<=e24 (approx. 2980.9<=x<=2.6489x10^10).
+
+Q(x) = C(x).{[x-U(x).raiz(li(x))]/ln(x)}+W(x)
+
+C(x) = 1+4/{3.ln(x)-4+raiz[ln(x)^2-8.ln(x)]}
+
+U(x) = 2.cos(pi.ln(x)/8)+4, pi=3.14159...
+
+W(x)=(ln(x)-4)^2.(U(x)-4)/4
+
+li(x)=Logarithmic integral ≈ (x/ln(x)).Σ(i!/ln(x)^i; i=0 to ∞)
+
+How Castillo Toloza came up with this function, Q(x)? Here he explains that issue.
+
+Due to health problems Castillo Toloza was not able to send his own calculations to support his claims about Q(x).
+
+Carlos Rivera made his own calculations in an Excel worksheet, to compare Q(x) against R(x), bringing the external
+
+necessary data from the proper web pages. This is what he found:
+
+Comparación Q(x) vs R(x)
+
+pi = | 3.141592654 | | | | | Dato ext 1 | | | Dato ext 2 | | Dato ext 3
+
+E | x=10^E | ln(x) | C(x) | U(x) | W(x) | li(x) , Casio | Q(x) | | PI(x) | Q(x)-PI(x) | R(x)-PI(x) | Q(x) mejor que R(x)
+
+4 | 10000 | 9.21034037 | 1.14831387 | 2.22168863 | -12.0692422 | 1,246.14 | 1225 | | 1229 | -4 | -2 | No
+
+5 | 100000 | 11.5129255 | 1.10840596 | 3.61978092 | -5.36527617 | 9,629.81 | 9588 | | 9592 | -4 | -5 | Si
+
+6 | 1000000 | 13.8155106 | 1.08618827 | 5.30813518 | 31.507825 | 78,627.55 | 78535 | | 78498 | 37 | 29 | No
+
+7 | 10000000 | 16.1180957 | 1.07169335 | 5.99784965 | 73.3451772 | 664,918.41 | 664649 | | 664579 | 70 | 88 | Si
+
+8 | 100000000 | 18.4206807 | 1.06142802 | 5.16239133 | 60.4315723 | 5,762,209.38 | 5761501 | | 5761455 | 46 | 97 | Si
+
+9 | 1000000000 | 20.7232658 | 1.05375792 | 3.43955511 | -39.1845721 | 50,849,234.96 | 50847741 | | 50847534 | 207 | -79 | No
+
+10 | 10000000000 | 23.0258509 | 1.04780219 | 2.14456655 | -167.908843 | 455,055,614.59 | 455052460 | | 455052511 | 51 | -1828 | Si
+
+li(x), Casio = | https://keisan.casio.com/exec/system/1180573428
+
+PI(x) = | https://en.wikipedia.org/wiki/Prime-counting_function
+
+R(x) - PI(x) = | https://mathworld.wolfram.com/RiemannPrimeCountingFunction.html
+
+According to my own calculations, all I can say is that Q(x) is of the same order of size than R(x) in the range studied.
+
+Q1. Would you like to confirm the comparison Q(x) vs R(x) made by Carlos Rivera?
+
+Q2. In your opinion, does the Castillo's Q(x) function has some theoretical value?
+
+Q3. Do you devise a way to extend the validity range of Q(x)?
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

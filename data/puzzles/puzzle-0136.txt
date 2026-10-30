@@ -1,0 +1,202 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_136.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 136.  Poor prime strings
+Source: https://www.primepuzzles.net/puzzles/puzz_136.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0136.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_135.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_137.htm
+  https://www.primepuzzles.net/puzzles/puzz_136.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 136. Poor prime strings
+
+Problems & Puzzles: Puzzles
+
+Puzzle 136. Poor prime strings
+
+Here we look for primes P such that A&P (& = concatenation symbol) remains composite for 1<=A<=K while (K+1)&P is prime.
+
+Example: For P = 101 all the following numbers 1101, 2101, 3101 and 4101 are composite but 5101 is prime.
+
+A somewhat larger example is the prime P = 21799079. For this prime A&P remains composite for 1<=A<=127 but 12821799079 is prime
+
+Questions:
+
+1. Find the least prime P such that A&P remains composite for 1<=A<=K, for K= 200, 250, 300?
+
+If P is not a suffix string but a prefix then we have the following example: for P= 9645263, P&A remains composite for 1<=A<=310 but 96545263311 is prime
+
+2. Find the least prime P such that P&A remains composite for 1<=A<=K, for K= 400, 450, 500?
+
+3.- Theoretically how large can be A against P in both cases (P prefix or P suffix)
+
+Solution
+
+Jim Fougeron wrote (12/5/02):
+
+The K=200 answer for 136 question 1 is P=9578630051 Fortunately, the first value at or above K=200 was exactly at K=200. I have pushed the P value up to 40 billion (40000000000), and found these other K's above 200, but none to 250:
+
+A&P=20421616626329 K=203
+
+A&P=22626004456337 K=225
+
+A&P=21333235129159 K=212
+
+For question #2, I have found K=436 for P=1038712373. However, I am not
+
+sure if you are looking for exactly K=400. These were found before
+
+the "exact" K=400:
+
+P&A=1266830797403 K=402
+
+P&A=1926429577417 K=416
+
+P&A=1996427911409 K=408
+
+P&A=2177481401411 K=410
+
+P&A=2320354291433 K=432
+
+P&A=2336687021411 K=410
+
+P&A=2395844161423 K=422
+
+P&A=3050602271413 K=412
+
+P&A=3575121289517 K=516 (Note over both 450 and 500)
+
+P&A=4185986341403 K=402
+
+P&A=4357157921419 K=418
+
+P&A=4605053083403 K=402
+
+P&A=4854350063401 K=400
+
+Also note that we hit the 500 value at 3.5 billion, while for the A&P,
+
+the 200 mark (same "expected" point) was hit at 9.5 billion
+
+For the P&A 450 mark, here was what I found:
+
+P&A=3575121289517 K=516
+
+P&A=5998149907511 K=510
+
+P&A=7977980083481 K=480
+
+P&A=10655978111507 K=506
+
+P&A=10799501431451 K=450
+
+For the K=500, I have found these values searched up to 15 billion:
+
+P&A=3575121289517 K=516
+
+P&A=5998149907511 K=510
+
+P&A=10655978111507 K=506
+
+P&A=11826614069509 K=508
+
+It appears that the P&A are much more likely to be long. One would
+
+expect this. I expect that P&A should be (5/2)x the size of A&P, since
+
+6 out of 10 A's are known to be composite (evens and 5's). In the A&P,
+
+there were never evens, and there were never A&P == 0 mod(5) since 0 mod(5)
+
+implies that P is not a prime (except when P is 5, and for that one example,
+
+there is no non-composite A). So one conjecture about occurrences, is that
+
+P&A is 5/2 longer on average than A&P (but this is not quite right).
+
+However, the P&A appear to be longer than this. The early long results
+
+for the P&A (500 for a P&A should be the same as 200 for a A&P), show
+
+this. Also, the way I have coded my software, I do not test those 5/2
+
+values at all, but skip them. If all were the same, then the rate the
+
+software was running should be about the same. It is not. The rate is
+
+about 680000/s for the A&P and only 480000/s for the P&A run. 95% of
+
+the difference boils down to the number of tests being performed on
+
+average per each prime. I believe this is due to the fact the A&P is
+
+much more of a "random" selection method that P&A. Let me explain:
+
+For P&A, there are 9 sequential, then 90 sequential, then 900 sequential
+
+numbers, ... . For the A&P, there is nothing sequential. You simply
+
+look at some "arbitrary" number which can have no factor of 2 or 5. I
+
+believe the longer average runs for P&A are due to this sequential
+
+behavior of P&A's. Primes have an average distribution, but they also
+
+have a "clustering" effect, where there are long dry spells, with no
+
+sequential primes, and there are clusters of primes at a much higher
+
+density than expected. The P&A shows this behavior, while the A&P hides
+
+it in it's Monte Carlo selection method. The same ideas are behind why
+
+the better ECM factoring software chooses "random" curves to test. A
+
+certain percentage of ECM curves will succeed in factoring a given length
+
+factor, however, these "good" curves are not evenly distributed. They
+
+have "clusters" and "dry spots". A sequential testing of curves can
+
+pay off quickly (if you happen to be lucky enough to start in or near
+
+a good cluster), but sequential may also take a VERY long time to find
+
+a good curve. A "random" curve minimizes this clustering, and the results
+
+are much closer to the "expected" percentage chance for a good curve.
+
+The A&P behaves like the random choosing of a ECM curve.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

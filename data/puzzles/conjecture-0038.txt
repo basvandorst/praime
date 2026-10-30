@@ -1,0 +1,318 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_038.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 38. Adrian Stoica’s Conjecture
+Source: https://www.primepuzzles.net/conjectures/conj_038.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0038.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.research.att.com/projects/OEIS?Anum=A036468
+  https://www.primepuzzles.net/conjectures/conj_037.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_039.htm
+  https://www.primepuzzles.net/conjectures/conj_038.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 38. Adrian Stoica’s Conjecture
+
+Problems & Puzzles: Conjectures
+
+Conjecture 38. Adrian Stoica’s Conjecture
+
+Adrian Stoica sent time ago (November, 2004) the following issue:
+
+For any odd natural N>=3, there is 2 natural numbers x and y so that:
+
+1)x+y=N
+
+2)x^2 + y^2= prime
+
+I haven't solved it so far so it's a conjecture.
+
+Question: What can you say about it?
+
+Contributions came from: Mike Oakes, Faride Firoozbakht, Rickey Bowers, Jr., Anurag Sahay, Luis Rodríguez, Joseph L Pe., Rudolph Knkzek & Johann Wiesensbauer.
+
+This conjecture can be verified by computer to be true for all N up to some large value, and is almost certainly true for _all_ odd N >= 3.
+
+Equally certainly, a proof is not yet within reach of number theory.
+
+Here is a heuristic argument giving some confidence in its truth.
+
+Let M(x,y) = x^y+y^2 be the norm of the Gaussian integer (x,y) = x + i*y.
+
+For any odd N >= 3, consider the Gaussian integers on the line x+y=N, where x and y are otherwise unrestricted.
+
+Now sieve these with each rational prime p=2, 3, 5... in turn, crossing out those points for which M(x,y) has p as a proper factor.
+
+Because x and y have opposite parity, p = 2 never divides M(x,y).
+
+A prime p = 3 mod 4 only divides M(x,y) if p divides x and y separately, and so divides N.
+
+Such a prime will cross out 1 out of every p points on the line, and in every case is a _proper_ factor of M(x,y).
+
+If p = 1 mod 4 and divides N, then p only divides M(x,y) if it divides x and y separately. It will cross out 2 out of every p points on the line, and in every case is a _proper_ factor of M(x,y), since p^2 divides M(x,y).
+
+Finally, if p = 1 mod 4 and does not divide N, then it will cross out 2 out of every p points on the line except for a possible 2 points at which M(x,y) = p.
+
+If we sieve with all primes p <= N, the fraction of points on the infinite line which are not crossed out is:-
+
+product{p = 3 mod 4, p | N} (1-1/p) * product{p = 1 mod 4, p <= N} (1-2/p)
+
+For large N this is ~ C(N)/ln(N), where C(N) is O(1).
+
+Now restrict attention to the segment of the line x+y=N in the first quadrant, from (N-1,1) to (1,N-1), which is of length (N-1).
+
+If this were a "typical" segment of length (N-1), it would contain C(N)*(N-1)/ln(N) points not crossed out, and these would be points for which M(x,y) is prime, since the sieve was by all primes up to N which is >= sqrt(M(x,y)). So for all sufficiently large N (> N0 say), there would be >= 1 such prime, and the Conjecture would be satisfied; the remaining values (3..N0) could be verified by computer.
+
+However, this heuristic argument is not enough to _prove_ the conjecture, since the given segment cannot be _proved_ to be typical, in the sense of having that particular fraction of points uncrossed out.
+
+There are N-1 Gaussian integers on this line segment, and by symmetry (reflection in the line x=y), there are (N-1)/2 different ones, which can be taken to be (N-1,1) .. ((N+1)/2,(N-1)/2).
+
+To prove that there is at least 1 prime in the sequence of (N-1)/2 values M(N-1,1),..., M((N+1)/2,(N-1)/2), where these values are ~ N^2, is quite analogous to the problem of proving that there is at least 1 prime in the sequence of N values (N^2+1),..., (N^2+N), and this is the still unproved 1882 conjecture by Opperman. See Conjecture 6 for details of this and similar unproved conjectures.
+
+So any proof is likely to be very hard.
+Mike Oakes
+
+***
+
+I think similar to the Goldbach Conjecture there is no doubt that this conjecture is true but the proof is too difficult at this time We can generalize this conjecture and find infinitely many such conjectures in this way :
+
+" If k is a natural number then there exists a
+
+natural number f(k) such that for each n,
+
+n >= f(k) there exists at least one number x
+
+such that x <= n and x^2^k + (2n+1-x)^2^k is
+
+prime."
+
+Adrian Stoica?s Conjecture (the first Conjecture) says f(1)=1.
+
+The second Conjecture says f(2)=1, it means that, for any odd natural number N, N >= 3, there is 2 natural numbers x and y such that :
+
+1)x + y = N
+
+2)x^4 + y^4 = prime
+
+The third conjecture says: f(3)=53 it means that, for any odd natural number N >= 107, there is 2 natural numbers x and y such that :
+
+1)x + y = N
+
+2)x^8 + y^8 = prime
+
+So in this way we can explain many similar conjectures.
+
+Best regards,
+
+Farideh
+
+***
+
+Good Afternoon Carlos,
+
+This conjecture is the same as asking if a prime exists between ( N^2 -2N + 2 ) and ( N^2 + 1 )/2.
+
+A = {1,2,3,...,(N-1)}
+
+B = {(N-1),...,3,2,1}
+
+A + B = {N,N,...}
+
+A^2 = {1,4,9,...,(N^2-2N-1)}
+
+B^2 = {(N^2-2N-1),...,9,4,1}
+
+P = A^2 + B^2 = {(N^2-2N+2),(N^2-4N+8),(N^2-6N+18),...,(N^2-2N+2)}
+
+The vector P is greatest for (N^2-2N+2) and smallest when A = (N+1)/2 and B = (N-1)/2, for P equal (N^2 + 1)/2
+
+It is good to note this range is larger than Opperman’s stated bound for finding a prime, [N2, (N+1)2], when N>7. Trivial examples for 3, 5, and 7 are easy to show - only the case of 3+4=7 does not produce a prime.
+
+Rickey Bowers Jr.
+
+***
+
+Mensaje enviado desde primepuzzles.net con el asunto: ""
+
+Enviado por Luis Rodriguez (luiroto@yahoo.com) el Martes, Febrero 8, 2005 a las 15:53:46
+
+----------------------------------------------------------------------
+
+Asunto: Conjeture 38
+
+Mensaje: Hello Don Carlos
+
+I think that the conjecture 38 is true.
+
+My reason for sustain this opinion is that number of the combinations of N odd = X+Y are large = (N - 1)/2. Of that we must to substract the prohibited terminations for X and Y:
+
+1,2 2,1 0,5 5,0 6,7 7,6 3,6 6,3 3,4
+
+4,3 4,7 7,4 8,9 and 9,8
+
+Example : For N = 35 we only substract 3 terminations. It rest 17 - 3 = 14 possibilities.
+
+----------------------------------------------------------------------
+
+***
+
+Hi
+
+I tried to prove in the following uncanny way:
+
+The largest sets of consecutive primes
+
+({7,11},{17,23},{31},{43,47}..)which are not of the form x^2+y^2 is smaller than the number of pairs {x,y} such that x+y=N for any odd N>=3.
+
+And, there are more than two ways of expressing an odd number as sum of two integers.
+
+So it follows that there should be atleast one pair {x,y} satisfying x+y = N and x^2+y^2=prime for every odd N>=3.
+
+Does this prove the conjecture?
+
+Anurag Sahay
+
+***
+
+Mensaje enviado desde primepuzzles.net con el asunto: ""
+
+Enviado por Luis Rodriguez (luiroto@yahoo.com) el Jueves, Febrero 10, 2005 a las 08:44:28
+
+----------------------------------------------------------------------
+
+Asunto: Conjecture 38
+
+Mensaje: Hello Don Carlos
+
+To my former letter I want to add two notes that can be useful:
+
+1.- The Euler Theorem :"Each prime number of the form 4n + 1 can be decomposed in the sum of two squares in only one way."
+
+2.- The Diophantine equation:
+
+(X^2 + Y^2)/(X + Y) = C, have an infinitud of solutions.
+
+***
+
+Hi Carlos,
+
+I don't have a formal proof for conjecture # 38, but reasoning probabilistically, it's not hard to see why the conjecture is highly plausible. (I verified the conjecture numerically up to 10^5.)
+
+Suppose N is a fixed odd positive integer. The conjecture says that there is a prime in the finite sequence s whose terms are:
+
+s(k) = k^2 + (N - k)^2
+
+where k = 1, 2, ...., (N-1)/2. [Because of symmetry, it suffices to consider only the first (N-1)/2 values of k.] Note that the maximum value of a term in S occurs at k = K = (N - 1)/2, and the maximum value is s(K) = [(N-1)/2]^2 + [(N+1)/2]^2 = (N^2 + 1)/2. Hence, s(k) is an integer between 1 and S(K).
+
+Ignoring questions of randomness, independence of events, etc., for the sake of a probabilistic argument, consider each s(k) as randomly selected from the positive integers 1, 2, ..., s(K) = (N^2 + 1)/2. The probability that s(k) is prime is then 1/ln(S(K)) = 1/(ln(N^2 + 1) - 2).
+
+Since k ranges from 1 to (N - 1)/2, the expectation is then the product of (N - 1)/2 and the above probability, that is, P = (N - 1)/(2 ln(N^2 + 1) - 4) which is > 1 for N > 2. Indeed, P is much larger than 1 for N > 100. Hence, we expect at least one prime in the finite sequence s.
+
+Incidentally, the above argument can be applied to higher-order terms k^M + (N - k)^M where M > 2.
+
+So similar conjectures can be made for these higher-order terms. At least, it can be conjectured that primes can be found in k^M + (N - k)^M for all but finitely many values of N, since the numerator of the corresponding probability P overtakes the denominator after a certain point. I have checked numerically the first thousand or so values of N for the cases M = 3 and 4. In all cases checked, primes could be found in the sequence s.
+
+Regards,
+
+Joseph Pe
+
+***
+
+Dear Mr. Carlos!
+
+This is it, what I have:
+
+If N is odd, x is odd and y is even (or vice versa).
+
+x^2=1 mod 4
+
+y^2=0 mod 4
+
+=> x^2+y^2=1 mod 4
+
+Each N produces a set of (N-1)/2 numbers, all 1 mod 4.
+
+The smallest is z[0]=(N^2+1)/2.
+
+The other numbers follow by recursion to z[k]=z[k-1]+4k.
+
+Some of them are composite, some of them are primes. It is very difficault - if not impossible - to proof, that there is at least one prime in the set. I have done some statistics and have counted the number of primes in the sets for N=3 to N=601. Look at the attached graphic. The number of primes p(N) grows with N and the conjecture seems to be true.
+
+Let's write down the sets of numbers, produced by N=3,5,7,....
+
+5
+
+13,17
+
+25,29,37
+
+41,45,53,65
+
+61,65,73,85,101
+
+.............
+
+These are not all the numbers 1 mod 4.
+
+Now I have two more questions, related to the original conjecture:
+
+1) Are all primes of the form 4n+1 in at least one set?
+
+(Or: Have all primes of the form p=4n+1 a representation p=x^2+y^2?)
+
+2) Do primes appear only once? (Some composites don't!)
+
+(Or: If p=x^2+y^2 has a solution, is it the only one?)
+
+With kind regards
+
+Rudolf Knjzek
+
+***
+
+Carlos,
+
+As for Adrian Stoica s Conjecture, although I couldn't find a strict proof, I think that it should be true due to the following heuristic reasoning.
+
+For any integer x with 0<x<N/2 with gcd(x,N)=1 the probability that x^2+(N-x)^2 is prime is about 2/ln(N^2) (or simplified 1/ln N)), which is the probability that an odd integer near N^2 is prime. Hence, choosing all those x one by one (at most phi([N/2] numbers) and checking the condition above, we would expect a "success" after only ln N tries. Since phi([N/2]) has about the same order of magnitude as N itself and ln N << N for sufficiently large N, this leads to the conclusion that we should have found a suitable x long before they are "running out". Just as a supplement I also checked all "small" N up to 10^6 using Derive and found no exception.
+
+Regards,
+
+Johann wiessenbauer
+
+***
+
+T. D. Noe wrote (Feb 18, 2004):
+
+This conjecture equivalent to the question ask by Zhang Ming-Zhi in sequence A036468, the number of ways to represent 2n+1 as a+b with a>0, b>0 and a^2+b^2 prime.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,735 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 587. Concatenating absolute differences </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b>
+      <font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1">
+        <tr>
+          <td>
+          <blockquote>
+            <p><b><span lang="EN-US" style="font-family: Verdana">Puzzle 587. </span></b>
+            <font color="#008080"><b><span style="font-family: Verdana">
+            Concatenating absolute differences</span></b></font></p>
+            <p><font size="2"><span style="font-family: Verdana">Based on the 
+            puzzle 662 of the <a href="http://simplementenumeros.blogspot.com">
+            blog on numbers</a> by Claudio Meller I, have constructed a similar 
+            game.</span></font></p>
+            <blockquote>
+            <p><font size="2">
+            <span style="font-family: Verdana; font-weight:700">Given an integer 
+            N1 of D digits you generate an integer N2 of (D-1) digits 
+            concatenating orderly the absolute differences of contiguous digits 
+            of N1. Proceed recursively from N1 to generate N2, N3, ..., Nk.</span></font></p>
+            <p><font size="2"><span style="font-family: Verdana">Example: 9175 
+            -&gt; 862 -&gt; 24 -&gt; 2</span></font></p>
+            <p><font size="2"><span style="font-family: Verdana">Zeros by the 
+            left generated in a step, are discarded for the next step.</span></font></p>
+            <p><font size="2">
+            <span style="font-family: Verdana; font-weight:700">Our puzzle 
+            consists in getting sequences of integers&nbsp; N1, N2, ..., Nk such 
+            that all of them are <font color="#FF0000">prime</font> integers.</span></font></p>
+            <p><font size="2"><span style="font-family: Verdana">My largest 
+            solutions free of zeros by the left is this one for K=9:</span></font></p>
+              <table border="2" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 122">
+                <colgroup>
+                  <col width="98" style="width: 74pt">
+                </colgroup>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; width: 122; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                  <font size="5">528888881</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">36000007</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">3600007</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">360007</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">36007</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">3607</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">367</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">31</font></td>
+                </tr>
+                <tr height="20" style="height:15.0pt">
+                  <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="122">
+                  <font size="5">2</font></td>
+                </tr>
+            </table>
+            <p><span style="font-family: Verdana"><font size="2">If zeros by the 
+            left are allowed in <u>just one step</u>, I got two solutions for 
+            K=11</font></span></p>
+            <table border="2" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 351">
+              <colgroup>
+                <col width="98" span="2" style="width: 74pt">
+              </colgroup>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" style="height: 15.0pt; width: 184; text-align: center; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                <font size="5">656088008809</font></td>
+                <td style="width: 183; text-align: center; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                <font size="5">456088008809</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">11680808089</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">11680808089</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">528888881</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">528888881</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">36000007</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">36000007</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">3600007</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">3600007</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">360007</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">360007</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">36007</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">36007</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">3607</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">3607</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">367</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">367</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">31</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">31</font></td>
+              </tr>
+              <tr height="20" style="height:15.0pt">
+                <td height="20" align="center" style="height: 15.0pt; color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="184">
+                <font size="5">2</font></td>
+                <td align="center" style="color: black; font-size: 11.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Calibri, sans-serif; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" width="183">
+                <font size="5">2</font></td>
+              </tr>
+            </table>
+            <p><font size="2" color="#000080">
+            <span style="font-family: Verdana; font-weight: 700">Q1. Send you 
+            largest solution without zeros by the left</span></font></p>
+            <p><font size="2" color="#000080">
+            <span style="font-family: Verdana; font-weight: 700">Q2.</span></font><o:p><font size="2" color="#000080"><span style="font-family: Verdana; font-weight: 700"> 
+            Send you largest solution allowing zeros by the left <u>in just one 
+            step</u>.</span></font></p>
+            </blockquote>
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td>
+          &nbsp;</td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+	<wbr>
+		<span lang="en-us">
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+      <p>
+	<wbr>
+		Contributions came from Giovanni Resta, Emmanuel Vantieghem, Jan van 
+    Delden,
+      <o:p>
+	<wbr>
+      <o:p>
+      Hakan Summako&#287;lu.</p>
+      <p>
+	***<br>
+    Giovanni wrote:</p>
+      <blockquote>
+      <p>
+	For Q1, I found 4 sequences of length 14.<br>
+    They start at<br>
+    12931520935206062288222663, 72319124519868604426880809,<br>
+    92115322955440402882282063, 92337988155448402882282063 and<br>
+    and the end at 1011011100101. This is one of the sequences:<br>
+    <br>
+    12931520935206062288222663<br>
+    1762432962326664060600403<br>
+    614211734114002466660443<br>
+    53210641303402220006401<br>
+    2111623233142002006241<br>
+    100541110232202206423<br>
+    10513001211022026221<br>
+    1542301110120224401<br>
+    412131001112202041<br>
+    31122101001022243<br>
+    2010111101120021<br>
+    211100011012021<br>
+    10010010111221<br>
+    1011011100101<br>
+    <br>
+    For Q2 I found several sequences of length 16. One of them:<br>
+    <br>
+    13840006750000606000026847<br>
+    2544006125000666600024243<br>
+    310406513500600060022221<br>
+    21446142250660066020001<br>
+    1302532035606060622001<br>
+    232321232166666640201<br>
+    11111111150000024221<br>
+    45000022201<br>
+    1500020021<br>
+    450022021<br>
+    15020221<br>
+    4522201<br>
+    130021<br>
+    23021<br>
+    1321<br>
+    211</p>
+      </blockquote>
+      <p>
+	***</p>
+      <p>
+	Emmanuel wrote:</p>
+      <blockquote>
+        <div>
+          Q1. I found a chain of&nbsp; 11&nbsp; primes, without zero by the left :</div>
+        <div>
+          1081620080800841,<wbr /> 187542088880843,
+          <wbr />71212280008841, 6111068008043,
+          <wbr />500162808841, 50154688043,
+          <wbr />5141220841, 433102843, 10212641,
+          <wbr />1211423, 110321.<br>
+&nbsp;<div>
+            Q2. allowing just one zero, I found a chain of twelve primes :</div>
+          <div>
+            351000802048069,<wbr /> 24100882244863, 2310806020423,
+            <wbr />121886622421, 11702040221,
+            <wbr />0672244201, 15020221, 4522201,
+            <wbr />130021, 23021, 1321, 211.</div>
+        </div>
+      </blockquote>
+      <p>
+	***</p>
+      <p>
+	Jan wrote:</p>
+      <div style="font-family: Arial; color: rgb(0, 0, 0); font-size: 10pt; ">
+        <blockquote>
+          <p>Q1:</p>
+        </blockquote>
+      </div>
+      <blockquote>
+        <div style="font-family: Arial; color: rgb(0, 0, 0); font-size: 10pt; ">
+          K=14</div>
+        <div style="font-family: Arial; color: rgb(0, 0, 0); font-size: 10pt; ">
+          &nbsp;</div>
+        <div>
+          92337988155448402882282063</div>
+        <div>
+          7104210740104442606066263</div>
+        <div>
+          614211734114002466660443</div>
+        <div>
+          53210641303402220006401</div>
+        <div>
+          2111623233142002006241</div>
+        <div>
+          100541110232202206423</div>
+        <div>
+          10513001211022026221</div>
+        <div>
+          1542301110120224401</div>
+        <div>
+          412131001112202041</div>
+        <div>
+          31122101001022243</div>
+        <div>
+          2010111101120021</div>
+        <div>
+          211100011012021</div>
+        <div>
+          10010010111221</div>
+        <div>
+          1011011100101</div>
+        <div>
+          &nbsp;</div>
+        <div>
+          Q2:</div>
+        <div>
+          &nbsp;</div>
+        <div>
+          K=15 (3 solutions)</div>
+        <div>
+          &nbsp;</div>
+        <div>
+          3813690137234288866666660223</div>
+        <div>
+          5871810917036228260606066201</div>
+        <div>
+          5871810917036228260606066243</div>
+        <div>
+          &nbsp;</div>
+        <div>
+          all ending with the prime 101101110101</div>
+      </blockquote>
+      <p>
+	***</p>
+      <o:p>
+	<wbr>
+		<p>Hakan Summako&#287;lu wrote:</p>
+      <blockquote>
+        <p>Q1: My largest solution is like yours. And There isn't solution for 
+        k&gt;9. My second largest solution is for k=7. I got 8 solution for k=7.&nbsp;</p>
+      </blockquote>
+      <span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">
+      <span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+      <table width="390" border="1" cellpadding="4" cellspacing="0" height="212">
+        <colgroup>
+          <col width="64*"><col width="64*"><col width="64*"><col width="64*">
+        </colgroup>
+        </span></span>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          3282841</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          3282847</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5066801</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5606047</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          166643</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          166643</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          560281</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          166643</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          50021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          50021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          16267</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          50021</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5441</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5021</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          521</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          521</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          103</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          521</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          31</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          31</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          13</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          31</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+        </tr>
+      </table>
+      <p>&nbsp;</p>
+      <span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+      <span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">
+      <table width="390" border="1" cellpadding="4" cellspacing="0" height="212">
+        <colgroup>
+          <col width="64*"><col width="64*"><col width="64*"><col width="64*">
+        </colgroup>
+        </span></span>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          8002847</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          9246403</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          9246841</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          9246847</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          802643</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          722243</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          722243</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          722243</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          82421</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          50021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          50021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          50021</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          6221</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5021</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          5021</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          401</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          521</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          521</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          521</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          41</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          31</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          31</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          31</td>
+        </tr>
+        <tr valign="TOP">
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          3</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+          <td width="25%" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+        </tr>
+      </table>
+      <blockquote>
+        <p><br>
+        Q2: My largest solution is like yours. And There isn't solution for 
+        k&gt;11. My second largest solution is for k=9. I got 1 solution for k=9.</p>
+      </blockquote>
+      <span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+      <span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">
+      <table width="99" border="1" cellpadding="4" cellspacing="0">
+        <colgroup>
+          <col width="89">
+        </colgroup>
+        </span></span>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          3906080081</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          696688087</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          33020881</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          322807</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          10687</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          1621</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          541</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          13</td>
+        </tr>
+        <tr>
+          <td valign="TOP" width="89" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: arial, sans-serif; ">
+          2</td>
+        </tr>
+      </table>
+      <p>
+	***</p>
+      </font>
+	<wbr>
+      <o:p>
+      <center><hr></center>
+    </blockquote>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_586.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_588.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

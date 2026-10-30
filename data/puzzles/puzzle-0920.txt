@@ -1,0 +1,183 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_920.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 920. An enigma related to A291582
+Source: https://www.primepuzzles.net/puzzles/puzz_920.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0920.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A291582
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_919.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_921.htm
+  https://www.primepuzzles.net/puzzles/puzz_920.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 920. An enigma related to A291582
+
+Problems & Puzzles: Puzzles
+
+Puzzle 920. An enigma related to A291582
+
+Vicente Felipe Izquierdo sent the following nice puzzle-enigma related to the sequence A291582. He wrote:
+
+For each prime P calculate:
+
+- the sum of the non-prime numbers greater than P, until the next prime number. (SM)
+- the sum of the non-prime numbers less than P, until the prev prime number. (Sm)
+
+Let's call D the difference SM - Sm.
+
+Example:
+
+P = 7,
+
+SM = 8 + 9 + 10 = 27
+
+Sm = 6
+
+D = 21
+
+Let us form the ordered set of the frequency of appearance of the D differences of all the primes, in decreasing order of the observed frequency.
+Unexpectedly the resulting set is {30, 132, 306, 552, 870, 1260, 1722, ...} exactly the same set of values than the values for the sequence A291582!!!, discarding the very low frequencies (less than 4) and all the frequencies for negative values of D.
+
+But the sequence A291582 was obtained last year by Craig Knecht while studying a very different issue: "Maximum number of 6 sphinx tile shapes in a sphinx tiled hexagon of order n"
+
+Q. Can you send an explanation for this coincidence, or at least make some interesting comments?
+
+Contributions came from Walter Trump, Jan van Delden and Emmanuel Vantieghem
+
+***
+
+Walter wrote:
+
+The difference D can be calculated with triangular numbers T(n) = 1 + 2 + 3 + ... + n = (n²+n)/2 .
+
+If (p – a) is the prime below p and (p + b) the prime above p then the sums are:
+
+SM = (p + 1) + (p + 2) + (p + 3) + ... + (p + (b – 1))
+
+Sm = (p – 1) + (p – 2) + (p – 3) + ... + (p – (a – 1))
+
+D = SM – Sm = p(b – a) + 1 + 2 + 3 + ... + (b – 1) + 1 + 2 + 3 + ... + (a – 1)
+
+D = p(b – a) + T(b – 1) + T(a – 1)
+
+In general D depends on the value of p. But if a = b then D is independent of the value of p.
+
+These D’s occur very often, because there are no limits for the associated p.
+
+Such primes with a = b are called balanced.
+
+D = p(b – b) + T(b – 1) + T(b – 1) = 2T(b – 1)
+
+b has to be a multiple of 6, if p > 5. Otherwise one of the three primes would be a multiple of 3 and we get a contradiction.
+
+Smaller distances occur more frequently than larger ones.
+
+Therefore we get the sequence of distances: b(n) = 6, 12, 18, ..., 6n
+
+And the sequence of differences: D(n) = 30, 132, 306, ..., 2T(6n-1)
+
+BUT 2T(6n-1) = (6n-1)²+(6n-1) = 36n² - 12n + 1 + 6n – 1 = 36n² - 6n = 6n(6n-1) and this is the formula of A291582
+
+***
+
+Jan wrote:
+
+Consider the three primes q=p-2k, p and r=p+2l. (p>3).
+
+D = sum(x,x=p+1..r-1)- sum(x,x=q+1..p-1) can be written as:
+
+D = 2(k^2+l^2)-(k+l)+2p(l-k) = f(p,k,l)
+
+This expression is independent of p if k=l:
+
+D = 2k(2k-1)
+
+If k=1 mod 3 the numbers [q,p,r] mod 6 are [p-2,p,p+2] mod 6 = [p+4,p,p+2] mod 6.
+
+If k=2 mod 3 the numbers [q,p,r] mod 6 are [p-4,p,p+4] mod 6 = [p+2,p,p+4] mod 6.
+
+In both cases the numbers [q,p,r] form a complete odd residue set mod 6,
+
+hence p,q or r is divisible by 3 and hence p,q,r are not consecutive primes.
+
+So we are left with k=0 mod 3, say k=3m. But then D = 6m(6m-1) which are the numbers in A291582.
+
+Since the probability on primegap 6m decreases with increasing m, it makes sense that larger D of this type occur less often.
+
+It must be possible to show that given m the number of consecutive prime solutions of the form [p-6m,p,p+6m] are infinite, at least a heuristic could be given, something of the form C[m] p/ln(p)^3 would be my guess [Like in the derivation of the density of the twin primes].
+
+The tricky bit in the question is that it might happen that D=f(p1,k1,l1)=f(p2,k2,l2) with k1<>l1 and k2<>l2.
+
+This type of equation is much harder to fulfil. The number of solutions might be finite or infinite (with a very low density compared to the previously discussed case). But I see no direct way to decide which is which.
+
+All I “know” is that if p2>p1 the part 2p1(l1-k1) versus 2p2(l2-k2) will be dominant for larger p1,p2, so |l2-k2| will (probably) be smaller than |l1-k1|. Which means that p1 must have rather large primegaps l1,k1 in order to have a large number of solutions for such a D=f(p1,k1,l1).
+
+***
+
+Emmanuel wrote:
+
+First of all : A291582(n) is nothing else but 6n(6n-1).
+
+This leads to a demystification of the puzzle : the sfinx's presence has nothing essential to do with our problem !
+
+It gave only a geometrical interpretation of the number 6n(6n-1) ...
+
+Vicente's observation is restricted to the fact that the positive values D with frequency >= 4 are all of the form 6n(6n-1).
+
+Is that so ?
+
+Well, let ( p, q, r ) be a trio of consecutive primes. Set k = q-p and h = r-q.
+
+Then : D = q+1 + q+2 +...+ q+h-1 - (q-1 + q-2 + ...+ q-k+1) = (h-k)q + (h(h-1)+k(k-1)/2.
+
+If h = k (which can only happen when k is of the form 6n), then D = 6n(6n-1) = A291582(n).
+
+I think this situation is conjectured to happen infinitely many times. This would imply Vicente's observation.
+
+But, when k < h, the value D is reached only for a finite number of q (the biggest being (D-7)/2 ).
+
+But I'm not sure that there are at most four possible q that lead to the value D (provided D is not of the form 6n(6n-1)).
+
+Actually, I could not find a situation with k < h that gave more than three times a given value of D.
+
+The smallest such D with frequency 3 happens when D = 13288305 with
+
+(p1,q1,r1) = (738217, 738223, 738247)
+
+(p2,q2,r2) = (1328797, 1328807, 1328827)
+
+(p3,q3,r3) = (6644147, 6644149, 6644153).
+
+Nevertheless, I'm sure such D with frequency > 3 exist !
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

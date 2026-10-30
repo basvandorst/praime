@@ -1,0 +1,161 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_064.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 64.- The Strange Ruler (TWA Baumann)
+Source: https://www.primepuzzles.net/puzzles/puzz_064.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0064.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://mathworld.wolfram.com/18-PointProblem.html
+  https://www.primepuzzles.net/puzzles/puzz_063.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_065.htm
+  https://www.primepuzzles.net/puzzles/puzz_064.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 64.- The Strange Ruler (TWA Baumann)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 64.- The Strange Ruler (TWA Baumann)
+
+You are given a ruler without any graduation. Label the beginning of the ruler with 'zero' and the end with 'm' (= maximum distance from zero). Fix the grading lines for integral units of length from 0 to m.
+
+Set two marks on different grading lines, so that each mark is in another half of the ruler. Then set the 3rd mark on a free grading line, so that now each mark is in another third of the ruler. Go on this way until setting the n-th mark (the last possible one). Of course: All marks (and m) must be prime numbers.
+
+The puzzle is to find a solution with maximum n. If there are several solutions find this one with minimum m. Regard: The mark (label) 'm' is only a limit. 'm' is not part of the last x-th.
+
+Example: If you choose m=13 you could set the first two marks on grading lines 2 and 11. Now '2' is in the first half of the ruler (0 < 2 < 13/2) and '11' is in the second half (13/2 < 11 < 13). The third mark could be placed on '7'. Then the 3 marks are in different thirds: 0 < 2 < 13/3, 13/3 < 7 < 26/3, 26/3 < 11 < 13. Now you could set the fourth mark on '5' ... But of course m=13 is too small to get the maximum n.
+
+Remark: The puzzle is already known with integers, and it is proved that in this case the maximum n is ... (you will find it out). But now… we have to deal with primes.
+
+At last, one solution was received for this old & noble puzzle. Giovanni Resta wrote (Abril, 08):
+
+Puzzle 64 is based on a famous problem.
+
+Some details are here:
+
+http://mathworld.wolfram.com/18-PointProblem.html
+
+The quite counter-intuitive result is that in general
+
+the maximum number of points that it is possible
+
+to add is 17.
+
+I performed an exhaustive search and the results are:
+
+1) For integers the minimal M is 52 and one of the
+
+possible soluzion is given by the 17 numbers:
+
+{22,37,3,48,14,28,44,9,32,18,40,6,25,51,12,35,21}
+
+2) The minimal prime M is 367 and the 17 prime points are
+
+{2,211,317,107,269,167,53,347,139,239,79,293,191,29,
+
+331,127,223}
+
+Find below a description of the method I used.
+
+First of all I used the solution by Warmus cited in
+
+http://mathworld.wolfram.com/18-PointProblem.html
+
+this solution is given as a set of inequalities like
+
+4/7 <= x1 < 7/12
+
+2/7 <= x2 < 5/17
+
+and so on, which give an infinite family of real solutions for a ruler
+
+of unitary length.
+
+As a first approach, just to obtain a non-minimal solution to
+
+be used as an upperbound, I multiplied
+
+the 17 given inequalities for various prime values of M
+
+(the length of the ruler) to obtain a set of inequalities for which
+
+all the x1, x2, ..., x17 can assume prime values.
+
+I was sure I could find a solution in this way: it was only a matter
+
+of how much I had to enlarge the ruler so that each of the above
+
+inequality encompass a prime number.
+
+In this way I found the smallest solution to be the one
+
+with M=509.
+
+To determine if this was the smallest solution (it is not!)
+
+I wrote a very little recursive program that works as follows:
+
+First of all I fix a prime value of M<=509 to be the ruler length.
+
+Then I consider all the pairs x1,x2 of primes less than M.
+
+Note that the first two numbers can be exchanged (this is not
+
+true in general for subsequent numbers) so I can assume x1 < x2.
+
+Now I check if x1,x2 are "legal", i.e., for k=2,3,...,17
+
+they fall in different k-th of the segment.
+
+If so, I invoke the recursive procedure.
+
+The recursive procedure receive a set of 2 <= h <= 16 "legal"
+
+points and try to add the next one.
+
+To do so, it adds a point not already taken and check if the
+
+new set of h+1 point is "legal", i.e., for k=h+1,h+2,...,17
+
+the points fall in distinct k-th of the segment.
+
+If this is possible the procedure calls itself with h+1 points,
+
+otherwise return.
+
+Using this method I found in few minutes that the smallest
+
+solution in integers has M=52 and in about one hour that
+
+the smallest solution in primes has M=367.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

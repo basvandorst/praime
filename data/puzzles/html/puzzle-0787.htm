@@ -1,0 +1,573 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 787. Fibonacci as sum of two consecutive primes. </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+span.apple-converted-space
+	{}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font><font color="#0000FF">Puzzles </font></b></font></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1" height="106">
+        <tr>
+          <td height="88" valign="top">
+          <blockquote>
+            <p><b><span style="font-family: Verdana">Puzzle 787. 
+			Fibonacci as sum of two consecutive primes.</span></b></p>
+			<blockquote>
+				<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+					<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+						<font face="Verdana" size="2">Abhiram R. Devesh sent 
+						the following nice puzzle.</font><p><i>
+						<font face="Verdana" size="2">&quot;Find Fibonacci numbers as 
+						sum of two consecutive prime numbers.&quot;</font></i></p>
+						<p><font face="Verdana" size="2">Abhiram sent the first 
+						four examples to OEIS as A258044</font></p>
+						<p><font face="Verdana">a(1) =&nbsp;&nbsp;&nbsp;5 =&nbsp;&nbsp;2 + 3 = fib(5)<br>
+						a(2) =&nbsp;&nbsp;&nbsp;8 =&nbsp;&nbsp;3 + 5 </font>
+						<font face="Verdana" SIZE="2">= fib(6)</font><font face="Verdana"><br>
+						a(3) = 144 = 71 + 73 </font>
+						<font face="Verdana" SIZE="2">= fib(12)</font><font face="Verdana"><br>
+						a(4) = 1548008755920 = 774004377953 + 774004377967
+						</font><font face="Verdana" SIZE="2">= fib(60)</font></p>
+						<p><font face="Verdana">Carlos Rivera, found the fifth 
+						example: a(5) =&nbsp; 
+						24617570215823242721662481553130368936971399966974615095762<br>
+						3321100005560791219897970498870444642583404279526960358<wbr style="color: rgb(0, 0, 0); font-family: monospace; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: -16px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">8522<br>
+						245550271050495783935904220352228801000 = </font>
+						<font face="Verdana" SIZE="2">fib(750) =</font><font face="Verdana">
+						</font></p>
+						<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+							<font face="Verdana">123087851079116213608312407765<wbr>651844684856999834873075478811<wbr>6605500027803956099</font></div>
+						<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+							<font face="Verdana">489852494352223212917021397634<wbr>801794261122775135525247891967<wbr>952110176114400437 
+							+</font></div>
+						<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+							<font face="Verdana">&nbsp;<wbr>123087851079116213608312407765<wbr>651844684856999834873075478811<wbr>6605500027803956099</font></div>
+						<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+							<font face="Verdana">489852494352223212917021397634<wbr>801794261122775135525247891967<wbr>952110176114400563</font><p>
+							<b><font face="Verdana" color="#000080">Q. Find more 
+							terms</font></b></div>
+					</div></div>
+			</blockquote>
+			<wbr>
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          <p></p>
+			<p>
+          </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a><wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); "></p>
+		<p>
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+		Jan van Delden wrote on May 25, 2015</p>
+		<blockquote>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">The next solution a(6)=fib(8505). 
+				The primes are fib(8505)/2 +/- 4074. Both are certified prime 
+				(primo) and have 1777 digits.<br>
+				I checked n&lt;=11000, n mod 3=0.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">The values n, belonging to a(n), 
+				have the following property:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">a(2),a(3): 3-smooth<br>
+				a(5),a(5): 5-smooth</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">a(6): 7-smooth<br>
+				Any reason why?</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Jan van Delden</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Just as a check for a(6):<br>
+&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">fib(8505)/2-4074 =</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+16156945768" target="_blank" style="color: rgb(17, 85, 204);" href="tel:6156945768">
+				6156945768</a><span class="Apple-converted-space">&nbsp;</span>1275389660<span class="Apple-converted-space">&nbsp;</span><a value="+19258564063" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9258564063">9258564063</a><span class="Apple-converted-space">&nbsp;</span><a value="+16067281596" target="_blank" style="color: rgb(17, 85, 204);" href="tel:6067281596">6067281596</a><span class="Apple-converted-space">&nbsp;</span>3417068830</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2410127014 5431439163<span class="Apple-converted-space">&nbsp;</span><a value="+15333787366" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5333787366">5333787366</a><span class="Apple-converted-space">&nbsp;</span><a value="+19386003187" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9386003187">9386003187</a><span class="Apple-converted-space">&nbsp;</span>0567384348</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0346180845 3223249514 3620707843<span class="Apple-converted-space">&nbsp;</span><a value="+15045295340" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5045295340">5045295340</a><span class="Apple-converted-space">&nbsp;</span><a value="+19056923160" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9056923160">9056923160</a></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0503479784 2691172422 8974671689 
+				1633979973 9580373018</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2941395357 1860108492 1331565402 
+				4853820661 3766420132</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">6526674751<span class="Apple-converted-space">&nbsp;</span><a value="+12046873193" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2046873193">2046873193</a><span class="Apple-converted-space">&nbsp;</span><a value="+12203861813" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2203861813">2203861813</a><span class="Apple-converted-space">&nbsp;</span>2958648512 
+				5621597416</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0220925003 0045267097 9170239958<span class="Apple-converted-space">&nbsp;</span><a value="+18073657362" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8073657362">8073657362</a><span class="Apple-converted-space">&nbsp;</span>4985836610</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2861679356<span class="Apple-converted-space">&nbsp;</span><a value="+12362752590" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2362752590">2362752590</a><span class="Apple-converted-space">&nbsp;</span>5620860057 
+				3714791225<span class="Apple-converted-space">&nbsp;</span><a value="+18733641591" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8733641591">8733641591</a></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+13154683156" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3154683156">
+				3154683156</a><span class="Apple-converted-space">&nbsp;</span>2713268713 
+				6472002638 0809588808 1163330796</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2779810163 7421365031<span class="Apple-converted-space">&nbsp;</span><a value="+13109790871" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3109790871">3109790871</a><span class="Apple-converted-space">&nbsp;</span>8401569841 
+				1923171946</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+16478009417" target="_blank" style="color: rgb(17, 85, 204);" href="tel:6478009417">
+				6478009417</a><span class="Apple-converted-space">&nbsp;</span>8711321890 
+				1787183317 6353319353 6963274498</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3971334110<span class="Apple-converted-space">&nbsp;</span><a value="+17068571302" target="_blank" style="color: rgb(17, 85, 204);" href="tel:7068571302">7068571302</a><span class="Apple-converted-space">&nbsp;</span>5821309238 
+				3492594135 3928373192</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3664034769<span class="Apple-converted-space">&nbsp;</span><a value="+13142029514" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3142029514">3142029514</a><span class="Apple-converted-space">&nbsp;</span>0330765184 
+				3153603659 6795734381</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0630300765 0984631475 4218120775<span class="Apple-converted-space">&nbsp;</span><a value="+19522470488" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9522470488">9522470488</a><span class="Apple-converted-space">&nbsp;</span>6397858729</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19415186294" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9415186294">
+				9415186294</a><span class="Apple-converted-space">&nbsp;</span>8780760441 
+				9688105476 8992021710 5635358924</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">7916856267 0638374570 2304728316 
+				3735886750 4297755983</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">7282115944<span class="Apple-converted-space">&nbsp;</span><a value="+19515830480" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9515830480">9515830480</a><span class="Apple-converted-space">&nbsp;</span>3298848334 
+				1134658319 6946010126</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8140124746 7948154466<span class="Apple-converted-space">&nbsp;</span><a value="+17727866088" target="_blank" style="color: rgb(17, 85, 204);" href="tel:7727866088">7727866088</a><span class="Apple-converted-space">&nbsp;</span>0735727085 
+				2386263950</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">4964216002 6737812740 1201768695 
+				6886463021<span class="Apple-converted-space">&nbsp;</span><a value="+12529577617" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2529577617">2529577617</a></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+13156441822" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3156441822">
+				3156441822</a><span class="Apple-converted-space">&nbsp;</span>8112319979 
+				2377832774 6117481600 9488977088</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19303467081" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9303467081">
+				9303467081</a><span class="Apple-converted-space">&nbsp;</span>6301640265 
+				4736605420 6386765822 0294342265</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19846940316" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9846940316">
+				9846940316</a><span class="Apple-converted-space">&nbsp;</span>8366393688 
+				6556377501 1778911844 9922008026</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">5275625615 3564079624 3426952243<span class="Apple-converted-space">&nbsp;</span><a value="+19893851083" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9893851083">9893851083</a><span class="Apple-converted-space">&nbsp;</span>3874202581</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0871929699 0373404685 4903375448 
+				1426592887 4950396141</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">4633364924 0578753827 2005326631 
+				1399921627 0371640130</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8847240908 5981109624 2060903400 
+				3887884305 3901887221</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+18353989454" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8353989454">
+				8353989454</a><span class="Apple-converted-space">&nbsp;</span>3294785299 
+				7239963223 8759725204 9662495652</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8030392447<span class="Apple-converted-space">&nbsp;</span><a value="+15733844594" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5733844594">5733844594</a><span class="Apple-converted-space">&nbsp;</span>8373879106 
+				3512697345 4448166265</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8829475786 8348186587 7171663668 
+				7959335901 0081334938</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19089077813" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9089077813">
+				9089077813</a><span class="Apple-converted-space">&nbsp;</span>9759066659 
+				0509940360 4260980464 5052284440</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">6925264704 8273926234 7130988885<span class="Apple-converted-space">&nbsp;</span><a value="+14845070904" target="_blank" style="color: rgb(17, 85, 204);" href="tel:4845070904">4845070904</a><span class="Apple-converted-space">&nbsp;</span>6782252014</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+13259428792" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3259428792">
+				3259428792</a><span class="Apple-converted-space">&nbsp;</span>7902779072 
+				4392437329 9621778939 6482280252</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2660301721 7973434990 1114275262 
+				7778222487 7284710237</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">9131497042<span class="Apple-converted-space">&nbsp;</span><a value="+19128742882" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9128742882">9128742882</a><span class="Apple-converted-space">&nbsp;</span>9473928192 
+				2042368669 2818273856</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3510691252<span class="Apple-converted-space">&nbsp;</span><a value="+15448454313" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5448454313">5448454313</a><span class="Apple-converted-space">&nbsp;</span>9288212430 
+				5173998677 0774054640</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+18706790403" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8706790403">
+				8706790403</a><span class="Apple-converted-space">&nbsp;</span>6009007468 
+				8757991</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">fib(8505)/2+4074 =</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+16156945768" target="_blank" style="color: rgb(17, 85, 204);" href="tel:6156945768">
+				6156945768</a><span class="Apple-converted-space">&nbsp;</span>1275389660 
+				9258564063 6067281596 3417068830</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2410127014 5431439163<span class="Apple-converted-space">&nbsp;</span><a value="+15333787366" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5333787366">5333787366</a><span class="Apple-converted-space">&nbsp;</span>9386003187 
+				0567384348</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0346180845 3223249514 3620707843<span class="Apple-converted-space">&nbsp;</span><a value="+15045295340" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5045295340">5045295340</a><span class="Apple-converted-space">&nbsp;</span>9056923160</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0503479784 2691172422 8974671689 
+				1633979973 9580373018</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2941395357 1860108492 1331565402 
+				4853820661 3766420132</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">6526674751<span class="Apple-converted-space">&nbsp;</span><a value="+12046873193" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2046873193">2046873193</a><span class="Apple-converted-space">&nbsp;</span>2203861813 
+				2958648512 5621597416</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0220925003 0045267097 9170239958<span class="Apple-converted-space">&nbsp;</span><a value="+18073657362" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8073657362">8073657362</a><span class="Apple-converted-space">&nbsp;</span>4985836610</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2861679356<span class="Apple-converted-space">&nbsp;</span><a value="+12362752590" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2362752590">2362752590</a><span class="Apple-converted-space">&nbsp;</span>5620860057 
+				3714791225 8733641591</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+13154683156" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3154683156">
+				3154683156</a><span class="Apple-converted-space">&nbsp;</span>2713268713 
+				6472002638 0809588808 1163330796</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2779810163 7421365031<span class="Apple-converted-space">&nbsp;</span><a value="+13109790871" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3109790871">3109790871</a><span class="Apple-converted-space">&nbsp;</span>8401569841 
+				1923171946</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+16478009417" target="_blank" style="color: rgb(17, 85, 204);" href="tel:6478009417">
+				6478009417</a><span class="Apple-converted-space">&nbsp;</span>8711321890 
+				1787183317 6353319353 6963274498</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3971334110<span class="Apple-converted-space">&nbsp;</span><a value="+17068571302" target="_blank" style="color: rgb(17, 85, 204);" href="tel:7068571302">7068571302</a><span class="Apple-converted-space">&nbsp;</span>5821309238 
+				3492594135 3928373192</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3664034769<span class="Apple-converted-space">&nbsp;</span><a value="+13142029514" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3142029514">3142029514</a><span class="Apple-converted-space">&nbsp;</span>0330765184 
+				3153603659 6795734381</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0630300765 0984631475 4218120775<span class="Apple-converted-space">&nbsp;</span><a value="+19522470488" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9522470488">9522470488</a><span class="Apple-converted-space">&nbsp;</span>6397858729</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19415186294" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9415186294">
+				9415186294</a><span class="Apple-converted-space">&nbsp;</span>8780760441 
+				9688105476 8992021710 5635358924</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">7916856267 0638374570 2304728316 
+				3735886750 4297755983</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">7282115944<span class="Apple-converted-space">&nbsp;</span><a value="+19515830480" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9515830480">9515830480</a><span class="Apple-converted-space">&nbsp;</span>3298848334 
+				1134658319 6946010126</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8140124746 7948154466<span class="Apple-converted-space">&nbsp;</span><a value="+17727866088" target="_blank" style="color: rgb(17, 85, 204);" href="tel:7727866088">7727866088</a><span class="Apple-converted-space">&nbsp;</span>0735727085 
+				2386263950</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">4964216002 6737812740 1201768695 
+				6886463021<span class="Apple-converted-space">&nbsp;</span><a value="+12529577617" target="_blank" style="color: rgb(17, 85, 204);" href="tel:2529577617">2529577617</a></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+13156441822" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3156441822">
+				3156441822</a><span class="Apple-converted-space">&nbsp;</span>8112319979 
+				2377832774 6117481600 9488977088</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19303467081" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9303467081">
+				9303467081</a><span class="Apple-converted-space">&nbsp;</span>6301640265 
+				4736605420 6386765822 0294342265</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19846940316" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9846940316">
+				9846940316</a><span class="Apple-converted-space">&nbsp;</span>8366393688 
+				6556377501 1778911844 9922008026</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">5275625615 3564079624 3426952243<span class="Apple-converted-space">&nbsp;</span><a value="+19893851083" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9893851083">9893851083</a><span class="Apple-converted-space">&nbsp;</span>3874202581</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">0871929699 0373404685 4903375448 
+				1426592887 4950396141</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">4633364924 0578753827 2005326631 
+				1399921627 0371640130</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8847240908 5981109624 2060903400 
+				3887884305 3901887221</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+18353989454" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8353989454">
+				8353989454</a><span class="Apple-converted-space">&nbsp;</span>3294785299 
+				7239963223 8759725204 9662495652</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8030392447<span class="Apple-converted-space">&nbsp;</span><a value="+15733844594" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5733844594">5733844594</a><span class="Apple-converted-space">&nbsp;</span>8373879106 
+				3512697345 4448166265</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8829475786 8348186587 7171663668 
+				7959335901 0081334938</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+19089077813" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9089077813">
+				9089077813</a><span class="Apple-converted-space">&nbsp;</span>9759066659 
+				0509940360 4260980464 5052284440</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">6925264704 8273926234 7130988885<span class="Apple-converted-space">&nbsp;</span><a value="+14845070904" target="_blank" style="color: rgb(17, 85, 204);" href="tel:4845070904">4845070904</a><span class="Apple-converted-space">&nbsp;</span>6782252014</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+13259428792" target="_blank" style="color: rgb(17, 85, 204);" href="tel:3259428792">
+				3259428792</a><span class="Apple-converted-space">&nbsp;</span>7902779072 
+				4392437329 9621778939 6482280252</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2660301721 7973434990 1114275262 
+				7778222487 7284710237</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">9131497042<span class="Apple-converted-space">&nbsp;</span><a value="+19128742882" target="_blank" style="color: rgb(17, 85, 204);" href="tel:9128742882">9128742882</a><span class="Apple-converted-space">&nbsp;</span>9473928192 
+				2042368669 2818273856</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3510691252<span class="Apple-converted-space">&nbsp;</span><a value="+15448454313" target="_blank" style="color: rgb(17, 85, 204);" href="tel:5448454313">5448454313</a><span class="Apple-converted-space">&nbsp;</span>9288212430 
+				5173998677 0774054640</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">
+				<a value="+18706790403" target="_blank" style="color: rgb(17, 85, 204);" href="tel:8706790403">
+				8706790403</a><span class="Apple-converted-space">&nbsp;</span>6009007468 
+				8766139</font></div>
+		</blockquote>
+		<p>
+      <span lang="es-mx">***</span></p>
+		<p>
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); "></p>
+		<p>
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); "></p>
+      </font>
+		<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+    </blockquote>
+	<o:p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+		
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="21">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td>
+      <font SIZE="2">
+            <p><a href="puzz_786.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></p>
+      </font></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_788.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      &nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

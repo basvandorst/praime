@@ -1,0 +1,340 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_638.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 638. Special integer quotients
+Source: https://www.primepuzzles.net/puzzles/puzz_638.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0638.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_637.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_639.htm
+  https://www.primepuzzles.net/puzzles/puzz_638.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 638. Special integer quotients
+
+Problems & Puzzles: Puzzles
+
+Puzzle 638. Special integer quotients
+
+Emmanuel Vantieghem sent the following puzzle:
+
+Everybody knows that, for any natural number k, the expression (k+1)(k+2) ... (k+n)/(n!) is an integer. But, what happens if we replace n! by the primorial p(n)# ?
+
+Q1. Are there natural numbers k that make the expression (k+p(1))(k+p(2))...(k+p(n))/(p(n)#) integral ?
+
+Q2. If the answer is affirmative, are there prime k with that property ?
+
+Contributions came from Jean Brette, Jan van Delden, Paul Schmidt, Farideh Firoozbakht & Jahangeer Kholdi.
+
+***
+
+Jean wrote:
+
+The answer to Q1 is yes.
+
+More generally, if S is a set of n integers : S= {a1, a2, ..., an}, it exists an infinite family of numbers k such that all the numbers E = (k+a1) (k+a2) ...(k+an) are multiples of P = a1*a2*....*an.
+
+It suffice to choose k equal a multiple of P : k= q*P
+
+Modulo P , k == 0, and E became (0+a1)(0+a2)...(0+an) == P == 0
+
+Example : S = {2,3,7); k = P = 42 ; E = 44*45*49 = 2310 * 42
+
+S = {2,3,7); k = 2* P = 84 ; E = 86*87*91 = 16211 * 42
+
+So, in the question Q1, and for any given n, choose k = q* p(n) #, where q is an integer. I don't know if there are other solutions.
+
+...
+
+One more time, I was too fast, and I did not read carefully your questions.
+
+I think that Emmanuel is looking for some k, independant of n, such that the expression
+
+E = (k+p(1)) (k+p(2)) ... (k+p(n)) / p(n) # is an integer for all n.
+
+In my last mail, I gave only an answer to a weaker question :
+
+***
+
+Jan wrote:
+
+Q1: Yes.
+
+For n fixed we would like to find k such that: p[n]#|product(k+p[i],i=1..n).
+
+Consider any permutation of the p[i] (or a permutation s() of the indices) say p[s(i)]=q(i), we would like: p[s(i)]|(k+p[i]) for every i.
+
+Or in other words: p[i]=-k mod p[s(i)].
+
+Due to the Chinese Remainder Theorem there is always a solution for every permutation s().
+
+A simple (not the smallest!) solution would be: k=p[n]# itself (or 0, but that's not a natural number), where s() is just the identity operator, since p[i] is a divisor of p[n]#.
+
+Finding the smallest solutions for every n is a lot of work since there are n! different permutations s().
+
+However!. Finding the smallest solution using this technique is no garantee that this generates the overall smallest solution, since we could have p[s(j)]|(k+p[i]) for j<>i as well.
+
+smallest solutions using the permutation technique, n=1..10:
+
+[2,1,3,2,4,19,15,1579,21,6]
+
+smallest solutions using a search on k:
+
+[2,1,3,2,4,8,15,63,21,6]
+
+Q2: Yes.
+
+From Q1 we know that we have solutions k=a mod p[n]#, for n! different a (applying the Chinese Remainder Theorem).
+
+If we can prove that among those a there is at least one for which (a,p[n]#)=1, we are done upon using Dirichlet's theorem. (*)
+
+[Note this includes the prime solutions q, with q>p[n], a situation that appears to include all possible prime solutions if n>4 (**)].
+
+The number of permutations s(), generating a residu a with (a,p[n]#)=1 can be calculated using round(n!/e) exactly and is therefore >=1 for all n.
+
+(**)
+
+If we have a solution a=p[i] we should have p[j]|(a+p[k]).
+
+If a=2 it's easy to see that the last three primes should have a difference of 2, hence n=4.
+
+If a>2, k>1, we have a+p[k] even. We would like p[n] to be a divisor, giving a=p[k]=p[n]. (Only situation: n=4?)
+
+If a>2, k=1, we have a+p[k] odd. We would like p[n] to be a divisor, giving a=p[n]-2=p[n-1]. (Only situation: n=3,4?)
+
+smallest prime solution using the permutation technique:
+
+[2,7,3,2,19,19,193,1579,9059,6203]
+
+smallest prime solution using a search on k:
+
+[2,3,3,2,17,19,193,401,401,401]
+
+(*)
+
+The permutations s() of 1..n, which have at least one index i=i* which remains unchanged, are called matching permutations. For such an index i* we get k=-p[i*] mod p[i*] or k=0 mod p[i*], hence p[i*]|(k,p[n]#) or (k,p[n]#)>1.
+
+The permutations s() of 1..n, which have no index i with s(i)=i, are called derangements. It is known how many there are given n, and this will result in (k,p[n]#)=1, since all congruences are not 0 mod p[i].
+
+The number of derangements given n are: n!*sum((-1)^j/j!,j=0..n). This can be proven by using the inclusion/exclusion principle, or simply put, by correctly counting.
+
+If one looks at the taylor polynom for exp(x) =sum(1/j!*x^j, j=0..inf) and substitute -1 we get:
+
+exp(-1)=sum((-1)^j/j!,j=0..inf) thus:
+
+The number of derangements given n are: n!*[The value of exp(-1) cut down at term n].
+
+The reason that this number of derangements can be computed using the round function:
+
+round(n! exp(-1))= round( number of derangements + n!*rest series) = number of derangements + round(n! * rest series), with:
+
+n!*rest series =n!*sum((-1)^j/j!,j=n+1..inf) and this should be absolutely bounded by 0.5 in order for the round() function to return 0.
+
+Any standard calculus book will tell us it’s absolutely bounded by 1/(n+1) and hence by 0.5 if n>=1.
+
+Note: the used property of the primes is (p[i],p[j])=1. So more general: product((k+a[i])/a[i],i=1..n) integer, will have a prime solution k if for all i,j with i<>j we have (a[i],a[j])=1.
+
+***
+
+Paul wrote:
+
+Q1. k = a*p(n)# where ‘a’ is all natural numbers
+
+Q2. No, there are no prime k
+
+***
+
+Farideh & Jahangeer wrote:
+
+Answer to Q1 :
+
+Yes for each natural number n, there exist infinitely many numbers k such
+
+that f(k, n) = (k+p(1)) (k+p(2))...(k+p(n))/(p(n)#) is integer,
+
+Prove : Take k = m*p(n)#, m is any natural number. f(m*(p(n)#), n) is integer
+
+because if i <= n then, p(i) divides m*(p(n)#) + p(i).
+
+***
+
+If a(n) be the smallest k such that f(k, n) is integer, then a(n) for n = 1, 2, ..., 25 are:
+
+2, 1, 3, 2, 4, 8, 15, 63, 21, 6, 167, 55, 684, 2191, 45, 1961, 13671, 3202, 43470,13828, 161725, 161725, 1104891, 1327050 & 1327050.
+
+Example : a(25) = 1327050 ==> f(1327050, 25) is integer,
+
+f(1327050, 25) = 512567564042748032834583551993336383696
+
+41475188081351051755691243483237458583499359462427260608
+
+4927921126872917782286.
+
+***
+
+Answer to Q2 : We think that for each natural number n, there exist
+
+primes k such that, f(k, n) = (k+p(1))(k+p(2))...(k+p(n)) / (p(n)#) is integer.
+
+If b(n) be the smallest prime k, such that f(k, n) is integer, then b(n)
+
+for n = 1, 2, ..., 25 are: for n = 1, 2, ... , 25 are :
+
+2, 3, 3, 2, 17, 19, 193, 401, 401, 401, 167, 2477, 6871, 12119, 121119, 21383,
+
+104281, 104281, 152213, 152213, 175919, 1786159, 7255159, 7035733&
+
+154272581.
+
+Example : b(25) = 154272581 ==> f(154272581, 25) is integer,
+
+f(154272581) = 22102616568537022572958847825630504990540
+
+874543400821315309199684373371770620920957469850607484
+
+636881871070759547080646971662632819662111592257154330
+
+81788202116710400000.
+
+***
+
+This is the solution by Emmanuel, who posed this puzzle:
+
+We will write the n-th prime as p(n) ; the product of the first n
+
+primes will be denoted by P(n) and the product (x+p(1))...(x+p(n))
+
+will be abbreviated to P(x,n).
+
+The first question is trivial : for instance, k = P(n)-p(i) makes
+
+the quotient integral for every i = 1, 2, ... , n.
+
+Next, I prove the following proposition :
+
+for n > 1, there exists an integer q, relatively prime to P(n)
+
+such that P(q,n) is divisible by P(n).
+
+We prove this by induction.
+
+The proposition is true for n = 2. Indeed, P(1,2) = (1+2)(1+3) is
+
+divisible by P(2) = 6.
+
+Assume the proposition is true for some n > 2. Thus, there exists
+
+some k, relatively prime to P(n) such that P(k,n) is divisble by
+
+P(n). Clearly, for every value of m, the number q = k+m P(n) is
+
+also relatively prime to P(n) and P(q,n) is divisible by P(n).
+
+Now, we can choose m such that q+p(1) = q+2 is divisible by
+
+p(n+1). This implies that q is relatively prime to P(n+1) and
+
+that P(q,n) is divisble by P(n+1). Hence, P(q,n+1) =
+
+P(q,n)*(q+p(n+1)) is divisble by P(n+1), which proves the
+
+proposition for n+1.
+
+Now, we can answer the second question.
+
+When n = 1, there is one and only one prime q that makes (q+2)/2
+
+integral : q= 2.
+
+For n > 1, if q is relatively prime to P(n) and such that
+
+P(q,n)/P(n) is integral, we can replace q by q+m P(n). By
+
+Dirichlet's theorem on primes in arithmetic progressions there are
+
+infinitely many m such that q+mP(n) is prime.
+
+_____________________________________
+
+Off the record, I made a small table that gives for n = 2, 3, ...
+
+the smallest prime q for which P(q,n)/P(n) is integral :
+
+n = 2 ; q = 3
+
+n = 3 ; q = 3
+
+n = 4 ; q = 2
+
+n = 5 ; q = 17
+
+n = 6 ; q = 19
+
+n = 7 ; q = 193
+
+n = 8 ; q = 401
+
+n = 9 ; q = 401
+
+n=10 ; q = 401
+
+n = 11 ; q = 167
+
+n = 12 ; q = 2477
+
+n = 13 ; q = 6871
+
+n = 14 ; q = 12119
+
+n = 15 ; q = 12119
+
+n = 16 ; q = 21383
+
+n = 17 ; q = 104281
+
+n = 18 ; q = 104281
+
+n = 19 ; q = 152213
+
+n = 20 ; q = 152213
+
+n = 21 ; q = 175919
+
+n = 22 ; q = 1786159
+
+n = 23 ; q = 7255159
+
+n = 24 ; q = 7035733
+
+n = 25 ; q = 154272581
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

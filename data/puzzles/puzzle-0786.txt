@@ -1,0 +1,485 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_786.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 786. Looking for certain set of integers.
+Source: https://www.primepuzzles.net/puzzles/puzz_786.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0786.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://sweet.ua.pt/tos/gaps.html
+  tel:2205882353
+  https://www.primepuzzles.net/puzzles/puzz_785.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_787.htm
+  https://www.primepuzzles.net/puzzles/puzz_786.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 786. Looking for certain set of integers.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 786. Looking for certain set of integers.
+
+Giovanni Resta sent the following nice puzzle.
+We are looking for 3 set of numbers, which may be composites or primes.
+
+Set A, of those numbers which divide the concatenation of the two previous primes.
+
+For example, 7 is preceded by the primes 3 and 5, and 7 divides their concatenation 35.
+
+Set B, of those n which divide the concatenation of prime preceding n with the prime following n.
+
+For example, 9, which is sandwiched between the primes 7 and 11, divides their concatenation 711.
+
+Set C, of those numbers which divide the concatenation of the two next primes.
+
+For example, the two primes following 801 are 809 and 811, and 801 divides 809811.
+In practice, if np(n) is nextprime of n and pp(n) = previous prime of n and & is concatenation,
+
+we are looking for
+
+(A) x which divides pp(pp(x)) & pp(x)
+
+(B) x which divides pp(x) & np(x)
+
+(C) x which divides np(x) & np(np(x))
+
+Find:
+
+Q1) the 10 smallest members of the sets A, B and C.
+
+Q2) for each set A, B, and C, an element with exactly 30 digits.
+
+Q3) for each set A, B, and C, an element with at least 100 digits.
+
+Q4) for each set A, B, and C, the largest prime element you can.
+
+Contributions came from Giovanni Resta, Jeff Heleen, Emmanuel Vantieghem.
+
+***
+
+Giovanni wrote:
+
+There are at least 2 approaches, apart pure brute force,
+
+that can be used with these problems.
+
+The first method is systematic and allows us to find all the
+
+solutions up to a certain limit.
+
+The second method is more like a shot in the dark, but allows us
+
+to find larger solutions.
+
+Let's start with the systematic approach applied to problem (C), i.e., I'm looking numbers n which divide the concatenation of the two primes
+
+following n. The other problems can be solved in a similar way.
+
+Let's call p = nextprime(n), and q = nextprime(p).
+
+So we are looking for a number n that divides the concatenation of p and q, denoted with p&q.
+
+Let's suppose we are searching solutions with exactly k digits,
+
+and that n, p and q all have k digits. The remaining cases occur
+
+when a power of 10 is between n and p or between p and q, but these
+
+cases are very few and can be checked directly.
+
+If p and q have k digits then their concatenation p&q is equal to
+
+p*10^k + q.
+
+Between n and p, and between n and q there are two gaps,
+
+of size g1 and g2 and we can write
+
+p = n + g1 and
+
+q = n + g2.
+
+So, we can rewrite the concatenation of p and q in terms
+
+of n, g1 and g2 as
+
+p&q = (n+g1)*10^k + (n+g2),
+
+and we want this expression to be divisible by n.
+
+Expanding and collecting n we obtain
+
+p&q = n * (10^k+1) + g1*10^k+g2,
+
+and clearly this number can be a multiple of n only if
+
+g1*10^k+g2 is a multiple of n.
+
+Before proceeding, let us talk about the size of the gaps
+
+g1 and g2.
+
+According to an empirical study on the
+
+gaps between primes (you can check Mathworld or wikipedia
+
+or the site http://sweet.ua.pt/tos/gaps.html
+
+about prime gaps), we know that for 4 < n < 10^18,
+
+nextprime(n)-n < (log n)^2,
+
+and I will use this bound as a conjecture also
+
+for larger n.
+
+If we write for brevity L(k) = log(10^k)^2, and we are looking
+
+for numbers n of k digits, i.e., 10^(k-1) <= n < 10^k, then
+
+we can assume that g1 < L(k) and g2 < 2*L(k) or more
+
+precisely, g2 < g1+L(k).
+
+For example, L(16) is about 1357, a number very small
+
+compared to 10^16.
+
+So, what we can do, given k, is to check for all the odd divisors n
+
+of the number g1*10^k+g2, as g1 ranges from 2 to L(k) in steps of 2
+
+and g2 ranges from 4 to g1+L(k).
+
+Indeed, we know that the gaps between primes greater than 2
+
+are always even numbers, and since q is odd and p&q is odd also the
+
+divisor n must be odd.
+
+Once we have found a divisor n of g1*10^k+g2, we must check
+
+that n has k digits, and that p=n+g1 and q=n+g2 are prime numbers and
+
+moreover precisely the next prime numbers, i.e., there are no
+
+other primes between n and p=n+g1 or between p=n+g1 and q=n+g2.
+
+For example, let's take k = 12 and assume we are considering
+
+the possibility g1 = 4 and g2 = 18. This means that
+
+we are looking for an odd divisor n of 4*10^12+18 = 4000000000018
+
+of 12 digits. One such divisor is n = 181818181819.
+
+We now check n+g1 = 181818181819 and n+g2 = 181818181837.
+
+They are indeed the two primes following 181818181819,
+
+and thus we have found a solution for (C), since
+
+by construction 181818181819 divides 181818181819181818181837.
+
+When k is large, finding the divisors of g1*10^k+g2 can be
+
+very time consuming, however there is a shorcut.
+
+We want to find a number n of k digits which divides g1*10^k+g2,
+
+so it must exist another number m such that
+
+g1*10^k+g2 = n*m .
+
+It is very easy to see that, for n to have k digits, m
+
+must satisfy g1 <= m <= 10*g1.
+
+So, instead of factoring g1*10^k+g2, which can be a huge number,
+
+we can simply try to divide it for all the numbers m between
+
+g1 and 10*g1, a much more affordable task.
+
+Moreover, remembering that we are looking for an odd n,
+
+we can step between values of m which are multiple of
+
+appropriate powers of 2.
+
+For example, if g1*10^k+g2 is a multiple of 8, then also
+
+m must be a multiple of 8, otherwise either (g1*10^k+g2)/m
+
+is not an integer or it is not odd.
+
+So, putting together all the pieces,
+
+for numbers of k digits the pseudocode is:
+
+for g1 from 2 to L(k) do
+
+for g2 from 4 to g1+L(k) do
+
+compute z = g1*10^k+g2 and assume that z = 2^u*r
+
+divide z for all the numbers m = h*2^u such that g1<=m<=10*g1
+
+if z/m = n is integer, then
+
+check if n+g1 and n+g2 are the primes following n.
+
+From a practical point of view, the bound L(k) = log(10^k)^2
+
+is quite high, i.e., we expect most of the gaps to be
+
+much smaller.
+
+So, if we are performing a systematic search we can use
+
+the bound L(k), which is conjecturally OK, but if we are
+
+simply looking for larger solutions we can use much smaller bounds
+
+in the search.
+
+For example, if k = 192 a (prime!) solution of (C)
+
+is the 192-digits number n =
+
+7046979865771812080536912751677852348993288590604026845637583892
+
+6174496644295302013422818791946308724832214765100671140939597315
+
+4362416107382550335570469798657718120805369127516778523489932887,
+
+or a prime 115-digits solution of (A)
+
+5684931506849315068493150684931506849315068493150684931506849315
+
+068493150684931506849315068493150684931506849315069,
+
+or a prime 118-digits solution of (B)
+
+23529411764705882352941176470588235294117647058823529411764705882
+
+35294117647058823529411764705882352941176470588235291.
+
+The bound L(192) is about 195450, but the two primes following n
+
+are n+210 and n+326, so using a bound of 1000 instead of 195450
+
+we can still find this n in reasonable time.
+
+Another way, simpler but with no guarantees, to find larger
+
+solutions is to guess them!
+
+For example, as we look at the first solutions for (C),
+
+1, 3, 7, 61, 167, 801, 1143, 2001, 6001, 8001, 125001,...
+
+we notice some solutions of the form t*10^s+1, like
+
+8001 = 8*10^3 + 1.
+
+This suggests us to look for other, larger solutions of this
+
+form, and indeed they exists.
+
+For example, we obtain
+
+n = 8*10^111+1 or 25*10^133+1 or 92*10^159+1 for problem (C).
+
+Other patterns works for (C) and some (different) patterns
+
+work for (A) and (B). Looking at the lists below you can guess
+
+which pattern to try.
+
+Summarizing, subject to the conjecture that nextprime(p)-p < log(p)^2,
+
+(which is verified up to 10^18), the solutions up to 36 digits are
+
+(A) 7, 43, 4167, 857143, 909091, 1443299, 4166667, 92857143, 2205882353, 2792792793, 1046511627907, 5737704918033, 19083969465649, 53947368421053, 55882352941177, 772727272727273, 2962962962962962963, 5806451612903225807, 263888888888888888889, 1826923076923076923077, 5081967213114754098361, 15086782376502002670227, 35042735042735042735043, 48648648648648648648649,
+
+53658536585365853658537, 312182741116751269035533,
+
+28342245989304812834224599, 160220994475138121546961325967,
+
+457142857142857142857142857143, 3541666666666666666666666666666667,
+
+19181946403385049365303244005641749, 132369299221357063403781979977753059,
+
+422131147540983606557377049180327869.
+
+(B) 7, 9, 49, 111, 1090909, 28571427, 111111111, 3333333327, 25641025641, 10576923076923, 59090909090909, 2631578947368421, 4827586206896549, 8947368421052631, 18644067796610169, 111111111111111111, 812499999999999999, 1889250814332247557, 9189189189189189189, 39999999999999999999, 76829268292682926829, 645161290322580645161, 2457002457002457002457,
+
+4242424242424242424241, 1090909090909090909090909, 2272727272727272727272727, 3064516129032258064516129, 1583011583011583011583011583, 10752688172043010752688172043, 32258064516129032258064516129, 276923076923076923076923076923, 537037037037037037037037037037, 5999999999999999999999999999999, 20833333333333333333333333333333, 57142857142857142857142857142851, 333333333333333333333333333333333, 2227272727272727272727272727272727, 4366197183098591549295774647887323, 6999999999999999999999999999999997, 7142857142857142857142857142857139, 16413373860182370820668693009118541, 352941176470588235294117647058823529.
+
+(C) 1, 3, 7, 61, 167, 801, 1143, 2001, 6001, 8001, 125001, 25000001,
+
+181818181819, 2500000000001, 16666666666667, 45000000000001, 640000000000001, 1142857142857143, 4000000000000001, 37500000000000001, 153846153846153847, 937500000000000001, 2881355932203389831, 270270270270270270271, 44827586206896551724137933, 240174672489082969432314411, 461538461538461538461538463, 785714285714285714285714289, 7294117647058823529411764707, 196428571428571428571428571429, 1618497109826589595375722543353, 1715328467153284671532846715329, 2450980392156862745098039215687, 2758620689655172413793103448277, 3220338983050847457627118644069, 5955056179775280898876404494383, 255319148936170212765957446808511, 6250000000000000000000000000000003, 50000000000000000000000000000000001, 62264150943396226415094339622641511.
+
+***
+
+J
+eff wrote:
+
+For puzzle 786 I have found these solutions for primes less than 2^32:
+
+P1 | P2 | A(x)
+
+3 | 5 | 7
+
+37 | 41 | 43
+
+4157 | 4159 | 4167
+
+857107 | 857137 | 857143
+
+909071 | 909089 | 909091
+
+1443271 | 1443293 | 1443299
+
+4166647 | 4166651 | 4166667
+
+92857117 | 92857139 | 92857143
+
+2205882293 | 2205882337 | 2205882353
+
+2792792731 | 2792792747 | 2792792793
+
+P1 | P2 | B(x)
+
+7 | 11 | 9
+
+47 | 53 | 49
+
+109 | 113 | 111
+
+28571423 | 28571449 | 28571427
+
+111111109 | 111111113 | 111111111
+
+3333333323 | 3333333403 | 3333333327
+
+P1 | P2 | C(x)
+
+5 | 7 | 3
+
+11 | 13 | 7
+
+67 | 71 | 61
+
+173 | 179 | 167
+
+809 | 811 | 801
+
+1151 | 1153 | 1143
+
+2003 | 2011 | 2001
+
+6007 | 6011 | 6001
+
+8009 | 8011 | 8001
+
+125003 | 125017 | 125001
+
+25000009 | 25000033 | 2500000
+
+***
+
+Emmanuel wrote:
+
+Q1.
+
+Smallest element in A : 7 ( A = { 7, 43, 4167, 857143, 909091, 1443299, 4166667, 92857143, ... } ).
+
+Smallest element in B : 7 ( B = { 7, 9, 49, 111, 1090909, 28571427, ... } ).
+
+Smallest element in C : 3 ( C = { 3, 7, 61, 167, 801, 1143, 2001, 6001, 8001, 125001, 2500000, ... } ).
+
+Q2.
+
+A : 132325141776937618147448015123 (divides 132325141776937618147448014703&132325141776937618147448014721).
+
+B : 276923076923076923076923076923 (divides 276923076923076923076923076851&276923076923076923076923076943).
+
+C : 196428571428571428571428571429 (divides 196428571428571428571428571451&196428571428571428571428571477).
+
+Q3.
+
+To save place, let's call the element of the set m. If p and q are the concatenating primes that are divisible by m, I print them in the form m+/-u, p+/-v..
+
+A : m = 24265842349304482225656877897990726429675425038639876352395672333848531684698608
+
+9644513137557959814528593508501 (111 digits) ;
+
+p = m - 942, q = m - 882 ; m is prime and is my answer to Q4.
+
+B : m = 23529411764705882352941176470588235294117647058823529411764705882352941176470588
+
+23529411764705882352941176470588235291 (118 digits) ;
+
+p = m - 8, q = m + 106 ; m is prime and is my answer to Q4.
+
+C : m = 13720930232558139534883720930232558139534883720930232558139534883720930232558139534883
+
+720930232558139534883720930232558139534883720930232558139534883720930233 (158 digits) ;
+
+p = m + 118, q = m + 380.
+
+Q4.
+
+See Q3 for the answers for A and B.
+
+The biggest prime I know in C is 167 (despite great efforts to find a bigger one).
+
+***
+
+On Jun1, 2015, Emmanuel wrote:
+
+During last week I was not able to use my PC nor had I access to th Internet.
+
+My first job when I returned at home was to doublecheck my contribution to puzzle 786. I discovered an error in the program that I used to compute set A (I simply had to change >= into <= ).
+
+So, my answer to Q2,A is wrong (my corrected program gives the two numbers that are in Giovanni's list).
+
+The answer to Q3,A should be :
+
+m = 5684931506849315068493150684931506849315068493150684931506849
+
+315068493150684931506849315068493150684931506849315069 (115 digits) ;
+
+p = m - 166, q = m - 148 ; m is prime and is my answer to Q4.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

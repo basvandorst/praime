@@ -1,0 +1,168 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_680.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 680 The largest palindrome prime-proof odd integer race
+Source: https://www.primepuzzles.net/puzzles/puzz_680.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0680.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://oeis.org/A143641
+  http://projecteuler.net/problem=200
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_679.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_681.htm
+  https://www.primepuzzles.net/puzzles/puzz_680.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 680 The largest palindrome prime-proof odd integer race
+
+Problems & Puzzles: Puzzles
+
+Puzzle 680 The largest palindrome prime-proof odd integer race
+
+“Prime-proof odd integers” are odd composite numbers not ending in 5 that remain composite even when a single decimal digit of the number is changed.
+
+For the origins of these numbers see: 1 & 2
+
+For our Puzzle 679 J. K. Andersen sent one large example of a palindrome case:
+
+A 2013-digit example: (10^2013-1)/9 + 65161816156*10^1001.
+
+Q1. Send your largest palindrome prime-proof odd integer example.
+
+Q2. What is the population law for these kind of integers? It's easier or harder to get larger examples? Please send your comments for both issues.
+
+Contributions came from Emmanuel Vantieghem and J. K. Andersen.
+
+***
+
+Emmanuel wrote
+
+I only made a small research on palindromic prime-proof numbers less than 10^15.
+
+The number k_n of such numbers in the intervals [10^n, 10^(n+1)] for n = 0, 1, 2, ... , 14 is :
+
+0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 17, 7, 163, 58, 1831.
+
+So, I think the value of k_n increases with n. However, the time to find them grows in such a way that the chance of finding them decreases. I was able to find a 400-digit example in a reasonable time (= a few hours) :
+
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+9999999999999999999999999422566522499999999999999999999999999999999999999999999999999
+
+999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+9999999999999999999999999999999999999999999999999999999999999
+
+However, a 1000-digit example did not came out after more than 10 hours. Therefore, I think Andersen's record will stand for a while.
+
+***
+
+Andersen wrote:
+
+Q1. A solution with 10001 digits:
+
+(10^10001-1)/9 + 8822446442288*10^4994.
+
+Tested with PrimeForm/GW after a C program identified promising palindromes
+
+with many small factors in the numbers. The chance was above 1% for each
+
+tested palindrome.
+
+Without the palindromic condition, it should be possible to generate
+
+arbitrarily large solutions with a covering set of prime factors.
+
+This strategy, even for a partially covering set, seems hard to combine
+
+with a palindrome.
+
+Q2. Suppose a large odd palindrome has n digits and doesn't end in 5.
+
+For simplicity, let's ignore the initial number must be composite and assume
+
+there are 9n independent numbers around 10^n which are not divisible by 2 or 5
+
+(inaccurate for some changes of the last digit).
+
+A rough estimate of the chance all 9n numbers are composite, based on
+
+the prime number theorem with adjustment for indivisibility by 2 and 5:
+
+(1 - (2 * 5/4)/log(10^n))^(9n) ~= ((1-1.086/n)^n)^9
+
+If the palindrome has an even number of digits then it's always divisible by
+
+11, and none of the 9n changes are. This gives a further adjustment:
+
+(1 - (2 * 5/4 * 11/10)/log(10^n))^(9n) ~= ((1-1.194/n)^n)^9
+
+(1+x/n)^n tends to e^x when n tends to infinite. Then the odd and even
+
+estimates tend to respectively
+
+(e^(-1.086))^9 ~= 1/18000, and (e^(-1.194))^9 ~= 1/47000.
+
+So we expect an approximately constant ratio of solutions, with more for an
+
+odd number of digits. Below are actual counts of solutions for 9 to 16 digits
+
+out of all odd palindromes not ending in 5. The estimates from the above
+
+formulas are shown in parentheses.
+
+As expected, there are no solutions for 1-8 and 10 digits.
+
+digits: count (estimate)
+
+9: 2 out of 40000 = 1 in 20000 (1 in 33296)
+
+10: 0 out of 40000 (1 in 93604)
+
+11: 17 out of 400000 = 1 in 23529 (1 in 29383)
+
+12: 7 out of 400000 = 1 in 57143 (1 in 82623)
+
+13: 163 out of 4000000 = 1 in 24540 (1 in 27009)
+
+14: 58 out of 4000000 = 1 in 68966 (1 in 75745)
+
+15: 1831 out of 40000000 = 1 in 21846 (1 in 25421)
+
+16: 596 out of 40000000 = 1 in 67114 (1 in 71048)
+
+The counts are not that far from the estimates. Simplifying assumptions
+
+were made so precise estimates were not expected.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,147 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_628.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 628. Fermat Pseudoprimes
+Source: https://www.primepuzzles.net/puzzles/puzz_628.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0628.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://en.wikipedia.org/wiki/Fermat_pseudoprime
+  https://oeis.org/A039772
+  http://en.wikipedia.org/wiki/Wieferich_prime
+  https://www.primepuzzles.net/puzzles/puzz_627.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_629.htm
+  https://www.primepuzzles.net/puzzles/puzz_628.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 628. Fermat Pseudoprimes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 628. Fermat Pseudoprimes
+
+Fred Schneider sent the following nice puzzle:
+
+Are there any composite Fermat pseudoprimes n, such that: n= x^3y. x > 1, y can be positive integer (including a multiple of x)?
+
+Contributions came from Carlos Rivera, Emmanuel Vantieghem & Jan van Delden
+
+***
+
+Carlos wrote:
+
+By simple inspection of a Table in the web I found that 112 = 2^3*14 is a Fermat pseudo prime for the base 65(See http://en.wikipedia.org/wiki/Fermat_pseudoprime).
+
+***
+
+Emmanuel wrote:
+
+It is not difficult to show that, if n is a product of two relatively prime odd numbers A, B (> 1), then n is a composite Fermat pseudoprime.
+
+Indeed, let b be a positive integer such that b === 1 (mod A) and b === -1 (mod B) (the existence of b is ensured by the Chinese Remainder theorem). Clearly, b is not 1 or n-1 modulo n. Further, b^2 === 1 (mod AB) and hence :
+
+b^(n-1) = (b^2)^((n-1)/2) === 1 (mod n).
+
+Thus, n is Fermat pseudoprime to the base b.
+
+If n = p^a (p > 3, a > 1), then the multiplicative group of the integers modulo n is cyclic of order (Euler)phi(n) = (p-1)*(p^(a-1)) and thus, there exist numbers b with the property
+
+b^(p-1) === 1 (mod n) (that not all of these numbers are 1 or -1 (mod n) is due to the fact that p > 3). It is clear that for such numbers we also have b^(p^a - 1) === 1 (mod n). Thus, those b are basis for the pseudoprimality of n.
+
+It is easy to show that no pseudoprime of the form 3^a (a > 1) exists.
+
+To find an even pseudoprime of the form 8k , table at https://oeis.org/A039772 gives n = 112 as smallest pseudoprime (basis = 65 or 81).
+
+If the basis must be 2, then we can prove the following :
+
+If n is a base 2 pseudoprime of the form y*(x^3), then x is divisible by a Wieferich prime.
+
+Proof : Let n = y*(x^3) be a base 2 pseudoprime.
+
+Let p be a prime dividing x. Let r be the multiplicative order of 2 (mod p^3). This means that r is the smallest positive number such that 2^r === 1 (mod p^3) and hence that every m with the property 2^m === 1 (mod p^3) is a multiple of r.
+
+From 2^((p-1)*p^2) === 1 (mod p^3) (Little Fermat), it follows that r divides (p-1)*p^2.
+
+From 2^(n-1) ===1 (mod n), it follows 2^(n-1) ===1 (mod p^3), and hence r divides n-1.
+
+That means that r cannot be divisible by p and thus must be a divisor of p-1.
+
+Thus, 2^(p-1) === 1 (mod p^3) and hence
+
+2^(p-1) === 1 (mod p^2),
+
+which means that p is a Wieferich prime, QED.
+
+So, there is an infinitesimal chance that some puzzler ever will find an example of such n. The only two known Wieferich primes are p= 1093 and p = 3511 and in both cases we have 2^(p-1) !=== 1 (mod p^3).
+
+***
+
+Jan wrote:
+
+If p^r|n, p prime, and n is psp(a) then a^(p-1)=1 mod (p^r). [Necessary condition, not sufficient!]
+
+If a=2 only a few solutions are known if r>1, all have r=2, for instance n=1093^2, 3511^2, 4733.1093^2.
+
+If a>2 there are an infinite number of solutions if no further restrictions are imposed on a.
+
+For instance if a=n+1 we always have a solution. If a=n-1 and n is odd we always have a solution.
+
+So I would suggest to impose 1<a<n-1, in accordance with Pomerance, Selfridge and Wagstaff.
+
+If we apply the condition to n=p^r.q^s we search one value of a for which a^(p-1)=1 mod(p^r) and a^(q-1)=1 mod (q^s).
+
+Suppose the first has solution a1 then a=a1 mod(p^r) is also a solution. Similarly a=a2 mod(q^s) for the second equation.
+
+With the Chinese Remainder Theorem we can find the minimal solutions a mod(n), these might very well be smaller than n-1:
+
+If we have n=3^3.5 we could use a=+/-1 mod 27 and a=+/-1,2 mod 5, leading to a equal to either 26 or 109 mod(n).
+
+Testing n=3^r.5 gives solutions r=2 mod 4 and r=3 mod 4 of the form a=3^r-1.
+
+Here r=2 corresponds to,a=3 mod 5 the second to a=1 mod 5. And since 3^4=1 mod 5 the others are solutions too.
+
+So more generally: if n=p^r.q and p and q are odd we (at least) could try a=p^r-1. The corresponding modulus seems to be determined by the order of p mod q.
+
+n=5^r.3 gives a=5^r-1 with r=1 mod 2.
+
+n=3^r.7 gives a=3^r-1 with r=2 mod 6
+
+n=7^r.3 no solutions of the form a=7^r-1
+
+n=5^r.7 gives a=5^r-1 with r=2 mod 6 or r=4 mod 6
+
+n=7^r.5 gives a=7^r-1 with r=1 mod 4 or r=2 mod 4
+
+However I also found:
+
+n=3^r.11 with a=3^r-1 with r=4 mod 4 and 4 is not a divisor of 10! So there is a mistake in my reasoning.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

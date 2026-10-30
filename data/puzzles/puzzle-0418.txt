@@ -1,0 +1,146 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_418.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 418. Honaker's ratio
+Source: https://www.primepuzzles.net/puzzles/puzz_418.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0418.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.research.att.com/~njas/sequences/A007504
+  http://www.primepuzzles.net/conjectures/conj_051.htm
+  https://www.primepuzzles.net/puzzles/puzz_417.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_419.htm
+  https://www.primepuzzles.net/puzzles/puzz_418.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 418. Honaker's ratio
+
+Problems & Puzzles: Puzzles
+
+Puzzle 418. Honaker's ratio
+
+G. L. Honaker, Jr. created the following puzzle:
+
+3/2, (5+7)/(2+3), (7+11+13)/(2+3+5), (11+13+17+19)/(2+3+5+7), ... or 1.5, 2.4, 3.1, 3.5, ...
+
+McCranie's results after a more extensive search: Based on the 203,000,000+ primes (less that 2^32), the ratio is 3.14724... I imagine there's a chance it could even converge to zero! To find an integral term would be nice.
+
+Q1: Is a term in this sequence ever an integer?
+
+Q2: Does it converge? Will it become less than e=2.718..
+
+Contributions came from Dan Dima, Adam Stinchcombe, Jim Howell, Jan van Delden, Anton Vrba & Patrick Capelle.
+
+All of them responded the same way Q2 (the ratio converges to 3) using a theorem by Bach & Shallit (1996). The only exception was Anton who used another approach (an approximate relationship by Werner Sand).
+
+Regarding Q1, Patrick Capelle used a very simple argument based on parity showing for Q1 that the ratio can not be an odd integer.
+
+***
+
+Q2 (solved by Bach & Shallit theorem):
+
+If p(k) is the k-th prime the sequence is defined as:
+
+a(n) = (p(n+1)+...+p(2n)) / (p(1)+...+p(n))
+
+Since p(k) grows as k * log(k) the sum of the first n primes
+
+p(1)+...+p(n) has the asymptotic expression as 1/2 * n^2 * log(n), as
+
+it was proved by Bach and Shallit (1996) - see A007504:
+
+http://www.research.att.com/~njas/sequences/A007504
+
+p(1)+...+p(n) ~ 1/2 * n^2 * log(n) Hence:
+
+p(1)+...+p(n)+p(n+1)+...+p(2n) ~ 1/2 * (2n)^2 * (log(n)+log(2)) ~
+
+2 * n^2 * log(n) and p(n+1)+...+p(2n) ~ 3/2 * n^2 * log(n)
+
+Therefore we conclude as an answer for Q2 that: a(n) is convergent and the limit is 3.
+
+Q2/Anton:
+
+By applying Prime Number Theory to Honaker’s ratio (H), one gets the surprising result that H approaches asymptotically 3 for p approaching infinity. Another way of expressing the result is: The sum of the first 2n primes is four times the sum of the first n primes for n approaching infinity.
+
+Proof: Let p and q be two primes such that π(q) = 2π(p) ---[1]
+
+Wener Sand (who also used PNT) has demonstrated that Σ(r, r=2 to x) ~ π(x²), r is prime ---[2] ( see http://www.primepuzzles.net/conjectures/conj_051.htm.)
+
+For a given p we need to solve q in [1] that is using PNT q/ln(q) = 2*p/ln(p) and for large p, then q ~ 2 p
+
+Honaker’s ratio can now be written as H = [Σ(r, r=2 to q)- Σ(r, r=2 to p)] / Σ(r, r=2 to p). Using Werner Sand H = [π(q²)- π(p²)] / π(p²).
+
+Replacing q with 2 p, H = [π((2p)²)- π(p²)] / π(p²)
+
+Simplifying H = [π(4 p²)- π(p²)] / π(p²)
+
+Using PNT H = [4 p²/ln(4 p²) - p²/ln( p²)]/[ p²/ln( p²)] ~ 3 for >>p, as ln(4 p²) = ln( p²)+ ln(4) ~ ln( p²) for >>p
+
+***
+
+For Q1, Patrick Capelle:
+
+The sequence begins with 3/2, 12/5, 31/10, 60/17, 101/28, 156/41, 223/58, 304/77, 401/100, 170/43, ... This sequence has a maximal value with the ninth term (i.e., 401/100 = 4,01, which is the only value greater than 4), and then is decreasing progressively. The three only possible candidates (greater than 0 but smaller than 4) are the integers 1, 2 and 3. The candidate 1 is immediately eliminated because the numerator of each term is always greater than the denominator. In each term, by the presence of the even number 2 in the sum of the denominator, we have a different parity for the numerator and the denominator. Two general cases appear : odd/even and even/odd. The first case does not lead to an integer, because it is not possible to obtain an integer when we divide an odd number by an even number. For the second case, the division of an even number by an odd number can lead to an even integer but not to an odd integer : it give us the opportunity to exclude the candidate 3. Finally, by considering my answer to the question 2 (where 2 must be considered as a too small limit for Honaker's sequence), we cannot keep the candidate 2. Conclusion : there is no integer in this sequence.
+
+For Q1, Dan Dima shows that a(n)>3.
+
+2 < a(n)
+
+Briefly this comes easily as:
+
+p(i) ~ i * log(i)
+
+p(2i) ~ 2i * log(2i) > 2i * log(i)
+
+Hence we expect:
+
+2p(i) < p(2i)
+
+1 <= i <= n
+
+2p(i) <= p(2i) <= p(n+i)
+
+so:
+
+2 * (p(1)+...+p(n)) < p(n+1)+...+p(2n)
+
+and we're done.
+
+It might be true that a(n) > 3. From the same analysis one can find that: a(n) = 3 + 4*log(2) / log(n) + o(1/log(n)), so actually it might be true for all large n.
+
+***
+
+Conclusion: The ratio converges to 3 (all), but can not be 1 & 3 (Capelle) and can not be less than or equal to 2 (Dima)
+
+Open questions: Can the ratio be less than 3 again? Can the ratio be 4 sometime?
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

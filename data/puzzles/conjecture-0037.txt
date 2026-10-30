@@ -1,0 +1,103 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_037.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 37. The Tutescu's Conjecture
+Source: https://www.primepuzzles.net/conjectures/conj_037.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0037.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/SmarandacheFunction.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_036.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_038.htm
+  https://www.primepuzzles.net/conjectures/conj_037.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 37. The Tutescu's Conjecture
+
+Problems & Puzzles: Conjectures
+
+Conjecture 37. The Tutescu's Conjecture
+
+For sure you already know the Kempner function μ(n), defined as the minimal m value such that n divides m!
+
+Tutescu (1996) conjectures that μ(n)≠ μ(n+1), for all n.
+
+Eric Weisstein (Mar, 2004)has verified the validity of this conjecture up to n=10^9.
+
+Questions: Prove the validity of the Tutescu's conjecture or find a counter-example.
+
+T. D. Noe sent the following two contributions on September 2004:
+
+1) Carlos, though I do not have an answer for you, I do have some progress to report. I will write the function as mu(n). You can change it to Greek if you like.
+
+We are looking for a counterexample. However, instead of testing mu(n) for each n, we examine a set of n such that mu(n) = M for some fixed M, and determine whether there are consecutive numbers in that set. The advantage of this approach is that it provides a systematic way of testing very large numbers. No counterexamples have been found yet. The algorithm is outlined below. We can provide a Mathematica program to anyone interested.
+
+Recall that the value of mu(n) is determined from the prime factorization of n. Basically, there is a prime power p^e such that p^e | n and mu(n) = mu(p^e). Hence, to find all the numbers n such that mu(n) = M, we can concentrate on computing all the prime powers such that mu(p^e) = M. The number of such prime powers is the same as the number of prime factors of M, counting multiplicity. The primes p appearing in the prime powers are merely the prime factors of M. Only the exponents e must be computed. For example, when M = 60, the four prime powers are 2^55, 2^56, 3^28, and 5^14.
+
+If M = mu(n) = mu(n+1), then we can factor n and n+1 as
+
+(1) n = x p^a and n+1 = y q^b
+
+for two different prime powers p^a and q^b with gcd(x,p) = gcd(y,q) = 1, M = mu(p^a) = mu(q^b), mu(x) <= M, and mu(y) <= M. Eliminating n from (1) shows that we need to solve the linear Diophantine equation
+
+(2) y q^b - x p^a = 1
+
+for x and y. Because p^a and q^b are known, and gcd(p^a,q^b) = 1, the extended Euclidean algorithm can be used to compute a basic solution x0 and y0. The family of all solutions is x = x0 + k*q^b and y = y0 + k*p^a for any integer k. The valid values of k range from -M!/(p^a q^b) to M!/(p^a
+
+q^b) -- which can be huge! We used -10^6 < k < 10^6. After computing x and y for some k, we check that gcd(x,p) = gcd(y,q) = 1, mu(x) <= M, and
+
+mu(y) <= M. If we find an x and y that meets all these conditions, then a counterexample has been found. Rather than compute mu(x) and mu(y) exactly (by factoring x and y), we merely check that x | M! and y | M!, which is much faster than factoring.
+
+Note that equation (2) must be solved for all pairs of prime powers associated with M. For M = 60, there are five pairs: (2^55,3^28), (2^55,5^14), (2^56,3^28), (2^56,5^14), and (3^28,5^14).
+
+Observe that when M is prime, or a power of a prime, no values of n satisfy M = mu(n) = mu(n+1).
+
+>What is your personal opinion about the absolute validity of the
+
+>Conjecture? According to your approach you do not devise any theoretical
+
+>proof on its favor, but computationally, could it be disapproved
+
+>someday soon?
+
+I still have an open mind about the conjecture: I'm not sure whether it is true or false. However, if my computer does not find a counterexample soon, then I will believe that the conjecture is true.
+
+...
+
+After doing extensive calculations using the approach I outlined, I am fairly sure that the conjecture is true.
+
+2) Here is another conjecture:
+
+T. D. Noe's Conjecture:
+
+mu(k) never equals mu(k+6).
+
+I have checked this to 10^7.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

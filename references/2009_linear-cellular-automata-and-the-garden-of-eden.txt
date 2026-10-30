@@ -1,0 +1,459 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: http://www.link.cs.cmu.edu/15859-s11/notes/sutner.pdf. These files are used for reasoning.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: http://www.link.cs.cmu.edu/15859-s11/notes/sutner.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+Linear Cellular Automata and 
+the Garden-of-Eden 
+K. Sutner 
+1. The All-Ones Problem 
+Suppose each of the squares of an n x n chessboard is 
+equipped with an indicator light and a button. If the 
+button of a square is pressed, the light of that square 
+will change from off to on and vice versa; the same 
+happens to the lights of all the edge-adjacent squares. 
+Initially all lights are off. Now, consider the following 
+question: is it possible to press a sequence of buttons 
+in such a way that in the end all lights are on? We will 
+refer to this problem as the All-Ones Problem. 
+A moment's reflection will show that pressing a 
+button twice has the same effect as not pressing it at 
+all. Thus a solution to our problem can be described by 
+a subset of all squares (namely a set of squares whose 
+buttons when pressed in an arbitrary order will render 
+all lights on) rather than a sequence. In fact a set X of 
+squares is a solution to the All-Ones Problem if and 
+only if for every square s the number of squares in X 
+adjacent to or equal to s is odd. Consequently, we will 
+call such a set an odd-parity cover. 
+Trial and error in conjunction with a pad of graph 
+paper will readily produce solutions for n ~ 4. A little 
+more experimentation shows that an odd-parity cover 
+--should one exist--is difficult to construct even for n 
+= 5or6. 
+The brute-force approach to the problem, namely 
+exhaustive search over all subsets of {1 .... n} x 
+{1 .... n}, presents 2 n2 candidates, and the search be- 
+comes infeasible for moderate values of n even with 
+the help of a computer. A less brute-force method 
+would be to try to solve the system 
+terpreted as a matrix over GF(2)) and 1 is the vector 
+with all components equal to 1. This method, which 
+involves n 2 equations, again becomes unwieldy for 
+small values of n. For a similar approach to a game 
+related to the All-Ones Problem, see [3]. In any case, 
+Figure 1 shows odd-parity covers for n = 4, 5, 8. 
+Several questions come to mind. For which n does a 
+solution to the All-Ones Problem exist? More gener- 
+ally, how many odd-parity covers are there for an n x 
+n board? What happens if the adjacency condition is 
+changed--say, to an octal array (where a cell in the 
+center has eight neighbors)? Can one replace an n x n 
+rectangular grid by some other arrangement of sites 
+and still obtain a solution? To answer some of these 
+questions, we first rephrase the problem in terms of 
+cellular automata. 
+(A + I).X= I 
+of linear equations over the field GF(2) = {0,1}, where 
+A is the adjacency matrix of the n x n grid graph (in- 
+THE MATHEMATICAL INTELLIGENCER VOL. 11, NO. 2 9 1989 Springer-Verlag New York 49
+
+--- page 2 ---
+2. Cellular Automata on Graphs 
+A cellular automaton is a discrete dynamical system that 
+consists of an arrangement of basic components called 
+cells together with a transition rule. Every cell can as- 
+sume a finite number of possible states; the collection 
+of possible states is called the alphabet of the auto- 
+maton. We will here restrict our attention to the case 
+where the set of possible states is {off, on}, which we 
+represent by {0,1}. The transition rule of a cellular au- 
+tomaton is local in the,sense that the state of cell x at 
+time t + 1 depends only on the states of the neigh- 
+boring cells (including cell x itself) at time t. Tradition- 
+ally the cells are arranged on a finite or infinite, one- or 
+two-dimensional grid. With a view toward the All- 
+Ones Problem, however, we will allow arbitrary adja- 
+cencies between the sites of our cellular automata. 
+More precisely, let G be a locally finite graph, i.e., a 
+graph such that every vertex v in G is adjacent to only 
+finitely many vertices in G. Let V denote the set of 
+vertices of the graph G, and for any vertex v define the 
+closed neighborhood N v of v by 
+N~ := { u E V I u adjacent to v } U {v}. 
+A pattern of G is a function 
+X : V--* {0,1} 
+from the collection of all vertices V to the alphabet 
+{0,1}. We let Cc denote the collection of all patterns of 
+G and identify a pattern X : V---~ {0,1} with a subset of 
+the vertex set V, namely the collection of all cells v 
+with X(v) = 1. 
+Now let v be a vertex of G. A local pattern at v on G 
+is a function 
+X~ : N~---* {0,1}. 
+Clearly, any pattern X : V--~ {0,1} determines a local 
+pattern X~ at v, for each vertex v, by setting 
+Xdu) := X(u) (1) 
+for all u in N~. A local rule p~ associates every local 
+pattern at v with a state: the state of cell v in the next 
+generation. Given a collection of local rules 
+(pv : v E V) the corresponding global rule p is ob- 
+tained by applying the local rules simultaneously--or 
+in parallel, to use a modern term--to all the local pat- 
+terns: 
+p : C c ~ C c 
+~(X)(v) := .v(x~) 
+where X~ is defined by (1). 
+Algebraically, the collection of all patterns forms a 
+vector space over {0,1} construed as the two-element 
+field GF(2). This vector space will be called the pattern 
+space. The vector sum of X and Y in C c is the sym- 
+3mill 
+IIIInC 
+IlmOc 3mml 
+le I## 
+10 I# I## 
+0e010 
+##00| 
+#e$#D# 
+I#ol 
+o# oe leo 
+O# JOl 
+Figure 1. Solutions to the All-Ones Problem for square grids 
+of size 4 x 4, 5 x 5, and 8 x 8. Note that a solution for the 6 
+x 6 grid is contained in the center part of the 8 x 8 solution. 
+metric difference of X and Y. The singletons {v}, v E 
+V, provide a standard basis for Cc in the case of a finite 
+graph G. To keep notation simple we will write v in- 
+stead of {v}, so that in particular if u # v, then v + u 
+stands for the pattern {u,v}. We will write 1 for the 
+"All-Ones" pattern: l(v) = 1 for all v in V. Similarly, 0 
+denotes the empty set as an element of Co. Any pat- 
+tern Z such that p(Z) = X is called a predecessor of X 
+under the global rule p. A pattern that fails to have any 
+predecessors is frequently called a Garden-of-Eden: 
+once "lost" it remains inaccessible forever; see [1], [2]. 
+To tackle our chessboard problem, define a global 
+rule (y by defining a collection (yv of local rules as 
+follows: 
+rrv(Xv) := card(Xv) mod 2. 
+In other words, (y(X)(v) = 1 iff card(Xv) is odd. A 
+graph together with rule or will be called a (y-au- 
+tomaton. The predecessors of 1 in a (y-automaton are 
+exactly the solutions of the All-Ones Problem, which 
+can now be restated as follows: 
+Given an n x n grid graph G, is I a Garden-of-Eden 
+under rule (y in G? 
+Before we answer the above question, let us digress 
+briefly. The rule (y is a typical member of the class of 
+"linear rules," which means that (y is linear as a map 
+from the pattern space Ca to itself. In fact, (Y(X) = 
+(A +/) 9 X, where pattern X is construed as a column 
+vector and the adjacency matrix A of G is construed as 
+~0 THE MATHEMATICAL INTELLIGENCER VOL. 11, NO. 2, 1989
+
+--- page 3 ---
+A 
+B 
+."i,, 
+.,.r ,.'., ...- ...% 
+...,',",,. ,.-"-,,. 
+..,......I .,..," I-..,I ;-., 
+d::". ,:x. 
+.,~ ,,, .,,,. -'.. ..,'~,. .,. -'.~, 
+.~,.".'....:~..... ".. ,._.'... ,..':...r ",.. 
+.,:." %. ..<: .~ ...... ~. ~: ..... :.. 
+..~ ;,, ,r .., ..,"-'.. ,-" I-., ,..: I...-I ;...-; -',, .,'-';., 
+.,," ~',, ,.'I ;% ,.," ".,, .,.";... 
+,r ;,.,r ~.. ,,; ",, .-'. -'.,,, ,,; :,, .,'. :,. ,,p,, ,.: :.. 
+,,-',,, ,r .,,,',,, ,,: ,,~, ,,,",',, .,_,':., ,.,,,',,, .._".'.. 
+..-"...."....-";....,":,, ,,"~,..--"~,...;'~ ... I,..r ,'-"-'.. ,.. ~, .."-'...."-'....".. 
+d 
+d d L d' 
+-,'h, .r + d~ :1: ::I'L 
+.a L.a Ld L ~1 Ld ~ 
+d I~ 
+d bd L hd L d Ld ~ 
+'L L 
+'k d L 
+', :1",- -,'1: ~ :I',- 
+'L d L, d L 
+'L L. 
+'LJ L d I,,d Ld L 
+Ib h d h 
+~l_ d L d Ld l_ d I-d I_ 
+Figure 2A. The first 70 steps in the evolution of pattern (0) in 
+P~ with rule or-. B. The first 70 steps in the evolution of 
+pattern (0) in P~ with rule ~. 
+a matrix over the field {0,1}. Another rule very closely 
+related to r is obtained by excluding the vertex v from 
+its own neighborhood: or-v(Xv) := card(X v - v) mod 
+2. Thus o'-(X) = A 9 X. Any rule p that is composed of 
+linear local rules Pv is called a linear rule. 
+Despite the simplicity of linear rules like or and or-, 
+the cellular automata obtained from them show quite 
+complicated behavior. A classic example is the two- 
+sided infinite path graph P| (the vertices of P| are the 
+integers, and v is adjacent to u if and only if lu - v I = 
+1). Figure 2 shows the evolution of the seed pattern {0} 
+on P| using various linear rules. The two-dimensional 
+patterns generated in this fashion have non-integer 
+fractal dimension and display such complicated geo- 
+metric properties as self-similarity. The fractal dimen- 
+sion of the pattern asymptotically generated by rule or 
+is log2(1 + X/5), whereas rule or- generates a pattern 
+of dimension log23. 
+A wealth of information about these and other cel- 
+lular automata rules as well as many fascinating pic- 
+tures can be found in [5] through [8] (rules or and or- 
+are called rule 150 and 90, respectively, in [5]). 
+3. Finite (r-Automata 
+One of the basic questions of the theory of cellular au- 
+tomata concerns the global reversibility of the transi- 
+tion rule: can pattern X be reconstructed from p(X)? 
+Table 1. Irreversible n x n grid automata, n ~ 100. 
+Here d, denotes the dimension of Kp.,.,(r. 
+n d n n d, 
+4 4 53 2 
+5 2 54 4 
+9 8 59 22 
+11 6 61 40 
+14 4 62 24 
+16 8 64 28 
+17 2 65 42 
+19 16 67 32 
+23 14 69 8 
+24 4 71 14 
+29 10 74 4 
+30 20 77 2 
+32 20 79 64 
+33 16 83 6 
+34 4 84 12 
+35 6 89 10 
+39 32 92 20 
+41 2 94 4 
+44 4 95 62 
+47 30 98 20 
+49 8 99 16 
+5O 8 
+Locally irreversible systems are interesting from a 
+thermodynamic point of view: unlike locally reversible 
+systems, they may evolve from unordered to ordered 
+states. Linear rules are locally irreversible in the sense 
+that different patterns can lead to the same state in 
+one particular cell in the next generation. Globally 
+linear rules may well be reversible, however. 
+Let us assume from now on that G is a finite graph. 
+For linear rules the situation is simple: rule p is injec- 
+tive if and only if it is surjective. Let Ka,p C CG be the 
+kernel of rule p on G and set d(G,p) := dirn(KG, p) = 
+log2(card(Kc, p)). Then the automaton G with rule p is 
+reversible if and only if it has no Garden-of-Eden if 
+and only if d(G,p) = 0. In particular, the All-Ones 
+Problem can be solved in any finite reversible auto- 
+maton. For rule or the 3 x 3 grid is an example for a 
+reversible automaton; indeed, all (2 i - 1) x (2 i - 1) 
+square grids are reversible. A polyhedron gives rise to 
+a graph that has the corners of the polyhedron as ver- 
+tices and an edge joining two vertices if and only if an 
+edge of the polyhedron joins the two corresponding 
+corners. Of the five graphs obtained in this fashion 
+from the Platonic solids, only the octahedron is revers- 
+ible; whereas the tetrahedron, the cube, the dodecahe- 
+dron, and the icosahedron are irreversible. The d-di- 
+mensional hypercube 2 d is the graph with vertex set 
+{0,1} a and there is an edge between v and u if and only 
+if v and u have Hamming distance one (i.e., they dis- 
+agree in exactly one component). The hypercube 2 a is 
+THE MATHEMATICAL INTELLIGENCER VOL. 11, NO. 2, 1989 ~1
+
+--- page 4 ---
+2+4+5~_ 
+1 ~""$1+2~ 
+~+2+4 ...~..~4+5 ~3~2+3+4 
+1+2+3+5~ 
+3+4 ~,2+5~ 
+2+3 --1+4 ~1 
+1+3+4+5/" 
+9 l+ O 
+~ 1+5 _ 1+3 ~)r 1+3+4 
+2+3+4+5 / ~1+2+4+5 
+~+2+5 ~3+4+5 -- 2§ 
+.9 
+Figure 3. The transition diagram GPs" 
+reversible if and only if d is even; for a proof of these 
+results see [4]. 
+Let us agree on some notation for graphs: Pm (Cm) 
+will denote the path (cycle) graph on m points 
+{1 .... m} and Pm,, the rectangular m x n grid graph. 
+Table 1 shows the dimension dn of Kp, n,~ for all irre- 
+versible n x n grid automata, n ~< 1001 Note that di- 
+mension appears to be even for any square grid (it is 
+not even in general for rectangular grids). Observe 
+that d2n+l = 2 " d, + 8,, where 8, ~{0,2}. Indeed, the 
+table suggests 82,+1 = 8,. We are not aware of a proof 
+for any of these conjectures. 
+Now suppose pattern X has predecessor Y. By 
+linear algebra the collection of all predecessors of X is 
+the affine subspace O-I(X) = Y + KG, p; thus the 
+number of predecessors of X is either 0 or 2 d(G,"). The 
+table provides an explanation for the extra difficulty of 
+constructing an odd-parity cover for the 5 x 5 or 6 x 6 
+grid compared to the 4 x 4 grid: there are 16 solutions 
+for 4 x 4 grid, 4 for the 5 x 5 grid, but only one for 
+the 6 x 6 grid. One can show that in the 4 x 4 board 
+one can pick an arbitrary pattern in the first row and 
+always expand it to an odd-parity cover of the whole 
+grid. 
+The predecessor relation is best expressed graphi- 
+cally by means of the transition diagram Go, p of G. 
+Formally ~C,p is a directed graph that has as vertices 
+the patterns of G and an edge from X to Y if and only if 
+,(X) = Y. For a linear rule p the in-degree of every 
+point in GG,p is either 0 or 2 d(G,p). The out-degree is 1, of 
+course, so the connected components of ~G,p are all 
+unicyclic. Indeed, they consist of one cycle and a 
+number of 2d(c,P)-ary trees anchored on that cycle. 
+Clearly, rule p is reversible on G if and only if the con- 
+nected components of ~G,p are cycles. The orbit 
+{~ I i I> 0} of any pattern X forms a one-generated 
+monoid. 
+Figure 3 shows the transition diagram for the or-au- 
+tomaton Ps- Notice that Ps is irreversible but nonethe- 
+less pattern 1 has a predecessor. For arbitrary n, it is 
+easy to determine all odd-parity covers for P,: 
+n odd-parity covers 
+n~0(mod3) 2 + 5 + .. + (n - 4) + (n - 1) 
+n~l(mod3) 1 + 4 + 7 + .. + (n - 3) + n 
+n=2(mod3) 1 + 4 + 7 + .. + (n- 4) + (n - 1) 
+and2 + 5 + 8 + .. + (n- 3) + n. 
+The corresponding pictures may be more convincing 
+than algebra; see Figure 4. 
+So Pn is reversible if and only if n ~ 2 (mod 3). For n 
+= 2 (mod 3) there exists exactly one predecessor of 0 
+(other than 0 itself), namely I + 2 + 4 + 5 + . . + (n 
+- 1) + n; thus d(Pn,or) = 1. Similarly, for the cycle Cn 
+one has the following situation: 
+n odd-parity covers 
+n~0(mod3) 1 
+n=0(mod3) 1,1 + 4 + .. + (n - 2),2 + 5 + .. 
+(n- 1),3 + 6 + .. + n. 
+Thus 1 is a fixed point under or in C, and d(C,,,or) = 2 
+for n = 0 (mod 3). 
+Finding odd-parity covers for each of the ladder 
+graphs Pn,2, n /> 2 is still straightforward. For even 
+larger grids the search becomes hopeless, as patient 
+readers may readily convince themselves. It is not 
+clear that an odd-parity cover should exist for arbitrary 
+grids. 
+As we have seen, reversibility is a sufficient but by 
+no means necessary condition for 1 to have a prede- 
+cessor. Indeed, we will show that an arbitrary finite 
+graph G possesses an odd-parity cover, or, equiva- 
+lently, the All-Ones Problem has a solution. We do not 
+know of any purely geometric (read: graph theoretic) 
+argument to prove this. We will present an algebraic 
+proof.* To this end let v 1 .... v n be the standard base 
+of the pattern space Ca and let C*c be the dual space 
+equipped with the dual base Vl* .... vn*. Every vector 
+X =- ~iVi in C a gives rise to a linear functional X* := 
+E~ivi* in C'G; define 
+(z,x) := x~(z). 
+C G is finite dimensional and therefore isomorphic to 
+C*c under the map X ~ X*; we will identify both 
+spaces to keep notation manageable. Z is said to be 
+perpendicular to X, in symbols Z 3_ X, if (Z,X) = 0. 
+Hence Z and X are perpendicular if and only if their 
+intersection has even cardinality. Z is perpendicular to 
+a subspace W of C a if and only if Z 3_ X for all X E W. 
+Define the orthogonal complement W" of the sub- 
+space W by W = {Z E CG [ Z 3_ W}. Using the notion 
+of orthogonal complement one can now characterize 
+* R. TindeU pointed out that there is a purely graph theoretic proof 
+for trees (connected acyclic graphs). See pages 31-32. 
+52 THE MATHEMATICAL INTELLIGENCER VOL. 11, NO. 2, 1989
+
+--- page 5 ---
+I lel I I# I lel I .,-I l el I I01 I 
+Iolllellielll .,, I llell]oi 
+lelllelllolll I lolllell I lolllolllell ..- I IIolllel 
+Figure 4. Odd-parity covers for P,. 
+Figure 5. A basis for K~,.,. 
+the patterns that lie in the range of or. 
+3.1 THEOREM: Let G be an arbitrary finite graph and let 
+p be one of the rules or or cr-. Then pattern X has a prede- 
+cessor in G under rule p if and only if X is perpendicular to 
+the kernel of p. 
+Proof: The neighborhood (and adjacency) matrix of a 
+graph is symmetric. Thus p is selfadjoint and 
+<p(x),Y> = <x,p(Y)>. 
+for any two patterns, X,Y. Also note that (., .) is non- 
+degenerate in the sense that 
+X = Oiff(Z,X) = OforallZinC c. 
+Now let W be the range of p. We get 
+Y E W  r for all X in C c (p(X),Y) = 0 
+r for all X in Cc (X,p(Y)) = 0 
+r p(Y) = 0, 
+i.e., W  = Ka,,. By a well-known theorem of algebra 
+W " = W. Hence W = Ka, p" and the proof is com- 
+plete. 9 
+3.2 THEOREM: The All-Ones Problem has a solution in 
+any finite graph. 
+Proof: The key observation is that any pattern X such 
+that or(X) = 0 must have even cardinality. To see this, 
+first note that every vertex x in X has odd degree in the 
+subgraph G with vertex set X. Second, recall the 
+handshaking theorem: the number of odd-degree 
+points in any finite graph is even. Now, (X,1) is the 
+cardinality of X modulo 2, so (X,1) = 0. Hence 1 is 
+perpendicular to Kc,,,, and has a predecessor under 
+rule or by Theorem 3.1. 9 
+Thus I fails to be a Garden-of-Eden under rule or in 
+any finite graph. We note in passing that Theorem 3.2 
+can be generalized to locally finite graphs. For finite 
+graphs one can compute a basis for the affine subspace 
+of all odd-parity covers in polynomial time, i.e., in a 
+number of steps polynomial in the number of points of 
+the graph. Surprisingly, the problem of determining 
+an odd-parity cover of minimal cardinality turns out to 
+be computationally difficult: the corresponding opti- 
+mization problem is NP-hard; see [4]. Thus it is un- 
+likely that any efficient (read: deterministic polynomial 
+time) algorithm exists to construct an odd-parity cover 
+of minimal size for a given graph. 
+For certain simple graphs like P4,4, where the kernel 
+of or~ is known explicitly, Theorem 3.1 provides an 
+easy test of whether a given pattern has a predecessor. 
+Figure 5 shows a basis for the kernel of o- on P4,4. It is 
+easy to check that no singleton can have a prede- 
+cessor. Or consider the path ion, where n - 2 (mod 3) 
+and n > 2. Then in Pn exactly the patterns of the form 
+X = X 0UX 1,whereX 0isasubsetofl + 2 + 4 + 5 
++ . . + (n - 1) + n of even cardinality and X 1 is a 
+subset of 3 + 6 + .. + (n - 2), have a predecessor 
+under rule or. Hence exactly half the patterns have a 
+predecessor, and the other half are Gardens-of-Eden. 
+References 
+1. E. F. Moore, Machine models of self-reproduction, in: 
+A. W. Burks, Essays on Cellular Automata, University of 
+l]linois Press, 1970. 
+2. J. Myhill, The converse of Moore's Garden-of-Eden 
+Theorem, in: A. W. Burks, Essays on Cellular Automata, 
+University of Illinois Press, 1970. 
+3. D. H. Pelletier, Merlin's magic square, Amer. Math. 
+Monthly 94 (1987), 145-130. 
+4. K. Sutner, Linear automata on graphs, to appear. 
+5. S. Wolfram, Statistical mechanics and cellular automata, 
+Rev. Modern Physics 55 (1983), 601-644. 
+6. S. Wolfram, Computation theory of cellular automata, 
+Comm. Math. Physics 96 (1984), 15-57. 
+7. S. Wolfram, Geometry of binomial coefficients, Amer. 
+Math. Monthly 91 (1984), 566-571. 
+8. S. Wolfram, Computer software in science and mathe- 
+matics, Scientific American 251 (1984), 188-203. 
+Department of Computer Science 
+Stevens Institute of Technology 
+Hoboken, NJ 07030 USA 
+THE MATHEMATICAL INTELLIGENCER VOL. 11, NO. 2, 1989 53

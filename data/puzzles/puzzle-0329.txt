@@ -1,0 +1,217 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_329.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 329. Odd abundant numbers not divided by 2 or 3.
+Source: https://www.primepuzzles.net/puzzles/puzz_329.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0329.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.contestcen.com/prime.htm
+  http://mathworld.wolfram.com/AbundantNumber.html
+  mailto:cbrfgm@gmail.com
+  http://www.research.att.com/projects/OEIS?Anum=A047802
+  http://mathworld.wolfram.com/DivisorFunction.html
+  http://amicable.adsl.dk/aliquot/apstat/apco30.txt
+  http://www.shyamsundergupta.com/canyoufind.htm
+  https://www.primepuzzles.net/puzzles/puzz_328.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_330.htm
+  https://www.primepuzzles.net/puzzles/puzz_329.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 329. Odd abundant numbers not divided by 2 or 3.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 329. Odd abundant numbers not divided by 2 or 3.
+
+My friend Frank Rubin poses in one of his very interesting pages, the following question:
+
+What is the smallest abundant number which not divisible by 2 or 3?
+
+The most amazing thing (to me) is that he qualifies this question with an asterisk, which "indicates an easy to moderate puzzle" (puzzle that remains unsolved since several months).
+
+Question:
+Can you find one abundant number not divided by 2 or 3?
+
+Contributions came from:Patrick Capelle, Jacques Tramu, J.K.Andersen, T. D. Noe, Frank Rubin, Faride Firoozbakht, Luke Pebody, Stuart Gascoigne, Igor Schein, Giovanni Resta, Joseph L. Pe, Andrew Rupinski & Shyam Sunder Gupta & dan Dima, almost all the good and old friends of these pages!.... (even one strange name as 'Grandpa Scorpion'?...)
+
+All of them sent not just one but the smallest solution:
+
+5,391,411,025 = 5 ^ 2 x 7 x 11 x 13 x 17 x 19 x 23 x 29.
+
+All of the puzzlers sent the solution together with different side results according to temperament of each own, as diverse as one can imagine with all this talented people, you are.
+
+Please let me make a very crude selection. I will start with the origin of this puzzle:
+
+Frank Rubin wrote:
+
+I marked this puzzle "easy to moderate" because you can solve it in a few minutes using just a hand calculator (assuming it can handle 11-digit numbers). Let's start with the easiest case, using just the consecutive primes, with no powers.
+
+5x7x11x13x ...
+
+You can calculate the ratio between (sum of divisors of N) and N by multiplying 6/5 x 8/7 x 12/11 x ... When this ratio gets over 2, then N is abundant. We find that N becomes abundant at 31, so the first candidate is
+
+5x7x11x...x31 = 33,426,748,355.
+
+To improve this, we can try powers of the lower factors. The first one to try is 5, so we replace 6/5 by 31/25 and start again 31/25 x 8/7 x 12/11 x 14/13 x ... This time the ratio goes over 2 at 29. So we hit a winner on the first try. The second candidate is
+
+5^2x7x11x...x29 = 5,391,411,025.
+
+To improve this, we must get rid of the factor 29 by using higher powers of the smaller factors. There are only 3 possibilities, 5, 25 and 7. None of them works. So 5,391,411,025 is the minimum.
+
+J.K. Andersen wrote:
+
+I think the smallest odd abundant number is 5*29#/6 = 5^2*7*11*13*17*19*23*29 = 5391411025
+
+OEIS agrees: http://www.research.att.com/projects/OEIS?Anum=A047802
+
+Stuart Gascoigne wrote:
+
+Finding an abundant number not divisible by 2 or 3 is easy.
+
+All you need is the divisor function that gives you the sum of a number's divisors.
+
+http://mathworld.wolfram.com/DivisorFunction.html
+
+Multiply primes together until the sum is more than 2 * the number
+
+5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 is abundant.
+
+The smallest is 5^2 * 7 * 11 * 13 * 17 * 19 * 23 * 29 =5391411025.
+
+The simplest without 2, 3 or 5 is
+
+7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47 * 53 * 59 * 61 * 67 * 71 * 73
+
+the smallest is
+
+7^2 * 11^2 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47 * 53 * 59 * 61 * 67 =20169691981106018776756331
+
+The key is that the divisor function is multiplicative S(ab)=S(a)*S(b).
+
+Therefore we can work out the contribution of each prime separately.
+
+For a prime p to power n
+
+S(p^n)=(p^(n+1)-1)/(p-1)
+
+For first powers, S(p)=p+1.
+
+To calculate the contribution to the abundance, divide by p. This gives us the following table.
+
+5 1.2
+
+7 1.142857143
+
+11 1.090909091
+
+13 1.076923077
+
+17 1.058823529
+
+19 1.052631579
+
+23 1.043478261
+
+29 1.034482759
+
+31 1.032258065
+
+37 1.027027027
+
+41 1.024390244
+
+43 1.023255814
+
+47 1.021276596
+
+53 1.018867925
+
+59 1.016949153
+
+61 1.016393443
+
+67 1.014925373
+
+71 1.014084507
+
+73 1.01369863
+
+Just multiply together the contributions until the product > 2.0 (it is 2 because the sum includes the number itself).
+
+I multiply all the primes from 7 to 73 and get S(n)=2.014332334
+
+Now the prime making the smallest contribution is also the largest prime =73, so we remove that one, and try to replace it by a higher power of a smaller prime. This is simpler than it sounds, because higher powers of primes contribute a lot less than single powers.
+
+Here is the table for squares
+
+5 1.24
+
+7 1.163265306
+
+11 1.099173554
+
+13 1.082840237
+
+17 1.062283737
+
+19 1.055401662
+
+23 1.04536862
+
+29 1.035671819
+
+We find that 7^2 easily replaces 7*73 with a total abundance of 2.022595763
+
+.
+
+Now try and replace 71 also. I found that 7^4 will do it, but 11^2 is smaller.
+
+When I try and replace 67 also, I have already used the squares of the smallest primes (which give the greatest contribution) and I cannot do it without multiplying by a total that is greater than the 67. This would give me a larger abundant number, not a smaller one, so
+
+7^2 * 11^2 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47 * 53 * 59 * 61 * 67 =20169691981106018776756331
+
+is the smallest.
+
+Luke Pebody wrote:
+
+There are 26 abundant numbers not divisible by 2 or 3 and less than 10^11, from 5391411025 to 97974952075. There are 394 less than 10^12, 4343 less than 10^11 and 8060 less than 2*10^11. The 8000th is 19826562430675.
+
+Shyam Sunder Gupta wrote:
+
+Regarding your puzzle 329 "Odd abundant numbers not divided by 2 or 3" , It is to inform that there are many many numbers known. Jan Munch Pedersen site http://amicable.adsl.dk/aliquot/apstat/apco30.txt
+
+lists amicable pairs coprime to 30, which means smaller mamber of amicable pair which is obviously abundant is not divisible by 2, 3 and 5.
+
+From MathWorld "The smallest known example of amicable pair not divisible by 6 is (42262694537514864075544955198125, 42405817271188606697466971841875), each number of which has 32 digits.Obviously 42262694537514864075544955198125 is abundant number not divisible by 6.
+
+On my site ( www.shyamsundergupta.com/canyoufind.htm )in reply to CYF No. 7 , Brian Trial reported three consecutive abundant numbers two of which are odds the number 27523728059933744479478128774219545978059153664131777 is abundant number not divisible by 6.
+
+Last but most important is the smallest of all above "the abundant number 1382511906801025=(5x7x11x13x17x19x23)^2 is not divisible by 2 and 3"
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

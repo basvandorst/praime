@@ -1,0 +1,173 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_942.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 942. Semiprimes and Pascal Triangle
+Source: https://www.primepuzzles.net/puzzles/puzz_942.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0942.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_941.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_943.htm
+  https://www.primepuzzles.net/puzzles/puzz_942.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 942. Semiprimes and Pascal Triangle
+
+Problems & Puzzles: Puzzles
+
+Puzzle 942. Semiprimes and Pascal Triangle
+
+Vic Bold sent the following nice puzzle:
+
+Given a semiprime N, construct the first four rows of a Pascal Triangle using its four divisors as shown in the example. Compute the sum S of all the elements of these four rows. Is S prime?
+
+Example: N=14. Divisors: 1, 2, 7, 14
+
+1
+2 2
+
+7 4 7
+
+14 11 11 14
+
+S(14)=73, Prime!
+
+Q. Are consecutive semiprimes N & N+1 such that S(N) and S(N+1) are both prime numbers? If so, send your largest example. If not, explain why.
+
+Contributions came from Fausto Morales, Jan van Delden, Emmanuel Vantieghem
+
+***
+
+Fausto wrote on Feb 9, 2019:
+
+No examples are possible.
+
+Let p and q denote prime numbers, with p < q.
+
+Note first that a semiprime s with S(s) prime is not of the form 3p since then
+
+S(s) = 10p + 25 = 5(2p + 5), not prime.
+
+Then s = 1 (mod 3) and s+1 = 2 (mod 3).
+
+• Case 1: s even.
+
+s = 2p -> p = 2 (mod 3) and S(s) = 8(p+2) + 1 is divisible by 3 (not prime).
+
+• Case 2: s odd.
+
+Then s = 1 (mod 6), (not 3 by the initial observation, and not 5, by the initial observation applied to s+1).
+
+It follows that p and q are (I) both congruent to 1 (mod 6) or (II) both congruent to 5 ( mod 6).
+
+Note that S(s) = (2p+4)q + 8p + 1.
+
+(I) and (II) can be ruled out, as they both make S(s) divisible by 3.
+
+***
+
+Jan wrote on Beb, 9, 2019:
+
+These semiprimes N,N+1 don’t exist.
+
+I assume that p<q, with N=pq.
+
+The divisors are in {1,p,q,pq} and S(p,q)=1+8p+4q+2pq.
+
+We have:
+
+S(p,q) mod 3 = 1 – p + q – pq mod 3
+
+If both N and N+1 are semiprimes we must have that one of these two semiprimes is divisible by 2.
+
+S(2,q) mod 3 = -1 – q, q=1 mod 3, pq=2q=-1 mod 3
+
+[If q=3, we have either N or N+1 equal to 6, but 5 and 7 are not semiprimes].
+
+S(3,q) mod 3 = 1 – 2q mod 3, q=1 mod 3, pq=3q=0 mod 3.
+
+S(1 mod 3,q) mod 3= q – q = 0 mod 3, hence S(p,q) is not prime
+
+S(-1 mod 3,q) mod 3 = 2 + 2q, q=1 mod 3, pq=-1 mod 3
+
+If 2|N+1 we have N+1=-1 mod 3 and N=1 mod 3 which is impossible
+
+If 2|N we have N=-1 mod 3 and N+1=0 mod 3
+
+If a solution exists we must have:
+
+2q[1]+1=3q[2] with q[1],q[2] both 1 mod 3, 1 mod 2 thus 1 mod 6
+
+Leading to:
+
+If we choose q[1]=6k+1,q[2]=6l+1 and solve 2q[1]+1=3q[2], or
+
+2(6k+1)+1=3(6l+1), 12k=18l, or 2k=3l, giving:
+
+q[1]=9l+1, q[2]=6l+1, l even, giving q[1]=18m+1, q[2]=12m+1
+
+S(2,q[1])=144m+25, S(3,q[2])=120l+5 which is always divisible by 5
+
+S(3,q[2]) is not prime, no solution
+
+***
+
+Emmanuel wrote on 11 Feb, 2019:
+
+(It is clear that Vic does not consider squares of primes as semiprimes since he speaks of four divisors)
+
+We have, when p and q are primes with p < q : S(pq) = 1 + 8p + 4q + 2pq.
+
+Suppose N is a semiprime > 6 and divisible by 3.
+
+Thus, N = 3q, where q is a prime number > 3.
+
+But then S(N) = 1 + 24 + 4q + 6q == 0 mod 5.
+
+Thus, when two semiprimes are consecutive numbers then none of these numbers can be divisible by 3.
+
+Let pq be an odd semiprime with 3 < p < q for which S(pq) is prime.
+
+Then we have : S(pq) == 1 + 2p + q + 2pq == (1 + 2p)(q + 1) !== 0 (mod 3).
+
+Thus, 1 + 2p and q + 1 are not divisible by 3. But that means : p == 2 (mod 3) and q == 1 (mod 3).
+
+Thus, pq == 2 mod 3.
+
+So, the successor of pq (i.e. ; pq+1) cannot be a semiprime, since it is divisible by 6.
+
+If the predecessor of pq (i.e. : pq-1) is semiprime, it must be of the form 2r, with r a prime > 3 and == 2 mod 3.
+
+But then : S(2r) = 1 +16 + 4r + 4r \[Congruent] 2 + 1 === 0 mod 3. Conclusion : S(2r) is not prime.
+
+So, the S-value of two semiprimes that are consecutive cannot be twice prime.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

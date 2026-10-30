@@ -1,0 +1,796 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 844. Primes inside Sudoku solutions </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+span.apple-converted-space
+	{}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font><font color="#0000FF">Puzzles </font></b></font></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1" height="106">
+        <tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+        <tr>
+          <td height="88" valign="top">
+          <blockquote>
+            <p><b><span style="font-family: Verdana">Puzzle 844. </span></b>
+			<font size="2"><b><span style="font-family: Verdana">Primes inside 
+			Sudoku solutions</span></b></font></p>
+			<blockquote style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+				<wbr>
+				<div dir="ltr" style="color: rgb(0, 0, 0); font-family: HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px">
+					<p><font face="Verdana" size="2">G. L. Honaker, Jr. sent the 
+					following nice puzzle.</font><p>
+					<font face="Verdana" size="2">Send a Sudoku solution with 
+					the most quantity of <b>distinct</b> primes inside. You can 
+					read entirely or in fragments only the 9 rows, the 9 columns 
+					and the two main diagonals, in any of the two directions for 
+					each.</font><p><font face="Verdana" size="2">Example: The 
+					following Sudoku solution sent by G.L. contains 134 <b>distinct</b> prime 
+					numbers inside.</font><p>
+					<img border="0" src="../images/Sudoku%20solution%20example.JPG" width="431" height="436"><p>
+					<font face="Verdana" size="2">Here are the primes inside, 
+					computed by me:<p>
+					3 2 7 19 5 491 9187 23 487 59 59621 13 31 269 43 67 83 29 
+					8643527 643 3527 35279 5279 2791 79 197 97 7253 53 751 
+					519683 683 423 869 23869 238691 691 9157 157 293 317 17 
+					8564713 5647 564713 647 47 71 139 9456371 563 37 281 173 73 
+					6825439 825439 2543 25439 439 8419 41 419 419567 659 823 
+					458729 587 5872913 381659 165947 947 2749 61 27941 279413 
+					941 9413 86531 653 53149 531497 149 7523 75239 523 52391 239 
+					4861 48619 486193 619 193 93257 3257 257 89 945673 4567 
+					45673 673 7321 1237 163 284759 4759 82361 541 54163 41637829 
+					1637 637 829 7829 829 179 85297 5297 2971 971 6148297 8297 
+					84163 6893641 8936413 89364137 936413 641 137 14639 463 4639 
+					518261 51826157 518261573 8261573</font><p>
+					<font color="#000080"><b><font face="Verdana" size="2">Q. 
+					Send your best solution.</font></b></font></div>
+			</blockquote>
+			<wbr style="color: rgb(0, 0, 0); font-family: monospace; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: -16px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          <p></p>
+			<p>
+          </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+		<p>
+      Contributions came from Dmitry Kamenetsky, Jeff Heleen and Claudio Meller.</p>
+		<p>
+      ***</p>
+		<p>Dmitry wrote:</p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If we permute the 9 numbers then 
+				we obtain another valid Sudoku. I took Honaker's solution and 
+				checked all 9! permutations. This gave me a Sudoku with 191 
+				primes:<br>
+&nbsp;</font><div>
+					<font face="Verdana" size="2">145387629</div>
+				<div>
+					283961574</div>
+				<div>
+					976524831</div>
+				<div>
+					812495367</div>
+				<div>
+					397618452</div>
+				<div>
+					564732198</div>
+				<div>
+					629143785</div>
+				<div>
+					731859246</div>
+				<div>
+					458276913</div>
+				<div>
+&nbsp;</div>
+				<div>
+					primes 2 3 5 7 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 
+					73 79 83 89 97 127 137 149 157 167 179 239 263 269 271 281 
+					283 347 359 367 389 397 419 421 431 439 457 467 487 491 541 
+					563 587 593 641 647 653 659 691 719 743 751 761 769 823 827 
+					839 859 941 947 953 967 971 983 1237 1249 1453 1489 1693 
+					2749 3457 3541 3659 4127 4397 4721 4751 4831 4871 5179 5387 
+					5417 5431 5647 5813 5827 5879 6359 6473 6793 6917 7321 7691 
+					8167 8563 8629 8641 8719 9421 9623 12743 12983 13457 24953 
+					25679 26783 27143 27691 28541 29581 31859 34721 38921 39761 
+					41729 45823 45827 47653 53269 54319 56473 58271 65827 75169 
+					75431 76913 78517 83417 86291 87629 89123 89563 91237 95467 
+					95813 96157 145823 176459 283961 291437 341729 362749 396157 
+					429581 458239 473219 475169 524831 532691 538921 583417 
+					587341 627491 629143 647321 715879 764593 765389 862913 
+					873419 913457 947263 954671 1458239 2913457 3971587 4582769 
+					5647321 5827691 5873419 6291437 6524831 7652483 8176459 
+					8425679 9715879 28396157 54816793 58276913 62913457 76359421 
+					76538921</font></div>
+			</div>
+		</blockquote>
+		<p>
+      ***</p>
+		<p>
+      Jeff wrote:</p>
+		<blockquote>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			For puzzle 844 the best I have found so far has 161 distinct primes. 
+			-Jeff Heleen</p>
+			<p style="margin-top: 0px; margin-bottom: 0px; color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">&nbsp;</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			725483169</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			143269578</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			869517234</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			497826351</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			216345897</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			358791642</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			634178925</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			571932486</p>
+			<p style="color: rgb(0, 0, 0); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-top: 0px; margin-bottom: 0px">
+			982654713</p>
+			<p style="margin-top: 0px; margin-bottom: 0px; color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">&nbsp;</p>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">
+				<font face="Verdana" size="2">161 primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">Row 
+				primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">7, 2, 5, 
+				3, 83, 31, 5483, 4831, 3169, 254831</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">43, 269,</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">17, 23, 
+				1723, 86951,</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">97, 263, 
+				8263, 826351</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">89, 163, 
+				5897, 34589</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">79, 587, 
+				5879, 35879</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">41, 1789</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">71, 19, 
+				571, 719, 193, 7193, 57193</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">47, 13, 
+				547, 6547, 5471, 54713, 265471, 9826547</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">Reverse 
+				row primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">61, 613, 
+				9613</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">59, 9623, 
+				2341, 759623, 962341</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">271, 
+				4327, 3271, 7159, 43271, 4327159</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">53, 6287, 
+				2879, 536287, 1536287</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">8543, 
+				98543, 54361</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">461, 619, 
+				197, 853, 6197, 7853</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">29, 9871, 
+				529871, 987143, 2987143</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">239, 
+				8423, 3917, 84239, 42391, 23917, 684239</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">317, 
+				7456289</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">Column 
+				primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">659, 
+				3659, 718423, 18423659</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">37, 691, 
+				4691, 24691, 469153</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">397, 6841</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">3719, 
+				83719, 425837, 2583719</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">73, 1249, 
+				4973, 12497, 612497, 8612497</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">97651</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">523, 947, 
+				1523, 6947, 23869</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">67, 673, 
+				359, 281, 594281</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">563</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">Reverse 
+				column primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">4817</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">7351</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">6793, 
+				14867, 48679, 214867</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">173, 
+				6917, 9173</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">379, 421, 
+				9421</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">1567, 
+				15679</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">683, 251, 
+				3251, 683251</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">953, 
+				24953, 49537, 8249537</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">1489, 
+				36527, 271489</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">Diagonal 
+				primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">419, 983, 
+				8419, 98419, 41983, 49841983</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">46279</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">Reverse 
+				diagonal primes</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">389, 
+				48947</p>
+				<p class="MsoNormal" style="margin: 0px 0px 0.0001pt;">647, 479, 
+				2647, 72647, 64747, 72647479, 972647479</font></div>
+		</blockquote>
+		<p>
+      ***</p>
+		<p>
+      Claudio wrote:</p>
+		<blockquote>
+			<p>Encontré uno con 161, no sé si es mucho porque mucho no busqué.</p>
+			<p>647382591<br>
+			293615478<br>
+			518479632<br>
+			879536124<br>
+			162794853<br>
+			354128967<br>
+			431967285<br>
+			786251349<br>
+			925843716</p>
+		</blockquote>
+      </font>
+      <font style="font-size: large" color="#222222">
+      <p>
+      <span style="letter-spacing: normal; font-family: arial, sans-serif; background-color: #FFFFFF">
+		***</span></p>
+      </font>
+      <p>
+      <font style="letter-spacing:normal; background-color:#FFFFFF" color="#222222" size="2" face="Verdana">
+      <span style="letter-spacing: normal; background-color: #FFFFFF">On Aug 29, 
+		2016 Carlos Rivera wrote:</span></font></p>
+      <font style="letter-spacing:normal; background-color:#FFFFFF" color="#222222" size="2">
+      <blockquote>
+		<p><font face="Verdana">Following the permutation idea of Dmitry I set a 
+		code in Ubasic in order to input Sudoku solutions (available in the web) 
+		to get the best permutation of all these 9! from each Sudoku solution. 
+		After around 20 attempts I came un with this 193 distinct primes inside.</font></p>
+		<p><font face="Verdana">Primes = 193</font></p>
+		<p><font face="Verdana">264718935<br>
+		713592648<br>
+		598364172<br>
+		829173456<br>
+		351426897<br>
+		647985213<br>
+		985631724<br>
+		136247589<br>
+		647859361<br>
+		<br>
+		Primes from rows<br>
+		2 2647 647 647189 6471893 47 47189 471893 7 71 89 3 5 53 9817 17<br>
+		71359 13 359 59 84629 8462953 462953 29 2953 29531 953 95317 31 317<br>
+		983 9836417 83 83641 641 41 271 271463 27146389 7146389 146389 463<br>
+		6389 389 829 8291 2917 29173 9173 173 73 65437 654371 5437 54371<br>
+		43 37 3719 719 19 5142689 42689 2689 97 79 7986241 8624153 241 4153<br>
+		479 798521 985213 8521 85213 521 312589 12589 125897 5897 98563 985631<br>
+		8563 563 631 6317 4271 2713 136247 6247 7589 9857 98574263 857<br>
+		5742631 263 647859361 78593 859 859361 593 61 163 9587 587<br>
+		<br>
+		Primes from columns<br>
+		27583 7583 58369 8369 3691 691 619 63857 61925483 5483 4384529 3845291 
+		43891<br>
+		38917 67 6571 65719 571 71983 53149 149 8269 269 269413 941 9413 41357<br>
+		967 7283 283 543827 43827691 382769 827 27691 769 7691 8243 2436517<br>
+		24365179 43651 365179 65179 5179 179 971 971563 71563 9614827 614827<br>
+		14827 482753 2753 347 34759 347591 4759 47591 7591 68219 821 8219<br>
+		195743 5743 743 82673491 2673491 673 67349 7349 349 3491 491 9437<br>
+		<br>
+		<br>
+		Primes from diagonals<br>
+		181 8125781 257 8752181 52181<br>
+		541 5413 132953 6359 635923 6359231 35923 359231 5923 23</font></p>
+		<p><font face="Verdana">BTW, Dmitry and I have been reasoning by email 
+		what could be an upper limit for the quantity of distinct primes in a 
+		sudoku solution. We came up with this idea and value: 218.</font></p>
+		<p><font face="Verdana">The average of the quantity of distinct primes 
+		of all the 9! zerloess pandigitals read in both directions is 14.7289. A 
+		Sudoku solution is composed by 20 zerloess&nbsp; pandigitals. For the 
+		purpose of counting primes inside we may assume that these 20 
+		pandigitals are practically at random. But the primes 2, 3 5 y 7 are 
+		repeated in the last 19 zerloess&nbsp; pandigitals after the first one, 
+		<b>so, the upper limit could be around </b> </font>
+		<span style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+		20*14.7289-4*19 = 218, n</span></font><font style="letter-spacing:normal; background-color:#FFFFFF" color="#222222" size="2" face="Verdana"><span style="letter-spacing: normal; background-color: #FFFFFF; font-weight:700">evertheless 
+		I must say that Dmitry thinks that this is a pessimistic upper bound...</span></font></p>
+		</blockquote>
+      <font style="letter-spacing:normal; background-color:#FFFFFF" color="#222222" size="2">
+      <p>
+      <font face="Verdana">***</font></p>
+		<p>
+      <font face="Verdana">On Aug 30 Emmanuel Vantieghem wrote:</font></p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">This is a sudoku grid with &nbsp;192 
+				&nbsp;primes inside :</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 3 &nbsp;8 &nbsp;4 &nbsp;1 &nbsp;6 &nbsp;5 &nbsp;7 &nbsp;2 &nbsp;9</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 1 &nbsp;5 &nbsp;2 &nbsp;8 &nbsp;7 &nbsp;9 &nbsp;3 &nbsp;6 &nbsp;4</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 9 &nbsp;6 &nbsp;7 &nbsp;4 &nbsp;3 &nbsp;2 &nbsp;1 &nbsp;8 &nbsp;5 &nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 8 &nbsp;3 &nbsp;1 &nbsp;7 &nbsp;5 &nbsp;4 &nbsp;6 &nbsp;9 &nbsp;2</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 4 &nbsp;2 &nbsp;5 &nbsp;3 &nbsp;9 &nbsp;6 &nbsp;8 &nbsp;7 &nbsp;1 &nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 6 &nbsp;7 &nbsp;9 &nbsp;2 &nbsp;8 &nbsp;1 &nbsp;4 &nbsp;5 &nbsp;3</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 5 &nbsp;4 &nbsp;3 &nbsp;6 &nbsp;2 &nbsp;7 &nbsp;9 &nbsp;1 &nbsp;8</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 7 &nbsp;9 &nbsp;8 &nbsp;5 &nbsp;1 &nbsp;3 &nbsp;2 &nbsp;4 &nbsp;6</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; 2 &nbsp;1 &nbsp;6 &nbsp;9 &nbsp;4 &nbsp;8 &nbsp;5 &nbsp;3 &nbsp;7</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">The primes :</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2 &nbsp;3 &nbsp;5 &nbsp;7 &nbsp;13 &nbsp;17 &nbsp;19 &nbsp;23 &nbsp;29 &nbsp;31 
+				&nbsp;37 &nbsp;41 &nbsp;43 &nbsp;47 &nbsp;53 &nbsp;59 &nbsp;61 &nbsp;67 &nbsp;71 &nbsp;73 &nbsp;79 &nbsp;83 &nbsp;89 &nbsp;97 &nbsp;137 
+				&nbsp;149 &nbsp;157 &nbsp;173 &nbsp;197 &nbsp;239 &nbsp;251 &nbsp;263 &nbsp;271 &nbsp;281 &nbsp;293 &nbsp;317 &nbsp;347 &nbsp;359 
+				&nbsp;397 &nbsp;457 &nbsp;461 &nbsp;463 &nbsp;491 &nbsp;521 &nbsp;541 &nbsp;563 &nbsp;571 &nbsp;577 &nbsp;593 &nbsp;613 &nbsp;617 
+				&nbsp;659 &nbsp;673 &nbsp;683 &nbsp;743 &nbsp;751 &nbsp;769 &nbsp;821 &nbsp;829 &nbsp;839 &nbsp;853 &nbsp;919 &nbsp;941 &nbsp;947 
+				&nbsp;953 &nbsp;967 &nbsp;977 &nbsp;1289 &nbsp;1453 &nbsp;1483 &nbsp;1579 &nbsp;1657 &nbsp;1847 &nbsp;2347 &nbsp;2539 
+				&nbsp;2549 &nbsp;2659 &nbsp;2689 &nbsp;2749 &nbsp;2791 &nbsp;2879 &nbsp;3541 &nbsp;4157 &nbsp;4231 &nbsp;4253 
+				&nbsp;4271 &nbsp;4639 &nbsp;4657 &nbsp;4723 &nbsp;4861 &nbsp;4919 &nbsp;5623 &nbsp;5779 &nbsp;5849 &nbsp;5897 
+				&nbsp;6173 &nbsp;6397 &nbsp;6871 &nbsp;7159 &nbsp;7481 &nbsp;7561 &nbsp;7753 &nbsp;7919 &nbsp;8123 &nbsp;8297 
+				&nbsp;8317 &nbsp;8513 &nbsp;8537 &nbsp;8563 &nbsp;8693 &nbsp;9239 &nbsp;9281 &nbsp;9851 &nbsp;12347 &nbsp;14923 
+				&nbsp;15287 &nbsp;28793 &nbsp;32749 &nbsp;32941 &nbsp;34157 &nbsp;41579 &nbsp;43627 &nbsp;52879 &nbsp;56237 
+				&nbsp;56489 &nbsp;57791 &nbsp;61483 &nbsp;62791 &nbsp;64231 &nbsp;64891 &nbsp;65729 &nbsp;71593 &nbsp;76831 
+				&nbsp;84961 &nbsp;86137 &nbsp;92461 &nbsp;94169 &nbsp;94723 &nbsp;96149 &nbsp;96457 &nbsp;149239 &nbsp;152879 
+				&nbsp;178693 &nbsp;194723 &nbsp;197753 &nbsp;231589 &nbsp;234769 &nbsp;246173 &nbsp;294169 &nbsp;327491 
+				&nbsp;396871 &nbsp;436279 &nbsp;491977 &nbsp;539687 &nbsp;577919 &nbsp;645713 &nbsp;674321 &nbsp;749197 
+				&nbsp;812347 &nbsp;924617 &nbsp;932941 &nbsp;956237 &nbsp;964571 &nbsp;1234769 &nbsp;1289537 
+				&nbsp;2315897 &nbsp;2964571 &nbsp;3294169 &nbsp;3716429 &nbsp;3841657 &nbsp;4165729 &nbsp;5213867 
+				&nbsp;5924617 &nbsp;6327491 &nbsp;7316849 &nbsp;7561483 &nbsp;7564891 &nbsp;8975143 &nbsp;9197753 
+				&nbsp;9281453 &nbsp;9486137 &nbsp;9614923 &nbsp;9674321 &nbsp;21694853 &nbsp;25396871 
+				&nbsp;29645713 &nbsp;42539687 &nbsp;52948613 &nbsp;57791947 &nbsp;75648913 &nbsp;83716429 
+				&nbsp;93294169</font></div>
+		</blockquote>
+      </font><font color="#222222" size="2">
+      <p>
+      <br>
+      A few hours later Emmanuel wrote:</p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Here is my latest result : 202 
+				primes.<br>
+&nbsp;</font><div>
+					<font face="Verdana" size="2">&nbsp;1 &nbsp;6 &nbsp;5 &nbsp;4 &nbsp;7 &nbsp;9 &nbsp;2 &nbsp;8 &nbsp;3</div>
+				<div>
+					&nbsp;9 &nbsp;7 &nbsp;3 &nbsp;2 &nbsp;5 &nbsp;8 &nbsp;6 &nbsp;1 &nbsp;4</div>
+				<div>
+					&nbsp;4 &nbsp;8 &nbsp;2 &nbsp;6 &nbsp;1 &nbsp;3 &nbsp;5 &nbsp;9 &nbsp;7</div>
+				<div>
+					&nbsp;8 &nbsp;5 &nbsp;6 &nbsp;3 &nbsp;4 &nbsp;2 &nbsp;1 &nbsp;7 &nbsp;9</div>
+				<div>
+					&nbsp;2 &nbsp;3 &nbsp;9 &nbsp;1 &nbsp;6 &nbsp;7 &nbsp;8 &nbsp;4 &nbsp;5</div>
+				<div>
+					&nbsp;7 &nbsp;4 &nbsp;1 &nbsp;9 &nbsp;8 &nbsp;5 &nbsp;3 &nbsp;6 &nbsp;2</div>
+				<div>
+					&nbsp;6 &nbsp;1 &nbsp;7 &nbsp;5 &nbsp;3 &nbsp;4 &nbsp;9 &nbsp;2 &nbsp;8</div>
+				<div>
+					&nbsp;5 &nbsp;9 &nbsp;8 &nbsp;7 &nbsp;2 &nbsp;1 &nbsp;4 &nbsp;3 &nbsp;6</div>
+				<div>
+					&nbsp;3 &nbsp;2 &nbsp;4 &nbsp;8 &nbsp;9 &nbsp;6 &nbsp;7 &nbsp;5 &nbsp;1</div>
+				</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><br>
+				I think &nbsp;218 &nbsp;is too big because the columns are not independent 
+				of the rows.</font></div>
+		</blockquote>
+      </font>
+      <font SIZE="2">
+      <p>
+      A little bit later he got 207 primes... and explains his approach...</p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Still better :&nbsp;<br>
+&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">4 &nbsp;5 &nbsp;9 &nbsp;1 &nbsp;6 &nbsp;7 &nbsp;3 &nbsp;2 &nbsp;8</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">3 &nbsp;1 &nbsp;2 &nbsp;5 &nbsp;8 &nbsp;9 &nbsp;6 &nbsp;7 &nbsp;4</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">8 &nbsp;6 &nbsp;7 &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;1 &nbsp;5 &nbsp;9</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">9 &nbsp;7 &nbsp;4 &nbsp;6 &nbsp;5 &nbsp;3 &nbsp;2 &nbsp;8 &nbsp;1</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">5 &nbsp;8 &nbsp;3 &nbsp;9 &nbsp;1 &nbsp;2 &nbsp;4 &nbsp;6 &nbsp;7</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">6 &nbsp;2 &nbsp;1 &nbsp;4 &nbsp;7 &nbsp;8 &nbsp;5 &nbsp;9 &nbsp;3</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">1 &nbsp;3 &nbsp;6 &nbsp;7 &nbsp;9 &nbsp;5 &nbsp;8 &nbsp;4 &nbsp;2</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">7 &nbsp;4 &nbsp;5 &nbsp;8 &nbsp;2 &nbsp;1 &nbsp;9 &nbsp;3 &nbsp;6</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2 &nbsp;9 &nbsp;8 &nbsp;3 &nbsp;4 &nbsp;6 &nbsp;7 &nbsp;1 &nbsp;5</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><br>
+&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">With &nbsp;207 primes :</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">{2, 3, 5, 7, 13, 17, 19, 23, 29, 
+				31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 131, 
+				163, 167, 173, 179, 193, 251, 269, 271, 281, 317, 347, 349, 367, 
+				389, 421, 431, 467, 479, 491, 521, 547, 587, 593, 613, 617, 619, 
+				631, 641, 643, 647, 653, 659, 673, 683, 719, 743, 761, 769, 821, 
+				823, 839, 857, 859, 881, 883, 947, 967, 971, 983, 1367, 1823, 
+				2341, 2371, 2467, 2851, 2971, 3467, 3517, 3719, 3761, 3881, 
+				4159, 4219, 4297, 4327, 4591, 4729, 4783, 5167, 5179, 5623, 
+				5647, 5821, 5839, 5869, 5897, 6421, 6857, 6947, 7643, 7823, 
+				8167, 8219, 8237, 8521, 8597, 8713, 8741, 8761, 9173, 9431, 
+				9587, 12589, 13679, 14327, 15269, 15823, 23497, 23719, 23761, 
+				24859, 26947, 27431, 28547, 34159, 34729, 37619, 38749, 41761, 
+				42193, 45821, 53281, 53881, 56237, 56479, 58391, 58741, 58967, 
+				59167, 65983, 68351, 69431, 72341, 74653, 75869, 76421, 78593, 
+				81671, 82193, 82349, 85213, 89561, 91673, 95143, 95617, 96857, 
+				147859, 165983, 237619, 245897, 248597, 258967, 312589, 356479, 
+				389561, 458219, 459167, 464131, 561347, 591673, 623719, 641317, 
+				653281, 672341, 694783, 698521, 834671, 912467, 927431, 974653, 
+				985213, 1258967, 1478593, 1761883, 3881671, 4653281, 5167823, 
+				5823497, 6124589, 6985213, 7234159, 7698521, 8561347, 9514327, 
+				36124589, 43895617, 48597631, 61582349, 76985213, 82356479, 
+				83912467, 98542163}<br>
+&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">My guess : 207 &nbsp;could be the upper 
+				limit.&nbsp;<br>
+&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">I took as first row a pandigital 
+				with a maximum number of primes.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Among all the pandigitals rows 
+				that can be the 2nd row of a sudoku, I take one that gives me a 
+				maximum of primes (the partial diagonals &nbsp;a11,a22 &nbsp;and &nbsp;a19,a28 
+				&nbsp;are counted with).&nbsp; In this way I can reach a sudoku with many 
+				primes.&nbsp; Of course, it will be impossible to prove that a number 
+				(like 207) is the exact upper bound. There are too much sudoku 
+				grids </font>...</div>
+		</blockquote>
+		<p>Finally, on Set 02 he got a 211 primes sudoku.</p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">I tried once more to beat the 
+				record.&nbsp;I found the grid</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+&nbsp;</div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<div>
+					<font face="Verdana" size="2">4 &nbsp;5 &nbsp;9 &nbsp;1 &nbsp;6 &nbsp;7 &nbsp;3 &nbsp;2 &nbsp;8</div>
+				<div>
+					3 &nbsp;1 &nbsp;2 &nbsp;5 &nbsp;8 &nbsp;9 &nbsp;6 &nbsp;7 &nbsp;4</div>
+				<div>
+					8 &nbsp;6 &nbsp;7 &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;1 &nbsp;5 &nbsp;9</div>
+				<div>
+					9 &nbsp;7 &nbsp;4 &nbsp;6 &nbsp;5 &nbsp;3 &nbsp;2 &nbsp;8 &nbsp;1</div>
+				<div>
+					5 &nbsp;8 &nbsp;3 &nbsp;9 &nbsp;1 &nbsp;2 &nbsp;4 &nbsp;6 &nbsp;7</div>
+				<div>
+					6 &nbsp;2 &nbsp;1 &nbsp;7 &nbsp;4 &nbsp;8 &nbsp;9 &nbsp;3 &nbsp;5</div>
+				<div>
+					1 &nbsp;9 &nbsp;5 &nbsp;8 &nbsp;2 &nbsp;6 &nbsp;7 &nbsp;4 &nbsp;3</div>
+				<div>
+					2 &nbsp;3 &nbsp;8 &nbsp;4 &nbsp;7 &nbsp;1 &nbsp;5 &nbsp;9 &nbsp;6</div>
+				<div>
+					7 &nbsp;4 &nbsp;6 &nbsp;3 &nbsp;9 &nbsp;5 &nbsp;8 &nbsp;1 &nbsp;2<br>
+&nbsp;</div>
+				<div>
+					With &nbsp;211 primes :</div>
+				<div>
+					{2, 3, 5, 7, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 
+					61, 67, 71, 73, 79, 83, 89, 97, 127, 131, 163, 167, 193, 
+					241, 251, 263, 269, 281, 293, 317, 347, 349, 389, 421, 431, 
+					439, 463, 467, 479, 487, 491, 521, 571, 593, 619, 647, 653, 
+					659, 673, 683, 719, 743, 761, 769, 823, 829, 839, 857, 859, 
+					863, 967, 983, 1249, 1427, 1753, 1823, 1879, 2341, 2467, 
+					2861, 3491, 3571, 3761, 3847, 4153, 4159, 4219, 4327, 4591, 
+					4639, 4729, 5167, 5647, 5839, 6217, 6421, 6823, 6857, 7159, 
+					7489, 7537, 7829, 8167, 8237, 8293, 8513, 8521, 8713, 8761, 
+					9421, 9781, 12497, 12589, 14327, 15269, 16823, 17483, 17489, 
+					18593, 21859, 23497, 23761, 26357, 27431, 28591, 34159, 
+					34729, 36857, 37619, 39581, 39847, 41761, 42193, 51347, 
+					51427, 52697, 53281, 56479, 57131, 58391, 58967, 59167, 
+					61879, 65983, 67829, 68351, 71317, 72341, 73571, 74653, 
+					76421, 78167, 81671, 82349, 85213, 89561, 91673, 91753, 
+					95143, 97241, 97843, 165983, 174893, 217489, 237619, 238471, 
+					258967, 312589, 351427, 356479, 357131, 389561, 398471, 
+					459167, 586349, 591673, 593647, 612497, 628591, 653281, 
+					672341, 698521, 724153, 761879, 863491, 912467, 927431, 
+					942163, 974653, 985213, 1258967, 3514279, 3847159, 4176187, 
+					4653281, 4762859, 5134729, 6851347, 6985213, 7234159, 
+					7628591, 7698521, 7942163, 8491753, 9514327, 9517483, 
+					16823497, 43928761, 51682349, 57942163, 73571317, 76985213, 
+					82356479, 83912467, 95826743}</font></div>
+			</div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><br>
+				<b>I think the upper limit might indeed be &nbsp;218</b></font></div>
+		</blockquote>
+		<p>***</p>
+		<p>BTW, Emmanuel also asked for minimal solutions for this puzzle. See
+		<a href="puzz_846.htm">Puzzle 846</a> for this issue.</p>
+		<p>***</p>
+		<p>On set 16, 2016, Michael Hürter wrote:</p>
+		<blockquote>
+			<p>
+			<span style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">
+			For prime puzzle 844 I found the following solution with</span><br style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			<span style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; font-weight: 700; background-color: rgb(255, 255, 255)">
+			221 distinct primes</span><span style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255)">:</span><br style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			<br style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			746231859<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			312589674<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			589764312<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			478923561<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			123856947<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			965147283<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			251498736<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			837612495<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			694375128<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			221 distinct primes:<br style="color: rgb(34, 34, 34); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 
+			67, 71, 73, 79, 83, 89, 97, 113, 149, 157, 167, 173, 199, 251, 257, 
+			283, 293, 311, 337, 349, 359, 367, 379, 389, 419, 421, 431, 461, 
+			463, 467, 491, 521, 541, 563, 569, 571, 577, 599, 617, 631, 641, 
+			643, 647, 653, 673, 683, 719, 733, 751, 761, 769, 821, 827, 829, 
+			839, 859, 863, 941, 947, 953, 967, 977, 983, 991, 1153, 1249, 1453, 
+			2549, 2579, 2647, 2683, 2741, 2953, 3467, 3491, 3511, 3517, 3541, 
+			3761, 4217, 4679, 4729, 4789, 4987, 5113, 5147, 5419, 5779, 5813, 
+			5897, 5927, 6311, 6359, 6829, 6947, 7283, 7349, 7643, 7759, 8291, 
+			8461, 8521, 8563, 8923, 8941, 9421, 9437, 9733, 12589, 14537, 21673, 
+			23561, 26539, 31153, 31859, 32647, 32987, 34679, 35419, 38461, 
+			38569, 41897, 54917, 57349, 58321, 58967, 62549, 62983, 64189, 
+			65147, 71249, 72953, 73351, 74623, 75991, 78941, 81463, 83761, 
+			85213, 91453, 95813, 99577, 115337, 132647, 147283, 149873, 153379, 
+			157349, 164839, 213467, 231859, 257981, 258967, 311533, 312589, 
+			335113, 371249, 378941, 496583, 528763, 562781, 592741, 631153, 
+			641897, 658321, 698521, 716483, 733511, 735419, 741569, 746231, 
+			761249, 821573, 876349, 923561, 942167, 943751, 965147, 985213, 
+			1258967, 1472953, 3562781, 3862549, 5716483, 6231859, 6254917, 
+			6298351, 6371249, 6532987, 6943751, 6985213, 7698521, 8635927, 
+			8976431, 9421673, 9452683, 23856947, 57981463, 63115337, 63592741, 
+			76985213, 78923561, 97335113</p>
+		</blockquote>
+      </font>
+		<p><font size="2">***</font></p>
+      <font SIZE="2">
+		<p>
+      &nbsp;</p>
+		<p>
+      &nbsp;</p>
+		<p>
+      &nbsp;</p>
+      </font>
+		<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); -webkit-text-size-adjust:auto">
+    </blockquote>
+	<o:p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+		
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="21">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td>
+      <font SIZE="2">
+            <p><a href="puzz_843.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></p>
+      </font></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_845.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      &nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

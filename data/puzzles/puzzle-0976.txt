@@ -1,0 +1,843 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_976.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 976. m/d+/-d primes.
+Source: https://www.primepuzzles.net/puzzles/puzz_976.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0976.htm
+
+References (local copies):
+  ../../references/puzzle 976 1.txt  (from https://www.dropbox.com/s/g7ze4mpi2pfa5zy/puzzle%20976%201.txt?dl=0)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Twin_prime
+  http://oeis.org/A002201/list
+  https://www.dropbox.com/s/g7ze4mpi2pfa5zy/puzzle%20976%201.txt?dl=0
+  https://www.primepuzzles.net/puzzles/puzz_975.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_977.htm
+  https://www.primepuzzles.net/puzzles/puzz_976.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 976. m/d+/-d primes.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 976. m/d+/-d primes.
+
+Emmanuel Vantieghem sent the following nice puzzle:
+
+I was wondering which natural numbers m have the following property :
+
+"m has at least one divisor d such that m/d - d and m/d + d are both primes, d < Sqrt(m)" (***).
+
+The first such m are quickly found :
+
+4, 6, 10, 12, 18, 24, 28, 30, 36, 40, 42, 48, 60, 66, 70, 72, 78, 84, 88, 90, 102, 108, 120, 126, 130, 132, 138, 150, 162, 168, 180, 192, 198
+
+For instance, 42 is in this sequence because its divisors are : 1, 2, 3, 6, 7, 14, 21, 42 and 42/2 - 2 = 19, 42/2 + 2 = 23 are both prime.
+
+Clearly, such an m cannot be odd.
+
+A bit less clear but sure true is the following statement:
+
+"there are infinitely many m with the property (***)"
+
+Q1 prove that statement.
+
+Other questions are:
+
+Q2. find very big m with the property (***).
+
+Q3. find numbers with the property (***) with as great as possible number of such divisors.
+
+Contributions came from Fausto Morales, Fred Schneider, Paul Cleary, Metin Sariyar, Adam Stinchcombe, Gennady Gusev, Paolo Lava, Jeff Heleen, Simon Cavegn, Oscar Volpatti, Emmanuel Vantieghem
+
+All of them wrote on the week 26-31 October, 2019
+
+***
+
+Fausto wrote
+
+Q1:
+
+The result on prime gaps by Yitang Zhang (*) implies that there is a (currently unknown) constant k < N = 7*(10^7) appearing infinitely many times as gap between two consecutive primes.
+
+Consider any pair of consecutive primes {p(n), p(n+1)}, with p(n) > k/2 and p(n+1) - p(n) = k.
+
+Then the integer
+
+m = (k/2) * [p(n) + p(n+1)]/2
+
+meets the condition with d = k/2 (< sqrt(m)):
+
+(i) (m/d) - d = p(n)
+
+(ii) (m/d) + d = p(n+1)
+
+Since there are infinitely many such choices for m, the proposition is true.
+
+Moreover, d can be further constrained to be less than c*m for any positive constant c, and the proposition still holds.
+
+(*)
+
+Bounded gaps between primes
+
+Yitang Zhang
+
+Annals of Mathematics
+
+SECOND SERIES, Vol. 179, No. 3 (May, 2014), pp. 1121-1174
+
+Q2:
+
+With M51= 2^82589933 - 1 (the largest known prime I am aware of), the approach described in Q1 comes in handy to produce a large example as well:
+
+Letting
+
+m = [(M51)^2 - 9] / 4 and
+
+d = [(M51) - 3] / 2m/d + d = M51
+
+m/d - d = 3
+
+Q3:
+
+This looks like an extraordinary problem to me, probably worth throwing some heavy hardware at - along with some clever search strategy...
+
+The following case is just a boutique example (with small m and 9 valid divisors):
+
+m = 2310
+
+d m/d - d m/d + d
+
+1 2309 2311
+
+5 457 467
+
+14 151 179
+
+21 89 131
+
+22 83 137
+
+30 47 107
+
+33 37 103
+
+35 31 101
+
+42 13 97
+
+***
+
+Fred wrote
+
+Q1:
+
+For every pair of primes (p, p + 2d) with d > 0, m= d * (p+d) has a solution for d
+
+m/d -d = p + d - d = p
+
+m/d +d = p + d + d = p + 2d
+
+As there is an infinite number of primes, there is an infinite number of prime pairs.
+
+So, there are an infinite number of m.
+
+Q2) The largest known twin primes are : 2996863034895 · 2^1290000 +/- 1
+
+So m = 2996863034895 · 2^1290000
+
+is a large solution
+
+Source: https://en.wikipedia.org/wiki/Twin_prime
+
+Q3) Looking at this table for divisor-rich numbers (http://oeis.org/A002201/list):
+
+6064949221531200 has 89 prime pair solutions. Here are the associated divisors:
+
+[2025,3553,4807,7475,9425,10925,12673,44051,46400,67925,127075,234175,375193,390775,395675
+
+,469557,567567,580203,978112,1000384,1311552,1323328,1397825,1425600,1550016,1653696,
+
+1767744,1847104,1884025,2091663,2203200,2273600,2647323,2977975,3333275,3454451,3568131,
+
+3741309,4673669,5048813,5143775,5757475,6111721,7793344,8227648,8976825,9434048,9863451,
+
+10621975,10759232,13344669,13873275,13873600,15505425,16385600,17223941,18179392,19250287,
+
+21523887,21772881,22496576,22980672,23297344,24012352,24235200,24545025,25329325,26734400,
+
+28112832,29120553,29450304,29668275,30948075,31011904,31128867,32011200,41860800,45004491,
+
+48859200,51264576,52055003,53566016,56635200,59246275,63892800,68493425,70018325,70747425,
+
+73920275]
+
+***
+
+Paul wrote
+
+My first attempt at Q3 is the number
+
+2438560915062710206517929282865911302. This has 17082 pairs of solutions.
+
+...
+
+I don’t think I can get much bigger than this for Q3. As it was it used almost 32GB of memory. The number is
+
+177209197509194632020570614172936200654501805139182, with 1115615 pairs of solutions.
+
+Here is a link to my Dropbox of the file with the solutions. Caution it is a 145 MB file.
+
+https://www.dropbox.com/s/g7ze4mpi2pfa5zy/puzzle%20976%201.txt?dl=0
+
+***
+
+Metin wrote
+
+Q1:
+Proof :
+
+It is known that there are infinitely many primes.So let p1 and p2 with p2>p1 be two primes.Then n=(p1+p2)/2 is the arithmetic mean of these two primes and m=n*(p2-n)=n*(n-p1) (and it is obvious that here d=p2-n=n-p1<sqrt(m) because d<n) has this property and here d=(n-p1)=(p2-n) is the divisor of m such that (m/d)+d=p2 and (m/d)-d=p1 .So there are infinitely many numbers m with this property.
+
+An example :
+
+for p1=31, p2=37 , n= (31+37)/2=34, m=34*(37-34)=34*(34-31)=102 and
+
+102/3+3=37, 102/3-3=31.
+
+Q2:
+
+By taking the largest known two primes we can find a large m with this property such as:
+
+P2:2^82589933 - 1
+
+P1:2^77232917 - 1
+
+m=((p1+p2)/2)*(p2-((p1+p2)/2))=((p1+p2)/2)*(((p1+p2)/2)-p1)
+
+Q3:
+
+I found an example with "34" of its 192 divisors, 1021020 has this property. But I think this is a very small example ( which I was able to find with my home pc)
+
+***
+
+Adam wrote
+
+It is probably true due to the twin prime conjecture: if p and p+2 are two twin primes then (p+1)/1-1 and (p+1)/2+1 are of the required form.
+
+It is definitely true by (all variables below are positive):
+
+Let 1 + 2*n1, 1 + 2*n2 be two primes with n2>n1. Write 1+2*n1=m/d-d and 1+2*n2=m/d+d and solve for d=n2-n1. Next solve for m=(1+2*n1+d)*d. Clearly d is a divisor of m but also m=(1+2*n1+d)*d>d*d=d^2 so sqrt(m)>d.
+
+Example: 31 = 1 + 2*15 and 73=1 +2*36, write d=21 and m=(31+21)*21 = 1092. Then 1092/21-21 = 31 and 1092/21+21 = 73 and approximately, sqrt(1092) = 33.05>d .
+
+Big m can be achieved with big d, say 1+2*n1=3 and 1+2*n2 the largest known prime.
+
+Many divisors similarly can be achieved by a lot of divisors of d. For a given large k, use Dirichlet's theorem to find infinitely many primes of the form 1+k!*n and then, given two of them, d is divisible by k!/2 (at least).
+
+...
+
+Say the prime pair {p1,p2} speak for m if there is a d<sqrt(m) such that {p1,p2}={m/d-d,m/d+d}. The most spoken for m would have the most numerous prime pairs. In a search up to m=4,596,527, the first m that have k prime pairs speaking for m are (excluding the beginning record holders) the following (k,m) pairs: (26,510510), (30,746130), (33,870870), and (34,1021020).
+
+For instance, the prime pairs that speak for 1021020 are {{255251, 255259}, {15773, 15643}, {19687, 19583}, {12071, 12239}, {13183, 13337}, {14947, 15083}, {92809, 92831}, {51071, 51031}, {29207, 29137}, {12097, 11927}, {9829, 9619}, {8699, 8461}, {7867, 7603}, {6997, 7283}, {6389, 6701}, {4801, 5209}, {1669, 2621}, {1789, 2699}, {2029, 181}, {1213, 2357}, {1259, 2381}, {2267, 3037}, {5647, 5273}, {4861, 4421}, {3343, 2663}, {2207, 887}, {2441, 3169}, {2011, 2851}, {3217, 2503}, {2039, 271}, {157, 2027}, {3467, 4013}, {2203, 877}, {617, 2113}}.
+
+Note: typo in the original message, not (p+1)/2+1 but rather (p+1)/1+1.
+...
+
+It is probably true due to the twin prime conjecture: if p and p+2 are two twin primes then (p+1)/1-1 and (p+1)/1+1 are of the required form.
+
+***
+
+Gennady wrote
+
+Let primes p1=m/d-d and p2=m/d+d.
+
+Then p2-p1=2*d, d=(p2-p1)/2;
+
+p1+p2=2*m/d=4*m/(p2-p1);
+
+And m=(p1+p2)/(p2-p1)/4=(p2^2-p1^2)/4; note that divisor (p2-p1)/2 is less than sqrt(m).
+
+Let p1=3, then m=(p2^2-9)/4; The number of primes is infinitely, so number of m is infinitely too.
+
+Q1 is proved.
+
+Q2. m maybe arbitrary large. For proved primes p1 and p2 we take p1=3 and p2 = 51st mersenne prime 2^p - 1 (the largest known prime), where p=82589931.
+
+Then m=(2^(2*p)-2^(p+1)+1-9)/4=2^(2*p-2)-2^p-2=2^165179860-2^82589931-2.
+
+...
+
+There is no answer to Q3 question. I.e. if you say number with N such divisors I say number with N1>N such divisors.
+
+For example, number m=29#=2*3*5*7*11*13*17*19*23*29=6469693230 yields 106 pairs of prime with divisors of m:
+
+3, 17, 57, 145, 209, 406, 418, 442, 462, 546, 609, 667, 759, 770, 782, 805, 874, 1015, 1131, 1254, 1330, 1463, 1870, 2233, 2346, 2431, 2717, 2730, 3135, 3230, 3289, 3315, 3451, 3570, 3705, 3770, 4147, 4370, 4485, 4830, 4862, 5278, 5423, 5474, 5681, 5865, 6270, 6279, 6555, 6670, 6783, 7293, 7854, 7917, 10010, 10166, 11339, 13398, 13585, 14007, 14326, 15249, 15470, 15834, 16302, 16422, 17342, 18734, 19227, 19285, 20010, 20930, 23023, 24310, 28014, 28101, 29393, 33649, 34034, 35581, 37145, 37961, 38019, 39585, 40755, 41055, 42427, 43355, 46410, 51870, 54230, 56202, 57057, 58058, 62491, 62985, 64090, 66990, 67298, 67830, 68034, 70035, 74613, 75922, 79373, 79534.
+
+23# -> 56;
+
+31# -> 199;
+
+37# -> 328;
+
+41# -> 484;
+
+43# -> 835;
+
+47# -> 1702;
+
+53# -> 2354
+
+and, I think, so on but I cannot prove it.
+
+***
+
+Paolo wrote
+
+I just searched for the minimum numbers with property (***) that admit n distinct divisors.
+
+For m<= 10^7 we have:
+
+n
+
+m
+
+1
+
+4
+
+2
+
+18
+
+3
+
+30
+
+4
+
+60
+
+5
+
+390
+
+6
+
+210
+
+7
+
+462
+
+8
+
+1932
+
+9
+
+2310
+
+10
+
+5460
+
+11
+
+2730
+
+12
+
+13860
+
+13
+
+59052
+
+14
+
+117390
+
+15
+
+51870
+
+16
+
+43890
+
+17
+
+46410
+
+18
+
+78540
+
+19
+
+30030
+
+20
+
+221340
+
+21
+
+570570
+
+22
+
+131670
+
+23
+
+1385670
+
+24
+
+1345890
+
+25
+
+1591590
+
+26
+
+510510
+
+27
+
+1141140
+
+28
+
+1272810
+
+29
+
+1610070
+
+30
+
+746130
+
+31
+
+1845690
+
+and n=33 m=870870, n=34 m=1021020, n=43 m=9699690
+
+***
+
+Jeff wrote
+
+For puzzle 976 Q3 the table below shows the smallest m which has k
+
+factors that give solutions.
+
+k m
+
+1 4 = 2^2
+
+2 6 = 2 × 3
+
+3 78 = 2 × 3 × 13
+
+4 30 = 2 × 3 × 5
+
+5 390 = 2 × 3 × 5 × 13
+
+6 330 = 2 × 3 × 5 × 11
+
+7 210 = 2 × 3 × 5 × 7
+
+8 462 = 2 × 3 × 7 × 11
+
+9 2310 = 2 × 3 × 5 × 7 × 11
+
+10 5460 = 2^2 × 3 × 5 × 7 × 13
+
+11 2730 = 2 × 3 × 5 × 7 × 13
+
+12 13860 = 2^2 × 3^2 × 5 × 7 × 11
+
+13 23562 = 2 × 3^2 × 7 × 11 × 17
+
+14 117390 = 2 × 3 × 5 × 7 × 13 × 43
+
+15 51870 = 2 × 3 × 5 × 7 × 13 × 19
+
+16 85470 = 2 × 3 × 5 × 7 × 11 × 37
+
+17 43890 = 2 × 3 × 5 × 7 × 11 × 19
+
+18 53130 = 2 × 3 × 5 × 7 × 11 × 23
+
+19 30030 = 2 × 3 × 5 × 7 × 11 × 13
+
+20 221340 = 2^2 × 3 × 5 × 7 × 17 × 31
+
+21 570570 = 2 × 3 × 5 × 7 × 11 × 13 × 19
+
+22 131670 = 2 × 3^2 × 5 × 7 × 11 × 19
+
+23 1385670 = 2 × 3 × 5 × 11 × 13 × 17 × 19
+
+24 1345890 = 2 × 3 × 5 × 7 × 13 × 17 × 29
+
+25 1591590 = 2 × 3 × 5 × 7 × 11 × 13 × 53
+
+26 690690 = 2 × 3 × 5 × 7 × 11 × 13 × 23
+
+27 510510 = 2 × 3 × 5 × 7 × 11 × 13 × 17
+
+28 1272810 = 2 × 3 × 5 × 7 × 11 × 19 × 29
+
+29 1610070 = 2 × 3 × 5 × 7 × 11 × 17 × 41
+
+30 746130 = 2 × 3 × 5 × 7 × 11 × 17 × 19
+
+31 1845690 = 2 × 3 × 5 × 7 × 11 × 17 × 47
+
+32 26996970 = 2 × 3 × 5 × 7 × 11 × 13 × 29 × 31
+
+33 870870 = 2 × 3 × 5 × 7 × 11 × 13 × 29
+
+34 1021020 = 2^2 × 3 × 5 × 7 × 11 × 13 × 17
+
+35 14804790 = 2 × 3 × 5 × 7 × 11 × 13 × 17 × 29
+
+36 15825810 = 2 × 3 × 5 × 7 × 11 × 13 × 17 × 31
+
+37 29274630 = 2 × 3 × 5 × 7 × 11 × 19 × 23 × 29
+
+38 19399380 = 2^2 × 3 × 5 × 7 × 11 × 13 × 17 × 19
+
+39 11741730 = 2 × 3 × 5 × 7 × 11 × 13 × 17 × 23
+
+40 51381330 = 2 × 3 × 5 × 7 × 11 × 13 × 29 × 59
+
+41 16546530 = 2 × 3 × 5 × 7 × 11 × 13 × 19 × 29
+
+42 26246220 = 2^2 × 3 × 5 × 7 × 11 × 13 × 19 × 23
+
+43 9699690 = 2 × 3 × 5 × 7 × 11 × 13 × 17 × 19
+
+44 21637770 = 2 × 3 × 5 × 7 × 11 × 17 × 19 × 29
+
+45 37447410 = 2 × 3 × 5 × 7 × 11 × 13 × 29 × 43
+
+46 40750710 = 2 × 3 × 5 × 7 × 11 × 13 × 23 × 59
+
+47 none <10^8
+
+48 35225190 = 2 × 3^2 × 5 × 7 × 11 × 13 × 17 × 23
+
+49 21111090 = 2 × 3 × 5 × 7 × 11 × 13 × 19 × 37
+
+50 23393370 = 2 × 3 × 5 × 7 × 11 × 13 × 19 × 41
+
+51 56258202 = 2 × 3 × 7 × 11 × 13 × 17 × 19 × 29
+
+52 81363282 = 2 × 3 × 7 × 11 × 13 × 19 × 23 × 31
+
+53-58 none <10^8
+
+59 34804770 = 2 × 3 × 5 × 7 × 11 × 13 × 19 × 61
+
+60-61 none <10^8
+
+62 17160990 = 2 × 3 × 5 × 7 × 11 × 17 × 19 × 23
+
+and no more <10^8
+
+***
+
+Simon wrote:
+
+Q1:
+
+First we find two primes p1 and p2, where p1 < p2, (not too far apart for the d < sqrt(m) condition). Then we can construct m and d: d = (p2-p1)/2, m = (p2-d)*d = (p1+d)*d. Short outline for a proof: With the upper bound for prime gaps small enough to fullfill d < sqrt(m), and with the construction of m and d, it follows infinitly many m and d can be constructed from infinitly many primes.
+
+Q2:
+
+Largest probable prime solution I found with the computer:
+
+m = 1694*10^11585 + 45116302
+
+d = 1694
+
+p1 = 10^11585 + 24939
+
+p2 = 10^11585 + 28327
+
+Largest cousin probable primes (that differ by 4) found on internet:
+
+m = (474435381*2^98394 − 3) * 2
+
+d = 2
+
+p1 = 474435381*2^98394 − 5
+
+p2 = 474435381*2^98394 − 1
+
+Q3:
+
+The highest m where I could calculate amount(d): m = 23984823528925228172706521638692258396210 amount(d) = 1706980 (m is the multiplication of the first primes up to 103)
+
+I noticed: When m = multiplication of the first n primes, the amount of such divisors d is big, but not maximal. (There may be smaller m with larger amount of such divisors.) However it is an easy way to construct m with many such divisors d. I assume the amount of such divisors d goes to infinity when n goes to infinity. Is this assumption true? Is it proofable?
+
+***
+
+Oscar wrote:
+
+Dear Carlos,
+
+for any pair of odd primes (p,q) with p>q, we can find an integer m and a proper divisor d of m such that m/d + d = p and m/d - d = q.
+
+Proof.
+
+Defining c = m/d, we obtain the linear system:
+
+c+d = p,
+
+c-d = q;
+
+with solution:
+
+c = (p+q)/2,
+
+d = (p-q)/2,
+
+m = c*d = (p^2 - q^2)/4.
+
+As p and q are both odd, the numbers c,d,m are positive integers, as claimed.
+
+Q1.
+
+Emmanuel Vantieghem's statement easily follows: keeping q fixed and letting p vary, we obtain infinitely many distinct numbers m.
+
+Q2.
+
+Let p and q be the largest known primes:
+
+p = 2^82589933 - 1,
+
+q = 2^77232917 - 1,
+
+c = 2^82589932 + 2^77232916 - 1,
+
+d = 2^82589932 - 2^77232916,
+
+m = 2^165179864 - 2^154465832 - 2^82589932 + 2^77232916,
+
+where m has 49724094 digits.
+
+Q3.
+
+As a first step, I found the numbers m < 1e7 with a record-breaking number of good divisors (gd).
+
+Such list includes many primorials:
+
+gd m
+
+====
+
+1 4
+
+----------------
+
+2 18 = 2*9
+
+-------------------------
+
+3 30 = 2*3*5 = 5#
+
+4 60 = 4*3*5
+
+-------------------------------
+
+6 210 = 2*3*5*7 = 7#
+
+7 462 = 2*3*7*11
+
+8 1932 = 4*3*7*23
+
+--------------------------------------
+9 2310 = 2*3*5*7*11 = 11#
+
+11 2730 = 2*3*5*7*13
+
+12 13860 = 4*9*5*7*11
+
+-------------------------------------------
+19 30030 = 2*3*5*7*11*13 = 13#
+
+22 131670 = 2*9*5*7*11*19
+
+-------------------------------------------------
+26 510510 = 2*3*5*7*11*13*17 = 17#
+
+30 746130 = 2*3*5*7*11*17*19
+
+33 870870 = 2*3*5*7*11*13*29
+
+34 1021020 = 4*3*5*7*11*13*17
+
+-----------------------------------------------------
+43 9699690 = 2*3*5*7*11*13*17*19 = 19#
+
+For a given integer m, consider a good decomposition m = c*d.
+
+If some prime divides both c and d, it is a proper divisor of c+d and c-d too.
+
+So, c and d must be coprime: if some prime power f^n divides m, it divides either c or d, but not both.
+
+If the factorization of m contains k distinct primes, there can be at most 2^(k-1) good divisors (not 2^k, because d must also be smaller than c).
+
+As k-th primorial is the smallest number with k distinct prime factors, it has at least twice as many candidate good divisors as any previous number; moreover, the numbers c+d and c-d are coprime with the first k primes and are slightly more likely to be prime.
+
+Let f(k) be the actual number of good divisors for k-th primorial.
+
+I computed f(k) for k <=29:
+
+p(k)# f(k)
+
+======
+
+2# 0
+
+3# 1
+
+5# 3
+
+7# 6
+
+11# 9
+
+13# 19
+
+17# 26
+
+19# 43
+
+23# 56
+
+29# 106
+
+31# 199
+
+37# 328
+
+41# 484
+
+43# 835
+
+47# 1702
+
+53# 2354
+
+59# 4642
+
+61# 7474
+
+67# 13970
+
+71# 22248
+
+73# 42334
+
+79# 77377
+
+83# 152843
+
+89# 300338
+
+97# 528407
+
+101# 857005
+
+103# 1706980
+
+107# 2923940
+
+109# 5595865
+
+f(k) is always smaller than 2^(k-1), but it seems to grow exponentially.
+
+A simple estimate is H*(2^k)/(k^2), with a constant H about 9.
+
+***
+
+Emmanuel wrote:
+
+Q1.
+
+Let m have the property (***).
+
+Put p = d + m/d
+
+q = -d + m/d.
+
+It is very easy to solve d and m/d from these two equations :
+
+d = (p -q)/2 and m/d = (p +q)/2.
+
+So, if we take p, q as big as we want we will find that the number
+
+m = (p^2 - q^2)/4
+
+has the propety (***) and is as big as we want. Thus, there are infinitely many such numbers.
+
+Q2.
+
+For p I take 2^82589933 - 1 (actually the biggest known prime) and for q I take 3.
+
+Then,
+
+M = (p^2 - q^2)/4 = 2*(2^82589932 + 1)*(2^82589931 - 1).
+
+It is a number of 49723094 digits.
+
+I think that's a record that will stand til a new Mersenne prime is found.
+
+Q3.
+
+Let's denote by L(m) the number of prime pairs of the form (-d + m/d, d + m/d).
+
+The greatest value I found for L(m) is when m = 89# (the 24th primorial) and is 300338.
+
+My PC has not enough memory to compute the L-value of higher primorials but I conjecture
+
+that L(p_n #) is unbounded.
+
+By the way, L(M) = 1 when M is the number of Q2.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

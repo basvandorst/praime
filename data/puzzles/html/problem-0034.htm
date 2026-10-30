@@ -1,0 +1,518 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Problem 34. Proving &amp; hiding</title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td><p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Problems</b></font></font>
+
+        </p>
+
+      <p><font face="Arial"><b>Problem 34. <font color="#008080">P</font><font color="#008080">roving
+      &amp; </font></b></font><font color="#008080" face="Arial"><b>hiding</b></font></p>
+
+      <font SIZE="2">
+      <p><b>Eric Brier</b> sent (28/8/2000) the following problem:</p>
+      <blockquote>
+        <p><i>&quot;<b><font color="#800080">How can prove that I factored N
+        without giving any factor of N</font></b>. The most difficult numbers to
+        factor are N=p.q with p and q primes. Let's assume N is of that type...&quot;</i></p>
+      </blockquote>
+      </font><p><b><font face="Arial" color="#0000FF">Can you send your
+      argument?</font></b></p>
+
+      <font SIZE="2">
+
+      <p><b>______________________<br>
+      Note added the 30/9/2000</b>: Some people have been asking for a precision
+      of the statement of the problem. Here it goes:</p>
+      <blockquote>
+        <p><font size="2" face="Arial"><i>Sam and Joe know one and the same
+        composite number N. Both know that N has two primes factors, p &amp; q.
+        Only Sam knows p &amp; q. How can Sam prove to Joe that he (Sam) knows p
+        &amp; q without ever revealing p &amp; q?</i></font></p>
+      </blockquote>
+
+      <hr>
+
+      </font>
+
+      <p><b><font face="Arial" color="#FF0000" size="4">Solution</font></b></p>
+
+      <p><font size="2" face="Arial"><b>Jud McCranie</b> wrote (8/9/2000):</font></p>
+
+      <blockquote>
+
+      <p><i>&quot;<font SIZE="2">Just a couple of thoughts on problem 34. I see
+      at least two interpretations of the question. One is that you want to
+      release some information that shows that you factored N=p.q, but don't
+      reveal the factors until sometime later. The other interpretation is that
+      you want to prove that you factored it, but never reveal the factors. In
+      the first case, you could compute some large number </i>[let's say z<sup>]<i>&nbsp;</i></sup><i>
+      mod p and mod q,
+      release that information </i>[let's say a &amp; b but not z,&nbsp; where
+      a=z mod p and b=z mod q<sup>]</sup><i> . Then when you are ready to reveal p and q, you
+      can show the calculation, proving that you knew p and q at the earlier
+      date.</i></font></p>
+
+      <p><font SIZE="2"><i>For the second interpretation, you might be able to
+      do something with RSA public-key cryptosystem. In that<b>, breaking a code is
+      equivalent to factoring N</b>. I don't know the details well enough to be
+      specific, though.&quot;</i></font></p>
+
+      </blockquote>
+
+      <p><font size="2">***</font></p>
+
+      <p><font size="2" face="Arial">One day after (9/9/2000) <b>Chris Nash</b> sent 'the
+      details' prefigured by <b>Jud</b>:</font></p>
+
+      <blockquote>
+
+      <p><i><font face="Arial">&quot;</font></i><font SIZE="2"><i><font face="Arial">Here
+      is the solution to problem 34, using the idea proposed by Jud McCranie,
+      using a cryptosystem like RSA.</font></i></p>
+
+      <p><font face="Arial"><i>First here is how it works. Usually you choose
+      two large primes p and q, with product N. Choose a random number r, less
+      than (p-1)(q-1), and with no common factor with (p-1)(q-1). Finally find
+      the solution s to rs=1 mod (p-1)(q-1).</i></font></p>
+      <p><font face="Arial"><i>The keys you publish are N and r. The secret key
+      is s. It can be easily shown that for any number M, M^(rs)=M mod N. To
+      send a message, it is encoded as a series of numbers M, each less than N.
+      The sender calculates X=M^r mod N, and sends the value X. The recipient
+      then uses his secret kay s and calculates X^s mod N. But this is M^rs mod
+      N, and thus retrieves the original message.</i></font></p>
+      <p><font face="Arial"><i>Now to use this to transmit the information
+      &quot;I have successfully factored N into two primes p and q&quot;. The
+      discoverer creates a random number r and a secret number s as above. He
+      then takes an easy-to-read message such as &quot;Congratulations!&quot; as
+      M. He publishes the values of N and r. Then he sends the message X=M^s,
+      using the secret key s.</i></font></p>
+      <p><font face="Arial"><i>Anyone receiving the message knows N and r, so
+      they can decode the message (by calculating X^r=M^rs=M). They can conclude
+      from this information that the sender knows the secret value s (otherwise
+      they could not have encoded the message). But it is very difficult to
+      guess the number s without knowing the factors. Readers may conclude that
+      the sender knows the secret number s.</i></font></p>
+      <p><font face="Arial"><i>At some later time, the sender may be asked to
+      prove he knows what the factors are. To do this, he publishes his value of
+      s. and with a little algebra they can retrieve the factors p and q. (When
+      choosing the values r and s, the discoverer may wish to make
+      (rs-1)/((p-1)(q-1)) quite small, but make sure s is not small enough to
+      guess).</i></font></p>
+      <p><font face="Arial"><i>Note the method is quite secure - it is believed
+      to be difficult to decode without knowing the factors. The code is only
+      weak if the number is easy to factor in the first place. Also note that
+      when the user publishes the encrypted message, the encrypted message
+      length is about the same size as the number N.</i></font>&quot;</p>
+        </blockquote>
+        <p>***</p>
+        <p>Well, no doubt that the key of the <b>Nash's</b> detailed argument is
+        the <b>Jud's</b> sentence &quot;<i><b>breaking a code is
+      equivalent to factoring N&quot;.&nbsp;</b></i></p>
+        <p>But... Is this an answer to the <b>Brier's</b> question? or, better,
+        is this the only answer?</p>
+        <p>I wonder if breaking a code proofs that someone has factored a
+        composite N or simply makes that believing highly probable; and now I
+        wonder if <b>Brier</b> wants (and has an argument on the behalf of) an <u>absolute</u>
+        proof of the factorization of N (without giving the factors, of course)</p>
+        <p><i><b>&quot;Breaking a code is equivalent to factoring N&quot;</b></i>?...
+        Do all code-hackers factor composite numbers?</p>
+        <p>Sorry if I'm totally out of the sink...</p>
+        <p>I will wait one or two days before publishing the <b>Brier's</b>
+        argument (and in the mean wile I would like that <b>Brier</b> sends a
+        comment about the published answers...)</p>
+        <p><i><b>***</b></i></p>
+      <p>This Monday (11/9/2000) morning I received the <b>Eric's</b> comments:</p>
+      <blockquote>
+        <p><i>&quot;I read the answers given. They are mostly based on the fact
+        that breaking RSA takes the same effort than factoring N. I do believe
+        that this has not be proven yet and further more is maybe wrong. I heard
+        of people able to break RSA without knowing the factors with some very
+        special method.</i></p>
+        <p><i>The solution I suggested has the advantage to be fully proven and
+        simpler than RSA mechanisms. Furthermore, you never need to publish the
+        prime factors. You have a direct (though probabilistic) proof of your
+        factorization.</i></p>
+        <p><i>Concerning the meaning of the problem, the exact question I asked
+        was to never give the factors.</i></p>
+        <p><i>The idea with the moduli is wrong because...</i>i<i>f you do not
+        publish z, you prove nothing because for any values of a &amp; b, there
+        is a solution of the system of equations z=a mod p &amp; z=b mod q </i>[using
+        the RCT<sup>]</sup><i>. </i><i>That means you can publish any </i>[arbitrary<sup>]<i>
+        </i></sup><i>a and b </i>[without knowing the factorization of n=p.q<sup>]</sup><i>.
+        Later you get the factorization and are able to build z by solving the
+        above system. With this method you can not prove you knew the factors at
+        the first step. Anyway, the real interest of the problem is to probe you
+        factored without giving the factors at the end&quot;</i></p>
+      </blockquote>
+      <p>So, I would say that the discussion is just starting...</p>
+      <p>***</p>
+      <p>This is the <b>Eric's</b>  solution sent the 28/08/2000 but published
+      this 13/9/2000:</p>
+      <blockquote>
+        <p align="left"><i>&quot;...The most difficult numbers to factor are N=p.q
+        with p and q primes. Let's assume N is of that type. Basic facts about
+        square roots modulo N:</i></p>
+        <p align="left"><i>If you have factored N, you can compute square roots
+        modulo N by computing them mod p and mod q and use Chinese theorem. If
+        you can compute square roots modulo N : take a random number x and
+        compute a=x² mod N and then compute a square root of a modulo N. There
+        are four of them, of course x and -x but also y and -y. If you get y,
+        them gcd(x+y,N) and gcd(x-y,N) give you non-trivial factors of N. This proves
+        that if you can compute square roots modulo N, you can factor it and
+        vice-versa. Then to prove you factored N, it suffice to prove you can
+        compute square roots.</i></p>
+        <p align="left"><i>But if you say : give me a number a and I compute x.
+        Your partner can make a=x² and hope that you will give y and not x and
+        then get the factors. The idea is then to give a number b. To prove you
+        have the square root of a, it suffice to have the square root of b and a
+        square root of b/a mod N. Don't give both. Your partner ask for one
+        among them. If you try to cheat, you have only probability of 1/2 to
+        fool your partner. I you do the process m times, you have a probability
+        of 1/2^m to fool the partner. So after, say 20 trials, you prove you
+        factored N.</i>&quot;</p>
+      </blockquote>
+      <p align="left">Comments are welcomed...</p>
+      <p align="left">***</p>
+      <p align="left">Here is the first comment to the Eric's argument, posted by <b>Chris Nash</b> the
+      same day 13/09/2000:</p>
+      <blockquote>
+        <p align="left">&quot;<i>Perhaps I am missing something very simple in <b>Eric's</b>
+        solution, but <b>Eric</b> begins with:</i></p>
+        <blockquote>
+          <p align="left">'...If you have factored N, you can compute square
+          roots modulo N by computing them mod p and mod q and use Chinese
+          theorem....(<b>Eric</b>)'</p>
+        </blockquote>
+        <p align="left"><i>But <b>Eric</b> does not explain how to calculate
+        these two square roots. I do not think that is an easy calculation - I
+        think that is just as hard as factoring.</i>&quot;</p>
+      </blockquote>
+      <p align="left">***<br>
+      &nbsp;The 21/9/2000 Eric commented:</p>
+      <blockquote>
+        <p align="left"><i>&quot;</i></font><i>...<font SIZE="2">it is very easy
+        to compute square roots modulo a prime
+      </font>
+
+        <font SIZE="2">number. Easy is to be understood that it does take a time
+        polynomial in the log of the numbers involved (which is not the case for
+        factorization, of course). The details of algorithms could be a little
+        tedious. I'll try to send you more details next week....&quot;
+      </font>
+
+        </i></p>
+      </blockquote>
+      <p align="left"><font SIZE="2">Four days later he added:
+      </font>
+
+      </p>
+      <blockquote>
+        <p align="left"><font SIZE="2"><i>&quot;Let's assume:</i>
+      </font>
+
+        </p>
+        <blockquote>
+          <p align="left"><font SIZE="2"><i>* p is prime and (a/p)=1<br>
+          * p-1=2^v*n,&nbsp; n = odd<br>
+          * g is an element of order 2^u mod p (see below to know how to get it)</i></p>
+          </blockquote>
+          <p><i>Let's put x(v-1)=a^((n+1)/2) and compute x(u) for decreasing u :</i></p>
+          <p><i>* if x(u)^(2^u)=+a^(2^(u-1)) let x(u-1)=x(u)<br>
+          * if x(u)^(2^u)=-a^(2^(u-1)) let x(u-1)=x(u)*g^(2^(v-u-1))<br>
+          * {else p is not prime or (a/p)=-1}</i></p>
+          <p><i>you have x(0)^2=a</i></p>
+          <p><i>Proof: you always have x(u)^(2^(u+1))=a^(2^u) (quite easy to
+          prove by decreasing induction if you remember that g^(2^(v-1))=-1</i></p>
+          <p><i>How to get g : take a random h and compute g=h^n. With
+          probability 1/2, you have order(g)=2^u You can check that all needed
+          operations are logarithmic in time (use the good algorithm for
+          exponentiation mod p) and you need O(v) such operations. It is easy to
+          see that v=O(log p).</i></p>
+          <p><i>I hope it is clear enough. Simpler methods exist for p=3[4],
+          p=5[8] but they are derived from the above algorithm.&quot;</i></p>
+        </blockquote>
+      <p align="left">***</p>
+        <p align="left">Readers interested in judge the relative merits of the
+        solutions sent by <b> Chris Nash</b> or <b> Eric Brier</b> can explore the following
+        numerical examples: a) <a href="prob_034examples.htm"> CN example</a>&nbsp; b) EB example</p>
+        <p align="left">***</p>
+        <p align="left">I have received a solution from <b>Frank P. Smith</b>
+        (19/9/2000) that tackles the <b>Brier's</b> problem from a very distinct
+        angle. At the very beginning I discarded it because... forget it!... at
+        the end I felt some shame by letting only for my knowledge this <i>fresh</i>
+        approach. So, I decided to share it with the readers of these pages and
+        know your own opinion...</p>
+        <p align="left">Please see first the second statement of the original
+        problem at the top of this page in order to know who in the life is Sam &amp; who is
+        Joe...</p>
+        <p align="left">The <b>Frank's</b> idea goes as follows:</p>
+      <p align="left">I.- Sam &amp; Joe construct together a reliable code for both
+      of them that makes the following simple tasks:</p>
+        <blockquote>
+          <p align="left">1) Accepts an integer number <b>N</b><br>
+          2) Accepts one by one it's integer factors <b>f</b> calculating the
+          reminder of N as <b>N\f</b> when and only when <b>f </b>divides <b>N</b><br>
+          3) Ending for one of the following reasons:</p>
+          <blockquote>
+            <p align="left">a) or <b>f</b>&lt;=1, or <b>f</b>=&gt;<b>N</b>,<b> </b>or
+            <b>f</b> does not divide <b>N</b>,&nbsp;printing &quot;You don't know the factors of <b>N</b>&quot;.<br>
+            b) <b>N</b>=1, printing &quot;You know the factors of <b>N</b>&quot;
+            &amp; <b>N</b>.</p>
+          </blockquote>
+          <p align="left">4) Just before ending, the code clear all the values of the
+          variables used.</p>
+        </blockquote>
+        <p align="left">II.- Joe input the number N</p>
+        <p align="left">III.- Sam input the factors
+        asking to Joe to turn around.</p>
+        <p align="left">IV.- When the code finish his work Sam shows the
+        printing in the screen to Joe.</p>
+        <p align="left">That's all!...</p>
+        <p align="left"><b><font color="#0000FF">What do you think
+        about the Frank's solution?</font></b></p>
+        <p align="left">***</p>
+        <p align="left">The <b>Frank's</b> code in <b>Ubasic</b> could be
+        something like this
+        one:</p>
+        <blockquote>
+          <p align="left">   10   input &quot;The number N=&quot;;N:NN=N:K=1<br>
+   20   input &quot;One factor of N&quot;;F<br>
+   30   if or{F&lt;=1,F&gt;=NN,N@F&lt;&gt;0} then print &quot;You don't know the factors of
+          &quot;;NN:goto 60<br>
+   40   N=N\F:if N&gt;1 then K=K+1:goto 20<br>
+   50   print &quot;Congratulations! You knew the&quot;;K;&quot; factors of &quot;;NN<br>
+   60   clr N,NN,F:end<br>
+          </p>
+        </blockquote>
+        <p align="left">***&nbsp;</p>
+        <p align="left">Here are the first comments about the <b>Frank's</b>&nbsp;
+        solution:</p>
+        <blockquote>
+          <p align="left">&quot;</font><i><font SIZE="2">I think <b>Frank's</b>
+          solution may well be the best - because it requires little knowledge
+          on either side (all they need to know is what a &quot;factor&quot;
+          actually is, and what the little program does, it only prints the
+          message if the factors are known). That is much less than needing to
+          know how RSA works, or that square roots modulo composites are
+          &quot;hard&quot; problems. There is also much less doubt, perhaps RSA
+          or square roots could be easily broken some day, but Frank's program
+          will still work... perhaps now this </font>[<font size="2">problem</font>]<sup>
+          </sup></i><font SIZE="2"><i>is less mathematics but more a question of
+          philosophy!</i>&quot; (<b>Chris Nash</b>, 2/10/2000)</p>
+        </blockquote>
+        <p align="left">***</p>
+        <blockquote>
+        <p align="left">&quot;<i>- This solution is useful only if the actors
+        can sit in front of the same computer. What about people who met on
+        Internet ?</i></p>
+          <p><i>- This solution is not secure at all since the second guy has to
+          turn and not look at the screen for a while. During this time it is
+          possible for the first guy to launch another&nbsp; program that just
+          write 'Congratulations!'</i>&quot; (<b>Eric Brier</b>, 5/10/2000)</p>
+        </blockquote>
+        <p>***</p>
+        <p>My (C.R.) personal opinion is that the very concept under discussion
+        behind the distinct solutions is the concept of &quot;<i>mathematical
+        proof</i>&quot;, hardly carried to its limits by the peculiar nature of
+        the interesting <b>Brier's</b> problem. But let's hear to the readers...</p>
+        <p>***</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </font>
+
+  <center>
+
+        <p>&nbsp;</p>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="prob_033.htm"><img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="./">Problems</a>&nbsp; |&nbsp; <a href="../puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="prob_035.htm"><img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1"> <!--#exec cgi="/cgi-bin/footer.cgi"-->
+      <p><!--webbot bot="HTMLMarkup" startspan --><SCRIPT LANGUAGE="VBScript">
+<!-- 
+// Copyright (C) 1999 LiveUpdate division of LABTECH 
+// Permission for use granted to all music lovers on the net
+function PlayIE(musicFile)
+
+if IsObject(navigator) and (navigator.appName = "Microsoft Internet Explorer") then
+   dim cObj
+   dim objTag
+
+   on error resume next
+   set cObj = CreateObject("Crescendo")
+   cres = IsObject(cObj)
+   if (cres) then
+        document.write "<OBJECT ID=Crescendo " & _
+          "CLASSID=""clsid:0FC6BF2B-E16A-11CF-AB2E-0080AD08A326"" " & _
+          "HEIGHT=55 WIDTH=200> " 
+        document.write "<PARAM NAME=""Song"" VALUE=""" & musicFile & """>"
+        document.write "</OBJECT>"
+   else
+      document.write "<bgsound src=""" & musicFile & """ loop=infinite>"
+   end if
+end if
+
+end function
+//--> 
+</script>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- 
+function PlayNS(musicFile)
+{
+   if (navigator.appName == "Netscape")
+      {
+      var EmbedString
+      var musicFile
+
+      EmbedString = "<EMBED SRC='" + musicFile + "'"
+      EmbedString += "PLUGINSPAGE='http://www.liveupdate.com/dl.html' AUTOSTART=TRUE  LOOP=-1 CONTROLS=SMALLCONSOLE HEIGHT=15 WIDTH=140>"
+      document.write(EmbedString)
+      }
+}
+
+function PlaySong(SongURL)
+{
+   if (navigator.appName == "Netscape")
+       PlayNS(SongURL)
+   else PlayIE(SongURL)
+}
+//--> 
+</script>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- 
+PlaySong("../midi/midi.mid")
+//--> 
+</script><!--webbot bot="HTMLMarkup" endspan -->
+
+      </font> </td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>
+

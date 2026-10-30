@@ -1,0 +1,168 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_223.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 223. Consecutive primes and powers of 2
+Source: https://www.primepuzzles.net/puzzles/puzz_223.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0223.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_222.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_224.htm
+  https://www.primepuzzles.net/puzzles/puzz_223.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 223. Consecutive primes and powers of 2
+
+Problems & Puzzles: Puzzles
+
+Puzzle 223. Consecutive primes and powers of 2
+
+How often the sum of two consecutive primes p & q is equal to a power o 2?
+
+p + q = 2^n
+
+As you know without even thinking, the earliest solution is 3 + 5 = 2^3 . We will be represent any solution just by the pair (n, p).
+
+Here are the first five solutions as reported very recently by Naohiro Nomoto at A071087 :
+
+n | p
+
+3 | 3
+
+7 | 61
+
+13 | 4093
+
+77 | ?
+
+182 | ?
+
+I have calculated two more entries this week:
+
+n | p
+
+1100 | ?
+
+1821 | ?
+
+* I have not shown on purpose some of the primes p in both Tables because probably you'll be interested in recalculating them by your own.
+
+Question 1: Find the first n such that p is titanic.
+
+Question 2: In the meanwhile, find the p value for n=1821
+
+Solution:
+
+Contributions came from Jason Earls, David Terr, Ken Wilke and J. K. Andersen.
+
+Jason, David and Ken solved the question 2. Andersen solved both questions.
+
+As a matter of fact Jason Earls found all the primes not shown in the Tables. David Terr found p for n=1821 "with Mathematica in 5 seconds".
+
+Ken used a theoretical shortcut for getting p for n=1821, that may be of interest for getting larger solutions:
+
+Let p and q be consecutive primes such that p < q and p + q = 2^(n+1) for some integer n > 2. Then since p < (p + q)/2 = 2^n < q, we must have p = 2^n - k and q = 2^n + k for some integer k.
+
+Considering p, q and 2^n (mod 6) we have: for n odd, 2^n = = 4, p = = 1 and k= =3, all (mod 6) and for n even, 2^n = = 2, p = = 5 and k= =3, all (mod 6). Then it is easy to construct a program in UBASIC to check possible values of k for a given value of n.
+
+For n = 1821, I chose to examine gcd (V, T) where V is the product of all primes < 1000 and T = pq = 2^3640 - k^2 to get a list of possible values of k to check for primality. Only values of k in which gcd(V, T) = 1 need to be checked. In addition, I used that fact that -3 is a quadratic residue of all primes of the form 6d + 1 and a quadratic non-residue of all primes of the form 6d + 5. Checking possible values of k < 200 , I found that only k = 663 needed to be checked. UBASIC's APRT-CLE program verified that both p = 2^1820 - 663 and q = 2^1820 + 663 are primes. Similarly, for n = 1100 p = 2^1099 - 1035 and q = 2^1099 + 1035; for n = 77
+
+p = 2^76 - 15 and q = 2^76 + 15 and for n = 182 p = 2^181 - 165 and q = 2^181 + 165.
+
+My code follows:
+
+4 J = 1: S = 1: T = 1
+
+5 while J < 1000
+
+6 T = T * S
+
+8 S = nxtprm(J)
+
+10 J = S
+
+12 wend
+
+14 print T
+
+20 M = 2^1820: N = 0
+
+21 while N < 500
+
+22 K = 6 * N + 3:A = M + K: B = M - K
+
+23 V = A * B
+
+24 if gcd ( V, T) > 1 then 39
+
+26 if kro (-3, A) < > 1 then 39
+
+28 if kro (-3, B) < > 1 then 39
+
+30 if modpow ( 3, A - 1, A) = 1 then 32 else 39
+
+32 if modpow ( 3, B - 1, B) = 1 then 35 else 39
+
+35 print N, K
+
+39 inc N
+
+40 wend
+
+45 end.
+
+If the value of M in line 20 is odd then lines 26 and 28 need to be changed to
+
+26 if kro (-3, A) < > -1 then 39
+
+28 if kro (-3, B) < > -1 then39
+
+Andersen found the asked solution to Q.1 this way:
+
+I first sieved to 2^31 with my own C program.
+
+Based on prp tests performed with PrimeForm/GW, the first probable solution after n=1821 is n=9230 with titanic p=2^9229-2211.
+
+Note: Smaller n have only been eliminated by finding the smallest k giving a probable prime p=2^n/2-k (largest prp with n-1 bits). In all cases, 2^n-p = 2^n/2+k was composite. These p have not been proved prime and if one p is really composite then there could theoretically be an unknown solution with a larger k giving a true prime. The solution prp's 2^9229-2211 and 2^9229+2211 have 2779 digits. They have passed many prp tests and could be proved prime with Marcel Martin's Primo in around a week but I will not do it. Based on heuristics, I expect an infinite number of solutions. There are no other solutions with n<10261. As a curio, I encountered a big prime gap: From 2^10093-80445 to 2^10093+4185. This is 12 times the expected gap size 6996.
+
+Question 2
+
+For n=1821: p=2^1820-663. The primes 2^1820-663 and 2^1820+663 with 548 digits have been proved with Primo.
+
+...
+
+From the prime number theorem, the probability a number around n is prime is approximately 1/ln(n) where ln is the natural logarithm. The average gap size around n=2^10093 is then ln(n) = ln(2^10093) = 10093*ln(2) ~= 6996. This is what I call "the expected gap size"...
+
+It was tested that there are no primes between 2^9229-2211 and 2^9229+2211. I found "near" solutions where 2^n/2-k was the largest prime below 2^n/2, and 2^n/2+k was also prime, but not the smallest prime above 2^n/2.
+
+I will report my solution to EIS with a comment that it is only based on prp's.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

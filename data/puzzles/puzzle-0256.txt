@@ -1,0 +1,149 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_256.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 256.  Jack Brennen old records
+Source: https://www.primepuzzles.net/puzzles/puzz_256.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0256.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://users.cybercity.dk/~dsl522332/math/congruent-primes.htm#mod4
+  https://www.primepuzzles.net/puzzles/puzz_255.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_257.htm
+  https://www.primepuzzles.net/puzzles/puzz_256.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 256. Jack Brennen old records
+
+Problems & Puzzles: Puzzles
+
+Puzzle 256. Jack Brennen old records
+
+Jack Brennen sent to me by email in May 1999, the following records obtained by him:
+
+a) 24 consecutive primes of the form 4k+3 from 1602195714419 to 1602195715423
+
+b) 29 consecutive primes of the form 4k+1 from 689101181569 to 689101182437
+
+I used to have these records in one page of "Records" that was changed some two years ago. As far as Jack and me know, these records haven't been broken since then. Maybe it's time to do it.
+
+Q1. Can you improve the Jack Brennen's records (get larger runs of consecutive primes of the forms 4k+1 and 4k+3?
+
+In the page 13 of the well known R.K.Guy's Book (UPiNT) we may read:
+
+Turán observed that it would be of interest (in connection with the Riemann hypothesis, for example) to discover long sequences of consecutive primes =1 mod 4.
+
+Q2. Can you explain the Turán's claim?
+
+Solution:
+
+Jim Fougeron broke both Jack Brennen's records.
+
+Now the Fougeron's records are a run of 33 consecutive primes 4k+1 and 32 consecutive primes 4k+3) .
+
+BTW Fougeron found a larger run (32 consecutive primes, 12 digits each ) than the Brennen's record (24 consecutive primes, 13 digits each) for the primes 4k+3 in a region of smaller numbers than the reported by Jack. See below the Fougeron's range in this color. Does this means that Jack did not make an exhaustive ordered search for his records?
+
+See too: http://users.cybercity.dk/~dsl522332/math/congruent-primes.htm#mod4
+
+***
+
+Jim Fougeron wrote (Feb. 2004):
+
+I have searched up to 4060914647039. Here are all of the "record" sized values of length 30 or more:
+
+1. Run of 4k+3 from 113391385603 to 113391386611 (32 consecutive primes, 12 digits each!!!).
+
+** NOTE that from 113391385507 to 113391386611 is 36 primes with only the 4th one, being 4k+1
+
+2. Run of 4k+3 from 1742590107899 to 1742590109167 (32 consecutive primes, 13 digits each)
+
+** NOTE that from 1742590107779 to 1742590109167 is 36 primes with only the 4th one, being 4k+1
+
+3. Run of 4k+1 from 3278744415797 to 3278744417029 (33 consecutive primes, 13 digits each)
+
+4. Run of 4k+1 from 3289884073409 to 3289884074597 (30 consecutive primes, 13 digits each)
+
+These are all example >= 30 consecutive for the range I tested. There were many example (especially of the p%4==3) that were beyond the records listed. However, The above are all with length in the 30's.
+
+My testing method was very simple, but complete. I simply built a fast SoE which provided enough factors to guarantee it's output was 100% pure proven prime, and then simply processed each prime using:
+
+Cnt=0; // start out with our length counter to zero. b_last_was_pm1=false;
+
+while (p = get_next_prime()) {
+
+if ( (p & 3) == 1) {
+
+// This is a 4k+1 case
+
+if (b_last_was_pm1)
+
+++Cnt; // still on our "run" of p%4==1
+
+else {
+
+// This is the first p%4==1. That means we just "ended" a run of p%4==3.
+
+if (Cnt > 25)
+
+printf ("Found a 4k+3 of len %d ending at %I64u\n", Cnt, p);
+
+Cnt = 1; // we have 1 in our current run
+
+b_last_was_pm1 = true; // Our current run IS p%4==1
+
+}
+
+} else {
+
+// This is a 4k+3 case
+
+if (!b_last_was_pm1)
+
+++Cnt; // still on our "run" of p%4==3
+
+else {
+
+if (Cnt > 23)
+
+printf ("Found a 4k+1 of len %d ending at %I64u\n", Cnt, p);
+
+Cnt = 1; // we have 1 in our current run
+
+b_last_was_pm1 = false; // Our current run is NOT p%4==1
+
+}
+
+}
+
+}
+
+All in all, run time was about 12 GHz hours to process the whole range.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

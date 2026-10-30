@@ -1,0 +1,823 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://cs.uwaterloo.ca/~cbright/reports/mepn.pdf. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://cs.uwaterloo.ca/~cbright/reports/mepn.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+Minimal Elements for the Prime Numbers
+Curtis Bright
+School of Computer Science
+University of Waterloo
+Waterloo, ON N2L 3G1
+Canada
+cbright
+ uwaterloo.ca
+Raymond Devillers
+D´ epartement d’Informatique, CP 212
+Universit´ e Libre de Bruxelles
+B-1050 Bruxelles
+Belgium
+rdevil
+ ulb.ac.be
+Jeﬀrey Shallit
+School of Computer Science
+University of Waterloo
+Waterloo, ON N2L 3G1
+Canada
+shallit
+ cs.uwaterloo.ca
+June 11, 2015
+Abstract
+We say a string of symbols s is minimal for a language L if s is a member of L, and
+it is not possible to obtain another member of L by striking out one or more symbols
+from s. Although the set M(L) of minimal strings is necessarily ﬁnite, determining it
+explicitly for a given L can be a diﬃcult computational problem. We use some number-
+theoretic heuristics to compute M(L), where L is the language of base- b representations
+of the prime numbers, for 2 ≤ b≤ 30.
+1
+
+--- page 2 ---
+1 Introduction
+Problems about the digits of prime numbers have a long history, and many of them are
+still unsolved. For example, are there inﬁnitely many primes, all of whose base-10 dig-
+its are 1? Currently, there are only ﬁve such “repunits” known [ 20], corresponding to
+(10p− 1)/9 for p ∈ {2, 19, 23, 317, 1031}. It seems likely that four more are given by
+p∈{ 49081, 86453, 109297, 270343}, but this has not yet been rigorously proven.
+Another problem on the digits of primes was introduced by the third author [ 19]. To
+describe it, we need some deﬁnitions. We say that a string x is a subword of a string y,
+and we write x◁y , if one can strike out zero or more symbols of y to get x. For example,
+string is a subword of Meistersinger. (In the literature, this concept is sometimes called
+a “scattered subword” or “substring” or “subsequence”.) A language is a set of strings. A
+string s is minimal for L if (a) s∈L and (b) if x∈L and x◁s , then x =s. The set of all
+minimal strings of L is denoted M(L).
+In this paper, we describe a heuristic technique for determining M(Lb) in the case where
+Lb consists of the representations, in base b, of the the prime numbers {2, 3, 5,... }. We
+obtain a complete characterization of M(Lb) for bases 2≤b≤ 16 and b = 18, 20, 22, 23, 24,
+and 30. For the remaining bases b = 17, 19, 21, and 25≤b≤ 29, we obtain results that allow
+us to “almost” completely characterize this set.
+The same technique can also be applied to ﬁnd minimal sets for subsets of prime numbers.
+For example, we were able to determine the minimal set for primes of the form 4 n + 1
+represented in base 10 (and similarly for those of the form 4 n + 3). This successfully
+completes the sequences A111055 and A111056 in the Encyclopedia of Integer Sequences [15],
+which had been incomplete since their introduction to the Encyclopedia in 2005.
+Finally, we also show that determining the minimal set for the composite numbers
+represented in base b is a signiﬁcantly easier problem, and explicitly compute the minimal set
+for all 2≤b≤ 30.
+1.1 Notation
+In what follows, if x is a string of symbols over the alphabet Σ b :={0, 1,...,b − 1} we let [x]b
+denote the evaluation of x in base b (starting with the most signiﬁcant digit), and [ ϵ]b := 0
+where ϵ is the empty string. This is extended to languages as follows: [ L]b :={ [x]b :x∈L}.
+We use the convention that A := 10, B := 11, and so forth, to conveniently represent strings
+of symbols in base b> 10. We let (x)b be the canonical representation of x in base-b, that
+is, the representation without leading zeroes. Finally, as usual, for a language L we let
+Ln :=
+n
+z }| {
+LL··· L and L∗ :=⋃i≥0Li.
+2
+
+--- page 3 ---
+2 Why minimal sets are interesting
+One reason why the minimal set M(L) of a language L is interesting is because it allows us
+to compute two natural and related languages, deﬁned as follows:
+sub(L) :={x∈ Σ∗ : there exists y∈L such that x◁y };
+sup(L) :={x∈ Σ∗ : there exists y∈L such that y ◁x}.
+An amazing fact is that sub(L) and sup(L) are always regular. This follows from the
+following classical theorem due to Higman [10] and Haines [9].
+Theorem 1. For every language L, there are only ﬁnitely many minimal strings.
+Indeed, we have sup(L) = sup(M(L)) and Σ∗− sub(L) = sup(M(Σ∗− sub(L))), and the
+superword language of a ﬁnite language is regular, since
+sup
+(
+{w1,...,w n}
+)
+=
+n⋃
+i=1
+Σ∗wi,1Σ∗··· Σ∗wi,|wi|Σ∗
+where wi =wi,1··· wi,|wi| with wi,j∈ Σ.
+3 Why the problem is hard
+Determining M(L) for arbitrary L is in general unsolvable, and can be diﬃcult even when L
+is relatively simple [7, 8].
+The following is a “semi-algorithm” that is guaranteed to produce M(L), but it is not so
+easy to implement:
+(1) M :=∅
+(2) while (L⁄=∅) do
+(3) choose x, a shortest string in L
+(4) M :=M∪{x}
+(5) L :=L− sup({x})
+In practice, for arbitrary L, we cannot feasibly carry out step (5). Instead, we work with
+L′, some regular overapproximation to L, until we can show L′ =∅ (which implies L =∅). In
+practice, L′ is usually chosen to be a ﬁnite union of sets of the form L1L∗2L3, where each of
+L1, L2, L3 is ﬁnite. In the case we consider in this paper, we then have to determine whether
+such a language contains a prime or not.
+However, it is not even known if the following simpler decision problem is recursively
+solvable:
+Problem 2. Given strings x, y, z, and a base b, does there exist a prime number whose
+base-b expansion is of the form x
+n
+z }| {yy··· yz for some n≥ 0?
+3
+
+--- page 4 ---
+An algorithm to solve this problem, for example, would allow us to decide if there are any
+additional Fermat primes (of the form 2 2n + 1) other than the known ones (corresponding to
+n = 0, 1, 2, 3, 4). To see this, take b := 2, x := 1, y := 0, and z := 0161. Since if 2 n + 1 is
+prime then n must be a power of two, a prime of the form [ xy∗z]b must be a new Fermat
+prime.
+Therefore, in practice, we are forced to try to rule out prime representations based on
+heuristics such as modular techniques and factorizations. This is discussed in the next section.
+4 Some useful lemmas
+It will be necessary for our algorithm to determine if families of the form [ xL∗z]b contain a
+prime or not. We use two diﬀerent heuristic strategies to show that such families contain no
+primes.
+In the ﬁrst strategy, we mimic the well-known technique of “covering congruences” [ 3], by
+ﬁnding some ﬁnite setS of integersN >1 such that every number in a given family is divisible
+by some element of S. In the second strategy, we attempt to ﬁnd a diﬀerence-of-squares or
+diﬀerence-of-cubes factorization.
+4.1 The ﬁrst strategy
+We start with the simplest version of the idea: to ﬁnd an N >1 that divides each element of
+the family [xL∗z]b. At ﬁrst glance, this would require checking that N dividesxLnz forn = 0,
+1, 2, ... . However, the following lemma shows that it is only necessary to check the two cases
+n = 0 and 1. Although divisibility based on digital considerations has a long history (e.g., [ 5,
+Chap. XII]), we could not ﬁnd these kinds of results in the literature.
+Lemma 3. Let x, z∈ Σ∗b, and let L⊆ Σ∗b. Then N divides all numbers of the form [xL∗z]b
+if and only if N divides [xz]b and all numbers of the form [xLz]b.
+Proof. Let y =y1··· yn∈L∗, where y1, ... , yn∈L. By telescoping we have
+[xyz]b− [xz]b =
+n∑
+i=1
+([xyiyi+1··· ynz]b− [xyi+1··· ynz]b).
+Cancelling the ﬁnal|yi+1··· ynz| base-b digits in the summand diﬀerence — which are identical
+— this becomes
+[xyz]b = [xz]b +
+n∑
+i=1
+b|yi+1···ynz|([xyi]b− [x]b).
+But b|z|([xyi]b− [x]b) = [xyiz]b− [xz]b by adding and subtracting [z]b, so we have
+[xyz]b = [xz]b +
+n∑
+i=1
+b|yi+1···yn|([xyiz]b− [xz]b).
+4
+
+--- page 5 ---
+Since N| [xz]b and N| [xyiz]b for each 1≤i≤n, it follows that N| [xyz]b.
+The other direction is clear, since [xz]b and numbers of the form [xLz]b are both of the
+form [xL∗z]b.
+In practice, our algorithm employs this lemma with L :={y1,...,y n}⊆ Σb, and all
+numbers of the form [xL∗z]b are shown to be composite with the following corollary.
+Corollary 4. If 1 < gcd([xz]b, [xy1z]b,..., [xynz]b) < [xz]b then all numbers of the form
+[x{y1,...,y n}∗z]b are composite.
+Proof. By Lemma 3, we know that N := gcd ([xz]b, [xy1z]b,..., [xynz]b) > 1 divides all
+numbers of the form [ x{y1,...,y n}∗z]b. By the size condition N is strictly less than each
+such number, and so is a nontrivial divisor.
+Example 5. Since gcd(49, 469) = 7, every number with base-10 representation of the form
+46∗9 is divisible by 7. Since 1 < 7< 49, each such number is composite.
+We also generalize this to the following corollary in the case where a single divisor does
+not divide each number in the family.
+Corollary 6. Let L :={y1,y 2,...,y n}. If
+N0 := gcd({[xz]b}∪ [xL2z]b)
+and
+N1 := gcd([xLz]b∪ [xL3z]b)
+lie strictly between 1 and [xz]b, then all numbers of the form [xL∗z]b are composite.
+Proof. By Lemma 3 applied to [x(L2)∗z]b, we know that N0 divides all numbers of the form
+[xL∗z]b in which an even number ofyi appear. By Lemma 3 on [xyi(L2)∗z]b for each 1≤i≤n,
+we know that N1 divides all numbers of the form [ xL∗z]b for which an odd number of yi
+appear. By the size conditions, N0 and N1 are nontrivial divisors.
+Example 7. Since gcd([6]9, [611]9) = 2, every number with base-9 representation of the form
+61∗ of odd length is divisible by 2. Since gcd([61]9, [6111]9) = 5, every number with base-9
+representation of the form 61∗ of even length is divisible by 5. Since these numbers lie strictly
+between 1 and 6, every number with base-9 representation of the form 61∗ is composite.
+We also note that it is simple to generalize Corollary 6 to apply to check if there are
+divisors N0, N1, ... , Nk−1 such that Ni divides all numbers of the form [ x{y1,...,y n}∗z]b in
+which the number of yi appearing is congruent to i modk.
+Example 8. Let b := 16. Then 7 divides [ 8A01]b and [8A0AAA1]b. Furthermore, 13 divides
+[8A0A1]b and [8A0AAAA1]b, and 3 divides [ 8A0AA1]b and [8A0AAAAA1]b. Thus all numbers with
+base-16 representation of the form 8A0A∗1 are divisible by either 7, 13, or 3, depending on
+their length mod 3.
+5
+
+--- page 6 ---
+A version of Lemma 3 which applies to the most general kind of family we need to consider
+(x1L∗1··· xmL∗m, where we allow the case L∗m =∅) is formulated in Lemma 9.
+Lemma 9. Let x1, ... , xm∈ Σ∗b, and L1, ... , Lm⊆ Σ∗b. Then N divides all numbers of
+the form [x1L∗1x2L∗2··· xmL∗m]b if and only if N divides [x1··· xm]b and all numbers of the
+form [x1L1x2x3··· xm]b, ... , [x1··· xm−1xmLm]b.
+Proof. Sayw∈x1L∗1x2L∗2··· xmL∗m; then there exist yi,1, ... , yi,ni∈Li such that
+w =x1y1,1··· y1,n1x2y2,1··· y2,n2··· xmym,1··· ym,nm
+for 1≤i≤m. As in the proof of Lemma 3, we have that
+[w]b = [x1··· xm]b +
+m∑
+i=1
+ni∑
+j=1
+b|yi,j+1···ym,nm|([x1··· xiyi,jxi+1··· xm]b− [x1··· xm]b)
+from which the claim follows.
+As in Lemma 3, we typically apply this lemma in the case where each Li⊆ Σb and show
+that all numbers of the form [x1L∗1x2L∗2··· xmL∗m]b have a divisor.
+Example 10. Take (L1,L 2,L 3) := ({0},{0},∅) and (x1,x 2,x 3) := (9, 8, 1). Since 9 divides
+981, 9081, and 9801, it follows that 9 divides every number with base-10 representation of
+the form 90∗80∗1.
+More generally, if a single divisor doesn’t work for every number, Lemma 9 can also
+be applied in the case where all numbers of the form [ x1L∗1··· xi(L2i )∗··· xmL∗m]b have one
+divisor, and all numbers of the form [ x1L∗1··· xiLi(L2i )∗··· xmL∗m]b have another divisor.
+Example 11. Let b := 11. Since 3 divides each of [ 44A1]b, [44A111]b, [440A1]b , it follows
+that every number of the form [ 440∗(11)∗1]b is composite. Since 2 divides each of [ 44A11]b,
+[44A1111]b, [ 440A11]b, we know every number of the form [ 440∗(11)∗11]b is composite. It
+follows that all numbers of the form [ 440∗A1∗1]b are composite.
+Lemma 9 can also be applied to the case when all even-length strings under consideration
+have one divisor, and all the odd-length strings have another divisor. One such case is,
+for example, if numbers of the form [ x1(L21)∗x2(L22)∗x3]b and [x1L1(L21)∗x2L2(L22)∗x3]b have
+one divisor, and numbers of the form [ x1L1(L21)∗x2(L22)∗x3]b and [x1(L21)∗x2L2(L22)∗x3]b have
+another divisor.
+Example 12. Letb := 9. Since 2 divides each of [ 6]b, [116]b, [611]b, [161]b, [11161]b, [16111]b,
+every odd-length string of the form 1∗61∗ is composite. Since 5 divides each of [ 16]b, [1116]b,
+[1611]b, [61]b, [1161]b, [6111]b, every even-length string of the form 1∗61∗ is composite.
+6
+
+--- page 7 ---
+4.2 The second strategy
+A second way of proving that families of the form xL∗z do not contain a prime is via algebraic
+factorizations, such as a diﬀerence-of-squares factorization.
+Lemma 13. Let x, z∈ Σ∗b, y∈ Σb, and let g := gcd([y]b,b− 1), X := ([y]b + (b− 1)[x]b)/g,
+and Y := (b|z|[y]b−(b−1)[z]b)/g. If b,X, and Y are all squares and√b|z|X−√Y > (b−1)/g,
+then all numbers of the form [xy∗z]b are composite.
+Proof. Evaluating the base-b expansion of xynz, we get
+[xynz]b =b|z|+n[x]b +b|z|bn− 1b− 1 [y]b + [z]b
+= b|z|+nX−Y(b− 1)/g .
+Since b, X, and Y are all squares the numerator factors as a diﬀerence of squares. By the
+size condition both factors are strictly larger than the denominator, and so the factorization
+is nontrivial.
+Example 14. Let b := 16, x := 4, y := 4, and z := 1. Then g = 1, X = 82, Y = 72, and
+[44n1]b = (4n+1· 8 + 7)(4n+1· 8− 7)15 .
+Since 4· 8− 7> 15, this factorization is nontrivial and no number of the form [ 44∗1]b is prime.
+It is also possible to combine Lemma 9 with Corollary 6 to construct a test which also
+applies to bases which are not squares.
+Corollary 15. Using the same setup as in Lemma 9, if b|z|X and Y are squares,√b|z|X−√
+Y > (b− 1)/g, and 1< gcd([xyz]b, [xy3z]b)< [xz]b, then all numbers of the form [xy∗z]b
+are composite.
+Proof. Sayn = 2m is even. Then from the factorization in Lemma 9,
+[xynz]b = (bm
+√
+b|z|X +√Y )(bm√b|z|X−√Y )
+(b− 1)/g
+which is nontrivial by the size condition.
+Alternatively, ifn is odd then as in Corollary 6 we have that gcd([xyz]b, [xy3z]b) divides
+[xynz]b, and by the size condition this divisor is nontrivial.
+Example 16. Letb := 17,x := 19,y := 9, and z := 9. Then g = 1,b|z|X = 852,Y = 32, and
+[xy2nz]b = (17n· 85 + 3)(17n· 85− 3)16 .
+Since 85− 3 > 16 this factorization is nontrivial. Furthermore, all numbers of the form
+[xy2n+1z]b are even, so all numbers of the form [ 199∗9]b are composite.
+7
+
+--- page 8 ---
+Finally, we present a variant of Lemma 13 which applies to a diﬀerence-of-cubes factoriza-
+tion.
+Lemma 17. Let x, z∈ Σ∗b, y∈ Σb, and let g := gcd([y]b,b− 1), X := ([y]b + (b− 1)[x]b)/g,
+and Y := (b|z|[y]b−(b−1)[z]b)/g. If b, X, and Y are all cubes and 3√b|z|X− 3√Y > (b−1)/g,
+then all numbers of the form [xy∗z]b are composite.
+Proof. As in Lemma 13, we have
+[xynz]b =
+(
+(b|z|+nX)1/3−Y 1/3)((b|z|+nX)2/3 + (b|z|+nXY )1/3 +Y 2/3)
+(b− 1)/g .
+The second factor is at least as large as the ﬁrst (except in the single case b|z|+nX = 1 and
+Y =−1, which is not possible by construction of X and Y ), so by the size condition both
+factors are strictly larger than the denominator, and the factorization is nontrivial.
+Example 18. Let b := 8, x := 1, y := 0, and z := 1. Then g = 7, X = 1, Y =−1, and
+[10n1]b = (2n+1 + 1)(4n+1− 2n+1 + 1).
+Since 2− (−1)> 1, this factorization is nontrivial and no number of the form [ 10∗1]b is prime.
+5 Our heuristic algorithm
+As previously mentioned, in practice to compute M(Lb) one works with an underapproxi-
+mation M of M(Lb) and an overapproximation L of Lb− sup(M). One then reﬁnes such
+approximations until L =∅ from which it follows that M =M(Lb).
+For the initial approximation, note that every minimal prime in base b with at least 4
+digits is of the form xY∗z, where x∈ Σb−{ 0}, z∈ Σb, and
+Y := Σb−{ y : (p)b ◁xyz for some prime p}.
+Making use of this, our algorithm sets M to be the set of base- b representations of the
+minimal primes with at most 3 digits (which can be found simply by brute force) and L to
+be⋃x,zxY∗z, as described above.
+All remaining minimal primes are members of L, so to ﬁnd them we explore the families
+in L. During this process, each family will be decomposed into possibly multiple other
+families. For example, a simple way of exploring the family xY∗z where Y :={y1,...,y n} is
+to decompose it into the families xY∗y1z, ... , xY∗ynz. If the smallest member (say xyiz) of
+any such family happens to be prime, it can be added to M and the family xY∗yiz removed
+from consideration. Furthermore, once M has been updated it may be possible to simplify
+some families in L. In this case, xY∗yjz (forj⁄=i) can be simpliﬁed to x(Y−{yi})∗yjz since
+no minimal prime contains xyiz as a proper subword.
+Another way of decomposing the family xY∗z is possible if one knows that a digit of Y
+can only occur a certain number of times. For example, if xyiyiz has a proper prime subword
+8
+
+--- page 9 ---
+then the digit yi can occur at most once in any minimal prime of the form xY∗z, and we can
+split xY∗z into the two families
+x(Y−{yi})∗z and x(Y−{yi})∗yi(Y−{yi})∗z.
+Lastly, the familyxY∗z can be decomposed by considering digits of Y which are mutually
+incompatible, i.e., they cannot occur simultaneously in a minimal prime. For example, if
+xyiyjz and xyjyiz (i⁄=j) both have proper prime subwords then the digits yi and yj cannot
+occur simultaneously in any minimal prime of the form xY∗z, and we can split xY∗z into the
+two families
+x(Y−{yi})∗z and x(Y−{yj})∗z.
+Sometimes it is not possible to show two digits are mutually incompatible, but it is possible
+to know that one digit must appear before the other. For example, if xyiyjz has a proper
+prime subword then the digit yj must appear before yi in any minimal prime of the form
+xY∗z, and we can replace xY∗z with the family
+x(Y−{yi})∗(Y−{yj})∗z.
+Similarly, if xyjyyiz has a proper prime subword then we can split xY∗yY∗z into the two
+families
+x(Y−{yi})∗yY∗z and xY∗y(Y−{yj})∗z.
+We now formulate these arguments for the most general kind of family we need to consider,
+namely x1L∗1··· xmL∗m. For simplicity, we only specify the decompositions as applying to
+L1 :={y1,...,y n}, but it is straightforward to generalize these decompositions to also apply
+to Li for any 1≤i≤m.
+Lemma 19. Every minimal prime of the form x1L∗1··· xmL∗m must also be of the form
+x1x2L∗2··· xmL∗m or x1yiL∗1x2L∗2··· xmL∗m for some 1≤i≤n.
+Proof. Follows from the fact that L∗1 ={ϵ}∪ ⋃ni=1yiL∗1.
+Similarly, one can generalize Lemma 19 to apply to adding characters to the right of L1
+rather than to the left.
+Example 20. The family 10{0, 1}∗61∗1 splits into the three families 1061∗1, 10{0, 1}∗061∗1,
+and 10{0, 1}∗161∗1 by exploring{0, 1}∗ on the right.
+Lemma 21. If x1ykix2··· xm contains a prime proper subword (for some k≥ 1) then every
+minimal prime of the form x1L∗1··· xmL∗m is of the form
+x1(L1−{yi})∗(yi(L1−{yi})∗)jx2L∗2··· xmL∗m
+for some 0≤j <k.
+9
+
+--- page 10 ---
+Proof. If w∈x1L∗1··· xmL∗m then w∈x1yx2L∗2··· xmL∗m for some y∈L∗1. If y containsk or
+more instances of yi then by assumption it follows that w contains a proper prime subword,
+and therefore is not a minimal prime. So if w is a minimal prime then y must contain less
+than k instances of yi, i.e., y must be of the form ( L1−{yi})∗(yi(L1−{yi})∗)j for some
+0≤j <k, from which the claim follows.
+Example 22. The string 661 represents a prime in base 9, and is a proper subword
+of 10661. It follows that the family 10{0, 1, 6}∗1 splits into the families 10{0, 1}∗1 and
+10{0, 1}∗6{0, 1}∗1 in base 9.
+Lemma 21 is especially useful when it can be applied with k = 1, since in that case the
+family x1L∗1··· xmL∗m is replaced by a single strictly simpler family, in contrast to the other
+lemmas we will describe.
+Lemma 23. If x1yiyjx2··· xm and x1yjyix2··· xm contain prime proper subwords (where
+i⁄=j) then every minimal prime of the form x1L∗1··· xmL∗m is of the form
+x1(L1−{yi})∗x2L∗2··· xmL∗m or x1(L1−{yj})∗x2L∗2··· xmL∗m.
+Proof. If w∈ x1L∗1··· xmL∗m then w∈ x1yx2L∗2··· xmL∗m for some y∈ L∗1. If y contains
+both yi and yj then by assumption it follows that w contains a proper prime subword, and
+therefore is not a minimal prime. So if w is a minimal prime then y cannot contain yi and yj
+simultaneously, i.e.,y must be of the form (L−{yi})∗ or (L−{yj})∗, from which the claim
+follows.
+Example 24. The string 4611 represents a prime in base 8, and is a proper subword of
+446411 and 444611. It follows that the family 44{4, 6}∗11 splits into the families 444∗11
+and 446∗11 in base 8.
+Lemma 25. If x1yiyjx2··· xm contains a prime proper subword (where i⁄=j) then every
+minimal prime of the form x1L∗1··· xmL∗m is of the form
+x1(L1−{yi})∗(L1−{yj})∗x2L∗2··· xmL∗m.
+Proof. If w∈ x1L∗1··· xmL∗m then w∈ x1yx2L∗2··· xmL∗m for some y∈ L∗1. If y contains yi
+beforeyj then by assumption it follows thatw contains a proper prime subword, and therefore
+is not a minimal prime. So if w is a minimal prime then y cannot contain yi before yj, i.e., y
+must be of the form (L−{yi})∗(L−{yj})∗, from which the claim follows.
+Example 26. The string 10 represents a prime in base 11, and is a proper subword of 90101.
+It follows that the family 90{0, 1, 9}∗1 splits into the family 90{0, 9}∗{1, 9}∗1 in base 11.
+Lemma 27. If x1yix2y2,jx3··· xm contains a prime proper subword (where y2,j∈L2) then
+every minimal prime of the form x1L∗1··· xmL∗m is of the form
+x1(L1−{yi})∗x2L∗2··· xmL∗m or x1L1x2(L2−{y2,j})∗x3L∗3··· xmL∗m.
+10
+
+--- page 11 ---
+Proof. If w∈ x1L∗1··· xmL∗m then w∈ x1yx2y′x3L∗3··· xmL∗m for some y∈ L∗1 and y′∈ L∗2.
+If y containsyi and y′ containsy2,j then by assumption it follows that w contains a proper
+prime subword, and therefore is not a minimal prime. So if w is a minimal prime then either
+y cannot contain yi or y′ cannot contain y2,j, i.e., y is of the form (L1−{yi})∗ and y′ is of
+the form L∗2, or y is of the form L∗1 and y′ is of the form (L2−{y2,j})∗, from which the claim
+follows.
+Example 28. The string 60411 represents a prime in base 8, and is a proper subword
+of 604101. It follows that the family 60{0, 4}∗10∗1 splits into the families 600∗10∗1 and
+60{0, 4}∗11 in base 8.
+We call families of the form xy∗z (where x, z∈ Σ∗b and y∈ Σb) simple families. Our
+algorithm then proceeds as follows:
+1. M :={minimal primes in base b of length≤ 3}
+L := ⋃x,z∈ΣbxY∗z, where x⁄= 0 and Y is the set of digits y such that xyz has nosubword in M
+2. While L contains non-simple families:
+(a) Explore each family of L by applying Lemma 19, and update L.
+(b) Examine each family of L:
+i. Let w be the shortest string in the family. If w has a subword in M, then
+remove the family from L. If w represents a prime, then add w to M and
+remove the family from L.
+ii. If possible, simplify the family by applying Lemma 21 with k = 1.
+iii. Using the techniques of Section 4, check if the family can be proven to only
+contain composites, and if so then remove the family from L.
+(c) Apply Lemmas 21, 23, 25, and 27 to the families of L as much as possible and
+update L; after each split examine the new families as in (b).
+The process of exploring/examining/splitting a family can be concisely expressed in a
+tree of decompositions. A sample tree of decompositions, for the family 1{0, 1, 6}∗1 in base 9,
+is displayed in Figure 1. When applying Lemma 19 on a family with only one nonempty Li
+we don’t show the ﬁrst decomposition (simply removing L∗i ) since that results in the shortest
+word in the family, which is always implicitly checked for primality/minimal subwords at
+each step anyway.
+5.1 Implementation
+An implementation of the above algorithm was written in C using the GMP library [ 6] by
+the ﬁrst author [ 2]. Independently, the second author [ 4] wrote an implementation in C++
+using the MIRACL library [ 18] using the same ideas and derived the same results (with a
+less extensive search for primes in the simple families, but with results for bases b≤ 50).
+11
+
+--- page 12 ---
+Note that when exploring the families in line (a), one should not always apply Lemma 19
+directly as stated by adding characters to the left of L1; in our implementation we alternate
+between adding characters to the left and right of L1+k mod m, where k is the number of times
+we have previously passed through line (a). Also, the application of Lemma 25 tended to
+initially produce an excess number of cases, so it was useful to only apply it following a
+certain number of iterations (6 in our implementation). It also led to duplicate families after
+simplifying, for example families of the form xy∗yny∗z for varying n, but these could be
+detected and removed.
+At the conclusion of the algorithm described, L will consist of simple families (of the
+form xy∗z) which have not yet yielded a prime, but for which there is no obvious reason
+why there can’t be a prime of such a form. In such a case, the only way to proceed is to
+test the primality of larger and larger numbers of such form and hope a prime is eventually
+discovered.
+The numbers in simple families are of the form ( abn +c)/d for some ﬁxed a, b, c, d where
+d|abn +c for all n. Except in the special case c =±1 and d = 1, when n is large the known
+primality tests for such a number are too ineﬃcient to run. In this case one must resort to a
+probable primality test such as a Miller–Rabin test, unless a divisor of the number can be
+found. Since we are testing many numbers in an exponential sequence, it is possible to use a
+sieving process to ﬁnd divisors rather than using trial division.
+To do this, we made use of Geoﬀrey Reynolds’ srsieve software [17]. This program uses
+the baby-step giant-step algorithm to ﬁnd all primes p which divide abn +c where p and n
+lie in a speciﬁed range. Since this program cannot handle the general case ( abn +c)/d when
+d> 1 we only used it to sieve the sequence abn +c for primes p ∤d, and initialized the list
+of candidates to not include n for which there is some prime p|d for which p| (abn +c)/d.
+The program had to be modiﬁed slightly to remove a check which would prevent it from
+running in the case when a,b, and c were all odd (since then 2|abn +c, but 2 may not divide
+(abn +c)/d).
+Once the numbers with small divisors had been removed, it remained to test the remaining
+numbers using a probable primality test. For this we used the software LLR by Jean Penn´ e [16].
+Although undocumented, it is possible to run this program on numbers of the form (abn +c)/d
+when d⁄= 1, so this program required no modiﬁcations. A script was also written which
+allowed one to run srsieve while LLR was testing the remaining candidates, so that when a
+divisor was found by srsieve on a number which had not yet been tested by LLR it would
+be removed from the list of candidates.
+In the cases where the elements of M(Lb) could be proven prime rigorously, we employed
+PRIMO by Marcel Martin [13], an elliptic curve primality proving implementation.
+12
+
+--- page 13 ---
+1{0, 1, 6}∗1
+10{0, 1, 6}∗1
+10{0, 1}∗1
+10{0, 1}∗01
+100∗01
+divisible by 2
+100∗10∗01
+subword 1011
+10{0, 1}∗11
+prime 1011
+10{0, 1}∗6{0, 1}∗1
+10{0, 1}∗61∗1
+10{0, 1}∗061∗1
+100∗061
+divisible by 8
+10{0, 1}∗161∗1
+subword 1011
+1061∗1
+1061
+not prime
+11{0, 1, 6}∗1
+11{0, 1, 6}∗1
+11{0, 1}∗1
+11{0, 1}∗01
+prime 1101
+11{0, 1}∗11
+111∗11
+diﬀerence of squares
+11{0, 1}∗6{0, 1}∗1
+11{0, 1}∗06{0, 1}∗1
+subword 1101
+11{0, 1}∗16{0, 1}∗1
+111∗161∗1
+divisible by 2 or 5
+116{0, 1}∗1
+1161∗1
+divisible by 2 or 5
+16{0, 1, 6}∗1
+161∗1
+divisible by 2 or 5
+Figure 1: Tree of decompositions for 1{0, 1, 6}∗1 in base 9.
+13
+
+--- page 14 ---
+6 Results
+A summary of the results of our algorithm is presented in Figure 2; it was able to completely
+solve all bases up to 30 except for 17, 19, 21, and those between 25 and 29. The results in
+base 29 required some additional strategies, as described in Section 7.
+For every solved base, we give the size |M(Lb)| and the “width” maxx∈M(Lb)|x| of the
+corresponding family. For the unsolved bases, we give a lower bound on the size and width of
+M(Lb), along with the number of families of the form xy∗z for which no prime member could
+be found, nor could the family be ruled out as only containing composites. Since such simple
+families can contain at most one minimal prime, an upper bound on |M(Lb)| is given by the
+sum of the lower bound for |M(Lb)| and the number of unsolved families. Additionally, we
+give the height to which the simple families were searched for primes; if there are any more
+primes in M(Lb) they must have at least this many digits in base b.
+The family 80∗1 in base 23, corresponding to the generalized Proth numbers 8·23n+1, was
+already known to be prime for minimal n = 119215 in the process of solving the generalized
+Sierpi´ nski conjecture in base 23 [1].
+The largest probable prime we found was the number 9E800873 (expressed as a base 23
+string) or (106· 23800873− 7)/11 in standard notation. It contains 1090573 decimal digits and
+at the time of discovery was the tenth largest known probable prime according to Henri and
+Renaud Lifchitz’s ranking [12].
+6.1 Unsolved families
+There were 38 families for which we were unable to determine if they contain a prime or
+not. They are explicitly described in Figure 3 in both their “base b” string representation
+xy∗z and “algebraic” form (abn +c)/d = [xynz]b. The numbers a and c are given in their
+factorized form so as to help spot algebraic factorizations.
+6.2 Primes of the form 4 n + 1 and 4n + 3
+The heuristic algorithm described in Section 5 may also be easily modiﬁed to apply to
+recursive subsets of prime numbers, e.g., those congruent to 1 mod 4 (alternatively, 3 mod 4).
+The modiﬁcations necessary are to the initialization of M in line 1, and to update the check
+“w represents a minimal prime” to also check that w is in the subset under consideration.
+When searching for minimal primes of the form 4 n + 1, it was necessary to remove families
+only containing numbers of the form 4n + 3, and vice versa. A modiﬁed Lemma 3 can be
+used to check this, e.g., [x(L0∪L)z]b are all congruent to c modd implies that [xL∗z]b are
+all congruent to c modd.
+The lemmas of Section 4 can be used without modiﬁcation, since a family which contains
+only composites of course does not contain any primes of a special form, either. For simplicity
+the lemmas of Section 5 are stated to apply when the minimal set consists of primes, but
+actually apply to general minimal sets and also need no modiﬁcation.
+14
+
+--- page 15 ---
+b |M(Lb)| maxx∈M(Lb)|x| # unsolvedfamilies searchedheight
+2 2 2 0 −
+3 3 3 0 −
+4 3 2 0 −
+5 8 5 0 −
+6 7 5 0 −
+7 9 5 0 −
+8 15 9 0 −
+9 12 4 0 −
+10 26 8 0 −
+11 152 45 0 −
+12 17 8 0 −
+13∗ 228 32021 0 −
+14 240 86 0 −
+15 100 107 0 −
+16 483 3545 0 −
+17∗ ≥ 1279 ≥ 111334 1 879000
+18 50 33 0 −
+19∗ ≥ 3462 ≥ 110986 1 625000
+20 651 449 0 −
+21∗ ≥ 2599 ≥ 47336 2 379000
+22 1242 764 0 −
+23∗ 6021 800874 0 −
+24 306 100 0 −
+25∗ ≥ 17597 ≥ 136967 12 254000
+26 ≥ 5662 ≥ 8773 2 366000
+27∗ ≥ 17210 ≥ 109006 5 306000
+28∗ ≥ 5783 ≥ 94538 1 461000
+29∗ ≥ 57283 ≥ 174240 14 202000
+30 220 1024 0 −
+∗Data based on results of probable primality tests.
+Figure 2: Summary of results for the prime numbers for each base b.
+15
+
+--- page 16 ---
+Base Family Algebraic form
+17 F19∗ (5· 821· 17n− 32)/16
+19 EE16∗ (22· 13· 307· 19n− 1)/3
+21 CF∗0K (3· 17· 21n+2− 11· 113)/4
+G0∗FK 24· 21n+2 + 5· 67
+25 6MF∗9 (1381· 25n+1− 53)/8
+CM1∗ (59· 131· 25n− 1)/24
+EE1∗ (8737· 25n− 1)/24
+E1∗E (337· 25n+1 + 311)/24
+EFO∗ 2· 3· 61· 25n− 1
+F1∗F1 (192· 25n+2 + 37· 227)/24
+F0∗KO 3· 5· 25n+2 + 22· 131
+F0K∗O (5· 11· 41· 25n+1 + 19)/6
+LOL∗8 (53· 83· 25n+1− 3· 37)/8
+M1∗F1 (232· 25n+2 + 37· 227)/24
+M10∗8 19· 29· 25n+1 + 23
+OL∗8 (199· 25n+1− 3· 37)/8
+26 A∗6F (2· 26n+2− 7· 71)/5
+I∗GL (2· 32· 26n+2− 11· 113)/25
+27 80∗9A 23· 27n+2 + 11· 23
+999G∗ (101· 877· 27n− 23)/13
+CL∗E (32· 37· 27n+1− 7· 29)/26
+EI∗F8 (191· 27n+2− 23· 149)/13
+F∗9FM (3· 5· 27n+3− 113557)/26
+28 OA∗F (2· 7· 47· 28n+1 + 53)/27
+29 1A∗ (19· 29n− 5)/14
+68L0∗6 7· 757· 29n+1 + 2· 3
+AMP∗ (8761· 29n− 52)/28
+C∗FK (3· 29n+2 + 2· 331)/7
+F∗OPF (3· 5· 29n+3 + 139· 1583)/28
+FKI∗ (6379· 29n− 32)/14
+F∗OP (3· 5· 29n+2 + 7573)/28
+LP09∗ (31· 16607· 29n− 32)/28
+OOPS∗A 2· 10453· 29n+1− 19
+PC∗ (2· 89· 29n− 3)/7
+PPPL∗O (87103· 29n+1 + 32)/4
+Q∗GL (13· 29n+2− 3· 1381)/14
+Q∗LO (13· 29n+2− 19· 109)/14
+RM∗G (389· 29n+1− 5· 19)/14
+Figure 3: The unsolved families listed in their “base b” and “algebraic” representations.
+16
+
+--- page 17 ---
+When run on the primes of the form 4 n + 1 represented in base 10, our implementation
+successfully computes the minimal set consisting of 146 elements, the largest of which contains
+79 digits. The Encyclopedia of Integer Sequences [15] contains the elements for this minimal
+set in entry A111055. Prior to our work, the longest 11 elements were missing from this
+listing.
+When run on the primes of the form 4 n + 3 represented in base 10, our implementation
+successfully computes the minimal set consisting of 113 elements, the largest of which contains
+19153 digits. Because of its size this number is not easily proven prime, but Fran¸ cois Morain
+successfully produced a primality certiﬁcate for it [ 14]. The second-largest number has 50
+digits, so the remaining elements are easily proven prime. The Encyclopedia of Integer
+Sequences [15] contains the elements for this minimal set in entry A111056. Prior to our
+work, the longest 10 elements were missing from this listing.
+7 Some additional strategies
+The strategies discussed so far suﬃce to restrict the possible forms of minimal primes to a
+ﬁnite number of simple families in all bases 2 ≤b≤ 28. However, as b increased, in addition
+to the calculations becoming more costly, it was found to be necessary to use increasingly
+complicated strategies. We now describe some additional strategies which we found suﬃcient
+to solve all non-simple families in base 29.
+Lemma 29. If every number of the form x1(L1−yi)∗x2L∗2··· xmL∗m is composite, then every
+minimal prime of the form x1L∗1··· xmL∗m must also be of the form x1L∗1yiL∗1x2L∗2··· xmL∗m.
+Proof. If w∈ x1L∗1··· xmL∗m then w∈ x1yx2L∗2··· xmL∗m for some y∈ L∗1. If y does not
+contain a yi then w is composite by assumption. Therefore if w is a prime then y contains
+a yi, i.e., y∈ L∗1yiL∗1, from which the result follows. (Note that one could improve this
+result via y∈ (L1−yi)∗yiL∗1∪L∗1yi(L1−yi)∗, but this was found to be unnecessary for our
+purposes.)
+Example 30. The numbers represented by the family F{0, 9, F}∗F in base 29 are divis-
+ible by 3, so every minimal prime of the form F{0, 9, F, P}∗F must also be of the form
+F{0, 9, F, P}∗P{0, 9, F, P}∗F.
+Lemma 31. If x1yiyjyix2··· xm contains a prime proper subword (where i⁄=j) then every
+minimal prime of the form x1L∗1··· xmL∗m is of the form
+x1(L1−{yi})∗(L1−{yj})∗(L1−{yi})∗x2L∗2··· xmL∗m.
+Proof. If w∈ x1L∗1··· xmL∗m then w∈ x1yx2L∗2··· xmL∗m for some y∈ L∗1. If y contains
+yiyjyi then by assumption it follows that w contains a proper prime subword, and therefore
+is not a minimal prime. So if w is a minimal prime then either y does not contain a yj, or y
+contains a yj and all yis in y either come before or after the yj. In each case, y is of the form
+(L−{yi})∗(L−{yj})∗(L−{yi})∗, from which the claim follows.
+17
+
+--- page 18 ---
+Example 32. The string QLQ represents a prime in base 29, and is a proper subword of
+LQLQL. It follows that the family L{L, Q}∗L splits into the family LL∗Q∗L∗L in base 29.
+This rule may also be generalized to apply to the case when x1yiyjyiyjx2··· xm contains
+a prime proper subword (where i⁄=j).
+Example 33. The string LL9L9LQL represents a prime in base 29. It follows that the family
+LL{9, L}∗Q∗QL splits into the family LLL∗9∗L∗9∗Q∗QL in base 29.
+In Section 4.1 we described a number of strategies for determining if every member of a
+family has a divisor, but for some families divisors exist which will not be found using those
+tests. The following lemma can help one discover when this is the case; in particular when
+every member of a family is divisible by some small prime. For a language L we use the
+notation [L]b modN to denote the ﬁnite set of residues { [x]b modN :x∈L}.
+Lemma 34. If 1 < gcd(k,N ) for every k∈ [L]b modN and p /∈ [L]b for every prime p
+which divides N, then all numbers of the form [L]b are composite.
+Proof. Let x be an arbitrary member of L. Then gcd([x]b,N ) = gcd([x]b modN,N )> 1 by
+assumption, so [x]b cannot be prime unless [x]b = gcd([x]b,N ). But in that case [ x]b would
+be a prime which divides N, and so [x]b /∈ [L]b by the second assumption, in contradiction to
+x∈L.
+To make use of this lemma, we need to be able to compute [ x1L∗1··· xmL∗m]b modN. To
+do this, we can make use of the following relations:
+[Lx]b modN = (b· ([L]b modN) + [x]b) modN
+[L{y1,...,y n}]b modN =
+n⋃
+i=1
+[Lyi]b modN
+[L{y1,...,y n}∗]b modN =
+∞⋃
+i=0
+[L{y1,...,y n}i]b modN
+In the ﬁnal case, the union may be taken to be ﬁnite over i < lwhere l is chosen such
+that⋃li=0[L{y1,...,y n}i]b modN =⋃l−1i=0[L{y1,...,y n}i]b modN. Using these relations, we
+can compute [x1L∗1··· xmL∗m]b modN progressively, working left to right and starting from
+[∅]b modN ={0}. To solve base 29 it was suﬃcient to use N = 2· 3· 5.
+Example 35. Let b := 29 and N := 30. Then [ L1∗61∗LK∗K]b modN ={4, 5, 6, 14, 15, 16, 25},
+so if k is in this set then gcd(k,N )∈ {2, 5, 6, 15} and gcd(k,N ) > 1. Since 2, 3, 5 /∈
+[L1∗61∗LK∗K]b, by Lemma 34 all numbers of the form L1∗61∗LK∗K are composite.
+18
+
+--- page 19 ---
+8 Composite numbers
+One can also consider the companion problem of determining the minimal elements for the
+composite numbers{4, 6, 8, 9, 10, 12,...}. Here, in contrast with the primes, we have
+Theorem 36. The following decision problem is recursively solvable: given a base b and
+a DFA M accepting a language L of strings in a base- b canonical representation, does M
+accept the base-b representation of a composite number?
+This follows immediately from
+Theorem 37. Suppose L is a regular language, accepted by a deterministic ﬁnite automaton
+M of n states. Then if M accepts a composite number expressed in base b, it must accept
+one whose base-b representation has at most n(b2n + 1) digits.
+Proof. If L is ﬁnite, then the longest string accepted by M has at most n− 1 digits, and
+n− 1<n (b2n + 1).
+Otherwise L is inﬁnite. Then M accepts a string of length 𝓁 with n<𝓁 ≤ 2n that can
+be pumped (as in the pumping lemma). That is, there exists x∈ L such that x = uvw
+with|uv|≤ n. Then a classical proof of the non-regularity of the prime numbers (e.g., [ 11,
+Example 3.2, p. 57]) shows that either x is the representation of a composite number (in
+which case|x|≤ 2n≤ n(b2n + 1)) or uvpw is composite, where p = [x]b. Our bound now
+follows.
+WriteSb :={ (n)b :n≥ 4 is composite}. For our purposes, the following theorem gives a
+better bound.
+Theorem 38. Every minimal element of Sb is of length at most b + 2.
+Proof. Consider any word w of Sb of length≥b + 3. Since there are only b distinct digits,
+some digitd is repeated at least twice, so that dd◁w . If d> 1, the number [dd]b is composite,
+as it is divisible by [ 11]b but not equal to it. If d = 0, then some nonzero digit c precedes it
+in w, so c00◁w and [c00]b is divisible by b2, which is composite. Finally, if no digit other
+than 1 is repeated, then 1111◁w , and [ 1111]b = [11]b· [101]b, and hence is composite.
+Theorem 38 turns the computation of the minimal elements for Sb into a ﬁnite search.
+Our results are given in Figure 4.
+9 Conclusion and perspectives
+We have (sometimes partially) solved the problem of ﬁnding the minimal elements for the
+prime numbers represented with the ﬁrst bases. However, the problem rapidly becomes very
+complex: the number of members increases rapidly, some bases need sophisticated strategies,
+and some members are very long. Hence, to complete the cases where some (simple) families
+resisted our analysis, and to go further in the bases, we need better exploration strategies,
+and better primality tests for numbers expressed by a simple family in some base.
+19
+
+--- page 20 ---
+b |M(Sb)| maxx∈M(Sb)|x|
+2 3 4
+3 4 3
+4 9 3
+5 10 3
+6 19 4
+7 18 3
+8 26 3
+9 28 2
+10 32 3
+11 32 3
+12 46 4
+13 43 3
+14 52 3
+15 54 2
+16 60 3
+17 60 3
+18 95 4
+19 77 3
+20 87 3
+21 90 2
+22 94 3
+23 97 3
+24 137 4
+25 117 2
+26 111 3
+27 115 2
+28 131 3
+29 123 3
+30 207 4
+Figure 4: Summary of results for the composite numbers for each base b.
+20
+
+--- page 21 ---
+Another problem left open is to delineate the asymptotic behaviour of the size and width of
+those setsM(Lb) whenb increases. A rough estimation is that the size increases exponentially,
+but this increase is lower when the base has many diﬀerent factors.
+To illustrate once more the diﬃculty of computing M(L), we recall an open problem from
+[19]:
+Problem 39. Let L :={1, 2, 4, 8, 16, 32, 64,...}, the base-10 representation of the powers
+of 2. Is it the case that
+M(L) ={1, 2, 4, 8, 65536}?
+This would follow, for example, if we could prove that every power of 16 greater than 65536
+contained at least one of the digits {1, 2, 4, 8}. But this seems beyond current capabilities.
+References
+[1] G. Barnes. Sierpinski conjectures and proofs,
+www.noprimeleftbehind.net/crus/Sierp-conjectures.htm.
+[2] C. Bright. MEPN implementation, github.com/curtisbright/mepn.
+[3] S. L. G. Choi. Covering the set of integers by congruence classes of distinct moduli.
+Math. Comp. 25 (1971), 885–895.
+[4] R. Devillers. Results in searching for minimal primes wrt subword order,
+github.com/RaymondDevillers/primes.
+[5] L. E. Dickson. History of the Theory of Numbers . Volume I: Divisibility and Primality.
+Chelsea Publishing Company, New York, 1952.
+[6] T. Granlund et al. The GNU Multiple Precision Arithmetic Library, gmplib.org.
+[7] H. Gruber, M. Holzer, and M. Kutrib. The size of Higman-Haines sets. Theoret.
+Comput. Sci. 387 (2007), 167–176.
+[8] H. Gruber, M. Holzer, and M. Kutrib. More on the size of Higman-Haines sets: eﬀective
+constructions. Fundam. Inform. 91 (2009), 105–121.
+[9] L. H. Haines. On free monoids partially ordered by embedding. J. Combinatorial
+Theory 6 (1969), 94–98.
+[10] G. Higman. Ordering by divisibility in abstract algebras. Proc. London Math. Soc. (3) 2
+(1952), 326–336.
+[11] J. E. Hopcroft and J. D. Ullman. Introduction to Automata Theory, Languages, and
+Computation, Addison-Wesley, 1979.
+21
+
+--- page 22 ---
+[12] H. Lifchitz and R. Lifchitz. PRP Records,
+www.primenumbers.net/prptop/prptop.php
+[13] M. Martin. Primo for Linux, www.ellipsa.eu/public/primo/primo.html.
+[14] F. Morain. Some primes proven by my programs,
+www.lix.polytechnique.fr/Labo/Francois.Morain/Primes/myprimes.html.
+[15] OEIS Foundation Inc. The On-Line Encyclopedia of Integer Sequences, oeis.org.
+[16] J. Penn´ e. LLR Version 3.8.15,jpenne.free.fr/index2.html.
+[17] G. Reynolds. Sierpinski/Riesel Sieve Version 0.6.17,
+sites.google.com/site/geoffreywalterreynolds/programs/srsieve.
+[18] M. Scott. Multiprecision Integer and Rational Arithmetic Cryptographic Library,
+www.certivox.com/miracl.
+[19] J. Shallit. Minimal primes. J. Recreational Math. 30 (2) (2001), 113–117.
+[20] H. C. Williams and H. Dubner. The primality of R1031. Math. Comput. 47 (1986),
+703–711.
+22

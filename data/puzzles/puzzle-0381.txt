@@ -1,0 +1,169 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_381.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 381. A sequence related to a special case of the Goldbach 
+Conjecture
+Source: https://www.primepuzzles.net/puzzles/puzz_381.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0381.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_380.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_382.htm
+  https://www.primepuzzles.net/puzzles/puzz_381.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 381. A sequence related to a special case of the Goldbach Conjecture
+
+Problems & Puzzles: Puzzles
+
+Puzzle 381. A sequence related to a special case of the Goldbach Conjecture
+
+Philippe Grimaud sent the following puzzle.
+
+Consider the Goldbach's conjecture simplified by Euler:
+
+2N = P1 + P2 (with N>2 and P1, P2 primes)
+
+If N is also a prime number, we have a special case of Goldbach's conjecture:
+
+2P = P1 + P2 (with P>2 and P, P1, P2 primes)
+
+Such special case of Goldbach's conjecture tells us that every prime number P>3 (if P1 <> P2, P must be greater than 3) is 'in the middle' between (at least) two other primes [P=(P1+P2)/2].
+
+Now consider the sequence of prime numbers P(j) such that each P(j) = 2*P(j-1) - P(k) where k<(j-1) is the first largest index for which P(j) is prime.
+
+Note: P(k) is a member of the sequence previously produced, not a member of the set of all the primes. Again, every prime P(j-1)=[P(j)+P(k)]/2, for j-1>1.
+
+For example if P(0)=3 & P(1)=5 the sequence goes like this:
+
+{3,5,7,11,17,23,29,41,53,83,113,173,…}
+
+P(2)= 2*5-3
+
+P(3)=2*7-3
+
+P(4)=2*11-5
+
+P(5)=2*17-11
+
+…
+
+So, we have defined a sequence of primes where you can chose arbitrarily two initial terms (two odd primes) and the rest are obtained by a recursive procedure with one single rule:
+
+P(j) = 2*P(j-1) - P(k)
+
+where k<(j-1) is the first largest index for which P(j) is prime.
+
+If you work out a bit this game you soon will discover that certain selections for the two initial primes provide just finite sequences because at some point you can not produce a new prime following the unique rule of this game.
+
+For example, Grimaud discovered that if P(0)=3 & P(1)=5, the sequence stops “after 312 iterations with a last output prime of 88 digits: P(311) =75514620905779737909186816738564426893155571749777798521625407132082761179829
+
+43817968913”
+
+Questions:
+
+1) Is this the fate (to be finite sequences?) for all selections of the two initial members of the
+
+sequences?
+
+2) If all sequences are finite, find the initial feed of two terms (i.e. P(0) and P(1)) which results in the longest sequence
+
+3) Find a sequences apparently without end?
+
+Contributions came from Frederick Schneider, Martin Fuller, Farideh Firoozbakht, Bernardo Boncompagni,
+
+Jacques Tramu & Jarsolaw Wroblewski.
+
+All of them argument that these sequences must be finite. The argument is more or less the same, and goes like this:
+
+...it appears that the sequence grows like x^n where x is
+
+somewhere between 1 and 2: if so, the n-th term would be P(n)~P(0)*x^n,
+
+and the chance of it being prime is 2/log(P(n))~2/(n*log(x)). As we can
+
+choose from n numbers, the chance of NOT finding a prime and stop the
+
+sequence is (1-2/(n*log(x)))^n, which for n large enough is close to
+
+e^(-2/log(x)). For x=2 this value is around 0.056 but decreases fast as
+
+we decrease x. For x=1.5 it is around 0.007 and for x=1.1 it's around
+
+8*10^-10. Therefore, at any step we have a small but constant chance of
+
+stopping the sequence, so this probabilistic analysis would tell us that:
+
+-all sequences have a 100% chance of stopping;
+
+-if x is small enough, they will easily go on for a huge number of steps.
+
+Of course, we have made the assumption of the sequence growing
+
+geometrically, which is not necessarily true. However, experimental
+
+analysis of the results actually show such a growth, with an x much
+
+closer to 2 than to 1 (for the sequences above, it is between 1.92 and
+
+1.986)...
+
+Sequences apparently without end were reported:
+
+P(0), P(1) = 7,37, > 1000 steps [Wroblewski]
+
+The sequence P = { 109, 769, 1429, 2089, 2749, 4729, 6709, ...., ? } has AT LEAST 5363 items. P[5363] is
+
+1604 decimal digits long. [Tramu]
+P(0)=109,P(1)=439 reaches P(2936) with 874 digits and its fate is unknown [Boncompagni]
+
+3,773, 1543, 3083, 5393, 7703, 12323, 16943, 21563, 26183, 30803, 35423, 67763, 100103, 178643, 344963, 672983, 1001003, ...., P(2000), .... [Firoozbakht]
+I found a sequence of (at least) length 3254 starting from number 109 and 439 using a script in PARI.
+
+The number was 1919 digits. Unfortunately, I had to kill the job after it ran for 33 hours. [Schneider]
+
+***
+
+J. Wroblewski wrote:
+
+Regarding Puzzle 381. I had suggested to investigate sequences with P(1)=P(0)+23#, but I
+
+wasn't able to compute them far enough. Farideh was able to go with
+
+one starting with P(0)=13009=Prime[1551] for more than 7000 terms.
+
+She just wrote me:
+
+> Now I can say your sequence ( P(0) = prime(1551), P(1) = prime(12284224) that I have selected virtually at random between 55 sequences that you suggested ) has more than
+
+> 7111 terms and P(7111) is a 2136-digit prime.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

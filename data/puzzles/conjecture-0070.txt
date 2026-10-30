@@ -1,0 +1,123 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_070.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 70. n & n+1 primitive roots
+Source: https://www.primepuzzles.net/conjectures/conj_070.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0070.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://en.wikipedia.org/wiki/Primitive_root_modulo_n
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_069.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_071.htm
+  https://www.primepuzzles.net/conjectures/conj_070.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 70. n & n+1 primitive roots
+
+Problems & Puzzles: Conjectures
+
+Conjecture 70. n & n+1 primitive roots
+
+Emmanuel Vantieghem sent the following conjecture:
+
+If p is a prime number > 7, then there exist an integer n such that n and n+1 both are primitive roots modulo p.
+
+I have verified the truth of that statement for all p less than the 20000000-th prime.
+
+Examples : (consecutive numbers that are primitive roots are underlined)
+
+p = 7 ; the primitive roots (mod 7) are 3 ,5
+
+p = 11 ; the primitive roots (mod 11) are 2, 6, 7, 8
+
+p = 13 ; the primitive roots (mod 13) are 2, 6, 7, 11
+
+p = 17 ; the primitive roots (mod 17) are 3, 5, 6, 7, 10, 11, 12, 14
+
+p = 19 ; the primitive roots (mod 19) are 2, 3, 10, 13, 14, 15
+
+p = 23 ; the primitive roots (mod 23) are 5, 7, 10, 11, 14, 15, 17, 19, 20, 21
+
+p = 29 ; the primitive roots (mod 29) are 2, 3, 8, 10, 11, 14, 15, 18, 19, 21, 26, 27
+
+Q1. Can you probe this conjecture of find a counterexample?
+
+Jan van Delden wrote:
+
+Just a small observation:
+
+x is a primitive root modulo p: x^a=1 mod p if and only if a=phi(p)=p-1. Or to put it differently the order of x mod p is maximal.
+
+Furthermore the order of a general x mod p is a divisor of p-1.
+
+Now (x+1)^a mod p = sum (x^b C(a,b) mod p, b=0..a) with C(a,b) the number of combinations (binomium of Newton).
+
+I see no fast way to reduce such an expression to a simple form, what’s worse, the terms (x+1)^a mod p will in general be different from x^a mod p.
+
+However a simple case would be considering x and p-x:
+
+(p-x)^a mod p = (-1)^a *x^a mod p:
+
+= x^a mod p if a is even
+
+= –x^a mod p if a is odd
+
+Choose p such that we have p-x=x+1: p=2x+1, i.e. x=(p-1)/2 and x+1=(p+1)/2, let’s suppose x is a primitive root mod p.
+
+We have (x+1)^a = x^a both unequal to 1 mod p if a|(p-1) and a even, both equal to 1 mod p if a=p-1, because x is a primitive root mod p.
+
+We therefore need x^a<>-1 mod p, for all odd a|(p-1) or for all odd a|x which is the same thing.
+
+We always have x^x=-1 mod p (if x is a primitive root mod p). So we should at least have that this a is a proper divisor of x, or in other words that x has another divisor 2. Hence p=1 mod 4 is necessary. It is also sufficient because if x^a=-1 mod p with a<=x/2, then x^(2a)=1 mod p but 2a<=x<p-1 in contradiction with x being a primitive root.
+
+So we have:
+
+If p=1 mod 4 and x=(p-1)/2 is a primitive root mod p then x and x+1 are primitive roots mod p.
+
+p=5,13,29,37,53,61,101,149,173,181,197,269,..
+
+Maybe some similar observations can be made for other situations.
+
+Emmanuel wrote:
+
+Immediately after the appearance of this conjecture, W. Edwin Clark sent me a mail to tell me that, by a theorem of M. Szalay, the conjecture is true for all primes p > 10^19 (M. Szalay, On the distribution of the primitive roots of a prime. Journal of Number Theory 7 (1975), 184-188). So, there remains only a finite number of primes to be checked by hand. However, I do not believe that this can be done in reasonable time.
+
+For some primes, it is possible to prove the conjecture. For instance, if p is of the form 2q+1, q prime > 5. The number of primitive roots modulo p is then precisely q-1. If we take q-1 numbers between 2 and p-2 with minimal consecutive distances > 1, we should have to choose 4 or 9 among them. But these are not primitive roots.
+
+There is a similar but stronger result of E. Vegh, that confirms the conjecture for primes p such that phi(p-1)/(p-1) > 1/4, phi(-) being Eulers totient function (E. Vegh, A note on the distribution of the primitive roots of a prime, J of Number Theory, 3 (1971), 13-18).
+
+Here is a heuristic argument for the conjecture :
+
+Assume p prime (not too small) and take ad random j = phi(p-1) integers r(i) such that 1 < r(1) < r(2) < ... < r(j) < p-1. Then, on the average, the frequency table for the differences r(i+1)-r(i) shows a remarkable maximum at the beginning, i. e. : the equality r(i+1)-r(i) = 1 occurs most often. Now, if g is a primitive root mod p, then it is well known (and used sometimes by computer simulation of randomness !) that the sequence g^1, g^2, ... ,g^(p-1) modulo p behaves as if it was chosen ad random. So, if we restrict ourselves to powers of g that are relatively prime to p-1, we get the sequence of primitive roots modulo p. So, that sequence can be considered as a random one, and thus ...
+
+Actually, the number of differences 1 for the primitive roots seems to be much greater than the differences 1 for random sequences, but that may be coincidence. Anyhow, the fact that the conjecture is true for p > 10^19 shows that the heuristic argument is not entirely phantasy (at least, I hope so).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

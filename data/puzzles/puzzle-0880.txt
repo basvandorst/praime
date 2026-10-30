@@ -1,0 +1,155 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_880.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 880. Consecutive odd abundant integers.
+Source: https://www.primepuzzles.net/puzzles/puzz_880.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0880.htm
+
+References (local copies):
+  ../../references/b096536.txt  (from https://oeis.org/A096536/b096536.txt)
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_878.htm
+  https://oeis.org/A096536/b096536.txt
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A119240
+  https://www.primepuzzles.net/puzzles/puzz_879.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_881.htm
+  https://www.primepuzzles.net/puzzles/puzz_880.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 880. Consecutive odd abundant integers.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 880. Consecutive odd abundant integers.
+
+Here we propose to find the minimal pair of odd consecutive abundant integers.
+
+What do we know about these kind of pairs?
+
+1. In our Puzzle 878, J. K. Andersen reported the minimal known [May 2017] quadruplet of consecutive abundant numbers, so two of the members of these quadruplet are a pair of consecutive odd abundant numbers. As a matter of fact, the start of the quadruplet reported by JKA is n=172107222115840172372369874858517374 (36 digits), then n+1 and n+3 are the smallest known (May 12017) pair of odd consecutive abundant integers. But JKA found this quadruplet seeking precisely quadruplet of consecutive integers (using the Chinese Remaninder Theorem). So, it's reasonable to expect smaller pairs of odd consecutive abundant integers if the search is focused just in pairs and not in quadruplets.
+
+2. How large is this JKA couple from the minimal possible? According to John L. Drost, Aug 13 2004, author of the sequence A096536, related to triplets of consecutive abundant integers, n, n+1 & n+2, "the first odd n would have to have sigma(n*(n+2)) > 4n so n > 10^19".
+
+3. Thus, if the statement by Drost is correct, our target is to find a pair of consecutive odd abundant integers in the range [10^19-10^35]
+
+Q1. Please send your minimal pair of consecutive odd abundant integers.
+
+Q2. Can you explain the Drost's statement?
+
+Contributions came from J. K. Andersen and Emmanuel Vantieghem and Antoine Verroken
+
+***
+
+Andersen wrote:
+
+Q1. The smallest I found is n=93502981068073157423079636202375 (32 digits).
+
+n=897622095049123320339705763675 (30 digits) is a near miss.
+
+n+2 is abundant but sigma(n) is only around 1.99n.
+
+Q2. The statement should have said sigma(n*(n+2)) > 4*n*(n+2).
+
+n is odd so n and n+2 are coprime, and sigma(n*(n+2)) = sigma(n)*sigma(n+2).
+
+n and n+2 are abundant so we get sigma(n*(n+2)) > 2n * 2(n+2) = 4*(n*(n+2)).
+
+https://oeis.org/A119240 says the least odd k such that sigma(k) >= 4k is
+
+k = 1853070540093840001956842537745897243375.
+
+This means n*(n+2) >= k, and n+2 > sqrt(k), which is around 4.3*10^19
+
+***
+
+Emmanuel wrote:
+
+Q1.
+
+The smallest pair (n,n+2) of odd abundant number I could find is the one with
+
+n = 76728582876430878992529528245373 (32 digits) n+1 is deficient. I think there can be smaller solutions.
+
+Q2 :
+
+The part of a sentence
+
+"sigma(n*(n+2)) > 4n" is an error (no doubt) and should be replaced by :
+
+"sigma(n*(n+2)) > 4*n(n+2)".
+
+The statement that this would imply n > 10^19 can be clarified as follows :
+
+The smallest odd integer m such that sigma(m) > 4*m is 1853070540093840001956842537745897243375.
+
+You can find this at the OEIS in https://oeis.org/A119240.
+
+(I found that number myself, but since it is in the OEIS it relieves me from the duty to explain how I got it).
+
+So if, in addition, m must be of the form n(n+2), this implies n > Sqrt(m), which is about 4.3*10^19.
+
+***
+
+Antoine wrote:
+
+Q1.
+
+1. A multiple of an abundant integer is an abundant integer 
+
+Problem : A * a - B * b = 2 (1)
+
+A,B abundant odd integers coprime
+
+A*a , B*b consecutive odd abundant integers
+
+A : 11 * 13 * ( p33)# / p(4)# A : not a multiple of 3,5,7
+
+(px)# means product of the first ‘x’ primes
+
+B : 945 = 3² * 5 * 7
+
+2. Solving (1)
+
+A * p – B * q = 1 by continied fractions :
+
+p : 212
+
+q : 11006307076227998864821427633189578324791153067438995
+
+A*a : 2 * A * p + A * B B * b : 2 * B * q + A * B
+
+A*a : 67164691019111053167046250170733601069216691882599835037
+
+B*b : 67164691019111053167046250170733601069216691882599835035
+
+sigma(A*a) / 2 / A*a = 1.002835119 sigma : sum of divisors
+
+sigma(B*b) / 2 / B*b = 1.015923383
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

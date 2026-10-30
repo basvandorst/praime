@@ -1,0 +1,333 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_782.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 782. Prime-Generating non-polynomials
+Source: https://www.primepuzzles.net/puzzles/puzz_782.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0782.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/Prime-GeneratingPolynomial.html
+  http://en.wikipedia.org/wiki/Primorial
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A115786
+  https://www.primepuzzles.net/puzzles/puzz_350.htm
+  https://oeis.org/A115785
+  https://oeis.org/draft/A257466
+  https://oeis.org/draft/A257467
+  https://oeis.org/A258035
+  http://oeis.org/A226097.
+  https://oeis.org/A256301
+  https://codegolf.stackexchange.com/questions/217159/prime-generating-function
+  https://www.primepuzzles.net/puzzles/puzz_1097.htm
+  https://www.primepuzzles.net/puzzles/puzz_1099.htm
+  https://www.primepuzzles.net/puzzles/puzz_781.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_783.htm
+  https://www.primepuzzles.net/puzzles/puzz_782.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 782. Prime-Generating non-polynomials
+
+Problems & Puzzles: Puzzles
+
+Puzzle 782. Prime-Generating non-polynomials
+
+Jaime Ayala suggests to create a catalog of Prime-Generating record non-polynomials, catalog similar to these Prime-Generating record polynomials summarized in the table of the following well known Wolfram Mathworld page.
+Ayala contributes with one specific non-polynomial form: P+p#n, where P is a prime number and p#n is the primorial function 2*3*...*pn.
+
+Ayala noticed that for P=41 this form generates 8 primes in a row for the first 8 primorials, that is to say, 41+2#, 41+3#, 41+5#, ..., 41+19# are the following prime numbers: 43, 47, 71, 251, 2351, 30071, 510551, 969931.
+
+Carlos Rivera found that the non-polynomial form studied by Ayala provides 12 primes in a row for P= 729457511. That is to say 729457511+2#, 729457511+3#+...+729457511+37# are the following prime numbers: 729457513, 729457517, 729457541, 729457721, 729459821, 729487541, 729968021, 739157201, 952550381, 7199150741, 201289947641, 7421467592321. No more than 12 primes in a row are generated for P<2^32.
+
+Q1. Send your prime P if it generates more than 12 primes in a row for the form P+p#n.
+Q2. Perhaps you'll like to contribute with another type of Prime-Generating record non-polynomial.
+
+Contributions came from J. K. Andersen, Maximilian Hasler, Jan van Delden and Emmanuel Vantiegem.
+
+***
+
+Andersen wrote:
+
+https://oeis.org/A115786 is "Smallest prime number p such that p + 2#, p + 3#,
+
+..., p + prime(n)# are all prime".
+
+3, 5, 11, 17, 41, 41, 41, 41, 86351, 86351, 235313357, 729457511, 99445156397,
+
+818113387907, 7986903815771, 29065965967667
+
+729457511 is term 12 from Don Reble. I found term 13 to 16 in 2006 when Puzzle 350 was published about the corresponding sequence A115785 for p - prime(n)#.
+
+***
+
+Maximilian contributed two more polynomial examples more appropriate for the mentioned Table in the Wolfram's article.
+
+a) 6*n^2+17, is prime for n=0 to 16
+
+b) 3*n^2+3*n+23, is prime for n=0 to 21
+
+***
+
+Jan wrote:
+
+Q1: Smallest solutions:
+
+n=13 p=99445156397
+
+n=14 p=818113387907
+
+I searched until 7204197000000.
+
+Q2:
+
+P(k)=p+(k+1)! prime for k=1..n
+
+Smallest solutions:
+
+n=12 p=79017245897
+
+n=13 p=35548069540727
+
+I searched until 72072000000000.
+
+***
+
+Emmanuel wrote:
+
+Here is a prime p such that p + pn# is prime for n = 1, 2, 3, ..., 13 : p = 99445156397.
+
+These are those primes :
+
+99445156399, 99445156403, 99445156427, 99445156607, 99445158707, 99445186427, 99445666907, 99454856087, 99668249267, 105914849627, 300005646527, 7520183291207, 304349708683607
+
+If I made no mistakes, there is no smaller p with that property but I believe that there are many bigger ones. Only : they are too big for my programming capabilities ...
+
+***
+
+Fred Schneider wrote on May 25, 2015:
+
+I have two submissions for 2)
+
+a) Partial primorial sum (https://oeis.org/draft/A257466)
+
+If x is prime. search for prime sequences of the form:
+
+x + 2, x + 2 + 2*3, x + 2 + 2*3 + 2*3*5, etc
+
+In other words, the difference between successive terms is the primorial
+
+I found the first 14 terms in the sequence:
+
+The 14th term, 6004094833991, yields these 14 primes
+
+[6004094833993,6004094833999,6004094834029,6004094834239,6004094836549,6004094866579,
+
+6004095377089,6004105076779,6004328169649,6010797862879,6211358353009,13632096487819,
+
+317882360015029,13400643691685059
+
+The 15th value in that sequence is composite:
+
+628290426280176469 = 45953 * 13672457212373
+
+b) Primorial Square (
+https://oeis.org/draft/A257467)
+
+If x is prime. search for prime sequences of the form:
+
+x + 2^2, x + (2*3)^2, x + (2*3*5)^2
+
+I found the first 12 terms in the sequence:
+The 12th term in the sequence: 37520993053 yields these 12 primes:
+
+37520993057,37520993089,37520993953,37521037153,37526329153,38422793953,298141453153,
+
+94121507089153,49770466165829953,41856930527828825953,40224510201223348409953,
+
+55067354465423435254729153
+
+The 13th value in that sequence is composite:
+
+92568222856376731627931377153 = 227*73613*95143*58224358260055921
+
+Perhaps someone would like to try extending them.
+
+***
+
+Later, on May 15 2015, he added:
+
+c) Partial sum of square of primorial: https://oeis.org/A258035
+
+I found 13 terms. The 13th is: 4428230508349
+
+[4428230508349, 4428230508353,4428230508389,4428230509289,4428230553389,4428235889489,
+
+4429137690389,4689758150489,98773744246589,49869202389083489,41906799692696916389,
+
+40266417000878524333289,55107620882424276258069389,92623330477259155866668453489]
+
+The 14th term in that sequence is composite:
+
+171251267391917835866535468654389 = 71 * 357439202389 * 6747971866139479831
+
+***
+Arkadiusz Wesolowski wrote on Jan 31, 2016:
+
+Here is my best solution for this puzzle (Q2).
+
+The value of ((-1)^n + 2*n - 38)*(2*n - 38) + 41 is prime for 0 <= n <= 59. So we get 60 distinct primes (http://oeis.org/A226097).
+
+***
+
+Giovanni Resta wrote on Jan 28, 2020:
+
+for what concerns Puzzle 782 question Q2,
+
+J. K. Andersen proposed to find primes of the form p + k! for k=2,...,n,
+
+and he found terms up to n=13 p=35548069540727.
+
+This is sequence A256301 in OEIS https://oeis.org/A256301
+
+Recently Khalid Sabry has found n=14 p=1490524895687 and
+
+I have extended it to n=15, p = 13101487760627087.
+
+That is, 13101487760627087 and 13101487760627087 + k! is prime for all k
+
+from 2 to 15.
+
+***
+
+Davide Rotondo wrote on July 25, 2022:
+
+((40*(n) - 5 + 3*(mod(n,5)) + 3*(mod((n+1),5)) - 2*(mod((n+2),5)) + 3*(mod((n+3),5)) - 7*(mod((n+4),5)))/25)^2 - 79*(40*(n)- 5 + 3*(mod(n,5)) + 3*(mod((n+1),5)) - 2*(mod((n+2),5)) + 3*(mod((n+3),5)) - 7*(mod((n+4),5)))/25 + 1601
+
+1447, 1373, 1231, 1163, 1097, 911, 853, 743, 691, 641, 503, 461, 383, 347, 313, 223, 197, 151, 131, 113, 71, 61, 47, 43, 41, 47, 53, 71, 83, 97, 151, 173, 223, 251, 281, 383, 421, 503, 547, 593, 743, 797, 911, 971, 1033, 1231, 1301, 1447, 1523, 1601, 1847, 1933, 2111, 2203, 2297, 2591, 2693, 2903, 3011, 3121, 3463, 3581, 3823, 3947, 4073, 4463, 4597, 4871, 5011, 5153, 5591, 5741, 6047, 6203, 6361
+
+produces 75 consecutive (succesive) primes (65 distinct and 10 repeated in bold letters) for n from 1 to 75.
+
+I (CR) believe that this the first real improvement in several years about the issue of Q2, namely "Non-Polynomial succesive-primes generator functions", at least not classical polynomials due to the use of modular operators.
+
+***
+
+Dmitry Kamenetsky wrote on July 30, 2022:
+
+Perhaps you would be interested in my earlier prime generating function:
+
+https://codegolf.stackexchange.com/questions/217159/prime-generating-function
+
+***
+
+Sebastian Martin Ruiz wrote on July 30, 2022:
+
+This is a non-polynomial function that ONLY generate (infinite?) primes, all distinct except the prime "2" that is repeated many times:
+
+GCD[2n + 1, n! + 1] + Floor[1/GCD[2n + 1, n! + 1]]
+Here are all the primes>2, for n=1 to 300
+
+F[n_]:=GCD[2n+1,n!+1]+Floor[1/GCD[2n+1,n!+1]]
+
+Do[If[F[n]>2,Print[n," ",F[n]]],{n,1,300}]
+
+n, prime
+
+3 7
+
+5 11
+
+9 19
+
+21 43
+
+23 47
+
+33 67
+
+39 79
+
+51 103
+
+63 127
+
+65 131
+
+81 163
+
+89 179
+
+95 191
+
+99 199
+
+113 227
+
+131 263
+
+173 347
+
+183 367
+
+191 383
+
+209 419
+
+215 431
+
+221 443
+
+239 479
+
+245 491
+
+251 503
+
+261 523
+
+281 563
+
+285 571
+
+299 599
+
+***
+
+On August 4, 2022 Simon Cavegn wrote:
+
+Using integer division (rounded down), f(n) is prime for n=0..102:
+
+f(n)=41619623+n*103123020+n/13*(-1237476240)+n/26*(-65763840)+n/39*(-37359180)+n/65*2663271128
+
+This interesting function produces 103 primes, in the range n=0 to 102. These are 4 primes unique, 15 primes that appears twice, and 23 primes that appears three times (4+15*2+23*3 = 4+30+69 = 103)
+
+***
+
+See more functions alike in Puzzle
+1097 and 1099
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,166 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_203.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 203.  Perfect primes
+Source: https://www.primepuzzles.net/puzzles/puzz_203.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0203.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_858.htm
+  https://www.primepuzzles.net/puzzles/puzz_859.htm
+  https://www.primepuzzles.net/puzzles/puzz_202.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_204.htm
+  https://www.primepuzzles.net/puzzles/puzz_203.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 203. Perfect primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 203. Perfect primes
+
+One year ago and days (Jun 14, 2002) Labos E. found four (4) primes exactly one unit at the right of some perfect numbers: 7, 29, 33550337 & 137438691329. See A061644. I will call them "Right Perfect Primes" (RPP).
+
+Questions
+
+1. Can you find out if are there other RPP?
+
+2. Is there any Left Perfect Prime (LPP), other than 5?
+
+Question 1:
+
+Every even perfect number is associated to one Mersenne prime. Nowadays are known 39 Mersenne primes, so there by now there are 39 even perfect numbers and, therefore, there are only 39 chances of getting RPP primes.
+
+Ken Wilke, Shyam Sunder Gupta and Johann Wiesenbauer made a systematic attack of this question with the following result: there are not other RPP primes other than the first four found already by Labos E.
+
+The Wilke's contribution is particularly interesting because he provided some simple congruence criteria in order to discard very easily some of the exponents in the Mersenne numbers candidates to get a RPP. With his theoretical work he reduced to a small set the candidates to work with top guns of the primality test tools available nowadays. But Wilkes did not made that final work.
+
+Shyam and Wiesenbauer, using other ways, made that sieve of candidates to RPP primes and tested the few remaining candidates, with the above announced negative result.
+
+Let's read them direct:
+
+Ken Wilke:
+
+According to Chris Caldwell’s Prime Pages, the 39 known Mersenne primes M(p) which have the form M(p) = 2^p -1where p is a prime number. The list of all known primes p for which M(p) is a Mersenne prime follows:
+
+2, 3, 5, 7,13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423, 9689, 9941, 11213, 19937, 21701, 23209, 44497, 86243, 110503, 132049, 216091, 756839, 859433, 1257787, 1398269, 2976221, 3021377, 6972593 and 13466917.
+
+Also the corresponding perfect number P(p) is given by P(p) = (2^(p-1))(2^p-1). The corresponding Right Perfect Prime RPP(p) has the form RPP(p) = (2^(p-1))(2^p-1) + 1 = 2^(2p-1) - 2^(p-1) +1.
+
+Checking the first few values of RPP(p), we find that RPP(p) is prime for p = 2, 3, 13 and 19; e.g. RPP(2) = 7, RPP(3) = 29, RPP(13) = 33550337 and RPP(19) = 137438691329. These results are easily verified by using UBASIC’s APRT-CLE program.
+
+Now 8RPP(p) = 8*(2^(p-1))(2^p-1) + 8 = 2^(2p+2) - 2^(p+2) + 8 = {2^(p+1) -1}^2 + 7. Hence, according to Beiler’s Recreations in The Theory of Numbers (Table 98, p. 273), all prime divisors of the quadratic form X^2 + 7Y^2 have the form 14k +1, 14k + 9 or 14k + 11 for some integer k. To this list we must also add 7 as a possible prime divisor since 7 divides 14.{Note that RPP(2) = 7 and RPP(5) = 497 = 7*71.}
+
+Suppose that 7 is a prime that divides RPP(n). By Fermat’s Little Theorem (2^6)==1 (mod 7). Hence 2^(6k) = (2^6)^k ==1 (mod 7). Then since all primes > 3 have the form 6k+1 or 6k+5 for some integer k, RPP(6k+1) = (2^(6k))(2^(6k+1)-1) + 1 == 1* (1)+1 == 3(mod 7). RPP(6k+5) = (2^(6k+4))(2^(6k+5)-1) + 1 == 16* (31)+1 = 497 ==0(mod 7).
+
+Hence:
+
+if n is a prime of the form 6k+5, then RPP(n) is divisible by 7.
+
+Similar analysis shows that:
+
+if n is a prime of the form 10k+7, then RPP(n) is divisible by 11
+
+if n is a prime of the form 28k+3, then RPP(n) is divisible by 29
+
+if n is a prime of the form 70k+5, then RPP(n) is divisible by 71.
+
+Using these simple tests, we can eliminate many of the remaining Mersenne primes > 3 from further consideration; e.g.
+
+For p = 5, 17, 89, 107, 521, 4253, 9689, 9941, 11213, 19937, 21701, 86243, 756839, 859433, 1398269, 2976221, 3021377, 6972593 and 2976221, RPP(p) is divisible by 7.
+
+If p = 7, 17, 107, 127, 607, 3217, 19937, 44497, 1257787, 3021377 and 13466917, RPP(p) is divisible by 11.
+
+If p = 31 or 86243, RPP(p) is divisible by 29.
+
+If p = 5, 31, 521 or 2976221, RPP(p) is divisible by 71.
+
+RPP(61) = 2432582681 * 1092853292237112554142488617
+
+Using UBASIC’s APRT-CLE program ("APRT-CLE" is the extended version of "APRT-CL" Cohen-Lenstra version of Adleman-Pomerance-Rumely Test for primality), RPP(1279) is determined to be composite without giving any factor.
+
+Thus RPP(p) is prime for p = 2, 3,13 and 19 as shown above.
+
+This leaves only the following values of p for which I have not determined whether RPP(p) is prime or composite: 2203, 2281, 4423, 23209, 110503, 132049 and 216091.
+
+Shyam Sunder Gupta:
+
+I have checked all 39 perfect numbers except one that is (2^132049-1)*2^132048 ( This is 30th Perfect Number) so far known and found that except the four RPP mentioned, there is no other RPP . So only perfect number to be checked is 30th, to fully answer Q1. I may be able to come back to you if I find time to confirm whether 30thperfect gives RPP or not...I simply checked for small prime factors of 1+p where p is a perfect number. For smaller perfect numbers pseudoprimality test confirms the compositeness. For larger perfect numbers, I used GCD(1+p, Pn#) and noted that this is not equal to 1, which established compositeness. Pn# is Primorial n. The value of n was selected initially small then increased. This way I tested all perfect numbers for RPP except the 30th perfect number . I found that smallest prime factor of 1+p30 is larger than 10^6. This is yet to be certified composite...In continuation to my earlier emails, I can now confirm that 1+30th perfect number is also composite. So there is no RPP except the four example mentioned.
+
+Johann Wiesenbauer:
+
+As for question 1 the currently known 39 perfect numbers yield no other RPP's apart from those four already known. Here are some details:
+
+A number n is a RPP by definition, if and only if it is a prime number of the form
+
+n = 2^(p-1)*(2^p-1)+1 (*)
+
+where 2^p-1 is a Mersenne prime. In particular, p must be a prime itself. Currently the following 39 values of p are known such that 2^p-1 is prime:
+
+p=2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423, 9689, 9941, 11213, 19937, 21701, 23209, 44497, 86243, 110503, 132049, 216091, 756839, 859433, 1257787, 1398269, 2976221, 3021377, 6972593, 13466917
+
+Using a small Derive-program, after a few minutes of sieving it reported that the numbers n in (*) corresponding to p=2,3,13,19, namely 7, 29, 33550337 , 137438691329 are primes indeed and that for all other values those numbers are composite with the possible exception of the numbers corresponding to p=1279 and p=132049.
+
+It was no problem to show that the smaller one of these numbers failed a Fermat test w.r.t. base 2. As for the bigger 79502-digit number it took even PrimeForm about 3 hours to show that it is composite. What is a little bit annoying is that I couldn't find an explicit factor for these two numbers. (A candidate for a follow-up?)
+
+Question 2.
+
+"There are none LPP primes other than 5". This was correctly answered by Ken Wilke, Shyam Sunder Gupta, Johann Wiesenbauer, Polly T. Wang and J. C. Rosa. Each of them gave more or less the same reason.
+
+For example Rosa wrote:
+
+A Left Perfect Prime, other than 5 , can not exist. Indeed , if N is an even perfect number we have: N=(2^n-1)*2^(n-1) ; 2^n-1 and n are prime . n prime ( n>2) implies: 2^(n-1)=1 mod n and 2^n=2 mod n. Therefore we have N=1 mod n . Thus if n>2 we have N-1=0 mod n. N-1 is not prime.
+
+Others proved that every LPP larger than 5 are divided by 3, and a few others demonstrated that every LPP larger than 5 are divided by 9.
+
+***
+
+J.K. Andersen wrote (May 08):
+
+5 more Mersenne primes 2^p-1 are known as of May 2008, although it's not yet known whether they are the 40th to 44th prime. The number one above the corresponding perfect number is composite for all 5 with the smallest factor given below.
+
+no. p factor of (2^p-1)*2^(p-1)+1
+
+40? 20996011 1552147
+
+41? 24036583 149
+
+42? 25964951 7
+
+43? 30402457 11
+
+44? 32582657 7
+
+****
+
+See updates of this puzzle at Puzzles 858 & 859
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

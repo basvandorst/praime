@@ -1,0 +1,184 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_630.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 630. Gap between p(n-1) & p(n+1)
+Source: https://www.primepuzzles.net/puzzles/puzz_630.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0630.htm
+
+References (local copies):
+  ../../references/b051650.txt  (from http://oeis.org/A051650/b051650.txt)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A023186
+  http://www.fishmech.net/zipdisks/LONELY.TOT/LONEMAX.SUM
+  http://oeis.org/A051650
+  http://oeis.org/A051650/b051650.txt
+  https://www.primepuzzles.net/puzzles/puzz_629.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_631.htm
+  https://www.primepuzzles.net/puzzles/puzz_630.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 630. Gap between p(n-1) & p(n+1)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 630. Gap between p(n-1) & p(n+1)
+
+Emmanuel Vantieghem poses the following question:
+
+One of the first striking results about primes was the fact that the difference between two consecutive primes could become arbitrary big. The proof was also surprisingly simple: none of the numbers n!+2, n!+3, ..., n!+n-1 are primes.
+
+But, what about the difference between three consecutive primes? Is it possible that the differences p(n)-p(n-1) and p(n+1)-p(n) both are arbitrary big ?
+
+Q. Prove your answer.
+
+Contributions came from Fred Schneider, Luke Pebody, J. K. Andersen & Emmanuel Vantieghem
+
+***
+
+Fred wrote:
+
+"The proof was also surprisingly simple: none of the numbers n!+2, n!+3, ..., n!+n-1 are primes."
+Actually, n! +n must be composite, too.
+
+Similarly, none of n! -2, n! -3 ... n! -n are primes (for n>3)
+
+It's clear that for any m*n! where m is a positive integer: m*n! +/-2, m*n! +/-3 ... m*n! +/- n must all be composite (for n > 3)
+
+If there exists a prime: m*n! -1 OR m*n!+1, then both the gaps between it and both the previous prime and the next prime can be arbitrarily large. This is not a proof but there are an infinite number of m's to choose from. Surely, at least one m for a given n must result in either m*n! -1 OR m*n!+1 being a prime.
+
+This might be an interesting sequence to calculate of minimum m's for each n.
+...
+
+I tried out my idea and for each primorial(p) where p is a prime < 1100, I found that the minimal m where m*primorial(p) +1 or -1 is prime always has m much lower than p. This is true when taken individually, too. In fact, I want to conjecture that m will always be less than p.
+
+***
+
+Luke wrote:
+
+For all integers K, there exists P>K+2 with P prime. Let Q be the product of all primes less than 2P other than P.
+
+Q is coprime with P, so by Dirichlet's Theorem on Primes in an Arithmetic Progression, there exists t>=2 such that Qt+P is prime. However, for all non-zero k with |k|<=K, P+k has a prime factor in common with Q, so Qt+P+k is not prime.
+
+This shows that Qt+P is a prime with a gap of K on both sides.
+
+Proving that there are three consecutive arbitrarily long regions would probably be much harder.
+
+***
+
+J. K. Andersen wrote:
+
+The gaps can both be arbitrarily big.
+
+This can for example be proven by showing that for any n,
+
+there is k such k*n#+1 is the only prime from k*n#-n to k*n#+n.
+
+We need a k where k*n#+1 is prime and k*n#-1 is composite.
+
+Let p be the smallest prime above n.
+
+Let b be the smallest natural number such that p divides b*n#-1.
+
+n# and p are coprime so b always exists.
+
+Now consider the arithmetic progression
+
+(a*p+b)*n#+1 = a*(p*n#) + (b*n#+1), where a is the only non-constant.
+
+p*n# and b*n#+1 are coprime so by Dirichlet's theorem,
+
+there are infinitely many primes of form (a*p+b)*n#+1.
+
+The next prime must be above (a*p+b)*n#+n.
+
+p always divides (a*p+b)*n#-1 so the previous prime is below (a*p+b)*n#-n.
+
+Example: If n=11 then p=13 and b=3. 13 always divides (a*13+3)*11#-1.
+
+(a*13+3)*11#+1 is prime for a = 3, 4, 5, 6, 11, 14, 15, ...
+
+A natural question is finding the smallest prime to give at least a given gap.
+
+http://oeis.org/A023186 is:
+
+"Lonely (or isolated) primes: increasing distance to nearest prime."
+
+A023186 shows the terms below 10^11.
+
+http://www.fishmech.net/zipdisks/LONELY.TOT/LONEMAX.SUM continues
+
+to 10^12 and shows the associated gaps.
+
+My computation agrees and adds 4 terms from 10^12 to 10^13:
+
+gap prime
+
+--- -------------
+
+300 1362810282439
+
+324 1480975873513
+
+328 5551890283531
+
+340 9156364643509
+
+All 4 are also in the b-file for the closely related http://oeis.org/A051650:
+
+http://oeis.org/A051650/b051650.txt
+
+A051650 is: "Lonely numbers: distance to closest prime sets a new record."
+
+Both primes and composites are allowed in that sequence.
+
+Some primes in our problem are not in A051650 because they are beaten
+
+by a prime gap around a smaller composite.
+
+***
+
+Emmanuel wrote:
+
+The answer is yes. I.e. : for any N we can find three consecutive primes p, q, r such that q - p > N and r - q > N. The proof runs as follows :
+
+Let p(n) denote the n-th prime. Choose n such that p(n) > N. Let P(n) be the primorial p(n)# = p(1)*p(2)* ... *p(n). Choose m such that m*P(n) - 1 is divisible by p(n+1).
+
+Now, consider the arithmetic progression
+
+{ (m+k*p(n+1))*P(n) + 1 | k = 0, 1, 2, ... }.
+
+The first term is m*P(n)+1 and the common difference is P(n+1). These two numbers are obviously relatively prime. Hence, by Dirichlet's theorem on primes in arithmetic progressions, there is a K such that P = (m+K*p(n+1))*P(n) + 1 is prime. It is easy to see that all the numbers P+1, P+2, ... , P+p(n) and P-1, P-2, ... , P-p(n) are composite (especially, note that P-2 is divisible by p(n+1) by the choice of m). Thus, the prime preceding P must be smaller than P-N and the prime succeeding P must be bigger than P+N, proving aour assertion.
+
+An immediate consequence is that, whatever n (>0) may be, there exists a smallest w such that precisely one of the two numbers w*P(n) - 1 and w*P(n)+1 is prime. However, this is not the most efficient way to find small p, q, r with q - p > N and r - q > N. For instance, when N = 100, then n = 26 and the smallest w is 2, which leads to the 'middlest' prime
+
+2*P(26)+1 = 465724728716994721800126633761014726141.
+
+However, the smallest triplet (p, q, r) with q-p and r-q > 100 is :(72546143, 72546283, 72546391), which is far much smaller ...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

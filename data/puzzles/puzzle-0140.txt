@@ -1,0 +1,309 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_140.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 140.  Primes Decades
+Source: https://www.primepuzzles.net/puzzles/puzz_140.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0140.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:crivera@primepuzzles.net
+  https://www.primepuzzles.net/puzzles/puzz_139.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_141.htm
+  https://www.primepuzzles.net/puzzles/puzz_140.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 140. Primes Decades
+
+Problems & Puzzles: Puzzles
+
+Puzzle 140. Primes Decades
+
+Some days ago Jean-Claude Rosa (*) Math teacher of a College in Cluny, France, sent the following email:
+
+"I would like to find a prime number responding to those two conditions:
+
+- this prime number is part of a prime quadruplet
+
+- this prime number also brings forth a prime decade.
+
+I found one of those numbers : 19.
+
+- 19 is part of {11 ; 13 ; 17 ; 19}
+
+- 19 brings forth {191 ; 193 ; 197 ; 199}
+
+Could you help me to find another one ?"
+
+With the help of a little code in Ubasic I found the next earlier example:
+
+D1: {347981, 347983, 347987, 347989 }
+
+D2: {3479891, 3479893, 3479897, 3479899}
+
+Questions:
+
+1. Can any one of the primes of the first decade (D1) be the generator of the next prime decade (D2)?
+
+2. Is it possible to generate a prime decade (D1) that generates - by recursion of the same procedure - two prime decades more (D2, D3 such that , D1 -> D2 -> D3)? If yes, say how exactly and find one example.
+
+Chris Nash sent (15/7/01) the following comments:
+
+"I have done some quick calculations on Puzzle 140 - I do not think I will search much further, since it is going to tackle a long time to find a successful solution (it requires to search until 12 numbers are all primes). But here are my 'partial' answers.
+
+1) Let D1 is the set of numbers 10x+1 10x+3 10x+7 10x+9. Then D2 is the set of numbers 100x+10q+1 100x+10q+3 100x+10q+7 100x+10q +9 where q is 1, 3, 7, 9, depending on which prime in D1 we chose to give D2.
+
+If q=1 or 7, consider the 8 values modulo 3. In particular 10x+1 = x+1 mod 3, 10x+9 = x mod 3, 100x+10q+1 = x+2 mod 3. Since all possible values mod 3 are covered, at least one of these values is divisible by 3. Since none of them are equal to 3, this set of values must contain a composite.
+
+q=9 you have shown a result.
+
+For q=3, there is no reason why a solution should not exist. But tests indicate it is much larger than the q=9 solution (no solution for x<2^30). In both cases, x must equal 1 modulo 3 for solutions to exist.
+
+2) Now we add D3
+
+1000x+100q+ 10r+1
+
+1000x+100q+ 10r+3
+
+1000x+100q+ 10r+7
+
+1000x+100q+ 10r+9
+
+From the first part q and r must both be either 3 or 9. It already appeared that 3 made it harder to find solutions, and in fact if both q =3 and r=3, there are no solutions to this second problem - at least one of the 12 numbers must be divisible by 7.
+
+In the remaining cases, there is only one valid value of x mod 3 as before, and also only one valid value of x mod 7, so it should be possible to accelerate the search using that. In any case however there is no reason why a solution should not exist, although it may take some time to find. I am going to move my code to extended-precision to search a little further..."
+
+***
+
+Jean Claude Rosa has sent (13/9/01) three "shortcuts" to find a solution to question 2):
+
+Let D1=p1,p2,p3,p4 > D2=q1,q2,q3,q4 > D3=r1,r2,r3,r4 D4=s1,s2,s3, s4 > The search can be drive on three ways:
+
+Way 1: p1=210*k+11;q1=2100*k+191;r1=21000*k+1991;s1=210000*k+19931
+
+Way 2: p1=210*k+101;q1=2100*k+1031;r1=21000*k+10391;s1=210000*k+103931
+
+Way 3: > p1=210*k+191;q1=2100*k+1991;r1=21000*k+19931;s1=210000*k+199391
+
+***
+
+J. Wroblewski wrote (1/7/6):
+
+I have got some new results regarding your
+
+Puzzle 140 Prime Decades.
+
+List of smallest numbers of the form X1, such that
+
+X1, X3, X7, X9, X91, X93, X97, X99
+
+are all prime (X stands for any sequence of decimal digits):
+
+11
+
+347981
+
+43265681
+
+156552491
+
+159404891
+
+162785471
+
+176470961
+
+190768211
+
+209164601
+
+321630311
+
+338404481
+
+387135641
+
+527311061
+
+536434511
+
+568441871
+
+738653561
+
+746688791
+
+964496381
+
+1201909601
+
+1280488211
+
+1340711621
+
+1670295701
+
+1985742371
+
+2466094451
+
+2711397971
+
+3358787891
+
+3558992621
+
+3950245961
+
+4362432071
+
+4419340571
+
+4586936741
+
+4596569441
+
+4797006881
+
+4952521571
+
+4964890751
+
+5777631521
+
+5816477741
+
+5998695161
+
+6117103451
+
+List of smallest numbers of the form X1, such that
+
+X1, X3, X7, X9, X31, X33, X37, X39
+
+are all prime:
+
+40739681
+
+41599001
+
+68820041
+
+96466541
+
+179824361
+
+224526011
+
+249838151
+
+311356181
+
+433234091
+
+628058021
+
+768020081
+
+798732371
+
+878849681
+
+1228175231
+
+1268554031
+
+1271560391
+
+1357188731
+
+1632228881
+
+1845783761
+
+2015668091
+
+2026642481
+
+2183464181
+
+2793387341
+
+2955694451
+
+3319145651
+
+3336314621
+
+3736861691
+
+3890848601
+
+4261734221
+
+4711508441
+
+4802673011
+
+4938483371
+
+5503275221
+
+5747092991
+
+6039941351
+
+6449927501
+
+The least number of the form X1, such that
+
+X1, X3, X7, X9, X91, X93, X97, X99, X991, X993, X997, X999
+
+are all prime:
+
+657835997711
+
+The least number of the form X1, such that
+
+X1, X3, X7, X9, X91, X93, X97, X99, X931, X933, X937, X939
+
+are all prime:
+
+2673748786991
+
+The least number of the form X1, such that
+
+X1, X3, X7, X9, X31, X33, X37, X39, X391, X393, X397, X399
+
+are all prime:
+
+34127252370851
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

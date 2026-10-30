@@ -1,0 +1,132 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_791.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 791. Inserting consecutive primes
+Source: https://www.primepuzzles.net/puzzles/puzz_791.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0791.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://simplementenumeros.blogspot.mx/2015/06/1398-insertando-primos-consecutivos.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_790.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_792.htm
+  https://www.primepuzzles.net/puzzles/puzz_791.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 791. Inserting consecutive primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 791. Inserting consecutive primes
+
+This puzzle is a variation of another posted by Claudio Meller as the entry 1398 in his always interesting site.
+Here we ask for these numbers N that result prime numbers after inserting the first consecutive primes, one at a a time, from 2 to P, except the prime "3" in successive positions in N, from left to right.
+
+Example: N=333 is a solution because 2333, 3533, 3373 and 33311 are prime numbers.
+
+As a matter of fact, below 2^32 I have found 21 of these asked numbers N, being the smallest "27" and largest "2653294371".
+
+Q. Find more solutions.
+
+At last, one more solution!...
+
+Jan van Delden wrote on May 1, 2018:
+
+I found the following 21 values below 2^32 (and 10^10):
+
+Digits 2: 27,33,39,57,93
+
+Digits 3: 333
+
+Digits 4: 3747,5073,5997,7239
+
+Digits 5: 10053,22419
+
+Digits 6: 349731,425991,714807
+
+Digits 7: 1719279
+
+Digits 8: 81453303
+
+Digits 9: 406253439,481683189,886662423
+
+Digits 10: 2653294371
+
+I also found the following NEW solution:
+
+Digits 11: 61605403707
+
+Digits 12: No solution
+
+Let’s call the number we seek N and the result after insertion (possibly at the end) with prime p: M.
+
+It is possible to link N,M and p modulo 11. This is rather easy if p has two digits.
+
+Suppose N=XY and M=XpY and p has two digits.
+
+Y has an even number of digits, 2k. (possibly 0, when we “insert” p at the end).
+
+N = X*10^(2k)+Y, M=X*10^(2k+2)+p*10^(2k)+Y. We use: 100=1 mod 11.
+
+We now have M mod 11 = X*10^(2k)*100+p*100^k+Y mod 11 = X*10^(2k)+p+Y mod 11 = N mod 11 + p mod 11.
+
+Y has an odd number of digits, 2k+1. (I choose the +sign for convenience).
+
+N = X*10^(2k+1)+Y, M=X*10^(2k+3)+p*10^(2k+1)+Y. We use: 100=1 mod 11 and 10=-1 mod 11.
+
+We have M mod 11 = X*10^(2k+1)*100 +p*10*100^k+Y mod 11 = X*10^(2k+1) -p + Y mod 11 = N mod 11 – p mod 11.
+
+For 2-digit primes p inserted at “even positions” we have M=N+p mod 11 (A).
+
+For 2-digit primes p inserted at “odd positions” we have M=N-p mod 11 (B).
+
+Since we search for prime values for M we should have that M<>0 mod 11, or:
+
+N <> -p mod 11 (p inserted at “even positions”)
+
+N <> p mod 11 (p inserted at “odd positions”).
+
+If we want to compute a solution N having 12 digits the primes to insert are {2,5,7,11,13,17,19,23,29,31,37,41,43}.
+
+The primes p with 2 digits at the “even positions” are {13,19,29,37,43}, so -p mod 11 in {9,3,4,7,1}.
+
+The primes p with 2 digits at the “odd position” are {11,17,23,31,41}, so p mod 11 in {0,6,1,9,8}.
+
+Our N may not be in the set {0,1,3,4,6,7,8,9} mod 11, so N mod 11 must be in {2,5,10}.
+
+If a solution exists N has 21 digits or less.
+
+The first prime p for which there is no free residue is 89 (prime number 24).
+
+There is also no free residue for prime 97 (prime number 25).
+
+If N has k digits the largest prime used is prime number k+2. Thus there are no solutions if N has 22 digits or more.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

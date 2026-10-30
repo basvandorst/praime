@@ -1,0 +1,182 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_308.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 308. AxB = N =A'xB'
+Source: https://www.primepuzzles.net/puzzles/puzz_308.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0308.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_307.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_309.htm
+  https://www.primepuzzles.net/puzzles/puzz_308.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 308. AxB = N =A'xB'
+
+Problems & Puzzles: Puzzles
+
+Puzzle 308. AxB = N =A'xB'
+
+In certain page of the solutions section of the beautiful book of Nobuyuki Yoshigahara 'Puzzles 101', he wrote:
+
+"Here is an amazing 0-9 computation. I'm not sure how anybody could have found this:
+
+286794 x 5103 = 1463509782 = 479682 x 3051"
+
+What Nob must be admiring is that:
+
+a) one pandigital (0-9) number has been found such that it can be expressed in two ways a a product of two factors such that each pair of factors contain again the ten distinct digits 0 to 9, PLUS
+
+b) the curious fact that the factors involved in one side are almost the reverse of the factors in the other side, that is to say:
+
+286794 is almost the reverse of 479682.
+
+5103 is almost the reverse of 3051.
+
+So, I will ask for perfect examples of this type:
+
+A x B = N = A' x B'
+
+where:
+
+1) A' is the reverse of A & B' is the reverse of B
+
+2) The collection of digits in N is the same collection of digits in A&B and also the same collection of digits in A'&B'
+
+Example:
+
+2886 x 93 = 268398 = 6882 x 39
+
+If you disregard the condition 2), the earliest non trivial example is:
+
+12 x 42 = 504 = 21 x 24
+
+it can be shown that there are infinite examples of this kind.
+
+But what about with the two conditions...?
+
+Question:
+
+1. Can you find some more examples as for 268398?
+
+2. Is there one single example using all the digits 0 to 9 (repetitions permitted)?
+
+Contributions came from J. C. Rosa, Faride Firoozbakht & Giovanni Resta. I will show only these results where A & B are not palindromes, or where B=A'. They (and also Faride Firoozbakht) found many other interesting solutions of this type that fit the explicit conditions but I think that they will forgiver to me for not showing them for the sake of the good spirit of the original Nob's observation. Nevertheless at the minimal complain from anybody of them I will show the hidden results obtained by the complainer.
+
+From my point of view, solutions for Q2 are still to be discovered.
+
+***
+
+J. C. Rosa wrote:
+
+Question 1 : I found the following solutions :
+
+156x6510651=1015661556=651x1560156
+
+2136x637512=1361725632=6312x215736
+Giovanni Resta wrote:
+Question 1 : I found the following solutions:
+101909 * 99011 = 10090111999
+
+215736 * 6312 = 1361725632
+
+1560156 * 651 = 1015661556
+
+***
+Giovanni Resta found several solutions for Q2:
+
+1479852 * 6930693 = 2589741 * 3960396 = 10256399897436
+
+35471907 * 7723683 = 70917453 * 3863277 = 273973765073481
+
+15723961572 * 806064 = 27516932751 * 460608 = 12674519360572608
+
+3504242316 * 4689762 = 6132424053 * 2679864 = 16434062452368792
+
+Here is the method I used.
+
+We are searching for 4 numbers, say a, ra, b and rb, where ra = reverse(a) and rb=reverse(b), such that a * b = ra * rb = m and m contains exactly the digits of a and b.
+
+Then we want to check if m is pandigital.
+
+Let us fix a prime number p sufficently large (how much large will be clear later on) and let us suppose that all the numbers a,b,ra,rb are prime with p (that is, they are not divisible by p).
+
+Then, in modular arithmetic, it must hold
+
+a * b = ra*rb (mod p)
+
+and since p is prime and a,b,ra,rb are not equal to 0 (mod p) we can divide (modularly) both terms of the equation by ra*b obtaining
+
+a / ra = rb / b (mod p)
+
+or better
+
+a * ra^(-1) = rb * b^(-1) (mod p)
+
+where with x^(-1) I denote the modular inverse of x, that is the number y such that x*y=1 (mod p).
+
+This means that if I'm considering a particular value a, with d = a*ra^(-1) (mod p) then the "matching" b must satisfy
+
+rb*b^(-1) = d (mod p).
+
+Now I can describe my simple method.
+
+I decided to check the couples a,b where a is unbounded and b is below 10,000,000=10^7 (this limit depends on the fact that I need to store a lot of precomputed values...).
+
+I choose a prime slightly larger that this bound,say p = 10,000,019.
+
+I computed a table of modular inverses for all the numbers less than 10^7, to speed up subsequent calculations.
+
+Then, for each value b>0 less than 10^7 I computed rb, I discarded the palindromes (rb=b) and I computed the value
+
+rb*b^(-1) = d (mod p). I stored this values in a vector of lists, in such a way that, given a value d I could retrieve very fast the values of b that give rise to that d.
+
+I also stored the values of reverse(x) for each x<10^7, to speed up things a little, but it was not really necessary.
+
+The rest of the program is straightforward:
+
+I consider the values of a=1,2,..... discarding those for which a or ra are divisible by p. (One can always check this relatively few remaining values, using the same program with another prime, but I was
+
+lazy...)
+
+For each value a I compute ra (and if a=ra I skip it, since I have already discarded palindromes b).
+
+Then I compute the value d=a*ra^(-1) (mod p).
+
+Given this d I retrive the very few (if any!) candidates for b and I check if a*b=ra*rb.
+
+If this is the case I check if the condition on the digits also hold and finally I check the pandigitaligy of a*b.
+
+Since there are about p possible values for d then on the average (roughly speaking) I have to check only one value b for every value a and thus it is pretty fast with respect to a brute force approach.
+
+The method trades memory for speed, and with some fantasy, can be applied to similar problems in which in place of reverse() there is another transformation of the digits.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

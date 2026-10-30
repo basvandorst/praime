@@ -1,0 +1,163 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_690.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 690 Unreachable primes
+Source: https://www.primepuzzles.net/puzzles/puzz_690.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0690.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://simplementenumeros.blogspot.mx/
+  http://simplementenumeros.blogspot.mx/2013/05/1133-jugando-con-los-primos.html
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A226144
+  http://en.wikipedia.org/wiki/Simple_graph#Simple_graph
+  https://www.primepuzzles.net/puzzles/puzz_689.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_691.htm
+  https://www.primepuzzles.net/puzzles/puzz_690.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 690 Unreachable primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 690 Unreachable primes
+
+From the always interesting site by Claudio Meller, from his entry 1133, I came up with the following prime puzzle.
+Starting with the prime 2, you are able to generate a sequence of primes using only the following two allowed operations:
+
+1) append a digit to the right or to the left of the current prime
+
+2) eliminate a digit from the right or from the left of the current prime
+
+Q. List the primes that you can not generate by these rules, starting with the prime 2.
+
+Contributions came from Giovanni Resta, W. E. Clark & Hakan Summakoglu.
+
+***
+
+Giovanni wrote:
+
+all in all other 820293 primes can be reached from 2.
+
+The 3 largest such primes (the only ones with 34 digits)
+
+are:
+
+2346953834532672272927797937371397,
+
+4818994365759875246814537739373339,
+
+5481899436575987524681453773937333.
+
+Up to 1000 the unreachable primes are:
+
+89, 101, 103, 107, 109, 151, 163, 227, 251, 257, 263, 269, 281, 307,
+
+389, 401, 409, 457, 503, 509, 521, 557, 563, 569, 587, 601, 607, 701,
+
+709, 809, 821, 827, 857, 863, 881, 887, 907, ...
+
+which clearly include all the primes containing a zero.
+
+¿Any other general rule as the above?
+
+...
+
+There is no cycle containing 2. Indeed, 2 has only two neighbors,
+
+i.e. 23 and 29. The primes reachable from 29 (without going through 2) are disjoint from those reachable from 23 (without going through 2), so there cannot be any cycle.
+
+***
+
+Clark wrote:
+
+Again I look at this as a problem in graph theory.
+
+Let G be the (infinite) graph whose vertices are the primes and whose edges are pairs {p,q} where q is obtained by appending or deleting a digit to the right or left of p. The question becomes: are there some primes p for which there is no path from 2 to p in G. By restricting the vertices to the first 20000 primes, I find a number of "candidates" for unreachable p, for example,
+
+89, 101, 103, 107, 109, 151, 163, 227, 251, 257, 263, 269, 281, 307, 389, 401, 409, 449, 457, 463
+
+But how is one to be sure that there is not some path from 2 to 89 that uses primes greater than the 20000th prime? It appears that there are paths from 89 to arbitrarily large primes.
+
+Perhaps eventually a prime is reached which can be connected also to 2 by a path?
+
+For example, cycles are possible in this graph, Here is a cycle of length 16:
+
+3, 13, 113, 11, 211, 4211, 421, 4217, 34217, 342179, 42179, 2179, 179, 17, 317, 3
+
+So at first I thought it would be difficult to prove that a particular prime cannot be reached from 2.
+
+Eventually it occurred to me that any prime that has 0 neighbors cannot be reached from 2 (nor indeed from any other prime) and there are lots of those. Here are the first 30 of these "isolated" primes.
+
+1301, 3989, 4931, 5387, 6803, 7451, 7703, 7753, 10303, 10657, 10723, 11971, 12119, 12329, 12541, 12653, 12907, 12983, 13693, 13729, 13789, 14207, 14251, 14303, 14411, 14821, 15131, 15217, 15383, 15619
+
+There are 99272 such isolated primes in the first million primes. There are also some non-isolated primes that cannot be reached from 2, for example the primes 2909 and 32909. This is because the only neighbor of 2909 is 32909 and vice verse. In other words {2909, 32909} is a size 2 component of the graph G.
+
+An interesting question is: are there components of size k for any k? Probably many of the components have infinite size, but this may be hard to prove. Another question: can one find cycles of arbitrary size?
+
+I cannot find the sequence of isolated primes in the OEIS which is surprising.
+
+...
+
+I just tried unsuccessfully to find a cycle containing 2. But if there is one it must involve primes greater than 224737.
+
+¿Can someone find a cycle containing the prime "2"?
+
+I submitted the sequence
+
+https://oeis.org/A226144 Primes p that become composite when any nonzero decimal digit is appended or deleted on the right or left of p. And just a few minutes ago it was published. One of the editors added a Mathematica program which is a little different from my Maple program which I did not include. I referenced your Puzzle as the source of the idea.
+
+...
+
+I have now determined that 89 cannot be reached from 2 since starting with 89 and adjoining all neighbors in a recursive fashion one reaches only a finite set of 3889 numbers and that set does not contain 2. That is, the connected component of 89 is finite and does not contain 2.
+
+Similar arguments show that the component of 151 has 4972 primes and doesn't contain 2 and similarly for the component of 163 which has size 6757.
+
+After 16 iterations my program shows that the component of 2 contains at least 188,097 primes the largest of which is 17 digits long. It would be interesting if someone could settle whether or not the component containing 2 is finite.
+
+...
+
+I just noticed something upsetting. As Giovanni Resta says, a prime containing a 0 digit cannot be reached from 2. On the other hand 2 can be reached from a prime containing 0's---
+
+Example, the prime 10007, via 10007 -> 0007 = 7 --> 37 -->3 --> 23 -->2.
+
+So I have to retract my statement that this is a question about a simple graph. To make it a simple graph we would have to alter the definition to allow the addition of any number of 0's on the left of a prime.
+
+But this would be inelegant. However the graph is a directed graph with primes containing 0's or not.
+
+Then a natural conjecture is:
+
+Conjecture: There are no infinite directed paths p1 --> p2 -->...
+
+***
+
+Hakan sent a list of unreachable primes <10^6.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

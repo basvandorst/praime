@@ -1,0 +1,522 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_129.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 129.  Earliest sets of K consecutive Harshad Numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_129.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0129.htm
+
+References (local copies):
+  ../../references/2010_on-consecutive-niven-numbers-curtis-cooper-and-robert.pdf  (from http://www.fq.math.ca/Scanned/31-2/cooper.pdf)
+  ../../references/2010_on-consecutive-niven-numbers-curtis-cooper-and-robert.txt  (extracted text)
+
+Links on the page:
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eishis.cgi?Anum=A060159
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=A060159
+  http://www.fq.math.ca/Scanned/31-2/cooper.pdf
+  http://mathworld.wolfram.com/HarshadNumber.html
+  https://www.primepuzzles.net/puzzles/puzz_128.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_130.htm
+  https://www.primepuzzles.net/puzzles/puzz_129.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 129. Earliest sets of K consecutive Harshad Numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 129. Earliest sets of K consecutive Harshad Numbers
+
+A "Harshad number" (*) is such that it is divisible by the sum of its digits. These numbers probably would be absolutely trivial if the following fact were unknown: there are no more than 20 consecutive Harshad numbers.
+
+I invite you to discover the least Harshad numbers of the first exactly K consecutive of them for K=1 to 15.
+
+As a matter of fact using a very primitive program I have calculated the least series of Harshad numbers (A060159) for certain K values, but I have failed to find others.
+
+K
+
+The first Harshad number of the least exactly K consecutive of them
+
+1
+
+12
+
+2
+
+20
+
+3
+
+110
+
+4
+
+510
+
+5
+
+131052
+
+6
+
+12751220
+
+7
+
+10000095
+
+8
+
+2162049150 (sum = 30), Jud McCranie, 11/3/2001
+
+9
+
+124324220
+
+10
+
+1
+
+11
+
+?
+
+12
+
+?
+
+13
+
+?
+
+14
+
+?
+
+15
+
+?
+
+a) Fill the table for K=8, 10,11,12,13,14,15.
+
+b) Is there an approach out of the brute force one in order to find these series (no matter if the series is not the earliest for that K value) ?
+
+c) Any idea about the proof of the claim that "there are no more than 20 consecutive Harshad numbers"?
+
+_______
+
+* Defined by D. R. Kaprekar (a mathematician from India). More references must be find in the by now unfortunately blocked Eric Weisstein's Encyclopedia of Mathematics, where I'm sure I read this issue.
+
+Solution
+
+Several readers, Nash, Enoch, McCranie & De Geest advised to me that in the Weisstein's now wickedly blocked Encyclopedia we may read: "in 1994 Grundman proved that there are no more than 20 consecutive Harshad numbers, and found the smallest sequence of 20 consecutive H. numbers, it has 44,363,342,786 digits". Do you see it?... 1994!... a not very old puzzling statement.
+
+***
+
+Jud McCranie calculated the case K=8 (See A060159). In the middle of his search he realized that this search need not to calculate the sum of the digits for each number (a very time consuming step) using the following tactic:
+
+If n ends in k zeros then SOD(n)=SOD(n-1) - 9*k + 1
+
+A very clever and elegant rule, don't you think so? ( Maybe this is an interesting clue for those that are studying a non-brute-force approach...)
+
+***
+
+This rule is the flesh of the statement 30 of my code in Ubasic to search the least sequences we are looking for:
+
+10 F=1:K=0:SOD=0:E=1:clr time
+
+20 for N=1 to 2^32-1
+
+30 if N@10^E=0 then SOD=SOD-9:E=E+1:goto 30
+
+40 SOD=SOD+1:E=1
+
+50 if N@SOD=0 then K=K+1:goto 80
+
+60 if F@prm(K)=0 then K=0:goto 80
+
+70 print N-K,K, time:F=F*prm(K):K=0
+
+80 next N
+
+90 end
+
+whose output is (please notice the times, PC 400 MHz...)
+
+N | K | Time
+
+1
+
+10
+
+0:00:00
+
+12
+
+1
+
+0:00:00
+
+20
+
+2
+
+0:00:00
+
+110
+
+3
+
+0:00:00
+
+510
+
+4
+
+0:00:00
+
+131052
+
+5
+
+0:00:01
+
+10000095
+
+7
+
+0:01:48
+
+12751220
+
+6
+
+0:02:11
+
+***
+
+Here is a collaboration from Chris Nash, after publishing the Jud's shortcut:
+
+"I think Jud has discovered one-third of the solution, and I think I have another 1/3... maybe someone else can draw all these pieces together and retrieve the Grundman proof? I got very close, but would still need an incredible amount of computation - there is no way this method could get the 44 billion digit result for K=20.
+
+Let H be a sequence of K consecutive Harshad numbers. Insert 'dividing lines' into H to split it into 'clusters', in each cluster, the only digit that changes from number to number is the last digit. Jud's observation explains what happens when you cross one of these dividing lines - the important thing is not just that the number before the divider ends in a 9, the number of 9's is important. I've been working on what happens *within* one of these clusters.
+
+Let there be a cluster of length C (evidently C<=10). Let the first number of the cluster be N, with digit sum S. Then the second number is N+1, with digit sum S+1, the third N+2, with digit sum S+2.... and so on up to N+C-1 with digit sum S+C-1.
+
+Now we apply the Harshad condition, and we have S divides N, so S divides N-S; S+1 divides N+1, so S+1 divides (N+1)-(S+1)=N-S; S+2 divides N+2, so S+2 divides (N+2)-(S-2)=N-S.
+
+In other words, N-S is divisible by all the integers from S to S+C-1. Furthermore, since S is the digit sum of S, N=S (mod 9), so 9 also divides N-S.
+
+To search for such a cluster, choose S and define L=lcm(9,S,S+1,S+2,S+3......S+C-1). Then a necessary (but not sufficient) form for N is kL+S, for some integer k (you will still have to check the digit sum of N is S and not just S mod 9).
+
+Assume now we are looking for 11 or more consecutive Harshad numbers. Then any solution must contain at least one cluster of length 6 or more, that either begins or ends at a dividing line. Since we may always check a cluster afterwards to see if it can be lengthened, we may restrict ourselves to the case C=6. At least one of the terms in the lcm is now divisible by each of 4 and 5, so L is divisible by 4*5*9 =180.
+
+In other words, N and S have the same ending digit. Since we are looking for clusters of length 6 that start or end on a dividing line,
+
+we may now restrict the search to values S that have 0 or 4 as the last digit.
+Loop through these possible S values (4,10,14,20....) and compute L. Small values of S can be disposed of very quickly. For example, by looping through the last digits of k, several of the last digits of kL+S will be known. If the sum of those digits is already greater than S, then the digit sum of N cannot be S. For larger values of S, you can 'grow' several values of k that give solutions. Once you have a solution for the cluster of length 6, you need to check if it can be extended to a cluster of length 7, 8, 9 or 10 (check kL is divisible by S-1 for instance to extend to the left, or S+6 to extend to the right).
+
+To solve the problem, you then need to check if the cluster can be extended 'across' one of the dividing lines - which is where Jud's computation comes in, but I have not yet been able to do that yet. So far I have found some clusters, but none that I can extend to solutions for the higher K values.
+
+Does anyone see the missing part of the solution? I believe Jud's formula holds the key - and that some number in the sequence must end in a very large number of consecutive zeroes....
+
+***
+
+Later himself found (18/3/01) the total desired proof:
+
+Here is my complete proof (A=[n/10]+[n/100]+[n/1000]+.... B=n -10*A, and SOD(n)=A+B).
+
+i) For K=13, the ‘decade pattern’ 1|10|2 is not possible.
+
+Proof: Assume such a sequence of Harshad numbers is possible. In the second decade, A is divisible by 10 consecutive integers, so A must be even. In the third decade, A is divisible by 2 consecutive integers so is also even. So at the second dividing line there must be an even number of trailing 9’s. So the first dividing line has exactly one trailing 9.
+
+Let the first number in the pattern be N, with sum-of-digits S. Since N ends in 9, S cannot be even (since S divides N) By Jud’s formula SOD(N+1)=S-8, and SOD(N+2)=S-7. But N+2 is odd and S-7 is even (a contradiction).
+
+ii) for K=13, the ‘decade pattern’ 2|10|1 is also not possible.
+
+Proof: As before assume it is possible, then the first dividing line has an even number of trailing 9’s, and the second has exactly one trailing 9. Let the ‘last” number in the pattern be N with SOD(N)=S, and the last digit of N is zero. Then SOD(N-9) also equals S. For these both to be Harshad numbers S must divide both N and N-9, so S must divide 9. There are three possibilities. If S=9, then SOD(N-8) is 10, but N-8 ends in 2 and so cannot be divisible by 10. If S=3, then SOD(N-7) is 5, but N-7 ends in 3 and cannot be divisible by 5. If S=1, then N -9 ends in 1, and to have SOD(N)=S requires N-9=1, which is not possible since the sequence starts at N-12. (a contradiction).
+
+iii) There is no solution for K>20 (Grundman, 1994)
+
+Proof: Any solution with K>20 contains a subsequence of length 13 of one of the forms listed in parts i) and ii).
+I think this ‘decade’ idea might help in the search. For example, if we are looking for a solution for K=11 we try each possible ‘decade pattern’. If for instance the decade pattern is 6|5 or 5|6, then the A value in each decade would be a multiple of 20, and there would have to be a multiple of 20 trailing 9’s at the dividing line. (Grundman’s K=20 solution must be of the pattern 10|10, and the number of trailing 9’s is a multiple of 280 - perhaps it is no surprise it is so large).
+***
+
+Murad Aldamen has gotten (31/3/01) empirically the following conjecture about primes & Harshad numbers in a certain sequence defined by him the following way:
+
+Let N to be a positive odd integer and its sum of digit to be S. Then the sequence M={N - i*S} for i=0,1,2,... has minimum a prime if:
+
+1) N is not a Harshad number
+
+2) S is not divided by any of the prime factors of N
+
+Example
+
+N = 49, S = 4 + 9 = 13
+
+1) 49 is not divided by 13. Then N is NOT a Harshad number
+
+2) 13 is not divided by 7
+
+The sequence M is as follow: M ={49, 36, 23, 10} and contains the prime 23.
+
+Murad says that he has verified his conjecture for the N range of 10-1000000001
+
+Question: Can anybody explain the prime property of this sequence or find a counterexample?
+
+***
+
+Jonathan Cross wrote (24/12/2002)
+
+Chris Nash was correct: his 'decade' idea is helpful for searching for sequences of Harshad numbers. Using it, I found examples of 11 consecutive Harshad numbers
+
+1975452515168932890, 1975452515168932891, 1975452515168932892, 1975452515168932893, 1975452515168932894, 1975452515168932895, 1975452515168932896, 1975452515168932897, 1975452515168932898, 1975452515168932899, 1975452515168932900
+
+***
+
+Giovanni Resta wrote (Feb 21, 08):
+
+I found some new entries for puzzle 129, the one
+
+about runs of consecutive Niven (or Harshad) numbers.
+
+The new entries are:
+
+11: 920067411130599
+
+12: 43494229746440272890
+
+13: 12100324200007455010742303399999999999999999990
+
+and I can add that the second smallest entry
+
+for 10 (so, after the quite trivial "1") is 602102100620.
+
+In the case somebody is interested,
+
+I used the following method. (I'll probably
+
+restate something that has been already said by
+
+other contributors, but I arrived here independently,
+
+so, for the sake of clarity, let me indulge a little
+
+in verbosity.)
+
+I make an example.
+
+Assume you know that a run of, say 4, Harshad numbers
+
+starts at an unknonw number N and that number N
+
+has a known sum of digits S.
+
+Moreover, assume that the last 2 digits of N are "48".
+
+Then, using "48" as a guideline, one can say that:
+
+N has sum of digits S, (it ends in 48)
+
+N+1 has sum of digits S+1, (it ends in 49)
+
+N+2 has sum of digits S-7, (it ends in 50)
+
+N+3 has sum of digits S-6, (it ends in 51)
+
+Now, using the fact that these numbers must be all
+
+Harshad numbers, we have that N must satisfy
+
+the following linear congruences:
+
+N == 48 (mod 100) we assumed it ends in "48"
+
+N == S (mod 9) S is the sum of digits of N
+
+N == 0 (mod S) Harshad condition
+
+N+1 == 0 (mod S+1) Harshad condition
+
+N+2 == 0 (mod S-7) Harshad condition
+
+N+3 == 0 (mod S-6) Harshad condition
+
+Once we plug a specific value of S into the above
+
+system of linear congruences, the system can be solved
+
+in a standard way.
+
+The solution of the system will be either "no solution"
+
+or something like
+
+N = A + k*B, for k=0,1,2,3,...
+
+where A and B are two (potentially very large) constants.
+
+Clearly, the values of N generated by
+
+the above formula will not be in general
+
+the start of the desired run of Harshad numbers,
+
+since we could only force that N == S (mod 9) but
+
+we need S = SumOfDigits(N).
+
+Anyway, with a bit of luck, and if A and B are
+
+of a suitable length, it is possible to find
+
+a value of k for which A+B*k has indeed sum of
+
+digits equal to S, and is thus the wanted solution.
+
+Clearly, to find the minimum possible value of N,
+
+we must try different values of S (S does not exceed
+
+9 * the number of digits of N) and also
+
+investigate different possible "digital ending" of N.
+
+Anyway, we can restrict a lot the "endings" to be considered.
+
+What has importance is the vector V of differences
+
+with respect to the initial value S.
+
+For the case of "48" above, the values were V=(0,1,-7,-6).
+
+It is clear that the same values are obtained
+
+also considering the ending "23548" or "008",
+
+while things differs if N ends in "20",
+
+since we obtain (0,1,2,3,4) or if N ends in "199",
+
+since we obtain (0,-17,-16,-15).
+
+In practice we can restrict ourself to
+
+consider the endings composed by an arbitrary digit d,
+
+preceeded by an arbitrary long string of "9" (potentially void).
+
+For runs of numbers longer than 10 we must also
+
+consider endings like "9989", where we can have two "jumps"
+
+in the vector V, because we cross twice the decade boundary.
+
+So, what I did, was to solve the systems of congruences
+
+for various values of S and for various possible
+
+endings of N, setting a maximum number of digits as
+
+a bound.
+
+Then I took the most promising recurrencies A+B*k and
+
+used them to generate solutions.
+
+Then I used the smallest solutions found as a bound
+
+to check if the other recurrencies could produce
+
+even better (i.e., smaller) solutions.
+
+It remains me the doubt (that I'll solve when I'll find
+
+the time to go the library) that maybe all these results
+
+are already in the cited Helen Grundman's paper...
+
+...
+
+I've a little update, with respect to the message of last week.
+
+I was not able to find the smaller start of a run of 14
+
+consecutive Harshad numbers, but I determined
+
+that the minimum N which starts a run of 14 Harshad numbers
+
+must have sum of digits equal to 710 and it must be congruent to
+
+40820942458450919289015092382588*10^20-10
+
+(mod 47921581404090797983294680662697*10^20).
+
+The smallest candidate I found has 89 digits and can be written as
+
+10^89-10^20*140427281123326011010230221014125220114-10
+
+***
+
+Max Alekseyev wrote on April 2013:
+
+The 14-th term in the Puzzle 129 is
+
+4201420328711160916072939999999999999999999999999999999999999996
+
+which can be also written as 420142032871116091607294*10^40 - 4
+
+with the digit sum 436. This invalidates Giovanni Resta's comment about "the minimum N which starts a run of 14 Harshad numbers".
+
+I was also lucky to find 16-th and 17-th terms, which are
+
+50757686696033684694106416498959861492*10^280 - 9
+
+and
+
+14107593985876801556467795907102490773681*10^280 - 10,
+
+respectively. The 15-th term is a die hard, however.
+
+Other issues with the Puzzle 129:
+
+1) the statement "in 1994, Grundman proved that there are no more than 20 consecutive Harshad numbers, and found the smallest sequence of 20 consecutive H. numbers, it has 44,363,342,786 digits"
+
+(quoted from MathWorld) is incorrect two-fold:
+
+first, that's not Grundman but Cooper and Kennedy proved in 1993 that there are no more than 20 consecutive Harshad numbers;
+
+second, 44,363,342,786 digits are not in the smallest of 20 consecutive Harshad numbers, but in the smallest example that they constructed to demonstrate that there are infinitely many such 20-tuples. They did not claim that their example is ultimately smallest.
+
+Cooper and Kennedy's paper is available at http://www.fq.math.ca/Scanned/31-2/cooper.pdf
+
+2) The "now unfortunately blocked Eric Weisstein's Encyclopedia of Mathematics" can now be called simply MathWorld.
+
+And the referenced page is http://mathworld.wolfram.com/HarshadNumber.html
+
+I have sent the correction about the above claim to Eric Weisstein.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

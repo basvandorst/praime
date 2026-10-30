@@ -1,0 +1,567 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_430.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 430. Grimm's conjecture
+Source: https://www.primepuzzles.net/puzzles/puzz_430.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0430.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://en.wikipedia.org/wiki/Grimm's_conjecture
+  http://www.math.tifr.res.in/~shanta/grimm.pdf
+  mailto:cbrfgm@gmail.com
+  http://www.math.uwaterloo.ca/~slaishra/grimm.pdf
+  https://www.primepuzzles.net/puzzles/puzz_429.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_431.htm
+  https://www.primepuzzles.net/puzzles/puzz_430.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 430. Grimm's conjecture
+
+Problems & Puzzles: Puzzles
+
+Puzzle 430. Grimm's conjecture
+
+Grimm's conjecture states that to each element of a set of consecutive composite numbers one can assign a distinct prime that divides it. (see, 1, 2)
+
+It has also been proved that "there are finitely many exceptions" to this Conjecture (B32, R.K.Guy)
+
+Example:
+
+Consecutive composite | 524 | 525 | 526 | 527 | 528 | 529 | 530 | 531 | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540
+
+Prime factorization | 2^2*131 | 3*5^2*7 | 2*263 | 17*31 | 2^4*3*11 | 23^2 | 2*5*53 | 3^2*59 | 2^2*7*19 | 13*41 | 2*3*89 | 5*107 | 2^3*67 | 3*179 | 2*269 | 7^2*11 | 2^2*3^3*5
+
+Set of distinct prime divisors | 131 | 3 | 263 | 17 | 11 | 23 | 53 | 59 | 19 | 41 | 89 | 107 | 67 | 179 | 269 | 7 | 2
+
+Q1. Describe a simple algorithm in order to compute the set of distinct prime divisors for a given range of consecutive composites that pass the Grimm's conjecture.
+
+(perhaps you would like to test your algorithm with the set of 71 composites from 31398 to 31468)
+
+Q2. Apply your algorithm to each gap of primes and make your own report for the extent of your validation of this conjecture or find the smallest exception.
+
+Contributions came from Jan van Delden.
+
+***
+
+Jan wrote:
+
+Q1: Suppose there are k consecutive composites between two successive primes.
+
+If we factor any composite in this range a factor f >=k will necessarily only be encountered a single time
+
+(among all these composites), otherwise there would be two different multiples of this same factor f in the
+
+given range, say a.f and b.f. With b.f>a.f we would get b.f-a.f = (b-a).f>=k which is impossible.
+
+In order to find an assignment of prime divisors to a composite it will therefore suffice to find such an
+
+assignment for the so-called smooth numbers:khaving only prime factors < k.
+
+An algorithm will therefore be:
+
+Divide each composite c through by 2,3,5,.. <k, until these factors aren't present anymore. Remember
+
+the primes used and the remaining factor R.
+
+If R>1 assign any prime factor in R to the corresponding composite. (Any method, for instance trying the next prime>=k etc.).
+
+If R=1 there remains a set of composites which are smooth.
+
+I) Check for every smooth composite whether there's just one prime. Assign this prime if true and remove this prime
+
+from the set of factors for the other composites.
+
+Repeat this process until there are no more composites with just one factor. (BTW, if no more factor present
+
+we have a counterexample to Grimm's conjecture).
+
+II) For the remaining smooth composites assign the biggest prime out of the remaining set of prime factors. Start with
+
+the largest composite and work your way down.
+
+For instance with p=523 (example given) the last step would give
+
+composite primedivisors
+
+525: 3,5,7
+
+528: 2,3,11
+
+539: 7,11
+
+540: 2,3,5
+
+I'm actually hoping it will always work (no proof, if it exists)
+
+540: 5
+
+539: 11
+
+528: 3 (11 already used and eliminated by 539)
+
+525: 7
+
+The descending part is essential. For instance the given p=523 the ascending method would fail
+
+525: 7
+
+528: 11
+
+539: both factors are already assigned and eliminated.
+
+540: 3
+
+If step II) fails one could always resort to a brute force method (using recursion for instance).
+
+I've tested until 10^8 and it didn't let me down (so far). Furthermore if one tries to estimate the average
+
+number of smooth composite numbers and compares them to the average size of the number of factors < n,
+
+using well known asymptotic formulae, it's possible to show that:
+
+- the 'average' number of smooth numbers will decrease with increasing x (roughly speaking; this formula
+
+shows a maximum around 9000 and then decreases(*))
+
+- the 'average' number of factors will increase! [~ln(x)^2/(2*ln(ln(x)), using Cramers conjecture and pi(x)~x/ln(x)]
+
+So in average there will be an abundance of factors to choose from when assigning these to the smooth
+
+composites (once x is relatively large).
+
+(*) I used a formula found in Prime numbers and computer methods for factorization, page 164, the data do support
+
+this, in the sense that the maximum number of smooth numbers increase and then decrease (I didn't calculate averages..).
+
+Q2: At first I was looking for the situation where the ratio (see below) is small (i.e. number of different factors
+
+in the remaining number of smooth composites is small). Then I decided I'd better calculate the number of possible
+
+assignments for the 'smooth' composites in the sequence of consecutive composites, to be sure whether or not
+
+this is a good indicator of 'close calls'.
+
+In these tables:
+
+p prime before the sequence of consecutive composites
+
+nc number of composites in sequence
+
+ns number of smooth composites (having all prime factors < nc)
+
+(red if this is equal to the maximum ns in the same range
+
+r ratio of total number of different prime factors of above composites / ns
+
+(blue if the ratio is equal to the minimum ratio for all p in the same range)
+
+min minimum number of possible assignments of these factors to the composites
+
+max maximum number of possible assignments of these factors to the composites
+
+Log10[p]
+
+p
+
+min
+
+ns
+
+r
+
+nc
+
+1-2
+
+23
+
+1
+
+2
+
+1.0000
+
+5
+
+31
+
+1
+
+2
+
+1.0000
+
+5
+
+2-3
+
+241
+
+3
+
+3
+
+1.3333
+
+9
+
+619
+
+3
+
+2
+
+2.0000
+
+11
+
+3-4
+
+1021
+
+2
+
+2
+
+1.5000
+
+9
+
+3121
+
+2
+
+3
+
+1.5000
+
+15
+
+4-5
+
+32749
+
+4
+
+2
+
+2.5000
+
+21
+
+83497
+
+4
+
+2
+
+2.5000
+
+39
+
+5-6
+
+131071
+
+4
+
+2
+
+2.5000
+
+29
+
+6-7
+
+1419839
+
+4
+
+2
+
+2.5000
+
+37
+
+7-8
+
+33554393
+
+5
+
+2
+
+3.0000
+
+73
+
+Log10[p]
+
+p
+
+max
+
+ns
+
+r
+
+nc
+
+1-2
+
+89
+
+4
+
+2
+
+1.5000
+
+7
+
+2-3
+
+523
+
+14
+
+4
+
+1.2500
+
+17
+
+3-4
+
+9973
+
+223
+
+6
+
+1.6667
+
+33
+
+4-5
+
+31397
+
+11191
+
+10
+
+1.6000
+
+71
+
+5-6
+
+370261
+
+29664
+
+8
+
+2.3750
+
+111
+
+6-7
+
+7230331
+
+26775
+
+7
+
+2.7143
+
+147
+
+7-8
+
+46006769
+
+61108
+
+7
+
+3.4286
+
+197
+
+There are more solutions if one wants to find the maximum for ns. For instance 1327 is ‘missed’ which has ns=7,
+
+r=1.4286,nc=33, with 78 possible assignments.
+
+From these two tables we can see that a small ratio r is not a good criterion for a near miss. In fact we see
+
+that a maximum number of assignments can have a minimum ratio (second table). And the minimum ratio is
+
+not achieved many times.
+
+The second table does suggest that a maximum for ns could be used as indicator for a maximum number of
+
+assignments. But finding minimum ns is useless. (If ns<=2, there’s always at least one assignment possible).
+
+Apparently the distribution of the remaining set of prime factors over the smooth composites is essential.
+
+***
+
+C. Rivera wrote (Feb 4, 08):
+
+I find very interesting the Delden's contribution specially because he shows that the only numbers that must
+
+be analyzed regarding the Grimm's conjecture are those which has prime factors less than k, where k is the number of
+
+composites in the gap in turn. These numbers are the k-smooth numbers in the gap.
+
+This is a major shortcut to the numerical test of the Grimm's conjecture because these numbers (after the gap 31398
+
+to 31468, which has 10 71-smooth numbers) become less & less frequent (can you find a gap with more than
+
+10 k-smooth numbers?)
+
+As far as I understand the Delden's approach, his algorithm could be expressed this synthetic way:
+
+Given two consecutive primes P & Q, P<Q, k=Q-P-1= number of composites in the gap.
+
+A.- For N=Q-1 to P+1 step -1
+
+Compute prime factors of N & until you get a residue 1 or a prime factor larger or equal than k
+
+if the largest prime factor of N is larger or equal than k then go to B.
+
+Use the largest unused prime factor of N and keep it as used in this for-next loop. If this is possible go to B,
+
+otherwise or this Algorithm or the Grimm's conjecture fail. End
+
+B.- Next N
+
+C.- Grimm's conjecture Pass for this gap!: End
+
+I have made the code of this Algorithm in Ubasic and extended the search up to 1x10^9 without any fail.
+
+***
+
+T. D. Noe wrote (Feb., 4, 08):
+
+Shanta Laishram and T. N. Shorey, Grimm's Conjecture on consecutive
+
+integers, International Journal of Number Theory, 2 (2006), 1-5.
+
+it is proved that Grimm's conjecture is true for all n<=19236701629. There
+
+is a copy of the paper at http://www.math.uwaterloo.ca/~slaishra/grimm.pdf
+
+I think bipartite matching is the simplest algorithm for for finding a
+
+sequence of distinct primes that divide a sequence of consecutive composite
+
+numbers. The procedure is to create a directed graph whose vertices are
+
+the composite numbers and all their prime factors. For instance, for the
+
+composite numbers between 23 and 29, the vertices are 24, 25, 26, 27, 28,
+
+2, 3, 5, 7, 13. In this graph, two vertices are connected if one number
+
+divides the other. Thus, 24 is connected to 2 and 3; 25 is connected to 5;
+
+26 is connected to 2 and 13; 27 is connected to 3; and 28 is connected to 2
+
+and 7. The bipartite matching algorithm attempts to find a connection from
+
+each composite number to a prime factor. Here is some code for Mathematica
+
+users:
+
+Needs["Combinatorica`"];
+
+factors[n_Integer] := First[Transpose[FactorInteger[n]]];
+
+Grimm[n0_Integer, k_Integer] := Module[{s, fact, m, g},
+
+s = Table[factors[n], {n, n0+1, n0+k}];
+
+fact = Union[Flatten[s]];
+
+m = BipartiteMatching[
+
+g = MakeGraph[
+
+Join[fact,
+
+Range[n0+1, n0+k]], #1 != #2 && (Mod[#2, #1] == 0) &,
+
+Type -> Directed, VertexLabel -> True]];
+
+If[Length[m] == k,
+
+GetVertexLabels[g,
+
+Transpose[Sort[RotateLeft[m, {0, 1}]]][[2]]], {}]];
+
+Grimm[31397,71]
+
+For the 71 composites 31398 to 31468, one possible sequence of prime
+
+divisors is
+
+5233, 17, 157, 3, 7, 31, 2617, 571, 41, 19, 151, 641, 349, 101, 7853, 37,
+
+113, 61, 11, 89, 683, 3491, 1571, 2417, 5237, 67, 491, 419, 827, 2857, 97,
+
+53, 449, 10477, 3929, 43, 13, 6287, 271, 499, 1429, 149, 131, 1367, 79, 47,
+
+1123, 331, 1747, 59, 3931, 953, 5, 4493, 2621, 71, 15727, 233, 983, 83,
+
+107, 163, 2, 10487, 15731, 73, 23, 29, 15733, 617, 7867.
+
+***
+
+Regarding the Delden´s approach Noe notices:
+
+"In Grimm's original paper, Grimm makes the same observation as Van Delden
+
+about having to find primes for only those composite numbers that have all
+
+prime factors less than the gap k."
+
+And regarding the Delden's algorithm:
+
+"But it is possible that it will not work for some prime gap."
+
+Question: can you find a gap where the Delden's algorithm fails but the Grimm's
+
+Conjecture passes?
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

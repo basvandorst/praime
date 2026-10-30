@@ -1,0 +1,1732 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://arxiv.org/pdf/1602.06208. These files are used for reasoning.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://arxiv.org/pdf/1602.06208
+Retrieved: 2026-10-30
+
+--- page 1 ---
+arXiv:1602.06208v2  [math.NT]  17 Jun 2017
+EVER Y POSITIVE INTEGER IS A SUM OF THREE P ALINDROMES
+JA VIER CILLERUELO, FLORIAN LUCA, AND LEWIS BAXTER
+Abstract. For integer g ≥ 5, we prove that any positive integer can be written as a
+sum of three palindromes in base g.
+1. Introduction
+Let g ≥ 2 be a positive integer. Any nonnegative integer n has a unique base g
+representation namely
+n =
+∑
+j≥0
+δjgj, with 0 ≤ δj ≤ g − 1.
+The numbers δi are called the digits of n in base g. If l is the number of digits of n, we
+use the notation
+(1.1) n = δl−1 · · ·δ0,
+where we assume that δl−1 ⁄= 0.
+Deﬁnition 1.1. We say that n is a base g palindrome whenever δl−i = δi−1 holds for
+all i = 1, . . . , m = ⌊l/2⌋.
+There are many problems and results concerning the arithmet ic properties of base
+g palindromes. For example, in [2] it is shown that almost all b ase g palindromes are
+composite. In [4], it is shown that for every large L, there exist base g palindromes
+n with exactly L digits and many prime factors (at least (log log n)1+o(1) of them as
+L → ∞ ). The average value of the Euler function over binary (that i s, with g = 2)
+palindromes n with a ﬁxed even number of digits was investigated in [3]. In [ 7] (see also
+[10]), it is shown that the set of numbers n for which Fn, the nth Fibonacci number,
+is a base g palindrome has asymptotic density zero as a subset of all pos itive integers,
+while in [6] it was shown that base g palindromes which are perfect powers (of some
+integer exponent k ≥ 2) form a thin set as a subset of all base g palindromes. In [11],
+the authors found all positive integers n such that 10 n ± 1 is a base 2 palindrome, a
+result which was extended in [5].
+Date: June 20, 2017.
+1
+
+--- page 2 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 2
+Recently, Banks [1] started the investigation of the additi ve theory of palindromes
+by proving that every positive integer can be written as a sum of at most 49 base 10
+palindromes. A natural question to ask would be how optimal i s the number 49 in the
+above result. In this respect, we prove the following result .
+Theorem 1.2. Let g ≥ 5. Then any positive integer can be written as a sum of three
+base g palindromes.
+The case g = 10 of Theorem 1.2 is a folklore conjecture which has been aro und for
+some time [8, 9]. The paper [8] attributes a stronger conject ure to John Hoﬀman, namely
+that every positive integer n can be written in base g = 10 as a sum of three palindromes
+where one of them is the maximal palindrome less than or equal to n itself. This was
+refuted in [12] which provided inﬁnitely many examples of po sitive integers n which are
+not a sum of two decimal palindromes.
+However, we prove that “many” positive integers are a sum of t wo palindromes.
+Theorem 1.3. Let g ≥ 2. There exists a positive constant c1 depending on g such that
+|{n ≤ x : n = p1 + p2, p 1 and p2 are base g palindromes}| ≥ x1− c1√log x
+for all x ≥ 2.
+On the other hand the set of integers which are not the sum of tw o palindromes has
+positive density.
+Theorem 1.4. For any g ≥ 3 there exists a constant c < 1 such that
+|{n ≤ x : n = p1 + p2, p 1 and p2 are base g palindromes }| ≤ cx
+for x large enough.
+We do not know whether the set of positive integers which are t he sum of two base g
+palindromes has positive density.
+It would be interesting to extend Theorem 1.2 to the missing b ases g ∈ {2, 3, 4}. For
+g = 2 we need at least four summands. It can be checked, for examp le, that 10110000
+is not a sum of two palindromes and it cannot be a sum of three pa lindromes either
+because it is an even number. For g = 3 and g = 4 we believe that some variant of our
+algorithms can show that three summands suﬃce. Throughout t his paper, we use the
+Landau symbols O and o as well as the Vinogradov symbols ≪ and ≫ with their usual
+meaning. These are used only in the proof of Theorem 1.3.
+
+--- page 3 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 3
+2. The algorithms
+The proof of Theorem 1.2 is algorithmic. That is, one can prog ram the following
+proof to input a positive integer n and obtain a representation of n as a sum of three
+palindromes in base g ≥ 5. We assume throughout the proof that g ≥ 5.
+For ease of notation, and using a convention introduced by Ba nks [1], we consider
+that 0 is a base g palindrome as well. For any integer a, we write D(a) for that unique
+d ∈ {0, . . . , g− 1} such that d ≡ a (mod g).
+As in (1.1), we write the base g representation of n as
+n = δl−1 . . . . . . . . . δ1δ0.
+As before, δl−1 ⁄= 0.
+2.1. Small cases. To present a clear algorithm, those integers with less than 7 digits
+are considered separately in Section §4.
+So, the algorithm starts by counting the number of digits of n. If n has less than
+7 digits, then Proposition 4.1 from Section §4 shows how to write n as a sum of three
+palindromes. If n has 7 or more digits then we apply the general algorithm that w e
+present in the next pages.
+2.2. The starting point. For those integers with at least 7 digits, the starting point
+consists in assigning a type to n according to the following classiﬁcation. The type will
+deﬁne the lengths and the ﬁrst digits (so, also the last) of th e three palindromes p1, p2, p3
+that we will use to represent n. In the tables throughout the paper ‘ ∗’ denotes a known
+digit and ‘ .’ denotes a digit yet to be determined.
+Type A:
+A.1) δl−2 ⁄= 0, 1, 2, z 1 = D(δ0 − δl−1 − δl−2 + 1) ⁄= 0.
+n δl−1 δl−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 δl−1 . . . . . . . . . . . . . δ l−1
+p2 δl−2 − 1 . . . . . . . . . . . . δ l−2 − 1
+p3 z1 . . . . . . . . . . . z 1
+
+--- page 4 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 4
+A.2) δl−2 ⁄= 0, 1, 2, D (δ0 − δl−1 − δl−2 + 1) = 0.
+n δl−1 δl−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 δl−1 . . . . . . . . . . . . . δ l−1
+p2 δl−2 − 2 . . . . . . . . . . . . δ l−2 − 2
+p3 1 . . . . . . . . . . . 1
+A.3) δl−2 = 0, 1, 2, δ l−1 ⁄= 1, z 1 = D(δ0 − δl−1 + 2) ⁄= 0.
+n δl−1 δl−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 δl−1 − 1 . . . . . . . . . . . . . δ l−1 − 1
+p2 g − 1 . . . . . . . . . . . . g − 1
+p3 z1 . . . . . . . . . . . z 1
+A.4) δl−2 = 0, 1, 2 δl−1 ⁄= 1, D (δ0 − δl−1 + 2) = 0.
+n δl−1 δl−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 δl−1 − 1 . . . . . . . . . . . . . δ l−1 − 1
+p2 g − 2 . . . . . . . . . . . . g − 2
+p3 1 . . . . . . . . . . . 1
+A.5) δl−1 = 1, δ l−2 = 0, δ l−3 ≤ 3, z 1 = D(δ0 − δl−3) ⁄= 0.
+n 1 0 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 g − 1 . . . . . . . . . . . . g − 1
+p2 δl−3 + 1 . . . . . . . . . . . δ l−3 + 1
+p3 z1 . . . . . . . . . . z 1
+A.6) δl−1 = 1, δ l−2 = 0, δ l−3 ≤ 2, D (δ0 − δl−3) = 0.
+n 1 0 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 g − 1 . . . . . . . . . . . . g − 1
+p2 δl−3 + 2 . . . . . . . . . . . δ l−3 + 2
+p3 g − 1 . . . . . . . . . . g − 1
+
+--- page 5 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 5
+Type B:
+B.1) δl−1 = 1, δ l−2 ≤ 2, δ l−3 ≥ 4, z 1 = D(δ0 − δl−3) ⁄= 0.
+n 1 δl−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 . . . . . . . . . . . δ l−2 1
+p2 δl−3 − 1 . . . . . . . . . . . δ l−3 − 1
+p3 z1 . . . . . . . . . . z 1
+B.2) δl−1 = 1, δ l−2 ≤ 2, δ l−3 ≥ 3, D (δ0 − δl−3) = 0.
+n 1 δl−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 . . . . . . . . . . . δ l−2 1
+p2 δl−3 − 2 . . . . . . . . . . . δ l−3 − 2
+p3 1 . . . . . . . . . . 1
+B.3) δl−1 = 1, δ l−2 = 1, 2, δ l−3 = 0, 1, δ 0 = 0.
+n 1 δl−2 δl−3 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 − 1 . . . . . . . . . . . δ l−2 − 1 1
+p2 g − 2 . . . . . . . . . . . g − 2
+p3 1 . . . . . . . . . . 1
+B.4) δl−1 = 1, δ l−2 = 1, 2, δ l−3 = 2, 3, δ 0 = 0.
+n 1 δl−2 δl−3 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 . . . . . . . . . . . δ l−2 1
+p2 1 . . . . . . . . . . . 1
+p3 g − 2 . . . . . . . . . . g − 2
+B.5) δl−1 = 1, δ l−2 = 1, 2, δ l−3 = 0, 1, 2, z 1 = δ0 ⁄= 0.
+n 1 δl−2 δl−3 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 − 1 . . . . . . . . . . . δ l−2 − 1 1
+p2 g − 1 . . . . . . . . . . . g − 1
+p3 z1 . . . . . . . . . . z 1
+B.6) δl−1 = 1, δ l−2 = 1, 2, δ l−3 = 3, z 1 = D(δ0 − 3) ⁄= 0.
+n 1 δl−2 3 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 . . . . . . . . . . . δ l−2 1
+p2 2 . . . . . . . . . . . 2
+p3 z1 . . . . . . . . . . z 1
+
+--- page 6 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 6
+B.7) δl−1 = 1, δ l−2 = 1, 2, δ l−3 = 3, δ 0 = 3.
+n 1 δl−2 3 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ0
+p1 1 δl−2 . . . . . . . . . . . δ l−2 1
+p2 1 . . . . . . . . . . . 1
+p3 1 . . . . . . . . . . 1
+Notice that all the digits appearing in the classiﬁcation ar e valid digits; i.e. 0 ≤ δ ≤
+g − 1. We observe also that when n if of type B, the digit of p1 below δl−3, which will
+be denoted by x2, takes the values 0 , 1, 2 or 3.
+2.3. The algorithms. Once we have assigned the type to n we have to check if n is a
+special number or not.
+Deﬁnition 2.1. We say that n is a special number if the palindrome p1 corresponding
+to n according the classiﬁcation in types above has an even numbe r of digits, say l = 2m,
+and at least one of the digits δm−1 or δm is equal to 0. Otherwise we say that n is a
+normal number .
+We use ﬁve distinct algorithms. We use Algorithms I, II, III a nd IV for normal
+numbers and Algorithm V for special numbers.
+Algorithm I: To be applied to integers such that the associat ed palindromes p1, p2, p3 have
+2m + 1, 2m, 2m − 1 digits respectively for some m ≥ 3. In other words, those
+of type A1, A2, A3 and A4 when l = 2m + 1 and those of type A5 and A6 when
+l = 2m + 2. The cases m ≤ 2 correspond to the small cases .
+Algorithm II: To be applied to integers such that the associa ted palindromes p1, p2, p3 have
+2m, 2m − 1, 2m − 2 digits respectively for some m ≥ 3 and such that δm−1 ⁄= 0
+and δm ⁄= 0. In other words, those of type A1, A2, A3 and A4 when l = 2 m
+and δm−1 ⁄= 0 and δm ⁄= 0 and those of type A5 and A6 when l = 2 m + 1 and
+δm−1 ⁄= 0 and δm ⁄= 0. The cases m ≤ 2 correspond to the small cases .
+Algorithm III: To be applied to integers such that the associ ated palindromes p1, p2, p3 have
+2m + 1, 2m − 1, 2m − 2 digits respectively for some m ≥ 3. In other words, those
+of type B with l = 2m + 1. The cases m ≤ 2 correspond to the small cases .
+Algorithm IV: To be applied to integers such that the associa ted palindromes p1, p2, p3 have
+2m, 2m − 2, 2m − 3 digits respectively for some m ≥ 4. In other words, those of
+type B with l = 2m and with δm ⁄= 0 and δm−1 ⁄= 0. The cases m ≤ 3 correspond
+to the small cases .
+Algorithm V: To be applied to special numbers that are not covered by the small cases .
+
+--- page 7 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 7
+2.4. Algorithm I. Assume m ≥ 3. The initial conﬁguration when we apply Algorithm
+I is one of the following conﬁgurations:
+δ2m δ2m−1 δ2m−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ1 δ0
+x1 . . . . . . . . . . . . . x 1
+y1 . . . . . . . . . . . . y 1
+z1 . . . . . . . . . . . z 1
+1 δ2m δ2m−1 δ2m−2 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δ1 δ0
+x1 . . . . . . . . . . . . . x 1
+y1 . . . . . . . . . . . . y 1
+z1 . . . . . . . . . . . z 1
+Algorithm I in either case is the following:
+Step 1: We choose x1, y1, z1 according to the conﬁgurations described in the starting
+point. Deﬁne c1 = (x1 + y1 + z1)/g, which is the carry of the column 1.
+Step 2: Deﬁne the digits
+x2 =
+{
+D(δ2m−1 − y1) if z1 ≤ δ2m−2 − 1;
+D(δ2m−1 − y1 − 1) if z1 ≥ δ2m−2;
+y2 = D(δ2m−2 − z1 − 1);
+z2 = D(δ1 − x2 − y2 − c1);
+c2 = ( x2 + y2 + z2 + c1 − δ1)/g (the carry from column 2) .
+Step i, 3 ≤ i ≤ m: Deﬁne the digits
+xi =
+{
+1 if zi−1 ≤ δ2m−i − 1;
+0 if zi−1 ≥ δ2m−i;
+yi = D(δ2m−i − zi−1 − 1);
+zi = D(δi−1 − xi − yi − ci−1);
+ci = ( xi + yi + zi + ci−1 − δi−1)/g (the carry from column i).
+Step m + 1: Deﬁne
+xm+1 = 0.
+
+--- page 8 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 8
+The diagram below represents the conﬁguration after step i:
+. . . δ 2m−i+1 δ2m−i δ2m−i−1 ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ ∗ δi−1 . . .
+. . . x i . . . . . . . . . . . . x i . . .
+. . . y i−1 yi . . . . . . . . . . . y i . . .
+. . . z i−2 zi−1 zi . . . . . . . . . . z i . . .
+A few words to explain what is behind the algorithm:
+The digit yi is deﬁned to adjust the digit δ2m−i from the left side once we know
+the digit zi−1 and assuming a possible carry from the previous column (the −1 in the
+deﬁnition of yi takes into account this possible carry). The zi is deﬁned to adjust the
+digit δi−1 in the right side once we know xi, yi and ci−1, the carry from the previous
+column. Now we go again to the left side. If zi ≥ δ2m−i−1 we will get the possible carry
+we had assumed and then we deﬁne xi+1 = 0. If zi ≤ δ2m−i−1 − 1 we do not get any
+carry and then we deﬁne xi+1 = 1, which has the same eﬀect as the carry that we had
+expected.
+After the last step the conﬁguration that we obtain is the fol lowing:
+δ2m δ2m−1 δ2m−2 ∗ ∗ ∗ δm δm−1 δm−2 ∗ ∗ ∗ ∗ ∗ δ1 δ0
+x1 ∗ ∗ ∗ ∗ xm 0 xm ∗ ∗ ∗ ∗ ∗ ∗ ∗ x1
+y1 ∗ ∗ ∗ ym−1 ym ym ym−1 ∗ ∗ ∗ ∗ ∗ ∗ y1
+z1 ∗ ∗ ∗ zm−1 zm zm−1 ∗ ∗ ∗ ∗ ∗ ∗ z1
+We call temporary conﬁguration the conﬁguration we get after the last step. We
+have drawn a vertical line where both sides of the algorithm c ollide. It is not true in
+general that n is equal to the sum of the three palindromes we obtain in the te mporary
+conﬁguration.
+If ∆ m is the digit we obtain in column m + 1 when we sum the three palindromes, we
+observe that
+∆m ≡ ym + zm−1 + cm ≡ δm + cm − 1 (mod g).
+If cm = 1 then ∆ m = δm and we obtain the correct digit in column m + 1 and, as
+consequence of Proposition 2.2, we obtain the correct digit in all the columns. In this
+case n is equal to the sum of the three palindromes of the temporary c onﬁguration so
+the temporary conﬁguration is also the ﬁnal conﬁguration.
+If cm ⁄= 1, then we need an extra adjustment.
+2.5. The adjustment step. For i = 0, . . . ,2m, we denote by ∆ i the digit we obtain in
+column i + 1 when we sum the three palindromes that we have obtained aft er the last
+step. Of course we want that ∆ i = δi for all i, 0 ≤ i ≤ 2m. Unfortunately, this is not
+
+--- page 9 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 9
+always true but it is almost true. The following proposition shows that we obtain the
+correct digits on the left side (thanks to the zi’s) and that we obtain the correct digit
+in a column of the right side if the digit we obtain in the previ ous column is also the
+correct digit.
+Proposition 2.2. Let g ≥ 5 and m ≥ 3. We have that ∆i = δi for all 0 ≤ i ≤ m − 1.
+Furthermore, for any 0 ≤ i ≤ m − 1, if ∆m+i = δm+i, then ∆m+i+1 = δm+i+1.
+Proof. The ﬁrst statement of the proposition is clear because of the way we have deﬁned
+the zi’s. As for the second statement, we prove it separately for i = 0, for 1 ≤ i ≤ m − 3,
+for i = m − 2 and for i = m − 1.
+i) i = 0. We have
+∆m+1 ≡ xm + ym−1 + zm−2 + cm+1
+≡ δm+1 + xm + cm+1 − 1 (mod g).
+Then we have to prove that xm + cm+1 = 1.
+a) If xm = 1 then zm−1 ≤ δm − 1, so ym = δm − zm−1 − 1. Since
+∆m ≡ ym + zm−1 + cm ≡ δm + cm − 1 (mod g),
+and we have assumed that ∆ m = δm, we conclude that cm ≡ 1 (mod g), so
+cm = 1 (because |cm − 1| ≤ 2 < g ). Thus,
+cm+1 = ( ym + zm−1 + cm − δm)/g = (cm − 1)/g = 0,
+and then xm + cm+1 = 1.
+b) If xm = 0, then zm−1 ≥ δm, so ym = g + δm − zm−1 − 1. The argument is
+similar to the one before except that now we get
+cm+1 = ( ym + zm−1 + cm − δm)/g = (g + cm − 1)/g = 1,
+and again xm + cm+1 = 1.
+In any case, we have that xm + cm+1 = 1, and then ∆ m+1 = δm+1.
+ii) 1 ≤ i ≤ m − 3 (these cases are vacuous for m = 3):
+∆m+i+1 ≡ xm−i + ym−i−1 + zm−i−1−2 + cm+i+1
+≡ δm+i+1 + xm−i + cm+i+1 − 1 (mod g).
+We have to prove that xm−i + cm+i+1 = 1.
+a) If xm−i = 1, then zm−i−1 ≤ δm+i − 1, so ym−i = δm+i − zm−i−1 − 1. Since
+∆m+i ≡ xm−i+1 + ym−i + zm−i−1 + cm+i
+≡ xm−i+1 + δm+i − 1 + cm+i (mod g),
+
+--- page 10 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 10
+and we have assumed that ∆ m+i = δm+i, we conclude that
+xm−i+1 + cm+i − 1 ≡ 0 (mod g),
+therefore xm−i+1 + cm+i − 1 = 0 (because |xm−i+1 + cm+i − 1| ≤ 2). Thus,
+cm+i+1 = ( xm−i+1 + ym−i + zm−i−1 + cm+i − δm+i)/g
+= ( xm−i+1 − 1 + cm+i)/g = 0,
+and xm−i + cm+i+1 = 1.
+b) If xm−i = 0, then zm−i−1 ≥ δm+i, so ym−i = g + δm+i − zm−i−1 − 1. The
+argument is similar to one before except that now we get
+cm+i+1 = ( xm−i+1 + ym−i + zm−i−1 + cm+i − δm+i)/g
+= ( g + xm−i+1 − 1 + cm+i)/g = 1,
+and again xm−i + cm+i+1 = 1.
+In any case, we have that xm−i + cm+i+1 = 1 and then ∆ m+i+1 = δm+i+1.
+iii) i = m − 2. We have
+∆2m−1 ≡ x2 + y1 + c2m−1 (mod g).
+We distinguish two cases:
+a) If z1 ≤ δ2m−2 − 1, then y2 = δ2m−2 − z1 − 1 and
+∆2m−1 ≡ x2 + y1 + c2m−1 ≡ δ2m−1 + c2m−1 (mod g).
+Since
+∆2m−2 ≡ x3 + y2 + z1 + c2m−2 ≡ x3 + δ2m−2 − 1 + c2m−2 (mod g),
+and we have assumed that ∆ 2m−2 = δ2m−2, we get x3 − 1 + c2m−2 = 0
+(because |x3 − 1 + c2m−2| ≤ 2 ). Thus,
+c2m−1 = (x3 + y2 + z1 + c2m−2 − δ2m−2)/g = 0,
+and we have ∆ 2m−1 = δ2m−1.
+b) If z1 ≥ δ2m−2, then y2 = g + δ2m−2 − z1 − 1 and
+∆2m−1 ≡ x2 + y1 + c2m−1 ≡ δ2m−1 + c2m−1 − 1 (mod g).
+We repeat the same argument as in case a) except that now
+c2m−1 = (x3 + y2 + z1 + c2m−2 − δ2m−2)/g = 1,
+and again ∆ 2m−1 = δ2m−1.
+iv) i = m − 1. We can check in the classiﬁcation in types that if ∆ 2m−1 = δ2m−1,
+then ∆ 2m = δ2m. In other words, that we have c2m = 0 for the types A1 and A2
+and we have c2m = 1 for the types A3, A4, A5 and A6.
+
+--- page 11 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 11
+□
+Proposition 2.2 shows that if ∆ m = δm then ∆ i = δi for all i = 0 , . . . ,2m and then
+the three palindromes we have obtained do the job.
+The problem appears when ∆ m ⁄= δm and this occurs when cm ⁄= 1. When this
+happens, we need to make an adjustment to our temporary conﬁguration.
+Notice that for m ≥ 3 we have
+∆m ≡ δm + cm − 1 (mod g),
+and that cm takes the value 0 , 1 or 2.
+All the possible situations are considered in the cases belo w:
+I.1 cm = 1 . In this case ∆ m = δm and there is nothing to change. The temporary
+conﬁguration is simply the ﬁnal conﬁguration since in all co lumns the sums of the digits
+including the carries yield the digits of n.
+I.2 cm = 0 . In this case we need to increment by one unit the digit we obta in in
+the column m + 1. We can do this by changing the value of xm+1 = 0 to xm+1 = 1.
+δm δm−1
+0 ∗
+ym ym
+∗ zm
+− →
+δm δm−1
+1 ∗
+ym ym
+∗ zm
+Notice that we have modiﬁed the central digit of the ﬁrst pali ndrome, so the new ﬁrst
+row is also a palindrome. Notice also that now we obtain the co rrect digit in column
+m + 1 and also in all remaining columns.
+I.3 cm = 2 . In this case, we have that ym ⁄= 0 (otherwise cm ⁄= 2). Further, if
+zm ⁄= g−1, then the only possibility to have cm = 2 is that zm = g−2, y m = g−1, x m = 1
+and cm−1 = 2, but that gives δm−1 = 0, which is not allowed. Thus, zm = g − 1 and
+we make the following adjustment:
+δm δm−1
+0 ∗
+ym ym
+∗ g − 1
+− →
+δm δm−1
+1 ∗
+ym − 1 ym − 1
+∗ 0
+Observe that in every adjustment step we have been successfu l in increasing or de-
+creasing the digit that was obtained in the column m + 1 when cm = 0 or 2 , without
+altering the digits from the previous column. Notice also th at in every adjustment we
+
+--- page 12 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 12
+always modify the central digits of the temporary palindrom es such that the new ones
+are also palindromes. Once we have realized these adjustmen ts, the digit we get in the
+column m + 1 is δm, the correct digit, and Proposition 2.2 proves that all the d igits are
+correct.
+2.6. The three palindromes and an example. We end this subsection by illustrating
+the application of Algorithm I to an example. Let n be the positive integer giving the
+ﬁrst 21 decimal digits of π:
+n = 314159265358979323846.
+We see that n is of type A1, therefore the conﬁguration after Step 1 is the f ollowing:
+3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6
+2 . . . . . . . . . . . . . . . . . . . 2
+9 . . . . . . . . . . . . . . . . . . 9
+5 . . . . . . . . . . . . . . . . . 5
+Thus n is a normal integer and we can apply Algorithm I.
+Since z1 ≥ δ2m−2, Step 2 starts deﬁning
+x2 = D(δ2m−1 − y1 − 1) = D(1 − 9 − 1) = 1 ,
+y2 = D(δ2m−2 − z1 − 1) = D(4 − 5 − 1) = 8 ,
+z2 = D(δ1 − x2 − y2 − c1) = D(4 − 1 − 8 − 1) = 4 ,
+c2 = ( x2 + y2 + z2 + c1 − δ1)/10 = 1 ,
+and the conﬁguration after Step 2 is
+3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6
+2 1 . . . . . . . . . . . . . . . . . 1 2
+9 8 . . . . . . . . . . . . . . . . 8 9
+5 4 . . . . . . . . . . . . . . . 4 5
+and after Step 3 is
+3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6
+2 1 0 . . . . . . . . . . . . . . . 0 1 2
+9 8 6 . . . . . . . . . . . . . . 6 8 9
+5 4 1 . . . . . . . . . . . . . 1 4 5
+
+--- page 13 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 13
+Continuing with the algorithm we get to the temporary conﬁgu ration:
+3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6
+2 1 0 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 1 2
+9 8 6 3 9 9 2 9 4 0 0 4 9 2 9 9 3 6 8 9
+5 4 1 9 2 3 5 8 4 7 4 8 5 3 2 9 1 4 5
+Since cm = 0, we need to apply Adjustment I.2 and obtain the ﬁnal conﬁgu ration:
+n 3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6
+p1 2 1 0 1 0 0 1 0 0 1 1 1 0 0 1 0 0 1 0 1 2
+p2 9 8 6 3 9 9 2 9 4 0 0 4 9 2 9 9 3 6 8 9
+p3 5 4 1 9 2 3 5 8 4 7 4 8 5 3 2 9 1 4 5
+3. The remaining cases
+3.1. Algorithm II. The algorithm only diﬀers in the subindices of the δi’s (because
+now l = 2m is even) and in the adjustment step, which is slightly more co mplicated to
+describe because of the many cases to be considered. The case s m ≤ 2 correspond to
+the small cases . For m ≥ 3, we proceed in the following steps:
+Step 1: We choose x1, y1, z1 according to the conﬁgurations described in Section 2.2.
+Deﬁne c1 = (x1 + y1 + z1)/g, which is the carry of the column 1.
+Step 2: Deﬁne the digits
+x2 =
+{
+D(δ2m−2 − y1) if z1 ≤ δ2m−3 − 1;
+D(δ2m−2 − y1 − 1) if z1 ≥ δ2m−3;
+y2 = D(δ2m−3 − z1 − 1);
+z2 = D(δ1 − x2 − y2 − c1);
+c2 = ( x2 + y2 + z2 + c1 − δ1)/g (the carry from column 2) .
+Step i, 3 ≤ i ≤ m − 1 (these steps are vacuous for m = 3): Deﬁne the digits
+xi =
+{
+1 if zi−1 ≤ δ2m−i−1 − 1;
+0 if zi−1 ≥ δ2m−i−1;
+yi = D(δ2m−i−1 − zi−1 − 1);
+zi = D(δi−1 − xi − yi − ci−1);
+ci = ( xi + yi + zi + ci−1 − δi−1)/g (the carry from column i).
+
+--- page 14 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 14
+Step m: Deﬁne the digits
+xm = 0 .
+ym = D(δm−1 − zm−1 − cm−1).
+The temporary conﬁguration is:
+δ2m−1 δ2m−2 δ2m−3 ∗ ∗ ∗ δm δm−1 δm−2 ∗ ∗ ∗ ∗ ∗ δ1 δ0
+x1 . . . . . 0 0 xm−1 . . . . . . x 1
+y1 . . . . y m−1 ym ym−1 . . . . . . y 1
+z1 . . . . zm−1 zm−1 . . . . . . z 1
+or
+1 δ2m−1 δ2m−2 δ2m−3 ∗ ∗ ∗ δm δm−1 δm−2 ∗ ∗ ∗ ∗ ∗ δ1 δ0
+x1 . . . . . 0 0 xm−1 . . . . . . x 1
+y1 . . . . y m−1 ym ym−1 . . . . . . y 1
+z1 . . . . zm−1 zm−1 . . . . . . z 1
+with δm−1 ⁄= 0 and δm ⁄= 0.
+Proposition 3.1. Let g ≥ 5 and m ≥ 3. We have that ∆i = δi for all 0 ≤ i ≤ m − 1.
+Furthermore, for any 0 ≤ i ≤ m − 2, if ∆m+i = δm+i, then ∆m+i+1 = δm+i+1.
+Proof. The proof is similar to the proof of Proposition 2.2. We only g ive the details for
+i = 0, which is the only case somewhat diﬀerent.
+Assume that ∆ m = δm. In other words, that ( ym−1 + zm−2 + cm − δm)/g is an integer.
+We have
+∆m+1 ≡ xm−1 + ym−2 + zm−3 + cm+1 ≡ xm−1 + δm+1 − 1 + cm+1 (mod g).
+If xm−1 = 0, then zm−2 ≥ δm and ym−1 = g + δm − zm−2 − 1. Thus,
+cm+1 = (ym−1 + zm−2 + cm − δm)/g = (g + cm − 1)/g = 1
+because cm+1 is an integer and |cm − 1| ≤ 1 < g.
+If xm−1 = 1, then zm−2 ≤ δm − 1 and ym−1 = δm − zm−2 − 1. Thus,
+cm+1 = (ym−1 + zm−2 + cm − δm)/g = (cm − 1)/g = 0
+because cm+1 is an integer and |cm − 1| ≤ 1 < g.
+In any case, we have that xm−1 + cm+1 = 1, so ∆ m+1 ≡ δm+1. □
+The above proposition implies that if ∆ m = δm, then ∆ i = δi for all i = 0, . . . ,2m − 1.
+Adjustment step: Notice that ∆ m ≡ δm + cm − 1 (mod g). Thus, we make the
+adjustment according to this observation.
+
+--- page 15 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 15
+II.1 cm = 1 . We do nothing and the temporary conﬁguration becomes the ﬁn al
+one.
+II.2 cm = 0 . We distinguish the following cases:
+II.2.i) ym ⁄= 0 .
+δm δm−1
+0 0
+∗ ym
+∗ ∗
+− →
+δm δm−1
+1 1
+∗ ym − 1
+∗ ∗
+II.2.ii) ym = 0 .
+II.2.ii.a) ym−1 ⁄= 0 .
+δm δm−1 δm−2
+0 0 ∗
+ym−1 0 ym−1
+∗ zm−1 zm−1
+− →
+δm δm−1 δm−2
+1 1 ∗
+ym−1 − 1 g − 2 ym−1 − 1
+∗ zm−1 + 1 zm−1 + 1
+The above step is justiﬁed for zm−1 ⁄= g − 1. But if zm−1 = g − 1, then
+cm−1 ≥ (ym−1 + zm−1)/g ≥ 1, so cm = (zm−1 + cm−1)/g = (g − 1 + 1)/g = 1,
+a contradiction.
+II.2.ii.b) ym−1 = 0 , z m−1 ⁄= 0 .
+δm δm−1 δm−2
+0 0 ∗
+0 0 0
+∗ zm−1 zm−1
+− →
+δm δm−1 δm−2
+0 0 ∗
+1 1 1
+∗ zm−1 − 1 zm−1 − 1
+II.2.ii.c) ym−1 = 0 , z m−1 = 0 .
+If also cm−1 = 0, then δm−1 = 0, which is not allowed. Thus, cm−1 = 1.
+This means that xm−1 ∈ { g − 1, g − 2}. Since xi ∈ { 0, 1, 2} for i ≥ 3, it
+follows that m = 3 and we are in one of the cases A.5) or A.6). Further,
+δ2 = 1. In this case we change the above conﬁguration to:
+δm+1 δm δm−1 δm−2
+xm−1 − 1 1 1 xm−1 − 1
+∗ g − 1 g − 4 g − 1
+0 ∗ 2 2
+II.3 cm = 2 . In this case it is clear that zm−1 = ym = g − 1 (otherwise
+cm ⁄= 2). Note also that if ym−1 = 0, then cm−1 ⁄= 2 and then cm ⁄= 2 . Thus,
+
+--- page 16 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 16
+ym−1 ≥ 1 and cm−1 = 2.
+δm δm−1 δm−2
+0 0 ∗
+ym−1 g − 1 ym−1
+∗ g − 1 g − 1
+− →
+δm δm−1 δm−2
+1 1 ∗
+ym−1 − 1 g − 2 ym−1 − 1
+∗ 0 0
+Incidentally, this case only appears when m = 3, so l = 6. Indeed, for l ≥ 7, we
+get δm−1 = 0, which would make n special, so Algorithm II does not apply to it.
+Let us illustrate this algorithm with an example. We conside r the positive integer
+representing the ﬁrst 22 decimal digits of e:
+n = 2718281828459045235360.
+First let us note that since δ10 ⁄= 0 and δ11 ⁄= 0, then n is a normal integer . In addition
+n is of type A1. Therefore the initial conﬁguration is:
+2 7 1 8 2 8 1 8 2 8 4 5 9 0 4 5 2 3 5 3 6 0
+2 . . . . . . . . . . . . . . . . . . . . 2
+6 . . . . . . . . . . . . . . . . . . . 6
+2 . . . . . . . . . . . . . . . . . . 2
+Applying the algorithm II we get to the temporary conﬁgurati on:
+2 7 1 8 2 8 1 8 2 8 4 5 9 0 4 5 2 3 5 3 6 0
+2 0 1 1 1 0 1 0 0 1 0 0 1 0 0 1 0 1 1 1 0 2
+6 8 0 0 3 1 7 4 8 2 0 2 8 4 7 1 3 0 0 8 6
+2 7 1 4 9 0 7 9 1 5 5 1 9 7 0 9 4 1 7 2
+Observe that the digit in column 12 is not correct (we get a 3 in stead of a 4 for the
+sum). This is because c11 = 0, therefore we have to apply the adjustment step. Since
+y11 = 0, y 10 ⁄= 0 and z10 ⁄= 0, the adjustment step is that described in II.2.ii.a): App lying
+algorithm II we get:
+n 2 7 1 8 2 8 1 8 2 8 4 5 9 0 4 5 2 3 5 3 6 0
+p1 2 0 1 1 1 0 1 0 0 1 1 1 1 0 0 1 0 1 1 1 0 2
+p2 6 8 0 0 3 1 7 4 8 1 8 1 8 4 7 1 3 0 0 8 6
+p3 2 7 1 4 9 0 7 9 1 6 6 1 9 7 0 9 4 1 7 2
+
+--- page 17 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 17
+3.2. Algorithm III. The cases m ≤ 2 correspond to the small cases . For m ≥ 3, we
+proceed in the following steps:
+Step 1: We choose x1, y1, z1 according to the conﬁgurations described in Section 2.2.
+Deﬁne c1 = (1 + y1 + z1)/g, which is the carry of the column 1.
+Step 2: Deﬁne the digits
+x2 =
+{
+D(δ2m−2 − y1) if z1 ≤ δ2m−3 − 1;
+D(δ2m−2 − y1 − 1) if z1 ≥ δ2m−3;
+y2 = D(δ2m−3 − z1 − 1);
+z2 = D(δ1 − x1 − y2 − c1);
+c2 = ( x1 + y2 + z2 + c1 − δ1)/g (the carry from column 2) .
+Step i, 3 ≤ i ≤ m − 1: (these steps are vacuous for m = 3). Deﬁne the digits
+xi =
+{
+1 if zi−1 ≤ δ2m−i−1 − 1;
+0 if zi−1 ≥ δ2m−i−1;
+yi = D(δ2m−i−1 − zi−1 − 1);
+zi = D(δi−1 − xi−1 − yi − ci−1);
+ci = ( xi−1 + yi + zi + ci−1 − δi−1)/g (the carry from column i).
+Step m: Deﬁne the digits
+xm = 0 .
+ym = D(δm−1 − zm−1 − xm−1 − cm−1).
+The temporary conﬁguration is:
+1 δ2m−1 δ2m−2 ∗ ∗ ∗ δm δm−1 δm−2 ∗ ∗ ∗ ∗ ∗ δ1 δ0
+1 x1 . . . x m−1 0 xm−1 xm−2 . . . . . x 1 1
+y1 . . . y m−1 ym ym−1 . . . . . . y 1
+z1 . . . zm−1 zm−1 . . . . . . z 1
+We omit the proof of the following proposition because it is s imilar to the Proposition
+2.2 of Algorithm I.
+Proposition 3.2. Let g ≥ 5 and m ≥ 3. We have that ∆i = δi for all 0 ≤ i ≤ m − 2.
+Furthermore, for any −1 ≤ i ≤ m − 2, if ∆m+i = δm+i, then ∆m+i+1 = δm+i+1.
+Again, the above proposition gives that if ∆ m = δm, then ∆ i = δi for i = 0, . . . ,2m−1.
+
+--- page 18 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 18
+Adjustment step: Notice that ∆ m ≡ δm + cm − 1 (mod g). According to this
+observation we distinguish the following cases:
+III.1 cm = 1 . We do nothing and the temporary conﬁguration becomes the ﬁn al
+one.
+III.2 cm = 0 .
+δm δm−1
+0 ∗
+∗ ∗
+∗ ∗
+− →
+δm δm−1
+1 ∗
+∗ ∗
+∗ ∗
+III.3 cm = 2 . Notice that ym ⁄= 0 (otherwise cm ⁄= 2). This is clear for m ≥ 4
+because xm−1 takes the values 0 or 1. It also holds for m = 3 because x2 takes the values
+0, 1, 2 or 3 for integers of type B when g ≥ 5 and then x2 ≤ g − 2.
+III.3.i) ym−1 ⁄= 0 , z m−1 ⁄= g − 1.
+δm δm−1 δm−2
+0 ∗ ∗
+ym−1 ym ym−1
+∗ zm−1 zm−1
+− →
+δm δm−1 δm−2
+0 ∗ ∗
+ym−1 − 1 ym − 1 ym−1 − 1
+∗ zm−1 + 1 zm−1 + 1
+III.3.ii) ym−1 ⁄= 0 , z m−1 = g − 1.
+δm δm−1 δm−2
+0 ∗ ∗
+ym−1 ym ym−1
+∗ g − 1 g − 1
+− →
+δm δm−1 δm−2
+1 ∗ ∗
+ym−1 − 1 ym ym−1 − 1
+∗ 0 0
+III.3.iii) ym−1 = 0 , z m−1 ⁄= g − 1. In this case xm−1 ⁄= 0.
+δm+1 δm δm−1 δm−2
+xm−1 0 xm−1 ∗
+∗ 0 ym 0
+∗ ∗ zm−1 zm−1
+− →
+δm+1 δm δm−1 δm−2
+xm−1 − 1 0 xm−1 − 1 ∗
+∗ g − 1 ym − 1 g − 1
+∗ ∗ zm−1 + 1 zm−1 + 1
+III.3.iv) ym−1 = 0 , z m−1 = g − 1. In this case xm−1 ⁄= 0.
+δm+1 δm δm−1 δm−2
+xm−1 0 xm−1 ∗
+∗ 0 ym 0
+∗ ∗ g − 1 g − 1
+− →
+δm+1 δm δm−1 δm−2
+xm−1 − 1 1 xm−1 − 1 ∗
+∗ g − 1 ym g − 1
+∗ ∗ 0 0
+
+--- page 19 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 19
+Example: Let us illustrate this algorithm with an example. We conside r the positive
+integer representing the ﬁrst 21 decimal digits of ζ(3):
+n = 120205690315959428539.
+First let us note that n is a normal integer because the number of digits is odd. In
+addition n is of type B.5. Therefore the initial conﬁguration is:
+1 2 0 2 0 5 6 9 0 3 1 5 9 5 9 4 2 8 5 3 9
+1 1 . . . . . . . . . . . . . . . . . 1 1
+9 . . . . . . . . . . . . . . . . . 9
+9 . . . . . . . . . . . . . . . . 9
+Applying the algorithm III we get to the temporary conﬁgurat ion. Since c10 = 1 we do
+not need any adjustment step and the temporary conﬁguration is also the ﬁnal conﬁgu-
+ration.
+n 1 2 0 2 0 5 6 9 0 3 1 5 9 5 9 4 2 8 5 3 9
+p1 1 1 0 0 1 0 1 0 0 1 0 1 0 0 1 0 1 0 0 1 1
+p2 9 2 0 0 7 4 0 5 0 5 0 5 0 4 7 0 0 2 9
+p3 9 9 4 8 4 9 7 0 9 9 0 7 9 4 8 4 9 9
+3.3. Algorithm IV. The cases m ≤ 3 correspond to the small cases . For m ≥ 4, we
+proceed in the following steps:
+Step 1: We choose x1, y1, z1 according to the conﬁgurations described in Section 2.2.
+Deﬁne c1 = (1 + y1 + z1)/g, which is the carry of the column 1.
+Step 2: Deﬁne the digits
+x2 =
+{
+D(δ2m−3 − y1) if z1 ≤ δ2m−4 − 1;
+D(δ2m−3 − y1 − 1) if z1 ≥ δ2m−4;
+y2 = D(δ2m−4 − z1 − 1);
+z2 = D(δ1 − x1 − y2 − c1);
+c2 = ( x1 + y2 + z2 + c1 − δ1)/g (the carry from column 2) .
+Step i, 3 ≤ i ≤ m − 2: Deﬁne the digits
+xi =
+{
+1 if zi−1 ≤ δ2m−i−2 − 1;
+0 if zi−1 ≥ δ2m−i−2;
+yi = D(δ2m−i−2 − zi−1 − 1);
+zi = D(δi−1 − xi−1 − yi − ci−1);
+ci = ( xi−1 + yi + zi + ci−1 − δi−1)/g (the carry from column i).
+
+--- page 20 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 20
+Step i = m − 1: Deﬁne the digits
+xm−1 =
+{
+1 if zm−2 ≤ δm−1 − 1;
+0 if zm−2 ≥ δm−1;
+ym−1 = D(δm−1 − zm−2 − 1)
+zm−1 = D(δm−2 − xm−2 − ym−1 − cm−2).
+The temporary conﬁguration is:
+1 δ2m−2 δ2m−3 ∗ ∗ ∗ δm δm−1 δm−2 ∗ ∗ ∗ ∗ ∗ δ1 δ0
+1 x1 . . . x m−2 xm−1 xm−1 xm−2 . . . . . x 1 1
+y1 . . . y m−2 ym−1 ym−1 ym−2 . . . . . y 1
+z1 . . . z m−2 zm−1 zm−2 . . . . . z 1
+Proposition 3.3. Let g ≥ 5 and m ≥ 4. We have that ∆i = δi for all 0 ≤ i ≤ m − 2.
+Furthermore, for any −1 ≤ i ≤ m − 3, if ∆m+i = δm+i, then ∆m+i+1 = δm+i+1.
+Proof. The ﬁrst statement of the proposition is clear. For the secon d one, we consider
+ﬁrst the case i = −1. Assuming that ∆ m−1 = δm−1 we have to prove that ∆ m = δm.
+Indeed
+∆m ≡ xm−1 + ym−2 + zm−3 + cm ≡ δm + xm−1 + cm − 1 (mod g).
+If xm−1 = 1 then zm−2 ≤ δm−1 − 1 and ym−1 = δm−1 − zm−2 − 1. On the other
+hand, since ∆ m−1 ≡ δm−1 + xm−1 + cm−1 − 1 (mod g) and ∆ m−1 = δm−1, we have that
+xm−1 + cm−1 = 1. Thus, cm−1 = 0. Finally
+cm = (xm−1 + ym−1 + zm−2 + cm−1 − δm−1)/g = 0.
+If xm−1 = 0, then zm−2 ≥ δm−1 and ym−1 = g + δm−1 − zm−2 − 1. On the other
+hand, since ∆ m−1 ≡ δm−1 + xm−1 + cm−1 − 1 (mod g) and ∆ m−1 = δm−1, we have that
+xm−1 + cm−1 = 1. Thus cm−1 = 1. Finally
+cm = (xm−1 + ym−1 + zm−2 + cm−1 − δm−1)/g = 1.
+In any case we have that xm−1 + cm = 1 and then we conclude that ∆ m = δm.
+We omit the proof of the proposition for the other cases becau se they are similar to
+the case i = −1. □
+The above proposition gives that if ∆ m−1 = δm−1 then ∆i = δi for all i = 0, . . . ,2m−2.
+The adjustment step of this algorithm is more complicated th an the previous ones.
+Adjustment step: Assume that m ≥ 4. Notice that in this algorithm we have that
+∆m−1 ≡ δm−1 + xm−1 + cm−1 − 1 (mod g).
+
+--- page 21 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 21
+IV.1 xm−1 + cm−1 = 1 . We do nothing and the temporary conﬁguration becomes
+the ﬁnal one.
+IV.2 xm−1 + cm−1 = 0 , y m−1 ⁄= g − 1. Then xm−1 = cm−1 = 0. If ym−1 = 0,
+then zm−2 ≡ δm−2 − 1 (mod g), thus zm−1 ≤ δm−2 − 1, so xm−1 = 1 unless δm−1 = 0,
+which is not allowed. Thus, ym−1 ⁄= 0.
+IV.2.i) zm−1 ⁄= 0 .
+δm−1 δm−2
+∗ ∗
+ym−1 ym−1
+∗ zm−1
+− →
+δm−1 δm−2
+∗ ∗
+ym−1 + 1 ym−1 + 1
+∗ zm−1 − 1
+IV.2.ii) zm−1 = 0 , y m−2 ⁄= 0 .
+IV.2.ii.a) ym−1 ⁄= 1 , z m−2 ⁄= g − 1.
+δm δm−1 δm−2 ∗
+0 0 ∗ ∗
+ym−2 ym−1 ym−1 ym−2
+∗ zm−2 0 zm−2
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 − 1 ym−1 − 1 ym−1 − 1 ym−2 − 1
+∗ zm−2 + 1 1 zm−2 + 1
+IV.2.ii.b) ym−1 ⁄= 1 , z m−2 = g − 1. Note that ym−1 ⁄= 0 since otherwise, ym−1 =
+0 would imply δm−1 = 0, which is false.
+δm δm−1 δm−2 ∗
+0 0 ∗ ∗
+ym−2 ym−1 ym−1 ym−2
+∗ g − 1 0 g − 1
+− →
+δm δm−1 δm−2 ∗
+2 2 ∗ ∗
+ym−2 − 1 ym−1 − 2 ym−1 − 2 ym−2 − 1
+∗ 0 3 0
+IV.2.ii.c) ym−1 = 1 . In this case, since ym−1 + zm−2 + 1 ≡ δm−1 (mod g), we get
+that zm−2 = g −1. Indeed, for if not then either zm−2 = g −2, giving δm−1 =
+0, which is not allowed, or zm−2 ≤ g − 3, giving zm−2 = δm−1 − 2, which
+contradicts the fact that xm−1 = 0. We make the following adjustment:
+δm δm−1 δm−2 ∗
+0 0 ∗ ∗
+ym−2 1 1 ym−2
+∗ g − 1 0 g − 1
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 − 1 g − 1 g − 1 ym−2 − 1
+∗ 0 3 0
+IV.2.iii) zm−1 = 0 , y m−2 = 0 . Notice that ym−2 ≡ δm − zm−3 − 1 (mod g). Since
+ym−2 = 0 and δm ⁄= 0, we have that zm−3 ≤ δm − 1 and then xm−2 ⁄= 0 (even
+when m = 4).
+
+--- page 22 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 22
+IV.2.iii.a) zm−2 ⁄= g − 1. It follows that ym−1 ⁄= 0. Otherwise we would have
+δm−1 = 0, which is not allowed.
+∗ δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ 0 ym−1 ym−1 0
+∗ ∗ zm−2 0 zm−2
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 1 1 xm−2 − 1 ∗
+∗ g − 1 ym−1 − 1 ym−1 − 1 g − 1
+∗ ∗ zm−2 + 1 1 zm−2 + 1
+IV.2.iii.b) zm−2 = g − 1, y m−1 ⁄= 1 .
+∗ δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ 0 ym−1 ym−1 0
+∗ ∗ g − 1 0 g − 1
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 2 2 xm−2 − 1 ∗
+∗ g − 1 ym−1 − 2 ym−1 − 2 g − 1
+∗ ∗ 0 3 0
+IV.2.iii.c) zm−2 = g − 1, y m−1 = 1 .
+∗ δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ 0 1 1 0
+∗ ∗ g − 1 0 g − 1
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 1 1 xm−2 − 1 ∗
+∗ g − 1 g − 1 g − 1 g − 1
+∗ ∗ 0 3 0
+IV.3 xm−1 + cm−1 = 0 , y m−1 = g − 1. Since cm−1 = 0, it follows that
+xm−2 = zm−1 = 0. Notice that if ym−2 = 0, then δm = 0 (otherwise zm−3 = δm − 1 and
+then xm−2 ⁄= 0), which is not allowed. Thus, ym−2 ⁄= 0. Further, if zm−2 = g − 1,
+then cm−2 = ( xm−3 + ym−2 + zm−2)/g ≥ (xm−3 + 1 + g − 1)/g ≥ 1, so cm−1 =
+(xm−2 + g − 1 + cm−2)/g ≥ 1, a contradiction. Thus, zm−2 ⁄= g − 1 and we make
+the following adjustment:
+δm δm−1 δm−2 ∗
+0 0 ∗ ∗
+ym−2 g − 1 g − 1 ym−2
+∗ zm−2 0 zm−2
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 − 1 g − 2 g − 2 ym−2 − 1
+∗ zm−2 + 1 1 zm−2 + 1
+IV.4 xm−1 + cm−1 = 2 , x m−1 = 0 , c m−1 = 2 . If ym−1 = 0, then zm−2 = g −1
+and then δm−1 ⁄= 0. So, ym−1 ⁄= 0.
+IV.4.i) zm−1 ⁄= g − 1.
+δm−1 δm−2
+∗ ∗
+ym−1 ym−1
+zm−2 zm−1
+− →
+δm−1 δm−2
+∗ ∗
+ym−1 − 1 ym−1 − 1
+zm−2 zm−1 + 1
+
+--- page 23 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 23
+IV.4.ii) zm−1 = g − 1, z m−2 ⁄= g − 1. Notice that ym−1 ⁄= 1. Otherwise cm−1 ⁄= 2
+(even when m = 4)
+IV.4.ii.a) ym−2 ⁄= 0 .
+δm δm−1 δm−2 ∗
+0 0 ∗ ∗
+ym−2 ym−1 ym−1 ym−2
+∗ zm−2 g − 1 zm−2
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 − 1 ym−1 − 2 ym−1 − 2 ym−2 − 1
+∗ zm−2 + 1 1 zm−2 + 1
+IV.4.ii.b) ym−2 = 0 . As in case IV.2.iii), we have that xm−2 ⁄= 0.
+∗ δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ 0 ym−1 ym−1 0
+∗ ∗ zm−2 g − 1 zm−2
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 1 1 xm−2 − 1 ∗
+∗ g − 1 ym−1 − 2 ym−1 − 2 g − 1
+∗ ∗ zm−2 + 1 1 zm−2 + 1
+IV.4.iii) zm−1 = g − 1, z m−2 = g − 1. In this case, we make the following ad-
+justments:
+IV.4.iii.a) ym−1 ⁄∈ { g − 1, g − 2}. In this case, xm−2 ≥ 1, otherwise the sum in
+the column m − 1 is at most zm−1 + ym−1 + xm−2 + cm−2 ≤ g − 1 +g −
+3 + 0 + 2 = 2g − 2 < 2g, so we cannot have cm−1 = 2. If ym−2 ⁄= g − 1,
+then
+δm+1 δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ ym−2 ym−1 ym−1 ym−2
+∗ ∗ g − 1 g − 1 g − 1
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 g − 2 g − 2 xm−2 − 1 ∗
+∗ ym−2 + 1 ym−1 + 2 ym−1 + 2 ym−2 + 1
+∗ ∗ g − 2 g − 2 g − 2
+while if ym−2 = g − 1, then
+δm+1 δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ g − 1 ym−1 ym−1 g − 1
+∗ ∗ g − 1 g − 1 g − 1
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 g − 2 g − 2 xm−2 ∗
+∗ 0 ym−1 + 2 ym−1 + 2 0
+∗ ∗ g − 2 g − 2 g − 2
+IV.4.iii.b) If ym−1 ∈ {g − 1, g − 2}, then if ym−2 ≥ 1:
+δm+1 δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ ym−2 ym−1 ym−1 ym−2
+∗ ∗ g − 1 g − 1 g − 1
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 2 2 xm−2 ∗
+∗ ym−2 − 1 ym−1 − 3 ym−1 − 3 ym−2 − 1
+∗ ∗ 0 3 0
+
+--- page 24 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 24
+If ym−2 = 0 but xm−2 ≥ 1, then
+δm+1 δm δm−1 δm−2 ∗
+xm−2 0 0 xm−2 ∗
+∗ 0 ym−1 ym−1 0
+∗ ∗ g − 1 g − 1 g − 1
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 2 2 xm−2 − 1 ∗
+∗ g − 1 ym−1 − 3 ym−1 − 3 g − 1
+∗ ∗ 0 3 0
+This exhausts all possibilities. Indeed, if ym−2 = xm−2 = 0, then since
+cm−1 = 2, the only possibility is that cm−2 = 2, which implies that xm−3 =
+g − 1, which is false since xi ≤ 2 for all i ≥ 1.
+IV.5 xm−1 + cm−1 = 2 , x m−1 = 1 , c m−1 = 1 . In particular, it follows that
+zm−2 ⁄= g − 1 (otherwise we would have xm−1 = 0). Also, ym−1 ⁄= g − 1. Indeed, since
+ym−1 + zm−2 + 1 ≡ δm−1 (mod g), it follows that if ym−1 = g − 1, then zm−2 = δm−1, so
+xm−1 = 0, a contradiction.
+IV.5.i) zm−1 ⁄= g − 1, y m−1 ⁄= 0 .
+δm−1 δm−2
+∗ ∗
+ym−1 ym−1
+∗ zm−1
+− →
+δm−1 δm−2
+∗ ∗
+ym−1 − 1 ym−1 − 1
+∗ zm−1 + 1
+IV.5.ii) zm−1 ⁄= g − 1, y m−1 = 0 .
+∗ δm−1 δm−2
+1 1 ∗
+∗ 0 0
+∗ ∗ zm−1
+− →
+∗ δm−1 δm−2
+0 0 ∗
+∗ g − 1 g − 1
+∗ ∗ zm−1 + 1
+IV.5.iii) zm−1 = g − 1, z m−2 ⁄= 0 .
+IV.5.iii.a) ym−2 ⁄= g − 1.
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 ym−1 ym−1 ym−2
+∗ zm−2 g − 1 zm−2
+− →
+δm δm−1 δm−2 ∗
+0 0 ∗ ∗
+ym−2 + 1 ym−1 + 1 ym−1 + 1 ym−2 + 1
+∗ zm−2 − 1 g − 2 zm−2 − 1
+
+--- page 25 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 25
+IV.5.iii.b) ym−2 = g − 1, y m−1 ⁄= 0 , 1.
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+g − 1 ym−1 ym−1 g − 1
+∗ zm−2 g − 1 zm−2
+− →
+δm δm−1 δm−2 ∗
+2 2 ∗ ∗
+g − 2 ym−1 − 2 ym−1 − 2 g − 2
+∗ zm−2 + 1 1 zm−2 + 1
+IV.5.iii.c) ym−2 = g − 1, y m−1 = 0 .
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+g − 1 0 0 g − 1
+∗ zm−2 g − 1 zm−2
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+g − 2 g − 2 g − 2 g − 2
+∗ zm−2 + 1 1 zm−2 + 1
+IV.5.iii.d) ym−2 = g − 1, y m−1 = 1 .
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+g − 1 1 1 g − 1
+∗ zm−2 g − 1 zm−2
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+g − 2 g − 1 g − 1 g − 2
+∗ zm−2 + 1 1 zm−2 + 1
+IV.5.iv) zm−1 = g − 1, z m−2 = 0 , y m−2 ⁄= 0 .
+IV.5.iv.a) ym−1 ⁄= 0 , 1.
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 ym−1 ym−1 ym−2
+∗ 0 g − 1 0
+− →
+δm δm−1 δm−2 ∗
+2 2 ∗ ∗
+ym−2 − 1 ym−1 − 2 ym−1 − 2 ym−2 − 1
+∗ 1 1 1
+IV.5.iv.b) ym−1 = 0 .
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 0 0 ym−2
+∗ 0 g − 1 0
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 − 1 g − 2 g − 2 ym−2 − 1
+1 1 1
+IV.5.iv.c) ym−1 = 1 .
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 1 1 ym−2
+∗ 0 g − 1 0
+− →
+δm δm−1 δm−2 ∗
+1 1 ∗ ∗
+ym−2 − 1 g − 1 g − 1 ym−2 − 1
+∗ 1 1 1
+IV.5.v) zm−1 = g − 1, z m−2 = 0 , y m−2 = 0 . If xm−2 = 0, then δm = 0, which is
+not allowed. Thus, xm−2 ⁄= 0 (even when m = 4).
+
+--- page 26 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 26
+IV.5.v.a) ym−1 ⁄= 0 , 1. As in case IV.2.iii), we have that xm−2 ⁄= 0.
+∗ δm δm−1 δm−2 ∗
+xm−2 1 1 xm−2 ∗
+∗ 0 ym−1 ym−1 0
+∗ ∗ 0 g − 1 0
+− →
+∗ δm δm−1 δm−2 ∗
+xm−2 − 1 2 2 xm−2 − 1 ∗
+∗ g − 1 ym−1 − 2 ym−1 − 2 g − 1
+∗ ∗ 1 1 1
+IV.5.v.b) ym−1 = 0 . Note that xm−2 = 1. Indeed, if xm−2 = 0, then in order to
+have cm−1 = 1, we would need that cm−2 = 1, so xm−3 ≥ g − 2, which is
+false.
+δm+1 δm δm−1 δm−2 ∗
+xm−2 1 1 xm−2 ∗
+∗ 0 0 0 0
+∗ ∗ 0 g − 1 0
+− →
+δm+1 δm δm−1 δm−2 ∗
+xm−2 − 1 1 1 xm−2 − 1 ∗
+∗ g − 1 g − 2 g − 2 g − 1
+∗ ∗ 1 1 1
+IV.5.v.c) ym−1 = 1 . Then xm−2 = 1. Indeed, this follows as before, namely
+since ym−2 ≡ δm − zm−3 − 1 (mod g), and δm ⁄= 0, ym−2 = 0, we get that
+zm−3 ≤ δm − 1, so xm−2 ⁄= 0 (even when m = 4). Then
+δm+1 δm δm−1 δm−2 ∗
+xm−2 1 1 xm−2 ∗
+∗ 0 1 1 0
+∗ ∗ 0 g − 1 0
+− →
+δm+1 δm δm−1 δm−2 ∗
+xm−2 − 1 1 1 xm−2 − 1 ∗
+∗ g − 1 g − 1 g − 1 g − 1
+∗ ∗ 1 1 1
+IV.6 xm−1 + cm−1 = 3 . Then xm−1 = 1 and cm−1 = 2 . We always have that
+xm−2 ≤ 3 (even when m = 4). It follows that ym−1 ≥ 1 and zm−1 = g − 1 (otherwise
+zm−1 + ym−1 + xm−2 + cm−2 ≤ g − 1 + 4 + 2 ≤ 2g − 1 and then cm−1 ⁄= 2).
+δm−1 δm−2
+∗ ∗
+ym−1 ym−1
+∗ g − 1
+− →
+δm−1 δm−2
+∗ ∗
+ym−1 − 1 ym−1 − 1
+∗ 0
+3.4. Algorithm V. We recall that in this case the associated palindrome p1 of n has
+2m digits and that δm−1 = 0 or δm = 0. First we consider the integer
+n′ = n − s, where s = gm + gm−1.
+If δ′m−1 ⁄= 0 and δ′m ⁄= 0, we keep n′. Otherwise we consider the integer n′ = n − 2s. It is
+easy to check that one of n′ = n − s or n′ = n − 2s satisﬁes that δ′m−1 ⁄= 0 and δ′m ⁄= 0.
+We distinguish two cases:
+
+--- page 27 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 27
+i) The associated palindrome p′1 of n′ has also 2 m digits (this is the typical situa-
+tion).
+We apply Algorithms II or IV according to the type of n′. Then n′ = p′1+p′2+p′3
+and so
+n = n′ + ks = (p′1 + ks) + p′2 + p′3, k ∈ {1, 2}.
+Notice that p′1 + ks for k ∈ {1, 2} is also a palindrome because we are adding 1 or
+2 to the two central digits of p′1. Note that if we have applied Algorithm II, then
+the central digits are x′m and x′m, which are 0 or 1 for m ≥ 3. Note also that if
+we have applied Algorithm IV, then the central digits are x′m−1 and x′m−1, which
+are 0 or 1 for m ≥ 4. Hence, in all the cases the value of the two central digits
+is at most 3, which are legal digits for g ≥ 5 (indeed, even for g ≥ 4).
+ii) The associated palindrome p′1 of n′ has 2 m − 1 digits.
+This is only possible if n is of the form n = 104 . . . and n′ = 103 . . . . In this
+special situation, we consider n′ as of type B1 or B2 and apply the Algorithm
+IV to n′ (instead of Algorithm I). Notice that the conﬁguration of th e starting
+point in B1 and B2 is also valid when δl−3 = 3. Then the palindrome p′1 we get
+in this way has 2 m digits and, as above, we have
+n = n′ + ks = (p′1 + ks) + p′2 + p′3, k ∈ {1, 2}.
+Example: We ﬁnish with one example which shows how to apply Algorithms IV
+and V. Let n be the positive integer giving the ﬁrst 20 digits of the Fibon acci factorial
+constant
+F =
+∏
+k≥1
+(
+1 − ak
+)
+, a = − 1φ2 and φ = 1 +
+√
+5
+2 .
+Then
+n = 12267420107203532444.
+The number n is a special number because it has an even number of digits, 20 , m = 10
+and δm = 0. Thus, we apply Algorithm V and consider n′ = n − s, where s = 1010 + 109.
+Note that n′ = 12267420096203532444, which is a normal number because δ′m ⁄= 0 and
+δ′m−1 ⁄= 0.
+We observe that n′ is of type B.5, so we apply Algorithm IV to n′. The initial
+conﬁguration is
+1 2 2 6 7 4 2 0 0 9 6 2 0 3 5 3 2 4 4 4
+1 1 . . . . . . . . . . . . . . . . 1 1
+9 . . . . . . . . . . . . . . . . 9
+4 . . . . . . . . . . . . . . . 4
+
+--- page 28 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 28
+The temporary conﬁguration is
+1 2 2 6 7 4 2 0 0 9 6 2 0 3 5 3 2 4 4 4
+1 1 3 1 0 0 0 0 1 1 1 1 0 0 0 0 1 3 1 1
+9 1 5 7 8 5 0 6 1 1 6 0 5 8 7 5 1 9
+4 1 6 3 4 9 2 4 9 4 2 9 4 3 6 1 4
+Note that we need an adjustment because the digit in column 10 is not correct. The
+reason is that x9 + c9 = 2. Looking at the central digits, we must follow the Adjustm ent
+Step IV.5.iii.a):
+n′ 1 2 2 6 7 4 2 0 0 9 6 2 0 3 5 3 2 4 4 4
+p′1 1 1 3 1 0 0 0 0 1 0 0 1 0 0 0 0 1 3 1 1
+p′2 9 1 5 7 8 5 0 7 2 2 7 0 5 8 7 5 1 9
+p′3 4 1 6 3 4 9 2 3 8 3 2 9 4 3 6 1 4
+Finally, we add s = 10 10 + 109 to n′ to obtain a representation of n as a sum of three
+palindromes.
+n 1 2 2 6 7 4 2 0 1 0 7 2 0 3 5 3 2 4 4 4
+p1 1 1 3 1 0 0 0 0 1 1 1 1 0 0 0 0 1 3 1 1
+p2 9 1 5 7 8 5 0 7 2 2 7 0 5 8 7 5 1 9
+p3 4 1 6 3 4 9 2 3 8 3 2 9 4 3 6 1 4
+4. Small integers
+Proposition 4.1. All positive integers with less than seven digits are the sum of three
+palindromes in base g ≥ 5.
+Proof. The proof is a consequence of the lemmas 4.2, 4.3, 4.4, 4.5 and 4.6. □
+Lemma 4.2. All positive integers with two digits are the sum of two palin dromes in base
+g ≥ 5, except those of the form n = ( δ + 1)δ, 1 ≤ δ ≤ g − 2, which are sum of three
+palindromes.
+Proof. Except for n = 10 = ( g − 1) + 1, every positive integer n with two digits in base
+g ≥ 5 is of the form n = δ1δ0, and one of the following applies:
+δ1 ≤ δ0 δ1 > δ 0 + 1 δ1 = δ0 + 1, δ 0 ≥ 1
+δ1 δ0
+δ1 δ1
+δ0 − δ1
+δ1 δ0
+δ1 − 1 δ1 − 1
+g + δ0 − δ1 + 1
+δ0 + 1 δ0
+δ0 δ0
+g − 1
+1
+□
+
+--- page 29 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 29
+Lemma 4.3. All positive integers with three digits are the sum of two pal indromes in
+base g ≥ 5, except n = 201 which is the sum of three palindromes.
+Proof. Let n = δ2δ1δ0.
+δ2 ≤ δ0 δ2 ≥ δ0+1, δ 1 ⁄= 0 δ2 ≥ δ0+1, δ 1 = 0, D (δ2−δ0−1) ⁄= 0
+δ2 δ1 δ0
+δ2 δ1 δ2
+δ0 − δ2
+δ2 δ1 δ0
+δ2 δ1 − 1 δ2
+g + δ0 − δ2
+δ2 δ1 δ0
+δ2 − 1 g − 1 δ2 − 1
+g + δ0 − δ2 + 1
+If δ2 ≥ δ0 + 1, δ1 = 0, and D(δ2 − δ0 − 1) = 0, we have that δ0 ≡ δ2 − 1 (mod g) and
+we distinguish the following cases:
+δ2 ≥ 3 δ2 = 2 δ2 = 1
+δ2 0 δ2 − 1
+δ2 − 2 g − 1 δ2 − 2
+1 1 1
+2 0 1
+1 0 1
+g − 1 g − 1
+1
+1 0 0
+g − 1 g − 1
+1
+□
+Lemma 4.4. All positive integers with four digits are the sum of three pa lindromes in
+base g ≥ 5.
+Proof. Let n = δ3δ2δ1δ0.
+i) n ≥ δ300δ3, and n is not of the form n = δ300δ3+m with m = 201, or m = (δ+1)δ
+with δ ≥ 1. Then n − δ300δ3 is the sum of two palindromes p1, p2 and
+n = δ300δ3 + p1 + p2.
+ii) n = δ300δ3 + 201.
+δ3 ⁄= 1, g − 1 δ3 = 1 δ3 = g − 1
+δ3 2 0 δ3 + 1
+δ3 − 1 g − 1 g − 1 δ3 − 1
+2 1 2
+1 2 0 2
+1 1 1 1
+g − 2 g − 2
+3
+g − 1 2 1 0
+g − 1 1 1 g − 1
+g − 2 g − 2
+3
+iii) n = δ300δ3 + (δ + 1)δ, 1 ≤ δ ≤ g − 2 :
+a) δ3 + δ = δ0,
+δ3 ⁄= 1 δ3 = 1
+
+--- page 30 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 30
+δ3 0 δ + 1 δ0
+δ3 − 1 g − 2 g − 2 δ3 − 1
+1 3 1
+δ δ
+1 0 δ + 1 δ + 1
+g − 1 g − 1 g − 1
+δ + 1 δ + 1
+1
+b) δ3 + δ = g + δ0 with 0 ≤ δ0 ≤ g − 1:
+δ3 0 δ + 2 δ0
+δ3 − 1 g − 2 g − 2 δ3 − 1
+1 3 1
+δ δ
+iv) n = δ300δ0, δ0 ≤ δ3 − 1 and δ3 ⁄= 1. Then:
+δ3 0 0 δ0
+δ3 − 1 g − 1 g − 1 δ3 − 1
+g + δ0 − δ3
+1
+v) n = 1000. Then:
+1 0 0 0
+g − 1 g − 1 g − 1
+1
+□
+Lemma 4.5. All positive integers with ﬁve digits are the sum of three pal indromes in
+base g ≥ 5.
+Proof. If δ4 ⁄= 1, then n is of type A and we apply Algorithm I, which works for m = 2.
+Thus, we assume that δ4 = 1. Let n = 1δ3δ2δ1δ0.
+i) n ≥ 1δ30δ31 and n is not of the form n = 1 δ30δ31 + m with m = 201, or
+m = (δ + 1)δ with δ ≥ 1. By Propositions 4.2 and 4.3, n − 1δ30δ31 is the sum of
+two palindromes p1, p2 and then
+n = 1δ30δ31 + p1 + p2.
+ii) n = 1δ30δ31 + 201:
+1 δ3 2 δ3 2
+1 δ3 1 δ3 1
+1 0 1
+iii) n = 1δ30δ31 + (δ + 1)δ, 1 ≤ δ ≤ g − 2, δ 3 ⁄= 0 :
+a) δ + 1 + δ3 ≤ g − 1 :
+1 δ3 0 δ3 + δ + 1 δ + 1
+1 δ3 − 1 1 δ3 − 1 1
+g − 1 δ + 1 g − 1
+δ + 1
+
+--- page 31 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 31
+b) δ3 + 1 + δ = g + δ1 with 0 ≤ δ1 ≤ g − 1:
+1 δ3 1 δ1 δ + 1
+1 δ3 − 1 1 δ3 − 1 1
+g − 1 δ + 1 g − 1
+δ + 1
+iv) n = 1δ30δ31 + (δ + 1)δ, 1 ≤ δ ≤ g − 2, δ 3 = 0 :
+1 0 0 δ + 1 δ + 1
+g − 1 g − 1 g − 1 g − 1
+δ + 1 δ + 1
+1
+v) n ≤ 1δ30δ30 and δ3 = 0. Then:
+1 0 0 0 0
+g − 1 g − 1 g − 1 g − 1
+1
+vi) n ≤ 1δ30δ30 and δ3 ⁄= 0 with n = 1( δ3 − 1)(g − 1)(δ3 − 1)1 + m with m ⁄= 201
+and m ⁄= ( δ + 1)δ, 1 ≤ δ ≤ g − 2. Propositions 4.2 and 4.3 imply that m is the
+sum of two palindromes p1, p2 and then
+n = 1(δ3 − 1)(g − 1)(δ3 − 1)1 + p1 + p2.
+The remaining n are of the form n = 1 δ3δ2δ1δ0, with n ≤ 1δ30δ30 (so, δ2 = 0)
+and also of the form n = 1(δ3 − 1)(g − 1)(δ3 − 1)1 +m, where m = 201 or ( δ + 1)δ.
+Then m ⁄= 201 (otherwise n = 1δ31(δ3 − 1)2, so δ2 = 1), and m ⁄= (δ + 1)δ with
+δ3 + δ ≤ g − 1, since otherwise n = 1(δ3 − 1)(g − 1)(δ3 + δ)(δ + 1) (so the second
+leading digit of n is δ3 − 1 not δ3). Thus, the only possibility left is the following
+vii) n = 1(δ3 − 1)(g − 1)(δ3 − 1)1 + (δ + 1)δ, δ 3 ⁄= 0, δ 3 + δ = g + δ1, 0 ≤ δ1 ≤ g − 1 :
+1 δ3 0 δ1 δ + 1
+1 δ3 − 1 g − 2 δ3 − 1 1
+1 δ + 1 1
+δ − 1
+□
+Lemma 4.6. All positive integers with six digits are the sum of three pal indromes in
+base g ≥ 5.
+Proof. First, we consider the case δ5 ⁄= 1.
+We apply Algorithm II for m = 3 with some exceptions. Note that Algorithm II was
+applied to normal numbers . It was only used in the Adjustment Step II.2.ii.c), where
+we assumed that δ2 ⁄= 0 and then that z2 ⁄= 0 in that step. Thus, to apply Algorithm II
+
+--- page 32 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 32
+when n is not a normal number, we have to account also for the possibility z2 = 0 in the
+Step II.2.ii.c). This is the temporary conﬁguration in Step II.2.ii.c) (c2 = 0, y 3 = y2 = 0)
+with z2 = 0.
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 x2 0 0 x2 x1
+y1 0 0 0 y1
+z1 0 0 z1
+If x2 ⁄= 0, then the adjustment step is the following:
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 x2 0 0 x2 x1
+y1 0 0 0 y1
+z1 0 0 z1
+− →
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 x2 − 1 g − 1 g − 1 x2 − 1 x1
+y1 1 1 1 y1
+z1 0 0 z1
+If x2 = 0, we distinguish several cases:
+i) x1 = 1. It follows that δ5 = 1 (which is not allowed), unless y1 = z1 = g − 1.
+The adjustment step is the following:
+δ5 δ4 δ3 δ2 δ1 δ0
+1 0 0 0 0 1
+g − 1 0 0 0 g − 1
+g − 1 0 0 g − 1
+− →
+δ5 δ4 δ3 δ2 δ1 δ0
+2 0 0 0 0 2
+1 1
+g − 4
+ii) x1 ⁄= 1, y 1 ⁄= g − 1. The adjustment step is the following:
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 0 0 0 0 x1
+y1 0 0 0 y1
+z1 0 0 z1
+− →
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 − 1 g − 1 0 0 g − 1 x1 − 1
+y1 + 1 0 g − 2 0 y1 + 1
+z1 1 1 z1
+Let us look at the remaining possibilities. We have x1 ⁄= 1 and y1 = g − 1. If
+z1 ⁄= g − 1, then the temporary conﬁguration is
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 0 0 0 0 x1
+y1 0 0 0 y1
+z1 0 0 z1
+and we see that there is no carry in the fourth column. That is c4 = 0, so
+y1 = δ4, which contradicts the initial conﬁgurations given at A.1– A.4. Thus,
+y1 = z1 = g − 1, and we distinguish two additional possibilities:
+
+--- page 33 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 33
+iii) x1 ⁄= g − 1, z 1 = y1 = g − 1. The adjustment step is the following:
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 0 0 0 0 x1
+g − 1 0 0 0 g − 1
+g − 1 0 0 g − 1
+− →
+δ5 δ4 δ3 δ2 δ1 δ0
+x1 + 1 0 0 0 0 x1 + 1
+1 1
+g − 4
+iv) x1 = y1 = z1 = g − 1. Note that in this case we have that
+δ5δ4δ3δ2δ1δ0 = (g − 1)0000(g − 1) + (g − 1)000(g − 1) + (g − 1)00(g − 1) + 1000
+but we can check easily that this number has 7 digits.
+Secondly, we consider the case δ5 = 1.
+i) z1 = D(δ0 − δ4 + 1) ⁄= 0 and D(δ0 − δ4 + 2) ⁄= 0.
+1 δ4 δ3 δ2 δ1 δ0
+x1 x2 x3 x2 x1
+y1 y2 y3 y2 y1
+z1 z2 z1
+We choose x1, y1 such that 1 ≤ x1, y1 ≤ g − 1 and x1 + y1 = g + δ4 − 1. This
+is possible because 2 ≤ g + δ4 − 1 ≤ 2g − 2.
+We choose x2, y2 such that 0 ≤ x2, y2 ≤ g − 1 and x2 + y2 = g + δ3 − 1. This is
+possible because 0 ≤ g + δ4 − 1 ≤ 2g − 2. We also deﬁne z2 = D(δ1 − x2 − y2 − c1).
+We choose x3, y3 such that 0 ≤ x3, y3 ≤ g − 1 and x3 + y3 = g + δ2 − c2 − z1.
+This is possible because, as z1 ⁄= 0, we have that g + δ2 − c2 − z1 ≤ 2g − 2, and
+since D(δ0 − δ4 + 2) ⁄= 0, we have z1 ⁄= g − 1 and therefore
+g + δ2 − c2 − z1 ≥ g + 0 − 2 − (g − 2) = 0 .
+ii) D(δ0 − δ4 + 2) = 0 , δ 2 ⁄= 0.
+1 δ4 δ3 δ2 δ1 δ0
+x1 x2 x3 x2 x1
+y1 y2 y3 y2 y1
+z1 z2 z1
+We choose x1, y1 such that 1 ≤ x1, y1 ≤ g − 1 and x1 + y1 = g + δ4 − 1. Then
+z1 = g − 1. We put c1 = (x1 + y1 + z1 − δ0)/g = (2g + δ4 − 2 − δ0)/g.
+We choose x2, y2 such that 0 ≤ x2, y2 ≤ g − 1 and x2 + y2 = g + δ3 − 1. We
+then put z2 = D(δ1 − x2 − y2 − c1).
+
+--- page 34 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 34
+We choose x3, y3 such that 0 ≤ x3, y3 ≤ g − 1 and x3 + y3 = g + δ2 − c2 − z1 =
+(1 + δ2) − c2. Here, c2 = (x2 + y2 + z2 + c1 − δ1)/g.
+All such choices are possible by the same argument as in i) exc ept that now
+we have to justify in a diﬀerent way that 1 + δ2 − c2 ≥ 0, but this is clear because
+δ2 ≥ 1 and c2 ≤ 2.
+iii) D(δ0 − δ4 + 2) = 0 , δ 2 = 0.
+a) δ4 = 0. Then δ0 = g − 2.
+1 0 δ3 0 δ1 g − 2
+g − 2 x2 x3 x2 g − 2
+1 y2 y3 y2 1
+g − 1 z2 z2 g − 1
+We choose x2, y2 such that 0 ≤ x2, y2 ≤ g − 1 and x2 + y2 = δ3.
+We choose x3, y3 such that 0 ≤ x3, y3 ≤ g − 1 and x3 + y3 = g − c2 − z2.
+Observe that c2 = ( x2 + y2 + z2 + c1 − δ1)/g ≤ (g − 1 + g − 1 + 1)/g < 2.
+Thus, c2 ⁄= 2 and g − c2 − z2 ≥ g − 1 − (g − 1) ≥ 0, therefore we can choose
+such x3 and y3.
+b) δ4 = 1. Then δ0 = g − 1.
+1 1 δ3 0 δ1 g − 1
+g − 1 x2 x3 x2 g − 1
+1 y2 y3 y2 1
+g − 1 z2 z2 g − 1
+The choices for the xi’s are identical to the ones from case a).
+c) δ4 = 2. Then δ0 = 0.
+1 2 δ3 0 δ1 0
+g − 1 x2 x3 x2 g − 1
+2 y2 y3 y2 2
+g − 1 z2 z2 g − 1
+We choose x2, y2 such that 0 ≤ x2, y2 ≤ g − 1 and x2 + y2 = δ3.
+We choose x3, y3 such that 0 ≤ x3, y3 ≤ g − 1 and x3 + y3 = g − c2 − z2.
+If c2 ⁄= 2, then we can make such a choice for x3 and y3.
+
+--- page 35 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 35
+However, if c2 = 2, then x2 + y2 = z2 = g − 1 and δ1 = 0 and δ3 = g − 1. In
+this special case, we have:
+1 2 g − 1 0 0 0
+1 2 g − 2 g − 2 2 1
+1 g − 3 1
+g − 2
+d) δ4 ≥ 3. Then δ0 = δ4 − 2 ≥ 1.
+1 δ4 δ3 0 δ1 δ4 − 2
+1 1 − c4 0 0 1 − c4 1
+δ4 − 1 D(δ3 − 1) 2 − c2 D(δ3 − 1) δ4 − 1
+g − 2 z g − 2
+Here, we ﬁrst calculate
+c4 = (D(δ3 − 1) + 1 − δ3)/g ∈ {0, 1}.
+Next, c1 = 1 and z = D(δ1 − δ3 − 1 + c4). Finally,
+c2 = (2 − c4 + D(δ3 − 1) + z − δ1)/g ∈ {0, 1, 2}.
+iv) D(δ0 − δ4 + 1) = 0 , δ 3 ⁄= 0.
+a) δ4 ⁄= g − 1 :
+1 δ4 δ3 δ2 δ1 δ0
+x1 x2 x3 x2 x1
+y1 y2 y3 y2 y1
+z1 z2 z1
+We choose x1, y1 such that 1 ≤ x1, y1 ≤ g − 1 and x1 + y1 = g + δ4. This is
+possible because δ4 ≤ g − 2. On the other hand, z1 = g − 1.
+We choose x2, y2 such that 0 ≤ x2, y2 ≤ g − 1 and x2 + y2 = δ3 − 1.
+We choose x3, y3 such that 0 ≤ x3, y3 ≤ g − 1 and
+x3 + y3 = g + δ2 − c2 − z1 = 1 + δ2 − c2.
+This is possible because c2 ≤ 1. Indeed,
+c2 = (x2 + y2 + z2 + c1 − δ1)/g ≤ (δ3 − 1 + g − 1 + 2)/g < 2.
+b) δ4 = g − 1 :
+1 g − 1 δ3 δ2 δ1 g − 2
+1 3 − c3 x − µ x − µ 3 − c3 1
+g − 4 y − c2 + µ D (δ2 − x − 1 − c1 + µ) y − c2 + µ g − 4
+1 D(δ1 − 3 − y) + (c2 − µ) + c3 1
+
+--- page 36 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 36
+In the above, µ ∈ {0, 1}. We choose x, y with y ≥ 1 minimal such that D(x+y) =
+δ3 and D(δ1 − 3 − y) ⁄∈ {g − 2, g − 1}. Since the last condition forbids at most 2
+values for y, it follows that y ∈ {1, 2, 3}. Then
+c1 = (3 + y + D(δ1 − 3 − y) − δ1)/g ≤ (6 + g − 1 − δ1)/g.
+The last expression is < 2 if g ≥ 6. For g = 5, we can have c1 = 2 only if
+y = 3 , δ 1 = 0, but then y should have been chosen to be 1, a contradiction.
+Thus, c1 ∈ {0, 1}. Next, we try µ = 0 and compute
+c2 = (x + D(δ2 − x − 1 − c1 + µ) + c1 + 1 − δ2)/g.
+If c2 ∈ {0, 1}, we are all set. Otherwise, c2 = 2, so c1 = 1, x = g − 1, δ 2 = 0. We
+then take µ = 1, getting c2 = 1. Finally,
+c3 = (x + (y − c2) + c2 − δ3)/g ≤ (g − 1 + 3 + 1)/g < 2,
+so c3 ∈ {0, 1}.
+v) D(δ0 − δ4 + 1) = 0 , δ 3 = 0.
+a) δ4 = 0. Then δ0 = g − 1.
+If δ2 ⁄= 0, then n − 100001 = δ2δ1(g − 2) is a sum of two palindromes.
+If δ2 = 0 and δ1 ⁄= 0, g − 1, then n − 100001 = ( δ1 − 1)(g − 1) is also a sum
+of two palindromes.
+If δ2 = 0 and δ1 = 0, then
+1 0 0 0 0 g − 1
+1 0 0 0 0 1
+g − 2
+If δ2 = 0 and δ1 = g − 1, then
+1 0 0 0 g − 1 g − 1
+g − 1 0 1 0 g − 1
+g − 1 g − 2 g − 2 g − 1
+1 0 1
+b) δ4 = 1. Then δ0 = 0.
+If δ2 ≥ 2 or if δ2 = 1 and δ1 ⁄= 0, 1 then n − 110011 has three digits, its last
+digit is g − 1, therefore it can be written as a sum of two palindromes.
+If δ2 = 1 and δ1 = 0, then
+1 1 0 1 0 0
+1 0 g − 1 g − 1 0 1
+1 g − 1 1
+g − 2
+
+--- page 37 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 37
+If δ2 = 1 and δ1 = 1, then
+1 1 0 1 1 0
+1 1 0 0 1 1
+g − 1 g − 1
+If δ2 = 0 and δ1 ≥ 2, then
+1 1 0 0 δ1 0
+1 1 0 0 1 1
+δ1 − 2 δ1 − 2
+g − δ1 + 1
+If δ2 = 0 and δ1 = 1, then
+1 1 0 0 1 0
+1 0 0 0 0 1
+1 0 0 0 1
+g − 2
+If δ2 = 0 and δ1 = 0 then
+1 1 0 0 0 0
+1 0 0 0 0 1
+g − 1 g − 1 g − 1 g − 1
+c) δ4 = 2. Then δ0 = 1.
+If δ2 ≥ 2 or if δ2 = 1 and δ1 ⁄= 0, 1, then n − 120021 has three digits, its last
+digit is g − 1, therefore can be written as a sum of two palindromes.
+If δ2 = 1 and δ1 = 0, then
+1 2 0 1 0 1
+1 1 g − 1 g − 1 1 1
+1 g − 2 1
+g − 1
+If δ2 = 1 and δ1 = 1, then
+1 2 0 1 1 1
+1 1 g − 1 g − 1 1 1
+1 g − 1 1
+g − 1
+
+--- page 38 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 38
+If δ2 = 0 and δ1 ≥ 3, then
+1 2 0 0 δ1 1
+1 2 0 0 2 1
+δ1 − 3 δ1 − 3
+g − δ1 + 3
+(In the above, if δ1 = 3, then the second palindrome is missing and the last
+is g which is the sum ( g − 1) + 1).
+If δ2 = 0 and δ1 = 2, then
+1 2 0 0 2 1
+1 1 g − 1 g − 1 1 1
+1 0 1
+g − 1
+If δ2 = 0 and δ1 = 1, then
+1 2 0 0 1 1
+1 0 0 0 0 1
+2 0 0 0 2
+g − 2
+If δ2 = 0 and δ1 = 0, then
+1 2 0 0 0 1
+1 1 g − 1 g − 1 1 1
+g − 2 g − 2
+2
+d) δ4 = 3. Then δ0 = 2 and
+1 3 0 δ2 δ1 2
+1 0 g − y − 1 − c1 g − y − 1 − c1 0 1
+2 y − c2 + 1 + c1 D(δ2 + y + 2) y − c2 + 1 + c1 2
+g − 1 D(δ1 − 1 − y) + (c2 − 1) − c1 g − 1
+We choose y with y ≥ 1 minimal such that D(δ1 − 1 − y) ⁄∈ {0, g − 1}. Since
+the last condition forbids at most 3 values for y, it follows that y ∈ {1, 2, 3}.
+Then
+c1 = (2 + y + D(δ1 − 1 − y) − δ1)/g ≤ (5 + g − 1)/g < 2.
+Thus, c1 ∈ {0, 1}. Next,
+c2 = (g − y − 1 + D(δ2 + y + 2) + g − 1 − δ2)/g.
+
+--- page 39 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 39
+Clearly, ( g − y − 1) + g − 1 ≥ 2g − 5 ≥ g. Thus, c2 ∈ { 1, 2}. Thus,
+c2 − 1 ∈ {0, 1}. Thus, y − (c2 − 1) + c1 ∈ [0, 4] so it is a digit for all g ≥ 5.
+Also, g − y − 1 − c1 ≥ g − 5 ≥ 0.
+e) δ4 ≥ 4. Then δ0 = δ4 − 1.
+1 δ4 0 δ2 δ1 δ4 − 1
+1 2 g − y − c1 g − y − c1 2 1
+δ4 − 3 y − c2 + c1 D(δ2 + y − 1) y − c2 + c1 δ4 − 3
+1 D(δ1 − 2 − y) + c2 − c1 1
+We choose y ≥ 1 minimal such that D(δ1 − 1 − y) ⁄∈ {0, g − 1}. Since the last
+condition forbids at most 2 values for y, it follows that y ∈ {1, 2, 3}. Then
+c1 = (1 + y + D(δ1 − 1 − y) − δ1)/g ≤ (4 + g − 1 − δ1)/g < 2.
+Thus, c1 ∈ {0, 1}. Next,
+c2 = (g − y + 1 + D(δ2 + y − 1) − δ2)/g ≤ (g + g − 1)/g < 2.
+Thus, c2 ∈ { 0, 1}. Thus, y − c2 + c1 ∈ [0, 4] and D(δ1 − 2 − y) + c2 − c1 ∈
+{0, . . . , g − 1}.
+□
+5. The proofs of Theorems 1.3 and 1.4
+5.1. Proof of Theorem 1.3. To get the lower bound we argue in the following way.
+Let Pl be the set of palindromes with l base g digits. Its cardinality is bounded by
+g(l+1)/2. Let X be large and l be that positive integer such that 2 gl ≤ X < 2gl+1. It is
+clear that for all r ≥ 1, |Pl + Pl−r| is a lower bound for the number of positive integers
+less than or equal to X which are a sum of two base g palindromes. We use the relation
+|Pl||Pl−r| =
+∑
+n∈Pl+Pl−r
+r(n) ≤ |Pl + Pl−r| maxn∈Pl+Pl−r r(n).
+Consider the representations of n of the form n = x + y with x ∈ Pl and y ∈ Pl−r.
+Assume that l = 2mr + t, with 0 ≤ t ≤ 2r − 1.
+If
+x = x1x2 . . . x2x1 and y = y1y2 . . . y2y1
+are the base g representations of x and y, then we group the digits in blocks of length r
+from the left to the right and we get left over with a middle blo ck of length t:
+x = x1 . . . xr · · ·x2r(m−1)+1 . . . x2rm x2rm+t . . . x2rm+1 x2rm . . . x2r(m−1)+1 · · ·xr . . . x1.
+
+--- page 40 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 40
+If X = x1 . . . xr, we deﬁne f (X) := xr . . . x1. With this notation, x and y are represented
+as Xi, Yi, f(Xi), f (Yi), ∆3 of length r, while ∆ 1, ∆2 have length t:
+x = X1 · · · · · · · · · Xm ∆1 f (Xm) · · · · · · · · · f (X1)
+y = f (Y1) · · · · · · f (Ym−1) ∆ 2 ∆3 Ym−1 · · · · · · Y1
+When we sum x and y, digit by digit, in every column we could get a carry or not. Le t ti
+for i = 1, . . . ,2m be the carries in each column and let t = (t1, . . . , t2m) be the vector of
+carries. We denote by rt(n) the number of representations of n under the form n = x + y
+with x ∈ Pl, y ∈ Pl−r with a carries vector t. Clearly,
+r(n) =
+∑
+t
+rt(n).
+As in the case of x and y, we write n with the same length of the string of digits as x.
+n = δ2m · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · δ0
+x = X1 · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · f (X1)
+y = f (Y1) · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · Y1
+Let us see that Xi, Yi, ∆1, ∆2, ∆3 are all determined by δi and by the vector t.
+In fact, X1 is determined by δ2m and t2m. We then put f (X1), which in turn deter-
+mines Y1. If the carry in the ﬁrst column does not coincide with t1, then rt(n) = 0.
+If it does, then we put f (Y1) in its appropriate position. We then determine X2 using
+δ2m−1 and t2m−1. Again if the carry in the second column does not correspond w ith
+t2, then rt(n) = 0; otherwise, we keep on determining Xi, Yi and ∆ 3. If one of these
+determinations is not compatible with the corresponding ti’s then rt(n) = 0. In the last
+step, we have to determine what is ∆ 1. Since ∆ 1 is a palindrome itself and has length t,
+there are at most gr possibilities for it. Once we made up our mind about ∆ 1, the value
+of ∆ 2 is determined. So, rt(n) ≤ gr and therefore r(n) ≤ 2mgr.
+Hence,
+|Pl + Pl−r| ≥ gl+1−r/22−mg−r
+≥ (X/2)g−3r/22−m
+≥ (X/2)g−3r/22−l/(2r)
+≥ (X/2)g− 12 (3r+ l log gr log 2 ).
+Taking r = ⌊
+√
+l(log g)/(3 log 2)⌋ and using the fact that l ∼ log X/ log g, we get
+|Pl + Pl−r| ≫ Xg −
+√
+3l log g/ log 2 ≫ Xe−c√log X .
+
+--- page 41 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 41
+5.2. Proof of Theorem 1.4. For g ≥ 3, it is not hard to see that the number
+(5.1) ( g − 1)(g − 1) ∗ ∗ ∗ · · · ∗ 0(g − 1)
+is not a sum of two base g palindromes. Indeed, assume that the length of the above n
+is l ≥ 4 and that x = xl−1−r · · ·x0 ≥ y = yl−1−s · · · y0 are base g palindromes whose sum
+is the above n, where r, s are nonnegative integers. Since x0 + y0 ≤ 2g − 2 and the last
+digit of n is g − 1, there is no carry in the last position when summing x and y in base
+g, so x0 + y0 = g − 1 with 1 ≤ x0, y0 ≤ g − 2. If both r > 0 and s > 0 (so, the lengths
+of both x and y are smaller than l), then n = x + y which has length l in base g should
+start with 1, which is not the case. If r = 0 but s > 0, then x0 = g − 2 and y0 = 1.
+Since yl−2 = 1 or 0 according to whether s = 1 or s ≥ 2, respectively, and since there
+is a carry in the position l − 2 when adding x with y, we conclude that xl−2 = g − 2 or
+g − 1. But then g + 1 ≥ xl−2 + yl−2 + 1 ≥ g + (g − 1) = 2 g − 1, where the last inequality
+follows from the fact that the digit in the position l − 2 of n is g − 1, and the above string
+of inequalities is impossible. Hence, r = s = 0. Now looking at x1 and y1, we get that
+x1 + y1 = 0 or g. Looking now at the left, we conclude that xl−2 + yl−2 = x1 + y1 = 0
+or g, so in the position l − 2 of the digits of n we should have either the digit 0 or 1
+according to whether there is no carry coming from the sum of d igits of x and y from
+the position l − 3, or if there is one such carry, respectively, and both these numbers are
+smaller than the corresponding digit g − 1 of n, which is the ﬁnal contradiction.
+Note. All algorithms in the paper have been implemented in a Python program which
+generated a representation of n as a sum of three base g palindromes for all n and g in
+the ranges g + ℓ ≤ 17 and g ∈ {5, 6, 7, 8, 9, 10}. The program is available from the third
+author upon request.
+Acknowledgements
+The authors thank the referees for comments which improved t he quality of this paper.
+Work on this paper started during a visit of Florian Luca to th e Mathematics Department
+of the UAM in November 2015 and ﬁnished during a visit by the sa me author to the
+Max Planck Institute for Mathematics in Bonn during the peri od January to July of
+2017. This author thanks these Institutions for their hospi tality and support. Javier
+Cilleruelo has been supported by MINECO project MTM2014-56 350-P and by ICMAT
+Severo Ochoa project SEV-2015-0554 (MINECO). Florian Luca was supported in part
+by a start-up grant from Wits University and by an NRF A-rated researcher grant.
+
+--- page 42 ---
+EVERY POSITIVE INTEGER IS A SUM OF THREE PALINDROMES 42
+References
+[1] W. D. Banks, “Every natural number is the sum of forty-nin e palindromes”, Preprint, 2015, arXiv
+1508.04721v1.pdf
+[2] W. D. Banks, D. N. Hart and M. Sakata, “Almost all palindro mes are composite”, Math. Res. Lett.
+/ 11 (2004), 853–868.
+[3] W. D. Banks and I. E. Shparlinski, “Average value of the Eu ler function on binary palindromes”,
+Bull. Pol. Acad. Sci. Math. 54 (2006), 95–101.
+[4] W. D. Banks and I. E. Shparlinski, “Prime divisors of pali ndromes”, Period. Math. Hungar. / 51
+(2005), 1–10.
+[5] A. B´ erczes and V. Ziegler, “On simultaneous palindrome s”, J. Comb. Number Theory 6 (2014),
+37–49.
+[6] J. Cilleruelo, F. Luca and I. E. Shparlinski, “Power valu es of palindromes”, J. Comb. Number Theory
+1 (2009), 101–107.
+[7] J. Cilleruelo, R. Tesoro and F. Luca, “Palindromes in lin ear recurrence sequences”, Monatsh. Math.
+171 (2013), 433–442.
+[8] E. Friedman, “Problem of the Month (June 1999)”, http:// www2.stetson.edu/∼efriedma/matheoremagic/0699.html.
+[9] M. F. Hasler, User: M. F. Hasler/ Work in progress/Sum of p alindromes. From the On-Line Encyclo-
+pedia of Integer Sequences (OEIS) wiki. (Available at https ://oeis.org/wiki/User:M.F. Hasler/Work
+in progress/Sum of palindromes)
+[10] F. Luca, “Palindromes in Lucas Sequences”, Monatsh. Math. 138, (2003), 209–223.
+[11] F. Luca and A. Togb´ e, “On binary palindromes of the form 10n ± 1”, C. R. Acad. Sci. Paris Ser. I
+346 (2008), 487–489.
+[12] M. Sigg, “On a conjecture of John Hoﬀman regarding sums o f palindromic numbers”, Preprint,
+2015, arXiv 1510.07507v1.
+Instituto de Ciencias Matem ´aticas (CSIC-UAM-UC3M-UCM) and
+Departamento de Matem ´aticas, Universidad Aut ´onoma de Madrid
+28049, Madrid, Espa ˜na
+E-mail address : franciscojavier.cilleruelo@uam.es
+School of Mathematics, University of the Witw atersrand
+Private Bag X3, Wits 2050, South Africa and
+Max Planck Institute for Mathematics
+Vivatsgasse 7, 53111 Bonn, Germany
+E-mail address : Florian.Luca@wits.ac.za
+Sheridan College, School of Applied Computing, 1430 Trafal gar Road, Oakville, On-
+tario L6H 2L1
+E-mail address : lewis.baxter@sheridancollege.ca

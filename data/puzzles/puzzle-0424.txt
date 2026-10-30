@@ -1,0 +1,174 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_424.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 424. Empty intervals between consecutive perfect powers.
+Source: https://www.primepuzzles.net/puzzles/puzz_424.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0424.htm
+
+References (local copies):
+  ../../references/1998_ma-thema-tics-of-comput-a-tion.pdf  (from http://cr.yp.to/papers/powers-ams.pdf)
+  ../../references/1998_ma-thema-tics-of-comput-a-tion.txt  (extracted text)
+
+Links on the page:
+  http://www.research.att.com/~njas/sequences/A116086
+  http://www.research.att.com/~njas/sequences/A001597
+  http://cr.yp.to/papers/powers-ams.pdf
+  mailto:cbrfgm@gmail.com
+  http://www.mail2web.com/cgi-bin/redir.asp?lid=0&newsite=http://planetmath.org/encyclopedia/RedmondSunConjecture.html
+  http://www.mail2web.com/cgi-bin/redir.asp?lid=0&newsite=http://en.wikipedia.org/wiki/Redmond-Sun_conjecture
+  https://www.primepuzzles.net/puzzles/puzz_423.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_425.htm
+  https://www.primepuzzles.net/puzzles/puzz_424.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 424. Empty intervals between consecutive perfect powers.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 424. Empty intervals between consecutive perfect powers.
+
+JM Bergot sent one more nice puzzle:
+
+When does the interval between two consecutive perfect powers contain NO primes? These intervals must certainly be small in number; can anyone find all of them?
+
+Bergot gave two examples: 32 to 36; 121 to 125. Of course there are two more intervals before: 8 to 9 & 25 to 27
+
+In an elementary & search with Ubasic I found quickly (21 seconds) six more, for a total of 10 intervals of this type, but surfing the web I learned that T. D. Noe have discovered & published all these solutions before (March 2006 , see A116086) and consequently he must be properly mentioned as the author of all the known ranges.
+
+Primes free intervals between consecutive perfect powers.
+
+8 to 9 | 2^3 to 3^2
+
+25 to 27 | 5^2 to 3^3
+
+32 to 36 | 2^5 to 6^2
+
+121 to 125 | 11^2 to 5^3
+
+2187 to 2197 | 3^7 to 13^3
+
+3125 to 3136 | 5^5 to 56^2
+
+32761 to 32768 | 181^2 to 32^3
+
+79507 to 79524 | 43^3 to 282^2
+
+97336 to 97344 | 46^3 to 312^2
+
+503284356 to 503284375 | 22434^2 to 55^5
+
+Q1. Is there a 11th case?
+
+T. D. Noe comments "No other n<10^12. There is a conjecture that this sequence is finite"
+
+Q2. Can you argument the above conjecture?
+
+______________________
+
+Notes:
+
+1. From A001597 in particular explore the links section.
+
+2. If you are decided to seek in depth for more solutions perhaps is good to read this article by D. J. Bernstein.
+
+Contributions came from Patrick Capelle & Giovanni Resta.
+
+***
+
+Patrick wrote:
+
+Sorry to disturb you with a detail without importance.
+
+In the introduction of the puzzle 424, you wrote :
+
+"In an elementary & search with Ubasic I found quickly (21 seconds) six more, for a total of 10 intervals of this type, but surfing the web I learned that T. D. Noe have discovered & published all these solutions before (March 2006 , see A116086) and consequently he must be properly mentioned as the author of all the known ranges."
+
+In his contribution (A116086, Mar 28 2006), T.D. Noe mentioned the reference March 2006 NMBRTHRY Archives , where we can find two interesting references :
+
+1. Between any two powers - at least cubes - is there a prime? (23 Mar 2006, and reply 28 mar 2006).
+
+2. Primes between two powers (new version) (25 Mar 2006, and reply 28 Mar 2006).
+
+It means that he knew them before sending his contribution. So, it seems to me that T.D. Noe was not "the author of all the known ranges". Is it correct ? He published the results but didn't discover them. I don't know if the 10 exeptions were known before march 2006. Perhaps that T.D. Noe, Zhi-Wei SUN, Kevin Buzzard, J. Mc. Laughlin, C. Pomerance and Stephan Redmond could say more on this subject.
+
+***
+
+Resta wrote:
+
+Ror puzzle 424, I have searched up to 1.6 x 10^19 but I did not find any new solution.
+
+Apparently, the average gap between perfect powers grows faster than the average gap between primes, so it is difficult to find another solution.
+
+(B.t.w., there is no need of a test for determining if a number is a perfect power or not.)
+
+(Why?)
+
+I used a very simple method.
+
+My target was the square of 4x10^9 (because that number
+
+fits well in an unsigned long long integer (64 bits).
+
+Since 2^63 < 1.6x10^19 < 2^64, then a number in that range can be at most a 63-th power.
+
+I initializated an array of 62 long long integers to 1^2, 1^3, 1^4, 1^5,...., 1^63 and a variable LastPower to 0.
+
+The procedure is then the following:
+
+At every round, I select the smallest of the 62 members of the array (If there is more than one "minimum", it does not matter which one I select)
+
+Suppose that the smallest at that moment is 123^3. Then I set CurrentPower to 123^3 and I replace in the array 123^3 with 124^3. Then I examine the interval between LastPower and CurrentPower to see if there is at least a prime number. Once I've finished (usually when I find a prime number...)
+
+I set LastPower to CurrentPower and I repeat from the beginning, that is I select the next smallest perfect power and so on.
+
+Clearly, if LastPower=CurrentPower I simply update the array and I have nothing to check. (This happens because, for example, every 4th power is also a square, etc.etc.)
+
+The method works because in this way I generate all the perfect powers
+
+in the right order, since at each step the array contains the
+
+smallest 2nd, 3rd, 4th,... 63rd, perfect power not jet considered.
+
+The selection of the minimum can be accelerated maintaining (pointers to)
+
+the values in a heap instead of a simple array.
+
+***
+
+T. D. Noe wrote:
+
+My role in this puzzle was verifying the numbers and submitting them to
+
+OEIS. I now report that there are no other terms less than 10^16. It seems
+
+that the problem originated with Stephen Redmond and Zhi-Wei Sun. See
+
+http://planetmath.org/encyclopedia/RedmondSunConjecture.html and
+
+http://en.wikipedia.org/wiki/Redmond-Sun_conjecture
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

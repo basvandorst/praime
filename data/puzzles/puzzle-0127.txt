@@ -1,0 +1,702 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_127.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 127.  Non adding prime sequences
+Source: https://www.primepuzzles.net/puzzles/puzz_127.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0127.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_126.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_128.htm
+  https://www.primepuzzles.net/puzzles/puzz_127.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 127. Non adding prime sequences
+
+Problems & Puzzles: Puzzles
+
+Puzzle 127. Non adding prime sequences
+
+All primes in the sequence cannot be obtained adding previous distinct primes (not necessarily all of them).
+
+Starting with 2 the sequence goes like this: 2, 3, 7, 11, 17, 41, 47, …
+
+Starting with 3 the sequence goes like this: 3, 5, 7, 11, 13, 17, 47, …
+
+Questions:
+
+Do you devise an efficient algorithm to calculate the sequence?
+
+Calculate both sequences up to the 100^th member
+
+______________
+
+Historical note: The sequences here asked are the prime version of the so called "A sequences" defined the following way "The infinite sequence 1<=a1<a2<... is named an A sequence if no ai is the sum of distinct members of the sequence other than ai". (See E28, UPiNT, R.K.Guy). Regarding this kind of sequences one interesting question is if the sum of its reciprocals converges or not. As a matter of fact Erdös once proved that S (the sum of the infinite reciprocals) is less than 103. Later Levine & O'Sullivan improved this bound to 4. What would you say that this bound can be for the prime version sequences here asked?
+
+Jud McCranie wrote (24/2/2001):
+
+Question 2, a) : here are 42 terms, it looks like getting 100 will be very hard.
+
+2,3,7,11,17,41,47,83,89,307,311,613,617,919,2801,3109,3413,9283, 15461,25087,37781,87613,106181,284509,296591,618269,1196609, 1774921,3564677,5339287,9818789,14295223,23196731,46393469, 93691861,98171363,190948399,429204473,537182267,934279823, 1457167181,1471453121, ...
+
+Question 2, b): (42 terms also)
+
+3,5,7,11,13,17,47,97,101,307,311,313,613,617,619,2777,3079, 3083,9239,9241,21557,43117,61603,104717,252559,357271,575651, 618463,1708453,2272087,4546943,10078571,14625811,23719697, 36021071,71321143,105070127,174837413,341199407,376499479, 1058898293,1400097689
+
+This is the algorithm he used, in his own words:
+
+"I am making two lists - one is necessary, the other is to make it much faster. Start with two empty lists, L and C. As we go along, build a list of the primes in the sequence 2,3,7,11 ... Ln, and the cumulative sum of these numbers 2,5,12,23 ... Cn (and keep track how many terms there are in the list). To test to see if a new prime p can be expressed as the sum of terms already in the list, I call a recursive subroutine with parameter p to see if p is the sum of smaller terms on the list. The subroutine takes x=p-Ln and calls itself recursively with parameter x. If x is in the list, then it has found a solution (a way to sum to p, p=Ln+x). If not the subroutine calls itself recursively with parameter x-Li, where Li is the largest member of the list L that is < x. This recursion continues until either a solution is found, or the parameter passed to the subroutine is >Ci, in which case the remaining i terms can't possibly sum to the parameter, so we can pop out of the recursion. At each level of the recursion, if x-Li fails to produce a solution, it continues with x-L(i-1) and calls itself recursively."
+
+***
+
+Paul Jobling did it (27/2/2001) with another approach that despite it uses memory intensively, I would say that algorithmically is a absolutely simple. In his own words:
+
+"1. Allocate 50Mb of RAM - this allows a bitmap representing 200 million numbers. Clear each entry in the bitmap.
+
+2. Set p to 1.
+
+3. Increment p. If bitmap[p] is set or p is not prime, goto 3.
+
+4. For i=200 million dowto 0: if bitmap[i] is set then set bitmap[i+p]
+
+5. Set bitmap[p]
+
+6. Goto 3.
+
+Unfortunately I don't think that this approach will help get the 100th term - the bitmap would have to be far too large...every bit that is set is the sum of 1 or more of the primes that we have found so far. That is what this algorithm does for you - it keeps track of all possible sums of the values found, and it is very easy given a new value to find the new set of all possible sums."
+
+Using this approach Paul got the first 37 members of the first sequence and the first 40 members of the second one in no more than 5 minutes.
+
+***
+
+I (C.R.) translated the Paul's algorithm to Ubasic, making some minor changes to save memory and make if faster. This is the code to manage primes less than 65500:
+
+10 word 2:L=65500:clr time:'puzz127
+
+20 dim A%(L):P=1:Z=P:' set P=2 to produce the second sequence.
+
+30 P=nxtprm(P):if P>L then print time:end
+
+40 if A%(P)=1 then goto 30
+
+50 Z=Z+P:if Z>=L then Z=L
+
+60 for I=Z to 1 step -1
+
+70 if and{I+P<=L, A%(I)=1} then A%(I+P)=1
+
+80 next I
+
+90 print P;:A%(P)=1:goto 30
+
+Maybe is interesting to notice that it produces the first 21 members of any of the two sequences in less than a second.
+
+***
+
+Additional question: How large do you think that the 100th member of the sequence will be?
+
+***
+
+Felice Russo has calculated an empirical trend equation between the number of digits and the index of the number of these sequences that extrapolating provides a forecast of 20-22 digits for the 100th member of both sequences. See below the beautiful graph he made:
+
+***
+
+An extension of this puzzle is to ask for the sequences of primes such that no one is the algebraic sum ( primes can be added or subtracted) of the previous ones.
+
+***
+
+Paul Jobling sent (3/2/2001) the following Ubasic version of his original algorithm to get the last asked sequences:
+
+10 word 2:L=65500:clr time:'puzz127
+
+20 dim A%(L):P=1:Z=1
+
+25 dim B%(L)
+
+30 P=nxtprm(P):if P>L then print time:end
+
+40 if A%(P)=1 then goto 30
+
+45 print P;
+
+60 for I=1 to Z
+
+65 if A%(I) = 0 then goto 80
+
+70 if I+P<=L then B%(I+P)=1 else print time:end
+
+75 if P>I then B%(P-I)=1 else B%(I-P)=1
+
+80 next I
+
+82 Z=Z+P
+
+85 for I=1 to Z: A%(I) = B%(I): next I
+
+90 A%(P)=1:B%(P)=1:goto 30
+
+Its output is:
+
+2 3 7 11 29 53 107 211 431 853 1709 3433 6857 13709 27427 54851
+
+3 5 7 11 17 41 83 163 331 659 1319 2647 5297 10589 21163 42331
+
+***
+
+You should notice that every term is near twice the double of the previous term... Why? Jobling notices that this behavior appears no matter what the initial prime is.
+
+***
+
+Wilfred Whiteside wrote (July, 2007):
+
+2,3,7,11,17,41,47,83,89,307,311,613,617,919,2801,3109,3413,9283,15461,25087,
+
+37781,87613,106181,284509,296591,618269,1196609,1774921,3564677,5339287,9818789,
+
+14295223,23196731,46393469,93691861,98171363,190948399,429204473,537182267,
+
+934279823,1457167181,1471453121,4781994647,5701089169,10483078289,11402172811,
+
+11416458751,44704788169,49486777289,138896353627,143295531103,380783523611,
+
+474069380507,849547122133,1698698046043,3398697098891,3729993845213,
+
+10670684473459,10957276440553,21915868173851,43973717482007,76560270125903,
+
+120435395969029,164409112551703,295470489101941,689748412357453,
+
+1280689390561363,1751199372879227,3502394345675443,4608048642204533,
+
+4772453355567031,13912088962379467,14043154738116797,42709774811886667,
+
+45731033194663009,129224348352429731,141976084728578011,285014047219484281,
+
+568911711170136371,1167529861013570749,1296677649096764969,1300125542336019491,
+
+3734856154372702987,3753430896075427687
+
+Question 2, b) : here are 84 terms
+
+3,5,7,11,13,17,47,97,101,307,311,313,613,617,619,2777,3079,3083,9239,9241,21557
+
+43117,61603,104717,252559,357271,575651,618463,1708453,2272087,4546943,10078571,
+
+14625811,23719697,36021071,71321143,105070127,174837413,341199407,376499479,
+
+1058898293,1400097689,3386832353,4270893233,4552351861,13207681093,16874418217,
+
+41434107661,54572021479,87997177651,141816200161,284281883021,372279060661,
+
+975369102791,1028531718293,2091355137251,4236967088369,5177869655851,
+
+9360579930353,19714717482289,23897969064407,43630445025793,67528249282063,
+
+158921103764239,182802313507063,337608327258929,839280995040623,858002802830171,
+
+2550107916754289,2564646471407851,5953040765129041,11202851758476533,
+
+13743599095300469,24830115891573061,25669396343752211,64238928243851749,
+
+139568555827888609,164398671069978971,303967226896313723,632764569684200507,
+
+1065209653611079201,1673121203701487279,3992792200879747471,4132360756706082223
+
+Methodology:
+
+Result was obtained by combining the two methods. Call Paul Jobling’s approach Method A and Jud McCranie’s approach Method B. The program runs Method A until adding another member to sequence A would require setting bits outside of the array bounds. Then it switches to Method B, but instead of trying to find p-Ln=0, it tries to find p-Ln in the Method A bit array. The 0^th element in the bit array is set to 1 for the case of including only Seq. B members in the sum). This approach ran orders of magnitude faster than either method by itself. Speed was then enhanced by a factor of several thousand by forming a jump table from the Method A bit array. The jump table tells you how many odd jumps you have to make from a given number to find the next OFF bit. Because there are extremely long strings of ON bits, you can rule out thousands or even millions of numbers at a time that do not need to be tested. The bigger the Method A bit array is, the bigger the jumps tend to be between OFF bits, and the more efficient the program becomes.
+
+Because the code was more complicated and therefore more prone to error, I did a series of tests. I Ran method A alone as far as could (made a giant packed array with 320 billion bits using 40GB of virtual memory – this ran over a weekend). Then ran final version of the mixed method code with different array sizes, and the results always matched the Method A results (but with runtimes on the order of one second!).
+
+***
+
+Paul Schmidt wrote on June 2011:
+
+An efficient algorithm to find the first 100 members of the non adding prime sequence must be efficient in time and storage space. The original solution by Jobling is time efficient but it uses too much space. This following solution uses the Jobling algorithm but is also space efficient.
+
+To implement the algorithm, the 100th member will need to be represented by a large integer. A program was written in C++ to solve the problem using the GMP library to do arbitrary precision math:
+
+#include <iostream>
+
+#include <gmpxx.h>
+
+using namespace std;
+
+int main (void)
+
+{
+
+mpz_class bits = 1;
+
+mpz_class p = 2;
+
+int i;
+
+for (i = 0; i < 100; i++)
+
+{
+
+cout << p << "\n";
+
+bits |= (bits << p.get_ui());
+
+do
+
+{
+
+p = mpz_scan0(bits.get_mpz_t(), p.get_ui()+1);
+
+}
+
+while (mpz_probab_prime_p(p.get_mpz_t(), 5) == 0);
+
+}
+
+return 0;
+
+}
+
+That's the whole program. Unfortunately, it cannot finish because the computer ran out of memory.
+
+To solve this problem, a class was written to compress the 'bits' variable into another representation. This class is an array of runs of ones or zeros in the bit array. So the binary number (starting with the least significant bit) 1011 can be represented as (0,1,1,2). The first 0 means no zeros, then one 1, then one zero, then 2 ones. The functions that need to be implemented for this class are scan0, shift, and inclusive or.
+
+scan0 and shift are trivial code. The 'inclusive or' is a little more challenging. Although it was not taken to this extent, one could write this class and change the program above by changing the class for 'bits', and modify the line to call scan0.
+
+The functions are also time efficient. So most of the time in the algorithm is running the probable prime function (Miller-Rabin).
+
+Since the code uses the arbitrary precision math library, the code can find the sequence much further than 100 members. The code was used to find the first 250 members in less than a minute. It is also noted that the primes are "probable" primes. But the test was run to >99.9999% probability for each member.
+
+Here are the first 100 members for the sequence starting with 2:
+
+2
+
+3
+
+7
+
+11
+
+17
+
+41
+
+47
+
+83
+
+89
+
+307
+
+311
+
+613
+
+617
+
+919
+
+2801
+
+3109
+
+3413
+
+9283
+
+15461
+
+25087
+
+37781
+
+87613
+
+106181
+
+284509
+
+296591
+
+618269
+
+1196609
+
+1774921
+
+3564677
+
+5339287
+
+9818789
+
+14295223
+
+23196731
+
+46393469
+
+93691861
+
+98171363
+
+190948399
+
+429204473
+
+537182267
+
+934279823
+
+1457167181
+
+1471453121
+
+4781994647
+
+5701089169
+
+10483078289
+
+11402172811
+
+11416458751
+
+44704788169
+
+49486777289
+
+138896353627
+
+143295531103
+
+380783523611
+
+474069380507
+
+849547122133
+
+1698698046043
+
+3398697098891
+
+3729993845213
+
+10670684473459
+
+10957276440553
+
+21915868173851
+
+43973717482007
+
+76560270125903
+
+120435395969029
+
+164409112551703
+
+295470489101941
+
+689748412357453
+
+1280689390561363
+
+1751199372879227
+
+3502394345675443
+
+4608048642204533
+
+4772453355567031
+
+13912088962379467
+
+14043154738116797
+
+42709774811886667
+
+45731033194663009
+
+129224348352429731
+
+141976084728578011
+
+285014047219484281
+
+568911711170136371
+
+1167529861013570749
+
+1296677649096764969
+
+1300125542336019491
+
+3734856154372702987
+
+3753430896075427687
+
+5023313654057037187
+
+16246227318278225063
+
+21269540873744513761
+
+35069598979343267333
+
+88832710872913063411
+
+90121168372597397611
+
+182688505859283523751
+
+362901311102307419857
+
+543143549372679202543
+
+1177564960823914377371
+
+1450345103553624399617
+
+1630587341823996182303
+
+4167205730508840510467
+
+8334405813047447586367
+
+16743854687861415531947
+
+18192943820746019811139
+
+and the sequence starting at 3:
+
+3
+
+5
+
+7
+
+11
+
+13
+
+17
+
+47
+
+97
+
+101
+
+307
+
+311
+
+313
+
+613
+
+617
+
+619
+
+2777
+
+3079
+
+3083
+
+9239
+
+9241
+
+21557
+
+43117
+
+61603
+
+104717
+
+252559
+
+357271
+
+575651
+
+618463
+
+1708453
+
+2272087
+
+4546943
+
+10078571
+
+14625811
+
+23719697
+
+36021071
+
+71321143
+
+105070127
+
+174837413
+
+341199407
+
+376499479
+
+1058898293
+
+1400097689
+
+3386832353
+
+4270893233
+
+4552351861
+
+13207681093
+
+16874418217
+
+41434107661
+
+54572021479
+
+87997177651
+
+141816200161
+
+284281883021
+
+372279060661
+
+975369102791
+
+1028531718293
+
+2091355137251
+
+4236967088369
+
+5177869655851
+
+9360579930353
+
+19714717482289
+
+23897969064407
+
+43630445025793
+
+67528249282063
+
+158921103764239
+
+182802313507063
+
+337608327258929
+
+839280995040623
+
+858002802830171
+
+2550107916754289
+
+2564646471407851
+
+5953040765129041
+
+11202851758476533
+
+13743599095300469
+
+24830115891573061
+
+25669396343752211
+
+64238928243851749
+
+139568555827888609
+
+164398671069978971
+
+303967226896313723
+
+632764569684200507
+
+1065209653611079201
+
+1673121203701487279
+
+3992792200879747471
+
+4132360756706082223
+
+8267258078311697089
+
+8900022647890830227
+
+25749708883169014661
+
+34003339697724114701
+
+59588672813255494253
+
+89328614428867312511
+
+156409652726592092089
+
+182006030733739351591
+
+422839468951024882199
+
+850581053594129823541
+
+999358749376993951691
+
+1853924082662906517157
+
+2853277582228802053987
+
+6705930254344448471563
+
+12412490668613045927029
+
+19969615160816410197071
+
+The program found the first 100 members in 15 seconds. I ran up to member 284 in the sequence in 1 minute and 45 seconds. To go beyond that, I would need to write the program to be more space efficient
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,208 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_034.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 34. n & n2, Triangular Numbers
+Source: https://www.primepuzzles.net/conjectures/conj_034.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0034.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.shyamsundergupta.com/triangle.htm
+  mailto:cbrfgm@gmail.com
+  http://www.math.niu.edu/~rusin/known-math/98/EC_integral
+  http://www.madras.fife.sch.uk/maths/amazingnofacts/fact017.html
+  https://www.fq.math.ca/34-3.html
+  https://www.primepuzzles.net/conjectures/conj_033.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_035.htm
+  https://www.primepuzzles.net/conjectures/conj_034.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 34. n & n2, Triangular Numbers
+
+Problems & Puzzles: Conjectures
+
+Conjecture 34. n & n^2, Triangular Numbers
+
+While visiting the wonderful page by Shyam Sunder Gupta, about Triangular Numbers I got interested by his affirmation that 1 & 6 are the only known triangular numbers such that their respective squares are also triangular numbers and his challenge to find the third one.
+
+In personal emails interchanged between Shyam and I, he wrote:
+
+"I can conjecture that there will not be any other (than 1 & 6) triangular number whose square is also a triangular number"
+
+Question: Can you find a proof of the Shyam's conjecture or a counterexample?
+
+Contributions came from Sudipta Das, Joseph L. Pe, Carlos Rivera, Felice Russo & Johann Wiesenbauer
+
+Sudipta Das wrote:
+
+If T(n) is a square triangular number , then m( m + 1 ) / 2 = n^2
+
+Multiplying both sides of the equation by 8 gives ( 2m + 1 )^2 - 2 * ( 2n )^2 = 1
+
+The above equation can be written in the form x^2 - 2y^2 = 1, where x is odd and y is even .
+
+The smallest non-trivial solution is x = 3, y = 2 .
+
+As x is odd and y is even , the recursive version is:
+
+x_i+1 = 3x_i + 4y_i
+
+y_i+1 = 3y_i + 2x_i
+
+or the non-recursive:
+
+x_i = [ ( 3 + 2Ö2 )^i + ( 3 - 2Ö2 )^i ] / 2
+
+y_i = [ ( 3 + 2Ö2 )^i - ( 3 - 2Ö2 )^i ] / ( 2Ö2 )
+
+Note that (from the recursive solution) if x_i is odd and y_i is even, then x_i+1 is odd and y_i+1 is even , so that all the solutions (starting from the initial solution x = 3, y = 2) satisfy “x-odd ,y-even” condition .
+
+Replacing x_i by 2m_i + 1 and y_i by 2n_i , we get :
+
+Initial values ( x = 3, y = 2 ) : m_1 = 1, n_1 = 1
+
+Recursive formula :
+
+m_i+1 = 3m_i + 4n_i + 1
+
+n_i+1 = 3n_i + 2m_i + 1
+
+or, non-recursively
+
+m_i = [ ( 3 + 2Ö2 )^i + (3 - 2Ö2 )^i - 2 ] / 4
+
+n_i = [ ( 3 + 2Ö2 )^i - (3 - 2Ö2 )^i ] / ( 4Ö2 )
+
+The recursive formula is better for calculations as it involves integer calculations .
+
+For n_i to be a triangular number , 8n_i + 1 must be a perfect square, i.e. Ö2 [ ( 3 + 2Ö2 )^i - (3 - 2Ö2 )^i ] + 1 must be a perfect square for some positive integer i .
+
+The only values of i ( tested upto i = 3348 ) , for which 8n_i + 1 is a perfect square ( or , n_i is a triangular number ) are i = 1 ( n_i = 1 ) and 2 ( n_i = 6 ) .
+
+Joseph L. Pe wrote:
+
+Here's my proof of Shyam's conjecture, that 1 and 6 are the only triangular numbers which have squares that are also triangular...
+
+First, I should acknowledge that the complete solution of the key Diophantine equation (*) below was shown to me by Ben Zimmer (bgzimmer@midway.uchicago.edu). It's an application of elliptic curve theory, and can be found at the Math Atlas site by Dave Rusin: http://www.math.niu.edu/~rusin/known-math/98/EC_integral... The solution is rather involved, but the main idea is to break down (*) into equations of lesser degree and solve their parametrizations.
+
+Ok, let's have the proof.
+
+A necessary and sufficient condition (NSC) for a number t to be triangular is: n(n+1)/2 = t for some positive integer n. Solving for n yields n = [sqrt(1+8t) - 1]/2 (The negative solution has been discarded.) Hence, an NSC for t to be triangular is that [sqrt(1+8t) - 1]/2 be an integer; equivalently, that sqrt(1+8t) be an odd positive integer.
+
+Finding a triangular number which has a triangular square is equivalent to finding a positive integer m such that T(m)^2 is triangular, where T(m) = the m-th triangular number. Equivalently, sqrt(1 + 8 (m(m+1)/2)^2) is an odd integer; simplifying, sqrt(2m^4 + 4m^3 + 2m^2 + 1) is required to be an odd positive integer. Hence, an NSC for T(m) = m(m+1)/2 to have a triangular square is for the equation
+
+(*) z^2 = 2m^4 + 4m^3 + 2m^2 + 1
+
+to have an odd positive integer solution z.
+
+Dave Rusin (see the above URL) has proved that the only positive integer solutions (m, z) of (*) are (m = 1, z = 3) and (m = 3, z = 17). (There are a few other integer--not necessarily positive integer--solutions.) These two values of m correspond to the triangular numbers T(1) = 1 and T(3) = 6
+
+***
+
+Carlos Rivera wrote:
+
+It's well known (*) that all the triangular and square numbers are produced by the squares of the terms produced by the following recursive equation:
+
+u_i = 6*u_i-1 -u_i-2 where u_1 =0 & u_2=1
+
+The sequence obtained is: 0, 1, 6, 35, 204, 1189, ...
+
+So, the question involved in this conjecture is reduced to ask if is there a triangular number in this sequence, other than the first three (0, 1 & 6).
+
+Computational verification can be easily done up to very large numbers u_i, (**) but this (empirical) approach if far from demonstrating nothing, except than making the conjecture more plausible.
+
+_____
+
+(*) See p.197, Recreations in Theory of Numbers, A. H. Beiler
+
+(**) With the help of the code sqrt.ub we have made search up to the limit of the Ubasic capabilities and the result is negative: no triangular number up to u_2657_ ( where u_2657 has 2033 digits)
+
+***
+
+Felice Russo wrote:
+
+Let's be x and x^2 two triangular numbers. This means that must exist two integers n and m such that: n(n+1)/2=[m(m+1)/2]^1/2 that implies: 2m^2+2m-[n(n+1)]^2=0 -->> m=[-1+/-2*sqrt(1+2(n(n+1))^2)]/2
+
+Excluding the negative value we have: m=[-1+2sqrt(1+2*(n(n+1))^2)]/2
+
+So in order to have x and x^2 triangular numbers must exist an integer n such that 1+2*(n(n+1))^2 is a perfect square. Equivalently the Shyam conjecture can be written as:
+
+The only integers n such that 1+2*(n(n+1))^2 is a perfect square are 1 and 3.
+
+Could be this second conjecture more easy to attach? With an Ubasic code I verified the conjecture up to n=377133374 that is for all triangular numbers up to 71114791080878625.
+
+***
+
+Johann Wiesenbauer wrote:
+
+As for Shyam's conjecture concerning triangular numbers, I can provide some further evidence that it should be true though no proof. To be more precise, using the small Derive program below I have shown that any triangular numbers t>6 such that t^2 is also a triangular number must have more than 100,000 (!) digits.
+
+test(s, u_ := [48, 8], p_) :=
+
+LOOP(
+
+IF(FIRST(u_) > 8s, exit),
+
+u_ := [[6, -1]u_, FIRST(u_)],
+
+p_ := 3,
+
+LOOP(
+
+IF(JACOBI(FIRST(u_) + 1, p_) = -1, exit),
+
+p_ := NEXT_PRIME(p_),
+
+IF(p_ > 101, RETURN FIRST(u_) + 1)))
+
+test(10^100000) = true (651.8s)
+
+Therein I used the following well-known facts about triangular numbers:
+
+1. All triangular numbers that are also squares are given by the sequence t(1)=1, t(2)=6, t(n)=6t(n-1)-t(n-2) for n>2
+
+(cf. http://www.madras.fife.sch.uk/maths/amazingnofacts/fact017.html )
+
+2. An arbitrary natural number t is a triangular number n(n+1)/2 for some n if and only if 8t+1 is an odd square.
+
+In my program above I first generated the slightly modified sequence u(n):=8t(n),n=1,2,... in the outer loop and checked in the inner loop the "square status" of u(n)+1 only mod p for all primes p <= 101. Since none of the numbers u(n)+1 passed this "probabilistic square test" for the given range 6<t(n)<10^100000, no further checking was necessary. (By the way, the upper bound 101 for the p's is minimal in this respect. When choosing 97 instead of 101 in a former run much to my surprise a huge "probable square" with 20902 digits showed up, which was "killed" though (sigh!) in a subsequent test using the very next prime p=101.)
+
+***
+
+Akash Betrieve wrote on March 12, 2020
+
+I have listed two ways for you to obtain the solution to Conjecture no.34 and a way to obtain the solution to Puzzle 586.
+
+1. Check Shyam Gupta’s website: On his website, an acquaintance of his has found a solution to it via Mordell’s book on Diophantine Equations. http://www.shyamsundergupta.com/triangle.htm
+
+2. Or, you may also check the Fibonacci Quarterly where a paper by Luo Ming affirmatively resolves the problem in a very trivial fashion. Here is the link(No paywall): https://www.fq.math.ca/34-3.html (Ming Luo
+
+On the Diophantine Equation (x(x-1)/2)2 = (y(y-1)/2)2). I was pointed to this paper via Richard K. Guy’s book on Unsolved Problems in Number Theory 3rd edition 2004.-
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

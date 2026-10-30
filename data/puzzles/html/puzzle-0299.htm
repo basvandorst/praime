@@ -1,0 +1,433 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+<title>Puzzle 299. Collatz-like sequence of primes. </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td><p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">
+    Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span>
+
+        </p>
+
+      <o:p>
+      <p><b><span lang="EN-US" style="font-family: Verdana">Puzzle 299.<font color="#008080">&nbsp;Collatz-like 
+      sequence of primes.</font></span></b></p>
+    <p><font face="Verdana" size="2"><b>Rudolph Knjzek</b>, sent the following 
+    nice &amp; interesting puzzle:</font></p>
+    <blockquote>
+      <p><font face="Verdana" size="2">Let's define a Collatz-like sequence of 
+      primes. Start with a prime number p&gt;2.<br>
+      The next number is the largest primefactor of 3p+1. The sequence stops if 
+      we reach 2.<br>
+      <br>
+      Clearly, the next prime is less than the previous if (3p+1)/2 is composite 
+      and only larger than the previous if (3p+1)/2 is prime.<br>
+      <br>
+      The obtained sequences contain subsequences of n increasing primes, i.e. 
+      n=3: 7-11-17 and n=4: 31-47-71-107.<br>
+      <br>
+      And there are the questions:<br>
+      <br>
+      <font color="#0000FF"><b>1. Can you proof, that there is no loop in the 
+      sequences and that all sequences converge to 2?<br>
+      <br>
+      2. Find increasing subsequences with n&gt;4.<br>
+      <br>
+      3. Is there an upper limit for the length of increasing subsequences?<br>
+      <br>
+      4. Find sequences starting with p, containing all primes less than p.<br>
+      <br>
+      5. Change the rule for the next number from 3p+1 to 3p-1. Is there a 
+      significant change of the properties of the sequences?<br>
+&nbsp;</b></font></font></p>
+    </blockquote>
+    <font SIZE="2">
+    <hr>
+
+      <p><span lang="en-us"><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+	<p>Contributions came from Luke Pebody, Faride Firoozbakht &amp; Anurag Sahay. 
+	Nevertheless the main question (1) is still open...</p>
+	<p>Luke wrote:</p>
+	<blockquote>
+		<p>Q2.The smallest increasing subsequences of length n for 
+		n=1,2,3,4,5,6,7,8 start with 3,7,31,2111,89599,89599,44102911. The 
+		smallest with n=9 is at least 7*10^8.</p>
+		<p>Q4. The only such sequences are [2] and [3,5,2]:<br>
+		<br>
+		Proof: Any other such prime must include both 3 and 7. Thus it must 
+		reach one of them first. When it reaches 3, it then goes 5 and then 
+		terminates at 2, bypassing 7 altogether. Therefore 7 must be hit first. 
+		However the route from 7 goes: <br>
+		7,11,17,13,5,2, bypassing 3 altogether.<br>
+&nbsp;</p>
+	</blockquote>
+	<p>Faride Firoozbakht wrote:</p>
+	<blockquote>
+		<p>Q2. The same than Luke.</p>
+		<p>Q3. I guess that the sequence 3,3,7,31,2111,89599,89599,44102911,...<br>
+		is an infinite sequence so there is no an upper limit for the length of 
+		increasing subsequences.</p>
+		<p>Q4. The only such sequence is the sequence starting with p=3: 3,5,2 
+		because if p&gt;3 then 3 can't be a term of sequence ( 3 doesn't divide 
+		(3p+1)/2 ).<br>
+		<br>
+		Q5. No, there isn't a significant change of the properties of the 
+		sequences. Because in this case for some primes there is a loop of the 
+		form 5-7-5 and for other primes the corresponding sequence converges to 
+		2.<br>
+		<br>
+		Primes such that the corresponding sequence converges to 2 :<br>
+		<br>
+		2,3,11,29,37,43,53,59,71,79,97,103,173,181,197,211,<br>
+		257,263,271,281,283,367,373,379,389,401,409,421,433<br>
+		,461,503,521,...<br>
+		<br>
+		Primes such that the corresponding sequence has a loop (of the form 
+		5-7-5):<br>
+		<br>
+		5,7,13,17,19,23,31,41,47,61,67,73,83,89,101,107,109,<br>
+		113,127,131,137,139,149,151,157,163,167,179,191,193,<br>
+		199,223,227,229,233,239,241,251,269,277,293,307,311,<br>
+		313,317,331,337,347,349,353,359,383,397,419,431,439,<br>
+		443,449,457,463,467,479,487,491,499,509,523,541,...<br>
+		<br>
+		Follow-up question : In this case , for which primes the corresponding 
+		sequence converges to 2?</p>
+	</blockquote>
+	<p>Anurag Sahay wrote:</p>
+	<blockquote>
+		<p>Question 5: Yes, they behave differently.<br>
+		<br>
+		Two major differences for 3*n-1:<br>
+		<br>
+		1) there is a loop in every sequence except 3-2<br>
+		2) They do not converge . Examples: 31-23-17-5-7-5...<br>
+		101-151-113-169-23-17-5...<br>
+		<br>
+		I have also observed that there are fewer increasing sequences of a 
+		given length when compared to 3*n+1 <br>
+		<br>
+		Question 4: some sequences with all primes less than p<br>
+		<br>
+		79 17 13 5 2,<br>
+		53 5 2 ,<br>
+		113 17 13 5 2,<br>
+		83 5 2,<br>
+		293250815317 13423957 1229 461 173 13 5 2<br>
+		<br>
+		Question 3:<br>
+		I think there is no upper limit.<br>
+		It is difficult to prove the contrary (that there should be an upper 
+		limit).</p>
+	</blockquote>
+	<p>***</p>
+    <p>Later (31/1/05), <b>Mike Oakes</b> sent 'a partial solution to Q1':</p>
+    <font id="role_document" face="Arial" color="#000000" size="2">
+    <blockquote>
+      <div>
+        There cannot be a repeating 2-cycle.</div>
+      <div>
+        &nbsp;</div>
+      <div>
+        Suppose there is a cycle p - q - p - ...</div>
+      <div>
+        &nbsp;</div>
+      <div>
+        Case(A): Suppose p = +1 mod 4.</div>
+      <div>
+        Then (3*p+1) =&nbsp;0 mod 4, and (3*p+1)/4 = q * r, where q&nbsp;is odd, r &gt;= 1.</div>
+      <div>
+        q = (3*p+1)/(4*r).</div>
+      <div>
+        For a 2-cycle, p must divide (3*q+1), and (3*q+1) is even,</div>
+      <div>
+        so&nbsp;(3*q+1) &gt;= 2*p.</div>
+      <div>
+        i.e. (9*p+3)/(4*r) + 1 &gt;= 2*p,</div>
+      <div>
+        i.e.&nbsp;(9*p+3)/(4*r) &gt;= (2*p-1)</div>
+      <div>
+        i.e. r &lt;= (9*p+3)/(8*p-4)</div>
+      <div>
+        So r = 1, and q = (3*p+1)/4.</div>
+      <div>
+        Now, p divides (3*q+1) = (9*p+7)/4, so p = 7, which = -1 mod 4.</div>
+      <div>
+        Contradiction.</div>
+      <div>
+        &nbsp;</div>
+      <div>
+        Case(B). Suppose p = +3 mod 4.</div>
+      <div>
+        Then (3*p+1) = 2 mod 4, and (3*p+1)/2 = q * r, where q and r&nbsp;are odd.</div>
+      <div>
+        q = (3*p+1)/(2*r).</div>
+      <div>
+        For a 2-cycle, p must divide (3*q+1), and (3*q+1) is even,</div>
+      <div>
+        so&nbsp;(3*q+1) &gt;= 2*p.</div>
+      <div>
+        i.e. (9*p+3)/(2*r) + 1 &gt;= 2*p,</div>
+      <div>
+        i.e.&nbsp;(9*p+3)/(2*r) &gt;= (2*p-1)</div>
+      <div>
+        i.e. r &lt;= (9*p+3)/(4*p-2)</div>
+      <div>
+        So r cannot be 3, so r = 1, and q = (3*p+1)/2.</div>
+      <div>
+        Now, p divides (3*q+1) = (9*p+5)/2, so p = 5, which = +1 mod 4.</div>
+      <div>
+        Contradiction.</div>
+      <div>
+        &nbsp;</div>
+      <div>
+        <div>
+          So there are no 2-cycles.</div>
+      </div>
+    </blockquote>
+    </font>
+    <p>***</p>
+    <p>Even <b>Rudolph Knjzek</b> added this interesting feature:</p>
+    <blockquote>
+      <div>
+        <font face="Arial" size="2">A prime number of the form p=4n+1 can't be 
+        the first prime of an increasing subsequence, because (3p+1)/2 is even 
+        and the next prime is less than p.</font></div>
+      <div>
+        &nbsp;</div>
+      <div>
+        <font face="Arial" size="2">An increasing subsequence must start with a 
+        prime of the form p=4n-1.</font></div>
+      <div>
+        &nbsp;</div>
+      <div>
+        <font face="Arial" size="2">It is easy to proof, that the primes of an 
+        increasing subsequence have the form </font>
+      </div>
+      <div>
+        <font face="Arial" size="2">4n(3/2)^k-1. This deduces, that the maximum 
+        possible length of the sequence is determined by the power of 2 in the 
+        prime factorisation of n. If n=2^r*odd and k=r+2 we get an even number 
+        and the subsequence ends, assuming the sequence hasn't been terminated 
+        by a composite before.</font></div>
+      <div>
+        &nbsp;</div>
+      <div>
+        <font face="Arial" size="2">To obtain large subsequences, we need a 
+        large first prime number. But&nbsp;question 3 is still open, written in 
+        another form:</font></div>
+      <div>
+        <font face="Arial" size="2">Is it possible to construct a sequence of 
+        the form 4n(3/2)^k-1, all numbers prime for k=0,1,2,3,... of arbitrary 
+        length, when chosing an appropriate value for n ?</font></div>
+      <div>
+        &nbsp;</div>
+      <div>
+        <font face="Arial" size="2">In opposition to <b>Faride</b>, I guess, it 
+        isn't possible, because primes become rare when the numbers&nbsp;get large.</font></div>
+    </blockquote>
+    <p>***</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+      </font>
+
+      <hr>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_298.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_300.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

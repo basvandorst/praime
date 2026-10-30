@@ -1,0 +1,311 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_049.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle No. 49.- “If you are given K numbers of each from 0 to 9, find
+
+the maximum quantity of primes that can be formed using those 10K numbers”.
+Source: https://www.primepuzzles.net/puzzles/puzz_049.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0049.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_048.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_050.htm
+  https://www.primepuzzles.net/puzzles/puzz_049.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle No. 49.- “If you are given K numbers of each from 0 to 9, find the maximum quantity of primes that can be formed using those 10K numbers”.
+
+Problems & Puzzles: Puzzles
+
+Puzzle No. 49.- “If you are given K numbers of each from 0 to 9, find the maximum quantity of primes that can be formed using those 10K numbers”.
+
+Comments:
+
+It’s obvious that the upper limit to the quantity of primes asked is 4K+2. Less obvious is how many can be effectively obtained for every particular K.
+
+Using a code that materializes a strategy developed by my friend Jaime Ayala, I have gotten the following results:
+
+a) For K=1 to 6 the primes that can be effectively obtained match the upper limit.
+
+b) For K>6 the maximum quantity of primes that can be effectively obtained is less than the upper limit.
+
+c) For any K the set of primes – solution is not unique; that is to say, several distinct sets of primes share the same maximum quantity of primes that can be effectively obtained.
+
+d) Except for K=8, and according to the Ayala's strategy (and/or my code of it) there are always some numbers (digits) unused.
+
+Examples:
+
+For K= 1, the upper limit is 6 and the set of primes that can be formed is {2, 3, 5, 7, 41, 89} remaining unused two digits, one “0” and one "6".
+
+For K= 2, the upper limit is 10 and the set of primes that can be formed is {2, 3, 5, 7, 23, 41, 47, 59, 61, 89} remaining unused four digits, two “0”, one "6" and one “8”.
+
+The rest of our results are summarized in the following table:
+
+K | Upper Limit | Quantity of primes obtained | Quantity of Digits unused
+
+1 | 6 | 6 | 2
+
+2 | 10 | 10 | 4
+
+3 | 14 | 14 | 2
+
+4 | 18 | 18 | 4
+
+5 | 22 | 22 | 2
+
+6 | 26 | 26 | 1
+
+7 | 30 | 29 | 2
+
+8 | 34 | 33 | 0
+
+9 | 38 | 36 | 1
+
+10 | 42 | 39 | 3
+
+50 | 202 | 154 | 4
+
+100 | 402 | 285 | 19
+
+Can you improve the above results, that is to say, can you obtain more primes and/or decrease the digits unused?
+
+Of course that what we are looking for here is not a “hand & eye” procedure but a strategy that may generate a code for PC.
+
+Anurag Sahay wrote (May, 2005):
+
+Today I started working on puzzle 49. I did not use the computer to solve it, because , for this puzzle I cannot think of any algorithm which is more efficient (and quicker!) than the human brain!...I got a better ( 156 primes) count for k=50 (1 digit unused : 1): (I am sure this is not the best: I guess 160 is reachable).
+
+Here is the solution( 156 primes) :
+
+2 3 5 7 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 409
+
+283 383 487 859 197 241 457 281 659 269 277 127 193 593 719 359 107 103 701 167 211 149 347 367 307 389 653 691 643 547 907 461 647 887 229 823 809 509
+
+601 2003 607 827 421 463 503 683 109 863 857 263 523 569 491 2053 853 9001 5009 2039 401 941 967 271 557 467 443 881 829 839 541 2269 2543 2647 2459 2467 2861
+
+2083 1009 3001 3457 2089 4801 4651 4421 4663 5503 4021 4007 4003 4561 4567 4649 5021 5281 5081 5483 5227 5347 5437 6287 6857 6481 6521 6529 6469 6823 6827 6829
+
+7589 7103 8089 8009 8059 8053 8069 8081 8243 8263 4909 8209 8623 8563 8627 8647 5531 4027 4001 4201 6607 5569 2659 521
+
+***
+
+Anurag Sahay requested to describe the strategy used by Jaime Ayala and me to produce the results of the Table above.
+
+Fortunately we lost both the code and the strategy. This gave us the opportunity to rediscover both things (and drink a couple of beers together!). The new strategy is this one:
+
+First one definition.
+
+A prime type "024568" is a number whose decimal digits, except the right-most one, are exclusively one of the following ones: 0, 2, 4, 5, 6, 8.
+
+Startegy/Algorithm:
+
+Given the K value, vary n from 4 to 2*K and do this:
+
+Step 1: from 2 to p(n) accept all these (obliged) primes.
+
+Step 2: from p(n+1) to p(12000) accept all the primes type "024568" without violating the limit of the accumulated digits.
+
+Step 3: from p(n+1) to p(12000) accept all the unused primes without violating the limit of the accumulated digits.
+
+(Step 2 or/and 3 may end before the p(12000) if all the "1", "3", "7", "9" digits accumulated are exactly K.)
+
+Count the total primes (TP) accepted and print the results if you have gotten a larger TP. Otherwise next n until 2*K.
+
+Using a code that reflects this strategy, we have gotten the following results:
+
+K | n | TP | Unused Digits
+
+10 | 6 | 39/42 | 2
+
+20 | 22 | 72/82 | 4
+
+30 | 32 | 102/122 | 2
+
+40 | 39 | 129/162 | 0
+
+40 | 29 | 128/162 | 0
+
+50 | 46 | 156/202 | 1
+
+Here are our results for K=50 (the slash points out the finish of one step of the strategy and the beginning of the next one):
+
+K= 50; primes max = 202; total primes= 156; n=46
+
+Digits max= 500; digits used= 499; unused digits= 1
+
+2- 3- 5- 7- 11- 13- 17- 19- 23- 29- 31- 37- 41- 43- 47- 53- 59- 61- 67- 71- 73-
+
+79- 83- 89- 97- 101- 103- 107- 109- 113- 127- 131- 137- 139- 149- 151- 157- 163
+
+- 167- 173- 179- 181- 191- 193- 197- 199-/ 223- 227- 229- 241- 251- 257- 263- 269-
+
+281- 283- 401- 409- 421- 443- 449- 457- 461- 463- 467- 487- 503- 509- 521- 523-
+
+541- 547- 557- 563- 569- 587- 601- 607- 641- 643- 647- 653- 659- 661- 683- 809-
+
+821- 823- 827- 829- 853- 857- 859- 863- 881- 883- 887- 2003- 2027- 2029- 2053
+
+- 2063- 2069- 2081- 2083- 2087- 2089- 2203- 2207- 2243- 2267- 2269- 2287- 2423-
+
+4003- 4007- 4049- 4057- 4409- 4447- 4457- 4463- 4483- 4507- 4547- 4549- 4567-
+
+4583- 4603- 4643- 5003- 5009- 5059- 5087- 5503- 5507- 5557- 5563- 5569- 5653- 6007
+
+- 6067- 6089- 6607- 6689- 6803- 6869- 8009- 8069- 8669- 8689- 8867- 8887-/ 6899-
+
+8999- 89899
+
+***
+
+Regarding this strategy & results we don't claim that it will produce the largest total primes for a given K value. At the most we claim that with these very simple rules we can get results very close to the largest possible ones, without too much pain (that is to say, mechanically in a few seconds)
+
+Example 1: while with this strategy for K=20 we find at the most TP=72, Jaime Ayala has found 'by another route' a set of TP=73:
+
+K= 20; primes max= 82; total primes= 72; n=22
+
+digits max= 200 digits used= 196 unused digits= 4
+
+2- 3- 5- 7- 11- 13- 17- 19- 23- 29- 31- 37- 41- 43- 47- 53- 59- 61- 67- 71- 73-
+
+79-/ 83- 89- 223- 227- 229- 241- 251- 257- 263- 269- 281- 283- 401- 409- 421-
+
+443- 449- 457- 461- 463- 467- 487- 503- 509- 521- 523- 541- 547- 557- 563- 569-
+
+587- 601- 607- 641- 643- 653- 659- 661- 683- 809- 827- 857- 887- 6089- 8009- 8069
+
+- 8089- 80809-/ 80909-
+
+K= 20; primes max= 82; total primes= 73, "by Jaime Ayala's new route'
+
+digits max= 200; digits used= 200; unused digits= 0
+
+2 3 5 7 11 17 19 37 71 79 97 23 29 41 43 47 53 59 61 67 83
+
+89 227 229 241 251 257 263 269 281 283 401 409 449 457 461 463
+
+467 487 509 521 523 541 563 569 587 601 607 641 643 647 653 659
+
+683 809 821 823 827 829 853 857 859 863 881 691 4001 983 4003 4007 5003 5009 6007 8009
+Example 2: other results obtained by Jaime Ayala's 'new rout', for K=50 and 159 primes, zero digits unused!:
+
+11 | 13 | 17 | 19 | 31 | 37 | 71 | 73 | 79 | 97 | 101 | 103
+
+107 | 109 | 127 | 149 | 151 | 157 | 163 | 167 | 181 | 239 | 271 | 277
+
+293 | 307 | 347 | 349 | 353 | 359 | 367 | 383 | 389 | 419 | 433 | 439
+
+479 | 491 | 499 | 2 | 3 | 5 | 7 | 23 | 29 | 41 | 43 | 47
+
+53 | 59 | 61 | 67 | 83 | 89 | 223 | 227 | 229 | 241 | 251 | 257
+
+263 | 269 | 281 | 283 | 401 | 409 | 421 | 443 | 449 | 457 | 461 | 463
+
+467 | 487 | 503 | 509 | 521 | 523 | 541 | 547 | 557 | 563 | 569 | 587
+
+601 | 607 | 641 | 643 | 647 | 653 | 659 | 661 | 683 | 809 | 821 | 823
+
+827 | 829 | 853 | 857 | 859 | 863 | 881 | 883 | 887 | 991 | 997 | 5003
+
+5009 | 6007 | 8009 | 4001 | 4003 | 4007 | 2003 | 2027 | 2029 | 2053 | 2063 | 2069
+
+2081 | 2083 | 2087 | 2089 | 4027 | 4049 | 4057 | 4409 | 4507 | 4051 | 4801 | 6089
+
+6803 | 6883 | 6607 | 6551 | 6661 | 8059 | 8069 | 8501 | 5867 | 5869 | 6857 | 6869
+
+5569 | 5441 | 5449 | 2221 | 2287 | 2447 | 2557 | 6659 | 5657 | 8887 | 8849 | 8821
+
+5669 | 2663 | 4567
+
+...
+
+Time will say if this new approach by Jaime Ayala will lead to a new algorithm of not. He is now trying to make a regular approach of this new route.
+
+***
+
+In the meanwhile Anurag Sahay has been sending results for larger K values as the following one:
+
+With k=150, I found a set of 420 primes, 1 better than my previous best of 419.
+
+2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,
+
+107,109,113,127,131,137,139,149,151,157,163,167,173,181,193,197,199,211,223,
+
+227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,337,
+
+347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,
+
+457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,
+
+587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,
+
+701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,
+
+829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,
+
+983,991,2003,2027,2029,2053,2063,2069,2081,2083,2087,2089,2203,2207,2221,
+
+2243,2251,2267,2269,2281,2287,2423,2441,2447,2459,2467,2503,2521,2543,
+
+2549,2551,2557,2609,2621,2647,2657,2659,2663,2683,2687,2689,2801,2803,
+
+2843,2851,2857,2861,2887,4001,4003,4007,4021,4027,4049,4051,4057,4201,
+
+4229,4241,4243,4253,4259,4261,4289,4409,4421,4423,4441,4447,4451,4457,
+
+4463,4483,4507,4523,4547,4549,4561,4567,4583,4603,4621,4643,4649,4651,
+
+4657,4663,4801,4861,4889,5003,5009,5021,5023,5051,5059,5081,5087,5209,
+
+5227,5261,5281,5407,5441,5443,5449,5483,5501,5503,5507,5527,5557,5563,
+
+5569,5581,5623,5641,5647,5651,5653,5657,5659,5669,5683,5689,5801,5807,
+
+5821,5827,5843,5849,5851,5857,5861,5867,5869,5881,6007,6029,6043,6047,
+
+6053,6067,6089,6203,6229,6263,6269,6287,6449,6469,6481,6553,6563,6569,
+
+6607,6653,6659,6661,6689,6803,6823,6827,6829,6857,6863,6869,6883,8009,
+
+8053,8059,8069,8081,8087,8089,8209,8287,8443,8447,8467,8501,8543,8581,
+
+8609,8647,8663,8669,8681,8689,8803,8807,8849,8863,8867,8887,8353,8363,
+
+9857,9859,1009,1021,1049,1063,1069,1201,1409,1601,1607,1609,1889,2011,
+
+2017,2039,2099,2309,2383,2707,2833,2837,2897,2903,2909,2927,4493,4787,
+
+4789,4877,4903,4909,4987,5783,5839,5879,5897,5903,5987,4943,6011,6037,
+
+6073,6079,6101,6301,6961,9109,20021,9007,9001,9013,7001,7043,8093,28001,
+
+70003,44507,400087,10009,90001,440009,90007.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

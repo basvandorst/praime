@@ -1,0 +1,256 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_946.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 946. The largest prime that divides...
+Source: https://www.primepuzzles.net/puzzles/puzz_946.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0946.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_945.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/index.html
+  https://www.primepuzzles.net/puzzles/puzz_946.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 946. The largest prime that divides...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 946. The largest prime that divides...
+
+Paul Cleary sent the following nice puzzle:
+
+Show that the sum of all the permutations of any 39 digit number will always be divisible by the Prime 900900900900990990990991.
+
+or
+
+Show that the sum of all the permutations of any 47 digit number will always be divisible by the Prime 316362908763458525001406154038726382279.
+
+BTW, these primes are the largest prime divisors in each case.
+
+Q. Send your proof for each prime.
+
+Contributions came from Giovanni Resta, Emmanuel Vantieghem, John Arioni and Jan van Delden..
+
+***
+
+Giovanni wrote on March 16, 2019:
+
+If we consider a number of n digits (d1,d2,...,dn) there are n! permutations (if the digits are repeated some permutations will be the same).
+
+If we focus on a single digit dk we see that it will appear on every position (1st, 2nd, .. n-th) from the end exactly n!/n = (n-1)! times for symmetry reasons. The digit dk when in position i from the end has weight 10^(i-1). So the contribution of digit dk to the overall sum is
+
+dk * (n-1)! * (1+10+100+1000+...+10^(n-1)) = dk * (n-1)! * (10^n-1)/9.
+
+Hence, adding the contributions of all the digits we have that the sum is
+
+(d1+d2+...+dn) * (n-1)! * (10^n-1)/9.
+
+If n=39 the sum is a multiple of 900900900900990990990991 because that is a divisor of 10^39-1. The same for the other prime which is a divisor of 10^47-1.
+
+***
+
+Emmanuel wrote on March 19, 2019:
+
+It is very easy to show that the sum of all the permutations of an n-digit number m is divisible by R(n), the repunit with n digits.
+
+Simply : write down all permutations under each other.
+
+It is then easy to see that every 'column' is a permutation of the first one.
+
+Thus, if s is the sum of the digits in the first column, then s is also the sum of all the digits in any other column.
+
+So, when you make the sum of all permutations of m by 'posponing carry', you obtain the number
+
+s*10^(n-1) + s*10^(n-2) + ... + s*10+s = s*R(n).
+
+I give an example when m = 1223.
+
+Write all the permutations of m as follows :
+
+1*1000 + 2*100 + 2*10 + 3
+
+1*1000 + 2*100 + 3*10 + 2
+
+1*1000 + 3*100 + 2*10 + 2
+
+2*1000 + 1*100 + 2*10 + 3
+
+2*1000 + 1*100 + 3*10 + 2
+
+2*1000 + 2*100 + 1*10 + 3
+
+2*1000 + 2*100 + 3*10 + 1
+
+2*1000 + 3*100 + 1*10 + 2
+
+2*1000 + 3*100 + 2*10 + 1
+
+3*1000 + 1*100 + 2*10 + 2
+
+3*1000 + 2*100 + 1*10 + 2
+
+3*1000 + 2*100 + 2*10 + 1
+
+-------------------------------------- + (summing with postponed carry)
+
+24*1000 + 24*100 + 24*10 + 24 = 24*1111 (= 26664 after carry).
+
+If m is a 39-digit number then the sum of all permutations will be of the form s*R(39).
+
+Factorization of R(39) is :
+
+3*37*53*79*265371653*900900900900990990990991
+
+This proves the first assertion.
+
+If m has 47 digits we find :
+
+R(47) = 35121409*316362908763458525001406154038726382279
+
+Which proves the second assertion.
+
+Now we shall prove that s cannot have a prime divisor > 900900900900990990990991 in case 1 and
+
+that s cannot have a prime divisor > 316362908763458525001406154038726382279 in case 2
+
+When m is composed of n1 times the digit d1
+
+n2 times the digit d2
+
+............................
+
+nk times the digit dk
+
+then it is an easy combinatorial exercise to compute that :
+
+s = A*(n1*d1 + ... + nk*dk) with A = ((n1 + ... +nk - 1)!) / ((n1!)*...*(nk!)).
+
+Now, to prove the assertion about the greatest prime divisor of s*R(n), it suffices to look at the primefactors of s.
+
+Well, the factor A (which can be a fraction instead of an integer) cannot have a prime divisor > 38.
+
+The value of n1*d1 + ... + nk*dk is at most 9*n. Therefore, the greatest prime factor in the cases n = 39 or 47 cannot be else than those that are given.
+
+Thus, all assertions of the puzzle are correct.
+
+***
+
+John wrote on March 18, 2019:
+
+900900900900990990990991
+
+is the largest prime divisor of A=111... …111 (39 digits), while
+
+316362908763458525001406154038726382279
+
+is the largest prime divisor of B=1111... …1111 (47 digits).
+
+Now, let's consider any 39-digits number: such a number will be
+
+made up of some quantities of digits “0”, digits “1”, digits “2” …
+
+and digits “9”.
+
+If we sum all the permutations of our 39-digits number just the
+
+way we learned in primary school, on each of the 39 columns,
+
+each of the digits “0”, “1”, “2”, …..”9” will appear with the same
+
+own frequency. This means that the sum of the values in any
+
+of the 39 columns is regurarly the same (say C). Then the sum of
+
+all the permutations is C+10*C+ ….. + 10^38*C=A*C which is
+
+obviously divided by 900900900900990990990991 as well as A.
+
+How large is C:
+
+let's define the following:
+
+- qn= quantity of the digit “n” in the 39-digits number
+
+- vn = value of the digit “n”
+
+- P = number of permutations
+
+then:
+
+C= sum (qn*vn*P/39) n= 0,1,2,3,.....9, that is:
+
+C= q0*0*P/39 + q1*1*P/39 + q2*2*P/39+ ….....+ q9*9*P/39=
+
+= P/39*(q1+2*q2+3*q3+......+9*q9); q0+q1+q2+ …....+q9=39
+
+It's not a problem to check that the largest possible prime factor
+
+of C is less than or equal to 347, so we can state that the largest
+
+prime factor of A (900900900900990990990991) is also the
+
+largest factor of A*C
+
+Mutatis mutandi, the same arguments hold for 47-digits numbers.
+
+***
+
+Jan wrote on March 23, 2019:
+
+The question implies that digit 0 is not allowed (or we allow a number starting with extra 0’s).
+
+Given a number N with n digits, a[0]..a[n-1], with all digits a[j]>0, consisting of k<=n distinct digits.
+
+Suppose there are M permutations. We could add the sum of all these permutations in two ways:
+
+By permutation
+
+By location j (and multiplying with 10^j)
+
+These sums should be equal.
+
+Furthermore the sum of all digits over all permutations can be split in two ways:
+
+By permutation (total sum of digits =M*sum of digits of N
+
+By location (sum of digits by location), equal for every location.
+
+The sum of digits by location is therefore equal to M/n*sum of digits of N.
+
+To find the sum of all M permutations we should multiply with sum(10^j,j=0..n-1).
+
+The sum of all M permutations is therefore (M/n*sum of digits of N)*(10^n-1).
+
+We have n|M by construction and find 10^n-1| sum of all permutations of N.
+
+And the given primes are the largest prime factors of 10^n-1, with n=39 respectively n=47.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

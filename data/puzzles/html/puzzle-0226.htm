@@ -1,0 +1,376 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Puzzle 226. Rolling Primes </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="616" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10" width="616">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td width="616"><p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span>
+
+        </p>
+
+      <p><b><span lang="en-us">Puzzle 226. <font color="#008080">Rolling Primes</font></span></b></p>
+    <p class="MsoNormal" style="text-autospace: none">
+    <span style="font-size: 10.0pt; font-family: Verdana" lang="en-us"><b>Jeff 
+    Heleen</b> sent the following nice puzzle &quot;</span><i><span lang="en-us"><font size="2"><span style="font-family: Verdana">f</span></font></span><span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">or 
+    the 5th anniversary of your website</span></i><span style="font-size: 10.0pt; font-family: Verdana" lang="en-us">&quot;</span></p>
+    <blockquote>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">Let 
+      P(k), a prime, be a concatenation of an arrangement of k primes q(1), 
+      q(2), q(3),...q(k) such that when the individual primes</span><span lang="en-us" style="font-size: 10.0pt; font-family: Verdana">
+      </span><span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">
+      q(k) are rolled successively from back to front the whole P(k) remains a</span><span lang="en-us" style="font-size: 10.0pt; font-family: Verdana">
+      </span><span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">
+      prime.</span></p>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">Ex, if 
+      k=4 then</span><span style="font-size: 10.0pt; font-family: Verdana" lang="en-us">:</span></p>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">
+      P(4)=q(1)q(2)q(3)q(4)--&gt; q(4)q(1)q(2)q(3)--&gt; q(3)q(4)q(1)q(2)--&gt; 
+      q(2)q(3)q(4)q(1)--&gt; prime.&nbsp;</span></p>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">Ex. 
+      P(4)=11.7.13.3 --&gt; 3.11.7.13 --&gt; 13.3.11.7 --&gt; 7.13.3.11 --&gt; prime.</span></p>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">The 
+      smallest examples of this for k=2 through 4 are:</span></p>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      P(k) (smallest)<br>
+      2&nbsp;&nbsp;&nbsp;&nbsp; 3.7<br>
+      3&nbsp;&nbsp;&nbsp;&nbsp; 3.7.67<br>
+      4&nbsp;&nbsp;&nbsp;&nbsp; 11.7.13.3<br>
+      5<br>
+      6<br>
+      7<br>
+      8</span></p>
+      <p class="MsoNormal" style="text-autospace: none">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">(The 
+      dots in the P(k) are just for distinguishing individual primes for 
+      viewing.)</span></p>
+      <p class="MsoNormal" style="text-autospace: none"><font color="#0000FF">
+      <b><span style="font-size: 10.0pt; font-family: Verdana" lang="en-us">
+      Questions:</span><span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana">&nbsp;</span></b></font></p>
+      <p class="MsoNormal" style="text-autospace: none"><font color="#0000FF">
+      <span lang="EN-US" style="font-size: 10.0pt; font-family: Verdana; font-weight: 700">
+      Q1. Can you fill out the rest of the table?<br>
+      Q2. Is there any upper limit for k beyond which solutions are impossible?<br>
+      Q3. Is there a general method for finding these solutions?</span></font></p>
+    </blockquote>
+    <p><font size="2"><span lang="en-us"><br>
+    <br>
+    &nbsp;</span></font></p>
+    <p>&nbsp;</p>
+
+      <hr>
+      <p><span lang="en-us"><b><font color="#FF0000">Solution:</font></b></span></p>
+
+      <p><span lang="en-us"><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+
+      <p><font size="2"><span lang="en-us">Contributions came from <b>Adam 
+      Stinchcombe </b>and<b> Johann Wiesenbauer.</b> Both claimed that a) it was 
+      not formally ruled that the primes used should to be distinct b) the 
+      'minimal' concept of the asked solutions is a kind of ambiguous. Let's see 
+      what they produced.</span></font></p>
+
+      <p><span lang="en-us"><font size="2">By her way Faride Firoozbakht found 
+      that the solution provided by Jeff for k=4 is not the smallest. She also 
+      found different solutions than the sent by Adam and Johann. See below.</font></span></p>
+
+      <p><font size="2"><span lang="en-us"><b>Stinchcombe</b> wrote:</span></font></p>
+
+      <blockquote>
+
+      <p><font size="2"><span lang="en-us">{3,7,11,13,5443} produces the 
+      smallest example with k=5... And now, for k=6, I have {3, 7, 11, 13, 17, 
+      253427}...I have failed to find a set for k=7 of the form 
+      {3,7,11,13,17,19,p} for p&lt;25599131 [<b>Faride Firoozbakht</b> found 
+      that for p = 49365049, k=7] </span></font></p>
+
+      </blockquote>
+
+      <p><span lang="en-us"><font size="2">Later he added:</font></span></p>
+
+      <blockquote>
+        <p><span lang="en-us"><font size="2">After I realized that the qk were 
+        not described as distinct I found data of the form q1=q2=q3=...=q(k-1)=3 
+        with qk given by </font></span></p>
+        <p></p>
+        <p><span lang="en-us"><font size="2">k qk <br>
+        3 7 <br>
+        4 787 <br>
+        5 86423 <br>
+        6 1067497 <br>
+        7 920687 <br>
+        8 no qk&lt;16650217</font></span></p>
+    </blockquote>
+
+      <p><span lang="en-us"><font size="2"><b>Wiesenbauer</b> wrote:</font></span></p>
+
+      <blockquote>
+        <p><span lang="en-us"><font size="2">I just had a look at your Puzzle 
+        226, which was a little bit ambiguous this time for two reasons. </font>
+        </span></p>
+        <p><span lang="en-us"><font size="2">Firstly, you didn't explicitly 
+        exclude the case where two or more of the primes q(1), q(2),...,q(k) 
+        coincide, but I concluded from your examples that this is tacitly 
+        assumed. (Otherwise 3.3.7 is a smaller solution for k=3.) </font></span>
+        </p>
+        <p><span lang="en-us"><font size="2">Secondly, you didn't say what 
+        &quot;smallest&quot; example means here. After all, we are talking about k-element 
+        vectors rather than numbers and each example can be represented in k 
+        different ways due to the &quot;rolling property&quot;. </font></span></p>
+        <p><span lang="en-us"><font size="2">Having said this I'd like to give 
+        what is my solution of Q1 for the cases k=5 and k=6: </font></span></p>
+        <p><span lang="en-us"><font size="2">k=5: 3.7.13.37.43 <br>
+        k=6: 3.13.11.7.37.53 </font></span></p>
+        <p><span lang="en-us"><font size="2">As for Q2 and Q3, I can only guess 
+        that the answer is no, but I have no proof.</font></span></p>
+    </blockquote>
+
+      <p><span lang="en-us">***</span></p>
+
+      <p><span lang="en-us"><font size="2"><b>Faride Firoozbakht</b> wrote:</font></span></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">For k=4 the smallest prime is 11.3.17.7 and 
+      11.7.13.3 is the second solution.<br>
+      For k=5 the smallest solution is 13.31.3.97.7 .<br>
+      For k=6 the smallest solution is 11.7.37.53.3.13</span></p>
+    </blockquote>
+    </font>
+
+      <p><span lang="en-us"><font size="2">As you can see he improved the 
+      'minimal' solutions found by Jeff for k=4 and the 'minimal' solution found 
+      by Johann for k=5.</font></span></p>
+
+      <p><span lang="en-us"><font size="2">***</font></span></p>
+
+      <p><font size="2"><span lang="en-us">I anyone is interested in getting&nbsp; 
+      more solutions I will rule out that the solutions must use distinct primes 
+      and that the minimal concept for each k is defined by the minimal prime of 
+      the k primes produced for the rolling procedure.</span></font></p>
+
+      <p><span lang="es-mx">***</span></p>
+
+      <p><font size="2"><span lang="en-us"><b>Johan Wiesenbauer</b> wrote 
+      (August 5,03) more news and corrections to the previous results. He also 
+      got the smallest solutions for k=7 &amp; k=8:</span></font></p>
+
+      <blockquote>
+        <font SIZE="2">
+        <p><span lang="en-us">As for puzzle 226 I have rewritten my program form 
+        scratch due to your new precise minimal conditions and there were quite 
+        a few surprises when I tested all the cases up to k=8. What follows is 
+        the complete list of all minimal solutions along with the computation 
+        times of my Derive-program:</span></p>
+        <p><span lang="en-us">k=2: 3.7 (0.01s)<br>
+        k=3: 3.7.67 (0.04s)<br>
+        k=4: 11.3.17.7 (0.11s)<br>
+        k=5: 11.31.3.37.7 (1.78s)<br>
+        <font color="#FF0000"><b>k=6: 11.71.7.3.29.97 (124.3s)</b></font><br>
+        k=7: 11.13.67.3.31.7.37 (408.3s)<br>
+        k=8: 11.3.7.67.47.23.53.97 (20h 35 min)</span></p>
+        <p><span lang="en-us">As you can see the solution of Faride Firoozbakht 
+        for k=5 is slightly wrong, because the fourth prime should be 37 and not 
+        97. (In fact, her number 11313977 is divisible by 31, hence this is 
+        likely to be a simple misprint!)</span></p>
+        <p><span lang="en-us">The real surprise is the case k=6, where our 
+        former solution 11.7.37.53.3.13 is only number three (!) after 
+        11.71.7.3.29.97 and 11.7.29.79.3.37 !</span></p>
+        <p><span lang="en-us">The case k=7 was very easy due to the special form 
+        of the minimal solution (starting with 11.13 and containing 3 and 7) as 
+        opposed to the case k=8, where my program rigorously proved that there 
+        are no other &quot;rolling primes&quot; among all 14-digit numbers starting with 
+        11.</span></p>
+    </blockquote>
+    </font>
+
+      <p><span lang="es-mx">***</span></p>
+
+      <p>&nbsp;</p>
+
+      <hr>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20" width="616">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_225.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_227.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td width="616">
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td width="616"><font face="MS Sans Serif, Helvetica" size="1"> 
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

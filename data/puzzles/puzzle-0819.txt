@@ -1,0 +1,165 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_819.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 819. A follow up to Puzzle 314
+Source: https://www.primepuzzles.net/puzzles/puzz_819.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0819.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_314.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_818.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_820.htm
+  https://www.primepuzzles.net/puzzles/puzz_819.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 819. A follow up to Puzzle 314
+
+Problems & Puzzles: Puzzles
+
+Puzzle 819. A follow up to Puzzle 314
+
+Emmanuel Vantieghem sent this follow-up to Puzzle 314.
+
+In puzzle 314 it was asked to find a function f such that f(f(n)) = p(n), where p(n) is the n-th prime.
+
+This was solved by Luke Pebody as follows :
+
+Define integers z(m,n) recursively as follows:
+
+z(m,1) is the mth non-prime number ( z(1,1) = 1, z(2,1) = 4, z(3,1) = 6, ...)
+
+z(m,n+1) is the z(m,n)-th prime
+
+Pebody then proves that for every n there exists a, b such that n = Z(a,b). and then defines f by :
+
+f(z(2m+1,k))=z(2m+2,k) and
+
+f(z(2m+2,k))=z(2m+1,k+1).
+
+Q1 : compute f(2016)
+
+(and of course, f(n) for some other values of n like 666, ...).
+
+Q2 : is there another function g such that g(g(n)) = p(n) ? Or is f unique ? Prove your answer.
+
+Q3 : If the answer to Q2 is yes, compute g(2016),
+
+f(g(2016)), g(f(2016)).
+
+Contribution came from Emmanuel Vantieghem
+
+***
+
+Emmanuel wrote:
+
+(Here Pi(x) is the number of primes <= x)
+
+In my opinion, the most difficult point was to find a simple program to define the function Z(m,1) = the m-th composite number.
+
+It is clear that Z(m,1) is the unique integer b with the property b - Pi(b] = m.
+
+I proceeded as follows : By given m, I computed a = m+Pi(m) ; if a - Pi(a) = m we are done. If not, I add as many times 1 to a untill I reach a number b such that b - Pi[b] = m.
+
+(This works perfectly for 'small' numbers but is very inefficient for big numbers).
+
+This is my Mathematica program (Z1[m] stands for Z(m,1)) :
+
+Z1[m_]:=Module[{a},a=m+PrimePi[m];While[a-PrimePi[a]!=m,a++];a]
+
+The definition of the other functions Z(m,n) is much easier :
+
+Z[m_,n_]:=If[n==1,Z1[m],Prime[Z[m,n-1]]]
+
+Then, Pebody proves that for every integer n > 0 there is an integer a and an integer b such that n = Z[a,b].
+
+Here is how I found a, b :
+
+If n is composite then obviously, b = 1 and a = n - Pi(n).
+
+If n is prime, compute Pi[n]. If this is prime, compute Pi(Pi(n)). If this is prime, compute Pi(Pi(Pi(n) etc., until you reach a composite number x.
+
+Then the a we are looking for is x - Pi(x) and b = 1 + the number of times you applied Pi to reach x.
+
+Example : n = 179 (prime). Here, Pi(n) = 41 (prime). Pi(41) = 13 (prime). Pi(13) = 6 (composite).
+
+-> Thus, since I applied three times Pi, b should be 1+3 and a = 6 - Pi(6) = 3. Thus, Z[3,4] = 179.
+
+My Mathematica program is this :
+
+AB[n_]:=If[!PrimeQ[n],{n-PrimePi[n],1},Module[{b,m},b=1;m=n;While[PrimeQ[m],b++;m=PrimePi[m]];{m-PrimePi[m],b}]]
+
+The function f is then defined as follows :
+
+f(n) = Z[a - 1, b + 1] if a is even and f(n) = Z(a+1,b) when a is odd.
+
+My Mathematica program :
+
+F[n_]:=Module[{a,b},{a,b}=AB[n];If[EvenQ[a],Z[a-1,b+1],Z[a+1,b]]]
+
+Here are the first 20 values of f :
+
+4, 7, 17, 2, 59, 8, 3, 13, 10, 23, 277, 14, 19, 37, 16, 47, 5, 20, 41, 61.
+
+Further values : f(666) = 667, f(2016) = 2018, f(2017) = 17483, ...
+
+Vizualizing the whole proces by constructing the (infinite) matrix (Z(m,n)) :
+
+1 2 3 5 11 ...
+
+4 7 17 59 277 ...
+
+6 13 41 179 1063 ...
+
+8 19 67 331 2221 ...
+
+9 23 83 431 3001 ...
+
+and putting an arrow (->) between n and f(n) let me recover that there is an alternative way to place these arrows.
+
+This allowed me to define a second function :
+
+g(n) = Z(a-1),b when a is even and g(n) = Z[a+1,b+1) when a is odd.
+
+With Mathematica :
+
+G[n_]:=Module[{a,b},{a,b}=AB[n];If[EvenQ[a],Z[a-1,b],Z[a+1,b+1]]]
+
+The first 20 values are :
+
+7, 17, 59, 1, 277, 19, 2, 6, 29, 9, 1787, 43, 67, 12, 53, 15, 3, 71, 13
+
+And g(666) = 4987 ; g(2016) = 17551 ; g(2017) = 2011, ...
+
+Further : f(g(2016)) = 194263 ; g(f(2016)) = 2016 ( ! ).
+
+Note that allways, either f(g(n)) = n or g(f(n)) ! ! !
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

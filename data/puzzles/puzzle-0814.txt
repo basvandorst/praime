@@ -1,0 +1,242 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_814.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 814. Primes and squares such that...
+Source: https://www.primepuzzles.net/puzzles/puzz_814.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0814.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Gauss's_lemma_(polynomial)
+  https://www.primepuzzles.net/puzzles/puzz_813.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_815.htm
+  https://www.primepuzzles.net/puzzles/puzz_814.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 814. Primes and squares such that...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 814. Primes and squares such that...
+
+Emmanuel Vantieghem sent the following nice puzzle:
+
+I wondered if there exists a square s and a prime p such that the concatenation s&p is prime while the concatenation p&s is a square.
+
+I found many examples:
+
+s p
+
+36 31
+
+441 229
+
+2025 109
+
+2601 2551
+
+3969 2437
+
+15876 1531
+
+22500 13
+
+30625 3
+
+44100 229
+
+54756 6133
+
+59049 421
+
+99225 1063
+
+But I was unable to find an s such that there are two primes p and q such that s&p and s&q are primes while p&s and q&s are squares.
+
+Q. So, my question is : is it possible to find s, p and q ?
+
+Contributions came from Seiji Tomita, VIcente F. Izquierdo, Jan van Delden, Emmanuel Vantieghem
+
+***
+
+Seiji wrote:
+
+Search condition: s<10^8, {p,q}<10^7
+
+If s=0 mod 3, then p=1 mod 3.
+
+[s, p, q]
+
+[3481956, 9649, 624067]
+
+[4639716, 9631, 623923]
+
+[6780816, 38737, 156901]
+
+[10732176, 97861, 1563319]
+
+[33350625, 39769, 40231]
+
+***
+
+Vicente wrote:
+
+For s<=50,000 and p<=Prime[30,000] and q<= Prime[30,000] found:
+
+s
+
+p
+
+q
+
+2604
+
+38737
+
+156901
+
+5775
+
+39769
+
+40231
+
+8250
+
+367
+
+433
+
+***
+
+Jan wrote:
+
+I searched for p<s, with s having a maximum of 13 digits.
+
+The routine first calculates: s and ps and p. For each value of s=x^2 it precalculates recursively the values of y such that y^2 ends with s.
+
+The set of these y’s can be very large if s (and x) ends with zeroes. In this case we use (with s=r^2*10^(2a) and ps=t^2*10^(2a))
+
+p*10^k+r^2*10^(2a)=t^2*10^(2a) reducing to the smaller problem p*10^m+r^2=t^2 with m=k-2a. Finally check if sp is prime.
+
+Here k equals the number of digits of s. So we have 0<2a<=k.
+
+Smallest solutioon: 3481956 {9649, 624067}
+
+Largest solution: 9882830827809 {2499996856303, 2500003143697}
+
+Solutions ending in 0:
+
+Smallest solution: 68062500 {367, 433}
+
+Largest solution: 8999280014400 {1562425003, 1562574997}
+
+The number of solutions with increasing number of digits of s are: [0,0,0,0,0,0,3,3,3,4,22,29,64].
+
+As an alternative one could also test if a solution to s,ps,p where s doesn’t end with a 0 gives a solution to s*10^(k+2a)+p prime, if one is interested in large solutions without much extra effort.
+
+***
+
+Emmanuel wrote:
+
+The smallest square that has two primes p and q that satisfies the condition of the problem is
+
+3481956 = 1566^2 with p = 9649 and q = 624067.
+
+Some other solutions :
+
+4639716 = 2154^2 with p = 9631, q = 623923.
+
+10732176 = 3276^2 with p = 97861, q = 1563319
+
+68062500 = 8250^2 with p = 367, q =433.
+
+The smallest square that has two primes p and q that satisfies the condition of the problem is
+
+3481956 = 1566^2 with p = 9649 and q = 624067.
+
+Some other solutions :
+
+4639716 = 2154^2 with p = 9631, q = 623923.
+
+10732176 = 3276^2 with p = 97861, q = 1563319
+
+68062500 = 8250^2 with p = 367, q =433.
+I can prove that 34811956 is the smallest square that gives a solution to the problem.
+
+The proof depends on the follwing :
+
+Theorem : if s is a square with k digits and if p is a prime such that the concatenation p&s is a square,
+
+then p&s is the square of a number less than 10^k.
+
+Proof :
+
+Assume s has k digits and s = n^2.
+
+Let p be a prime such that p&s is a square. Then we can write :
+
+p&s = p*10^k + s = (x*10^k + t)^2
+
+where t is a number < 10^k (and >= n) whose square's last k digits coincide with s.
+
+I.e. we can write t^2 as s + m 10^k.
+
+Then : p*10^k + s = (x^2)*(10^(2k) + 2 t x 10^k + t^2 = (x^2)*(10^(2k) + 2 t x 10^k +m 10^k + s
+
+which gives after some trivial simplification :
+
+p = (x^2)*(10^k) + 2 t x + m.
+
+Thus, p can be expressed as the value of some quadratic polynomial in x.
+
+Surprisingly, the discriminant of that polynomial is a perfect square !
+
+Hence, the polynomial has rational roots and thus can be written as (a x + b)(c x + d) with a, b, c, d positive numbers (Gauss's Lemma on Polynomials).
+
+It is clear that this equals a prime if and only if x = 0 and b or d = 1. But, this is precisely Q.E.D.
+
+This means that we may find p as follows : list all elements t between n and 10^k whose square ends in s.
+
+Then, look at the digits of t^2 that precede s : these should form p..
+
+Of course, once we found such a p, we still have to see wether or not s&p is prime.
+
+For instance, when s = 36, we have only four numbers less than 100 that have a square ending in 36 :
+
+6, 44, 56 and 94 with squares resp : 36, 1936, 3136 and 8836. But only 3136 is a 'good'.
+
+In our search for solutions, we also can restrict ourselves to squares that are divisible by 9. This can be deduced easily if we look at the equations
+
+p*10^k + s = square and s*10^t + p = prime (mod 3).
+
+Using our PC, it is then easy to see that 3481956 is the smallest square.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

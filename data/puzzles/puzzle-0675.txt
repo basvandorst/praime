@@ -1,0 +1,138 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_675.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 675 p = -1+2^57885161
+Source: https://www.primepuzzles.net/puzzles/puzz_675.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0675.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_674.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_676.htm
+  https://www.primepuzzles.net/puzzles/puzz_675.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 675 p = -1+2^57885161
+
+Problems & Puzzles: Puzzles
+
+Puzzle 675 p = -1+2^57885161
+
+For sure you already know about the recently discovered 48th known Mersenne prime: p = -1+2^57885161 with 17425170 digits, the largest known prime nowadays.
+
+We want celebrate it with the following puzzling question:
+
+Q. What is the smallest prime number not contained as a substring in the decimal expansion of -1+2^57885161?
+
+Contributions came from Vicente Felipe Izquierdo, Jan van Delden, Hakan Summakoglu, J. K. Andersen, Giovanni Resta & Emmanuel Vantieghem.
+
+All of them found the same solution: The first prime not contained in the 48th known Mersenne prime is: 1000133.
+
+***
+
+Jan added:
+
+I’m curious if someone applied a better trick to compute the decimal expansion, that’s why I include my description, see below (*):
+
+1000133 is the first prime not present in the decimal expansion of -1+2^57885161.
+
+This check took 1 minute. However constructing this decimal expansion took more than 1 hour! (*)
+
+As an aside:
+
+The first part of Pi that is not found: 31415926
+
+The first part of Euler’s constant that is not found: 27182818
+
+The first part of Phi (Golden ratio) that is not found: 16180339
+
+The first part of Catalan’s constant (Zeta(3)) that is not found: 1202056
+
+(*)
+
+Constructing the Mersenne prime takes no time at all, java’s BigInteger stores a number using a binary representation, a simple shiftLeft() and subtract(1) will do the job. Converting it to it’s decimal representation however is another story altogether. The standard BigInteger.toString() method is way too slow. I suspect it is doing this 1 decimal at a time. I decided to first divide the Mersenne-prime into parts of 1000000 digits and divide these into 1000-digit parts and write them to a file. Division by 10^k can be made faster by first applying shiftRight(k) and then division by 5^k. Avoiding the mod() operation also saves some time.
+
+***
+
+Hakan added:
+
+I tested for other three cases:
+
+Smallest composite number is 1000000.
+
+Smallest palindromic prime number is 1035301.
+
+Smallest prime number for all different arrangement of digits not contained is 11111117.
+
+(71111111,17111111,11711111,11171111,11117111,11111711,11111171,11111117 are not contained.
+
+***
+
+Jens added:
+
+The smallest primes with no occurrences: 1000133, 1000187, 1000313, 1000381.
+
+The largest primes with two occurrences: 569975899693, 833386215113.
+
+***
+
+Giovanni added:
+
+the smallest prime lacking from -1+2^57885161 is 1000133,
+
+while the smallest such composite is 1000000.
+
+Considering all the 48 known Mersenne primes, the smallest prime
+
+lacking is 1103029, the smallest composite is 1036228.
+
+What was the prime that you found more inside from both extremes of the
+
+48th Meresene prime?
+
+It is 1000099, which has 8578415 digits before and 8846748 digits after.
+
+How do you handle so big numbers in order to make your search?
+
+Working in C, the GNU library GMP has no problems in dealing with numbers of this size or much larger. Actually, in this case there is just one costly (few seconds) operation to be performed, i.e., converting the number into its decimal representation (just 17425170+1 bytes), then there are no other arithmetical operations, just string searches, which take some
+
+time because the string to be searched is long and there are about
+
+78500 primes to be searched before reaching the missing 1000133.
+
+***
+
+Emmanuel added:
+
+The first 'non-occurring' prime in -1+2^57558161 is 1000133.
+
+(The smallest 'non-occurring' number is 1000000 ; the 'smallest non-occurring' string is 0000002, but that was not the question).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

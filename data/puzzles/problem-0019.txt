@@ -1,0 +1,238 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_019.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 19.- Divisors (I): The least number N(d) with d number of
+
+divisors.
+Source: https://www.primepuzzles.net/problems/prob_019.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0019.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/problems/prob_018.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_020.htm
+  https://www.primepuzzles.net/problems/prob_019.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Problem 19.- Divisors (I): The least number N(d) with d number of divisors.
+
+Problems & Puzzles: Problems
+
+Problem 19.- Divisors (I): The least number N(d) with d number of divisors.
+
+N(2) = 2 = is the least number with 2 divisors (1 & 2)
+
+N(3) = 4 = is the least number with 3 divisors (1, 2, & 4)
+
+N(4) = 6 = is the least number with 4 divisors (1, 2, 3, & 6)
+
+a) Find N(4000), N(4001) and N(4002), respectively.
+
+b) Can you explain the general algorithm to calculate N(d)?
+
+a) Jud McCranie, T.W.A. Baumann & Enoch Haga, solved independently the part a) of this puzzle:
+
+N(4000) = 2^4*3^4*5^4*7*11*13*17*19 = 261891630000
+
+N(4001) = 2^4000
+
+N(4002) = 2^28*3^22*5^2*7 = 1474163083033391923200
+
+b) Jud McCranie, T.W.A. Baumann & Enoch Haga sent basically the same procedure to find N(d) for a given d:
+
+1.- Factorize d as a product of his prime divisors:
+
+d = p1^a1*p2^a2*p3^a3...
+
+2.- convert this factorization in another arithmetically equivalent factorization, composed of non-powered monotonically decreasing & not necesarilly prime factors....(uf!...)
+
+d = p1^a1*p2^a2*p3^a3... = b1*b2*b3... ; such that b1=>b2=>b3...
+
+You must realize that for every given d, there are several arithmetically equivalent factorizations that can be done: by example:
+
+if d = 16 =2^4 then there are 5 equivalent factorizations:
+
+d = 2*2*2*2 = 4*2*2 = 4*4 = 8*2 = 16
+
+3.- N is the minimal number resulting of computing 2^(b1-1)*3^(b2-1)*5^(b3-1)*... for all the equivalent factorizations of d. Working the same example:
+
+N(16) = the minimal of these{2*3*5*7, 2^3*3*5, 2^3*3^3, 2^7*3, 2^15}= 2^3*3*5 = 120
+
+***
+
+I have the 'feeling' that a more detailed analysis can be done to guide &/or optimize the execution of the steps 2 & 3 of the above procedure. As far as I have been thinking about it, I believe the following:
+
+From all the possible factorizations of d you need only consider those which the sum of the factors is equal to the sum of all the non-powered prime factors.
+
+If this is truth, this also means that the minimal N is only one of some particular of all the possible factorizations of the product monotonically decreasing of all the non-powered odd primes of d by 2^z, z=>0, that is to say that you need to consider only all the possible minimal factorizations of 2^z.
+
+Let's work another example: if d = 240 = (5*3)*(2*2*2*2) then you need to consider only the different minimal factorizations of 2*2*2*2; so the only factorizations of d = 240 to consider are 5*3*2*2*2*2, 5*4*3*2*2 & 5*4*4*3.
+
+Then, N(240) = the minimal of these{2^4*3^2*5*7*11*13, 2^4*3^3*5^2*7*11, 2^4*3^3*5^3*7^2}= 2^4*3^2*5*7*11*13 = 72072
+
+Of course that if d is odd, the factorization of d that produces the minamal value of N is simply that obtained by the product of all the non powered prime factors of d in monotonically decreasing order.
+
+I bold the fact that I don't know if all this is absolutely true. All I have is some empirical evidence confirming this conjecture.
+
+Can you simplify/profundize this?
+
+***
+
+On March 08 Christian Bau wrote:
+
+The solution so far on the problem page is the following: Find all
+
+possible ways to write the integer d as the product of factors >= 2
+
+which are decreasing in size, that is d = n1 * n2 * n3 ... * nk, where
+
+n1 >= n2 >= n3 >= ... >= nk >= 2. For each such product, calculate the
+
+value
+
+x = 2^(n1 - 1) * 3^(n2 - 1) * 5^(n3 - 1) * ... * pk ^ (nk -1).
+
+Then N is the smallest of all these values x.
+
+For small d, like d = 20, all possible ways of writing d as a product
+
+are easily found, but this method is quite unusable for large d, like
+
+d = 100! because of the enormous number of possible candidates. We
+
+need to find severe restrictions on the possible factorisations of d
+
+for such a large number.
+
+Assume we found an x as above, that is x = 2^(n1 - 1) * 3^(n2 - 1) *
+
+5^(n3 - 1) * ... * pk ^ (nk -1). n1 is either the largest prime factor
+
+of d, or a composite number. Assume that n1 is not a prime, so we can
+
+write n1 = a*b, where a >= b >= 2. Assume that p is the first prime
+
+number that isn't used in the product that gives x. We can find
+
+another number y that has exactly the same number of divisors as x by
+
+letting
+
+y = 2^(a-1) * 3^(n2 - 1) * 5^(n3 - 1) * ... * pk ^ (nk -1) * p^(b-1).
+
+If x were the smallest number with d divisors, then we have
+
+necessarily x < y and therefore 2^(ab-1) < 2^(a-1) * p^(b-1). This is
+
+equivalent to 2^(a(b-1)) < p^(b-1) or 2^a < p.
+
+This is a severe restriction: In a concrete example, if p = 103 it
+
+means that 2^a < 103 or a <= 6. So ab must not be the product of two
+
+numbers with the larger one >= 7. This leaves ab = 2*2, 3*2, 4*2, 5*2,
+
+6*2, 3*3, 5*3, or 5*5 (not for example 4*4, because that is equal to
+
+8*2 with a factor greater than 6). In this example, if n1 is composite
+
+then it is at most 25. So the possible candidates for n1 are either
+
+the largest prime factor of d, or those of the numbers n1 = 25, 15,
+
+12, 10, 9, 8, 6, 4 that are greater than the largest prime factor.
+
+We turn this now into an algorithm. Given is the number d. We want to
+
+find the numbers n1, n2, n3 etc. in the factorisation N = 2^(n1-1) *
+
+3^(n2-2) * 5^(n3-1) etc. of the smallest number N with exactly d
+
+divisors.
+
+Let i = 1 and D = d. Repeat the following steps as long as D > 1:
+
+1. Find the complete prime factorisation of D. Let pmax be the largest
+
+prime factor of D. Let k be the total number of prime factors of D.
+
+Let p be the (k + i - 1)th prime number, and let pi be the i-th prime
+
+number. Let m = floor (log (p) / log (pi)). The first possible
+
+candidate for ni is the prime number pmax. Further candidates are all
+
+the products a * b, where b is a prime number 2 <= b <= m which is one
+
+of the factors of D, a is an integer in the range b <= a <= m which
+
+has no prime factors less than b, with the further property that a*b
+
+is a factor of D, and a*b > pmax. Finally, if i > 1 then a*b must not
+
+be greater than the previous exponent n(i-1).
+
+2. For each of the possible numbers ni: Choose ni - 1 as the power for
+
+the prime number pi in the product for x. Divide D by ni, and let i = i
+
++1.
+
+As a concrete example that works out very well, let d = 100! The
+
+factorisation of d is d = 2^97 * 3^48 * 5^24 ... * 83 * 89 * 97. There
+
+are exactly 239 factors, and the 239th prime is 1493. floor (log
+
+(1493) / log (2)) = 10, so either n1 = 97 or n1 is a product with the
+
+largest factor up to 10. The largest number with no factor greater
+
+than 10 is 49, therefore n1 = 97. In the same way, floor (log (1493) /
+
+log (3)) = 6, so either n2 = 89 or n2 is composite with no factor
+
+greater than 6, which makes n2 = 89, then n3 = 83 and so on.
+
+As another example, let d = 2^238 *5. Again we have 239 factors, the
+
+239th prime is 1493, and either n1 = 5 or n1 is composite with no
+
+factor greater than 10. Here the possible composite values for n1 are
+
+4*2, 5*2, 8*2 and 10*2 which we have to try. We will again find that
+
+n2 should have no factor greater than 6 if it is composite, so for n2
+
+the choices will be n2 = 5, 8 or 10, and the choices for n3 and n4
+
+etc. are even further reduced.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

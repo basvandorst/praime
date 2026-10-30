@@ -1,0 +1,91 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1138.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1138 A068192
+Source: https://www.primepuzzles.net/puzzles/puzz_1138.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1138.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A068192
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1137.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1139.htm
+  https://www.primepuzzles.net/puzzles/puzz_1138.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1138 A068192
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1138 A068192
+Davide Rotondo made me notice the following OEIS sequence: A068192 defined as:
+
+"Let a(1)=2, f(n) = 4*a(1)*a(2)*...*a(n-1) for n >= 1 and a(n) = f(n)-prevprime(f(n)-1) for n >= 2, where prevprime(x) is the largest prime < x."
+
+Mauro Fiorentini has computed the first 1000 temrs and observes: "The terms are easily seen to be distinct. It is conjectured that every element is prime. Do all primes occur in the sequence?"
+
+Q) Can you prove the three observations from Mauro Fiorentini about A068192: a= all terms are distinct, b) Every term is prime c) All the primes occur in this sequence?
+
+During the week 22-28 JUly, 2023, contributions came from Giorgos Kalogeropoulos and Alejandro Casini
+
+***
+
+Giorgos wrote:
+
+I don't have a proof but I devised a conjecture that might help in finding a proof:
+Consider the following sequence S:
+
+S(1)=2 and S(n) is the least prime not already in the sequence such that
+
+4*S(1)*S(2)*...*S(n-1) - S(n) is prime. In this sequence S we know that all terms are
+
+distinct primes.
+
+My conjecture is that the sequences S and A068192 are the same.
+
+I tested the first 1000 terms of both sequences and they are identical.
+
+If the conjecture is true, then all terms of A068192 are distinct primes.
+
+***
+
+Alejandro wrote:
+
+Interesting sequence. Here’s the 200 terms following those calculated by Mauro. As expected, they’re all prime. Let me underline that the recurrence relation for a(i) can be restated in a more convenient form as “smallest a>1 such that F(i)-a is prime”.
+
+Yes, all the sequence terms are distinct. In fact let a(i)=p, then every following F(j) is divisibile by p and thus F(j)-p is clearly composite, unless p is prime and F(j)=2p. The latter is impossible, given that F(j) is divisible by 8 for j>1. Consequentially, F(j)-a(i) is always composite, and so a(j) can’t be equal to a(i) for j>i.
+
+Actually, more can be said. Indeed, every term must be coprime with all the previous ones.
+
+I can't see for what reasons a(n) is forced to be prime. I can only point out that if a(n) is prime, then [a(n), F(n)-a(n)] represents the minimal Goldbach partition of F(n), conjectured to be O(log(N)^2 * loglog(N)).
+
+At now, the smallest missing prime is 1171, and instead the largest prime observed is 41177. Now a little probabilistic analysis for question b). At now the smallest possible composite value for a(n) is 1171^2>10^6, therefore for the moment, even removing the terms already obtained, there are plenty of primes (~10^5) before reaching this value. In other words, at this moment it is quite likely that at least one of these prime integers has F(n)-p prime. However, that doesn't mean it lasts forever and it’s only a heuristic point of view.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

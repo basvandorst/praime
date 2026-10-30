@@ -1,0 +1,1571 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: http://cr.yp.to/papers/powers-ams.pdf. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: http://cr.yp.to/papers/powers-ams.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+MA THEMA TICS OF COMPUT A TION
+Volume 67, Number 223, July 1998, Pages 1253–1283
+S 0025-5718(98)00952-1
+DETECTING PERFECT POWERS
+IN ESSENTIALLY LINEAR TIME
+DANIEL J. BERNSTEIN
+Abstract. This paper (1) gives complete details of an algorithm to compute
+approximate kth roots; (2) uses this in an algorithm that, given an integer
+n> 1, either writesn as a perfect power or proves thatn is not a perfect power;
+(3) proves, using Loxton’s theorem on multiple linear forms in logarithms, that
+this perfect-power decomposition algorithm runs in time (log n)1+o(1).
+1. Introduction
+An integer n> 1i sa perfect power if there are integers x and k> 1 with
+n = xk.N o t et h a tk≤ log2 n; also, the minimal k is prime.
+A perfect-power detection algorithm is an algorithm that, given an integer
+n> 1, ﬁgures out whethern is a perfect power. Aperfect-power decomposition
+algorithm does more: if n is a perfect power, it ﬁnds x and k> 1 with n = xk.
+A perfect-power classiﬁcation algorithm does everything one could expect: it
+writes n in the form xk with k maximal.
+Theorem 1. There is a perfect-power classiﬁcation algorithm that uses time at
+most (log2 n)1+o(1) for n→∞ .
+A more precise bound is (log2 n)e x p (O(√log logn log log logn)) for n> 16.
+This paper is organized as a proof of Theorem 1. Part I reviews integer and
+ﬂoating-point arithmetic. Part II develops an algorithm to compute kth roots.
+Part III presents a perfect-power decomposition algorithm, Algorithm X. It bounds
+the run time of Algorithm X in terms of a function F(n). Part IV and Part V
+analyze F(n). Part V completes the proof of Theorem 1 by showing that F(n)i s
+essentially linear in logn. Part VI surveys several practical improvements.
+Motivation. Before attempting to factor n with algorithms such as the number
+ﬁeld sieve [16], one should make sure thatn is not a perfect power, or at least not a
+prime power. This is a practical reason to implement some power-testing method,
+though not necessarily a quick one.
+Speed is more important in other applications. According to [18] there is a
+theoretically interesting method of ﬁnding all small factors ofn (to be presented in
+a successor to [19]) for which perfect-power classiﬁcation can be a bottleneck.
+Received by the editor October 11, 1995 and, in revised form, April 10, 1997.
+1991 Mathematics Subject Classiﬁcation. Primary 11Y16; Secondary 11J86, 65G05.
+This paper was included in the author’s thesis at the University of California at Berkeley. The
+author was supported in part by a National Science Foundation Graduate Fellowship.
+c©1997 Daniel J. Bernstein
+1253
+
+--- page 2 ---
+1254 DANIEL J. BERNSTEIN
+See [4, section 1] for another example. Here average performance, for n chosen
+randomly from a large interval, is more important than worst-case performance.
+See Part IV for results on the average performance of Algorithm X.
+For readers who want to compute high-precision inverses and roots.One
+of my1 major tools is of independent practical interest. Section 8 gives complete
+theoretical and practical details of an algorithm to compute y−1/k to b bits. My
+goal here was to produce something immediately useful in practice.
+For readers interested in transcendental number theory.One of my major
+tools is of independent theoretical interest. Section 19 contains a corrected proof
+of a bound on the number of perfect powers in a short interval. Both the bound
+and the corrected proof are due to Loxton; the underlying theorem about linear
+forms in logarithms is also due to Loxton. Sections 16, 17, 18, and 19 may be read
+independently of the rest of the paper.
+Index of notation. d(i, j)§9; divb(r, k)§5; div2,b(r, k)§21; F(n)§12; H(α)§17;
+ϑ(t)§14; ϑ2(t)§14; 𝓁(t)§14; M(b)§3; µ(b)§3; mul( r, k)§4; mul 2,b(m, k)§21;
+nrootb(y,k )§8; nroot2,b(y,k )§21; P(k)§6; powb(r, k)§6; pow2,b(x, k)§21; round t
+§10; truncb r§5.
+2. Acknowledgments
+Many thanks to Hendrik W. Lenstra, Jr., John Loxton, Michael Parks, Igor
+Shparlinski, Jon Sorenson, and the referee for their helpful comments. Lenstra
+pointed out that the method of Part III had ap-adic analogue; Shparlinski suggested
+t h a t[ 2 0 ]w o u l dh e l pi nt h eF(n) analysis; Loxton supplied the corrected proof of
+[20, Theorem 1] shown in section 19.
+PAR T I. ARITHMETIC
+3. Integer arithmetic
+I represent a positive integer n inside a computer as a string of bits giving n’s
+binary expansion. It is easy to add and subtract integers in this form.
+A b-bit number is a positive integer smaller than 2 b. The string representing
+such an integer has at most b bits.
+The algorithms in this paper use a black box that performs integer multiplication.
+By deﬁnition M-time is the time spent inside this black box. Let M(b)b ea n
+upper bound on the time used by this black box to compute the product of two
+b-bit numbers. In this paper, I show that the M-time used by various algorithms
+is bounded by a sum of various M(b)’s.
+Deﬁne µ(b)=m a x{M(j)/j :1 ≤ j≤ b}.T h e nµ(b) is a nondecreasing function
+of b, with M(b)≤ bµ(b). If M(b)/b is already nondecreasing then µ(b)= M(b)/b.
+Lemma 3.1. If K(t)∈ to(1) and L(v)=m a x{K(t): t≤ v} then L(v)∈ vo(1).
+So if M(b)∈ b1+o(1) then µ(b)∈ bo(1).W h e n µ(b)∈ bo(1) the black box is
+performing fast multiplication.
+1I have abandoned the practice of mechanically replacing “I” with “we” in my papers.
+
+--- page 3 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1255
+Proof. Fix ϵ> 0. Select u> 1 such that−ϵ lgt< lg K(t) <ϵ lg t for t>u .F i x
+v> max
+{
+u, L(u)1/ϵ}.I f t≤ u then K(t)≤ L(u)s ol g K(t)≤ lg L(u) <ϵ lg v;i f
+u<t ≤ v then lg K(t) <ϵ lg t≤ ϵ lg v. Hence lg L(v) <ϵ lg v. On the other hand
+lg L(v)≥ lg K(v) >−ϵ lgv.
+Notes. Theorem 1 refers to time, notM-time. For deﬁniteness I select a RAM, with
+logarithmic cost for memory access, as a somewhat realistic model of computation;
+the black box can be implemented using any fast multiplication algorithm. The
+reader may then verify that the time spent by these algorithms is almost exclusively
+M-time. The same is true in practice.
+See [15, section 4.3.3] for a discussion of fast multiplication algorithms. For the
+best known bounds on multiplication speed see [29] or [1]; note that it is possible to
+build a diﬀerent algorithm, achieving the same bounds, out of the method of [24].
+4. Floating-point arithmetic
+A positive ﬂoating-point number is a positive integer divided by a power of
+2. The computer can store a pair (a, n), with a an integer and n a positive integer,
+to represent the positive ﬂoating-point number 2an. (In practice|a| is always very
+small, so a can be stored as a machine integer.)
+Notice that (a, n)a n d(a−1, 2n) represent the same number. The computer can
+shift among representations. It could repeatedly divide n by 2 until it is odd, for
+example, to make the representation unique.
+Let (a, n)a n d(a′,n ′) represent the positive ﬂoating-point numbers r =2 an and
+r′ =2 a′ n′ respectively. Set f =m i n{a, a′}.T h e nr + r′ =2 f (2a−fn +2 a′−f n′)i s
+represented by the pair (f, 2a−f n +2 a′−f n′). Similarly, if r>r ′,t h e nr− r′ is a
+positive ﬂoating-point number represented by the pair (f, 2a−f n− 2a′−f n′).
+Multiplication is easier: (a + a′,n n′) represents the product rr′.I f n and n′ are
+both b-bit numbers then the M-time here is at most M(b).
+Deﬁne mul(r, k)= kr for r a positive ﬂoating-point number and k a positive
+integer. To compute mul(r, k) I use an algorithm designed for multiplying by small
+integers; time spent computing mul is not M-time.
+Notes. A typical computer has hardware designed to handle a ﬁnite set of ﬂoating-
+point numbers. One may study the extent to which operations on the real numbers
+can be approximated by operations on such a small set [15, section 4.2.2]; the
+diﬀerence is called “roundoﬀ error.” Rewriting 2 a−1(2n)a s2 an is often called
+“denormalization”; it is rarely considered useful.
+My point of view is somewhat diﬀerent. I do not worry too much about computer
+hardware, and I do not work within any particular ﬁnite set. I regard approximation
+not as causing “error” but as limiting the precision used for intermediate operations,
+thus speeding up the computation. I can work with n more eﬃciently than 2n,s o
+I happily rewrite 2a−1(2n)a s2 an.
+A ﬂoating-point number is also known as a dyadic rational [23, page 435].
+See [15, exercise 4.3.1–13] for an algorithm to compute mul(r, k).
+5. Floating-point truncation
+In this section, I deﬁne truncation to b bits, written truncb,a n ds h o wt h a t
+r/ truncb r is between 1 and 1 + 21−b. More generally, for any positive integer k,I
+
+--- page 4 ---
+1256 DANIEL J. BERNSTEIN
+deﬁne divb(r, k) as a ﬂoating-point approximation to r/k,s ot h a tr/k divb(r, k)i s
+between 1 and 1 + 21−b.
+Fix b ≥ 1. Set div b(a, n, k)=( a + f−⌈ lg k⌉− b,⌊n/2f −⌈lg k⌉−bk⌋), where
+2f −1 ≤ n< 2f . (Note that f−⌈ lg k⌉− b may be negative.) This map induces a
+map, also denoted divb, upon positive ﬂoating-point numbers:
+divb(2an, k)=2 a+f −⌈lg k⌉−b⌊n/2f −⌈lg k⌉−bk⌋ if 2f −1≤ n< 2f .
+To compute divb(r, k) I use an algorithm designed for dividing by small integers;
+time spent computing divb is not M-time.
+Lemma 5.1. Fix b≥ 1 and k≥ 1.L e tr be a positive ﬂoating-point number, and
+set s =d i vb(r, k).T h e ns≤ r/k < s( 1+2 1−b).
+Proof. Put r =2 an and deﬁne f by 2f −1≤ n< 2f.A l s ow r i t eg = f−⌈ lg k⌉− b
+and m =⌊n/2gk⌋,s ot h a ts =2 a+gm.T h e nm≤ n/2gk<m + 1; furthermore
+m≥
+⌊
+2f −1/2gk⌋ = ⌊2⌈lg k⌉2b−1/k⌋≥ ⌊2b−1⌋ =2 b−1.T h u s 2a+gm≤ 2an/k <
+2a+g(m +1 )=2 a+gm(1 + 1/m)≤ 2a+gm( 1+2 1−b). So s≤ r/k < s(1 + 21−b)a s
+desired.
+Deﬁne truncb r =d i vb(r,1); i.e., truncb 2an =2 a+f −b ⌊n/2f −b⌋ if 2f −1≤ n< 2f.
+Observe that
+⌊
+n/2f −b⌋ is a b-bit number.
+Lemma 5.2. Fix b≥ 1.L e t r be a positive ﬂoating-point number, and set s =
+truncb r.T h e ns≤ r<s ( 1+2 1−b).
+Proof. Take k = 1 in Lemma 5.1.
+Notes. For most computers a base such as 2 32 is more convenient than base 2. It
+is tempting to replace trunc by a function that keeps a few extra bits “up to the
+word boundary.” One may safely succumb to this temptation, as long as M(b)i s
+also changed appropriately: the crucial properties of trunc are Lemma 5.2 and the
+fact that two values of truncb may be multiplied in M-time M(b).
+See [15, exercise 4.3.1–16] for an algorithm to compute divb(r, k).
+6. Approximate powers
+Let r be a positive ﬂoating-point number, and let k and b be positive integers.
+Then pow b(r, k), the b-bit approximate kth power of r, is a ﬂoating-point
+approximation to rk. In this section, I show how to compute powb(r, k)i n M-time
+at most P(k)M(b), where P(k)≤ 2⌊lg k⌋.
+Deﬁne P(k)f o rk≥ 1 as follows: P(1) = 0; P(2k)= P(k)+1 ; P(2k +1 )=
+P(2k)+1 .
+Lemma 6.1. P(k)≤ 2⌊lg k⌋.
+Proof. For k =1 , P(k)=0a n dl g k =0 . I f P(k)≤ 2⌊lg k⌋ then P(k)+2 ≤
+2⌊lg k⌋+2=2 ⌊lg 2k⌋,s o P(2k)= P(k)+1 <P (k)+2 ≤ 2⌊lg 2k⌋ and P(2k+1)=
+P(k)+2 ≤ 2⌊lg 2k⌋≤ 2⌊lg(2k +1 )⌋.
+Deﬁne powb(r, k)f o rk≥ 1 as follows:
+powb(r,1) = truncb r,
+powb(r,2k) = truncb(powb(r, k)2),
+powb(r,2k + 1) = truncb(powb(r,2k)po wb(r,1)).
+
+--- page 5 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1257
+Lemma 6.2. powb(r, k)≤ rk < powb(r, k)(1 + 21−b)2k−1.
+Proof. If k = 1 then trunc b r ≤ r< (truncb r) ( 1+21−b) by Lemma 5.2. If
+k> 1 there is, by deﬁnition of pow, some partition i + j = k with powb(r, k)=
+truncb(powb(r, i)po wb(r, j)). If pow b(r, i) ≤ ri < powb(r, i) ( 1+21−b)2i−1 and
+powb(r, j)≤ rj < powb(r, j)(1+2 1−b)2j−1 then powb(r, k)≤ powb(r, i)po wb(r, j)≤
+rirj < powb(r, i)po wb(r, j)(1 + 21−b)2(i+j)−2 < powb(r, k)(1 + 21−b)2k−1.
+Algorithm P. Given a positive ﬂoating-point number r and two positive integers
+b, k,t op r i n tp o wb(r, k):
+1. If k = 1, print truncb r and stop.
+2. If k is even: Compute powb(r, k/2) by Algorithm P. Print truncb(powb(r, k/2)2)
+and stop.
+3. Compute powb(r, k−1) by Algorithm P. Print truncb(powb(r, k−1) truncb r).
+Lemma 6.3. Algorithm P computes powb(r, k) in M-time at most P(k)M(b).
+Proof. Count the number of multiplications. There are 0 =P(1) multiplications for
+powb(r,1). If there are at most P(k) multiplications for powb(r, k), then there are
+at most P(k)+1= P(2k) multiplications for powb(r,2k), and at most P(2k)+1=
+P(2k + 1) multiplications for powb(r,2k +1 ) .
+Notes. Algorithm P is the left-to-right binary method , which comes from a
+broad class of powering algorithms indexed byaddition chains [15, section 4.6.3].
+Lemma 6.2 would remain true if powb(r, k) were replaced with the output from any
+algorithm in this class. For manyk one can ﬁnd an algorithm using fewer thanP(k)
+multiplications; this is useful in practice. See [15, section 4.6.3] and [11, section
+1.2] for further discussion.
+For large k it is probably better to compute rk as exp(k log r)b yt h em e t h o d s
+of [9], which take essentially linear time.
+PART II. ROOTS
+7. Some overly specific inequalities
+Lemma 7.1. If κ> 0 and 0 <ϵ< 1 then (1 +ϵ/4κ)2κ < 1+ ϵ.
+Lemma 7.2. If κ≥ 1 then 7/8≤ (1− 1/8κ)κ.
+Lemma 7.3. If 0 <t< 1/36 then ( 1+3t)(1 +t) ( 1+3 2t/3) < 1+1 6t.
+Lemma 7.4. If κ≥ 1 and 0 <t< 1/(4κ+4) then (1+ t)2κ+3−1 < 16t(7κ−2)/9.
+8. Approximate roots
+In this section, I consider the problem of root extraction: computing y1/k,
+given a positive ﬂoating-point number y and a positive integer k. I also consider
+the problem of inversion: computing y−1. I solve both problems by showing how
+to compute y−1/k.T h e ny1/k = y(y−1/k)k−1. (Alternatively y1/k =( y−1/1)−1/k;
+more generally y1/k =( y−1/k1 )−1/k2 if k = k1k2.)
+For each positive integer b, I will construct a ﬂoating-point number nrootb(y,k )
+satisfying nrootb(y,k )(1− 2−b) <y −1/k < nrootb(y,k ) ( 1+2−b). My method, in
+brief, is a binary search for small b, and then Newton’s method with increasing
+precision for all larger b.
+
+--- page 6 ---
+1258 DANIEL J. BERNSTEIN
+Binary search: the idea. Ia mt r y i n gt oﬁ n dar o o tz of zky− 1. Binary search
+means guessing the bits ofz, one by one. Given an intervalR surrounding the root,
+I evaluate zky− 1 at the midpoint of R. Depending on the sign of the answer, I
+replace R by either the left half of R or the right half of R. I repeat until R is
+suﬃciently small.
+To speed up the computation, I only approximate zky− 1. If the answer is too
+close to 0 for me to be sure about its sign, I replace R with the middle half of R.
+Binary search: the algorithm. For b ≤ 3+ ⌈lg k⌉, I deﬁne and construct
+nrootb(y,k ) by Algorithm B below. For the time spent by Algorithm B, see Lemma
+8.1. For the accuracy of its output, see Lemma 8.3.
+A brief comment on the constant 993/1024 in Algorithm B: The proof of Lemma
+8.2 will use the fact that 993/1024 is between 32/33 and e−1/33. It is the “simplest”
+ﬂoating-point number in this range.
+Algorithm B. To compute nrootb(y,k )f o r1 ≤ b≤⌈ lg 8k⌉: In advance, ﬁnd the
+exponent g satisfying 2g−1 <y ≤ 2g,a n ds e ta =⌊−g/k⌋,s ot h a t2a ≤ y−1/k <
+2a+1.A l s os e tB =⌈lg(66(2k +1 ) )⌉.
+1. Set z← 2a +2 a−1, j← 1.
+2. (See Lemma 8.2 for an invariant.) Now nrootj(y,k )= z.I f j = b,s t o p .
+3. Compute r← truncB(powB(z,k ) truncB y).
+4. If r≤ 993/1024, set z← z +2 a−j−1.
+5. If r> 1, set z← z− 2a−j−1.
+6. Set j← j +1 .G ob a c kt os t e p2 .
+Lemma 8.1. For b≤⌈ lg 8k⌉, Algorithm B computes nrootb(y,k ) in M-time at
+most (b− 1)(P(k)+1 )M(⌈lg(66(2k +1 ) )⌉).
+Proof. Algorithm B gets to nroot b(y,k )i n b− 1 iterations. Each iteration takes
+time at mostP(k)M(B) to ﬁnd powB(z,k ), by Lemma 6.3, and time at mostM(B)
+to multiply by truncB y.
+Lemma 8.2. 2a≤ z− 2a−j ≤ y−1/k <z +2 a−j ≤ 2a+1 at step 2 of Algorithm B.
+Proof. Induct on j.F o rj =1 : z− 2a−1 =2 a≤ y−1/k < 2a+1 = z +2 a−1.
+A s s u m et h er e s u l tt r u ef o rj. Then, at step 3, the computation of r gives r≤
+zky<r (1 + 21−B)2k+1 by Lemma 5.2 and Lemma 6.2. But (1 + 2 1−B)2k+1 <
+( 1+1/(33(2k + 1)))2k+1 <e 1/33 < 1024/993 so r≤ zky<r (1024/993).
+Case 1: r> 1. Then zky> 1. Algorithm B replaces z by z′ = z− 2a−j−1;a n d
+z′− 2a−j−1 = z− 2a−j ≤ y−1/k <z = z′ +2 a−j−1.
+Case 2: r≤ 993/1024. Then zky< (993/1024)(1024/993) = 1;z is replaced by
+z′ = z +2 a−j−1,a n dz′− 2a−j−1 = z<y −1/k <z +2 a−j = z′ +2 a−j−1.
+Case 3: 993/1024 <r ≤ 1. Then Algorithm B leaves z unchanged. I have
+j≤⌈ lg 8k⌉− 1 < lg 8k so 2−j−2≥ 1/32k.T h u s( 1 + 2−j−2)k≥ 1+1 /32, so
+(z +2 a−j−1)ky = zky
+(
+1+ 2a−j−1
+z
+)k
+>z ky
+(
+1+ 2a−j−1
+2a+1
+)k
+> 9931024 3332 > 1.
+On the other hand (1− 2−j−2)k < 32/33. So
+(z− 2a−j−1)ky = zky
+(
+1− 2a−j−1
+z
+)k
+<z ky
+(
+1− 2a−j−1
+2a+1
+)k
+< 1024993 3233 < 1.
+Hence z− 2a−j−1 <y −1/k <z +2 a−j−1 as desired.
+
+--- page 7 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1259
+Lemma 8.3. nrootb(y,k )(1−2−b) <y −1/k < nrootb(y,k )(1+2 −b) for b≤⌈ lg 8k⌉.
+Proof. nrootb(y,k ) appears as z in step 2 of Algorithm B when j = b. By Lemma
+8.2, 2a≤ z− 2a−b≤ y−1/k <z +2 a−b≤ 2a+1.T h e nz2−b > 2a−b so z(1− 2−b) <
+z− 2a−b≤ y−1/k <z +2 a−b <z ( 1+2 −b).
+Newton’s method: the idea. Ia mt r y i n gt oﬁ n dar o o to fh(z)= z−ky−1− 1.
+Newton’s method is to replace the ﬁrst guess, z, by a much better guess, z−
+h(z)/h′(z)= z +( z− yzk+1)/k. I repeat until z has the desired accuracy.
+Newton’s method roughly doubles the number of correct digits on each iteration.
+To speed the computation, I compute the full-precision answer only on the last step;
+I work with only 1 /2 the digits in the previous step, 1 /4 in the step before that,
+and so on.
+Newton’s method: the algorithm. For b≥ 4+ ⌈lg k⌉, I deﬁne and construct
+nrootb(y,k ) by Algorithm N below. For the accuracy of nroot b(y,k ), see Lemma
+8.7. For the time spent by Algorithm N, see Lemma 8.4.
+Algorithm N. To compute nroot b(y,k )f o r b≥⌈ lg 8k⌉ +1 : I na d v a n c es e tb′ =
+⌈lg 2k⌉ +⌈(b−⌈ lg 2k⌉)/2⌉ and B =2 b′ +4−⌈ lg k⌉.N o t et h a tb′ <b .
+1. Compute z← nrootb′ (y,k ), by Algorithm B if b′≤⌈ lg 8k⌉ or by Algorithm N if
+b′≥⌈ lg 8k⌉ +1 .
+2. Set r2← mul(truncB z,k +1 ) .
+3. Set r3← truncB(powB(z,k + 1) truncB y).
+4. Set r4← divB(r2− r3,k ). Now nrootb(y,k )= r4.
+Lemma 8.4. For b≥⌈ lg 8k⌉+1, Algorithm N computesnrootb(y,k ) in M-time at
+most T +KU ,w h e r eT =⌈lg 4k⌉(P(k)+1) M(⌈lg(66(2k +1 ) )⌉), K = P(k+1)+1 ,
+and U =( 2b +1 0+⌈8+l g k⌉⌈ lg(b−⌈ lg 2k⌉)− 3⌉)µ(b +6 ).
+Proof. B−⌈lg 2k⌉− 5=2 ( b′−⌈lg 2k⌉)=2 ⌈(b−⌈ lg 2k⌉)/2⌉,s o B is either b +5o r
+b+6. Hence B+2b′≤ b+6+2(b′−⌈lg 2k⌉)+2⌈lg 2k⌉≤ b+7+(b−⌈lg 2k⌉)+2⌈lg 2k⌉ =
+2b +⌈8+l g k⌉.N o t et h a t⌈lg(b′−⌈ lg 2k⌉)⌉ =⌈lg(b−⌈ lg 2k⌉)− 1⌉.
+Observe that b′ ≥⌈ lg 8k⌉.I f b′ >⌈lg 8k⌉, Algorithm N calls itself to compute
+nrootb′ (y,k ). By induction, this call takes M-time at most T + KU ′,w h e r eU ′ =
+(2b′ +1 0+⌈8+l g k⌉⌈lg(b′−⌈ lg 2k⌉)− 3⌉)µ(b′ +6 ) .
+If b′ =⌈lg 8k⌉, Algorithm N calls Algorithm B to compute nroot⌈lg 8k⌉(y,k ). By
+Lemma 8.1, this call takes M-time at most T. Note that in this case U ′ =0 ,s i n c e
+2⌈lg 8k⌉ +1 0+⌈8+l g k⌉⌈ lg(⌈lg 8k⌉−⌈ lg 2k⌉)− 3⌉ =0 .
+So in either case step 1 of Algorithm N takes M-time at most T + KU ′.B y
+Lemma 6.3, step 3 of Algorithm N uses M-time at most P(k +1 )M(B)+ M(B)=
+KM (B). Thus the total M-time used by Algorithm N is at most
+T + KM (B)+ KU ′
+= T + KM (B)+ K
+(
+2b′ +1 0+⌈8+l g k⌉⌈ lg(b′−⌈ lg 2k⌉)− 3⌉)µ(b′ +6 )
+≤ T + K
+(
+B +2 b′ +1 0+⌈8+l g k⌉⌈lg(b′−⌈ lg 2k⌉)− 3⌉)µ(b +6 )
+≤ T + K
+(
+2b +1 0+⌈8+l g k⌉ +⌈8+l g k⌉⌈ lg(b′−⌈ lg 2k⌉)− 3⌉)µ(b +6 )
+= T + K
+(
+2b +1 0+⌈8+l g k⌉⌈lg(b−⌈ lg 2k⌉)− 3⌉
+)
+µ(b +6 )= T + KU
+as claimed.
+
+--- page 8 ---
+1260 DANIEL J. BERNSTEIN
+Lemma 8.5. Deﬁne w =( (k +1)z−zk+1y)/k.I f z(1+ ϵ)= y−1/k and ϵ> −1/8k
+then w≤ y−1/k≤ w(1 + 4kϵ2/3).
+Proof. 1− kϵ≤ (1 +ϵ)−k,s o k +1− zky = k +1− (1 +ϵ)−k≤ k + kϵ = k/(zy1/k),
+so w =( z/k)(k +1 − zky)≤ y−1/k.N e x t ( 1 +ϵ)k ≥ 1+ kϵ≥ 1− 1/8 > 1/2, so
+k +1≥ 2 > (1 +ϵ)−k = zky,s o w> 0. Finally
+y−1/k
+w − 1= 1− (1− kϵ)(1 +ϵ)k(k + 1)(1 +ϵ)k− 1 = 1− (1− kϵ)/(k +1 )(k + 1)(1 +ϵ)k− 1 − 1− kϵk +1
+≤ 1− (1− kϵ)/(k +1 )(k + 1)(1 +kϵ)− 1 − 1− kϵk +1 = kϵ21+ ϵ + kϵ≤ 43kϵ2
+s i n c e1+(k +1 )ϵ≥ 1− (k +1 )/8k≥ 1− 1/4=3 /4.
+Lemma 8.6. If z(1−2−b′) <y −1/k <z (1+2 −b′) in Algorithm N then r4(1−2−b)
+<y −1/k <r 4( 1+2 −b).
+Proof. Deﬁne w =( (k +1 )z− zk+1y)/k. The idea is that w is very close to y−1/k,
+(r2− r3)/k is very close to w,a n dr4 is very close to (r2− r3)/k.
+Deﬁne ϵ by z(1 +ϵ)= y−1/k,s ot h a t−2−b′ <ϵ< 2−b′ .N o t et h a tb′≥⌈ lg 8k⌉≥
+lg 8k,s o2 −b′ ≤ 1/8k,s o−1/8k<ϵ< 1/8k.
+B is either b +5o r b +6 ,s o2 5−B ≤ 2−b. Abbreviate δ =2 1−B.T h e nδ< 1/36,
+δ< 1/(4k + 4), and 8(1 +δ) < 9. Also (2k)2−2b′ ≤ 21+⌈lg k⌉−2b′ =2 5−B =1 6δ.
+By construction r2 ≤ (k +1 )z<r 2(1 + δ), r3 ≤ zk+1y<r 3(1 + δ)2k+3,a n d
+r4≤ (r2− r3)/k < r4(1 +δ).
+By Lemma 7.2, 7/8≤ (1− 1/8k)k < (1 +ϵ)k = y−1z−k,s o zky< 8/7. So
+r3
+r2
+≤ zk+1y(1 +δ)(k +1 )z = zky(1 +δ)k +1 < 87 1+ δk +1 < 97(k +1 ) < 23.
+By Lemma 8.5, w≤ y−1/k,s o
+y−1/k
+r4
+≥ wr4 ≥ kwr2− r3 = (k +1 )z− zk+1yr2− r3 ≥ r2− r3(1 +δ)2k+3r2− r3
+=1− (1 +δ)2k+3− 1r2/r3− 1 > 1− (1 +δ)2k+3− 1(7k− 2)/9 > 1− 16δ
+by Lemma 7.4.
+On the other hand, by Lemma 8.5, y−1/k≤ w(1 + 4kϵ2/3), so
+y−1/k
+r4
+≤ w(1 + 4kϵ2/3)r4 < w(1 + (2/3)(2k)2−2b′ )r4 ≤ w(1 + (32/3)δ)r4
+< k(1 +δ)w(1 + (32/3)δ)r2− r3 = (1 +δ)((k +1 )z− zk+1y)(1 + (32/3)δ)r2− r3
+< (1 +δ)(r2(1 +δ)− r3) ( 1+( 3 2/3)δ)r2− r3
+=( 1+ δ)
+(
+1+ 323 δ)(1+ δ1− r3/r2 ) < (1 +δ)(1+ 323 δ) ( 1+3δ)
+< 1+1 6δ
+by Lemma 7.3.
+Lemma 8.7. nrootb(y,k )(1− 2−b) <y −1/k < nrootb(y,k ) ( 1+2−b) for all b.
+
+--- page 9 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1261
+Proof. For b≤⌈ lg 8k⌉ this is Lemma 8.3. For b≥⌈ lg 8k⌉ + 1, nrootb(y,k )i s r4 in
+Algorithm N. By induction z(1− 2−b′ ) <y −1/k <z (1 + 2−b′ ), so r4(1− 2−b) <
+y−1/k <r 4( 1+2 −b) by Lemma 8.6.
+Notes. Algorithms B and N are reasonably “tight”: they do not use unnecessarily
+high precision. As the reader can see, I pay for this tightness in complex proofs,
+though the algorithms themselves are short and straightforward.
+The basic outline of my method is well known, as is its approximate run time.
+For Newton’s method with increasing precision see [9] (which popularized [8]) or
+[7, section 6.4]. For the speciﬁc case of inversion see also [15, Algorithm 4.3.3–R]
+or [1, page 282]. For a controlled number of steps of binary search as preparation
+for Newton’s method see [4, section 3].
+However, it is diﬃcult to ﬁnd a complete error analysis in the literature, let alone
+an algorithm carefully tuned for speed in light of such an analysis. An algorithm
+with results of unknown accuracy—or an algorithm not even stated explicitly—is
+of little value for implementors.
+A notable exception for k = 1 is [15, Algorithm 4.3.3–R], which is stated in full
+detail and supported by tight error bounds; but Algorithm N will be faster, because
+it pays close attention to the desired ﬁnal precision.
+For Newton’s method generally see [26, section 9.4]. The inequalities in Lemma
+8.5 follow from general facts of the form “when Newton’s method is applied to the
+following class of nice functions, the iterates exhibit the following nice behavior.”
+Binary search as a root-ﬁnding technique is also known as bisection.F o r b i -
+section generally see [26, section 9.1]. My use of binary search is closer in spirit
+to [26, section 9.1] than to [4, section 3] since I limit the precision of intermediate
+calculations.
+For largek,j u s ta srk is probably best computed as exp(k log r), r1/k is probably
+best computed as exp((log r)/k)b yt h em e t h o d so f[ 9 ] .
+P AR T III. POWER TESTING
+9. How to test if n = xk
+Consider the problem of testing, given positive integers n, x,a n d k,w h e t h e r
+n = xk. I could simply compute xk and check whether it equals n.B u t I c a n
+eliminate most ( x, n) more eﬃciently, by checking whether n = xk is consistent
+with the ﬁrst few digits of n and x.
+Algorithm C. Given positive integers n, x, k, to compute the sign of n− xk:I n
+advance set f =⌊lg 2n⌋.
+1. Set b← 1.
+2. Compute r← powb+⌈lg 8k⌉(x, k).
+3. If n<r ,p r i n t−1a n ds t o p .
+4. If r(1 + 2−b)≤ n, print 1 and stop.
+5. If b≥ f, print 0 and stop.
+6. Set b← min{2b, f}.G ob a c kt os t e p2 .
+The farther apart n and xk are, the more quickly Algorithm C can tell them
+apart. Deﬁne a distance d on integers as d(i, j)=0w h e ni = j, d(i, j)= ⌊lg|i− j|⌋
+when i⁄= j; I will express the speed of Algorithm C in terms of d(n, xk).
+
+--- page 10 ---
+1262 DANIEL J. BERNSTEIN
+Lemma 9.1. Set f =⌊lg 2n⌋. A tt h es t a r to fs t e p3o fA l g o r i t h mC ,r≤ xk <
+r(1 + 2−b). At the start of step 4, r≤ n and xk <r +2 f −b. At the start of step 5,
+n<r +2 f −b.
+Proof. By Lemma 6.2 and Lemma 7.1,
+r≤ xk <r
+(
+1+ 12b+⌈lg 4k⌉
+)2k−1
+<r
+(
+1+ 12b4k)2k−1 <r (1 + 2−b).
+If Algorithm C does not stop in step 3 then r≤ n< 2f ,s o r(1 + 2−b) <r +2 f −b.
+If it also does not stop in step 4 then n<r (1 + 2−b).
+Lemma 9.2. When Algorithm C stops, it prints the sign of n− xk.
+Proof. Use each piece of Lemma 9.1. If Algorithm C stops in step 3 then n<r ;
+but r≤ xk so n<x k. If it stops in step 4 then r(1+2 −b)≤ n; but xk <r (1+2 −b)
+so xk <n . If it stops in step 5 then b≥ f,s o r≤ n<r +1a n d r≤ xk <r +1 ,s o
+|n− xk| < 1; both n and xk are integers, so n = xk.
+Lemma 9.3. Set f =⌊lg 2n⌋ and g =m a x
+{
+1,f− d(n, xk)}. Algorithm C stops
+before step 6 if b≥ g.
+Proof. I prove the contrapositive. If Algorithm C gets to step 6 then b<f .B y
+Lemma 9.1, r≤ n<r +2 f −b and r≤ xk <r +2 f −b,s o ⏐⏐n− xk⏐⏐ < 2f −b.I f n = xk
+then d(n, xk)=0 <f − b;i f n⁄= xk then d(n, xk)= ⌊lg ⏐⏐n− xk⏐⏐⌋≤ lg ⏐⏐n− xk⏐⏐ <
+f− b.E i t h e rw a yb<f − d(n, xk)≤ g.
+Lemma 9.4. Set f =⌊lg 2n⌋, bj =m i n
+{
+2j,f },a n dg =m a x{1,f− d(n, xk)}.
+Then Algorithm C takes M-time at most P(k)∑0≤j≤⌈lg g⌉ M(bj +⌈lg 8k⌉).
+Proof. Each iteration of step 2 uses time at most P(k)M(b +⌈lg 8k⌉), by Lemma
+6.3. Notice that b⌈lg f ⌉−1 <f but b⌈lg f ⌉ = f. So Algorithm C uses ﬁrst b← b0
+then b← b1, and so on through at most b← b⌈lg f ⌉.I f j> ⌈lg g⌉ then j≥ 1a n d
+bj−1 =m a x
+{
+2j−1,f }≥ max {2⌈lg g⌉,g }≥ g, so Algorithm C stops before step 6
+with b← bj−1, so it never gets to bj.
+Lemma 9.5. Set f =⌊lg 2n⌋ and g =m a x
+{
+1,f− d(n, xk)}. Then Algorithm C
+takes M-time less than P(k)(4g +⌈lg 2g⌉⌈lg 8k⌉)µ(2g +⌈lg 8k⌉).
+Proof. Set bj =m i n
+{
+2j,f }.I f j≤⌈ lg g⌉ then bj ≤ 2j < 2g,s o M(bj +⌈lg 8k⌉)≤
+(2j +⌈lg 8k⌉)µ(2g +⌈lg 8k⌉). Now by Lemma 9.4 the M-time is at most
+P(k)
+∑
+0≤j≤⌈lg g⌉
+M(bj +⌈lg 8k⌉)≤ P(k)
+∑
+0≤j≤⌈lg g⌉
+(2j +⌈lg 8k⌉)µ(2g +⌈lg 8k⌉)
+<P (k)(2⌈lg 2g⌉ +⌈lg 2g⌉⌈lg 8k⌉)µ(2g +⌈lg 8k⌉)
+<P (k)(4g +⌈lg 2g⌉⌈lg 8k⌉)µ(2g +⌈lg 8k⌉)
+as claimed.
+
+--- page 11 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1263
+Notes. My use of increasing precision is at the heart of my improvement over [4].
+A 50-digit number that starts with 9876 is not an 11th power; the remaining 46
+digits are irrelevant. In general, Algorithm C does not inspect many more bits ofn
+than are necessary to distinguish n from xk. The last step dominates the run time.
+In Newton’s method it is natural to double the precision at each step. But
+Algorithm C could use any vaguely geometric progression. In practice I should
+modify the b sequence to take into account the speed of multiplication and the
+distribution of x and n.
+Lemma 6.3 is hopelessly pessimistic about the time needed to compute xk to
+high accuracy. Since x has very few bits, the ﬁrst few multiplications use relatively
+low precision. In fact, the P(k) factor in Lemma 9.4 should disappear as g grows.
+Similarly, the bound from Lemma 6.2 is somewhat loose. A careful analysis would
+show that, when b is large, step 2 of Algorithm C can use fewer than⌈lg 8k⌉ guard
+bits. This is probably not worth the added complexity in practice.
+Step 3 of Algorithm C compares a high-precision number, n,t oal o w - p r e c i s i o n
+ﬂoating-point number,r. The alert reader may have observed that this is a potential
+bottleneck. The M-time in Algorithm C is essentially the precision of r;t h i sm a y
+be much less time than it takes to read the digits of n. Fortunately, one can check
+whether n<r in time proportional to the size ofr, so there is no diﬃculty. Similar
+comments apply to step 4.
+10. How to test if n is a kth power
+Let n and k be integers larger than 1. Algorithm K checks whether n is a
+kth power. The idea is to compute a ﬂoating-point approximation r to n1/k;s a y
+|n1/k− r| < 1/4. Then, if r is within 1/4 of an integer x, check whether xk = n.
+This algorithm uses a precomputed approximation y to n−1. See Lemma 10.2.
+Algorithm K. Given integersn≥ 2a n dk≥ 2, and a positive ﬂoating-point number
+y,t os e ei fn is a kth power: In advance set f =⌊lg 2n⌋ and b =3+ ⌈f/k⌉.
+1. Compute r← nrootb(y,k ).
+2. Find an integer x with|r− x|≤ 5/8.
+3. If x =0o r |r− x|≥ 1/4, print 0 and stop.
+4. Compute the sign of n− xk with Algorithm C.
+5. If n = xk,p r i n tx and stop.
+6. Print 0.
+Lemma 10.1.√1+ t/(1−t)≤ 1+2 t and√1− t/(1+ t)≥ 1−2t if 0≤ t≤ 1/10.
+Lemma 10.2.
+⏐⏐r− n1/k⏐⏐ < 1/4 in Algorithm K if y(1− 2−b) <n −1 <y ( 1+2−b).
+Proof. Write δ =2 −b. By hypothesis, y(1− δ) <n −1 <y (1 + δ), so
+y−1/k(1 + δ)−1/k <n 1/k <y −1/k(1− δ)−1/k. By Lemma 8.7, r(1− δ) <y −1/k
+<r (1 +δ). Note that δ≤ 1/16 < 1/10. Apply Lemma 10.1 twice: ﬁrst
+r< y−1/k
+1− δ <n 1/k (1 +δ)1/k1− δ ≤ n1/k (1 +δ)1/21− δ = n1/k + n1/k ((1 +δ)1/21− δ − 1)
+≤ n1/k + n1/k2δ<n 1/k +2 f/k 2δ = n1/k +2 f/k 2−2−⌈f/k ⌉≤ n1/k + 14;
+
+--- page 12 ---
+1264 DANIEL J. BERNSTEIN
+second
+r> y−1/k
+1+ δ >n 1/k (1− δ)1/k1+ δ ≥ n1/k (1− δ)1/21+ δ = n1/k + n1/k ((1− δ)1/21+ δ − 1)
+≥ n1/k− n1/k2δ>n 1/k− 2f/k 2δ = n1/k− 2f/k 2−2−⌈f/k ⌉≥ n1/k− 14.
+Hence
+⏐⏐r− n1/k⏐⏐ < 1/4.
+Lemma 10.3. Set f =⌊lg 2n⌋ and b =3+ ⌈f/k⌉. Assume that y(1− 2−b) <
+n−1 <y (1 + 2−b).I f n is a kth power, Algorithm K prints n1/k.I f n is not a kth
+power, Algorithm K prints 0.
+Proof. Algorithm K ﬁnds an integer x with |r− x|≤ 5/8. By Lemma 10.2,⏐⏐r− n1/k⏐⏐ < 1/4, so ⏐⏐x− n1/k⏐⏐ < 1/4+5 /8 < 1. If n is a kth power then x
+and n1/k are both integers sox = n1/k.T h e n|r− x| = ⏐⏐r− n1/k⏐⏐ < 1/4a n dx> 0,
+so Algorithm K does not stop in step 3; in step 5 it prints x.
+On the other hand, if n is not a kth power, then certainly n⁄= xk, so Algorithm
+K does not stop in step 5. So it prints 0.
+Let t be a real number such that t− 1/2 is not an integer. Write roundt for the
+nearest integer to t: the unique integer i with|i− t| < 1/2.
+Lemma 10.4. Set f = ⌊lg 2n⌋, g =m a x
+{
+1,f− d(n, (round n1/k)k)},a n d b =
+3+⌈f/k⌉. Assume that y(1− 2−b) <n −1 <y ( 1+2 −b). Then Algorithm K uses
+M-time less than
+(
+4g +⌈lg 2g⌉⌈lg 8k⌉
+)
+P(k)µ(2g +⌈lg 8k⌉)+⌈lg 4k⌉(P(k)+1 )M(⌈lg(66(2k +1 ) )⌉)
++
+(
+2⌊f/k⌋ +⌊lg f⌋⌈8+l g k⌉
+)
+(P(k +1 )+1 )µ(⌈f/k⌉ +9 ).
+Proof. Deﬁne T =⌈lg 4k⌉(P(k)+1 )M(⌈lg(66(2k +1 ) )⌉). Note that b−⌈ lg 2k⌉ =
+⌈f/k⌉−⌈ lg k⌉ +2 ≤⌈ f/2⌉ +1≤ f since f≥ 2.
+Algorithm K ﬁrst computes nrootb(y,k ). If b≤⌈ lg 8k⌉ then, by Lemma 8.1, this
+uses M-time at most T.I f b> ⌈lg 8k⌉ then, by Lemma 8.4, it usesM-time at most
+T +( P(k + 1) + 1)(2(b−⌈ lg 8k⌉)+⌈8+l g k⌉⌈ lg(b−⌈ lg 2k⌉)− 1⌉)µ(b +6 )
+≤ T +( 2 (⌈f/k⌉− 1) +⌈8+l g k⌉⌈ lg f− 1⌉)(P(k +1 )+1 )µ(⌈f/k⌉ +9 )
+≤ T +( 2⌊f/k⌋ +⌈8+l g k⌉⌊lg f⌋)(P(k +1 )+1 )µ(⌈f/k⌉ +9 ).
+After computing r = nrootb(y,k ), Algorithm K ﬁnds an integerx. It may invoke
+Algorithm C; if it does, then |r− x| < 1/4, and
+⏐⏐r− n1/k⏐⏐ < 1/4 by Lemma 10.2,
+so
+⏐⏐x− n1/k⏐⏐ < 1/2, so x = roundn1/k. Finally, by Lemma 9.5, Algorithm C uses
+M-time at most P(k)(4g +⌈lg 2g⌉⌈lg 8k⌉)µ(2g +⌈lg 8k⌉).
+11. How to test if n is a perfect power
+To see whether n is a perfect power, I run through the primes p≤ lg n;Ic h e c k
+for each p whether n is a pth power. For a time analysis see the next section.
+
+--- page 13 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1265
+Algorithm X. G i v e na ni n t e g e rn≥ 2, to decomposen as a perfect power if possible:
+In advance set f =⌊lg 2n⌋.
+1. Compute y← nroot3+⌈f/ 2⌉(n, 1).
+2. For each prime number p<f :
+3. Apply Algorithm K to ( n, p, y); let x be the result.
+4. If x> 0, print (x, p)a n ds t o p .
+5. Print (n, 1).
+Lemma 11.1. y(1− 2−3−⌈f/p ⌉) <n<y ( 1+2 −3−⌈f/p ⌉) in Algorithm X.
+Proof. y(1− 2−3−⌈f/ 2⌉) <n<y ( 1+2 −3−⌈f/ 2⌉) by Lemma 8.7; and p≥ 2.
+Lemma 11.2. If n is a perfect power, Algorithm X prints a prime numberp and a
+positive integer x such that xp = n.I f n is not a perfect power, Algorithm X prints
+(n, 1).
+Proof. By Lemma 11.1, y(1− 2−3−⌈f/p ⌉) <n<y ( 1+2 −3−⌈f/p ⌉). If Algorithm X
+stops in step 4 then, by Lemma 10.3, xp = n.
+Conversely, if n is a perfect power then n is a pth power for some prime p≤
+lg n<f . By Lemma 10.3, Algorithm X stops in step 4.
+Notes. The result of [4] is a perfect-power classiﬁcation algorithm that runs in time
+log3 n; on average, under reasonable assumptions, it runs in time log2 n/ log2 log n.
+The run time of Algorithm X is much better: it is essentially linear in log n,
+given fast multiplication. The proof uses transcendental number theory. For further
+discussion see section 12.
+Algorithm X is not new. It is stated in, e.g., [17, section 2.4]. But God is in
+the details: without good methods for computing n1/k and for checking whether
+xk = n, Algorithm X is not so attractive. The authors of [17] go on to say that one
+can “save time” by adding a battery of tests to Algorithm X. Variants of Algorithm
+X are also dismissed in [11, page 38] (“This is clearly quite ineﬃcient”) and [4].
+Observe that, by putting enough work into the subroutines, I have made Algorithm
+X quite fast—so fast, in fact, that typical modiﬁcations will slow it down.
+I use the Sieve of Eratosthenes to enumerate the primes p<f . See [27] for
+faster methods. Note that the best order of operations in Algorithm X depends on
+the distribution of inputs; for example, if the input source is very likely to produce
+37th powers, then p = 37 should be done ﬁrst.
+12. Introduction to F(n)
+Deﬁne
+F(n)=
+∑
+2≤p≤lg n
+(lg p)m a x
+{
+1, lg n− d(n, (round n1/p)p)}
+for n≥ 2. Here p is prime, and round t means an integer within 1/2o f t.
+F(n) has about lgn/ log lgn terms, labelled by prime exponents p≤ lg n.T h ep
+term reﬂects the diﬃculty of determining that n is not a pth power. In each term,
+the main factor max
+{
+1, lg n− d(n, (round n1/p)p)} says how many bits of n agree
+with a nearby pth power. If n is very close to a pth power then this factor is close
+to lg n. The minor factor lg p represents the eﬀort spent computing pth powers.
+
+--- page 14 ---
+1266 DANIEL J. BERNSTEIN
+F(n) is the subject of Part IV and Part V. Part IV gives lower and upper bounds
+for F, and shows that the normal and average behaviors of F are comparable to
+the lower bound.
+Part V shows thatF(n) is bounded by (lgn)1+ϵ(n) for a certain functionϵ∈ o(1).
+The approach is through the following application of transcendental number theory:
+there cannot be many perfect powers in a short interval. This means that there are
+not many perfect powers close ton, so not many of the main factors inF(n) are near
+lg n. Note that the exponent 1 +ϵ(n), albeit theoretically satisfying, is ridiculously
+large for any reasonable value of n.
+Lemma 12.1. Set f =⌊lg 2n⌋.F o r n≥ 2, Algorithm X takes M-time at most
+(8F(n)+6 f⌊lg 16f⌋3)µ(2f +⌊lg 128f⌋).
+The reader may verify that Algorithm X does not use much non-M-time. Hence
+Algorithm X takes time essentially linear in F(n) + logn, provided that it uses a
+fast multiplication algorithm. Since F(n) is essentially linear in logn, the run time
+of Algorithm X is essentially linear in logn.
+Proof. Write c =⌊lg f⌋.N o t et h a t⌈lg f⌉≤ c + 1. Note also that ∑2≤p<f 1/p < c.
+Step 1 computes y = nroot3+⌈f/ 2⌉(n, 1). By Lemma 8.4 this takes M-time at
+most 2M(8) + 2(f +8⌊lg 4f⌋)µ(⌈f/2⌉ +9 ) .
+Each iteration of step 3 invokes Algorithm K for a prime number p<f .W r i t e
+g = gp =m a x
+{
+1,f− d(n, (round n1/p)p)}. By Lemma 11.1, Lemma 10.4, and
+Lemma 6.1, Algorithm K takes M-time less than
+(
+4g +⌈lg 2g⌉⌈lg 8p⌉
+)
+P(p)µ(2g +⌈lg 8p⌉)+⌈lg 4p⌉(P(p)+1 )M(⌈lg(66(2p +1 ) )⌉)
++
+(
+2⌊f/p⌋ +⌊lg f⌋⌈ 8+l g p⌉
+)
+(P(p +1 )+1 )µ(⌈f/p⌉ +9 )
+< 8g⌊lg p⌋µ(2f + c +4 )+4 ⌊f/p⌋(c +1 )µ(f +9 )
++2 (c +1 )( (c +2 ) (c +4 )+( c +3 ) (c +9 )+ c(c +9 ) )µ(2f + c +7 )
+<
+(
+8g lg p +4 (c +1 )f/p +6 (c +1 ) (c2 +9 c + 12))µ(2f + c +7 ).
+The total M- t i m ei st h e nl e s st h a nµ(2f + c +7 )t i m e s
+2f + 16(c +3 )+
+∑
+2≤p≤f −1
+(
+8gp lg p +4 (c +1 )f/p +6 (c +1 ) (c2 +9 c + 12))
+< 2f + 16(c +3 )+8 F(n)+4 (c +1 )fc +6 f(c +1 ) (c2 +9 c + 12)
+≤ 8F(n)+2 f
+(
+1+4 (c +3 )+2 c(c +1 )+3 (c +1 ) (c2 +9 c + 12))
+< 8F(n)+6 f(c +4 )3
+as claimed.
+Notes. F(n) is generally not the dominant term in Lemma 12.1; see Part IV. The
+reader may be tempted to chop one or more lg f factors out of the other term by,
+for example, using known bounds on the functions ϑ, ϑ2,𝓁 deﬁned in section 14, or
+by assuming that µ(b) grows at least as quickly as lgb. However, this is a pointless
+exercise: several variants of Algorithm X appear in Part VI, and it is easier to
+achieve any desired run-time goal with one of those variants than with the original
+algorithm.
+
+--- page 15 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1267
+13. Proof of Theorem 1
+In this section I combine all my results to prove Theorem 1: there is a perfect-
+power classiﬁcation algorithm that uses time at most (lg n)1+o(1) for n→∞ .
+Let T(n) be an upper bound on the time taken by Algorithm X for n≥ 2. As
+discussed in section 12, one may take T(n)∈ (lg n)1+o(1) for n> 2, given fast
+multiplication.
+Deﬁne U(n)=m a x{T(m)/ lgm : m≤ n}lg n for n≥ 2.
+Now T(m)/ lg m∈ (lg m)o(1) for m> 2, so U(n)/ lg n∈ (lg n)o(1) for n> 2b y
+Lemma 3.1. Hence U(n)∈ (lg n)1+o(1).
+To ﬁnish the proof I exhibit a perfect-power classiﬁcation algorithm, Algorithm
+PPC, and prove that it runs in time 2U(n).
+Algorithm PPC. Given n≥ 2, to print (x, k) such that (1) xk = n and (2) x is not
+a perfect power:
+1. Apply Algorithm X to n;l e t(x, p) be the result.
+2. If (x, p)=( n, 1), print (n, 1) and stop.
+3. (Note that 2≤ x<n .) Apply Algorithm PPC to x;l e t(c, k) be the result.
+4. Print (c, kp).
+Lemma 13.1. If n = xp then pU(x)≤ U(n).
+Proof. U(n)/ lg n is a nondecreasing function of n,s o pU(x)/ lg x≤ pU(n)/ lg n =
+pU(n)/p lgx = U(n)/ lg x.
+Lemma 13.2. Algorithm PPC spends time at most 2U(n) plus housekeeping.
+Proof. Step 1 takes time at mostT(n). If n is a perfect power then Algorithm PPC
+calls itself recursively; by induction this takes time at most 2U(x). The total time
+is at most T(n)+2 U(x)≤ U(n)+ pU(x)≤ 2U(n) by Lemma 13.1.
+PAR T IV. ANALYTIC METHODS
+14. Intuition about F(n)
+In this section, I give some motivation for the facts about F(n)p r o v e di nt h e
+next section. The theme here is that F(n) is roughly lg n lg lgn.
+F(n)i sas u mo v e rp r i m e sp. I will analyze it in terms of the following three
+simpler sums: ϑ(t)= ∑2≤p≤t log p≈ t; ϑ2(t)= ∑2≤p≤t log2 p≈ t log t− t; 𝓁(t)=∑
+2≤p≤t(log p)/p≈ log t.
+Fix p, and deﬁne u as follows: n is upn1−1/p away from the nearest pth power.
+Then u is, intuitively, a random number between 0 and 1/2. Indeed, if n is randomly
+selected from the interval [xp, (x +1 )p], then its distance to the nearest endpoint
+ranges uniformly from 0 to ((x +1 )p− xp)/2≈ (1/2)pxp−1≈ (1/2)pn1−1/p.
+These approximations break down when x≈ n1/p is smaller than p, so assume
+for the moment that p is at most lg n/ lg lgn.
+The number of bits I need to distinguish n from the nearest pth power is about
+lg n− lg upn1−1/p =( 1/p)l gn− lg p− lg u.I fi nf a c tu were uniformly distributed
+between 0 and 1/2, then the average value of lg u would be 2
+∫ 1/2
+0 lg ud u =−1−
+1/ log2. So I estimate the number of bits, on average, as (1/p)l gn−lg p+1+1/ log2.
+Note that this is positive, since p<n 1/p.
+
+--- page 16 ---
+1268 DANIEL J. BERNSTEIN
+As p grows past lgn/ lg lgn, on the other hand, thepth powers become so widely
+spaced that I usually need only a single bit of n.
+Now consider F(n). F(n) compares n with the pth power of the integer closest
+to n1/p;t h i si su s u a l l yt h en e a r e s tpth power to n. So I estimate that, on average,
+F(n)≈
+∑
+p≤lg n/ lg lg n
+(lg p
+p lg n− lg2 p +
+(
+1+ 1log 2)lg p) + ∑lg n/ lg lg n<p≤lg n lg p
+≈ 1log2 2 (𝓁( lg nlg lgn) log n− ϑ2 ( lg nlg lgn) + ϑ ( lg nlg lgn) log 2e) + ϑ(lg n)log 2
+≈ lg n lg lgn− lg n lg lg lgn + lg nlg lgn l o gl gl gn +l o g2+2log2 2 .
+What makes F(n) diﬃcult to analyze is that u is occasionally very close to 0.
+Then− lg u is much larger than its usual value. If this happens for a few primes
+p—as it does, for example, when n≈ 32768—then F(n) will be noticeably larger
+than expected. I will get a lower bound on F(n) by changing u to 1, but I cannot
+get an upper bound in any analogous way.
+Notes. See [28] for bounds on ϑ. See [3, section 2.7] for a general approach to
+obtaining bounds on functions such as ϑ, ϑ2,a n d𝓁.
+15. Analysis of F(n)
+Lemma 15.1 gives a lower bound forF(n), roughly lg lgn−lg lg lgn−1/ log2 times
+lg n. Lemma 15.2 gives a weak (quadratic) upper bound for F(n). Lemma 15.4 (in
+light of Lemma 15.3) gives a much better upper bound for the normal behavior of
+F(n), roughly (1 + 2/ log 2)(lgn lg lgn). Combining Lemmas 15.2, 15.3, and 15.4
+produces about the same bound for the average behavior of F(n). A more careful
+analysis, omitted to save space, shows that the average for 2 f −1 ≤ n< 2f is at
+most (2/ log 2)f𝓁 (f− 1) + (12/ log2) ϑ(f− 1), roughly 2 lgn lg lgn,i f f≥ 10.
+These results translate directly into facts about the run time of my perfect-power
+decomposition algorithm, Algorithm X. See Lemma 12.1.
+Lemma 15.1. If n≥ 4 then
+F(n) > 1log 2𝓁 ( lg nlg lgn) lg n− 1log2 2 ϑ2 ( lg nlg lgn) .
+Proof. Note that lg lg n≥ 1. Fix p≤ lg n/ lg lgn,s ot h a tp≤ lg n≤ n1/p.S e t
+x = roundn1/p.
+If n≥ xp then
+n− xp =( n1/p− x)(n1−1/p + xn1−2/p +··· + xp−1)
+≤ 12(n1−1/p + n1−1/p +··· + n1−1/p)= p2n1−1/p.
+If n<x p then
+xp− n =( x− n1/p)(xp−1 + xp−2n1/p +··· + n1−1/p)≤ p2xp−1
+< p2 (n1/p + 12)p−1 < p2n1−1/p (1+ 12p)p < p2n1−1/pe1/2.
+
+--- page 17 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1269
+Either way|n− xp| <p n1−1/p,s o d(n, xp) < (1− 1/p)l gn +l gp. Hence
+F(n) >
+∑
+p≤lg n/ lg lg n
+(lg p)
+(1
+p lg n− lg p
+)
+= 𝓁
+( lg n
+lg lgn
+) lg n
+log 2− ϑ2
+( lg n
+lg lgn
+) 1
+log2 2
+as claimed.
+Lemma 15.2. F(n)≤ ϑ(lg n)l gn/ log 2.
+Proof. lg n− d(n, (roundn1/p)p)≤ lg n,a n d∑2≤p≤lg n lg p = ϑ(lg n)/ log 2.
+For the next two lemmas I say that n is exceptional for p if it is within
+n1−1/p/ lg2 n of a pth power. I say that n is exceptional if it is exceptional for
+some prime p≤ lg n.
+Lemma 15.3. There are at most23+f /(f−1)+2 2+f/ 2(f−1) exceptional integers
+n in the interval 2f −1≤ n< 2f .
+Proof. Fix p.S e tT =2 f −f/p /(f− 1)2;i f n is exceptional for p then n diﬀers from
+some pth power by less than T.W r i t eI =[ 2f −1, 2f− 1].
+Let S be the set of integers x between
+⌈
+2(f −1)/p− 1⌉ and ⌊2f/p +1 ⌋ inclusive.
+Say|n− yp| <T with n∈ I. Then there is an x∈ S such that|n− xp| <T :i f
+y∈ S,t a k ex = y;i f y>
+⌊
+2f/p +1 ⌋,t a k ex = ⌊2f/p +1 ⌋;i f y< ⌈2(f −1)/p− 1⌉,
+take x =
+⌈
+2(f −1)/p− 1⌉.
+There are
+⌊
+2f/p ⌋− ⌈2(f −1)/p⌉ +3 < 22+f/p elements x∈ S.E a c hx produces at
+most 2T + 1 integers exceptional for p. Thus there are at most 2 2+f/p (2T +1 )≤
+23+f/(f− 1)2 +2 2+f/ 2 integers in I exceptional for p.
+There are at mostf−1p r i m e sp, so there are at most 23+f/(f−1)+2 2+f/ 2(f−1)
+exceptional integers in I.
+Lemma 15.4. F(n) <𝓁 (lg n)l gn/ l o g2+( 2l gl gn +1 )ϑ(lg n)/ log 2 if n is not
+exceptional and n≥ 4.
+Proof. By hypothesis d(n, xp) > lg n1−1/p−2l gl gn−1 for any x and any p≤ lg n.
+So lg n− d(n, xp) < (1/p)l gn + 2 lg lgn +1 . T h u s
+F(n) <
+∑
+p≤lg n
+(lg p)((1/p)l gn + 2 lg lgn +1 )
+=
+∑
+p≤lg n
+(lg p
+p lg n +( 2l gl gn +1 )l gp
+)
+= 𝓁(lg n)log 2 lg n + 2l gl gn +1log 2 ϑ(lg n);
+note that the sum is nonempty since n≥ 4.
+Notes. F(n) usually behaves like lg n lg lgn, but it behaves more like 2 lg n lg lgn
+when n is a power of 2 with a suﬃciently smooth exponent. Is F(n)/ lg n lg lgn
+unbounded?
+PART V. TRANSCENDENTAL METHODS
+16. Multiplicative dependence
+Ic a l lx0,...,x n multiplicatively dependent if there are integers a0,...,a n,
+not all zero, with xa00 ··· xann =1 .
+
+--- page 18 ---
+1270 DANIEL J. BERNSTEIN
+The following lemma, quoted without proof, is a special case of a theorem of
+Loxton and van der Poorten.
+Lemma 16.1. Let x0,...,x n be multiplicatively dependent positive integers with
+xj ≥ 3. Then there are integers a0,...,a n, not all zero, with xa00 ··· xann =1 ,a n d
+|aj| < 3nn(log x0)··· (log xn).
+Notes. Lemma 16.1 follows from [21, Theorem 5(A)], with D =1 , w(Q) = 2, and
+λ(1) = log 2; note that 1< log xj and 2(n!/(log 2)n) < 3nn.
+17. Linear forms in logarithms
+The height of a nonzero rational number α is H(α)=m a x{|i| ,|j|},i f α = i/j
+in lowest terms. The height of 0 is 0.
+The following lemma, quoted without proof, is a special case of a theorem of
+Loxton.
+Lemma 17.1. Fix c≥ 1, n≥ 1.L e t α1,...,α n be multiplicatively independent
+positive rational numbers. Let
+
+β11 β12 ··· β1n
+β21 β22 ··· β2n
+... ... ... ...
+βc1 βc2 ··· βcn
+
+
+be a rank-c matrix of rational numbers. Fix Aj ≥ 4 and B≥ 4 such that H(αj)≤
+Aj and H(βij)≤ B.W r i t eΩ=( l o gA1)··· (log An).W r i t e
+
+Λ1
+Λ2
+...
+Λc
+
+ =
+
+
+β11 β12 ··· β1n
+β21 β22 ··· β2n
+... ... ... ...
+βc1 βc2 ··· βcn
+
+
+
+
+log α1
+log α2
+...
+log αn
+
+ .
+Then, for some i,|Λi| > exp(−(16n)200n(Ω log Ω)1/c log BΩ).
+Notes. A central theorem of Baker [5] states that a single nonzero linear form in
+logarithms cannot be exceedingly close to 0, or in fact to any algebraic number.
+Loxton’s theorem [20, Theorem 4] generalizes Baker’s theorem to handle several
+independent linear forms in the same set of logarithms. Lemma 17.1 follows from
+[20, Theorem 4] with d =1 .
+The constants 16 and 200 here can easily be reduced.
+18. More inequalities
+Lemma 18.1. If x1k1 ∈ [L, U] and x2k2 ∈ [L, U] then|k1 log x1− k2 log x2|≤
+log(U/L).
+Lemma 18.2. For u≥1000 set T =(1/10)
+√
+u/log 2.56u.T h e nT> 1, 4T+2 <√u,
+200T log 16T <u/T =10√u log 2.56u, 6T<e u,a n dT(7+lgT+u/ log2−lg log 2)<u 3.
+Lemma 18.3. If v≥ 1 and t≥ 5 then log(tv +tv−1) <−2v log log((t+1)/(t−1)).
+Lemma 18.4. If log log 16≤ t≤ 1600 then t− log log 2< 40√t log t.
+Lemma 18.5. For n≥ exp exp1000 write t = log logn and u =l o gl o g2n.T h e n
+6u3 exp(30√u log 2.56u) < exp(40√t log t).
+
+--- page 19 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1271
+19. Powers in short intervals
+In this section, I combine the lemmas stated in the previous three sections to
+show that a short interval [L, U] cannot contain many perfect powers. (These results
+are due primarily to John Loxton. See the notes at the end of this section.)
+What I really count is the number of exponentsk such that there is akth power
+in [L, U]. Lemma 19.2 is my workhorse: it says that there can be very few “large”
+exponents k. Lemma 19.4 gives an upper bound for the number ofprime exponents
+k. Corollary 19.5, included here for historical reasons, counts the number of perfect
+powers in [L, U]w h e nU = L +
+√
+L.
+Lemma 19.1. The matrix
+
+
+k1 + ta1 ta2 ··· tam
+ta1 k2 + ta2 ··· tam
+... ... ... ...
+ta1 ta2 ··· km + tam
+
+
+has determinant k1··· km(1 +ta1/k1 + ta2/k2 +··· + tam/km) for k1,...,k m⁄=0 .
+Proof. Subtract the ﬁrst row from all succeeding rows; divide column i by ki;a d d
+each column to the ﬁrst column. The resulting matrix is upper triangular, with
+1+ta1/k1+ta2/k2+··· +tam/km in the top left and 1 elsewhere on the diagonal.
+Lemma 19.2. Fix an interval [L, U] with 1 <U / e<L<U . Fix an integer
+C≥ 1.F i xK≥ 4 such that
+K≥ (16C)200C log U− log log(U/L)(log U)1/C((C + 1) log logU)2
+and
+K≥ (16C)200C log U− log log(U/L)(log 6CC +( 2C + 1) log logU)2.
+Let S be a set of integer pairs (x, k) with xk ∈ [L, U], x≥ 4, k≥ K. Assume that
+k and k′ are coprime whenever (x, k) and (x′,k ′) are two distinct pairs inS.T h e n
+#S≤ C +l gC!+ C lg lgU.
+Note that log U> 1a n d− log log(U/L) > 0.
+Proof. Step 1. Let (x1,k 1),..., (xm,k m) ∈ S be multiplicatively independent;
+here I say that ( x1,k 1),..., (xm,k m) are multiplicatively dependent if x1,...,x m
+are multiplicatively dependent. I claim that m≤ C.
+Suppose not: suppose there are m≥ C + 1 multiplicatively independent pairs
+(x1,k 1),..., (xm,k m)∈ S. Then, in particular, x1,...,x C+1 are multiplicatively
+independent. Put B =m a x{kj :1 ≤ j≤ C +1} and Ω = ∏1≤i≤C+1 log xj. Notice
+that
+BΩ≤
+∏
+1≤i≤C+1
+kj log xj ≤ (log U)C+1.
+
+--- page 20 ---
+1272 DANIEL J. BERNSTEIN
+Now
+
+k1 log x1− kC+1 log xC+1
+k2 log x2− kC+1 log xC+1
+...
+kC log xC− kC+1 log xC+1
+
+ =
+
+
+k1 0 ··· 0 −kC+1
+0 k2 ··· 0 −kC+1
+... ... ... ... ...
+00 ··· kC −kC+1
+
+
+
+
+log x1
+...
+log xC+1
+
+.
+The conditions of Lemma 17.1 are met: each xj is a positive integer; the matrix
+has rank C; xj ≥ 4a n dB≥ K≥ 4; H(xj)= xj; H(0) = 0≤ B;a n dH(−kj)=
+H(kj)= kj ≤ B. Hence, for some i,
+|ki log xi− kC+1 log xC+1| > exp(−(16C)200C(Ω log Ω)1/C log BΩ).
+Apply Lemma 18.1 and take logarithms:
+log log(U/L) >−(16C)200C(Ω log Ω)1/C log BΩ.
+Hence
+K(− log log(U/L)) < (16C)200CKΩ1/C(log Ω)1/C log BΩ
+< (16C)200CK1+1/CΩ1/C(log BΩ)1/C log BΩ
+=( 1 6C)200C
+(
+KC+1 ∏
+1≤i≤C+1
+log xi
+)1/C
+(log BΩ)1+1/C
+≤ (16C)200C
+( ∏
+1≤i≤C+1
+ki log xi
+)1/C
+(log BΩ)2
+≤ (16C)200C
+( ∏
+1≤i≤C+1
+log U
+)1/C
+((C + 1) log logU)2
+=( 1 6C)200C(log U)1+1/C((C + 1) log logU)2
+≤ K(− loglog( U/L)).
+Contradiction.
+Step 2. Now ﬁx a maximal multiplicatively independent subset of S,s a y
+(x1,k 1), (x2,k 2),..., (xm,k m). Then m ≤ C.I f m =0t h e n# S =0 ≤ C +
+lg C!+ C lg lgU, so assume m≥ 1.
+I construct a matrix as follows. Consider the primesq dividing x1x2··· xm.T h e
+matrix has one row for each q, namely ordq x1, ordq x2,..., ordq xm.
+The m columns of this matrix are independent. Indeed, if a1,a 2,...,a m are
+integers such thata1 ordq x1+··· +am ordq xm =0f o re v e r yq, then ordq
+∏
+j xajj =0 ,
+so ∏j xajj =1 . T h exj’s are independent, so every aj must be 0.
+Hence the matrix has m independent rows. Fix q1,q 2,...,q m such that the
+corresponding rows are independent. Write
+Q =
+
+
+ordq1 x1 ordq1 x2 ··· ordq1 xm
+ordq2 x1 ordq2 x2 ··· ordq2 xm
+... ... ... ...
+ordqm x1 ordqm x2 ··· ordqm xm
+
+
+for the matrix formed from these rows.
+
+--- page 21 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1273
+By construction detQ is a nonzero integer. Each entry of Q is bounded by lgU,
+so|det Q|≤ m!(lg U)m≤ C!(lg U)C.
+Step 3. I claim that, for any ( x, k)∈ S other than ( x1,k 1),..., (xm,k m), k
+must divide detQ.
+Let (x0,k 0) be any element of S diﬀerent from (x1,k 1),..., (xm,k m). Then k0
+is coprime to k1,...,k m, by hypothesis on S.
+Since (x1,k 1),..., (xm,k m) is a maximal multiplicatively independent subset of
+S, x0,x 1,...,x m must be multiplicatively dependent. The hypotheses of Lemma
+16.1 are satisﬁed: each xj is a positive integer larger than 3. Hence there are
+integers a0,...,a m, not all zero, with xa00 ··· xamm =1 ,a n d
+|aj| < 3mm(log x0)··· (log xm).
+Since x1,...,x m are independent, a0 must be nonzero. Without loss of generality
+I assume that gcd{a0,...,a m} = 1; if not, divide each aj by the common gcd.
+Suppose that a0/k0 + a1/k1 +··· + am/km⁄= 0. Consider the matrix
+Θ=
+
+
+k1 + k0a1/a0 k0a2/a0 ··· k0am/a0
+k0a1/a0 k2 + k0a2/a0 ··· k0am/a0
+... ... ... ...
+k0a1/a0 k0a2/a0 ··· km + k0am/a0
+
+ .
+By Lemma 19.1, Θ has determinant
+k0k1··· km
+a0
+(a0
+k0
++ a1
+k1
++··· + am
+km
+)
+,
+which is nonzero. Hence Θ has rank m.
+Next observe that
+
+
+k1 log x1− k0 log x0
+k2 log x2− k0 log x0
+...
+km log xm− k0 log x0
+
+ =Θ
+
+
+log x1
+...
+log xm
+
+ .
+Indeed,
+ki log xi− k0 log x0 = ki log xi + k0a0 (−a0 log x0)
+= ki log xi + k0a0 (a1 log x1 +··· + am log xm).
+Put B =6 mm(log x0)··· (log xm)m a x{kj :0 ≤ j≤ m} and Ω = ∏1≤i≤m log xi.
+Notice that
+BΩ≤ 6mm(log U)2m+1≤ 6CC(log U)2C+1.
+Again the conditions of Lemma 17.1 are met: each xj is a positive integer; the
+matrix has rank m; xj ≥ 4a n dB≥ 4; and the matrix entries have height at most
+B. Hence, for somei,|ki log xi− k0 log x0|≥ exp(−(16m)200m(Ω log Ω)1/m log BΩ).
+Apply Lemma 18.1 and take logarithms:
+log log(U/L) >−(16m)200m(Ω log Ω)1/m log BΩ.
+
+--- page 22 ---
+1274 DANIEL J. BERNSTEIN
+So
+K(− loglog( U/L)) < (16m)200mKΩ1/m(log Ω)1/m log BΩ
+< (16m)200m
+(
+Km ∏
+1≤i≤m
+log xi
+)1/m
+(log BΩ)2
+≤ (16C)200C
+( ∏
+1≤i≤m
+ki log xi
+)1/m
+(log BΩ)2
+≤ (16C)200C(log U)(log 6CC +( 2C + 1) log logU)2
+≤ K(− loglog( U/L)).
+Contradiction.
+Hence a0/k0 + a1/k1 +··· + am/km =0 .B u tk0 is coprime to k1,...,k m,s o k0
+must divide a0.
+Consider the column vector V =( a1,a 2,...,a m). Since xa11 xa22 ··· xamm = x−a00 ,
+Ih a v ea1 ordq x1 + a2 ordq x2 +··· + am ordq xm =−a0 ordq x0 for any prime q.
+In other words a0 divides QV ,s o a0 divides (adj Q)QV =( d e tQ)V ,s o a0 divides
+(detQ)aj for each j.B u tg c d{a1,a 2,...,a m} =1 ,s o a0 must divide detQ. Hence
+k0 divides detQ.
+Step 4. For every pair (x, k)∈ S, other than (x1,k 1),..., (xm,k m), I have shown
+that k divides detQ⁄= 0. Diﬀerent pairs have coprime k’s, by hypothesis, so detQ
+is divisible by the product of all those k’s. Each k is at least 2. Hence there are no
+more than lg|det Q|≤ lg C!+C lg lgU pairs (x, k) other than (x1,k 1),..., (xm,k m).
+Finally m≤ C.
+Lemma 19.3. Fix an interval [L, U] with U/e < L < U and U ≥ expexp 1000.
+Let S be the set of primes k such that there is a kth power in [L, U].T h e n
+#S< (log logU)3
+(
+1+ log U− log log(U/L) exp (30√log logU log(2.56 loglog U))) .
+Proof. Deﬁne u = log logU, T =( 1/10)
+√
+u/ log 2.56u,a n dC =⌊T⌋.
+Apply each piece of Lemma 18.2. First T> 1s o C≥ 1s o T<C +1 ≤ 2C.
+Hence
+(16C)200C(log U)1/C < (16T)200T (log U)2/T
+=e x p
+(
+200T log 16T + 2uT ) < exp(30√u log 2.56u).
+Furthermore 6+C+lg C!+ C lg lgU≤ C(7+lg C+lglg U)≤ T(7+lg T +lglg U)=
+T(7 + lgT + u/ log 2− lg log 2)<u 3.
+Set
+K =4+( 1 6C)200C log U− log log(U/L)(log U)1/Cu3
+< 4+ log U− loglog( U/L)u3 exp(30√u log 2.56u).
+Now (C +1 )u< (2T +1 )u<u 3/2 so
+K> (16C)200C log U− loglog( U/L)(log U)1/C((C +1 )u)2.
+
+--- page 23 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1275
+Furthermore,
+log 6CC ≤ C log 6C< (2C +1 )l o g6T< (2C +1 )u≤ (2T +1 )u< (1/2)u3/2,
+so
+K> (16C)200C log U− loglog( U/L)(log U)1/C(log 6CC +( 2C +1 )u)2
+≥ (16C)200C log U− loglog( U/L)(log 6CC +( 2C +1 )u)2.
+Finally I count the primes k∈ S. There are at most K− 1p r i m e sk<K .F o r
+each k≥ K select an integer x such that xk ∈ [L, U]. Consider the pairs ( x, k).
+By Lemma 19.2, there are at most C +l gC!+ C lg lgU pairs with x≥ 4. Since
+U/L < 3, there is at most one power of 3 in [ L, U], and at most two powers of 2.
+Hence
+#S≤ K +2+ C +l gC!+ C lg lgU
+<u 3
+(
+1+ log U− loglog( U/L) exp(30√log logU log 2.56u))
+as desired.
+Lemma 19.4. Fix n≥ expexp 1000.S e t u =l o g l o g 2n.F i x v with 1≤ v ≤
+log5 n.L e tS be the set of primes k such that there is a kth power in the interval
+[n− n1−1/v,n + n1−1/v].T h e n#S< 3vu3 exp(30√u log 2.56u).
+Proof. Set L = n− n1−1/v and U = n + n1−1/v < 2n. By Lemma 18.3, log U<
+−2v log log(U/L). Also U>n ≥ expexp 1000, and U/L≤ ( 1+1/5)/(1− 1/5) <e ,
+so #S< (log logU)3(1 + 2v exp(30√log logU log(2.56 loglog U))) by Lemma 19.3.
+Finally log logU<u .
+Corollary 19.5. For n≥ 16, there are fewer than exp(40√log logn log log logn)
+perfect powers in the interval [n, n+√n].
+Proof. Let S be the set of primesp such that there is apth power inI =[ n, n+√n].
+Each perfect power in I is a pth power for some prime p. On the other hand, I
+is too short to contain two pth powers: if xp ≥ n then (x +1 )p ≥ xp + pxp−1 ≥
+n + pn1−1/p >n +√n. Hence the number of perfect powers in I is at most #S.
+Write t = log logn. I will show that # S< exp(40√t log t). For t< 1000 this is
+easy. If p∈ S then p≤ lg(n +√n) < lg 2n.S o # S< lg n =e x p (t− log log 2)<
+exp(40√t log t) by Lemma 18.4.
+For t≥ 1000, apply Lemma 19.4 with v =2 . S e tu =l o g l o g 2n.T h e n #S<
+6u3 exp(30√u log 2.56u). Finally, by Lemma 18.5, #S< exp(40√t log t).
+Notes. Corollary 19.5 was stated in [20, Theorem 1]. There is a gap in the proof in
+[20]: it incorrectly assumes that, in my notation, a0/k0 + a1/k1 +··· + am/km⁄=0 .
+(Note that “−am+1bj/bm+1” in [20] was a typo for “+am+1bj/bm+1.”)
+John Loxton has closed the gap, and has graciously allowed me to present his
+correction here. His idea is expressed above in Step 2 and Step 4 of Lemma 19.2.
+Other than this, the approach here is the same as the approach of [20, Theorem 1],
+modiﬁed slightly to handle more general intervals [L, U].
+The conclusion of Lemma 19.2 could easily be improved. Each column of the
+matrix Q has sum at most (lg U)/K. From this one can prove with Hadamard’s
+
+--- page 24 ---
+1276 DANIEL J. BERNSTEIN
+inequality [15, exercise 4.6.1–15] or with Gershgorin’s inequality—see [13, problem
+6.1–3]—that the determinant of Q is at most ((lg U)/K)m.
+In general the bounds in this section are very far from best possible. A more
+careful study would produce many quantitative improvements and perhaps some
+qualitative improvements.
+Let S be the set of exponents k such that there is a kth power in [L, U]. One
+could prove a bound on the size ofS as follows. Lemma 19.3 supplies a bound—call
+it m—on the number of primes in S.E v e r yk∈ S is built up from those primes.
+Hence the size ofS is at most the number of products≤ lg U of those primes, which
+is at most the number of products ≤ lg U of the ﬁrst m prime numbers, which in
+turn can be estimated by analytic techniques. See [28] and [10].
+20. Final F(n) analysis
+In this section, I use Lemma 19.4 to bound the function F(n) introduced in
+section 12. This upper bound is in (lg n)1+o(1).
+Lemma 20.1. Fix n≥ exp exp 1000.S e tu =l o gl o g2n.T h e n
+F(n) < (lg n lg lgn)
+(
+1+3 u3 exp(30√u log 2.56u)l g( 4l gn)) .
+Proof. Write g(p) = (roundn1/p)p. Also abbreviate K =3 u3 exp(30√u log 2.56u).
+The critical idea here is to sort the primes p by d(n, g(p)). Let c< lg n be the
+number of primes between 2 and lg n.L e t p1,p 2,...,p c be the primes, in such an
+order that d(n, g(pj)) is a nondecreasing function of j.
+Now F(n)= ∑1≤j≤c(lg pj)m a x{1, lg n− d(n, g(pj))}. I estimate this sum in
+two pieces: ﬁrst where 1≤ j<K , second where K≤ j≤ c.
+There are fewer than K terms in the ﬁrst piece, and each term is less than
+lg n lg lgn, so the sum of the terms in the ﬁrst piece is less than K lg n lg lgn.
+In the second piece, set v = j/K ≥ 1. I have j ≤ c< lg n and K> 3s o
+v< log5 n.
+Suppose that lg n− d(n, g(pj)) > 1+( 1/v)l gn.T h e n
+|n− g(pi)| < 2d(n,g(pi))+1≤ 2d(n,g(pj ))+1 < 2(1−1/v)l g n = n1−1/v
+for all i≤ j. So there is a pith power within n1−1/v of n for 1≤ i≤ j.B u tt h a ti s
+impossible, since by Lemma 19.4 there are fewer than Kv = j primes p with a pth
+power so close to n.
+Hence lg n− d(n, g(pj))≤ 1+( 1 /v)l gn. So the sum of this piece is at most∑
+K≤j≤c(lg lgn)(1 + (K/j)l gn) < (lg lgn)∑1≤j≤c(1 + (K/j)l gn) <c lg lgn +
+K lg n lg lgn lg 2c.
+Notes. Various constants here can of course be improved.
+PAR T VI. PRACTICAL IMPROVEMENTS
+21. The 2-adic variant
+In this section, I describe a 2-adic variant of Algorithm X. With this variant, I
+can work with integers rather than ﬂoating-point numbers; I no longer need guard
+bits; I can jump directly into Newton’s method without a preliminary binary search;
+and a proper error analysis takes a few lines rather than several pages.
+It will be convenient to restrict attention to odd n. See section 22 for a method
+to handle even n.
+
+--- page 25 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1277
+Motivation. To check ifn is a kth power, I compute a tentativekth root of n—an
+integer x such that no integer other thanx can possibly be the kth root of n.T h e n
+I test whether xk = n.
+To ﬁnd x in Part II and Part III, I constructed a number that was close to a
+kth root of n in the usual metric. I used the same metric again to check whether
+xk = n: I computed xk in low precision to see whether it was close to n.
+Nothing in the original problem suggests this metric. The 2-adic variant uses a
+diﬀerent metric, where i and j are close if i− j is divisible by a high power of 2.
+Notation. This section deviates from the notation of Parts I, II, and III:r, y,a n d
+z are odd integers rather than positive ﬂoating-point numbers.
+Lemma 21.1. If 2i≡ 2j (mod 2b+1) and b≥ 1 then i2≡ j2 (mod 2b+1).
+2-adic approximate powers. Fix positive integers k and b. For any integer
+m deﬁne pow 2,b(m, k)= mk mod 2b. See section 6 for methods of computing
+pow2,b(m, k) without many multiplications. As I compute pow 2,b(m, k), I keep
+track of an “overﬂow bit” to ﬁgure out whether mk mod 2b = mk.
+Checking tentative kth roots. Here is a straightforward algorithm for checking
+whether xk = n.
+Algorithm C2. Given positive integers n, x, k,t os e ei f n = xk:I n a d v a n c e s e t
+f =⌊lg 2n⌋.
+1. If x =1 : P r i n t0i fn =1 .P r i n t2i fn⁄=1 .S t o p .
+2. Set b← 1.
+3. Compute r← pow2,b(x, k). Simultaneously ﬁgure out if r = xk.
+4. If n mod 2b⁄= r, print 2 and stop.
+5. If b≥ f:P r i n t0i fr = xk.P r i n t2i fr⁄= xk.S t o p .
+6. Set b← min{2b, f}.G ob a c kt os t e p3 .
+Lemma 21.2. Algorithm C2 prints 0 if and only if n = xk.
+Proof. If n = xk then r =p o w2,b(x, k)= xk mod 2b = n mod 2b so Algorithm
+C never stops in step 4. Hence it stops in step 5. When it does, b ≥ f,s o
+r = n mod 2f = n = xk. Thus it prints 0. Conversely, if it prints 0, then xk = r =
+n mod 2f = n.
+2-adic approximate multiplication and division. Fix b≥ 1. For m an integer
+and k a positive integer write mul2,b(m, k)= km mod 2b.
+If k is odd, write div 2,b(m, k) for the unique integer between 0 inclusive and 2b
+exclusive such that m≡ k div2,b(m, k)( m o d2b).
+Finding 2-adic approximatekth roots. Fix an odd integery and a positive odd
+integer k. I will ﬁnd an approximate negative kth root of y by Newton’s method.
+For motivation see section 8. (Question: Why do I insist that k be odd? Answer:
+Square roots introduce a bit of diﬃculty. See Algorithm S2 below.)
+
+--- page 26 ---
+1278 DANIEL J. BERNSTEIN
+For each b≥ 1, I deﬁne and construct an odd integer nroot 2,b(y,k ), between 0
+and 2b, by the following algorithm:
+Algorithm N2. G i v e na no d di n t e g e ry and positive integers b, k with k odd, to
+compute nroot2,b(y,k ): In advance set b′ =⌈b/2⌉.
+1. If b = 1: nroot2,b(y,k ) = 1. Stop.
+2. Compute z← nroot2,b′ (y,k ) by Algorithm N2.
+3. Set r2← mul2,b(z,k +1 ) .
+4. Set r3← y pow2,b(z,k +1 )m o d2b.
+5. Set r4← div2,b(r2− r3,k ). Now nroot 2,b(y,k )= r4.
+Lemma 21.3. If k is odd and r = nroot2,b(y,k ) then rky mod 2b =1 .
+Proof. If b =1t h e nr =1a n d y m o d2=1 .
+If b≥ 2t h e nr shows up as r4 in Algorithm N2. Note that b′ <b . By induction
+zky mod 2b′ =1 .S o zky =1+2 b′ j for some integer j.
+Note that 22b′ ≡ 0( m o d2b). So (k− 2b′ j)k≡ kk− k2b′ jkk−1 = kk(1− 2b′ j)b y
+the binomial theorem.
+By construction r2 ≡ (k +1 )z, r3 ≡ zk+1y,a n dkr4 ≡ r2− r3. Hence kr4 ≡
+z(k +1− zky)= z(k− 2b′ j). So
+kkrk4 y≡ zky(k− 2b′ j)k≡ ( 1+2b′ j)kk(1− 2b′ j)≡ kk(1− 22b′ j2)≡ kk.
+But kk is odd, so rky = rk4 y≡ 1( m o d2b) as claimed.
+Finding 2-adic approximate square roots. Again ﬁx an odd integer y.F o r
+each b≥ 1, I deﬁne and construct nroot2,b(y, 2) by the following algorithm:
+Algorithm S2. G i v e na no d di n t e g e ry and a positive integer b, to compute an
+integer nroot2,b(y, 2): In advance set b′ =⌈(b +1 )/2⌉.
+1. If b = 1: nroot2,b(y, 2) is 1 if y mod 4 = 1, 0 otherwise. Stop.
+2. If b = 2: nroot2,b(y, 2) is 1 if y mod 8 = 1, 0 otherwise. Stop.
+3. Compute z← nroot2,b′ (y, 2) by Algorithm S2.
+4. If z = 0: nroot2,b(y, 2) = 0. Stop.
+5. Set r2← mul2,b+1(z, 3).
+6. Set r3← y pow2,b+1(z, 3) mod 2b+1.
+7. Set r4← (r2− r3)/2m o d2b.N o wn r o o t2,b(y, 2) = r4.
+Lemma 21.4. Set r = nroot2,b(y, 2).I f i2y mod 2b+1 =1 for some odd integer i
+then r⁄=0 .I f r⁄=0 then r2y mod 2b+1 =1 .
+Proof. First consider b =1 . I f y m o d 4=1t h e nr =1s o r2y mod 4 = 1. If
+y mod 4 = 3 then r =0a n d i2y mod 4 = 3 for any i.
+Next consider b =2 .I f y mod 8 = 1 thenr =1s o r2y m o d8=1 .I f y mod 8⁄=1
+then r =0a n d i2y mod 8 = y mod 8⁄=1f o ra n yi.
+If b≥ 3t h e nr shows up as r4 in Algorithm S2. Note that b′ <b .I f z =0t h e n
+by induction i2y mod 2b′+1 is never 1, so i2y mod 2b+1 is never 1; and r =0 .
+If z⁄= 0 then by induction z2y mod 2b′+1 =1 . S o z2y =1+2 b′ +1j for some
+integer j.N o t et h a t( 1−2b′ j)2 =1−2b′+1j +2 2b′ j2≡ 1−2b′+1j (mod 2b+1)s i n c e
+2b′≥ b +1 .
+
+--- page 27 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1279
+By construction r2 ≡ 3z (mod 2b+1), r3 ≡ z3y,a n d2 r4 ≡ r2 − r3. Hence
+2r4≡ z(3− z2y)= z(2− 2b′+1j). By Lemma 21.1, r24 ≡ z2(1− 2b′ j)2.T h u s
+r2y = r24y≡ z2y(1− 2b′ j)2≡ ( 1+2b′+1j)(1− 2b′+1j)=1 − 22b′+2j2≡ 1
+as claimed.
+Perfect-power decomposition. I imitate Algorithm K from section 10: to see if
+n is a kth power, I compute and then check a tentative kth root.
+Algorithm K2. Given a positive odd integer n, an integer k≥ 2 such that either
+k =2o r k is odd, and an odd integery (see Lemma 21.5), to see ifn is a kth power:
+In advance set f =⌊lg 2n⌋ and b =⌈f/k⌉.
+1. Calculate r← nroot2,b(y,k ).
+2. If k =2 :I f r = 0, print 0 and stop.
+3. Check if n = rk with Algorithm C2. If so, print r and stop.
+4. If k =2 : C h e c ki fn =( 2b− r)k with Algorithm C2. If so, print 2b− r and stop.
+5. Print 0 and stop.
+Lemma 21.5. Set f =⌊lg 2n⌋ and b =⌈f/k⌉. Assume that yn mod 2b+1 =1 .I f
+n is a kth power, Algorithm K2 prints n1/k.I f n is not a kth power, Algorithm K2
+prints 0.
+Proof. Case 1: n is not a kth power. Then n⁄= rk and n⁄=( 2b−r)k, so Algorithm
+K2 does not stop in steps 3 or 4. So it prints 0.
+Case 2: n = xk,a n dk is odd. By Lemma 21.3, rky mod 2b = 1. Furthermore
+yn mod 2b =1s o rk ≡ n = xk (mod 2b).
+Put c = rk−1 + rk−2x +··· + xk−1; each term in this sum is odd, and there are
+k terms, so c is odd. But 2b divides rk− xk =( r− x)c so 2b divides r− x.B o t hr
+and x are positive integers smaller than 2b,s o r = x. Hence n = rk; Algorithm K
+prints r in step 3.
+Case 3: n = xk,a n dk = 2. By Lemma 21.4, r is nonzero, sinceyx2 mod 2b+1 =
+1. By Lemma 21.4 again, r2y mod 2b+1 = 1. Hence r2≡ x2 (mod 2b+1).
+Either r≡ x (mod 4) or r≡− x (mod 4). Say r≡ x;t h e nr + x≡ 2. Now
+2b+1 divides r2− x2 =( r− x)(r + x), and only one power of 2 divides r + x,s o
+r≡ x (mod 2b). Both r and x are positive integers smaller than 2 b,s o r = x,s o
+Algorithm K prints r in step 3.
+If r≡− x (mod 4) then r⁄= x so r2 ⁄= n so Algorithm K does not print r in
+step 3. However, 2b− r≡ x (mod 4), and 2b+1 divides (2b− r)2− x2,s oa sa b o v e
+2b− r≡ x (mod 2b). Thus 2b− r = x and Algorithm K prints 2b− r in step 4.
+Algorithm X2. Given an odd integer n≥ 2, to decompose n as a perfect power if
+possible: In advance set f =⌊lg 2n⌋.
+1. Compute y← nroot2,⌈f/ 2⌉+1(n, 1).
+2. For each prime number p<f :
+3. Apply Algorithm K2 to ( n, p, y); let x be the result.
+4. If x> 0, print (x, p)a n ds t o p .
+5. Print (n, 1).
+Lemma 21.6. If n is a perfect power, Algorithm X2 prints a prime numberp and
+a positive integer x such that xp = n.I f n is not a perfect power, Algorithm X2
+prints (n, 1).
+
+--- page 28 ---
+1280 DANIEL J. BERNSTEIN
+Proof. By Lemma 21.3, yn mod 2⌈f/ 2⌉+1 = 1. If Algorithm X2 stops in step 4 then
+xp = n by Lemma 21.5. If Algorithm X2 never stops in step 4 then, by Lemma
+21.5, n is not a pth power for any prime p<f ,s o n is not a perfect power.
+I could synthesize Algorithm X and Algorithm X2. For each k, I can compute
+a tentative kth root x by either Algorithm N or Algorithm N2; I can then check
+whether xk = n by either Algorithm C or Algorithm C2. After Algorithm N it
+is probably best to try Algorithm C2 ﬁrst; after Algorithm N2 it is probably best
+to try Algorithm C ﬁrst. I could run Algorithm C and Algorithm C2 in parallel,
+stopping as soon as either algorithm sees that n⁄= xk.
+It is possible to convert n into base q for q> 2, and then use the q-adics instead
+of the 2-adics. This is probably not worthwhile in practice, unless for some strange
+reason n is already known in baseq. But it may be worthwhile to computen mod q.
+See the next section for further discussion.
+Notes. See [15, exercise 4.1–31] for an introduction to the 2-adic numbers.
+Two q-adic applications of Newton’s method are generally known as “Hensel’s
+lemma.” The ﬁrst is the use of Newton’s method to reﬁne a q-adic root of a
+polynomial; see [30, page 14] or [12, page 84]. The second is the more general use
+of Newton’s (multidimensional) method to reﬁne a q-adic factor of a polynomial;
+see [15, exercise 4.6.2–22], [22, Theorem 8.3], or [25, page 40].
+See [15, exercise 4.4–14] or [8] for a fast method of converting n into base q.
+My previous perfect-power run-time analysis does not apply if I use Algorithm
+C2 in place of Algorithm C. The results of Part IV would remain valid, but to prove
+that the resulting perfect-power detection algorithm runs in essentially linear time
+I would need 2-adic versions of the theorems in Part V, and in particular of [20,
+Theorem 4].
+22. Trial division
+As usual ﬁx n≥ 2. In this section I discuss several tricks based on computing
+n mod q for one or more primes q.
+If n has no small prime divisors, lower the exponent bound. If n is odd
+and n = xk then x is also odd. So x≥ 3a n dk≤ log3 n. More generally one may
+compute n mod q for all primes q<T , for some bound T.I f n mod q is always
+nonzero, one need not check exponents past logT n.
+If n has a prime divisor, ﬁnd its order. What if n mod q = 0? First compute
+the number ordq n of factors q in n, together with n/qordq n. Then check, for each p
+dividing ordq n,w h e t h e rn/qordq n is a pth power. Otherwise n cannot be a perfect
+power. (Note that n/qordq n may be 1, in which case no testing is necessary.)
+Recall that the 2-adic method in section 21 requires thatn be odd. This is not a
+serious restriction. If n is even, the method here ends up checking whethern/2ord2 n
+is a pth power, for various primes p;a n dn/2ord2 n is odd.
+There are several plausible ways to compute the number of factors q in n.
+If q = 2 then ordq n is the number of 0 bits at the bottom ofn’s binary expansion.
+If q> 2, I do a binary search upon the number of factors. The idea is to
+compute n mod qc and⌊n/qc⌋ for some integer c≈ (logq n)/2. If n mod qc ⁄=0
+then ordq n = ord q(n mod qc); if n mod qc = 0 then ord q n = c + ordq(n/qc).
+
+--- page 29 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1281
+Chop c in half and repeat. This method takes essentially linear time given fast
+multiplication and the algorithms from section 8.
+I could instead do a linear search; this amounts to always taking c = 1 in the
+above description. This will be faster than a binary search on average. I could
+compromise with a sequence of c that is at ﬁrst optimistic but backs oﬀ quickly if
+necessary. For example: begin with c = 1, double c if n mod qc =0 ,a n dc h o pc in
+half if n mod qc⁄=0 .
+Check the character of residues ofn. If n is a kth power, andq is a prime with
+q mod k =1t h e nn(q−1)/k mod q is either 0 or 1. A non- kth power has roughly a
+1/k chance of passing this test.
+Check the residues of tentative roots. If n = xk then n mod q = xk mod q.
+So, given n mod q, I can try to weed out a tentative root x by calculating the kth
+power modulo q of x mod q. In practice this test is quite powerful: if n⁄= xk then
+very few primes q divide n− xk.
+In this testq need not be prime. It might be convenient to check whethern agrees
+with xk modulo 232, for example, although this is redundant if x was constructed
+by 2-adic methods.
+One could develop a fast randomized power-testing algorithm along these lines.
+Start from a tentative rootx. First check if xk≤ 2n. Then check if n mod q equals
+xk mod q for a set of “random” primesq with product larger than n. This test will
+succeed if and only ifn = xk.I f n⁄= xk then one will, on average, test very fewq’s.
+Check for small divisors of tentative roots.If n is not divisible by any primes
+q<T ,a n dn = xk then x is not divisible by any primes q<T .S o I c a n t h r o w
+away any tentative root x that has prime factors smaller than T. This is much
+weaker than testing whether n mod q = xk mod q for each q<T , but it is also
+much faster.
+Notes. See generally [4] for precedents. The approach of [4] is, for each k,t o
+precompute a database of primes q with q mod k = 1, and then to systematically
+compute the characters n(q−1)/k mod q for each q in the database. [4] also suggests
+(1) checking whethern is divisible by small primes, (2) lowering the exponent bound
+if n is not divisible by any small primes, and (3) ﬁnding ordq n (with a linear search)
+if q divides n.
+My binary search method for computing ordq n is a straightforward optimization
+of the following procedure: ﬁrst apply [15, exercise 4.4–14] to write n in base q;
+then see how many of the low “qits” are zero.
+The best way to compute n mod q for many q simultaneously is by binary
+splitting; see, e.g., [1, page 291].
+See [19] for an overview of practical and theoretical methods for checking whether
+x (or n) has a prime factor smaller than T.
+In some applications one may known mod q, or a representation ofn from which
+n mod q is easy to derive. Victor Miller points out that if n is represented in the
+factorial base [15, equation 4.1–10] then it is easy to compute n mod q for small
+primes q.
+I have many options here. Each subset of options poses a new optimization
+problem—e.g., if I use characters as in [4] but with fast arithmetic and binary
+splitting, how much trial division should I do?—for which an exact answer will
+
+--- page 30 ---
+1282 DANIEL J. BERNSTEIN
+depend heavily on characteristics of the computer at hand. Having not yet solved
+all such problems, I do not feel competent to declare one algorithm the “winner.”
+References
+1. Alfred V. Aho, John E. Hopcroft, Jeﬀrey D. Ullman, The design and analysis of computer
+algorithms, Addison-Wesley, Reading, Massachusetts, 1974. MR 54:1706
+2. Robert S. Anderssen and Richard P. Brent (editors),The complexity of computational problem
+solving, University of Queensland Press, Queensland, 1976.
+3. Eric Bach, Jeﬀrey Shallit, Algorithmic number theory, MIT Press, Boston, Massachusetts,
+1996. MR 97e:11157
+4. Eric Bach, Jonathan Sorenson, Sieve algorithms for perfect power testing , Algorithmica 9
+(1993), 313–328. MR 94d:11103
+5. Alan Baker, The theory of linear forms in logarithms, in [6], pp. 1–27. MR 58:16543
+6. Alan Baker, David William Masser (editors), Transcendence theory: advances and applica-
+tions, Academic Press, 1977. MR 56:15573
+7. Jonathan M. Borwein, Peter B. Borwein, Pi and the AGM , Wiley, New York, 1987. MR
+89a:11134
+8. Richard P. Brent, The complexity of multiple-precision arithmetic, in [2], pp. 126–165.
+9. Richard P. Brent, Fast multiple-precision evaluation of elementary functions, Journal of the
+Association for Computing Machinery 23 (1976), 242–251. MR 52:16111
+10. E. Rodney Canﬁeld, Paul Erd˝os, Carl Pomerance, On a problem of Oppenheim concerning
+“factorisatio numerorum”, Journal of Number Theory 17 (1983), 1–28. MR 85j:11012
+11. Henri Cohen, A course in computational algebraic number theory , Springer-Verlag, Berlin,
+1993. MR 94i:11105
+12. Albrecht Fr¨ohlich, Martin J. Taylor, Algebraic number theory, Cambridge University Press,
+Cambridge, 1991. MR 94d:11078
+13. Roger A. Horn, Charles A. Johnson,Matrix analysis, Cambridge University Press, Cambridge,
+1985. MR 87e:15001
+14. Donald E. Knuth, The art of computer programming, volume 1: fundamental algorithms,2 n d
+edition, Addison-Wesley, Reading, Massachusetts, 1973. MR 51:14624
+15. Donald E. Knuth, The art of computer programming, volume 2: seminumerical algorithms ,
+2nd edition, Addison-Wesley, Reading, Massachusetts, 1981. MR 83i:68003
+16. Arjen K. Lenstra, Hendrik W. Lenstra, Jr. (editors), The development of the number ﬁeld
+sieve, Lecture Notes in Mathematics 1554, Springer-Verlag, Berlin, 1993. MR 96m:11116
+17. Arjen K. Lenstra, Hendrik W. Lenstra, Jr., Mark S. Manasse, John M. Pollard, The number
+ﬁeld sieve, in [16], pp. 11–40. MR 96m:11116
+18. Hendrik W. Lenstra, Jr., private communication.
+19. Hendrik W. Lenstra, Jr., Jonathan Pila, Carl Pomerance, A hyperelliptic smoothness test.
+I, Philosophical Transactions of the Royal Society of London, Series A 345 (1993), 397–408.
+MR 94m:11107
+20. John H. Loxton, Some problems involving powers of integers , Acta Arithmetica 46 (1986),
+113–123. MR 87j:11071
+21. John H. Loxton, Alfred J. van der Poorten, Multiplicative dependence in number ﬁelds,A c t a
+Arithmetica 42 (1983), 291–302. MR 86b:11052
+22. Hideyuki Matsumura, Commutative ring theory , Cambridge University Press, Cambridge,
+1986. MR 88h:13001
+23. James Munkres, Elements of algebraic topology , Addison-Wesley, Reading, Massachusetts,
+1984. MR 85m:55001
+24. Henri J. Nussbaumer, Fast polynomial transform algorithms for digital convolution , IEEE
+Transactions on Acoustics, Speech, and Signal Processing28 (1980), 205–215. MR 80m:94004
+25. Michael E. Pohst, Computational algebraic number theory , Birkh¨auser, Basel, 1993. MR
+94j:11132
+26. William H. Press, Brian P. Flannery, Saul P. Teukolsky, William P. Vetterling, Numerical
+recipes: the art of scientiﬁc computing, Cambridge University Press, Cambridge, 1986. MR
+87m:65001a
+27. Paul Pritchard, Fast compact prime number sieves (among others),J .A l g o r i t h m s4 (1983),
+332–344. MR 85h:11080
+
+--- page 31 ---
+DETECTING PERFECT POWERS IN ESSENTIALLY LINEAR TIME 1283
+28. J. Barkley Rosser, Lowell Schoenfeld, Approximate formulas for some functions of prime
+numbers, Illinois Journal of Mathematics 6 (1962), 64–94. MR 25:1139
+29. Arnold Sch¨onhage, Volker Strassen, Schnelle Multiplikation großer Zahlen , Computing 7
+(1971), 281–292. MR 45:1431
+30. Jean-Pierre Serre, A course in arithmetic, Springer-Verlag, New York, 1973. MR 49:8956
+31. E. T. Whittaker, G. N. Watson, A course of modern analysis, 4th edition, Cambridge Uni-
+versity Press, 1927. MR 31:2375 (1962 reprint)
+Department of Mathematics, University of California, Berkeley, California 94720
+Current address: Department of Mathematics, Statistics, and Computer Science, The Univer-
+sity of Illinois at Chicago, Chicago, Illinois 60607–7045
+E-mail address: djb@pobox.com

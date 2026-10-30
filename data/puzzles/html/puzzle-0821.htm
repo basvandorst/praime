@@ -1,0 +1,617 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 820. The&nbsp; Sunduram's sieve </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+span.apple-converted-space
+	{}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font><font color="#0000FF">Puzzles </font></b></font></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1" height="106">
+        <tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+        <tr>
+          <td height="88" valign="top">
+          <blockquote>
+            <p><b><span style="font-family: Verdana">Puzzle 821. Prime numbers 
+			and complementary sequences</span></b></p>
+			<blockquote style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+				<wbr>
+				<p><font face="Verdana" size="2">Let's starts with the sequence 
+				of prime numbers:</font></p>
+				<div align="center">
+					<table border="1" width="80%">
+						<tr>
+							<td align="center"><font face="Verdana">
+							<font size="1">i</font></td>
+							<td align="center"><font size="1">1</font></td>
+							<td align="center"><font size="1">2</font></td>
+							<td align="center"><font size="1">3</font></td>
+							<td align="center"><font size="1">4</font></td>
+							<td align="center"><font size="1">5</font></td>
+							<td align="center"><font size="1">6</font></td>
+							<td align="center"><font size="1">7</font></td>
+							<td align="center"><font size="1">...</font></font></td>
+						</tr>
+						<tr>
+							<td align="center"><font face="Verdana">
+							<font size="1">pi</font></td>
+							<td align="center"><font size="1">2</font></td>
+							<td align="center"><font size="1">3</font></td>
+							<td align="center"><font size="1">5</font></td>
+							<td align="center"><font size="1">7</font></td>
+							<td align="center"><font size="1">11</font></td>
+							<td align="center"><font size="1">13</font></td>
+							<td align="center"><font size="1">17</font></td>
+							<td align="center"><font size="1">...</font></font></td>
+						</tr>
+					</table>
+					<p align="left"><font face="Verdana" size="2">Now, lets 
+					define qi as the quantity of integers less than i in pi:</font></p>
+					<table border="1" width="80%">
+						<tr>
+							<td align="center"><font face="Verdana" size="1">i</font></td>
+							<td align="center"><font face="Verdana" size="1">1</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">4</font></td>
+							<td align="center"><font face="Verdana" size="1">5</font></td>
+							<td align="center"><font face="Verdana" size="1">6</font></td>
+							<td align="center"><font face="Verdana" size="1">7</font></td>
+							<td align="center"><font face="Verdana" size="1">...</font></td>
+						</tr>
+						<tr>
+							<td align="center"><font face="Verdana" size="1">pi</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">5</font></td>
+							<td align="center"><font face="Verdana" size="1">7</font></td>
+							<td align="center"><font face="Verdana" size="1">11</font></td>
+							<td align="center"><font face="Verdana" size="1">13</font></td>
+							<td align="center"><font face="Verdana" size="1">17</font></td>
+							<td align="center"><font face="Verdana" size="1">...</font></td>
+						</tr>
+						<tr>
+							<td align="center"><font face="Verdana" size="1">qi</font></td>
+							<td align="center"><font face="Verdana" size="1">0</font></td>
+							<td align="center"><font face="Verdana" size="1">0</font></td>
+							<td align="center"><font face="Verdana" size="1">1</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">...</font></td>
+						</tr>
+					</table>
+					<p align="left"><font face="Verdana" size="2">Now, let add i 
+					to pi and to qi, respectively:</font></p>
+      <font SIZE="2">
+      				<table border="1" width="80%">
+						<tr>
+							<td align="center"><font face="Verdana" size="1">i</font></td>
+							<td align="center"><font face="Verdana" size="1">1</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">4</font></td>
+							<td align="center"><font face="Verdana" size="1">5</font></td>
+							<td align="center"><font face="Verdana" size="1">6</font></td>
+							<td align="center"><font face="Verdana" size="1">7</font></td>
+							<td align="center"><font face="Verdana" size="1">...</font></td>
+						</tr>
+						<tr>
+							<td align="center"><font face="Verdana" size="1">pi</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">5</font></td>
+							<td align="center"><font face="Verdana" size="1">7</font></td>
+							<td align="center"><font face="Verdana" size="1">11</font></td>
+							<td align="center"><font face="Verdana" size="1">13</font></td>
+							<td align="center"><font face="Verdana" size="1">17</font></td>
+							<td align="center"><font face="Verdana" size="1">...</font></td>
+						</tr>
+						<tr>
+							<td align="center"><font face="Verdana" size="1">qi</font></td>
+							<td align="center"><font face="Verdana" size="1">0</font></td>
+							<td align="center"><font face="Verdana" size="1">0</font></td>
+							<td align="center"><font face="Verdana" size="1">1</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">2</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">3</font></td>
+							<td align="center"><font face="Verdana" size="1">...</font></td>
+						</tr>
+						<tr>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">pi+i</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">3</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">5</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">8</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">11</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">16</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">19</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">24</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">...</font></b></td>
+						</tr>
+						<tr>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">qi+i</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">1</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">2</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">4</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">6</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">7</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">9</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">10</font></b></td>
+							<td align="center"><b>
+							<font face="Verdana" size="1" color="#0000FF">...</font></b></td>
+						</tr>
+					</table>
+					<p align="left"><font color="#000080"><b>Q. Demonstrate that 
+					the sequences {pi+1} and {qi+i} are &quot;complementary&quot;, that is 
+					to say that </font><font color="#FF0000">all and every 
+					integer greater than zero is present in one and only one of 
+					these two sequences</font><font color="#000080">.</font></b></font></div>
+			</blockquote>
+			<wbr style="color: rgb(0, 0, 0); font-family: monospace; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: -16px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          <p></p>
+			<p>
+          </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+		<p>
+      Contributions came from John Arioni and Jan van Delden</p>
+		<p>
+      ***</p>
+		<p>
+      John wrote:</p>
+		<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+			<blockquote>
+				<p style="margin-bottom: 0cm;"><font face="Verdana" size="2">
+				&nbsp;Let A1, A2, A3, …......Ai ….. be any numeric sequence such 
+				that:</p>
+				<p style="margin-bottom: 0cm;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A1 &lt; A2 &lt; 
+				A3&lt; ….......&lt;Ai &lt; ...............<br>
+&nbsp;</p>
+				<p style="margin-bottom: 0cm;">The sequence of the prime numbers 
+				is one of these.</font></p>
+				<font face="Verdana" size="2">
+				<p style="margin-bottom: 0cm;">The following is a general scheme 
+				to understand what happens:</p>
+				<p style="margin-bottom: 0cm;">&nbsp; &nbsp;i ---&gt; &nbsp; &nbsp;1 &nbsp; &nbsp;2 &nbsp; &nbsp;3 …..... 
+				A1&nbsp;<span class="Apple-converted-space">&nbsp;</span><b>A1+1</b>&nbsp; A1+2 
+				......... A2 &nbsp;<span class="Apple-converted-space">&nbsp;</span><b>A2+1</b>&nbsp; 
+				A2+2 …......... A3 &nbsp;&nbsp;<b>&nbsp;&nbsp;A3+1</b><span class="Apple-converted-space">&nbsp;</span>….</p>
+				<p style="margin-bottom: 0cm;">&nbsp;Ai &nbsp;---&gt; A1 A2 A3 
+				….............................<wbr>.................. 
+				..............................<wbr>..............................<wbr>..</p>
+				<p style="margin-bottom: 0cm;">&nbsp;q i &nbsp;---&gt; 0 &nbsp; &nbsp;0 &nbsp; &nbsp;0 …...... 0 
+				&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>1</b>&nbsp; &nbsp; &nbsp; &nbsp; 1 .............. 1 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>2 &nbsp; &nbsp; &nbsp;&nbsp;</b>&nbsp; 
+				&nbsp; 2 …......... &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>3</b></p>
+				<p style="margin-bottom: 0cm;">qi+i ---&gt; 1 &nbsp; 2 &nbsp; &nbsp;3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				&nbsp;A1 &nbsp;A1+2 &nbsp; A1+3 ....... A2+1 &nbsp; A2+3 …...... &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A3+2 &nbsp; 
+				&nbsp;A3+4 not present in qi+1 ---&gt; &nbsp;A1+1 A2+2 &nbsp;A3+3</p>
+				<p style="margin-bottom: 0cm;">The sequence qi starts with a 0 
+				and continues with zeroes as long as i &lt;= A1, so that qi+i = 0+i 
+				produces the sequence 1, 2, 3..... A1.</p>
+				<p style="margin-bottom: 0cm;">When the index i passes the value 
+				A1 (from A1 to A1+1), qi has an increment of 1 and keeps the 
+				value 1 as long as i &lt;=A2 , so that qi+i = 1+i produces the 
+				sequence A1+2, A1+3, A1+4 …......A2 of consecutive integers.</p>
+				<p style="margin-bottom: 0cm;">So far qi+i has produced the 
+				sequence 1, 2, 3, …... A1, A1+2, A1+3, A1+4, …....A2, i.e. all 
+				the integers from 1 to A2, but the value A1+1.</p>
+				<p style="margin-bottom: 0cm;">Every time the index i passes one 
+				of the values present in the sequence Ai, qi has an increment of 
+				1 so that qi+i has an increment of 2 instead of an increment of 
+				1, then the value Ai+i is regularly bypassed, while all of the 
+				remaining integers are present in the sequence qi+i.</font></p>
+			</blockquote>
+		</div>
+		<p>
+      <font face="Verdana">***</p>
+		<p>
+      Jan wrote:</font></p>
+		<blockquote>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Let N = {i, i integer &gt;0}</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Let S be an ascending ordered 
+				(denumerable) subset of N (for instance the primes), with 
+				elements S(i).</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Define the function M() on N: 
+				N-&gt;{0,1}</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">M(i) = 1 if i-1 in S</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">M(i) = 0 if i-1 not in S</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">[Note since 0 is not in S we have 
+				M(1)=0]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Define the monotic non decreasing 
+				counting function&nbsp; C() on N:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C(i) = sum(M(j), j=1..i) [In the 
+				question this is qi(i)]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">[We have C(0)=0]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We have C(i)-C(i-1)=M(i), so a 
+				jump indicates that i-1 is a (the next) member in S.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">This function counts the total 
+				number of j&lt;i present in S, so we have:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C(S(i))=i-1 and C(S(i)+1)=i</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">[This is the essential part..]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Define:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">T = { S(i)+i | i in N}</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">U = { C(i)+i | i in N }</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">To proof:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For every k in N we either have k 
+				in T or k in U.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">A) 1 is in U. Because M(1)=0, 
+				C(1)=M(1)=0, C(1)+1=1.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">B) Proof that for all k in U we 
+				have that k+1 is either in T in U (but not in both)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If k is in U, there exist an 
+				unique i such that C(i)+i=k, since the inverse exists.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If C(i+1)=C(i), i.e. M(i+1)=0, we 
+				have C(i+1)+i+1=C(i)+i+1=k+1 is in U.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If C(i+1)=C(i)+1, i.e. M(i+1)=1, 
+				we have C(i+1)+i+1=C(i)+i+2=k+2 is in U.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Since M(i+1)=1 we know that i is 
+				in S, so we have i=S(j) for some j and</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">k+1=C(i)+i+1=C(S(j))+S(j)+1=j-<wbr>1+S(j)+1=j+S(j), 
+				therefore k+1 is in T.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C) Proof that for all k in T we 
+				have that k+1 is in U.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">If k is in T, we know that there 
+				is a j for which S(j)+j=k.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We know that if j increases S(j) 
+				increases as well, so S(j+1)+j+1&gt;=S(j)+1+j+1=k+2,</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">the sequence S(j)+j is an 
+				increasing sequence with jumps of size at least 2, so k+1 is not 
+				in T.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">We have i=S(j) for some i. 
+				Consider m=i+1. Then C(m)+m=C(i+1)+i+1=C(S(j)+1)+i+<wbr>1=j+S(j)+1=k+1.<br>
+				Therefore k+1 is in U.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">So by induction we know that all k 
+				in N are present and every value of k is present in either T or 
+				U. q.e.d.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">An example where S is finite:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">i&nbsp;&nbsp; 1 2 3 4 5&nbsp; 6</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">S&nbsp;&nbsp; 1 2 3 4</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">M&nbsp;&nbsp; 0 1 1 1 1&nbsp; 0&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C&nbsp;&nbsp; 0 1 2 3 4&nbsp; 4&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">S+i 2 4 6 8</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C+i 1 3 5 7 9 10</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Shows that we can also define the 
+				operations when sets are (finite or) empty,</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">if we impose the condition that 
+				addition is only applied when meaningfull.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">i&nbsp; 1&nbsp; 2 3&nbsp; 4 5&nbsp; 6</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">S&nbsp; 5&nbsp; 3 2&nbsp; 7 1&nbsp; 6</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">M&nbsp; 0&nbsp; 1 1&nbsp; 1 0&nbsp; 1</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C&nbsp; 0&nbsp; 1 2&nbsp; 3 3&nbsp; 4</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">S+i 6 5 5 11 6 12</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">C+i 1 3 5&nbsp; 7 8 10</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Shows that we do need and 
+				ascending ordered set.</font></div>
+		</blockquote>
+		<p>
+      ***</p>
+      </font>
+		<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); -webkit-text-size-adjust:auto">
+    </blockquote>
+	<o:p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+		
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="21">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td>
+      <font SIZE="2">
+            <p><a href="puzz_820.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></p>
+      </font></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_822.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      &nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

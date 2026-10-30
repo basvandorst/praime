@@ -1,0 +1,140 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_340.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 340. Resta's approach to Puzzle 337
+Source: https://www.primepuzzles.net/puzzles/puzz_340.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0340.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_337.htm
+  mailto:crivera@primepuzzles.net
+  https://www.primepuzzles.net/puzzles/puzz_339.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_341.htm
+  https://www.primepuzzles.net/puzzles/puzz_340.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 340. Resta's approach to Puzzle 337
+
+Problems & Puzzles: Puzzles
+
+Puzzle 340. Resta's approach to Puzzle 337
+
+Giovanni Resta has discovered an approach in order to get really large solutions to Puzzle 337, devoted to find primes p inside p^2.
+
+I have found it as interesting as to pose a new puzzle about the same issue.
+
+Just in order you calibrate the goodness of the Resta's approach I will tell you that Resta has found prime solutions as large as 1339 digits!..
+
+Here are the solutions that he has already gotten:
+
+D=14 p=50385563791193
+
+D=31 p=1239238634156610518519655166771
+
+D=32 p=36558979464205583642747845341043
+
+D=50 p=31765260352472360498918220762893129248965293653303
+
+D=76 p=79241666225702895015316307770939879469537483381507
+
+94294988228581530981540029
+
+D=80 p=46693111837955691724224403589002523102938436567844
+
+812151341229837053270392519829
+
+D=118 p=68442887702247601900968863730447448958697633137625
+
+76265451361010951515481678977087667219135268021736
+
+995059872210967743
+
+D=307 p=26669583720733387815278860507791203199363591542992
+
+02921730836766513528735860728510892831370603612202
+
+50599047101902238748058514684034224933106698660121
+
+11613770148925926769139428418903592434070279455692
+
+78441714659204818241836870452734140074113010135630
+
+09919971543121914476990346608785060032262499057588
+
+2131289
+
+D=1339 p=826208...<omitted>...71751
+
+because:
+
+50385563791193^2 = 2538705038556379119304363249
+
+and so on.
+
+Here is his approach:
+
+Let us suppose that x is a solution to our problem, that is, the digits of x are contained in x^2. In particular let us suppose that x^2 has the following special structure:
+
+KKK0..0XXX00..0
+
+i.e., a "prefix" which has value k (and digits KKK..K), then some zeroes, then the digits of x (XXX..XX) then some zeroes.
+
+(For example, if x=456 and k=38, we can have a structure like x^2 = 45600038000. Of course this is impossible, but just to give the idea).
+
+If this was the case, then x and k must satisfy this equation:
+
+x^2 = k*10^p + x*10^q, where the powers of ten (10^p and 10^q) are are clearly dependent on the numbers of digits of x^2 and the number of trailing zeroes.
+
+Now we are ready to search for x.
+
+If we fix a prefix k and two powers of ten 10^p and 10^q we can try to see if there is an x which satisfy the equation above, at least approximations to x. Indeed, if the approximation is good enough, then x^2 will contain some dirt in the last digits, but not too much and maybe the x in the middle will be preserved.
+
+For example, let us suppose that we fix k=4482, and p=20 and q=6. We obtain x=669477908132.82... Let us try with x = 669477908132. We have x^2 = 448200669476798631729424
+
+We can see that the prefix it is right there. Then there are some zeroes and then x starts well: 66947... but then there is a 6 instead of a 7 etc. The number x is clearly too small. So we try with x+1 = 669477908133 and (x+1)^2=448200669478137587545689.In this case the number it is too large, and the game is over.
+
+We try with another set of exponents. p=12 and q=6. and obtain x=66952740. In this case x^2=4482669393507600, it's too small.
+
+But then x+1=66952741 and (x+1)^2=4482669527413081 is ok (as we already know, since this was one of Rivera's solutions).
+
+I have searched in this way for several values of the prefix and some choices of the exponents p and q.
+
+In particular, choosing the values of q near to p/2, we obtain tentative values of x^2 in which there are few (if any) zeroes between the prefix k and the occurrence of x in x^2.
+
+I've not tested all the possible exponents, but I noticed (in particular searching for the most common odd, instead of prime,
+
+solutions) that most of them were indeed found when q was 1 or 2 apart from p/2. The intuitive reason is that in this way we maximize the number of digits "after" x in x^2, so we minimize the probability that the perturbation in x^2 induced by the approximation of x, will not affect the digits of x inside x^2.
+
+Question:
+
+1. Find larger & larger primes of this type using the Resta's approach (or a reformulated one)
+
+2. Do you devise a clever approach as this one, in order to find p primes reversed in p^2?
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

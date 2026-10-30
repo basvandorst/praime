@@ -1,0 +1,128 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_970.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 970. A309566
+Source: https://www.primepuzzles.net/puzzles/puzz_970.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0970.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A309566
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_969.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_971.htm
+  https://www.primepuzzles.net/puzzles/puzz_970.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 970. A309566
+
+Problems & Puzzles: Puzzles
+
+Puzzle 970. A309566
+
+Daniel Suteu sent the following nice puzzle.
+
+Q. For A309566, find a(5) or, at least, an upper-bound for a(5).
+
+a(n) is the least prime that can be written as a sequence of primes separated by n single zeros, and where every 0-splitting is prime.
+
+The only four terms currently known, are: 307, 130307, 309370307, 30281172370306703.
+
+For example, 130307 is a term because 3, 7, 13, 307, 1303, 130307 are all prime.
+
+The n-th term contains binomial(n+2,n) zero-splitting primes (including itself), not necessarily distinct.
+
+The 10 zero-splitting primes in 309370307 are: 3, 3, 7, 307, 937, 30937, 93703, 3093703, 9370307, 309370307.
+
+The 15 zero-splitting primes in 30281172370306703 are: 3, 3, 3, 67, 3067, 6703, 306703, 28117237, 2811723703, 3028117237, 302811723703, 2811723703067, 281172370306703, 302811723703067, 30281172370306703.
+
+Contributions came from Oscar Volpatti, Emmanuel Vantieghem
+
+***
+
+Oscar wrote on Set 14, 2019:
+
+Sequence A309566 can't be extended beyond a(4).
+We are asked to find some number B = [b(0),0,b(1),0,...,0,b(n)] such that:
+
+1) each block b(k) is a prime with a zero-less base-10 representation;
+
+2) each 0-splitting involving two or more blocks (including B itself) is a prime too.
+
+No such number exists for n>=5, so sequence A309566 can't be extended beyond a(4).
+
+More precisely, property 2 fails for n>4 because some 0-splitting admits 3 as a proper divisor.
+
+Compute the n+1 residues c(i) = b(i) % 3.
+
+Let x be the number of occurrences of the residue 0, y be the number of occurrences of non-zero residues, with x+y = n+1.
+
+Suppose that equality c(i) = c(i+1) = 0 holds for some index i; then 3 divides the 0-splitting [b(i),0,b(i+1)].
+
+Therefore, any two occurrences of the residue 0 must be separated by some non-zero residue, and inequality x<=y+1 must hold.
+
+As x+y = n+1, we can rewrite it in terms of n and y as (n+1-y)<=y+1, or simply n<=2y.
+
+Suppose that inequality y>=3 holds, and let i,j,k be the indexes of the first such non-zero residues, with c(j) = r.
+
+if c(i) = 3-r, then 3 divides the 0-splitting [b(i),...,b(j)];
+
+if c(k) = 3-r, then 3 divides the 0-splitting [b(j),...,b(k)];
+
+if c(i) = c(k) = r, then 3 divides the 0-splitting [b(i),...,b(j),...,b(k)].
+
+Therefore, inequality y <=2 must hold, and n <= 2*y <= 2*2 = 4.
+
+***
+
+Emmanuel wrote on Set 15, 2019:
+
+There is no a(5).
+
+It is even impossible to find numbers m(1), m(2), m(3), m(4), m(5), m(6) that satisfies the following fifteen conditions :
+
+m(i)&0&m(i+1) != 0 (mod 3) for i = 1, 2, 3, 4, 5
+
+m(i)&0&m(i+1)&0&m(i+2) != 0 (mod 3) for i = 1, 2, 3, 4
+
+m(i)&0&m(i+1)&0&m(i+2)&0&m(i+3) != 0 (mod 3) for i = 1, 2, 3
+
+m(i)&0&m(i+1)&0&m(i+2)&0&m(i+3)&0&m(i+4) != 0 (mod 3) for i = 1, 2
+
+m(1)&0&m(2)&0&m(3)&0&m(4)&0&m(5)&0&m(6) != 0 (mod 3)
+
+(here, a&b stands for the concatenation of a and b).
+
+The simplest way to prove this is to consider every of the 15 conditions modulo 3, using the fact that a&b == a + b (mod 3).
+
+Of course, this may be a bit tedious job to do 'by hand' : m(i) mod 3 has only three possible values whence there are 729 possible configurations to check.
+
+I myself preferred to use a simple computer program.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

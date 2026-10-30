@@ -1,0 +1,199 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1040.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1040. Pair of consecutive even integers such that...
+Source: https://www.primepuzzles.net/puzzles/puzz_1040.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1040.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1039.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1041.htm
+  https://www.primepuzzles.net/puzzles/puzz_1040.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1040. Pair of consecutive even integers such that...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1040. Pair of consecutive even integers such that...
+
+Mahdi Meisami sent the following nice puzzle
+Due to Goldbach conjecture, It is conjectured that every even N number has some Goldbach representations, for example consider these two consecutive even numbers:
+
+30=7+23=11+19=13+17
+
+{{7, 23}, {11, 19}, {13, 17}}
+
+32=3+29=13+19
+
+{{3, 29}, {13, 19}}
+
+The numbers 13 and 19 are repeated in these representations.
+A question came to my mind:
+
+are there consecutive even numbers, N & N+2, without any intersection in their prime representations?.
+
+I examined my conjecture and the following list is its result up to 600:
+
+N={38, 68, 80, 98, 122, 128, 146, 158, 164, 188, 206, 212, 218, 224, 248, 278, 290, 302, 308, 326, 332, 338, 344, 368, 374, 380, 398, 410, 416, 428, 440, 458, 476, 488, 500, 518, 530, 536, 542, 548, 554, 578, 584}
+
+Q1. Does these sequence go to infinity?
+
+Q2. Is there any rule for this sequence? (What about an asymptotic formula?)
+
+During the week May 23-28, 2021, contributions came from: Fred Schneider, Giorgos Kalogeropoulos, Jan van Delden,
+
+***
+
+Fred wrote:
+
+Let's look at the possible cases mod 30 for a prime + the first of two twin primes.
+There are 8 cases for primes and 3 cases for the first of two twin primes
+
+Modulus 30
+
+First of twin primes
+
+Primes / First of twin primes | 11 | 17 | 29
+
+1 | 12 | 18 | 0
+
+7 | 18 | 24 | 6
+
+11 | 22 | 28 | 10
+
+13 | 24 | 0 | 12
+
+17 | 28 | 4 | 16
+
+19 | 0 | 6 | 18
+
+23 | 4 | 10 | 22
+
+29 | 10 | 16 | 28
+
+Looking at the combinations and not considering small primes at this step, we find no general modular candidates for overlapping representation for n mod 30 = 2, 8, 14, 20 or 26.
+
+Consider now small primes 3 and 5.
+
+For n mod 30 = 2, you could have 3 + t and 3 + (t + 2) where (t, t+2) are twin primes where t = 29 mod 30 (like you have with n = 32)
+
+For n mod 30 = 14, you could have 3 + t and 3 + (t + 2) where (t, t+2) are twin primes where t = 11 mod 30
+
+For n mod 30 = 20,, you could have 3 + t and 3 + (t + 2) where (t, t+2) are twin primes where is t = 17 mod 30
+
+For n mod 30 = 26, you could have p + 3 and p + 5 where prime p has mod 30 = 23
+
+That leaves us with n mod 30 = 8. . There are no solutions with small prime analysis (except for the trivial first case n = 8 = 3 + 5, n + 2 = 3 + 7)
+
+So, n = 30x + 8 (where x > 0) and n + 2 never have an overlap in prime representation and thus, there are an infinite number of solutions to the general problem.
+
+***
+
+Giorgos wrote:
+
+Q2. The answer is yes. There is a rule for this sequence:
+
+The numbers N in the sequence are the numbers whose Goldbach representation does not contain any prime that is the lesser of a twin prime (A001359).
+
+In order to have at least one intersection, one of the primes p_k of the Goldbach representation of N {{p_1, p_2}, {p_3, p_4}, ... {p_k-1, p_k}} must be a lesser of a twin prime.
+
+For example if p_3 is a lesser of a twin prime then {p_3 + 2, p_4} will belong to the Goldbach representation of N+2 and p_4 will be the intersection of N and N+2.
+
+I verified that all of the first 127401 terms of the sequence for N<=10^6 are congruent to 2 mod 6. This is pretty much expected as the Goldbach representation must contain primes of the form
+
+{prime1, prime2} = {1 mod 6, 1 mod 6} (all the lessers than a twin prime except 3 are congruent to 5 mod 6, so none of them appears in 2 mod 6 representations).
+
+I cannot prove that there doesn't exist a N congruent to 0 or 4 mod 6 that belongs in the sequence.
+
+For example if such a N congruent to 4 mod 6 existed then none of the pairs {prime1, prime2} = {5 mod 6, 5 mod 6} should contain a lesser than a twin prime which is highly improbable as N gets bigger.
+
+If all the numbers in the sequence are congruent to 2 mod 4 then we should exclude those N for which N-3 is prime.
+
+If N-3 is equal to a prime p, then N=p+3 and N+2=p+5 which means that p is the intersection of N and N+2.
+
+To sum up the rule that I found for this sequence is:
+
+All N congruent to 2 mod 6 with N-3 not a prime, belong in this sequence.
+
+Q1. According to the above answer as N gets bigger and the prime density gets smaller, the probability of N belonging to the sequence gets bigger.
+
+There exist an infinite number of Ns congruent to 2 mod 6 for which N-3 is not prime. This means that there are infinitely many composite numbers in the sequence {5,11,17,23,29,35,41,47,53,59,65...}
+
+So, this sequence goes to infinity.
+
+Here are my results for the number of terms <N
+
+Also, I found that a good approximation of the number of terms <N is N/5 - π(Ν) (where π(x) is the prime counting function) but I don't have a proof.
+
+N #N N/5 - π(n)
+
+10^2 4 -5
+
+10^3 80 32
+
+10^4 1050 771
+
+10^5 11860 10408
+
+10^6 127401 121502
+
+10^7 1334283 1335421
+
+10^8 13785730 14238545
+
+10^9 141241847 149152466
+
+***
+
+Jan wrote:
+
+A small contribution.
+
+Q2.
+
+Two even numbers N, N+2, have a common odd prime p in their prime representations if and only if p is the lesser half of a Twin prime.
+
+The numbers N=p+q must therefore have no representation such that either p or q is the lesser half of a Twin prime. It is not necessary to test all representations of N to decide whether or not N qualifies, which does help. In particular if N=p+(p+2), the sum of the two halves of a Twin prime, doesn’t qualify.
+
+Finding heuristics for the distribution of the number of non Twin prime splits of N is quite tricky. Although the number of Non Twin primes themselves increase with N, so do the number of representations into two odd primes (which will increase the probability of finding a split where one half is the lesser half of a Twin prime). Or one could try another approach and only focus on a split consisting of a Twin prime p and try to correct for the probability that N-p is prime as well. I thought about it (shortly) and decided to settle for a small experiment.
+
+A graph:
+
+For N<=10^6 (horizontal axis) I counted the number of N that qualify. I called this amount the number of nontwin prime splits.
+
+If N increases we are to expect less and less of these nontwin prime splits per N, i.e. the average probability of finding such a number decreases. Slowly.
+
+A simple fit (on this data) suggests it might have the form: Fraction of Nontwin prime splits/ N = a + b/ln(N)+c/ln^2(N). I found a=6.73, b=-5.40, c=289
+
+I tried this simple model because the density of Twin primes behaves like d/ln^(N) and of primes like 1/ln(N). The fit: R^2=0.994. I didn’t perform a sensitivity analysis, but the given values of the parameters are sensitive to the displayed values for small N.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

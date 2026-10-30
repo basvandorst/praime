@@ -1,0 +1,227 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_167.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 167.  Primes m + 2 j & m - 2 j
+Source: https://www.primepuzzles.net/puzzles/puzz_167.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0167.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://home.t-online.de/home/frank.ellermann/index.htm
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=066081
+  http://www.glasgowg43.freeserve.co.uk/nashdef.htm
+  https://www.primepuzzles.net/puzzles/puzz_166.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_168.htm
+  https://www.primepuzzles.net/puzzles/puzz_167.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 167. Primes m + 2 j & m - 2 j
+
+Problems & Puzzles: Puzzles
+
+Puzzle 167. Primes m + 2 ^j & m - 2 ^j
+
+Frank Ellerman, from Hamburg, Germany, asked for the sequence of m values such that m + 2 ^j & m - 2 ^j are both primes for 1<= j < = n, for n = 1, 2, 3, ....
+
+As a matter of fact he found the first 4 m values (for n = 1, 2, 3 & 4, respectively) and Don Reble found two more (for n = 5 &6)
+
+n
+
+m
+Author
+
+1
+
+5
+F. Ellerman
+
+2
+
+9
+" "
+
+3
+
+15
+" "
+
+4
+
+50943795
+" "
+
+5
+
+40874929095
+Don Reble
+
+6
+
+616517522595975
+" "
+
+7 | 93487500801880185 | Discovered by Jim Fougeron (7/2/02), confirmed as minimal by Phil Carmody (12/2/2002)
+
+8 | 64606701602327559675 | Phil Carmody (14/2/2002)
+
+See the sequence A066081.
+
+Example: for n = 3, m = 15 is the least number such that m - 2, m - 4, m - 8, m +2, m + 4 & m + 8 are all prime numbers.
+
+Questions:
+
+1) Is this sequence finite or infinite?
+
+2)Can you find the next entry of the Table?
+
+_____________
+
+I can not resist introduce the following funny question: What kind of odd m numbers are such that m+2^n are composite for all n=>1?
+
+Solution:
+
+Felice Russo wrote (28/1/02)
+
+Let’s suppose that n=3. In this case we have 2*n pairs with gap: 4, 8 and 16. So in general we have 2*n pairs with gaps 4, 8, 16…..2*2^n.
+
+According to the Wolf's conjecture [1], the probability to find a m value such that m+2^j and m-2^j for j=1…n are all primes is given by:
+
+where A is constant.
+
+So only for N that tend to infinite that probability goes to zero. This should prove that the sequence A066081 is infinite.
+
+______________
+
+[1] M. Wolf, Some conjectures on the gaps between consecutive primes , preprint at www.ift.uni.wroc.pl./~mwolf/.
+
+***
+
+Jim Fougeron found (7/2/2002) one solution and candidate for the next entry in the table (n=7):
+
+"for n=7 one m is m=93487500801880185. I used some CRT methods to find this, so it is highly probable that there are smaller solutions to this puzzle".
+
+This is the method used by him:
+
+"it is basically a modular sieve. The modular sieve which I was working with was mod 23# (223092870). This method works by finding your sets of your "pattern" numbers (the pattern was +-2 +-4 +-8 ...). These finds do not have to be prime, they simply have to have no factors smaller than your primorial number. I found 1280 candidates from 3108105 to 1999622625 which had no factor smaller than 41 for the "set" of numbers we are interested in. A property of a primorial, is that if n#+b is divisible by a number less than n, then all multiples of k*n#+b will also be divisible by that number. So (101#+500)%5==0 and (2*101#+500)%5==0 and (k*101#+500)%5==0. If there is no prime smaller than n which divides the n#+b, then there never will be, and these numbers "can" be prime. A prime example of this is k*n#+1 and k*n#-1. These will never have factors smaller than n. By finding "sets" of numbers which have no factors where are smaller than our primorials n value, we have found "perfect" modular ranges for our sieve. Since 3108105 is one of these perfect numbers, we can quickly create a sieve which simultaneously sieves k*23#+(3108105+-b) where b is 2, 4, 8, 16, 32, 64 and 128. There already is a sieve which does this, but for this search, I modified the code, and sped it up a HUGE amount. I trial factored k's in the range of 1 to 500000000 for each of the perfect numbers. These were only trial factored to prime < 20000. Each range took about 5.5 minutes to factor on a Athlon 750. There was only an average of 83 elements per range of 500000000 which survided this trial factoring. I prp checked each of the 14 possibles for each of the remaining candidates. All I was looking for was that magic pair of k's and b's which all 14 were prp. After 595 ranges, I found one. I do have all of the data of "prp's found per candidate".
+
+Total counts (0's is not right, but should be around 4 to 10)
+
+0 0's
+
+89 1's
+
+488 2's
+
+1702 3's
+
+3942 4's
+
+7198 5's
+
+8634 6's
+
+8678 7's
+
+6693 8's
+
+3886 9's
+
+1636 10's
+
+504 11's
+
+112 12's
+
+8 13's
+
+1 14's
+
+Note the VERY symmetrical pattern of primes found per k*23#+b set. I have graphed these data points into Excel, and they make a VERY close approximation to a bell curve. Sieved to 20000, number of this size give you a prime about every 2.15 candidate numbers (actual observed count looking at finished data). I had expected to have to run (2.15)^14 candidates to find a match. That works out to about 42,000. This find was made after only a little more than 25,000 candidate set's were checked.
+
+This modular method is a VERY good way to find k-tuples when k gets to be rather large, if no candidates are found which are "trivial" small (100000000000 is trivial small in my mind)"
+
+***
+
+J.C. Rosa wrote (8/2/02):
+
+About puzzle 167 we can notice that for n=7 , we have necessarily :
+
+m=5 mod 10
+
+m=3 mod 6
+
+m=0 mod 7
+
+m=0 mod 11
+
+m=0 mod 13
+
+thus m is of the following form: m=30030*k+15015
+
+***
+
+Regarding the funny question, I have rescued from my files an old email from Chris Nash (21/08/00) from the times I asked him for the issue "Sierpinski-like" numbers x in 2^n +x.
+
+"...If k is a *provable* Sierpinski number - in other words, for every n, we always know at least one factor of k.2^n+1 - then k can be transformed into a "Sierpinski-like" form 2^n+x for some value of x, and the factors of k.2^n+1 appear in the same places in 2^n+x.
+
+Sierpinski numbers occur in families. For each family of Sierpinski numbers there is a corresponding "2^n+x" family. But "small k" and "small x" do not go together.
+
+(Perhaps most interesting). k=78557 is the smallest *provable* Sierpinski number. There are many smaller possible ones. So it is likely that there is a small Sierpinski-like number 2^n+x. But there may be unprovable smaller ones!
+
+It would be interesting to see if anyone discovers something - since work on 2^n+x may help in work on k.2^n+1. Strangely too, the Mersenne numbers are also included in this little mix!..."
+
+See http://www.glasgowg43.freeserve.co.uk/nashdef.htm
+
+***
+
+Pavlos Ask, also knows that there are a relationship between the funny question and the Sierpinski numbers. He wrote (31/1/02):
+
+"
+
+...Regarding your question what kind of numbers m with m odd such that m+2^n is composite for every n greater than 1: The construction of such an m can be made just like the Sierpinski numbers k*2^n+1. I found an arithmetic progression that produces m's such that m+2^n is always composite... m+2^n is composite for every n>1 if m is equal to 3555593mod11184810.If you take the integers mod24 then there will always be primes (in the set{2,3,5,7,13,17,241}) that divide m+2^n... (but) I didn't say that ANY Sierpinski number has this property. I said that the method we use to find the m's such that m+2^n is composite, is the same method we use to find Sierpinski numbers"
+***
+
+Phil Carmody wrote( 12/2/02):
+
+"Minimal 7: 93487500801880185
+
+It took 10 minutes on a Duron 900 using my 'gensv' program to find, and 10 more minutes to prove minimality (i.e. complete the block).
+
+8 is _hard_ in comparison, I'm not expecting any results, but I shall run gensv for a day looking for an 8."
+
+Gensv is the code I used to find the Euler Trinomial results in the Ludovicus conjecture on primepuzzles. It's also the code I used to find the minimal (and only known) Length-17 Arithmetic Progression starting at the number 17, and also my record Cunningham Chains (of which only length 15 has been announced ;-) ). Paul Jobling has also used it for several tasks (results not yet announced). It's a 'generic sieve', it uses a bit of CRT, and then several different bit-blasting techniques to sieve a contiguous block of numbers for patterns in residues. In order to run it, you simply need to generate a file containing the included or excluded residues for each prime. No particular problem is hard-coded into it, which is why it's so 'generic'."
+
+***
+
+Phil Carmody found (14/2/2002) the minimal solution for n=8, a superb work: 64606701602327559675 (20 digits) "...It took about 24 hours using GenSv on an Alpha 21164/533MHz..."
+
+On my request Carmody also confirmed the minimality of the Reble's solution for n=6.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

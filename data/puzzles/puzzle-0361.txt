@@ -1,0 +1,183 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_361.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 361. Multiply, or delete zeros
+Source: https://www.primepuzzles.net/puzzles/puzz_361.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0361.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.mathematik.uni-bielefeld.de/~sillke/PUZZLES/one-digit
+  https://www.primepuzzles.net/puzzles/puzz_360.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_362.htm
+  https://www.primepuzzles.net/puzzles/puzz_361.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 361. Multiply, or delete zeros
+
+Problems & Puzzles: Puzzles
+
+Puzzle 361. Multiply, or delete zeros
+
+To T.S..
+
+Starting with a prime p>7 you can do one of the following operations:
+
+1) Multiply p by an integer F, or
+
+2) Delete zeros
+
+Repeat the procedure to the resulting number until you get a number composed by one single digit. Compute Z as the product of all the F values used.
+
+Example: p=53 (we will omit the deletion step)
+
+53*3773585=200000005
+
+25*2=50
+
+5
+
+Z=3773585*2 (Note: the Z value of this example is not the minimal for p=53)
+
+Questions:
+
+1. Find the minimal Z for each prime p, 11<=p<=97, if the one single final digit must be "1".
+
+2. Explain a general strategy for this task.
+
+Contributions came from Edwin Clark, Fred Schneider & Giovanni Resta. Edwin & Fred reported the same Z values for every p, because they used basically the same approach. While Fred was convinced -incorrectly - that his approach was producing the minimal Z asked values, Edwin wrote "I'm not confident that this gives the smallest possible values of z for each prime p. Maybe someone can do better". Their common 'mistake' was the assumption that two multipliers were enough to produce the minimal Z value, while Resta made not that assumption.
+
+So, apparently only Resta discovered an approach in order to get the minimal asked Z values. Accordingly, I will only exhibit the Resta's solutions and approach.
+
+Please see my note after the Resta's section.
+
+***
+
+Resta wrote:
+
+p: z: F1, F2, ...
+
+11 : 69080 : 55 157 2 2 2
+
+13 : 6280 : 157 5 2 2 2
+
+17 : 5840 : 365 2 2 2 2
+
+19 : 28000 : 56 5 5 5 2 2
+
+23 : 35480 : 887 5 2 2 2
+
+29 : 248360 : 7 887 5 2 2 2
+
+31 : 178360 : 35 13 49 2 2 2
+
+37 : 25480 : 65 49 2 2 2
+
+41 : 20 : 5 2 2
+
+43 : 137200 : 25 2 343 2 2 2
+
+47 : 101660 : 23 221 5 2 2
+
+53 : 1250 : 2 5 5 5 5
+
+59 : 87500 : 35 2 2 5 5 5 5
+
+61 : 13720 : 5 343 2 2 2
+
+67 : 121840 : 1523 5 2 2 2 2
+
+71 : 112220 : 31 181 5 2 2
+
+73 : 1360 : 85 2 2 2 2
+
+79 : 12640 : 395 2 2 2 2 2
+
+83 : 11480 : 41 7 5 2 2 2
+
+89 : 58760 : 113 13 5 2 2 2
+
+97 : 83200 : 32 5 13 5 2 2 2
+
+I had not a lot of time to think to a clever strategy, so I wrote a very short
+
+C program to search recursively for minimal solutions up to a certain Z
+
+(then I started with a low limit for Z and increased when necessary). The method is very naive:
+
+First of all I fix a limit, say Lim, to the number Z (the product
+
+of multipliers). Subsequently, if the search failed, I do it again
+
+with an increased Lim. (In the program, which I'll give below, the limit
+
+is initially set to 20000, then doubled up to 10^6, then multiplied each time
+
+by 1.5. This because the time consumed increases very fast as Lim increases).
+
+I defined a function noz(x) which gives the x without zeroes,
+
+so noz(100206)=126 and noz(444)=444.
+
+I maintain a variable, say bestZ, which gives the minimum Z found so far.
+
+Initially I set bestZ equal to Lim+1. And also a variable curZ which
+
+is the product of the multipliers used so far in the current tentative solution.
+
+Then I repeat recursively a search, with a starting point val, which
+
+in the first call will be the target value given to the program.
+
+If noz(val) is 1 then I've already finished and if the product of the current multipliers (curZ) is smaller than the best Z (that is bestZ) I update bestZ and print the solution. Of course I've not finished, since there can be a solution with a smaller Z, but I set a flag (ok) to signal that at least a solution has been found, so when the current search up to Lim is finished, the global search is also finished.
+
+If noz(val) is not 1, I want to search for a multiplier that allows me to
+
+make a step further. Since I do not want the product of multipliers exceed bestZ, I will consider only multipliers m such that m*curZ <= bestZ.
+
+So, for each n that satisfies m*curZ<=bestZ I compute noz(m*val). If
+
+noz(m*val)=m*val, so m*val does not contain zeroes, then this step
+
+is useless (it can be "absorbed" by a similar step with a larger m) so I do not
+
+perform it. If noz(m*val) differs from m*val then I set curZ equal to curZ*m and I call recursively the procedure on the new value noz(m*val).
+
+That's all. During the recursive procedure, as I update curZ, I also record in an array M the actual tentative multipliers, so that I can print the multipliers and not only their product when I reach a solution (i.e. a chain that ends in 1).
+
+***
+
+Resta studied other aspects and variation of this puzzle, but I will keep them just for me, perhaps for further puzzles ;-)
+
+***
+
+Only now I can reveal that this puzzle was based on an very nice puzzle described and developed by Torsten Sillke. Perhaps Resta, Edwin & Fred could find interesting review their respective approaches from this interesting page, who knows?
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

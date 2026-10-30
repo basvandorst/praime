@@ -1,0 +1,113 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_153.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 153.  Espinosa's puzzle
+Source: https://www.primepuzzles.net/puzzles/puzz_153.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0153.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.math.cl/induction.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_152.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_154.htm
+  https://www.primepuzzles.net/puzzles/puzz_153.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 153. Espinosa's puzzle
+
+Problems & Puzzles: Puzzles
+
+Puzzle 153. Espinosa's puzzle
+
+José Espinosa, from Santiago de Chile, posed the following problem
+
+Let p be a prime number greater than 3 and q a prime number.
+
+Let g(n)=2^(2+n(p-1))+3^(3+n(p-1))+5^(5+n(p-1))+7^(7+n(p-1))+...+ q^(q+n(p-1))
+
+Let f(n)=48g(n)-(n-5)(n-7)g(13)+4(n-5)(n-13)g(7)-3(n-7)(n-13)g(5)
+
+Prove that for every integer non-negative n: f(n) is divisible by p^3.
+
+He also sent to me a hint that I will provide to those of you who need it.
+
+But maybe can help enough to know that Mr. Espinosa currently maintains a math site devoted to the mathematical induction.
+
+Jan van Delden wrote:
+
+Focus on the effect f has on one term of g:
+
+Consider one term t(n,r)=r^(r+n*(p-1))
+
+And h(n,r):=48*t(n,r)-(n-5)(n-7)t(13,r)+4(n-5)(n-13)t(7,r)-3(n-7)(n-13)t(5,r)
+
+We then have g(n)= t(n,2)+t(n,3)+t(n,5)..+t(n,q), and f(n)=h(n,2)+h(n,3)+h(n,5)+..h(n,q).
+
+If we can prove that for every prime r: h(n,r)=0 mod p^3 we're done.
+
+As suggested we use induction on n.
+
+n=0:
+
+h(0,r)=r^r [48-(n-5)(n-7) r^(13(p-1))+4(n-5)(n-13)r^(7(p-1))-3(n-7)(n-13)r^(5(p-1))]
+
+r^(p-1)=1 mod p if (r,p)=1 i.e. we can write r^(p-1)=Ap+1, for some A integer if (r,p)=1.
+
+h(0,r)=r^r [48-(n-5)(n-7)(Ap+1)^13+4(n-5)(n-13)(Ap+1)^7-3(n-7)(n-13)(Ap+1)^5]
+
+It is now straightforward to show (use binomal of Newton, a bit awkward) that the terms between the brackets corresponding to p^0,p^1 and p^2 are 0, so
+
+h(0,r)=0 mod p^3.
+
+If (r,p)>1 and because r,p are prime we have r=p. We then have:
+
+h(0,r) = h(0,p)= p^p [48 + extra terms each at least=0 mod p^(5(p-1)].
+
+So h(0,r)=0 mod p^3, if p>=3.
+
+[Actually 48=2^4*3. With p=3: p^(5(p-1))=0 mod p^10 and with p=2: p^(5(p-1))=0 mod p^5, so h(0,3)=0 mod 3^4 and h(0,2)=0 mod 2^6]
+
+n+1: Induction step
+
+h(n+1,r)-h(n,r) = 48 [t(n+1,r)-t(n,r)]+(11-2n)t(13,r)+4(2n-17)t(7,r)+3(19-2n)t(5,r)
+
+= r^r {48 r^(n*(p-1)) [r^(p-1)-1] + (11-2n) r^(13(p-1))+4(2n-17)r^(7(p-1))+3(19-2n)r^(5(p-1))}
+
+If (r,p)=1, we proceed as before and find that h(n+1,r)-h(n,r)=0 mod p^3.
+
+If (r,p)=p we see that the term p (or r if you will) is even more abundant as a factor compared with the h(0,r) case! [Also for p=2 or p=3]
+
+Assuming h(n,r)=0 mod p^3, using the above we have h(n+1,r)=0 mod p^3.
+
+Hence
+
+h(n,r)=0 mod p^3 with p>=2.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

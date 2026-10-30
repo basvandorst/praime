@@ -1,0 +1,137 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_095.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 95. K consecutive primes p whose decimal expansion has a (p-1)
+period
+Source: https://www.primepuzzles.net/puzzles/puzz_095.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0095.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_094.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_096.htm
+  https://www.primepuzzles.net/puzzles/puzz_095.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 95. K consecutive primes p whose decimal expansion has a (p-1) period
+
+Problems & Puzzles: Puzzles
+
+Puzzle 95. K consecutive primes p such that the decimal expansion of the reciprocal 1/p, for each p, has exactly a period of length (p-1) (by Luis Rodriguez)
+
+As you know the decimal expansion of 1/p for p=7 has a period = 6 equal to (p-1)
+
+1/7 = .142857...
+
+While for p= 11, 1/p has a period = 2 not equal to (p-1)
+
+1/11 = .09..
+
+It can be shown that the period x of the decimal expansion of the reciprocal (1/p) of any prime p, is the least x value (1<=x<=p-1) that satisfies 10^x = 1 (mod p).
+
+In this particular puzzle Luis Rodríguez asks only for sets of consecutive primes p such that x=p-1 is the least value that satisfies 10^x = 1 (mod p), for each p.
+
+Luis Rodríguez has gotten a sequence of K=9 consecutive of these primes:
+
+K= 9: 681899, 681913, 681931, 681943, 681949, 681971, 681977, 681979, 681983
+
+I have confirmed his sequence and produced the earliest shorter ones:
+
+K = 1: 7
+
+K = 4: 17 19 23 29
+
+K = 5: 487 491 499 503 509
+
+K = 6: 5737 5741 5743 5749 5779 5783
+
+K = 7: 23459 23473 23497 23509 23531 23537 23539
+Question:
+Can you get a sequence of more than 9 of this type of primes?
+
+Solution
+
+Chris Nash found (12/06/2000, 10:35 AM) 3 new sets of consecutive primes as requested, one below 9 and two above 9
+
+K=8: 364379, etc.
+
+K
+=10: 4275343, etc.
+
+K=12: 12284017, etc
+Around two hours later (12:59 pm) Jud McCranie sent the same solutions for K=10 and K=12 sent previously by Nash and four more:
+
+K=13: 61598897,...,61599217
+
+K=14:62232899,...,62233103
+
+K=15:95386019,...,95386381
+
+K=16:824443051...,824443379
+
+The method employed for both share one common part:
+
+"...for prime p, we're looking to see if p-1 is the smallest power of 10 that is congruent to 1 mod p. This is equivalent to seeing if 10 is a primitive root of p. We know 10^(p-1) mod p == 1 by Fermat's theorem. To see if p-1 is the smallest power of 10 congruent to 1 mod p, get the prime factors of p-1. For each distinct prime factor q of p-1, calculate 10^((p-1)/q) mod p. If any of these are congruent to 1 mod p then 10 is not a primitive root of p, and p has a period shorter than p-1" (Jud)
+
+But Chris sieve the primes of these sets, the following way:
+
+"...For the first step, it is necessary to prove only that 10 is not a perfect square modulo p. (For if 10 is a square, then 10^((p-1)/2)=1). This is indeed a very simple calculation, and requires that each prime p must be one of only 8 possible values modulo 40" (C. Nash)
+
+***
+
+"I went to 2,000,000,000 and didn't find any larger ones..." (Jud, 12/6/2000, 16:23 PM)
+
+***
+
+I (CR) have found (19/06/2000) one more set, not very far from where Jud stopped: starting prime p=2,245,849,783 for K=17.
+
+***
+
+As usual J. K. Andersen has gotten (July 2005) interesting new and large records for this puzzle:
+
+K=18: 13,147,541,941 ...
+
+K=19: 23,053,991,353 ...
+
+K=23: 239,651,440,411 ...
+
+The 23 primes are 239,651,440,000 + 411, 447, 451, 487, 531, 543, 577, 579, 607, 657, 697, 703, 709, 727, 781, 783, 789, 811, 901, 909, 913, 937, 949.
+
+This is the only case of at least 22 primes below 10^12.
+
+...
+
+The shortcuts by Jud and Nash were used. I knew them from puzzle 12.
+
+When a specific K was targeted, I looked for K consecutive primes with one of the 8 possible values modulo 40: 7, 11, 17, 19, 21, 23, 29, 33. When all K were OK (rare for large K), the test described by Jud was performed. Trial factoring found prime factors of p-1 and testing stopped as soon as possible, usually by the prime factor 3 "spoiling" one of the K cases.
+
+The running time was dominated by computing primes with the Sieve of Eratosthenes.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

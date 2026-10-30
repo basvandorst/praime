@@ -1,0 +1,204 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_078.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 78.- The least prime by concatenating K consecutive integers
+Source: https://www.primepuzzles.net/puzzles/puzz_078.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0078.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=052077
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=052078
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=052079
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=052080
+  https://www.primepuzzles.net/puzzles/puzz_077.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_079.htm
+  https://www.primepuzzles.net/puzzles/puzz_078.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 78.- The least prime by concatenating K consecutive integers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 78.- The least prime by concatenating K consecutive integers
+
+Days ago, Patrick De Geest asked by email to some of us by the least prime formed by the concatenation of K consecutive integers, a) in ascending order, b) in descending order.
+
+For example:
+
+a) ascending for K=4: 4567
+
+b) descending for K=7:73727170696867
+
+(See the Neil's sequences A052077, A052078, A052079, A052080 )
+
+Felice Russo and myself produced - a kind of easily - the required primes for K>6 to 150 or so, except for the following cases:
+
+1) All K=0 mod 3
+
+2) In ascending order: for K= 44 & 110
+
+3) In descending order: for K= 22, 88 & 110
+
+It's easy to explain why there are no prime numbers for a concatenation of L=0 mod 3 consecutive integers.
+
+The surprising fact is that all the "K hard cases" are a multiple of 11 (the inverse is not true)
+
+Questions:
+
+1) can you solve the "K hard cases"?
+
+2) or can you give an explanation about why all the "K hard cases" found are a multiple of 11?
+
+Solution
+
+Jim Howell noted yesterday (26/01/2000) that all numbers formed by a concatenation of 22 ( or a multiple of 22) consecutive numbers are divided by 11 if all the concatenated numbers are of the same length (the same quantity of digits)
+
+I guess that I have discovered the reason of the Jim's observation and then the solution to the question 2 of this Puzzle. Please let me remind, first, the divisibility by 11, thumb rule:
+
+If the absolute difference between the sum of digits in odd position and the sum of the digits in even position, of an arbitrary number N, is divided by 11 then N is also divided by 11:
+
+Example N = 7183 is divided by 11 because (7+8)-(1+3) is divided by 11.
+
+Now if you concatenate the first 22 two digits consecutive numbers:
+
+N=10111213141516171819202122232425262728293931
+
+the sum of digits in even position = 91
+
+the sum of digits in odd position = 36
+
+91-36 = 55 then N is divided by 11
+
+Now, please verify by yourselves that if you shift the starting number from 10 to 11 or 12, or... the difference remains divisible by 11.
+
+The same can be argued for N composed of 22 consecutive numbers of 3 or more digit-, always being all those concatenated numbers of the same quantity of digits.
+
+Then only few -very few! - numbers N of this type are non-composite.... and that's why all numbers as a concatenation of multiple of 22 consecutive numbers, are hard to be a prime number...
+
+***
+
+Using the very important observation of Jim Howell I (C.R.) made a code in Ubasic to search precisely and only "near the border" of a power of 10. There is where changes the quantity of digits of consecutive numbers...
+
+In such a way, it was not a very time consuming task to solve the following two of "hard cases":
+
+a) For K= 110, ascending, the following number is "strongpseudoprime":
+
+9999968-9999969-9999970 ... 10000074-10000075-10000076-10000077 (digits=848)
+
+b) For K=88, descending the following number is "strongpseudoprime":
+
+100000000000006-100000000000005-...- 99999999999920-99999999999919 (digits=1239)
+
+The remaining cases (descending 22, 110 & ascending 44) are out of the possibility of solving by the Ubasic code. Maybe here is necessary to switch to PRIMEFORM.
+
+***
+
+Following a recommendation of Felice Russo, I show here the current status for all K<150 multiples of 11 not divided by 3, bolding and in blue the 22 multiples, bolding & in red the unsolved cases, bolding & in fucsia the recently solved cases
+
+K
+Ascending
+Descending
+
+11
+129....139
+219.....209
+
+22
+9998....10019
+a...b, a>10^92, a>b
+
+44
+a...b, a>10^46, a<b
+46.....3
+
+55
+305....359
+641....587
+
+77
+461....537
+999...923
+
+88
+9962....10049
+10^14+6...10^14+6-87
+
+110
+10^7-32...10^7-32+109
+See below the Chris Nash solution
+
+121
+7 ... 127
+17441...17321
+
+143
+10127 ... 10269
+949...807
+
+***
+
+Chris Nash has tackled the "hard cases" (ascending K=44 and descending 22 & 110) using PRIMEFORM and formulas from his own, finding a solution for the last one:
+
+Descending K=110: 10^19+26....10^19-83 (2117 digits)
+
+"I'll state without proof the formulae that can be used in PrimeForm for the concatenations of z consecutive integers, the first of which is 10^n-k (k<z), so the number of digits changes part-way through the number and so the 'hard cases' can be solved. Also we assume the number of digits changes only once, since all small values are tested. Take a deep breath - it took a long time to get these right - I checked with the known solutions.
+
+1) Ascending case.
+
+(((10^n-k)*10^(k*n)+(10^(k*n)-10^n)/(10^n-1)-(10^n-1))/(10^n-1))*10^((n+1)* (z-k))+((10^n)*10^((z-k)*(n+1))+(10^((z-k)*(n+1))-10^(n+1))/(10^(n+1)-1)-(10^n +z-k-1))/(10^(n+1)-1)
+
+*ouch*
+
+We start the search now for z=44, k=2 to 42 step 2, n=2 to 9999999.
+
+2) Descending case.
+
+(((10^n+z-k-1)*10^((z-k)*(n+1))-(10^((z-k)*(n+1))-10^(n+1))/(10^(n+1)-1)- 10^n)/(10^(n+1)-1))*10^(n*k)+((10^n-1)*10^(k*n)-(10^(k*n)-10^n)/(10^n- 1)-(10^n-k))/(10^n-1)
+
+*ouch again*"
+
+***
+
+J. K Andersen wrote (1/2/03)
+
+I have proved all the mentioned solutions, except K=110 descending, with Primo. The proof would take around a day but I skipped it. I have used PrimeForm/GW with Chris Nash's formula to find the smallest probable prime for K=44 ascending. It is the gigantic 10^348-32....10^348+11 with 15324 digits. This is Fermat prp to many bases. It cannot be proven with current programs and computers. A search to a=10^1000 found no solution for K=22 descending. This is the only remaining unsolved case and must have a prime above 10^22000. According to the heuristics there should be infinitely many solutions.
+
+***
+
+On Feb 2011 James Merickel wrote:
+
+Jens Kruse Andersen and I have separately confirmed (I found) that the descending concatenation from 10^1631+10 down to 10^1631-11 is a prp.
+
+Andersen added (Feb 18, 2011):
+
+I have now proved the K=110 descending solution with Primo.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

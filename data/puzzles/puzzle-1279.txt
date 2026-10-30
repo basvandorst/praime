@@ -1,0 +1,231 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1279.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1279 A Covering Sets Calculator
+Source: https://www.primepuzzles.net/puzzles/puzz_1279.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1279.htm
+
+References (local copies):
+  ../../references/2004_instituto-brasi-nulleiro-de-educacao-ciencia-e-cu.pdf  (from https://www.renyi.hu/~p_erdos/1950-07.pdf)
+  ../../references/2004_instituto-brasi-nulleiro-de-educacao-ciencia-e-cu.txt  (extracted text)
+  ../../references/Catalogue.txt  (from http://www.prothsearch.com/Catalogue.txt)
+
+Links on the page:
+  https://www.primepuzzles.net/CS-CalculadorV5.html
+  https://www.primepuzzles.net/links.htm
+  mailto:cbrfgm@gmail.com
+  https://www.renyi.hu/~p_erdos/1950-07.pdf
+  https://irvinemclean.com/maths/siercvr.htm
+  http://www.prothsearch.com/Catalogue.txt
+  https://www.primepuzzles.net/CS-CalculadorV6.html
+  https://oeis.org/A206001
+  https://oeis.org/A206430
+  https://www.primepuzzles.net/CS-CalculadorV7.html
+  https://www.primepuzzles.net/CS-CalculadorV8.html
+  https://www.primepuzzles.net/CS-Calculador.html
+  https://www.primepuzzles.net/puzzles/puzz_1278.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1280.htm
+  https://www.primepuzzles.net/puzzles/puzz_1279.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1279 A Covering Sets Calculator
+
+Problems & Puzzles: Puzzles
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1279 A Covering Sets Calculator
+
+Dedicated to Arkadiusz Wesolowski & Emilia Gurisatti.
+
+On August 5, 2026, Carlos Rivera wrote:
+
+This puzzle is my way to introduce my own Calculator of Covering Sets, for a given integer N, type S or R, when the inputted N & type has CSs.
+
+Let me share a little story — necessary to understand how this was done:
+
+At the end of May, 2026, I began with the idea of building a tool to verify the CS published in my site for Sierpinski or Riesel integers by several authors. This idea was strongly inspired by the Multi-CS (3 & 4) integers published by Emilia Gurasatti in my Problem 92.
+
+But right away I faced the first obstacle: there was no public calculator online for doing this!
+
+Friends told me the same thing: the problem is computationally very hard or complex because of the huge prime base to search in, and the enormous number of combinations to test.
+
+In short, such a code seemed computationally unfeasible.
+
+Perhaps because fortunately I’m not a Mathematician but an Engineer, I thought: what if I could reduce the complexity and still produce an “acceptable” Calculator? As Mexican Engineers we often say: “If there is no bread, then tortillas.”
+
+While reading everything I could about lists of N (S or R) values and their CSs, I noticed three key facts:
+
+a) Most CS were made of 6 to 11 primes
+
+b) The list of all distinct primes involved in these CS was only 24.
+
+c) Almost all of the CS published starts with 3 & 5 in the first and second place, respectively.
+
+That’s when I said: “I have found the tortillas for this problem.”
+
+So I switched direction: what if I build a code for this reduced task? I has very clear in my mind the main mathematical steps for doing this task.
+
+Then came the second obstacle: I don't know how to program in any modern language. My last programs were written in the beautiful (for me) but old and discontinued Ubasic by Yuji Kida. Since Windows 64 made it difficult to use, I stopped programming in it, around some 10 years ago.
+
+I tried a third path: learning Python online. But I soon abandoned the idea — it wasn’t going to be easy for me.
+
+Then I turned to a fourth, more obscure path: what if AI support could generate the Python code for me? A program that takes N and its Type (S or R) and outputs its CS, if any.
+
+After wrestling with the idea in my mind, I thought: I lose nothing by asking. So I chose ChatGPT and posed the question: “Can you make a Python code for…?” The first answer was yes, but with a warning: the response time could be very, very long.
+
+I replied: what if I give you three ideas to cut down this huge calculation time? ChatGPT said: “We can try, under your responsibility.”
+
+And so we began. By early June I switched to Copilot, for reasons not important to mention here. By early July, the work was finished in the Python part. The rest of the work was to translate the Python code to JS for having a Web page. This part was started with Copilot and finished completely with Claude.
+
+The CS-CalculadorV5.html
+
+The code works with two inputs: N and Type (S or R) and two buttons: Calcular and Borrar. The list of 24 primes I defined, is embedded in the code.
+
+There are two early sieves for the inputted N value and its type: a) N is refused if it is even; b) N is refused in his type, is there is a n<1000 such that N*2^n+/-1 is prime.
+
+After that, the CS-CalculatorV5, generates all the combinations of the 24 prime list, in packets from from 6 to 11 primes, using the rule: the primes 3 & 5 go first. All the CS produced are tested as "covering" and as "minimals" and another restriction: the combination of primes need to have a Modulus M<= 200. If the combination pass these three tests, the combination goes to the output, as a CS together with its Module M & the Producf of its primes P.
+
+End of the story.
+
+You can find the Calculator in the following link, https://www.primepuzzles.net/CS-CalculadorV5.html, and also in the Links page, in the section of "Mathematical Web Tools" listed there, in the tenth place.
+
+Whenever you go to the Calculator page, you will find in the bottom, the basic instructions and details of the calculator's origin.
+
+Now, the questions.
+
+Q1. What is the first N (S or R) that has a CS with only 5 distinct primes, if there is one?
+
+Q2. What is the first N (S or R) that has a CS with only 10 distinct primes?
+
+Q3. What are the minimal S or R integers that need 12 or more distinct primes in its CS?
+
+Q4. What is the minimal S or R integer having five distinct CS?
+
+Q5. The Multi-CS integers are important? Why? Or they are another wrong twist of the screw?
+
+Q6. Regarding the 24 prime list: {3, 5, 7, 11, 13, 17, 19, 31, 37, 41, 61, 73, 97, 109, 151, 181, 241, 257, 331, 433, 557, 631, 673, 1321} embedded in my code, do you devise any other set more convenient for the purpose of providing a light CS Calculator?
+
+From August 8-14, 2026, contributions came from Emilia Gurisatti, Carlos Rivera.
+
+***
+
+Emilia wrote several things about this Puzzle. From his extense email I extract the followiing fragments directly related to Q1 & 2:
+
+Q1. El único covering set con 6 primos es {3,5,7,13,17,241}, fue presentado por Erdös en 1950 (https://www.renyi.hu/~p_erdos/1950-07.pdf). Además, está demostrado a) que no pueden existir covering sets con menos primos y b) que no existen más covering sets con 6 primos. ..., esto fue demostrado por Ralph Stanton en 1980. ...el primer número cubierto por {3,5,7,13,17,241} es el número de Riesel 509203, presentado por Hans Riesel en 1955.
+
+Q2. Sí hay ejemplos públicos de números de Sierpinski con covering sets de 10 primos. En la página de I. McClean (https://irvinemclean.com/maths/siercvr.htm) por ejemplo está el CS = {3, 5, 11, 13, 31, 41, 61, 151, 331, 1321}, para k1 = 19964725987718971 y k2 = 150870306352861 (que es el menor Sierpinski en el Ciclo de Keller asociado a k1). Y de hecho, ¡tu calculadora funciona bien con estos dos números!
+
+N. B.de de CR:
+
+a) Será 150870306352861 (15 dígitos) el menor número de Sierpinski con un CS de 10 primos?
+
+b) Gracias al ejemplo proporcionado por Emilia, tenemos 58 números más dados por el Ciclo de Keller, que se calcula con la fórmula recursiva, N → (2·N + P) mod (2·P), en donde P es igual al producto de los 10 primos del CS, o sea P=109802048057794955 y dado que el "módulo" de dicho CS es igual a 60.
+
+c) Pero si queremos más números de Sierpinski con el mismo CS de 10 primos solo tenemos que aplicar la fórmula Ni = N + i.P a cualquiera de los 60 Ios Sierpinski de dicho Ciclo de Keller, la cual genera infinitos valores con el mismo CS.
+
+***
+
+Carlos Rivera wrote:
+
+My CS-Calculator V5, is currently only succesful (as far as I have experimented with it) for Sierpinski or Riesel integers. It is not still prepared for Brier integers, for one basic fact: the most of the Brier listed in the related literature show that at least one of the two CS needs 12 or more primes (while my code only explores sizes up to 11 primes). Perhaps in later versions I will change this limit from 11 to 12, and some other changes related, perhaps the Modulii limit currently<=200, and to extend the prime list from 24 to 25 or 26... All will depend on how heavy result the computations with these extensions. I need to make some experiments to decide what to do.
+
+***
+
+Later, on August 19, 2026, Carlos Rivera wrote:
+
+I'm pleased to announce that my first Web CS-CalculadorV5, [https://www.primepuzzles.net/CS-CalculadorV5.html] has been improved and now is in operation the new one https://www.primepuzzles.net/CS-CalculadorV6.html, while the V5 has been discontinued.
+
+Why?...The previous one was not preprared to handle Brier numbers; while the new one can handle the most of the known ones, as compiled by W. Keller. In defining which restrictions of my CS-CalculadorV5 should be changed, was very helpful the Catalog of Brier numbers recently uptaded by Wilfrid Keller.
+
+At the end I only had to change only two restrictions:
+
+1) To change the two fixed primes of the CS from {3, 5} to only one fixed prime {3}.
+
+2) To incresae the sizes range of the CSs from 6-11 to 6-12.
+
+After these two little changes my new CS-CalculadorV6 was able to compute the CS of 487 (86.34%) of the 564 CSs of the 282 Brier numbers listed in the Keller's Catalog mentioned. The Brier numbers out of my CS-CalculadorV6, are out by one of the two following reasons: These Briers numbers a) use CSs Sizes greater than 12 or b) use CSs with Primes greater than 1321.
+
+From the old CS-CalculadorV5, remains the 24 primes base-list used in the Combinatory work. Also, I did'nt let the sizes to be extended to the wider range 6-13 just to keep the new Calculador as a light one (short time of response).
+
+If in the future, if I'm able to optimize the algoritm behind scene I could try to include the size 13 and perhaps to add one more prime to the base-list of them. But let me tell you that only 4 of the 282 Brier numbers in the Keller's catalog use size 13 while 60 CSs use the prime 61681... . In any case this possibility belongs to the future.
+
+A succesful example:
+
+This will be a process of three steps.
+
+Step 1:
+
+Inputting the smallest known Brier number (Clavier, 2013), 3316923598096294713661 (22 digits), into the CS-CalculadorV6.
+
+a) after pressing the Sierpinski button, and the Calcular button you get: {3,5,13,17,97,241,673}, size=7, M=48, P=52153970115
+
+Step 2:
+
+b) after pressing the Riesel button, and the Calcular button you get: {3,7,11,19,31,37,41,73,109,151,331,1321}, size=12, M=180, P= 108435121946131097271.
+
+Step 3:
+
+If you want to know the global M & P of this Brier number you have to use the Calculador3NCS, inputing 3316923598096294713661 & the combined CS from the two CSs computed before, CS= {3,5,13,17,97,241,673,7,11,19,31,37,41,73,109,151,331,1321}. After pressing the Calcular button you get:
+
+M = 720, P = 1885107369798300628981297352055.
+
+***
+
+On August 16, Arkadiusz Wesoloski wrote a direct answer to Q2:
+
+S = 11679013547, CS = {3, 5, 7, 11, 17, 31, 41, 61, 241, 1321}.
+
+https://oeis.org/A206001
+
+R = 10909924841, CS = {3, 5, 7, 13, 17, 19, 109, 193, 577, 1153}.
+
+https://oeis.org/A206430
+
+***
+
+On August 27,2026, Carlos RIvera updates his CS Calculator. The new version is this one: https://www.primepuzzles.net/CS-CalculadorV7.html
+
+It has been expanded to deal with Sierpinski, Riesel & (the most of the) Brier numbers published.
+
+***
+
+On Aug 30, 2026, C. Rivera announced his new version of the CS Calculador is now availabe as CS-CalculadorV8. It mainly has improvements in the way of handle & results for calculating the CS of the Brier numbers. Please read carefully the Explanaion section.
+
+***
+
+Last news: 9/21/2026
+
+This will most likely be the last version of the CS-Calculator. This is because, after the latest changes to V8, we are now able to calculate the CS for ALL the Brier integers listed in W. Keller's Catalog.
+
+For the user, nothing changes, but the JS code was modified to handle all 283 Briers in the Catalog.
+
+For that same reason, the URL for this CS-Calculator will simply be https://www.primepuzzles.net/CS-Calculador.html , and it will no longer change even if small modifications are made in the future, for the users' convenience.
+
+Special thanks to Claude, who helped develop this final stable version. This AI found a strategy that keeps the processing time for almost all Briers under 2 minutes, with only one exception, where it can reach up to 2.5 minutes.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

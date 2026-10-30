@@ -1,0 +1,248 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_936.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 936. Palprimes such that...
+Source: https://www.primepuzzles.net/puzzles/puzz_936.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0936.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_935.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_937.htm
+  https://www.primepuzzles.net/puzzles/puzz_936.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 936. Palprimes such that...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 936. Palprimes such that...
+
+Paul Cleary sent the following nice puzzle,
+
+The numbers 10000900001 and 30011111003 are the smallest and largest Palindromic primes who’s digit sum is equal to the numbers length or number of digits and who’s digit sum is also a palindromic prime>7.
+
+Q. Find the next smallest and largest numbers that have the same property.
+
+Contriburtions came from Emmanuel Vantighem and Pierandrea Formusa
+
+***
+
+Emmanuel wrote:
+
+The next solutions should should be found among the 101-digits numbers.
+
+The smallest I could find is :
+
+10000000000000000000000000000000000000000000489799799798400000000000000000000000000000000000000000001
+
+The biggest :
+
+99999400001000000000000000000000000000000000000000100000000000000000000000000000000000000010000499999
+
+***
+
+Pierandrea wrote:
+
+- next smallest is 10002520001
+
+PARI/GP code to get the above solution:
+
+is(n)=n==eval(concat(Vecrev(Str(n))))&&isprime(n) && sumdigits(n)==length(Str(n)) && sumdigits(n)==eval(concat(Vecrev(sumdigits(n)))) && sumdigits(n)>7
+
+forprime(p=10000900002,10500000000,if(is(p),print(p);break));
+
+- next largest is 30000500003
+
+Python code to get the above solution:
+
+from sympy import prevprime,isprime
+
+def pal(l):
+
+return(l == l[::-1])
+
+def SOD(num):
+
+#it returns Sum Of Digits
+
+s=str(num)
+
+ris=0
+
+for k in s:
+
+ris += int(k)
+
+return(ris)
+
+n=prevprime(30011111003)
+
+while True:
+
+if pal(str(n)) and SOD(n)==len(str(n)) and isprime(SOD(n)) and pal(str(SOD(n))) and SOD(n)>7:
+
+print(n)
+
+break
+
+n=prevprime(n)
+
+***
+
+Jan van Delden wrote on Dec 29, 2018:
+
+Smallest solutions for prime p are of the form:
+
+1{0}[k]R(n)d(n){0}[k]1 where d is odd and R(n) is the reverse of n.
+
+p d n k
+
+5 3 0 1
+
+7 1 2 1
+
+11 9 0 4
+
+13 7 2 4
+
+17 1 52 5
+
+19 3 52 6
+
+23 3 72 8
+
+29 7 64 11
+
+31 7 92 12
+
+37 7 662 14
+
+41 9 87 17
+
+43 5 981 17
+
+47 9 972 19
+
+53 9 885 22
+
+59 9 789 25
+
+61 9 7981 25
+
+67 7 7976 28
+
+71 9 9984 30
+
+73 7 8996 31
+
+79 9 9988 34
+
+83 7 79993 35
+
+89 7 99994 38
+
+97 9 789991 41
+
+For instance we have p=5 10301 and p=13 1000027200001
+
+A larger solution:
+
+1009 9 99999999899999999999999999999999999999999999999999999995 446
+
+I also searched for solutions that are maximal in the sense that d(n)={9}[k]e, with e the 'last' digit, but I only found p=11 (p<10000).
+
+Largest solutions are of the form:
+
+for prime p are of the form:
+
+n{0}[k]d{0}[k]R(n) where d is odd and R(n) is the reverse of n.
+
+p n k d
+
+5 1 1 3
+
+7 3 2 1
+
+11 30011 0 1
+
+13 31101 1 1
+
+17 700001 2 1
+
+19 710001 3 1
+
+23 90100000001 0 1
+
+29 9400000000001 1 1
+
+31 96 13 1
+
+37 9800000001 8 1
+
+41 990100001 11 1
+
+43 992000000000001 6 1
+
+47 993100000000001 8 1
+
+53 9970000000000001 10 1
+
+59 9991000000000000000001 7 1
+
+61 9992000000001 17 1
+
+67 9995000001 23 1
+
+71 99970000000000000001 15 1
+
+73 9998000000000001 20 1
+
+79 9999100100000000000000000000000000001 2 1
+
+83 9999400001 31 1
+
+89 9999701 37 1
+
+97 9999920001 38 1
+
+For instance for p=7 we have: 3001003 and for p=11 we have 301111103
+
+A larger solution:
+
+1009 99999999999999999999999999999999999999999999999999999997000100000000000000000000000000000000000
+
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+0000000000000000000000000000000000000000000000001 260 1
+
+I also searched for solutions that are maximal in the sense that n={9}[k]e, with e the 'last' digit and d=1. I found p=7,31,4409 (p<10000).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

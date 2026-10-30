@@ -1,0 +1,177 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_105.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 105. a^5 = b1^5+b2^5+...+bn^5
+Source: https://www.primepuzzles.net/puzzles/puzz_105.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0105.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://euler.free.fr
+  https://www.primepuzzles.net/puzzles/puzz_104.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_106.htm
+  https://www.primepuzzles.net/puzzles/puzz_105.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 105. a^5 = b1^5+b2^5+...+bn^5
+
+Problems & Puzzles: Puzzles
+
+Puzzle 105. a^5 = b1^5+b2^5+...+bn^5
+
+Jean-Charles Meyrignac proposes the following puzzle:
+
+We know that 144^5=133^5+110^5+84^5+27^5 (found by Lander, Parkin and Selfridge in 1966). In how much terms a prime at the power 5 can be expressed as a sum of other primes at the power 5 ? In other words, what is the minimum n in the following equation: a^5 = b1^5+b2^5+...+bn^5 where a,b1,b2,...,bn are all prime numbers ?
+
+As probably you know Jean Charles has an interesting site in the Web coordinating the search for records of those Diophantine equations called "Sum of Like Powers", (http://euler.free.fr ).
+
+As a matter of fact, in his pages he provides to the interested people in these records, a code - sharply named "Euler2000" - of his own to make the search, and ranges to cover with it.
+
+Jean Charles has promised modify his current code for readers who desire to use it for the purposes of this puzzle, not without "...the hope someone else will write a better program...". According to an email received this morning (Saturday, August 26) the modified code will be available since tomorrow Sunday.
+
+Question 1: Find the asked n_min value and the corresponding particular example.
+
+Before posting this proposed puzzle I wanted to know if any solution using only primes is ever possible. Handling this issue is that I (C.R.) can state the following true statement:
+
+"Exist at least one solution using only primes, and therefore n_min<2166902"
+
+Question 2: Can you tell us where came from my statement?
+
+Another interesting questions that I would like to append is the following one:
+
+Question 3: Find any solution using a set of consecutive primes for the b quantities.
+
+Question 4: Find any solution using a set of consecutive and all distinct primes for the b quantities.
+
+Solution
+
+Carlos Rivera found (26/08/2000) one solution to question 3 just digging around with a very elemental code in Ubasic (while the Euler2000 for primes arrive):
+
+7^5 = 5^5+38*3^5+139*2^5
+
+As you can see this solution involves not only consecutive primes for the "b" quantities but for all the bases employed ("a" & "b's"). As a sub-product of this little search the n_min has been slow downed to 178.
+
+But of course that I do not pretend that this is the shorter solution using consecutive primes... would you try other shorter ones?
+
+***
+
+Regarding the original question 1, and after posting the prime-version of the Euler2000, Jean-Charles has gotten the following starting solution to be improved by the readers:
+
+(5,1,9): 431^5=421^5+229^5*2+173^5+151^5*2+149^5+67^5+61^5
+
+As you can see this solutions has only 7 distinct prime in the right side of the equation. But with this preliminary solution, certainly n_min has been slow downed to 9
+
+Jean-Charles says "...for the moment, (5,1,4) has only one solution, so I think we can reach (5,1,5) with prime values..."
+
+***
+
+A solution of nine terms with all distinct primes in the right side, is the following found by Jean-Charles him-self:
+
+(5,1,9)
+
+757^5=643^5+541^5+523^5+449^5+443^5+433^5+269^5+263^5+73^5
+
+Who adds, "...But I'm still sure that someone can find a better solution with less terms !..."
+
+***
+
+Chris Nash has produced (30/8/2000) some interesting results and has outlined a method to do this search. Inside the method a questions arises for the readers...
+
+"Hola Carlos,
+
+I thought I would attempt Puzzle 105. Here is my reasoning.
+37 = 5 mod 2^5.
+
+37^5 = 5^5 mod 2^5
+
+Hence 37^5 - 5^5 is divisible by 2^5 and so 37^5 = 5^5 + 2166901*2^5, which is where you got your original bound, n<=2166902.
+
+[Well, as a matter of fact I simply postulated that probably P1^5-P2^5= k*2^5 for some P1 & P2<P1; then I made an exhaustive search with the known result, C.R.^]
+
+Now we note that 2166901 = 17^5 + 2*13^ 5 + 5^5 + 5*3^5 + 118 And so by rearranging we have 37^5 = 5^5 + 32 * (17^5+2*13^5+5^5+5*3^5) + 118*2^5 =
+
+32 * 17^5 + 64*13^5 + 33*5^5 + 160*3^5 + 118*2^5 (*), which gives n=407.
+
+A little later I discovered the interesting result: 7^5 = 61*3^5 + 62*2^5. (n=123).
+
+[A nice result!.. consecutive primes and consecutive factors, at the right side of the equation...C.R.^]
+
+Here is an elementary search I performed on Puzzle 105. As a result, I reduce n_min to 77, and the example I show also uses consecutive primes (in fact, the same consecutive primes).
+
+First the result.
+
+7^5 = 3*5^5 + 24*3^5 + 50*2^5, n=77
+
+And now the method.
+
+The Diophantine equation Ax+By=C where A, B and C are known integers, can be solved in integers if G=gcd(A,B) divides C. The solution method is easy, once we realize that we can solve Ax+By=G by using Euclid’s gcd algorithm. We note also that the solution is not unique - in fact there are an infinity of solutions. (Given any solution, add B/G to x, and subtract A/G from Y). By multiplication we can get a solution for C. Now to use this algorithm. We generate a list of primes up to 2^(10.6), this limit is chosen so double-precision floating point will not overflow when computing fifth powers. For each pair of primes p>q>3, calculate the positive numbers p^5-k.q^5 for integer values of k. Assign this value to C, let A$3, and B2. Solve the Diophantine equation, and of the infinity of solutions, seek one where x>=0, y>=0, and x+y is minimal. Then p^5 is partitioned into k+x+y prime fifth powers. A quick search discovers the solution very quickly.
+Of course, n_min must be *much* smaller than 77 - can anyone else do better by using more distinct primes, or not using the primes 2 and 3? I believe that by collecting more and more fifth power sums, and adding and subtracting, better results can be obtained. For instance, by replacing multiples of 3*5^5+24*3^5+50*2^5 in (*), the value of n in that equation can be reduced. (I think I can see a method, but it seems *very* inefficient!)."
+
+[Maybe it's still inefficient but a method is a magic stick against exhaustive search...isn't it?, C.R ^]
+
+***
+
+The 31/8/2000 Chris Nash improved his own solution for the consecutive case:
+
+13^5=4.2^5+17.3^5+9.5^5+7^5+2.11^5, n=33
+
+He is using a program from his own and expects to beat the (5,1,9) solution obtained by Jean-Charles.
+
+***
+
+Jean Charles improves (4/9/2000) the solution for consecutive primes from n=33 to n=22:
+
+(5,1,22)
+
+37^5 = 31^5 + 29^5 + 23^5*2 + 19^5*2 + 17^5 + 13^5*2 + 11^5 + 7^5*3 + 5^5 + 3^5*7 + 2^5
+
+***
+
+Other people has been using the Jean-Charles code to search solutions with primes close related to the matter of this puzzle:
+
+(5,2,6) 719+491=739+191+113+101+47+19 (Michael Lau)
+
+(5,3,5) 103+83+17=109+41+31+19+3 (Torbjörn Alm, 09/05/2000)
+
+(5,4,4) 101+97+43+29=109+73+71+17 (Torbjörn Alm, 09/05/2000)
+
+Torbjörn Alm also checked that no solution to (5,1,8) exists below 2750^5. Jean Charles says "I believe that (5,1,7) is reachable, but when ?"
+
+***
+
+The 'when' was the Wednesday 13 of September, 2000. Jean Charles wrote that day:
+
+I just found: (5,1,7) 2843=2731+1933+1459+709+509+271+31 !!!
+
+I don't think that (5,1,5) exists, but who knows ? Perhaps there is a proof of its non-existence ?
+
+Congratulations!...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

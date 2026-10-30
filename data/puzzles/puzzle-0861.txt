@@ -1,0 +1,198 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_861.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 861. Puzzle 1467, by Claudio Meller
+Source: https://www.primepuzzles.net/puzzles/puzz_861.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0861.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://simplementenumeros.blogspot.mx/2016/11/1467-formando-primos.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_860.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_862.htm
+  https://www.primepuzzles.net/puzzles/puzz_861.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 861. Puzzle 1467, by Claudio Meller
+
+Problems & Puzzles: Puzzles
+
+Puzzle 861. Puzzle 1467, by Claudio Meller
+
+Claudio Meller posted his puzzle 1467 in his always interesting pages.
+
+The target of the puzzle is to select k positive integers{ N1, N2,... , Nk} such that each the first n primes may be formed only adding or subtracting all or some of these k integers.
+
+He provides the following example. For k=5 & N={2, 5, 6, 12 & 54} -> n=22:
+
+2 = 2
+
+3 = 5-2
+
+5 = 5
+
+7 = 5+2
+
+11 = 5+6
+
+13 = 6+5+2
+
+17 = 12+5
+
+19 = 12+5+2
+
+23 = 12+6+5
+
+29 = 54-12-6-5-2
+
+31 = 54-12-6-5
+
+37 = 54-12-5
+
+41 = 54-2-5-6
+
+43 = 54-5-6
+
+47 = 54-5-2
+
+53 = 54+6-5
+
+59 = 54+5
+
+61 = 54+5+2
+
+67 = 54+2+5+6
+
+71 = 54+5+12
+
+73 = 54+ 2+5+12
+
+79 = 54+12+6+5+2
+
+I will add that this solution deserves the qualification Q=n/k. In this example Q=22/5=4.4. Claudio is not sure that this example is the optimum for k=5
+
+Q. Send your solution with your best Q value for k=2, 3, 4, ... 10.
+
+Contributions came from Michael Hürter and Emmanuel Vantieghem.
+
+***
+
+Michael wrote:
+
+I have the following results (not sure these are the maximal possible Q values for each k):
+
+k n Solution - Q
+
+2 4 2 5 - 2
+
+3 8 2 11 6 - 8/3
+
+4 17 27 8 6 18 - 17/4
+
+5 40 20 2 60 6 85 - 8
+
+6 99 2 60 255 180 20 6 - 33/2
+
+7 223 180 565 42 54 160 60 540 - 223/7
+
+8 505 1433 162 486 18 6 356 1446 54 - 505/8
+
+9 1336 4374 2588 486 96 90 4487 1458 162 108 - 1336/9
+
+10 3793 13080 486 6 15999 54 18 4366 1454 162 4 - 3793/10
+
+***
+
+Emmanuel wrote:
+
+Here I list k, N, Q and the greatest prime obtained
+
+2, {2, 5}, 2, 7
+
+3, {2, 5, 6}, 7/3, 13
+
+4, {1,3,9,30}, 7/2, 43
+
+5, {1,3,9,27,81}, 6.4, 131
+
+6, {1,3,9,27,81,248}, 73/6, 367
+
+7, {1,3,9,27,81,243,731}, 183/7, 1093
+
+8, {1,3,9,27,81,243,729,2190}, 231/4, 3271
+
+9, {1,3,9,27,81,243,729,2187,6579}, 1217/9, 9859
+
+10, {1,3,9,27,81,243,729,2187,6561,19692}, 1603/5, 29531
+
+For k > 3, I took for N the set :
+
+{1, 3, ... , 3^(k-2), X},
+
+where X = NextPrime[u] + u, where u = (3^(k-1)-1)/2 = 1+3+...+3^(k-2).
+
+Then, Q will be : PrimePi[X+u]/k.
+
+Indeed, with the first k-1 elements of N I can make all numbers from 1 to u (easy to prove by induction). Then, I took X such that X-u equals the smallest prime number that was not obtained.
+
+In that way I was ensured that I could make all the other primes up to X+u.
+
+But, I'm not sure that this method gives allways the best possible Q.
+
+***
+Emmanuel wrote again on Dec 31, 2016:
+
+When I saw Michaels' strong results, I realized that I could adapt my method.
+
+I used sets of the form :
+
+{2, 6, ... , 2*3^(n-1), X}
+
+with X = 3 + (2 + 6 + ... + 2*3^(n-1)) = 2 + 3^n.
+
+Such a set always produces all the primes between 2 and X + (2 + 6 + ... + 2*3^(n-1)) = X + 3^n - 1.
+
+For n < 6 they produce less primes than Michael's.
+
+For n > 5 they produce more :
+
+(I list : k, the number of produced primes, N, Q and the biggest prime produced) :
+
+7, 232, {2, 6, 18, 54, 162, 486, 731}, 232/7, 1459
+
+8, 597, {2, 6, 18, 54, 162, 486, 1458, 2189} , 597/8, 4373
+
+9, 1561, {2, 6, 18, 54, 162, 486, 1458, 4374, 6563} , 1561/9, 13121
+
+10, 4144, {2, 6, 18, 54, 162, 486, 1458, 4374, 13122, 19685}, 2072/5, 39367
+
+Of course, this table is easily extendable, but, I still am not sure the Q are maximal.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

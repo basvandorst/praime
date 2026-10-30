@@ -1,0 +1,125 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_098.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Curio 39
+Source: https://www.primepuzzles.net/puzzles/puzz_098.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0098.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.utm.edu/research/primes/curios/
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A055233
+  http://www.mrob.com/pub/math/numbers.html
+  https://www.primepuzzles.net/puzzles/puzz_097.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_099.htm
+  https://www.primepuzzles.net/puzzles/puzz_098.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Curio 39
+
+Problems & Puzzles: Puzzles
+
+Puzzle 98. Curio 39
+
+Recently I sent a collaboration for the Chris Caldwell & G. L. Honaker, Jr. the "Prime Curios!" pages. In that very moment the question was about the number "39" and I observed that 39 is a number with the following property:
+
+Composite numbers equal to the sum of primes from the least prime factor to the largest prime factor
+
+39 = 3 x 13 = 3 + 5 + 7 + 11 + 13
+When I sent this observation to G. L. Honaker, Jr. I had quickly verified with the help of a very primitive code that below 1000: 10, 39, 155 & 371 are the only four numbers that share that property.
+
+After then I made a more sophisticated code to seek for more of these numbers supposing they should be a kind of common, but for my surprise I found no other number with the same property in a wider range. To tell the truth I do not understand why are so few examples of this kind of numbers...
+
+Question 1 : Find other numbers (if any) with this property
+
+(Observation: these numbers need not to be a product of only two prime factors)
+
+Jud McCranie wrote (01/07/2000):"here is another solution, it may not be the next smallest one.
+2935561623745 = 5*19*53*61*9557877 = 5+7+11+... + 9557877". Jud confirmed later (3/7/2000) that this solution is the 5th one.
+
+***
+
+After the example found by Jud now is crystal clear that this puzzle is asking for numbers N of the following type:
+
+N = p1*Z*p2 = sum of primes from p1 to p2 = SOP(p1, p2)
+
+such that:
+
+SOP(p1, p2) = 0 mod (p1*p2), where Z = SOP(p1, p2)/(p1*p2) = integer such that:
+
+or Z=1;
+
+or Z is a composite number such that his least prime factor is greater than or equal to p1 and his largest prime factor is less than or equal to p2;
+
+or Z is a prime number such that p1<=Z<=p2.
+
+The complex condition about the nature of Z is necessary. By example:
+
+N = 10225245560 = 503*40*508213 = SOP (503, 508213), but this N is not the kind of numbers we are looking for because his least prime factor is 2 (the least prime factor of Z) and the SOP(503, 508213) doest not starts with 2 as it should in our definition of this kind of numbers.
+
+Summarizing the valid results: the first four examples of this kind of numbers (10, 39, 155, 371) are such that Z=1 for all of them. The 5th example, found by Jud is such that Z = 19*53*61
+
+Subquestions:
+
+2. For each prime p1, exist always at least one prime p2>p1 such that SOP(p1, p2) = 0 mod (p1*p2), etc...?
+
+3. Find the least p2>5 - if it exist - such that SOP(2, p2) = 0 mod (2*P2).
+
+***
+
+Regarding the sub-question 2, Jud wrote (2/7/2000):
+
+"It is hard to say. Based on the data there doesn't seem to be a p2 for each p1, but a probabilistic argument suggests that there should be... It seems that the chance of SOP(p1,p2) being divisible by p2 would be 1/p2, approximately at least. And the chance for it being divisible by p1 also would be 1/p1, and that is fixed for a given p1. So it seems that the expected number of p2s for a p1 would be (1/p1)*sum(1/p2), where p2 ranges over all primes > p1. This sum is infinite, which would imply an infinite number of p2 for each p1. However, the sum grows slowly, which is why examples are hard to find."
+
+***
+
+Chris Nash thinks the same way than Jud regarding the sub-question 2. The same day than Jud he wrote:
+
+"Heuristically I think the answer to question 2 is yes... given p, we expect an infinite number of primes q satisfying the conditions. Here is my reasoning. By the "prime race" property, given any prime number x, divide all the primes into boxes based on their value mod x. It's known that this distribution is reasonably even - in other words, all primes up to a given limit are evenly distributed among the x-1 boxes. Hence, the SOP function should also be fairly evenly distributed modulo x, and thus, as far as modular arithmetic goes, we can assume the SOP function is fairly evenly distributed.
+
+Let C(p) be the probability that a random number has smallest prime factor p. Then the probability SOP(p,q) has smallest factor p is C(p), and the probability it is divisible by q is 1/q. Now we need two extra pieces of information. If SOP(p,q) is divisible by q, then q is its largest factor. Proof is easy, since SOP(p,q) < 1+2+3+.....+q < q+q+q+ ....... q < q^2
+
+Now we also have the approximation that 1/2 + 1/3 + 1/5 + ..... + 1/Q is approximately log log Q plus some constant. Fix p, and let q vary. Then the expected number of solutions with q<=Q is C(p). (1/p_1 + 1/p_2 + .... 1/q) where p_1 is the next prime larger than p. And this is approximately C(p).(log log Q - log log P). As Q tends to infinity, this function does too, but VERY SLOWLY. We expect an infinity of solutions for each p, but we also expect them to be very rare!. However we should note that the approximation log log P is very inaccurate unless P is quite large, but it should be enough to indicate we expect an infinity of solutions. Note also that if P is large, C(p) is approximately exp(-gamma)/(p log p)."
+
+***
+
+So, the good new is that it seems that there are infinite solutions p2 for each p1, but... where are them!!!...
+
+Sub-question 4: Can you devise an approach to seek for them?
+
+***
+
+The 7/7/2000 Jud wrote:
+
+"question 3 - no other p2 , 5 < p2 < 29,505,444,491 (sum < 2^64). Question 4 - I don't think there is any method better than summing the primes and checking to see if the sum is divisible by the last prime and the first prime as you go."
+
+***
+
+On Nov. 2002, Robert Munfao discovered that "454539357304421 is the product of two primes, 3536123 * 128541727 and also the sum of these two plus all the primes in between: 3536123 + 3536129 + 3536131 + ... + 128541719 + 128541727". See A055233 & Notable Properties of Specific Numbers.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

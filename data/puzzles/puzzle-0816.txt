@@ -1,0 +1,161 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_816.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 816.Primes between n*k and n*(k+1)
+Source: https://www.primepuzzles.net/puzzles/puzz_816.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0816.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://IntegerSequences.org/s000064.html
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Totative
+  https://www.primepuzzles.net/puzzles/puzz_815.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_817.htm
+  https://www.primepuzzles.net/puzzles/puzz_816.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 816.Primes between n*k and n*(k+1)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 816.Primes between n*k and n*(k+1)
+
+T. D. Noe sent the following nice puzzle.
+
+For any given n, what is the maximum number of primes between n*k and n*(k+1)? If you can't give an exact number, can you give some upper limit?
+
+See my sequence S000064. To compute the n-th term, you compute maximum number of primes between n*k and n*(k+1) for some k > 0. So for n=2, what is the maximum number of primes between 2*k and 2*(k+1)? This must be 1.
+
+Contribution came from Emmanuel Vantieghem.
+
+***
+
+Emmanuel wrote:
+
+There is a way to compute an upper bound as follows :
+
+Let p be the greatest prime <= n. and P the product of all primes <= p.
+
+Let G be the least common multiple of n and P.
+
+Thus, the range form 1 to G can be divided into G/n non-overlapping subinterval of type (1+n*k ,n*(k+1) ) (k = 0, 1, ... , G/n - 1).
+
+In every such interval there are t(k) numbers m such that GCD(m,P) = 1.
+
+The maximum of these t(k) is then an upper bound for the number of primes in any interval of the form ( n*k + 1 ,n*(k+1) ). (k = 1, 2, 3 ... , infinity )
+
+Indeed, any prime in an interval of the form (1+n*k ,n*(k+1) ) is relatively prime to P and the set of numbers relatively prime to P has a 'periodicity'.
+
+More precisely : the sequence t(k) is periodic.
+
+Eilas, due to the size of P, it may become extremely difficult to compute that upper bound. I arrived to compute it for 2 < n <= 22. Here are the results (b = the upper bound):
+
+n b
+
+2 1
+
+3 1
+
+4 2
+
+5 2
+
+6 2
+
+7 2
+
+8 3
+
+9 3
+
+10 4
+
+11 4
+
+12 4
+
+13 4
+
+14 4
+
+15 4
+
+16 5
+
+17 5
+
+18 6
+
+19 6
+
+20 6
+
+21 5
+
+22 7
+
+These results confirm that the conjectured values for n <= 22 are also the exact values.
+...
+
+I just finished the case n = 23. This gave the upper bound 7.
+
+***
+
+Emmanuel wrote again on Jan 10, 2016:
+
+I worked a bit further on this very interesting puzzle 816.
+
+Noe's results matches my upperbound for n up to 30.
+
+For bigger n my program was too slow or consumed too much memory. Thus, I made a kind of guess for the upperbound for n = 31 up to 40 as follows :
+
+I looked for the number t of 'totatives' of P in intervals of the form (1+ k*n, (k+1)*n) for k = 1, 2 ...
+
+After a while, for some k0 (< 15000), I found a value t0 that seemed not to be surpassed when k increased up to 1000000.
+
+Of course, it is possible that the maximum value occurs for some k > 1000000 but I don't believe this happens in the region n <= 40.
+
+Once I found my maximum t0 , I searched for the primes in intervals of the form (m*G+1+ k*n, m*G+(k+1)*n) where G is the LCM of P and n.
+
+If there was no interval with t0 primes within reasonable bounds for m, I took the next interval of the form (1+ k*n, (k+1)*n) with t0 totatives,
+
+and continued in the same way.
+
+Example. When n = 32, the (supposed) maximum of 9 totatives appeared for k = 2153. The intervals (m*G+1+ k*n, m*G+(k+1)*n) for m < 10^6 all contained less than (<) 9 primes. So, I looked for the next k that gave 9 totatives.
+
+This was 5931 but again, there were not enough primes. I had to go up to k = 14858. This delivered the following primes :
+
+741605304176531777, 741605304176531779, 741605304176531783, 741605304176531789, 741605304176531791, 741605304176531797, 741605304176531801, 741605304176531803, 741605304176531807
+
+These are nine primenumbers between 32*23175165755516618 and 32*23175165755516619. So, I think Noe's value S000064(32) should be 9.
+
+I think the values for n = 34, 36 up to 40 can be augmented by one. I'll try to find the necessary quantity of primes but this can take a bit of time (and it is possible that those primes do not exist !).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

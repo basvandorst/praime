@@ -1,0 +1,187 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_242.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 242.  Sum of distinct squared primes
+Source: https://www.primepuzzles.net/puzzles/puzz_242.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0242.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/LagrangesFour-SquareTheorem.html
+  http://mathworld.wolfram.com/SquareNumber.html
+  http://www.research.att.com/projects/OEIS?Anum=A001422
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_241.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_243.htm
+  https://www.primepuzzles.net/puzzles/puzz_242.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 242. Sum of distinct squared primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 242. Sum of distinct squared primes
+
+Lagrange was the first to demonstrate that any number can be expressed a sum of at the most four squares, if we allow using repeated squares.
+
+If repeated squares are avoided, it's known that:
+
+a) All numbers greater than 188 can be expressed as the sum of at most five distinct squares
+
+b) Bellow 188, there are 31 numbers that can not be expressed as a sum of distinct squares (Sloane's A001422)
+
+c) Only 124 and 188 require the sum of six distinct squares.
+
+I believe (but I may be wrong) that similar statements may exist when we restrict the sums to distinct squared primes:
+
+a) All numbers greater than L can be expressed as the arithmetic sum of at most K distinct squared primes
+
+b) Below L there is a set {N} numbers that can not be expressed as a sum of distinct squared primes
+
+c) Only the following set {M} of numbers require the sum of S>K distinct squared primes
+
+Questions:
+
+1. Find (theoretically or conjecturally/empirically) L, K, {N} {M} and S (suppose that "1" is prime)
+
+2. Do you devise a smart approach in order to get (at least) one solution for every integer n>L. In such a case please send your particular solution for L<n<=2L
+
+Solution:
+
+Frank Rubin, Faride Firoozbakht and Luke Pebody sent contributions to this puzzle. Only Pebody solved all the questions asked in the Q1.
+
+Frank wrote:
+
+If p is any prime other than 2 or 3, then p^2 = 1 (mod 24). So the sum of up to K distinct primes can be at most 4+9+1+1+1+...+1 = 13+(K-2) = K+11 (mod 24). In order to express a number which is a multiple of 24, we would need at least 13 distinct primes squared. So 13 is a minimum for K.
+
+To express a number N=24n+1 could potentially require only 1 prime, but there are infinitely many numbers that are not the square of a prime. So, to express all numbers of the form 24n+1 would require a minimum of 14 primes squared. Therefore 14 is a lower bound on the value of K.
+
+***
+
+Faride wrote:
+
+If similar statement exist then L must be greater than 6458 and K must be greater than 15. Because 6458 isn't sum of distinct squared primes and g(17163)=16. 17163 has only one representation of the form sum of distinct squared primes, that is :
+
+17163= 1^2+2^2+3^2+7^2+11^2+13^2+17^2+19^2+23^2 +29^2+31^2+37^2+41^2+53^2+59^2+67^2
+
+***
+
+Pebody wrote the following big piece of art:
+
+I can prove the following facts:
+
+* There are precisely 2438 numbers which cannot be written as the sum of distinct squared primes (n.b. Pebody does not take "1" as prime)
+
+* There are infinitely many numbers which cannot be written as the sum of at most 15 distinct squared primes
+
+(Indeed the numbers 840k+795) are of this form
+
+* All numbers smaller than 100000 can be written as the sum of at most 16 distinct squared primes. Thus conjecture:
+
+L=17164, K=16, N={1,2,3,5,6,...,16251,16322,17163}, M={}, S=17.
+
+Claim: Every number n>=20000 can be written as the sum of distinct primes.
+
+Theorem 1: For real n>25, there exists a prime between n and 1.2n exclusive (Nagura 1952)
+
+Theorem 2: Every number 17164<=n<=100000 can be written as the sum of distinct primes. (By checking)
+
+Corollary 3: Every number 17164<=n can be written as the sum of distinct primes.
+
+Proof:
+
+Let N be the smallest number above 20000 that cannot be written as the sum of distinct primes. Note by Theorem 2, that N>100000.
+
+Let n be Sqrt(N/2) in theorem 1. Then there exists a prime p such that Sqrt(N/2)<p<1.2*Sqrt(N/2).
+
+Therefore
+
+N/2<p^2<0.72N
+
+Now N/2<p^2 means that N<2p^2, which means that N-p^2<p^2. Therefore, since N cannot be written as the sum of distinct square primes (including p^2), N-p^2 cannot be written as the sum of square primes.
+
+However N-p^2<N. It must follow that N-p^2<2000. However, N-p^2>0.28N>28000. QED
+
+There are 2438 distinct numbers which cannot be written as such starting 1,2,3,5,6,7,8,10,11,12,14,... and ending 14570, 14595, 14642, 15002, 15243, 15314, 15435, 15842, 16251, 16322, 17163.
+
+All numbers other than these, up to 100000 can be written as the sum of at most 16 distinct squared primes. The first number taking 16 distinct squared primes is 15075.
+
+Theorem
+
+If a number of the form 120k+75 is the sum of fewer than 16 distinct squared primes, it is the sum of exactly 3 distinct squared primes, one of which is 25.
+
+Proof:
+
+Looking (mod 8):
+
+each squared prime is either 4 (once) or 1 (all other times).
+
+Therefore to get to 3 (mod 8), you must either use 4 and 7(mod 8) others, or not use 4 and use 3(mod 8) in total.
+
+Thus you must use 3,8 or 11 or at least 16.
+
+Looking (mod 3)
+
+each squared prime is either 0 (once) or 1 (all other times)
+
+Therefore to get to 0(mod 3) you must either use 0,1,3,4,6,7,9,10,12,13,15 or at least 16.
+
+Putting these together you must use 3 or at least 16.
+
+Looking (mod 5)
+
+each squared prime is either 0 (once) or 1,4 (all other times)
+
+therefore to get to 0 (mod 5) using 3, you must use 0 (once) and 1,4. QED
+
+Corollary:
+
+There are infinitely many numbers that are not the sum of fewer than 16 distinct squared primes.
+
+Proof:
+
+Every number of the form 840k+795=120(7k+6)+75 is not the sum of fewer than 16 distinct squared primes. If it were, then it would be the sum of precisely 3 distinct squared primes, one of them being 25.
+
+Therefore 840k+770 would be the sum of 2 distinct squared primes. However,
+
+7|x^2+y^2 => 7|x and 7|y. Therefore both of these distinct primes
+
+are divisible by 7.
+
+QED
+
+So we have proved
+
+* All numbers above 17163 can be written as the sum of distinct squared primes
+
+* Infinitely many numbers require 16 distinct squared primes
+
+I have found no number that requires 17.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

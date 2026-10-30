@@ -1,0 +1,205 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_891.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 891. The first N integers arranged to form a Palindrome
+Source: https://www.primepuzzles.net/puzzles/puzz_891.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0891.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://dxdy.ru/post1241958.html
+  mailto:cbrfgm@gmail.com
+  http://www.integersequences.org/s001070.html
+  http://www.integersequences.org/s001071.html
+  https://www.primepuzzles.net/puzzles/puzz_890.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_892.htm
+  https://www.primepuzzles.net/puzzles/puzz_891.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 891. The first N integers arranged to form a Palindrome
+
+Problems & Puzzles: Puzzles
+
+Puzzle 891. The first N integers arranged to form a Palindrome
+
+On August 20, 2017, Dmitry Kamenetsky sent to me a nice puzzle posted by "Ktina" in a Russian forum.
+
+There you were asked to find the arrangement of the first N integers such that the concatenation of these integers produce a Palindrome.
+
+"if the sequence has an even number of digits, we know that each digit must appear an even number of times. If we have an odd number of digits then there must be exactly one digit that appears an odd number of times, while all the other digits appear an even number of times. So for question 1, the following N<100 are potentially possible: 1, 19, 20, 21, 22, 39, 40, 41, 59, 60, 61, 79, 80, 81, 98, 99."
+
+Here are the first two non-trivial solutions:
+
+For N=19: 1.19.8.17.6.15.4.13.2.10.12.3.14.5.16.7.18.9.11 => 11981761541321012314516718911 (29 digits, by Gris, 2017)
+
+For N=20: 1.19.8.17.6.15.4.13.2.10.20.12.3.14.5.16.7.18.9.11 => 1198176154132102012314516718911 (31 digits, by Kamenetsky, 2017)
+
+I have been told by Dmitry that for each N there are several arrangements solutions.
+
+If we switch to the first M prime numbers,
+
+"the following n<1000 are potentially possible: 1, 36, 247, 300, 306, 308, 640, 734, 735, 839, 848, 874."
+
+Q1. How many distinct palindrome solutions are for each N<100 potentially possible?
+
+Q2. Find prime palindrome solutions for Q1
+
+Q3. Find palindrome solutions arranging the first 36 prime numbers? What about arranging the first 247 prime numbers... too hard?
+
+Contributions came from Carlos Rivera, Emmanuel Vantieghem, Dmiitry Kamenetsky & T. D. Noe.
+
+***
+
+Rivera wrote:
+
+Q1. The quantity of solutions for N=19 is 8!. Why? The only digit "0" and the twelve digits "1" are fixed in the same position of the already solution found by Gris. So, the only digits that can interchange their positions are the eight digits 2 to 9. This means that all the valid palindromic arrangements are given by all the permutations of these 8 digits. So, 8!
+
+Q2. I just scrambled a bit for fun the given solution for N=19 by Gris, according to what is said in Q1, and I got the smallest and the largest palprimes:
+
+The smallest:
+
+1.12.3.14.7.15.6.18.9.10.19.8.16.5.17.4.13.2.11 => 11231471561891019816517413211 Palprime!...
+
+The largest:
+
+1.19.8.17.6.15.3.12.4.10.14.2.13.5.16.7.18.9.11 => 11981761531241014213516718911 Palprime!!!
+
+***
+
+Emmanuel wrote:
+
+Q1. For n = 19 there are at least 362880 solutions.
+
+More precisely, if (a, b, c, d, e, f, g, h, k) is one of the 362880 permutations of the range 1-9, then
+
+(a, 10 + b, c, 10 + d, e, 10 + f , g,10 + h, k, 10, 10 + k, h, 10 + g, f , 10 + e, d, 10 + c, b, 10 + a)
+
+is a solution (corresponding to the palindrome a1bc1de1fg1hk101kh1gf1ed1cb1a).
+
+For n = 20 there are also at least 362880 solutions.
+
+More precisely, if (a, b, c, d, e, f, g, h, k) is one of the 362880 permutations of the range 1-9, then
+
+(a, 10 + b, c, 10 + d, e, 10 + f , g,10 + h, k, 10, 20, 10 + k, h, 10 + g, f , 10 + e, d, 10 + c, b, 10 + a)
+
+is also a solution.
+
+For n = 21 there are 362880 solutions of the form
+
+(a, 10 + b, c, 10 + d, e, 10 + f , g,10 + h, k, 10, 21, 20, 10 + k, h, 10 + g, f , 10 + e, d, 10 + c, b, 10 + a)
+
+(with a,b,c, ..., k as above).
+
+But there are also 5040 solutions of the form
+
+(21, a, 10 + b, c, 10 + d, e, 10 + f, g, 1, 20, 11, 10, 2, 10 + g, f, 10 + e, d, 10 + c, b, 10 + a, 12),
+
+where (a,b,c,d,e,f) is a permutation of (3,4,5,6,7,8,9}.
+
+No doubt higher values of n will lead to still more complicated configurations.
+
+Q2. For n = 19 there are 9301 palprime solutions among the 362880 solutions above..
+
+The smallest I could find is 11231471561891019816517413211.
+
+For n = 20 and 21 there are no palprime solutions. Every arrangement of the first n numbers leads to a multiple of 3.
+
+This is also the case for n = 39, 41, 59, 60, 80, 81, 98, 99
+
+Q3. For n = 36 there is no solution. The central digit would be a 9, which implies that there is no way to put 101
+
+somewhere in the arrangement.
+
+For n = 247 there is also no solution. The central digit would be a zero, wich implies that 109 cannot be placed
+
+somewhere in the arrangement.
+
+I think there will never be a solutions due to the presence of many zeros in some of the primes.
+
+But, that only a vague guess.
+
+***
+
+Dmitry wrote:
+
+I have found solutions for the following N: 1,19,20,21,22,39,40,41,59,60,61,79,80,81,98,99,122,201,219,220
+
+Solutions for the following N do not exist: 101,119,121,139,141,159,161,179,181,199. This is because we need
+
+to place 100 somewhere and that is impossible. If 100 is away from the middle then there must be something
+
+on the opposite side that has "001" - impossible. Also since there are an odd number the "00" cannot be in the
+
+middle (like in the N=122) solution, which looks like this:
+
+76.69.47.14.85.89.36.70.119.54.103.81.102.15.93.31.114.12.122.113.18.27.38.82.75.59.46.7.83.21.66.20.101.
+
+19.32.65.3.49.48.80.109.60.16.52.29.92.44.25.116.43.86.51.77.11.97.8.73.57.104.50.1 00 .105.40.17.53.78.79.
+
+117.71.5.68.34.6.115.24.42.99.22.56.106.90.108.84.94.35.62.39.110.10.26.61.23.87.64.9.55.72.88.37.28.13.
+
+112.2.121.4.111.33.95.120.118.30.1.45.91.107.63.98.58.41.74.96.67
+
+The N=220 solution looks like so:
+
+102.94.16.9.148.109.65.66.188.83.124.126.10.22.14.133.25.176.87.134.172.86.186.71.202.193.140.108.195.
+
+49.106.8.51.32.163.101.204.63.206.103.35.116.80.20.118.127.131.212.74.113.122.145.100.26.45.105.181
+
+.211.89.117.151.205.147.161.24.129.125.82.64.52.91.58.167.84.3.170.130.28.21.75.189.182.4.78.19.6.79.
+
+183.29.5.111.137.99.190.207.34.173.23.179.77.159.39.44.165.146.135.96.191.175.47.15 5.5 5.174.57.119.
+
+169.53.164.156.144.93.95.177.97.132.37.1.43.70.209.199.73.11.115.92.38.197.69.187.42.81.
+
+98.157.128.203.107.13.48.76.185.192.54.62.85.219.214.216.17.41.50.215.171.198.112.18.150.15.46.200.
+
+154.12.213.114.72.121.31.7.218.110.208.61.153.30.160.2.36.40.210.136.123.158.60.194.59.180.104.139.
+
+120.217.68.168.27.143.178.67.152.33.141.220.162.142.138.88.166.56.90.184.196.149.201
+
+For Q2, the largest prime palindrome I found is for N=61:
+
+7.18.3.21.53.13.9.22.59.33.46.26.50.41.55.4.42.32.1.60.28.57.25.10.36.14.5.8.44.37.49.1 1 .19.47.34.48.54.16.30.15.27.58.20.61.23.24.45.51.40.56.2.6.43.39.52.29.31.35.12.38.17
+
+I wasn't able to find any solutions for Q3, but I don't see why they can't be possible
+
+***
+
+T. D. Noe wrote:
+
+I added two sequences to my database for this puzzle, S001070 & S001071.
+
+***
+
+On Oct 27, 2017 Jan van Delden wrote:
+
+Just a small note. Your given largest palprime for N=19 is not correct. It should be 9.18.7.16.5.13.1.14.2.10.12.4.11.3.15.6.17.8.19
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,225 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_020.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 20.- Reversible Primes
+Source: https://www.primepuzzles.net/puzzles/puzz_020.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0020.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.alpertron.com.ar/ECM.HTM
+  http://primes.utm.edu/primes/page.php?id=94993
+  https://en.wikipedia.org/wiki/Emirp#:~:text=All%20non%2Dpalindromic%20permutable%20primes,1%20discovered%20by%20Stephan%20Sch%C3%B6ler.
+  https://t5k.org/curios/page.php?number_id=6052521
+  https://www.reddit.com/r/ClaudeAI/comments/1renm07/claude_code_just_broke_the_world_record_for/
+  https://blogs.mathworks.com/pick/2026/03/16/matlab-user-john-derrico-finds-largest-known-reversible-prime-with-12346-digits/
+  https://en.wikipedia.org/wiki/Emirp
+  http://factordb.com/index.php?id=1100000008642430228
+  https://factordb.com/index.php?id=1100000008711949051
+  https://factordb.com/index.php?id=1100000008711951501
+  https://www.primepuzzles.net/puzzles/factordb.com
+  https://www.mersenneforum.org/node/1105621
+  https://www.primepuzzles.net/puzzles/puzz_019.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_021.htm
+  https://www.primepuzzles.net/puzzles/puzz_020.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 20.- Reversible Primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 20.- Reversible Primes
+
+13 is the least reversible non palindrome prime because 31 is also a prime. I’ll keep here a list of the 10 largest reversible & non-palindrome primes.
+
+As a maybe good starting point I have produced a few reversible primes from 200 to 704 digits.
+
+N=10^E -1 -Z
+
+E Z N Nrev
+
+200 42398 (9)_195 57601 10675(9)_195
+
+300 269174 (9)_294 730825 528037(9)_294
+
+400 14462 (9)_395 85537 73558(9)_395
+
+500 36530 (9)_495 63469 96436(9)_495
+
+608 34652 (9)_603 65347 74356(9)_603
+
+704 22568 (9)_699 77431 13477(9)_699
+
+Can you produce higher reversible primes (of course they need not to be of this type)?
+
+Reading one more time the Rudolph Ondrejka Primes Collection I saw recently that there is a record for this kind of primes established by H. Dubner in 1997:
+1(0)_8502047101(0)_8501
+This prime has 1709 digits. Then it seems not very hard to reach and supersede this record.
+***
+Just while other people get interested in these prime I spent a week getting a larger reversible prime than the current Dubner's 1997-record. This is the one I got after one week of search with a little code in Ubasic:
+1(0)_19927084987 & 7894807(0)_19921 are reversible primes, 2000 digits each (29/6/2001).
+These numbers are expressed: 10^1999+7084987 & 7894807*10^1993+1, respectively.
+Of course that only the second is rigorously a prime (according to the N-1 test of PRIMEFORM). The first one is up to day a strong probable prime.
+Does anybody wants to get the rigorous primality certificate of the first one, using TITANIX?
+***
+Great news! They came from J. K. Andersen (June 2003). His results and his method are very interesting:
+
+I have found the 10 largest known reversible primes.
+
+If a search starts with 10^n+1 or 10^n-1 and only changes the middle digits then the solutions with probable primes become easily provable. This is important since titanic prp solutions can be found faster than Primo (formerly
+
+Titanix) could prove them.
+
+10^3929-1+(428375201-999999999)*10^1960 is a reversible prime with 3929 digits. 3929 is also a reversible prime.
+
+10^2003-1+(k-999999999)*10^997 is a reversible prime with 2003 digits for the following nine k: 107671501, 158957701, 168586801, 268720301, 292300601, 318811301, 689715601, 856978001, 996358669.
+
+In each case the decimal prime and the reverse is k and reverse(k) with 997 9's on both sides.
+
+I trial factored with my own C program using Michael Scott's Miracl library. prp tests were made with PrimeForm/GW which also proved all the primes.
+
+Later on October 13, 07 he added:
+
+10^10006+941992101*10^4999+1 is a proven gigantic reversible prime.
+
+It has the form 1 0(4998) 941992101 0(4998) 1. The reverse prime is 10^10006+101299149*10^4999+1. PrimeForm/GW found it after only 2.2% of the expected prp tests. It has 10007 digits (and 10007 is a reversible prime too!).
+Note by CR: I checked both primes with ECM by Dario Alpern and , true, these two integers are primes.
+
+***
+On March 2011, J. K. Andersen wrote:
+
+p = 10^5013+10^3296+10^1834+1 is a reversible prime.
+
+reverse(p) = 10^5013+10^3179+10^1717+1. PrimeForm/GW found and proved the primes.
+
+A reversible prime is also called an emirp (prime backwards).
+
+Similarly, a reversible semiprime is called an emirpimes (semiprime backwards).
+
+The largest known palindromic prime is q = 10^200000+47960506974*10^99995+1, found by Bernardo Boncompagni:http://primes.utm.edu/primes/page.php?id=94993.
+
+p*q with 205014 digits is the largest known emirpimes.
+
+p was constructed such that reverse(p*q) = reverse(p)*q.
+
+***
+According to a Wikipedia page, and the following curio, since this last Feb. 16, 2026, "The largest known emirp as of 2026 is 3,867,632,931 × 10^10001 + 1 discovered by Stephan Schöler". It has 10011 digits, beating the previous record by J. K. Andersen with 10007 digits, reported on October 13, 2007. See above.
+Note by CR: I checked both primes with ECM by Dario Alpern and, true, these two integers are primes.
+***
+On March 17, 2026, Simon Cavegn wrote:
+Found two new record emirps with 15307 digits.
+
+Date: 13.03.2026
+
+Forward: 151694971 * 10^15298 + 111257221
+
+Reverse: 122752111 * 10^15298 + 179496151
+
+Date: 17.03.2026
+
+Forward: 989263739 * 10^15298 + 111258179
+
+Reverse: 971852111 * 10^15298 + 937362989
+
+These emirps start and end with a 9-digit emirp (151694971 & 111257221
+The number of digits is an emirp (15298+9= 15307)
+The number of zeros is also an emirp.(15298-9 = 15289)
+Both of them have been verified by me using ECM by Darío Alpern.
+***
+On March 18, 2026, Simon Cavegn wrote again:
+Seems two more emirps were found by other people as well:
+
+https://www.reddit.com/r/ClaudeAI/comments/1renm07/claude_code_just_broke_the_world_record_for/
+
+https://blogs.mathworks.com/pick/2026/03/16/matlab-user-john-derrico-finds-largest-known-reversible-prime-with-12346-digits/
+The first link is about a 10069 digits emirp
+The second link is about a 12346 digits emirp
+Both of them have been verified by me using ECM by Darío Alpern.
+***
+On Mach 19, Simon Cavegn wrote again:
+Dear Carlos Rivera,
+
+On https://en.wikipedia.org/wiki/Emirp someone else found a bigger one:
+10^20000 + 518406362 * 10^9996 + 1
+
+Author unknown, 20001 digits
+Original from: http://factordb.com/index.php?id=1100000008642430228
+(I checked it.)
+
+Best Regards,
+Simon Cavegn
+(CR, I made my own verification using ECM by Darío Alpern.)
+***
+
+On April 2, 2026 Ashaz Jameel wrote:
+New largest emirps dropped
+
+10^47253 - 22*10^21607 - 1, 47253 digits
+
+and its reverse is
+
+10^47253 - 22*10^25644 - 1, 47253 digits
+
+found by Serge Batalov on March 27, 2026
+
+https://en.wikipedia.org/wiki/Emirp
+
+https://factordb.com/index.php?id=1100000008711949051
+
+https://factordb.com/index.php?id=1100000008711951501
+
+* Both of them have been verified by me (CR) using ECM by Darío Alpern.
+***
+On April 19, Serge Batalov wrote directly to me this:
+Propper R. and Batalov S. found some larger emirps in 2026.
+
+We restricted to near-repdigits (all '9's with one digit different) -
+
+(Propper, Batalov, 6-Apr-2026):
+
+Prime = 10^77763-4*10^25683-1 (proven with Konyagin-Pomerance N+1 at 33.04% factored)
+
+Emirp = 10^77763-4*10^52079-1 (proven with N+1)
+
+(Verified by CR using ECM by Darío Alpern)
+
+A larger emirp pair, both proven primes (Propper, Batalov, 19-Apr-2026):
+
+10^111956-7*10^53855-1
+
+10^111956-7*10^58100-1
+
+Both are near-repdigits full of '9's with a single '2'. BLS N+1 proof is sufficient.
+
+(Out of reach in ECM by Darío Alpern, but already listed as primes in factordb.com )
+
+Some additional discussion: in https://www.mersenneforum.org/node/1105621
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

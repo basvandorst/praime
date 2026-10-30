@@ -1,0 +1,122 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_251.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 251.  Pointer primes
+Source: https://www.primepuzzles.net/puzzles/puzz_251.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0251.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_250.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_252.htm
+  https://www.primepuzzles.net/puzzles/puzz_251.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 251. Pointer primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 251. Pointer primes
+
+Joseph L. Pe proposes the following puzzle:
+
+The product of the digits of the prime number 23 is 2 x 3 = 6. Note that 23 + 6 = 29, the next prime number. The prime 23 can be said to "point" to the next prime number 29 in the sense that when 23 is added to the product of its digits, 29 is obtained.
+
+We define the prime number p to be a pointer prime if the next prime after p can be obtained from p by adding to p the product of the digits of p.
+
+The pointer primes not exceeding 10^8 are:
+
+23, 61, 1123, 1231, 1321, 2111, 2131, 11261, 11621, 12113, 13121, 15121,
+
+19121, 21911, 22511, 27211, 61211, 116113, 131231, 312161, 611113, 1111211, 1111213, 1111361, 1112611, 1123151, 1411411, 1612111, 2111411, 2121131, 3112111, 3116111, 3221111, 4121113, 9111341, 11113321, 11132123, 11221211, 11264111, 11281211, 11314111, 11316211, 11361211, 11413111, 11611121, 11922121, 12111163, 12111313, 12111331, 12111511, 12122111, 13121117, 14111131, 14111311, 19122211, 21182111, 21212111, 23311111, 27212111, 41122111, 41211221, 61114211, 81111211, 111111163, 111131213, 111219211, 111221221, 111316111, 111611113, 112121213, 112212211, 114131141, 115121221, 115121311, 116112131, 119112113, 121115311, 121122151, 121151341, 121235111, 131121131, 131211181, 131261111, 136211111, 152211121, 163111111, ...
+
+Note that 23 is the only number in the list that does not contain the digit 1.
+
+Question. Are there other pointer primes that do not contain the digit 1?
+
+Solution:
+
+Contributions to the only question came from Jon Wharf, J Van Delden and Faride Firoozbakht:
+
+Wharf wrote:
+
+Question. Are there other pointer primes that do not contain the digit 1?
+
+No.
+
+Examination of the maximal prime jumps at http://www.trnicely.net/gaps/gaplist.html shows that the gaps increase much more slowly than the minimum digit-product (MDP) without ones (MDP2+) for the bounding primes.
+
+For example, 3 maximal jumps are encounter in 8-digit numbers:
+
+180 after 17051707
+
+210 after 20831323
+
+220 after 47326693
+
+but the minimum digit product is 3*2^7 = 384.
+
+The ratio between these numbers continues increasing until the largest confirmed maximal jump of 1198 after 55350776431903243 compared to the corresponding MDP2+ of 196608 for 17 digits (ratio>164).
+
+It is clear that the maximal prime jumps are increasing at a rate consistent with the density of primes whereas the MDP2+ increases much faster. There is no way back and no more one-less pointer primes.
+
+***
+
+Van Delden wrote:
+
+A dirty heuristic argument:
+
+A quick search on Mathworld revealed that the maximum Gap between successive primes less than n would be asymptotically ln(n)^2. (Cramer's conjecture).
+
+In order for primes to be successive we can't have a 0 as a digit. Since in the proposed question the 1 is prohibited as well, every digit is at least 2. (And at least 1 is bigger than 2, otherwise we can't have a pointer-prime).
+
+Starting with n consisting of d 2's (gives smallest gap, not prime though, but simplifies the argument).
+
+Our Gap would then be: 2^d=(ln(n))^2. Which leads to n asymptotically exp(2^(d-1)). But n itself would be about 2*10^(d-1). Solving these two expressions for equality gives two solutions for d, d being about 1 and 4. If d>4 the 'required size of n' (by Cramer's conjecture) will be far greater than the actual size: d=8 digits would give Cramer's n about exp(2^7) - 3.9*10^55, quite a bit bigger!
+
+So I would say no. To prove there are no pointer primes of the required form, would entail using an upper bound for the maximum prime Gap, finding bounds for the solution(s) of a similar more precise equation for n, giving a range to search for pointer primes p less then (say) N. (Probably done already).
+
+***
+
+Faride wrote:
+
+I have proved (in my thesis in 1991) that If conjecture 30 is true then for each n d(n) < 3*Log(prime(n))^2 (**)
+
+(and d(n)<(1+epsilon)*Log(prime(n))^2 for sufficiently large n)
+
+where d(n)=prime(n+1)-prime(n).
+
+Now suppose that p=prime(m) is a pointer prime and 10^(n-1) < p < 10^n so p is a n-digit prime if p doesn't contain the digit 1 then d(m) >= 3*2^(n-1),and if conjecture 30 is true d(m) < 3*Log(prime(m))^2
+
+So 3*2^(n-1) < 3*Log(p)^2 and since p < 10^n we have 2^(n-1) < Log(10)^2*n^2 ,but this relation is true only for n=1,2,...,10 So if the conjecture is true there is no pointer prime greater than 10^10 which doesn't contain the digit 1. So the numbers greater than 10^8 with one digit 3 must check are 222222223, 2222222223,but they aren't prime.
+
+If p contains at least one digit not equal to 2 and 3 then by using (**) p must be less than 10^8 . So if the conjecture is true there is no other pointer prime that does not contain the digit 1.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

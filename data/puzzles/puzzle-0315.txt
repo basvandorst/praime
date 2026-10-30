@@ -1,0 +1,237 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_315.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 315. pn => pn-i + pi
+Source: https://www.primepuzzles.net/puzzles/puzz_315.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0315.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.opertech.com/primes/k-tuples.html
+  http://groups.yahoo.com/group/primenumbers/message/15948
+  http://www.unilim.fr/laco/theses/index.html
+  http://mathworld.wolfram.com/Hardy-LittlewoodConjectures.html
+  https://www.primepuzzles.net/puzzles/puzz_314.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_316.htm
+  https://www.primepuzzles.net/puzzles/puzz_315.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 315. pn => pn-i + pi
+
+Problems & Puzzles: Puzzles
+
+Puzzle 315. p_n => p_n-i + p_i
+
+Sebastian Martin Ruiz, poses the following puzzle:
+
+Prove that:
+p_n => p_n-i + p_i
+
+for all 1<= i <=n-1, for all n=>3.
+
+Contributions came from J. K. Andersen, Faride Firoozbakht, Luis Rodríguez & Rudolph Knjzek. Well, it seems that we have more problems than solutions now! See below why:
+
+Andersen wrote:
+
+This is equivalent to the second Hardy-Littlewood conjecture:
+
+pi(x) + pi(y) >= pi(x+y).
+
+It appears likely to be false but finding a counter example seems completely infeasible. Thomas J Engelsma has found many admissible prime tuplet patterns which will each give infinitely many counter examples if the k-tuple conjecture is true. See http://www.opertech.com/primes/k-tuples.html
+
+For a discussion of the difficulty in finding such a counter example with one of the patterns, see http://groups.yahoo.com/group/primenumbers/message/15948
+
+Faride wrote:
+
+It seems that if n>2, the following stronger relation is true.
+
+Max{ prime(i)+prime(n-i) | 1<=i<=n-1 } = prime(1)+prime(n-1) (*) (the maximum happens where i=1)
+
+But at this moment I don't know how we can prove it.
+
+The requested relation is a trivial result of (*) (d(n)=prime(n)-prime(n-1)>=2).
+
+Luis Rodríguez wrote:
+
+Starting from this two theorems of Dusart: "Autour de la function qui compte le nombre des nombres premiers". These de doctorat 1998 http://www.unilim.fr/laco/theses/index.html
+
+Theorem 1.5 Pag 26
+
+p(n) > n[log(n) + logLog(n) -1] ; n > 1
+
+Theorem 1.8 Pag. 32
+
+p(n) < n[log(n) + logLog(n)-.9484]; n>39017
+
+We can demonstrate that p(n) >=P(n-i)+p(i) provided that i/n >= 0.01
+
+As the theorem 1.8 exige that n > 39017 or
+
+p(n) > 467473 it is necessary first to check the conjecture from n = 39017 to 19508 and i from 1 to 19508. I checked that and it passed the test.
+
+Making k = (1-i/n) and j = i/n ; k+j = 1
+
+We will take the minimum for the left term that is: P(n) = n[log(n) + loglog(n) - 1] and the mximum for the right term, that is:
+
+p(n-i)= p(kn)= kn(log(kn)+loglog(kn)-.9484]
+
+p(i) = p(jn)= jn[log(jn)+loglog(jn)-.9484]
+
+If the inequality holds up the conjecture is true.
+
+Canceling n in the two members and developing the algebra we arrive to:
+
+loglog(n) > 0.0516 + [klog(k)+jlog(j)] +
+
+kloglog(kn)+jloglog(jn)
+
+But loglog(n) > kloglog(kn)+ jloglog(jn) and I can cancel the two quantities without to destroy the inequality.
+
+Resting:
+
+0 > 0.0516 + [klog(k) + jlog(j)]
+
+This last sum results less than -0.056 provided j >= 0.01 that is i/n >= .01
+
+Knjzek wrote:
+
+The number of primes in the open interval (0,p(k)) is k-1.
+
+The open interval (p(n),p(n-k)) contains also k-1 primes.
+
+If no open interval (a,b) of same length as (0,p(k)), b-a = p(k), contains more than k-1 primes, thenp(n) - p(n-k) => p(k) and p(n) => p(k) + p(n-k)
+
+Therefore it is equivalent to proof that pi(b) - pi(a) =< pi(b-a).
+
+If P is the Product of all primes less or equal than sqrt(b) and d divides P we can sieve out the composites (Lagrange) and have to proof:
+
+Sum over d (µ(d)*(int(b/d)-int(a/d))) =< Sum over d (µ(d)*int((b-a)/d)).
+
+Assuming that int(b/d)-int(a/d) = int((b-a)/d) + r with r = 0 or 1, this seems to be true.
+
+***
+
+The 29/5/05 I asked this to JKA:
+
+Perhaps today I'm a little bit sleep. Can you tell me in detail why do you affirm that the Sebastian Conjecture "is equivalent to the second Hardy-Littlewood conjecture"?
+
+As a matter of fact the H&L conjecture is:
+
+pi(x+y)<=pi(x) + pi(y), where pi is the prime counting function.
+
+http://mathworld.wolfram.com/Hardy-LittlewoodConjectures.html
+
+By his side, the Sebastian's conjecture is:
+
+p(n) =>p(n-i)+p(i), where p(x) is the x-th prime.
+
+This Sunday morning for me is not as clear as a week before the equivalence between these two statements.
+
+Two days later Luis Rodríguez wrote:
+
+I don't understand what means Andersen by "equivalent", because in Sebastian's p(n) means the primes of rank n, but in Hardy's Pi(n) means the number of primes less than n.
+
+Besides if we replace in Hardy's x+y = n x = n-i , y = i ; for the case i = n/2 results the false inequality: Pi(n) >= Pi(n/2) + Pi(n/2)
+
+This is the JKA reply to both of us:
+
+Let p(n) = n'th prime, and pi(x) = number of primes <=x.
+
+I have been asked to explain in detail the connection to the
+
+second Hardy-Littlewood conjecture:
+
+(0) pi(x) + pi(y) >= pi(x+y), for x,y >= 2.
+
+Consider the slightly weaker variant:
+
+(1) If x or y is prime, then pi(x) + pi(y) >= pi(x+y), for x,y >= 2.
+
+Ruiz asks us to prove (without knowing whether it's true):
+
+(2) p(n) >= p(n-i) + p(i), for n >= 3.
+
+(1) and (2) are either both true or both false. This is proved by showing that a counter example to one of them gives a counter example to the other.
+
+First assume (1) is false with counter example:
+
+pi(x) + pi(y) < pi(x+y), where x is prime (y is symmetric).
+
+Let n = pi(x+y). Then p(n) <= x + y.
+
+Let i satisfy x = p(n-i). Then pi(x) = n-i.
+
+By assumption pi(y) < pi(x+y) - pi(x) = n - (n-i) = i.
+
+pi(y) < i implies y < p(i). We now have:
+
+p(n) <= x + y = p(n-i) + y < p(n-i) + p(i).
+
+This is the wanted counter example to (2).
+
+Now assume (2) is false with counter example:
+
+p(n) < p(n-i) + p(i).
+
+Let x = p(n-i). Let y = p(n) - p(n-i). Then x+y = p(n).
+
+y = p(n) - p(n-i) < p(i) by assumption, so pi(y) < i. We now have:
+
+pi(x+y) = pi(p(n)) = n = (n-i) + i = pi(x) + i > pi(x) + pi(y).
+
+x is prime so this is the wanted counter example to (1).
+
+That completes the proof.
+
+Are (1) and (2) true or false? I think false, but nobody has been able to prove it.
+
+http://www.opertech.com/primes/k-tuples.html says for example:
+
+There is an admissible 459-tuple of width 3241.
+
+(An even smaller width may exist).
+
+If the k-tuple conjecture is true (I and most other think so),
+
+then there is a prime 459-tuple of width 3241, i.e. a solution to:
+
+p(n) - p(n-458) = 3240.
+
+For comparison, p(458) = 3251. Let i = 458 and we get:
+
+p(n) = p(n-i) + 3240 < p(n-i) + 3251 = p(n-i) + p(i).
+
+This would be a counter example to (2).
+
+A counter example to (0) is not necessarily a counter example to (2).
+
+It appears conceivable (but unlikely in my opinion) that (2) is true and the second Hardy-Littlewood conjecture is false.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

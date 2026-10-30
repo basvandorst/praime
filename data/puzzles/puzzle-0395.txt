@@ -1,0 +1,340 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_395.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 395. (2^n+3^n+4^n+5^n+6^n)/2 – 10
+Source: https://www.primepuzzles.net/puzzles/puzz_395.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0395.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_394.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_396.htm
+  https://www.primepuzzles.net/puzzles/puzz_395.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 395. (2^n+3^n+4^n+5^n+6^n)/2 – 10
+
+Problems & Puzzles: Puzzles
+
+Puzzle 395. (2^n+3^n+4^n+5^n+6^n)/2 – 10
+
+Anton Vrba shares with us the following puzzle from his own:
+
+Let q(n)=(2^n+3^n+4^n+5^n+6^n)/2 – 10.
+
+Questions.
+
+1. Can you explain/prove why q(3)=210 divides q(n) for any odd n > 1?
+
+2. Can you explain why, for n even, 5 divides q(n) if n/2 is odd & 7 divides q(n) if n mod 6>0
+
+3. Can you find a prime (or PRP) of the form q(n) or prove that none exist? (no PRP found for n < 10000).
+
+Contributions came from Adam Stinchcombe, Farideh Firoozbakht, J. C. Rosa & J. K. Andersen:
+
+***
+
+Adam wrote:
+
+Question 1 of 395 is easy to resolve if you know the theory of linear recurrence relations. The key idea from that area is: x(n)=sum(ai*ri^n,i=1..k) generates the characteristic polynomial p(y)=product(y-ri,i=1..k) then when you replace y^i with x(n+i) you get the recurrence relation for x(n). Also, the converse, given a recurrence relation, you can solve for the ri and write formulas for x(n) [Binet forms].
+
+For instance, write z(n)=q(2n+1)=4^n+(3/2)*9^n+2*16^n+(5/2)*25^n+3*36^n-10*1^n which leads to characteristic polynomial (y-1)(y-4)(y-9)(y-16)(y-25)(y-36) which leads to recurrence relation z(n+6)=91z(n+5)-3003z(n+4)+44473z(n+3)-296296z(n+2)+773136z(n+1)-518400z(n). Once you prove (just calculate!) that z(1),z(2),z(3),z(4),z(5),z(6) all have factors of 210, the recurrence proves that z(7) does also, and by induction, all z(n) do.
+
+Similarly, part 2 can be proved using recurrence relations. The divisible by 5 pattern is verified with the appropriate formula for z(n)=q(4n+2) with characteristic polynomial (x-1) (x-16) (x-81) (x-256) (x-625) (x-1296) and relation z(n+6)= 2275z(n+5)- 1516515z(n+4)+ 337967905z(n+4)- 22137475360z(n+3)+ 290539581696z(n+1)- 268738560000z(n).
+
+Additionally, any residue pattern that repeats can be proved inductively. You calculate that the initial pattern [0,0,0,0,0,3] leads to a repeat [0,0,0,0,0,3] and then that leads to a second repeat, etc., on forever.
+
+***
+
+Farideh wrote:
+
+q(n) = (1/2)*c(n) where c(n) = 2^n+3^n+4^n+5^n+6^n-20.
+
+Answer to Q1:
+
+If n>1 is odd then 210 divides q(n).
+
+Proof: Since n is odd we have the following four results.
+
+1. c(n) = (-1)^n+0^n+1^n+(-1)^n+0^n-(-1) (mod 3), so c(n) = 0 (mod 3).
+
+2. c(n) = 2^n+(-1)^n+0^n+1^n+(-2)^n-0 (mod 4), so c(n) = 0 (mod 4).
+
+3. c(n) = 2^n+(-2)^n+(-1)^n+0^n+(1)^n-0 (mod 5), so c(n) = 0 (mod 5).
+
+4. c(n) = 2^n+3^n+(-3)^n+(-2)^n+(-1)^n-(-1) (mod 7), so c(n) = 0 (mod 7)
+
+Hence lcm(3, 4, 5, 7) = 420 divides c(n), so (1/2)*420 = 210 divides q(n).
+
+Answer to Q2:
+
+(a). If n is even and n/2 is odd then 5 divides q(n).
+
+(b). If n is even and mod(n, 6)>0 then 7 divides q(n).
+
+Proof of (a): If n is even and n/2 is odd then n is of the form 4k+2,
+
+c(n) = 2^n+(-2)^n+(-1)^n+0^n+1^n (mod 5), so c(n) = 2^(n+1)+2 (mod 5)
+
+or c(n)=2^(4k+3)+2 =16^k*8+2 (mod 5),
+
+hence c(n) = 1*(-2)+2 = 0 (mod 5), so 5 divides q(n).
+
+Proof of (b): Since n is even and mod(n, 6)>0 n is of the form 6k+2 or 6k+4.
+
+1. If n = 6k+4 then c(n) = 2^n+3^n+(-3)^n+(-2)^n+(-1)^n-(-1) mod (7),
+
+so c(n) = 2^(6k+5)+2*3^(6k+4) =(2^6)^k*32+2*(3^6)^k*81 (mod 7),
+
+hence by FLT c(n) = 0 (mod 7), so 7 divides q(n).
+
+About Q3:
+
+From Q1 & Q2 we deduce that if q(n) is prime or PRP then n is of the form 12*m.
+
+Also we can show the following assertions.
+
+1. If m = 1 (mod 3) then 37 divides q(12m).
+
+2. If m = 2 (mod 5) then 61 divides q(12m).
+
+3. If m = 4 (mod 11) then 23 divides q(12m).
+
+4. If m = 7 (mod 13) then 79 divides q(12m).
+
+5. If m = 4 (mod 17) then 103 divides q(12m).
+
+6. If m = 4 (mod 33) then 397 divides q(12m).
+
+7. If m = 3 (mod 35) then 71 divides q(12m).
+
+8. If m = 6 (mod 67) then 269 divides q(12m).
+
+9. If m = i (mod 130) then 131 divides q(12m),
+
+where i is in the set {4, 12, 69, 77} .
+
+10. If m = i (mod 191) then 383 divides q(12m),
+
+where i is in the set {2, 86, 153} .
+
+***
+
+Rosa wrote:
+
+Question 1
+
+We have : q(n)=(2^n+3^n+4^n+5^n+6^n)/2-10
+
+fromwhere : 2q(n)=2^n+3^n+4^n+5^n+6^n-20
+
+2q(n)=2^n(1+2^n)+3^n(1+2^n)+5^n-20
+
+2q(n)=(1+2^n)(2^n+3^n)+5^n-20
+
+if n is odd and >1 we have :
+
+modulo 4: 2^n=0 ; 3^n=3 ; 5^n=1
+
+2q(n)=(1+0)(0+3)+1-0=0
+
+2q(n)=0 mod 4 implies q(n)=0 mod 2
+
+modulo 3: 2^n=2 ; 3^n=0 ; 5^n=2
+
+2q(n)=(1+2)(2+03)+2-(-1)=0
+
+2q(n)=0 mod 3 implies q(n)=0 mod 3
+
+modulo 5: 2^n=+/-2 ; 3^n=+/-3 ; 5^n=0
+
+2q(n)=(1+/-2)(+/-5)+0-0=0
+
+2q(n)=0 mod 5 implies q(n)=0 mod 5
+
+modulo 7: n is odd , n=2k+1
+
+2^(2k+1)=2.4^k
+
+3^(2k+1)=3.2^k
+
+4^(2k+1)=4.2^k
+
+5^(2k+1)=5.4^k
+
+6^(2k+1)=6.1^k
+
+2q(n)=2^n+3^n+4^n+5^n+6^n-20
+
+2q(n)=2.4^k+3.2^k+4.2^k+5.4^k+6-6
+
+2q(n)=(2+5)4^k+(3+4).2^k=0
+
+2q(n)=0 mod 7 implies q(n)=0 mod 7
+
+conclusion : if n is odd >1 then q(n) is divisible by 2,3,5,7 and therefore q(n) is divisible by 210
+
+question 2 : n=4k+2 , we have modulo 5:
+
+2^(4k+2)=4
+
+3^(4k+2)=4
+
+4^(4k+2)=1
+
+5^(4k+2)=0
+
+6^(4k+2)=1
+
+2q(n)=2^n+3^n+4^n+5^n+6^n-20
+
+2q(n)=4+4+1+0+1-0=0
+
+Thus if n is of the form 4k+2 then q(n) is divisible by 5
+
+: n=2k , we have modulo 7
+
+: 2^(2k)=4^k
+
+3^(2k)=2^k
+
+4^(2k)=2^k
+
+5^(2k)=4^k
+
+6^(2k)=1
+
+2q(n)=2^n+3^n+4^n+5^n+6^n-20
+
+2q(n)=4^k+2^k+2^k+4^k+1-(-1)
+
+2q(n)=2(2^k+(2^k)^2+1)
+
+q(n)=2^k+(2^k)^2+1 mod 7
+
+If k=3x , we have : 2^k=2^(3x)=(2^3)^x=1 and q(n)=3 mod 7
+
+If k=3x+1 , we have : 2^k=2 and q(n)=2+4+1= 0 mod 7
+
+If k=3x+2 , we have : 2^k=4 and q(n)=4+4^2+1=21= 0 mod 7
+
+Thus if n is even of the form 6x+2 or 6x+4 then q(n) is divisible by 7, and if n=6x then q(n)=3 modulo 7.
+
+.
+
+Question 3 : Two remarks:
+
+If we want q(n) prime then n is necessarily of the form n=12k
+
+1) If k is of the form 3x+1 then q(n) is divisible par 37.
+
+Indeed we have modulo 37 :
+
+2^12=26
+
+3^12=10
+
+4^12=10
+
+5^12=10
+
+6^12=1
+
+2^36=1 and (2^36)^x=1 mod 37
+
+2q(n)=2^(36x+12)+3^(36x+12)+4^(36x+12)+5^(36x+12)n+6^(36x+12)-20
+
+2q(n)=2^12+3^12+4^12+5^12+6^12-20=26+10+10+10+1-20=37=0 mod 37
+
+2q(n)=0 mod 37 implies q(n)=0 mod 37
+
+Thus if q(n) is prime then n=36x or n=36x+24.
+
+2) If k is of the form 5x+2 then q(n) is divisible by 61.
+
+Indeed we have modulo 61 :
+
+2^12=9
+
+3^12=9
+
+4^12=20
+
+5^12=20
+
+6^12=20
+
+2^60=1 and (2^60)^x=1 mod 61
+
+2q(n)=2^(60x+24)+3^(60x+24)+4^(60x+24)+5^(60x+24)n+6^(60x+24)-20
+
+2q(n)=2^24+3^24+4^24+5^24+6^24-20=81+81+400+400+400-20=1342=0 mod 61
+
+2q(n)=0 mod 61 implies q(n)=0 mod 61
+
+Thus if n=60x+24 then q(n) is not a prime , q(n)=0 mod 61.
+
+***
+
+Andersen wrote:
+
+1. and 2. 210 divides q(n) if 420 divides 2*q(n) = 2^n+3^n+4^n+5^n+6^n - 20.
+
+For any fixed p and b: b^n (mod p) is periodic.
+
+Then, for any fixed p, and k values b_1,...,b_k: b_1^n+...+b_k^n (mod p)
+
+will also be periodic (and the period length will divide the least common
+
+multiple of the k periods).
+
+Brute force computation of the periodic values will easily show the wanted.
+
+I haven't looked for a more elegant proof.
+
+3. A search with PrimeForm/GW found no prime or prp for n < 150000.
+
+The given observations show that if n is not divisible by 12, then 5 or 7
+
+divides q(n). If n = 12m, then similar period observations will show that
+
+q(n) has no prime factor below 23. Only some larger primes can ever divide
+
+q(n), but some of them do it often - especially 37 which divides for n =
+
+12*(3i+1). Some q(n) have no small prime factor, for example
+
+q(60) = 289408609559171 * 84438651321055179349130110019677.
+
+Based on these observations and the growth rate of q(12m), I guess there are
+
+infinitely many primes but they are far apart.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

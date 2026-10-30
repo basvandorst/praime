@@ -1,0 +1,246 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_042.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 42. Severini's conjecture
+Source: https://www.primepuzzles.net/conjectures/conj_042.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0042.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://mathworld.wolfram.com/DivisorFunction.html
+  http://www.ltkz.demon.co.uk/ktuplets.htm
+  https://www.primepuzzles.net/conjectures/conj_040.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_043.htm
+  https://www.primepuzzles.net/conjectures/conj_042.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 42. Severini's conjecture
+
+Problems & Puzzles: Conjectures
+
+Conjecture 42. Severini's conjecture
+
+Simone Severini sent the following Conjecture:
+
+The Rank of a Matrix n by n, composed by the first n^2 prime numbers is full if you allocate the primes in the matrix according to the following:
+
+Simple Allocation Rule: a(i,j) = p[n.(i-1)+j]
+
+i=row, j= column, p(1)=2, p(2)=3, etc...
+
+"...The rank of a matrix is defined to be the maximal number of its columns which are linearly independent. The rank of an n by n matrix is said to be full if it is equal to n. ...It is very simple to test the validity of the conjecture with any computer algebra system or scientific computing software (Maple, Matlab, etc.)... The conjecture comes from playing with prime numbers on a matrix. No particular reason; no particular application... "
+
+Example: Matrix n=4; Rank =4
+
+2 | 3 | 5 | 7
+
+11 | 13 | 17 | 19
+
+23 | 29 | 31 | 37
+
+41 | 43 | 47 | 53
+
+Severini checked his conjecture for n=2 to 5. Later he informed that Edwin Clarke checked his conjecture for n up to 100.
+
+By my side I asked to Farideh Firoozbakht to check the conjecture independently, which was done up to 500.
+
+Moreover, Farideh confirmed that the simple rule of allocation given by Severini is sufficient while not necessary, but far from being irrelevant because the rank is not full if you allocate the first n^2 primes in some distinct orders to the prescribed by the specified allocation rule.This fact was previously advised to me by Severini.
+
+Here are some examples of Rank not full given by Farideh for n=3:
+
+2 7 11 2 7 11 2 5 19
+
+5 13 17 13 17 5 7 13 23
+
+19 23 3 19 23 3 11 17 3
+
+Farideh also verified that the rank is not full if you use the allocation rule but other sets of n^2 consecutive primes not starting in "2". Let me quote directly to Farideh about this point:
+
+If p(m)=prime(m) and A(k,n) is a nxn matrix where the arrays are p(k+1), p(k+2), ... & p(k+n^2) and the order is similar to the examples that he has written, namely A(k,n)[i, j] = p(k+(i-1)*n+j) then for k=329, 560, 1008, 1122, 1825, 2631, 3965, 4055, 6030, 6362, 6504, 7111, 8153, 9347, 9612, ... rank(A(k,3)) = 2.
+Note that according to the definition A(k,3) is as follows.
+
+p(k+1) p(k+2) P(k+3)
+A(k,3 ) = p(k+4) p(k+5) P(k+6)
+
+p(k+7) p(k+8) P(k+9)
+
+p(330) p(331) P(332) 2213 2221 2237
+so, A(329,3 ) = p(333) p(334) P(335) = 2239 2243 2251
+
+p(336) p(337) P(338) 2267 2269 2273
+
+Also we have:
+
+For k = 20, 24, 28, 79, 1717, 4156, 4157, 5840, 20375, 23718, 28099, 28100
+
+28231, 32406, 32410, 45825, 49770, ... rank(A(k,4)) = 3.
+
+For k = 119, 155, 429, 430, 431, 9165, 79106,79107, 102228, ... rank(A(k,5)) = 4.
+
+For k = 60529, ... rank(A(k,6)) = 5.
+
+I couldn't find two numbers k & n such that rank(A(k, n))<n-1.
+
+So the conjecture should be:
+
+1. rank(A(n))=rank(A(0,n))=n, or
+
+2. For k>=0 rank(A(k,n))>n-2.
+"...it seems that in general case the rank is n or n-1."
+
+In short the fullness of the simple rule of allocation gave by Severini - after the Farideh's fast work - comes not only from the prime nature of the quantities allocated but from the order the allocation is made and from the specific set of prime quantities chosen.
+
+Questions:
+
+1. Can you prove the Severini's conjecture or find a counterexample?
+
+2. Can you discover another set of simple (not prime) values & simple allocation rule providing fullness, distinct to the provided by Severini?
+
+Contribution came from Farideh Firoozbakht.
+
+***
+
+1. Up to n=562 there is no counter example.
+
+2. It seems that for all natural numbers k & n rank of the matrix Sig_k(n), where
+
+Sig_k(n)(i, j)=sigma_k((i-1)*n+j) is full.
+I checked for all (k, n) such that 0< k<11 and n<151.
+
+Examples:
+
+sigma_1(1) sigma_1(2) sigma(1) sigma(2) 1 3
+
+Sig_1(2) = = =
+
+sigma_1(3) sigma_1(4) sigma(3) sigma(4) 4 7
+
+sigma_2(1) sigma_2(2) sigma_2(3) 1 5 10
+
+Sig_2(3) = sigma_2(4) sigma_2(5) sigma_2(6) = 21 26 50
+
+sigma_2(7) sigma_2(8) sigma_2(9) 50 85 91
+
+1 3 4 7 6
+
+12 8 15 13 18
+
+Sig_1(5) = 12 28 14 24 24
+
+31 18 39 20 42
+
+32 36 24 60 31
+
+***
+
+J. Wroblewski pointed out, that he was not in agreement with Faride Firoozbakht restatement of the conjecture:
+
+I do not argue about 1, but 2. should read:
+2. n-rank(A(k,n)) can be arbitrarily large
+
+or
+
+2. for any n there is k such that rank(A(k,n))=2.
+
+This is more religion than math, you do not argue with what people believe in. I believe in the following:
+
+There are arbitrarily long arithmetic progressions of consecutive primes.
+
+Noone will ever prove it, but I do believe that's true.
+
+Now, if terms of a matrix form an arithmetic progression, it has rank 2.
+
+As for an example with rank(A(k,4))=2,
+
+you need 16 consecutive primes in arithmetic progression.
+
+Well, I doubt one can find it.
+
+But 16 consecutive primes which form 4 4-term arithmetic progressions with the same difference would do. Well, I doubt one can find it either.
+
+One might try to find primes:
+
+p p+6 p+12 p+18
+
+p+x p+6+x p+12+x p+18+x
+
+p+2x p+6+2x p+12+2x p+18+2x
+
+p+3x p+6+3x p+12+3x p+18+3x
+
+with no other primes in between.
+
+I cannot prove anything, but I strongly believe the right conjecture is as I have described above.
+
+In fact in my previous mail I should have written that consecutive primes of the form
+
+p p+a1 p+a2 p+a3
+
+p+b1 p+b1+a1 p+b1+a2 p+b1+a3
+
+p+b2 p+b2+a1 p+b2+a2 p+b2+a3
+
+p+b3 p+b3+a1 p+b3+a2 p+b3+a3
+
+would do rank(A(k,4))=2
+
+Still, I have no idea whether any configuration of that kind is "computable".
+
+This follows from the fact that the last 2 rows are linear combinations of the first 2 rows. We have:
+
+Row3=Row1+b2*(Row2-Row1)/b1
+
+Row4=Row1+b3*(Row2-Row1)/b1
+
+Therefore the matrix has 2 linearly independent rows (e.g. Row1 and Row2), but no 3 linearly independent rows. So its rank is 2.
+
+Of course we have to assume that 0<a1<a2<a3<b1, b1+a3<b2, b2+a3<b3.
+
+I have found consistent a's and b's with a3+b3=94, but still, I have no idea whether finding the right configuration of consecutive primes is withing reach.
+
+It follows from
+
+http://www.ltkz.demon.co.uk/ktuplets.htm#largest18
+
+that people can find 18 primes in a given configuration. Here we have 16, but we require no additional primes in between.
+
+Then I had the idea to communicate this to J.K. Andersen with the hope he could find these 16 primes imagined by Wroblewski, and to the surprise of all of us (Farideh, Severini , Wroblewski and myself) he got that set almost immediately:
+
+The smallest admissible a's and b's is a1,a2,a3,b1,b2,b3 = 6,10,16,18,60,78 [as argued by J. W.]. The 16 wanted primes are then p + 0, 6, 10, 16, 18, 24, 28, 34, 60, 66, 70, 76, 78, 84, 88, 94. This is quite feasible. The estimate may be a GHz month for my program. I don't want to run it for long but if others do then mail me.
+
+p=86987701136250973 is only missing p+70 and p+84. Both are semiprimes.
+
+...
+
+p=320572022166380833 is the smallest solution. It has verified rank=2.
+
+I arbitrarily chose to make a 9-hour search ending at 1600000*31# = 320896784208000000. The chance was small but p was 99.9% into the search space. Lucky!
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

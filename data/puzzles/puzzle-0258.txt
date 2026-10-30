@@ -1,0 +1,138 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_258.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 258.  Primes and sibling numbers-II
+Source: https://www.primepuzzles.net/puzzles/puzz_258.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0258.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_257.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_259.htm
+  https://www.primepuzzles.net/puzzles/puzz_258.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 258. Primes and sibling numbers-II
+
+Problems & Puzzles: Puzzles
+
+Puzzle 258. Primes and sibling numbers-II
+
+The prime 9901 is the first prime such that its square 98029801 is a sibling number of the type (a+1).a where a=9801 and here the dot "." means concatenation.
+
+As a matter of fact, the square every number of the form 9_k0_k-11 is a sibling number of the asked for. And these numbers, 9_k0_k-11, are primes for the following four cases: k= 2, 4, 6 & 8. Notice that these kind of numbers 9_k0_k-11 has an algebraic form - (10^k-1)*10^k+1 - and consequently they are provable primes. Of course that I'm not suggesting that every sibling number of the asked type in this puzzle comes from the square of these numbers (9_k0_k-11), and as a matter of fact this is not the case.
+
+So, in this puzzle we are interested in primes p such that p^2 = (a+1).a
+
+Q1. Find the first 10 primes of this type [p^2 = (a+1).a]
+
+Q2. Find a titanic prime of this type [p^2 = (a+1).a], if the earliest the better.
+
+Solution:
+
+Results were obtained by Phil Carmody, J. C. Rosa and Patrick de Geest.
+
+Phil found the first 10 "non-boring" primes (and much more than that) and presumable also the earliest two titanic prime of this type. So he solved both questions.
+
+J.C. Rosa demonstrated that the quantity of digits of p is an even number. he also discovered a second pattern of numbers such that their square is a sibling number as the asked here.
+
+Patrick de Geest found two titanic primes working on the pattern found by J.C. Rosa
+
+Phil wrote:
+
+Q1. The first 10 non-boring (9...90...01) ones seem to be:
+
+811451682377384625400019885321
+
+666809750614092756440997454321145572124297 9487975174553917765709752598913886733902249807 616702241273241464228741455123758372745732277149 482405967216190677658368860828837029782991706641 451758720286129809463302229118977816556275026247 45568777448898926771505932475441338201823020604851 758751408135177632584329442563587578403802457203988171
+
+379845109286996981286201548908130030187137984510928699698129
+
+333333333266666666666666666666333333333333333333326666666667
+
+Q2. The two smallest titanic prime [a+1]:[a] numbers are (only the first 10 initial and 10 ending digits shown, CR; the whole primes can be sent on request)
+
+a) 4715395621...2730905317 (1000 digits)
+
+b) 4895358452...2412532529 (1000 digits)
+
+No other numbers of exactly 1000 digits exist, if my code worked properly.
+
+My method id this one:
+
+We have: p^2-n^2 = a(10^l+1) where n^2 = 1 or 10^l depending on the puzzle. Therefore _all_ factors of 10^l+1 must be either factors of p-n or p+n.
+
+Fix l. In the n^2=10^l case, l must be even. Take a list of all prime power factors of 10^l+1. Then for each partition of that list between p-n and p+n (so there are 2^f numbers to look at where f is the number of prime divisors of 10^l+1) solve the Chinese Remainder Theorem.
+
+Throw away any answer less than 10^l/sqrt(10), and then check for primality. My method could be improved massively if I didn't solve the CRT from scratch _every time_ (all 2^f combinations). There's no reason why solutions with many hundreds of digits shouldn't be found almost instantly with sensibly-written code.
+
+***
+
+The second pattern discovered by J.C. Rosa was this one:
+
+(3)k2(6)w(3)v2(6)k7
+
+w=2*(k+1) and v=2*k+1
+
+***
+
+Patrick wrote:
+
+Earlier this week I received from Jean-Claude Rosa the following nice pattern that yield infinitely many sibling numbers of the second kind :
+
+326666333267 ^ 2 = 106710893290_106710893289
+
+332666666333332667 ^ 2 = 110667110889332890_110667110889332889
+
+333266666666333333326667 ^ 2 = 111066671110888933328890_111066671110888933328889
+
+With the next general form I turned to PFGW to start looking for 3-PRP's :
+
+(3[k])(2)(6[2.k+2])(3[2.k+1])(2)(6[k])(7) ^ 2 =
+
+(1[k])(0)(6[k])(7)(1[k])(0)(8[k])(9)(3[k])(2)(8[k]+1)(0)_(1[k])(0)(6[k])
+
+(7)(1[k])(0)(8[k])(9)(3[k])(2)(8[k])(9)
+
+p^2 = (a+1).a
+
+--------------
+
+p = (3[k])(2)(6[2.k+2])(3[2.k+1])(2)(6[k])(7)
+
+(a+1) = (1[k])(0)(6[k])(7)(1[k])(0)(8[k])(9)(3[k])(2)(8[k]+1)(0)
+
+a = (1[k])(0)(6[k])(7)(1[k])(0)(8[k])(9)(3[k])(2)(8[k])(9)
+
+with k = 9, 13, 40, 363 and 6305 and lengths respectively (6.k+6) 60, 84, 246, 2184 and 37836
+
+I have thus found the first five probable primes. Also, there it is, with k = 6305, my first gigantic sibling-II number of the form p^2 = (a+1)_(a) with prime length 37836 ! The fourth one is an earliest titanic solution for your puzzle 258 where parts 'p', 'a+1' and 'a' all have a length of 2184 digits. For Question Q2 this is my only personal record. Of course, I have to wait and see if other puzzlers find even smaller titanic ones [Carmody did it, CR]...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

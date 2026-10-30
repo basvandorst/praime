@@ -1,0 +1,240 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_211.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 211.  A beauty limit on prime  numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_211.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0211.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://personal.telefonica.terra.es/web/smruiz/index.htm
+  mailto:cbrfgm@gmail.com
+  http://mathworld.wolfram.com/HofstadtersQ-Sequence.html
+  http://odo.ca/~haha/j/num/osc.jpg
+  https://www.primepuzzles.net/puzzles/smrproof211.doc
+  https://www.primepuzzles.net/puzzles/puzz_210.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_212.htm
+  https://www.primepuzzles.net/puzzles/puzz_211.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 211. A beauty limit on prime numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 211. A beauty limit on prime numbers
+
+As a part of a more general research on certain type of limits, Sebastián Martín Ruiz^(1) discovered the following beauty limit involving only prime numbers:
+
+lim _ n->∞ [p_n/AS(p_n)] = 2
+
+AS(p_n) = p_n - p_n-1 + p_n-2 - p_n-3 + ... + (-1)^n+1.2
+
+"AS" is for "Alternate Sum"
+
+Q1: Demonstrate the above limit.
+
+I have indicated to SMR that the limit he has gotten, can be used in order to obtain the following approximate relation:
+
+p_n ≈ 2.AS(p_n_-1)
+
+Q2: As a tool for estimating a prime p_n using the 'alternate sum' for all the primes less than it, how good and efficient is this approximate formula ^(2)?
+
+_______
+
+(1) Other results by S. Martin R. in his own Web page
+
+(2) For computing purposes maybe you'll find useful that AS(p_n) = p_n - AS(p_n-1)
+
+Solution:
+
+Bruce Fleming and Joseph L. Pe sent the following contributions to this puzzle:
+
+Bruce Fleming sent the following "outline proof":
+
+The comparison with the Q-sequence is a linear relation, Q(n) ~ n/2 and (AS(p_n)/p_n)n ~ n/2, that exhibits some chaotic behavior and may therefore repay further attention.
+
+Having thought further about the question, I now realize that (AS(p_n)/p_n) is convergent, by the alternating test, and that it converges to 1/2. The outline argument is as follows.
+
+Let s(m) = f(0) - f(1) + f(2) - ... + ((-1)^m)f(m), where f(k) = p_(n-k)/p_n and p_n denotes the n-th prime. Then we can take the difference of partial sums as follows.
+
+s(2k+1) - s(2k-1) = f(2k) - f(2k+1) = (p_(n-2k) - p_(n-2k-1))/p_n > 0 (increasing)
+
+s(2k) - s(2k-2) = f(2k) - f(2k-1) = (p_(n-2k) - p_(n-2k+1))/p_n < 0 (decreasing)
+
+So the first sequence is increasing and tends to a limit or goes to infinity. Similarly, the second sequence is decreasing and tends to a limit or goes to minus infinity.
+
+But as n -> infinity and k -> n, we have
+
+lim(s(2k+1) - s(2k)) = lim ((-1)^(2k+1)) f(2k+1) = 0.
+
+So both sequences converge to a limit and the limits must be the same.
+
+Reverting to the original notation, AS(p_n)/p_n is therefore convergent. But how to show that the limit is 1/2?
+
+Let us denote the n-th prime gap by g(n) = p_n - p_(n-1). Then we can write AS(p_2n) as:
+
+AS(p_2n) = g(2n)/p_2n + g(2n-2)/p_n + ... g(2)/p_n = sigma(k=1:n) g(2k)/p_2n.
+
+Now clearly p_2n = sigma(k=1:n) g(2k) + sigma(k=1:n) g(2k-1),
+
+where, for convention, we put g(1) = 2.
+
+So we can see that unless there is any bias in size between "odd" and "even" prime gaps, Martin Ruiz's result should follow. Certainly no such bias is known.
+
+Using an averaging argument which is a corollary of the Prime Number Theorem, the order of the 2n-th prime gap is about log(2n). Therefore the sum of the "even" prime gaps will be of the same order as the integral
+
+Int(1:n) log (2t) dt = n log(2n) - n - c (a small constant).
+
+If we assume p_2n ~ (2n) log(2n), then the ratio of the sum of the first n "even" prime gaps to the 2n-th prime approaches 1/2 as n -> oo. Therefore (p_n/AS(p_n)) -> 2.
+
+Fleming also noted this:
+
+My first impression is that there may be an analogy between the plot of {(AS(p_n))/p_n}n against n and Hofstadter's Q-sequence (
+
+http://mathworld.wolfram.com/HofstadtersQ-Sequence.html).
+The following comparisons appear:
+
+1 Both sequences are defined by a two term recurrence relation;
+
+2 The average orders of Q(n) and {(AS(p_n))/p_n}n are both n/2;
+
+3 Both sequences contain "well-behaved" points, that is points that lie on the line f(n)=n/2 in the case of Q(n) and points such that 2AS(p_n) = p_n +/- 1 in the case of the AS ratio function.)
+
+4 The sequences exhibit self-similarity (?).
+
+The main difference seems to be that Q(n) exhibits periodic behavior. The AS ratio function does not appear to do so.
+
+A question for the programmers is: What is the bound on the error term in the case of (i) Q(n) and (ii) {(AS(p_n))/p_n}n? Which of the two sequences is the more "chaotic" in terms of its deviation from the linear relation?
+
+In effect, we are seeking the remainder term g(n) such that
+
+2AS(p_n) = p_n + O(g(n)).
+
+I do not know what techniques would enable this to be determined but would be interested to see what the computer evidence suggests.
+
+He also noticed that:
+
+The Ruiz theorem also works for alternate sums of prime powers. For example, if we take
+
+AS((p_n)^2) = (p_n)^2 - (p_n-1)^2 + (p_n-2)^2 - ... + (-1)^(n+1).2^2
+
+then lim ((p_n)^2)/AS((p_n)^2) -> 2 as n -> oo
+
+The limit ((p_n)^k)/AS((p_n)^k) -> 2 holds generally for positive integers k and I suspect also for all positive real k (though a rigorous proof is more difficult for reals).
+
+***
+
+Another interesting point of view came from Joseph L. Pe who made a graph of pn/AS(pn) for n=1 to 5000 and observes in such a graph "some fractal structure (although perhaps is not a full-fledged fractal) in the sense that some regions of the graph are or look like scaled-down copies of other regions. That is, there is some self-similarity in the graph.".
+
+... Now Hans Havermann has completed his graph up to n = 10^6 (
+http://odo.ca/~haha/j/num/osc.jpg), and it looks like the sequence now converges!
+
+***
+
+Joseph L. Pe made the following criticism to the Fleming's proof:
+
+(Notes in brackets [,] are mine. Notes preceded by ">" are from the original proofs.)
+
+>Let s(m) = f(0) - f(1) + f(2) - ... + ((-1)^m)f(m), where f(k) = p_(n-k)/p_n and p_n denotes the n-th prime.
+
+[Fine. Fleming wants to show that the sequence AS(p(n))/p(n) converges by showing that the partial sums s(m)
+
+of the sequence converge.]
+
+>Then we can take the difference of partial sums as follows.
+
+>s(2k+1) - s(2k-1) = f(2k) - f(2k+1) = (p_(n-2k) - p_(n-2k-1))/p_n > 0 (increasing)
+
+>s(2k) - s(2k-2) = f(2k) - f(2k-1) = (p_(n-2k) - p_(n-2k+1))/p_n < 0 (decreasing)
+
+>So the first sequence is increasing and tends to a limit or goes to infinity.
+
+>Similarly, the second sequence is decreasing and tends to a limit or goes to minus infinity.
+
+>But as n -> infinity and k -> n, we have
+
+>lim(s(2k+1) - s(2k)) = lim ((-1)^(2k+1)) f(2k+1) = 0.
+
+[True, IF n -> infinity and k -> n, then lim(s(2k+1) - s(2k)) = 0. BUT this does not imply that
+
+lim(s(2k+1) - s(2k)) = 0 as k --> infinity, which must be shown. It is perfectly conceivable that n --> infinity
+
+but k DOES NOT APPROACH n. Indeed, n and k can both go to infinity, but k can be fixed at about 1/4 of n, for
+
+example, k = Floor(n/4). Then 2k+1 would be about 1/2 of n, and n-2k-1 about 1/2 of n, so that lim f(2k+1) =
+
+lim p(n-2k-1)/p(n) = lim [(n/2) ln(n/2)] / [n ln n] = 1/2.]
+
+>So both sequences converge to a limit and the limits must be the same.
+
+>Reverting to the original notation, AS(p_n)/p_n is therefore convergent.
+
+[Does not follow, since the previous argument is invalid.]
+
+***
+
+Bruce replied this, some days later:
+
+1 If professional mathematicians have concluded that convergence is not provable by traditional methods, I am not in a position to contradict them since I am not an academic.
+
+2 The step "as n -> infinity and k -> n" is not one I have seen used in this setting and I will not therefore seek to defend its legitimacy.
+
+3 If convergence is not readily provable, we could attempt to prove the weaker statement that if (AS(p_n))/p_n converges, then it converges to 1/2.
+
+***
+
+This is the SMR's proof, available as a Word document.
+
+***
+
+Joseph L. Pe criticism to the SMR proof became soon:
+
+SMR's proof begins
+
+> (1) Lim p(n)/(p(n) - p(n-1) + p(n-2) - p(n-3) + ... + (-1)^(n+1) p(1)) = 2
+
+>Proof:
+
+> p(n) ~ n ln n
+
+> (1) = lim (n ln(n))/(n ln(n) - (n-1) ln(n-1) + (n-2) ln(n-2)-....+ (-1)^k (n-k) ln(n-k)+ .... )
+
+[True, p(n)~n ln n FOR LARGE N; in fact, p(n)-->n ln n. BUT in the denominator of (1), that is, in p(n) - p(n-1) + p(n-2) - p(n-3) + ... + (-1)^(n+1) p(1), several of the primes p(n-k) are NOT LARGE!
+
+In fact, p(n-k) goes down to .... 7, 5, 3, 2. For such primes, n ln n is far away. Therefore, the assertion
+
+> (1) = lim (n ln(n))/(n ln(n) - (n-1) ln(n-1) + (n-2) ln(n-2)-....+ (-1)^k (n-k) ln(n-k)+ .... )
+
+is not justified. Note that if the denominator WERE a nonnegative-term series, the line
+
+> (1) = lim (n ln(n))/(n ln(n) - (n-1) ln(n-1) + (n-2) ln(n-2)-....+ (-1)^k (n-k) ln(n-k)+ .... )
+
+would be true, since the values of n ln(n) for large n would just dominate in the limit the values of n ln(n) for small n. However, the denominator is an alternating series, so this idea won't work! What's worse, the sequence of partial sums of this series is not even increasing. If it were increasing, again the large n ln(n)'s would dominate the small n ln(n)'s in the limit. I don't see how SMR's argument can be fixed at this point.]
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

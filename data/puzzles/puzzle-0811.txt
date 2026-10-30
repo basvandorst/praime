@@ -1,0 +1,382 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_811.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 811. Primes and Sum of consecutive triangulars-II
+Source: https://www.primepuzzles.net/puzzles/puzz_811.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0811.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_810.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_812.htm
+  https://www.primepuzzles.net/puzzles/puzz_811.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 811. Primes and Sum of consecutive triangulars-II
+
+Problems & Puzzles: Puzzles
+
+Puzzle 811. Primes and Sum of consecutive triangulars-II
+
+Jean Brette sent this nice follow-up to puzzle 810:
+
+We have seen that the sums of 3 consecutive triangular numbers are equal to 1 (mod 3) and the sums of 6 triangular are equal to 2 (mod 3)
+
+Hence, it can exist consecutive integers N3 and N6 such that N6 = N3 + 1
+
+examples :
+199 = T10 + T11 + T12 and
+
+200 = T5 + T6+ .....+ T10
+
+514 = T17 + T18 +T19 and
+
+515 = T10 + T11+ .. + T15
+
+Q1. Find more pairs of these.
+
+It exists also pair (N6, N3) where N3 = N6 + 2
+
+example :
+83 = T2 + T3 + ...+ T7 and
+
+85 = T6 + T7 + T8
+
+Unfortunately, 83 is prime but 85 is not.
+
+Question 2 : Does it exist twin primes (P6, P3 ) analog to (83, 85) ?
+
+Contributions came from Jan van Delden, Emanuel Vantieghem and Jeff Heleen.
+
+***
+
+Jan wrote:
+
+Q1:
+
+A few terms of N3:
+
+199,514,6634,17335,225235,588754,7651234,20000179,259916599,679417210,8829513010, 23080184839,299943525619,784046867194
+
+Q2:
+
+If N3=N6+2 it is straightforward to show that N3=0 mod 5.
+
+***
+
+Emanuel wrote:
+
+I use the following notations :
+
+T(n)=n(n+1)/2 = the nth triangular number
+
+U(n) = T(n)+T(n+1)+T(n+2) = (3n^2+8n+9)/2 (derived in puzzle 810)
+
+V(m) = T(m)+T(m+1)+T(m+2)+T(m+3)+T(m+4)+T(m+5) = 3m^2+18m+35 (id).
+
+Q1.
+
+We should solve the equation U(n) +1= V(m) or :
+
+(3n^2+8n+9)/2 + 1 = 3m^2+18m+35
+
+This is equivalent to
+
+n^2 + 3n - (2m^2 + 12m +20) = 0
+
+We can consider this as a quadratic equation in the unknown n.
+
+This will have integer solutions iff its discriminant (which is 9 + 4(2m^2 + 12m +20)) is the square of an integer x.
+
+Thus, we should solve the equation :
+
+x^2 = 8m^2 + 48m + 89 (*)
+
+and then put n = (x-3)/2. This leads us very quickly to the solutions :
+
+m = 5, 10, 44, 73, 271, 440, 1594, 2579, 9305, 15046, 54248, 87709, 316195, 511220, ...
+
+n = 10, 17, 65, 106, 386, 625, 2257, 3650, 13162, 21281, 76721, 124042, 447170, 722977, ...
+
+The corresponding pairs (U(n),V(m)) of consecutive integers are :
+
+(199, 200), (514, 515), (6634, 6635), (17335, 17336), (225235, 225236), (588754, 588755), (7651234, 7651235), (20000179, 20000180), (259916599, 259916600), (679417210, 679417211), (8829513010, 8829513011), (23080184839, 23080184840), (299943525619, 299943525620), (784046867194, 784046867195), ...
+
+Though there are many solutions, this does not give answer whether or not there are infinitley many ones.
+
+But, we can rewrite (*) in the form x^2 - (8m^2 + 48 m +72) = 17 or :
+
+x^2 - 2y^2 = 17 (**)
+
+with y = 2m + 6.
+
+To solve (**) we can use the well known theory of numbers of the form a+b*Sqrt(2) (a, b integers).
+
+There are two 'small' solutions (x,y) = (5,2) and (x,y) = (7,4).
+
+From these solutions we can obtain an infinitude of others by the following rule :
+
+if (x,y) is a solution, then so is (3x+4y,2x+3y)
+
+This let us find all the solutions.
+
+Q2
+
+Here, we should solve the equation V(m)+2 = U(n) or :
+
+n^2 + 3n - (2m^2 + 12m +22) = 0
+
+Here also, this is solvable in integers provided there is an integer x such that :
+
+x^2 = 8m^2 + 48m + 97 (***)
+
+and n = (x - 3)/2.
+
+This leads us quckly to the solutions :
+
+m = 2, 27, 172, 1017, 5942, 34647, 201952, ...
+
+n = 6, 41, 246, 1441, 8406, 49001, 285606, ...
+
+The corresponding pairs (V(m), U(n)) are :
+
+(83, 85), (2708, 2710), (91883, 91885), (3121208, 3121210), (106029083, 106029085), (3601867508, 3601867510), (122357466083, 122357466085), ...
+
+If we work as in Q1, we should first solve
+
+x^2 - 2 y^2 = 25,
+
+which has the solution (x,y) = (5, 0) and all other solutions come from the rule that (3x+4y,2x+3y) is also a solution.
+
+So, in every solution x and y are seemingly divisible by 5. Since n = (x - 3)/2 this implies that n allways will be congruent to 1 mod 5.
+
+Thus, U(n) = (3n^2 +8n + 9)/2 = 0 mod 5.
+
+So, there is no twinprime pair solution !
+
+N.B. The rule to be applied on (m,n) is (in both cases Q1 and Q2) :
+
+if (m,n) is a solution then so is (3m+2n+9,4m+3n+15).
+
+(easy to check).
+
+***
+
+Jeff Heleen wrote:
+
+For puzzle 811:
+
+I looked up to T=500,000,000 and found 32 instances. Primes are marked (P).
+
+Note the pattern of the ending digits for both Q1 and Q2. -Jeff Heleen
+
+Q1
+
+199 (P) = T10 + T11 + T12
+
+200 = T5 + ... + T10
+
+514 = T17 + T18 + T19
+
+515 = T10 + ... + T15
+
+6634 = T65 + T66 + T67
+
+6635 = T44 + ... + T49
+
+17335 = T106 + T107 + T108
+
+17336 = T73 + ... + T78
+
+225235 = T386 + T387 + T388
+
+225236 = T271 + ... + T276
+
+588754 = T625 + T626 + T627
+
+588755 = T440 + ... + T445
+
+7651234 = T2257 + T2258 + T2259
+
+7651235 = T1594 + ... + T1599
+
+20000179 = T3650 + T3651 + T3652
+
+20000180 = T2579 + ... + T2584
+
+259916599 = T13162 + T13163 + T13164
+
+259916600 = T9305 + ... + T9310
+
+679417210 = T21281 + T21282 + T21283
+
+679417211 = T15046 + ... + T15051
+
+8829513010 = T76721 + T76722 + T76723
+
+8829513011 = T54248 + ... + T54253
+
+23080184839 (P) = T124042 + T124043 + T124044
+
+23080184840 = T87709 + ... + T87714
+
+299943525619 = T447170 + T447171 + T447172
+
+299943525620 = T316195 + ... + T316200
+
+784046867194 = T722977 + T722978 + T722979
+
+784046867195 = T511220 + ... + T511225
+
+10189250357914 = T2606305 + T2606306 + T2606307
+
+10189250357915 = T1842934 + ... + T1842939
+
+26634513299635 = T4213826 + T4213827 + T4213828
+
+26634513299636 = T2979623 + ... + T2979628
+
+346134568643335 = T15190666 + T15190667 + T15190668
+
+346134568643336 = T10741421 + ... + T10741426
+
+904789405320274 = T24559985 + T24559986 + T24559987
+
+904789405320275 = T17366530 + ... + T17366535
+
+11758386083515354 = T88537697 + T88537698 + T88537699
+
+11758386083515355 = T62605604 + ... + T62605609
+
+30736205267589559 = T143146090 + T143146091 + T143146092
+
+30736205267589560 = T101219569 + ... + T101219574
+
+399438992270878579 = T516035522 + T516035523 + T516035524
+
+399438992270878580 = T364892215 + ... + T364892220
+
+Q2
+
+85 = T6 + T7 + T8
+
+83 (P) = T2 + ... + T7
+
+2710 = T41 + T42 + T43
+
+2708 = T27 + ... + T32
+
+91885 = T246 + T247 + T248
+
+91883 = T172 + ... + T177
+
+3121210 = T1441 + T1442 + T1443
+
+3121208 = T1017 + ... + T1022
+
+106029085 = T8406 + T8407 + T8408
+
+106029083 = T5942 + ... + T5947
+
+3601867510 = T49001 + T49002 + T49003
+
+3601867508 = T34647 + .. + T34652
+
+122357466085 = T285606 + T285607 + T285608
+
+122357466083 = T201952 + ... + T201957
+
+4156551979210 = T1664641 + T1664642 + T1664643
+
+4156551979208 = T1177077 + ... + T1177082
+
+141200409826885 = T9702246 + T9702247 + T9702248
+
+141200409826883 = T6860522 + ... + T6860527
+
+4796657382134710 = T56548841 + T56548842 + T56548843
+
+4796657382134708 = T39986067 + ... + T39986072
+
+162945150582753085 = T329590806 + T329590807 + T329590808
+
+162945150582753083 = T233055892 + ... + T233055897
+
+***
+
+On Dec. 6, 2015, T. D. Noe wrote:
+
+Using the numbers that Jeff Heleen computed, it is possible to write a
+
+recursive formula for the numbers 199, 514, 6634, 17335, 225235, 588754,
+
+7651234, 20000179, 259916599, 679417210, 8829513010,...:
+
+x(n+1) = x(n) + 34*x(n-1) - 34*x(n-2) - x(n-3) + x(n-4) with initial terms
+
+{199, 514, 6634, 17335, 225235}.
+
+...
+
+If one plots the numbers t = {199, 514, 6634, 17335, 225235, 588754,
+
+7651234, 20000179, 259916599, 679417210, 8829513010,...} on a logarithmic
+
+scale, then it is apparent that the numbers may satisfy a linear recurrence
+
+equation of some order. I wrote a Mathematica function to search for such
+
+equations:
+
+FindCoef[seq_List, i_, n_] := Module[{m, a, s, noSoln = {}},
+
+a = Take[seq, {i, i + 2 n - 1}];
+
+m = Reverse /@ Partition[Most[a], n, 1];
+
+If[Det[m] == 0, noSoln, s = LinearSolve[m, Take[a, -n]];
+
+If[And @@ IntegerQ /@ s, s, noSoln]]]
+
+which analyzes a sequence seq starting a position i for a linear relation
+
+of degree n. A 5th-order relation works. Mathematica reports
+
+In[40]:= FindCoef[t, 1, 5]
+
+Out[40]= {1, 34, -34, -1, 1}
+
+This answer means that the numbers satisfy the relation
+
+x(n+1) = x(n) + 34*x(n-1) - 34*x(n-2) - x(n-3) + x(n-4)
+
+with initial terms {199, 514, 6634, 17335, 225235}.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,185 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1019.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1019. Follow-up to Puzzle 625
+Source: https://www.primepuzzles.net/puzzles/puzz_1019.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1019.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_625.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1018.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1020.htm
+  https://www.primepuzzles.net/puzzles/puzz_1019.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1019. Follow-up to Puzzle 625
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1019. Follow-up to Puzzle 625
+
+Carlos Rivera propose the following puzzle:
+
+Perhaps some of you noticed the very large solution found by Giorgos Kalogeropoulos to the Puzzle 625.
+
+In my humble opinion this is a great achievement, mainly because his approach open an semi-analytical way to search for more solutions.
+
+But I hardly can accept that there are no more smaller solutions than the gotten by Giorgos. Accordingly with this skepticism the challenge now is...
+
+Q. Find smaller solutions to Puzzle 625 than the gotten by Giorgos.
+
+During the week 2-9, October, 2020, contributions came from Giorgos Kalogeropoulos and Paul Cleary.
+
+***
+
+Giorgos wrote
+
+I found one smaller (123 digits) solution:
+
+13897685945706020264077576034461199953151110869463184797474244393923432646730043465
+
+8218470334175459700705971960791869592104 =
+
+2 × 2 × 2 × 23 × 1109123111 × 57766182616657495290612267717977498812931942308391 ×
+
+11788844704086155814066994795339207139099517865226893357415731 =
+
+2^2 + 2^2 + 2^2 + 23^2 + 1109123111^2 + 57766182616657495290612267717977498812931942308391^2 + 11788844704086155814066994795339207139099517865226893357415731^2
+
+The algorithm:
+
+We are searching for prime tuples {p1,p2,...,pk} with p1,p2,...pk being prime numbers
+
+P= p1 × p2 × ... × pk
+
+S= p1^2 + p2^2 + ... + pk^2
+
+such that the hyperbola X^2 + Y^2 + S - P × X × Y = 0 (1) has positive integer solutions X ,Y.
+
+Our goal is to find X and Y being both prime numbers.
+
+If {x1,y1} are integer solutions of the above hyperbola,
+
+then this is equivalent to finding two consecutive terms, {f(n),f(n+1)} being both primes, of the following recursive function:
+
+f(0)=x1, f(1)=y1, f(n) = P×f(n-1) - f(n-2)
+
+I have found 2 methods which produce those prime tuples:
+
+Consider the prime tuple with one less factor {p(1),p(2),...,p(k-1)}
+
+P' = p(1)×p(2)×...×p(k-1)
+
+S' = p(1)^2 + p(2)^2 + ... + p(k-1)^2
+
+The key is this new hyperbola: X^2 + Y^2 + S' + 1 - P'×X×Y = 0 (2)
+
+The only valid prime numbers of our prime tuple are those for which the above hyperbola has integer solutions
+
+If we choose the right initial primes {p(1),p(2),...p(k-1)} (see example below), then we can find p(k):
+
+p(k) can be any of the prime terms of the following recursive function based on the minimal integer solutions {x1,y1} of hyperbola (2):
+
+g(0)=x1, g(1)=y1, g(n)=P'×g(n-1) - g(n-2)
+
+If we obtain our prime tuple {p1,p2,...pk} using this method, checking the final step on hyperbola (1), using the recursive function f, is easier because x1=1 will
+
+always return an integer solution for Y. So the recursive function becomes
+
+f(0)=1, f(1)= (P - Sqrt(P^2 - 4(S+1))) / 2, f(n)=P×f(n-1) - f(n-2)
+
+Examples:
+
+1) If we are searching for solutions with 5 prime factors {p1,p2,p3,X,Y} then k=3
+
+The only primes that return integer solutions for hyperbola (2) can be easily searched using the fact that f(3) can be obtained by the above method.
+
+We exhaustively search p1,p2 candidates in order hyperbola (2) to have positive integer solutions and we get the results
+
+{3, 5, 23, 31, 107, 157, 179, 311, 1453, 4139, 4969, 9811, 15193, 43781, 50549, 86719....}
+
+2) If we are searching for solutions with 7 prime factors {p1,p2,p3,p4,p5,X,Y} then k=5
+
+If p1,p2,p3=2 then p4 (in order hyperbola (2) to have integer solutions) can only be one of these primes
+
+{3, 5, 23, 181, 307, 1559, 2417, 88327, 95783, 1179491, 5474849....}
+
+then we find p5 using the first method
+
+Using these primes as building blocks we can find a huge amount of valid prime tuples
+
+The second method (which was used in order to find the 123-digits number) is the following
+
+If {p(1),p(2),...p(k)} is a valid prime tuple
+
+X^2 + Y^2 + S - P × X × Y = 0 with minimal positive integer solution {x1,y1}
+
+f(0)=x1, f(1)=y1, f(n) = P×f(n-1) - f(n-2)
+
+Then ALL swaps of one prime factor of the tuple with one prime term of the recursive function f, always lead to a new valid tuple.
+
+(those last tuples should always be checked in the final step considering that the integer solutions x1,y1 will always be >1)
+
+***
+
+Paul wrote:
+
+I haven't managed to find any smaller solutions, though using Giorgos's method I have managed to extend the range of the x and y values to 30500+ digits with no more solutions. I used a linear recurrence where any consecutive prime solution are also the two values of x and y.
+
+pf[i_]:=LinearRecurrence[{45,-1},{1,44},{i}]
+
+Monitor[Do[If[PrimeQ[FromDigits[pf[u]]]&&PrimeQ[FromDigits[pf[u+1]]],Print[u," , ",pf[u]," , ",pf[u+1]]],{u,1,1000}],u]
+
+or
+
+pf2[i_,y_]:=LinearRecurrence[{45,-1},{1,44},{i,y}]
+
+pf2[54,55] gives
+
+3975008818510860570063178521896626877423134543956742110665444401955840619438206454686489,
+
+178787019639056312114272069094606410564986435927077305481693028686338614052391094299501609.
+
+***
+
+On October 19, 2020, Giorgos Kalogeropoulos wrote again:
+
+I found on more number with 163 digits and I thought I should send it to you since it qualifies as an answer to puzzle 1019
+
+346896449211017850203331297525848350884184039996982316950656255309378360857021880608320071673139583327544
+
+1150821349128867534891641545518285925735804347623249366552 = 2*2*2*95783*13445403342601809061726519*180778871045555786730494902253611483680494135761943*18625156354
+
+00191345742222416847392668657068433219626455654264772436151243547155029 = 2^2+2^2+2^2+95783^2+13445403342601809061726519^2+180778871045555786730494902253611483680494135761943^2
+
++1862515635400191345742222416847392668657068433219626455654264772436151243547155029^2
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

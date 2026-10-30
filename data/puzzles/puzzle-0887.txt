@@ -1,0 +1,1341 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_887.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 887. p(n)^c-2 is prime
+Source: https://www.primepuzzles.net/puzzles/puzz_887.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0887.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A255707
+  https://www.primepuzzles.net/puzzles/puzz_886.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_888.htm
+  https://www.primepuzzles.net/puzzles/puzz_887.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 887. p(n)^c-2 is prime
+
+Problems & Puzzles: Puzzles
+
+Puzzle 887. p(n)^c-2 is prime
+
+Sebastián Martín Ruiz sent the following puzzle.
+
+Compute the smallest c value such that p(n)^c-2 is prime, where p(n) is the n-th prime number.
+
+Here are the first five solutions:
+
+2^2-2
+
+3^2-2
+
+5^1-2
+
+7^1-2
+
+11^4-2
+
+...
+
+Sebastian sent the first 28 terms of this sequence:
+
+2,2,1,1,4,1,6,1,24,2,1,2,4,1,2,4,4,1,3,2,1,38,4,2,747,4,1,2...
+
+Q1. Extend this sequence
+
+Q2. Exist a c for every n?
+
+Q3. Is this sequence related to another registered in OEIS?
+
+Contributions came from Jan van Delden, Jeff Heleen, Emmanuel Vantieghem and J. K. Andersen.
+
+***
+
+Jan wrote:
+
+Q1. It is not hard to extent this table.
+
+[109,1],[113,10],[127,2],[131,2],[137,10],[139,1],[149,50],[151,1],[157,22],[163,38],
+
+[167,12],[173,2],[179,40],[181,1],[191,2],[193,1],[197,164],[199,1],[211,2],[223,2],
+
+[227,12],[229,1],[233,2],[239,2],[241,1],[251,8],[257,2],[263,18], [269,22],[271,1],
+
+[277,3],[281,10],[283,1],[293,2],[307,102],[311,4],[313,1],[317,???]
+
+However there exists primes for which it is hard to show whether c exists or does not exist.
+
+I investigated this sequence until prime 29027. The primes with odd c are rare.
+
+We also have that the primes [521,9007] give c=666.
+
+Q2. The first few primes for which c is hard to establish (c>1000), if present, are:
+
+[317,347,353,397,487,641,739,809,1151,1181,1193]
+
+In order to proof that no c exists for a certain prime p one could try to find a covering set.
+
+I tried this for a few primes in the given list above.
+
+p^k-2 mod q = (p mod q)^(k mod phi(q))-2 mod q = 0 mod q
+
+If q=3 it reads (p mod 3)^(k mod 2) mod q = 2 mod q.
+
+So q=3 is a divisor of p^k-2 if p=2 mod 3 and k=1 mod 2. (And q=3 is not a divisor if k=0 mod 2).
+
+For p=317 one could find a whole set of rules governing k. A simple rule using only divisors of 317-2 would be to only test k=0,2 mod 6.
+
+But I couldn’t find a complete covering set, i.e. couldn’t exclude 0 or 2 mod 6. So 317 might give a solution. [I tested this one for c<=11000].
+
+As a sidenote it makes sense that there are only a few primes with odd c, because (p mod q) and phi(q) are always even: q is a divisor if k is an odd number. So either q is equal to p^k-2 and we found a value for c, or we have found a divisor (and a rule to exclude other values for k). Since we tend find many rules to exclude odd k, most solutions will have an even power.
+
+***
+
+Jeff wrote:
+
+I found the following for primes less than 500 (except 317, 347, 353,
+
+397 and 487):
+
+P C
+
+109 1
+
+113 10
+
+127 2
+
+131 2
+
+137 10
+
+139 1
+
+149 50
+
+151 1
+
+157 22
+
+163 38
+
+167 12
+
+173 2
+
+179 40
+
+181 1
+
+191 2
+
+193 1
+
+197 164
+
+199 1
+
+211 2
+
+223 2
+
+227 12
+
+229 1
+
+233 2
+
+239 2
+
+241 1
+
+251 8
+
+257 2
+
+263 18
+
+269 22
+
+271 1
+
+277 3
+
+281 10
+
+283 1
+
+293 2
+
+307 102
+
+311 4
+
+313 1
+
+317 >1043
+
+331 12
+
+337 2
+
+347 >1027
+
+349 1
+
+353 >1024
+
+359 2
+
+367 3
+
+373 6
+
+379 46
+
+383 6
+
+389 4
+
+397 >1004
+
+401 14
+
+409 4
+
+419 106
+
+421 1
+
+431 6
+
+433 1
+
+439 3
+
+443 2
+
+449 2
+
+457 3
+
+461 56
+
+463 1
+
+467 2
+
+479 268
+
+487 >971
+
+491 2
+
+499 27
+
+***
+
+Emmanuel wrote:
+
+1. The sequence continues with
+
+1, 10, 2, 2, 10, 1, 50, 1, 22, 38, 12, 2, 40, 1, 2, 1, 164, 1, 2, 2, 12, 1, 2, 2, 1, 8, 2, 18, 22, 1, 3, 10, 1, 2, 102, 4, 1
+
+The last element correspond to the prime 313. Concerning the next prime, 317 we found 317^n - 2 composite for all n < 5500.
+
+Could this be the answer to Q2 ? I guess not, but it can take a lot of time to verify this.
+
+Q2. See Q3.
+
+Q3. The sequence is a subsequence of A255707.
+
+There one does not restrict the problem to prime base p(n) but to the sequence of odd numbers.
+
+So, I think we should first answer the question if there are odd integers c such that c^n - 2 is composite for every n.
+
+At present, I do not know off such a number. The first possible candidate is 305 (305^n - 2 is composite for all n < 4000).
+
+But, even when we find a prime 305^n - 2, that number will be so big that proving its primality can cost weeks (or months or years ...).
+
+Another possibility is that there might exist an odd number k and a set of prime numbers P1, P2, ... , Ps such that,
+
+for every n, the number k^n - 2 is divisible by at least one of the primes Pi ( i.e. : the set { P1, ..., Ps } is a covering
+
+set for the sequence of numbers { k^n - 2 | n = 1, 2, ... }). But, of course, that's another (very difficult) problem.
+
+***
+
+Andersen wrote:
+
+Q1. A search with PrimeForm/GW says term 29 to 70 are:
+
+1, 10, 2, 2, 10, 1, 50, 1, 22, 38, 12, 2, 40, 1, 2, 1, 164, 1, 2, 2, 12,
+
+1, 2, 2, 1, 8, 2, 18, 22, 1, 3, 10, 1, 2, 102, 4, 1, 13896, 12, 2, 1122, 1
+
+Two of them correspond to the probable primes 317^13896-2 and 347^1122-2.
+
+The term for p(71)=353 is above 20000, assuming it exists.
+
+Q3. Apart from the first term, this is a subsequence of A255707:
+
+"Least number k > 0 such that (2*n-1)^k - 2 is prime, or 0 if no such number exists."
+
+***
+
+On June 4, 2021, Richard Chen wrote:
+
+Searched up to 2500, the smallest n such that c^n-2 is prime for positive odd integers c<1024 are
+
+3,2
+
+5,1
+
+7,1
+
+9,1
+
+11,4
+
+13,1
+
+15,1
+
+17,6
+
+19,1
+
+21,1
+
+23,24
+
+25,1
+
+27,2
+
+29,2
+
+31,1
+
+33,1
+
+35,2
+
+37,2
+
+39,1
+
+41,4
+
+43,1
+
+45,1
+
+47,2
+
+49,1
+
+51,8
+
+53,4
+
+55,1
+
+57,12
+
+59,4
+
+61,1
+
+63,1
+
+65,8
+
+67,3
+
+69,1
+
+71,2
+
+73,1
+
+75,1
+
+77,2
+
+79,38
+
+81,1
+
+83,4
+
+85,1
+
+87,4
+
+89,2
+
+91,1
+
+93,2
+
+95,4
+
+97,747
+
+99,1
+
+101,4
+
+103,1
+
+105,1
+
+107,2
+
+109,1
+
+111,1
+
+113,10
+
+115,1
+
+117,2
+
+119,2
+
+121,2
+
+123,6
+
+125,42
+
+127,2
+
+129,1
+
+131,2
+
+133,1
+
+135,2
+
+137,10
+
+139,1
+
+141,1
+
+143,4
+
+145,2
+
+147,16
+
+149,50
+
+151,1
+
+153,1
+
+155,2
+
+157,22
+
+159,1
+
+161,2
+
+163,38
+
+165,1
+
+167,12
+
+169,1
+
+171,15
+
+173,2
+
+175,1
+
+177,2
+
+179,40
+
+181,1
+
+183,1
+
+185,4
+
+187,3
+
+189,3
+
+191,2
+
+193,1
+
+195,1
+
+197,164
+
+199,1
+
+201,1
+
+203,8
+
+205,2
+
+207,3
+
+209,126
+
+211,2
+
+213,1
+
+215,134
+
+217,2
+
+219,8
+
+221,552
+
+223,2
+
+225,1
+
+227,12
+
+229,1
+
+231,1
+
+233,2
+
+235,1
+
+237,2
+
+239,2
+
+241,1
+
+243,1
+
+245,6
+
+247,2
+
+249,81
+
+251,8
+
+253,1
+
+255,10
+
+257,2
+
+259,1
+
+261,41
+
+263,18
+
+265,1
+
+267,2
+
+269,22
+
+271,1
+
+273,1
+
+275,6
+
+277,3
+
+279,1
+
+281,10
+
+283,1
+
+285,1
+
+287,0
+
+289,3
+
+291,39
+
+293,2
+
+295,1
+
+297,6
+
+299,2
+
+301,2
+
+303,2
+
+305,0
+
+307,102
+
+309,1
+
+311,4
+
+313,1
+
+315,1
+
+317,0
+
+319,1
+
+321,10
+
+323,2
+
+325,5
+
+327,11
+
+329,32
+
+331,12
+
+333,1
+
+335,2
+
+337,2
+
+339,1
+
+341,2
+
+343,4
+
+345,5
+
+347,1122
+
+349,1
+
+351,1
+
+353,0
+
+355,1
+
+357,2
+
+359,2
+
+361,1
+
+363,4
+
+365,12
+
+367,3
+
+369,1
+
+371,2
+
+373,6
+
+375,1
+
+377,348
+
+379,46
+
+381,1
+
+383,6
+
+385,1
+
+387,2
+
+389,4
+
+391,1
+
+393,20
+
+395,144
+
+397,0
+
+399,1
+
+401,14
+
+403,1
+
+405,2
+
+407,20
+
+409,4
+
+411,1
+
+413,12
+
+415,2
+
+417,3
+
+419,106
+
+421,1
+
+423,1
+
+425,2
+
+427,3
+
+429,2
+
+431,6
+
+433,1
+
+435,1
+
+437,370
+
+439,3
+
+441,1
+
+443,2
+
+445,1
+
+447,2
+
+449,2
+
+451,1
+
+453,17
+
+455,10
+
+457,3
+
+459,1
+
+461,56
+
+463,1
+
+465,1
+
+467,2
+
+469,1
+
+471,17
+
+473,4
+
+475,76
+
+477,3
+
+479,268
+
+481,1
+
+483,4
+
+485,0
+
+487,0
+
+489,1
+
+491,2
+
+493,1
+
+495,2
+
+497,2
+
+499,27
+
+501,1
+
+503,4
+
+505,1
+
+507,4
+
+509,372
+
+511,1
+
+513,2
+
+515,4
+
+517,8
+
+519,5
+
+521,666
+
+523,1
+
+525,1
+
+527,108
+
+529,12
+
+531,2
+
+533,4
+
+535,0
+
+537,7
+
+539,0
+
+541,2
+
+543,1
+
+545,2
+
+547,12
+
+549,1
+
+551,864
+
+553,6
+
+555,3
+
+557,18
+
+559,1
+
+561,2
+
+563,58
+
+565,1
+
+567,8
+
+569,2
+
+571,1
+
+573,1
+
+575,2
+
+577,16
+
+579,1
+
+581,18
+
+583,2
+
+585,4
+
+587,2
+
+589,1
+
+591,4
+
+593,80
+
+595,1
+
+597,0
+
+599,118
+
+601,1
+
+603,1
+
+605,18
+
+607,2
+
+609,1
+
+611,122
+
+613,6
+
+615,1
+
+617,4
+
+619,1
+
+621,1
+
+623,160
+
+625,36
+
+627,4
+
+629,78
+
+631,6
+
+633,1
+
+635,8
+
+637,2
+
+639,8
+
+641,0
+
+643,1
+
+645,1
+
+647,4
+
+649,1
+
+651,3
+
+653,2
+
+655,1
+
+657,3
+
+659,40
+
+661,1
+
+663,1
+
+665,52
+
+667,2
+
+669,3
+
+671,2
+
+673,6
+
+675,1
+
+677,2
+
+679,1
+
+681,5
+
+683,4
+
+685,1
+
+687,4
+
+689,4
+
+691,3
+
+693,1
+
+695,8
+
+697,3
+
+699,8
+
+701,48
+
+703,1
+
+705,8
+
+707,30
+
+709,39
+
+711,1
+
+713,2
+
+715,2
+
+717,24
+
+719,2
+
+721,1
+
+723,41
+
+725,28
+
+727,2
+
+729,1
+
+731,0
+
+733,2
+
+735,1
+
+737,122
+
+739,0
+
+741,1
+
+743,2
+
+745,1
+
+747,2
+
+749,38
+
+751,2
+
+753,1
+
+755,2436
+
+757,2
+
+759,1
+
+761,2
+
+763,1
+
+765,23
+
+767,36
+
+769,22
+
+771,1
+
+773,4
+
+775,1
+
+777,4
+
+779,2
+
+781,4
+
+783,4
+
+785,2
+
+787,3
+
+789,1
+
+791,16
+
+793,161
+
+795,4
+
+797,2
+
+799,1
+
+801,11
+
+803,66
+
+805,5
+
+807,2
+
+809,1680
+
+811,1
+
+813,1
+
+815,4
+
+817,2
+
+819,3
+
+821,12
+
+823,1
+
+825,1
+
+827,44
+
+829,1
+
+831,1
+
+833,14
+
+835,5
+
+837,6
+
+839,4
+
+841,1
+
+843,1552
+
+845,24
+
+847,7
+
+849,48
+
+851,60
+
+853,5
+
+855,1
+
+857,12
+
+859,1
+
+861,1
+
+863,2
+
+865,1
+
+867,16
+
+869,6
+
+871,12
+
+873,12
+
+875,2
+
+877,8
+
+879,1
+
+881,2
+
+883,1
+
+885,1
+
+887,252
+
+889,1
+
+891,6
+
+893,34
+
+895,11
+
+897,2
+
+899,4
+
+901,2
+
+903,4
+
+905,168
+
+907,4
+
+909,1
+
+911,8
+
+913,1
+
+915,195
+
+917,44
+
+919,86
+
+921,1
+
+923,110
+
+925,6
+
+927,3
+
+929,12
+
+931,1
+
+933,6
+
+935,6
+
+937,10
+
+939,1
+
+941,220
+
+943,1
+
+945,2
+
+947,96
+
+949,1
+
+951,2
+
+953,4
+
+955,1
+
+957,19
+
+959,2
+
+961,162
+
+963,28
+
+965,44
+
+967,3
+
+969,1
+
+971,8
+
+973,1
+
+975,5
+
+977,6
+
+979,1
+
+981,16
+
+983,210
+
+985,1
+
+987,2
+
+989,6
+
+991,19
+
+993,1
+
+995,2
+
+997,58
+
+999,1
+
+1001,4
+
+1003,2
+
+1005,232
+
+1007,42
+
+1009,506
+
+1011,1
+
+1013,2
+
+1015,1
+
+1017,18
+
+1019,4
+
+1021,1
+
+1023,1
+
+Also, there cannot exist an odd number k and a set of prime numbers P1, P2, ... , Ps such that, for every n, the number k^n - 2 is divisible by at least one of the primes Pi, since if so, then for the congruence n == 0 (mod the period), there must be a prime Pi dividing k^n - 2 for all such n, and including n = 0, but for n = 0, this number is k^0 - 2 = -1, thus Pi divides -1, which is impossible.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

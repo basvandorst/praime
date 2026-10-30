@@ -1,0 +1,148 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1149.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1149 A110588 vs 033949
+Source: https://www.primepuzzles.net/puzzles/puzz_1149.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1149.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A110558
+  https://oeis.org/A033949
+  mailto:cbrfgm@gmail.com
+  https://math.stackexchange.com/questions/1952953/primitive-root-theorem-proof
+  https://math.stackexchange.com/questions/1677602/the-multiplicative-group-of-integers-mod-n-is-cyclic-iff
+  https://www.primepuzzles.net/puzzles/puzz_1148.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/index.html
+  https://www.primepuzzles.net/puzzles/puzz_1150.htm
+  https://www.primepuzzles.net/puzzles/puzz_1149.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1149 A110588 vs 033949
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1149 A110588 vs 033949
+Davide Rotondo sent the following puzzle on Nov 1, 2023.
+Consider
+https://oeis.org/A110558
+
+A110558 Numbers n such that (n^2-8)/8 is prime.
+
+8, 12, 16, 24, 28, 32, 40, 44, 52, 60, 68, 72, 84, 88, 96, 100, 112, 136, 144, 152, 156, 164, 168, 172, 180, 184, 196, 200, 208, 224, 236, 248, 252, 256, 276, 292, 304, 320, 324, 340, 348, 364, 368, 380, 392, 408, 432, 436, 448, 452, 460, 472, 500, 504, 508, ....
+
+and
+
+https://oeis.org/A033949
+
+A033949 Positive integers that do not have a primitive root.
+
+8, 12, 15, 16, 20, 21, 24, 28, 30, 32, 33, 35, 36, 39, 40, 42, 44, 45, 48, 51, 52, 55, 56, 57, 60, 63, 64, 65, 66, 68, 69, 70, 72, 75, 76, 77, 78, 80, 84, 85, 87, 88, 90, 91, 92, 93, 95, 96, 99, 100, 102, 104, 105, 108, 110, 111, 112, 114, 115, 116, 117, 119, 120, 12
+
+Q1 can you prove (true or false) that every number in A110558 belongs to A033949?
+
+During the week 4-11 nov. 2023, contributions came from Adam Stinchcombe, Alessandro Casini, Giorgos Kalogeropoulos, Oscar Volpatti, Emmanuel Vantieghem
+
+***
+
+Adam wrote:
+
+Suppose (n^2-8)/8=q is prime. Note q=/=2 so q is an odd prime. Then n =sqrt(8q+8) = 4*sqrt((q+1)/2). The primitive root theorem states that the only (Z/nZ)* that are cyclic are n=1,2,4,p^k, or 2p^k where p is an add prime. Since our n has a factor of 4 and is not 4, (Z/nZ)* is not cyclic and does not have a primitive root. Sequence A110588 is a subsequence of A033949.
+
+References: section 2.8 of Niven/Zuckermann/Montgomery or websites https://math.stackexchange.com/questions/1952953/primitive-root-theorem-proof or https://math.stackexchange.com/questions/1677602/the-multiplicative-group-of-integers-mod-n-is-cyclic-iff
+
+***
+
+Alessandro wrote:
+
+Yes, it's true. Actually, it isn’t a property of only numbers such that (n^2 - 8)/8 is prime. For n>4, it’s sufficient that the expression is an integer to ensure n doesn’t have a primitive root. In fact, (n^2 - 8)/8 is an integer when n is a multiple of 4. Thanks to an important theorem, the only numbers to have at least one primitive root are 2, 4, p^k and 2*p^k, with p an odd prime. Therefore, except for 4 itself, no multiple of four has a primitive root.
+
+***
+
+Giorgos wrote:
+
+(n^2-8)/8 is prime.
+First of all (n^2-8)/8 must be an integer and this means that n is a multiple of 4: n=4k.
+So, n cannot have primitive roots for k > 2 because the only numbers that have primitive roots are 1, 2, 4 and numbers of the form p^i and 2p^i, where p is an odd prime and i >= 1.
+
+The only n that has primitive roots is 4 but (4^2-8)/8=1 which is not prime and this is why it is not in A110558.
+
+Thus, we proved that all n that belong in A110558 do not have primitive roots and this is why they belong in A033949.
+
+***
+
+Oscar wrote:
+
+Davide Rotondo was right.
+
+Let S be the sequence of all numbers n such that (n^2-8)/8 is an integer greater than 1.
+
+The following inclusion chain holds:
+
+1) every number in A110558 belongs to S,
+
+2) every number in S belongs to A033949.
+
+Claim (1) clearly holds, as every prime is an integer greater than 1.
+
+I'll prove claim (2).
+
+If (n^2-8)/8 is an integer, then 8 divides n^2, so that 4 divides n.
+
+Inequality (n^2-8)/8 > 1 holds for n > 4.
+
+Hence S is simply the sequence of all numbers of the form n = 4*k, where k > 1.
+
+Sequence A033949 is known to contain all positive integers except 1, 2, 4 and numbers of the forms n = p^i and n = 2*p^i, where p is an odd prime and i > 0.
+
+None of these exceptions belongs to S.
+
+QED.
+
+***
+
+Emmanuel wrote:
+
+Proof that every number in A110558 belongs to A033949 as follows :
+
+It is well known that the only numbers that have a primitive root are 4, and all numbers of the form p^n or 2*p^(n) with p an odd prime.
+
+(See A193305 or better : any decent book on Number Theory among which the books mentioned in the "References" of A193305).
+
+Now, let n be such that (n^2 - 8) / 8 = p, prime.
+
+Then : n^2 = 8(1 + p), which reveals that n should be divisible by 4.
+
+Since it cannot be 4, it is not of the form of the numbers in A193305.
+
+So, it cannot have a primitive root. Hence it belongs to A033949, QED.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+puzz_1150.htm
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

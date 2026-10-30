@@ -1,0 +1,320 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_053.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 53 : Floor function & consecutive primes
+Source: https://www.primepuzzles.net/conjectures/conj_053.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0053.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_052.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_054.htm
+  https://www.primepuzzles.net/conjectures/conj_053.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 53 : Floor function & consecutive primes
+
+Problems & Puzzles: Conjectures
+
+Conjecture 53. Floor function & consecutive primes
+
+Patrick Capelle sent the following nice conjecture & questions:
+
+If p, q, r are consecutive prime numbers such that p > q > r and if
+
+r is different from 2,3,5,7,11,13,19,23,31,47,83,89,113,199,1327,
+
+then floor((p*q)/r) = p + q - r.
+
+Questions :
+
+1. Can you prove this conjecture or find a counterexample ?
+
+2. Do you have some comments about it ?
+
+Contributions came from Giovanni Resta, Phil Carmody, Kermite Rose, Bernardo Boncompagni, Anton Vrba & Farideh Firoozbakht.
+
+***
+
+Giovanni wrote:
+
+The conjecture is probably true, but I think
+
+that it is very difficult to prove it.
+
+p*q/r (which is never an integer) can be rewritten as
+
+p+q-r + (g1^2+g1*g2)/r,
+
+where g1=q-r and q2=p-q are the two gaps between the
+
+consecutive primes r, q, p (a little strange the
+
+choice to name them in decreasing order...)
+
+Hence Floor[p*q/r] is equal to p+q-r
+
+if (g1^2+g1*g2)/r is smaller than 1.
+
+Even if we forget about the term g1*g2, we
+
+are left with r > g1^2 and this condition
+
+is dangerously similar to the
+
+Legendre's conjecture that between n^2 and (n+1)^2
+
+there is always a prime number (and thus the gap
+
+between a number x and the next prime does not
+
+exceed the square root of x, more or less).
+
+So it seems to me that Capelle's conjecture is probably
+
+true as well, since it is very improbable
+
+that so large gaps exist.
+
+***
+
+Phil wrote:
+
+floor((p*q)/r) = p+q-r is the same as stating
+
+pr+qr-rr+s=pq, 0<=s<r
+
+s=pq-pr+rr-qr
+
+=p(q-r)+r(r-q)
+
+=(p-r)*(q-r)
+
+=(gap1+gap2)*(gap1)
+
+for gap1, gap2 = next two prime gaps after r.
+
+This is asymptotically equivalent to prime gaps being o(sqrt).
+
+A similar expression could be derived for gap1*gap2<q
+
+***
+
+Kermite wrote:
+
+This conjecture is almost certainly true.
+
+It is because it is equivalent to the statement that
+
+(p-r) * (q-r) < r:
+
+r < q < p
+
+floor((p*q)/r) = p + q - r.
+
+r divides (p * q) with quotient (p + q - r) and remainder s, where s
+
+is < r.
+
+p * q = r * (p + q - r) + s where 0 <= s < r
+
+p * q = r * p + r * ( q - r) + s
+
+p * q - r * p = r * (q-r) + s
+
+p * (q - r) = r * (q-r) + s
+
+p * (q-r) - r * (q-r) = s
+
+(p - r) * (q-r) = s
+
+Since p > r and q > r, s is > 0.
+
+0 < (p-r ) * ( q - r) < r
+
+All the steps in the derivation of
+
+(p - r) * (q-r) = s
+
+are reversible, so therefore the equivalence is proved.
+
+As r becomes larger, it becomes more and more likely that (p-r) *
+
+(q-r) would be less than r:
+
+Bernardo wrote:
+
+Be q=r-a and p=r-a-b. Then the conjecture can be rewritten as
+
+floor(r-2a-b+(a^2+ab)/r)=r-2a-b => a^2+ab<r. So if p, q and r are
+
+sufficiently close (as the larger prime numbers tend to be), the
+
+conjecture always holds. Actually, they don't even have to be prime!
+
+They just need to be close enough.
+
+Anton wrote:
+
+Let q=p+a and r=p+b then
+
+p*q/r = p*(p+a)/(p+b)
+
+and the Taylor expansion p*(p+a)/(p+b) is
+
+p-(b-a) + b(b-a)/p – b^2(b-a)/p^2 + b^3(b-a).p^3 - ….
+
+The first term p-(b-a) or p+a-b = p+q-r is subject of this conjecture, so the second term needs to be greater than one to disprove what is conjectured. Analysing the second term b(b-a)/p>1or expressing this in terms of the prime gaps (g1+g2)g2 > p. Assuming g1 = g2 =g then g>sqrt(p/2), or if g1=2 then g2>sqrt(p+1)-1, or if g2=2 then g1>2p-2, which all are far greater what Cramer and Wolf conjectured concerning maximal prime gaps.
+
+Capelle has formulated a conjecture around the series expansion of p*q/r = p+q-r when reduced to integers, p, q, r being successive primes, and noted the few exceptions for small p.
+
+Farideh wrote:
+
+Answer to Q1. I'm sure that this conjecture is true but I can't prove it.
+
+Answer to Q2: This conjecture is a result of conjecture 30.
+
+Proof : I used from the following result of the conjecture 30.
+
+If p & p+d are two consecutive primes then d < 3*log(p)^2. (*)
+
+Let q=r+d & p=q+d' so p*q/r = (r+d)*(r+d+d')/r = (r^2+(2d+d')r+(d^2+dd'))/r
+
+= r+(2d+d')+(d^2+dd')/r = (r+d+d')+(r+d)-r+(r+(d^2+dd')/r = p+q-r+(d^2+dd')/r
+
+hence, floor(p*q/r) = p+q-r+floor((d^2+dd')/r) and we must only prove that
+
+floor((d^2+dd')/r) = 0 or d^2+d*d' < r.
+
+Now according to (*) we have,
+
+d < 3*log(r)^2
+
+d' < 3*log(q)^2 = 3*log(r+d)^2 < 3*log(r+3*log(r)^2)^2
+
+So d^2+d*d' < 9*log(r)^4+9*log(r)^2*log(r+3*log(r)^2)^2, but for every number
+
+r, r > 201770.565 we have f(r) = 9*log(r)^4+9*log(r)^2*log(r+3*log(r)^2)^2 < r.
+
+Hence if r is a prime greater than 201770 then d^2+d*d' < r and floor(p*q/r) = p+q-r.
+
+So we must only check the truth of conjecture for primes r, where r<201770.
+
+Between primes r, r < 201770 the equality floor(p*q/r) = p+q-r only for
+
+r = 2, 3, 5, 7, 11, 13, 19, 23, 31, 47, 83, 89, 113, 199 & 1327 doesn't hold
+
+and the proof is complete.
+
+***
+
+Capelle added (5/5/07):
+
+As promised in my e-mail of 23 april 2007, i propose here my other results.
+
+Since last time, i found some new identities, conjecturally. I think that they have never been proposed before. I checked all the equations mentioned, to avoid mistakes with the symbols.
+
+If p, q, r are consecutive prime numbers such that p > q > r > 1327, then, conjecturally:
+
+1) floor(p*q/r) = p + q - r.
+
+2) floor(q*r/p) = q + r - p.
+
+3) floor(r*p/q) = r + p - q - 1.
+
+4) floor(p*q/r + q*r/p) = 2q.
+
+5) floor(p*q/r + r*p/q) = 2p.
+
+6) floor(q*r/p + r*p/q) = 2r.
+
+7) floor(p*q/r - r*p/q) = 2*(q - r).
+
+8) floor(q*r/p - r*p/q) = 2*(q - p).
+
+9) floor(p*q/r + q*r/p + r*p/q) = p + q + r.
+
+We can obtain some interesting results by combination among the three
+
+first equations (to compare, for six of them, with the conjectures 4 to 9) :
+
+10) floor(p*q/r) + floor(q*r/p) = 2q.
+
+11) floor(p*q/r) + floor(r*p/q) = 2p - 1.
+
+12) floor(q*r/p) + floor(r*p/q) = 2r - 1.
+
+13) floor(p*q/r) - floor(q*r/p) = 2(p - r).
+
+14) floor(p*q/r) - floor(r*p/q) = 2(q - r) + 1.
+
+15) floor(q*r/p) - floor(r*p/q) = 2(q - p) + 1.
+
+16) floor(p*q/r) + floor(q*r/p) + floor(r*p/q) = p + q + r - 1.
+
+17) floor(p*q/r) * floor(q*r/p) = q^2 - (p - r)^2.
+
+18) floor(p*q/r) * (floor(r*p/q) + 1) = p^2 - (q - r)^2.
+
+19) floor(q*r/p) * (floor(r*p/q) + 1) = r^2 - (p - q)^2.
+
+By comparison of the equations 4 and 10 :
+
+floor(p*q/r + q*r/p) = floor(p*q/r) + floor(q*r/p).
+
+By comparison of the equations 5, 6 and 13 :
+
+floor(p*q/r + r*p/q) - floor(q*r/p + r*p/q) = floor(p*q/r) - floor(q*r/p).
+
+By comparison of the equations 4, 6 and 7 :
+
+floor(p*q/r - r*p/q) = floor(p*q/r + q*r/p) - floor(q*r/p + r*p/q).
+
+By comparison of the equations 4, 5 and 8 :
+
+floor(q*r/p - r*p/q) = floor(p*q/r + q*r/p) - floor(p*q/r + r*p/q).
+
+By comparison of the equations 4, 5, 6, 9 :
+
+floor(p*q/r + q*r/p) + floor(p*q/r + r*p/q) + floor(q*r/p + r*p/q)
+
+= 2 * floor(p*q/r + q*r/p + r*p/q).
+
+Question (to complete the first list of 9 equations) :
+
+Can you propose a simple equation with floor(p*q/r - q*r/p) ?
+
+***
+
+Werner D. Sand wrote:
+
+conjecture 53 (like conjecture 52) does not only apply to prime numbers, but to positive integers under a certain condition. Let be a>b>c the integers with d=b-c and e=a-b, then the condition is: c > d^2+de. If a,b,c are consecutive prime numbers, we call them p,q,r, and the condition is r > d^2+de. The exceptions mentioned in the conjecture can be calculated by this inequation. The essential statement of conjecture 53 is that all prime triples > 1327 fulfill the condition.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

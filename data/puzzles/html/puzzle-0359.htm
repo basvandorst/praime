@@ -1,0 +1,483 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 359. First N primes in a circle </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b>
+      <font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1">
+        <tr>
+          <td>
+          <blockquote>
+            <p><b><span lang="EN-US" style="font-family: Verdana">Puzzle 359.
+            <font color="#008080">First N primes in a circle</font></span></b></p>
+            <p><font size="2"><span style="font-family: Tahoma">Anurag Sahay 
+            sent the following puzzle:</span></font></p>
+            <blockquote>
+              <p class="MsoNormal" style="text-autospace: none">
+              <span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma">
+              Arrange the first N primes in a circular pattern such that every 
+              two adjacent primes and every pair of diagonally opposite primes 
+              do not have any common digit.</span></p>
+              <p class="MsoNormal" style="text-autospace: none">
+              <span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma">
+              I solved for N up to 28. I think there is no solution for N&gt;28. 
+              One solution for N=28 is:</span></p>
+              <p class="MsoNormal" style="text-autospace: none">
+              <span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma">
+              53 61 79 103 29 41 59 67 13 47&nbsp; 89 23 107 43<br>
+              17&nbsp;&nbsp; 3 11&nbsp; 97&nbsp; 31&nbsp; 2 37 101 7&nbsp; 5&nbsp;&nbsp; 73&nbsp; 19&nbsp; 83 71&nbsp;</span></p>
+            </blockquote>
+            <font color="#0000FF">
+            <span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma; font-weight: 700">
+            Questions:</span></font><p><font size="2" color="#0000FF">
+            <span style="font-family: Tahoma; font-weight: 700">1. Are there 
+            solutions for N&gt;28</span></font></p>
+            <p><font color="#0000FF"><b><font size="2">
+            <span style="font-family: Tahoma">2</span></font><span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma">. 
+            Can you devise a smart algorithm to find all the solutions for N = 
+            28?</span></b></font></p>
+            <p><font size="2"><span style="font-family: Tahoma">&nbsp;</span></font></p>
+          </blockquote>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          &nbsp;</td>
+        </tr>
+      </table>
+      <hr>
+      <p><span lang="en-us"><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+      <p>Enoch Haga wrote on May 14, 06:</p>
+      <blockquote>
+        <p>Q1). Yes, here is a solution for N=30:<br>
+        <br>
+        11 2 107 83 17 5 103 7 31 29 13 47 109 23 71<br>
+        3 61 37 101 97 113 79 43 67 19 53 41 89 73 59</p>
+        <p>(please notice that Enoch writes the second row as he sees the circle 
+        in two rows, a kind of different of the way Anurag writes his solutions)<br>
+        <br>
+        Q2). My algorithm was to make a grid of all possible matches and then to 
+        arrange the primes in order of greatest difficulty of finding matches. 
+        Even so, took a bit of tweaking at the end. The algorithm could be 
+        computerized.<br>
+&nbsp;</p>
+      </blockquote>
+      <p>So, Anurag's was proved to be wrong about the maximal on 28.
+      <font color="#0000FF"><b>Then, what is the real maximal?</b></font></p>
+      <p>***</p>
+		<p>Edwin Clark wrote on May 31:</p>
+		<blockquote>
+			<p>Here's an example for N = 32, which was found by random computer 
+			search. <br>
+			Here the circle is completed by connecting 107 back to 2.<br>
+			<br>
+			[2, 113, 47, 109, 37, 41, 53, 89, 13, 79, 31, 59, 127, 83, 71, 3,<br>
+			61, 5, 101, 73, 19, 7, 29, 103, 67, 131, 97, 11, 43, 17, 23, 107]</p>
+			<p>The number opposite 113 is 5. <br>
+			The number opposite 47 is 101.<br>
+			...<br>
+			<br>
+			As for the largest value of N, I make the following more or less <br>
+			trivial observation: There is no circle for N &gt;= 298. Note that p =
+			<br>
+			1973 is the 298th prime. There are only 2 primes, namely 2 and 5, 
+			that <br>
+			have disjoint digits with 1973, but to be in such a circle a prime 
+			must <br>
+			have 3 primes disjoint from it. </p>
+		</blockquote>
+		<p>Later he added:</p>
+		<blockquote>
+			<p>If we ignore the condition for diagonally opposite primes then 
+			the<br>
+			question becomes whether or not a particular graph is Hamiltonian:<br>
+			<br>
+			Consider the graph G(N) whose vertices are the first N primes and 
+			whose<br>
+			edges are the pairs {p,q} where p and q have no common digits. The<br>
+			problem of arranging these primes in a circle so that there is an<br>
+			edge between any two adjacent primes is equivalent to asking whether<br>
+			or not G(N) is a Hamiltonian graph. It is known that in general this 
+			is an<br>
+			NP-complete problem. See, for example,<br>
+			<br>
+			http://en.wikipedia.org/wiki/Hamiltonian_graph.<br>
+			<br>
+			In particular, if the graph G(N) is not Hamiltonian then the 
+			conditions<br>
+			of Puzzle 359 cannot be fulfilled for N.<br>
+			<br>
+			It is easy to find a Hamiltonian cycle for G(34), but I have so far<br>
+			not been able to find one where the opposite pairs of vertices on 
+			the<br>
+			cycle are adjacent.<br>
+			<br>
+			I have not been able to find any Hamiltonian cycle for G(36) using 
+			my<br>
+			random search technique. Also I tried using the free program<br>
+			Groups and Graphs (http://www.paddle.mb.ca/G&amp;G/G&amp;G.html). It almost<br>
+			instantaneously gives Hamiltonian cycles for G(N) when N &lt; 36 (and N<br>
+			is even--I didn't try odd N), but the program crashes when I try to<br>
+			check whether or not G(36) is Hamiltonian. However, the program does<br>
+			find a Hamiltonian path fairly quickly.<br>
+			<br>
+			If someone has a good program for determining Hamiltonicity for a 
+			graph<br>
+			with 36 vertices and can prove that G(36) is not Hamiltonian then<br>
+			the maximum must be 32 (which we know is possible) or 34 (which may<br>
+			be possible).</p>
+		</blockquote>
+		<p>***</p>
+      <div>
+So, who is the brave people to respond the Edwin's new question:
+<font color="#0000FF"><b>Is G(36) Hamiltonian</b></font>?<p>***<p>Daniele 
+Giorgio Degiorgi wrote:<div class="Section1">
+	<blockquote>
+		<p class="MsoNormal"><font face="Arial" size="2">
+		<span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">In his last note, 
+		Edwin Clark claims that if there is no Hamiltonian cycle in G(36), then 
+		the solution is 32 or 34. The question is: can the non Hamiltonicity of 
+		G(36) be useful in proving the non Hamiltonicity of G(N) for an N &gt; 36? 
+		As noted recently in Graphnet forum, a graph with at most 2n vertices is 
+		surely non Hamiltonian if it has an independent set of size at least n. 
+		This is the case of G(36), as 19 of the first 36 primes have the digit 1 
+		in common. The same case happens for G(N), fN = 35 to 75. G(76) has a 
+		maximum independent set of size 38 and thus it could have an Hamiltonian 
+		cycle. The independent set rule show that G(N) is surely non Hamiltonian 
+		for 35 &lt; N &lt; 75, for 203 &lt; N &lt; 767 with possibly exception N = 759, and 
+		with N &gt; 1341, at least up to 1000000 (i.e. up to the prime 15485863) 
+		Possibly none of them is still Hamiltonian, but this should be proved.</span></font></p>
+	</blockquote>
+	<p class="MsoNormal"><span style="font-family: Arial">Later he added:</span></p>
+	<div class="Section1">
+		<blockquote>
+			<p class="MsoNormal"><font face="Arial" size="2">
+			<span lang="EN-GB" style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">Edwin 
+			Clark observed that for N &gt;= 298 there is no Hamiltonian cycle with 
+			diagonally opposite vertices connected in G(N), as the 298 prime is 
+			1973 connected only to 2 and 5. Analogously ignoring the diagonal 
+			condition it easy to see that the upper bound need to be &lt;= &nbsp;519, as 
+			the 519. prime is 3719 also connected only to 2 and 5.</span></font></p>
+		</blockquote>
+	</div>
+	<p class="MsoNormal"><span style="font-family: Arial">***</span><p class="MsoNormal">
+	<span style="font-family: Arial">Edwin added too (10/06/06):</span><blockquote>
+		<p class="MsoNormal" align="left"><font face="Arial">The program Groups 
+		and Graphs found the following Hamiltonian cycle <br>
+		for G(202). I verified it by use of Maple.<br>
+		<br>
+		[2, 1193, 887, 199, 263, 197, 233, 191, 223, 181, 293, 167, 239, 157,
+		<br>
+		83, 211, 79, 163, 47, 193, 67, 151, 73, 149, 53, 179, 43, 127, 5, 173,
+		<br>
+		929, 137, 569, 701, 593, 761, 409, 1163, 907, 1153, 877, 1229, 883, 19,
+		<br>
+		433, 271, 359, 241, 307, 491, 383, 461, 397, 541, 983, 41, 389, 61, 353,
+		<br>
+		419, 367, 401, 379, 421, 373, 1129, 853, 1117, 839, 1051, 829, 1103, <br>
+		827, 1109, 823, 1097, 683, 1091, 787, 1093, 757, 1069, 773, 1049, 733,
+		<br>
+		1021, 797, 1063, 727, 1039, 677, 1033, 769, 1031, 947, 1213, 977, 1231,
+		<br>
+		967, 1223, 467, 521, 479, 601, 443, 617, 449, 571, 463, 751, 499, 613,
+		<br>
+		457, 619, 503, 719, 523, 641, 509, 631, 547, 661, 557, 691, 487, 1201,
+		<br>
+		997, 1123, 857, 13, 859, 1061, 347, 251, 349, 1171, 863, 1151, 937, <br>
+		1181, 439, 281, 337, 11, 283, 17, 229, 31, 277, 103, 257, 431, 269, 331,
+		<br>
+		227, 313, 97, 311, 89, 317, 59, 1187, 659, 1087, 653, 1019, 743, 1009,
+		<br>
+		673, 991, 647, 1013, 599, 881, 739, 821, 709, 811, 643, 971, 563, 941,
+		<br>
+		607, 919, 587, 911, 577, 113, 29, 107, 23, 109, 37, 101, 3, 71, 953, <br>
+		1217, 809, 131, 7, 139]<br>
+		<br>
+		<br>
+		I claim that N = 202 is the largest value of N for which G(N) can be <br>
+		Hamiltonian. The proof below uses ideas from GraphNet provide by Geoff
+		<br>
+		Exoo and Brendan Mckay as well as comments above and privately by 
+		Daniele:<br>
+		<br>
+		(1) Suppose N &gt; 518 and G(N) has a Hamiltonian cycle. Then, the vertices
+		<br>
+		include the 519th prime 3719 as well as the smaller prime 1973. But both
+		<br>
+		of these primes are adjacent only to 2 and 5. Since each vertex in a 
+		cycle <br>
+		is adjacent to exactly two other vertices, this implies that the cycle
+		<br>
+		contains only the four primes 2, 5, 1973 and 3719. So a lot of primes 
+		are <br>
+		left out. This contradiction shows that N is at most 518.<br>
+		<br>
+		(2) For N from 203 to 518 the number of primes in G(N) containing 1 is
+		<br>
+		at least n+1 if N = 2n or 2n+1. The primes containing 1 form an <br>
+		independent set of vertices, but a cycle of length 2n or 2n+1 can have 
+		at <br>
+		most a set of n independent vertices. So these values are ruled out.<br>
+		<br>
+		Hence the largest possible N for which G(N) could be Hamiltonian is 202.
+		<br>
+		Since we exhibited above a Hamiltonian cycle for G(202) we know that 202
+		<br>
+		is indeed the largest value of N for which G(N) is Hamiltonian. <br>
+		<br>
+		<br>
+		As pointed by Daniele there are other values &lt; 202 for which G(N) has no
+		<br>
+		Hamiltonian cycle, we leave it as an exercise for the interested reader 
+		to <br>
+		figure out which they are. :-) <br>
+		<br>
+		<br>
+		Of course, since G(N) for N &gt; 202 has no Hamiltonian cycle, it also can
+		<br>
+		not satisfy the original conditions involving opposite vertices being
+		<br>
+		adjacent. Thus N = 202 is the largest value for which the original 
+		problem <br>
+		#359 could possibly have a solution. But whether it is possible to 
+		arrange <br>
+		the cycle so that diagonals are adjacent remains open so far as I know.
+		<br>
+		Maybe someone can do it?<br>
+&nbsp;</font></blockquote>
+	<p class="MsoNormal"><font face="Arial">***</font><p class="MsoNormal">
+	<font face="Arial">Anurag Sahay found a solution for N=34:</font><blockquote>
+		<p class="MsoNormal"><font face="Arial">[<font color="#FF0000">11, 53, 
+		107, 43, 71, 23, 41, 97, 13, 2, 139, 67, 113, 79, 103, 7, 19</font>,<font color="#0000FF"> 
+		73, 101, 3, 127, 83, 17, 29, 131, 59, 137, 5, 31, 89, 61, 47, 109, 37</font>]</font></blockquote>
+	<p class="MsoNormal"><font face="Arial">Later (21/6(06) he sent more and 
+	larger solutions. It seems that he has a good approach in order to solve 
+	this arrangements:</font><blockquote>
+		<p class="MsoNormal"><font face="Arial">n=106: <br>
+&nbsp;</font></p>
+		<div align="left">
+			<p class="MsoNormal"><font face="Arial">101 359 271 83 149 577 103 
+			269 137 449 571 43 277 113 97 131 467 31 227 353 197 383 541 367 109 
+			463 179 283 419 307 521 439 157 443 61 379 151 349 251 79 233 191 
+			263 41 523 11 563 211 409 317 229 347 509 <br>
+			<br>
+			23 17 389 127 5 139 457 13 569 173 29 67 313 547 431 487 193 257 331 
+			479 503 167 223 199 53 19 2 491 37 421 3 107 293 71 239 461 397 281 
+			47 311 499 337 401 373 181 73 241 557 163 89 433 59 7 </font></div>
+		<p class="MsoNormal"><font face="Arial">n=108: <br>
+		101 359 271 83 149 577 443 269 137 449 71 53 277 113 97 131 467 31 227 
+		353 197 383 541 367 109 463 179 283 199 307 521 439 157 43 61 379 151 
+		349 251 79 233 191 263 487 223 11 563 211 509 317 229 347 569 181 <br>
+		<br>
+		523 17 389 127 5 139 7 13 409 173 29 67 313 547 431 587 193 257 331 479 
+		503 167 23 419 373 19 2 491 37 421 3 107 293 571 239 461 397 281 47 311 
+		499 337 401 593 41 73 241 557 163 89 433 59 103 457 </font></p>
+	</blockquote>
+	<font size="4"></font></div>
+<p>***<p>&nbsp;</div>
+      </font><center><hr></center>
+    </blockquote>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_358.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_360.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

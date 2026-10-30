@@ -1,0 +1,220 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_034.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 34. Proving & hiding
+Source: https://www.primepuzzles.net/problems/prob_034.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0034.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/problems/prob_034examples.htm
+  https://www.primepuzzles.net/problems/prob_033.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_035.htm
+
+========================================================================
+
+Problem 34. Proving & hiding
+
+Problems & Puzzles: Problems
+
+Problem 34. Proving & hiding
+
+Eric Brier sent (28/8/2000) the following problem:
+
+"How can prove that I factored N without giving any factor of N. The most difficult numbers to factor are N=p.q with p and q primes. Let's assume N is of that type..."
+
+Can you send your argument?
+
+______________________
+
+Note added the 30/9/2000: Some people have been asking for a precision of the statement of the problem. Here it goes:
+
+Sam and Joe know one and the same composite number N. Both know that N has two primes factors, p & q. Only Sam knows p & q. How can Sam prove to Joe that he (Sam) knows p & q without ever revealing p & q?
+
+Solution
+
+Jud McCranie wrote (8/9/2000):
+
+"Just a couple of thoughts on problem 34. I see at least two interpretations of the question. One is that you want to release some information that shows that you factored N=p.q, but don't reveal the factors until sometime later. The other interpretation is that you want to prove that you factored it, but never reveal the factors. In the first case, you could compute some large number [let's say z^] mod p and mod q, release that information [let's say a & b but not z, where a=z mod p and b=z mod q^] . Then when you are ready to reveal p and q, you can show the calculation, proving that you knew p and q at the earlier date.
+
+For the second interpretation, you might be able to do something with RSA public-key cryptosystem. In that, breaking a code is equivalent to factoring N. I don't know the details well enough to be specific, though."
+
+***
+
+One day after (9/9/2000) Chris Nash sent 'the details' prefigured by Jud:
+
+"Here is the solution to problem 34, using the idea proposed by Jud McCranie, using a cryptosystem like RSA.
+
+First here is how it works. Usually you choose two large primes p and q, with product N. Choose a random number r, less than (p-1)(q-1), and with no common factor with (p-1)(q-1). Finally find the solution s to rs=1 mod (p-1)(q-1).
+
+The keys you publish are N and r. The secret key is s. It can be easily shown that for any number M, M^(rs)=M mod N. To send a message, it is encoded as a series of numbers M, each less than N. The sender calculates X=M^r mod N, and sends the value X. The recipient then uses his secret kay s and calculates X^s mod N. But this is M^rs mod N, and thus retrieves the original message.
+
+Now to use this to transmit the information "I have successfully factored N into two primes p and q". The discoverer creates a random number r and a secret number s as above. He then takes an easy-to-read message such as "Congratulations!" as M. He publishes the values of N and r. Then he sends the message X=M^s, using the secret key s.
+
+Anyone receiving the message knows N and r, so they can decode the message (by calculating X^r=M^rs=M). They can conclude from this information that the sender knows the secret value s (otherwise they could not have encoded the message). But it is very difficult to guess the number s without knowing the factors. Readers may conclude that the sender knows the secret number s.
+
+At some later time, the sender may be asked to prove he knows what the factors are. To do this, he publishes his value of s. and with a little algebra they can retrieve the factors p and q. (When choosing the values r and s, the discoverer may wish to make (rs-1)/((p-1)(q-1)) quite small, but make sure s is not small enough to guess).
+
+Note the method is quite secure - it is believed to be difficult to decode without knowing the factors. The code is only weak if the number is easy to factor in the first place. Also note that when the user publishes the encrypted message, the encrypted message length is about the same size as the number N."
+
+***
+
+Well, no doubt that the key of the Nash's detailed argument is the Jud's sentence "breaking a code is equivalent to factoring N".
+
+But... Is this an answer to the Brier's question? or, better, is this the only answer?
+
+I wonder if breaking a code proofs that someone has factored a composite N or simply makes that believing highly probable; and now I wonder if Brier wants (and has an argument on the behalf of) an absolute proof of the factorization of N (without giving the factors, of course)
+
+"Breaking a code is equivalent to factoring N"?... Do all code-hackers factor composite numbers?
+
+Sorry if I'm totally out of the sink...
+
+I will wait one or two days before publishing the Brier's argument (and in the mean wile I would like that Brier sends a comment about the published answers...)
+
+***
+
+This Monday (11/9/2000) morning I received the Eric's comments:
+
+"I read the answers given. They are mostly based on the fact that breaking RSA takes the same effort than factoring N. I do believe that this has not be proven yet and further more is maybe wrong. I heard of people able to break RSA without knowing the factors with some very special method.
+
+The solution I suggested has the advantage to be fully proven and simpler than RSA mechanisms. Furthermore, you never need to publish the prime factors. You have a direct (though probabilistic) proof of your factorization.
+
+Concerning the meaning of the problem, the exact question I asked was to never give the factors.
+
+The idea with the moduli is wrong because...if you do not publish z, you prove nothing because for any values of a & b, there is a solution of the system of equations z=a mod p & z=b mod q [using the RCT^]. That means you can publish any [arbitrary^] a and b [without knowing the factorization of n=p.q^]. Later you get the factorization and are able to build z by solving the above system. With this method you can not prove you knew the factors at the first step. Anyway, the real interest of the problem is to probe you factored without giving the factors at the end"
+
+So, I would say that the discussion is just starting...
+
+***
+
+This is the Eric's solution sent the 28/08/2000 but published this 13/9/2000:
+
+"...The most difficult numbers to factor are N=p.q with p and q primes. Let's assume N is of that type. Basic facts about square roots modulo N:
+
+If you have factored N, you can compute square roots modulo N by computing them mod p and mod q and use Chinese theorem. If you can compute square roots modulo N : take a random number x and compute a=x² mod N and then compute a square root of a modulo N. There are four of them, of course x and -x but also y and -y. If you get y, them gcd(x+y,N) and gcd(x-y,N) give you non-trivial factors of N. This proves that if you can compute square roots modulo N, you can factor it and vice-versa. Then to prove you factored N, it suffice to prove you can compute square roots.
+
+But if you say : give me a number a and I compute x. Your partner can make a=x² and hope that you will give y and not x and then get the factors. The idea is then to give a number b. To prove you have the square root of a, it suffice to have the square root of b and a square root of b/a mod N. Don't give both. Your partner ask for one among them. If you try to cheat, you have only probability of 1/2 to fool your partner. I you do the process m times, you have a probability of 1/2^m to fool the partner. So after, say 20 trials, you prove you factored N."
+
+Comments are welcomed...
+
+***
+
+Here is the first comment to the Eric's argument, posted by Chris Nash the same day 13/09/2000:
+
+"Perhaps I am missing something very simple in Eric's solution, but Eric begins with:
+
+'...If you have factored N, you can compute square roots modulo N by computing them mod p and mod q and use Chinese theorem....(Eric)'
+
+But Eric does not explain how to calculate these two square roots. I do not think that is an easy calculation - I think that is just as hard as factoring."
+
+***
+
+The 21/9/2000 Eric commented:
+
+"...it is very easy to compute square roots modulo a prime number. Easy is to be understood that it does take a time polynomial in the log of the numbers involved (which is not the case for factorization, of course). The details of algorithms could be a little tedious. I'll try to send you more details next week...."
+
+Four days later he added:
+
+"Let's assume:
+
+* p is prime and (a/p)=1
+
+* p-1=2^v*n, n = odd
+
+* g is an element of order 2^u mod p (see below to know how to get it)
+
+Let's put x(v-1)=a^((n+1)/2) and compute x(u) for decreasing u :
+
+* if x(u)^(2^u)=+a^(2^(u-1)) let x(u-1)=x(u)
+
+* if x(u)^(2^u)=-a^(2^(u-1)) let x(u-1)=x(u)*g^(2^(v-u-1))
+
+* {else p is not prime or (a/p)=-1}
+
+you have x(0)^2=a
+
+Proof: you always have x(u)^(2^(u+1))=a^(2^u) (quite easy to prove by decreasing induction if you remember that g^(2^(v-1))=-1
+
+How to get g : take a random h and compute g=h^n. With probability 1/2, you have order(g)=2^u You can check that all needed operations are logarithmic in time (use the good algorithm for exponentiation mod p) and you need O(v) such operations. It is easy to see that v=O(log p).
+
+I hope it is clear enough. Simpler methods exist for p=3[4], p=5[8] but they are derived from the above algorithm."
+
+***
+
+Readers interested in judge the relative merits of the solutions sent by Chris Nash or Eric Brier can explore the following numerical examples: a) CN example b) EB example
+
+***
+
+I have received a solution from Frank P. Smith (19/9/2000) that tackles the Brier's problem from a very distinct angle. At the very beginning I discarded it because... forget it!... at the end I felt some shame by letting only for my knowledge this fresh approach. So, I decided to share it with the readers of these pages and know your own opinion...
+
+Please see first the second statement of the original problem at the top of this page in order to know who in the life is Sam & who is Joe...
+
+The Frank's idea goes as follows:
+
+I.- Sam & Joe construct together a reliable code for both of them that makes the following simple tasks:
+
+1) Accepts an integer number N
+
+2) Accepts one by one it's integer factors f calculating the reminder of N as N\f when and only when f divides N
+
+3) Ending for one of the following reasons:
+
+a) or f<=1, or f=>N, or f does not divide N, printing "You don't know the factors of N".
+
+b) N=1, printing "You know the factors of N" & N.
+
+4) Just before ending, the code clear all the values of the variables used.
+
+II.- Joe input the number N
+
+III.- Sam input the factors asking to Joe to turn around.
+
+IV.- When the code finish his work Sam shows the printing in the screen to Joe.
+
+That's all!...
+
+What do you think about the Frank's solution?
+
+***
+
+The Frank's code in Ubasic could be something like this one:
+
+10 input "The number N=";N:NN=N:K=1
+
+20 input "One factor of N";F
+
+30 if or{F<=1,F>=NN,N@F<>0} then print "You don't know the factors of ";NN:goto 60
+
+40 N=N\F:if N>1 then K=K+1:goto 20
+
+50 print "Congratulations! You knew the";K;" factors of ";NN
+
+60 clr N,NN,F:end
+
+***
+
+Here are the first comments about the Frank's solution:
+
+"I think Frank's solution may well be the best - because it requires little knowledge on either side (all they need to know is what a "factor" actually is, and what the little program does, it only prints the message if the factors are known). That is much less than needing to know how RSA works, or that square roots modulo composites are "hard" problems. There is also much less doubt, perhaps RSA or square roots could be easily broken some day, but Frank's program will still work... perhaps now this [problem]^ is less mathematics but more a question of philosophy!" (Chris Nash, 2/10/2000)
+
+***
+
+"- This solution is useful only if the actors can sit in front of the same computer. What about people who met on Internet ?
+
+- This solution is not secure at all since the second guy has to turn and not look at the screen for a while. During this time it is possible for the first guy to launch another program that just write 'Congratulations!'" (Eric Brier, 5/10/2000)
+
+***
+
+My (C.R.) personal opinion is that the very concept under discussion behind the distinct solutions is the concept of "mathematical proof", hardly carried to its limits by the peculiar nature of the interesting Brier's problem. But let's hear to the readers...
+
+***
+
+Records | Conjectures | Problems | Puzzles

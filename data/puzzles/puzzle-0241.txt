@@ -1,0 +1,222 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_241.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 241.  Highly imperfect primes
+Source: https://www.primepuzzles.net/puzzles/puzz_241.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0241.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_240.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_242.htm
+  https://www.primepuzzles.net/puzzles/puzz_241.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 241. Highly imperfect primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 241. Highly imperfect primes
+
+Joseph L. Pe sent the following puzzle for these pages:
+
+Here's a prime puzzle based on one of my sequences in the OEIS (A074918):
+
+1,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73, 79,83,89,97,101,103,107,109,113,120,127,131,137,139,149,151, 157,163,167,173,179,180,191,193,197,199,211,223,227,229,233, 239,240,269,271,277,281,283,293,307,....
+
+This is the sequence of "highly imperfect numbers": n which set a record for |sigma(n) - 2n|.
+
+A perfect number n is defined by sigma(n) = 2n, so the quantity i(n) = |sigma(n)-2n| measures the degree of perfection of n. The larger i(n) is, the more "imperfect" n is.
+
+I call the numbers n such that i(k) < i(n) for all k < n "highly-imperfect numbers".
+
+For example, The values of i(k) = |sigma(k)-2k| for k = 1, ..., 120 are:
+
+1, 1, 2, 1, 4, 0, 6, 1, 5, 2, 10, 4, 12, 4, 6, 1, 16, 3, 18, 2, 10, 8, 22, 12, 19, 10, 14, 0, 28, 12, 30, 1, 18, 14, 22, 19, 36, 16, 22, 10, 40, 12, 42, 4, 12, 20, 46, 28, 41, 7, 30, 6, 52, 12, 38, 8, 34, 26, 58, 48, 60, 28, 22, 1, 46, 12, 66, 10, 42, 4, 70, 51, 72, 34, 26, 12, 58, 12, 78, 26, 41, 38, 82, 56, 62, 40, 54, 4, 88, 54, 70, 16, 58, 44, 70, 60, 96, 25, 42, 17, 100, 12, 102, 2, 18, 50, 106, 64, 108, 4, 70, 24, 112, 12, 86, 22, 52, 56, 94, 120. i(120) > i(k) for k < 120, so 120 is a highly-imperfect number.
+
+Observation: Note that the sequence begins with 1 and the odd primes up to 113... but then even numbers appear! The first non-prime > 1 in the sequence is 120. Some primes such as 181 do not appear in the sequence. (181 is the first odd prime not occurring.)
+
+Question: Find a necessary and sufficient condition for an odd prime to be highly-imperfect.
+
+Solution:
+
+Solutions came from Jon Wharf, Luke Pebody, Faride Firoozbakht and J. K. Andersen. All of them demonstrated that there are only 69 'highly imperfect primes' being the largest 719. Here are the proofs:
+
+Jon:
+
+The imperfection of every prime n, imp(n) = n-1.
+
+120 is of course tri-perfect, sigma(n) = 3n => imp(120) = 120. Any multiple of 120 therefore has sigma(n) > 3n. This will create a new record which subsequent primes have to exceed. (or if it isn't a new record then it's still held by a previous multiple)
+
+30240 is the first 4-perfect number, sigma(n) = 4n. imp(30240) = 2*30240 = 60480. No odd primes between 30240 and 60480 will beat this imperfection, and for 60480 and other multiples of 30240, sigma(n) > 4n. This means that no odd primes > 30240 will make the highly-imperfect list.
+
+Thus the number of highly-imperfect odd primes is finite. Now, how finite?
+
+I looked at the quantity sigma(n)-3n+1 for multiples of 120. I call this the "cover" of these numbers - from n to n+cover(n), the odd primes will not be sufficiently imperfect to make the list of highly-imperfect numbers
+
+All multiples of 120 from 720 onwards have a cover value of over 120; so the cover is continuous from this point onwards, certainly to 30240 which eliminates all subsequent odd primes. The short version is a "cover list" in which each number covers at least to the next:
+
+( 720, 840, 1080, 1320, 1680, 2520, 3360, 4680, 6720, 10080, 17640, 30420)
+
+Multiples of 60 from 360 to 600 have cover of more than 60 but 660 covers only 37, allowing three last primes, 701, 709 and 719.
+
+So the full conditions for an odd prime p to be highly imperfect are:
+
+3<= p < 180
+
+or 187 < p < 240
+
+or 265 < p < 360
+
+or 697 < p < 720
+
+- conditions met by 69 primes.
+
+Luke:
+
+1) There are no highly-imperfect prime numbers above 609840
+
+Proof:
+
+Fact 1: For every real number x>11 there is a prime number between x and 2*x
+
+Therefore, let p be a prime number above 609840(=11*55440), and let x=p/55440. Then there is a prime number q between x and 2*x.
+
+Now 27720*q<27720*2*x=p, but: sigma(27720*q)=sigma(27720)*sigma(q+1) (as q>x>11 and all prime factors of 27720 are at most 11) =112320*(q+1)
+
+Therefore i(27720*q)=84600q+112320
+
+However i(p)=p-1=55440x-1<5540q-1<i(27720*q)
+
+2) There are no highly-imperfect prime numbers above 720. Consider the sequence: <a>=720,840,1200,1440,1680,2520,4200,6300,9240,15120,27720,55440, 110880,249480,526680,1179360.
+
+For each number a_k in the sequence, i(a_k)>=a_{k+1}. Therefore if p is a highly-imperfect prime number above a_k, i(p)=p-1>i(a_k)>=a_{k+1}, and so p is a highly-imperfect prime number above a_{k+1}.
+
+Therefore, any highly-imperfect prime number above 720 is above 1179360 and therefore does not exist by 1).
+
+3) An odd prime number is highly-imperfect iff it is a) less than 720 b) Not in any of the ranges [181,181], [241,263], [367,691]
+
+Proof:
+
+=>
+
+We already have proved that a highly-imperfect prime number is less than 720, in 2).
+
+181 is not highly-imperfect, because i(181)=180<186=i(186).
+
+If p is in the range [241,263] i(p)=p-1<264=i(240).
+
+If p is in the range [367,449] i(p)=p-1<450=i(360).
+
+If p is in the range [449,503] i(p)=p-1<504=i(420).
+
+If p is in the range [503,547] i(p)=p-1<552=i(480).
+
+If p is in the range [547,599] i(p)=p-1<600=i(540).
+
+If p is in the range (599,659] i(p)=p-1<660=i(600).
+
+If p is in the range (659,691] i(p)=p-1<696=i(660).
+
+<=
+
+In order for p<720 not to be highly-imperfect, it must follow that there exists n<p such that i(n)>p-1>=n. Thus there must be n with n<p<=i(n). The only n with n<720 and n<i(n) are n=180,240,360,420,480,504,540,600,660.
+
+Therefore p must be in one of the ranges [181,186],[241,264],[361,450],[421,504],[481,552],[505,552], [541,600],[601,660],[661,696].
+
+Combining these together, we get the ranges [181,186],[241,264],[361,696].
+
+However there are no primes in the regions [182,186], [264,264], [361,366] and [692,696].
+
+Therefore p must be in one of the ranges [181,181],[241,263] or [367,691].
+
+Faride wrote "A simple proof for 'there is no any highly-imperfect prime greater than 720":
+
+If the prime p is greater than 720,there exist four cases.
+
+Case 1: 720 < p <= 979 ,then 720 < p <= sigma(720)-2*720+1 hence p-1 <= sigma(720)-2*720 or i(p)<= i(720) where p > 720, so p isn't highly-imperfect prime.
+
+Case 2: 979 < p <= 1129 ,then 960 < p <= sigma(960)-2*960+1 hence p-1 <= sigma(960)-2*960 or i(p)<= i(960) where p > 960, so p isn't highly-imperfect prime.
+
+Case 3: 1129 < p <= 1441,then 1080 < p <= sigma(1080)-2*1080+1 hence p-1 <= sigma(1080)-2*1080 or i(p)< i(1080) where p > 1080, so p isn't highly-imperfect prime.
+
+Case 4: p > 1441, then there exist natural number k (k > 3) such that ,360*k < p <= 360*(k+1) (1)
+
+sigma(360*k)-2*360*k+1>=k*sigma(360)-720*k+1,(because sigma(m*n)>=m*sigma(n)) hence, sigma(360*k)-2*360*k+1 >= 450*k+1 (2)
+
+since k > 3 we have, 360*(k+1) < 450*k+1 (3)
+
+hence from (1),(2)&(3) we have, 360*k < p < sigma(360*k)-2*360*k+1 then, p-1 < sigma(360*k)-2*360*k or i(p) < i(360*k) ,where p > 360*k so p isn't highly-imperfect prime, and the proof is complete.
+
+J. K. Andersen:
+
+All odd primes p are highly imperfect unless there is a smaller composite k with sigma(k)-2k > p-1.
+
+The complete list of highly imperfect primes is easily found by brute force and is all primes in the following intervals:
+
+3-180, 191-240, 269-360, 701-720.
+
+Long answer follows.
+
+If p is a prime then sigma(p) = p+1 and i(p) = |(p+1)-2p| = p-1.
+
+This means all primes p have a larger i(p) than all smaller primes.
+
+A composite k has at least one divisor d with sqrt(k) <= d < k.
+
+Then sigma(k) >= k+1+sqrt(k), and i(k) = |sigma(k)-2k| can only be bigger than for a nearby prime if sigma(k) is big compared to 2k. This can happen if k has many divisors.
+
+All odd primes p are highly imperfect unless there is a smaller composite k with sigma(k)-2k > p-1.
+
+sigma(k) can soon become very big when k has lots of prime factors. From k = 720 = 2^4*3^2*5, the highly imperfect composite numbers always has a sigma big enough to beat all primes until the next highly imperfect composite (proved below), so the last highly imperfect prime is 719.
+
+The complete list of highly imperfect primes is easily found by brute force and is all primes in the following intervals:
+
+3-180, 191-240, 269-360, 701-720.
+
+Each interval is written so it ends with the highly imperfect composite beating the next prime. 120 is highly imperfect but does not beat the next prime 127.
+
+Proof of no highly imperfect primes above 720:
+
+Exhaustive testing shows there are none below 50400.
+
+Let k=2^n*1575, for n>=5. n=5 gives k=50400.
+
+sigma(k) can be shown to be (2^(n+1)-1)*3224.
+
+Then it can easily be shown that sigma(k)-2k > 2k, if n>=5.
+
+Let p be a prime with k<p<2k.
+
+i(k) = sigma(k)-2k > 2k > p-1 = i(p).
+
+We have i(k) > i(p) for all such primes p, so these primes are never highly imperfect.
+
+If we repeatedly increase n by one then k is doubled each time, so we get an infinite sequence of k's preventing highly imperfect primes to the next k. The k's are not claimed to be highly imperfect, just "more" imperfect than all primes below 2k.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

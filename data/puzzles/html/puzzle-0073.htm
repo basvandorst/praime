@@ -1,0 +1,188 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Puzzle 73.- A Collatz-like sequence. (A puzzle suggested by Jack Brennen
+)</title>
+<link rel="stylesheet" type="text/css" href="../links.css">
+</head>
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+  <center>
+  <table border="0" width="600" cellspacing="0" cellpadding="0">
+          </center>
+  <center>
+  <tr>
+    <td height="10">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+  </tr>
+  </center>
+  <tr>
+    <td><p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font>
+        </p>
+          <p style="mso-pagination:none"><font face="Arial"><b>Puzzle 73.- <font color="#008080">A
+          Collatz-like sequence.</font></b> (A puzzle suggested by <b> Jack
+          Brennen</b> )</font></p>
+          <p style="mso-pagination:none"><font size="2">Consider the sequence of integers B[]
+          defined by a starting point B[0] and the rules:</font></p>
+          <ol>
+            <li><font size="2">If B[n] is prime, B[n+1] is defined as 3*B[n]+1.</font></li>
+            <li><font size="2">If B[n] is composite, B[n+1] is defined as the largest proper
+              divisor of B[n], which can also be described as B[n]/P, where P is
+              the smallest prime factor of B[n].</font></li>
+          </ol>
+          <p><font size="2">This is obviously derived from the Collatz problem, and in fact,
+          all even or prime numbers &gt;= 3 have the same successor as they do
+          in the Collatz sequence; only the number 2 and odd composites behave
+          differently...</font></p>
+          <p><span style="mso-ansi-language:EN-US"><font size="2">The question is this<b><span style="color:blue">:
+          Does every starting point eventually end up entering the cycle </span><span style="color:green">...
+          </span><span style="color:red">2</span><span style="color:green">, 7,
+          22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, </span><span style="color:red">2</span><span style="color:green">
+          ..</span></b></font></span></p>
+          <p><font size="2">The same question can be posed with the rule changed so that prime
+          numbers go to 3*B[n]-1 instead of 3*B[n]+1.<span style="mso-ansi-language:EN-US">&nbsp;
+          <b><span style="color:blue">Do all starting points then eventually
+          enter this cycle?</span><span style="color:
+green">&nbsp; ...</span><span style="color:blue"> </span><span style="color:red">5</span><span style="color:green">,
+          14, 7, 20, 10, </span><span style="color:red">5</span><span style="color:green">
+          ...</span></b></span></font></p>
+      <hr>
+      <p><font size="2"><b><span style="color: green; mso-ansi-language: EN-US">Solution</span></b></font></p>
+      <p><font size="2"><b><span style="color: green; mso-ansi-language: EN-US">Felice
+      Russo got the following interesting results:</span></b></font></p>
+      <blockquote>
+        <p><font size="2"><i><b><span style="color: green; mso-ansi-language: EN-US">&quot;</span></b><b>Question
+        1</b>. I have checked (with an Ubasic program) that all the integers
+        between <b>2</b> and <b>2^27</b> terminate in the cycle: 2, 7, 22, 11,
+        34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2. Moreover for the first
+        1000 integers I calculated the number of steps needed to end up in the
+        cycle. I indicate this quantity with T(n) and we can call it the
+        &quot;transient time&quot;.</i></p>
+        <p><i>Then I calculated the ratio T(n)/n (&quot;Normalized Transient
+        time&quot;) which behavior is reported in the below graph.</i></p>
+        <p><i>&lt;&lt;graph&gt;&gt;</i></p>
+        <p><i>I have estimated an interpolating function given by: T(n)/n ~
+        6.2*n^(-0.813) with a good R^2 value. Moreover I found that the average
+        transient time &lt;T(n)&gt;=1/N*sum(n=1 to N). T(n) grows as the
+        logarithm of n, namely: &lt;T(n)&gt; ~ 2.8*ln(n) and then the average
+        transient time goes to infinite only for n--&gt;00.</i></p>
+        <p><i>According to the experimental data, the function T(n)/n seems
+        falls asymptotically as n increase; so it is very likely that T(n)/n
+        never will diverges. So I'm enough confident to pose the following
+        conjecture for the case 1:All the integers generate a Collatz-like
+        sequence that end-up entering in the cycle 2, 7, 22, 11, 34, 17, 52, 26,
+        13, 40, 20, 10, 5, 16, 8, 4, 2. Similar results have been obtained for
+        the question 2.</i></p>
+        <p><i><b>Question 2</b>. All the integers between <b>2</b> and <b>2^27</b>
+        have been checked to terminate in the cycle: 5, 14, 7, 20, 10, 5</i></p>
+        <p><i>About the Normalized transient time T(n)/n and the average
+        transient time &lt;T(n)&gt; we have a behavior similar to the previous
+        case: T(n)/n ~ 2.34*n^(-0.7477) with R^2 ~ 0.76. &lt;T(n)&gt; ~ 1.8*ln(n)</i></p>
+        <p><i>Then as done previously the following conjecture can be posed for
+        the case 2: All the integers generate a Collatz-like sequence that
+        end-up entering in the cycle 5, 14, 7, 20, 10, 5.</i>&quot;</p>
+        </blockquote>
+      </font>
+  <center>
+        <hr>
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td height="20">
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><a href="puzz_072.htm"><img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+          <td align="right"><a href="puzz_074.htm"><img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <hr>
+    </td>
+  </tr>
+  <tr>
+    <td>
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></td>
+  </tr>
+  </table>
+
+</body>
+
+</html>

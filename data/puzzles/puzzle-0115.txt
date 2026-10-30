@@ -1,0 +1,241 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_115.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 115. Prime squares composed by no more than two digits
+Source: https://www.primepuzzles.net/puzzles/puzz_115.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0115.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.asahi-net.or.jp/~KC2H-MSM/mathland/math02/three01.htm
+  http://www.math.niu.edu/~rusin/known-math/95/richard
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=057659
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=016069
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=016070
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=018884
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=018885
+  https://www.primepuzzles.net/puzzles/puzz_114.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_116.htm
+  https://www.primepuzzles.net/puzzles/puzz_115.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 115. Prime squares composed by no more than two digits
+
+Problems & Puzzles: Puzzles
+
+Puzzle 115. Prime squares composed by no more than two digits
+
+Here are the first eight primes with that property: 2, 3, 5, 7, 11, 109, 173 & 81619
+
+Example: 81619^2 = 6661661161
+
+Questions:
+
+1. Can you extend the sequence?
+
+2. Can you argue if this sequence is finite or infinite?
+
+References. F24, p.262. UNiTN, R.K. Guy
+
+Solution
+
+Patrick De Geest has sent (17/11/2000) the following Web links to this problem:
+
+Hisanori Mishima, Ruskin and several Sloane's sequences: A057659, A016069, A016070, A018884 & A018885 .
+
+In particular interesting is the range covered by the search of Mr. Mishima. I have asked to Patrick please to ask him how is that he covered that incredible large range. Hopefully we should have some news soon about this issue.
+
+***
+
+Here is the kind explanation of the Mishima's method explained by himself according to an email he sent to me the 23/11/2000:
+
+The search method for tri-digital squares.
+
+"tri-digital square" means B=A^2 and B is consisted of less than three different numbers.
+
+There are two ways of searching such that
+
+(method 1) loop of A.
+
+* (1-1) A is moved within certain range.
+
+Compute B=A^2.
+
+* (1-2) Check whether B is tri-digital or not.
+
+(method 2) loop of B.
+
+* (2-1) Fix the three different digits.
+
+Construct B from these digits.
+
+* (2-2) Compute square root of B as A in the set of real number.
+
+* (2-3) Check whether A is integer or not.
+
+At a glance, it seems that there are no differences
+
+between method 1 and method 2. But in realty, method 2 has a great advantage.
+Let B be 2n-digits number. The square root of B [A] is consisted of n-digit integer part and infinite fraction part. This n-digit integer part [of A] depends only on upper n-digits part of B.
+
+So when we perform in method 2 and construct three digits number B, we need not 2n-digits three number, only make n-digits number and concatenate n times zero.
+
+More easily say, let B=A^2. We need not make B=ababaa....bba (n-digits), just make B=ababa...b(n/2-digits)00000..000(n/2-digits).
+
+So using refined method 2,
+the search range becomes double length for B of method 2.
+In case we want to search 2-digits square by using this method, first we must make two kind of sequences,
+
+case 1 : including zero
+
+0
+
+a
+
+a0
+
+aa
+
+a00
+
+a0a
+
+...
+
+case 2 : non-zero
+
+a
+
+b
+
+aa
+
+ab
+
+ba
+
+bb
+
+aaa
+
+...
+
+There is apparent correspondence between these sequences
+and binary notation of integer n,
+case 1 : including zero
+
+0 : 0
+
+a : 1
+
+a0 : 10
+
+aa : 11
+
+a00 : 100
+
+a0a : 101
+
+...
+
+(represent n as binary, and replace '1' by 'a'.)
+
+case 2 : non-zero
+
+a : 10
+
+b : 11
+
+aa : 100
+
+ab : 101
+
+ba : 110
+
+bb : 111
+
+aaa : 1000
+
+...
+
+(represent n as binary, omit uppermost [ leftmost ]^ bit, and replace '0' by 'a', '1' by 'b'.)
+
+(refined method 2) loop of B.
+
+* (2-1) Fix the two different numbers.
+
+Construct n-digits B from these numbers.
+
+* (2-2) Concatinate n times zero.
+
+* (2-3) Compute square root of B as a in integer number.
+
+* (2-4) Add 1 to A.
+
+* (2-5) Compute B=A^2.
+
+* (2-6) Check whether B is 2-digits or not.
+
+And if we want to check (2-6), we need not
+perform (2-5).
+For example, let B assume consisting from 2 and 5. If B is perfect square, the lower [ rightmost ] 3-digits must be '225', so lower [ rightmost ] 3-digits of A (B=A^2) must be,
+
+015, 035, 065, 085, 115, ...
+
+Therefore,
+
+* (2-4) Add 1 to A.
+
+* (2-5) Let C=A mod 1000.
+
+* (2-6) If C is not 015, 035, 065, 085, 115, ...
+
+then next A
+
+* (2-7) Else compute B=A^2.
+
+* (2-8) Check whether B is 2-digits or not.
+"(2-6)" can be computed only table searching.
+
+Make the table T[1000],
+
+* T[i]=0 (i=0, 999)
+
+* T[15]=1, T[35]=1, ...
+
+only check T[C]=0 or 1.
+
+If we want to search up to B=10^48 in B=A^2, we must make 24-lengths of , including zero : 3 patterns; non-zero : 18 patterns so, 3 * 2^25 + 18 * 2^26 = 1308622848. These are the required search patterns. I made this computation using 486 DX2 66MHz, programmed in UBASIC, and cost 2 or 4 days (perhaps 3 or 5 years ago). I performed the search for tri-digital square using same method up to B=10^34, required search patterns are, including zero : 25 patterns non-zero : 67 patterns 25 * 3^18 + 67 * 3^19 = 87557030514. This is approximately 67 times of former computation. I made this search by using Pentium III 650 Mhz machine, programmed in UBASIC, cost about 2 months. If we proceed the same computation on today's machine in the same time, 3 * 2^31 + 18 * 2^32 = 83751862272 is almost same to 87557030514, so we can search up to 10^60 digits of B.
+
+***
+
+After the Mr. Mishima's search (without the dispense of a desirable confirmation) seems that the next move with this puzzle is not to try to get the next positive example . Maybe is time to start arguing why no other example should come any more...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

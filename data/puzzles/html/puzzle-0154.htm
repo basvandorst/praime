@@ -1,0 +1,319 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Puzzle 154.&nbsp; Extension and Variation of the GC </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td><p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font>
+
+        </p>
+
+      <p><b>Puzzle 154.<font color="#008080">&nbsp;</font></b><span lang="EN-US" style="mso-ansi-language:EN-US"><font color="#008080"><b style="mso-bidi-font-weight: normal; mso-ansi-language: EN-US">
+      </b><b><span style="mso-bidi-font-weight: normal">Extension and Variation
+      of the GC</span></b></font></span></p>
+
+      <p style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2"><b>Rober
+      Burrage</b>, poses in one of his Web <a href="http://web2.airmail.net/goak/Goldbachs_conjecture.htm">pages</a>
+      an &quot;<b>Extensión of the Goldbach's Conjecture</b>&quot; (EGC). This
+      EGC proposes that:<o:p>
+      </o:p>
+      &nbsp;<o:p>
+      </o:p>
+      </font></span></p>
+      <blockquote>
+        <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2" color="#008000"><b>&quot;If
+        N = A.B, then N can be expressed as a sum of A primes.&quot;<o:p>
+        </o:p>
+        </b></font></span></p>
+      </blockquote>
+      <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2"><span style="font-family: Courier New; mso-ansi-language: EN-US">He</span></font></span><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2">
+      also wonders if this his conjecture can be proved true supposing true the
+      Goldbach Conjecture (GC). </font></span></p>
+      <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2">It
+      is a kind of easy to prove that the EGC follows directly from the GC, but I
+      will let the readers to find that proof his own way. </font></span><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2">I
+      will only provide - as indirect evidence that such proof exists - a code
+      in Ubasic of mine to produce such representations for A &amp; B &gt;3. </o:p>
+      </font></span><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2"><o:p>
+      </o:p>
+      </font></span></p>
+      <blockquote>
+        <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2">10
+        input A,B:'goldbext.ub<o:p>
+        </o:p>
+        <br>
+        20 P=2: if odd(B)=1 then P=3<o:p>
+        </o:p>
+        <br>
+        30 Z=A*B-P*(A-2):Q=1<o:p>
+        </o:p>
+        <br>
+        40 Q=nxtprm(Q):if (Z-Q)&lt;&gt;prmdiv(Z-Q) then goto 40<o:p>
+        </o:p>
+        <br>
+        50 print A;&quot;*&quot;;B;&quot;=&quot;;<o:p>
+        </o:p>
+        <br>
+        60 for I=1 to A-2:print P;&quot;+&quot;;:next I<o:p>
+        </o:p>
+        <br>
+        </font></span><span lang="ES-MX" style="font-family: Courier New; mso-ansi-language: ES-MX"><font size="2">70
+        print Q;&quot;+&quot;;(Z-Q):end<o:p>
+        </o:p>
+        </font></span></p>
+      </blockquote>
+      <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><font size="2">Some
+      examples are:</font></p>
+      <blockquote>
+        <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><font color="#008080"><font size="2"><b> 5 * 12 = 2 + 2 + 2 + 7 + 47<br>
+ 4 * 15 = 3 + 3 + 7 + 47<br>
+ 12 * 9 = 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 5 + 73</b></font><br>
+        </font></p>
+      </blockquote>
+      <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2">Now
+      I propose a variation of the <b>Burrage's</b> EGC that I will name VEGC:<o:p>
+      </o:p>
+      </font></span><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><font size="2"><o:p>
+      </o:p>
+      </font></span></p>
+      <blockquote>
+        <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US" style="font-family: Courier New; mso-ansi-language: EN-US"><b><font size="2" color="#800080">&quot;If
+        N = A.B, then N can be expressed as a sum of </font><font size="2" color="#008000"> A</font><font size="2" color="#800080"> </font><font size="2" color="#008000">distinct</font><font size="2" color="#800080">
+        primes under the condition X&quot;<o:p></o:p>
+        </font></b></span></p>
+      </blockquote>
+      <p class="MsoNormal" style="mso-layout-grid-align:none;text-autospace:none"><b><span lang="EN-US" style="font-family: Courier New; color: blue; mso-ansi-language: EN-US"><font size="2">Questions:<o:p>
+      </o:p>
+      </font></span><span lang="EN-US" style="font-family: Courier New; color: blue; mso-ansi-language: EN-US"><font size="2"><o:p>
+      </o:p>
+      </font></span></b></p>
+      <p class="MsoNormal" style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l28 level1 lfo122;
+tab-stops:list 36.0pt;mso-layout-grid-align:none;text-autospace:none"><font size="2"><span lang="EN-US" style="font-family: Courier New; color: blue; mso-ansi-language: EN-US"><b>a)<span style="font-style: normal; font-variant: normal; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;
+      </span>Does the VEGC follow also from the GC?<o:p>
+      </o:p>
+      </b></span></font></p>
+      <p class="MsoNormal" style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l28 level1 lfo122;
+tab-stops:list 36.0pt;mso-layout-grid-align:none;text-autospace:none"><font size="2"><span lang="EN-US" style="font-family: Courier New; color: blue; mso-ansi-language: EN-US"><b>b)<span style="font-style: normal; font-variant: normal; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;
+      </span>What is that X condition?<o:p>
+      </o:p>
+      </b></span></font></p>
+      <p class="MsoNormal" style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l28 level1 lfo122;
+tab-stops:list 36.0pt;mso-layout-grid-align:none;text-autospace:none"><font size="2"><span lang="EN-US"><b><span style="font-family: Courier New; color: blue; mso-ansi-language: EN-US">c)</span></b></span></font>
+      <span lang="EN-US" style="font-family: Courier New; mso-fareast-font-family: Times New Roman; mso-bidi-font-family: Times New Roman; color: blue; mso-ansi-language: EN-US; mso-fareast-language: ES; mso-bidi-language: AR-SA"><font size="2"><b>Can
+      you produce a code to make such expansion?</b></font></span></p>
+      <p>&nbsp;</p>
+
+      <hr>
+      <p><b><font color="#FF0000">Solution</font></b></p>
+      <p><font size="2"><b>Luis Rodríguez</b> has proved his own way the
+      Burrage's conjecture (EGC):</font></p>
+
+      <blockquote>
+
+      <p><font size="2">Let N=A.B</font></p>
+      <p><font size="2">a) Let N is even. Then N = (N -2(A-2)) +2(A-2). Then (N
+      -2(A-2)) has the same parity than N, that is to say even. By the GC (N
+      -2(A-2)) = p1 +p2 if (N -2(A-2))&gt;3. Then N = p1+p2+2(A-2) if (N
+      -2(A-2))&gt;3&nbsp;</font></p>
+      <p><font size="2">b) N is odd. Then N = </font><font size="2">(N - 2(A-3)
+      - 3) + 2(A-3) + 3. Then (N - 2(A-3) - 3) has opposite parity than N, that
+      is to say even. By the GC (N - 2(A-3) - 3) = p1 + p2 if (N - 2(A-3) - 3)&gt;3.
+      Then N = p1+p2+2(A-3)+3.</font></p>
+      </blockquote>
+      <p>***</p>
+
+      <p><font size="2">As you can see this <b>correct</b> proof provides <b>another</b>
+      solution than the given by my code written above, specifically to the case
+      where N is odd. In the Rodríguez solution for N=5x7 then A=5 and
+      N=(35-2(5-3)-3)+2(5-3)+3=(28)+(2+2+3)=(11+17)+(2+2+3)</font></p>
+
+      <p><font size="2">While using my code the solution is:</font></p>
+
+      <p><font size="2">N=Z+3(5-2)=Z+(3+3+3)=26+(3+3+3)=(3+23)+(3+3+3)</font></p>
+
+      <p>***</p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <p>&nbsp;</p>
+
+      <div>
+      </div>
+
+      <hr>
+
+  <center>
+
+        <p>&nbsp;</p>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_153.htm"><img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_155.htm"><img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1"> 
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>
+
