@@ -7,7 +7,6 @@ Submissions:
 - [October 2026](#results-october-2026)
 
 ## Results November 2026
-**1** beaten record, **8** answers to open questions (three of them partial) and **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered). Puzzle 900 is the same question as conjecture 80.
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -42,7 +41,6 @@ Submissions:
 | [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Triangle test: passes iff prime or 9 | tested to 3000 | [false: the prime 3917 fails](results/conj-115.md) |
 
 ## Results October 2026
-**39** beaten records, **25** answers to open questions (a few of them partial or conditional) and **1** mistake found on the pages (puzzle 1209).
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
