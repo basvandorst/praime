@@ -3,7 +3,7 @@
 This repository is an experiment in how far LLM can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected 1200+ prime challenges since 1999, many with records that stood for decades. 
 
 ## Results 30-10-2026
-**39** beaten records, **25** answers to open questions (a few of them partial or conditional), **9** results on the conjectures pages (2 disproved, 4 proved, 1 explained, 2 open questions answered) and **1** mistake found on the pages (puzzle 1209).
+**39** beaten records, **26** answers to open questions (a few of them partial or conditional), **9** results on the conjectures pages (2 disproved, 4 proved, 1 explained, 2 open questions answered) and **1** mistake found on the pages (puzzle 1209).
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -73,6 +73,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [639](https://www.primepuzzles.net/puzzles/puzz_639.htm) | Composite solutions for every m | no contributions | [yes, under the prime-quadruple conjecture](results/639.md) |
 | [677](https://www.primepuzzles.net/puzzles/puzz_677.htm) | Primes in a row with square sums | no solution | [tried values impossible, range narrowed](results/677.md) |
 | [890 Q1](https://www.primepuzzles.net/puzzles/puzz_890.htm) | Magic square from Pythagorean triples | no contributions | [impossible (proof)](results/890.md) |
+| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved; same question as conjecture 80](results/conj-80.md) |
 | [1080](https://www.primepuzzles.net/puzzles/puzz_1080.htm) | Third term a(3) | none known | [a(3) ≤ 1.9·10³² (exactly 3 solutions)](results/1080.md) |
 | [1145](https://www.primepuzzles.net/puzzles/puzz_1145.htm) | Covering set behind the listed k | no contributions | [found; listed k is its minimum (bounded search)](results/1145.md) |
 | [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](results/1204.md) |

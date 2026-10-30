@@ -24,10 +24,22 @@ readme = open('README.md', encoding='utf-8').read()
 beaten_part, answered_part = readme.split('### (First) answers to open questions', 1)
 ids = lambda text: {int(n) for n in re.findall(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', text)}
 beaten, answered = ids(beaten_part), ids(answered_part) - ids(beaten_part)
+# Where each README row links to (usually results/N.md; puzzle 900 points to its conjecture write-up).
+target = {}
+for row in readme.splitlines():
+    m = re.match(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', row)
+    t = re.findall(r'\]\((results/[^)]+\.md)\)', row)
+    if m and t:
+        target.setdefault(int(m.group(1)), t[-1])
 
 def name(n):
     # drop the "Puzzle 123.- " prefix, but only when it is this puzzle's own number (or off by one)
     t = titles[n]
+    m = re.match(r'^P?uzzle\s*(?:No\.\s*)?(\d+)', t)
+    if m and int(m.group(1)) != n:   # stale HTML title (copied from the previous page): use the page heading
+        page = open('data/puzzles/puzzle-%04d.txt' % n, encoding='utf-8').read().split('=' * 20, 1)[-1]
+        h = re.search(r'^Puzzle\s*%d\b.*$' % n, page, re.M)
+        t = h.group(0).strip() if h else t
     m = re.match(r'^P?uzzle\s*(?:No\.\s*)?(\d+)\s*[.:-]*\s*', t)
     if m and abs(int(m.group(1)) - n) <= 1 and t[m.end():].strip():
         t = t[m.end():]
@@ -37,7 +49,7 @@ rows = []
 for n in sorted(titles):
     page = 'https://www.primepuzzles.net/puzzles/puzz_%03d.htm' % n
     if n in beaten or n in answered:
-        status = '[%s](../results/%d.md)' % ('beaten' if n in beaten else 'answered', n)
+        status = '[%s](../%s)' % ('beaten' if n in beaten else 'answered', target.get(n, 'results/%d.md' % n))
     elif os.path.exists('writeup/%d.md' % n):
         status = '[open](%d.md)' % n
     else:
