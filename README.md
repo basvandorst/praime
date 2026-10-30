@@ -92,3 +92,5 @@ Both got a short prompt and the tips in [CLAUDE.md](CLAUDE.md). When a model got
 
 ## Personal
 I wanted to see what happens when you use AI on some of the hardest small problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the prime distribution itself :)
+
+Found any mistakes or have nice ideas on how to improve the reasoning? Open a PR or send a mail basvandorst [at] gmail [dot] com
