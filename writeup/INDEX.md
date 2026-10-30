@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 8 with a result of ours (proved, disproved, explained, answered, or a variant settled), 107 open. Status links go to our write-up.
+115 conjectures: 9 with a result of ours (proved, disproved, explained, answered, or a variant settled), 106 open. Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1374,7 +1374,7 @@
 | [77](https://www.primepuzzles.net/conjectures/conj_077.htm) | Gaps between primes of the form p=qn + r | open |
 | [78](https://www.primepuzzles.net/conjectures/conj_078.htm) | Pn^((Pn+1/Pn)^n)<=n^Pn | open |
 | [79](https://www.primepuzzles.net/conjectures/conj_079.htm) | Rodolfo Kurchan's Conjecture | open |
-| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why 25? | open |
+| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why 25? | [proved](../results/conj-80.md) |
 | [81](https://www.primepuzzles.net/conjectures/conj_081.htm) | For all primes p, there is at least one k \| that p^k = p&y&p? | open |
 | [82](https://www.primepuzzles.net/conjectures/conj_082.htm) | Average of log Dn / log(logPn) equal R = 0,877 08... | open |
 | [83](https://www.primepuzzles.net/conjectures/conj_083.htm) | Two conjectures about primes | open |
