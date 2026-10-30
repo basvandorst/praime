@@ -1353,7 +1353,7 @@
 | [56](https://www.primepuzzles.net/conjectures/conj_056.htm) | One  more SMR conjecture. | open |
 | [57](https://www.primepuzzles.net/conjectures/conj_057.htm) | \|P(i-1)-2P(i)+P(i+1)\| | open |
 | [58](https://www.primepuzzles.net/conjectures/conj_058.htm) | Primes m^2+1 | open |
-| [59](https://www.primepuzzles.net/conjectures/conj_059.htm) | n!+p(n)=m^k | open |
+| [59](https://www.primepuzzles.net/conjectures/conj_059.htm) | n!+p(n)=m^k | [open](conj-59.md) |
 | [60](https://www.primepuzzles.net/conjectures/conj_060.htm) | Generalization of Legendre's Conjecture | open |
 | [61](https://www.primepuzzles.net/conjectures/conj_061.htm) | THE MEAN MAXIMUM GAP BETWEEN PRIMES | open |
 | [62](https://www.primepuzzles.net/conjectures/conj_062.htm) | Generalization of Bertrand's Postulate | open |
@@ -1404,9 +1404,9 @@
 | [107](https://www.primepuzzles.net/conjectures/conj_107.htm) | The  Shyam's conjecture about square-free triangular numbers | open |
 | [108](https://www.primepuzzles.net/conjectures/conj_108.htm) | On the counting function of semiprimes | open |
 | [109](https://www.primepuzzles.net/conjectures/conj_109.htm) | Another test of Primality | open |
-| [110](https://www.primepuzzles.net/conjectures/conj_110.htm) | Conjecture -- General Cubic Composite Test | open |
+| [110](https://www.primepuzzles.net/conjectures/conj_110.htm) | Conjecture -- General Cubic Composite Test | [open](conj-110.md) |
 | [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | The density approaches at the constant 1/e^2 | [explained](../results/conj-111.md) |
 | [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | A possible Lucas-Lehmer type test for primes of the form 2^k+3 | [proved](../results/conj-112.md) |
 | [113](https://www.primepuzzles.net/conjectures/conj_113.htm) | A(n) = d + prime(n)#/d is prime.such that... | open |
-| [114](https://www.primepuzzles.net/conjectures/conj_114.htm) | A possible new conjecture about prime numbers and semiprimes | open |
+| [114](https://www.primepuzzles.net/conjectures/conj_114.htm) | A possible new conjecture about prime numbers and semiprimes | [open](conj-114.md) |
 | [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Test for primes | [disproved](../results/conj-115.md) |
