@@ -41,7 +41,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 17. **Wolstenholme.** `C(2p−1, p−1) ≡ 1 (mod p³)` and `H_(p−1) = 1 + 1/2 + … + 1/(p−1) ≡ 0 (mod p²)` for p ≥ 5. *(theorem: Wolstenholme 1862; first checked p < 2000)* Only 16843 and 2124679 satisfy it mod p⁴. *(literature)*
 18. **Lucas's theorem.** `C(n, k) ≡ ∏ C(n_i, k_i) (mod p)` with n_i, k_i the base-p digits. **Kummer.** v_p(C(m+n, m)) is the number of carries when adding m and n in base p. **Legendre.** `v_p(n!) = Σ_i ⌊n/p^i⌋ = (n − s_p(n))/(p − 1)`, s_p = digit sum in base p. *(theorems)*
 19. **Fibonacci.** `F_p ≡ (p/5) (mod p)` and `p | F_(p − (p/5))` for p ≠ 2, 5. *(theorem; checked p < 10⁴)* No Wall–Sun–Sun prime (p² | F_(p−(p/5))) is known. *(literature)*
-20. **Wieferich primes** (`2^(p−1) ≡ 1 (mod p²)`): only 1093 and 3511 below 10⁷, and no others are known. *(checked below 10⁷; literature)*
+20. **Wieferich primes** (`2^(p−1) ≡ 1 (mod p²)`): only 1093 and 3511 below 10⁷; a third would have to exceed 2⁶⁴ (fact 193). *(checked below 10⁷; literature)*
 21. **Wilson primes** (`(p−1)! ≡ −1 (mod p²)`): 5, 13, 563 below 1000, and none other below 2·10¹³. *(checked below 1000; literature: Costa–Gerbicz–Harvey 2014)*
 22. **Clement (1949).** (n, n + 2) are twin primes iff `4((n−1)! + 1) + n ≡ 0 (mod n(n + 2))`. *(theorem; checked odd n < 1500)*
 23. **Rowland (2008).** a(1) = 7, `a(n) = a(n−1) + gcd(n, a(n−1))`. Every difference a(n) − a(n−1) is 1 or a prime. *(theorem; checked n < 2·10⁵)*
@@ -77,7 +77,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 36. Prime factors q of `2^p − 1` (p an odd prime) satisfy `q ≡ 1 (mod 2p)` and `q ≡ ±1 (mod 8)`. *(theorem; checked p < 60)*
 37. Prime factors of F_n (n ≥ 2) satisfy `q ≡ 1 (mod 2^(n+2))`. *(theorem: Lucas 1878; checked n ≤ 6)*
 38. If p ≡ 3 (mod 4) and q = 2p + 1 is prime, then `q | 2^p − 1`, so 2^p − 1 is composite for p > 3 (example: 23 | 2¹¹ − 1). *(theorem: Euler 1750; checked p < 10⁵)*
-39. A repunit R_n = (10^n − 1)/9 can only be prime when n is prime. The proven repunit primes are R₂, R₁₉, R₂₃, R₃₁₇, R₁₀₃₁. *(theorem; literature)*
+39. A repunit R_n = (10^n − 1)/9 can only be prime when n is prime. The proven repunit primes are R₂, R₁₉, R₂₃, R₃₁₇, R₁₀₃₁, and since 2022 also R₄₉₀₈₁, R₈₆₄₅₃, R₁₀₉₂₉₇. *(theorem; literature)*
 40. Mersenne exponents up to 1279: 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279. *(checked with the Lucas–Lehmer test)* 52 Mersenne primes are known; the largest known prime is `2^136279841 − 1` (41,024,320 digits, October 2024). *(literature, as of 2025)*
 41. A regular n-gon is constructible with ruler and compass iff n = 2^k times distinct Fermat primes. *(theorem: Gauss–Wantzel)*
 
@@ -198,8 +198,8 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
     ```
     For k = 11–14 and 16–18 the minimum s(k) is not reached below 1.4·10¹¹. The small primes are exceptionally dense: the 15 primes 17 … 73 have the least possible width 56, and the 19 primes 37 … 113 the least width 76.
 83. **Hardy–Littlewood k-tuple conjecture.** For admissible H, `#{n ≤ x : n + h_i all prime} ~ 𝔖(H) ∫₂ˣ dt/ln^k t` with `𝔖(H) = ∏_q (1 − ν_H(q)/q)(1 − 1/q)^(−k)`, where ν_H(q) is the number of classes mod q that H occupies. For twins, `𝔖 = 2C₂`, `C₂ = ∏_(q>2) (1 − 1/(q − 1)²) = 0.6601618158…`. *(conjecture: Hardy–Littlewood 1923; C₂ checked to 10⁻⁷)* 𝔖 is unchanged when the pattern is mirrored (h → h_k − h), so a pattern and its mirror image are equally common. Fact 88 confirms this.
-84. **Brun (1919).** `Σ 1/p` over twin primes converges, to Brun's constant B₂ = 1.902160583… (an estimate based on the Hardy–Littlewood tail, not a proof). *(theorem; literature)* The largest known twin primes are `2996863034895 · 2^1290000 ± 1` (388,342 digits, 2016). *(literature, as of 2025)*
-85. **Consecutive primes in arithmetic progression (CPAP).** Primes in arithmetic progression, consecutive or not: if p, p + d, …, p + (k − 1)d are all prime and p > k, then every prime q ≤ k divides d, so `k# | d`. (If q ∤ d, the k terms cover every class mod q.) *(theorem)* First CPAP-k: k = 3 at 3 (d = 2), 4 at 251 (d = 6), 5 at 9843019 (d = 30), 6 at 121174811 (d = 30). *(computed; these are the minimal ones, and the minimal CPAP-k is known only for k ≤ 6)* Only two CPAP-10 are known. The first (1998, M. Toplic, in the CP10 project of Dubner, Forbes, Lygeros, Mizony, Zimmermann) starts at the 93-digit number `100996972469714247637786655587969840329509324689190041803603417758904341703348882159067229719` with d = 210. *(checked: the 10 terms are PRP and consecutive)* A CPAP-11 needs d to be a multiple of 2310 and at least 23090 composites between its terms; Dubner and Zimmermann estimate it at least 10¹² times harder than a CPAP-10. *(literature)*
+84. **Brun (1919).** `Σ 1/p` over twin primes converges, to Brun's constant B₂ ≈ 1.902160583 (an estimate based on the Hardy–Littlewood tail, not a proof; published estimates differ from the 9th decimal on). *(theorem; literature)* The largest known twin primes are `2996863034895 · 2^1290000 ± 1` (388,342 digits, 2016). *(literature, as of 2025)*
+85. **Consecutive primes in arithmetic progression (CPAP).** Primes in arithmetic progression, consecutive or not: if p, p + d, …, p + (k − 1)d are all prime and p > k, then every prime q ≤ k divides d, so `k# | d`. (If q ∤ d, the k terms cover every class mod q.) *(theorem)* First CPAP-k: k = 3 at 3 (d = 2), 4 at 251 (d = 6), 5 at 9843019 (d = 30), 6 at 121174811 (d = 30). *(computed; these are the minimal ones, and the minimal CPAP-k is known only for k ≤ 6)* At least three CPAP-10 are known (1998, 2008, and a 121-digit one in 2021; fact 174). The first (1998, M. Toplic, in the CP10 project of Dubner, Forbes, Lygeros, Mizony, Zimmermann) starts at the 93-digit number `100996972469714247637786655587969840329509324689190041803603417758904341703348882159067229719` with d = 210. *(checked: the 10 terms are PRP and consecutive)* A CPAP-11 needs d to be a multiple of 2310 and at least 23090 composites between its terms; Dubner and Zimmermann estimate it at least 10¹² times harder than a CPAP-10. *(literature)*
 86. **Green–Tao (2008).** The primes contain arbitrarily long arithmetic progressions (not consecutive). *(theorem)* The longest known has 27 terms: `224584605939537911 + 81292139 · 23# · n`, n = 0 … 26 (PrimeGrid, R. Gahan, 2019). *(checked: all 27 are prime, below 2⁶⁴)*
 87. **Euler–Rodríguez chains** ([puzzle 151](https://www.primepuzzles.net/puzzles/puzz_151.htm)): k consecutive primes `A + x(x + 1)`, x = 0 … k − 1, so the gaps are 2, 4, 6, …, 2(k − 1). Least A for a chain of exactly k primes:
     ```
@@ -273,7 +273,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
     twin prime constant   C₂ = ∏_(p>2) (1 − 1/(p−1)²)        = 0.6601618158…
     Artin's constant      A  = ∏_p (1 − 1/(p(p−1)))           = 0.3739558136…
     Meissel–Mertens       M  = lim (Σ_(p≤x) 1/p − ln ln x)     = 0.2614972128…
-    Brun's constant       B₂ = Σ over twin pairs (1/p + 1/(p+2)) ≈ 1.902160583   (estimate)
+    Brun's constant       B₂ = Σ over twin pairs (1/p + 1/(p+2)) ≈ 1.902160583   (estimate; sources differ in the 9th decimal)
     Mills' constant       A  = 1.30637788386308069046…          (computed; least, assuming RH)
     Fridman's constant    f₁ = 2.92005097731613471209…          (computed)
     e^γ = 1.7810724179…,  2e^(−γ) = 1.1229189671…
@@ -285,7 +285,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 
 | Structure | Longest known | Where |
 |---|---|---|
-| Consecutive primes in arithmetic progression | 10 (two known, 1998 and 2008) | fact 85 |
+| Consecutive primes in arithmetic progression | 10 (at least three known: 1998, 2008, 2021) | facts 85, 174 |
 | Primes in arithmetic progression (not consecutive) | 27 (2019) | fact 86 |
 | Euler–Rodríguez chain, consecutive primes A + x(x + 1) | 14 (2003); 15 open, none below 10¹⁷ | fact 87 |
 | Consecutive primes on a quadratic, below 1.4·10¹¹ | 12 (27797667649 − x(x + 1)) | facts 88, 89 |
@@ -390,7 +390,87 @@ Record objects we reused: PrimeGrid's AP-27 ([905](results/905.md)), the twin-pr
 
 ## 10. Facts from the site and its references
 
-(In progress: the facts stated on the archived pages and in the reference documents are being collected and checked.)
+Facts stated on primepuzzles.net pages, in the documents in [references/](references/), and in the external pages archived with them (copies dated 2026; the links go to the originals). A sweep collected about 180 items. Every one used here was checked against its source text, and those marked *(checked)* were also recomputed in [facts_check.py](results/code/facts_check.py). One item with no support in the archive was dropped.
+
+### 10A. Residues and congruences
+
+152. `(p² − 1)/24` is prime only for p = 7, 11, 13 (giving 2, 5, 7), and for p ≥ 7 it is ≡ 0 or 2 (mod 5). *([OEIS A024702](https://oeis.org/A024702); checked p < 10⁶)*
+153. Twin primes 6m ± 1 (m > 1) have m ≡ 0, 2 or 3 (mod 5). They are twin primes iff m is not of the form `6ab ± a ± b` with a, b ≥ 1 (Perry 2002; Balestrieri). *([OEIS A002822](https://oeis.org/A002822); checked m < 10⁴)* From the larger member of one twin pair to the smaller member of a later pair the distance is always ≡ 4 (mod 6).
+154. Four consecutive gaps of 666 are impossible: 666 ≡ 1 (mod 5), so the five primes cover every class mod 5. In general a run of k equal gaps g needs every prime q ≤ k + 1 to divide g (fact 85). *([problem 13](https://www.primepuzzles.net/problems/prob_013.htm))*
+155. An arithmetic progression of primes with difference d has at most p terms, p the least prime not dividing d, and p terms only if it starts at p. With negative terms allowed (|value| prime) the bound is 2p − 1, attained by −13, −5, 3, 11, 19. *(Granville, [Prime number patterns](references/2005_prime-number-patterns-andrew-granville.pdf))*
+156. **Fermat and Wilson quotients**, q_p(a) = (a^(p−1) − 1)/p and w_p = ((p − 1)! + 1)/p: `Σ_(a=1)^(p−1) q_p(a) ≡ w_p (mod p)` (Lerch 1905; checked p < 400), `q_p(ab) ≡ q_p(a) + q_p(b)` (Eisenstein), `w_p ≡ B_(p−1) + 1/p − 1 (mod p)` (Glaisher). p is a Wilson prime iff `p·B_(p−1) ≡ p − 1 (mod p²)` (E. Lehmer). *(Sondow, [references/2011_arxiv-1110-3113](references/2011_arxiv-1110-3113v5-math-nt-6-dec-2012.pdf))*
+157. For p ≡ 1 (mod 4) and any non-residue q, `x = q^((p−1)/4)` satisfies x² ≡ −1 (mod p) (Euler's criterion; compare fact 16).
+158. `p | F_(p−1)` iff p ≡ ±1 (mod 5), and `p | F_(p+1)` iff p ≡ ±2 (mod 5). *([Wikipedia: Fibonacci prime](https://en.wikipedia.org/wiki/Fibonacci_prime); checked p < 10⁴)*
+159. The product of the primitive roots mod p is ≡ 1 (p ≠ 3), and their sum is ≡ μ(p − 1) (mod p). *([Wikipedia: Primitive root modulo n](https://en.wikipedia.org/wiki/Primitive_root_modulo_n); checked p < 2000)*
+160. Full reptend primes (10 a primitive root, period p − 1): 7, 17, 19, 23, 29, 47, …; Artin's conjecture predicts 37.4 % of all primes. *([Wikipedia: Full reptend prime](https://en.wikipedia.org/wiki/Full_reptend_prime); checked)*
+161. A safe prime p ((p − 1)/2 prime) is 7 or ≡ 5 (mod 6). An Euler–Rodríguez chain start A > 7 is ≡ 5 (mod 6); for a 12-chain, `A mod 210 ∈ {11, 17, 41, 101, 137, 167}` (J. C. Rosa). *([OEIS A005385](https://oeis.org/A005385), [puzzle 151](https://www.primepuzzles.net/puzzles/puzz_151.htm))*
+162. The two primes of an emirp pair (p and its reversal) differ by a multiple of 18: they have the same digit sum, and both are odd. *([Wikipedia: Emirp](https://en.wikipedia.org/wiki/Emirp); checked p < 10⁵)*
+163. **Carmichael numbers** are odd, squarefree and have at least 3 prime factors. `(a + b)^k ≡ a^k + b^k (mod k)` for all a, b iff k is prime or a Carmichael number. Every coprime residue class contains infinitely many (Wright 2013). There are 8241 below 10¹² and 1,401,644 below 10¹⁸ (Pinch). *([OEIS A002997](https://oeis.org/A002997); counts as tabled on [puzzle 629](https://www.primepuzzles.net/puzzles/puzz_629.htm), where "< 10^8" should read 10¹⁸)*
+164. **Covering sets.** `78557·2ⁿ + 1` is always divisible by one of 3, 5, 7, 13, 19, 37, 73 (Selfridge 1962; checked), so it is never prime; 271129 is the smallest known prime Sierpiński number. `509203·2ⁿ − 1` is always divisible by one of 3, 5, 7, 13, 17, 241 (Riesel 1956). Polignac's guess that every odd number is p + 2ⁿ fails at 127, 149, 251, …, and the smallest composite counterexample is 905. *([Wikipedia: Sierpiński number](https://en.wikipedia.org/wiki/Sierpinski_number), [Riesel number](https://en.wikipedia.org/wiki/Riesel_number), [references/2007 Sierpiński–Riesel](references/2007_on-powers-associated-with-sierpi-nski-numbers-riesel.pdf))*
+
+### 10B. Gaps
+
+165. **Ramanujan primes** (the least R_n with π(x) − π(x/2) ≥ n for all x ≥ R_n) start 2, 11, 17, 29, 41. *([MathWorld](http://mathworld.wolfram.com/RamanujanPrime.html); checked)* For x > 2010759.9 there is a prime in (x, x(1 + 1/16597)] (Schoenfeld 1976). The threshold is sharp, like Dusart's: it is forced by the gap of 148 after 2010733 *(checked)*. *([Prime Pages: gaps](http://primes.utm.edu/notes/gaps.html), which states it with the index n in place of x)*
+166. **The exponent θ in g_n < p_n^θ** over time: Hoheisel 1930 (32999/33000), Heilbronn (249/250), Chudakov (3/4 + ε), Ingham (5/8 + ε), Huxley 1972 (7/12), Baker–Harman–Pintz 2001 (0.525). A prime between consecutive cubes is proved for n > e^(e^33.217) (Dudek 2016). Under RH, `g_n < (4/π)·√p_n·ln p_n` for n ≥ 2 (Dudek). *([Wikipedia: Prime gap](https://en.wikipedia.org/wiki/Prime_gap))*
+167. Small gaps since 2013: Zhang 7·10⁷, Polymath 4680, Maynard 600, then 246. Claims of 240 from August–September 2026 are marked by the archived page as not peer-reviewed. *([Wikipedia: Prime gap](https://en.wikipedia.org/wiki/Prime_gap))*
+168. **Firoozbakht's conjecture** `p_(n+1) < p_n^(1+1/n)` implies `g_n < ln² p_n − ln p_n − 1` for n > 9, and conversely `g_n < ln² p − ln p − 1.17` for n > 9 implies it. It implies Andrica, Oppermann, the strong Legendre conjecture (two primes between consecutive squares) and Brocard. It holds below 2⁶⁴. It contradicts the Granville–Maier heuristic (g > 1.1229·ln² p infinitely often). *(Kourbatov, [references/2015 upper bounds](references/2015_upper-bounds-for-prime-gaps.pdf), [references/2016 consequences](references/2016_some-consequences-of-the-firoozbakhts-conjecture.pdf); [Wikipedia](https://en.wikipedia.org/wiki/Firoozbakht%27s_conjecture))*
+169. **Andrica's conjecture** has its maximum 0.670873… at 7 → 11 and is verified below 2·10¹⁹. The generalised form p_(n+1)^x − p_n^x = 1 has least solution x ≈ 0.567148. **Oppermann:** `π(n² − n) < π(n²) < π(n² + n)` for n > 1. *([Wikipedia: Andrica](http://en.wikipedia.org/wiki/Andrica's_conjecture), [Oppermann](https://en.wikipedia.org/wiki/Oppermann%27s_conjecture))*
+170. The largest maximal gap below 4·10¹⁸ is 1476, after 1425172824437699411. First occurrences: a gap g first appears roughly where ln p ≈ √g (Shanks 1964; Wolf; Weintraub). Empirically the first occurrence of g lies between 0.12·√g·e^√g and 30.83·√g·e^√g (all gaps below 4·10¹⁸). *([Wikipedia](https://en.wikipedia.org/wiki/Prime_gap), [Oliveira e Silva: gaps](http://sweet.ua.pt/tos/gaps.html))*
+171. **Jumping champions** are conjectured to be only 4 and the primorials 2, 6, 30, 210, 2310, … (Conway–Odlyzko). By the Hardy–Littlewood constants, gap 30 overtakes gap 6 near 1.74274357·10³⁵. *([Oliveira e Silva: gaps](http://sweet.ua.pt/tos/gaps.html))*
+172. The first gap of 666 follows 18691113008663 (Young–Potler 1989; checked). Among 666-digit primes, the first gap of 666 is after 10⁶⁶⁵ + 1245313. *([problem 13](https://www.primepuzzles.net/problems/prob_013.htm))*
+173. **Gilbreath's conjecture** (iterated absolute differences of the primes always start with 1) is checked for 3.4·10¹¹ terms (Odlyzko 1993; we checked the first 2000 rows). **Grimm's conjecture** (consecutive composites n + 1, …, n + k have distinct prime divisors) is verified for n < 1.9·10¹⁰. Sándor's question whether g_n/√p_n → 0 is open. Maximal gaps between twin primes stay below 0.76·ln³ p (data to 10¹⁵). *([Wikipedia: Gilbreath](https://en.wikipedia.org/wiki/Gilbreath%27s_conjecture), [Grimm](https://en.wikipedia.org/wiki/Grimm%27s_conjecture); Kourbatov, [references/2013](references/2013_maximal-gaps-between-prime-k-tuples.pdf))*
+
+### 10C. Consecutive primes: runs and patterns
+
+174. **CPAP records.** The smallest known CPAP-7 has 32 digits, `19252884016114523644357039386451 + 210n`, while heuristics put the least one at 22–23 digits. The largest known CPAP-3 has 16,330 digits (Batalov 2024), and Batalov found a 121-digit CPAP-10 in 2021, so at least three CPAP-10 are known. *([OEIS wiki: CPAP](http://oeis.org/wiki/Consecutive_primes_in_arithmetic_progression), [Wikipedia](https://en.wikipedia.org/wiki/Primes_in_arithmetic_progression))*
+175. **Long strings in one class.** 33 consecutive primes ≡ 1 (mod 4) start at 3278744415797. 32 consecutive primes ≡ 3 (mod 4) start at 113391385603, the same string our pass found (fact 90). 20 consecutive primes ending in 9 start at 1167114189375049 (Cavegn 2025). *([puzzle 256](https://www.primepuzzles.net/puzzles/puzz_256.htm), [puzzle 16](https://www.primepuzzles.net/puzzles/puzz_016.htm))*
+176. **Consecutive twin pairs** (k twin pairs with no other prime between them): least starts 5 (k = 3), 9419, 909287, 325267931, 678771479, 1107819732821 (k = 8), 170669145704411 (k = 9). *([puzzle 122](https://www.primepuzzles.net/puzzles/puzz_122.htm); checked k ≤ 5)*
+177. **Monotone gap runs.** The first 12 strictly increasing consecutive gaps start at 48486712783, and the first 12 decreasing at 130272314561. The first 20 pairwise distinct consecutive gaps start at 60155567. *([puzzle 11](https://www.primepuzzles.net/puzzles/puzz_011.htm); the last checked)*
+178. **Symmetric runs.** The smallest prime that is the average of its first n neighbours on both sides: 5, 18731, 683783, 98303927, 60335249959, … (n = 1, 2, …). *([OEIS A055380](https://oeis.org/A055380))*
+
+### 10D. Prime tuples
+
+179. Least widths satisfy `s(k) > (e^γ − ε)·k·ln ln k`; values beyond k = 342 are only best known. *([OEIS A008407](https://oeis.org/A008407))* The shortest inadmissible pattern with two prime instances is {0, 2, 8, 14, 26}: (3, 5, 11, 17, 29) and (5, 7, 13, 19, 31). *([Wikipedia: Prime k-tuple](https://en.wikipedia.org/wiki/Prime_k-tuple))*
+180. Hardy–Littlewood constants: twins 1.32032, quadruplets `(27/2)·∏_(p≥5) p³(p − 4)/(p − 1)⁴ ≈ 4.15118`, sextuplets ≈ 17.2986. *(Kourbatov, [references/2013](references/2013_maximal-gaps-between-prime-k-tuples.pdf))* The sieve gives `π₂(N) ≤ 8C₂·N/ln² N·(1 + o(1))`, four times the conjectured count. *([Wikipedia: Twin prime](https://en.wikipedia.org/wiki/Twin_prime))*
+181. **Skewes numbers for tuples** (first x where the count exceeds the Hardy–Littlewood integral): twins 1369391 (Wolf 2011), (p, p + 4) 5206837, (p, p + 2, p + 6) 87613571, sextuplets 251331775687 (Tóth 2019). *([Wikipedia: Prime k-tuple](https://en.wikipedia.org/wiki/Prime_k-tuple))*
+182. The only n for which no twin pair lies between n² and (n + 1)² are 1, 9, 19, 26, 27, 30, 34, 39, 49, 53, 77, 122 (tested to 10⁷). *([OEIS A091592](https://oeis.org/A091592))* There are 808,675,888,577,436 twin pairs below 10¹⁸. *([Wikipedia: Twin prime](https://en.wikipedia.org/wiki/Twin_prime))*
+183. Largest known tuplets (October 2026): quadruplet `667674063382677·2^33608 − 1 + d` (10,132 digits, 2019), a 21-tuplet starting at 622803914376064301858782434517 (30 digits, Chermoni–Wróblewski 2018). *([pzktupel.de Top 10](https://pzktupel.de/Top10.php))*
+
+### 10E. Arithmetic progressions of primes
+
+184. Infinitely many 3-term progressions of primes (van der Corput 1939). Green–Tao gives a k-term progression below `2^2^2^2^2^2^2^(100k)`. Granville's heuristic: about `((e^(γ−1)·ln k)/ln x)^k · x²` progressions of length k below x. *(Granville, [references/2005](references/2005_prime-number-patterns-andrew-granville.pdf))*
+185. The minimal last term of a k-term progression is now proved for k = 23 … 26: 449924511422857, 1217585417914253 (found 2008, proved minimal by Petukhov 2025), 5773236905395679 and 12783396861134173 (Perrenet 2026). The least possible difference is conjectured to be k# for k > 7 and is proved for k ≤ 21. *([pzktupel.de AP records](https://www.pzktupel.de/PAP/aprecords.php))*
+
+### 10F. Polynomials and formulas
+
+186. Every non-constant polynomial has arbitrarily long runs of composite values (CRT). The first run of exactly 80 composite values of x² + x + 41 is x = 187162265 … 187162344. *([puzzle 250](https://www.primepuzzles.net/puzzles/puzz_250.htm), [puzzle 853](https://www.primepuzzles.net/puzzles/puzz_853.htm))*
+187. Euler's second family: `2n² + p` is prime for n = 0 … p − 1 exactly for p = 3, 5, 11, 29 (class number 2; Baker, Stark 1971). *([MathWorld](https://mathworld.wolfram.com/Prime-GeneratingPolynomial.html); checked p < 200)*
+188. Ruby's 36X² − 810X + 2753 works because its discriminant 259668 = 6²·7213 is a non-residue for every prime 5 ≤ p ≤ 53. Fung–Ruby's 47X² − 1701X + 10181 gives 43 distinct primes. *([problem 12](https://www.primepuzzles.net/problems/prob_012.htm))* Higher degrees: |−66x³ + 3845x² − 60897x + 251831| gives 46 distinct primes (Kazmenko–Trofimov 2006). |X⁴ − 97X³ + 3294X² − 45458X + 213589| is prime for X = 0 … 49. *([puzzle 232](https://www.primepuzzles.net/puzzles/puzz_232.htm); Granville, [references/2005](references/2005_prime-number-patterns-andrew-granville.pdf))*
+189. If |f(0)|, …, |f(k)| are distinct primes, then k ≤ |f(0)| − 1, which is best possible under the k-tuple conjecture. *(Granville, [references/2005](references/2005_prime-number-patterns-andrew-granville.pdf))*
+190. `4515x² − 67725x + 603900` and `12483x² − 187245x + 834960` give twin primes f ± 1 for x = 0 … 15 (Andersen). *([problem 44](https://www.primepuzzles.net/problems/prob_044.htm))*
+191. More exact formulas: Gandhi (1971) `p_n = ⌊1 − log₂(s − 1/2)⌋` with `s = Σ_(d | p_(n−1)#) μ(d)/(2^d − 1)`; Golomb `p_n = lim_(s→∞) (ζ(s)·∏_(k<n) (1 − p_k^(−s)) − 1)^(−1/s)`; the continued fraction [2; 3, 5, 7, 11, …] = 2.31303673643…; Tóth's ⌈B^(3ⁿ)⌉ with B = 1.24055470525201424067 gives 2, 7, 337, 38272739, …. Rowland's differences are never 2, and 587 is the smallest odd prime missing among his first 10,000 non-1 outputs. *([Wikipedia: Formula for primes](https://en.wikipedia.org/wiki/Formula_for_primes))*
+
+### 10G. Special primes
+
+192. 52 Mersenne primes are known. Lenstra–Pomerance–Wagstaff predicts about e^γ·log₂ 10 ≈ 5.92 Mersenne exponents per factor 10. A Mersenne prime is never a Wieferich prime, and `gcd(2^m − 1, 2^n − 1) = 2^gcd(m,n) − 1`. The New Mersenne conjecture is verified for p ≤ 1073741826. *([Wikipedia: Mersenne prime](https://en.wikipedia.org/wiki/Mersenne_prime), [conjecture 15](https://www.primepuzzles.net/conjectures/conj_015.htm))*
+193. A third Wieferich prime would have to exceed 2⁶⁴ (PrimeGrid 2022). *([Wikipedia: Wieferich prime](https://en.wikipedia.org/wiki/Wieferich_prime))* The repunits R₄₉₀₈₁, R₈₆₄₅₃ and R₁₀₉₂₉₇ were proven prime in 2022–2025. *([OEIS A004023](https://oeis.org/A004023))*
+194. Pseudoprimes base 2: 3 below 1000, 245 below 10⁶, 21853 below 2.5·10¹⁰. *([Wikipedia: Fermat pseudoprime](https://en.wikipedia.org/wiki/Fermat_pseudoprime))* Earliest Cunningham chains of the first kind: length 7 at 1122659, 8 at 19099919, 9 at 85864769, 12 at 554688278429. *([problem 26](https://www.primepuzzles.net/problems/prob_026.htm))*
+195. Goldbach's other conjecture (every odd composite is p + 2k²) fails only at 5777 and 5993 among known numbers (checked below 10⁶). *([OEIS A060003](https://oeis.org/A060003))* Euclid numbers 1 + p_n# are prime for n ≤ 5; the sixth is 30031 = 59·509 (checked). Unique-period primes: 3, 11, 37, 101, 9091, 9901, 333667, 909091, …. *([Wikipedia: Reciprocals of primes](https://en.wikipedia.org/wiki/Reciprocals_of_primes))*
+196. Largest known Proth prime: `10223·2^31172165 + 1` (9,383,761 digits, 2016). *([Prime Pages](https://t5k.org/primes/search.php?Number=100))*
+
+### 10H. Counting
+
+197. Exact counts: π(10¹²) = 37,607,912,018; π(10¹⁶) = 279,238,341,033,925; π(10¹⁸) = 24,739,954,287,740,860; π(10²⁹) = 1,520,698,109,714,272,166,094,258,063 (Baugh–Walisch 2022). Hardy's *A Mathematician's Apology* quotes π(10⁹) = 50,847,478; the true value is 50,847,534. *([Wikipedia: Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function); [references/2005 Apology](references/2005_a-mathematician-s-apology.pdf))*
+198. Dusart's bounds `x/(ln x − 1) < π(x)` for x ≥ 5393 and `π(x) < x/(ln x − 1.1)` for x ≥ 60184. Rosser's constant is `1.25506 = 30·ln 113 / 113`. *([Wikipedia: Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function))*
+199. The primes p_n with `(p_(n+1)/p_n)^n > n` are 2, 3, 7, 113, 1327 and 1693182318746371 (checked below 2·10⁸). Nicholson conjectures `(p_(n+1)/p_n)^n < n ln n` for n ≥ 5. *([OEIS A182514](https://oeis.org/A182514))*
+200. The least prime p with p + 2n also prime is at most 3307 for all n < 5·10¹¹ (the maximum is at n = 248281210271). *([OEIS A020483](https://oeis.org/A020483))*
+
+### 10I. Slips in the sources
+
+- The Prime Pages state Granville's conjecture as g(p) > 2e^(−c)·log² p infinitely often "for any constant c less than Euler's gamma". It should be c greater than γ: Granville's claim is limsup g/ln² p ≥ 2e^(−γ) (fact 68).
+- Wikipedia's Andrica page derives a verification "up to 1.0995·10¹²" from p^0.525 < 2p^0.5 + 1, but the 0.525 bound holds only for large p. The real verification uses the first-occurrence gaps.
+- Puzzle 151's table lists chains of exactly k primes, which is why k = 7 (665111) is larger than k = 8 (128981); two numbers in Wilke's list there have typos. Puzzle 853 writes f(1871622654) for f(187162264). Puzzle 629's Carmichael table says "< 10^8" for 10¹⁸.
+- Claimed proofs of Firoozbakht, Legendre, Andrica, Oppermann, Brocard and Cramér in two archived 2016 papers, and of the twin-prime conjecture on conjecture 3's page, are not accepted by the later sources; section 11 treats these problems as open.
 
 ---
 
@@ -416,6 +496,6 @@ Each line gives the open claim, its formula, and the best known result.
 
 ## 12. Verify it yourself
 
-- [results/code/facts_check.py](results/code/facts_check.py) checks every *checked* fact and the small *computed* ones in about 15 seconds. It uses its own numpy sieve to 2·10⁸, sympy (exact below 2⁶⁴) and gmpy2. Run: `.venv/bin/python results/code/facts_check.py`.
+- [results/code/facts_check.py](results/code/facts_check.py) checks every *checked* fact (including those of section 10) and the small *computed* ones in about 25 seconds. It uses its own numpy sieve to 2·10⁸, sympy (exact below 2⁶⁴) and gmpy2. Run: `.venv/bin/python results/code/facts_check.py`.
 - [results/code/facts.c](results/code/facts.c) is one pass over all primes below 1.4·10¹¹, about 7 minutes. It produces the counts, maximal gaps, gap frequencies, polynomial runs, chains, strings, clusters and biases of facts 42–45, 51, 67–75, 82, 85, 87, 89 and 90. Run: `gcc -O3 -o facts results/code/facts.c -lm && ./facts 140000000000`.
 - [results/code/facts_chains.c](results/code/facts_chains.c) counts forward and mirrored Euler–Rodríguez chains (fact 88). Run: `./facts_chains 140000000000`, about 3 minutes (10¹⁰ takes 13 seconds).

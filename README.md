@@ -78,6 +78,17 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](results/1204.md) |
 
 
+## Facts about primes
+[FACTS.md](FACTS.md) collects 200 facts about primes, each with its formula and how we know it: a theorem, our own computation (one pass over all primes below 1.4·10¹¹), or a source in this archive. A few of them:
+- Every prime p > 3 is 6k ± 1 and has p² ≡ 1 (mod 24). The gap after it is ≡ 2 (mod 6) only when p ≡ 5 (mod 6).
+- Below 1.4·10¹¹ the most common gap is 6 and the largest is 468 (after 127976334671). Every gap after p ≥ 11 is below 1.32·√p, so Legendre's and Andrica's conjectures hold there.
+- Consecutive primes avoid repeating their last digit: among the first 10⁸ primes, a prime ending in 1 is followed by another one ending in 1 only 18.5 % of the time.
+- Chebyshev's bias: π(x; 4, 1) > π(x; 4, 3) first happens at x = 26861, and below 1.4·10¹¹ at only 0.44 % of the primes.
+- Euler–Rodríguez chains: k consecutive primes of the form A + x(x + 1). The longest known has 14 (2003); a chain of 15 is still open.
+- The longest run of consecutive primes on a quadratic below 1.4·10¹¹ is 27797667649 − x(x + 1), x = 0 … 11. Chains and their mirror images are equally common, as Hardy–Littlewood predicts.
+- n² + n + 41 is provably the best polynomial of its kind (40 primes; Rabinowitsch–Heegner). Exact formulas for all primes exist (Willans, Mills, Fridman's 2.920050977…), but each of them encodes the primes it produces.
+- Open: twin primes, Goldbach, Legendre, Cramér, primes n² + 1, a CPAP of 11 primes, and a formula for p_n that is not circular.
+
 ## Working notes
 - [CLAUDE.md](CLAUDE.md): contains the instructions for the LLM: where the data is, how to crack a puzzle, the rules.
 - [IDEAS.txt](IDEAS.txt): contains tricks to try next and open puzzles that look reachable.
