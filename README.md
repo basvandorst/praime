@@ -8,10 +8,11 @@ Submissions:
 
 ## Results November 2026
 
-#### Beaten records (2)
+#### Beaten records (3)
 | # | Puzzle | Current record | Our result |
 |---|---|---|---|
 | [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: p + q = 95521311344](results/848.md) |
+| [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
 #### Answers to open questions (8)

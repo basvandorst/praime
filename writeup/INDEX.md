@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 41 beaten, 30 answered, 1213 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 30 answered, 1212 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -871,7 +871,7 @@
 | [865](https://www.primepuzzles.net/puzzles/puzz_865.htm) | Area Magic Squares | open |
 | [866](https://www.primepuzzles.net/puzzles/puzz_866.htm) | R(n^k) is prime for k=2, 3, ... | open |
 | [867](https://www.primepuzzles.net/puzzles/puzz_867.htm) | Follow up to Puzzle 833. | open |
-| [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | Magic squares 3x3 and palprimes | open |
+| [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | Magic squares 3x3 and palprimes | [beaten](../results/868.md) |
 | [869](https://www.primepuzzles.net/puzzles/puzz_869.htm) | Prime nested magic squares | open |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | [answered](../results/870.md) |
 | [871](https://www.primepuzzles.net/puzzles/puzz_871.htm) | Claudio Meller 1476 | open |
