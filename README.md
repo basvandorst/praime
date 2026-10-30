@@ -79,7 +79,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 
 
 ## Results November 2026
-**1** beaten record, **7** answers to open questions (two of them partial) and **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered). Puzzle 900 is the same question as conjecture 80.
+**1** beaten record, **8** answers to open questions (three of them partial) and **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered). Puzzle 900 is the same question as conjecture 80.
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -90,6 +90,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved: σ(n) < n(1 + ln n), Dusart's bound, check n ≤ 1618](results/336.md) |
+| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with two prime factors (proof); only p^(p−2) up to 10¹⁰](results/455.md) |
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [all solutions with q+1 = 2^a·3^b found (proof); family ends at p = 5; none new ≤ 10⁹](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸; Q2 needs n free of 2 and 3](results/542.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three: types R, L and LR, inner primes < 1000](results/870.md) |
