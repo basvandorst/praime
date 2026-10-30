@@ -3,7 +3,7 @@
 This repository is an experiment in how far LLM can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected 1200+ prime challenges since 1999, many with records that stood for decades. 
 
 ## Results 30-10-2026
-**39** beaten records, **25** answers to open questions (a few of them partial or conditional), **8** results on the conjectures pages (2 disproved, 3 proved, 1 explained, 2 open questions answered) and **1** mistake found on the pages (puzzle 1209).
+**39** beaten records, **25** answers to open questions (a few of them partial or conditional), **9** results on the conjectures pages (2 disproved, 4 proved, 1 explained, 2 open questions answered) and **1** mistake found on the pages (puzzle 1209).
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -101,6 +101,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](results/conj-39.md) |
 | [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305, and infinitely many (mod 6)](results/conj-55.md) |
 | [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Six inequalities for p_n^(1/n) | only via Firoozbakht's conjecture (to 4·10¹⁸) | [all six proved unconditionally](results/conj-76.md) |
+| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "certainly true for large n", checked to n = 500,000 | [proved for all n (explicit bound + sieve to 8·10⁹)](results/conj-80.md) |
 | [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved (prime number theorem); data explained](results/conj-99.md) |
 | [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained: Flory's dimer theorem (1939)](results/conj-111.md) |
 | [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved; no pseudoprime for n ≤ 10⁴](results/conj-112.md) |
