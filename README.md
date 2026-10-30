@@ -8,12 +8,12 @@ Submissions:
 
 ## Results November 2026
 
-#### Beaten records
+#### Beaten records (1)
 | # | Puzzle | Current record | Our result |
 |---|---|---|---|
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions
+#### Answers to open questions (8)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved: σ(n) < n(1 + ln n), Dusart's bound, check n ≤ 1618](results/336.md) |
@@ -25,7 +25,7 @@ Submissions:
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [works iff p \| 10^N + 10^J − 1; reverse lags = −forward lags (mod T); rules for 154 primes < 1000, none possible for 11 (proof)](results/1238.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved; same question as conjecture 80](results/conj-80.md) |
 
-#### Conjectures
+#### Conjectures (11)
 | # | Conjecture | Status on the page | Our result |
 |---|---|---|---|
 | [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](results/conj-21.md) |
@@ -42,7 +42,7 @@ Submissions:
 
 ## Results October 2026
 
-#### Beaten records
+#### Beaten records (39)
 | # | Puzzle | Current record | Our result |
   |---|---|---|---|
   | [65](https://www.primepuzzles.net/puzzles/puzz_065.htm) | Equal power sums from consecutive primes | degree 3 | [degree 5](results/65.md) |
@@ -85,7 +85,7 @@ Submissions:
   | [1230](https://www.primepuzzles.net/puzzles/puzz_1230.htm) | Primes with even-length period of 1/p | 29 | [30](results/1230.md) |
   | [1251](https://www.primepuzzles.net/puzzles/puzz_1251.htm) | Cycles of "add b, take largest prime factor" | 72 | [477](results/1251.md) |
 
-  ### (First) answers to open questions
+#### Answers to open questions (25)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [75 Q2](https://www.primepuzzles.net/puzzles/puzz_075.htm) | Smallest palprime with digit sum 2000 | unanswered | [223 digits (PRP)](results/75.md) |
