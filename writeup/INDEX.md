@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 24 answered, 1221 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 25 answered, 1220 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -873,7 +873,7 @@
 | [867](https://www.primepuzzles.net/puzzles/puzz_867.htm) | Follow up to Puzzle 833. | open |
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | Magic squares 3x3 and palprimes | open |
 | [869](https://www.primepuzzles.net/puzzles/puzz_869.htm) | Prime nested magic squares | open |
-| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | open |
+| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | [answered](../results/870.md) |
 | [871](https://www.primepuzzles.net/puzzles/puzz_871.htm) | Claudio Meller 1476 | open |
 | [872](https://www.primepuzzles.net/puzzles/puzz_872.htm) | Integers (p^2)*Q | open |
 | [873](https://www.primepuzzles.net/puzzles/puzz_873.htm) | Follow-up to Puzzle 871 | open |
