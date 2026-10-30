@@ -207,11 +207,11 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
     A   3  5  17  347  13901  665111  128981  113575727  2426256797   137168442221    4656625081181    101951758179851    484511389338941
     ```
     For k ≤ 11 these values are minimal by our exhaustive pass to 1.4·10¹¹ *(computed)*. k = 12–14 are J. K. Andersen's (2003); we verified the chains *(site; checked)*. **No chain of 15 is known.** Andersen searched to 10¹⁷ *(site)*. A necessary condition when A > 2k − 1: `1 − 4A` must be a quadratic non-residue mod every odd prime q ≤ 2k − 1. (Otherwise x² + x + A ≡ 0 (mod q) has a root x₀ ≤ (q − 1)/2 < k, and q divides the value at x₀.) Once that holds, q never divides any value of x² + x + A. *(theorem, short proof above)*
-88. **Mirror chains** (gaps 2(k − 1), …, 4, 2, i.e. primes `L − x(x + 1)`): first chains of exactly k primes are at 3, 7, 31, 1979, 41203, 752251, 5647457, 32465047, 2636566333 (k = 2 … 10), 245333213 (k = 11) and 27797667517 (k = 12). *(computed)* Forward and mirrored chains below 10¹⁰ are equally common, as fact 83 predicts: *(computed)*
+88. **Mirror chains** (gaps 2(k − 1), …, 4, 2, i.e. primes `L − x(x + 1)`): first chains of exactly k primes are at 3, 7, 31, 1979, 41203, 752251, 5647457, 32465047, 2636566333 (k = 2 … 10), 245333213 (k = 11) and 27797667517 (k = 12). *(computed)* Forward and mirrored chains below 1.4·10¹¹ are equally common, as fact 83 predicts: *(computed)*
     ```
-    k          5        6       7      8      9     10    11
-    forward    43,938   5,154   767    109    8     3     0
-    mirrored   44,418   5,364   729    118    12    1     1
+    k          5         6        7       8      9     10    11    12
+    forward    358,682   39,409   5,007   634    61    14    2     0
+    mirrored   357,731   39,601   4,870   692    75    9     1     1
     ```
     So the mirrored 12-chain at 2.8·10¹⁰, which comes 170 times earlier than the first forward one, is most likely luck and not a bias.
 89. **Runs of consecutive primes on a polynomial.** p_n, …, p_(n+R−1) lie on a polynomial of degree d in the index exactly when their (d + 1)-th differences vanish. Any d + 1 primes fit a degree-d polynomial (Lagrange), so a run longer than d + 1 is a coincidence. First run of length R below 1.4·10¹¹: *(computed)*
@@ -418,4 +418,4 @@ Each line gives the open claim, its formula, and the best known result.
 
 - [results/code/facts_check.py](results/code/facts_check.py) checks every *checked* fact and the small *computed* ones in about 15 seconds. It uses its own numpy sieve to 2·10⁸, sympy (exact below 2⁶⁴) and gmpy2. Run: `.venv/bin/python results/code/facts_check.py`.
 - [results/code/facts.c](results/code/facts.c) is one pass over all primes below 1.4·10¹¹, about 7 minutes. It produces the counts, maximal gaps, gap frequencies, polynomial runs, chains, strings, clusters and biases of facts 42–45, 51, 67–75, 82, 85, 87, 89 and 90. Run: `gcc -O3 -o facts results/code/facts.c -lm && ./facts 140000000000`.
-- [results/code/facts_chains.c](results/code/facts_chains.c) counts forward and mirrored Euler–Rodríguez chains (fact 88). Run: `./facts_chains 10000000000`, about 13 seconds.
+- [results/code/facts_chains.c](results/code/facts_chains.c) counts forward and mirrored Euler–Rodríguez chains (fact 88). Run: `./facts_chains 140000000000`, about 3 minutes (10¹⁰ takes 13 seconds).
