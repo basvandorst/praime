@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Goal: beat records and answer open questions on primepuzzles.net. Use reasoning, not brute force. `README.md` has the results tables.
+Goal: beat records and answer open questions on primepuzzles.net. Use reasoning, not brute force. `README.md` has the results tables. `FINDINGS.txt` lists surprising results. `IDEAS.txt` lists tricks and open targets: read it before you pick a puzzle, and update it when you learn something new.
 
 ## Where to find things
 
@@ -14,22 +14,29 @@ Some titles do not match the file number (`puzzle-0355.txt` is "Puzzle 354"). Ch
 
 ## How to crack a puzzle
 
-1. Read the full page, to the last line. Later contributions often hold the real record. Write down the record and who holds it.
-2. Find a solved sibling in `results/`. Puzzles come in families: prime-generating formulas, magic squares, digit rules, σ/φ equations, covering sets. Use the trick that worked there.
-3. Explain why the current record works before you write code.
-4. Factor the record numbers. Check them mod 3, 4, 5, 8 and 40. Look for a pattern.
-5. Turn the condition into a remainder. If the property depends only on p mod m, build a formula that always gives that remainder. Then search only that class.
-6. Try known record objects first: Prime Pages records, AP-27, Dress–Landreau polynomials.
-7. Try at least three approaches. Write down why each one failed.
-8. Search only in bounded ranges. Sieve small factors first. Then test the survivors with `gmpy2.is_prime`. Use numpy or C for hot loops.
-9. Check every result again with a second, independent script.
+- Read the full page, to the last line. Later contributions often hold the real record. Write down the record and who holds it. An audit withdrew seven false claims that came from reading only part of a page (855, 872, 933, 969, 854, 1136, and k = 14 in 522).
+- Find a solved sibling in `results/` and check `IDEAS.txt`. Puzzles come in families. A trick that worked once often works again.
+- Explain why the current record works before you write code. Then propose a construction.
+- Factor the record numbers with `sympy.factorint`. Check them mod 3, 4, 5, 8 and 40. Patterns show up fast.
+- Turn the condition into a remainder. Ask whether the property ("even period", "unlucky", "no digit 6") depends only on p mod m. If it does, build a formula that always gives that remainder, and search only inside that class.
+- Try known record objects first: Prime Pages records, PrimeGrid's AP-27, Dress–Landreau polynomials. They often win outright.
+- Try at least three approaches. Write down why each one failed.
+- Split work only within limits: 2 or 3 agents at most, for example one per page range for scouting or one per hard puzzle. Re-check everything they report. One agent invented an explanation.
+
+## Code
+
+- No open-ended hunts. A bounded exhaustive search is fine once reasoning has made the space small (81, 106, 75 rest on one). State every range in the write-up.
+- Sieve before testing. Remove candidates with small factors with a `numpy` boolean sieve, then run `gmpy2.is_prime` only on the survivors.
+- Vectorise exhaustive checks with `numpy`. If Python is still too slow, write the check in C.
+- Limit every job with `timeout` and `nice`. Do not start long background jobs.
+- Verify with a second, separate script. Recompute the result from scratch with `sympy.isprime` and plain integers before you call it a record. Several "records" did not survive this.
 
 ## Rules
 
-- Limit every job with `timeout` and `nice`. Do not start long background jobs.
-- Above 2^64, a prime without a primality proof is "PRP". (`sympy.isprime` is a proof only below 2^64.)
+- Above 2^64, a prime without a primality proof is "PRP". (`sympy.isprime` is a proof only below 2^64.) Puzzles 419, 793 and 908 had to be relabelled for this.
 - Do not overclaim. Use "proved", "minimal" and "first" only with evidence. Say what you checked and what you assumed.
-- Put scratch files outside the repo.
+- Keep a running log of checks. Put scratch files outside the repo.
+- Add what you learn to `IDEAS.txt` and `FINDINGS.txt`.
 
 ## Write-up
 

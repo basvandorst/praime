@@ -1,0 +1,35 @@
+IDEAS - how to crack more puzzles
+==================================
+
+General tricks to try first
+- Find the remainder. If a property depends only on p mod m, build a formula that always gives that remainder (1230, 1135, 77).
+- Use non-residues. Choose constants so that small primes can never divide any value: (D/p) = -1 for many small p (Euler 41, 1139).
+- Glue blocks. Primes in arithmetic progression with difference 19# are plentiful. Any formula that can switch between blocks can reach large counts (1097, 1099, 1028).
+- Reuse record objects: Mersenne primes, the largest palindromic prime, twin-prime records, AP-27, Dress-Landreau polynomials.
+- Fix all but one unknown. Build everything except the last prime, so a linear equation fixes it (435, 325).
+- Multiply known solutions. Multiplicative functions (sigma, phi) let two known pairs combine into a new one (1080, 458).
+- Check for a covering set before a search. If none exists, a heuristic count usually answers "is it always composite?" (1145, 1257).
+- Explain percentages and biases with Hardy-Littlewood, done exactly for the small primes (1204, 1257).
+- Prove impossibility with parity, mod 4 and mod 11 first. Many "no answer yet" questions have no answer at all (75, 170, 890).
+
+Open targets that look reachable
+- 1257 Q1: the next n with 2^n - 7 prime. Search only the 8 allowed classes mod 60, sieve deep, then PRP test. This needs days of PRP tests, not days of thinking.
+- 1139 variants: other "irregular" rules. Ask which divisor rules give odd values for all n, as we did for halving. Then reuse the two-forms picture.
+- Other prime-generating puzzles (232, 782, problem 12): search those polynomial families with the non-residue filter on the discriminant.
+- 1272: the next three terms after Resta's 15th term of puzzle 935. First explain how the 15th term was found, then extend that.
+- 1247: the missing permutations of ending-digit counts. Chebyshev-bias data (prime races mod 10) gives where to look.
+- 1238 Q2: show how the reversed digit rules for 1/p relate to the forward rules. Both come from 10 mod p, so this may be a short proof.
+- 1286: Crescendo serpents for D = 3, 7, 9. They are blocked by factoring 150-digit numbers. Only try this with ECM or a factoring service.
+- Pages with no contributions at all: list them with
+    grep -L "contributions came\|wrote:" data/puzzles/puzzle-*.txt
+  Then pick the ones with a solved sibling in results/.
+
+New puzzles we could pose
+- Irregular polynomials with halving: what is the longest run with all values distinct? (Best seen: 53.)
+- For which c is 2^p - c composite for every prime p because of a real covering set? That would be a true version of 1257.
+- Prime pines and prime spheres (77, 92) with 11 rows or 8 levels, using the same remainder trick.
+
+How to work
+- Reason first, then search only a bounded range. State every range in the write-up.
+- Re-check each claim with a second script. Mark numbers above 2^64 without a proof as PRP.
+- When stuck, ask: which solved puzzle has the same structure?

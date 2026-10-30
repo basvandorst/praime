@@ -78,35 +78,16 @@ This repository is an experiment in how far AI can go with hard math: puzzles, l
 | [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](results/1204.md) |
 
 
-## LLM Instructions
-### Puzzle reasoning
-- **Ask for reasoning before code.** "Explain why the old record works, then propose a construction" gets far better ideas than "find a better one".
-- **Forbid brute force, not bounded search.** Say explicitly: no open-ended hunts, otherwise the model drifts into giant searches. A bounded exhaustive search is fine once reasoning has made the search space small: the least squares in 81, the edge cases in 106 and the ordered candidate list in 75 all rest on one.
-- **Demand several angles.** "Try at least three different approaches and write down why each one failed" stops it from giving up after the first dead end.
-- **Give it the toolbox.** List tricks that worked before (fix a remainder, reuse record primes, stack building blocks). It applies them to new puzzles surprisingly well.
-- **Split the work, within limits.** Separate agents for page ranges (e.g. puzzles 1–66, 67–133, …) scout in parallel. One agent per hard puzzle digs deeper. Cap it at 2-3 agents on a small machine, and re-check everything they report: one agent went beyond its brief and invented an explanation.
-- **Never trust a claim without a re-check.** Re-run every claimed beat in a separate script yourself. Several "records" didn't survive.
-- **Make it read the whole page.** Models often read only the top or a truncated page. The fix: decode it properly (these pages are Windows-1252) and read to the last line. An audit like this withdrew seven false claims (855, 872, 933, 969, 854, 1136 and the k = 14 part of 522).
-- **Watch for overclaiming.** "Proved", "minimal" and "first" need evidence. Ask "what exactly was checked, and what is assumed?"
-- **Set hard limits.** Per-command CPU caps, no background jobs, low priority. LLM agents will happily start a 5-hour run.
-- **Keep a running log.** One results file and one submission file, updated after every check. That makes the final write-up easy.
-### Code writing
-- **Read the full puzzle page.** Download it, read it to the bottom, and note the best answer and who found it. Later contributions often beat the one at the top.
-- **Factor the record numbers.** Run them through `sympy.factorint` and check their remainders mod 3, 4, 5, 8 and 40. Patterns show up fast.
-- **Turn the condition into a remainder.** Ask whether "even period", "unlucky" or "no digit 6" depends only on p mod m. If it does, build a formula that is always ≡ that value mod m.
-- **Search inside that class only.** Fix the remainder in the coefficients, then search just those polynomials. Far fewer candidates, much higher hit rate.
-- **Plug in known record objects.** Before computing anything, try the Prime Pages records, PrimeGrid's AP-27 and the Dress–Landreau polynomials. They often win outright.
-- **Sieve before testing.** Throw out candidates with small factors first using a `numpy` boolean sieve, then run `gmpy2.is_prime` only on the survivors.
-- **Vectorise exhaustive checks.** When proving "this is the minimum" or "this can't exist", use `numpy` arrays instead of Python loops. Whole ranges get checked in seconds. When Python is still too slow, write the check in C.
-- **Keep runs short.** Cap every job (`timeout`, `nice`) so one bad idea can't eat a day of CPU.
-- **Verify with a second, separate script.** Recompute the result from scratch with `sympy.isprime` and plain integer arithmetic before calling it a record.
-- **Mark probable primes "PRP".** Anything above 2^64 is PRP unless a real primality proof was run: `sympy.isprime` only proves primes below 2^64, above that it runs a probable-prime test. Puzzles 419, 793 and 908 had to be relabelled for this.
+## Working notes
+- [CLAUDE.md](CLAUDE.md): contains the instructions for the LLM: where the data is, how to crack a puzzle, the rules.
+- [IDEAS.txt](IDEAS.txt): contains tricks to try next and open puzzles that look reachable.
+- [FINDINGS.txt](FINDINGS.txt): contains the results that surprised us.
 
 ## Models
 
 The work started on **Claude Fable 5.1** at medium effort, which found about half of the results. When the credits ran out, **Claude Opus 5.5** at high effort did the rest.
 
-Both got a short prompt and the tips above. When a model got stuck, two things helped. Telling it to think harder often made it find a new way. Asking why other solutions worked let it use the same idea on the new puzzle.
+Both got a short prompt and the tips in [CLAUDE.md](CLAUDE.md). When a model got stuck, two things helped. Telling it to think harder often made it find a new way. Asking why other solutions worked let it use the same idea on the new puzzle.
 
 ## Personal
 I wanted to see what happens when you use AI on some of the hardest small problems in number theory. Primes look random, but they're not. So The Prime Puzzles turned out to be the perfect playground. Every record showed a bit more of the rules primes secretly follow, and how far clever reasoning via a LLM gets you before you need raw computing power. What's next? the prime distribution itself :)
