@@ -15,6 +15,7 @@ General tricks to try first
 - Multiplicative conditions (sigma(n) = q^k, sigma(n) odd, ...): search the prime-power parts, not n. Parts p^a with a >= 2 need only p <= sqrt(X), so X = 10^18 is minutes (542).
 - Magic squares of order 4 with extra prime conditions: use entries a_i + b_j on two orthogonal diagonal Latin squares. Every line is magic for free, and the search becomes a K_{4,4} in a bipartite graph (870). Affine digit rules (append/prepend digits) keep magic squares magic.
 - Digit-pattern chains (A Z..Z B, near-repdigits): q | N_i is linear in A, so sieve over A for fixed (Z, B). Only ord_q(10) classes per q are lost, and 10^10 candidates take a minute (882). Sieve only the terms the target needs: sieving extra terms silently drops good candidates.
+- Digits of 1/p read backwards are the 10-adic expansion of -1/p (carries move forward). Questions about reversed periods become 10-adic identities, which are often cleaner than the forward ones (1238).
 
 Open targets that look reachable
 - 1257 Q1: the next n with 2^n - 7 prime. Search only the 8 allowed classes mod 60, sieve deep, then PRP test. This needs days of PRP tests, not days of thinking.
@@ -22,7 +23,6 @@ Open targets that look reachable
 - Other prime-generating puzzles (232, 782, problem 12): search those polynomial families with the non-residue filter on the discriminant.
 - 1272: the next three terms after Resta's 15th term of puzzle 935. First explain how the 15th term was found, then extend that.
 - 1247: the missing permutations of ending-digit counts. Chebyshev-bias data (prime races mod 10) gives where to look.
-- 1238 Q2: show how the reversed digit rules for 1/p relate to the forward rules. Both come from 10 mod p, so this may be a short proof.
 - 1286: Crescendo serpents for D = 3, 7, 9. They are blocked by factoring 150-digit numbers. Only try this with ECM or a factoring service.
 - Pages with no contributions at all: list them with
     grep -L "contributions came\|wrote:" data/puzzles/puzzle-*.txt
