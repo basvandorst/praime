@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 40 beaten, 26 answered, 1218 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 40 beaten, 27 answered, 1217 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1241,7 +1241,7 @@
 | [1235](https://www.primepuzzles.net/puzzles/puzz_1235.htm) | 6^n+n^6 | open |
 | [1236](https://www.primepuzzles.net/puzzles/puzz_1236.htm) | Recursive formulas for the decimal expression of the reciprocal of primes. | open |
 | [1237](https://www.primepuzzles.net/puzzles/puzz_1237.htm) | 1089427 | open |
-| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Puzzle 1236, revisited | open |
+| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Puzzle 1236, revisited | [answered](../results/1238.md) |
 | [1239](https://www.primepuzzles.net/puzzles/puzz_1239.htm) | 891077215721081784886888257701070827 | open |
 | [1240](https://www.primepuzzles.net/puzzles/puzz_1240.htm) | 09/27/2025 | open |
 | [1241](https://www.primepuzzles.net/puzzles/puzz_1241.htm) | Floor[n^2/3] is composite for all n>4 | open |

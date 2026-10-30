@@ -557,7 +557,7 @@ Facts proved, used or found in our write-ups; each links to its write-up, which 
 
 Record objects we reused: PrimeGrid's AP-27 ([905](results/905.md)), the twin-prime record ([450](results/450.md)), and the palindromic prime `10^1888529 − 10^944264 − 1` (Propper–Batalov 2021, [607](results/607.md)), the largest known until a 2,718,281-digit one in 2024 (section 6B).
 
-### 9G. From the conjecture pages (results of 01-12-2026)
+### 9G. From the conjecture pages (November 2026 results)
 
 - **C1.** Squares of primes p ≥ 5 are ≡ 1 (mod 6). For n ≡ 5 (mod 6) and p ≥ 5, `n − p² − d ≡ 4, 3, 2 (mod 6)` for d = 0, 1, 2, and a prime in those classes is 2 or 3. So n ≡ 5 (mod 6), n > 11, is p² + q + d (d ≤ 2) iff n − 4, n − 6 or n − 10 is prime, or n − 4 is the square of a prime. Sand's "checked to 10⁶" fails at 305, 325, 329, 479, 521, …, 72,048 times below 10⁶. *([conj-55](results/conj-55.md))*
 - **C2.** For odd p, p² + 1 ≡ 2 (mod 8), its odd prime factors are ≡ 1 (mod 4), and 5 | p² + 1 iff p ≡ ±2 (mod 5). The numerator of ∏_(i≤n) (p_i² + 1)/(p_i − 1) is ≡ 1 (mod 4) and ends in 25 for every n ≥ 3. The reason is a mod-5 race with average step +5/16 per prime, `W(n) = Σ_(p_i ≡ ±2 mod 5) v₅(p_i² + 1) − Σ_(p_i ≡ 1 mod 5) v₅(p_i − 1) ≥ 2`. It is proved with the explicit bound of fact 2015 for x ≥ 8·10⁹ and a sieve below (W = 114,937,685 at 8·10⁹). *([conj-80](results/conj-80.md))*

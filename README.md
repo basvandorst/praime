@@ -2,7 +2,7 @@
 ## Beating prime puzzle records with LLM reasoning 
 This repository is an experiment in how far LLM can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected 1200+ prime challenges since 1999, many with records that stood for decades. 
 
-## Results 30-10-2026
+## Results October 2026
 **39** beaten records, **25** answers to open questions (a few of them partial or conditional) and **1** mistake found on the pages (puzzle 1209).
 
 #### Beaten records
@@ -78,8 +78,8 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](results/1204.md) |
 
 
-## Results 01-11-2026
-**1** beaten record and **4** more answers to open questions (two of them partial).
+## Results November 2026
+**1** beaten record, **5** answers to open questions (two of them partial) and **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered). Puzzle 900 is the same question as conjecture 80.
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -93,9 +93,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸; Q2 needs n free of 2 and 3](results/542.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three: types R, L and LR, inner primes < 1000](results/870.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [works iff p \| 10^N + 10^J − 1; reverse lags = −forward lags (mod T); rules for 154 primes < 1000, none possible for 11 (proof)](results/1238.md) |
-
-## Results 01-12-2026
-**11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered) and **1** more answer to an open question (puzzle 900, the same question as conjecture 80).
+| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved; same question as conjecture 80](results/conj-80.md) |
 
 #### Conjectures
 | # | Conjecture | Status on the page | Our result |
@@ -111,11 +109,6 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained: Flory's dimer theorem (1939)](results/conj-111.md) |
 | [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved; no pseudoprime for n ≤ 10⁴](results/conj-112.md) |
 | [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Triangle test: passes iff prime or 9 | tested to 3000 | [false: the prime 3917 fails](results/conj-115.md) |
-
-#### Answers to open questions
-| # | Open question | Status on the page | Our answer |
-|---|---|---|---|
-| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved; same question as conjecture 80](results/conj-80.md) |
 
 
 ## Facts about primes
