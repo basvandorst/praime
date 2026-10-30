@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 40 beaten, 30 answered, 1214 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 41 beaten, 30 answered, 1213 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -851,7 +851,7 @@
 | [845](https://www.primepuzzles.net/puzzles/puzz_845.htm) | 31 consecutive integers with an even quantity of prime factors | open |
 | [846](https://www.primepuzzles.net/puzzles/puzz_846.htm) | A follow up to Puzzle 844 | open |
 | [847](https://www.primepuzzles.net/puzzles/puzz_847.htm) | Consecutive primes with the same Collatz length. | open |
-| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | p(0)nq is prime for n=0,1,2,...k | open |
+| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | p(0)nq is prime for n=0,1,2,...k | [beaten](../results/848.md) |
 | [849](https://www.primepuzzles.net/puzzles/puzz_849.htm) | 9x9 Magical square and pandigitals. | open |
 | [850](https://www.primepuzzles.net/puzzles/puzz_850.htm) | The wagon prime. | open |
 | [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Puzzle 827 revisited | open |

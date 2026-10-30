@@ -8,9 +8,10 @@ Submissions:
 
 ## Results November 2026
 
-#### Beaten records (1)
+#### Beaten records (2)
 | # | Puzzle | Current record | Our result |
 |---|---|---|---|
+| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: 95521311337 + 7 = 95521311344, minimal, proven primes](results/848.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
 #### Answers to open questions (8)
