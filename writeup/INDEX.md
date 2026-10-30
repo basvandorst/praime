@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 40 beaten, 26 answered, 1218 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 23 answered, 1222 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -317,7 +317,7 @@
 | [311](https://www.primepuzzles.net/puzzles/puzz_311.htm) | Sum to a cube | open |
 | [312](https://www.primepuzzles.net/puzzles/puzz_312.htm) | Sequence of primes such that... | open |
 | [313](https://www.primepuzzles.net/puzzles/puzz_313.htm) | Squared primes having only k digits | open |
-| [314](https://www.primepuzzles.net/puzzles/puzz_314.htm) | Squared primes having only k digits | open |
+| [314](https://www.primepuzzles.net/puzzles/puzz_314.htm) | f(f(n))=prime(n) | open |
 | [315](https://www.primepuzzles.net/puzzles/puzz_315.htm) | pn => pn-i + pi | open |
 | [316](https://www.primepuzzles.net/puzzles/puzz_316.htm) | Divide a square of primes. | open |
 | [317](https://www.primepuzzles.net/puzzles/puzz_317.htm) | Two dimensional constellation of primes | open |
@@ -347,7 +347,7 @@
 | [341](https://www.primepuzzles.net/puzzles/puzz_341.htm) | Multiplicative persistence, Erdos style. | open |
 | [342](https://www.primepuzzles.net/puzzles/puzz_342.htm) | Primes on a dice. | [beaten](../results/342.md) |
 | [343](https://www.primepuzzles.net/puzzles/puzz_343.htm) | One more Faride's question | open |
-| [344](https://www.primepuzzles.net/puzzles/puzz_344.htm) | One more Faride's question | open |
+| [344](https://www.primepuzzles.net/puzzles/puzz_344.htm) | Primes in Nature | open |
 | [345](https://www.primepuzzles.net/puzzles/puzz_345.htm) | Magic square of cubic primes | open |
 | [346](https://www.primepuzzles.net/puzzles/puzz_346.htm) | Happy 2006 | open |
 | [347](https://www.primepuzzles.net/puzzles/puzz_347.htm) | Properties of numbers that have a Mersenne Number as a factor. | open |
@@ -358,7 +358,7 @@
 | [352](https://www.primepuzzles.net/puzzles/puzz_352.htm) | φ(n!) | open |
 | [353](https://www.primepuzzles.net/puzzles/puzz_353.htm) | The first n2 primes in a matrix | open |
 | [354](https://www.primepuzzles.net/puzzles/puzz_354.htm) | Another prime game. | open |
-| [355](https://www.primepuzzles.net/puzzles/puzz_355.htm) | Another prime game. | open |
+| [355](https://www.primepuzzles.net/puzzles/puzz_355.htm) | Puzzle 232 in 4th order | open |
 | [356](https://www.primepuzzles.net/puzzles/puzz_356.htm) | A minimal set of K primes | [beaten](../results/356.md) |
 | [357](https://www.primepuzzles.net/puzzles/puzz_357.htm) | Consecutive reversible primes | open |
 | [358](https://www.primepuzzles.net/puzzles/puzz_358.htm) | Ruth-Aaron pairs revisited | open |
@@ -396,7 +396,7 @@
 | [390](https://www.primepuzzles.net/puzzles/puzz_390.htm) | 493009335 | open |
 | [391](https://www.primepuzzles.net/puzzles/puzz_391.htm) | 9 dots and 8 lines graph* | open |
 | [392](https://www.primepuzzles.net/puzzles/puzz_392.htm) | σ(x) = x+φ(x) | open |
-| [393](https://www.primepuzzles.net/puzzles/puzz_393.htm) | σ(x) = x+φ(x) | open |
+| [393](https://www.primepuzzles.net/puzzles/puzz_393.htm) | A follow up to Puzzle 128 | open |
 | [394](https://www.primepuzzles.net/puzzles/puzz_394.htm) | No shared digits between composites and its prime factors. | open |
 | [395](https://www.primepuzzles.net/puzzles/puzz_395.htm) | (2^n+3^n+4^n+5^n+6^n)/2 – 10 | open |
 | [396](https://www.primepuzzles.net/puzzles/puzz_396.htm) | X*R=Y | open |
@@ -545,8 +545,8 @@
 | [539](https://www.primepuzzles.net/puzzles/puzz_539.htm) | n consecutive primes same residue modulo 4 | open |
 | [540](https://www.primepuzzles.net/puzzles/puzz_540.htm) | b^(2^n)+c | open |
 | [541](https://www.primepuzzles.net/puzzles/puzz_541.htm) | Emirps again | open |
-| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Sigma (x)=q^n | [answered](../results/542.md) |
-| [543](https://www.primepuzzles.net/puzzles/puzz_543.htm) | Sigma (x)=q^n | open |
+| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Sigma (x)=q^n | open |
+| [543](https://www.primepuzzles.net/puzzles/puzz_543.htm) | Primes as sum of powered consecutive primes | open |
 | [544](https://www.primepuzzles.net/puzzles/puzz_544.htm) | Yet another  prime Prime Race | open |
 | [545](https://www.primepuzzles.net/puzzles/puzz_545.htm) | 14 or 17<->25 | open |
 | [546](https://www.primepuzzles.net/puzzles/puzz_546.htm) | Non-Pandigital primes | open |
@@ -771,7 +771,7 @@
 | [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | p^a = q^b + r^c.s^d | open |
 | [766](https://www.primepuzzles.net/puzzles/puzz_766.htm) | A Follow up to Puzzle 764. | open |
 | [767](https://www.primepuzzles.net/puzzles/puzz_767.htm) | A second Follow up to Puzzle 764. | open |
-| [768](https://www.primepuzzles.net/puzzles/puzz_768.htm) | Puzzle 766. Primes as m sums of triangular numbers. | open |
+| [768](https://www.primepuzzles.net/puzzles/puzz_768.htm) | Primes as m sums of triangular numbers. | open |
 | [769](https://www.primepuzzles.net/puzzles/puzz_769.htm) | Magic squares and consecutive twin primes. | open |
 | [770](https://www.primepuzzles.net/puzzles/puzz_770.htm) | Eygptian Fraction Magic Square | open |
 | [771](https://www.primepuzzles.net/puzzles/puzz_771.htm) | First P primes in a square. | open |
@@ -824,7 +824,7 @@
 | [818](https://www.primepuzzles.net/puzzles/puzz_818.htm) | A follow up to Puzzle 814 | open |
 | [819](https://www.primepuzzles.net/puzzles/puzz_819.htm) | A follow up to Puzzle 314 | open |
 | [820](https://www.primepuzzles.net/puzzles/puzz_820.htm) | The  Sunduram's sieve | open |
-| [821](https://www.primepuzzles.net/puzzles/puzz_821.htm) | The  Sunduram's sieve | open |
+| [821](https://www.primepuzzles.net/puzzles/puzz_821.htm) | Prime numbers and complementary sequences | open |
 | [822](https://www.primepuzzles.net/puzzles/puzz_822.htm) | About OEIS sequence A193890 | open |
 | [823](https://www.primepuzzles.net/puzzles/puzz_823.htm) | String of digits 1379 full of primes | open |
 | [824](https://www.primepuzzles.net/puzzles/puzz_824.htm) | Insecure numbers | open |
@@ -852,7 +852,7 @@
 | [846](https://www.primepuzzles.net/puzzles/puzz_846.htm) | A follow up to Puzzle 844 | open |
 | [847](https://www.primepuzzles.net/puzzles/puzz_847.htm) | Consecutive primes with the same Collatz length. | open |
 | [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | p(0)nq is prime for n=0,1,2,...k | open |
-| [849](https://www.primepuzzles.net/puzzles/puzz_849.htm) | Puzzle 838. Follow up to Puzzle 833. | open |
+| [849](https://www.primepuzzles.net/puzzles/puzz_849.htm) | 9x9 Magical square and pandigitals. | open |
 | [850](https://www.primepuzzles.net/puzzles/puzz_850.htm) | The wagon prime. | open |
 | [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Puzzle 827 revisited | open |
 | [852](https://www.primepuzzles.net/puzzles/puzz_852.htm) | Primes and convolution | open |
@@ -873,7 +873,7 @@
 | [867](https://www.primepuzzles.net/puzzles/puzz_867.htm) | Follow up to Puzzle 833. | open |
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | Magic squares 3x3 and palprimes | open |
 | [869](https://www.primepuzzles.net/puzzles/puzz_869.htm) | Prime nested magic squares | open |
-| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | [answered](../results/870.md) |
+| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | open |
 | [871](https://www.primepuzzles.net/puzzles/puzz_871.htm) | Claudio Meller 1476 | open |
 | [872](https://www.primepuzzles.net/puzzles/puzz_872.htm) | Integers (p^2)*Q | open |
 | [873](https://www.primepuzzles.net/puzzles/puzz_873.htm) | Follow-up to Puzzle 871 | open |
@@ -885,7 +885,7 @@
 | [879](https://www.primepuzzles.net/puzzles/puzz_879.htm) | More on Q3 in Puzzle 876. | open |
 | [880](https://www.primepuzzles.net/puzzles/puzz_880.htm) | Consecutive odd abundant integers. | open |
 | [881](https://www.primepuzzles.net/puzzles/puzz_881.htm) | 123456789 and prime numbers. | open |
-| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | Prime sequence type A(Z)iB | [beaten](../results/882.md) |
+| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | Prime sequence type A(Z)iB | open |
 | [883](https://www.primepuzzles.net/puzzles/puzz_883.htm) | Large three consecutive semiprimes | open |
 | [884](https://www.primepuzzles.net/puzzles/puzz_884.htm) | Almost consecutive integers type k-almost primes | open |
 | [885](https://www.primepuzzles.net/puzzles/puzz_885.htm) | Square-free almost consecutive integers type k-almost primes | open |
@@ -903,7 +903,7 @@
 | [897](https://www.primepuzzles.net/puzzles/puzz_897.htm) | Integers as sum of special Egyptian fractions. | open |
 | [898](https://www.primepuzzles.net/puzzles/puzz_898.htm) | Given a square filled of integres, get... | open |
 | [899](https://www.primepuzzles.net/puzzles/puzz_899.htm) | A follow-up t0 Puzzle 897 | open |
-| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | A follow-up t0 Puzzle 897 | open |
+| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why 25? | [answered](../results/conj-80.md) |
 | [901](https://www.primepuzzles.net/puzzles/puzz_901.htm) | A question about consecutive integers | open |
 | [902](https://www.primepuzzles.net/puzzles/puzz_902.htm) | two vectors of consecutive primes such that... | open |
 | [903](https://www.primepuzzles.net/puzzles/puzz_903.htm) | Follow-up to Puzzle 902 | open |
@@ -1059,7 +1059,7 @@
 | [1053](https://www.primepuzzles.net/puzzles/puzz_1053.htm) | p=concat(a,b) such that... | open |
 | [1054](https://www.primepuzzles.net/puzzles/puzz_1054.htm) | q=concat(x,y) | open |
 | [1055](https://www.primepuzzles.net/puzzles/puzz_1055.htm) | Google Prime Number | open |
-| [1056](https://www.primepuzzles.net/puzzles/puzz_1056.htm) | Google Prime Number | open |
+| [1056](https://www.primepuzzles.net/puzzles/puzz_1056.htm) | Follow-up to Puzzle 1055 | open |
 | [1057](https://www.primepuzzles.net/puzzles/puzz_1057.htm) | A cycle of ten primes | open |
 | [1058](https://www.primepuzzles.net/puzzles/puzz_1058.htm) | Alike the puzzle 1057 | open |
 | [1059](https://www.primepuzzles.net/puzzles/puzz_1059.htm) | Set of consecutive primes such that... | open |
@@ -1133,7 +1133,7 @@
 | [1127](https://www.primepuzzles.net/puzzles/puzz_1127.htm) | Prime(11!)+Prime(11)! | open |
 | [1128](https://www.primepuzzles.net/puzzles/puzz_1128.htm) | Prime(n)!-Prime(n!) | open |
 | [1129](https://www.primepuzzles.net/puzzles/puzz_1129.htm) | OEIS A137990 | open |
-| [1130](https://www.primepuzzles.net/puzzles/puzz_1130.htm) | OEIS A137990 | open |
+| [1130](https://www.primepuzzles.net/puzzles/puzz_1130.htm) | As 68 | open |
 | [1131](https://www.primepuzzles.net/puzzles/puzz_1131.htm) | TEST FOR FERMAT'S PSEUDOPRIMES TO BASE 10 | open |
 | [1132](https://www.primepuzzles.net/puzzles/puzz_1132.htm) | The largest row of K distinct primes such that... | open |
 | [1133](https://www.primepuzzles.net/puzzles/puzz_1133.htm) | Get another proof | open |
@@ -1236,12 +1236,12 @@
 | [1230](https://www.primepuzzles.net/puzzles/puzz_1230.htm) | Polynomials and the period of the reciprocal of primes | [beaten](../results/1230.md) |
 | [1231](https://www.primepuzzles.net/puzzles/puzz_1231.htm) | A follow-up to Puzzle 1229 | open |
 | [1232](https://www.primepuzzles.net/puzzles/puzz_1232.htm) | 3338/12/23 | open |
-| [1233](https://www.primepuzzles.net/puzzles/puzz_1233.htm) | 3338/12/23 | open |
+| [1233](https://www.primepuzzles.net/puzzles/puzz_1233.htm) | Sum of Primes such that... | open |
 | [1234](https://www.primepuzzles.net/puzzles/puzz_1234.htm) | Follow uo to Puzzle 1233 | open |
 | [1235](https://www.primepuzzles.net/puzzles/puzz_1235.htm) | 6^n+n^6 | open |
 | [1236](https://www.primepuzzles.net/puzzles/puzz_1236.htm) | Recursive formulas for the decimal expression of the reciprocal of primes. | open |
 | [1237](https://www.primepuzzles.net/puzzles/puzz_1237.htm) | 1089427 | open |
-| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Puzzle 1236, revisited | [answered](../results/1238.md) |
+| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Puzzle 1236, revisited | open |
 | [1239](https://www.primepuzzles.net/puzzles/puzz_1239.htm) | 891077215721081784886888257701070827 | open |
 | [1240](https://www.primepuzzles.net/puzzles/puzz_1240.htm) | 09/27/2025 | open |
 | [1241](https://www.primepuzzles.net/puzzles/puzz_1241.htm) | Floor[n^2/3] is composite for all n>4 | open |

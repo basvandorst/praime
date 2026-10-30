@@ -12,7 +12,7 @@ Goal: beat records and answer open questions on primepuzzles.net. Use reasoning,
 - `FACTS.md`: the reference list of facts about primes, each with its formula and how it is known: residue rules (section 1), counts (2), gaps (3), patterns and runs of consecutive primes (4), prime-producing formulas (5), record lengths (8), facts from our write-ups (9) and from the archive (10), open problems (11). Read the relevant section before you attack a puzzle.
 - `writeup/NNN.md` (or `writeup/conj-NNN.md`): attempts that are still open. `writeup/INDEX.md` lists all puzzles and conjectures with their status (open, beaten, answered; proved, disproved, explained, answered).
 
-Some titles do not match the file number (`puzzle-0355.txt` is "Puzzle 354"; `conjecture-0101.txt` carries the title of conjecture 100). Check the title.
+The first line of a page file is the site's HTML title, and on 14 puzzle pages (314, 319, 344, 355, 393, 543, 768, 821, 849, 900, 986, 1056, 1130, 1233) and on conjecture 101 it is a stale copy from the previous page: `puzzle-0355.txt` starts with "Puzzle 354" but is Puzzle 355. Trust the heading inside the page text.
 
 ## How to crack a puzzle
 
