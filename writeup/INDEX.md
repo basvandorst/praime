@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 7 with a result of ours (proved, disproved, explained, answered, or a variant settled), 108 open. Status links go to our write-up.
+115 conjectures: 8 with a result of ours (proved, disproved, explained, answered, or a variant settled), 107 open. Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1370,7 +1370,7 @@
 | [73](https://www.primepuzzles.net/conjectures/conj_073.htm) | Counting primes by the last significant digit. | open |
 | [74](https://www.primepuzzles.net/conjectures/conj_074.htm) | What is true assuming valid this... | open |
 | [75](https://www.primepuzzles.net/conjectures/conj_075.htm) | Sebastian's formula for a special case of the Carmichael function. | open |
-| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Conjectures related to sequence (P[n])^(1/n) | open |
+| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Conjectures related to sequence (P[n])^(1/n) | [proved](../results/conj-76.md) |
 | [77](https://www.primepuzzles.net/conjectures/conj_077.htm) | Gaps between primes of the form p=qn + r | open |
 | [78](https://www.primepuzzles.net/conjectures/conj_078.htm) | Pn^((Pn+1/Pn)^n)<=n^Pn | open |
 | [79](https://www.primepuzzles.net/conjectures/conj_079.htm) | Rodolfo Kurchan's Conjecture | open |
