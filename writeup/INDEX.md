@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 24 answered, 1221 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 40 beaten, 26 answered, 1218 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -545,7 +545,7 @@
 | [539](https://www.primepuzzles.net/puzzles/puzz_539.htm) | n consecutive primes same residue modulo 4 | open |
 | [540](https://www.primepuzzles.net/puzzles/puzz_540.htm) | b^(2^n)+c | open |
 | [541](https://www.primepuzzles.net/puzzles/puzz_541.htm) | Emirps again | open |
-| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Sigma (x)=q^n | open |
+| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Sigma (x)=q^n | [answered](../results/542.md) |
 | [543](https://www.primepuzzles.net/puzzles/puzz_543.htm) | Primes as sum of powered consecutive primes | open |
 | [544](https://www.primepuzzles.net/puzzles/puzz_544.htm) | Yet another  prime Prime Race | open |
 | [545](https://www.primepuzzles.net/puzzles/puzz_545.htm) | 14 or 17<->25 | open |
@@ -873,7 +873,7 @@
 | [867](https://www.primepuzzles.net/puzzles/puzz_867.htm) | Follow up to Puzzle 833. | open |
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | Magic squares 3x3 and palprimes | open |
 | [869](https://www.primepuzzles.net/puzzles/puzz_869.htm) | Prime nested magic squares | open |
-| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | open |
+| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | Prime nested magic squares-II | [answered](../results/870.md) |
 | [871](https://www.primepuzzles.net/puzzles/puzz_871.htm) | Claudio Meller 1476 | open |
 | [872](https://www.primepuzzles.net/puzzles/puzz_872.htm) | Integers (p^2)*Q | open |
 | [873](https://www.primepuzzles.net/puzzles/puzz_873.htm) | Follow-up to Puzzle 871 | open |
@@ -885,7 +885,7 @@
 | [879](https://www.primepuzzles.net/puzzles/puzz_879.htm) | More on Q3 in Puzzle 876. | open |
 | [880](https://www.primepuzzles.net/puzzles/puzz_880.htm) | Consecutive odd abundant integers. | open |
 | [881](https://www.primepuzzles.net/puzzles/puzz_881.htm) | 123456789 and prime numbers. | open |
-| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | Prime sequence type A(Z)iB | open |
+| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | Prime sequence type A(Z)iB | [beaten](../results/882.md) |
 | [883](https://www.primepuzzles.net/puzzles/puzz_883.htm) | Large three consecutive semiprimes | open |
 | [884](https://www.primepuzzles.net/puzzles/puzz_884.htm) | Almost consecutive integers type k-almost primes | open |
 | [885](https://www.primepuzzles.net/puzzles/puzz_885.htm) | Square-free almost consecutive integers type k-almost primes | open |
