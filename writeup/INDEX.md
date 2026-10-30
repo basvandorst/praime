@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 25 answered, 1220 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 40 beaten, 25 answered, 1219 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -885,7 +885,7 @@
 | [879](https://www.primepuzzles.net/puzzles/puzz_879.htm) | More on Q3 in Puzzle 876. | open |
 | [880](https://www.primepuzzles.net/puzzles/puzz_880.htm) | Consecutive odd abundant integers. | open |
 | [881](https://www.primepuzzles.net/puzzles/puzz_881.htm) | 123456789 and prime numbers. | open |
-| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | Prime sequence type A(Z)iB | open |
+| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | Prime sequence type A(Z)iB | [beaten](../results/882.md) |
 | [883](https://www.primepuzzles.net/puzzles/puzz_883.htm) | Large three consecutive semiprimes | open |
 | [884](https://www.primepuzzles.net/puzzles/puzz_884.htm) | Almost consecutive integers type k-almost primes | open |
 | [885](https://www.primepuzzles.net/puzzles/puzz_885.htm) | Square-free almost consecutive integers type k-almost primes | open |

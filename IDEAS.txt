@@ -14,6 +14,7 @@ General tricks to try first
 - Equations in sigma and phi on n = 2^a 3^b: write sigma(phi(n)) in closed form A*B. sigma(AB) - AB >= 1 + A + B kills most cases. Zsigmondy (fact 1509) plus a congruence mod 2^(p+1) kills the rest (489, 490).
 - Multiplicative conditions (sigma(n) = q^k, sigma(n) odd, ...): search the prime-power parts, not n. Parts p^a with a >= 2 need only p <= sqrt(X), so X = 10^18 is minutes (542).
 - Magic squares of order 4 with extra prime conditions: use entries a_i + b_j on two orthogonal diagonal Latin squares. Every line is magic for free, and the search becomes a K_{4,4} in a bipartite graph (870). Affine digit rules (append/prepend digits) keep magic squares magic.
+- Digit-pattern chains (A Z..Z B, near-repdigits): q | N_i is linear in A, so sieve over A for fixed (Z, B). Only ord_q(10) classes per q are lost, and 10^10 candidates take a minute (882). Sieve only the terms the target needs: sieving extra terms silently drops good candidates.
 
 Open targets that look reachable
 - 1257 Q1: the next n with 2^n - 7 prime. Search only the 8 allowed classes mod 60, sieve deep, then PRP test. This needs days of PRP tests, not days of thinking.

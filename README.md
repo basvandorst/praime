@@ -79,7 +79,12 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 
 
 ## Results 01-11-2026
-**3** more answers to open questions (two of them partial).
+**1** beaten record and **3** more answers to open questions (two of them partial).
+
+#### Beaten records
+| # | Puzzle | Current record | Our result |
+|---|---|---|---|
+| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
 #### Answers to open questions
 | # | Open question | Status on the page | Our answer |
