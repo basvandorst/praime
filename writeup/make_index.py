@@ -93,7 +93,9 @@ for n in sorted(ctitles):
 
 with open('writeup/INDEX.md', 'a', encoding='utf-8') as f:
     f.write('\n# All conjectures\n\n')
-    f.write('%d conjectures: %d with a result of ours (proved, disproved, explained, answered, or a variant settled), %d open. '
-            'Status links go to our write-up.\n\n' % (len(ctitles), settled, len(ctitles) - settled))
+    cattempts = sum(os.path.exists('writeup/conj-%d.md' % n) and not os.path.exists('results/conj-%d.md' % n) for n in ctitles)
+    f.write('%d conjectures: %d with a result of ours (proved, disproved, explained, answered, or a variant settled), '
+            '%d open (%d with a write-up of our attempt). Status links go to our write-up.\n\n'
+            % (len(ctitles), settled, len(ctitles) - settled, cattempts))
     f.write('| # | Conjecture | Status |\n|---|---|---|\n')
     f.write('\n'.join(crows) + '\n')

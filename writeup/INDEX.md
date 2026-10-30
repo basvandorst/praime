@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 11 with a result of ours (proved, disproved, explained, answered, or a variant settled), 104 open. Status links go to our write-up.
+115 conjectures: 11 with a result of ours (proved, disproved, explained, answered, or a variant settled), 104 open (3 with a write-up of our attempt). Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
