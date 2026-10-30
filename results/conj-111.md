@@ -43,7 +43,7 @@ P(site 0 stays empty) = E[(1 − e^(−a))(1 − e^(−b))] = (∫₀¹ (1 − e
 **From random times to prime gaps.** The sieve uses the gaps as arrival times. Two things differ from Flory's model:
 
 - **Ties.** Equal neighbouring gaps are resolved left to right. An isolated tie does not change the density on average, because swapping the order of the two edges gives the mirror image of an equally likely configuration. Only clusters of ties matter. Numerically, resolving ties right to left instead changes the survivors at k = 10⁷ from 1,358,010 to 1,358,422, only 0.03%.
-- **Correlations.** Consecutive prime gaps are not independent. For example, a gap of 2 or 4 is never followed by a gap of the same size (apart from 3, 5, 7 and 3, 7, 11), because one of p, p + g, p + 2g is divisible by 3. In the Cramér/Gallagher picture these effects fade as the gaps grow like ln p.
+- **Correlations.** Consecutive prime gaps are not independent. For example, a gap of 2 or 4 is never followed by a gap of the same size (apart from 3, 5, 7), because one of p, p + g, p + 2g is divisible by 3. In the Cramér/Gallagher picture these effects fade as the gaps grow like ln p.
 
 So the limit should be exactly e⁻², with corrections that shrink as the primes grow. That is what the numbers show.
 

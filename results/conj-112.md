@@ -77,7 +77,7 @@ The two edge cases also check out. For n = 3, N = 7 ≡ 7 (mod 8), and s(1)/2 = 
 ```
 n = 3 … 10,000:   every N tested: prime N always give the predicted remainder,
                   composite N never do (0 pseudoprimes)
-prime N found for n = 3, 4, 5, 7, 8, 13, 16, 17, 19, 29, 31, 56, 68, 85, 229, 391, 785, 1111,
+prime (PRP above 2^64) N found for n = 3, 4, 5, 7, 8, 13, 16, 17, 19, 29, 31, 56, 68, 85, 229, 391, 785, 1111,
                   1705, 2009, 2140, 2192, 2368, 2371, 4003, 4061, 4063, 4553, 5548, 8740
                   (= A057732 + 1)
 ```
