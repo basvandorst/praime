@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 22 answered, 1223 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 23 answered, 1222 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -492,7 +492,7 @@
 | [486](https://www.primepuzzles.net/puzzles/puzz_486.htm) | Reserved for the Gods | open |
 | [487](https://www.primepuzzles.net/puzzles/puzz_487.htm) | Follow up to Puzzle 485 | open |
 | [488](https://www.primepuzzles.net/puzzles/puzz_488.htm) | Follow up to Puzzle 487 | open |
-| [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Mersenne Primes & 0, 23 & 1535 | open |
+| [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Mersenne Primes & 0, 23 & 1535 | [answered](../results/489.md) |
 | [490](https://www.primepuzzles.net/puzzles/puzz_490.htm) | 2^n-2^k+1, a square | [answered](../results/490.md) |
 | [491](https://www.primepuzzles.net/puzzles/puzz_491.htm) | Sum of any combination is not prime | open |
 | [492](https://www.primepuzzles.net/puzzles/puzz_492.htm) | 59 and still counting... | open |
