@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 40 beaten, 29 answered, 1215 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 40 beaten, 30 answered, 1214 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -458,7 +458,7 @@
 | [452](https://www.primepuzzles.net/puzzles/puzz_452.htm) | (a^2)!+2^(a^2) = b*(1+a^2) | open |
 | [453](https://www.primepuzzles.net/puzzles/puzz_453.htm) | DPFP | open |
 | [454](https://www.primepuzzles.net/puzzles/puzz_454.htm) | Number of primes of the form n^2 + 1 | open |
-| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | 1+σ0(n).σ(n) = n*rad(n) | open |
+| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | 1+σ0(n).σ(n) = n*rad(n) | [answered](../results/455.md) |
 | [456](https://www.primepuzzles.net/puzzles/puzz_456.htm) | Mersenne Primes as a sum of consecutive primes | open |
 | [457](https://www.primepuzzles.net/puzzles/puzz_457.htm) | Prime word embedded. | open |
 | [458](https://www.primepuzzles.net/puzzles/puzz_458.htm) | Related to Puzzle 451 | [answered](../results/458.md) |
