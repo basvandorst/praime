@@ -11,34 +11,34 @@ Submissions:
 #### Beaten records (2)
 | # | Puzzle | Current record | Our result |
 |---|---|---|---|
-| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: 95521311337 + 7 = 95521311344, minimal, proven primes](results/848.md) |
+| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: p + q = 95521311344](results/848.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
 #### Answers to open questions (8)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
-| [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved: σ(n) < n(1 + ln n), Dusart's bound, check n ≤ 1618](results/336.md) |
-| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with two prime factors (proof); only p^(p−2) up to 10¹⁰](results/455.md) |
-| [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [all solutions with q+1 = 2^a·3^b found (proof); family ends at p = 5; none new ≤ 10⁹](results/489.md) |
-| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸; Q2 needs n free of 2 and 3](results/542.md) |
-| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three: types R, L and LR, inner primes < 1000](results/870.md) |
-| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others: proof (τ(m) ≤ 8.45·m^(1/4), σ(m) ≤ m(1 + ln m)) + check below 10⁶](results/1035.md) |
-| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [works iff p \| 10^N + 10^J − 1; reverse lags = −forward lags (mod T); rules for 154 primes < 1000, none possible for 11 (proof)](results/1238.md) |
-| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved; same question as conjecture 80](results/conj-80.md) |
+| [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](results/336.md) |
+| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |
+| [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
+| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](results/542.md) |
+| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
+| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others (proof)](results/1035.md) |
+| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](results/1238.md) |
+| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
 
 #### Conjectures (11)
 | # | Conjecture | Status on the page | Our result |
 |---|---|---|---|
 | [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](results/conj-21.md) |
 | [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](results/conj-39.md) |
-| [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305, and infinitely many (mod 6)](results/conj-55.md) |
-| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | Consecutive primitive roots for every p > 7 | known for p > 10¹⁹ and by computation | [a theorem (Cohen–Oliveira e Silva–Trudgian 2015) + check of p < 170](results/conj-70.md) |
-| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | ∏ 1/(1 − 1/t) over twin primes = π? | no comments | [no: 3.1961782 via Brun's constant (heuristic)](results/conj-71.md) |
-| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Six inequalities for p_n^(1/n) | only via Firoozbakht's conjecture (to 4·10¹⁸) | [all six proved unconditionally](results/conj-76.md) |
-| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "certainly true for large n", checked to n = 500,000 | [proved for all n (explicit bound + sieve to 8·10⁹)](results/conj-80.md) |
-| [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved (prime number theorem); data explained](results/conj-99.md) |
-| [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained: Flory's dimer theorem (1939)](results/conj-111.md) |
-| [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved; no pseudoprime for n ≤ 10⁴](results/conj-112.md) |
+| [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305](results/conj-55.md) |
+| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | Consecutive primitive roots for every p > 7 | known for p > 10¹⁹ and by computation | [a theorem (2015)](results/conj-70.md) |
+| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | ∏ 1/(1 − 1/t) over twin primes = π? | no comments | [no: 3.19618 (heuristic)](results/conj-71.md) |
+| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Six inequalities for p_n^(1/n) | only via Firoozbakht's conjecture (to 4·10¹⁸) | [all six proved](results/conj-76.md) |
+| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "certainly true for large n", checked to n = 500,000 | [proved](results/conj-80.md) |
+| [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved](results/conj-99.md) |
+| [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained (Flory 1939)](results/conj-111.md) |
+| [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved](results/conj-112.md) |
 | [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Triangle test: passes iff prime or 9 | tested to 3000 | [false: the prime 3917 fails](results/conj-115.md) |
 
 ## Results October 2026
