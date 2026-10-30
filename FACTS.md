@@ -58,7 +58,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 1301. **Euler's criterion.** `a^((p−1)/2) ≡ (a/p) (mod p)`. There are (p − 1)/2 squares and (p − 1)/2 non-squares mod p. *(theorem)*
 1302. **Quadratic reciprocity.** `(p/q)(q/p) = (−1)^(((p−1)/2)((q−1)/2))` for odd p ≠ q. Supplements: `(−1/p) = (−1)^((p−1)/2)`, `(2/p) = (−1)^((p²−1)/8)`. *(theorem: Gauss 1796)*
 1303. Consequences: −1 is a square mod p iff p ≡ 1 (mod 4). 2 is a square iff p ≡ ±1 (mod 8). 3 is a square iff p ≡ ±1 (mod 12). −3 is a square iff p ≡ 1 (mod 3). 5 is a square iff p ≡ ±1 (mod 5). *(theorem; checked p < 10⁵)*
-1304. Least non-square n₀: `n₀(n₀ − 1) < p`. So n₀ < √p + 1. *(theorem)* Under GRH, n₀ < 2 ln² p. *(conditional: Bach 1990)*
+1304. Least non-square n₀: `n₀(n₀ − 1) < p`. So n₀ < √p + 1. *(theorem; used in our [conj-59](writeup/conj-59.md))* Under GRH, n₀ < 2 ln² p. *(conditional: Bach 1990)*
 1305. **Record least non-residues.** The least prime p whose least quadratic non-residue n₀(p) exceeds every earlier one: *(computed below 10⁷; OEIS A000229 lists the least p for each prime n₀)*
     ```
     n₀   2  3  5   7   11   13   17    19    23     29     31     43      47       53
@@ -82,7 +82,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 
 1401. The units mod p form a cyclic group, so primitive roots exist; there are `φ(p − 1)` of them. g is a primitive root iff `g^((p−1)/q) ≢ 1` for every prime q | p − 1. Primitive roots exist mod n iff n = 1, 2, 4, p^k or 2p^k. *(theorem: Gauss 1801)*
 1402. **Artin's conjecture.** 2 is a primitive root mod infinitely many p, with density `A = ∏_p (1 − 1/(p(p−1))) = 0.3739558136…`. *(conditional on GRH: Hooley 1967; the density checked for p < 10⁵, within 0.01)* At most two primes a fail Artin's conjecture. *(theorem: Heath-Brown 1986)*
-1403. **Consecutive primitive roots.** Every odd q > 169 has three consecutive primitive elements in F_q; for a prime q, three consecutive integers that are all primitive roots. *(theorem: Cohen–Oliveira e Silva–Trudgian 2015)*
+1403. **Consecutive primitive roots.** Every odd q > 169 has three consecutive primitive elements in F_q; for a prime q, three consecutive integers that are all primitive roots. *(theorem: Cohen–Oliveira e Silva–Trudgian 2015)* With a direct check of the primes below 170, every prime p > 7 has two consecutive primitive roots; 7 is the exception (its roots are 3 and 5). *(ours: [conj-70](results/conj-70.md))*
 1404. **Record least primitive roots** g(p) (the first p with g(p) larger than for every smaller prime): *(computed below 10⁷; equal to OEIS A002230 / A023048)*
     ```
     g(p)  2  3  5   6   7   19   21   23    31    37     38     44     69      73      94
@@ -176,7 +176,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 2012. **Explicit bounds.** `x/ln x < π(x)` for x ≥ 17 and `π(x) < 1.25506·x/ln x` for x > 1; `p_n > n ln n` for n ≥ 1; `p_n < n(ln n + ln ln n)` for n ≥ 6 *(theorem: Rosser–Schoenfeld 1962)*. `p_n > n(ln n + ln ln n − 1)` for n ≥ 2, and `p_n < n(ln n + ln ln n − 0.9484)` for n ≥ 39017 *(theorem: Dusart 1999)*.
 2013. **Littlewood (1914).** π(x) − li(x) changes sign infinitely often. *(theorem)* No sign change happens for 2 ≤ x ≤ 10¹⁹, and the first one is below 1.4·10³¹⁶. *(literature: Büthe 2018; Bays–Hudson 2000, Saouter–Demichel 2010)*
 2014. **Brun–Titchmarsh** (sharp form). `π(x + y) − π(x) ≤ 2y/ln y`, and `π(x; q, a) ≤ 2x/(φ(q) ln(x/q))` for x > q. *(theorem: Montgomery–Vaughan 1973)*
-2015. **Explicit primes in progressions.** `|θ(x; q, a) − x/φ(q)| < x/(160 ln x)` for 3 ≤ q ≤ 10⁵ and x ≥ 8·10⁹. *(theorem: Bennett–Martin–O'Bryant–Rechnitzer 2018)*
+2015. **Explicit primes in progressions.** `|θ(x; q, a) − x/φ(q)| < x/(160 ln x)` for 3 ≤ q ≤ 10⁵ and x ≥ 8·10⁹. *(theorem: Bennett–Martin–O'Bryant–Rechnitzer 2018; used in our [conj-80](results/conj-80.md))*
 2016. **Bombieri–Vinogradov.** On average over moduli q ≤ √x/(ln x)^B, primes are as well distributed in progressions as GRH predicts. The Elliott–Halberstam conjecture extends this to q ≤ x^(1−ε). *(theorem 1965; conjecture)*
 2017. **Selberg's parity problem.** A sieve cannot tell numbers with an odd number of prime factors from those with an even number: for the numbers ≤ x with no prime factor ≤ √x, sieve upper bounds are at least `(2 + o(1)) x/ln x`, although the count with an even number of factors is 0. This is why sieves alone cannot prove the twin-prime or Goldbach conjecture; Friedlander–Iwaniec (fact 5006) break the barrier for a² + b⁴ with extra structure. *(theorem/principle: Selberg 1949; [Wikipedia: Parity problem](https://en.wikipedia.org/wiki/Parity_problem_(sieve_theory)))*
 2018. **Short intervals.** `π(x + h) − π(x) ~ h/ln x` holds for h ≥ x^(7/12+ε) *(theorem: Huxley 1972)*. It fails for h = (ln x)^λ with λ > 1: the count oscillates by a constant factor *(theorem: Maier 1985)*.
@@ -213,7 +213,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 ## 3. Gaps between consecutive primes
 
 3001. g₁ = 1 (from 2 to 3); every later gap is even. The average gap near x is ln x, since `Σ_(p_n≤x) g_n ~ x`. *(theorem)*
-3002. **Arbitrarily long gaps.** `k# + 2, k# + 3, …, k# + k` (or n! + 2, …, n! + n) are all composite. How long such a run can be made with small primes is the Jacobsthal function j(m), the largest gap between integers coprime to m. *(theorem)*
+3002. **Arbitrarily long gaps.** `k# + 2, k# + 3, …, k# + k` (or n! + 2, …, n! + n) are all composite. How long such a run can be made with small primes is the Jacobsthal function j(m), the largest gap between integers coprime to m. *(theorem; see our [conj-39](results/conj-39.md))*
 3003. **Bertrand's postulate.** There is a prime in (n, 2n] for every n ≥ 1, so `p_(n+1) < 2p_n`. *(theorem: Chebyshev 1852)* Sharper: a prime in (n, 6n/5] for n ≥ 25 *(Nagura 1952)*, and in `(x, x(1 + 1/(2 ln² x))]` for x ≥ 3275 *(Dusart 2010)*. Every x from 3275 to 1.4·10¹¹ respects Dusart's bound, and 3275 is sharp: from x = 3274 the next prime, 3299, is just out of reach *(checked)*.
 3004. **Baker–Harman–Pintz (2001).** For large x there is a prime in `[x − x^0.525, x]`. *(theorem)* **Ingham (1937).** There is a prime between n³ and (n + 1)³ for large n. *(theorem)*
 3005. Under RH, `g_n = O(√p_n · ln p_n)`. *(conditional: Cramér 1920)*
@@ -283,7 +283,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
     ```
     For k = 11–14 and 16–18 the minimum s(k) is not reached below 1.4·10¹¹. The small primes are exceptionally dense: the 15 primes 17 … 73 have the least possible width 56, and the 19 primes 37 … 113 the least width 76.
 4004. **Hardy–Littlewood k-tuple conjecture.** For admissible H, `#{n ≤ x : n + h_i all prime} ~ 𝔖(H) ∫₂ˣ dt/ln^k t` with `𝔖(H) = ∏_q (1 − ν_H(q)/q)(1 − 1/q)^(−k)`, where ν_H(q) is the number of classes mod q that H occupies. For twins, `𝔖 = 2C₂`, `C₂ = ∏_(q>2) (1 − 1/(q − 1)²) = 0.6601618158…`. *(conjecture: Hardy–Littlewood 1923; C₂ checked to 10⁻⁷)* 𝔖 is unchanged when the pattern is mirrored (h → h_k − h), so a pattern and its mirror image are equally common. Fact 4010 confirms this.
-4005. **Brun (1919).** `Σ 1/p` over twin primes converges, to Brun's constant B₂ ≈ 1.902160583 (an estimate based on the Hardy–Littlewood tail, not a proof; published estimates differ from the 9th decimal on). *(theorem; literature)* The largest known twin primes are `2996863034895 · 2^1290000 ± 1` (388,342 digits, 2016). *(literature, as of 2025)*
+4005. **Brun (1919).** `Σ 1/p` over twin primes converges, to Brun's constant B₂ ≈ 1.902160583 (an estimate based on the Hardy–Littlewood tail, not a proof; published estimates differ from the 9th decimal on). *(theorem; literature)* The product of 1/(1 − 1/t) over the smaller twins is 3.1961782…, not π. *(ours: [conj-71](results/conj-71.md))* The largest known twin primes are `2996863034895 · 2^1290000 ± 1` (388,342 digits, 2016). *(literature, as of 2025)*
 4006. **Counts of pairs and clusters below 10ᵏ** (counted by the smallest member p ≤ 10ᵏ): *(computed)*
     ```
     k                         1   2    3    4     5      6       7        8
@@ -470,7 +470,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 
 ## 9. Facts from this repository
 
-Facts proved, used or found in our write-ups; each links to its write-up, which has the argument or the check. Facts from the conjecture pages will follow with the 01-12-2026 results.
+Facts proved, used or found in our write-ups; each links to its write-up, which has the argument or the check. Facts from the conjecture pages are in 9G.
 
 ### 9A. Residues and digits
 
@@ -556,6 +556,22 @@ Facts proved, used or found in our write-ups; each links to its write-up, which 
 | 477 prime cycles of p ↦ GPD(p + b) | 72 | [1251](results/1251.md) |
 
 Record objects we reused: PrimeGrid's AP-27 ([905](results/905.md)), the twin-prime record ([450](results/450.md)), and the palindromic prime `10^1888529 − 10^944264 − 1` (Propper–Batalov 2021, [607](results/607.md)), the largest known until a 2,718,281-digit one in 2024 (section 6B).
+
+### 9G. From the conjecture pages (results of 01-12-2026)
+
+- **C1.** Squares of primes p ≥ 5 are ≡ 1 (mod 6). For n ≡ 5 (mod 6) and p ≥ 5, `n − p² − d ≡ 4, 3, 2 (mod 6)` for d = 0, 1, 2, and a prime in those classes is 2 or 3. So n ≡ 5 (mod 6), n > 11, is p² + q + d (d ≤ 2) iff n − 4, n − 6 or n − 10 is prime, or n − 4 is the square of a prime. Sand's "checked to 10⁶" fails at 305, 325, 329, 479, 521, …, 72,048 times below 10⁶. *([conj-55](results/conj-55.md))*
+- **C2.** For odd p, p² + 1 ≡ 2 (mod 8), its odd prime factors are ≡ 1 (mod 4), and 5 | p² + 1 iff p ≡ ±2 (mod 5). The numerator of ∏_(i≤n) (p_i² + 1)/(p_i − 1) is ≡ 1 (mod 4) and ends in 25 for every n ≥ 3. The reason is a mod-5 race with average step +5/16 per prime, `W(n) = Σ_(p_i ≡ ±2 mod 5) v₅(p_i² + 1) − Σ_(p_i ≡ 1 mod 5) v₅(p_i − 1) ≥ 2`. It is proved with the explicit bound of fact 2015 for x ≥ 8·10⁹ and a sieve below (W = 114,937,685 at 8·10⁹). *([conj-80](results/conj-80.md))*
+- **C3.** For N = 2^(n−1) + 3 with n ≥ 4: N ≡ 3 (mod 8), so (2/N) = −1 and (3/N) = −(N/3). Rotondo's Lucas–Lehmer-type rule (for N prime, s(n−2)/2 ≡ 7 when n is odd and ≡ −2 when n is even) is a Fermat test in ℤ[√3]: with ω = 2 + √3 and 2ω = (1 + √3)², `s(k) = ω^(2^k) + ω^(−2^k)`. No pseudoprime for 3 ≤ n ≤ 10,000. *([conj-112](results/conj-112.md))*
+- **C4.** With G(m) = 1^m + 2^m + … + m^m: `v_p(G(p)) = 2` for every odd prime p; `G(p − k) ≡ (−1)^k Σ_(i<k) i^(−(k−1)) (mod p)`; p ≡ 1 (mod 4) ⇒ p | G((p − 1)/2). Also `v_p(G(p^e)) = 3e − 1`, and for N = p^f·m (f ≥ 1, p ∤ m), v_p(G(N)) = f − 1 if (p − 1) | m and ≥ f + 1 otherwise. Rotondo's triangle test T(n, k) = G(n)/(G(k)G(n − k)) fails at the prime 3917 (k = 500), the only failing prime below 30,000; 9 is the only odd prime power that passes. *([conj-115](results/conj-115.md))*
+- **C5.** n! + p_n is never a perfect square: a square would make every number up to n a quadratic residue mod p_n, but the least non-residue satisfies `n₀(n₀ − 1) < p` and p_n < n(n + 1) for n ≥ 2. Odd exponents are open; there is no perfect power for n ≤ 3000. *([writeup/conj-59](writeup/conj-59.md))*
+- **C6.** Underwood's cubic test splits locally for squarefree n. Mod each prime factor p, f needs three distinct roots that y ↦ yⁿ moves without fixed points, and a^(n−1) ≡ 1 (mod p). The local pass rates for p = 5, 7, 11, 13, 17, 19, 23 are 3.2 %, 2.3 %, 0.30 %, 1.1 %, 0.16 %, 0.35 %, 0.03 %. *([writeup/conj-110](writeup/conj-110.md))*
+- **C7.** A composite sharing a prime with f never makes f + c prime, so Rotondo's semiprime sequence never reuses a prime. 200 terms: all semiprimes, every prime below 2309 used. *([writeup/conj-114](writeup/conj-114.md))*
+- **C8.** Jacobsthal's d(n) depends only on the primes dividing n. The least n with d(n) = 9 is 36465 = 3·5·11·13·17, and d(23#) = 40 > 38. *([conj-39](results/conj-39.md))*
+- **C9.** Signed sums of consecutive primes (Nash): R(N) ≡ N (mod 2) for N > 238. The least N needing R = 11 is 113313 and R = 12 is 72598584; no N < 10⁸ needs 13. R grows like 2·log₂(ln N) (heuristic). *([conj-21](results/conj-21.md))*
+- **C10.** Consecutive gaps 2, 2 or 4, 4 occur only at 3, 5, 7, because 3 divides one of p, p + g, p + 2g. **Shielded primes:** removing neighbours in order of the gap between them is Flory's dimer model (1939), with surviving density `e⁻² = 0.135335…`. On 10⁷ consecutive primes near 10¹⁵ the density is 0.1353560. *([conj-111](results/conj-111.md))*
+- **C11.** Strong semiprimes pq with p ≤ q < p³ are ln 3 times as common as primes: `Σ_(x^(1/4) < p ≤ x^(1/2)) π(x/p) = (ln 3 + o(1))·x/ln x`, from `∫_(1/4)^(1/2) du/(u(1 − u)) = ln 3`. *([conj-99](results/conj-99.md))*
+- **C12.** The product of 1/(1 − 1/t) over the smaller twin primes is 3.1961782…, not π: `ln P = (B₂ + D)/2 + E` with fast-converging D and E. P = π would need B₂ = 1.8677. The partial products pass π only near 10³³. *([conj-71](results/conj-71.md))*
+- **C13.** `p_(a+b) ≤ p_a · p_b` for all a, b ≥ 1 (Bertrand plus Rosser–Schoenfeld). Hence a_n = p_n^(1/n) satisfies a_(n+m) ≤ max(a_n, a_m) and a_(nm) ≤ min(a_n, a_m), and all six inequalities of conjecture 76 hold. *([conj-76](results/conj-76.md))*
 
 ## 10. Facts from the site and its references
 
@@ -688,7 +704,7 @@ Each line gives the open claim, its formula, and the best known result.
 - **Euler–Rodríguez chains.** No chain of 15 is known (fact 4009).
 - **A formula for p_n.** No formula that is not circular (fact 5012). No algorithm for π(x) polynomial in ln x (fact 2020). No deterministic polynomial-time way to *construct* a prime of d digits is known (the Polymath4 project did not find one).
 - **Bias questions.** The explanations for Chebyshev's bias (fact 1602) and the last-digit bias (fact 1604) are conditional on GRH or on Hardy–Littlewood.
-- **Our own open attempts** are listed in [writeup/INDEX.md](writeup/INDEX.md).
+- **Our own open attempts:** odd powers in [conjecture 59](writeup/conj-59.md), [conjecture 110](writeup/conj-110.md), [conjecture 114](writeup/conj-114.md), and the puzzles listed in [writeup/INDEX.md](writeup/INDEX.md).
 
 ---
 

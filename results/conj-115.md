@@ -77,7 +77,7 @@ G(p − k) ≡ (−1)^k · (1 + 1/2^(k−1) + 1/3^(k−1) + … + 1/(k−1)^(k�
 
 So "p | G(p − k)" means p divides the numerator of a fixed fraction, and "p | G(k)" means p divides the fixed integer G(k). These are unrelated numbers, so their residues behave like random ones.
 
-**3. The one law: p ≡ 1 (mod 4).** With k = (p − 1)/2, j^k ≡ (j/p) (mod p) (Euler's criterion), so G(k) ≡ Σ_{j ≤ (p−1)/2} (j/p). When p ≡ 1 (mod 4), (j/p) = ((p − j)/p), so this half sum is half of the full sum Σ_{j<p}(j/p) = 0. Hence p | G((p − 1)/2) for every p ≡ 1 (mod 4). (For p ≡ 3 (mod 4) the half sum is (2 − (2/p))·h(−p), a number between 0 and p, so it never vanishes mod p.)
+**3. The one law: p ≡ 1 (mod 4).** With k = (p − 1)/2, j^k ≡ (j/p) (mod p) (Euler's criterion), so G(k) ≡ Σ_{j ≤ (p−1)/2} (j/p). When p ≡ 1 (mod 4), (j/p) = ((p − j)/p), so this half sum is half of the full sum Σ_{j<p}(j/p) = 0. Hence p | G((p − 1)/2) for every p ≡ 1 (mod 4). (For p ≡ 3 (mod 4) the half sum is (2 − (2/p))·h(−p) for p > 3, a number between 0 and p, so it never vanishes mod p.)
 
 **4. How many primes should fail.** In a random model, each m < p has a chance 1/p that p | G(m), and given that, a chance 1/p that p² | G(m). A prime fails when two zeros pair up (k and p − k) or one zero is a double zero:
 
@@ -89,7 +89,7 @@ expected number of failing primes ≤ x  ≈  2.5 · ln ln x + constant
 
 The sum diverges, so infinitely many primes should fail, but only very slowly (like Wieferich primes): the model expects about eight more between 30,000 and 10¹⁰⁰. Given the zeros actually found, the model expects 3.5 failures below 30,000, and we see one. A result this low has a chance of about 14% under the model, so the data fit it.
 
-**5. Rotondo's valuation formulas are true.** Write N = p^f · m with p ∤ m.
+**5. Rotondo's valuation formulas are true.** Write N = p^f · m with p ∤ m and f ≥ 1.
 
 ```
 Lemma A.  If (p − 1) | m:      v_p(G(N)) = f − 1.
