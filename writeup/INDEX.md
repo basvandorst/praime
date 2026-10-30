@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 23 answered, 1222 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 24 answered, 1221 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -545,7 +545,7 @@
 | [539](https://www.primepuzzles.net/puzzles/puzz_539.htm) | n consecutive primes same residue modulo 4 | open |
 | [540](https://www.primepuzzles.net/puzzles/puzz_540.htm) | b^(2^n)+c | open |
 | [541](https://www.primepuzzles.net/puzzles/puzz_541.htm) | Emirps again | open |
-| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Sigma (x)=q^n | open |
+| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Sigma (x)=q^n | [answered](../results/542.md) |
 | [543](https://www.primepuzzles.net/puzzles/puzz_543.htm) | Sigma (x)=q^n | open |
 | [544](https://www.primepuzzles.net/puzzles/puzz_544.htm) | Yet another  prime Prime Race | open |
 | [545](https://www.primepuzzles.net/puzzles/puzz_545.htm) | 14 or 17<->25 | open |
