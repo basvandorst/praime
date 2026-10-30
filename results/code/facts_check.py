@@ -5,7 +5,7 @@ import math
 from fractions import Fraction
 import numpy as np
 import gmpy2
-from sympy import isprime, nextprime, primerange, factorint, legendre_symbol, fibonacci, primitive_root, n_order
+from sympy import isprime, nextprime, primerange, factorint, legendre_symbol, fibonacci, primitive_root, n_order, mobius
 
 def sieve(n):
     s = np.ones(n + 1, dtype=bool); s[:2] = False
@@ -62,6 +62,10 @@ MAXGAPS = [(250, 387096133), (282, 436273009), (288, 1294268491), (292, 14531681
            (354, 4302407359), (382, 10726904659), (384, 20678048297), (394, 22367084959), (456, 25056082087),
            (464, 42652618343), (468, 127976334671)]                       # maximal gaps 2e8 .. 1.4e11, from facts.c
 assert all(gap <= q / (2 * math.log(q) ** 2) and isprime(q) and isprime(q + gap) and nextprime(q) == q + gap for gap, q in MAXGAPS)
+# Schoenfeld (1976): a prime in (x, x(1 + 1/16597)] for x > 2010759.9; forced by the gap 148 after 2010733
+assert nextprime(2010733) == 2010881 and 2010759 * (1 + 1 / 16597) < 2010881 <= 2010760 * (1 + 1 / 16597)
+k0 = int(np.searchsorted(P, 2010881))
+assert np.all(g[k0:] <= P[k0:-1].astype(np.float64) / 16597) and all(gap <= q / 16597 for gap, q in MAXGAPS)
 # Legendre/Andrica range: g < 1.32 sqrt(p) for p >= 11 (largest ratio at 113)
 j0 = int(np.searchsorted(P, 11))
 ratio = g[j0:] / np.sqrt(P[j0:-1].astype(np.float64))
@@ -170,6 +174,47 @@ r, prev, diffs = 7, 7, set()                                                    
 for n in range(2, 200000):
     r = prev + math.gcd(n, prev); d = r - prev
     assert d == 1 or isprime(d); diffs.add(d); prev = r
+# --- section 10: facts from the archive that we can recompute -----------------------------------
+assert [p for p in primerange(5, 10**6) if isprime((p * p - 1) // 24)] == [7, 11, 13]           # (p^2-1)/24 prime only 2, 5, 7
+form = {6 * a * b + sa * a + sb * b for a in range(1, 2000) for b in range(1, 2000) for sa in (1, -1) for sb in (1, -1) if 6 * a * b - a - b <= 10**4}
+assert all((isprime(6 * m - 1) and isprime(6 * m + 1)) == (m not in form) for m in range(1, 10**4))  # Perry / Balestrieri
+cover = [3, 5, 7, 13, 19, 37, 73]                                                                 # Selfridge: 78557*2^n + 1
+assert all(any((78557 * pow(2, n, q) + 1) % q == 0 for q in cover) for n in range(1, 145))
+for p in primerange(5, 2000):                                                                      # primitive roots: product 1, sum mu(p-1)
+    roots = [g for g in range(1, p) if n_order(g, p) == p - 1]
+    assert math.prod(roots) % p == 1 and sum(roots) % p == mobius(p - 1) % p
+for p in primerange(3, 400):                                                                       # Lerch: sum of Fermat quotients = Wilson quotient
+    assert sum((pow(a, p - 1, p * p) - 1) // p for a in range(1, p)) % p == ((math.factorial(p - 1) + 1) // p) % p
+assert [p for p in [3, 5, 11, 29] if all(isprime(2 * n * n + p) for n in range(p))] == [3, 5, 11, 29]
+assert [p for p in primerange(3, 200) if all(isprime(2 * n * n + p) for n in range(p))] == [3, 5, 11, 29]   # Euler 2n^2 + p
+def ram(n, X=2000):                                                                                # Ramanujan primes
+    pc = np.cumsum(np.isin(np.arange(X + 1), P[P <= X]))
+    return max(x for x in range(1, X + 1) if pc[x] - pc[x // 2] < n) + 1
+assert [ram(n) for n in range(1, 6)] == [2, 11, 17, 29, 41]
+assert all((int(str(p)[::-1]) - p) % 18 == 0 for p in ps if isprime(int(str(p)[::-1])))          # emirp pairs differ by 18k
+assert all(fibonacci(p - 1) % p == 0 for p in small if p % 5 in (1, 4)) and all(fibonacci(p + 1) % p == 0 for p in small if p % 5 in (2, 3))
+assert [p for p in ps if p > 5 and n_order(10, p) == p - 1][:6] == [7, 17, 19, 23, 29, 47]          # full reptend primes
+assert isprime(18691113008663) and isprime(18691113008663 + 666) and nextprime(18691113008663) == 18691113008663 + 666   # first gap 666
+is2 = (g == 2)                                                                                      # consecutive twin pairs (puzzle 122)
+def first_twin_run(k):                                                                             # k twin pairs, no other primes between:
+    ok = is2[:len(is2) - 2 * (k - 1)].copy()                                                       # gaps g[s], g[s+2], ..., g[s+2(k-1)] all 2
+    for j in range(1, k): ok &= is2[2 * j:len(is2) - 2 * (k - 1) + 2 * j]
+    return int(P[np.argmax(ok)])
+assert [first_twin_run(k) for k in (3, 4, 5)] == [5, 9419, 909287]
+d20 = next(i for i in range(len(g) - 20) if len(set(g[i:i + 20].tolist())) == 20)                  # 20 distinct gaps in a row
+assert int(P[d20]) == 60155567
+assert [int(P[n - 1]) for n in range(1, 200000) if n * math.log(int(P[n]) / int(P[n - 1])) > math.log(n)] == [2, 3, 7, 113, 1327]
+eu, pr = [], 1
+for q in primerange(2, 20):
+    pr *= q; eu.append(isprime(pr + 1))
+assert eu[:5] == [True] * 5 and not eu[5] and 2 * 3 * 5 * 7 * 11 * 13 + 1 == 59 * 509
+odd_comp = [n for n in range(9, 10**6, 2) if not isprime(n)]                                       # Goldbach's other conjecture
+assert [n for n in odd_comp if not any(isprime(n - 2 * k * k) for k in range(1, math.isqrt(n // 2) + 1))] == [5777, 5993]
+row = [int(x) for x in P[:2000]]                                                                    # Gilbreath on the first 2000 primes
+for _ in range(1999):
+    row = [abs(b - a) for a, b in zip(row, row[1:])]
+    assert row[0] == 1 or len(row) < 2
+    if len(row) < 2: break
 # --- section 5: formulas -----------------------------------------------------------------------
 good = [A for A in range(2, 10001) if all(isprime(x * x + x + A) for x in range(A - 1))]
 assert good == [2, 3, 5, 11, 17, 41]                                               # Rabinowitsch / Heegner

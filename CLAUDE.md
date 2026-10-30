@@ -9,6 +9,7 @@ Goal: beat records and answer open questions on primepuzzles.net. Use reasoning,
 - `references/*.pdf` and `references/*.txt`: documents linked from the pages, with extracted text.
 - `references/web/*.txt`: copies of external web pages. Line 1 gives the URL. To find one: `grep -l "^Source: <url>" references/web/*`.
 - `results/NNN.md`: our write-up per puzzle (no leading zeros). `results/code/` and `results/data/` hold large code and data.
+- `FACTS.md`: the reference list of facts about primes, each with its formula and how it is known: residue rules (section 1), counts (2), gaps (3), patterns and runs of consecutive primes (4), prime-producing formulas (5), record lengths (8), facts from our write-ups (9) and from the archive (10), open problems (11). Read the relevant section before you attack a puzzle.
 - `writeup/NNN.md`: attempts on puzzles that are still open. `writeup/INDEX.md` lists all puzzles with their status (open, beaten, answered).
 
 Some titles do not match the file number (`puzzle-0355.txt` is "Puzzle 354"). Check the title.
@@ -16,11 +17,11 @@ Some titles do not match the file number (`puzzle-0355.txt` is "Puzzle 354"). Ch
 ## How to crack a puzzle
 
 - Read the full page, to the last line. Later contributions often hold the real record. Write down the record and who holds it. An audit withdrew seven false claims that came from reading only part of a page (855, 872, 933, 969, 854, 1136, and k = 14 in 522).
-- Find a solved sibling in `results/` and check `IDEAS.txt`. Puzzles come in families. A trick that worked once often works again.
+- Find a solved sibling in `results/` and check `IDEAS.txt` and `FACTS.md`. Puzzles come in families. A trick that worked once often works again.
 - Explain why the current record works before you write code. Then propose a construction.
 - Factor the record numbers with `sympy.factorint`. Check them mod 3, 4, 5, 8 and 40. Patterns show up fast.
 - Turn the condition into a remainder. Ask whether the property ("even period", "unlucky", "no digit 6") depends only on p mod m. If it does, build a formula that always gives that remainder, and search only inside that class.
-- Try known record objects first: Prime Pages records, PrimeGrid's AP-27, Dress–Landreau polynomials. They often win outright.
+- Try known record objects first: Prime Pages records, PrimeGrid's AP-27, Dress–Landreau polynomials (`FACTS.md` sections 8–10 list them). They often win outright.
 - Try at least three approaches. Write down why each one failed.
 - Split work only within limits: 2 or 3 agents at most, for example one per page range for scouting or one per hard puzzle. Re-check everything they report. One agent invented an explanation.
 
