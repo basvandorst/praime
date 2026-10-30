@@ -3,7 +3,7 @@
 This repository is an experiment in how far LLM can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected 1200+ prime challenges since 1999, many with records that stood for decades. 
 
 ## Results 30-10-2026
-**39** beaten records, **25** answers to open questions (a few of them partial or conditional) and **1** mistake found on the pages (puzzle 1209).
+**39** beaten records, **25** answers to open questions (a few of them partial or conditional), **5** results on the conjectures pages (2 disproved, 2 proved, 1 explained) and **1** mistake found on the pages (puzzle 1209).
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -94,6 +94,16 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three: types R, L and LR, inner primes < 1000](results/870.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [works iff p \| 10^N + 10^J − 1; reverse lags = −forward lags (mod T); rules for 154 primes < 1000, none possible for 11 (proof)](results/1238.md) |
 
+#### Conjectures
+| # | Conjecture | Status on the page | Our result |
+|---|---|---|---|
+| [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305, and infinitely many (mod 6)](results/conj-55.md) |
+| [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved (prime number theorem); data explained](results/conj-99.md) |
+| [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained: Flory's dimer theorem (1939)](results/conj-111.md) |
+| [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved; no pseudoprime for n ≤ 10⁴](results/conj-112.md) |
+| [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Triangle test: passes iff prime or 9 | tested to 3000 | [false: the prime 3917 fails](results/conj-115.md) |
+
+
 ## Facts about primes
 [FACTS.md](FACTS.md) collects 200 facts about primes, each with its formula and how we know it: a theorem, our own computation (one pass over all primes below 1.4·10¹¹), or a source in this archive. A few of them:
 - Every prime p > 3 is 6k ± 1 and has p² ≡ 1 (mod 24). The gap after it is ≡ 2 (mod 6) only when p ≡ 5 (mod 6).
@@ -110,7 +120,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 - [IDEAS.txt](IDEAS.txt): contains tricks to try next and open puzzles that look reachable.
 - [FINDINGS.txt](FINDINGS.txt): contains the results that surprised us.
 - [FACTS.md](FACTS.md): a long list of facts about primes (residues, counts, gaps, runs of consecutive primes, formulas, open problems), each with its formula and how we checked it.
-- [writeup/](writeup/INDEX.md): contains our attempts on open puzzles, and an index of all puzzles with their status.
+- [writeup/](writeup/INDEX.md): contains our attempts on open puzzles, and an index of all puzzles and conjectures with their status.
 
 ## Models
 

@@ -1288,3 +1288,125 @@
 | [1284](https://www.primepuzzles.net/puzzles/puzz_1284.htm) | The Right-Crescendo Serpent | open |
 | [1285](https://www.primepuzzles.net/puzzles/puzz_1285.htm) | The Left-Crescendo Serpent | open |
 | [1286](https://www.primepuzzles.net/puzzles/puzz_1286.htm) | The Left&Right Crescendo Serpent | open |
+
+# All conjectures
+
+115 conjectures: 5 with a result of ours (proved, disproved, explained, or a variant settled), 110 open. Status links go to our write-up.
+
+| # | Conjecture | Status |
+|---|---|---|
+| [1](https://www.primepuzzles.net/conjectures/conj_001.htm) | Goldbach's Conjecture | open |
+| [2](https://www.primepuzzles.net/conjectures/conj_002.htm) | Chen's Conjecture | open |
+| [3](https://www.primepuzzles.net/conjectures/conj_003.htm) | Twin Prime's Conjecture | open |
+| [4](https://www.primepuzzles.net/conjectures/conj_004.htm) | Fermat primes are finite. | open |
+| [5](https://www.primepuzzles.net/conjectures/conj_005.htm) | Are there infinitely many primes of the form n2+1? | open |
+| [6](https://www.primepuzzles.net/conjectures/conj_006.htm) | Quantity of primes in a given range: Opperman, Brocard & Schinzel conjectures? | open |
+| [7](https://www.primepuzzles.net/conjectures/conj_007.htm) | The Cramer's Conjecture | open |
+| [8](https://www.primepuzzles.net/conjectures/conj_008.htm) | Andrica’s Conjecture | open |
+| [9](https://www.primepuzzles.net/conjectures/conj_009.htm) | Shank's Conjecture | open |
+| [10](https://www.primepuzzles.net/conjectures/conj_010.htm) | Champions and Primorial Numbers | open |
+| [11](https://www.primepuzzles.net/conjectures/conj_011.htm) | Is there any odd Perfect Number ? | open |
+| [12](https://www.primepuzzles.net/conjectures/conj_012.htm) | Are Mersenne and Fermat numbers square free ? | open |
+| [13](https://www.primepuzzles.net/conjectures/conj_013.htm) | Sierpinski numbers | open |
+| [14](https://www.primepuzzles.net/conjectures/conj_014.htm) | Enoch Haga Observation about Palprimes | open |
+| [15](https://www.primepuzzles.net/conjectures/conj_015.htm) | The New Mersenne Conjecture. | open |
+| [16](https://www.primepuzzles.net/conjectures/conj_016.htm) | n^n+1. | open |
+| [17](https://www.primepuzzles.net/conjectures/conj_017.htm) | The Ludovicus conjecture about the Euler trinomials | open |
+| [18](https://www.primepuzzles.net/conjectures/conj_018.htm) | Minimal primorial partitions (a conjecture by John Harvester) | open |
+| [19](https://www.primepuzzles.net/conjectures/conj_019.htm) | A bound to the largest prime factor of certain Carmichael numbers | open |
+| [20](https://www.primepuzzles.net/conjectures/conj_020.htm) | The first N natural numbers listed in an order such that the sum of each two adjacent of them is a prime number. | open |
+| [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Rivera's Conjectures about the representation of every natural number as algebraic sum of distinct consecutive prime numbers. | open |
+| [22](https://www.primepuzzles.net/conjectures/conj_022.htm) | A stronger version of the Goldbach Conjecture | open |
+| [23](https://www.primepuzzles.net/conjectures/conj_023.htm) | The Shyam's conjecture about the Rare Numbers | open |
+| [24](https://www.primepuzzles.net/conjectures/conj_024.htm) | Paul Underwood's conjecture | open |
+| [25](https://www.primepuzzles.net/conjectures/conj_025.htm) | sopf(n) = sopf(n+k) | open |
+| [26](https://www.primepuzzles.net/conjectures/conj_026.htm) | The Calendar-like square Conjecture | open |
+| [27](https://www.primepuzzles.net/conjectures/conj_027.htm) | A Charles Ashbacher Conjecture | open |
+| [28](https://www.primepuzzles.net/conjectures/conj_028.htm) | Frank Buss's Conjecture | open |
+| [29](https://www.primepuzzles.net/conjectures/conj_029.htm) | The Frank Buss's  B(n) function | open |
+| [30](https://www.primepuzzles.net/conjectures/conj_030.htm) | The Firoozbakht Conjecture | open |
+| [31](https://www.primepuzzles.net/conjectures/conj_031.htm) | The Fermat-Catalan & Beal's Conjectures | open |
+| [32](https://www.primepuzzles.net/conjectures/conj_032.htm) | The ABC Conjecture | open |
+| [33](https://www.primepuzzles.net/conjectures/conj_033.htm) | The Goldbach Temptation | open |
+| [34](https://www.primepuzzles.net/conjectures/conj_034.htm) | n & n2, Triangular Numbers | open |
+| [35](https://www.primepuzzles.net/conjectures/conj_035.htm) | The Firoozbakht functions | open |
+| [36](https://www.primepuzzles.net/conjectures/conj_036.htm) | The Sinisalo-Ludovicus Conjecture | open |
+| [37](https://www.primepuzzles.net/conjectures/conj_037.htm) | The Tutescu's Conjecture | open |
+| [38](https://www.primepuzzles.net/conjectures/conj_038.htm) | Adrian Stoica’s Conjecture | open |
+| [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Ingala's Conjecture | open |
+| [40](https://www.primepuzzles.net/conjectures/conj_040.htm) | Karama's Conjecture | open |
+| [41](https://www.primepuzzles.net/conjectures/conj_041.htm) | Pe's Conjecture | open |
+| [42](https://www.primepuzzles.net/conjectures/conj_042.htm) | Severini's conjecture | open |
+| [43](https://www.primepuzzles.net/conjectures/conj_043.htm) | Three consecutive primes | open |
+| [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | A property of prime twins, only? | open |
+| [45](https://www.primepuzzles.net/conjectures/conj_045.htm) | Even numbers as sum of 4 twin primes. | open |
+| [46](https://www.primepuzzles.net/conjectures/conj_046.htm) | P-Q=R-S | open |
+| [47](https://www.primepuzzles.net/conjectures/conj_047.htm) | P=2P1 + 3P2 | open |
+| [48](https://www.primepuzzles.net/conjectures/conj_048.htm) | P=A+/-B | open |
+| [49](https://www.primepuzzles.net/conjectures/conj_049.htm) | n = pq +rs | open |
+| [50](https://www.primepuzzles.net/conjectures/conj_050.htm) | n = pq - rs | open |
+| [51](https://www.primepuzzles.net/conjectures/conj_051.htm) | Two approximate relationships about prime numbers | open |
+| [52](https://www.primepuzzles.net/conjectures/conj_052.htm) | SMR Conjecture about consecutive primes | open |
+| [53](https://www.primepuzzles.net/conjectures/conj_053.htm) | Floor function & consecutive primes | open |
+| [54](https://www.primepuzzles.net/conjectures/conj_054.htm) | Reversible primes conjeture | open |
+| [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | n = m^2 + p + d | [variant disproved](../results/conj-55.md) |
+| [56](https://www.primepuzzles.net/conjectures/conj_056.htm) | One  more SMR conjecture. | open |
+| [57](https://www.primepuzzles.net/conjectures/conj_057.htm) | \|P(i-1)-2P(i)+P(i+1)\| | open |
+| [58](https://www.primepuzzles.net/conjectures/conj_058.htm) | Primes m^2+1 | open |
+| [59](https://www.primepuzzles.net/conjectures/conj_059.htm) | n!+p(n)=m^k | open |
+| [60](https://www.primepuzzles.net/conjectures/conj_060.htm) | Generalization of Legendre's Conjecture | open |
+| [61](https://www.primepuzzles.net/conjectures/conj_061.htm) | THE MEAN MAXIMUM GAP BETWEEN PRIMES | open |
+| [62](https://www.primepuzzles.net/conjectures/conj_062.htm) | Generalization of Bertrand's Postulate | open |
+| [63](https://www.primepuzzles.net/conjectures/conj_063.htm) | Consecutive primes sum to a perfect power. | open |
+| [64](https://www.primepuzzles.net/conjectures/conj_064.htm) | NUMBER OF PRIME TWINS | open |
+| [65](https://www.primepuzzles.net/conjectures/conj_065.htm) | Non-Euclidean primes | open |
+| [66](https://www.primepuzzles.net/conjectures/conj_066.htm) | Gaps between consecutive twin pairs | open |
+| [67](https://www.primepuzzles.net/conjectures/conj_067.htm) | primes & e | open |
+| [68](https://www.primepuzzles.net/conjectures/conj_068.htm) | Based on an Euler's Conjecture | open |
+| [69](https://www.primepuzzles.net/conjectures/conj_069.htm) | A Conjecture & proposed Axiom | open |
+| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | n & n+1 primitive roots | open |
+| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | Twin primes and π. | open |
+| [72](https://www.primepuzzles.net/conjectures/conj_072.htm) | Counting twin primes. | open |
+| [73](https://www.primepuzzles.net/conjectures/conj_073.htm) | Counting primes by the last significant digit. | open |
+| [74](https://www.primepuzzles.net/conjectures/conj_074.htm) | What is true assuming valid this... | open |
+| [75](https://www.primepuzzles.net/conjectures/conj_075.htm) | Sebastian's formula for a special case of the Carmichael function. | open |
+| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Conjectures related to sequence (P[n])^(1/n) | open |
+| [77](https://www.primepuzzles.net/conjectures/conj_077.htm) | Gaps between primes of the form p=qn + r | open |
+| [78](https://www.primepuzzles.net/conjectures/conj_078.htm) | Pn^((Pn+1/Pn)^n)<=n^Pn | open |
+| [79](https://www.primepuzzles.net/conjectures/conj_079.htm) | Rodolfo Kurchan's Conjecture | open |
+| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why 25? | open |
+| [81](https://www.primepuzzles.net/conjectures/conj_081.htm) | For all primes p, there is at least one k \| that p^k = p&y&p? | open |
+| [82](https://www.primepuzzles.net/conjectures/conj_082.htm) | Average of log Dn / log(logPn) equal R = 0,877 08... | open |
+| [83](https://www.primepuzzles.net/conjectures/conj_083.htm) | Two conjectures about primes | open |
+| [84](https://www.primepuzzles.net/conjectures/conj_084.htm) | Conjecture related to primes in A.P. | open |
+| [85](https://www.primepuzzles.net/conjectures/conj_085.htm) | Conjectures stricter that the Goldbach one | open |
+| [86](https://www.primepuzzles.net/conjectures/conj_086.htm) | The Majid's Conjecture | open |
+| [87](https://www.primepuzzles.net/conjectures/conj_087.htm) | A partition of the first 2n+1 primes | open |
+| [88](https://www.primepuzzles.net/conjectures/conj_088.htm) | Special Goldbach Partitions | open |
+| [89](https://www.primepuzzles.net/conjectures/conj_089.htm) | Limit of R = AVSQr / SQRT[log(AV)] equal 1 | open |
+| [90](https://www.primepuzzles.net/conjectures/conj_090.htm) | Semiprimes/Primes ->log(2) | open |
+| [91](https://www.primepuzzles.net/conjectures/conj_091.htm) | A conjecture about strong primes | open |
+| [92](https://www.primepuzzles.net/conjectures/conj_092.htm) | For any integer m there is at least one set of consecutive primes... | open |
+| [93](https://www.primepuzzles.net/conjectures/conj_093.htm) | Related to A103514 | open |
+| [94](https://www.primepuzzles.net/conjectures/conj_094.htm) | Follow-up Conjecture 29 | open |
+| [95](https://www.primepuzzles.net/conjectures/conj_095.htm) | Pascal triangle (2,1), two Conjectures | open |
+| [96](https://www.primepuzzles.net/conjectures/conj_096.htm) | OEIS A360827 | open |
+| [97](https://www.primepuzzles.net/conjectures/conj_097.htm) | Another conjecture related to Mersenne primes | open |
+| [98](https://www.primepuzzles.net/conjectures/conj_098.htm) | Using AI to solve some Conjectures | open |
+| [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Conjecture related to A362910. | [proved](../results/conj-99.md) |
+| [100](https://www.primepuzzles.net/conjectures/conj_100.htm) | Rn = An / Gn | open |
+| [101](https://www.primepuzzles.net/conjectures/conj_101.htm) | Conjecture related to A108309 | open |
+| [102](https://www.primepuzzles.net/conjectures/conj_102.htm) | Conjecture related to A359387 | open |
+| [103](https://www.primepuzzles.net/conjectures/conj_103.htm) | (6*prime(n)-1)/n | open |
+| [104](https://www.primepuzzles.net/conjectures/conj_104.htm) | R. Farhadian's Conjecture | open |
+| [105](https://www.primepuzzles.net/conjectures/conj_105.htm) | CONJECTURE ABOUT TWIN PRIMES AND PSEUDOTWIN PRIMES to BASE 3 | open |
+| [106](https://www.primepuzzles.net/conjectures/conj_106.htm) | Conjecture about gaps between consecutive primes. | open |
+| [107](https://www.primepuzzles.net/conjectures/conj_107.htm) | The  Shyam's conjecture about square-free triangular numbers | open |
+| [108](https://www.primepuzzles.net/conjectures/conj_108.htm) | On the counting function of semiprimes | open |
+| [109](https://www.primepuzzles.net/conjectures/conj_109.htm) | Another test of Primality | open |
+| [110](https://www.primepuzzles.net/conjectures/conj_110.htm) | Conjecture -- General Cubic Composite Test | open |
+| [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | The density approaches at the constant 1/e^2 | [explained](../results/conj-111.md) |
+| [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | A possible Lucas-Lehmer type test for primes of the form 2^k+3 | [proved](../results/conj-112.md) |
+| [113](https://www.primepuzzles.net/conjectures/conj_113.htm) | A(n) = d + prime(n)#/d is prime.such that... | open |
+| [114](https://www.primepuzzles.net/conjectures/conj_114.htm) | A possible new conjecture about prime numbers and semiprimes | open |
+| [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Test for primes | [disproved](../results/conj-115.md) |
