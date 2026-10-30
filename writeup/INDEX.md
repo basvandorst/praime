@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 5 with a result of ours (proved, disproved, explained, or a variant settled), 110 open. Status links go to our write-up.
+115 conjectures: 7 with a result of ours (proved, disproved, explained, answered, or a variant settled), 108 open. Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1315,7 +1315,7 @@
 | [18](https://www.primepuzzles.net/conjectures/conj_018.htm) | Minimal primorial partitions (a conjecture by John Harvester) | open |
 | [19](https://www.primepuzzles.net/conjectures/conj_019.htm) | A bound to the largest prime factor of certain Carmichael numbers | open |
 | [20](https://www.primepuzzles.net/conjectures/conj_020.htm) | The first N natural numbers listed in an order such that the sum of each two adjacent of them is a prime number. | open |
-| [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Rivera's Conjectures about the representation of every natural number as algebraic sum of distinct consecutive prime numbers. | open |
+| [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Rivera's Conjectures about the representation of every natural number as algebraic sum of distinct consecutive prime numbers. | [answered](../results/conj-21.md) |
 | [22](https://www.primepuzzles.net/conjectures/conj_022.htm) | A stronger version of the Goldbach Conjecture | open |
 | [23](https://www.primepuzzles.net/conjectures/conj_023.htm) | The Shyam's conjecture about the Rare Numbers | open |
 | [24](https://www.primepuzzles.net/conjectures/conj_024.htm) | Paul Underwood's conjecture | open |
@@ -1333,7 +1333,7 @@
 | [36](https://www.primepuzzles.net/conjectures/conj_036.htm) | The Sinisalo-Ludovicus Conjecture | open |
 | [37](https://www.primepuzzles.net/conjectures/conj_037.htm) | The Tutescu's Conjecture | open |
 | [38](https://www.primepuzzles.net/conjectures/conj_038.htm) | Adrian Stoica’s Conjecture | open |
-| [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Ingala's Conjecture | open |
+| [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Ingala's Conjecture | [answered](../results/conj-39.md) |
 | [40](https://www.primepuzzles.net/conjectures/conj_040.htm) | Karama's Conjecture | open |
 | [41](https://www.primepuzzles.net/conjectures/conj_041.htm) | Pe's Conjecture | open |
 | [42](https://www.primepuzzles.net/conjectures/conj_042.htm) | Severini's conjecture | open |
