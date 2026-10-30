@@ -1,31 +1,29 @@
-# Rebuild writeup/INDEX.md: every puzzle with its status and a link to our write-up.
+# Rebuild writeup/INDEX.md: every puzzle and every conjecture with its status and a link to our write-up.
 # Run from the repo root: python3 writeup/make_index.py
 import os, re
 
-titles = {}
+titles, ctitles = {}, {}
 last = None
 for line in open('data/INDEX.txt', encoding='utf-8'):
     line = line.rstrip('\n')
     if line.startswith('puzzle-'):
         _, url, title = line.split('\t', 2)
-        last = int(re.search(r'puzz_(\d+)', url).group(1))
-        titles[last] = title.strip()
-    elif re.match(r'(problem|conjecture)-', line) or line.lstrip().startswith('->'):
+        last = (titles, int(re.search(r'puzz_(\d+)', url).group(1)))
+        titles[last[1]] = title.strip()
+    elif line.startswith('conjecture-'):
+        _, url, title = line.split('\t', 2)
+        last = (ctitles, int(re.search(r'conj_(\d+)', url).group(1)))
+        ctitles[last[1]] = title.strip()
+    elif line.startswith('problem-') or line.lstrip().startswith('->'):
         last = None
     elif last is not None and line.strip():
-        titles[last] += ' ' + line.strip()   # title wrapped onto the next line
+        last[0][last[1]] += ' ' + line.strip()   # title wrapped onto the next line
 
-# Status from the README tables. Each dated Results section has its own tables;
-# a table's header row says whether it lists beaten records or answers.
+# Status from the two README tables.
 readme = open('README.md', encoding='utf-8').read()
-beaten, answered, kind = set(), set(), None
-for row in readme.splitlines():
-    if row.lstrip().startswith('| # |'):
-        kind = {'Puzzle': beaten, 'Open question': answered}.get(row.split('|')[2].strip())
-    for n in re.findall(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', row):
-        if kind is not None:
-            kind.add(int(n))
-answered -= beaten
+beaten_part, answered_part = readme.split('### (First) answers to open questions', 1)
+ids = lambda text: {int(n) for n in re.findall(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', text)}
+beaten, answered = ids(beaten_part), ids(answered_part) - ids(beaten_part)
 
 def name(n):
     # drop the "Puzzle 123.- " prefix, but only when it is this puzzle's own number (or off by one)
@@ -54,3 +52,36 @@ with open('writeup/INDEX.md', 'w', encoding='utf-8') as f:
             % (len(titles), len(beaten), len(answered), len(titles) - len(beaten) - len(answered), attempts))
     f.write('| # | Puzzle | Status |\n|---|---|---|\n')
     f.write('\n'.join(rows) + '\n')
+
+
+# Conjectures: status is the first word of the Status line of results/conj-N.md (proved, disproved, explained),
+# 'open' with a link when writeup/conj-N.md holds an attempt.
+def cname(n):
+    t = ctitles[n]
+    m = re.match(r'^Conjecture\s*(\d+)', t)
+    if m and int(m.group(1)) != n:   # the site's title is wrong for some pages (conj_101 repeats 100): use the page heading
+        page = open('data/puzzles/conjecture-%04d.txt' % n, encoding='utf-8').read().split('=' * 20, 1)[-1]
+        h = re.search(r'^Conjecture\s*%d\b.*$' % n, page, re.M)
+        t = h.group(0).strip() if h else t
+    t2 = re.sub(r'^Conjecture\s*\d+\s*[.:-]*\s*', '', t).strip()
+    return (t2 or t).replace('|', '\\|')
+
+crows, settled = [], 0
+for n in sorted(ctitles):
+    page = 'https://www.primepuzzles.net/conjectures/conj_%03d.htm' % n
+    res = 'results/conj-%d.md' % n
+    if os.path.exists(res):
+        m = re.search(r'^\*\*Status:\*\*\s*([a-z][a-z ]*?)\s*(?:\(|·|$)', open(res, encoding='utf-8').read(), re.M)
+        status, settled = '[%s](../%s)' % (m.group(1) if m else 'answered', res), settled + 1
+    elif os.path.exists('writeup/conj-%d.md' % n):
+        status = '[open](conj-%d.md)' % n
+    else:
+        status = 'open'
+    crows.append('| [%d](%s) | %s | %s |' % (n, page, cname(n), status))
+
+with open('writeup/INDEX.md', 'a', encoding='utf-8') as f:
+    f.write('\n# All conjectures\n\n')
+    f.write('%d conjectures: %d with a result of ours (proved, disproved, explained, or a variant settled), %d open. '
+            'Status links go to our write-up.\n\n' % (len(ctitles), settled, len(ctitles) - settled))
+    f.write('| # | Conjecture | Status |\n|---|---|---|\n')
+    f.write('\n'.join(crows) + '\n')

@@ -16,6 +16,10 @@ General tricks to try first
 - Magic squares of order 4 with extra prime conditions: use entries a_i + b_j on two orthogonal diagonal Latin squares. Every line is magic for free, and the search becomes a K_{4,4} in a bipartite graph (870). Affine digit rules (append/prepend digits) keep magic squares magic.
 - Digit-pattern chains (A Z..Z B, near-repdigits): q | N_i is linear in A, so sieve over A for fixed (Z, B). Only ord_q(10) classes per q are lost, and 10^10 candidates take a minute (882). Sieve only the terms the target needs: sieving extra terms silently drops good candidates.
 - Digits of 1/p read backwards are the 10-adic expansion of -1/p (carries move forward). Questions about reversed periods become 10-adic identities, which are often cleaner than the forward ones (1238).
+- Conjectured primality tests: work out exactly what the test checks mod p (or p^2) when n = p is prime. If it comes down to "random" residues being 0, a random model gives the failure rate; scan just past the author's range (conjecture 115: first failure 3917, author tested to 3000).
+- Before trusting "checked up to N", test the claim mod 6. A residue class with almost no chances fails almost always (conjecture 55: 305).
+- Ratios that tend to ln 2 or ln 3: write the condition as an interval for u = ln p / ln n and integrate du/(u(1-u)). The exact sum over primes then predicts the finite-range values (conjecture 99; also 90).
+- A greedy process driven by random-looking weights is often a classic model. "Remove neighbours in order of gap" is Flory's dimer adsorption, density e^-2 (conjecture 111).
 
 Open targets that look reachable
 - 1257 Q1: the next n with 2^n - 7 prime. Search only the 8 allowed classes mod 60, sieve deep, then PRP test. This needs days of PRP tests, not days of thinking.
@@ -28,6 +32,17 @@ Open targets that look reachable
 - Pages with no contributions at all: list them with
     grep -L "contributions came\|wrote:" data/puzzles/puzzle-*.txt
   Then pick the ones with a solved sibling in results/.
+
+Open targets on the conjectures pages (scouted, not yet done)
+- 80 "Why 25?": the scout reduced it to W(n) >= 2, where W(n) counts the 5-adic valuations (5/16 drift per prime, checked to 10^8). A full proof needs explicit prime-race bounds for mod 5 and Brun-Titchmarsh.
+- 76: the six inequalities for p_k^(1/k) look provable from p_(m+n) < p_m + p_n (Ishikawa) and p_(nm) <= p_n^m. Check explicit bounds.
+- 59: n! + p_n is never a square or any even power (quadratic residues plus the least non-residue bound p > n0(n0-1)). Odd exponents stay open: writeup material.
+- 70: check whether S. D. Cohen (Proc. AMS 1985) proves consecutive primitive roots for every p > 7. The page cites only p > 10^19.
+- 71: the product over lesser twins of 1/(1-1/t) comes out near 3.196 via Brun's constant, not pi. This is heuristic: partial products reach pi only near 10^33.
+- 110 (Underwood's cubic test): for squarefree n, a counterexample exists iff every prime factor p has a local cubic x^3-ax-b on whose roots y -> y^n acts as a 3-cycle, with ord_p(a) | n-1. That is much faster than looping over all (a, b). At the largest prime factor the condition costs about 1/q, which is why none are found.
+- 109: equivalent to finding a strong base-2 pseudoprime that is also a Frobenius pseudoprime for D = -4 (Baillie-PSW hard). Skip.
+- 113: the expected number of counterexamples beyond n = 2000 is a convergent sum, about 0.5 (P(no d < P) ~ P^-1.083), not "statistical truth". Untestable at that size.
+- 101: extreme-value heuristic puts limsup |A(n) - n/ln n| / sqrt(n) near 1. Borderline, so the bound may fail far out.
 
 New puzzles we could pose
 - Irregular polynomials with halving: what is the longest run with all values distinct? (Best seen: 53.)
