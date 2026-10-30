@@ -2,9 +2,9 @@
 ## Beating prime puzzle records with AI reasoning 
 This repository is an experiment in how far AI can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected hundreds of prime challenges since 1999, many with records that stood for decades. No racks of computers grinding through billions of candidates, just careful reasoning about why each old record worked and a trick that made the hard part happen by itself. 
 
-**The result: 39 records broken and 25 open questions answered (a few of them partial or conditional), each with a script that verifies it.**
+## Results 30-10-2026
+**39** beaten records, **25** answers to open questions (a few of them partial or conditional) and **1** mistake found on the pages (puzzle 1209).
 
-## Results
 #### Beaten records
 | # | Puzzle | Current record | Our result |
   |---|---|---|---|
