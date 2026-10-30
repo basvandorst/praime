@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Goal: beat records and answer open questions on primepuzzles.net. Use reasoning, not brute force. `README.md` has the results tables. `FINDINGS.txt` lists surprising results. `IDEAS.txt` lists tricks and open targets: read it before you pick a puzzle, and update it when you learn something new.
+Goal: beat records and answer open questions on primepuzzles.net. Use reasoning, not brute force. `README.md` has the results tables. `FINDINGS.txt` lists surprising results. `IDEAS.txt` lists tricks and open targets: read it before you pick a puzzle, and update it when you learn something new. `FACTS.md` lists facts about primes with formulas and status tags (theorem, checked, computed, literature, conjecture); add a fact there only with a source or a check in `results/code/facts_check.py`.
 
 ## Where to find things
 

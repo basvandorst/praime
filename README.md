@@ -82,6 +82,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 - [CLAUDE.md](CLAUDE.md): contains the instructions for the LLM: where the data is, how to crack a puzzle, the rules.
 - [IDEAS.txt](IDEAS.txt): contains tricks to try next and open puzzles that look reachable.
 - [FINDINGS.txt](FINDINGS.txt): contains the results that surprised us.
+- [FACTS.md](FACTS.md): a long list of facts about primes (residues, counts, gaps, runs of consecutive primes, formulas, open problems), each with its formula and how we checked it.
 - [writeup/](writeup/INDEX.md): contains our attempts on open puzzles, and an index of all puzzles with their status.
 
 ## Models
