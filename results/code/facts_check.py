@@ -1012,4 +1012,132 @@ assert len(str(pp1)) == 60 and int(lucas(2366)) % pp1 == 0
 gq = 101412319996363309069
 assert int(gmpy2.next_prime(gq)) - gq == 1854 and round(1854 / math.log(gq), 2) == 40.25
 
+# --- facts mined from the puzzle archive (October 2026) -------------------------------------------------
+
+# 10114: consecutive p < q < r with p | qr + 1 below 2e8
+p3, q3, r3 = P[:-2].astype(np.int64), P[1:-1].astype(np.int64), P[2:].astype(np.int64)
+assert p3[((q3 % p3) * (r3 % p3) + 1) % p3 == 0].tolist() == [2, 3, 61]
+
+# 10115: 4p^2 + 1 = 197 (mod 480) for p > 5, and x -> 4x^2 + 1 hits 0 mod 13 within 5 steps
+assert {(4 * p * p + 1) % 480 for p in ps if p > 5 and isprime(4 * p * p + 1)} == {197}
+def steps13(x):
+    k = 0
+    while x % 13: x = (4 * x * x + 1) % 13; k += 1
+    return k
+assert max(steps13(x) for x in range(13)) == 5
+ch = [197072563]
+while gmpy2.is_prime(4 * ch[-1] ** 2 + 1): ch.append(4 * ch[-1] ** 2 + 1)
+assert len(ch) == 5
+
+# 10116: q = 2p + 1 divides R_p exactly when p = 1, 13, 19 (mod 20)
+assert all((pow(10, p, 2 * p + 1) == 1) == (p % 20 in (1, 13, 19)) for p in primerange(7, 10**5) if isprime(2 * p + 1))
+
+# 10117: prime factors of gcd(2^p + 1, 3^p + 1) are 1 (mod 6p) and 1, 3 (mod 8); the first composite gcd at p = 2243399
+for p in primerange(5, 3000):
+    for q in factorint(math.gcd(2**p + 1, 3**p + 1)):
+        assert q % (6 * p) == 1 and q % 8 in (1, 3)
+p = 2243399; gg = math.gcd(pow(2, p, 53841577 * 174985123) + 1, pow(3, p, 53841577 * 174985123) + 1)
+assert gg == 53841577 * 174985123 == (24 * p + 1) * (78 * p + 1) and isprime(24 * p + 1) and isprime(78 * p + 1)
+
+# 10118: Rotondo's Sophie Germain test for 1 < n <= 2000, and the least bases with a^(p-1) = 1 (mod p^2)
+fct = 1
+for n in range(2, 2001):
+    fct *= n - 1
+    assert ((fct * fct + 6 * n) % (n * (2 * n + 1)) == 1) == (n % 2 == 1 and isprime(n) and isprime(2 * n + 1))
+assert [next(a for a in range(2, p * p) if pow(a, p - 1, p * p) == 1) for p in primerange(3, 32)] == [8, 7, 18, 3, 19, 38, 28, 28, 14, 115]
+
+# 10210: prime-free gaps between consecutive perfect powers below 2e8, and the pair 503284356-503284375
+pw2 = sorted({b ** e for e in range(2, 28) for b in range(2, int(round(2e8 ** (1 / e))) + 2) if b ** e <= 2 * 10**8})
+assert [(x, y) for x, y in zip(pw2, pw2[1:]) if np.searchsorted(P, y) == np.searchsorted(P, x, 'right')] == [(8, 9), (25, 27), (32, 36), (121, 125), (2187, 2197), (3125, 3136), (32761, 32768), (79507, 79524), (97336, 97344)]
+assert 503284356 == 22434**2 and 503284375 == 55**5 and nextprime(503284356) > 503284375
+
+# 10211: nine primes in (32k, 32k + 32) for k = 23175165755516618
+k32 = 23175165755516618
+assert sum(isprime(x) for x in range(32 * k32, 32 * k32 + 32)) == 9
+
+# 10306: consecutive primes p with 4p^2 + 1 prime: the least run of 5 starts at 1627; a run of 6 at 1648002773
+fp = np.array([gmpy2.is_prime(4 * int(p) ** 2 + 1) for p in P[:20000]])
+run5 = next(i for i in range(len(fp) - 5) if fp[i:i + 5].all())
+assert int(P[run5]) == 1627
+r6 = [1648002773]
+while len(r6) < 7: r6.append(nextprime(r6[-1]))
+assert [gmpy2.is_prime(4 * x * x + 1) for x in r6] == [True] * 6 + [False] and not gmpy2.is_prime(4 * int(gmpy2.prev_prime(1648002773)) ** 2 + 1)
+
+# 10307: 2^n and F_n as sums of two consecutive primes
+def two_consec(N):                                  # N = a + b with a < b consecutive primes
+    a_ = gmpy2.prev_prime(N // 2 + 1); return a_ + gmpy2.next_prime(a_) == N
+assert [n for n in range(3, 401) if two_consec(2**n)] == [3, 7, 13, 77, 182]
+assert [n for n in range(5, 301) if two_consec(int(fibonacci(n)))] == [5, 6, 12, 60]
+
+# 10308: the run of 15 integers with Omega = 4 from 97524222465 is exact
+om4 = lambda n: sum(factorint(n).values())
+assert all(om4(97524222465 + i) == 4 for i in range(15)) and om4(97524222464) != 4 and om4(97524222480) != 4
+
+# 10406: twin chains (p, p + 2) -> (2p + 1, 2p + 3): least starts for k = 1..4, and the 5- and 6-chains
+def tchain(p):
+    k = 0
+    while isprime(p) and isprime(p + 2): k += 1; p = 2 * p + 1
+    return k
+assert [next(int(p) for p in P[:30000] if tchain(int(p)) >= k) for k in (1, 2, 3, 4)] == [3, 5, 211049, 253679]
+assert tchain(41887255409) == 5 and tchain(73768891456259) == 6
+
+# 10607: p, 2p + 1, ..., np + (n - 1) all prime: least p for n = 6, 7, 8; the chains for n = 9, 10
+def kchain(p):
+    k = 1
+    while gmpy2.is_prime((p + 1) * (k + 1) - 1): k += 1
+    return k
+assert [next(int(p) for p in P[:300000] if kchain(int(p)) >= n) for n in (6, 7, 8)] == [154769, 2894219, 2894219]
+assert kchain(407874179) >= 9 and kchain(214580145779) >= 10
+
+# 10607: least m with 2^(2^k) + m prime for k = 0..n (n = 5, 6), and the values for n = 7, 8
+fm_ = lambda m, n: all(gmpy2.is_prime(2**(2**k) + m) for k in range(n + 1))
+assert next(m for m in range(1, 10**5) if fm_(m, 5)) == 15 and next(m for m in range(1, 10**5) if fm_(m, 6)) == 66747
+assert fm_(475425, 7) and fm_(12124167, 8)
+
+# 10608: n! + 239 prime list, 648k^6 + 1, floor(n^2/3)
+f, l239 = 1, []
+for n in range(1, 239):
+    f *= n
+    if gmpy2.is_prime(f + 239): l239.append(n)
+assert l239 == [2, 4, 5, 7, 8, 9, 10, 11, 18, 22, 38, 45, 48, 76, 90, 96, 99, 132, 136, 147, 225]
+assert next(648 * k**6 + 1 for k in range(1, 100) if isprime(648 * k**6 + 1)) == 472393
+assert not any(isprime(n * n // 3) for n in range(5, 20000))
+
+# 10706: weakly primes below 10^6, and the period-666 prime
+def weak(p):
+    s_ = str(p)
+    return not any(isp[int(s_[:i] + d + s_[i + 1:])] for i in range(len(s_)) for d in '0123456789' if d != s_[i])
+assert [p for p in ps + [int(x) for x in P[(P >= 10**5) & (P < 10**6)]] if weak(p)][:5] == [294001, 505447, 584141, 604171, 971767]
+assert n_order(10, 902659997773) == 666 and isprime(902659997773)
+
+# 10707: Chernick numbers with one prime factor (m < 10^5), and a Carmichael number 2n + 1
+def korselt(N):
+    fs = factorint(N); return len(fs) > 1 and all(e == 1 for e in fs.values()) and all((N - 1) % (q - 1) == 0 for q in fs)
+one = [m for m in range(1, 10**5) if pow(2, (6*m+1)*(12*m+1)*(18*m+1) - 1, (6*m+1)*(12*m+1)*(18*m+1)) == 1
+       and sum(isprime(x) for x in (6*m+1, 12*m+1, 18*m+1)) == 1 and korselt((6*m+1)*(12*m+1)*(18*m+1))]
+assert one == [22, 105, 225, 609, 12259, 15125, 37961, 85410]
+assert 82163 * 1068107 * 3532967 == 310049210890163447 and korselt(310049210890163447) and not korselt(310049210890163447 // 2)
+
+# 10708: covers for the Cohen-Selfridge prime and the prime Brier number; Cullen identities
+kcs, brier = 47867742232066880047611079, 10439679896374780276373
+cov48, cov360 = (3, 5, 13, 17, 97, 241, 257), (3, 7, 11, 19, 31, 37, 41, 61, 73, 109, 151, 331)
+assert gmpy2.is_prime(kcs) and gmpy2.is_prime(brier)
+assert all(any((kcs + pow(2, n, q)) % q == 0 for q in cov48) and any((kcs - pow(2, n, q)) % q == 0 for q in cov360) for n in range(720))
+assert all(any((brier * pow(2, n, q) + 1) % q == 0 for q in cov48) and any((brier * pow(2, n, q) - 1) % q == 0 for q in cov360) for n in range(720))
+assert all(n * 2**(2 * n + 1) + 1 == 2 * n * 2**(2 * n) + 1 for n in range(1, 50))
+assert all((p * pow(2, p, 3) + 1) % 3 == 0 for p in ps if p % 6 == 1) and all((p * pow(2, p, 7) + 1) % 7 == 0 for p in ps if p % 42 == 5)
+
+# 10709: emirp counts by digits, and 14771 for the Wilson quotient
+emp = [int((at(rev(P[(P >= 10**(d - 1)) & (P < 10**d)])) & (rev(P[(P >= 10**(d - 1)) & (P < 10**d)]) != P[(P >= 10**(d - 1)) & (P < 10**d)])).sum()) for d in range(1, 8)]
+assert emp == [0, 8, 28, 204, 1406, 9538, 70474]
+p = 14771; wq = (math.factorial(p - 1) + 1) // p
+assert (math.factorial(p - 1) + 1) % (p * p) != 0 and pow(wq, p - 1, p * p) == 1
+
+# 10805: de Polignac counts below 10^7 and Erdos's class
+odd = np.arange(3, 10**7, 2); hitp = np.zeros(len(odd), bool)
+for k in range(24): v_ = odd - 2**k; hitp |= at(np.maximum(v_, 0)) & (v_ > 1)
+pol_ = odd[~hitp]
+assert len(pol_) == 421862 and int(isp[pol_].sum()) == 102612 and int((~isp[pol_]).sum()) == 319250
+assert all(any((18814027 - pow(2, k, q)) % q == 0 for q in (3, 5, 7, 13, 17, 241)) for k in range(24)) and 346729110 == 62 * 5592405
+
 print("all FACTS.md checks passed")
