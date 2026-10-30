@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 40 beaten, 28 answered, 1216 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 40 beaten, 29 answered, 1215 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -339,7 +339,7 @@
 | [333](https://www.primepuzzles.net/puzzles/puzz_333.htm) | 'Magic squares' and primes. | open |
 | [334](https://www.primepuzzles.net/puzzles/puzz_334.htm) | Faride & the 2004 year. | open |
 | [335](https://www.primepuzzles.net/puzzles/puzz_335.htm) | Prime values for σ(n). | open |
-| [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | sigma(n)<prime(n) | open |
+| [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | sigma(n)<prime(n) | [answered](../results/336.md) |
 | [337](https://www.primepuzzles.net/puzzles/puzz_337.htm) | p inside p2. | open |
 | [338](https://www.primepuzzles.net/puzzles/puzz_338.htm) | Domino-Prime-Pyramid | open |
 | [339](https://www.primepuzzles.net/puzzles/puzz_339.htm) | Primes & persistence. | open |
