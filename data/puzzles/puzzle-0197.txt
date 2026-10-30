@@ -1,0 +1,575 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_197.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 197. Always composite numbers?
+Source: https://www.primepuzzles.net/puzzles/puzz_197.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0197.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/SierpinskisCompositeNumberTheorem.html
+  http://www.primepuzzles.net/problems/prob_029.htm
+  https://www.primepuzzles.net/puzzles/puzz_195.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_196.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_198.htm
+  https://www.primepuzzles.net/puzzles/puzz_197.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 197. Always composite numbers?
+
+Problems & Puzzles: Puzzles
+
+Puzzle 197. Always composite numbers?
+
+Sequences of odd numbers that remain composite without any easily evident reason may be as attractive as primes.
+
+Three well known examples are the sequences produced using the Sierpinski, the Riesel or the Brier numbers.
+
+Less glamorous examples must be hidden here and there, for sure....
+
+Very, recently while tackling the puzzle 195 (*), I faced one probably interesting example of that kind of sequences:
+
+343
+
+33433
+
+3334333
+
+333343333
+
+...
+
+Some facts about this sequence are:
+
+The members of the sequence can be obtained by 3*(10^(2*k+1)-1)/9+10^k, for k=1, 2, 3, ...
+
+The rate of growth (quantity of additional digits from one member of the sequence to the next one) is 2.
+
+According to my old PRIMEFORM , these numbers remain composite up at least up to k=14000.
+
+Questions:
+
+1. Can you demonstrate that the members of that sequence are always composite, or can you find the first (probable) prime of them?
+
+2. Can you report other interesting/beauty apparently always composite odd sequences ? (we prefer sequences with more number of members composites than the reported one above; this implicitly means a not very high rate of growth)
+
+_____
+
+* every member of this sequence is such that its square is a zero-free number
+
+The Questions 1 & 2 of this puzzle was solved Ken Wilke, Jean Claude Rosa, Jim Howell, Jens Kruse Andersen and Faride FiroozBakht, basically the same way.
+
+But only Patrick De Geest noticed that this question was posed and solved previously by Chris Caldwell and Harvey Dubner, in the Journal of Recreational Mathematics, Volume 28, Number 1, 1996-1997, pp. 1-9
+
+Every term in our sequence is a composite of two factors according to the following pattern:
+
+7 x 49 = 343
+
+67 x 499 = 33433
+
+667 x 4999 = 3334333
+
+...
+
+(6)_k7 x 4(9)_k = (3)_k4(3)_k , for k=>1
+
+Other similar sequences of odd composites similar to the ours, and studied by Caldwell & Dubner, are:
+
+(1)_k0(1)_k, for k>1
+
+(1)_k2(1)_k, for k>0
+
+(3)_k2(3)_k, for k>0
+
+In particular Ken Wilke wrote:
+
+Here is an answer to Question 1 of Problem 197. All members of the sequence are composite. In the proof I use Tk to denote the nth term (to avoid using subscripts).
+
+Proof: Let Tk = 3*(10^(2*k+1)+1)/9 + 10^k. then since Tk is never divisible by 3 we have
+
+3*Tk = Ak*Bk where Ak = 2*10^k+1 and Bk = 5*10^k-1. Since Both Ak and BK are greater than 3 for k = 1,2,..., and Ak is clearly divisible by 3, we have
+
+Tk = (Ak/3)*Bk yielding the desired factorization of Tk.
+
+Perhaps an interesting follow-up question would be: For what values of k are both (Ak/3) and Bk prime?
+
+Faride FiroozBakht, wrote:
+
+The members of the sequence f(k)=3*(10^(2*k+1)-1)/9+10^k, for every natural number k is always composite numbers. That is because:
+
+f(k)=(5*10^k-1)*(6*(10^k-1)/9+1)=10/3*10^(2k)+10^k-1/3
+
+***
+
+J. C. Rosa has gotten a better example than the one I posed in this puzzle: 7(1)_k7, for k=>0, seems to be always composite and seems to be free of a factorizing pattern as before...
+
+In order to save some time, I would like to anticipate that 7(1)_k7 is composite in the following general cases:
+
+a) k=even; in this case 11 is a divisor
+
+b) (k-1)@6=0; in this case 3 is a divisor
+
+b) (k+1)@6=0; in this case 13 is a divisor
+
+In short the only "interesting" cases to search for possible primes are when k=6m+3, for m=>0.
+
+Can you try again with this sequence detecting or a prime or the reason why this is a composite number for any k?
+
+***
+
+J. K. Andersen solved the follow-up posed by J.C. Rosa. Here is his email:
+
+There were apparently no pattern covering all numbers so I started
+
+Primeform/GW and it relatively quickly found the smallest prp for k=10905:
+
+7*10^(10905+1)+(10^10905-1)/9*10+7 is 3-PRP!. It is also prp in many other bases. A Miller-Rabin test from the Miracl big integer library also finds it a probable prime. It is too big to be proved with current methods.
+
+Primeform/GW found no other prp's for k<27000 but I guess there are infinitely many primes in the sequence. I have not computed when the first should have been expected statistically. With all the patterns in prime factors, I am not so surprised that the smallest prp was gigantic.
+
+***
+
+On May 18, 2022 Richard Chen wrote:
+
+There are many examples of families that only contain composite numbers (only count the numbers > base).
+
+Example 1: base 10, family 4{6}9 (formula: (14*10^(n+1)+7)/3)
+
+49 = 7 * 7
+
+469 = 7 * 67
+
+4669 = 7 * 667
+
+46669 = 7 * 6667
+
+466669 = 7 * 66667
+
+4666669 = 7 * 666667
+
+Example 2: base 10, family 28{0}7 (formula: 28*10^(n+1)+7)
+
+287 = 7 * 41
+
+2807 = 7 * 401
+
+28007 = 7 * 4001
+
+280007 = 7 * 40001
+
+2800007 = 7 * 400001
+
+28000007 = 7 * 4000001
+
+Example 3: base 9, family {1} (formula: (9^n-1)/8)
+
+11 = 2 * 5
+
+111 = 7 * 14
+
+1111 = 22 * 45
+
+11111 = 67 * 144
+
+111111 = 222 * 445
+
+1111111 = 667 * 1444
+
+11111111 = 2222 * 4445
+
+111111111 = 6667 * 14444
+
+1111111111 = 22222 * 44445
+
+11111111111 = 66667 * 144444
+
+111111111111 = 222222 * 444445
+
+1111111111111 = 666667 * 1444444
+
+Example 4: base 9, family 3{8} (formula: 4*9^n-1)
+
+38 = 5 * 7
+
+388 = 18 * 21
+
+3888 = 58 * 61
+
+38888 = 188 * 201
+
+388888 = 588 * 601
+
+3888888 = 1888 * 2001
+
+38888888 = 5888 * 6001
+
+388888888 = 18888 * 20001
+
+3888888888 = 58888 * 60001
+
+38888888888 = 188888 * 200001
+
+388888888888 = 588888 * 600001
+
+3888888888888 = 1888888 * 2000001
+
+Example 5: base 8, family 1{0}1 (formula: 8^(n+1)+1)
+
+11 = 3 * 3
+
+101 = 5 * 15
+
+1001 = 11 * 71
+
+10001 = 21 * 361
+
+100001 = 41 * 1741
+
+1000001 = 101 * 7701
+
+10000001 = 201 * 37601
+
+100000001 = 401 * 177401
+
+1000000001 = 1001 * 777001
+
+10000000001 = 2001 * 3776001
+
+100000000001 = 4001 * 17774001
+
+1000000000001 = 10001 * 77770001
+
+Example 6: base 9, family {8}5 (formula: 9^(n+1)-4)
+
+85 = 7 * 12
+
+885 = 87 * 102
+
+8885 = 887 * 1002
+
+88885 = 8887 * 10002
+
+888885 = 88887 * 100002
+
+8888885 = 888887 * 1000002
+
+88888885 = 8888887 * 10000002
+
+888888885 = 88888887 * 100000002
+
+8888888885 = 888888887 * 1000000002
+
+88888888885 = 8888888887 * 10000000002
+
+888888888885 = 88888888887 * 100000000002
+
+8888888888885 = 888888888887 * 1000000000002
+
+Example 7: base 11, family 2{5} (formula: (5*11^n-1)/2)
+
+25 = 3 * 9
+
+255 = 2 * 128
+
+2555 = 3 * 919
+
+25555 = 2 * 12828
+
+255555 = 3 * 91919
+
+2555555 = 2 * 1282828
+
+25555555 = 3 * 9191919
+
+255555555 = 2 * 128282828
+
+2555555555 = 3 * 919191919
+
+25555555555 = 2 * 12828282828
+
+255555555555 = 3 * 91919191919
+
+2555555555555 = 2 * 1282828282828
+
+Example 8: base 12, family {B}9B (formula: 12^(n+2)-25)
+
+9B = 7 * 15
+
+B9B = 11 * AB
+
+BB9B = B7 * 105
+
+BBB9B = 11 * B0AB
+
+BBBB9B = BB7 * 1005
+
+BBBBB9B = 11 * B0B0AB
+
+BBBBBB9B = BBB7 * 10005
+
+BBBBBBB9B = 11 * B0B0B0AB
+
+BBBBBBBB9B = BBBB7 * 100005
+
+BBBBBBBBB9B = 11 * B0B0B0B0AB
+
+BBBBBBBBBB9B = BBBBB7 * 1000005
+
+BBBBBBBBBBB9B = 11 * B0B0B0B0B0AB
+
+Example 9: base 14, family B{0}1 (formula: 11*14^(n+1)+1)
+
+B1 = 5 * 23
+
+B01 = 3 * 395
+
+B001 = 5 * 22B3
+
+B0001 = 3 * 39495
+
+B00001 = 5 * 22B2B3
+
+B000001 = 3 * 3949495
+
+B0000001 = 5 * 22B2B2B3
+
+B00000001 = 3 * 394949495
+
+B000000001 = 5 * 22B2B2B2B3
+
+B0000000001 = 3 * 39494949495
+
+B00000000001 = 5 * 22B2B2B2B2B3
+
+B000000000001 = 3 * 3949494949495
+
+Example 10: base 13, family 3{0}95 (formula: 3*13^(n+2)+122)
+
+395 = 14 * 2B
+
+3095 = 7 * 58A
+
+30095 = 5 * 7A71
+
+300095 = 7 * 5758A
+
+3000095 = 14 * 23A92B
+
+30000095 = 7 * 575758A
+
+300000095 = 5 * 7A527A71
+
+3000000095 = 7 * 57575758A
+
+30000000095 = 14 * 23A923A92B
+
+300000000095 = 7 * 5757575758A
+
+3000000000095 = 5 * 7A527A527A71
+
+30000000000095 = 7 * 575757575758A
+
+Example 11: base 16, family {4}D (formula: (4*16^(n+1)+131)/15)
+
+4D = 7 * B
+
+44D = 3 * 16F
+
+444D = D * 541
+
+4444D = 7 * 9C0B
+
+44444D = 3 * 16C16F
+
+444444D = D * 540541
+
+4444444D = 7 * 9C09C0B
+
+44444444D = 3 * 16C16C16F
+
+444444444D = D * 540540541
+
+4444444444D = 7 * 9C09C09C0B
+
+44444444444D = 3 * 16C16C16C16F
+
+444444444444D = D * 540540540541
+
+Example 12: base 16, family {C}D (formula: (4*16^(n+1)+1)/5)
+
+CD = 5 * 29
+
+CCD = 71 * 1D
+
+CCCD = 1E1 * 6D
+
+CCCCD = 18D * 841
+
+CCCCCD = 64D * 2081
+
+CCCCCCD = 7F01 * 19CD
+
+CCCCCCCD = 1FE01 * 66CD
+
+CCCCCCCCD = 198CD * 80401
+
+CCCCCCCCCD = 664CD * 200801
+
+CCCCCCCCCCD = 7FF001 * 199CCD
+
+CCCCCCCCCCCD = 1FFE001 * 666CCD
+
+CCCCCCCCCCCCD = 1998CCD * 8004001
+
+Example 13: base 17, family 1{9} (formula: (25*17^n-9)/16)
+
+19 = 2 * D
+
+199 = B * 27
+
+1999 = 2 * D4D
+
+19999 = AB * 287
+
+199999 = 2 * D4D4D
+
+1999999 = AAB * 2887
+
+19999999 = 2 * D4D4D4D
+
+199999999 = AAAB * 28887
+
+1999999999 = 2 * D4D4D4D4D
+
+19999999999 = AAAAB * 288887
+
+199999999999 = 2 * D4D4D4D4D4D
+
+1999999999999 = AAAAAB * 2888887
+
+Example 14: base 19, family 1{6} (formula: (4*19^n-1)/3)
+
+16 = 5 * 5
+
+166 = D * 1I
+
+1666 = 5 * 515
+
+16666 = CD * 1II
+
+166666 = 5 * 51515
+
+1666666 = CCD * 1III
+
+16666666 = 5 * 5151515
+
+166666666 = CCCD * 1IIII
+
+1666666666 = 5 * 515151515
+
+16666666666 = CCCCD * 1IIIII
+
+166666666666 = 5 * 51515151515
+
+1666666666666 = CCCCCD * 1IIIIII
+
+Example 15: base 25, family 2{1} (formula: (49*25^n-1)/24)
+
+21 = 3 * H
+
+211 = 14 * 1J
+
+2111 = 2N * HC
+
+21111 = 144 * 1IJ
+
+211111 = 2MN * HCC
+
+2111111 = 1444 * 1IIJ
+
+21111111 = 2MMN * HCCC
+
+211111111 = 14444 * 1IIIJ
+
+2111111111 = 2MMMN * HCCCC
+
+21111111111 = 144444 * 1IIIIJ
+
+211111111111 = 2MMMMN * HCCCCC
+
+2111111111111 = 1444444 * 1IIIIIJ
+
+Example 16: base 36, family O{Z} (formula: 25*36^n-1)
+
+OZ = T * V
+
+OZZ = 4Z * 51
+
+OZZZ = TZ * U1
+
+OZZZZ = 4ZZ * 501
+
+OZZZZZ = TZZ * U01
+
+OZZZZZZ = 4ZZZ * 5001
+
+OZZZZZZZ = TZZZ * U001
+
+OZZZZZZZZ = 4ZZZZ * 50001
+
+OZZZZZZZZZ = TZZZZ * U0001
+
+OZZZZZZZZZZ = 4ZZZZZ * 500001
+
+OZZZZZZZZZZZ = TZZZZZ * U00001
+
+OZZZZZZZZZZZZ = 4ZZZZZZ * 5000001
+
+However, there are also many families, which have no known prime (or PRP) > base, neither can be proven that they only contain composite numbers (only count the numbers > base), e.g.
+
+base 11, family 5{7}
+
+base 13, family 9{5}
+
+base 13, family A{3}A
+
+base 16, family {3}AF
+
+base 16, family {4}DD
+
+base 17, family 1{7}
+
+base 17, family F1{9}
+
+base 18, family C{0}C5
+
+You can try to find a prime (or PRP) > base in these families.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

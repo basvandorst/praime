@@ -1,0 +1,360 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_809.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 809. Two linked Goldbach prime-stairs
+Source: https://www.primepuzzles.net/puzzles/puzz_809.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0809.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_558.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_808.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_810.htm
+  https://www.primepuzzles.net/puzzles/puzz_809.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 809. Two linked Goldbach prime-stairs
+
+Problems & Puzzles: Puzzles
+
+Puzzle 809. Two linked Goldbach prime-stairs
+
+Vic Bold sent the following nice puzzle:
+
+13 + 47 = 60
+
+17 + 43 = 60
+
+19 + 41 = 60
+
+23 + 37 = 60
+
+29 + 31 = 60
+
+Each column contains consecutive primes. Is there the partition of some other even number with more than five consecutive primes in each column?
+Notice that in this example the set of all of the ten primes are all consecutive. But in this puzzle in general we do not ask it follows that condition. In this puzzle we only ask that each column is a separate set both of k consecutive primes. That is to say:
+
+For a given even number E, E=p1+q1=p2+q2=... =pk+qk, where {pi} and {qi} are separate sets of k consecutive prime numbers.
+
+Carlos Rivera computed the smallest even number that shows these double column of k consecutive primes. Here are his results:
+
+k | E | p1
+
+2 | 10 | 3
+
+3 | 24 | 5
+
+4 | 54 | 7
+
+5 | 60 | 13
+
+6 | 90 | 17
+
+7 | 660 | 41
+
+9 | 1320 | 13
+
+10 | 25200 | 1087
+
+12 | 51870 | 9461
+
+Q1. Please try to extend this table
+.
+Notice that, as per results in the table above:
+
+a) for k>2, E mod 3 = 0
+
+b) for k>4, E mod 10 = 0
+
+Q2. Can you find later counterexample to these rules, or can you explain them?
+
+_____
+
+n.b. This puzzle is close related to Puzzle 558.
+
+Vicente Felipe Izquierdo, Jan van Delden and J. K. Anderse noticed that my entry for k=10 is wrong. Instead 25200 should be 47310.
+
+Contributions came from Jan van Delden and J. K. Andersen
+
+***
+
+Jan wrote:
+
+Q1 (adapted):
+
+The sets P={p[i]} and Q={q[i]} are disjoint (PÇ Q=Æ).
+
+The table displays the first occurrence of a set P (and Q) of size k not contained in a larger set.
+
+So for each k the minimal value of E is given where max(#{P})=k.
+
+k
+
+E
+
+p[1]
+
+1
+
+5
+
+2
+
+2
+
+16
+
+3
+
+3
+
+24
+
+5
+
+4
+
+54
+
+7
+
+5
+
+60
+
+13
+
+6
+
+90
+
+17
+
+7
+
+660
+
+41
+
+8
+
+1680
+
+53
+
+9
+
+1320
+
+13
+
+10
+
+47310
+
+13681
+
+11
+
+92400
+
+2377
+
+12
+
+51870
+
+9461
+
+13?
+
+28272090
+
+1729747
+
+14?
+
+16629000
+
+351691
+
+The given solution E=25200 for k=10 is not correct. It’s length is actually 9.
+
+In my routine I used n=0 mod 30 when n>10^6 (so the entries for k=13,14 could be wrong).
+
+Q2: If we consider the primes in the sets P={p[i],i=1..k} or Q={q[i],i=1..k} modulo some prime p, than these residues are unequal to 0 (except when p itself is part of P).
+
+Given n mod p and a value of p[i] mod p we have:
+
+p-1 choices for the residue q[i] mod p to form a pair (p[i],q[i]) if n=0 mod p
+
+p-2 choices for the residue q[i] mod p to form a pair (p[i],q[i]) if n<>0 mod p
+
+Or to put it differently, one could say:
+
+P(a pair for every p[i] in P | n<>0 mod p) = P(a pair for every p[i] in P| n=0 mod p) * ((p-2)/(p-1))^k
+
+And we see that for small primes p the left probability decreases relatively fast with k. [Certainly if p=3].
+
+If one uses an algoritm that finds only new values of (k,E,p1), solutions which do have E<>0 mod 3 or E<>0 mod 5 are not spotted or printed.
+
+A lot of solutions have E<>0 mod 5 if k>4. Some have E<>0 mod 3. For instance: 322946 with k=6 and p1=1747.
+
+[*] The probabilities are in fact not independent, since we don’t choose the p[i] independently, so better heuristics are welcome..
+
+***
+
+Jens wrote:
+
+Q1. E=25200 and p1=1087 only gives a non-minimal case with k=9.
+
+The smallest cases for k = 10 to 18:
+
+k E p1 Prime factorisation of E
+
+10 47310 13681 2 * 3 * 5 * 19 * 83
+
+12 51870 9461 2 * 3 * 5 * 7 * 13 * 19
+
+14 16629000 351691 2^3 * 3 * 5^3 * 23 * 241
+
+15 184192470 4586893 2 * 3^2 * 5 * 7^2 * 11 * 3797
+
+16 1409754030 16045811 2 * 3 * 5 * 541 * 86861
+
+18 34216186620 13404741443 2^2 * 3 * 5 * 7 * 11 * 17 * 435653
+
+Raanan Chermoni & Jaroslaw Wroblewski have found many prime 20-tuplets
+
+with two mirrored patterns. This gives non-minimal solutions like:
+
+(k, E, p1) = (20, 14374153072440029138813893350, 29)
+
+It is the smallest case with 20 primes as closely together as possible.
+
+Q2. The smallest cases for k = 5 to 18 all have E divisible by 3 and 5.
+
+Other small prime factors also occur more than in random numbers.
+
+For each prime p, a prime above p has p-1 possible values modulo p.
+
+If (k, E, p1) is a solution and p1 to pk cover all p-1 possible values
+
+modulo p, then the k primes E-pk to E-p1 must also cover p-1 values modulo p, and E must be divisible by p.
+
+More generally, if p1 to pk cover n values modulo p, then E has p-n possible
+
+values modulo p. E being divisible by p is always one of them.
+
+It means each prime factor p in E appears increasingly likely when k grows.
+
+***
+
+According to the results from van Delden and Andersen, the intended original table goes as follow:
+
+k
+
+E
+
+p1
+
+1
+
+5
+
+2
+
+2
+
+16
+
+3
+
+3
+
+24
+
+5
+
+4
+
+54
+
+7
+
+5
+
+60
+
+13
+
+6
+
+90
+
+17
+
+7
+
+660
+
+41
+
+8
+
+1680
+
+53
+
+10
+
+47310
+
+13681
+
+12
+
+51870
+
+9461
+
+14
+
+16629000
+
+351691
+
+15
+184192470
+4586893
+
+16 | 1409754030 | 16045811
+
+18 | 34216186620 | 13404741443
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

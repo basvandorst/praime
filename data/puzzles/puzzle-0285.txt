@@ -1,0 +1,169 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_285.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 285.  μ(2^n-1) mod n
+Source: https://www.primepuzzles.net/puzzles/puzz_285.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0285.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/SmarandacheFunction.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_284.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_286.htm
+  https://www.primepuzzles.net/puzzles/puzz_285.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 285. μ(2^n-1) mod n
+
+Problems & Puzzles: Puzzles
+
+Puzzle 285. μ(2^k-1) mod k
+
+For sure you already know the Kempner function μ(n), defined as the minimal m value such that n divides m!
+
+Sebastián Martín Ruiz (*) tabulated the function μ(2^k-1) mod k, for 2<=k<=97 and surprisingly found that
+
+μ(2^k-1) mod k = 1 .....................(a)
+
+except for k=28, 52, 68 & 92, for which the function tabulated resulted to be 15, 27, 35 and 47 respectively.
+
+Sebastian observed that these four k values are of the form k=4m, and for these four cases
+
+μ(2^k-1) mod k = k/2 +1 ............(b)
+
+Evidently something more is waiting to be understood because there are some other values k=4m that obeys (a) instead of (b).
+
+Questions:
+
+1. Can you extend the Sebastián's Table (**)?
+
+2. Can you obtain the general law for the tabulated function?
+
+_________
+
+* Sebastian Martín Ruiz, 'Applications of Smarandache Function and prime and coprime functions', American Research Press Rehoboth, 2002, pp. 11-14
+
+** Hint: As probable you know the Mersenne numbers are conjectured to be square free. Its has been proved that for square free numbers x, μ(x) is just the largest prime factor of x. So you can take provisionally for granted this conjecture and use the tabulated factors of the Mersenne numbers in the well known Cunningham project site.
+
+Contributions came form Luke Pebody, Faride Firoozbakht and Andrew Rupinski.
+
+Luke wrote:
+
+Initial observation: For all n<=360, mu(2^n-1) is the largest prime factor of 2^n-1.
+
+If n is such that:
+
+(i) p=mu(2^n-1) is the largest prime factor of 2^n-1
+
+(ii) n is the smallest integer such that p is a factor of 2^n-1,
+
+then p is equivalent to 1 modulo n.
+
+Faride wrote:
+
+Answer to Q1:
+
+Without using the well known Cunningham project site I found :
+
+K(2^n-1)=1 (mod n) for 1<n<254 and n doesn't belong to the set A={28,52,68,92,124,156,172,244}.
+
+Note that all members of A are of the form 8k+4 and if n is in A then K(2^n-1)=n/2+1 (mod n).
+
+This point that for most numbers n, K(2^n-1)=1 (mod n) and for other numbers n K(2^n-1)=n/2+1 (mod n) didn't surprise me because, it seems that K(2^n-1) for each n (n>1) is the largest prime factor of 2^n-1 and we know if p is prime every prime factor of 2^p-1 is of the form 2*k*p+1.
+
+Answer to Q2:
+
+I think that there is no a general low for the tabulated function.
+
+Later she added about Q1, the following details:
+
+1. I factorized (with Mathematica) all Mersenne numbers 2^n-1 where n<254 and n & n/2 aren't prime. It take only about 23 minutes.
+
+2. This point that for most numbers n,
+
+K(2^n-1)=1 (mod n) (*)
+
+didn't surprise me because if we accept K(2^n-1) is the largest prime factor of 2^n-1 then by using the following theorem we can prove (*) for some special cases.
+
+Theorem: If p is an odd prime then every prime factor of 2^p-1 and 1/3*(2^p+1) is of the form 2*k*p+1.
+
+In fact we can see (according to the following proof) If n or
+
+n/2 is prime then we have (*).
+
+Proof :
+
+Case 1. n is an odd prime so by using the theorem every prime factor of 2^n-1 is of the form 2*k*p+1 hence, the largest prime factor of 2^n-1 is equal to 1 (mod n).
+
+Case 2. n/2=p is an odd prime so 2^n-1=3*1/3(2^p+1)*(2^p-1), hence by using the theorem every prime factor of 2^n-1 is of the form 2*k*p+1=k*n+1 , hence the largest prime factor of
+
+2^n+1 is of the form k*n+1.
+
+Case 3. n=2 ; K(2^2-1)=3 so K(2^2-1)=1 (mod 3).
+
+Example : K(2^254-1)=1 (mod 254) because 254=2*127 and 127 is prime.
+
+Andrew wrote:
+
+From an empirical approach, I began with the following: noting that n followed the second residue pattern only when n was a multiple of 4, I first conjecture that when n is not a multiple of 4, the residue pattern is always the first pattern. Therefore, the below results are based on studying multiples of 4 and only apply when n is a multiple of 4.
+
+First, let G(n) = the largest prime factor of 2^n-1, so that if G(n)^2 does not divide 2^n-1 (a reasonable assumption based on heuristics and observed
+
+behavior) then G(n) = mu(2^n-1). Since normally all factors of a Mersenne number are of the form 8k+1 or 8k+7, i began looking at G(n) mod 8 and found that for all cases 2<k<97 we have that if G(n)=1,5 mod 8 then G(n) = 1 mod n. When G(n) =
+
+3,7 mod 8 we got that G(n) = n/2+1 mod n, in agreement with Ruiz'
+
+observed results. I extended the computation further, to about k = 140 and this continued to hold. Of course these conditions give G(n) = 1,5 mod 8 is equivalent to G(n) = 1 mod 4 and similarly G(n) = 3,7 mod 8 is equivalent to
+
+G(n) = 3 mod 4. Thus in trying to answer the question of the pattern, it seems that we need to check G(n) mod 4 to determine which of the two patterns it follows. Note that when n is not a multiple of 4 (such as n=14 as Carlos pointed out to me) we may have that G(n) = 3 mod 4 while G(n) = 1 mod n.
+
+To test my theory for n a multiple of 4, I tried a couple of sporadic examples, the largest of which are k=772 for which G(772)=
+
+25564774360363212740382247547878573 which is 5 mod 8 so as predicted by my results, mu(2^772-1) mod 772 = 1 and k=1388 for which G(1388) =
+
+95562442332919646317117537304253622533190207882011713489066201641121786503686867002917439712921903606443
+
+which is 3 mod 8 so as predicted by my results, mu(2^1388-1) mod 1388 = 1388/2+1.
+
+But more generally, in my searches of low k values, i noticed that in addition to Ruiz' observation that k=4m when it follows the second pattern, m is also prime in each of these cases, that is why i looked specifically at the larger examples k=772 = 4*193 and k=1388 = 4*347. However, m need not be prime as k=2244 = 4*561 follows the second pattern (note that 561 is a Carmichael number).
+
+Looking through the first 60 primes or so, it appears that mu(2^4p-1) follows the second residue pattern around 1/3 of the time, though the occurrences become less and less frequent as p gets higher, so the overall occurrence of the second residue pattern may be much lower (maybe even asymptotically 0).
+
+A few other results are that when 2^n-1 is prime for n>5, except for n=19, mu(2^4n-1) = 2n+1 mod 4n. This is related to the fact that 2^4n-1 =
+
+(2^2n+1)(2^n+1)(2^n-1) and that 2^2n+1 has an Aurifeullian factorization and
+
+2^n+1 is divisible by 3, so that G(4n) is 2^n-1 in this case, and the result would trivially hold. The failure at n=19 occurs when the Aurefeullian factorization actually gives a prime larger than 2^19-1, namely 2^19+2^10+1. In fact, the factor 2^(2k+1)+2^(k+1)+1 is the largest potential prime factor of 2^(4n)-1 [n=2k+1]. This factor is clearly 1 mod 4, so at least when this factor is prime, we ought to have mu(2^(4n)-1) = 1 mod 4n. The known values of n when this occurs are found in A007671. Note that n=3,5, and 19 are the only cases which also give rise to a Mersenne Prime. Similarly, the factor
+
+2^(2k+1)-2^(k+1)+1 is the largest prime factor when n is in A007670 and not a Mersenne exponent, in this case again we ought to have the first residue pattern hold. Thus, the Gaussian Mersenne Norms correspond to a subset of the primes satisfying the first residue possibility you list. Mersennes whose indices do not also correspond to Gaussian Mersennes of the (+) type correspond to a subset of the primes satisfying the second residue possibility. Thus there should (in theory) be infinitely many primes in both residue classes since both Mersennes and Gaussian Mersennes are conjectured to be infinite, and as the index goes up, the probability that the index corresponds to both a (+) type GM and to a Mersenne exponent fall off rapidly.
+
+Of course what I have reported here is merely conjectural on the nature of these residues, but I currently don't have time to rigorously prove them, so i will leave that step to whoever else wishes to undertake it. As to when n is not a multiple of 4, I have not investigated much into why mu(2^n-1) = 1 mod n, so why this holds remains open.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

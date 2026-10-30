@@ -1,0 +1,441 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 536. Primes in several bases (again) </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.mw-headline
+	{}
+.tr-field {
+	FONT: x-small arial
+}
+body {
+ margin: 6px;
+ padding: 0px;
+ font-family: Verdana, sans-serif;
+ font-size: 10pt;
+ background-color: #ffffff;
+}
+
+
+span.mediumtext
+	{}
+.font6
+	{color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Wingdings;
+	}
+.font5
+	{color:windowtext;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Times New Roman", serif;
+	}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<p>&nbsp;</p>
+	<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10" align="left">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b>
+      <font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1">
+        <tr>
+          <td>
+          <blockquote>
+            <p><b><span lang="EN-US" style="font-family: Verdana">Puzzle 536.</span></b><span style="font-family: Verdana"><b><font color="#008080"> 
+			</font><font color="#008000"> 
+			Primes in several bases (again)</font></b></span></p>
+			<p><font size="2"><span style="font-family: Verdana">This puzzle was 
+			suggested by JM Bergot</span></font></p>
+			<blockquote>
+				<p><font size="2"><span style="font-family: Verdana">You are 
+				given a string of digits S.</span></font></p>
+				<p><font size="2"><span style="font-family: Verdana">Is it 
+				possible that the same string S produce a prime number when S is 
+				converted to Base 10 supposing that the string S is in base B, 
+				for B=2 to 10?</span></font></p>
+			</blockquote>
+			<p><font size="2"><span style="font-family: Verdana">I (CR) found 
+			the following almost &quot;solution&quot;:</span></font></p>
+			<table x:str border="0" cellpadding="0" cellspacing="0" width="395" style="border-collapse: collapse; width: 297pt" id="table2">
+				<colgroup>
+					<col width="80" style="width: 60pt">
+					<col width="202" style="width: 152pt">
+					<col width="113" style="width: 85pt">
+				</colgroup>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; white-space: nowrap; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: silver">
+					S</td>
+					<td colspan="2" width="315" style="width: 237pt; font-size: 12.0pt; font-weight: 700; text-align: left; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid black; border-top: 1.0pt solid windowtext; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: silver">
+					<p style="text-align: center">11111110111101000001</td>
+				</tr>
+				<tr height="43" style="height: 32.25pt">
+					<td height="43" style="height: 32.25pt; font-size: 12.0pt; font-weight: 700; text-align: center; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; white-space: nowrap; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: 1.0pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: silver">
+					B</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: 1.0pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: silver">
+					S converted base 10 supposing S is in base B</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: 1.0pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: silver">
+					Prime?</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					2</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					1044289</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					3</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					1742858209</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; color: red; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: yellow" x:num>
+					4</td>
+					<td width="202" style="width: 152pt; color: red; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: yellow">
+					366487080961</td>
+					<td width="113" style="width: 85pt; color: red; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px; background: yellow">
+					False</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					5</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					23841613687501</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					6</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					731229510940993</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					7</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					13298697207471649</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					8</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					164703003365081089</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="21" style="height: 15.75pt">
+					<td height="21" width="80" style="height: 15.75pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					9</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					1519707899947730221</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+				<tr height="22" style="height: 16.5pt">
+					<td height="22" width="80" style="height: 16.5pt; width: 60pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: 1.0pt solid windowtext; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: 1.0pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+					10</td>
+					<td width="202" style="width: 152pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: 1.0pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					11111110111101000001</td>
+					<td width="113" style="width: 85pt; font-size: 12.0pt; font-weight: 700; text-align: center; white-space: normal; color: windowtext; font-style: normal; text-decoration: none; font-family: Arial; vertical-align: bottom; border-left: medium none; border-right: 1.0pt solid windowtext; border-top: medium none; border-bottom: 1.0pt solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+					True</td>
+				</tr>
+			</table>
+			<p><font color="#0000FF"><b>Q. Can you find a complete solution?</b></font></p>
+			<p><font color="#0000FF"><b>_<font size="2"><span style="font-family: Verdana">___<br>
+			Useful?: <a href="http://www.easysurf.cc/cnver17.htm#batob10">
+			http://www.easysurf.cc/cnver17.htm#batob10</a> <br>
+&nbsp;</span></font></b></font></p>
+			</blockquote>
+			<mailto:cbrfgm@gmail.com>
+			</td>
+        </tr>
+        <tr>
+          <td>
+          &nbsp;</td>
+        </tr>
+      </table>
+      <hr>
+      <p><span lang="en-us"><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+		<p>J. K. Andersen wrote:</p>
+		<blockquote>
+			<p><a href="http://fatphil.org/maths/trivia/multibase.html">
+			http://fatphil.org/maths/trivia/multibase.html</a>&nbsp; says<br>
+			S = 110100000010101111110001010011001110001 (447045215857 in 
+			decimal) for B=2 to 10 was found by Phil Carmody in 2003 and 
+			confirmed minimal by Jim Fougeron:
+			<a href="http://tech.groups.yahoo.com/group/primenumbers/message/13356">
+			http://tech.groups.yahoo.com/group/primenumbers/message/13356</a>
+			<br>
+			<br>
+			Furthermore, S = 1000000010000011110100010001000101001010110111001<br>
+			(282607273285049 in decimal) is minimal for B=2 to 11, found in 2008 
+			by<br>
+			Andreas Höglund:
+			<a href="http://www.mersenneforum.org/showpost.php?p=125758&postcount=71">
+			http://www.mersenneforum.org/showpost.php?p=125758&amp;postcount=71</a>
+			<br>
+			<br>
+			The sequence of minimal S is in A086884. The decimal value is in 
+			A086204.</p>
+		</blockquote>
+		<p>***</p>
+		<p>Jan van Delden wrote:</p>
+		<blockquote>
+			<p>
+			<span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+			<span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">
+			I found the following 4 near misses (base 2 - representation), 
+			failing at only 1 base</span></span></p>
+			<span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+			<span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">
+			<div>
+				<font size="2" face="Arial">41532851&nbsp;&nbsp;&nbsp; not prime base 10<br>
+				572222537&nbsp; not prime base 3<br>
+				636174857&nbsp; not prime base 6<br>
+				796769213&nbsp; not prime base 10</font></div>
+			<div>
+				&nbsp;</div>
+			<div>
+				<font size="2" face="Arial">Searched until 15.10^8 (base 2).</font></div>
+		</blockquote>
+		</span></span>
+		<p>***</p>
+		<blockquote>
+			<div style="color: rgb(0, 0, 0); font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+				<font face="Verdana">On october 17, 2022, </font>
+				<font style="font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; background-color: rgb(255, 255, 255)">
+				<font face="Verdana">Andreas Höglund wrote:</font></font><p>
+				<font face="Verdana">The smallest multibase base 2-12 prime was 
+				found by Jim Viebke on mersenneforum:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+				<font face="Verdana">
+				<a title="https://mersenneforum.org/showpost.php?p=615748&amp;postcount=76" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mersenneforum.org/showpost.php?p%3D615748%26postcount%3D76&amp;source=gmail&amp;ust=1666392855158000&amp;usg=AOvVaw18CeBbbgvAhyAQlTlr4f9D" style="color: rgb(17, 85, 204);" href="https://mersenneforum.org/showpost.php?p=615748&postcount=76">
+				https://mersenneforum.org/<wbr>showpost.php?p=615748&amp;<wbr>postcount=76</a></font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+				<font face="Verdana">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+				<font face="Verdana">base 2-12 prime:&nbsp;&nbsp;&nbsp;&nbsp;</font><font style="font-size: 9.8pt; background-color: rgb(245, 245, 255);" face="Verdana">101000010110001010001101010110<wbr>11011101111110100101011</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+				<font face="Verdana" style="background-color: rgb(245, 245, 255);">
+				I found the smallest base 2-11 prime back in 2008&nbsp;<img alt="Smile" src="https://mail.google.com/mail/u/0?ui=2&ik=b5b4101629&attid=0.1&permmsgid=msg-f:1746965823271566506&th=183e782912d97caa&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ-Edqj5FMz7Y4DbihxEpjfyeZA6KIFwNZapICkqz-80m3xNpds4K2X1b9DxrDg9wezKZtig8qjEiymhqel8yYihtRvMfSUjQcNRn8h6fLkoIYGLgieQ4VE7LCA&disp=emb" data-image-whitelisted class="CToWUd" data-bit="iit" style="border-style: none;">&nbsp; 
+				Now Jim found 6 more base 2-11 and this base 2-12.</font></div>
+		</blockquote>
+		<font color="#888888" style="font-family: Arial; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+		</font>
+		<p>***</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		</font>
+    </blockquote>
+	<WBR>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_535.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp; <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_537.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

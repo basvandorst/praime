@@ -1,0 +1,212 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_935.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 935. pi+SOD(pi)=p(i+n)
+Source: https://www.primepuzzles.net/puzzles/puzz_935.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0935.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_934.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_936.htm
+  https://www.primepuzzles.net/puzzles/puzz_935.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 935. pi+SOD(pi)=p(i+n)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 935. pi+SOD(pi)=p(i+n)
+
+Paolo Lava sent the following nice puzzle:
+
+For each natural integer n, find the first p(i) such that
+
+p(i)+SOD(p(i)) = p(i+n)
+
+He sent the first seven terms:
+
+n | p(i) | p(i+n)
+
+1 | 11 | 13
+
+2 | 19 | 29
+
+3 | 37 | 47
+
+4 | 59 | 73
+
+5 | 97 | 113
+
+6 | 55787 | 55819
+
+7 | 26699 | 26731
+
+Q1. Is this sequence finite or infinite?
+
+Q2. Extend this Table so far as possible.
+
+Contributions came from Giovanni Resta, Paolo Lava, Paul Cleary, Pierandrea Formusa.
+
+***
+
+Giovanni wrote on Dec 16, 2018:
+
+I found these entries
+
+8 663959
+
+9 6974477
+
+10 86966771
+
+11 1095975857
+
+12 4649574977
+
+13 349685387573
+
+14 988839709939
+
+15 86396869388567
+
+In principle it seems that the series can be infinite, but finding
+
+further terms becomes difficult. On the average the gap between a prime
+
+number p = p(i) and q=p(i+n) is about n*log(p). On the other hand, the
+
+sum of digits of p is at most about log10(p)*9 which is less than
+
+4*log(p).So, as n increases (and p increases as well) becomes more and
+
+more difficult to find a sequence of n+1 primes whose gap is less than
+
+4*log(p).
+
+For example, for the 15-term p = 86396869388567, we have sod(p)=92 while
+
+around that magnitude of primes usually primes 15 primes apart are
+
+separated by an averages gap greater than log(p)*15 > 480.
+
+The gaps following 86396869388567 are 2, 4, 6, 2, 6, 4, 6, 6, 14, 16,
+
+14, 4, 2, 4, 2 (their sum is indeed 92) so these primes form a very
+
+tight cluster. To find further terms on the table requires to find
+
+longer tight cluster of large primes.
+
+***
+
+Paolo wrote on 17 Dec 2018:
+
+Up to now I reached n=11
+
+1 11 13
+
+2 19 29
+
+3 37 47
+
+4 59 73
+
+5 97 113
+
+6 55787 55819
+
+7 26699 26731
+
+8 663959 663997
+
+9 6974477 6974521
+
+10 86966771 86966821
+
+11 1095975857 1095975913
+
+***
+
+Paul wrote on Dec 17, 2018:
+
+Q2.. using the same format.
+
+8 , 663959 , 663997
+
+9 , 6974477 , 6974521
+
+10 , 86966771 , 86966821
+
+11 , 1095975857 , 1095975913
+
+12 , 4649574977 , 4649575039
+
+Calculated as far as the prime 35419661603 before stopping, with no n = 13 found.
+
+***
+
+Pierandrea wrote on Dec 20, 2018:
+
+Q2:
+
+n=8 p(i)=663959 p(i+n)=663997
+
+PARI code to get this result:
+
+forprime (p=1, 1000000, if(p+sumdigits(p)==nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(p+1)+1)+1)+1)+1)+1)+1)+1),print(p);break));
+
+-----------------------------------------------------
+
+n=9 p(i)=6974477 p(i+n)=6974521
+
+PARI code to get this result:
+
+forprime (p=1, 8000000, if(p+sumdigits(p)==nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(p+1)+1)+1)+1)+1)+1)+1)+1)+1),print(p);break));
+
+-----------------------------------------------------
+
+n=10 p(i)=86966771 p(i+n)=86966821
+
+PARI code to get this result:
+
+forprime (p=1, 100000000, if(p+sumdigits(p)==nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(p+1)+1)+1)+1)+1)+1)+1)+1)+1)+1),print(p);break));
+
+print("fine")
+
+-----------------------------------------------------
+
+n=11 p(i)=1095975857 p(i+n)=1095975913
+
+PARI code to get this result:
+
+forprime (p=1, 1100000000, if(p+sumdigits(p)==nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(nextprime(p+1)+1)+1)+1)+1)+1)+1)+1)+1)+1)+1),print(p);break));
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

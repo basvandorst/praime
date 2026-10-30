@@ -1,0 +1,224 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_960.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 960. Redo Puzzle 793
+Source: https://www.primepuzzles.net/puzzles/puzz_960.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0960.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_959.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_961.htm
+  https://www.primepuzzles.net/puzzles/puzz_960.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 960. Redo Puzzle 793
+
+Problems & Puzzles: Puzzles
+
+Puzzle 960. Redo Puzzle 793
+
+Carlos Rivera asks this:
+
+Redo Puzzle 793, improving the Emmanuel Vantieghem's solution for k=10 digits.
+
+A smaller solution than: Z=102031405123416071809152453627382938465749676859789 (51 digits)
+
+Where “if Z is composed by K distinct digits, then every one of them appears at least once contiguous to each other.”
+
+Q. Send a solutions Z with less than 51 digits o show that this the minimal.
+
+Solutions came from Carlos Rivera, Simon Cavegn, Dmitry Kamanatsky, Ocar Volpatti, Michael Hürter,
+
+***
+
+Rivera wrote on July 6
+
+Constructively you can get an integer-solution formed for a minimal of 50 digits, 5 of each (0, 1, 2, ...,9). But the this integer is divisible by 3. If the solution must be prime is necessary to add one single digit other then 0, 3, 6 or 9. Accordingly the minimal prime solution must have a total of 51 digits. If the initial digit is zero, then the prime-solution may have only 50 significant digits.
+
+Example: 011203405607809135147168123625427928375394864769859 (prime, 51 digits leading zero included, digit added="1")
+
+***
+
+Simon wrote on July 7
+
+For the smallest solution each digit must appear exactly 5 times to be able to be next to each other digit. That means the smallest possible solution would have 50 digits. However the cross sum (sum of digits) of each such 50-digit number is divisible by 3, that means each such number is divisible by 3. Therefore the smallest possible solution must have 51 digits. Adding the smallest possible digit '0' to 50 digits will not change the sum of digits. Adding digit '1' will be good. If we allow for a leading zero 51 digit solution, the smallest I could find is 011203123405142534560716273647567809182938594896879. If a leading zero is not allowed for 51 digits, then the best I could find is: 101203123405142534560716273647567809182938495869789.
+
+***
+
+Dmitry wrote on July 10
+
+I am pretty sure that you cannot have a solution with 50 digits because then the number always divides by 3. So here is my best solution with 51 digits:
+101203123405142534570617263746567908192839689589487
+
+...
+Here is an improvement:
+101203123405142534570617263746567809182938497869859
+
+***
+
+Oscar wrote on July 11, 2019:
+
+for K = 10, the smallest integer solution has length 50:
+
+Z = 10203123405142534560716273647567809182938495869789;
+
+the smallest prime solution has length 51:
+
+P = 101203123405142534560716273647567809182938495869789.
+
+Curiously, P can be obtained from Z by carefully inserting one more digit "1".
+
+Both values are smaller than Emmanuel Vantieghem's prime solution.
+
+Table 1 shows the smallest integer solutions for 5 <= k <= 10:
+
+----|----|----------------------------------------------------
+
+K | L | Z
+
+----|----|----------------------------------------------------
+
+5 | 11
+10213042341
+
+6 | 18 | 102031234051425345
+
+7 | 22 | 1021304150623425364561
+
+8 | 32 | 10203123405142534560716273647567
+
+9 | 37 | 1021304150617082342536273845647586781
+
+10 | 50 | 10203123405142534560716273647567809182938495869789
+
+----|----|----------------------------------------------------
+
+Table 2 shows the smallest prime solutions for 5 <= k <= 10, improving Emmanuel Vantieghem's submission for puzzle 793:
+
+----|----|-----------------------------------------------------
+
+K | L | P
+
+----|----|-----------------------------------------------------
+
+5 | 11 | 10213053251
+
+6 | 19 | 1012031234062461463
+
+7 | 22 | 1021304150624354652361
+
+8 | 32 | 10203123405142534560716273657467
+
+9 | 37 | 1021304150617082342536273845647687581
+
+10 | 51 | 101203123405142534560716273647567809182938495869789
+
+----|----|-----------------------------------------------------
+
+Minimal length.
+
+Let Z be an integer solution with L digits, chosen from a set D of K distinct digits.
+
+Lower bound B1.
+
+There are K(K-1)/2 possible pairs of distinct digits from D;
+
+Z contains L-1 pairs of contiguous digits;
+
+so L-1 >= K(K-1)/2, or simply L >= K(K-1)/2+1.
+
+Lower bound B2.
+
+Each digit from D belongs to K-1 pairs of distinct digits;
+
+each digit in Z is contiguous to at most two more digits;
+
+so each digit from D appears in Z at least ceil((K-1)/2) times, and L >= K*ceil((K-1)/2).
+
+Bound B1 is larger for odd K, bound B2 is larger for even K:
+
+----|----|----|----|----
+
+K | B1 | B2 | ZB | PB
+
+----|----|----|----|----
+
+5 | 11 | 10 | 11 | 11
+
+6 | 16 | 18 | 18 | 19
+
+7 | 22 | 21 | 22 | 22
+
+8 | 29 | 32 | 32 | 32
+
+9 | 37 | 36 | 37 | 37
+
+10 | 46 | 50 | 50 | 51
+
+----|----|----|----|----
+
+The solutions from table 1 achieve the "integer bound" ZB = max(B1,B2), so they have minimal length.
+
+Such numbers are composite; however, for K = 6 and for K = 10, every solution Z achieving the integer bound is necessarily composite.
+
+Case K = 6, L = 18.
+
+Each digit from D appears in Z exactly 3 times.
+
+Then 3 divides Z, as it divides the sum of its digits s = 3*(d1+d2+d3+d4+d5+d6).
+
+Case K = 10, L = 50.
+
+D = {0,1,2,3,4,5,6,7,8,9}, and each digit from D appears in Z exactly 5 times.
+
+Then 9 divides Z, as it divides the sum of its digits s = 5*(0+1+...+9) = 5*45 = 9*25.
+
+It makes sense to define a "prime bound" PB as follows:
+
+PB = ZB+1 for K = 6 and for K = 10,
+
+PB = ZB otherwise.
+
+The prime solutions from table 2 achieve such prime bound, so they have minimal length.
+
+BTW, Emmanuel Vantieghem's prime solutions have minimal length too.
+
+***
+
+Michael wrote on July 11, 2019
+
+For Puzzle 960, I found the following solution with 51 digits:
+
+101203180738514394692628604279584789190536716547523
+
+All my solutions with 50 digits are not prime.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,578 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_021.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 21. Rivera's Conjectures about the representation of every
+natural number as algebraic sum of distinct consecutive prime numbers.
+Source: https://www.primepuzzles.net/conjectures/conj_021.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0021.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/GoldbachConjecture.html
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/conjectures/conj_021.htm#Appendix
+  https://www.primepuzzles.net/conjectures/conj_021.htm#Appendix II
+  https://www.primepuzzles.net/conjectures/conj_021.htm#Appendix III
+  https://www.primepuzzles.net/conjectures/conj_021.htm#8
+  http://mathworld.wolfram.com/ChoquetTheory.html
+  https://www.primepuzzles.net/conjectures/conj_020.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_022.htm
+
+========================================================================
+
+Conjecture 21. Rivera's Conjectures about the representation of every natural number as algebraic sum of distinct consecutive prime numbers.
+
+Problems & Puzzles: Conjectures
+
+Conjecture 21. Rivera's Conjectures about the representation of every natural number as an algebraic sum of distinct consecutive prime numbers.
+
+For sure many prime numbers lovers have spent tons of hours around the mysterious attraction of the Goldbach conjecture. I'm not the exception. Two weeks ago I got a hit on my head when I read in the P. Ribenboim well known book this:
+
+"In 1949, Richert proved the following ... theorem: every integer n>6 is the sum of distinct primes...Schinzel showed in 1959 that Goldbach conjecture implies (and so it is equivalent to) the statement : every integer n>17 is the sum of three distinct primes" (p. 296)[underlining is mine^]
+
+In that very moment I started considering:
+
+a) if all natural numbers are expressible as an algebraic sum of distinct consecutive primes,
+
+b) and if exists a procedure for obtaining that kind of expressions
+
+c) if these expressions may consist of a certain minimal quantity of primes
+
+Here are my first results:
+
+***
+
+Conjecture 1. Each Natural number N=>Nº can be expressed (at least in one way) as an algebraic sum of distinct consecutive primes, none of them greater than N. If all primes are allowed then Nº=5; if only odd primes are allowed then Nº=11
+
+Note 1: if N is prime the solution is trivially itself. But if you want to express also the prime numbers N as algebraic sums of distinct consecutive primes - all less than N - then simply Nº= 11 or 13, depending if all prime numbers are allowed or only the odd ones.
+
+Conjecture 2. Exists an extremely simple and successful algorithm to find at least one (the first) solution (algebraic sum of distinct consecutive primes equal to N) for any N:
+
+1) Given N, arrange all the allowed primes less than N in descending order
+
+2) Do Sum = S =the largest prime
+
+3) Add or subtract to S the next (smaller) prime depending if S is smaller of grater than N, respectively
+
+4) Stop if S=N, or repeat 3) until waste all the allowed primes.
+
+5) If never happened that S=N then discard the largest prime and go to 2)
+
+Lemma: This algorithm always halts if N=>5 and "2" is allowed, or if N=>15 and only ODD primes are allowed.
+
+Note 2: Why 15 and not 11? Because this algorithm cannot get the solution for N=14 if "2" is not allowed (despite that the solution exists: 14=13-11+7+5)
+
+***
+
+Examples:
+
+Let's suppose that N=14 and "2" is allowed:
+
+1) N=14, allowed primes are: 13,11,7,5,3,2
+
+2) S=13
+
+3) 13+11-7-5+3-2 (never equal to 14)
+
+2) S=11
+
+3) 11+7-5+3-2 = 14 (end)
+
+Now, let's suppose N=16 and only ODD primes are allowed:
+
+1) N=16, allowed primes are: 13,11,7,5,3
+
+2) S=13
+
+3) 13+11-7-5+3+2 (never equal to 16)
+
+2) S=11
+
+3) 11+7-5+3 = 16 (end)
+
+Using this algorithm, the (first) solution for N=666 is:
+
+666 = 461 457 -449 443 -439 433 -431 421 -419 409 -401 397 -389 383 -379 373 -367 359 -353 349 -347 337 -331 317 -313 311 -307 293 -283 281 -277 271 -269 263 -257 251 -241 239 -233 229 -227 223 -211 199 -197 193 -191 181 -179 173 -167 163 -157 151 -149 139 -137 131 -127 113 -109 107 -103 101 -97 89 -83 79 -73 71 -67 61 -59 53 -47 43 -41 37 -31 29 -23 19 -17 13 -11 7 5 -3 (subtract if negative symbol precedes the number, otherwise add)
+
+***
+
+The optimized solutions
+
+You can obtain an "optimized solution" using the algorithm described in Conjecture 2, but applying the step 2) to all the allowed primes less than N and saving the solution that uses the least quantity of primes.
+
+For example, let's work the case N=12
+
+1) N=12, allowed primes are 11,7,5,3,2
+
+2) S=11
+
+3) 11+7-5-3+2 =12 (one - first - solution using 5 primes)
+
+2) S=7
+
+3) 7+5 (other solution using 2 primes)
+
+2) S=5
+
+3) 5+3+2 (never equal to 12)
+
+etc...
+
+Then the optimized solution is 12=7+5
+
+The same way, for N=666 the optimized solution is: 666 = 331 317 313 -311 307 -293 283 -281
+
+***
+
+The minimal solutions
+
+But the optimized solution (obtained with the reiterative use of the algorithm described in Conjecture 2) not necessarily provides the "minimal" solution".
+
+For example the "optimized solution" for N=14 is: 11+7-5+3-2 (5 primes) while the "minimal solution" is 13-11+7+5 (4 primes). Other N values such that the minimal solution has less primes than the optimized solution are: 44, 51, 66, 70, 82, 110, 176, 194, 246, ... See in the Appendix I the solutions for N<=50.
+
+***
+
+Questions:
+
+1. Can you demonstrate or refute the Conjectures 1 & 2 (no matter if you use for this purpose the undemonstrated Goldbach one)?
+
+2. Can you produce a simpler algorithm than the described in the Conjecture 2 to produce at least one solution for any N?
+
+3. Can you devise a simple algorithm to produce the "minimal" solutions for any N? (here, "simple" means a non exhaustive-combinatorial procedure)
+
+4. Let's define R(N) as the quantity of distinct consecutive primes used in the minimal solution for N:
+
+4.1) Can you devise any kind of relationship between R(N) and N?
+
+4.2) Do you think that R(N)<Kr, being Kr certain constant integer not dependent of N?. If so, how small may be Kr? (my personal bet is that if exists such constant then it is not greater than 20... )
+
+5.- Here are the least N integers for the first 7 values for R(N):
+
+R(N) | N | Minimal expressions
+
+1 | 2 | 2=2 (or 3=3 if "2" is not allowed)
+
+2 | 8 | 8=5+3
+
+3 | 6 | 6=5+3-2 (or 9=7+5-3 if...)
+
+4 | 14 | 14=13-11+7+5 (not accessible with the algorithm described in Conjecture 3)
+
+5 | 21 | 21=17+13-11+7-5
+
+6 | 32 | 32=19+17-13+11-7+5
+
+7 | 111 | 101+97-89+83-79-73+71
+
+8 | 1024 | +239+241-251+257+263+269-271+277
+
+(Chris Nash)
+
+9 | 3153 | -997+1009-1013-1019+1021+1031+1033+1039+1049
+
+(Chris Nash)
+
+10 | 56924 | +14153-14159-14173+14177+14197+14207-14221+14243+14249+14251
+
+(Chris Nash)
+
+11 | ?
+
+12 | ?
+
+Can you continue this table ?
+
+Last comment: Obviously that my main hope is that the mathematical concept "algebraic sum of distinct consecutive prime numbers" becomes a new & interesting object of study; if useful to tackle the old Goldbach Conjecture, the better!...
+
+Solutions
+
+Conjecture 1
+
+Chris Nash has total and positively proved (15/07/2000) the Conjecture 1, proving a stronger and beauty fact:
+
+"every integer N... (greater than 17) is an algebraic sum of ALL primes less than N, or ALL primes less than N except the last". See the proof at the Appendix II.
+
+Obviously the fact discovered by Nash proves also the Conjecture 1 of this puzzle. At the same time provides a first answer to the question 4.1: R(N)<pi(N), where pi(N) is the quantity of primes less or equal to N, no matter if it seems a "weak" answer: this bound the figures...
+
+From another point of view, I would say that the Nash's result demonstrates the validity of the Conjecture 1 because he proved the existence of the "maximal solutions", that is to say the existence of algebraic sum of all the primes less than N.
+
+I must confess that I had not even a glimpse of that beauty kind of solutions, neither in a conjectural state... since the beginning I started seeking in the opposite direction: the minimal solutions. So I lost of my scope that diamonds in the sky...
+
+***
+
+Conjecture 2
+
+After knowing the demonstration of the Conjecture 1 - because of the existence of these kind of (maximal) solutions- I immediately asked himself if he devised an efficient algorithm for getting them. One day after he responded with a proposal. Please see his algorithm in the Appendix III. As you can see his algorithm is a kind of extension of my algorithm & Conjecture 2, plus the basic tables prepared by Nash as part of his proof of the Conjecture 1.
+
+***
+
+Questions 3 & 5
+
+Chris Nash has also developed an approach to get the minimal solutions (description still not available) and has produced three (3) new entries to the Table in construction of the question 5. His search for these solutions has reached up to N=65521... "It looks like it could be difficult to extend the table further, without a faster algorithm!"
+
+Comparing his "minimal" results with the "optimized" ones obtained with my procedure & code for the same N values, it seems that the quantity of primes involved in both approaches differ by no more than 2.
+
+So, the issue of producing an efficient algorithm for getting the minimal solutions, while is partially solved for low values of N is still needing a better solution for moderate to large N values.
+
+***
+
+Question 4
+
+Regarding the existence of Kr, Chris Nash says "I expect the Kr exists"
+
+***
+
+I want to express my admiration and gratitude to Chris Nash for his fine work on this Conjectures. In particular I find amazing the unexpected exploitation of that gem of Erdös in a subject apparently so far of the Bertrand Postulate like the Conjecture 1
+
+***
+
+Appendix I:
+
+Solutions for 6<=N<=50
+
+1st Solution if the prime "2" is allowed
+
+1st solution if only odd primes are allowed
+
+Optimized (and minimal) solutions
+
+6 = 5 3 -2
+
+8 = 5 3
+
+9 = 7 5 -3
+
+10 = 5 3 2
+
+12 = 11 7 -5 -3 2
+
+14 = 11 7 -5 3 -2
+
+15 = 13 11 -7 -5 3
+
+16 = 11 7 -5 3
+
+18 = 17 13 -11 -7 5 3 -2
+
+20 = 17 13 -11 7 -5 -3 2
+
+21 = 19 17 -13 -11 7 5 -3
+
+22 = 17 13 -11 7 -5 3 -2
+
+24 = 23 19 -17 -13 11 7 -5 -3 2
+
+25 = 23 19 -17
+
+26 = 23 19 -17 13 -11 -7 5 3 -2
+
+27 = 23 19 -17 13 -11
+
+28 = 23 19 -17 13 -11 7 -5 -3 2
+
+30 = 23 19 -17 13 -11 7 -5 3 -2
+
+32 = 31 29 -23 -19 17 -13 11 -7 5 3 -2
+
+33 = 31 29 -23 -19 17 -13 11
+
+34 = 31 29 -23 -19 17 -13 11 7 -5 -3 2
+
+35 = 31 29 -23 -19 17
+
+36 = 31 29 -23 -19 17 13 -11 -7 5 3 -2
+
+38 = 31 29 -23 19 -17 -13 11 7 -5 -3 2
+
+39 = 37 31 -29
+
+40 = 31 29 -23 19 -17 13 -11 -7 5 3 -2
+
+42 = 41 37 -31 -29 23 19 -17 -13 11 7 -5 -3 2
+
+44 = 41 37 -31 -29 23 19 -17 13 -11 -7 5 3 -2
+
+45 = 43 41 -37 -31 29
+
+46 = 41 37 -31 -29 23 19 -17 13 -11 7 -5 -3 2
+
+48 = 47 43 -41 -37 31 29 -23 -19 17 13 -11 -7 5 3 -2
+
+49 = 47 43 -41
+
+50 = 47 43 -41 37 -31 -29 23 19 -17 -13 11 7 -5 -3 2
+
+N/A
+
+5+3
+
+7+5-3
+
+N/A
+
+12=7+5
+
+N/A
+
+15 = 13 11 -7 -5 3
+
+16 = 11 7 -5 3
+
+18 = 11 7
+
+20 = 11 7 5 -3
+
+21 = 19 17 -13 -11 7 5 -3
+
+22 = 13 11 -7 5
+
+24 = 17 13 -11 7 -5 3
+
+25 = 23 19 -17
+
+26 = 17 13 -11 7
+
+27 = 23 19 -17 13 -11
+
+28 = 17 13 -11 7 5 -3
+
+30 = 17 13
+
+32 = 23 19 -17 13 -11 7 -5 3
+
+33 = 31 29 -23 -19 17 -13 11
+
+34 = 23 19 -17 13 -11 7
+
+35 = 31 29 -23 -19 17
+
+36 = 23 19 -17 13 -11 7 5 -3
+
+38 = 23 19 -17 13
+
+39 = 37 31 -29
+
+40 = 23 19 -17 13 11 -7 -5 3
+
+42 = 23 19
+
+44 = 23 19 17 -13 -11 7 5 -3
+
+45 = 43 41 -37 -31 29
+
+46 = 31 29 -23 19 -17 13 -11 7 -5 3
+
+48 = 31 29 -23 19 -17 13 -11 7
+
+49 = 47 43 -41
+
+50 = 31 29 -23 19 -17 13 -11 7 5 -3
+
+6 = 5 3 -2
+
+8 = 5 3
+
+9 = 7 5 -3
+
+10 = 5 3 2
+
+12 = 7 5
+
+14 = 11 7 -5 3 -2 (= 13-11+7+5)
+
+15 = 7 5 3
+
+16 = 11 7 -5 3
+
+18 = 11 7
+
+20 = 11 7 5 -3
+
+21 = 17 13 -11 7 -5
+
+22 = 13 11 -7 5
+
+24 = 13 11
+
+25 = 23 19 -17
+
+26 = 17 13 -11 7
+
+27 = 23 19 -17 13 -11
+
+28 = 11 7 5 3 2
+
+30 = 17 13
+
+32 = 19 17 -13 11 -7 5
+
+33 = 29 23 -19
+
+34 = 19 17 -13 11
+
+35 = 31 29 -23 -19 17
+
+36 = 19 17
+
+38 = 23 19 -17 13
+
+39 = 37 31 -29
+
+40 = 19 17 13 -11 7 -5
+
+42 = 23 19
+
+44 = 17 13 11 7 -5 3 -2 (= 31- 29+23+19)
+
+45 = 43 41 -37 -31 29
+
+46 = 23 19 17 -13
+
+48 = 17 13 11 7
+
+49 = 47 43 -41
+
+50 = 29 23 -19 17
+
+***
+
+Appendix II
+
+Let q(n,k) be the number of ways of expressing n as an algebraic sum of ALL consecutive primes, the largest of which is p_k. Here ALL depends on which problem we are attacking, we may allow or disallow 2.We may define q(n,0) to be zero for n not equal to zero. And we may define q(0,0) to be 1. If we are disallowing 2, then q(n,1) is zero except q(0,1)=1.
+
+Now the other relationship we need. Let's add the k'th prime to an already-existing sum that has largest prime p_(k-1). Then we have q(n,k) = q(n-p_k,k-1) + q(n+p_k,k-1) (*) since we can either add or subtract the new prime to previously- existing sums.
+
+Now we define the following function r(k). r(k) is the largest integer r such that q(n,k) is non-zero for -r<=n<-r, and for n of the right parity - evidently all the points at which q(n,k) is not zero are either all odd, or all even. In other words, all numbers from -r(k) to r(k) can be expressed as an algebraic sum of primes, whose largest element is p_k, for precisely eeither the odd valuies or the even values depending on k.
+
+Suppose r(k)>=p_(k+2). Then r(k+1) is at least r(k)+p_(k+1)., since any positive integer of the right parity in this range can be expressed as p_(k+1), plus another sum that ends in p_k. (Similarly any negative integer of the right parity is -p_(k+1) plus a sum listed in the r(k)).
+
+Furthermore we have r(k+1) >= r(k)+p_(k+2) >= p_(k+1)+p_(k+2) We require this to be greater than p(k+3) for the induction step to work.
+
+http://mathworld.wolfram.com/ChoquetTheory.html gives a clue. Erdos proved there is always at least one prime of each of the forms 4k+1, 4k+3 between n and 2n for n>6. In other words, we can strengthen Bertrand's postulate and say there are always at least * two* primes between n and 2n, for n>6.
+
+Hence in those cases p(k+1)+p(k+2) > 2p(k+1) > p(k+3), as long as p(k+1) is greater than 6. And the induction step follows. Now we complete the proof we need.
+
+Suppose r(k)>=p_(k+2), and p(k+1) is greater than 6. Then r(k+1)>=p_(k+ 3). And furthermore: all values of n, p_(k+1)<n<=p_(k+2), of one parity, can be expressed as an algebraic sum of primes, the largest of which is p_k, by definition of r_k, and all values of n, p_(k+1)<n<=p_(k+2), of the opposite parity, can be expressed as an algebraic sum of primes, the largest of which is p_(k+ 1), by definition of r_(k+1).
+
+Therefore, if we can find a value of k such that p(k+1)>6 & r(k)>=p(k+2) then the conjecture is proven for all values of n greater than p_(k+1).
+
+And we may return to test smaller values. So now we need to search whether such a value of k exists. This is easy to do, using the relationship (*) to build a table of the function q for each value of k. Perhaps surprisingly, r(k) is very quickly much much larger than p_(k+2).
+
+If the prime 2 is allowed, we find r(6)=27>=19. The induction can begin and we have proven the conjecture for all values of N greater than 17.
+
+We can quickly check the values 5, 7, 9, 11, 13, 15, and the conjecture is true.
+
+If the prime 2 is not allowed, we find r(7)=36>=23. Thus we have proven the conjecture for all values of N greater than 19. We can quickly check the values 11, 13, 15, 17, 19, and again the conjecture is true.
+
+To complete the proof, I list here the necessary tables to prove that r(6)>=19 in the first case, and r(7)>=23 in the second.
+
+Case 1: All odd numbers up to 19 are expressible as an algebraic sum of the first six primes.
+
+1=-2+3+5-7-11+13
+
+3=+2-3-5+7-11+13
+
+5=-2+3-5+7-11+13
+
+7=-2-3-5-7+11+13
+
+9=-2-3+5+7-11+13
+
+11=+2-3-5-7+11+13
+
+13=-2+3-5-7+11+13
+
+15=-2+3+5+7-11+13
+
+17=-2-3+5-7+11+13
+
+19=+2+3+5+7-11+13
+Case 2: All even numbers up to 24 are expressible as an algebraic sum of the first six ODD primes
+
+0=-3-5-7+11-13+17
+
+2=-3+5+7-11-13+17
+
+4=-3-5-7-11+13+17
+
+6=+3-5-7+11-13+17
+
+8=+3+5+7-11-13+17
+
+10=+3-5-7-11+13+17
+
+12=+3-5+7+11+13-17
+
+14=-3+5-7-11+13+17
+
+16=+3+5-7+11-13+17
+
+18=-3-5+7-11+13+17
+
+20=+3+5-7-11+13+17
+
+22=+3+5+7+11+13-17
+
+24=+3-5+7-11+13+17
+
+We have actually proven a stronger result than the conjecture suggested. Not only is every integer beyond the suggested value an algebraic sum of consecutive primes, every integer beyond the values required by the induction is an algebraic sum of ALL primes less than n, or ALL primes less than n except the last!
+
+***
+
+Appendix III
+
+So here is my suggestion - the first step is indeed to sum all the primes and test for odd or even, so you know the largest prime to use. From then this is the algorithm:
+
+Set R, the remainder, to equal n.
+
+Set k to the index of the largest prime you need for each value of k
+
+If R is positive, write down "+p_k", and subtract p_k from R. If R is negative, write down "-p_k" and add p_k to R. then decrease k until k is small enough to use the tables I sent you in the last mail (k=6 for all primes, k=7 for odd primes)
+
+Finally look up the final value of R in the tables and write down the sum that appears there. The proof tells us this algorithm is successful (we end up with an R value listed in the tables), provided our n value is large enough (larger than the limit of the tables). Of course this only finds ONE such solution, there may be many solutions. It's a very quick and easy algorithm
+
+Example, sum to 50. All primes up to 47 have an even sum, so we will
+
+start with 47
+
+R=50
+
+47: "+47", R=3
+
+43: "+43", R=-40
+
+41: "-41", R=1
+
+37, "+37", R=-36
+
+31, "-31", R=-5
+
+29, "-29", R=24
+
+23, "+23", R=1
+
+19, "+19", R=-18
+
+17, "-17", R=-1
+
+We are at the tables so need R=-1
+
+1=-2+3+5-7-11+13
+
+so -1 is +2-3-5+7+11-13
+
+and so we have
+
+50=+2-3-5+7+11-13-17+19+23-29-31+37-41+43+47.
+
+***
+
+Records | Conjectures | Problems | Puzzles

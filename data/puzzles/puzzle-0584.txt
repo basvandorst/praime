@@ -1,0 +1,274 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_584.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 584. Embedded but not overlapped prime factors
+Source: https://www.primepuzzles.net/puzzles/puzz_584.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0584.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://simplementenumeros.blogspot.com/2011/03/637-numeros-iguales-la-concatenacion-de.html
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A121342
+  https://www.primepuzzles.net/puzzles/puzz_583.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_585.htm
+  https://www.primepuzzles.net/puzzles/puzz_584.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 584. Embedded but not overlapped prime factors
+
+Problems & Puzzles: Puzzles
+
+Puzzle 584. Embedded but not overlapped prime factors
+
+Claudio Meller posed the question 637 in his site:
+
+22940075 = 5^2 × 229 × 4007
+
+I have gotten the following other solutions:
+
+735, 3792, 1341275, 13115375, 22940075, 29373375, 71624133, ...
+
+Q1. Send only the largest case you can find.
+
+Q2. Prove that there is not any integer containing concatenated (embedded but not overlapped) all its prime factors, counting repetitions, or send a counterexample.
+
+Contributions came from Giovanni Resta, Jan van Delden, Hakan Summakoğlu, Emmanuel Vantieghem.
+
+***
+
+Giovanni wrote:
+
+Q1. 347 digits
+
+33061224489795918367346938775510204081632653061224489795918367346938775510204081632653
+
+06122448979591836734693877551020408163265306122448979591836734693877551020408163265306
+
+12244897959183673469387755102040816326530612244897959183673469387755102040816326530612
+
+24489795918367346938775510204081632653061224489795918367346938775510204081632653061224
+
+492 =
+
+2^2 x 3^3 x
+
+306122448979591836734693877551020408163265306122448979591836734693877551020408163265306
+
+122448979591836734693877551020408163265306122448979591836734693877551020408163265306122
+
+448979591836734693877551020408163265306122448979591836734693877551020408163265306122448
+
+979591836734693877551020408163265306122448979591836734693877551020408163265306122449
+
+Q2.
+
+My claim is that
+
+if n = P_1 P_2 P_3 ... P_k with the various primes non
+
+necessarily distinct, then n cannot be a concatenation
+
+(in any order) of P_1, P_2,..., P_k.
+
+Let us call D(x) the number of digits of x.
+
+We want D(n) = D(P_1)+D(P_2)+...+D(P_k).
+
+if D(P_j) = D_j then 10^(D_j-1) < P_j < 10^D_j
+
+Hence I can write P_j = 10^D_j*(1 - E_j) with 0 < E_j < 1.
+
+Let me multiply these representations of the P_j, taking
+
+apart the powers of 10.
+
+n = 10^(D_1+D_2+...+D_k)*(1-E_1)(1-E_2)...(1-E_k) ,
+
+The question is: could n start with the digits of one of the
+
+Pj ? If this is the case, then we can write n as P_j*10^(Dn-D_j)+R_j,
+
+where Dn = D_1+D_2+...+D_k is equal to the number of digits of n,
+
+and R_j>=0.
+
+So, it must be n >= P_j*10^(Dn-D_j). On the other side,
+
+how large could be n= 10^(D_1+D_2+...+D_k)*(1-E_1)(1-E_2)...(1-E_k) ?
+
+We want to see if it could be
+
+n = 10^(D_1+D_2+...+D_k)*(1-E_1)(1-E_2)...(1-E_k) >= P_j*10^(Dn-D_j)
+
+for at least one P_j.
+
+Since P_j = 10^D_j (1 - E_j), and D_1+D_2+...+D_k=Dn we can write
+
+10^(D_1+D_2+...+D_k)*(1-E_1)(1-E_2)...(1-E_k) >=
+
+10^D_j (1 - E_j)*10^(Dn-D_j),
+
+hence
+
+10^Dn*(1-E_1)(1-E_2)...(1-E_k) >= (1-E_j)*10^Dn, and,
+
+taking out the 10^Dn factor and the (1-E_j) factor:
+
+(1-E_1)(1-E_2)...(1-E_{j-1}) (1-E_{j+1})...(1-E_k) >= 1
+
+but this is clearly impossible, since a product of quantities
+
+smaller than 1 cannot be greater or equal to 1.
+
+Hence n cannot start with any prime in its factorization, as it claimed.
+
+Let me make an example.
+
+Take for example n = 83 * 997 * 9973 = 825275723
+
+and let me "prove" that 825275723 cannot start with
+
+83, 997 or 9973.
+
+First of all I check if the number of digits match:
+
+2 + 3 + 4 = 9 OK.
+
+As I wrote, I can write n as
+
+n = 10^2*(1-0.17) * 10^3*(1-0.003) * 10^4*(1-0.0027)
+
+since 10^2*(1-0.17) = 83, and so on.
+
+Let us Assume I want that n "starts" with 83 (the other cases
+
+are similar), so, 83 is my P_j.
+
+n must be equal to 83 followed by a number of digits
+
+equal to the digits of the primes except 83 itself,
+
+so I can write it like
+
+83*10^3*10^4 + something (R_j is my "something" in the proof).
+
+In any case, I can say that n must be greater or equal to
+
+83*10^3*10^4, so, using the expression for n above, I have
+
+10^2*(1-0.17) * 10^3*(1-0.003) * 10^4*(1-0.0027) >= 83*10^3*10^4
+
+Now, let me express 83 as 10^2*(1-0.17) on the right term above:
+
+10^2*(1-0.17) * 10^3*(1-0.003) * 10^4*(1-0.0027) >= 10^2*(1-0.17)* 10^3*10^4
+
+At this point I can delete all the powers of 10, since the sum of
+
+the exponents on the left is the same as on the right.
+
+(1-0.17) * (1-0.003) * (1-0.0027) >= (1-0.17)
+
+Then I can delete the term 1-0.17 (1-E_j) and I'm left with
+
+(1-0.003) * (1-0.0027) >= 1
+
+which is impossible, since the product of two terms smaller than 1
+
+cannot be greater of equal to 1.
+
+So I "proved" that 825275723 does not start with "83".
+
+***
+
+Jan wrote:
+
+Q1:
+
+If q=(26*10^(n-1)+1)/63 is prime (q={412698}n.4127 with n=6k+5) then the concatenation 13.q.5 has factors: 5^2*13*q and a total of 6k+7 digits.
+
+It is prime for k=0,2,3,182,..? (I found this family by considering p.q.5=p*q*5^2 and observing that q should start with a 4 and end with a 7).
+
+My largest value not of this type is 1019127375=3^2*5^3*7*127*1019.
+
+Q2:
+
+Write N as A.B, the concatenation of the numbers A and B. [A,B prime not necessary].
+
+Choose n to be the smallest value for which B<10^n.
+
+We have: N=A*10^n+B. Can N be equal to A*B?
+
+We have N=A*B<A*10^n but also N=A*10^n+B which is larger, so equality is not possible.
+
+Suppose we have that N[k]=p[1].p[2]....p[k] and proven that this is larger than p[1]*p[2]*..p[k].
+
+We know this is true if k=2 (Choose A=p[1] and B=p[2]).
+
+Induction step: Consider N[k+1]=p[1].p[2]...p[k+1]
+
+Split N[k+1] using the terms A=p[1].p[2]...p[k]=N[k] and B=p[k+1].
+
+N[k+1]=N[k].p[k+1]=N[k]*10^n+p[k+1]>p[1]*p[2]*p[k]*10^n+p[k+1]>p[1]*p[2]*..*p[k+1]+p[k+1]
+
+Therefore N[k+1] can not be written as a product of primes with multiplicity 1.
+
+In fact it can be proven, that we need at least 3 different prime factors. (Omitted)
+
+***
+
+Hakan Summakoğlu wrote:
+
+Q1: 319953792 =2^7×3×53×79×199.
+
+I found a different integer -35331072 (35331072=2^10×3×07×31×53)
+
+***
+
+Emmanuel wrote:
+
+Q1. The 13 smallest numbers that are a concatenation of their prime factors is sequence A121342 at the OEIS. There are no such numbers in the region 10^10 – 14 10^9.
+
+Later he added:
+
+I found a 788-digit solution to Q1 :
+
+the number p = (3x10^787 + 5)/35 is prime (certified by PRIMO). The concatenation of 3,p,5 factors as 3^2 x 5 x p.
+
+Q2. The concatenation of two numbers A and B is always > A·B.
+
+Proof : Assume B has n digits. Then, the concatenation N of A and B is A 10^n+B >= A 10^n > A·B.
+
+Now, if N1 is the concatenation of k numbers A1, A2,... , Ak, N2 the concatenation of A2, A3,... , Ak, ... , Ni the concatenation of Ai, Ai+1,... , Ak , then we have :
+
+N1 > A1 N2 > A1 A2 N3 > ... > A1 A2 ... Ak.
+
+Hence it is impossible that the concatenation of k numbers equals the product of these numbers.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

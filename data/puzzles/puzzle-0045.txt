@@ -1,0 +1,512 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_045.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 45.- Prime Solitaire (a puzzle based on a game proposed by Enoch
+
+Haga)
+Source: https://www.primepuzzles.net/puzzles/puzz_045.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0045.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_044.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_046.htm
+  https://www.primepuzzles.net/puzzles/puzz_045.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 45.- Prime Solitaire (a puzzle based on a game proposed by Enoch Haga)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 45.- Prime Solitaire (a puzzle based on a game proposed by Enoch Haga)
+
+Enoch Haga (18/03/99) proposed the following game:
+
+“Starting from an arbitrary prime of D digits, construct a sequence of distinct primes such that every one is formed by the (D-1) rightmost digits of the previous one, plus any odd digit (except 5)”
+
+He gives the following example of a sequence of 14 members of primes of 3 digits (D=3):
+
+{131, 311, 113, 137, 373, 733, 331, 313, 139, 397, 971, 719, 191, 911}
+
+Obviously this kind of sequences are finite because reaching at some point you have not any other prime to select. Less evident is to construct the largest possible sequence of primes of D digits, for every D=2, 3,….
+
+Question: Get the largest sequence of this kind, for D = 2, 3, 4, 5, 6 & 7
+
+Hints (by C. Rivera):
+
+Let’s define L(D) as the quantity of members of a sequence of D digits. Let’s define also Podd(D) as the quantity of primes of D digits such that all the digits of these primes are odd (except 5). It is not so hard to recognize that:
+
+L(D) = Podd(D) +(D – 1)
+
+With the help of a simple code you can calculate Podd(D). This are the results:
+
+Digits in the primes (D) | Quantity of primes composed of odd digits, except 5 | Podd(D) +(D-1) | Found
+
+2 | 10 | 11 | 11
+
+3 | 30 | 32 | 26
+
+4 | 63 | 66 | 31
+
+5 | 249 | 253 | 47
+
+6 | 757 | 762 | 29
+
+7 | 2709 | 2715 | 23
+
+So, the third column is the limit of the length of this kind of sequences for each D.
+
+For primes of two digits (D=2) it’s a kind of easy to get the largest sequence:
+
+D = 2: 41, 13, 31, 19, 97, 71, 11, 17, 73, 37, 79; L(D=2) = 11
+
+In this case we can conclude that there is not any other larger sequence than the before.
+
+For the case D=3, the largest sequence I have produced is this:
+
+D = 3: 241, 419, 191, 919, 193, 937, 373, 733, 331, 317, 179, 797, 977, 773, 739, 397, 971, 719, 199, 991, 911, 113, 131, 313, 137, 379; L(D=3) = 26 < 32
+
+So for this case it can exists a larger sequence.
+
+Solution
+
+At 9/5/99 Wilfred Whiteside wrote:
+
+"This morning I worked on Puzzle 45 (Prime Solitaire). I wrote a recursive subroutine that works through all possible games. Below are the results.
+
+For 3 digits there are 265,655 games, 1820 of which result in 26 primes! None have more than 26 primes!
+
+For 4 digits there are 44,713 games, 39 of which result in 31 primes. None have more than 31 primes.
+
+For 5 digits there are 377,133 games, 29 of which result in 47 primes! None have more than 47 primes.
+
+For 6 digits there are 92,955 games, 48 of which result in 29 primes. None have more than 29 primes.
+
+For 7 digits there are 488,102 games, 60 of which result in 23 primes. None have more than 23 primes".
+
+Example best games:
+
+3 Digits:
+
+941 419 199 991 919 193 937 379 797 977 773 739 397 971 719
+
+191 911 113 131 313 137 373 733 331 317 179. There were 26 primes in the sequence
+
+4 digits:
+
+1451 4519 5197 1979 9791 7919 9199 1997 9973 9733 7333 3331 3313 3137 1373 3739 7393 3931 9311 3119 1193 1933 9337 3371 3719 7193 1931 9319 3191 1913 9133. There were 31 primes in the sequence
+
+5 digits:
+
+11483 14831 48313 83137 31379 13799 37993 79939 99397 93979 39791 97919 79193 91939 19391 93911 39113 91139 11399 13997 39979 99793 97931 79319 93199 31991 19913 99139 91393 13931 39313 93133 31333 13331 33317 33179 31793 17939 79393 93937 39371 93719 37199 71999 19997 99971 99713 .There were 47 primes in the sequence!
+
+6 digits:
+
+158747 587473 874739 747391 473911 739117 391177 911777 117779 177791 777911 779111 791117 911173 111731 117319 173191 731911 319117 191173 911737 117371 173713 737131 371311 713117 131171 311711 117119. There were 29 primes in the sequence
+
+7 digits:
+
+1187587 1875877 8758777 7587779 5877797 8777971 7779719 7797191 7971911 9719113 7191131 1911311 9113113 1131131 1311311 3113111 1131113 1311131 3111313 1113137 1131379 1313797 3137977. There were 23 primes in the sequence.
+
+***
+
+On November, 2005, Luke Pebody wrote:
+
+8 digits- 25 primes (max. possible)
+
+73938743
+
+39387433
+
+93874337
+
+38743379
+
+87433799
+
+74337997
+
+43379977
+
+33799771
+
+33799771
+
+37997717
+
+79977173
+
+99771731
+
+97717313
+
+77173139
+
+71731391
+
+17313911
+
+73139111
+
+31391119
+
+13911193
+
+39111931
+
+91119319
+
+11193199
+
+11931991
+
+19319917
+
+93199177
+
+31991779
+
+9 digits - 26 primes (max. possible)
+
+352769419
+
+527694199
+
+276941999
+
+769419997
+
+694199971
+
+941999711
+
+419997113
+
+199971133
+
+999711337
+
+997113379
+
+971133799
+
+711337999
+
+113379997
+
+133799977
+
+337999771
+
+379997713
+
+799977137
+
+999771379
+
+997713793
+
+977137937
+
+771379379
+
+713793797
+
+137937971
+
+379379713
+
+793797131
+
+937971317
+
+10 digits - 26 primes (max possible)
+
+4779418529
+
+7794185291
+
+7941852917
+
+9418529179
+
+4185291797
+
+1852917971
+
+8529179717
+
+5291797177
+
+2917971773
+
+9179717731
+
+1797177311
+
+7971773111
+
+9717731117
+
+7177311173
+
+1773111737
+
+7731117371
+
+7311173711
+
+3111737119
+
+1117371197
+
+1173711971
+
+1737119717
+
+7371197179
+
+3711971797
+
+7119717971
+
+1197179713
+
+1971797131
+
+Luke's Question: What happens for very large number of digits.
+
+***
+
+Wildred Whiteside wrote (June, 2007):
+
+11 digits - 23 primes (max possible of all 1,547,288,309 games)
+
+24182791183
+
+41827911833
+
+18279118331
+
+82791183317
+
+27911833171
+
+79118331713
+
+91183317131
+
+11833171313
+
+18331713137
+
+83317131377
+
+33171313771
+
+31713137719
+
+17131377191
+
+71313771913
+
+13137719131
+
+31377191311
+
+13771913117
+
+37719131179
+
+77191311797
+
+71913117977
+
+19131179777
+
+91311797771
+
+13117977713
+
+12 digits - 27 primes (max possible of all 12,612,606,670 games)
+
+152153734847
+
+521537348477
+
+215373484771
+
+153734847719
+
+537348477191
+
+373484771911
+
+734847719119
+
+348477191191
+
+484771911917
+
+847719119173
+
+477191191733
+
+771911917333
+
+719119173337
+
+191191733377
+
+911917333771
+
+119173337719
+
+191733377191
+
+917333771911
+
+173337719117
+
+733377191177
+
+333771911777
+
+337719117779
+
+377191177799
+
+771911777999
+
+719117779993
+
+191177799931
+
+911777999311
+
+13 digits - 26 primes (max possible of all 102,463,733,414 games)
+
+1362682965781
+
+3626829657811
+
+6268296578119
+
+2682965781191
+
+6829657811917
+
+8296578119173
+
+2965781191733
+
+9657811917337
+
+6578119173377
+
+5781191733773
+
+7811917337737
+
+8119173377377
+
+1191733773773
+
+1917337737737
+
+9173377377379
+
+1733773773793
+
+7337737737937
+
+3377377379371
+
+3773773793711
+
+7737737937113
+
+7377379371137
+
+3773793711371
+
+7737937113719
+
+7379371137197
+
+3793711371977
+
+7937113719779
+
+Luke asked what happens for large numbers of digits. By looking at
+
+histograms of the number of N digit games making it to M moves, can
+
+see an exponential decay with the number of moves. Below is a crude
+
+approximation that predicts the max. number of moves M as a function
+
+of the number of digits N.
+
+For large number of digits N, the number of starting primes (those N
+
+digit numbers with no 0's that are prime) is approximately
+
+10*9^(N-1) / ln(10^(N-0.33))
+
+Example: For the case if N=9, plugging in gives 21562806 predicted
+
+starting primes, but actual number is 21545970.
+
+The fraction of random N digit numbers ending in a 1,3,7, or 9 (nums
+
+not divis by 2 or 5) is approx. 2.5/ln(10^(N-0.33)). So on average,
+
+the fraction of N-1 digit numbers that can generate an N digit prime
+
+by adding a 1,3,7, or 9 is approximately 10/ln(10^(N-0.33)). This is
+
+overly simplistic, but is similar to what the histograms show.
+
+Solving for how many moves would lead to only one game left requires
+
+that [10*9^(N-1)/ln(10^(N-0.33))] * [10/ln(10^(N-0.33))]^(M-1) = 1
+
+This gives that M is approximately [(N-1)*ln(9)]/ln((N-0.33)*ln(10)/10).
+
+Spreadsheeting this shows a prediction that the max number of moves
+
+reaches a minimum for N=12 and then slowly increases for larger N.
+
+for extremely large N, this limits crudely to approx. ln(9)*[N/ln(N)]
+
+which slowly grows without bound.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

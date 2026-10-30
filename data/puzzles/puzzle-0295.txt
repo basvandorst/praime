@@ -1,0 +1,110 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_295.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 295. Another Alphametic puzzle.
+Source: https://www.primepuzzles.net/puzzles/puzz_295.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0295.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_294.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_296.htm
+  https://www.primepuzzles.net/puzzles/puzz_295.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 295. Another Alphametic puzzle.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 295. Another Alphametic puzzle.
+
+Phil Carmody sends the following nice alphametic puzzle (each letter stands for a different digit):
+
+I have a PRIME NUMBER PROBLEM - they're all prime! NINE is prime, MILLION is prime too. Even ONE is prime.
+
+Questions: Just solve it.
+
+Well, this puzzle became very popular. Contributions came from A. Rupinski, Faride Firoozbakht, Robin García, Ken Wilke, Ray Opao, J.C. Rosa, Anurag Sahay, Joseph L Pe and J. Wiessenbauer. All of the found the following solution:
+
+{239,3539,41579,307691,7588523,4126897,{6,9,5,8,7,3,2,4,1,0}} for ONE, NINE, PRIME, NUMBER, MILLION, PROBLEM, & b,e,i,l,m,n,o,p,r,u.
+
+Only Faride and Rosa found the other three solutions:
+
+{031,3631,87691,359417,9622603,8704219,{4,1,6,2,9,3,0,8,7,5}}
+
+{097,9497,83417,961273,1455409,8302571,{2,7,4,5,1,9,0,8,3,6}}
+
+{097,9697,81637,923471,3655609,8104573,{4,7,6,5,3,9,0,8,1,2}}
+
+Here is the Faride's computer-approach:
+
+I used the following facts.
+
+1) E,M,N & R are distinct members of {1,3,7,9}.
+
+2) B,I,L,O,P & U are distinct members of {0,2,4,5,6,8}.
+
+3) ONE,NINE,PRIME,NUMBER,PROBLEM & MILLION are primes.
+
+It takes only 130.016 Seconds.
+
+For finding the solutions I used the following program (in Mathematica).
+
+Timing[ca[a_]:=(v1={};t=Length[a];
+
+Do[v1=Join[v1,IntegerDigits[a[[k]]]],{k,t}];
+
+FromDigits[v1]);
+
+v=Permutations[{1,3,7,9}];
+
+Do[{e,m,n,r}=v[[j]];s=Length[v];
+
+Do[If[Union[{b,i,l,o,p,u}]=={0,2,4,5,6,8}&&
+
+PrimeQ[ca[{o,n,e}]]&&PrimeQ[cca[{n,i,n,e}]]&&
+
+PrimeQ[ca[{p,r,i,m,e}]]&&
+
+PrimeQ[ca[{n,u,m,b,e,r}]]&&
+
+PrimeQ[ca[{m,i,l,l,i,o,n}]]&&
+
+PrimeQ[ca[{p,r,o,b,l,e,m}]],
+
+Print[{ca[{o,n,e}],ca[{n,i,n,e}],ca[{p,r,i,m,e}],
+
+ca[{n,u,m,b,e,r}],ca[{m,i,l,l,i,o,n}],
+
+ca[{p,r,o,b,l,e,m}],{b,e,i,l,m,n,o,p,r,u}}]],
+
+{l,0,8},{p,0,8},{u,0,8},{o,0,8},{b,0,8},{i,0,8}],{j,s}]]
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

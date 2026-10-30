@@ -1,0 +1,140 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_150.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 150.  Primes type n+/- Fm for m=0 to 4
+Source: https://www.primepuzzles.net/puzzles/puzz_150.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0150.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_149.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_151.htm
+  https://www.primepuzzles.net/puzzles/puzz_150.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 150. Primes type n+/- Fm for m=0 to 4
+
+Problems & Puzzles: Puzzles
+
+Puzzle 150. Primes type n+/- Fm, for m=0 to 4
+
+As a follow up of our invitation in the Puzzle 149 to suggest new puzzles about the Fermat' issues Felice Russo proposes the following one:
+
+"Carlos by reading your puzzle 149 and some pages of fantastic Guy's book "Unsolved problmes in Number Theory" my attention has been driven by following problem:
+
+1) Find the smallest n such that (n+3, n+5, n+17, n+257, n+65537) are all primes.
+
+With a simple ubasic code I have found that 14 is the smallest of such numbers. Then I calculated for N<10^9 the counting function p(N) for those numbers and seems that it follow the law: p(N)~c*N^(gamma) where c is a positive constant and gamma the Euler-Mascheroni constant. If this law is true for all N then the sequence of numbers n is infinite (see EIS A063799).
+
+2) Find the smallest n such that (n-3, n-5, n-17, n-257, n-65537) are all primes. As above I find that the smallest of such numbers is 65704 and again the counting function p(N) seems to grow like p(N)~c*N^(4/3*gamma). If so then the sequence of n is infinite (see EIS A063825).
+
+3) Find the smallest n such that ([n+3, n-3], [n+5, n-5], [n+17,n-17], [n+257,n-257], [n+65537, n-65537]) are all primes. Up to 10^9 no such n has been found.
+
+Then the following questions can be posed:
+
+1. Is there any number n such that the question 3) is satisfied? If yes is the sequence of those numbers infinite?
+
+2. Are the counting functions found for the case 1 and 2 reasonable? If not which is a better approximation for p(N)?"
+
+Solution:
+
+Jean Brette immediately and the first saw the impossibility to find any n>65537 such that all the following [n+3, n-3], [n+5, n-5], [n+17,n-17], [n+257,n-257], [n+65537, n-65537] are primes. Why? Because it's impossible that the following four [n+3, n-3], [n+5, n-5] are primes. Why?
+
+In his own Brette's words:
+
+Since (n-3) must be prime (n-3) = 1 or 2 (mod 3)
+
+a) if (n-3) = 2 (mod 3) then (n-5) = 2-2 = 0 (mod 3), so (n-5) is not prime (except if n=8)
+
+b) if (n-3)=1 (mod 3) then (n+5) = 1+8 = 0 (mod 3) so (n+5) is not prime.
+
+***
+
+Of course that the situation is reciprocal between the asked prime (n+3) and the asked primes (n-5) and (n+5). Then the most of primes in these 10 numbers is 8.
+
+But I have a more intuitive way of arriving to the same conclusion than Brette:
+
+As we know all primes are in the strip 6k-1 or 6k-/+1. How close may be two pair of twins (as twins are n-5 & n-3 and n+3 & n+5)? Then - observing the strip situation - the most close they can be is such that the lower prime of the upper twin is 4 units under the upper prime of the lower twin.
+
+Well the pair of twins (n-5, n-3) and (n+3, n+5) are at 6 units of distance. Then necessarily at least one of the extremes numbers (or n-5 or n+5) can not be prime.
+
+***
+
+Here are some more ideas from Jean Brette sent the 25/9/01:
+
+Question 1,
+
+Some days after, using a similar argument with congruences, Jean shows that the best which can be hoped would to have all the N+/- Fk primes, excepted N+/-Fo, which was confirmed by Carlos Rivera .
+
+Here are the ten first such N's, from Carlos : 234786 , 247596, 646164, 1423974 , 2269344 , 2323566 , 3268224 , 3837996 , 5217864 , 5792424
+
+Question 2.
+
+In the same time (08/28/01), Jean suggested that the laws, for the two counting functions computed by Felice Russo, cannot be "power laws", which seemed to him an "artifact".
+
+During the last month, he gave some heuristic arguments to support his claim and, with the help of Felice Russo for extended tables for the two counting functions, he has gotten the following results :
+
+1) For x large enough, the two counting functions must be almost equal. The relative difference between them, for small x (x<1000000) are due to the "initial gap" : when you are counting the N's, in the first case (N+Fk) , N begins at zero. In the second case (N-Fk) , the first N must be > 65537.
+
+Here are some values of the two counting functions, from Felice :
+
+x..........................P(x) for (N+Fk) ........P(x) for (N-Fk)
+
+100000.........................54...........................18
+
+1000000.....................210.........................191
+
+10000000...................915.........................908
+
+100000000...............4478.......................4409
+
+2) With his heuristic argument, the law expected by Jean, for the Felice's counting functions, can be written : P(x) = C * x / (ln x)^5 , where C is a "varying constant" which decreases when x grows : C = C1 + C2/ln x, which can be readen as a "truly constant" C1 (for x infinite) and an "error term" C2/ln x, which decreases, and vanishes for x infinte.
+
+With the datas from Felice, he finds (08/21/01) that C1 = 63 and C2 = 589 give the rather sharp approximations (for N+Fk) :
+
+x.............................P(x)......................P'(x) from JB
+
+100000..................54........................56,43
+
+1000000..............210......................209,87
+
+10000000............915......................915,04
+
+100000000........4478....................4477,96
+
+Note :
+
+1) the Jean 's law has a form very similar to the prime law, or the conjectured counting function for twin primes (Hardy-Littlewood), or some other conjectured counting functions. It is very natural because, as Felice said : The probability that five random numbers of same magnitude x are all primes is , roughly, 1/(ln x)^5.
+
+2) So, may be, the main term x / ln(x)^5 may be refined and replaced by : integral, from 2 to x, of dx / (ln x)^5; which is known to be sharper in many other cases (and of course with two other constants C'1 and C'2.)
+
+3) Anyway, a new question is now : Is the constant C1 (at infinity) really equal (or very close) to 63? If yes, why ? , i.e. is there a theoretical meaning , or / and a (relatively ) closed formula for C1 and C2 ? Of course, C1 is more important than C2 since C2 appears in an "error term" which vanishes
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

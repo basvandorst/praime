@@ -1,0 +1,226 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://arxiv.org/pdf/1503.01744. These files are used for reasoning.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://arxiv.org/pdf/1503.01744
+Retrieved: 2026-10-30
+
+--- page 1 ---
+arXiv:1503.01744v3  [math.NT]  5 Jan 2023
+International Mathematical Forum, Vol. 10, 2015, no. 6, 283 –288
+http://dx.doi.org/10.12988/imf.2015.5322
+Veriﬁcation of the Firoozbakht Conjecture
+for Primes up to Four Quintillion
+Alexei Kourbatov
+www.JavaScripter.net/math
+15127 NE 24th Street #578
+Redmond, W A, USA
+Copyright © 2015 Alexei Kourbatov. This is an open access article distributed un der
+the Creative Commons Attribution License, which permits unrestric ted use, distribution,
+and reproduction in any medium, provided the original work is proper ly cited.
+Abstract
+If pk is the kth prime, the Firoozbakht conjecture states that the se-
+quence (pk)1/k is strictly decreasing. We use the table of ﬁrst-occurrence
+prime gaps in combination with known bounds for the prime-co unting
+function to verify the Firoozbakht conjecture for primes up to four quin-
+tillion (4 × 1018).
+Mathematics Subject Classiﬁcation: 11N05
+Keywords: prime gap, Cram´ er conjecture, Firoozbakht conjecture
+1 Introduction
+We will examine a conjecture that was ﬁrst stated in 1982 by the Ira nian
+mathematician Farideh Firoozbakht from the University of Isfahan [8]. It
+appeared in print in The Little Book of Bigger Primes by Paulo Ribenboim [7,
+p. 185]. The statement is as follows:
+Firoozbakht’s Conjecture. If pk is the kth prime, then the sequence ( pk)1/k
+is strictly decreasing. Equivalently, for all k ≥ 1 we have
+pkk+1 < p k+1k . (1)
+The Firoozbakht conjecture is one of the strongest upper bound s for prime
+gaps. As we will see from Table 1 below, it is somewhat stronger than Cram´ er’s
+
+--- page 2 ---
+284 Alexei Kourbatov
+conjecture proposed about half a century earlier by the Swedish mathematician
+Harald Cram´ er [1]:
+Cram´ er’s Conjecture.If pk and pk+1 are consecutive primes, then we have
+pk+1 − pk = O(log2 pk) or, more speciﬁcally,
+lim sup
+k→∞
+pk+1 − pk
+log2 pk = 1 .
+For the sake of numerical comparison with (1), let us use a modiﬁed f orm of
+Cram´ er’s conjecture stated below.
+Modiﬁed Cram´ er Conjecture.If pk and pk+1 are consecutive primes, then
+pk+1 − pk < log2 pk+1. (2)
+This modiﬁed form allows us to make predictions of an upper bound for any
+given prime gap; Table 1 lists a few examples of such upper bounds.
+TABLE 1
+Prime gap bounds predicted by the modiﬁed Cram´ er and Firoozbakh t conjectures
+Upper bounds for pk+1, as predicted by:
+k Consecutive primes Modiﬁed Cram´ er conjecture Firoozbakht con jecture
+pk pk+1 (solution of x = pk + log2 x) (solution of xk = pk+1k )
+5 11 13 19.964 17.769
+26 101 103 124.255 120.618
+169 1009 1013 1057.493 1051.152
+1230 10007 10009 10091.999 10082.220
+9593 100003 100019 100135.579 100123.090
+78499 1000003 1000033 1000193.874 1000179.012
+664580 10000019 10000079 10000278.794 10000261.534
+Table 1 shows that, given k and pk, the Firoozbakht conjecture (1) yields
+a tighter bound for pk+1 than the modiﬁed Cram´ er conjecture (2). Indeed,
+the Firoozbakht upper bound (last column) is below the Cram´ er upp er bound
+by approximately log pk. In Cram´ er’s probabilistic model of primes [1, 3] the
+parameters of the distribution of maximal prime gaps suggest that inequalities
+(1) and (2) are both true with probability 1; that is, almost all 1 maximal prime
+gaps in Cram´ er’s model satisfy (1) and (2). One may take this as an indication
+that any violations of (1) and (2) occur exceedingly rarely (if at all).
+1In Cram´ er’s model with n urns, the limiting distribution of maximal “prime gaps”
+is the Gumbel extreme value distribution with scale an ∼ n/ li n = O(log n) and mode
+µn = n log(li n)/ li n + O(log n) = log 2 n − log n log log n + O(log n) [3, 9, OEIS A235402];
+here li n denotes the logarithmic integral of n. Hence, for large n, all maximal gap sizes are
+below log n(log n − 1), except for a vanishing proportion of maximal gaps.
+
+--- page 3 ---
+Veriﬁcation of the Firoozbakht conjecture for primes up to 4 × 1018 285
+2 Computational veriﬁcation for small primes
+When primes pk are not too large, one can directly verify inequality (1) by
+computation. A simple program that takes a few seconds to perfor m the
+veriﬁcation for pk < 106 is available on the author’s website. The program
+outputs the numeric values of k, pk, p1/kk , and an OK if the value of p1/kk decreases
+from one prime to the next. It will output FAILURE if the conjectured decrease
+does not occur. Result: all OKs, no FAILUREs. Here is a sample of the output:
+k p p^(1/k) OK/fail
+1 2 2.000000000 OK
+2 3 1.732050808 OK
+3 5 1.709975947 OK
+4 7 1.626576562 OK
+5 11 1.615394266 OK
+6 13 1.533406237 OK
+7 17 1.498919872 OK
+8 19 1.444921323 OK
+9 23 1.416782203 OK
+10 29 1.400360331 OK
+11 31 1.366401518 OK
+12 37 1.351087503 OK
+... ... ...
+78494 999953 1.000176022 OK
+78495 999959 1.000176020 OK
+78496 999961 1.000176018 OK
+78497 999979 1.000176016 OK
+78498 999983 1.000176014 OK
+78499 1000003 1.000176012 OK
+78500 1000033 1.000176010 OK
+Thus primes pk < 106 do not violate (1). What about larger primes?
+3 What if we do not know k = π(pk)?
+For large primes pk, the exact values of k = π(pk) are not readily available.
+Nevertheless, the Firoozbakht conjecture can often be veriﬁed in such cases
+too. When we do not know π(pk) exactly, we can use these bounds for the
+prime-counting function π(x):
+π(x) < xlog x − 1.1 for x ≥ 60184 [2, p. 9, Theorem 6.9] (3)
+π(x) < xlog x − 1.2 for x ≥ 4 (from (3) + computer check for x < 105). (4)
+
+--- page 4 ---
+286 Alexei Kourbatov
+Taking the log of both sides of (1) and rearranging, we ﬁnd that the Firoozbakht
+conjecture (1) is equivalent to
+π(pk) < log pk
+log pk+1 − log pk
+. (5)
+If we know pk and pk+1 (where pk > 60184) but do not know π(pk), then
+instead of (5) we may check the stronger condition
+pk
+log pk − 1.1 < log pklog pk+1 − log pk . (6)
+For a larger range of applicability ( pk > 4)2 we may check another (still
+stronger) condition:
+pk
+log pk − 1.2 < log pklog pk+1 − log pk . (7)
+If (6) or (7) is true, so is (5); and the exact value of π(pk) is not needed to
+check (6), (7).
+4 Veriﬁcation for all gaps of a given size g
+We will take (6) and (7) one step further and make pk a variable ( x); then
+pk+1 = x + g, where g is the gap size. We can now solve the resulting simul-
+taneous inequalities
+0 < xlog x − 1.1 < log xlog(x + g) − log x with x > 60184, (8)
+or, if we are interested in a larger range of applicability,
+0 < xlog x − 1.2 < log xlog(x + g) − log x with x > 4. (9)
+Here we use the gap size g as a parameter. In combination with a table of ﬁrst-
+occurrence prime gaps [5], the solution of (8) and/or (9) will tell us w hether a
+prime gap of size g may violate the Firoozbakht conjecture for primes pk ≈ x.
+Consider the following examples.
+Example 1. Can a prime gap of size 150 violate the Firoozbakht conjecture?
+To answer this question, we substitute g = 150 into (8),
+0 < xlog x − 1.1 < log xlog(x + 150) − log x with x > 60184,
+2regardless of the computation of Sect. 2 which already proves (1) for all pk < 106 . . .
+
+--- page 5 ---
+Veriﬁcation of the Firoozbakht conjecture for primes up to 4 × 1018 287
+solve for x and ﬁnd the “safe bound”
+x ≥ 365323 (or, more precisely, x > 365322.7038);
+that is, a gap of 150 does not violate (1) if such a gap occurs betwee n primes
+above 365323. But there are no prime gaps of size 150 below 365323 ; in fact,
+the table of ﬁrst-occurrence prime gaps [5] indicates that the ﬁr st such gap
+follows the prime 13626257. Therefore, a prime gap of size 150 can n ever
+violate the Firoozbakht conjecture (1).
+Example 2. Can a prime gap of size 2 (twin primes) violate the Firoozbakht
+conjecture? We substitute g = 2 into (9),
+0 < xlog x − 1.2 < log xlog(x + 2) − log x with x > 4,
+solve for x and ﬁnd the “safe bound”
+x ≥ 8 (or, more precisely, x > 7.8745).
+So a prime gap of size 2 does not violate (1) if this gap occurs between primes
+above 8. But we already know that gaps between primes below 8 do no t violate
+the conjecture either (Section 2). Therefore, a prime gap of size 2 (twin primes)
+can never violate (1).
+We have repeated the computation of the above examples for all ev en values
+of the gap size g ∈ [2, 1476] and found that none of these gap sizes could
+possibly violate (1). A tabulation of “safe bounds” by gap size is available on
+the author’s website [4]. For g = 2 and 4, we had to manually check (1) for
+a couple of gaps of size g between primes below the respective safe bounds.
+For g ∈ [6, 1476], the actual ﬁrst occurrence of prime gap g is already safe.
+(“Close calls” occur for record prime gaps in OEIS sequence A005250 [9].)
+From the prime gaps table [5] we also know that gaps larger than 1476 do not
+occur below 4 × 1018. Thus the validity of Firoozbakht conjecture (1) has been
+veriﬁed for primes up to 4 × 1018. We have obtained the following theorem:
+Theorem Inequality (1) is true for all primes pk < 4 × 1018.
+Acknowledgements. The author expresses his gratitude to all contribu-
+tors and editors of the websites OEIS.org and PrimePuzzles.net, especially to
+Farideh Firoozbakht for proposing a very interesting conjecture . Thanks are
+also due to Pierre Dusart for proving the π(x) bound (3), to Tom´ as Oliveira
+e Silva, Siegfried Herzog, and Silvio Pardi whose computation extend ed the
+table of ﬁrst-occurrence prime gaps [6], and to Thomas Nicely for ma intaining
+the said table in an easily accessible format [5].
+
+--- page 6 ---
+288 Alexei Kourbatov
+Endnotes. All ﬁrst-occurrence gaps between primes pk < 264 have been found by 2019.
+The results are reported at Mersenneforum.org and included in T. R. Nicely’s tables [5],
+as well as in OEIS [9, A014320, A335366, A335367]. Using the method of Section 4, these
+results allow us to conﬁrm that Firoozbakht’s conjecture (1) holds for all primes pk < 264.
+As in Example 1, the WolframAlpha command
+solve 0 < x/(ln(x)-1.1) < ln(x)/(ln(x+1918)-ln(x))
+uses gap g = 1918 and yields a safe bound a little below 2 64. Even lower safe bounds are
+obtained with the same command for gaps g < 1918 — and the actual ﬁrst occurrences of
+gaps g are already safe (i.e., the corresponding primes pk are larger than their respective
+safe bounds). Thus, extended computations have shown that
+• Firoozbakht’s conjecture (1) is true for all primes pk < 264;
+• prime gaps of size g < 1920 cannot violate (1).
+(Endnotes added 5 Jan 2023. The URLs [5] updated.)
+References
+[1] H. Cram´ er, On the order of magnitude of the diﬀerence betwee n consecutive prime
+numbers. Acta Arith. 2 (1936), 23-46.
+[2] P. Dusart, Estimates of some functions over primes without R.H., arXiv:1002.0442
+(2010). http://arxiv.org/abs/1002.0442
+[3] A. Kourbatov, The distribution of maximal prime gaps in Cram´ er’s probabilistic
+model of primes. Int. Journal of Statistics and Probability 3 (2014), No. 2, 18-29.
+arXiv:1401.6959. http://arxiv.org/abs/1401.6959
+[4] A. Kourbatov, Checking the Firoozbakht conjecture: safe bo unds, 2015.
+http://www.javascripter.net/math/primes/firoozbakhtconjecturebounds.htm
+[5] T. R. Nicely, First occurrence prime gaps, preprint, 2014 and lat er years.
+https://faculty.lynchburg.edu/~nicely/gaps/gaplist.html
+http://oeis.org/A000101/a000101.pdf
+[6] T. Oliveira e Silva, S. Herzog, and S. Pardi, Empirical veriﬁcation of the even Goldbach
+conjecture and computation of prime gaps up to 4 · 1018, Math. Comp. 83 (2014), 2033-
+2060. http://dx.doi.org/10.1090/s0025-5718-2013-02787-1
+[7] P. Ribenboim, The Little Book of Bigger Primes , Springer, New York, NY, 2004.
+http://dx.doi.org/10.1007/b97621
+[8] C. Rivera (ed.), Conjecture 30. The Firoozbakht Conjecture, 2002.
+http://www.primepuzzles.net/conjectures/
+[9] N. J. A. Sloane (ed.), The On-Line Encyclopedia of Integer Sequences , 2014. Published
+electronically at http://oeis.org/. Sequences A014320, A235402, A335366, A335367.

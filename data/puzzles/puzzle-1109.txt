@@ -1,0 +1,174 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1109.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1109 Related to A112386
+Source: https://www.primepuzzles.net/puzzles/puzz_1109.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1109.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://oeis.org/A112386
+  mailto:cbrfgm@gmail.com
+  http://factordb.com/
+  https://www.primepuzzles.net/puzzles/puzz_1108.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1110.htm
+  https://www.primepuzzles.net/puzzles/puzz_1109.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1109 Related to A112386
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1109 Related to A112386
+
+Emmanuel Vantieghem sent the following nice puzzle:
+
+In the OEIS figures the sequence A112386 :
+
+11, 211, 31, 41, 511111, 61, 71, 811, 911, 101, 1111111111111111111, ...
+
+with description : smallest prime obtained by appending one or more 1's to n.
+
+I completed that sentence by ", -1 if no such prime exists."
+
+I also added the comment that a(37) = -1 since
+
+a) the set {371, 3711, 37111, ...} has a covering by the primes {3, 7, 13, 37},
+
+b) which implied that there are infinitely many values -1 in A112386.
+
+Hence I thought the following questions might interest the puzzlers of your site :
+
+Q1. Can you prove my two assertions a) & b)?
+
+Q2. What about a(38)?
+
+Q3. What about a(56) ?
+
+During the week Oct 29-Nov 5, contributions came from Gennady Gusev, Oscar Volpatti
+
+***
+
+Gennady wrote:
+
+a(n) has the formula ((9n+1)*10^k-1)/9.
+
+Q1.
+
+So let's write a(37)=(334*10^n-1)/9.
+
+a(37) has a covering set {3, 7, 13, 37} since
+
+- if n = 3k, then (334*10^n-1)/9 is divisible by 37
+
+- if n = 3k + 2, then (334*10^n-1)/9 is divisible by 3
+
+- if n = 6k + 1, then (334*10^n-1)/9 is divisible by 7
+
+- if n = 6k + 4, then (334*10^n-1)/9 is divisible by 13
+
+Q2.
+
+a(38)=(343*10^n-1)/9
+
+- if n = 3k + 1, then (343*10^n-1)/9 is divisible by 3
+
+- if n = 3k + 2, then (343*10^n-1)/9 is divisible by 37
+
+- if n = 3k, then (343*10^n-1)/9 is factored as ((7*10^k-1)/3)*((49*10^2k+7*10^k+1)/3).
+
+Since (7*10^k-1)/3 can be written as 23, 233, 2333, ..., so for a(38) we have a covering set {3, 37, 23, 233, ...) with infinitely many terms.
+
+Additionly: a(n) with n= 176 and 209 have a covering set {3, 7, 11, 13},
+
+with n= 407, 814, 936 - {3, 7, 11, 37}.
+
+That's all for n < 1000.
+
+From Q1 and Q2 follows that a(n) with n = 371,3711,37111,.. and 381,3811,38111,.. are all composite.
+
+So such n is infinitely many.
+
+Q3.
+
+a(56)=(505*10^k-1)/9 is prime for k=18470.
+
+***
+
+Oscar wrote:
+
+For a given number x_0, let x_n be the number obtained by appending n ones to x_0:
+
+x_n = ((9*x_0+1)*10^n - 1)/9
+
+Q1: a(37+10101*k) = -1.
+
+For x_0=37, consider index n=6*q+r:
+
+if r=0, then 37 divides x_n;
+
+if r=1, then 7 divides x_n;
+
+if r=2, then 3 divides x_n;
+
+if r=3, then 37 divides x_n;
+
+if r=4, then 13 divides x_n;
+
+if r=5, then 3 divides x_n;
+
+so x_n is always composite for n>0.
+
+The same covering holds for every number of the form
+
+x_0 = 37+3*7*13*37*k = 37+10101*k.
+
+Q2: a(38) = -1 too.
+
+For x_0 = 38, consider index n=3*q+r;
+
+if n=3*q+1, then 3 divides x_n;
+
+if n=3*q+2, then 37 divides x_n;
+
+if n=3*q, we have the algebric factorization x_n = y_q*z_q, with:
+
+y_q = (49*100^q + 7*10^q + 1)/3,
+
+z_q = (7*10^q - 1)/3;
+
+so x_n is always composite for n>0.
+
+Q3: a(56) = 18470.
+
+For x_0 = 56, the first prp is x_18470.
+
+This number is actually a proven prime, with proof certificate available at factordb.com.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

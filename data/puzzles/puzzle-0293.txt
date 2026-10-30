@@ -1,0 +1,186 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_293.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 293.  Balanced primes
+Source: https://www.primepuzzles.net/puzzles/puzz_293.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0293.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathforum.org/wagon/fall04/p1018.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_200.htm
+  https://www.primepuzzles.net/images/plot1.png
+  https://www.primepuzzles.net/images/plot2.png
+  https://www.primepuzzles.net/puzzles/puzz_292.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_294.htm
+  https://www.primepuzzles.net/puzzles/puzz_293.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 293. Balanced primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 293. Balanced primes
+
+Recently Stan Wagon posed a puzzle (POTW 1018) that I will switch a little bit to prime questions.
+
+Let's define a balanced number n as these numbers such that writing the series of numbers from 1 to n implies to use a quantity of ones (1's) q(n) such that q(n)=n.
+
+For example:
+
+a) "1" is the earliest (trivial) balanced number because q(1)=1
+
+b) 11 is not a balanced number because the q(11)=4.
+
+b) 199981 is the earliest non-trivial balanced number because q(199981)=199981
+
+I have found that 35200001, 500199989 and 535199981 are the earliest three balanced primes.
+
+Questions:
+
+1. Find the next three primes in this sequence.
+
+2. Find the largest balanced number
+
+3. Find the largest balanced prime.
+
+Contributions came from J. K. Andersen, Luke Pebody and Giovanni Resta.
+
+J. K. Andersen's main discovery was that this puzzle is the same than my own Puzzle 200 (sorry folks!). Consequently The three asked answers are:
+
+1. Find the next three primes in this sequence: There are only those three primes.
+
+2. Find the largest balanced number: 1111111110
+
+3. Find the largest balanced prime: The largest given in the puzzle: 535199981.
+
+Luke Pebody wrote:
+
+535199981 is the largest balanced prime, so there are no more in the sequence. 1,111,111,110 is the largest balanced number.
+
+But not all this (my) amnesia was totally a waste of time. Giovanni Resta found a new approach to the subject matter of this puzzle. Here is his interesting work (equations and plots):
+
+First of all let us define a function, say U(n) which counts the number of 1's in the numbers 1,2,..,n.
+
+After a little effort it is easy to see that U(n) can be calculated as follows.
+
+Let us write n as d_k*10^k + d_(k-1)*10^(k-1) + + d_1*10+d_0, that is n is written d_k .... d_2 d_1 d_0.
+
+U(n) is obtained adding two values
+
+1) if the digit d_p, with p>0, is equal to 1 then we add the number obtained taking the digits from d_(p-1) to d_0.
+
+For example,
+
+if n = 43432 this contribute is 0 since there are no 1 in n.
+
+If n = 33186 this contribute is 86 (which follows the 1) if n= 214189 then the contribute is 4189 + 89
+
+2) for each digit d * 10^q
+
+we add the contribution:
+
+if d=0 : 0
+
+if d=1 : 1+q*10^(q-1)
+
+else : 10^q + q*d*10^(q-1)
+
+for example, for the first non trivial balanced number we have n=199981 and the first contribution is 99981 while for the other digits we have 1*10^0 -> 1+0*0 = 1
+
+8*10^1 -> 10^1+8*1*10^0 = 18
+
+9*10^2 -> 10^2+9*2*10^1 = 280
+
+9*10^3 -> 10^3+9*3*10^2 = 3700
+
+9*10^4 -> 10^4+9*4*10^3 = 46000
+
+1*10^5 -> 1+5*10^4 = 50001
+
+Summing up we have 1+18+280+3700+46000+50001+99981=n=199981.
+
+Using this definition of U(n) it is possible to plot it easily against n.
+
+For example, in plot1 I have plotted
+
+Log(n/U(n)) for values of n between 10^4 and 10^(60) (Hence, a positive value means n>U(n) and a negative value means
+
+n<U(n) )
+
+While it is probably not too difficult to prove that the U(n)=n cannot have solutions larger than 10^15, from the graphics we can assume that the solutions must lie in a smaller range.
+
+Indeed in the plot2 we see a plot between 10^4 and 10^12, where I think all solutions lies.
+
+Since the interval was quite small I have searched them more or less by brute force. There are 86 solutions:
+
+1 1599989 500000001 501599989
+
+199981 1599990 500199981 501599990
+
+199982 2600000 500199982 502600000
+
+199983 2600001 500199983 502600001
+
+199984 13199998 500199984 513199998
+
+199985 35000000 500199985 535000000
+
+199986 35000001 500199986 535000001
+
+199987 35199981 500199987 535199981
+
+199988 35199982 500199988 535199982
+
+199989 35199983 500199989 535199983
+
+199990 35199984 500199990 535199984
+
+200000 35199985 500200000 535199985
+
+200001 35199986 500200001 535199986
+
+1599981 35199987 501599981 535199987
+
+1599982 35199988 501599982 535199988
+
+1599983 35199989 501599983 535199989
+
+1599984 35199990 501599984 535199990
+
+1599985 35200000 501599985 535200000
+
+1599986 35200001 501599986 535200001
+
+1599987 117463825 501599987 1111111110
+
+1599988 500000000 501599988
+
+and the largest one is 1111111110. There are no other prime solutions apart those you find.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,197 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_652.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 652 Recursively Pi+1 = POD(Pi) + 1
+Source: https://www.primepuzzles.net/puzzles/puzz_652.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0652.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  tel:8128512001
+  https://www.primepuzzles.net/puzzles/puzz_651.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_653.htm
+  https://www.primepuzzles.net/puzzles/puzz_652.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 652 Recursively Pi+1 = POD(Pi) + 1
+
+Problems & Puzzles: Puzzles
+
+Puzzle 652 Recursively P_i+1 = POD(P_i) + 1
+
+POD means here "product of digits". Look at this this example that contains 6 primes:
+
+P1=1569889->155521->251->11->2->3 (6 primes total)
+
+The sequence of the smallest primes having this property, ordered by the quantity of primes generated is:
+
+a(n): 3, 2, 11, 251, 56897, 1569889, ?... for n=1, 2, 3, ...
+
+Q. Send your next members for this sequence
+
+Contributions came from W. Edwin Clark, Ryan Bailey, Jan van Delden & Emmanuel Vantieghem
+
+***
+
+W. Edwin wrote:
+
+I have verified that for primes p < 10^40 there is NO sequence of 7 primes:
+
+p = P_1 -> P_2 ->...-> P_7
+
+This verification is possible when it is noted that all of the primes
+
+P_2,...,P_7 have to be of the form 2^a*3^b*5^c*7*d + 1. This makes
+
+searches quite efficient since there are so few primes of this form.
+
+I explored the question for other bases a little. My best result was for
+
+base 11 where I obtained the following sequence of 9 primes given in
+
+both their decimal form and in their base 11 form:
+
+P_1 = 953353965375001 = [2, 5, 6, 8, 4, 10, 1, 6, 7, 6, 2, 7, 4, 10, 3]_11
+
+P_2 = 8128512001 = [3, 4, 10, 1, 3, 7, 3, 4, 1, 5]_11
+
+P_3 = 151201 = [10, 3, 6, 6, 6]_11
+
+P_4 = 6481 = [4, 9, 6, 2]_11
+
+P_5 = 433 = [3, 6, 4]_11
+
+P_6 = 73 = [6, 7]_11
+
+P_7 = 43 = [3, 10]_11
+
+P_8 = 31 = [2, 9]_11
+
+P_9 = 19 = [1, 8]_11
+
+My most complete result is that for base 2 there is no sequence with more than 2 primes.
+
+All of the form in binary: P_1 = 1111...1 -> 10 where P_1 is a Mersenne prime. :-
+
+***
+
+Ryan wrote:
+
+I hope it wasn't just my algorithm, but after checking all primes up to 28204749227, I found no solutions for more than 6 primes.
+
+***
+
+Jan wrote:
+
+A number n having digits in the set {1,..,9} generates a POD(n) having prime factors 2,3,5 or 7. The successor of n, i.e. POD(n)+1, will therefore be of the form 2^a*3^b*5^c*7^d+1.
+
+In order for this successor to be prime we should at least have one factor 2 (a>0). If more than one 2 is present we should have at most 1 factor 5 (c<=1) in order to avoid zeroes (the successor will otherwise end with digits 01).
+
+The number 1569889=2^5*3^3*23*79+1 can not have a predecessor since it is not of the given form. In order to find a solution having at least length 7 one should find numbers of the given form generating a list with at least length 6. I tested all potential numbers with 100 digits or less.
+
+We have: (#D=number of digits, #SOL=number of solutions of the required form, ML=maximal length of list found):
+
+#D #SOL ML
+
+1 3 1
+
+2 13 3
+
+3 30 4
+
+4 31 3
+
+5 47 4
+
+6 53 5
+
+7 56 5
+
+8 56 4
+
+9 54 5
+
+10 61 4
+
+11 56 2
+
+12 68 3
+
+13 74 2
+
+14 77 2
+
+15 63 2
+
+16 57 2
+
+17 70 1
+
+18 39 2
+
+19 52 1
+
+20 44 1
+
+30 26 1
+
+40 13 1
+
+50 7 1
+
+60 0 0
+
+70 4 1
+
+80 0 0
+
+90 0 0
+
+100 0 0
+
+Note that #SOL=3 if #D=1 because 2 is not of the required form. [It could be added if one prefers..].
+
+In fact for #D>=28 I found ML<=1 and even worse ML=0 for #D in {60,62,64,66,67,75,76,77,79,80,81,83,84,85,87,88,90,91,92,93,94,95,96,97,98,99,100}.
+
+So not only do the number of required numbers thin out to 0, the probability that two of these are each other predecessor/successor is close to 0 even worse we need at least 5 connections... So my answer is: there is no next member.
+
+***
+
+Emmanuel wrote:
+
+In my opinion, there is no next member in that sequence! I came to that conclusion by the following observations.
+
+Let us abbreviate the function POD(m) + 1 by F(m). It is clear that F(m) is of the form 1+(2^a) *(3^b)*(5^c)*(7^d).
+
+I examined those m for which F(m) and F(F(m)) are prime and for which F(F(F(m))) is not 1 (which means that there is no zero among its digits). There were very few candidates among the m with less than 200 digits. All of them lead to chains with at most 6 primes.
+
+So, if there is a next member, it must have more than 200 digits ...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

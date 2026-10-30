@@ -1,0 +1,242 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_200.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 200.  Ones from 1 to p (*)
+Source: https://www.primepuzzles.net/puzzles/puzz_200.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0200.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://math.smsu.edu/~les/POTW.html
+  mailto:crivera@primepuzzles.net
+  https://www.primepuzzles.net/puzzles/puzz_199.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_201.htm
+  https://www.primepuzzles.net/puzzles/puzz_200.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 200. Ones from 1 to p (*)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 200. Ones from 1 to p (*)
+
+Here you are asked to find primes p such that:
+
+writing down the integers from 1 to p the digit 1 is used exactly p times.
+
+I have found that the first three primes of these are: 35200001, 500199989, 535199981
+
+Questions:
+
+1. Demonstrate that there only a finite quantity of these primes
+
+2. Find all the rest of these primes, or at least the largest one of these.
+
+Let's change a little bit the original scheme to the real target of our current puzzle. Now you are asked to find primes p such that:
+
+writing down the primes from 2 to p the digit 1 is used exactly p times.
+
+3. Can you find four of these primes?
+
+________
+
+(*) puzzle idea taken from the October 2002 challenge problem from the SMSU Problem Corner pages.
+
+Solution:
+
+Question 1 & 2 was solved by J. K. Andersen and by L. T. Pebody & Joseph L. Pe
+
+Pebody wrote:
+
+The only such primes are as given: 35200001, 500199989 and 535199981. Let f(n) be the number of appearances of the digit 1 in the integers 1..n
+
+Theorem 1: 1111111110 is the largest integer n such that n=f(n)
+
+Proof:
+
+Let n_1=1111111111, and let n_(i+1)=f(n_i). Then one can check that n_1<n_2<...<n_276 and n_276>10^100.
+
+Let 10^d_i <= n_i < 10^(d_i+1) with d_i integral. Then d_276=100.
+
+Furthermore, n_(i+1) >= f(10^d_i) = d_i*10^(d_i-1). Therefore, if d_i >= 100, n_i+1>n_i and so d_i+1 >=100. Therefore, by induction n_276<n_277<n_278<....
+
+Putting together what we know, n_1<n_2<.... For every integer x>=n_1, there exists i such that n_i<=x<n_(i+1). Then f(n_i)=n_(i+1)<=f(x). Therefore x!=f(x). Note that 1111111110=f(1111111110)
+
+Theorem 2:
+
+535200001 is the second largest integer n such that n=f(n). Let n_1=1111111109, and let n_(i+1)=f(n_i). Then n_56=n_57=535200001. If 535200001<x<1111111110, there exists 2<=i<=56 such that n_i<x<=n_(i-1). Then f(x)<=f(n_(i-1))=n_i<x.
+
+Theorem 3:
+
+535199981 is the largest prime n such that n=f(n). 535199981=f(5351999981).
+
+535199981 is prime 535199982 is divisible by 2
+
+535199983 is divisible by 107
+
+535199984 is divisible by 2
+
+535199985 is divisible by 3
+
+535199986 is divisible by 2
+
+535199987 is divisible by 7
+
+535199988 is divisible by 2
+
+535199989 is divisible by 53
+
+535199990 is divisible by 2
+
+535199991 is divisible by 3
+
+535199992 is divisible by 2
+
+535199993 is divisible by 3803
+
+535199994 is divisible by 2
+
+535199995 is divisible by 5
+
+535199996 is divisible by 2
+
+535199997 is divisible by 3
+
+535199998 is divisible by 2
+
+535199999 is divisible by 19
+
+535200000 is divisible by 2
+
+535200001 is divisible by 7
+
+1111111110 is divisible by 2
+
+Pe wrote:
+
+Let p be a prime such that the digit 1 is used exactly p times in the integers from 1 to p. Prove that the number of such primes p is finite.
+
+Proof. Let A(p) be the number of times the digit 1 is used in the integers from 1 to p. Among all the digits used in the integers from 1 to p, at least 1/10 of these will be 1's. (This is in fact a severe underestimate since 1 will appear more often than most of the other nine digits. However, this proof works even if 1/10 is replaced by 1/k, where k is any positive integer!)
+
+Hence, A(p) >= (1/10) Sum_{i=1,...,p} L(i), where L(i) is the length of the decimal representation of i. But L(i) = 1 + [log(i)], where log(n) is the logarithm of n to the base 10, and [x] is the Floor of x (the greatest integer <= x). Thus,
+
+A(p) >= (1/10) (p + Sum_{i=1,...,p} [log(i)]) >=
+
+(1/10) (p + Sum_{i=1,...,p} (log(i) - 1)) =
+
+(1/10) (Sum_{i=1,...,p} log(i)) >
+
+(1/10) (Integral_{2,p} log(x-1) dx),
+
+where the last inequality holds because the rectangles represented by the
+
+(Riemann) sum circumscribe the area represented by the integral.
+
+Integrating by parts and dividing throughout by p yields
+
+A(p)/p > (1/10)[log(p - 1) - (1 / ln 10) ((1/p)ln(p-1) - 2/p + 1)], (*)
+
+where ln(x) denotes the natural logarithm of x.
+
+As p goes to infinity, the first term in the brackets approaches infinity, and the other terms approach 0. Therefore, A(p)/p goes to infinity, so that A(p) > p for all p >= some sufficiently large integer q. Hence, no prime > q can satisfy the above requirement, and the number of primes that satisfy it must be finite.
+
+[Note: The least integer p for which the right-hand side of (*) is >1 is p = 27182818308, the first eight digits of which are the first eight digits of e.]
+
+Andersen wrote:
+
+1. There are no solutions above 10^10. Proof:
+
+There are 10^10 numbers (including 0) below 10^10. With leading zeros to 10 digits, they have an even distribution of the digits. The number of ones is: (10^10 numbers)*(10 digits/number)*(1 ones/(10 digits)) = 10^10 ones. Any interval of length 10^10 will then have 10^10 ones in the last 10 digits alone. Below 2*10^10 there are 3*10^10 ones (including 10^10 leading ones in 11-digit numbers). At x=2*10^10, the number of ones is then already 10^10 greater than x. This difference cannot be equalized before the next 10^10 numbers, and it is at least as big after exactly 10^10 new numbers. The above shows that if x>10^10 then there are always more than x ones in the numbers <=x.
+
+2. Find all the rest of these primes, or at least the largest one of these.
+
+There are actually only the 3 given primes of which the largest is 535199981. It has been proved there are no solutions above 10^10. I made an exhaustive brute-force search below 10^10, counting all ones along the way. I estimated this was easier than a theoretical approach.
+
+There was equality for the following values and intervals (indicated by ..last
+
+digits):
+
+1, 199981..90, 200000..1, 1599981..90, 2600000..1, 13199998, 35000000..1, 35199981..90, 35200000..1, 117463825, 500000000..1, 500199981..90, 500200000..1, 501599981..90, 502600000..1, 513199998, 535000000..1, 535199981..90, 535200000..1, 1111111110
+
+Including the first digit of 10^10, there are 10^10+1 ones, so this is not a solution. The solutions were primality tested and there are only the 3 primes.
+
+***
+
+Question 3 was solved or almost solved by the same three puzzlers:
+
+Pebody wrote:
+
+Guess: there are no such primes. Checked up to p=4*10^8.
+
+Heuristics: The number of primes below p is approximately p/ln p. The average number of 1 digits in an integer below p is approximately log_10(p)/10. Therefore the number of 1 digits in the primes below p is approximately p * log_10(p) / 10*ln(p) = p/10*ln(10) Therefore if there is such a p, it should be small.
+
+Pe wrote:
+
+I suspect that there is no solution for question 3. In my computations, the value of a prime p grows much faster than the number o(p) of ones used in the primes from 2 to p. Here is a table; p(i) is the i-th prime:
+
+i =3,074,664 p(i)=51,306,039 o(p(i))=3,241,060
+
+i =3,793,603 p(i)=64,152,763 o(p(i))=3,873,287
+
+i =4,905,072 p(i)=84,293,347 o(p(i))=4,818,241
+
+i =5,951,369 p(i)=103,499,171 o(p(i))=5,900,011
+
+Of course, this is not a proof, but one can see what I mean about the growth rates. p appears to grow much faster than o(p). This can probably be formalized using some calculus and the prime number theorem.
+
+Andersen wrote:
+
+There are none. The distribution of primes can be used to prove a stronger result:
+
+The total number of digits in the primes from 2 to p is less than p.
+
+log is the natural logarithm and log10 the 10-logarithm in this post.
+
+Proof A (short informal version):
+
+The probability a d-digit number (around 10^d) is prime is around: 1/(log (10^d)) = 1/(d*log 10) ~= 1/(2.3d) The expected total number of "prime digits" in a d-digit number is then (prime probability)*digits = 1/(2.3d) * d = 1/2.3 ~= 0.43 This means that even if we count ALL digits in all primes less than p, it will only be around 0.43p and never reach p.
+
+Proof B (longer formal version):
+
+Elementary calculations shows the claim is true for p<1000.
+
+pi(x) is the number of primes <=x. This is well-known to be around x/log x, but a proven bound is needed for a formal proof. From The Prime Pages: "Note that Pierre Dusart [Dusart99] showed that if x>598 then (x/log x)(1 + 0.992/log x) < pi(x) <(x/log x)(1 + 1.2762/log x)"
+
+Assume x>1000 in the rest of the proof. Then 1+1.2762/log x < 1.2 and:
+
+pi(x) < (x/log x)*1.2
+
+The number of digits in x is 1+floor(log10 x). Then the primes below x each have at most 1+log10 x digits. For x>1000, log10 x > 3 and then:
+
+1 + log10 x < 0.4*log10 x + log10 x = 1.4*log10 x = 1.4*(log x)/(log 10)
+
+The total number of digits in primes below x is then below: pi(x)*(maximal digits per prime) < (x/log x)*1.2 * 1.4*(log x)/(log 10) = x*1.68/log 10 < 0.75*x. We just had to prove this number was below x (informal proof indicates 0.43*x is a better estimate).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,168 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_898.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 898. Given a square filled of integres, get...
+Source: https://www.primepuzzles.net/puzzles/puzz_898.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0898.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_897.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_899.htm
+  https://www.primepuzzles.net/puzzles/puzz_898.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 898. Given a square filled of integres, get...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 898. Given a square filled of integers, get...
+
+In 1977 C. W. Trigg posted the following puzzle:
+
+Regarding the following 5x5 square filled with the first integers 1 to 25
+
+2 | 13 | 16 | 11 | 23
+
+15 | 1 | 9 | 7 | 10
+
+14 | 12 | 21 | 24 | 8
+
+3 | 25 | 22 | 18 | 4
+
+20 | 19 | 6 | 5 | 17
+
+"Choose five, no two from the same row or column, so that the largest of the five elements is as small as possible, and justify your choice"
+
+The solution was given by Sidney Penner:{1, 3, 6, 8, 11}
+
+Here we will ask similar questions but filling the square with the first nxn prime numbers.
+
+Q1. Suppose you have a nxn square filled at random with the first nxn prime numbers. Describe an algorithm to choose n of them, no two from the same row or column, so that the largest of the n chosen elements is as small as possible. The expected algorithm is one that is neither probabilistic nor exhaustive, but deterministic & using a clever shortcut.
+
+Q2. Apply your algorithm to the following examples and send your results:
+
+Example 1, n=5:
+
+37 | 11 | 17 | 23 | 2
+
+79 | 73 | 59 | 71 | 61
+
+29 | 43 | 31 | 7 | 83
+
+41 | 47 | 19 | 13 | 97
+
+5 | 53 | 3 | 89 | 67
+
+Example 2, n=10:
+
+37 | 151 | 379 | 277 | 59 | 401 | 29 | 439 | 3 | 7
+
+83 | 229 | 23 | 11 | 397 | 13 | 167 | 461 | 43 | 463
+
+311 | 499 | 479 | 227 | 109 | 431 | 61 | 107 | 541 | 149
+
+491 | 191 | 281 | 457 | 101 | 53 | 241 | 127 | 97 | 179
+
+139 | 523 | 193 | 349 | 71 | 449 | 67 | 337 | 239 | 73
+
+421 | 383 | 103 | 263 | 163 | 251 | 137 | 19 | 5 | 131
+
+359 | 373 | 293 | 173 | 17 | 41 | 31 | 521 | 257 | 79
+
+331 | 353 | 433 | 271 | 113 | 317 | 419 | 197 | 409 | 2
+
+157 | 47 | 89 | 443 | 283 | 467 | 313 | 389 | 233 | 181
+
+487 | 509 | 223 | 269 | 503 | 211 | 199 | 367 | 347 | 307
+
+Contribution came from Jan van Delden
+
+***
+
+Jan wrote:
+
+Q1.
+
+For a nxn square the number of distinct sets of elements a[i,j] is equal to n! If we define an exhaustive routine to be a routine to test all these sets, a straightforward recursive routine does the trick. Test only those a[i,j] which are smaller than the maximum of the a[i,j] in the sets previously computed. This will prune the tree considerably. As a starting value for the maximum one could sort all values a[i,j] (from small to large) say in a list T and take T[n*n-(n-2)] (The minimax is T[n*n-(n-1)]). My routine works row by row. I pass the current row number, the set of not used columindices and the values of the a[i,j] used in the current set. [The last parameter is strictly speaking not necessary]. My routine counts the number of recursive calls.
+
+We can enforce a unique solution by searching a set having a minimal product of its elements (if the elements are prime numbers).
+
+I investigated the distribution of the number of calls to my routine. I used 1000 squares each with a different random permutation of the integers 1..n^2. Because this distribution is strongly skewed to the right, I investigated the distribution of ln(number of calls) instead:
+
+n=5, See Fig1
+
+This is (about) Gamma distributed with scale=.1314 shape=21.63. Number of calls: Median 17, Maximum 170. (Compare with 5! = 120)
+
+n=10, See Fig 2
+
+This is (about) Gamma distributed with scale=.2751 shape=21.73. Number of calls: Median 351.5, Maximum 65419.
+
+(Compare with 10!=3628800)
+
+n=15, See Fig 3
+
+This is (about) Gamma distributed with scale=.4736 shape=19.89. Number of calls: Median 9916.5, Maximum 30888658.
+
+(Compare with 15!=1307674368000)
+
+Please note that it is better to use the median to measure the performance of this routine, it is a robust measure.
+
+The maximum and hence the mean are not robust.
+
+Based on n<=15 an estimate of the median would be: .488*exp(.671*n).
+
+The algorithm behaves poorly if the final value of the maximum is close to its initial value. Also the location of the largest elements has an impact on the speed of finding a solution.
+
+For instance a square with the largest numbers in the last row will yield the largest number of calls. In these cases my routine will be exhaustive.
+
+So one should first check for an ill-conditioned square (at the cost of a more specialized routine).
+
+Let’s see if more efficient solutions exist (for all permutations).
+
+Q2.
+
+The solutions (test if element <= Maximum) to the first question are:
+
+{2, 7, 41, 53, 59}
+
+{2, 5, 7, 47, 59} Minimal product of elements
+
+{2, 13, 29, 53, 59}
+
+{2, 5, 13, 43, 59}
+
+The second question has 264 different solutions, all having maximal element 199.
+
+{2, 3, 11, 17, 47, 53, 103, 107, 139, 199} First solution found
+
+{2, 5, 11, 17, 37, 47, 53, 107, 193, 199} Minimal product of elements
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,146 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_776.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 776. Ten consecutive integers such that...
+Source: https://www.primepuzzles.net/puzzles/puzz_776.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0776.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_775.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_777.htm
+  https://www.primepuzzles.net/puzzles/puzz_776.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 776. Ten consecutive integers such that...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 776. Ten consecutive integers such that...
+
+José de Jesús Camacho sent the following nice puzzle:
+
+Using the transformation N -> M such that M = N + Σ (di^2), where di are the digits of N, we are looking only for N integers such that M is a prime number.
+
+Example:
+
+N= 10 then M = 10 + 1^2 + 0^2 = 11
+
+Moreover we are looking for sets of consecutive integers N such that all the corresponding M values are prime integers.
+
+One set having 10 members is {N}= {10, 11, ... 19}, because the corresponding M values are al prime numbers {M} = { 11, 13, 17, 23, 31, 41, 53, 67, 83, 101}
+
+Carlos Rivera have discovered another set {N}, having 10 consecutive integers and 10 prime numbers in the set {M}, being the first N value 1761702690
+
+Q. Find 3 more values as 10 and 1761702690
+
+Contributions came from Giovanni Resta, Flavio Torasso, Jan van Delden.
+
+***
+
+Giovanni wrote:
+
+I found all the solutions up to 10^15, then I deleted the result by accident, then I recomputed all the solutions up to 2*10^14 (after that I needed my PC for other things).
+
+There are 711 such numbers up to 2*10^14, the first 30 being
+
+10, 1761702690, 7226006660, 16453361570, 95748657190, 104217487100, 111058349320, 141665059420, 168759510430, 177313689280, 177313689330, 178209124090, 188343072120, 347296044930, 347296045010, 381449093790, 381449093840, 445151776780, 491570264380, 502344967120, 610260789170, 629827603880, 658654806500, 692148762400, 769651428120, 885255835150, 968235529460, 972397702210, 1144051661370, 1493824020460, and the
+
+last 5 are
+
+196671162186470, 197753259684960, 198207055214690, 198208971208570, 198440000999040.
+
+Some numbers lead to the same 10 primes, for example,
+
+177313689280 and 177313689330 or 347296044930 and 347296045010.
+
+***
+
+Flavio wrote:
+
+I found these three values satisfying Puzzle 776:
+
+7226006660
+
+16453361570
+
+95748657190
+
+***
+
+Jan wrote:
+
+If the sequence of N[i] doesn’t have a carry (hence maximal length 10, the last digit of N[i]=i) the corresponding differences between M[i] and M[1] depend only on the last digit and form an admissible constellation with M[i]-M[1] in [0,2,6,12,20,30,42,56,72,90]. This means that the values for M[1] must be either {11,17,41,101,137,167} mod (2*3*5*7), which restricts the search.
+
+If there is a carry the digits of N[1] before the last digit must be of the form {9}[2k+1]. This can be seen by using a parity check on the corresponding M[i]. For each of these forms one can compute the maximal sequence of N by checking whether there are still some free residues for M[1] left.
+
+The result is that if N[1] ends with the number i (and we have a carry), the maximal length is 11-i.
+
+90 the maximal length is 11 with 24 free residues mod (2*3*5*7*11)
+
+9990 the maximal length is 11 with 12 free residues mod (2*3*5*7*11)
+
+The free residues for {9}[k]0 seem to be a subset of {9}[5]1.
+
+91 the maximum length is 10 with 6 free residues mod (2*3*5*7)
+
+9991 the maximum length is 10 with 3 free residues mod (2*3*5*7)
+
+The free residues for {9}[k]1 seem to be a subset of {9}[1]0.
+
+etc.
+
+I checked M[1]<39816*10^6, only when no carry is present, length 10, and found:
+
+N[1] M[1] residue
+
+10 11 11
+
+1761702690 1761702947 137
+
+7226006660 7226006861 101
+
+16453361570 16453361777 167
+
+I checked length 11, only where N ends in 90, no solutions with M[1]<42966*10^6.
+
+A few remarks.
+
+This last routine was largely checking the same numbers, because the admissible constellation for length 11 is actually the same as given, with –70 on the last position. So all I needed to check was that for N[1]=1761702690 M[11]=1761702889 is not prime.
+
+Multiple values for M[1] exist for which M[2]..M[11] are prime:
+
+M[1]=25471289141 N[1]=25471288759 does not end in 90
+
+M[1]=23953276661 N[1] does not exist
+
+So they don’t generate solutions.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,151 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_022.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 22.- Divisors (IV). Aliquot Sequences. Factorizing s1131 (276).
+Source: https://www.primepuzzles.net/problems/prob_022.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0022.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  ftp://ftp.compapp.dcu.ie/pub/crypto/factor.exe
+  http://indigo.ie/~mscott
+  http://www.loria.fr/~zimmerma/records/ecmnet.html
+  http://www.loria.fr/~zimmerma/records/aliquot.html
+  http://www.unirioja.es/dptos/dmc/jvarona/aliquot.html
+  https://www.primepuzzles.net/problems/prob_021.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_023.htm
+  https://www.primepuzzles.net/problems/prob_022.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Problem 22.- Divisors (IV). Aliquot Sequences. Factorizing s1131 (276).
+
+Problems & Puzzles: Problems
+
+Problem 22.- Divisors (IV). Aliquot Sequences. Factorizing s^1131 (276).
+
+{n = s^0(n), s^1(n), s^2(n), s^3(n),….} is a sequence of numbers where each member is the sum of all the divisors of the previous member, excluding the member itself.
+
+By example:
+
+n = s^0(n) = 12
+
+{12, 16, 15, 9, 4, 3, 1}
+
+s^k(n)_max = 16
+
+The prime in the sequence = 3
+
+Steps = 6
+
+It was believed (M. E. Catalán, 1888; L. E. Dickson, 1913) that all the “aliquot sequences” end in one of the following ways:
+
+a) End in “1” after touching a prime (By example, the first relatively large/interesting sequence is for n = 138, that ends in 1 after touching the prime 59 in 177 steps, being s^117 (138)=179931895322 the maximum member of the sequence).
+
+b) End in a perfect number (i.e., n = 25 that ends in 6)
+
+c) End in a cycle composed oftwo 'amicable numbers' (like n = 220 and n = 284) or composed of several 'social numbers' (like the cycle formed by the numbers 12496, 14288, 15472, 14536 & 14264).
+
+According to R. K. Guy "…we now have heuristic arguments and experimental evidence that some sequences, perhaps almost all with n even, go to infinity… H. W. Lenstra has proved that it is possible to construct arbitrarily long monotonic increasing aliquot sequences…" Paul Zimmerman believes different: " My personal opinion is that Catalan's conjecture is true, that is every aliquot sequence converges to a prime, or a perfect number, or a cycle of amicable or sociable numbers... . But the question is how big are intermediate numbers that we need to factor to reach the end of the sequence"
+
+In the meanwhile, for n<1000 the only & still unknown uncomplete sequences are five of the so-called “Lehmer Six”: 276, 552, 564, 660, 840 (solved) & 966.
+
+Here are the first 10 members of the aliquot sequence for n= 276, from s^0(276) to s^9(276): {276, 396, 696, 1104, 1872, 3770, 3790, 3050, 2716, 2772,… }
+
+How you may proceed to calculate each member of the sequence? The most efficient way is to use the following relations:
+
+s(n) = s(n) - n
+
+s(n) = Product(pi^(ai+1)/(pi-1)) for all i; where n = product(pi^ai)
+
+Example: s(276) = s(276) - 276 = s(2 ^ 2 * 3 ^ 1 * 23 ^ 1) - 276 =
+
+[(2^3-1)/1]*[(3^2-1)/2]*[(23^2-1)/22] - 276 = 672 - 276 = 396
+
+As you can see, to calculate each member of the sequence you need to calculate s(n), which implies to factorize n. Then - when n is large (more than 80 digits or so) - the critical step is to factorize the last member of the sequence.
+
+Thanks to a kind e-mail of Paul Zimmerman (31/07/99) the current status of the aliquot sequence for n = 276 goes up the index k = 1131, which is composite of 108 digits which contains a composite number of 97 digits still pending to be factorized. This is an excerpt the Zimmerman's e-mail:
+
+"The current status is index 1131 with a c97 I'm still trying to factor by ecm:
+
+s^1131(276) = 493860924082137661609015482273124385959268
+
+008658401787620456940916788531547128467769698938083671
+
+848653966454, digits = 108
+
+c97 = 19181874475453892514998359707876863666438264688010837
+
+83153780853597075412372401846532604914896309
+
+Paul "
+
+a) Would you like to factorize c97?
+
+b) Is there any kind of characterization of those numbers that produce a monotonic increasing aliquot sequence?
+
+c) Is there any kind of characterization of those numbers that produce a monotonic decreasing aliquot sequence?
+
+Hints:
+
+I have asked to my friend Jim R. Howell which codes would he recommend to factorize this kind of numbers. This is his very kind and documented answer (30/07/99):
+
+"There are two programs I would use to try to factorize a 95-digit number. First I would try "factor.exe", which can be downloaded from:
+
+ftp://ftp.compapp.dcu.ie/pub/crypto/factor.exe
+
+This program tries several different methods of factorizing. (I downloaded the source code for "factor" from http://indigo.ie/~mscott and recompiled it using higher limits for the Elliptic Curve part of it.)
+
+If the number has a factor of about 25 digits or less, factor.exe will (probably) find it. If not, the program will run for a few hours and then give up. [These two sentences apply only when factor.exe is working on a number that is more than 80 digits. The program will successfully factor any number of 80 digits or less, according to its author.] [Since Paul Zimmerman and others are "stuck" on this number, it seems very likely that factor.exe will not be successful in finding a factor.]
+
+If "factor" is not successful, then I would use "ecm3a.exe" . This program uses the Elliptic Curve Method of factoring. It can be downloaded from the ECMNET page at http://www.loria.fr/~zimmerma/records/ecmnet.html. I use the Conrad Curry executable (near the top of the page), and the "ecmloop.bat" batch file to run it.
+
+I have used UBASIC a little, but I don't know if there is any code there that would help. There are several UBASIC files whose names start with MPQS (I assume that this means Multiple Polynomial Quadratic Sieve). The correct one of these might possibly be useful. (UBASIC also has some ECM code.)"
+
+References:
+
+1) Ref. 2, B6, p.60
+
+2) About the status of this and other aliquot sequences, please see: http://www.loria.fr/~zimmerma/records/aliquot.html http://www.unirioja.es/dptos/dmc/jvarona/aliquot.html
+
+Solution
+
+Wolfgang Creyaufmüller and independently Jim Howell have factored the "c97" from Problem 22 (term 1131 in the Aliqout Sequence).
+
+According to the Paul Zimmerman's last e-mail (30/08/99) "We are now at index 1160 for the sequence 276, with the following c93 to factor
+
+s1160(276)=, 82395327475847091155164590164529074456059183652796467791239083086037\
+
+77115368005245573679698897427144197953386, 109
+
+c93=2799614692798764631888788686269047741104010845558956137109478943718414\
+
+76469826348955399941337"
+
+So the 276- aliquot-sequence is still alive...
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

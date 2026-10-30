@@ -1,0 +1,219 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_202.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 202.  The n-th Omega recurrence
+Source: https://www.primepuzzles.net/puzzles/puzz_202.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0202.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_201.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_203.htm
+  https://www.primepuzzles.net/puzzles/puzz_202.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 202. The n-th Omega recurrence
+
+Problems & Puzzles: Puzzles
+
+Puzzle 202. The n-th Omega recurrence
+
+Joseph L. Pe sent the following puzzle for these pages:
+
+Let Omega(n) be the number of prime factors of n, counting multiplicity.
+
+The least positive integer k satisfying Omega(k) = Omega(k-1) is k=3, since Omega(3) = Omega(3-1) = 1.
+
+The least positive integer k satisfying Omega(k) = Omega(k-1)+Omega(k-2) is k=3, since Omega(3) = Omega(3-1)+Omega(3-2) = 1+0 =1.
+
+The least positive integer k satisfying Omega(k) = Omega(k-1)+Omega(k-2)+Omega(k-3) is k=4, since Omega(4) = Omega(4-1)+Omega(4-2)+Omega(4-3) = 1+1+0=2.
+
+In general, define the sequence a(n) by: a(n) = the least positive integer k satisfying the "n-th Omega recurrence"
+
+Omega(k) = Omega(k-1)+...+Omega(k-n),
+
+if a solution k exists; otherwise, define a(n) = 0.
+
+It turns out that the least k satisfying Omega(k) = Omega(k-1)+Omega(k-2)+Omega(k-3)+Omega(k-4) is k=1440, so that a(4) = 1440.
+
+The first seven terms of a(n) are 3, 3, 4, 1440, 18432, 516096, 2621440
+
+Questions
+
+1. What are the values of a(8), a(9), and a(10)? (For n=8, I have not found a solution k less than 10^6).
+
+2. Is a(n) > 0 for all n, i.e., does a solution k to an Omega recurrence always exist? (I am inclined to believe so. If this is not the case, then what is the first n with a(n) = 0?)
+
+3. Besides the first two terms, does a(n) have any more odd terms?
+
+4. Consider the problem of finding minimal solutions to recurrences defined with other number-theoretic functions such as phi and sigma.
+
+Solution:
+
+Question 1:
+
+Jud McCranie, Shyam Sunder Gupta, Igor Schein, J.K. Andersen & Johann Wiesenbauer found that a(8) = 150994944.
+
+J. K. Andersen & Johann Wiesenbauer found that a(9) = 4,416,602,112 = 2^22.3^4.13 and a(10) = 91,729,428,480 = 2^23.3^7.5.
+
+Johann Wiesenbauer found a(11) = 253671505920 = 2^28·3^3·5·7 & a(12) = 184717953466368 = 2^43·3·7
+
+Here are what Andersen says for questions 2 & 3:
+
+2. Is a(n) > 0 for all n, i.e., does a solution k to an Omega recurrence always exist? My guess is definitely yes. According to Phil Carmody something like this may have been proven by Roger Heath-Brown. I would also guess that there are always solutions where each of the n consecutive numbers only have one prime factor above n.
+
+3. Besides the first two terms, does a(n) have any more odd terms? a(n) is probably even for all n>2. I use "minimal Omega" for the smallest possible number of prime factors in n consecutive numbers above n. This is the prime factors below n (using that p divides every p numbers), and n co-factors. I think a version of the generally believed k-tuple conjecture says that there are always cases where all co-factors are primes. a(2) and a(3) don't have the previous n numbers above n, so the minimal Omega is not relevant here. Consider a(4). Of 4 consecutive numbers, one is divisible by 2^2, one by 2 and one (at least, possibly the same) by 3. These 4 small factors and 4 co-factors gives minimal Omega 8 for n=4. This is the only non-trivial case in the table where Omega(a(n)) is actually the minimal Omega. This means all 4 co-factors are primes: 1436 = 2^2*359, 1437 = 3*479, 1438 = 2*719, 1439 = 1439. Minimal Omega is 19 for n=8. This means a search for a(8) only has to consider products of at least 19 primes. All such products below a chosen realistic search limit can quickly be generated. For each product it must be tested whether the previous 8 numbers have the right total number of prime factors. I wrote a C program for that with trial factoring using the remainder to see if a prime divides any of the numbers. The factoring can stop as soon as too many factors have been found. It can also stop in cases where there cannot be enough factors left anymore, but I only implemented a limited version of this.
+
+Minimal
+Omega(a(n)) Omega for n
+a(1) = 3 = 3 1 1
+a(2) = 3 = 3 1 (3)
+a(3) = 4 = 2^2 2 (5)
+a(4) = 1,440 = 2^5.3^2.5 8 8
+a(5) = 18,432 = 2^11.3^2 13 10
+a(6) = 516,096 = 2^13.3^2.7 16 13
+a(7) = 2,621,440 = 2^19.5 20 15
+a(8) = 150,994,944 = 2^24.3^2 26 19
+a(9) = 4,416,602,112 = 2^22.3^4.13 27 22
+a(10) = 91,729,428,480 = 2^23.3^7.5 31 25
+a(11) = 253,671,505,920 = 2^28.3^3.5.7 33 27
+a(12) = 184,717,953,466,368 = 2^43.3.7 45 31
+a(13) = 4,714,705,859,903,488 = 2^46.67 47 33
+a(14) = 74,309,393,851,613,184 = 2^51.3.11 53 36
+a(15) = ? ? 39
+a(16) = ? ? 44
+
+The large number of necessary prime factors combined with the search for the smallest solution means that a(n) tends to have a lot of small factors, mainly 2's. The table shows that the multiplicity of 2 grows quickly, at least to a(14). My guess, not based on general serious heuristics, is that 2 will always be a factor, i.e. a(n) is even for all n>2. Odd numbers never even have to be tested in the table because 3^(minimal Omega for n) > a(n) for 2<n<15.
+
+***
+
+Here is the complete "smoothed out" e-mail from Wiesenbauer:
+
+What follows are the values a(k), k=8,9,10,11,12, for the k-th Omega
+
+recurrence, i.e. the minimal values of n such
+
+Omega(n) = Omega(C(n-1,k)*k!) (*)
+
+where C(n-1,k) is a binomial coefficient:
+
+a(8) = 150994944 = 2^24·3^2
+
+a(9) = 4416602112 = 2^22·3^4·13
+
+a(10) = 91729428480 = 2^23·3^7·5
+
+a(11) = 253671505920 = 2^28·3^3·5·7
+
+a(12) = 184717953466368 = 2^43·3·7
+
+I used Derive 5.06 to compute these values and it took about 13 hours to
+
+compute the value of a(12) on my 2GHz-machine. (By comparison the value of
+
+a(8) was computed in less than 1 min !) Here are some of the ideas I used:
+
+First it is easy to see that a(k)>k+1 for k>3. Hence we may assume that
+
+Omega(n)=Omega(C(n-1,k))+Omega(k!)>=Omega(k!)+1 for n>k+1 (**)
+
+using Omega(C(n-1,k))>=1. But if n>k+k! we can say even more, namely
+
+Omega(C(n-1,k)>=k, and hence
+
+Omega(n)= Omega(C(n-1,k)+Omega(k!)>=k+Omega(k!) for n>k+k! (***)
+
+due to Omega(C(n-1,k)>=k. In other words, I first checked all n<=k+k! using
+
+(**), which is rather fast, and then I used the far more stringent
+
+condition (***) to check all n>k+k! up to a certain bound s(k). This s(k)
+
+was a value, where the recurrence (*) is fulfilled, and it was obtained by
+
+"intelligent guessing". (To be more precise, I simply assumed that a(k) is
+
+divisible by a high power of 2 and tried out some powers of 2 which seemed
+
+to be appropriate!) Among all numbers n satisfying (***) and k+k!<n<=s(k) I
+
+determined those n which also fulfilled the omega-recurrence (*) for the
+
+give k and set a(k) the smallest one, which was by far the most
+
+time-consuming part of the whole computation. Usually it turned out that
+
+a(n)=s(n), i.e. my guess for a(n) was almost always correct.
+
+As for a(n), n=13,14,15,16,17, I have only the following bounds so far, but
+
+most of them are supposed to be sharp again.
+
+a(13) <= 4714705859903488 = 2^46*67
+
+a(14) <= 74309393851613184 = 2^51*3*11
+
+a(15) <= 1215971899390033920 = 2^53*3^3*5
+
+a(16) <= 197798095634112184320 = 2^56*3^2*5*61
+
+a(17) <= 4897610551569885954048 = 2^63*3^2*59
+
+This answers question 1 of the puzzle. As for question 2 the answer is very
+
+likely to be YES, as opposed to question 3, where the answer should be NO,
+
+but I have no proof.
+
+So far I have only taken a short look at question 4, dealing with phi and
+
+sigma instead of Omega, but there should be only finitely many values a(n)
+
+with a(n)/=0, e.g. a(1)=2, a(2)=3 for phi. To investigate "small" omega(n),
+
+i.e. the number of distinct prime divisors of n, might be more interesting
+
+though and I will try this as soon as I have more time than right now.
+
+***
+
+Shyam Sunder Gupta appended this:
+
+If instead of considering the solutions to:
+
+Omega(k) = Omega(k-1)+...+Omega(k-n)
+
+we ask the solutions of equally interesting:
+
+Omega(k) = Omega(k+1)+...+Omega(k+n)
+
+I found the following values of a(1) to a(8). 2, 12, 64,4608, 2304, 193536, 1572864, 566231040. Here we can see that a(4)>a(5)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

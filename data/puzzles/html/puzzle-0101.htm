@@ -1,0 +1,639 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Puzzle 101. Digital Divisibility Tests </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td><p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font>
+
+        </p>
+
+      <p><font face="Arial"><b>Puzzle 101. <font color="#008080">Digital
+      Divisibility Tests</font></b></font></p>
+
+      <p><font face="Arial" size="2">For sure you know some of the popular
+      &quot;<u>digital divisibility tests</u>&quot; of a given number <b><font color="#FF00FF"> N</font></b>
+      by another number <b><font color="#FF00FF">p</font></b>, based on
+      certain operations/properties of the decimal digits of N.</font></p>
+
+      <p><font face="Arial" size="2">For the purposes of this puzzle we must
+      understand a &quot;<i>divisibility test</i>&quot; as a procedure that
+      operates over the decimal digits of N and that reduces the initial given
+      number <font color="#FF00FF"><b>N</b></font> into another N' such that <font color="#FF00FF"><b>N</b></font>&gt;N'.
+      This procedure can be applied recursively producing a series of numbers <font color="#FF00FF"><b>N</b></font>
+      &gt; N' &gt; N'' &gt;...&gt; N* such that the last one, N*, can be easily
+      divided by<b><font color="#FF00FF"> p</font></b>; when this happens then
+      the original number <font color="#FF00FF"><b>N</b></font> also is divided
+      by<font color="#FF00FF"><b> N</b></font>.</font></p>
+
+      <p><font face="Arial" size="2">Here are some of these tests, for the first
+      primes <b><font color="#FF00FF">p</font></b>:&nbsp;</font></p>
+
+      <div align="left">
+        <table border="1" cellspacing="1" width="588">
+          <tr>
+            <td width="27"><font face="Arial" size="2" color="#FF00FF"><b>p</b></font></td>
+            <td width="545"><font face="Arial" size="2"><b>Divisibility test of <font color="#FF00FF"> N</font>
+              by <font color="#FF00FF"> p</font></b></font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">2</font></td>
+            <td width="545"><font face="Arial" size="2">If N is even (that is
+              the say if the rightmost digit of N is zero or an even digit) then
+              2 divides N<br>
+              &nbsp;</font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">3</font></td>
+            <td width="545"><font face="Arial" size="2">If
+              the sum of the digits of N is divided by 3 then N is divided by 3<br>
+              </font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">5</font></td>
+            <td width="545"><font face="Arial" size="2">If the rightmost digit
+              of N is 0 or 5 then 5 divides N<br>
+              </font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">7</font></td>
+            <td width="545"><font face="Arial" size="2">&quot;<i>Double the
+              units and subtract from the tens&quot;, e.g. 1365
+              -&gt;136-(2x5)=126 -&gt;12-(2x6)=0. If the chain ends in zero or a
+              multiple of 7, then the original number is divisible by 7&quot;</i><br>
+              </font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">11</font></td>
+            <td width="545"><font face="Arial" size="2">If N=a1a2a3a4...ak then
+              if (a1-a2+a3-a4 ...) is divided by 11 then N is divided by 11</font>
+              <p><font face="Arial" size="2">&quot;<i>Subtract the units from
+              the tens&quot;, e.g. 1364 -&gt; 136-4 etc. If the chain ends in
+              zero, then the original number is divisible by 11</i>&quot;<br>
+              </font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">13</font></td>
+            <td width="545"><font face="Arial" size="2">&quot;<i>Add the tens to
+              4 times the units&quot;, e.g. 1365 -&gt; 136+20 etc. If the chain
+              ends in a multiple of 13, then the original number is divisible by
+              13&quot;</i><br>
+              </font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">17</font></td>
+            <td width="545"><font face="Arial" size="2">&quot;<i>Two times the
+              hundreds less the last two digits, e.g. 8517 -&gt; 2*85 -17,
+              etc....</i>&quot;</font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">19</font></td>
+            <td width="545"><font face="Arial" size="2">&quot;<i>Add the
+              hundreds to 4 times the rest&quot;, e.g. 1311 -&gt; 13+44 etc. If
+              the chain ends in a multiple of 19, then the original number is
+              divisible by 19</i>&quot;&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">23</font></td>
+            <td width="545"><font face="Arial" size="2">?</font></td>
+          </tr>
+          <tr>
+            <td width="27"><font face="Arial" size="2">others</font></td>
+            <td width="545"><font face="Arial" size="2">?</font></td>
+          </tr>
+        </table>
+      </div>
+
+      <p><font face="Arial" size="2" color="#0000FF"><b>Questions:</b></font></p>
+
+      <p><font face="Arial" size="2" color="#0000FF"><b>1. Find the divisibility rule for p = 23
+      and others&nbsp;<br>
+      2. Do you devise a general approach to determine the divisibility rule for
+      any prime p?</b></font></p>
+
+      <p><font face="Arial" size="2">References:</font></p>
+
+      <p><font face="Arial" size="2">1. <a href="http://www.mcn.net/~jimloy/divis.html">http://www.mcn.net/~jimloy/divis.html<br>
+      </a>2. <a href="http://mathworld.wolfram.com/DivisibilityTests.html">http://mathworld.wolfram.com/DivisibilityTests.html<br>
+      </a>3. <a href="http://www.nrich.maths.org.uk/mathsf/journalf/jan97/art1/index.html">http://www.nrich.maths.org.uk/mathsf/journalf/jan97/art1/index.html</a>&nbsp;<br>
+      4. <a href="http://uzweb.uz.ac.zw/science/maths/zimaths/div19.htm">http://uzweb.uz.ac.zw/science/maths/zimaths/div19.htm</a>&nbsp;<br>
+      5. <a href="http://forum.swarthmore.edu/k12/mathtips/ward2.html">http://forum.swarthmore.edu/k12/mathtips/ward2.html</a>&nbsp;<br>
+      6. <a href="http://www.cut-the-knot.com/blue/FurtherDivisibility.html">http://www.cut-the-knot.com/blue/FurtherDivisibility.html</a>&nbsp;</font></p>
+
+      <p><font size="2" face="Arial">A new one after the Nash solution:</font></p>
+
+      <p><font size="2" face="Arial">7. <a href="http://dmoz.org/Science/Math/Number_Theory/Divisibility/Division_Rules/">http://dmoz.org/Science/Math/Number_Theory/Divisibility/Division_Rules/</a>&nbsp;</font></p>
+      <hr>
+
+      <p align="left"><b><font color="#FF0000">Solution</font></b></p>
+
+      <p class="MsoNormal" align="left"><font size="2" face="Arial"><b>Chris
+      Nash</b> has solved (29/07/2000) both questions showing a general method
+      to produce any &quot;divisibility test&quot;. As part of his approach to
+      the solution, new interesting and second level questions arise. Here is
+      his email. Ready?... then, go!!!</font></p>
+
+      <blockquote>
+        <p class="MsoNormal" align="left"><i><font size="2" face="Arial">&quot;</font></i><font SIZE="2"><i>I
+        thought about looking at solving this problem, and split the
+        divisibility criteria into two varieties.</i></p>
+
+        <p><i>Case 1). Split the digits into groups of a specified size. Either
+        add all the groups, or alternatively add or subtract the groups.<br>
+        Case 2). Take the last d digits. Multiply them by some small quantity,</i></font><i>
+        </i><font SIZE="2"><i>and add them to the rest.<br>
+        Case 3). Division by 2 or 5 is done merely by looking at the last digit,
+        since 2 and 5 are factors of the base 10.</i></p>
+        <p><i>Case 1) is actually a variant of case 2). (Make the small quantity
+        either +1 or -1).</i></p>
+        <p><i>So we look merely at case 2). Let our number be N, and let us
+        choose to take d digits from the end. Then N can be written as X*10^d +
+        Y, where Y is the last d digits of N. And we now wish to find an integer
+        k such that N is divisible by p if and only if X+kY is divisible by p.</i></p>
+        <p><i>We have the following logic, &lt;=&gt; denotes if and only if. p
+        is a prime, and is not 2 or 5 X+kY is divisible by p &lt;=&gt;
+        10^d(X+kY) is divisible by p &lt;=&gt; (X*10^d + Y) + (k*10^d-1)Y is
+        divisible by p</i></p>
+        <p><i>Hence, for our required division rule, given d, we must choose k
+        such that k*10^d-1 is divisible by p. Any choice of d will give us a
+        division rule. However the idea is to choose a value of d that is not
+        too large, and a value of k so that multiplication is not too difficult.
+        We search by value of d, and we will assume that it is easy to multiply
+        a d digit number by numbers 5 or less.</i></p>
+        <p><i>d=1&nbsp;<br>
+        ===<br>
+        Division rules exist with multiplier k if 10k-1 is divisible by p. So we
+        attempt the k values from -5 to 5</i></p>
+        <p><i>k=-5: -51 has factors 3*17. We already know easier division rules
+        for these.<br>
+        k=-4: -41 has factors 41. So here is a division rule for 41: subtract
+        four times the units from the rest.<br>
+        k=-3: -31, again produces a division rule for 31: subtract three times
+        the units from the rest<br>
+        k=-2: -21, gives the division rule you list for 7: subtract twice the
+        units from the rest<br>
+        k=-1: -11, gives the division rule you list for 11.<br>
+        k=1: 9, gives the familiar division rule you list for 3.<br>
+        k=2: 19, gives a different rule than you list for 19: double the units,
+        add to the rest<br>
+        k=3: 29, gives a rule for 29: multiply the units by 3, add to the rest<br>
+        k=4: 39, gives the rule you list for 13</i></font><i>: </i><font SIZE="2"><i>multiply
+        the units by 4, add to the rest.<br>
+        k=5: 49, gives a rule for 7, but it is not so easy: multiply the units
+        by 5, add to the rest.</i></p>
+        <p><i>Before we continue with this search, we need to think, <font color="#0000FF"><b>what
+        is an</b></font></i></font><i><font color="#0000FF"><b> </b></font></i><font SIZE="2"><i><font color="#0000FF"><b>'easy'
+        division rule?</b></font> For instance, which rule is easier for 19?</i></p>
+        <p><i>- double the units, add to the rest, or<br>
+        - add the hundreds to four times the rest</i></p>
+        <p><i>It appears the easiest rule is the rule that gives the smallest
+        value of k, however this may not always be true. For example, we can
+        always construct a rule for any prime p, with k=1. Since 10^(p-1)-1 is
+        divisible by p, a general division rule for p is take the last p-1
+        digits, and add to the rest. But this is not too helpful, since it may
+        only reduce our problem to p-1 digits.</i></p>
+        <p><i>So I started to search for division rules that work as follows.
+        Find a division rule with the smallest value of d, and for k values in
+        the range -5 to 5. Now we can reverse the process. Here is an <b><u>algorithm</u></b>
+        to find a suitable division rule for p.</i></p>
+        <blockquote>
+          <p><b><i><font color="#FF00FF">1</font><font color="#008000">
+          Initialize R=1 and D=0<br>
+          </font><font color="#FF00FF">2</font><font color="#008000"> Calculate
+          X, such that 10X-1 is divisible by p.<br>
+          </font><font color="#FF00FF">3</font><font color="#008000"> In a loop:</font></i></b></p>
+          <blockquote>
+            <p><i><b><font color="#FF00FF">3.1</font><font color="#008000">
+            increase D<br>
+            </font><font color="#FF00FF">3.2</font><font color="#008000">
+            multiply R by X<br>
+            </font><font color="#FF00FF">3.3</font><font color="#008000"> reduce
+            R modulo P to it's smallest absolute value (-P/2&lt;R&lt;P/2)<br>
+            </font><font color="#FF00FF">3.4</font><font color="#008000"> If R
+            is in the 'acceptable' range for multiplication (-5 to +5)</font></b></i></font><i><b><font color="#008000">
+            </font></b></i><font SIZE="2"><i><b><font color="#008000">output the
+            rule - take the last D digits, multiply by R, add to the rest, and
+            exit the loop</font></b></i></p>
+          </blockquote>
+        </blockquote>
+        <p><i>If you prefer, you can change this algorithm so the test for R
+        tests against other values, for instance +-1, +-2, +-4 (if you do not
+        want to multiply by 3 in your rule).</i></p>
+        <p><i>Here is the list of division rules up to 100 generated using this
+        algorithm (it is very easy to go much higher)</i></p>
+        <p><i>13: take last 1 digits, multiply by 4, add to rest<br>
+        17: take last 1 digits, multiply by 5, subtract from rest<br>
+        19: take last 1 digits, multiply by 2, add to rest<br>
+        23: take last 2 digits, multiply by 3, add to rest<br>
+        29: take last 1 digits, multiply by 3, add to rest<br>
+        31: take last 1 digits, multiply by 3, subtract from rest<br>
+        37: take last 3 digits, multiply by 1, add to rest<br>
+        41: take last 1 digits, multiply by 4, subtract from rest<br>
+        43: take last 2 digits, multiply by 3, subtract from rest<br>
+        47: take last 5 digits, multiply by 3, subtract from rest<br>
+        53: take last 7 digits, multiply by 4, subtract from rest<br>
+        59: take last 4 digits, multiply by 2, subtract from rest<br>
+        61: take last 13 digits, multiply by 2, add to rest<br>
+        67: take last 2 digits, multiply by 2, subtract from rest<br>
+        71: take last 6 digits, multiply by 2, add to rest<br>
+        73: take last 4 digits, multiply by 1, subtract from rest<br>
+        79: take last 13 digits, multiply by 1, add to rest<br>
+        83: take last 15 digits, multiply by 3, add to rest<br>
+        89: take last 8 digits, multiply by 2, add to rest<br>
+        97: take last 10 digits, multiply by 2, add to rest</i></p>
+        <p><i>Note some of them are not very easy to use, for instance, the rule
+        for</i></font><i> </i><font SIZE="2"><i>61 only reduces you to a 13
+        digit number. Any smaller reductions produce more difficult
+        multiplication needed. If you have an 8-digit calculator, a rule that
+        reduces things to 7 digits may be good enough.</i></p>
+        <p><i>Note there is an interesting feature of these rules. Any rule
+        generated may work for more than one number. For instance, take 59. The
+        rule is take the last four digits and multiply by -2. The rule works
+        since -2*10^4-1 = -20001 is divisible by 59. The other factors are 3
+        (for which we already have a division rule) and 113. So the rule for 59
+        works for 113, too!</i></p>
+        <p><i>So, there are now <b><u>more questions</u></b>:</i></p>
+        <blockquote>
+          <p><font color="#0000FF"><b><i>1) Does anyone have any better rules
+          for 61, 79, 83, 89, and 97?<br>
+          2) Is the method I chose (smallest number of digits to produce a
+          multiplier of 5 or less) the best algorithm?<br>
+          3) are there any smarter methods (such as splitting into alternate</i></b></font></font><font color="#0000FF"><b><i>
+          </i></b></font><font SIZE="2"><font color="#0000FF"><b><i>digits) that
+          produce better rules?</i></b></font></p>
+        </blockquote>
+        <p><i>Finally, I revised the rules of the search a little. Suppose a
+        division rule for p can reduce the number to a value p^2 or less, and we
+        have division rules for smaller p. Then we can quickly factor the
+        remaining number. So I defined a *difficult* division rule as one that
+        would require the same number of digits (or more) than p^2 (and with the
+        same range of k as above).</i></p>
+        <p><i>Here are the hard division rules up to 1000:</i></p>
+        <p><i>47, 53, 59, 61, 71, 73, 79, 83, 89, 97, 103, 107, 109, 127, 139,
+        149, 151, 157, 163, 173, 179, 191, 193, 197, 211, 223, 227, 233, 239,
+        241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+        331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 419, 421,
+        431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 503, 509, 521,
+        523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613,
+        617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701,
+        709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809,
+        811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 887, 907,
+        911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 </i>&quot;</p>
+        </blockquote>
+      </font>
+
+        <p class="MsoNormal" align="left"><font size="2" face="Arial">Later he
+        added:</font></p>
+
+    <blockquote>
+
+        <p>&quot;<font SIZE="2"><i>Of course this is only one type of division
+        rule - taking digits from the 'end' and adding or subtracting them into
+        the beginning. There are definitely other rules that can work from the
+        'other end', but these rules are really the same as doing the entire
+        division. (For instance, 97, take the first digit, multiply it by 3,
+        move it down two decimal places and add to the remainder... eg 5723 =
+        5000 + 723 -&gt; 150+723 = 873 = 800 + 73 -&gt; 24+73).</i></p>
+
+        <p><i>But I would be very interested if anyone can find some better
+        rules - in particular I<u><font color="#0000FF"> wonder if a rule for a
+        large prime can be constructed by rules for smaller primes</font></u>.</i>&quot;</p>
+      </blockquote>
+    </font>
+
+        <p class="MsoNormal" align="left">***</p>
+
+      <p class="MsoNormal" align="left"><font size="2" face="Arial">I feel very
+      happy with this solution produced by <b>Nash</b>, because incidentally
+      exhibits one of the most charming by candid aspects of the good scientific work:
+      i<u>t
+      opens more questions (4) that the closed ones (2)</u> - without traces of harassment
+      ...</font></p>
+
+      <p class="MsoNormal" align="left">***</p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">The young
+  Jordanian mathematician, <b>Murad A. AlDamen</b>, has sent (24/10/2000) a very
+  simple &amp; general method to find a rule of divisibility for any prime.</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">I would like to
+  show his general method with an example that - BTW - answers the question
+  asked by Nash about of a better divisibility for the prime 61.</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">The <b>Murad's</b>
+  general method goes like this:</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">Question: ¿Does
+  p=<b><font color="#FF0000">61</font></b> divides - let's say to N=<b><font color="#0000FF">3598207</font></b>?</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">Answer: Write
+  down the following list of numbers</font></p>
+
+  <div align="left">
+    <table border="1" cellspacing="1" width="183" height="132">
+      <tr>
+        <td width="96" height="16"><font size="2" face="Arial">p=</font><font color="#FF0000" size="2" face="Arial"><b>6</b></font><b><font size="2" face="Arial" color="#008000">1</font></b></td>
+        <td width="71" height="16"><font size="2" face="Arial">N=</font><font color="#0000FF" size="2" face="Arial"><b>359820</b></font><b><font size="2" face="Arial" color="#800080">7</font></b></td>
+      </tr>
+      <tr>
+        <td width="96" height="16"><font size="2" face="Arial"><b><font color="#0000FF">359820</font></b>*<b><font color="#008000">1
+          </font></b>- <b><font color="#FF0000">6</font></b>*<b><font color="#800080">7</font></b></font></td>
+        <td width="71" height="16"><b><font color="#0000FF" size="2" face="Arial">35977</font><font color="#800080" size="2" face="Arial">8</font></b></td>
+      </tr>
+      <tr>
+        <td width="96" height="16"><font size="2" face="Arial"><b><font color="#0000FF">35977</font></b>*<b><font color="#008000">1</font></b>
+          - <b><font color="#FF0000">6</font></b>*<b><font color="#800080">8</font></b></font></td>
+        <td width="71" height="16"><b><font color="#0000FF" size="2" face="Arial">3592</font><font color="#800080" size="2" face="Arial">9</font></b></td>
+      </tr>
+      <tr>
+        <td width="96" height="16"><font size="2" face="Arial"><b><font color="#0000FF">3592</font></b>*<b><font color="#008000">1</font></b>
+          - <b><font color="#FF0000">6</font></b>*<b><font color="#800080">9</font></b></font></td>
+        <td width="71" height="16"><b><font color="#0000FF" size="2" face="Arial">353</font><font color="#800080" size="2" face="Arial">8</font></b></td>
+      </tr>
+      <tr>
+        <td width="96" height="16"><font size="2" face="Arial"><b><font color="#0000FF">353</font></b>*<b><font color="#008000">1</font></b>
+          - <font color="#FF0000"><b>6</b></font>*<b><font color="#800080">8</font></b></font></td>
+        <td width="71" height="16"><b><font color="#0000FF" size="2" face="Arial">30</font><font color="#800080" size="2" face="Arial">5</font></b></td>
+      </tr>
+      <tr>
+        <td width="96" height="16"><font size="2" face="Arial"><b><font color="#0000FF">30</font></b>*<b><font color="#008000">1</font></b>
+          - <b><font color="#FF0000">6</font></b>*<b><font color="#800080">5</font></b></font></td>
+        <td width="71" height="16"><b><font color="#FF00FF" size="2" face="Arial">0</font></b></td>
+      </tr>
+    </table>
+  </div>
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">If the last
+  number is zero then 61 divides 3598207</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">If, in another
+  example,&nbsp; p=<b><font color="#FF0000">10</font><font color="#008000">3</font></b>
+  then <font color="#FF0000"><b>10</b></font> multiplies the units of N and <b><font color="#008000">3</font></b>
+  to the rest of it, in each step, etcetera...</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">***</font></p>
+
+  <p class="MsoNormal" align="left"><font size="2" face="Arial">Now here is the
+  proof sent by <b>Murad</b> of his method:</font></p>
+
+  <blockquote>
+    <p class="MsoNormal" align="left"><i><font size="2" face="Arial">&quot;</font></i><font SIZE="2"><i>Let
+    N be a number that we will test it. M is a factor of N. N=n1+10n2, M=k1+10k2,
+    [M/10]=k2 and [N/10]=n2. The First Theorem: n2k1-k2n1=0 (mod M) if and only
+    if M|N</i></p>
+
+    <p><i>The proof: Let L*M=N =n1+10n2, L(k1+10k2)=n1+10n2</i></p>
+    <p><i>L*k1-n1=10a &#133;.(1)</i></p>
+    <p><i>-10Lk2=10a-10n2, Lk2=a-n2</i></p>
+    <p><i>n2 &#150;Lk2=a &#133; (2)</i></p>
+    <p><i>add one to two and by N=M*L</i></p>
+    <p><i>we find ((n1+10n2)(k1-k2)+ (k1+10k2)(nn-n1))/(k1+10k2)=11a, then
+    (n2k1-k2n1)=0 (mod M)&quot;</i></p>
+    </blockquote>
+  </font>
+
+      <p class="MsoNormal" align="left">***</p>
+
+  <font SIZE="2">
+  <p>A new approach has been sent (20/11/2000) by <b>Jan van Delden:</b></p>
+  <blockquote>
+    <p><i>&quot;Since it isn't mentioned explicitly, the next might be
+    interesting, <b>although I must add that Murad's method is simpler to do by
+    hand</b>. First establish the first k (the order, divisor of p-1) for which
+    10^k-1 has p as a divisor, or: smallest k for which 10^k congruent to 1 mod
+    p.</i></p>
+    <p><i>(To turn it around it's faster to calculate the primes being divisors
+    of the repunits {1}k Since 10^k-1 is divisible by 9.</i></p>
+    <p><i>11=11<br>
+    111=3.37<br>
+    1111=11.101 etc.</i></p>
+    <p><i>Also interesting in this light is that: k even
+    10^(2r)-1=(10^r-1)(10^r+1) so for instance if k=4 the term 101 follows
+    immediately.)</i></p>
+    <p><i>Secondly calculate 10^r mod p with r=0..k-1. (Let answer fall into
+    -(p-1)/2 and (p-1)/2 get alternate signs in sum later on, if possible).</i></p>
+    <p>With p=37 (Order 3):</p>
+    <p>1 mod 37 = 1 (Not too hard to calculate:-)</p>
+    <p>10 mod 37 = 10</p>
+    <p>100 mod 37 = -11</p>
+    <p>1000 mod 37 = -110 mod 37 =1</p>
+    <p>How big is the remainder of 12548 divided by 37? Write 12548 as 12 548 
+    and add up these two groups of 3-digit numbers up to 560.</p>
+    <p>Calculate the sum (multiplying by 1,10 and -11, counting from right to 
+    left)</p>
+    <p>0*1+6*10+5*-11=5</p>
+    <p><i>With p=13: (calculate until 10^k=-1 mod p, rest negate!)</i></p>
+    <p><i>10^0 mod 13=1<br>
+    10^1 mod 13=10<br>
+    10^2 mod 13=9 or -4<br>
+    10^3 mod 13=90 mod 13=-1 (so order is 6, divisor of 12)<br>
+    10^4 mod 13=-10 or 3<br>
+    10^5 mod 13=4<br>
+    10^6 mod 13=1</i></p>
+    <p><i>(13 is divisor of 111111)</i></p>
+    <p><i>12458 gives 8+5*10+4*(-4)+2*(-1)+1*3=43</i></p>
+    <p><i>12458 mod 13=43 mod 13=4</i></p>
+    <p><i>To proof above use:</i></p>
+    <p><i>- (a mod p)(b mod p)=ab mod p and<br>
+    - (a+b) mod p=a mod p + b mod p</i></p>
+    <p><i>So the disadvantage is that all the remainders of 10^k have to be
+    calculated modulo p, but the advantage is that you don't get stuck with a
+    large remaining number to investigate&quot;.</i></p>
+  </blockquote>
+  <p>***</p>
+  <p><b>Felice Russo</b> sends the following reference about this subject:</p>
+  <p><a href="http://math.furman.edu/~mwoodard/fuejum/textv/volume3text.html">http://math.furman.edu/~mwoodard/fuejum/textv/volume3text.html</a></p>
+  <p>***</p>
+	<p>Phil Plummer wrote his collaboration to this puzzle on August 13, 2014:</p>
+	<blockquote>
+		<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+			Here is a pdf <a href="../images/Phil%20Plummer%20Pu101.pdf">copy</a> 
+			of the journal. My paper starts on page 96. (The pages do not start 
+			at page 1). Note however that there are a couple of typos:<br>
+&nbsp;</div>
+		<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+			a) The value in the table, column y=8 for prime= 89 should be 2, not 
+			22.<br>
+&nbsp;</div>
+		<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+			b) The equation on top of page 97 has the signs wrong. Instead of +, 
+			+, +, and - they should be -, +, -, and +.</div>
+	</blockquote>
+	<p>***</p>
+  </font>
+
+      <p class="MsoNormal" align="left">&nbsp;</p>
+
+        <p class="MsoNormal" align="left">&nbsp;</p>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_100.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_102.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1"> 
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

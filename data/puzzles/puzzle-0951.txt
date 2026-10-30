@@ -1,0 +1,199 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_951.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 951. Mersenne primes as self-numbers.
+Source: https://www.primepuzzles.net/puzzles/puzz_951.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0951.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://en.wikipedia.org/wiki/Self_number
+  https://www.primepuzzles.net/puzzles/puzz_373.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_950.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_952.htm
+  https://www.primepuzzles.net/puzzles/puzz_951.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 951. Mersenne primes as self-numbers.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 951. Mersenne primes as self-numbers.
+
+Carlos Rivera asks:
+
+In Oct. 2006 Luke Pebody demonstrated that the 41th Mersenne Prime 2^24036583-1 was a Self-number (see here what a Self number is).
+
+Pebody’s method was described in our Puzzle 373 and is also summarized in the Wikipedia.
+
+Nowadays we know 10 more Mersenne Primes 2^p-1 for the following p prime values: 25964951, 30402457, 32582657, 37156667, 42643801, 43112609, 57,885,161, 74,207,281, 77,232,917 and 82,589,933
+
+Q. Is any of these last 10 Mersenne primes a Self-number too?
+
+Contributions came from Emmanuel Vantieghem, Oscar Volpatti and Paul Cleary
+
+***
+
+Emmanuel wrote on April 29, 2019:
+
+Only the last of the ten primes gives a self prime.
+
+Thus, the only primes p that make 2^p - 1 self are : 2, 3, 5, 44497, 13466917, 24036583 and 82589933.
+
+***
+
+Oscar wrote on April 29, 2019:
+
+The only self number within the given list is the Mersenne prime M(82589933).
+
+Considering the prime p = 82589933, the number N1 = 2^p-1 has length L1 = 24862048.
+
+Using Pebody's reduction method, N1 is partitioned into two blocks:
+
+its 10 rightmost digits R1 = 5217902591 (a number larger than 9*L1 = 223758432);
+
+its L1-10 leftmost digits, with sum S1 = 111879872.
+
+Then N1 is self iff N2 = R1 - S1 = 5106022719 is self.
+
+The reduction method can be used once again:
+
+L2 = 10, R2 = 719, S2 = 16, N3 = 703.
+
+But N3 is 73th self number (OEIS A003052), so N2 and N1 are self too.
+
+In order to verify that 703 is actually self, consider the equation 703 = x + digitsum(x).
+
+After the change of variable y = digitsum(x), we obtain the equation y = digitsum(703 - y).
+
+The right hand is the sum of at most three digits, so its value belongs to the range [0,27]. As the function digitsum(x) is piecewise linear,
+
+we only need to solve four linear equations:
+[-6, 3] -> y = 7 + 0 + (3-y) -> y = 5 (out of range)
+
+[ 4,13] -> y = 6 + 9 + (13-y) -> y = 14 (out of range)
+
+[14,23] -> y = 6 + 8 + (23-y) -> y = 18.5 (within range, not integer)
+
+[24,33] -> y = 6 + 7 + (33-y) -> y = 23 (out of range)
+
+Similarly, I verified that the remaining Mersenne primes within the given list are not self.
+
+p = 25964951:
+
+L1 = 7816230, R1 = 77077247, S1 = 35170343, N2 = 41906904;
+
+L2 = 8, R2 = 904, S2 = 20, N3 = 884;
+
+L3 = 3, R3 = 84, S3 = 8, N4 = 76;
+
+76 = 65 + (6 + 5).
+
+p = 30402457:
+
+L1 = 9152052, R1 = 652943871, S1 = 41201902, N2 = 611741969;
+
+L2 = 9, R2 = 969; S2 = 20; N3 = 949;
+
+L3 = 3, R3 = 49; S3 = 9; N4 = 40;
+
+40 = 29 + (2 + 9).
+
+p = 32582657:
+
+L1 = 9808358, R1 = 4053967871, S1 = 44142101; N2 = 4009825770;
+
+L2 = 10, R2 = 770, S2 = 28, N3 = 742;
+
+L3 = 3, R3 = 42, S3 = 7, N4 = 35;
+
+35 = 31 + (3 + 1).
+
+p = 37156667:
+
+L1 = 11185272, R1 = 308220927, S1 = 50349661, N2 = 257871266;
+
+L2 = 9, R2 = 266, S2 = 30, N3 = 236;
+
+L3 = 3, R3 = 36, S3 = 2, N4 = 34;
+
+34 = 26 + (2 + 6).
+
+p = 42643801:
+
+L1 = 12837064, R1 = 562314751, S1 = 57766305, N2 = 504548446;
+
+L2 = 9, R2 = 446, S2 = 26, N3 = 420;
+
+420 = 399 + (3 + 9 + 9) = 408 + (4 + 0 + 8).
+
+p = 43112609:
+
+L1 = 12978189, R1 = 697152511, S1 = 58416600, N2 = 638735911;
+
+L2 = 9, R2 = 911, S2 = 32, N3 = 879;
+
+L3 = 3, R3 = 79, S3 = 8, N4 = 71;
+
+71 = 58 + (5 + 8).
+
+p = 57885161:
+
+L1 = 17425170, R1 = 724285951, S1 = 78434718, N2 = 645851233;
+
+L2 = 9, R2 = 233, S2 = 29, N3 = 204;
+
+204 = 192 + (1 + 9 + 2) = 201 + (2 + 0 + 1).
+
+p = 74207281:
+
+L1 = 22338618, R1 = 1086436351, S1 = 100537506, N2 = 985898845;
+
+L2 = 9, R2 = 845, S2 = 47, N3 = 798;
+
+L3 = 3, R3 = 98, S3 = 7, N4 = 91;
+
+91 = 77 + (7 + 7).
+
+p = 77232917:
+
+L1 = 23249425, R1 = 762179071, S1 = 104621220, N2 = 657557851;
+
+L2 = 9, R2 = 851, S2 = 35, N3 = 816;
+
+816 = 795 + (7 + 9 + 5) = 804 + (8 + 0 + 4).
+
+***
+
+Paul wrote on April 29, 2019:
+
+Ok so I have re-written my code and I hope its all good now, I now get a self number for the last one of the new ones, I.e. 2^82589933-1 Is a self number.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

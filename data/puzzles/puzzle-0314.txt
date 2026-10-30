@@ -1,0 +1,92 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_314.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 313. Squared primes having only k digits
+Source: https://www.primepuzzles.net/puzzles/puzz_314.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0314.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_313.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_315.htm
+  https://www.primepuzzles.net/puzzles/puzz_314.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 313. Squared primes having only k digits
+
+Problems & Puzzles: Puzzles
+
+Puzzle 314. f(f(n))=prime(n)
+
+Joseph L. Pe, poses the following puzzle:
+
+I'd like to propose the following problem for your website. I don't know of any solution, or whether the problem is easy or hard. Maybe you'll have better luck than me.
+
+Questions: Is there an integer-valued function f defined on integers, such that f(f(n)) = prime(n)? If there is, write down an explicit definition. If there is none, prove your assertion.
+
+A solution came from Luke Pebody.
+
+***
+
+Luke wrote:
+
+Yes there is such a function.
+
+Define integers z(m,n) as follows iteratively as follows:
+
+z(m,1) is the mth non-prime number (z(1,1)=1, z(2,1)=4, z(3,1)=6, ...)
+
+z(m,n+1) is the z(m,n)'th prime
+
+Define f by f(z(2m+1,k))=z(2m+2,k) and
+
+f(z(2m+2,k))=z(2m+1,k+1).
+
+Theorem: For every positive integer n, there exists a,b such that n=z(a,b)
+
+Proof:
+
+Suppose not. Then there is a smallest positive integer n which fails to be of this form.
+
+Then either n is prime, in which case it is the tth prime for some 1<=t<n. Then t=z(a,b) for some a,b, and hence n=z(a,b+1), which is a contradiction.
+
+Or n is non-prime, in which case it is the tth non-prime for some 1<=t<=n, whence n=z(t,1).
+
+QED
+
+Corollary: For all integers n, f(f(n)) is the nth prime
+
+Proof:
+
+n=z(a,b). Either a is even, in which case f(n)=z(a-1,b+1) and f(f(n))=z(a,b+1)=nth prime, or a is odd, in which case f(n)=z(a+1,b) and f(f(n))=z(a,b+1)=nth prime.
+
+QED
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

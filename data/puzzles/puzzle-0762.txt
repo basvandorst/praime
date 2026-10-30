@@ -1,0 +1,393 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_762.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 762. Conjecture from Ribenboim's book
+Source: https://www.primepuzzles.net/puzzles/puzz_762.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0762.htm
+
+References (local copies):
+  ../../references/FermQ_Sort.txt  (from http://www.fermatquotient.com/FermatQuotienten/FermQ_Sort.txt)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A001220
+  http://library.uwinnipeg.ca/people/dobson/mathematics/Wieferich_primes.html
+  http://oeis.org/A134307
+  http://oeis.org/A039678
+  http://oeis.org/A185103
+  http://oeis.org/A039951
+  http://www.fermatquotient.com/FermatQuotienten/FermQ_Sort.txt
+  https://www.primepuzzles.net/puzzles/puzz_761.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_763.htm
+  https://www.primepuzzles.net/puzzles/puzz_762.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 762. Conjecture from Ribenboim's book
+
+Problems & Puzzles: Puzzles
+
+Puzzle 762. Conjecture from Ribenboim's book
+
+Luis Rodríguez sent the following puzzle base on a CONJECTURE IN RIBENBOIM ́S “THE NEW BOOK OF PRIME NUMBER, (pag. 345)
+
+Conjecture: “If p is an odd prime then there exists one or more bases a, 2<= a < p a>=2 such that a^(p-1) – 1 is divisible by p^2”
+
+From the tables 45 and 46 , Luis extracted the values for p <=211. (Table 46 show only prime bases)
+
+Prime p = 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59
+
+Base a = 10 7 18 3 19 38 28 28 14 439 18 51 19 53 521 53
+
+Prime p = 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139
+
+Base a = 601 ? 11 619 31 99 ? 53 617 43 317 96 68 38 58 19 ?
+
+Prime p = 149 151 157 163 167 173 179 181 191 193 197 199 211
+
+Base a = 313 78 233 65 ? 419 ? 78 ? ? 997 ? 331
+
+REMARK. The primes 1093 and 3511 are the only known corresponding to base 2.
+
+Q1.- Do you know a solid argument in favor of the conjecture?
+
+Q2.- To complete the values of a, signaled with a red question mark (?).
+
+Q3.- For the primes 31, 53, 61, 73, 101, 107, 149, 157, 173, 197 and 211 to search for smaller bases.
+
+Q4.- Find the next p value with base=2.
+
+Contributions came from Fred Schneider, Jan van Delden, Emmanuel Vantieghem, Jahangeer Kholdi & Farideh Firoozbakht
+
+***
+
+Fred wrote:
+
+Q1:
+
+The moduli form a cyclic group of at most length p^2. So, you would always have a solution <= p^2
+
+(The exception is 3 with 10 but that's because of the smallness of the exponent used: 2)
+
+Q3:
+
+Due to basic modular math, if base "a" is a solution for prime p, a + c*p^2 (where c is a positive integer) will also be a solution.
+
+Q4) base 2 solutions are called Wiefreich primes. http://oeis.org/A001220
+From there, there is this finding: "There are no other terms below 1.45*10^17"
+
+***
+
+Jan wrote:
+
+Q1:
+
+I)
+
+Let's first focus on:
+
+# {a|2<=a<p, a^(p-1)=1 mod p^2}
+
+We know
+
+# {b|2<=b<p, (b^p)^(p-1)=1 mod p^2}=p-2 because we have (b,p^2)=(b,p)=1 and phi(p^2)=p*(p-1).
+
+This induces a set of a:
+
+# {a|2<=a<p, a=b^p mod p^2, 2<=b<p} (*)
+
+Moreover since we have (b+k*p)^p mod p^2 = b^p mod p^2 (p>=2) the following set generates the same solutions:
+
+# {a|2<=a<p, a=b^p mod p^2, 0<=b<p^2}
+
+[Note we could restrict the allowed values of b further with b mod p not in [0,1].]
+
+So in order to find all solutions we could restrict our attention to (*).
+
+The values of b^p mod p^2 with 2<=b<p are (nearly) uniformly distributed on [0..p^2].
+
+Let's define k: a solution is contained in [2..p-1]. The probability for this event is 1/p.
+
+So k is Bin(p-2,1/p) distributed, with expectation 1 and variance 1 (nearly).
+
+For large p this can be approximated by the Poisson(1) distribution.
+
+[Note, strictly speaking we could restrict to [0..p^2]\S, with S={k: k mod p=0 or 1}].
+
+So we found an approximation of the number of solutions to (*) as a Poisson(1) distribution.
+
+We now have P(k>0)=1-P(k<=0)=1-exp(-1)=0.63.
+
+An investigation of the distribution of the number of solutions to (*) by using all odd primes<10000 gives:
+
+Fig1
+
+Which gives: P(k>0)=0.66, mean=1.048 and variance=1.13. I would say reasonable.
+
+Note: we have found two exceptional values k=10 and k=11, belonging to a=2, which have a rather big impact on the variance.
+
+Or to put it differently P(k>=10)=1-P(k<=9)=1.11*10^(-7)
+
+In Ribenboim, page 345:
+
+<quote>Kruyswijk showed in 1966 that there exists a constant C such that for every odd prime p:
+
+# {a|2<=a<p,a^(p-1)=1 mod p^2)} < p^(1/2+C/ln(ln p)).
+
+So, not too many bases are good for each prime p.<end quote>
+
+Given my investigation, I would say the upperbound is (way) too optimistic.
+
+[But Kruyswijk found a provable upperbound].
+
+II)
+
+How about the smallest solution a (given the same set of b to try):
+
+minimum {a|a=b^p mod p^2, 2<=b<p}
+
+For all odd primes p<=10000 we have:
+
+Fig2
+
+This is very well approximated by the exponential(1) distribution: P(a/p<x) = 1-exp(-x).
+
+So P(a<p)=P(a/p<1)=1-exp(-1)=0.63 again.
+
+Q2,Q3: Just loop over a. For instance p=3 gives a=8 as minimum root. (see attachment).
+
+Q4: such a prime is a Wieferich prime, all p<4*10^12 have been checked already. A small article regarding properties of the two known Wieferich primes:
+
+http://library.uwinnipeg.ca/people/dobson/mathematics/Wieferich_primes.html
+
+...
+
+If you change the puzzle in this fashion you might consider adding another constraint on a, because 1 solution generates an infinite number of solutions:
+
+If b is a solution, so is a=b mod p^2.
+
+Since p^2+1 is a solution, we have an infinite amount of solutions (i.e. we could take b=1).
+
+So if you decide to lift the bound p, you might consider changing it to p^2, otherwise the conjecture is not that hard... On the other hand, we than have values for p for which there are no solutions, so in that case the conjecture is easily falsified.
+
+That's why it was formulated as a question and not like a conjecture in Ribenboim, I think.
+
+***
+
+Emmanuel wrote:
+
+Here is my contribution to puzzle 762.
+
+The conjecture is a well known theorem in number theory.
+
+In fact, in the interval [ 1, p^2 ] there are exactly p-1 bases a. This is due to the fact that there exist a primitive root r modulo p^2 whence you can take
+
+a === r^(k*p) for k = 1, 2, ... , p-1 (this can be found in A134307 which is the sequence of primes p for which one of the a is in the interval [ 2, p ] ).
+
+Here is the list of pairs { p , smallest a } :
+
+{3, 8} ***
+
+{5, 7}
+
+{7, 18}
+
+{11, 3}
+
+{13, 19}
+
+{17, 38}
+
+{19, 28}
+
+{23, 28}
+
+{29, 14}
+
+{31, 115} ***
+
+{37, 18}
+
+{41, 51}
+
+{43, 19}
+
+{47, 53}
+
+{53, 338} ***
+
+{59, 53}
+
+{61, 264} ***
+
+{67, 143} /?
+
+{71,11}
+
+{73, 306} ***
+
+{79, 31}
+
+{83, 99}
+
+{89, 184} /?
+
+{97,53}
+
+{101, 181} ***
+
+{103, 43}
+
+{107, 164} ***
+
+{109, 96}
+
+{113, 68}
+
+{127, 38}
+
+{131, 58}
+
+{137, 19}
+
+{139, 328} /?
+
+{149,313}
+
+{151, 78}
+
+{157, 226} ***
+
+{163, 65}
+
+{167, 253} /?
+
+{173, 259} ***
+
+{179, 532} /?
+
+{181, 78}
+
+{191, 176} /?
+
+{193, 276} /?
+
+{197, 143} ***
+
+{199, 174} /?
+
+{211, 165} ***
+
+(here, *** means : smaller than in Rodrigues' table
+
+/? means : replaces the question mark.
+
+It is not difficult to obtain this list.
+
+For bigger p, I made a 'champions list' for the value a/p. This is what I found :
+
+p a a/p
+
+3 8 2.6666
+
+31 115 3.7097
+
+53 338 6.3774
+
+6491 45329 6.9834
+
+14431 108682 7.5311
+
+16657 136471 8.1930
+
+29129 295176 10.1334
+
+The next champion is > 45000.
+
+***
+
+Jahangeer Kholdi & Farideh Firoozbakht wrote:
+
+Q1 : For every prime or composite number n, there exists at least one base b, b >1 such that n^2
+
+divides b^(n-1) -1.
+
+Proof : Take b = n^2 + 1, obviously n^2 divides (n^2+1)^(n-1) - 1 = b^(n-1) - 1.
+
+Q2 & Q3 : Let a(n) be smallest b, b > 1 such that n^2 divides b^(n-1) - 1, then {p, a(p)} , for primes p,
+
+p < = 211 :
+
+{2, 5}, {3, 8}, {5, 7}, {7, 18}, {11, 3}, {13, 19}, {17, 38}, {19, 28}, {23, 28}, {29, 14}, {31, 115}, {37, 18},
+
+{41, 51}, {43, 19}, {47, 53}, {53, 338}, {59, 53}, {61, 264}, {67, 143}, {71, 11}, {73, 306}, {79, 31}, {83, 99},
+
+{89, 184}, {97, 53}, {101, 181}, {103, 43}, {107, 164}, {109, 96}, {113, 68}, {127, 38}, {131, 58}, {137, 19},
+
+{139, 328}, {149, 313}, {151, 78}, {157, 226}, {163, 65}, {167, 253}, {173, 259}, {179, 532}, {181, 78},
+
+{191, 176}, {193, 276}, {197, 143}, {199, 174} & {211, 165}.
+
+Also a(n) for n = 1, 2, ..., 70 :
+
+2, 5, 8, 17, 7, 37, 18, 65, 80, 101, 3, 145, 19, 197, 26, 257, 38, 325, 28, 401, 197, 485, 28, 577, 182,
+
+677, 728, 177, 14, 901, 115,1025, 485, 1157, 99, 1297, 18, 1445, 170, 1601, 51, 1765, 19, 1937, 82,
+
+2117, 53, 2305, 1047, 2501, 577, 529, 338, 2917, 1451, 3137, 721, 3365, 53, 3601, 264, 3845, 244,
+
+4097, 99, 1945, 143, 4625, 530 & 3301.
+
+Q4 : Next such prime p, if it exists is greater than 4*10^7.
+
+Let b(n) be smallest prime p such that p^2 divides n^(p-1) -1 and zero if there is no such prime p.
+
+b(n) for n = 1, 2, ..., 33 :
+
+2, 1093, 11, 1093, 2, 66161, 5, 3, 2, 3, 71, 2693, 2, 29, 29131,1093, 2, 5, 3, 281, 2, 13, 13, 5, 2, 3,
+
+11, 3, 2, 7, 7, 5 & 2.
+
+It is interesting that for every n, b(n^(n^m)) = b(n) where m >= 0.
+
+Find b(n) for n = 34, 47, 66, 72, 86, 88 & 90.
+
+***
+
+Richard Chen wrote on April 4, 2021_
+
+For a(p) for primes p, see http://oeis.org/A039678
+For a(n), see http://oeis.org/A185103
+
+For b(n), see http://oeis.org/A039951
+
+For more data for b(n), see http://www.fermatquotient.com/FermatQuotienten/FermQ_Sort.txt
+
+And b(34) = 46145917691, b(66) = 89351671, b(86) = 68239, b(88) = 2535619637, b(90) = 6590291053, also b(103) = 24490789, b(106) = 79399, b(135) = 23147324413, b(139) = 1822333408543, b(142) = 143111, and b(47) > 1.329*10^14, b(72) > 2.7*10^13, if they exist.
+
+Besides, a(n) exists for all n, since at least, base a = n^2+1 satisfies the condition of a(n)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

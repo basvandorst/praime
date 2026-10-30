@@ -1,0 +1,150 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_116.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 116. A=B+C, A*B*C is a primorial...
+Source: https://www.primepuzzles.net/puzzles/puzz_116.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0116.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_115.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_117.htm
+  https://www.primepuzzles.net/puzzles/puzz_116.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 116. A=B+C, A*B*C is a primorial...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 116. A=B+C, A*B*C is a primorial...
+
+Naohiro Nomoto asks for numbers A, B & C such that the following four rules apply:
+
+A = B + C
+
+A*B*C is a primorial
+
+A, B, & C are, each, a product of n of distinct primes
+
+gcd(A,B)=gcd(A,C)=1
+
+Nomoto has found only two examples:
+
+5 = 2 + 3
+
+1105 = 231 + 874 [ 5*13*17 = 3*7*11 + 2*19*23 ]
+
+Question 1: Find the next example
+
+If the condition 3 is relaxed and we let that A, B & C are the product of distinct primes, not necessarily the same quantity, example:
+
+10 = 3 + 7 [ 2*5 = 3 + 7 ]
+
+There are some more examples, being the largest currently found, the following one:
+
+496961=495726+1235 [ 17x23x31x41 = 2x3x7x11x29x37 + 5x13x19 ]
+
+Question 2. Find the next 3 examples
+
+Question 3. Can you argue if this sequence is finite or infinite?
+
+___________
+
+Notes: All the numbers for the sequence described in the question 2 are a subset of the Sloane's integers sequence A057035.
+
+Hakan Summakoğlu wrote (May 2011)
+
+Q2: 219965 = 213486 + 6479 [ 5x29x37x41 = 2x3x7x13x17x23 + 11x19x31]
+
+***
+
+Jan van Delden wrote (May 2011)
+
+I was wondering about the number of solutions of Puzzle 116, I thought that could be improved. Must have missed this one..
+
+My contribution:
+
+Q1/Q2:
+
+We have P:=p[n]#=a.b.c and a=b+c. Given P there are two equations with 3 unknowns. We can therefore (for instance) choose b and a and c follow. From this one can deduce that if b^2+4P/b is a square, say D^2, we have: a=(D+b)/2 and c=(D-b)/2.
+
+Furthermore the minimum number of factors of P to be assigned to a can be calculated beforehand (using the largest prime factors of P), leading to the maximum number of factors to be assigned to b. Unfortunately this maximum is about n/3, which still gives a lot of tests to perform!
+
+I found the following 20 solutions, in order of appearance (primarily Q2):
+
+5=2+3 (Q1)
+
+10=3+7 2x5=3+7
+
+35= 2+33 5x7=2+3x11
+
+22= 7+15 2x11=7+3x5
+
+21=11+10 3x7=11+2x5
+
+55=13+42 5x11=13+2x3x7
+
+221=11+210 13x17=11+2x3x5x7
+
+182=17+165 2x7x13=17+3x5x11
+
+231=10+221 3x7x11=2x5+13x17
+
+442=57+385 2x13x17=3x19+5x7x11
+
+357=247+110 3x7x17=13x19+2x5x11
+
+1430=119+1311 2x5x11x13=7x17+3x19x23
+
+1105=874+231 5x13x17=2x19x23+3x7x11 (Q1)
+
+2958=1495+1463 2x3x17x29=5x13x23+7x11x19
+
+23345=374+22971 5x7x23x29=2x11x17+3x13x19x31
+
+496961=1235+495726 17x23x31x41=5x13x19+2x3x7x11x29x37
+
+219965=6479+213486 5x29x37x41=11x19x31+2x3x7x13x17x23
+
+144210=16523+127687 2x3x5x11x19x23=13x31x41+7x17x29x37
+
+226083=6118+219965 3x11x13x17x31=2x7x19x23+5x29x37x41
+
+106981=57646+49335 7x17x29x31=2x19x37x41+3x5x11x13x23
+
+No further solutions with n<=35
+
+Q3:
+
+I computed the minimum absolute distance between b^2+4P/b and the nearest square (where no solution was found), let's call this dist(D^2). The smallest distance 103 was found (n in [12,14-26]) at n=18, b=12509182. At first sight this is large, however a and c fail to be integer by a mere 0.000000133 (=dist(a),dist(b)). However the resulting distance between P and a.b.c is huge, since a.b.c=(D+b)/2.b.(D-b)/2=b.(D^2-b^2)/4, this gap is of the order b.dist(D^2)/4=12509182.103/4.
+
+In general dist(a)=dist(b)=dist(D^2)/(4D) and dist(P)=b.dist(D^2)/4. And dist(D^2) is maximal D+1/4. More should be known about the distribution of dist(D^2) to say more.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

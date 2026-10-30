@@ -1,0 +1,246 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1219.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1219 Oblong integers & primes
+Source: https://www.primepuzzles.net/puzzles/puzz_1219.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1219.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://en.wikipedia.org/wiki/Pronic_number
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1218.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1220.htm
+  https://www.primepuzzles.net/puzzles/puzz_1219.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1219 Oblong integers & primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1219 Oblong integers & primes
+Davide Rotondo sent the following puzzle:
+Oblong (or promic, pronic, or heteromecic) numbers definition:
+
+a(n) = n*(n+1): are:
+
+0, 2, 6, 12, 20, 30, 42, 56, 72, 90, 110, 132, 156, 182, 210, 240, 272, 306, 342, 380, 420, 462, 506, 552, 600, 650, 702, 756, 812, 870, 930, 992, 1056, 1122, 1190, 1260, 1332, 1406, 1482, 1560, 1640, 1722, 1806, 1892, 1980, 2070, 2162, 2256, 2352, 2450, 2550, ...
+
+Observation: Removing the last digit on the right never results in a prime number except 2,3,5,7,11 and 13.
+I verified it up to the 10,000th oblong number.
+
+Q. Can your prove this statement.
+
+During the week from May 3 to May 9, contributions came from Grant Bell, Giorgos Kalogeroloulos, Mauro Fiorentini, Emmanuel Vantieghem, Gennady Gusev, Adam Stinchcombe, Simon Cavegn
+
+***
+
+Grant wrote:
+NOTE: Assume all division stated below is floored division towards zero.
+
+The question at hand can be expressed as asking if there is a number n such that n^2+n / 10 is a prime number greater than 13. Rewriting this we find that we can call our value of n (10a+b), and thus we find p, our maybe prime = (10a+b)(10a+b+1)/10. Expanding we get: (100a^2+20ab+10a+b^2+b)/10. Replacing (b^2+b)/10 with a magic function, we get:
+10a^2 + 2ab + a + f(b), where f(b) = (b^2+b)/10. Pulling the a out, we find a(10a+2b+1) + f(b).
+
+For b = 0..2, f(b) = 0 and thus it is trivial that p is composite
+
+We may then show for each of the values of b, our expression and its factorization:
+
+b = 3: 10a^2 + 2a*(3) + a + 1 = (5a+1)(2a+1), Composite
+
+b = 4: 10a^2 + 2a*(4) + a + 2 = (5a+2)(2a+1), Composite
+
+b = 5: 10a^2 + 2a*(5) + a + 3 = (5a+3)(2a+1), Composite
+
+b = 6: 10a^2 + 2a*(6) + a + 4 = (5a+4)(2a+1), Composite
+
+b = 7: 10a^2 + 2a*(7) + a + 5 = (5a+5)(2a+1), Composite
+
+b = 8: 10a^2 + 2a*(8) + a + 7 = (10a+7)(a+1), Composite
+
+b = 9: 10a^2 + 2a*(8) + a + 7 = (10a+9)(a+1), Composite
+
+This might seem to contradict there even being primes, however, if a < 2, then the composite forms of b = 0, 1 give a(10a+1) and a(10a+3).
+
+Thus, there is no N greater than 11 for which (n)(n+1)/10 is prime
+
+***
+
+Giorgos wrote:
+If we remove the last digit, we get the seq A130520
+So these are the partial sums of integers repeated 5 times
+
+0,0,0,0,0,1,1,1,1,1,2,2,2,2...
+
+There is also a formula available for these numbers in OEIS
+
+a(n) = floor(n/5)*(2*n - 3 - 5*floor(n/5))/2
+
+If A = floor(n/5) and B = (2*n - 3 - 5*floor(n/5))
+
+then for n>=12 a(n)=A*B/2 is always composite
+
+***
+
+Mauro wrote:
+
+Removing the last digit from a pronic number is equivalent to computing
+
+(n*(n+1) - (n*(n+1) mod 10)) / 10.
+
+Substituting n = 10k + r and considering the possible values of r,
+
+there are 10 possibilities:
+
+0: 10*k^2+k = k*(10*k+1);
+
+1: 10*k^2+3*k = k*(10*k+3);
+
+2: 10*k^2+5*k = k*(10*k+5);
+
+3: 10*k^2+7*k+1 = (2*k+1)*(5*k+1);
+
+4: 10*k^2+9*k+2 = (2*k+1)*(5*k+2);
+
+5: 10*k^2+11*k+3 = (2*k+1)*(5*k+3);
+
+6: 10*k^2+13*k+4 = (2*k+1)*(5*k+4);
+
+7: 10*k^2+15*k+5 = 5*(k+1)*(2*k+1);
+
+8: 10*k^2+17*k+7 = (k+1)*(10*k+7);
+
+9: 10*k^2+19*k+9 = (k+1)*(10*k+9).
+
+So the value can be a prime only if k = 0 or 1, in the cases mentioned
+
+by Rotondo.
+
+***
+
+Emmanuel wrote:
+
+Let f(n) be the number that remains when the last digit of n(n+1) is removed.
+
+We shall compute f when n is of the form 10v + a, with a = 0 to 9.
+
+We have :
+
+n(n+1) = (10v+a)(10v+a+1) = 100v^2 + (2a+1)v + a ( a+1).
+
+Thus, to compute f(n) we must write a(a+1) in the form 10x + b, with 0 <= b <= 9.
+
+So, we get :
+
+f(10v) = 10v^2 + v = v*(10v + 1), only prime (11)when v = 1
+
+f(10v+1) = 10v^2 + 3v = v(10v + 3), only prime (13) when v = 1
+
+f(10v+2) = 10v^2 + 5v = 5v(2v + 1), never prime
+
+f(10v+3) = 10v^2 + 7v + 1 = (2v+1)(5v+1), never prime
+
+f(10v+4) = 10v^2 + 9v + 2 = (2v+1)(5v+2), only prime (2) for v = 0
+
+f(10v+5) = 10v^2 + 11v + 3 = (2v+1)(5v+3), only prime (3) for v = 0
+
+f(10v+6) = 10v^2 + 13v + 4 = (2v+1)(5v+4), never prime
+
+f(10v+7) = 10v^2 + 15v + 5 = 5(2v^2 + 3v + 1), only prime (5) for v = 0
+
+f(10v+8) = 10v^2 + 17v + 7 = (v+1)(10v+7), only prime (7) for v= 0
+
+f(10v+9) = 10v^2 + 19v + 9 = (v+1)(10v+9) , never prime.
+
+Thus, only 6 cases give prime, which. proves Davide's statement.
+
+***
+
+Gennady wrote:
+
+Consider s = n*(n+1) for n = 10*m + k, k=0,1,2,3,4,5,6,7,8,9
+
+Let p - number with removed last digit from s.
+
+k, s, p
+
+0, 10*m*(10*m + 1), 10*m^2 + m = m*(10*m + 1) for m=1, p=11 - prime; for m>1 p - composite
+
+1, (10*m + 1)*(10*m + 2), 10*m^2 + 3*m = m*(10*m + 3) for m=1, p=13 - prime; for m>1 p - composite
+
+2, (10*m + 2)*(10*m + 3), 10*m^2 + 5*m = 5*m*(2*m + 1) - composite
+
+3, (10*m + 3)*(10*m + 4), 10*m^2 + 7*m + 1 = (2*m + 1)*(5*m + 1) - composite
+
+4, (10*m + 4)*(10*m + 5), 10*m^2 + 9*m + 2 = (5*m + 2)*(2*m + 1) for m=0, p=2 - prime; for m>0 p - composite
+
+5, (10*m + 5)*(10*m + 6), 10*m^2 + 11*m + 3 = (2*m + 1)*(5*m + 3) for m=0, p=3 - prime; for m>0 p - composite
+
+6, (10*m + 6)*(10*m + 7), 10*m^2 + 13*m + 4 = (5*m + 4)*(2*m + 1) - composite
+
+7, (10*m + 7)*(10*m + 8), 10*m^2 + 15*m + 5 = 5*(m + 1)*(2*m + 1) for m=0, p=5 - prime; for m>0 p - composite
+
+8, (10*m + 8)*(10*m + 9), 10*m^2 + 17*m + 7 = (m + 1)*(10*m + 7) for m=0, p=7 - prime; for m>0 p - composite
+
+9, (10*m + 9)*(10*m + 10), 10*m^2 + 19*m + 9 = (10*m + 9)*(m + 1) - composite
+
+I.e., s is always a composite number except 2,3,5,7,11 and 13.
+
+***
+
+Adam wrote:
+
+You can prove no more primes, other than the small cases. If you examine n based on its last digit d, n = 10k+d for d=0..9, then you can determine the right-most digit, subtract it, divide by 10, and get an expression for the digits to the left. All of these factor.
+
+For instance, if n ends in 4, n=10k+4, n*(n+1) = (10k+4)*(10k+5) = 100k^2+90k+20, which ends in a 0, and the digits to the left are given by 10k^2+9k+2 = (2k+1)(5k+2) which is not prime for k>0. Other ending digits result in polynomials which all factor.
+
+The only ones that result in primes are the n values of 4,5,7,8,10, and11 (when those polynomial factors are equal to 1).
+
+***
+
+Simon wrote:
+
+I checked up to n = 1886789547664
+
+Found no more primes.
+
+Some composites take more rounds of gmplib's probable prime test to proof composite:
+
+6003*6004 = 36042012, 3604201 = 1201 × 3001, rounds: 2
+
+2969343*2969344 = 8817000820992, 881700082099 = 593869 × 1484671, rounds:3
+
+129315263*129315264 = 16722437374074432, 1672243737407443 = 25863053 × 64657631, rounds:4
+
+1397931303*1397931304 = 1954211929305209112, 195421192930520911 = 279586261 × 698965651, rounds:5
+
+102718905783*102718905784 = 10551173605359549748872, 1055117360535954974887 = 20543781157 × 51359452891, rounds:6
+
+1778870250783*1778870250784 = 3164379369122552182363872, 316437936912255218236387 = 355774050157 × 889435125391, rounds:7
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

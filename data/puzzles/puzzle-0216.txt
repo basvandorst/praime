@@ -1,0 +1,304 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_216.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 216. Primes in a square array
+Source: https://www.primepuzzles.net/puzzles/puzz_216.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0216.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_215.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_217.htm
+  https://www.primepuzzles.net/puzzles/puzz_216.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 216. Primes in a square array
+
+Problems & Puzzles: Puzzles
+
+Puzzle 216. Primes in a square array
+
+Here you are asked to distribute orderly a prime in a square array such that the rows, the columns and the downward diagonals are distinct prime numbers.
+
+Example:
+
+Prime | Square array | Primes inside
+
+113607773 | 113
+
+607
+
+773 | 113
+
+607
+
+773
+
+167
+
+107
+
+373
+
+103
+
+307
+
+Please notice that all the primes are distinct and that no zeros are allowed
+
+Questions:
+
+1. Find a solution for a 10x10 square array
+
+2. Find a Titanic solution (nxn square array, n>32)
+
+Solution:
+
+J. K Andersen found a solution for each of the two asked questions:
+
+A 10x10 square array of primes:
+
+5322818971
+
+6827241919
+
+5993645263
+
+5559929113
+
+3977461949
+
+2227498523
+
+5388417583
+
+3649692979
+
+6589485989
+
+9339391933
+
+Question 2.
+
+A 33x33 square array of primes:
+
+992795727346764113849537317529249
+
+334991339548422989778239627365711
+
+591842371619342229392848332889477
+
+395574646711767295946689139223367
+
+224697766146742157121847897723921
+
+225544771495289679684185977414193
+
+693213854923118117396992256654887
+
+236497593227636315234579147295667
+
+579763329947575111389457163519819
+
+385331946693635272186496214986539
+
+964746463941843375143131252674779
+
+266658357852459419575174853721473
+
+742164129152864843835811728538381
+
+397946234153656285541498316819233
+
+884622295868822779461275478992779
+
+356291713344114796722323885497373
+
+922845768311891844146322792772117
+
+284762681542785929266233622772737
+
+776217279834862898544582622634573
+
+168782364886671952641631443329879
+
+283974441577876293781746343474231
+
+367593978565148627424849951135893
+
+423838178242348863765238193144263
+
+787231869945554859634652158374197
+
+976283349479865789127972273248487
+
+378523181534167611818776914424511
+
+135953391225894185773541389728923
+
+956229367537235298617768939919461
+
+269271949224572481814498129463657
+
+932279498823925978553383497475619
+
+443612364248922647838871944984419
+
+792711197116852541899899639599953
+
+973971771777937133779917399133111
+
+A solution with probable primes was found with a C program using the Miracl bigint library for prp testing. All primes except the largest one were then proved with Tony Forbes' VFYPR. The largest prime with 33*33=1089 digits was proved with Marcel Martin's Primo.
+
+My program is not efficient and needed 16 hours to find the 33x33 solution
+
+with probable primes. It could be optimized a lot but this was not necessary.
+
+It searches for one prime at a time by placing digits in the empty positions,
+
+starting with the most significant. If a prime cannot be generated, the
+
+program backtracks to change the latest placed digits.
+
+The program first finds random primes with only digits 1,3,7,9 for the bottom
+
+row and right column. Then the diagonals are made prime with random digits
+
+(avoiding 0 as asked). Next it alternates making primes: row 1, column 1, row
+
+2, column 2, ... The final placed digit must generate 3 simultaneous primes,
+
+including the one with n*n digits which is tested last. It took around 2200
+
+composites (twice the expectation) before this was a 1089-digit prime.
+
+***
+
+J. K. Andersen found (17/4/03) a beautiful additional solution for the 10x010 case:
+
+Here is a 10x10 solution with an extra condition: All 10-digit numbers are distinct REVERSIBLE primes.
+
+3139971973
+
+7866347113
+
+9144865157
+
+7269835711
+
+7591193699
+
+3875459387
+
+7656915779
+
+7476991163
+
+1946297861
+
+1373939731
+
+***
+
+And now a 33x33 solution with an extra condition: All 33-digit numbers are distinct REVERSIBLE primes, by J. K. Andersen...again:
+
+After implementing and optimizing a new algorithm, it only took 15 hours to find a 33x33 square with distinct reversible primes:
+
+313991399371199131139799331911377
+
+147529895941991587879456361416793
+
+343797754289852575517133312684269
+
+943695978946644516863648961536981
+
+354977375935673418795287369494189
+
+373478623641239162919379269294319
+
+941871985794933399739235523691657
+
+154837889117834232678974449658279
+
+117129522895488222612449716435651
+
+112797868118722475112367318718359
+
+954332756851152845673554343833423
+
+958324129279242571543956244312159
+
+149656971499164148747227159798119
+
+915531789396889314926554998567389
+
+189177184378411356887579966732519
+
+395769634484946484155736859195773
+
+976485587598811713196922772648319
+
+742413259665798111566314845954551
+
+344321292792178583218155711143611
+
+735499324729469232679643212644511
+
+755544726594454683193623626957711
+
+324895114496128478896375157597659
+
+974246467315936911531792288239249
+
+136494329788845728831611728857639
+
+343337449493221561738959339141347
+
+119138332653219119612984163669317
+
+356624631952956188127648784846583
+
+361813646131913157456632928169513
+
+747231224138425962243343371145487
+
+745954412587484837933238642278851
+
+955148574512595199969685612245439
+
+118737626399742196143742577819117
+
+917319979999777371311371999793393
+
+First my program easily (in a second) found a partial solution missing 7 rows and 7 columns, crossing in a 7x7 empty square away from the diagonals and edges.
+
+For each of the 14 remaining numbers, all 9^7 7-digit sequences (without 0's as requested) were tested. Those making a reversible 33-digit prime in the partial solution were stored in a table with around 8800 sequences per number.
+
+Then it was basically a crossword puzzle combining digits instead of letters in the 7x7 square. This was the computationally hard part. The 624th solution yielded a 1089-digit probable prime, proved with Primo.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

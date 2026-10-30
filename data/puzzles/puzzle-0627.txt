@@ -1,0 +1,269 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_627.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 627. Nested Carmichael numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_627.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0627.htm
+
+References (local copies):
+  ../../references/2010_finding-carmichael-numbers-notes-by-g-j-o.pdf  (from http://www.maths.lancs.ac.uk/~jameson/carfind.pdf)
+  ../../references/2010_finding-carmichael-numbers-notes-by-g-j-o.txt  (extracted text)
+  ../../references/2002_a-generalization-of-the-korselt-s-criterion-nested.pdf  (from http://www.primenumbers.net/Renaud/eng/korseltg.pdf)
+  ../../references/2002_a-generalization-of-the-korselt-s-criterion-nested.txt  (extracted text)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.ams.org/journals/bull/1939-45-04/S0002-9904-1939-06953-X/S0002-9904-1939-06953-X.pdf
+  http://www.ams.org/journals/mcom/1996-65-214/S0025-5718-96-00692-8/S0025-5718-96-00692-8.pdf
+  http://www.ams.org/journals/mcom/1989-53-187/S0025-5718-1989-0969484-8/S0025-5718-1989-0969484-8.pdf
+  http://www.maths.lancs.ac.uk/~jameson/carfind.pdf
+  http://www.primenumbers.net/Renaud/eng/korseltg.pdf
+  https://www.primepuzzles.net/puzzles/puzz_626.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_628.htm
+  https://www.primepuzzles.net/puzzles/puzz_627.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 627. Nested Carmichael numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 627. Nested Carmichael numbers
+
+Fred Schneider sent the following nice puzzle:
+
+Given a 3-factor Carmichael number, construct a four factor Carmichael number from the three factor given, then a five factors from the four factors, etc.
+
+Example: The following are 4-nested Carmichael numbers
+
+7
+
+*13*31
+
+7*13*31*61
+
+7*13*31*61*181
+
+7*13*31*61*181*541
+
+Q.
+Send your longest Carmichael nested chain.
+
+Contributions came from Seiji Tomita, Jan van Delden, Emmanuel Vantieghem, Fred Schneider & Richard Pinch.
+
+***
+
+Seiji wrote:
+
+8-nested Carmichael numbers,
+
+7*13*31
+
+7*13*31*61
+
+7*13*31*61*181
+
+7*13*31*61*181*541
+
+7*13*31*61*181*541*2161
+
+7*13*31*61*181*541*2161*187921
+
+7*13*31*61*181*541*2161*187921*3570481
+
+7*13*31*61*181*541*2161*187921*3570481*7140961
+
+***
+
+Jan wrote:
+
+My contribution:
+
+The given example can at least be extended to 14 terms:
+
+7, 13, 31, 61, 181, 541, 2161, 187921, 3570481, 7140961, 31418238813121, 7728886748027521, 15457773496055041, 97615839627587577601
+
+And can probably be extended even further [using a different ‘tail’].
+
+I used Korselt’s criterion: n is a Carmichael number iff p|n implies p-1|n-1 and n is squarefree. Start with a Carmicahel number n, try to find m=n*p, p unequal to the prime factors of n, such that p-1|m-1 which amounts to p-1|n-1, construct m and test the prime divisors p[i] of n for p[i]-1|m-1 [or p[i]-1|m/p[i]-1].
+
+I also investigated some emerging patterns and found the following article by Jack Chernick (april 1939) in which he calls these universal forms. In particular:
+
+U[n]=(6k+1)(12k+1)(18k+1)..(2^(n-2).9k+1) which is a Carmichael number if all factors are prime, for instance if k=950560 we have n=9 factors. His theorem 4 is directly concerned with this puzzle.
+
+However his method of finding these patterns is slightly different from mine:
+
+Let m=p.q[1].q[2]..q[n-1], with p and the q[i] prime. If we choose q[i]=1 mod p-1 it’s easy to see that m-1=0 mod p-1. Let’s choose q[i]=a[i](p-1)+1 as a nontrivial simple way to achieve this.
+
+We also must have q[i]-1|m-1 but q[i]-1=a(p-1) and m-1=(p-1)P(p) where P(p) is some polynomial in p. So a necessary and sufficient condition for the a[i] is that P(p)=0 mod a[i].
+
+This condition translates to:
+
+n=3
+
+a[1]p+1=0 mod a[2]
+
+a[2]p+1=0 mod a[1]
+
+n=4
+
+a[1]a[2]p(p-1)+p(a[1]+a[2])+1=0 mod a[3] (and the other 2 can be found by cycling the a[i]).
+
+And will give the same results as mentioned in the article (choose appropriate values for a[i] and a condition on p will follow..).
+
+In 1996 Günter Löh and Wolfgang Niebuhr published an article on finding large Carmichael numbers with lot’s of factors (rather technical), extending the work of H. Dubner (july 1989) and others.
+
+A pratical guide to find 3-term Carmichael numbers (if I may say so) is found in Jameson.
+
+It might also be interesting to read the article by Renaud Lifschitz who describes a set of Carmichael numbers C1, C2, ..Cn where each product of any number of these is also Carmichael, which he calls Nested Carmichael numbers.
+
+***
+
+Emmanuel wrote:
+
+My longest chain consists of ten Carmichael numbers :
+
+5*17*29
+
+5*17*29*113
+
+5*17*29*113*337
+
+5*17*29*113*337*673
+
+5*17*29*113*337*673*2689
+
+5*17*29*113*337*673*2689*29569
+
+5*17*29*113*337*673*2689*29569*3962113
+
+5*17*29*113*337*673*2689*29569*3962113*2388178856449
+
+5*17*29*113*337*673*2689*29569*3962113*2388178856449*30809895427035649
+
+5*17*29*113*337*673*2689*29569*3962113*2388178856449*30809895427035649*4744723895763489793
+I think it is possible that longer chains exist (I cannot imagine a reason why not).
+
+***
+
+Fred wrote:
+
+I found 3 cases but this is the smallest: MinSequence for 42 factors (whose product has 1169 digits)
+
+41 *
+
+61 *
+
+101 *
+
+601 *
+
+4201 *
+
+12601 *
+
+126001 *
+
+252001 *
+
+504001 *
+
+1008001 *
+
+75600001 *
+
+1058400001 *
+
+7408800001 *
+
+7505114400001 *
+
+15010228800001 *
+
+585398923200001 *
+
+1170797846400001 *
+
+9366382771200001 *
+
+927271894348800001 *
+
+19472709781324800001 *
+
+240273765991766707200001 *
+
+3165606866941526367360000001 *
+
+205764446351199213878400000001 *
+
+9876693424857562266163200000001 *
+
+158027094797720996258611200000001 *
+
+3634623180347582913948057600000001 *
+
+25442362262433080397636403200000001 *
+
+50884724524866160795272806400000001 *
+
+661501418823260090338546483200000001 *
+
+14553031214111721987448022630400000001 *
+
+87318187284670331924688135782400000001 *
+
+165729919466304289993058081714995200000001 *
+
+12595473879439126039472414210339635200000001 *
+
+1687793499844842889289303504185511116800000001 *
+
+6816997945873320429839496853405279400755200000001 *
+
+257409842436176579430739401184583350172516352000000001 *
+
+45931697464626476480462277268574683838083472818176000000001 *
+
+13320192264741678179334060407886658313044207117271040000000001 *
+
+1940911855280039410867124610153980756110297507471797780480000000001*
+
+128100182448482601117230224270162729903279635493138653511680000000001 *
+
+256200364896965202234460448540325459806559270986277307023360000000001 *
+
+512400729793930404468920897080650919613118541972554614046720000000001
+I verified the primes numbers with several Miller-Rabin pseudoprime tests.
+
+***
+
+Richard wrote:
+
+A quick search reveals an extension to the example given:
+
+7*13*31*61*181*541*2161*187921*3570481*7140961*31418238813121*7728886748027521
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

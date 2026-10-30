@@ -1,0 +1,119 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_414.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 414. Prime lucky number triplets
+Source: https://www.primepuzzles.net/puzzles/puzz_414.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0414.htm
+
+References (local copies):
+  ../../references/a000959.txt  (from https://oeis.org/A000959/a000959.txt)
+
+Links on the page:
+  http://mathworld.wolfram.com/LuckyNumber.html
+  http://www.research.att.com/~njas/sequences/b000959.txt
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A000959/a000959.txt
+  https://www.primepuzzles.net/puzzles/puzz_413.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_415.htm
+  https://www.primepuzzles.net/puzzles/puzz_414.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 414. Prime lucky number triplets
+
+Problems & Puzzles: Puzzles
+
+Puzzle 414. Prime lucky number triplets
+
+Steven Harvey proposes the following interesting puzzle:
+
+For sure you know what a lucky number is.
+
+Reviewing a list of them it appears that the first three consecutive lucky numbers which are also prime numbers are 2221, 2239, and 2251. The next three consecutive lucky numbers are 3301, 3307 and 3313, which are not only consecutive lucky numbers but consecutive prime numbers also. The next three consecutive prime lucky numbers are 5839, 5851, and 5869, and I there are no more in the first thousand.
+
+Note. I [CR] found 3 quartets:
+
+9631, 43, 49, 61 (consecutive primes too!)
+
+31033, 39, 51, 69
+
+71329, 41, 47, 59
+
+So the puzzle is:
+
+Q1. Are there k-tuplets for k>4?
+
+Q2. Slightly related, is there a luckiness test, similar to a primality test?
+
+Q3. I [CR] found a large series of 48 consecutive composite & lucky numbers (from 73419 to 74059). Can you find a larger series than this?
+
+Fred Schneider wrote:
+
+I only checked through 750K but I found:
+
+Longer composite Streaks
+
+287691 to 288501 : 58
+
+562039 to 563065 : 58
+
+583983 to 585027 : 67
+
+First case of 5 consecutive lucky numbers that are prime (These primes
+
+aren't consecutive)
+
+162451, 162457, 162493, 162523, 162529
+
+***
+
+On May 8, 2020, Jan van Delden wrote:
+
+Lucky numbers have a few properties in common with primes, among which its density, viewed at large. But there are some substantial differences as well.
+
+My first attempt was to construct a sieve to compute these numbers. For primes we may stop sieving after p>sqrt(n), with n the bound of the sieve. For Lucky numbers luck runs out. We need to test until the next Lucky number is larger than the bound, this particular number will be much larger than sqrt(n). In one implements the sieve of Eratosthenes we may cross out every p’th number in the sieve for every prime p. For Lucky numbers k we can’t just increment k positions. One should skip the numbers one has already marked as being unlucky. This extra counting is what makes the routine (very) slow. In fact so slow, that I decided to decrease the bound n, in order to see a result. I decided on n=2^30-1, which is slightly larger than 10^9. This took my routine approximately 29 hours. There are 49961679 lucky numbers in this range. In comparison, the sieve of Eratosthenes took 6 seconds for n=2^32-1. [Some speedups are still possible, for instance one might slice up the memory to make effective use of the cache of the cpu, which I did implement in the sieve of Eratosthenes. The comparison in computing time is not completely fair].
+
+My results are:
+
+Q1: Sequences of Lucky numbers that are prime:
+
+Length: 6, 292347157 292347169 292347199 292347229 292347241 292347259
+
+Length: 7, 460773991 460774009 460774021 460774033 460774087 460774099 460774117
+
+Q3: The largest sequence of Lucky numbers that are composite:
+
+Length: 198
+
+635769553 635769561 635769615 635769637 635769639 635769649 635769651 635769669 635769687 635769715 635769717 635769765 635769775 635769777 635769783 635769799 635769805 635769807 635769879 635769889 635769907 635769943 635769967 635769991 635769993 635769997 635770017 635770107 635770119 635770137 635770153 635770221 635770225 635770233 635770245 635770263 635770285 635770299 635770311 635770339 635770351 635770375 635770383 635770393 635770435 635770465 635770471 635770477 635770485 635770491 635770539 635770585 635770597 635770615 635770659 635770695 635770717 635770729 635770743 635770761 635770767 635770789 635770833 635770915 635770947 635770957 635770981 635770989 635771013 635771031 635771035 635771037 635771055 635771125 635771167 635771179 635771181 635771185 635771223 635771229 635771253 635771275 635771305 635771337 635771341 635771355 635771377 635771409 635771431 635771467 635771505 635771547 635771563 635771569 635771619 635771623 635771629 635771635 635771641 635771691 635771733 635771757 635771781 635771791 635771799 635771845 635771895 635771901 635771907 635771919 635771937 635771971 635772007 635772073 635772093 635772105 635772115 635772123 635772127 635772153 635772187 635772193 635772199 635772231 635772235 635772241 635772249 635772273 635772301 635772321 635772333 635772357 635772399 635772405 635772421 635772475 635772487 635772507 635772567 635772577 635772589 635772595 635772643 635772651 635772661 635772679 635772691 635772697 635772715 635772721 635772739 635772783 635772795 635772823 635772841 635772885 635772909 635772933 635772949 635772957 635772963 635772967 635773039 635773047 635773077 635773099 635773143 635773153 635773167 635773177 635773225 635773257 635773261 635773273 635773279 635773287 635773329 635773357 635773369 635773371 635773387 635773389 635773393 635773395 635773413 635773425 635773447 635773521 635773539 635773545 635773555 635773557 635773639 635773651 635773659 635773665 635773701 635773705
+
+Q2 (in a sense):
+
+Now the interesting bit! I needed a routine to check my results (or at least part of it). I found in OEIS a c++ routine , by David D. Wilson, which describes the computation of a lucky number, say Lucky[m], given the previously computed values, Lucky[j] with j<m. The author describes it as “It runs as fast or faster than an explicit sieving algorithm”. I was curious, so I decided to implement it as well. I decided to compute the first 2^26 Lucky numbers, which is more than used in the sieve. Please beware that this method does put a huge claim on memory. In this case it uses 1GB, since 1 Lucky number needs 4 bytes to represent its value. The order of this routine is (about) quadratic in m. Initially the routine is very fast. But then luck runs out! It is definitely slower than my routine. After 11 hours it arrived at 2*10^8. Based on timings I'd say we arrive at 4*10^8 after 40 hours.
+
+It is definitely interesting to have a look at the routine itself. I promise you have to look twice to understand what's going on, at least I had to.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

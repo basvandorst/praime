@@ -1,0 +1,134 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_998.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 998. A306431
+Source: https://www.primepuzzles.net/puzzles/puzz_998.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0998.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A306431
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_997.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_999.htm
+  https://www.primepuzzles.net/puzzles/puzz_998.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 998. A306431
+
+Problems & Puzzles: Puzzles
+
+Puzzle 998. A306431
+
+Paolo Lava sent the following puzzle:
+
+I was looking at a sequence I edited on OEIS exactly one year ago: A306431.
+
+The question could be:
+Q1. Which is the least number x>1 (supposedly prime due to Giuga's conjecture) such that x^n|1 + Sum_{k=1..x-1} k^(x-1), for n>2.
+
+In fact, I calculate the least number for n=1 that is 2 and for n=2 that is 1277 (see Comments in A306431)
+
+Contributions came from Jan van Delden and Oscar Volpatti, during the week ending May 2, 2020
+
+***
+
+Jan wrote:
+
+It is conjectured by Giuga that 1+sum(k=1..m-1,k^(m-1))=0 mod m implies that m is prime. The first counterexample, where m is composite, if it exists, occurs for m having more than 13800 digits (Giuga’s conjecture on primality, D. Borwein, J. M. Borweinz, P. B. Borwein, R. Girgensohn). For now it is safe to test only n=p, prime.
+
+Before asking whether p^n is a divisor, with n>2, first ask for the second occurence of n=2. I tested untill p=3000017. Which is a rather small bound, I agree. If one would calculate the number of digits of the sum (which I wouldn’t recommend) we would end up with 19431475 digits (or 1 less).
+
+I did not find another solution. It reminds me of Wilson or Wieferich primes. But I’m probably impatient.
+
+***
+
+Oscar wrote:
+
+I found no solution x for n>2 so far.
+
+However, a straightforward evaluation of the sum
+
+S(n,x) = 1 + Sum_{k=1..x-1} k^(x-1) mod x^n
+
+is very slow, and I checked x only up to 1.6e7.
+
+But it may be the case that no solutions exist for n>2, considering the following heuristic argument.
+
+Let's estimate the number of solutions x within interval 2..y:
+
+C(n,y) = Sum_{x=2..y} c(n,x),
+
+where c(n,x) is a guess about the chance that relation S(n,x) = 0 holds.
+
+Assuming that all permitted residues are equally likely:
+
+c(n,x) = 1/(x^(n-1)) if x is prime. as we know that x divides S(n,x),
+
+c(n,x) = 1/(x^n) if x is composite (not assuming Giuga's conjecture).
+
+For n=2, the contribution of primes diverges as ln(ln(y)) + 0.261497, while the contribution of composites converges to 0.192687.
+
+C(2,y) exceeds 2 for y=103 and exceeds 3 for y=345133; maybe too optimistic, as the only solutions before 1.6e7 are x=1277 and x=780887.
+
+For n=3, both contributions converge, so C(3,y) converges to 0.452247+0.027294=0.479542.
+
+For n>3, C(n,y) converges to smaller and smaller values.
+
+***
+
+Oscar Volpatti wrote on April 23, 2021:About puzzle 998, Jan van Delden's remark on connections with Wilson primes was very deep.
+
+Wilson:
+
+If and only if p is 1 or a prime number, the "Wilson quotient" W(p) = (1+(p-1)!)/p is an integer.
+
+When a prime number p divides W(p), it is called a "Wilson prime"; the only known such primes are 5, 13, and 563.
+
+Giuga:
+
+If (and only if?) p is 1 or a prime number, the "Giuga quotient" G(p) = (1+ Sum_{k=1..p-1} k^(p-1))/p is an integer too.
+
+When a prime number p divides G(p), what about calling it a "Giuga prime"?
+
+In 1905, Mathias Lerch proved an interesting congruence relation, which can be restated as follows:
+
+if p is a prime number, then G(p) == 1+W(p) mod p.
+
+In 2012, an extensive search for Wilson primes has been performed by Edgar Costa, Robert Gerbicz, and David Harvey (arXiv:1209.3436).
+
+They found no new Wilson primes below 2*10^13, but they saved all "near misses", including all primes p such that W(p) == -1 mod p.
+
+Therefore, we know that below 2*10^13 there are exactly four "Giuga primes":
+
+1277, 780887, 56151923, and 11774118061.
+
+But none of them is a solution of Paolo Lava's puzzle, because in each case p^2 doesn't divide G(p).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

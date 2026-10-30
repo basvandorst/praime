@@ -1,0 +1,328 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_557.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 557.- H(m,a)
+Source: https://www.primepuzzles.net/puzzles/puzz_557.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0557.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_556.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_558.htm
+  https://www.primepuzzles.net/puzzles/puzz_557.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 557.- H(m,a)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 557.- H(m, a)
+
+Emmanuel Vantieghem sent the following nice puzzle:
+
+Consider the function H(m,a), defined for all natural numbers m, a by the rule to intertwine the digits of m by a. For instance,
+
+H(123,8) = 18283
+
+H(468025,12) = 4126128120122125
+
+H(402,402) = 440204022
+
+. . .
+
+Examples of primes m by Emmanuel:
+
+m = 13, H(m,j) is prime for j = 0, 1 (but not for j = 2)
+
+m = 1069, H(m,j) is prime for j = 0, 1, 2 (but not for j = 3)
+
+m = 1979, H(m,j) is prime for j = 0, 1, 2, 3 (but not for j = 4)
+
+m = 3049, is prime for j = 0, 1, 2, 3, 4 (but not for j = 5).
+
+One more was found by C. Rivera:
+
+2381963 is a prime m & gives primes for H(m,j), j=0 to 5, fails for j=6
+
+Q1.Find a prime number m such that H(m,0), H(m,1), H(m,2), ... , H(m,k) are all prime for k as big as possible.
+
+Q2. Another question is : Can H(m,m) be prime ? Prove your answer.
+
+Contributions came from Jan van Delden, Seiji Tomita, J-C Colin, J. K. Andersen, Farideh Firoozbakht.
+
+***
+
+Jan van Delden wrote:
+
+Q1:
+
+The first sequences with H(a,j) prime, j=0..b, H(a,j+1) composite:
+
+a=1194307993 with b=6
+
+a=1046197333 with b=7
+
+Assume a has k digits and b has l digits and a=a[k-1]...a[0].
+
+H(a,b)=sum(a[i].10^(i.(l+1)),i=0..k-1)+10b.sum(10^(i.(l+1)),i=0..k-2) rewrite to H(a,b)=T(a)+T(b) with
+
+T(a)=sum(a[i].(10^(l+1))^i,i=0..k-1) and T(b)=10b.sum((10^(l+1))^i,i=0..k-2).
+
+H(a,b) mod 3=(a+b.(k-1)) mod 3 (count powers of 10) With fixed a and thus fixed T(a) mod 3, only two residue classes of b mod 3 are allowed. So we should
+
+have (k-1)=0 mod 3, or k=1 mod 3, to allow for b>1.
+
+If b<10, l=1: T(b)=10b.(100^(k-1)-1)/99 with the small divisors 2,3,5,7,13,37,. (and divisors of b).
+
+so T(b)=0 mod q for all primes <10 and H(a,b) mod q=T(a) mod q. There are q-1 free residues for each of these q to choose from.
+
+If 10<=b<100, l=2 and we have: T(b)=10b.(1000^(k-1)-1)/999
+
+T(b)=0 mod 11 iff k=odd. [T(b)=1 mod 11 iff k even (disallowed, because there are no free residues left for T(a), remark: b=10 already uses the 11 residues,
+
+so T(11)=0 mod 11 doesn't help].
+
+We also have 13|T(b) for each k=1 mod 6 [the order of 10 mod 13=6].
+
+So k=1 mod 6 suffices for b<17 (the b<10 are also divisors of T(b), since 10^(3k)-1|10^(6k)-1) and 2,5 are divisors of 10).
+
+We have 17|T(b) if k=1 mod 48 [the order of 10 mod 17=16]. Also we have for these k: 19|T(b).
+
+So k=1 mod 48 suffices for b<23.
+
+We have 23|T(b) if k=1 mod 528,
+
+So k=1 mod 528 suffices for b<29.
+
+Our k rapidly increases with solutions with increasing b. One would need a clever sieve to reduce the number of "isprime"-checks.
+
+Q2:
+
+Split T(a) and T(b):
+
+T(a)=sum(a[i].10^i.(10^((i.l)-1),i=0..k-1)+sum(a[i].10^i,i=0..k-1)
+
+T(b)=10b.sum(10^i.(10^(i.l)-1),i=0..k-2)+10b.sum(10^i,i=0..k-2).
+
+The second term of T(a) equals a, the second term of T(b) equals 10b.(10^(k-1)-1)/9.
+
+The sum of these is: (9(a-b)+b.(10^k-1))/9.
+
+The other two terms are 0 mod 10^l-1. They are (at least) 0 mod (10^l-1)/9.
+
+And we see that H(a,b) = 0 mod (10^l-1)/9 if (sufficient, not necessary):
+
+- 9(a-b)=0 mod (10^l-1)/9 and
+
+- l|k.
+
+We have a=b, hence k=l so (10^k-1)/9, is a divisor of H(a,a).
+
+***
+
+Seiji Tomita wrote:
+
+Q2.
+
+H(m,m) is always composite for all m > 1.
+
+For example,let m=a1a2a3a4a5(5 digits).
+
+H(m,m)=a1*10^(4+4*5)+a2*10^(3+3*5)+a3*10^(2+2*5)+a4*10^(1+1*5)+a5
+
++m*(10+10^7+10^13+10^19).
+
+Coefficient of a1=a1*10^(4+4*5)+a1*10^4*(10+10^7+10^13+10^19).
+
+=a1*10^4*(10+10^7+10^13+10^19+10^20).
+
+Here,we take a prime p such that 10^5=1 mod p.
+
+In this case(m=5 digits),p=41,271.
+
+Then 10+10^7+10^13+10^19+10^20=(10^5-1)/9=0 mod p.
+
+So,coefficient of a1=0 mod p.
+
+Similarly, other coefficient of a2,a3,a4,a5=0 mod p.
+
+Consequently,H(m,m) is composite.
+
+In the same way,it is obvious that m=a1a2a3...an(n digits) is divisible by
+
+p such that (10^n-1)/9=0 mod p.
+
+Hence, H(m,m) is always composite for all m > 1.
+
+By the way,(10^n-1)/9 is defined as repunit.
+
+Numerical examples.
+
+H(23459,23459)=2234593234594234595234599=0 mod 41.
+
+(10^5-1)/9= (41)*(271)
+
+H(1234577,1234577)=1123457721234577312345774123457751234577712345777=0
+
+mod 239.
+
+(10^7-1)/9= (239)*(4649)
+
+H(1234567890123456817,1234567890123456817)=0 mod 1111111111111111111.
+
+(10^19-1)/9= (1111111111111111111)=R(19).
+
+***
+
+J-C Colin wrote:
+
+m, minimal prime such as H(m,i) prime for i = 0 to k
+
+k m
+
+0 11
+
+1 13
+
+2 1069
+
+3 1979
+
+4 3049
+
+5 2381963
+
+7 1046197333
+
+and such as H(m,i) prime for i = 1 to k
+
+k m
+
+1 13
+
+2 1021
+
+3 1979
+
+4 3049
+
+5 5701
+
+6 2335667
+
+7 1041293663
+
+8 2459868287
+
+***
+
+J. K. Andersen wrote:
+
+Q1.
+
+H(m,j) for j = 0, 1, 2 can only give three primes if the number of digits
+
+in m is 1 modulo 3. Otherwise 3 will divide one of the three numbers.
+
+m = 1046197333 is the smallest prime for k=6, and also for k=7.
+
+m = 1194307993 is the smallest which only works to k=6.
+
+m = 5769213841 is the smallest for k=8.
+
+There is no prime below 10^12 for k=9.
+
+Q2.
+
+If m has n digits then it seems H(m,m) is divisible by the repunit (10^n-1)/9.
+
+***
+
+Farideh wrote:
+
+Answer to Q1 :
+
+1046197333 is the smallest number m such that H(m, k) for k = 0, 1, ... , 6 is prime.
+
+Also 1046197333 is the smallest number m such that H(m, k) for k = 0, 1, ... , 7 is prime.
+
+***
+
+Emmanuel Vantieghem wrote:
+
+Because the numbers H(m,k) form an arithmetic progression when k runs from 0 to 9, I first searched for the natural numbers m such that H(m,k) is prime for k = 0, 1, … 9. Here is what I found :
+
+H(13,k) is prime for 0 <= k < 2 (and not for k = 2)
+
+H(1069,k) “ “ 0 <= k < 3 ( “ “ k = 3)
+
+H(1979,k) “ “ 0 <= k < 4 ( “ “ k = 4)
+
+H(3049,k) “ “ 0 <= k < 5 ( “ “ k = 5)
+
+H(1043809,k) “ “ 0 <= k < 6 ( “ “ k = 6)
+
+H(4585547,k) “ “ 0 <= k < 7 ( “ “ k = 7)
+
+Then I used the fact that, when a, a+d, a+2d, ... , a+(k-1)d are all primes, then the common difference d must be divisible by every prime divisor p <= k (unless a = k which is never the case in our situation). In our case, a = H(m,0) and d is of the form 1010…10 where the number of ‘ones’ is one less than the number of digits in m, To be divisible by 3 and 7 m must have 4, 7, 10, 13, … digits. So, I could skip a lot of possible values for m. The results then continue as follows :
+
+H(1046197333,k) is prime for 0 <= k < 8 (and not for k = 8)
+
+H(3379142501,k) “ “ 0 <= k < 9 ( “ “ k = 9)
+
+H(7691546233,k) “ “ 0 <= k < 10 ( “ “ k = 10).
+
+I did not find further results for m below 10^10. The next candidate must be bigger than 10^12.
+
+If we require m to be prime, the list looks the same for k < 5 and further :
+
+H(2381963,k) is prime for 0 <= k < 6 (and not for k = 6)
+
+H(1046197333,k) “ “ 0 <= k < 8 ( “ “ k = 8)
+
+H(5769213841,k) “ “ 0 <= k < 9 ( “ “ k = 10).
+
+For bigger k, we must start the computations from 10^12 and this will take much more time …
+
+About the primality of H(m,m) : this happens only if m is 2, 3, 5 or 7. For m >= 11 we can prove H(m,m) to be divisible by the repunit R_n of n ‘ones’, where n is the number of digits of m. For instance, H(13,13) = 1133 = 11x103, …
+
+Proof:
+
+Assume m has n digits. Thus, m can be written in the form
+
+a(n-1)10^(n-1)+a(n-2)10^(n-2)+ ... +a(1)10+a(0) with 0 <= a(i) < 10.
+
+Hence, it is easy to see that H(m,m) = a(n-1)10^(n+1)(n-1)+a(n-2)10^(n+1)(n-2)+ ... +a(1)10^(n+1)+a(0)+ 10m(10^(n+1)(n-2)+10^(n+1)(n-3)+ ... +10^(n+1)+1.
+
+Considering this equality modulo (10^n – 1) and using the fact that 10^(n+1) is congruent to 10 mod (10^n – 1), leads to H(m,m) === m+10m(10^(n-2)+10^(n-3)+ ... 10+1) (mod (10^n – 1)) === m + m(10^(n-1)+10^(n-2)+ ... +10+1 – 1) (mod (10^n – 1)) === m R_n (mod (10^n – 1)).
+
+Since R_n = (10^n – 1) /9, we have H(m,m) === 0 (mod R_n), QED.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,336 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_664.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 664 The queen covering the chessboard
+Source: https://www.primepuzzles.net/puzzles/puzz_664.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0664.htm
+
+References (local copies):
+  ../../references/2012_on-an-error-in-the-star-puzzle-by.pdf  (from http://arxiv.org/abs/1205.0747)
+  ../../references/2012_on-an-error-in-the-star-puzzle-by.txt  (extracted text)
+
+Links on the page:
+  http://primes.utm.edu/curios/page.php/547716131821.html
+  http://arxiv.org/abs/1205.0747
+  mailto:cbrfgm@gmail.com
+  http://www.web-books.com/Classics/Books/B0/B873/AmuseMathC9P6.htm
+  http://golovolomka.info/golovolomka.php?cat=3&page=4
+  http://golovolomka.hobby.ru/books/gik/04.shtml
+  http://www.mayhematics.com/t/leapers/9k.htm
+  http://www.primepuzzles.net/puzzles/puzz_664.htm
+  http://www.mathpuzzle.com/dots.html
+  http://www.mathpuzzle.com/JK8x8.GIF
+  https://www.primepuzzles.net/puzzles/puzz_663.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_665.htm
+  https://www.primepuzzles.net/puzzles/puzz_664.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 664 The queen covering the chessboard
+
+Problems & Puzzles: Puzzles
+
+Puzzle 664 The queen covering the chessboard
+
+I beg your pardon because this is not a prime-puzzle, but this issue absorbed my attention recently.
+
+In May 2012 Alex Ravsky found a solution supposed impossible by the author of the puzzle, H. E. Dudeney, 1911.
+
+The puzzle was this: "To cover all the cells of chessboard going from the cell c5 to the cell d4 in exactly 14 legal movements of the queen"
+
+Alex claims that he found his solution "at hand, as in the good old days"
+
+This is his (reversible) solution:
+
+c5-f8-c8-h3-b3-g8-g3-b8-b2-g2-a8-a1-h1-h8-d4.
+
+Q1. Is there another 14-movements-path-solution (no matter if you find it not-at-hand as in the good current days)?
+
+Q2. Is there a path-solution using less than 14 movements?
+
+Contribution came only from Giovanni Resta
+
+***
+
+Giovanni wrote:
+
+If my program is correct, there are 6 solutions, all quite similar to the one found by Alex Ravsky.
+
+These are the descriptions:
+
+c5-f8-c8-h3-b3-g8-g3-b8-b2-g2-a8-a1-h1-h8-d4 (the Alex's solution)
+
+c5-f8-c8-h3-b3-b8-h2-a2-g8-g1-a1-a8-h1-h8-d4
+
+c5-f8-c8-h3-b3-b8-h2-a2-g8-g2-a8-a1-h1-h8-d4
+
+c5-f8-c8-h3-b3-b8-g3-g8-a2-g2-a8-a1-h1-h8-d4
+
+c5-f8-c8-g4-g8-a2-h2-b8-b3-f3-a8-a1-h1-h8-d4
+
+c5-f8-c8-g4-g8-b3-g3-b8-b2-g2-a8-a1-h1-h8-d4
+
+I have attached a picture depicting them.
+
+By the way, there is not a 13-movements-path-solution for any pair (source, destination) of cells in the
+
+chessboard.
+
+...
+
+My program is a very short one, written in C language.
+
+I can provide it, if somebody wants it (but I have to
+
+add some comments, since I tend to be cryptic when I write
+
+for myself).
+
+The structure of the program is recursive and absolutely
+
+straightforward, but uses
+
+two "tricks" to make it possible to obtain the solution
+
+in reasonable time (say less than one day of computing).
+
+The recursive step is the following:
+
+The procedure receives a partially filled board B, with
+
+a queen in a specified position P and a further number
+
+of available moves equal to N.
+
+It checks if the board B is filled and if the position
+
+P is equal to the goal-cell. If so, I have found a solution and I
+
+output that.
+
+Otherwise, if N > 0, for any possible move from current
+
+position P, I invoke the recursive step on the board obtained
+
+applying the move (so a new B, the resulting position, and N-1 available steps).
+
+This approach would be infeasible if two "tricks" were not
+
+applied:
+
+1) Apart the first move, which covers its first and last cells, so can cover 8 free cells, a move can cover at most 7 free cells (because the
+
+starting point is already covered).
+
+So, before to try recursively all the possible moves from
+
+current position, I check if the number of still uncovered cell in B
+
+exceeds 7*N. If that is the case, then I can abandon current position,
+
+since there is no hope I can cover all the board with the N still
+
+available moves. This can be improved by testing (just once, say at move 7) which is the maximum number M of free cells that a move can
+
+cover. If M < 8, then M-1 can be used instead of 7 in the check above,
+
+for the subsequent moves. I have not implemented this kind of check.
+
+2) I use a binary representation of the board (one bit= one cell), so
+
+I can represent the whole board with just a 64-bit integer
+
+(an unsigned long long int in C language). Analogously,
+
+a move can be represented by a 64-bit integer with bits set to
+
+1 in the positions covered by the move. So, to apply a move M
+
+to a board B, a single bit-wise OR operation suffices (B = B | M ).
+
+For each position, I precompute and store all such 64-bit integers corresponding to the possible moves starting from that position, and the corresponding ending position, so all the moves
+
+can applied very fast.
+
+The check on the number of cells
+
+still to be covered, corresponds to counting the zeros in the binary
+
+representation of the board, and this can be done quickly, by precomputing the number of bits in all the 65536 16-bits numbers and then splitting a 64-bit number in
+
+four 16-bit parts.
+
+***
+
+Alex Ravsky wrote (Dec. 2012)
+
+Carlos Rivera asked me to write a special contribution for this puzzle. Thus here is
+
+Story
+
+Recently I have spent many nice hours with the old puzzle book “The Canterbury Puzzles and Other Curious Problems" by Henry E. Dudeney. I searched a solution of the star puzzle, described by him, but, surprisingly, I found a better one. Since I found no sites or people in Internet, which were specially devoted to this puzzle (I'm not very acquainted with combinatorial resources, because my PhD was in topological algebra :-) ), I decided to publish my solution by myself.
+
+The first two letters about my article, which I quickly received, were about my misprint “b7” instead of “b8”. :-) After I corrected it, I received no letters related to the article during a half of a year. :-) At the end of November Carlos wrote to me a letter “just to let me know that he have posted a new puzzle in his pages around my finding”. A answered that I was happy to receive his letter, :-D because “Carlos Castaneda is well known as guru to my associates. So girls will be astonished that I received a letter from don Carlos from Mexico who likes cactuses :-)) ”. Carlos argued: “This is Don Carlos, from Monterrey, Nuevo León, not the Castañeda one...”, but I wrote that “this is not essential, because girls were already astonished. :-) ”.
+
+Result
+
+Later, answering the questions of Janos Barat and Konstantin Knop, Giovanni Resta and me extended my result from the article. Now we know that, provided the following Giovanni Resta’s results are correct, for every pair of cells a covering queen path connecting them by the minimal number of moves has at least 14 and at most 15 moves.
+
+Giovanni Resta: For what concerns my findings (assuming my program is correct...) I found 5 further solutions (reported in the solutions of Puzzle 664) and I verified that for each pair of cells P, Q it is not possible to cover all the cells with a path going from P to Q of length 13 (or less). ... I analyzed all the source-destination pairs of cells, to see which admitted a filling 14-moves path joining them.
+
+To be honestly I'm not sure 100% that I got it right. I hope so.
+
+Anyway, for each of the 10 starting positions
+
+(1,1) (1,2) (1,3) (1,4) (2,2) (2,3) (2,4) (3,3) (3,4) (4,4)
+
+I have checked how many (and which) destinations can be reached.
+
+The other starting positions can be deducted by symmetry.
+
+This is the result:
+
+(1,1) 44
+
+(1,2) 39
+
+(1,3) 36
+
+(1,4) 13
+
+(2,2) 40
+
+(2,3) 39
+
+(2,4) 45
+
+(3,3) 35
+
+(3,4) 54
+
+(4,5) 49
+
+A complete answer is codified in the following image.
+
+It is a 64 x 64 matrix. Row and columns of the matrix are divided in 8 blocks.
+
+To see if there exist a filling path of 14 moves between, say cell (x,y) and cell (w,z), you have to look at the y-th column of the x-th column block and at the z-th row of the w-th row block. If the intersection is a black square, then there is a path. I hope this is clear enough.
+
+Alex Ravsky: Using the matrix we can easily obtain that for every pair of cells there is a covering queen path connecting them by at most 15 moves. We show that for an arbitrary pair (w,z) and (x,y) of the board cells there exists a cell (u,v) such that there are a covering queen path connecting (w,z) and (u,v) by at most 14 moves and a queen move from (u,v) to (x,y).
+
+There are 10 essentially different starting positions (w,z): (1,1) (1,2) (1,3) (1,4) (2,2) (2,3) (2,4) (3,3) (3,4) (4,4). Using the matrix you can easily check that for each of these 10 starting positions (w,z) and each x from 1 to 8 (except a case (w,z)=(1,4) and (x=5 or x=6)) there exist v from 1 to 8 and a filling 14-moves path joining (w,z) and (x,v) (this simply means that the matrix has a black square at the intersection of the z-th row of the w-th row block and the x-th column block). If y is an arbitrary number from 1 to 8 then we can obtain a covering 15-moves path connecting (w,z) and (x,y), adding to a covering 14-moves path connecting (w,z) and (x,v) the move from (x,v) to (x,y).
+
+Now consider the case (w,z)=(1,4) and x=5 or x=6. If y is an arbitrary number from 1 to 8 and (x,y)≠(5,1) and (x,y)≠(5,8) then using rotations and reflections of the board we can transform a position (x,y) to one of the described above 9 starting positions different from (1,4). Hence the previous paragraph implies that there exists a covering 15-moves path connecting (w,z) and (x,y).
+
+If (x,y)=(5,1) then we obtain a covering 15-moves path connecting (w,z)=(1,4) and (x,y), adding to a covering 14-moves path connecting (w,z) and (2,4) the move from (2,4) to (5,1).
+
+If (x,y)=(5,8) then we obtain a covering 15-moves path connecting (w,z)=(1,4) and (x,y), adding to a covering 14-moves path connecting (w,z) and (2,5) the move from (2,4) to (5,8).
+
+Perspectives
+
+This puzzle is related to the classical puzzles on queen paths on the chessboard, which I tried to use for obtaining the above results. For instance, when Janos Barat asked me “Can you prove that 14 is the minimal number of moves?”,
+
+I answered: May be it can be proved using already known results. Suppose there exists a path in a smaller number at moves. If we connect c5 and d4 then we obtain a closed queen's tour of the chessboard in at most 14 moves with the segment [c5d4]. If there are no such tours then we obtain a contradiction
+
+I found in Internet only claims (without proofs) on the general properties of such tours
+
+The minimal number of moves of a closed queen's tour of the chessboard in at most 14 moves ([1], [2], [3] or [4]). (Moreover, a remark from [2] (signed M.G., possible by Martin Gardner) claims that the minimal number of moves of a closed queen's tour of a square board of side n is at least 2n–2 for each n and is equal to 2n–2 for n>6 (Konstantin Knop: Yes undoubtedly this is a Gardner's comment, and the problem is from Dudeney's “520 puzzles”, #409. Gardner was a scientific editor of this publication. In English original “536 curious problems and puzzles” this problem (“Footprints in the Snow”) has a number 420).
+
+What are these minimal closed tours? Dudeney [1] “have recorded at least six different solutions” and show one of them. Karpov and Gik in [4] claim that “there are three principally different routes” and show one of them. George Jelliss “give diagrams of three solutions”.
+
+Janos Barat: I agree. Your example shows that proofs should be given for all these claims. It would be satisfactory to collect these facts and give accessible proofs. A simple computer check would be a proof for me. :-)
+
+Can we prove that we need 15 moves to visit all squares precisely once and 16 moves to do it and return?
+
+Of course it would be great to generalize to larger boards.
+
+Giovanni Resta: Experimenting with other board sizes and other pairs of start-end cells, I found solutions which use some cells more than once. I cannot be sure there is always an alternative solution in which the vertices of the path are all distinct.
+
+Alex Ravsky: Of course, this is an other puzzle. Gik (and Karpov) wrote (without a proof) in [3] (and [4]) that in this case the covering path is 15 moves long and showed Sam Loyd's example for a pair c3 and f6:
+
+Moreover, you can ask, for which mxn boards B and for which pairs x and y of cells of B there exists a queen path from x to y, containing every cell of the board B precisely once. It seems that such a path exists for every pair of cells of B provided m>2 and n>2 (and this fact seems to be known). When m=n=2^q the following inductive constuction should give a proof. The case q=1 is trivial, and a path for a 2^{q+1} board and a pair of cells with the coordinates (x1,y1) and (x2,y2) is constructed from a path for a 2^q board and a pair of cells with the coordinates ([x1/2],[y1/2]) and ([x2/2],[y2/2]). Here is the illustration of the idea of the proof:
+
+XXXX 0044 2345
+
+XSXX -> SX -> 01 -> 0044 -> 1076
+
+XXXF XF 23 88CC 98EF
+
+XXXX 88CC ABCD
+
+Alex Ravsky: The honor of Dudeney's original idea can be restored, :-) provided there exist a pair of cells admitting a covering path connecting them in n straight strokes and admitting no covering path connecting them in n queen moves. It seems that here n should be equal to 13 or 14.
+
+Remark
+
+It seems for me that it would be nice, to avoid the proving of already known results, before trying to prove something, to look books and to ask specialists, for instance, one of Martin Gardner's disciples or create a topic at a specialised Internet forum.
+
+References
+
+[1] Chessboard Problems, 328.
+
+http://www.web-books.com/Classics/Books/B0/B873/AmuseMathC9P6.htm
+
+in Henry E. Dudeney. Amusements in Mathematics.
+
+[2] http://golovolomka.info/golovolomka.php?cat=3&page=4 (in Russian)
+
+[3] Queen's power
+
+http://golovolomka.hobby.ru/books/gik/04.shtml
+
+in E. Gik. Chess and mathematics. (in Russian)
+
+[4] A. E. Karpov, E. Ya. Gik. Chess kaleidoscope. Moskow, "Nauka" 1984
+
+(in Russian)
+
+[5] The 14-move 'Queen Tour' problem
+
+http://www.mayhematics.com/t/leapers/9k.htm
+
+in George Jelliss. King and Queen Tours.
+
+***
+
+Jean Charles Mayrignac wrote on Dec. 30, 2012:
+
+On this page:
+
+http://www.primepuzzles.net/puzzles/puzz_664.htm
+
+there is a question:
+
+Can we prove that we need 15 moves to visit all squares precisely once and 16 moves to do it and return?
+
+It has already been answered here:
+
+http://www.mathpuzzle.com/dots.html
+
+A solution in 14 moves exists:
+
+http://www.mathpuzzle.com/JK8x8.GIF
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

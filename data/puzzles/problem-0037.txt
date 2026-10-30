@@ -1,0 +1,346 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_037.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 37. The Liu Fengsui's Prime Formula
+Source: https://www.primepuzzles.net/problems/prob_037.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0037.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://groups.yahoo.com/group/primenumbers/message/537
+  http://www.primepuzzles.net/conjectures/conj_003.htm
+  mailto:liufengs@21cn.com
+  https://www.primepuzzles.net/problems/prob_036.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_038.htm
+
+========================================================================
+
+Problem 37. The Liu Fengsui's Prime Formula
+
+Problems & Puzzles: Problems
+
+Problem 37. The Liu Fengsui's Prime Formula
+
+Another prime formula?... Maybe is a good idea to start from a fair and authorized beginning before introducing the Liu's prime formula (PF).
+
+How about if we quote direct and extensive to Hardy and Wright?
+
+"1.5. Some questions concerning primes.
+
+What are the natural questions to ask about a sequence of numbers such as the primes? We have suggested some already, and we now ask some more.
+
+(1) Is there a simple general formula for the n-th prime pn (a formula, that is to say, by which we can calculate the value of pn for any given n with less labour than by the use of the sieve of Eratosthenes)? No such formula is known and it is unlikely that such a formula is possible. On the other hand, it is possible to devise a number of “formulae” for pn. Of these, some are no more than curiosities since they define pn in terms of itself, and no previously unknown cab be calculated from them.
+
+****** Similar remarks apply to another question of the same kind, viz.
+
+(2) Is there a simple general formula for the prime which follows a given prime (i.e. a recurrence formula such as p[n+1] =pn^2 +2)?
+
+(3) Is there a rule by which, given any prime p, we can find a larger prime q?
+
+This question of course presupposes that, as stated in theorem 4, the number of primes is infinite. It would be answered in the affirmative if any simple function f (n) were known which assumed prime values for all integral values of n. Apart from trivial curiosities of the kind already mentioned. No such function is known. The only plausible conjecture concerning the form of such a function was made by Fermat, and Fermat conjecture was false.
+
+pp5-6.
+
+(G. H. Hardy and E. N. Wright. (1981),An introduction to the theory of numbers. 5-th ed. Oxford University Press.)
+
+Now it's time and safer to know the Liu's PF. This is it (ready?):
+
+A prime formula
+
+We assume pn denote n-th prime, p0=2.
+
+Let X=<x1,...,xi,...,xn> be a finite set of natural numbers.
+
+If X=<x1,...xi,...,xn>, Y=<y1,...,yj,...,yk>, we define
+
+X+Y=<x1+y1,x2+y1,...,xi+yj,...,x[n-1]+yk,xn+yk>.
+
+X*Y=<x1*y1,x2*y1,...,xi*yj,....x[n-1]*yk,xn*yk>.
+
+Let X\Y be a subtraction of sets.
+
+Let U(X)=x2 take the 2nd element of X.
+
+Let mn=p0*p1*...p[n-1].
+
+Then a prime formula is:
+
+T1=<1>
+
+T[n+1]=(Tn+<0,1,2,...,pn-1>*<mn>)\<Pn>*Tn
+
+p1=3
+
+p[n+1]=U(T[n+1])
+Where [n=1], [n-1] is the subscript.
+
+The first items of this formula are
+
+T1=<1>,
+
+p1=3,
+
+T2=(<1>+<0,2,4>)\<3>*<1>=<1,3,5>\<3>=<1.5>,
+
+p2=U(<1.5>)=5,
+
+T3=(<1,5>+<0,6,12,18,24>)\<5>*<1,5>
+
+=<1,5,7,11,13,17,19,23,25,29>\<5,25>
+
+=<1,7,11,13,17,19,23,29>,
+
+p3=U(<1,7,11,13,17,19,23,29>)=7,
+
+T4=(<1,7,11,13,17,19,23,29>+<0,30,60,90,120,150,180>)
+
+\<7>*<1,7,11,13,17,19,23,29>
+
+=<1,7,11,13,17,19,23,29,......,181,187,191,193,197,199,203,209>
+
+\<7,77,91,119,133,141,203>
+
+=<1,11,13,17,19,23,29,......,181,187,191,193,197,199,209>
+
+p4=U(<1,11,13,17,19,23,29,......,181,187,191,193,197,199,209>)
+
+=11.
+
+It is easy to prove by simple induction: the Tn is a complete set of residues prime to mn, so that the least number more than 1 in this set U(Tn) is the n-th prime pn. The number of elements of the set Tn is | Tn |=(p1-1)*(P2-1)*...*(p[n-1]-1).
+
+Proof: Obviously, T2=<1,5> is a complete set of residues prime to m2=6, the least number more than 1 in this set U(T2)=5 is the 2-th prime p2=U(T2)=5. The number of elements of the set T2 is | T2 |=(p1-1)=2. If p>3 is a prime, then p belongs the class of residues <1.5> mod 6.
+
+Suppose that: the Tn is a complete set of residues prime to mn, the least number more than 1 in this set U(Tn) is the n-th prime pn. The number of elements of the set Tn is | Tn |=(p1-1)*(P2-1)*...*(p[n-1]-1). If p>p[n-1] is a prime, then p belongs the class of residues Tn mod mn.
+
+A complete set T of residues prime to m is close under multiplication, that is to say,if t belongs not to the class of residues T mod m ,and n is random number, then t*n belongs not to the class of residues T mod m, if t1,t2 belong to the class of residues T mod m, then t1*t2 belongs to the class of residues T mod m. Thus the least number more then 1 in the complete set T of residues prime to m is a prime, m>2.
+
+Now,(pn,mn)=1 (coprime),<pn>*<Tn>is a complete set of residues prime to mn also. For the numbers of this set are plainly prime to mn, and no two of them are congruent. Let t belongs to the set Tn ,then 0<t<mn, 0<t*pn<m[n+1], the class of residues Tn mod mn is equivalent to the class of residues Tn+<0,1,2,...,pn=1>*<mn> mod m[n+1],the set <pn>*<Tn> is a subset of the Tn+<0,1,2,...,pn=1>*<mn>, from the set Tn+<0,1,2,...,pn=1>*<mn>, strike out the set <pn>*<Tn>,we obtain the set T[n+1]=(Tn+<0,1,2,...,pn=1>*<mn>)\<pn>*<Tn>, if t belongs the class of residues T[n+1] mod mn, then t contain not the divisor pn. So that, if t belongs the class of residues T[n+1] mod m[n+1],then (t,m[n+1])=1,and if (t,m[n+1])=1, then t belongs the class of residues T[n+1] mod m[n+1], and no two of them are congruent.
+
+Thus the set T[n+1] is complete set of residues prime to m[n+1]. Obviously, the number of elements of the set T[n+1] is |T[n+1]|=(p1-1)*(P2-1)*...*(pn-1).
+
+Except the prime pn,the numbers stroked are composite, so that, if p>pn is a prime, then p belongs the class of residues T[n+1] mod m[n+1]. T[n+1] is the complete set of residues prime to m[n+1], the least number U(T[n+1]) more than 1 in this set T[n+1] is the n+1-th prime p[n+1]=U(T[n+1]).
+
+By induction, we have proved the prime formula.
+
+This function is a primitive recursive function, which takes all prime values
+
+and only prime values. This formula is not constructed by first knowing the prime or by counting them. This formula provided a constructive proof that the number of primes is infinite and provided some information of prime distributions.
+
+***
+
+All this was sent by Liu to the primegroups (message 537) discussion forum last March. Later, on May 7, 2001, he sent to me a copy of his PF (because I'm not a member of primegroups) and asked to me to publish it in this site.
+
+Liu and me agreed to introduce his PF together with some of the first comments made in primegroups forum in order to define what may be done in our pages. Himself sent a copy of these comments. Here are all of them (with the needed edition labor. Sorry if scissors cut too much):
+
+(1). 01-3-13. Phil Carmody:
+
+It seems to be the 'functional programming' version of an eratosthenes sieve. I see this as a substantially different approach from the ones listed on the prime pages, and appeals to me particularly because of all the time I frittered away learning functional programming while I was at university.
+
+(2). 01-3-14.Ference Adorjan:
+
+Dear Liu, Phil and everyone, just like for Phil, it caused a few problems to decode your notation, though it did worth. I think your idea is great. I wonder if anyone could comment about the originality of this approach. Congratulations, Liu.
+
+I don't completely agree that it is simply a "version" of the sieve of Eratosthenes, since this algorithm (I think it is rather a recursive algorithm then a formula) has nothing to do with divisibility, trial division etc. The beauty of it is that there are only multiplications and additions, as well as set operations.
+
+...
+
+Concerning the "Fengsui" algorithm, I think it may have both theoretical and practical significance. I need to tell though that I am not entitled to decide this, being also an amateur in mathematics. (I am a physicist.) The theoretical significance may be rooted in the fact that the algorithm eventually defines the primes without even mentioning division.
+
+The limits of practical significance is in the number of elements of T_n. But one should notice, that T_n contains not only a single prime (the element number 2) but every element of T_n which is less then p_n-1^2 are primes, and easy to prove that it contains all the primes between p_n-1 and p_n-1^2. I can immagine that Liu or somebody else could develop an enhanced algoritm such that in the first step it yields the primes which are less then 3^2=9, in the second below 49, in the third below 47^2=2209 etc. i.e. progressing almost exponentially. Also for practical purposes it would be necessary to "cut-off" the tail of T_n, which extends too far. Of course, all this is mere phantasy, so far.
+
+(3) 01-3-14. Phil Carmody:
+
+If I had a vote, I'd suggest that this method is a new "interesting" way to prove the infiniteness of the primes. To be perfectly honest after reading Ribenboim I got annoyed at the "different" proofs which were merely different instances of the same abstract technique. This one appears to share nothing in comon with any of the ones currently on the prime pages, and would like to see it up there, to appeal to the functional programmers out there.
+
+(4) 01-3-16. Liu Fengsui:
+
+Dear Phil and Ferenc: Thank you for your kindly comments. I am a Chinese engineer, and my interest is in prime number and Logic.
+
+I appreciate more comments coming from the web side for my prime formula.
+
+Below are some of my ideas.
+
+1).Tn is a complete set of residues prime to mn, concerning the number of elements in Tn has a name viz the Euler's function Phi(mn) in elementary number theory , so | Tn | = Pi(mn) = (p1-1)*(p2-1)*...*(p[n-1]-1).
+
+Of course, remember the elementary properties of residues mod mn, we can prove easily it by simple induction again. Phil, I believe you can agree it.
+
+2).To be perfectly honest after reading Ribenboim I not annoyed at the "different" of abstract proofs and constructive proofs. We read page 213 of Ribenboim's book again together:
+
+"As I have already stressed, the various proofs of existence of infinitely many primes are not constructive and do not give an indication of how determine the n-th prime number. Equivalently, the proofs do not indicate how many primes are less than any given number N. By the same token, there is no reasonable formula or function representing primes."
+
+A constructive proof needs not and cannot use the abstract technique. Has an abstract proof, for example Euclid's, look for a constructive proof, for example my formula, it have specialist significance in logic or foundations of mathematics.
+
+3).I try reform the prime original definition by predicates with the definition by functions, on this now base we discuss the primes and their distributions. Infinitely many primes is one of the simplest conclusions.
+
+4).I am not familiar with the advanced (functional programming) programming technique of SoE also. I have an question: can SoE prove there are infinitely many primes?
+
+(5). 01-3-16. Phil Carmody:
+
+("can SoE prove there are infinitely many primes?"?)
+
+"out of the box", it doesn't. The 'find next larger number still not yet removed' step assumes the existence of such a number. If you were to adapt the SoE to be used as a proof it would 'evolve' into an argument involving effectively very similar sets to the ones that you have. From my background (bits of set theory, computability and functionality programming), I'd say that your proof is what makes the SoE work. I am not an expert in these matters, however, and am always prepared to be corrected.
+
+(6). 01-3-22.Paul Mills:
+
+Hello Lui Fengshui, Thank you for your postings of a new prime algorithm. You asked Chris to `review' your posting. Chris as the `listmeister' is allowed not to comment so I thought I would comment for him. Can I inform you of a few ground rules on how the list operates? Basically, your posting is mathematically correct. If you post something that is not correct you can be pretty sure that we will tell you. So this means that silence is a `nod of assent.' Secondly, actually having something to say on the primenumbers list means that you probably have a worthwhile insight. Thirdly you must remember that many of the contributors are not amateurs and you cannot expect them to comment. However I do suggest that you read through past email postings and you can get an idea of how people respond to various types of posting. Personally I am very pleased that we have another theoretician on the list and I look forward to more results from you. Of course please take a look at my own postings and I hope you find them informative.
+
+***
+
+Out of the primegroups, in emails we have been exchanging, Liu has added other ideas about his PF on request to some of my questions:
+
+(Is your formula the or another sieve as the Eratosthenes?). Yes, my formula is a primitive recursive expression of the Eratosthenes sieve. It is a function generating all primes, not a predicate testing some primes. It look for an order behind irregular and mystery phenomena, not the Hardy's economization
+(ou say that "This formula provided some information of prime distributions". Can you be so kind to tell me what is that information you say and if you consider that information new?) The main information of prime distribution provided by this formula is a constructive proof of prime infinity. All other formulas do not give the proof of prime infinity itself and "As I have already stressed, the various proofs of existence of infinitely many primes are not constructive and do not give an indication of how determine the n-th prime number. Equivalently, the proofs do not indicate how many primes are less than any given number N. By the same token, there is no reasonable formula or function representing primes."(pp. 213 of Ribenboim's book ).
+
+Another simple example: a pattern of primes had disappeared in Tn will not appear again. (<3,5,43>,there is no A>0 such that A + <3,5,43> assumed prime.)
+
+A deep consideration: primes and primes in arithmetic progression(|Bi| =1),prime k-tuples(|Bi|=k),primes in x^2 + 1 (|Bi|=2),..., primes in various form F(x) have all an amazingly unified intellectual structure.In the realms of analytic number theory,Euler proven that sum of the inverses of all primes diverges,so there is infinitely many of primes(|Bi| =1). Dirichlet proven there is infinitely many of primes in arithmetic progression(|Bi| =1).But, the sum of the inverses of all twin primes converges to Brun's constant (B » 1.902160577783278 )(|Bi| =2),so,for |Bi|>1,the problem of infinitely many of primes in various form was open.Present task is to design a new measure. ( where Bi is the solution of congruence F(x) =0 mod pi).
+
+***
+
+Finally I asked to my friend Chris Nash to write some lines about th2 Liu's PF "...rounding and opening the discussion, showing the best promissory routes of discussion and further developments....". This is what he kindly sent:
+
+"...Definitely. It is a good problem, because it asks more questions than it answers....
+
+1) Mr Liu's construction achieves several things all at once. It sieves in the same way as the sieve of Eratosthenes but it also *proves* that it works. Is this unusual?
+
+2) In many ways it is a stronger proof of the infinity of the primes than Euclid's. For Euclid says - if there is a largest prime p, then p# +1 is either prime, or it is composite with a prime factor larger than p, and so we have a contradiction. Yet Mr Liu can say "run this construction for all primes up to p". Not only does it find a larger prime, it finds the *next* prime. Is that unusual?
+
+3) And in fact more can be said than the *next* prime. It can find many primes at a time. For after removing the prime p, all elements left in the set up to p^2 are certainly primes, Is there a way to deal with all those primes in one iteration?
+
+4) Since we may have several primes to choose from, it does not matter which one we choose at each step of the Liu algorithm. Could that be useful?
+
+5) Mr Liu points out this is not the "Hardy economization". We can make it economical, for instance by adding an upper bound to the sets, and we have something like the 'traditional' sieve (but much is lost). Is there another way to make it economical?
+
+Now some very hard, perhaps impossible, questions! Mr Liu's construction is a 'model' of the set of primes. We can use the model as our *only* definition of prime, if we wish.
+
+6) What does the set T look like? We know what numbers it contains - the set of residues modulo p# and coprime to it. How are they distributed? If x is in the set, what position is it in? How many members of the set are between x1 and x2? Can we use that to prove other theorems about primes using *only* the Liu construction?
+
+7) (Perhaps this is a dream). The construction defines what a prime is. Can we somehow run the construction backwards to produce a primality test?"
+
+***
+
+O.K. That's enough!
+
+In this case I have not formal questions for this issue. I would prefer to collect in this page more constructive critical comments about the Liu's PF. I will let that the incoming contributions define the future of this interesting mathematical construction
+
+Now, everything is up to all of you, folks!
+
+Solution
+
+Michael Hovdan wrote (August 2004)the following comment:
+
+Many years ago I arrived at an identical formula by "dissecting" Riemann's zeta function:
+
+z(x) = sum[1/k^x)] = sum[1/(2k-1)^x)] + sum[1/(2k)^x]
+
+Now, the second term in the last expression, equals 1/2^x * z(x), so that
+
+z(x) = 1/(1-1/2^x) * sum[1/(2k-1)^x)]
+
+From here it was natural to continue
+
+z(x) = 1/(1-1/2^x) *{sum[1/(2*3k-1)^x)] +sum[1/(2*(3k-1)-1)^x)] +sum[1/(2*(3k-2)-1)^x]} = 1/(1-1/2^x) * {sum[1/(6k-1)^x)] +sum[1/(6k-3)^x)] +sum[1/(6k-5)^x]}
+
+The similarity between sum[1/(6k-3)^x)] in the last expression and sum[1/(2k-1)^x)] in the earlier expression, gives
+
+z(x) = 1/(1-1/2^x)/(1-1/3^x) * {sum[1/(6k-1)^x)] + sum[1/(6k-5)^x]} (5 is the next prime)
+
+We recognize the Euler product coming to life. From this point on, the next prime (here 5) is shown. Continue:
+
+z(x) = 1/(1-1/2^x)/(1-1/3^x)* {sum[1/(6*5k-1)^x)]
+
++sum[1/(6*(5k-1)-1)^x)]
+
++sum[1/(6*(5k-2)-1)^x)]
+
++sum[1/(6*(5k-3)-1)^x)]
+
++sum[1/(6*(5k-4)-1)^x)]
+
++sum[1/(6k-5)^x]
+
++sum[1/(6*(5k-1)-5)^x]
+
++sum[1/(6*(5k-2)-5)^x]
+
++sum[1/(6*(5k-3)-5)^x]
+
++sum[1/(6*(5k-4)-5)^x]}
+
+=
+
+1/(1-1/2^x)/(1-1/3^x)*{sum[1/(30k-1)^x)]+
+
++sum[1/(30k-7)^x)]+
+
++sum[1/(30k-13)^x)]+
+
++sum[1/(30k-19)^x)]+
+
++sum[1/(30k-25)^x)]+
+
++sum[1/(30k-5)^x)]+
+
++sum[1/(30k-11)^x)]+
+
++sum[1/(30k-17)^x)]+
+
++sum[1/(30k-23)^x)]+
+
++sum[1/(30k-29)^x)]}
+
+The two terms sum[1/(30k-5)^x)] + sum[1/(30k-25)^x)] equal
+
+1/(1-1/5^x) * {sum[1/(6k-1)^x)]+sum[1/(6k-5)^x]}. So these may be removed from the sum and we get:
+
+z(x) = 1/(1-1/2^x)/(1-1/3^x)/(1-1/5^x)*{sum[1/(30k-1)^x)]+
+
++sum[1/(30k-7)^x)]+ (7 is the next prime)
+
++sum[1/(30k-13)^x)]+
+
++sum[1/(30k-19)^x)]+
+
++sum[1/(30k-11)^x)]+
+
++sum[1/(30k-17)^x)]+
+
++sum[1/(30k-23)^x)]+
+
++sum[1/(30k-29)^x)]}
+
+And so it continues. I never pursued it back then, because I realized that the sequence of numbers (the "Liu Fengsui's Prime Formula") is nothing but the set of numbers, between 1 and p(n-1)#, that are not divisible by any of the first n primes. Obviously, it also contains every other prime in that interval, an obvious fact that didn't impress me much.
+
+***
+
+Mr. Liu replied to Mr. Hovdan this:
+
+In view from Michael Hovdan’s realizing for the prime formula, Michael Hovdan never arrived at an “identical formula”.
+
+The key of the prime formula is a formal expression (a construction of function pn) of the prime and it’s obvious fact, not the obvious fact itself. A new formal expression can prove more problems.
+
+In "dissecting" Riemann's zeta function Michael Hovdan used the complete set of residues prime to mn and it’s obvious fact, but Michael Hovdan never wrote a formal expression of function pn from Riemann's zeta function or other function. Michael Hovdan was working in the formal system <R,+,x,0,1>, I belief that Hardy is right, It is unlikely that such a formula is possible.
+
+Michael Hovdan didn't impress for the fact: Liu’s prime formula given a constructive proof that the number of primes is infinite first. Perhaps, Michael Hovdan will have deeper impression for following proof of prime infinity from Liu’s prime formula. Because Michael Hovdan has realized that Euler’s proof of prime infinity begin analytic number theory, but we can not extend Euler’s proof of prime infinity to twin primes.
+
+Let P be the set of all primes, let
+
+T’n = {2,3,…,p[n-1]} U Tn
+
+Then P = lim T’n
+
+P | = lim | T’n | = infinite.
+
+This proof can be extend to twin primes, triple primes,…,k-tuple primes. Please Michael Hovdan read http://www.primepuzzles.net/conjectures/conj_003.htm and continue comment. If require a new version which had published please email : liufengs@21cn.com .
+
+***
+
+Records | Conjectures | Problems | Puzzles

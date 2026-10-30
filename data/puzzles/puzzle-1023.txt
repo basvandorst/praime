@@ -1,0 +1,269 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1023.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1023. Another ladder of primes...
+Source: https://www.primepuzzles.net/puzzles/puzz_1023.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1023.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1022.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1024.htm
+  https://www.primepuzzles.net/puzzles/puzz_1023.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1023. Another ladder of primes...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1023. Another ladder of primes...
+
+JM Bergot sent the following nice puzzle:
+
+Take prime 53 to see that the sum of its
+
+digits is 8, so 53 base 8 is 43; 43 base 7
+
+is 31; 31 base 4 is 13; and 13 base 4 is
+
+7 STOP at single digit prime.
+
+Q. Can you find a longer list using a different starting prime?
+
+From Nov 28 to Dec 4, contributions came from Giorgos Kalogeropoulos, Oscar Volpatti, Metin Sariyar
+
+***
+
+Giorgios wrote:
+
+In each step, if the starting number is N=a(1)a(2)...a(n) and the next is N' then
+N'=a(1)*(a(1)+a(2)+...+a(n))^(n-1) + a(2) *(a(1)+a(2)+...+a(n))^(n-2) + ... + a(n)
+
+So, in order N'<N the sum of digits of N must be less than 10: a(1)+a(2)+...+a(n)<10
+
+I believe that the longest descending lists containing only primes are
+
+{53,43,31,13,7} and {61,43,31,13,7}
+
+We can find bigger lists starting with a prime if not all the terms are be prime:
+
+{223,115,61,43,31,13,7} has more steps but 115 is not a prime
+
+The biggest starting prime that produced a list is:
+
+{11200001,100001,33,21,7} again not all terms are primes
+
+All primes less than 10^20 with sum of digits less than 10 were checked with no results...
+
+***
+
+Oscar wrote:
+
+If I properly understood the recursion step, we can get an infinite sequence by choosing a starting prime with digit sum 10:
+
+19, 19, 19, 19...
+
+37, 37, 37, 37...
+
+and so on.
+
+I excluded such "easy" solutions by adding a simple constraint:
+
+within a legal list, consecutive elements must be different.
+
+This is the first list of primes with length 6:
+
+2693, 18583, 518953, 144316411, 178008299401, 4481394332797755409.
+
+For starting primes p < 5.8*10^11, there are about sixty lists with length 6 and no longer ones.
+
+Let's consider a starting prime with digit sum 100:
+
+699998998879, 60909090908090908080709, 600090009000900090008000900090008000800070009...
+
+and so on; at each step, we find the same non-zero digits, but the spacing between them is doubled; in this case, only the first three terms are prime.
+
+Five starting primes p < 3.8*10^14 generate lists with length 6:
+
+29987898894739;
+
+59198589869977;
+
+96989897497177;
+
+348885469988659;
+
+379859978563993.
+
+Again, no longer lists found so far.
+
+***
+
+Metin wrote:
+
+The result I found has 8 steps :
+
+2000130173 =>55521311=>949651=>24691=>2707=>1093=>661=>421
+
+BTW, Metin wrote that the example given by Bergot is incorrect, because 53 base 8 is not 43.
+
+***
+
+Here are contributions from Metin & Oscar, sent during the week 4-11 December, 2020, explaining the distinct results sent to this puzzle:
+
+Metin wrote:
+
+The question is not open enough I think. My result is true for another understanding, that's all.
+
+I see that Bergot means 53 from sum of its digits to base 10 ? because for only , 53_8 in base 10 =43 .
+
+What I understood was take 53 as a number in base 10, and convert it to base 8 because its sum of digits in base 10 is 8 . So 53 in base 8=65. I found my results in this way, and with every step I convert the new obtained number as base 10 and converted to its sum of digits in base 10. Everybody may be right by their understanding the problem.
+
+***
+
+Oscar wrote:
+
+I rewrote my explanation about puzzle 1023, I hope it's simpler and clearer now.
+
+I also double-checked Giorgos' search for strictly decreasing solutions to Bergot's puzzle.
+
+I didn't work on Metin's puzzle so far, just in case you'll decide to use it as a follow-up puzzle.
+
+Explanation.
+
+JM Bergot and Metin Sariyar understood the words "53 base 8" in different ways, so they actually worked on different puzzles.
+
+Metin's puzzle.
+
+x has base-10 expansion A = [a(1),...,a(m)], with digit sum s = a(1)+...+a(m);
+
+x also has base-s expansion B = [b(1),...,b(n)];
+
+let x' be the unique integer with base-10 expansion B.
+
+If B is not a legal base-10 expansion, fix it by carrying base-10;
+
+it may happen when s > 10 and some b(k) are greater than 9.
+
+Example.
+
+x = 55521311
+
+A = [5,5,5,2,1,3,1,1]
+
+s = 5+5+5+2+1+3+1+1 = 23
+
+B = [8,14,9,6,5,1]
+
+B' = [9,4,9,6,5,1]
+
+x' = 949651
+
+Bergot's recursion.
+
+again, x has base-10 expansion A = [a(1),...,a(m)], with digit sum s = a(1)+...+a(m);
+
+let x' be the unique integer with base-s expansion A.
+
+If A is not a legal base-s expansion, then stop;
+
+it happens when s < 10 and x = s*10^(m-1), so that the only non-zero digit in A is a(1) = s.
+
+Example.
+
+x = 53
+
+A = [5,3]
+
+s = 5+3 = 8
+
+x' = 5*8+3 = 43
+
+If we allow to fix A by carrying base-s, we get x' = s^m. But:
+
+for m > 1, both x and x' are composite;
+
+for m = 1, equality x' = s = x holds and we reach a repeating sequence;
+
+so, when x is a single digit prime, it's better to stop.
+
+Similarities.
+
+Both recursions are ill-defined for numbers x = 10^k, as s = 1 and we should work with base-1 representations.
+
+Both recursions generate a repeating sequence x,x,x,... for numbers x with digit sum s = 10.
+
+Giorgos' puzzle.
+
+Bergot's example sequence has two nice properties:
+
+1) it contains only primes;
+
+2) it's strictly decreasing.
+
+I focused on property 1 only, and I found some strictly increasing sequences with length 6.
+
+On the other hand, Giorgos focused on property 2, eventually relaxing primality constraint.
+
+This version of Bergot's puzzle seems much harder, because large numbers are very likely to have digit sum greater than 10, so that x' > x.
+
+We can easily find sequences of two large primes, like:
+
+1110000000000000000000000000000000000000000000000000000000000000001,7145929705339707732730866756067132440577.
+
+But what about longer sequences?
+
+Working backwards, I checked all sequences ending with numbers below 2.8*10^32.
+
+Even after completely dropping primality and allowing carrying base-s, I only found 409 sequences with length at least 3, and none with length greater than 8.
+
+Only five known sequences contain five primes or more (composites in red):
+
+n,p: sequence
+
+6,5: 203,53,43,31,13,7.
+
+7,5: 215,141,61,43,31,13,7.
+
+7,6: 223,115,61,43,31,13,7.
+
+7,6: 1031,141,61,43,31,13,7.
+
+8,5: 13010,1005,221,61,43,31,13,7.
+
+Largest known prime starting a sequence with length at least 3:
+
+201100000000001,12500000001,4476858985.
+
+Largest known composite starting a sequence with length at least 3:
+
+100000000010000000,131200,24451.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

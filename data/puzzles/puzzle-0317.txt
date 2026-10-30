@@ -1,0 +1,165 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_317.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 317. Two dimensional constellation of primes
+Source: https://www.primepuzzles.net/puzzles/puzz_317.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0317.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.ltkz.demon.co.uk/ktuplets.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_316.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_318.htm
+  https://www.primepuzzles.net/puzzles/puzz_317.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 317. Two dimensional constellation of primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 317. Two dimensional constellation of primes
+
+Luis Rodríguez sent the following puzzle:
+
+Until now, mathematicians only have considered lineal constellations of primes (The called K-Tuples ) It is notable the work of Tony Forbes who have searched for the largest number of primes contained in a given interval of integers. See:
+
+http://www.ltkz.demon.co.uk/ktuplets.htm
+
+For example the maximum number of primes in an interval of 16 is 6. In an interval of 36 is 11 and in an interval of 50 is 14.
+
+Hardy cast the conjecture : “There is not interval N, N+x that contains more primes that the first interval 0 , x.” (This conjecture is almost certainly false)
+
+In this puzzle I will introduce constellations in two dimensions..
+
+For that, it is necessary to adopt a standard matrix for the Eratosthenes’ Sieve.
+
+I choose the sieve of 210 columns, but discarded the columns containing only composite numbers ,the rest are the 48 that can contain primes.
+
+In order of manage easily this game in a computer, I took as standard plane a net of cells in 48 columns x 33 rows. That spans an interval of 6930 integers.
+
+The first row is constituted by the first 48 numbers not divisible by 2,3,5,or 7.
+
+They are (left -à right):
+
+11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,
+
+113,121,127,131,137,139,143,149,151,157,163,167,169,173,179,181,187,191,193,
+
+197,199,209,211
+
+(Observe that 121, 143, 169, 187 & 209 are not primes.)
+
+The 48 horizontal differences between cells in the rows are (left-right):
+
+2, 4, 2, 4, 6, 2, 6, 4, 2, 4, 6, 6, 2, 6, 4, 2, 6, 4, 6, 8, 4, 2, 4, 2, 4, 8, 6, 4, 6, 2, 4, 6 , 2 ,6
+
+6, 4, 2, 4, 6, 2, 6, 4, 2, 4, 2, 10, 2, 10
+
+If the given interval is <= 210 , it is in this chain of differences where we must search for the maximum possible number of primes. For example if the interval is 16, the optimum number of primes will be in the minimum chunk of the sequence that sums 16, that is : 4, 2, 4, 2, 4 . The primes are:
+
+p, p+4, p+6, p+10, p+12, p+16 Example : 97, 101, 103, 107, 109, 113 .
+
+The vertical columns form arithmetical progressions with 210 of constant difference.
+
+If we build in a computer’s screen, a matrix 48x33 of little squares separated by narrow spaces and the squares corresponding to prime numbers are colored, and the composite numbers are invisible, then we can see the constellations of primes..
+
+The goal is to discover isolated symmetrical or beautiful patterns and to investigate the cases that are impossible to appear. (Only the pages after the first are considered.)
+
+Proposed task:
+
+To make a program that realize the described matrix. Stopping at each screen and signaling the number of page. The input for the beginning will be the number of the page or the integer we want to initiate the search.
+
+Questions:
+
+1.- In what page is a chain of 12 consecutive primes?
+
+2.- To find an isolated compact rectangle of 4x3 primes. Or a box 5x3 primes
+
+3.- It’s possible to find a column with 12 adjacent primes?
+
+4.- It’s possible a row full of illuminated primes?.
+
+J.K. Andersen sen the following contribution (19/8/05):
+
+The puzzle says "The first row is constituted by the first 48 numbers not divisible by 2,3,5,or 7."
+
+This first such number is 1, not 11. My solutions work with both starts.
+
+1.
+
+The first 12-tuplet (12 primes as closely together as possible for primes above 12) outside page 1 is on page 204700650:
+
+1418575498567 + 0, 6, 10, 12, 16, 22, 24, 30, 34, 36, 40, 42.
+
+I have not searched the first case of any 12 consecutive primes in this puzzle (where they are allowed a wider span than 42).
+
+2.
+
+I assume "isolated" allows other primes at the corners but not the sides.
+
+There is an isolated 4x3 rectangle on page 4197743788 with primes:
+
+29090364446831 + 0, 2, 6, 8, and those four plus 210, 420.
+
+There is an isolated 5x3 rectangle on page 3477298532467 with primes:
+
+24097678829994941 + 0, 2, 6, 8, 12, and those five plus 210, 420.
+
+The searches were inexhaustive so there may be smaller solutions.
+
+3.
+
+This is impossible. 11 does not divide 210. This means 11 divides every 11th number in an AP with difference 210. Then a prime AP10 is the longest possible with difference 210.
+
+The first such AP10 is 199 + 210n on page 1 (disallowed by the rules). The next is on page 35073: 243051733 + 210n, n = 0..9.
+
+4.
+
+This is impossible. 11 divides at least 1 of 26 consecutive numbers not divisible by 2, 3, 5, 7. Primes above 11 are less restrictive so 25 consecutive primes is the highest admissable (when 11 cannot be one of the primes). Page 1 (disallowed) has 25 primes from 13 to 113. Finding the first allowed example looks infeasible.
+
+http://www.ltkz.demon.co.uk/ktpatt.txt says the largest admissable number of primes from p to p+209 is 43 out of the 48 in a row. One of the admissable patterns miss these 5 numbers (forced factor in parentheses):
+
+p + 60(11), 92(13), 126(11), 170(11), 180(19), where p is the initial prime (on form 210n+11).
+
+The first known blank page is part of a prime gap of 7506 following the 144-digit prime p = 6228054593355363748537440780431439700420147742477408761217660710942368\
+
+59479621720298101024107497672453227262482471181879989086517152620478140551
+
+I found p in 2003. The page number is (p+89)/6930.
+
+The smallest known prime followed by a gap above 6930 is the 114-digit q = 5611925455116055018478040314584865791701807218850505193415236373809510\
+
+60985753413015561149180502147007767345472029
+
+The gap is 7868 and was found by Torbjörn Alm and I in 2004.
+
+q gives a much better prime gap than p but does not include a complete page.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

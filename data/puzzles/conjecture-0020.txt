@@ -1,0 +1,232 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_020.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 20. The first N natural numbers listed in an order such that
+the sum of each two adjacent of them is a prime number.
+Source: https://www.primepuzzles.net/conjectures/conj_020.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0020.htm
+
+References (local copies):
+  none
+
+Links on the page:
+
+========================================================================
+
+Conjecture 20. The first N natural numbers listed in an order such that the sum of each two adjacent of them is a prime number.
+
+Problems & Puzzles: Conjectures
+
+Conjecture 20. The first N natural numbers listed in an order such that the sum of each two adjacent of them is a prime number, and the Rivera's Algorithm
+
+Example: for N=10 one solution is
+
+4,
+7, 10, 3, 8, 5, 6, 1, 2, 9
+
+Needless to say that for each N value there are several solutions that differs between them by the order that the numbers are listed in the row (*).Other thing that should be said is that for the purposes of this puzzle, the (N-1) primes obtained need not to be distinct.
+
+But I went not interested in the question about the quantity of distinct solutions for each N.
+Instead of that, I asked my self if it could exist a non trial & error method for getting at least one solution for each and any N.
+
+What I wanted to discover was a method for completing the assignation of the N values in exactly N safe steps, without having to go back, erase and start again when the remaining values to assign exhibit no one available option.
+
+What is that of "go back, erase and start again"? Proceeding without any safe strategy, that is to say making the assignments purely at random, is possible to reach to a dead end. For example, in the following partial successful assignation for N=10,
+
+8, 9, 2, 1, 10, 7, 6, 5, ???
+
+you can not go ahead with the remaining 3 & 4 in any way. The only you can do in this moment is to go back, erase and start again...
+
+During several weeks a tried several strategies, unsuccessfully. When I was prone to abandon, unexpectedly I discovered that such safe & lineal method exist and is extremely simple:
+
+Starting from the N value, each new number in the sequence will be the first largest value not used before, of opposite parity to the last value assigned, such that the sum of this number and the last value assigned is a prime number.
+
+I have tested the above method for N values as large as 2<N<10000 and it works! So I conjecture that this algorithm always works.
+
+Examples:
+
+For N=10 the sequence is: 10, 9, 8, 5, 6, 7, 4, 3, 2, 1
+
+For N=100 the sequence is:
+
+100 99 98 95 96 97 94 87 92 89 90 91 88 93 86 81 82 85 78 79 84 83 80 77 74 75 76 73 66 71 68 69 70 67 72 65 62 51 58 55 54 59 50 63 64 49 60 53 56 57 52 61 48 41 42 47 36 43 46 37 34 45 44 39 40 33 38 35 32 29 30 31 28 25 22 21 26 27 20 23 24 19 18 13 16 15 14 17 12 11 8 9 10 7 6 5 2 3 4 1
+
+Questions:
+
+1. Can you "solve" the given conjecture? That is to say: or to find a counterexample, or to demonstrate why this method always should produce a solution as the desired one.
+
+2. Exist other safes procedures, distinct to the described by this conjecture?
+
+3. If you know that the Rivera's algorithm was posed previously by somebody, please send to me the reference to give that person the proper credits.
+
+____
+
+(*) As a matter of fact the problem of finding the quantity of such solutions for each N is discussed in the R. K. Guy's known book, p. 105
+
+Solution
+
+The 27/05/2000 Jud McCranie wrote:
+
+"I tested your algorithm for conjecture 20 out to 25,000 and it still works. Your algorithm is a form of the greedy algorithm. For some problems the greedy algorithm always works, for others - not always. In this case it seems to always work, but I don't know for sure".
+
+***
+
+Imran Ghory sent (24/Oct/2000) the following very interesting interpretation of my algorithm:
+
+"I've found a partial solution to question 2. If N=(A+B)/2, where A and B are both primes, and B=A+2 (That is that they are twin primes). Then you can make a solution for that value of N such that the sum of every consecutive numbers is equal to A or B.
+
+I think the best way to demonstrate how it works is by example, if we set A=11, B=13 and N=12. We first express B as the sum of every number below it,
+
+B=13: (12+1), (11+2), (10+3), (9+4), (8+5), (7+6).
+
+This gives us a set of combinations of every number from 1 to N, such that their sum equals B. However these combinations do not connect to each other, so we have to work out how to put them together.
+
+We can do this by expressing A as the sum of every number below it,
+
+A=11: (10+1), (9+2), (8+3), (7+4), (6+5)
+
+This gives us a set of combinations of every number from 1 to N-2, such that their sum equals A.
+
+The combinations that equal A can now be used to combine the
+
+combinations that equal B to get,
+
+(12+1), (1+10), (10+3), (3+8), (8+5), (5+6), (6+7), (7+4), (4+9), (9+2), (2+11), alternating B, A, B, A, B, etc..
+
+Now removing duplication and converting it into the form that you used for the previous algorithm we get:
+
+12,1,10,3,8,5,6,7,4,9,2,11
+
+This technique works for all twin primes
+
+While producing this algorithm I also noticed that the numbers produced by your algorithm seemed to add up twin primes quite often, doing some work along these lines I think that your algorithm will also work if we change it to:
+
+"Starting from the N value, each new number in the sequence will be the first largest value not used before, of opposite parity to the last value assigned, such that the sum of this number and the last value assigned is a prime number which has a twin prime."
+
+This alternate version of your algorithm would move it closer to the algorithm which I demonstrated earlier and it might be possible to somehow link the two algorithms".
+
+***
+
+Let's take a second look of the Imran algorithm using the same example solved by him:
+
+12, 1, 10, 3, 8, 5, 6, 7, 4, 9, 2, 11
+
+At the end, his solution can be described this other way:
+
+The solution is formed by all the even numbers from N to 2 in descending order (in the odd positions) and the odd numbers from 1 to N-1 in ascending order (in the even positions)
+
+I hope Imran likes this form of looking his algorithm... (C.R.)
+
+Isn't it a beauty solution the Imran's one? No matter that it only works or when N is even such that N+1 & N-1 are primes or when N is odd but N & N+2 are primes...
+
+***
+
+Sooner than later, Imran cleverly has solved completely this conjecture from an unexpected way that involves the twin primes. Enjoy his collaboration:
+
+"I've managed to improve upon it so that it can be used for any value of N. But it only works if we assume following statement is true:
+
+"For every value of x, where x>3, between x and 2x there exists a twin prime. Both of the primes do not have to be between x and 2x, only the higher one"
+
+My new algorithm works like this:
+
+B=N
+
+A+B=P
+
+A<B
+
+Where P is the larger value from two twin primes. We then apply the algorithm I showed earlier, but instead of using 1 in the first even position we use A. For example, with N=28, B=28, A=15, P=43 (with the other twin prime being 41), we get:
+
+28,15,26,17,24,19,22,21,20,23,18,25,16,27,14
+
+This gives us a list containing every number from B to A-1.
+
+Now we let B=A-1, then we find a new value of A, which again has to agree with,
+
+A+B=P
+
+A<B
+
+Where P is the larger value from two twin primes.(This prime is different from the earlier prime).
+
+We know A exists, because of the statement we assumed at the begining which tells us that a twin prime exists between B and 2B. Now with these new values of A, B, and P we can repeat our algorithm. Carrying on from the earlier example B=14 A=5, and P=19, we now get:
+
+14,5,12,7,10,9,8,11,6,13,4
+
+We now repeat the last part of the algorithm, which gives us B=4 A=3, we now get:
+
+4,3,2
+
+Now we have these lines,
+
+28,15,26,17,24,19,22,21,20,23,18,25,16,27,14
+
+14,5,12,7,10,9,8,11,6,13,4
+
+4,3,2
+
+Joining them together and removing the replication at the end of lines we get,
+
+28,15,26,17,24,19,22,21,20,23,18,25,16,27,14,5,12,7,10,9,8,11,6,13,4,3,2
+
+Now we just have to add 1 to the end and we have our complete sequence.
+
+Assuming the statement at the beginning is true this technique will work for all values of N.
+
+***
+
+The only thing I can add after a sincere Congratulations! to Imran is that his hypothetical statement seems to be true according to the following: The known approximate counting twin primes function ( p(x) = K.x/ln(x)^2 , K=1.32 ) can provide an idea of when will exist at least one twin prime in the interval (x, 2.x) for each x:
+
+p(2.x) - p(x) > 1, for x>22
+
+Empirically we may verify that it happens that for each 22=>x=>3 also exist at least one twin prime in the interval (x, 2.x)
+
+Then the Imran's hypothetical statement seems to be totally true.
+
+***
+
+Why do we say that is absolutely true the Imran's postulate? Well, paraphrasing a Chris Nash's answer to another similar question "...It is not a proof because it only depends on [twin] primes density. There are many sequences that have density just like the [twin] primes but..." are not twin primes at all "... So to turn [Imran's] work into a proof, something else is needed more than just prime density - but I do not know what that 'something else' is!..."
+
+BTW, Chris Nash has named the Imran's postulate as the "Imran's 'Bertrand's Postulate', twin prime conjecture". For sure everyone knows why...
+
+***
+
+I (C.R.) have found a different solution for the example N=28 than the Imran's one, using the same and his method. This is my solution:
+
+28 3 26 5 24 7 22 9 20 11 18 13 16 15 14 17 12 19 10 21 8 23 6 25 4 27 2 1
+
+The only change I made was to use the least A<N value possible, while it seems that Imran was using the largest A<N value possible.
+
+Proceeding the way I did the number of cycles needed to halt the algorithm are minimized. This is the code I made in Ubasic of the Iram's algorithm seeking for the least A, etcetera:
+
+10 input N:'Imran01.ub about conjecture 20
+
+20 NN=N:print N;
+
+30 gosub *A:print A;:AA=A
+
+40 N=N-2:print N;
+
+50 if N=AA-1 then goto 70
+
+60 A=A+2:print A;:goto 40
+
+70 if N<=2 then stop:N=NN+1:goto 20
+
+80 print "-"; goto 30
+
+90 *A:A1=1:if odd(N)=1 then A1=2
+
+100 for A=A1 to N-1 step 2
+
+110 if and{(A+N)=prmdiv(A+N),(A+N-2)=prmdiv(A+N-2)} then cancel for:goto 140
+
+120 next A
+
+130 print "Algorithm fails!":end
+
+140 return
+
+***

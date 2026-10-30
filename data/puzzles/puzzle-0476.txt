@@ -1,0 +1,328 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_476.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 476. A question related to Collatz Sequence
+Source: https://www.primepuzzles.net/puzzles/puzz_476.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0476.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://groups.google.com/group/TrueButUnproven?hl=en
+  http://www.mensanator.com/mensanator666/collatz_utilities/blueprint_for_failure_1_1_preprint.pdf
+  https://www.primepuzzles.net/puzzles/puzz_475.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_477.htm
+  https://www.primepuzzles.net/puzzles/puzz_476.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 476. A question related to Collatz Sequence
+
+Problems & Puzzles: Puzzles
+
+Puzzle 476. A question related to Collatz Sequence
+
+Luis Rodríguez sent the following puzzle:
+
+As everyone knows, the Collatz Sequence is is the result of applying the following algorithm: Given a seed X:
+
+If X is odd X = 3X + 1
+
+If X is even X = X / 2
+
+The puzzle consists in search in that sequence, the largest chain of contiguous odd primes, provided that the even numbers are discarded.
+
+Example. Begining with the seed 157 we have the following sequence:
+
+157, 472, 236,118, 59,178, 89, 268, 134, 67, 202, 101, 304, 152, 76, 38, 19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40 ,20, 10, 5.
+
+Discarding the even numbers we obtain a chain of 11 primes:
+
+157, 59, 89, 67, 101, 19, 29, 11 ,17, 13, 5.
+
+I found that the seed 13397 gives a chain of 12 primes.
+
+Q1. Can you find a seed that produce a larger chain of contiguous odd primes (discarding the even numbers)?
+
+Let me add another question, to the one posed by Luis:
+
+The seed 157 produces a sequence of 32 integers when the odd prime 5 emerges, while the seed 13397 produces a sequence of 41 integers when the odd prime 5 emerges, so their respective qualities are 11/32= 34% and 12/41=29%
+
+Q2. Can you produce a seed that produces a larger chain of contiguous odd primes & larger quality than the seed 157 (discarding the even numbers)?
+
+Seed | Primes | Length | Quality, % | Who?
+
+157 | 11 | 32 | 34 | LR
+
+13397 | 12 | 41 | 29 | LR
+
+2312267 | 13 | 51 | 25 | FF
+
+J. K. Andersen wrote:
+
+Q1. A given prime sequence can often be extended to the left.
+
+Let p be the first prime in the sequence.
+
+Search n1 such that q1 = (p*2^n1-1)/3 is prime.
+
+Then the first odd number after q1 in the Collatz sequence is p = (3*q1+1)/2^n1, so the original sequence can start at q1 instead.
+
+Then search n2 such that q2 = (q1*2^n2-1)/3 is prime, and so on.
+
+For example, the smallest prime which can come before p = 157 is
+
+q1 = (157*2^8-1)/3 = 13397. This gives the example in the puzzle where
+
+157 starts a sequence of 11, and 13397 increases that to 12.
+
+Going further left from q1 = 13397 and choosing the smallest values of q2, q3, q4 gives this sequence of 15:
+
+181293865141871349357044112015018419502649754080597, 1757376215861239855011157, 9820104851543381, 13397, 157, 59, 89, 67, 101, 19, 29, 11, 17, 13, 5.
+
+Here q2 = (q1*2^41-1)/3, q3 = (q2*2^29-1)/3, q4 = (q3*2^88-1)/3.
+
+Continuing with the smallest q's gives: q5 = (q4*2^112-1)/3,
+
+q6 = (q5*2^833-1)/3, q7 = (q6*2^758-1)/3, q8 = (q7*2^2991-1)/3.
+
+Primes up to q7 are proven. q8 is a 1462-digit prp.
+
+There is no q9 below (q8*2^40000-1)/3
+
+In a search for a longer sequence it would be more efficient
+
+to try other q values than the smallest to see if they can give
+
+smaller values of the following q's.
+
+Q2. Every odd number is followed by an even number so a sequence with k primes will have at least length 2k-1.
+
+p = 284566782822383452159 is seed for 14 primes in the optimal 27 numbers
+
+with quality 51.9% (See Note below) It is the smallest such seed according to my search. The highest possible quality for more primes than the 11 primes starting
+
+at 157 is 52.2% for 12 primes with length 23, for example in a subsequence
+
+of the sequence starting at p.
+
+The quality of optimal sequences decrease towards 50% when the length grows.
+
+Note: JKA added on my request this: "It appears I have misunderstood Q2. I thought the chain was allowed to stop anywhere because the examples stopped at 5 and not at 1, but it appears the chain has to stop at the last odd number before a power of 2. The seed 284566782822383452159 gives 14 primes in the first 27 numbers of which the last is 55382246934781598217539, but later there are many odd composite numbers."
+
+***
+
+Dan Dima wrote:
+
+Q1.
+
+A simple algorithm to generate backwards such a chain is:
+
+- start from an odd prime p in the chain
+
+- if p mod 3 == 1 then x=p
+
+else x=2*p (when p mod 3 == 2)
+
+or simply x = p*(p mod 3)
+
+- while (x-1)/3 is not prime do x=4*x (try to find a possible prime predecessor in the chain)
+
+In fact I conjecture that for each odd prime p there is always another odd prime of the form: (4^k * p * (p mod 3) - 1) / 3 for some positive integer k.
+
+The algorithm simply searches the smallest such value, but sometimes this might not be the best choice to get best solutions for Q1 and Q2.
+
+Here is a simple Pari function that generates such a prime predecessor in the chain:
+
+predpr(p) = {x=p;if(x%3-1,x=2*x);while(!isprime((x-1)/3),x=4*x);return((x-1)/3)}
+
+I tried to search starting with the known values of the smallest primes and so far I got the following chains:
+
+Example:
+
+10 primes:
+
+56229555717365791070929608432527397466813407663068271535480580461236409479/
+
+42453051010665450664329669475033153621611941025109,
+
+22014898269365938587476308586232279594167745437770682385993706117616981,
+
+101757964319065432633354026734907934037,
+
+74529759022753002417007343799981397,
+
+1588697366147037877589, 36362396991280469, 3329076872981, 156050478421, 109, 41, 31
+
+Q2. Larger quality can be found only inside the same chain but this is shorter:
+
+SeedPrimesLenghtQuality, %
+
+19 6 16 0.375
+
+59 10 28 0.357+
+
+(He sent larger examples, the largest with 19 primes but the largest prime in each case is really large,1462 digits for the case of 19 primes)
+
+***
+
+Farideh Firoozbakht wrote:
+
+Seed Primes Length Quality, %
+
+2312267, 13, 51, 25
+
+36996277, 13, 55, 24
+
+***
+
+J. K. Andersen wrote:
+
+Dan Dima's conjecture is false. p = 550346059 is a counter example where
+
+(4^k * p * (p mod 3) - 1) / 3 = (4^k*550346059-1)/3
+
+always has a factor in the covering set {5, 7, 13, 19, 73, 109}
+
+***
+
+Farideh added:
+
+Also we can show that (4^k*550346059-1)/3 always has a factor in the smaller set
+
+{3, 5, 7, 13}.
+
+...
+
+I improved my Mmca code for finding smallest prime p such that the related sequence
+
+has n odd primes . So I found smallest primes for n =14 & n=15 and we can extend
+
+the table as follows.
+
+Seed Primes Length Quality,%
+
+157 11 32 34
+
+13397 12 41 29
+
+2312267 13 51 25
+
+97760291 14 59 24
+
+1042776437 15 65 23
+
+Also the sequence started by p = 711868714549 has 16 odd primes and the
+
+othe terms are even with quality 21% (16/77) .
+
+711868714549, 66737691989, 97760291, 146640437, 13747541, 10069, 59, 89,
+
+67, 101, 19, 29, 11, 17, 13, 5
+
+But I don't know is p smallest such prime or not.
+
+***
+
+Paul Stadfeld wrote (Feb 09)
+
+If I chain off your best result, I get:
+
+primes: 55412084444621824819325549379567364144089075308137283809078879304392463701
+
+1616391787861 2312267 3468401 2601301 7621 1429 67 101 19 29 11 17 13 5
+
+max consecutive: 15
+
+But I can do better direct from 5 rather than chain off 2312267:
+
+primes: 275339552506345142438087605791428275593214216702524943941765627300649223794753193/
+
+0068871009321176880702625561451293883715108909919844989715963128124148680241884951245026/
+
+4984732315296849380240096245517183613367161486834915222531162760540719079811092957841170/
+
+6744524524914469635157169378607859967346654692076016904497512505774788474973975069953624/
+
+5544805021029241136444147570099334827637450739274053743088671188563771892525093412750970/
+
+5448963997638058103836751830993746492717504697851490766322763382085515006208719376465693/
+
+8454437652696199750862197821027515579346328200598771833365448848461038660709762230851427/
+
+2257217205205421592444366777586243831527304270113664314148054416285660092285512030741969/
+
+417731719910741
+
+528565840535415628733109803234774911764515136420772948854655318767261012307493591224551/
+
+908379841784632771647438560334939857197698389
+
+3380117565270339709540783864208161592927578615634556441941 111012973909 162616661 1861 349
+
+131 197 37 7 11 17 13 5
+
+max consecutive: 16
+
+And I can do better still using your intermediate solution 13397:
+
+primes: 3027624142826700810512524480621104860873685888116391578487934297542778329275994823943807/
+
+4154971037345075812426104801244906496799782427223453843743391225283064746069931014099507825058/
+
+6907362655752076937256253706475521707892851450775188602291803111812851011872985713218531925579/
+
+6882593662458453279364135908083975434609054601276506662068003113876908535144701877186552893764/
+
+2211126341659903259190757933215201167451287374330209121578051057775378442775545555760493016813/
+
+47817181634919853542838581349214636283038186490769135705179697062965454543976893626202359785149/
+
+781
+
+5990823174872303409081815913076258494113880167152740289786718729106767875562260863407224117118/
+
+8841756404633137435481379583575211818336328330037635559776569042194400120811805989751785139463/
+
+6118073088698744867778606193495483805033364121398315626449279063111782818164138222335624608949/
+
+0173345084825695994878300652424637147834645533250901 313777188815925099822585043402884428494182190229729211615176736235093559634178692437 181293865141871349357044112015018419502649754080597
+
+1757376215861239855011157 9820104851543381 13397 157 59 89 67 101 19 29 11 17 13 5
+
+max consecutive: 18
+
+My Google Group:
+
+http://groups.google.com/group/TrueButUnproven?hl=en
+
+My paper:
+
+http://www.mensanator.com/mensanator666/collatz_utilities/blueprint_for_failure_1_1_preprint.pdf
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

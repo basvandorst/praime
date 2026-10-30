@@ -1,0 +1,308 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_301.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: 301. One million of prime prime residues
+Source: https://www.primepuzzles.net/puzzles/puzz_301.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0301.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_300.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_302.htm
+  https://www.primepuzzles.net/puzzles/puzz_301.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+301. One million of prime prime residues
+
+Problems & Puzzles: Puzzles
+
+Puzzle 301. One million of prime prime residues
+
+Rickey Bowers, Jr. sent the following nice challenge:
+
+What is the first prime having over 1000000 prime prime residues?
+
+Examples:
+
+17 mod 2 =1
+
+17 mod 3 = 2 (prime)
+
+17 mod 5 = 2 (prime)
+
+17 mod 7 = 3 (prime)
+
+17 mod 11 = 6
+
+17 mod 13 = 4
+
+Just three prime residues of 17 are prime.
+
+37 mod 2 = 1
+
+37 mod 3 = 1
+
+37 mod 5 = 2 (prime)
+
+37 mod 7 = 2 (prime)
+
+37 mod 11 = 4
+
+37 mod 13 = 11 (prime)
+
+37 mod 17 = 3 (prime)
+
+37 mod 19 = 18
+
+37 mod 23 = 14
+
+37 mod 29 = 8
+
+37 mod 31 = 6
+
+Just four prime residues of 37 are prime.
+
+1. Find the smallest prime number having over 1000000 prime residues that are prime.
+
+He added:
+
+Let:
+
+pi[i] = the i-th prime number
+
+px[i] = number of prime prime residues for pi[i]
+
+lim px[i] / i
+
+i -> infinity
+
+2. Wonder if the limit is defined?:
+
+Mike Oakes, Jacques Tramu, Faride Firoozbakht, T. D. Noe, Johann Wiesenbauer and Joseph L. Pe contributed to this puzzle. The correct answer to Q1 came form Oakes & Noe, apparently. Could someone find the smallest prime with exactly 1000000 prime prime residues? ( Mike Oakes found it some days later:
+
+The answer is 685478429, i.e.:
+
+i=35539244 pi[i]=685478429 px[i]=1000000
+
+There are no others from i=35494380 onwards)
+
+***
+
+Mike Oakes wrote:
+
+The answer to Q1 is
+684972991, or (in the notation for Q2):-
+
+i=35514380, pi[i]=684972991, px[i]=1000151
+
+I have verified (12 hrs @2.1 GHz) that the immediately preceding 20000 primes have px[i] <= 1000000.
+
+The answer to Q2 seems to be Yes, with the limit 0, or more precisely:-
+
+px[i]/i ~ 1/ln(i)
+
+Here is a heuristic justification:-
+
+pi[i] ~ i*ln(i)
+
+There are (i-1) candidate residues, "most" of which are ~ pi[i] ~ i*ln(i).
+
+A number of this size has a chance 1/ln(i*ln(i)) of being prime.
+
+So px[i] ~ (i-1)/ln(i*ln(i)),
+
+i.e. px[i]/i ~ 1/(ln(i) + ln(ln(i))) ~ 1/ln(i)
+
+Here is some numerical evidence:-
+
+i pi[i] px[i] px[i]/i 1/ln(i) ln(i)*px[i]/i
+
+2 3 0 0.000000 1.442695 0.0000
+
+4 7 1 0.250000 0.721348 0.3466
+
+8 19 2 0.250000 0.480898 0.5199
+
+16 53 4 0.250000 0.360674 0.6931
+
+32 131 7 0.218750 0.288539 0.7581
+
+64 311 12 0.187500 0.240449 0.7798
+
+128 719 17 0.132812 0.206099 0.6444
+
+256 1619 32 0.125000 0.180337 0.6931
+
+512 3671 54 0.105469 0.160299 0.6579
+
+1024 8161 92 0.089844 0.144270 0.6227
+
+2048 17863 156 0.076172 0.131154 0.5808
+
+4096 38873 293 0.071533 0.120225 0.5950
+
+8192 84017 500 0.061035 0.110977 0.5500
+
+16384 180503 949 0.057922 0.103050 0.5621
+
+32768 386093 1693 0.051666 0.096180 0.5372
+
+65536 821641 3143 0.047958 0.090168 0.5319
+
+131072 1742537 5711 0.043571 0.084864 0.5134
+
+262144 3681131 10746 0.040993 0.080150 0.5115
+
+524288 7754077 20198 0.038525 0.075931 0.5074
+
+1048576 16290047 38152 0.036385 0.072135 0.5044
+
+2097152 34136029 71965 0.034316 0.068700 0.4995
+
+4194304 71378569 136398 0.032520 0.065577 0.4959
+
+8388608 148948139 259874 0.030979 0.062726 0.4939
+
+16777216 310248241 495720 0.029547 0.060112 0.4915
+
+33554432 645155197 946386 0.028205 0.057708 0.4887
+
+67108864 1339484197 1813683 0.027026 0.055488 0.4871
+***
+
+Jaques Tramu wrote:
+
+Hi Carlos,
+
+I found the following :
+
+P = 685500271 residus primes : 999975
+
+P = 685501111 residus primes : 1000127
+
+So, the winner seems to be 685501111.
+
+To be checked, for sure.
+
+***
+
+Faride Firoozbakht wrote:
+
+I don't know what is the smallest prime p, such that p=prime(n) and px(n)>1000000 (I think, it takes many times).
+
+But I found many primes p=prime(n) such that px(n)>1000000,
+the smallest (wrong, CR) of them is p=prime(35565000)=686000743 and px(35565000) =1000019.
+The only n such that |px(n)-10^6|<10 that I found is n=35680001, px(n)=1000003 (prime(n)=686304497).
+
+" It seems that for each natural number n the set A(n)
+
+of primes p such that px(pi(p))=n is a finite set. "
+
+The maximal length of such set's that I found is l=36, it occurs for n=983 (for each element p of A(983), px(pi(p))=983).
+
+A(983)={16995,17157,17223,17240,17288,17302,17308,17452,
+
+17469,17512,17574,17591,17614,17620,17702,17728,
+
+17743,17750,17799,17800,17802,17806,17816,17842,
+
+17844,17858,17863,17937,17989,17993,18116,18117,
+
+18185,18216,18249,18342}}
+
+***
+
+T. D. Noe wrote:
+
+1. It appears that
+684972991 is the smallest prime having over 1000000 prime prime residues. It has 1000151 prime prime residues.
+
+2. I think the limit px[i]/i is zero. Using the prime number theorem, assuming that residues are randomly distributed, and noting that all the residues of primes greater than p/2 are even, we can estimate the number of prime prime residues of a prime p to be
+
+sum_{i=2..pi(p/2)} 1/log(prime(i))
+
+where pi(p/2) is the number of primes less than or equal to p/2. This estimate is surprisingly good. The number of prime prime residues also appears to be approximated by
+
+c1 pi(p/2) / log(pi(p/2))
+
+where c1 is a number near 0.9. I used the latter formula to find the value of pi(p/2) which would yield about 1000000 prime prime residues. Then I searched backwards to find the least p.
+
+Note that the second formula looks like the prime number theorem applied to pi(p/2). Hence, we might guess that the number of prime prime residues of p is proportional to pi(pi(p/2)).
+
+***
+Johann Wiesenbauer wrote:
+
+Question 1 of puzzle 301 is very hard and requires more computing power than is available on this planet, in my opinion. (Why?, CR)
+
+For example, I used Derive to compute the prime p=686180039 with exactly 1000100 prime prime residues.
+
+Even though the function describing the number of prime prime residues is such erratic and far from being monotonous even on a large scale that all I would dare to say is that the "real "solution to this problem at issue is a prime with 9 digits starting withb a 6.
+
+In contrast, as for question 2, I'm quite sure that the limit at issue exists and is 0, though only based on heuristic reasoning. Let's call f(p) the function that assigns to each prime p the number of prime prime residues. Then based on the density 1/log(t) of prime numbers near t, the integral
+
+int(1/(log t)^2,t,2, p/2)
+
+of 1/log(t)^2 with t running from 2 to p/2 should be a good approximation for f(p). For example, this integral gives the value 996312,4.., which is not too far away from the exact value 1000100, indeed! Using this heuristic evidence, it is very easy then to see that the limit at question is 0.
+
+...
+
+In the last hours I could still slightly improve my own "estimate" for the prime at issue to p = 686175013 which yields prime residues for exactly 10^6+77 primes below p. I doubt if this matters though, because as already mentioned, a proof that this prime (or any other one) is the "smallest" one is clearly out of the question.
+
+***
+
+Joseph L Pe wrote:
+
+Hope my contribution to puzzle # 301 isn't too late. I didn't get part A.
+
+As for part B, the limit px(n)/p(n) as n --> oo is probably = 0. This is
+
+supported by numerical evidence, and seems very plausible from the
+
+following probabilistic argument.
+
+Let i, j be positive integers with 1 <= j <= i. Let's suppose for a probabilistic
+
+argument that the chance that p(i) mod p(j) is prime is just the chance that
+
+a positive integer <= p(j) is prime, that is, 1/j. Since p(i) mod p(j) only gets
+
+one "try" to be prime, the expectation that p(i) mod p(j) is prime = 1/j. Hence,
+
+px(i) is the sum of these expectations, which is Sum[1/j] from j = 1 to i.
+
+Asymptotically,
+
+px(i) ~ Integral[1/j dj] from j = 1 to i
+
+= ln(i).
+
+Therefore, as i --> oo, lim px(i)/i = lim ln(i) / i = 0.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

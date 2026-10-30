@@ -1,0 +1,222 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_180.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 180. Primes as a sum of squares
+Source: https://www.primepuzzles.net/puzzles/puzz_180.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0180.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  ftp://rkmath.rikkyo.ac.jp/pub/ubibm/
+  https://www.primepuzzles.net/puzzles/puzz_104.htm
+  https://www.primepuzzles.net/puzzles/puzz_179.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_181.htm
+  https://www.primepuzzles.net/puzzles/puzz_180.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 180. Primes as a sum of squares
+
+Problems & Puzzles: Puzzles
+
+Puzzle 180. Primes as a sum of squares
+
+You already know for sure that every prime P of the form 4*k+1 can be expressed as a sum of two squares in a unique way:
+
+P = E^2 + O^2
+
+where E is an even number and O is an odd number(*)
+
+If we are looking for the sequence of the earliest primes of these, as far as I know only two P values are know (**) such that P = E&O (& is concatenation symbol):
+
+P = 101 = 10^2+ 1^2
+
+P= 5882353 = 588^2+ 2353^2
+
+Question: Can you find the next two primes like these?
+
+____________
+
+(*) There is an excellent algorithm to get E & O given P, implemented by Malm as "twosum", freely available together with Ubasic.
+
+(**) An extremely large solution found by Patrick De Geest can be seen at Puzzle 104. Is this the third example or not?
+
+Solution:
+
+Jean Claude Rosa and C. Rivera developed a strategy to seek for solutions to this puzzle, strategy based in the following properties of E & O:
+
+1) Let L to be the quantity of digits of O, then O=>10^(L-1)+1
+
+2) P = E&O = E*10^L + O = E^2+O^2, then E^2 - E*10^L - O*(O-1) = 0, quadratic whose solution is:
+
+E = (10^L+/- sqrt(10^2*L-4*O*(O-1)))/2
+
+The argument of the sqrt must be positive, then approximately O<(10^L)/2
+
+3) For each L the only O valid values are these that the argument of the sqrt, 10^2*L-4*O*(O-1), is a square.
+
+4) The ending digit of O, z, can not be 5, 7 & 9:
+
+4a) if z=5 then P can not be prime except that O=5 & E=5, which is impossible.
+
+4b) if z=7 or 9 then the argument of sqrt ends in the digit "2", which is impossible for a square quantity.
+
+In short the strategy is this one:
+
+For increasing values of L, we cover all there valid range of the variable O, from 10^(L-1)+1 to (10^L)/2, only for the valid ending digits of O, 1, & 3, verifying that the argument of sqrt is a square. In such few cases, we test if the two E values for each O, produce P prime values.
+
+Here are our results:
+
+L | E | O | P=E&O is prime?
+
+1 | 10 | 1 | Yes!
+
+1 | 10^L-10 | 1 | no
+
+2 | 12 | 33
+
+2 | 10^L-12 | idem
+
+4 | 9412 | 2353 | no
+
+4 | 10^L-9412 | idem | Yes!
+
+8 | 98310312 | 12888513 | no
+
+8 | 10^L-98310312 | idem | no
+
+8 | 91877188 | 27318513 | no
+
+8 | 10^L-91877188 | idem | no
+
+8 | 89086860 | 31180401 | no
+
+8 | 10^L-89086860 | idem | no
+
+8 | 81869688 | 38526913 | no
+
+8 | 10^L-81869688 | idem | no
+
+8 | 70861600 | 45440001 | no
+
+8 | 10^L-70861600 | idem | no
+
+8 | 68257812 | 46547313 | no
+
+8 | 10^L-68257812 | idem | no
+
+10 | 8832116788 | 3211678833 | no
+
+10 | 10^L-8832116788 | idem | no
+
+10 | 8767123288 | 3287671233 | no
+
+10 | 10^L-8767123288 | idem | no
+
+10 | 8324544912 | 3734621953 | no
+
+10 | 10^L-8324544912 | idem | no
+
+10 | 4850872380 | 4997775601 | no
+
+10 | 10^L-4850872380 | idem | no
+
+We haven't found any more solutions for L up to 12, that is to say up to L=13 because no odd L can produce any solution.
+
+***
+
+J. C. Rosa has given a radical twist to the approach for seeking for solutions in this puzzle: in short no other solution is available up to L=1024 other than the two already known. Let's see the Rosas's approach.
+
+1°) We have the equalities : P=E&O=E*10^L+O=E^2+O^2; (L is the length of O)
+
+From where : 10^L=(P-O)/2 and consequently : (10^L)^2+1= ((P-O)/E)^2 +1, and after some calculations we obtain the following equality : (10^L)^2+1= P*(1+((O-1)/E)^2). This equality means that P is a divisor of (10^L)^2+1 or if you prefer : P is a divisor of 10^(2*L)+1 (and also E is a divisor of (O-1) )
+
+2°) P=E&O=E^2+O^2. If L is the length of O, the equality above becomes:
+
+E*10^L+O=E^2+O^2 and finally : E*(10^L-E)=O*(O-1) and therefore :
+
+length of E*(10^L-E)= length of O*(O-1)= 2*L or 2*L-1.
+
+Let X the length of E. Necessarily we have 1<=X<=L else (10^L-E) <=0
+
+While X increase from 1 to L , the length of (10^L-E) is always equal to L and the length of the product E*(10^L-E) is equal to X+L or X+L-1. Thus we have 4 possible equations:
+
+X+L=2*L ; X+L=2*L-1 ; X+L-1=2*L ; X+L-1=2*L-1 and two solutions : X=L ; X=L-1
+
+Thus : length of P= length of E+length of O = 2*L or 2*L-1
+
+3°) If the length of the smallest prime factor of 10^(2*L)+1 is >3 or if you obtain two prime factors with the length of each equal to 2 or equal to 3 , you can stop the search. Indeed , let 10^(2*L)+1=P*Q. We have : (length of P)=2*L or 2*L-1 and (length of 10^(2*L)+1)= 2*L+1. Therefore ( length of Q)= 2 or 3 ( length of Q never equal to 1 because 10^(2*L)+1 never divisible by 2 ;3 ; 5 ; 7 )
+
+4°) If P is a divisor of 10^(2*L)+1 then it is also a divisor of 10^(2*L*k)+1 with k odd.
+
+5° ) With this method , I tested L from 1 up to 32 and I didn't found any solution except 101 and 5882353
+
+L=1 , 10^2+1=101 , 101=10^2+1^2 , 101 is solution of the puzzle
+
+L=2 , 10^4+1=73*137 , no solution
+
+L=3 , 10^6+1=101*9901 , no solution
+
+L=4 , 10^8+1=17*5882353 , 5882353 is solution
+
+And so on up to L=32
+
+6°) If L is odd ( let L=2*k+1) we have:
+
+10^(2*L)+1=101*({9900}k+1)
+
+but the length of (9900)k+1 is equal to 4*k ,
+
+that is to say equal to 2*L-2 and according to
+
+the paragraph 3°) this number can not be one
+
+solution of the puzzle
+
+7°)If L is of the form k*2^n with k odd , it's no use to test L. There are no solutions. We test only the values of L of the form : 2^n
+
+8°) For L=1 to 1024 , there are only two solutions : 101 and 5882353 .
+
+9°) The number 10^m+1 can be prime only if m=2^n. But if P=10^(2^n)+1 is prime then P is not one solution of the puzzle. Indeed we have :
+
+P=10^(2^n)+1
+
+P= (10^(2^(n-1)))^2+1
+
+P<> {10^(2^(n-1))}&1
+
+10°) We know that :
+
+A divisor of the form 10^(2^n)+1 is of the form (2^(n+1))*h+1. Let 10^(2^n)+1=Q*P , Q is the smallest prime factor. We have : Q=(2^(n+1))*h+1.
+
+But if n=>9 then Q=>(2^10)*h+1 and therefore Q=>1024*h+1 . Thus (.length of Q) >3. According to the previous paragraph 3°) we can stop the search: P is not solution.
+
+Conclusion: The equalities P=E&O=E^2+O^2 ; P prime , have only two solutions:101 and 5882353
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

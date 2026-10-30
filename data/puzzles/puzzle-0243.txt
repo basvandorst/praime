@@ -1,0 +1,260 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_243.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 243.  Primes and squares in a square array
+Source: https://www.primepuzzles.net/puzzles/puzz_243.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0243.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_242.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_244.htm
+  https://www.primepuzzles.net/puzzles/puzz_243.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 243. Primes and squares in a square array
+
+Problems & Puzzles: Puzzles
+
+Puzzle 243. Primes and squares in a square array
+
+Example of a 3x3 square such that every element is a prime number and such that every two adjacent (not diagonal) primes summed is a square:
+
+137 | 7 | 29
+
+439 | 2 | 167
+
+461 | 23 | 233
+
+Questions: Find the minimal solution for the nxn array, for n=2, 3, 4, & 5
+
+Solution:
+
+Contributions came from Jeff Heleen, Giovanni Resta, Faride Firoozbakht and Enoch Haga
+
+Jeff sent the following solutions (the largest prime in bold):
+
+2 7
+
+167 29
+
+(this and the same solution was gotten by Giovanni & Faride)
+
+41 359 317
+
+23 2 7
+
+233 167 29
+
+89 1847 653 503
+
+167 2 23 173
+
+317 359 41 983
+
+4583 5417 59 617
+
+Giovanni sent the following solutions:
+
+29 167 233
+
+7 2 23
+
+317 359 41
+
+487 1277 2087 2269
+
+89 167 29 647
+
+1847 2 7 1289
+
+857 439 137 1627 (sum=13120)
+
+461 439 137 647
+
+23 2 7 29
+
+761 839 317 167
+
+263 4637 1447 857 (larger maximal prime but smaller sum=11033 )
+
+227 2909 1447 6653 743
+
+29 7 317 4583 1193
+
+167 2 359 5417 1307
+
+233 23 41 59 137
+
+2903 2281 3803 1097 347
+
+347 1097 3803 16361 1063 10601
+
+137 59 41 23 233 6823
+
+1307 5417 359 2 167 7577
+
+1193 4583 317 7 29 8807
+
+743 6653 1447 2909 227 797
+
+157 10247 4637 7907 10589 647
+
+Faride found the following solutions:
+
+137 7 29
+
+439 2 167
+
+461 23 233
+
+887 137 7 29
+
+2477 439 2 167
+
+5623 461 23 233
+
+10253 983 41 443
+
+887 137 7 29 647
+
+2477 439 2 167 509
+
+5623 461 23 233 4391
+
+10253 983 41 443 971753
+
+35543 1321 24923 20873 829211
+
+Enoch sent the following solution
+
+7 - 2 - 23 - 13 - 131
+
+29 - 167 - 233 - 2903 - 4493
+
+547 - 8669 - 8231 - 43753 - 546071
+
+1217 - 380707 - 10116893 - 1730471 - 893929
+
+227 - 172829 - 839207 - 1581929 - 2769467
+
+***
+
+Evidently Giovanni got the more and smaller solutions. On request he describes his method:
+
+My approach is almost trivial. The program start with N (the side of the square) and MAXP (the max prime to use).
+
+Then it build a matrix Q[p,q] which contains 1 if p+q is a square and 0 otherwise (this is used to speed up tests). It also build a list (for every prime P up to #MAXP) of the numbers which added to P gives a square. I order the N*N cells to be filled and I recorded the neighbors of every cell, only when the index of the neighbor is larger.
+
+For example, given the problem 3x3 I number the cells:
+
+0 1 2
+
+3 4 5
+
+6 7 8
+
+and the neighbors are:
+
+0 = NONE
+
+1 = 0
+
+2 = 1
+
+3 = 0
+
+4 = 1 3
+
+5 = 4 2
+
+6 = 3
+
+7 = 4 6
+
+8 = 5 7
+
+This is the order in which I'll try to fill the cells. Different orderings can produce faster algorithms. I maintain an array which tells me which prime numbers I've already used.
+
+Then I fill cell 0 with every number up to MAXP and every time I call the recursive procedure Fill from cell 1. Fill(X) if cell X is equal to N*N it means I've filled all and I have a solution. otherwise:
+
+I consider a neighbor of cell X, which contains a number p. Now I use the list of numbers which added to p gives a square.
+
+For each such number q I try to see if
+
+1) is free,
+
+2) added to every neighbor of X gives a square.
+
+if the conditions are satisfied I put q on the current solution on cell X, I record that q is used and I call the procedure Fill on cell X+1. On return from Fill, I free q and try another q. The there are other details, like to decrease MAXP every time I found a better solution, or to impose that the first two cells have numbers in decreasing order (to reduce the number of symmetric solutions discovered).
+
+Then I trace the solutions in order to find the minimal one. All in all, it took less than an hour of programming and about
+
+1 second for N = 4
+
+12 seconds for N = 5 and
+
+34 minutes for N = 6.
+
+Other variants are possible, for example one can substitute the "square sum condition" with other conditions. (I tried palindromic sum and triangular sum), and only few lines of the program have to be changed (the construction of precomputed arrays).
+
+The "cube sum" condition is quite hard (few pairs give cube sum. Even 2x2 is not so easy:
+
+53 26947
+
+11 5821
+
+and the 3x3 should be quite large indeed...
+
+***
+
+Now I want to propose this follow-up to this puzzle:
+
+Find a magic square with the asked property in this puzzle.
+
+***
+
+J. C. Rosa and Luke Pebody found impossible the above follow-up. Why? Both gave basically the same proof:
+
+If n is odd , a nxn magic square with the asked property in this puzzle can not exist.
+
+Proof : If nxn is a magic square composed of prime numbers then every prime is an odd prime. Even more if P and P' are two adjacent (not diagonal) primes we must have: P+P'=a^2. P and P' are odd numbers therefore: P+P'=0 mod 4, from where:
+
+P= - P' mod 4 (1)
+
+Let S the magic sum. If n is an odd number we have S=P mod 4 (P is any prime in a row and in an odd column). Let P' the prime below (or above ) P in the same column than P. Also we have S=P' mod 4 Thus we have:
+
+P=P' mod 4 (2)
+
+But it is impossible to have simultaneously (1) and (2).
+
+It seems that J. C. Rosa will try to get a 4x4 solution as the asked...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,403 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_102.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 102. Three squares a cube, all primes
+Source: https://www.primepuzzles.net/puzzles/puzz_102.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0102.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_101.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_103.htm
+  https://www.primepuzzles.net/puzzles/puzz_102.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 102. Three squares a cube, all primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 102. Three squares a cube, all primes
+
+This means: A^2+B^2+C^2 = D^3, A<=B<=C, {A, B, C & D} = primes
+
+Here are a few examples I have gotten:
+
+3^2+3^2+3^2=3^3
+
+3^2+19^2+31^2=11^3
+
+3^2+691^2+2293^2=179^3
+
+3^2+5869^2+54959^2=1451^3
+
+3^2+24967^2+60169^2=3^2+28163^2+58741^2=1619^3
+
+3^2+13127^2+121229^2=2459^3
+
+Questions:
+
+1. Find other examples.
+
+2. Can A be other than 3?
+
+Solution
+
+Jud McCranie found (4-5/8/2000) the explanation for the question 2 and other solutions to question 1, including another cube with double expression. Here are them:
+
+"If p is prime then p=2, p=3, or p^2 = 1 mod 6. If A^2 = 1mod 6 then A^2+B^2+C^2 = 3 mod 6, which doesn't work since the cube of a prime > 3 is = 1 or = 5 mod 6. If A=2, 2^2+B^2+C^2, B>A is ruled out with a parity argument. A=B=2 is ruled out since 2^2+2^2+C^2 = 3 mod
+
+6. Therefore A must be 3".
+A B C D
+
+3 68477 347183 5003
+
+3 88379 174631 3371
+
+3 146513 180281 3779
+
+3 147227 572437 7043
+
+3 155509 911459 9491
+
+3 189493 203339 4259
+
+3 190769 304091 5051
+
+3 207127 222773 4523
+
+3 316067 463627 6803
+
+3 321017 969139 10139
+
+3 430433 448367 7283
+
+3 479581 1913861 15731
+
+3 528623 728627 9323
+
+3 536917 722537 9323
+
+3 752449 1654019 14891
+
+3 884069 1295473 13499
+
+No others for C < 2,000,000.
+
+***
+
+Chris Nash has given (7/8/2000) a qualitative jump in this search discovering a way of seeking candidates to cubes expressible as sum of 3 squares: D must be 3 modulo 8; then he shows a methodic way of looking for D^3-9 as a sum of squares. As a consequence of his method he could find plenty of new solutions and a very interesting example of D: "In particular, 90659^3 is the sum of three prime squares in FIVE different ways!.
+
+Here is his email:
+
+"Jud McCranie found the first solutions to this problem, now I’d like to add more information - and an algorithm to find some much larger solutions!
+
+The first part was already proven by Jud. One of the three numbers on the left-hand side must be 3. Hence we seek numbers D such that D^3-9 is a sum of two squares. Since the square of all odd numbers is 1 modulo 8, D must be of the form 8x+3. So now we need to do the following test
+
+loop for (prime) values of D, starting at 3, and with step 8
+
+try to express D^3-9 as a sum of two (prime) squares.
+
+To perform this (last) calculation, we will quote the following results.
+
+Any prime of the form 4x+1 can be expressible as the sum of two squares (a result known to Fermat). Primes of the form 4x+3 are certainly not a sum of two squares.
+
+The prime 2 can be expressed as 1^2+1^2.
+
+If N=a^2+b^2, then k^2N = (ka)^2+(kb)^2
+
+If M=a^2+b^2 and N=c^2+d^2, then MN=(ac+bd)^2+(ad-bc)^2. (This rule can be applied several ways, by changing the signs of a, b, c, d or changing the order of the terms).
+
+It can be shown these rules are complete. In other words, using these rules we can find all ways of expressing D^3-9 as a sum of two squares:
+
+Factor D^3-9 (it will be twice an odd number). If there are any factors of the form 4x+3, exit, unless D^3-9 is twice the square of a prime. (That gives only the result 3 3 3 3).
+
+Express each prime factor as a sum of two squares. Use the product rule in all possible combinations to generate all possible sums of two squares that sum to D^3-9.
+
+Check for primes.
+
+Using this method I tested for all values up to D=2^(53/3), about 200000, a limit imposed by double-precision arithmetic. It was possible to factor or primality-test all values of D^3-9, using PrimeForm/GW for any difficult cases. Each prime factor was expressed as a sum of two squares by an exhaustive search, not the most efficient algorithm, but good enough.
+
+Here are the complete results for A, B, C, D. These confirm Jud’s results and go much further - several more prime cubes were found that were the sum of three prime squares in more than one way. In particular, 90659^3 is the sum of three prime squares in FIVE different ways!
+
+Best wishes
+
+Chris
+
+Results (listed in ascending order of D)
+
+...
+
+3 752449 1654019 14891
+
+3 479581 1913861 15731
+
+3 101021 2271439 17291
+
+3 963863 2492851 19259
+
+3 1987429 2287063 20939
+
+3 1076827 2860021 21059
+
+3 485753 3155687 21683
+
+3 2415913 3455561 26099
+
+3 529127 4241759 26339
+
+3 2924567 4207837 29723
+
+3 943421 5477867 31379
+
+3 1244183 5417479 31379
+
+3 2134963 5270549 31859
+
+3 1943861 5412437 32099
+
+3 2704019 5280371 32771
+
+3 3707021 5062403 34019
+
+3 4771463 7229969 42179
+
+3 1161871 8944679 43331
+
+3 3544427 8563727 44123
+
+3 236129 9394129 44531
+
+3 2054707 9861707 46643
+
+3 1585253 10583773 48563
+
+3 1949881 10716857 49139
+
+3 1983257 11159789 50459
+
+3 7443613 8974409 51419
+
+3 7654007 9226109 52379
+
+3 6874201 10472647 53939
+
+3 6718469 11394289 55931
+
+3 8934637 9846217 56123
+
+3 5715323 13238663 59243
+
+3 7863293 12087007 59243
+
+3 11942101 15315071 72251
+
+3 8951737 17692901 73259
+
+3 12365567 15637487 73523
+
+3 9931007 19416611 78059
+
+3 7307303 22541041 82499
+
+3 837379 24356777 84059
+
+3 9676741 23085611 85571
+
+3 3597527 26145313 88643
+
+3 1535441 26907191 89891
+
+3 8647391 25526009 89891
+
+3 4284971 26958677 90659
+
+3 4891079 26855327 90659
+
+3 5216759 26793967 90659
+
+3 6989461 26387093 90659
+
+3 12200333 24418909 90659
+
+3 17998501 21739967 92699
+
+3 5329699 27715817 92699
+
+3 17202139 25322357 97859
+
+3 18302021 24862009 98411
+
+3 15802517 28650449 102299
+
+3 16058831 28507573 102299
+
+3 7708627 33720853 106163
+
+3 10804769 34498111 109331
+
+3 15535747 33262169 110459
+
+3 23057479 30097427 112859
+
+3 5889467 39117899 116099
+
+3 27484153 30226579 118619
+
+3 17979173 37320377 119723
+
+3 24001723 34511531 120899
+
+3 24903077 34720039 122219
+
+3 23583877 37362301 124979
+
+3 1995661 46580333 129539
+
+3 28362031 37574813 130379
+
+3 29568863 36966499 130859
+
+3 10370531 46361171 131171
+
+3 27429881 40890257 134339
+
+3 30764729 39539693 135899
+
+3 31247507 40277023 137483
+
+3 411119 53491729 141971
+
+3 20647513 49612657 142403
+
+3 8672423 56507833 148403
+
+3 37255061 45672239 151451
+
+3 4206703 60667183 154643
+
+3 8662783 60335767 154883
+
+3 7645817 61389169 156419
+
+3 2344787 62175559 157019
+
+3 23507089 58997347 159179
+
+3 17479879 62854027 162059
+
+3 19759771 63317677 163859
+
+3 26829163 66527627 172643
+
+3 17790637 70033553 173483
+
+3 43306699 57879791 173531
+
+3 21868501 70825913 176459
+
+3 43803757 61668689 178859
+
+3 10436291 75272971 179411
+
+3 21435941 73654927 180539
+
+3 35732023 77166799 193379
+
+3 36684601 76718527 193379
+
+3 39108983 75957229 193979
+
+3 49505893 69142309 193379
+
+3 29215301 81974177 196379
+
+3 44971517 77317027 200003"
+
+***
+
+Using the Chris Nash method I search for one solution being D a palprime, 3 mod 8 of course, and such that D^3-9 = 2*Prime, in order to simplify the calculation of the sum of the squares. Not far I found this one:
+
+3^2+5857398397^2+1168183957^2 = 3291923^3
+
+But I do not pretend that this is the least palprime that satisfies the equation. Would you look for it?
+
+BTW maybe you'll find interesting the following code to run under Ubasic, by Malm, for expressing a prime P = 4k+1 as a sum of two squares.
+
+10 input P
+
+20 if P@4<>1 then A=0:B=0:print "P wrong":end
+
+30 Sqrtp=isqrt(P):if (res=0) then A=0:B=0:return endif
+
+40 T=1:repeat inc T until kro(T,P)=-1
+
+50 G=modpow(T,(P-1)\4,P):if P\2<G then G=P-G endif
+
+60 A=P@G
+
+70 if A=1 then B=G else
+
+80 :while Sqrtp<A:Te=G:G=A:A=Te@G wend
+
+90 :if A=0 then B=0 else:B=G@A endif endif
+
+100 print A,B
+
+***
+
+Mahmoud Chilali wrote (9/8/2000):
+
+I've noticed that the decimal expansion of D always ends with 1, 3 or 9. Using Chris modular condition, this is equivalent to saying that D=2 (mod 5) is impossible.
+
+- if A and B are not 5, then D=2 (mod 5) is impossible. otherwise, we would have
+
+A^2+B^2=2 (mod5), which is impossible (squares not divisible by 5 are 1 or -1 mod 5).
+
+It remains to show that X^2 = D^3 - 34 is impossible with primes (when X is A or B).
+
+Can someone show that this equation:
+
+1. has no solution in primes?
+
+2. has no solution in integers?"
+
+***
+
+Regarding the question tied by Chilali, Said el aidi wrote (18/8/2000):
+
+"The equation posed by Mahmoud Chilali is only a specific case of Mordell's equation y^2 = x^3 + k (k<> 0), Baker proved in 1968: If x, y are integers and y^2 = x^3 + k, then
+
+max{|x| , |y|} < exp { (10^10 * |k|)^10000 }
+
+which means that the equation y2 = x3 + k has at most finitely many solutions in integers. The exponent still must be reduced before we can use computers to take care of all the small cases.
+
+For more details, the interested reader will be anble to consult the book of Baker A. “The diophantine equation y2 = x3 + k “ Phil. Trans. R. Soc. London, 263, 1968, 193-208"
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

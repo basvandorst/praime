@@ -1,0 +1,210 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_088.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 88.- A special set of odd primes.
+Source: https://www.primepuzzles.net/puzzles/puzz_088.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0088.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_087.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_089.htm
+  https://www.primepuzzles.net/puzzles/puzz_088.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 88.- A special set of odd primes.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 88.- A special set of odd primes.
+
+Luis Rodríguez asks (23/03/2000) for the least set of odd primes such that all the even numbers from 6 to N can be obtained adding two of the primes of such set (repetition of primes in the sum operation is allowed).
+
+"Least" means here the least quantity of members of the asked set & the least sum of such members.
+
+For example, he knows that the least set when N=100 has 13 primes and the sum of such primes is 381
+
+Questions:
+
+1. Can you get the desired set of primes for N=100, 200 & 500
+
+I have added the following natural extension of the original problem:
+
+2. Can you redo the exercises if now is wanted to get all the even or odd numbers from 6 to N (*), adding two odd primes for getting the even numbers or adding three odd primes for getting the odd numbers, for N= 100, 200 & 500.
+
+3. Do you devise any algorithm or simply an strategy for getting the desired sets?
+
+* Note: the feasibility of the tasks is assured by the known Goldbach conjectures (See Ribenboim, p.291)
+
+Enoch Haga has sent the following solution for question 1 & N=100
+
+3, 5, 7, 13, 19, 23, 31, 37, 41, 43, 47, 53, 61 (Primes = 13; Sum=383)
+
+***
+
+Luis Rodríguez told me that he got a solution for N=100 using 13 primes but I don't know what are those 13 primes. I'm waiting his answer.
+
+***
+
+Using a code in Ubasic I (CR) have gotten a solution with same 13 primes and sum =381 being the largest prime 71
+
+3, 5, 7, 11, 13, 17, 23, 29, 31, 43, 61, 67, 71 (Primes = 13; Sum=381)
+
+***
+
+Luis Rodríguez got two solutions for N=100 using 13 primes and sum=381: the one quoted above and the following new one:
+
+3, 5, 7, 11, 17, 19, 23, 29, 31, 37, 61, 67, 71 (Primes = 13; Sum=381)
+
+According to him these two solutions are all the distinct minimal solutions...
+
+***
+
+Jud McCranie found - using a code - the following solution for N=200:
+
+3 5 7 11 13 19 23 31 37 41 43 47 53 59 61 67 113 127 137 139 (Primes=20; Sum = 1036)
+
+This improves the "best" solution found by Luis Rodríguez (sent the 26/03/2000):
+
+3, 5, 7, 13, 19, 23, 31, 37, 41, 43, 47, 53, 61 plus 71, 97, 107, 113, 127, 139, 149 (Primes =20, Sum 1186)
+
+obtained - according to him - as an extension of the 'most compact' solution for N=100.
+
+***
+
+Question 3:
+
+"As far as I can see you have a good strategy for hitting this problems. Can
+
+you describe it for filling something to question 3? (CR)"
+...
+
+"It is mostly brute force. I've thought of a couple of improvements to it that I haven't implemented yet, and I also have a completely different idea that may or may not be better. But here is how the current program works. I use the "next k subset" subroutine from Nijenhaus and Wilf. This will produce all of the subsets of size k from a set. Take the set of primes <=N-3, and a fixed value of k. (More about k later.) The subroutine starts with the subset of the smallest k primes. Check to see if that subset has the property that all even numbers 6 to N are produced. If it does, find the sum of the terms and keep it. After one solution has been found, as subsets are returned from the subroutine, first find the sum of the terms. If it isn't better than the best known sum discard it and go on to the next subset. If the sum is better then see if it has the desired property, etc.
+
+Note that when N=100 I was able to test all possibilities in a few seconds, so I didn't have to discard ones that weren't better than the best known solution so far. With N=200, it is important to discard ones with sums that weren't better than the known solution (to speed up the program).
+
+As far as choosing k, I just tried different values until I found what seemed to be the smallest one that produced solutions (k=20 for N=200). I had the program for k=20 running on one computer and ran it on another computer with k=19 to see if it could find any solutions with 19 terms. It ran for several hours for k=19 without finding any solutions, but didn't test all possibilities. (J.M.)"
+
+***
+
+Jud wrote (9/6/2000) :
+
+"Here is a better solution with 19 terms. This is the best with 19 terms.
+
+3 5 7 13 17 19 23 41 43 47 59 61 79 83 97 103 109 131 137
+
+; 19 terms, sum = 1077"
+***
+
+Jud McCranie has sent (13/6/2000) his best solutions for N=500:
+
+"I found these solutions to puzzle 88 for n=500, but they might not be the
+
+best solutions.
+lowest sum:
+
+3 5 7 11 13 19 23 31 37 43 47 53
+61 79 83 109 113 131 137 149 157 163 167 179 181 193 197 199 211 223 233 239 271 277 293 317
+sum = 4654 terms = 36
+
+fewest terms:
+
+3 5 7 11 13 19 23 31 37 43 47 53 61 79 83 109 113 127 131 137 149 157 167 179 197 199 211 233 239 271 293 317 331 373 433
+
+sum = 4881 terms = 35"
+
+he also describes his current method for getting these sets:
+
+"I used my second method, which is much faster than the first method. It works like this: first for each even number 6 to n, write the Combinations that sum to it -
+
+6 = 3+3
+
+8 = 3+5
+
+10 = 3+7 or 5+5
+
+12 = 5+7
+
+14 = 3+11 or 7+7
+
+16 = 3+13 or 5+11
+
+18 = 5+13 or 7+11
+
+20 = 3+17 or 7+13
+
+22 = 3+19 or 5+17 or 11+11
+etc
+
+Now note that we must have the prime 3 in order to get 6, we must have 5 to
+get 8, and must have 7 to get 12. So we must have 3, 5, and 7, and that gets 6 through 16. Now we continue through the even numbers, adding primes as necessary to the set to get the sums. Either 0, 1, or 2 primes must be added for each even number. If no primes have to be added, we're through with that number. If primes have to be added, first try adding 1 prime and then adding 2 primes. To continue, to get 18 we must add either 13 or 11 to {3,5,7}. Let's try adding 13. Then when we get to 20, we have {3,5,7,13} so we don't need to add any more. When we get to 22, we have to add either 19, 17, or 11. etc.
+When we get through all of the even numbers, we will have a set of primes that works, but it won't be a good solution. As we are going through the even numbers, keep track of the number of primes in the set and their sum. Then, with a backtrack procedure, we back up and try other possibilities, if there were no sums that didn't require adding primes to the set. Try ones that require adding only 1 prime before the ones requiring 2 primes. By keeping a running total of the sum and number of terms, whenever you can see that a better solution can't result, you don't have to pursue that line and a large number of possibilities can be eliminated.
+
+This method works very quickly on n=100. For n=200 it was still able to find optimal solutions in a reasonable time. For n=500, it produced the best solution I have in 21 minutes, but then ran for several hours without finishing or finding another solution"
+
+***
+
+John Bowker has improved (6/2/03) the Jud's solution for N=500:
+
+[ 3 5 7 13 17 19 23 41 43 47 59 61 79 107 109 131 139 151 157 173 179 181 191 193 197 199 211 227 239 269 271 283 293 307 ]
+
+"...It has 34 terms (previous best 35), and sums to 4624 (previous best 4654).
+
+In case you're interested : my search is a breadth-first, rather than depth-first search. I've written it in Perl; it's disk-based rather than memory-based, and thus easily parallelizable. The main interesting notion is that I restrict the starting sequences to 'forced' sequences : the sequence [3,5,7] is always forced; N=98 makes 3 forced sequences (there are 3 pairs that add to 98, and none of the primes in these pairs appears in an already-forced sequence, so one of [3,5,7,31,67], [3,5,7,37,61], and [3,5,7,19,79] is forced).
+
+In the case N=100, these are all the forced sequences; in the case N=200 there are about 50 such sequences; in the case N=500 there are about 10,000 such sequences. I search exhaustively for these forced sequences, then use them as a starting point for a pruned search.
+
+He has also produced the following empirical formula:
+
+Sequence length = 0.83 . sqrt(N) . ln(ln(N))
+
+***
+
+Anurag Sahay wrote (May, 2006):
+
+I improved the previous smallest sum for k=500 and 34
+
+terms: 3,5,7,11,13,17,29,31,37,41,43,61,73,79,83,89,97,131,149,151,179,193,197,
+
+199,211,223,227,229,233,239,251,263,271,277;
+
+sum=4342.
+
+***
+
+On June 15, 2023 Giorgos Kalogeropoulos wrote:
+
+I found 33 terms for k=500 which improves the fewest terms but does not improve the sum
+
+3,5,7,11,13,23,29,31,43,61,67,71,83,101,107,113,137,139,151,167,173,179,181,199,227,229,241,311,313,349,359,373,433
+
+Sum = 4929
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,86 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_921.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 921. Follow-up to Puzzle 920
+Source: https://www.primepuzzles.net/puzzles/puzz_921.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0921.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_920.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_922.htm
+  https://www.primepuzzles.net/puzzles/puzz_921.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 921. Follow-up to Puzzle 920
+
+Problems & Puzzles: Puzzles
+
+Puzzle 921. Follow-up to Puzzle 920
+
+According to the open question made by Emmanuel Vantieghem in his contribution to Puzzle 920:
+
+Q. Find the at least one example of smallest occurrence of four sets of consecutive primes {p, q, r} such that k<h and D is not of the form 6n*(6n-1)?
+
+On April 23, 2018. Jan van Delden wrote:
+
+I found 4 solutions with frequency 4, in order of increasing p:
+
+D = 315450085755 p: 10515002837 14338640237 52575014279 157725042841
+
+D = 352944565575 p: 19608031393 35294456513 58824094249 176472282751
+
+D = 724991548725 p: 27884290321 120831924751 362495774257 362495774359
+
+D = 1070088032385 p: 31473177371 178348005149 178348005361 535044016189
+
+With the notation of Walter Trump: D = p(b – a)+T(b – 1)+T(a – 1).
+
+At first I tried to remember the computed values of D, sort them, and remove the tail using D(minimal)=2p+7, as suggested by Emmanuel. But even if one restricts adding values to this list if b is “larger than some value” the list grows rather fast and hence the sorting and inserting of new values of D takes more and more time. Restricting on |b-a| is a better idea, which I didn’t try.
+
+I decided to compute D, given p, and use the fact that |b-a| decreases with increasing p. So loop on all possible a1,b1 with |b1-a1| bounded by |b-a|, the value computed for the intial p,|b1-a1|<=|b-a|. And finally check that the gaps a1 and b1 belong to the corresponding new value p1 (which should be prime..).
+
+The disadvantage is that several D are computed more than once, but since solutions with frequency > 1 are relatively rare the speed increases considerably. Looping on |b-a| downwards to 2 has the advantage that it is possible to spot whether this value of D has been detected before and prevent output in such a case.
+
+An addendum.
+
+These solutions might not be the first solutions (unfortunately).
+
+I used that |b1-a1|<=|b-a| if p1>p. In order to reduce computing time I presumed that we also have b1<=b.
+
+Sometimes this is not true (d=b-a):
+
+D=181231155345 p: 18123115511 [a=10,b=20,d=10] 30205192309 [a=36,b=42,d=6] 90615577669 [a=2,b=4,d=2]
+
+If that happens my routine is not capable of finding this solution at the first occasion, when p=18123115511, because for this p it would use the bound b1<=20, which clearly doesn’t apply for the second prime in the sequence. However, since I was afraid something like this would happen I allowed a wider range: |b1-a1|<=|b-2|, instead of |b-a| which equals 42-2=40 for the second prime. And now all three primes fulfil my criteria.
+
+So there might be solutions smaller than the ones given by me. But this seems difficult to circumvent without wasting a lot of computing time on non-solutions.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,332 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_353.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 353. The first n2 primes in a matrix
+Source: https://www.primepuzzles.net/puzzles/puzz_353.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0353.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_352.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_354.htm
+  https://www.primepuzzles.net/puzzles/puzz_353.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 353. The first n2 primes in a matrix
+
+Problems & Puzzles: Puzzles
+
+Puzzle 353. The first n^2 primes in a matrix
+
+Anurag Sahay posed the following puzzle:
+
+Arrange the first n^2 primes in a n by n matrix such that every two adjacent primes should not have any digit in common.
+
+He found solutions for n=3 & 5. Examples:
+
+23 19 3
+
+11 5 17
+
+7 13 2
+
+97 43 67 3 41
+
+31 7 89 17 53
+
+47 61 73 2 79
+
+59 23 19 5 13
+
+37 11 83 71 29
+
+He says that no solutions were found for n=4 & 6.
+
+Questions:
+
+1. Sahay asks for an efficient algorithm for the computer to find all the solutions for a given n?
+
+2. Can you confirm that there are no solutions for n=4 & 6?
+
+3. In a fast phrase, would say that no solutions are for n grater than a given integer M. Is this correct?
+
+One more time we can say that there are not 'ugly' puzzles in the hands of skilled puzzlers. Very smart contributions were made by Jon Warf, Dan Dima and Fred Schneider. Short notes were sent too by Giovanni Resta & Farideh Firoozbakht:
+
+***
+
+Fred wrote:
+
+First of all, we must determine with the maximum count of a digit to be placed in an nxn grid, so that they are none are in adjacent
+
+squares. The best answer of course would be to put the answers in a
+
+checkerboard pattern.
+
+For even n, we have n^2/2 as the maximum number of times a given digit could appear. For n=4, we have 16/2=8 as the maximum:
+
+x-x-
+
+-x-x
+
+x-x-
+
+-x-x
+
+For even n odd, we have (n-1)/2*+(n+1)/2=(n^2+1)/2. For n=5, we have
+
+x-x-x
+
+-x-x-
+
+x-x-x
+
+-x-x-
+
+x-x-x
+
+giving a max of 13
+
+We can represent this for all n with the fmula max=(n^2+n%2)/2
+
+Question 1:
+
+I have a general idea of how to get started:
+
+First determine if a solution is possible for that n.
+
+Let's call the d1 and d2 the two digits that occur most and 2nd most frequently. Call p12 the set of primes that contain both digits, p1 and p2 the set of primes containing d1 and d2 respectively. Place the p12 primes along the diagonals in the upper left corner. Then continue with the p1 primes in the same manner. Now, place the p2 primes starting from the lower right corner.
+
+Question 2:
+
+There at least one solution for n=4:
+
+3 41 37 11
+
+7 23 19 53
+
+13 5 43 2
+
+47 31 29 17
+
+A solution for 6 is not possible because there are 19 1's more than the max of 18 (=6^2/2).
+
+Question 3:
+
+In short, yes. Here's why:
+
+I did a brute force search and by my simple criterion explained at the beginning answers haven't been ruled out for the following values n: 9***-14, 28-36
+
+*** this has been ruled in a different way at the bottom
+
+Intuitively, the average digit count is an increasing function for x where x is the set of the the first n^2 primes. If the average digit count is > the max for a given level, then one of the digits must have a count > that max, meaning a solution is not possible. If we can show that, the avg. digit count will always be > the max after a given x, all that remains is that we verify from 37 through that x, that we have no solution using the same method in part 2.
+
+At n=505, the average digit count < than the max for the last time.
+
+The ratio between the avg. digit count appears to be an increasing function so there's the ratio could never dip below 1, meaning there could not be a solution to puzzle at some n > 505.
+
+Note: There are violating digits for each n between 37 and 505. So,
+
+M=36 is the max possible solution, although I suspect the upper bound is much lower than this.
+
+========================================================
+
+Incidentally for n=9, a solution is not possible. There are 40 1's and 39 3's, after placing the primes with 1's in a checkerboard pattern, it's only possible to place 36 of the 3's. There's very little wiggle room as the max for n=9 is only 41.
+
+Here's a sample:
+
+379 _?_ 113 _?_ 173 _?_ 197 263 19
+
+_?_ 311 _?_ 313 _?_ 139 _?_ 17 223
+
+13 _?_ 331 _?_ 193 _?_ 401 233 199
+
+_?_ 131 _?_ 103 _?_ 419 3 109 83
+
+31 _?_ 137 _?_ 157 389 41 373 149
+
+_?_ 317 _?_ 127 283 71 397 281 53
+
+163 _?_ 271 293 151 383 211 353 179
+
+_?_ 167 349 101 347 191 367 181 37
+
+61 239 107 307 251 337 241 73 11
+
+***
+
+Dan wrote:
+
+For Q3: There is such M since there is a prime that contains all the digits so n^2 is at most the number of all distinct primes smaller than such "all-digits" prime. For example a prime p of 10 digits: {1,1,2,3,4,5,6,7,8,9} p < 10^10 and pi(p) < 10^10 then M < 10^5...(later he added) At least 2-digits primes end only in {1,3,7,9}. The smaller two primes made by all these digits are: p(298) = 1973, p(519) = 3719, ... Using the remaining digits {0,2,4,5,6,8} the only primes that can be formed are 2 & 5. By contradiction suppose you may arrange all the n^2 primes including the prime 3719. Then both 1973 & 3719 may have at most 2 prime neighbors (only 2 & 5) and they must be placed in the corners of the n^2 square. But this is impossible because you will use 2 times each of the primes 2 & 5. Then you can make such an arrangement for the first n^2 primes only if the greatest is smaller than 3719. p(519) = 3719 => n^2 < 519; 22^2 < 519 < 23^2 leads to n <= 22, hence M=22.
+
+Jon wrote:
+
+Q3. Clearly once we have a prime in the set which contains all digits - which of course is most primes - we cannot form a matrix under the rules. However the limit under such consideration can be brought much closer. The lowest two primes permutations of 1-3-7-9 are 1973 and 3719 (the 519th prime). In a matrix of this type, these each require neighbors which do not contain the digits 1, 3, 7 or 9. There are only two such primes - 2 and 5. To achieve only two neighbors a number must be placed in the corner of the grid. Since 2 and 5 cannot be adjacent to two corners simultaneously, a matrix with both 1973 and 3719 is impossible and therefore there are no qualifying matrices with n>= M = 23.
+
+2. Having brought this problem into the low finite, I examined the number of primes which contain various digits - again the digits of interest being 1, 3, 7 and 9 - particularly 1. A matrix cannot have more than half its entries sharing a certain digit (half of entries+1 in the cases of odd squares). Examination of the number of primes containing the digit 1 thus eliminates squares with n = 6, 7, 8, 15, 16, 17, 18, 19, 20, 21 and 22.
+
+A matrix with n=9 is also probably impossible, because this 81-entry square has 40 entries containing the digit 1 and 39 entries containing a 3, with 14 containing both. I strongly suspect, but have not proved, that a qualifying layout of these numbers cannot be achieved.
+
+However this analysis gave me the clues necessary to achieve n=4:
+
+17 3 2 13
+
+53 41 37 5
+
+7 29 11 43
+
+31 47 23 19
+
+Notice that the 1-containing primes are down the diagonal and in the corners, and the 3-containing primes almost form a grid. As noted above n=6 is impossible, and we have solutions for n = 1 to 5.
+
+This only leaves the cases n = 10 to n=14 as possible solutions, with perhaps another glance at n=9 to kill it off.
+
+1. As for a quick algorithm to to find all solutions for any of these; generally finding all solutions will be a slow job, but using some kind of qualifying template based on the 4 key digits might speed things up.
+
+***
+
+Giovanni wrote:
+
+There are several solutions of the 4x4 case as:
+
+2 3 5 13
+
+43 11 37 29
+
+17 23 19 47
+
+53 41 7 31
+
+indeed, if I'm correct, there are 2192080 such solutions, while there are 928 solutions of the 3x3 case.
+
+***
+
+Farideh wrote:
+
+Answer to Q3: It seems that if n>5 there is no solution. Because in this case
+
+many of the n^2 primes are common in the first digit from the left.
+
+For example if n=6 the first digit of 15 primes of the first 36 primes is equal to 1.
+
+***
+
+At the end (April 3, 06), Jon Warf came the first with a solution for n>6, in his case, n=11:
+
+Here's a solution for 11 x 11, produced by manual arrangement.
+
+317 659 173 409 17 283 179 23 61 379 641
+
+269 137 89 71 263 197 223 571 389 461 397
+
+431 229 113 499 107 233 167 349 617 239 41
+
+509 313 449 127 443 157 439 281 593 11 523
+
+31 577 331 599 601 383 271 359 67 29 181
+
+557 631 487 661 479 5 433 607 293 541 2
+
+613 277 103 47 251 463 97 43 151 73 569
+
+457 163 547 619 347 199 643 79 3 59 337
+
+13 257 131 587 191 653 19 563 211 373 521
+
+467 139 227 109 83 419 53 421 503 149 37
+
+193 647 311 7 101 367 491 307 241 353 401
+
+In this very moment, case n=10 is still not decided...
+
+***
+
+Jon also found this solution for 14x14:
+
+137 659 317 509 617 239 761 359 107 653 701 863 271 983
+
+829 173 269 13 809 167 293 1117 593 1087 643 127 389 157
+
+113 859 313 569 17 349 1171 953 1187 563 71 883 571 839
+
+929 131 47 1123 409 281 439 881 463 811 263 1051 233 751
+
+1013 967 103 67 211 503 821 433 181 599 101 887 1151 443
+
+769 1031 947 31 677 241 353 1181 59 2 499 251 397 151
+
+1033 797 1103 997 421 683 401 29 7 449 1021 739 521 937
+
+79 613 977 431 757 41 277 461 229 5 89 61 379 601
+
+1063 97 631 907 11 283 641 877 541 727 661 347 1061 743
+
+479 163 709 331 857 199 577 1129 37 941 827 619 733 1069
+
+1163 547 311 607 19 823 491 373 419 307 691 557 919 383
+
+487 1193 647 1153 467 109 367 149 673 191 83 911 3 1097
+
+193 457 139 787 1109 853 1009 773 1049 223 719 53 179 43
+
+227 1093 257 1039 587 1091 73 1019 337 991 523 971 23 197
+
+I also think 10 x 10 is probably impossible. because the number of 1-containing primes is 46, the number of 3-containing primes is also 46 and the number containing both is 15. Assuming I arrange the 15 "1-3"s in a grid, either the "1"s or the "3"s must then avoid the next grid-line. In switching to the alternate grid, 5 squares of the fifty max will be lost and the maximum placeable primes will be 45 - not enough to complete. This is not rock solid proof, but should be easier to prove than the full placement of the primes. If the "1"s and "3"s CAN be placed, I would expect a solution to be straightforward.
+
+***
+
+On May 20, 2014 Jon Wharf wrote the following:
+
+For some reason I happened to turn back to puzzle 353 to have another look at the 10x10 square....
+
+and (to my surprise) here is a solution for that:
+
+173,449,31,457,139,487,313,67,499,151
+
+59,317,229,13,467,193,227,509,271,349
+
+137,409,311,257,331,277,53,17,439,157
+
+269,113,479,103,79,5,281,43,71,239
+
+131,89,163,97,463,179,433,101,293,167
+
+29,431,7,23,197,283,61,383,107,359
+
+47,2,83,19,223,41,353,241,389,127
+
+191,73,149,367,11,263,401,397,251,443
+
+523,419,337,109,373,181,233,541,379,521
+
+491,307,199,347,211,503,461,37,421,3
+
+The gap in either 1-primes or 3-primes arrangement that I was worried about was resolved by having it on the diagonal, but I'm sure the 9x9 constraints are impossible to resolve.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

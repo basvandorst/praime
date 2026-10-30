@@ -1,0 +1,346 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1236.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1236 Recursive formulas for the decimal expression of the 
+reciprocal of primes.
+Source: https://www.primepuzzles.net/puzzles/puzz_1236.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1236.htm
+
+References (local copies):
+  ../../references/Pu 1236 GK.txt.txt  (from https://www.primepuzzles.net/puzzles/Pu%201236%20GK.txt.txt)
+  ../../references/Pu 1236 OV.txt.txt  (from https://www.primepuzzles.net/puzzles/Pu%201236%20OV.txt.txt)
+
+Links on the page:
+  https://en.wikipedia.org/wiki/Reciprocals_of_primes
+  https://en.wikipedia.org/wiki/Full_reptend_prime
+  https://oeis.org/A020806
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/Pu%201236%20GK.txt.txt
+  https://www.primepuzzles.net/puzzles/Pu%201236%20OV.txt.txt
+  https://www.primepuzzles.net/puzzles/puzz_1235.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1237.htm
+  https://www.primepuzzles.net/puzzles/puzz_1236.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1236 Recursive formulas for the decimal expression of the reciprocal of primes.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1236 Recursive formulas for the decimal expression of the reciprocal of primes.
+
+Davide Rotondo sent the following observations and nice puzzle:
+
+I noticed that it is possible to obtain the decimal expansion of 1/17 using the starting numbers 5, 8, 8, 2, 3, 5, 2, 8 and using the recursive rule that each value is given by the sum of the sixth preceding element plus the eighth preceding element: a(n) = a(n-6) + a(n-8), taking into account the appropriate carryovers when obtaining a two-digit number.
+
+Example
+
+5, 8, 8, 2, 3, 5, 2, 8, 13, 10, 11, 7, 5, 14, 6, 10, 5, ...
+
+9 4 1 1 7 6 4 7 0 5
+
+obtaining:
+
+5, 8, 8, 2, 3, 5, 2, 9, 4, 1, 1, 7, 6, 4, 7, 0, 5, ...
+
+The rule applies even after the period of the reciprocal of p has been completed.
+
+For an article about the reciprocal of primes see this reference.
+
+In total, Rotondo found that the same method seems to be appropriate for the following five primes: 7, 17, 19, 23 29. Here are all of them:
+
+For 1/7, using the starting numbers 1, 4, 2, 8, and the rule a(n) = a(n-3) + a(n-4)
+
+For 1/17 using the starting integers 5, 8, 8, 2, 3, 5, 2, 8, and the rule a(n) = a(n-6)+ a(n-8)
+
+For 1/19, using the starting numbers 0, 5, 2, 6, and the rule is a(n) = a(n-2) + a(n-4)
+
+For 1/23, using the starting numbers 0, 4, 3, 4, 7, 8, 2, 6, 0, and the rule a(n) = a(n-4) + a(n-9)
+
+For 1/29, using the starting numbers 0, 3, 4, 4, 8, 2, 7, 5, 8, 6, 2, 0, 6, and the rule a(n) = (n-5) + a (n-13)
+
+As you can can observe Rotondo has found rules only for these primes that are "full reptend primes", (CR observation)
+
+Davide added that he was inspired by the rule in A020806 a(n) = a(n-1) - a(n-3) + a(n-4) for n>3 and the decimal expansion for 1/7.
+
+When I asked why his rule for the prime 7 was different from the rule given in A020806, he simply wrote "About 1/7, a(n) = a(n-1) - a(n-3) + a(n-4) doesn't have carry while a(n-3) + a(n-4) have carry..."
+
+Q.1 Can you review the rules obtained by Rotondo for the primes 7, 17, 19, 23 & 29 and tell if these produce correctly all the digits of the decimal expression of the reciprocal of the corresponding primes?
+
+Q2. The rules obtained by Rotondo, are restricted only to "full reptend primes"? Can you obtain at least one similar rule for a non-reptend prime?
+
+Q3. Is it possible to obtain a general recursive formula to produce correctly all the digits of the decimal expression of the reciprocal for every prime number, full reptend or not?
+
+Q4. Is it possible to obtain another(s) rule(s) similar to the given in A020806, for other primes, in the sense that they don't need the carryover process?
+
+From Aug 6-12, contributions came from Stephen Lucas, Giorgos Kalogeropoulos, Oscar Volpatti
+
+***
+
+Stephen wrote:
+
+The easiest way to explain these results is using generating functions, where you let the terms of a recurrence relation be the coefficients of a power series. If you let x=1/10 in the power series, the terms become decimal digits, and if you can find the generating function in closed form, you can obtain the fraction. The classic example of this is Fibonacci numbers. If you look at the section on generating functions in the Fibonacci number wikipedia page, you can see how you can use the recurrence relation to find a closed form for the generating function.
+
+Q1 Verify these rules. They are correct. For example 1/19 using 0,5,2,6 and a(n)=a(n-2)+a(n-4).
+
+Let s(x)=a(1)*x+a(2)*x^2+a(3)*x^3+a(4)*x^4+a(5)&x^5+… then x*s(x)=a(1)*x^2+a(2)*x^3+a(3)*x^4+a(4)*x^5+… and x^2*s(x)=a(1)*x^3+a(2)*x^4+a(3)*x^5+… and x^3*s(x)=a(1)*x^4+a(2)*x^5+… and x^4*s(x)=a(1)*x^5+…
+
+Now, first minus 3rd minus 5th gives (1-x^2-x^4)s(x) = a(1)*x+a(2)*x^2+(a(3)-a(1))*x^3+(a(4)-a(2))*x^4. All higher terms cancel to zero from the recurrence relation, so s(x)=(a(1)*x+a(2)*x^2+(a(3)-a(1))*x^3+(a(4)-a(2))*x^4)/(1-x^2-x^4). Let x=1/10, multiply top and bottom by 10000, and get s(1/10)= (1000*a(1)+100*a(2)+10*(a(3)-a(1))+(a(4)-a(2)))/9899.
+
+Now we can factor 9899=19*521, so to get 1/19 we need the numerator to be 0521. So with a(1)=0, a(2)=5, a(3)-a(1)=2 so a(3)=2 and a(4)-a(2)=1 or a(4)=6, and we have a complete proof of the result.
+
+Note that because linear recurrence relations are sums of exponential functions in n, the largest root will dominate growth. Here x^4-x^2-1=0 has largest root norm of 1.27, so grows modestly.
+
+The proof for the other cases is identical in approach.
+
+Q2 Exactly the same approach can be used for ANY fraction 1/k, not just primes, doing the above approach working backwards. Start with a recurrence relation, and I'm choosing a(n)=b*a(n-7)+c*a(n-8). Build the generating function and put x=1/10, then find the closest multiple of k in the denominator. This gives you values for b and c, and then in the numerator you can set the values of the first values of the recurrence. For example, With my choice we find results like:
+
+1/37: a(n)=-a(n-7)-a(n-8) with a(1-8)=02702703
+
+1/41: a(n)=a(n-7)+6*a(n-8) with a(1-8)=02439024
+
+Q3 I don’t know that a general recursive formula can be written down, but the above is a pretty straightforward algorithm to start from a recurrence relation template and a number and find a given result. I have code that takes as input p and k, and find the values of c and d so that the recurrence relation a(n)=c*a(n-k)+d*a(n-k-1) leads to 1/p with correct initial k+1 recurrence relation terms. There will be cases as p gets large that some of c or d could be so large that convergence is questionable, so we will need to increase k. Or try another combination!
+
+Q4 This may be trivial, but I did find 1/17, a(n)=-a(n-8), a(1-8)=05882353. Technically a carry because of negative digits, but magnitude less than 10. I haven’t found something like the 1/7 example Davide shows, probably because it would require at least 3 terms in the right hand side of the recurrence, and I haven’t experimented with that yet.
+
+Later Stephen added:
+
+A little more on Q4 from puzzle 1236, which was all about finding recurrence relations where the coefficients don’t grow. To make that work, we need a cyclotomic polynomial as the denominator of the generating function, which directly associates with the recurrence relation form. There aren’t that many of them, and many of them I experimented with lead to small prime factors that had periods smaller than the length of the recurrence, which makes them kind of silly. But what I have come up with is:
+
+a(n)=a(n-1)-a(n-3)+a(n-4), which works for 1/7, also works for 1/11 and 1/13 with different initial values.
+
+a(n)-a(n-1)-a(n-2)-a(n-3) work for 1/41, but gives a negative digit. If you start with 0,2,4,4 and allow for a carry, digits stay small.
+
+I found a few other cases where the terms stay less than 18, but again when carries are involved, the initial digits are not precisely the initial decimal digits. So nothing interesting with initial experiments yet. Sorry.
+
+and this, also:
+
+The recurrence relation a(n)=a(n-1)-a(n-3)+a(n-4):
+
+* With initial values 1,4,2,8 leads to 1/7=0.142857 142857 …
+
+* With initial values 0,9,0,9 leads to 1/11 = 0.09 09 09 … This is not as interesting since the period is less than the order of the recurrence, but then again it is marginally more interesting than the boring a(n)=a(n-2) with a(1)=0, a(2)=9.
+
+* With initial values 0,7,6,9 leads to 1/13 = 0.076923 076923 ….
+
+And because they might be more interesting with more detail (I’ve finished teaching for the day, a little less rush)
+
+The recurrence a(n)=-a(n-1)-a(n-2)-a(n-3)-a(n-4) with initial values 0,2,4,5 leads to the sequence 0,2,4,5,-11,0,2,4,5,-11,…, which if you add twenty to the -10 and subtract two from the digit before, we get 0.02439 02439 … = 1/41. There is a carry, but coefficients stay small.
+
+a(n)=2*a(n-1)-2*a(n-2)+a(n-3) with initial values 0,7,6,8 leads to the sequence 0,7,6,8,11,12,10,7,6,8,11,12,…, which if you do the carries leads to 0.76923 076923 … = 1/13. Again small coefficients, but not quite small enough to not have carries!
+
+***
+
+Giorgos wrote:
+
+Q1 & Q2: I'm sending you in a file the rules with 2 terms for 208 out of the first 969 (from 2 to 7639) primes. You can also find non-reptend primes there. All of them use the carryover process.
+
+For 1/7, using the starting numbers 1, 4, 2, 8, and the rule a(n) = a(n-3) + a(n-4)
+For 1/13, using the starting numbers 0, 7, 6, 9, 2, and the rule a(n) = a(n-1) + a(n-5)
+For 1/17, using the starting numbers 0, 5, 8, 8, 2, 3, 5, and the rule a(n) = a(n-3) + a(n-7)
+For 1/19, using the starting numbers 0, 5, 2, 6, and the rule a(n) = a(n-2) + a(n-4)
+For 1/23, using the starting numbers 0, 4, 3, and the rule a(n) = a(n-2) + a(n-3)
+For 1/29, using the starting numbers 0, 3, 4, and the rule a(n) = a(n-1) + a(n-3)
+For 1/31, using the starting numbers 0, 3, 2, and the rule a(n) = a(n-1) + a(n-3)
+For 1/43, using the starting numbers 0, 2, 3, and the rule a(n) = a(n-2) + a(n-3)
+For 1/47, using the starting numbers 0, 2, 1, 2, 7, 6, 5, 9, 5, 7, 4, and the rule a(n) = a(n-1) + a(n-11)
+For 1/53, using the starting numbers 0, 1, 8, 8, 6, 7, 9, 2, 4, 5, 2, 8, and the rule a(n) = a(n-2) + a(n-12)
+For 1/59, using the starting numbers 0, 1, 6, 9, 4, 9, 1, 5, 2, and the rule a(n) = a(n-2) + a(n-9)
+For 1/61, using the starting numbers 0, 1, 6, 3, 9, 3, 4, 4, 2, 6, 2, 2, and the rule a(n) = a(n-8) + a(n-12)
+For 1/67, using the starting numbers 0, 1, 4, 9, 2, 5, 3, 7, 3, 1, 3, 4, and the rule a(n) = a(n-4) + a(n-12)
+For 1/71, using the starting numbers 0, 1, 4, 0, 8, 4, 5, 0, 7, 0, and the rule a(n) = a(n-8) + a(n-10)
+For 1/79, using the starting numbers 0, 1, 2, 6, 5, 8, 2, and the rule a(n) = a(n-5) + a(n-7)
+For 1/83, using the starting numbers 0, 1, 2, 0, 4, 8, 1, 9, 2, 7, 7, 1, 0, 8, 4, 3, 3, 7, and the rule a(n) = a(n-3) + a(n-18)
+For 1/89, using the starting numbers 0, 1, and the rule a(n) = a(n-1) + a(n-2)
+For 1/97, using the starting numbers 0, 1, 0, 3, 0, 9, 2, 7, 8, 3, 5, 0, and the rule a(n) = a(n-2) + a(n-12)
+For 1/103, using the starting numbers 0, 0, 9, 7, 0, 8, 7, 3, 7, 8, 6, 4, 0, 7, 7, 6, 6, 9, 9, 0, 2, and the rule a(n) = a(n-3)
++ a(n-21)
+For 1/107, using the starting numbers 0, 0, 9, 3, 4, 5, 7, and the rule a(n) = a(n-5) + a(n-7)
+For 1/109, using the starting numbers 0, 0, 9, 1, 7, 4, 3, 1, 1, and the rule a(n) = a(n-7) + a(n-9)
+
+...
+
+For 1/6997, using the starting numbers 0, 0, 0, 1, 4, 2, 9, 1, 8, 3, 9, 3, 5, 9, 7, 2, 5, 5, 9, 6, 6, 8, and the rule a(n) = a(n-18)
++ a(n-22)
+For 1/7321, using the starting numbers 0, 0, 0, 1, 3, 6, 5, 9, 3, 3, 6, 1, 5, 6, 2, 6, 2, 8, 0, and the rule a(n) = a(n-7) + a(n-19)
+For 1/7541, using the starting numbers 0, 0, 0, 1, 3, 2, 6, 0, 8, 4, 0, 7, 3, 7, 3, 0, 2, 7, 4, 4, 9, 9, 4, 0, and the rule
+a(n) = a(n-20) + a(n-24)
+For 1/7589, using the starting numbers 0, 0, 0, 1, 3, 1, 7, 6, 9, 6, 6, 6, 6, 2, 2, 7, 4, 3, 4, and the rule a(n) = a(n-1) + a(n-19)
+For 1/7639, using the starting numbers 0, 0, 0, 1, 3, 0, 9, 0, 7, 1, 8, 6, 8, 0, 4, 5, and the rule a(n) = a(n-1) + a(n-16)
+
+See his full file here.
+
+***
+
+Oscar wrote:
+
+Puzzle 1236 was very interesting.
+
+It took me some time to understand Davide Rotondo's carryover process.
+
+Given a prime p>5, the decimal representation of 1/p is repeating with some period T>1:
+
+a(1),...,a(T),a(1),...,a(T),a(1),...
+
+Long division allows to sequentially compute digits a(n); set r(0) = 1, then:
+
+10*r(0) = a(1)*p+r(1),
+
+10*r(1) = a(2)*p+r(2),
+
+...
+
+10*r(n-1) = a(n)*p + r(n).
+
+One period is complete when a remainder r(T) = 1 is reached.
+
+Remainders r(n) will be very useful later.
+
+They satisfy congruence equation r(n) = 10^n mod p.
+
+Hence period T is the multiplicative order of 10 mod p.
+
+Given N starting digits a(1)... a(N), desired linear recurrence should allow to sequentially compute remaining digits a(n) for every index n>N:
+
+a(n) = c(1)*a(n-1)+c(2)*a(n-2)+...+c(N)*a(n-N).
+
+Some of the N coefficients c(j) may be zero; let c(J) be the first non-zero coefficient, with 1<=J<=N.
+
+If given rule ever produces some value a(n) not between 0 and 9 included, carryover will fix a(n), but it will also update a(n-1) and maybe a(n-2),...,a(n-D) in cascade.
+
+This would be a mess if any such digit were used to compute a(n), in such case do we need to compute a new value a(n) or what?
+
+So I avoided complications by requiring that carryover cascades always have length D<J, and that they never update starting digits a(1),...,a(N).
+
+If both conditions are met, an interesting equality involving remainders r(n) holds:
+
+r(N) = c(1)*r(N-1)+c(2)*r(N-2)+...+c(N)*r(0).
+
+Note. I'm not claiming that sequence r(n) satisfies recurrence relation too, but that equality holds for index n=N.
+
+I searched for pairs of remainders satisfying equality r(N) = r(K)+1 with N>K.
+
+By setting J=N-K, every such pair provides one candidate recurrence of Davide Rotondo's special form:
+
+a(n) = a(n-J) + a(n-N).
+
+If carryover cascade conditions are actually met, the candidate is a valid solution.
+
+All given examples were confirmed; sometimes, solutions with smaller order N were found too.
+
+Next solved prime is p = 31 (not full-repetend), with period T = 15:
+
+best recurrence a(n) = a(n-7) + a(n-11);
+
+initial values 0,3,2,2,5,8,0,6,4,5,1.
+
+I found solutions of special form for almost all primes p < 10000, with 35 exceptions.
+
+See attached file Pu 1236 OV.txt.
+
+Row format: p, T, J, N.
+
+I suggest another family of candidate recurrences:
+
+a(n) = r(N)*a(n-N).
+
+Check carryover cascade conditions for increasing order N, until a solution is found.
+
+Note. A solution will always be found; in the worst case, set N=T, obtaining recurrence
+
+a(n) = 1*a(n-T),
+
+which holds due to periodicity of sequence a(n), and never requires carryover.
+
+An example of solved prime is p = 13 (not full-repetend), with period T = 6:
+
+best recurrence a(n) = 12*a(n-3);
+
+initial values 0,7,6.
+
+Carryless recurrences.
+
+The "periodicity" recurrence a(n) = a(n-T) is carryless, can we find another carryless recurrence with order N<T?
+
+If period T is prime too, the known answer is no (unless sequence a(n) has zero mean, but this is not the case).
+
+If T is an even composite, with T = 2*Q, a recurrence with order N = Q+1 < T holds:
+
+a(n) = a(n-1) - a(n-Q) + a(n-Q-1).
+
+Maybe this result is well known too.
+
+I'll prove it by showing that sequence a(n) satisfies the following inhomogeneous recurrence:
+
+a(n) = 9-a(n-Q) for every index n > Q.
+
+Then, for every index n > Q+1, we have the following equality chain:
+
+a(n-1) - a(n-Q) + a(n-Q-1) = (9-a(n-Q-1)) - a(n-Q) +a(n-Q-1) = 9-a(n-Q) = a(n),
+
+so that claimed homogeneous recurrence holds too.
+
+Note. Both recurrences are mentioned in OEIS A020806 for the case p=7, T=6.
+
+Proof.
+
+Consider remainder r(Q) = 10^Q mod p:
+
+r(Q)^2 == 10^(2*Q) == 1 mod p.
+
+Then r(Q) = 1 or r(Q) = p-1, but the choice r(Q) = 1 contradicts the fact that the period is T>Q, so r(Q) = p-1 holds.
+
+Hence, for every index n >= Q:
+
+r(n) == r(n-Q)*r(Q) == -r(n-Q) mod p,
+
+so r(n) = p-r(n-Q).
+
+Therefore, for every index n > Q:
+
+10*r(n-1) = 10*(p-r(n-Q-1)) = 10*p - 10*r(n-Q-1) = 10*p - a(n-Q)*p - r(n-Q) = (9-a(n-Q))*p + (p-r(n-Q)) = (9-a(n-Q))*p + r(n),
+
+so a(n) = 9-a(n-Q).
+
+QED
+
+What if period T is an odd composite?
+
+Berlekamp-Massey algorithm allows to find carryless recurrences with minimal order.
+
+Quite often, the computed solution was the "periodicity" recurrence a(n) = a(n-T).
+
+First two exceptions found:
+
+p = 277, T = 69, N = 67 = T-2,
+
+p = 55711, T = 1857, N = 1855 = T-2.
+
+In both cases, coefficients c(j) follow a repeating pattern with period 3:
+
+1,0,-1,1,0,-1,...,1,0,-1,1.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

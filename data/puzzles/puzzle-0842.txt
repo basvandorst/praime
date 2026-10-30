@@ -1,0 +1,112 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_842.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 842. Multiple or divisor
+Source: https://www.primepuzzles.net/puzzles/puzz_842.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0842.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://simplementenumeros.blogspot.mx/2016/07/1456-la-entrada-1130-de-este-blog.html
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Longest_path_problem
+  https://www.primepuzzles.net/puzzles/puzz_841.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_843.htm
+  https://www.primepuzzles.net/puzzles/puzz_842.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 842. Multiple or divisor
+
+Problems & Puzzles: Puzzles
+
+Puzzle 842. Multiple or divisor
+
+Claudio Meller asks in his always interesting pages (Entry 1456) to find the maximal arrangement in a row of the first N integers in such a way that every integer is a multiple or a divisor of its two immediate neighbors, except the ends which have only one neighbor of course.
+For N=100 he found an arrangement of 77 integers, but he is not sure if this is the maximal possible:
+
+Q1. Can you improve the Meller's solution?
+
+Q2. Can you create a smart algorithm and expose it?
+
+Q3. If Q2 is solved, send your best solutions for N=200 and N=500.
+
+Contribution came from Dmitry Kamenetsky
+
+***
+
+Dmitry wrote:
+
+This problem is NP-Hard, because it is an instance of the Longest Path problem:
+
+https://en.wikipedia.org/wiki/Longest_path_problem
+
+Hence I don't believe that there is a nice polynomial-time algorithm to solve it. Any prime greater than N/2 must border a "1", hence only one such prime can be used in a solution. Similarly, any prime p greater than N/3 can only be used in the form: ...1 p 2p 2..., so only a few of such primes can be used in a solution. These conditions allow us to set bounds on the maximal possible score.
+
+I couldn't improve the result for N=100, but I found a few more solutions with a score of 77:
+
+score 77
+
+62 31 93 1 57 19 76 38 2 52 26 13 39 78 6 54 27 81 9 63 21 42 84 28 56 14 98 49 7 77 11 99 33 66 22 44 88 8 48 12 36 18 72 24 96 32 64 16 80 40 20 100 50 25 75 15 45 90 30 60 10 70 35 5 85 17 34 68 4 92 46 23 69 3 87 29 58
+
+missing: 37 41 43 47 51 53 55 59 61 65 67 71 73 74 79 82 83 86 89 91 94 95 97
+
+score 77
+
+69 23 46 92 4 76 38 19 95 1 68 34 17 85 5 55 11 99 33 66 22 44 88 8 80 16 64 32 96 24 48 12 72 36 18 54 27 81 9 63 21 42 84 28 56 14 98 49 7 35 70 10 40 20 100 50 25 75 15 45 90 30 60 6 78 26 52 13 39 3 87 29 58 2 62 31 93
+
+missing: 37 41 43 47 51 53 57 59 61 65 67 71 73 74 77 79 82 83 86 89 91 94 97
+
+score 77
+
+87 29 58 2 68 34 17 85 5 35 70 10 80 40 20 100 50 25 75 15 45 90 18 54 27 81 9 63 21 42 84 28 56 14 98 49 7 77 11 99 33 66 22 44 88 8 16 64 32 96 48 24 72 36 12 60 30 6 78 26 52 13 91 1 62 31 93 3 69 23 46 92 4 76 38 19 57
+
+missing: 37 39 41 43 47 51 53 55 59 61 65 67 71 73 74 79 82 83 86 89 94 95 97
+
+It is possible that we cannot do better for N=100. Here are my best results for N=200:
+
+score 144
+
+123 41 164 82 2 172 86 43 129 3 93 186 62 124 31 155 5 185 37 74 148 4 116 58 174 87 29 145 1 85 170 34 136 68 17 153 51 102 6 198 99 33 66 132 44 88 176 16 128 64 32 192 96 48 24 72 18 162 81 27 135 45 90 30 120 60 180 12 144 36 108 54 9 171 57 114 38 152 76 19 95 190 10 100 20 80 160 40 200 50 150 75 25 175 35 105 21 189 63 126 42 84 168 56 112 28 140 70 14 196 98 49 147 7 161 23 69 138 46 92 184 8 104 52 156 78 39 117 13 91 182 26 130 65 195 15 165 55 110 22 154 77 11 187
+
+missing: 47 53 59 61 67 71 73 79 83 89 94 97 101 103 106 107 109 111 113 115 118 119 121 122 125 127 131 133 134 137 139 141 142 143 146 149 151 157 158 159 163 166 167 169 173 177 178 179 181 183 188 191 193 194 197 199
+
+score 144
+
+129 43 86 172 4 148 74 37 111 3 123 41 164 82 2 124 62 31 93 186 6 102 51 153 17 68 136 34 170 85 5 125 25 75 150 50 100 200 40 80 20 120 60 30 90 15 195 65 130 26 182 91 13 117 39 78 156 52 104 8 184 92 46 138 69 23 161 7 175 35 105 21 147 49 98 196 14 70 140 28 112 56 168 84 42 126 63 189 27 81 162 54 108 18 72 36 144 24 48 192 64 128 32 160 16 96 12 180 45 135 9 171 57 114 38 76 152 19 95 190 10 110 55 165 33 99 198 66 132 44 88 176 22 154 77 11 187 1 145 29 87 174 58 116
+
+missing: 47 53 59 61 67 71 73 79 83 89 94 97 101 103 106 107 109 113 115 118 119 121 122 127 131 133 134 137 139 141 142 143 146 149 151 155 157 158 159 163 166 167 169 173 177 178 179 181 183 185 188 191 193 194 197 199
+
+Here is my best result for N=500:
+
+score 317
+
+376 188 47 235 470 94 282 141 423 9 333 111 222 444 148 296 74 370 185 37 481 13 286 143 429 39 351 27 243 486 81 405 135 45 495 165 330 66 198 99 297 33 363 121 242 484 44 176 352 88 440 220 110 55 275 11 209 418 22 374 187 17 425 85 255 51 459 153 306 102 204 408 136 272 68 476 119 238 34 340 170 10 410 205 41 369 123 246 82 492 164 328 4 172 344 43 215 430 86 258 129 387 3 279 93 465 155 310 62 186 372 124 496 248 31 217 434 14 364 182 91 455 35 245 490 70 210 15 315 105 420 42 252 126 378 189 63 441 147 294 98 392 196 49 343 7 385 77 231 462 154 308 28 84 168 336 112 56 224 448 64 128 256 16 464 232 116 348 58 406 203 29 290 145 435 87 174 6 366 183 61 122 488 244 2 356 178 89 445 5 265 53 477 159 318 106 424 212 1 221 442 26 130 260 52 416 208 104 312 156 468 117 234 78 390 195 65 325 25 175 350 50 500 250 125 375 75 225 450 90 270 30 150 300 100 200 400 80 320 160 20 140 280 40 120 240 480 96 48 384 192 32 288 144 432 216 24 264 132 396 12 60 180 360 72 36 324 108 54 162 18 342 171 57 228 114 456 152 304 76 380 190 95 475 19 247 494 38 266 133 399 21 483 161 322 46 460 230 115 345 69 23 207 414 138 276 92 368 184 8 472 236 118 354 177 59 295
+
+missing: 67 71 73 79 83 97 101 103 107 109 113 127 131 134 137 139 142 146 149 151 157 158 163 166 167 169 173 179 181 191 193 194 197 199 201 202 206 211 213 214 218 219 223 226 227 229 233 237 239 241 249 251 253 254 257 259 261 262 263 267 268 269 271 273 274 277 278 281 283 284 285 287 289 291 292 293 298 299 301 302 303 305 307 309 311 313 314 316 317 319 321 323 326 327 329 331 332 334 335 337 338 339 341 346 347 349 353 355 357 358 359 361 362 365 367 371 373 377 379 381 382 383 386 388 389 391 393 394 395 397 398 401 402 403 404 407 409 411 412 413 415 417 419 421 422 426 427 428 431 433 436 437 438 439 443 446 447 449 451 452 453 454 457 458 461 463 466 467 469 471 473 474 478 479 482 485 487 489 491 493 497 498 499
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

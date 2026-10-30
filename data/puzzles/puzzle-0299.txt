@@ -1,0 +1,220 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_299.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 299. Collatz-like sequence of primes.
+Source: https://www.primepuzzles.net/puzzles/puzz_299.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0299.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_298.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_300.htm
+  https://www.primepuzzles.net/puzzles/puzz_299.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 299. Collatz-like sequence of primes.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 299. Collatz-like sequence of primes.
+
+Rudolph Knjzek, sent the following nice & interesting puzzle:
+
+Let's define a Collatz-like sequence of primes. Start with a prime number p>2.
+
+The next number is the largest primefactor of 3p+1. The sequence stops if we reach 2.
+
+Clearly, the next prime is less than the previous if (3p+1)/2 is composite and only larger than the previous if (3p+1)/2 is prime.
+
+The obtained sequences contain subsequences of n increasing primes, i.e. n=3: 7-11-17 and n=4: 31-47-71-107.
+
+And there are the questions:
+
+1. Can you proof, that there is no loop in the sequences and that all sequences converge to 2?
+
+2. Find increasing subsequences with n>4.
+
+3. Is there an upper limit for the length of increasing subsequences?
+
+4. Find sequences starting with p, containing all primes less than p.
+
+5. Change the rule for the next number from 3p+1 to 3p-1. Is there a significant change of the properties of the sequences?
+
+Contributions came from Luke Pebody, Faride Firoozbakht & Anurag Sahay. Nevertheless the main question (1) is still open...
+
+Luke wrote:
+
+Q2.The smallest increasing subsequences of length n for n=1,2,3,4,5,6,7,8 start with 3,7,31,2111,89599,89599,44102911. The smallest with n=9 is at least 7*10^8.
+
+Q4. The only such sequences are [2] and [3,5,2]:
+
+Proof: Any other such prime must include both 3 and 7. Thus it must reach one of them first. When it reaches 3, it then goes 5 and then terminates at 2, bypassing 7 altogether. Therefore 7 must be hit first. However the route from 7 goes:
+
+7,11,17,13,5,2, bypassing 3 altogether.
+
+Faride Firoozbakht wrote:
+
+Q2. The same than Luke.
+
+Q3. I guess that the sequence 3,3,7,31,2111,89599,89599,44102911,...
+
+is an infinite sequence so there is no an upper limit for the length of increasing subsequences.
+
+Q4. The only such sequence is the sequence starting with p=3: 3,5,2 because if p>3 then 3 can't be a term of sequence ( 3 doesn't divide (3p+1)/2 ).
+
+Q5. No, there isn't a significant change of the properties of the sequences. Because in this case for some primes there is a loop of the form 5-7-5 and for other primes the corresponding sequence converges to 2.
+
+Primes such that the corresponding sequence converges to 2 :
+
+2,3,11,29,37,43,53,59,71,79,97,103,173,181,197,211,
+
+257,263,271,281,283,367,373,379,389,401,409,421,433
+
+,461,503,521,...
+
+Primes such that the corresponding sequence has a loop (of the form 5-7-5):
+
+5,7,13,17,19,23,31,41,47,61,67,73,83,89,101,107,109,
+
+113,127,131,137,139,149,151,157,163,167,179,191,193,
+
+199,223,227,229,233,239,241,251,269,277,293,307,311,
+
+313,317,331,337,347,349,353,359,383,397,419,431,439,
+
+443,449,457,463,467,479,487,491,499,509,523,541,...
+
+Follow-up question : In this case , for which primes the corresponding sequence converges to 2?
+
+Anurag Sahay wrote:
+
+Question 5: Yes, they behave differently.
+
+Two major differences for 3*n-1:
+
+1) there is a loop in every sequence except 3-2
+
+2) They do not converge . Examples: 31-23-17-5-7-5...
+
+101-151-113-169-23-17-5...
+
+I have also observed that there are fewer increasing sequences of a given length when compared to 3*n+1
+
+Question 4: some sequences with all primes less than p
+
+79 17 13 5 2,
+
+53 5 2 ,
+
+113 17 13 5 2,
+
+83 5 2,
+
+293250815317 13423957 1229 461 173 13 5 2
+
+Question 3:
+
+I think there is no upper limit.
+
+It is difficult to prove the contrary (that there should be an upper limit).
+
+***
+
+Later (31/1/05), Mike Oakes sent 'a partial solution to Q1':
+
+There cannot be a repeating 2-cycle.
+
+Suppose there is a cycle p - q - p - ...
+
+Case(A): Suppose p = +1 mod 4.
+
+Then (3*p+1) = 0 mod 4, and (3*p+1)/4 = q * r, where q is odd, r >= 1.
+
+q = (3*p+1)/(4*r).
+
+For a 2-cycle, p must divide (3*q+1), and (3*q+1) is even,
+
+so (3*q+1) >= 2*p.
+
+i.e. (9*p+3)/(4*r) + 1 >= 2*p,
+
+i.e. (9*p+3)/(4*r) >= (2*p-1)
+
+i.e. r <= (9*p+3)/(8*p-4)
+
+So r = 1, and q = (3*p+1)/4.
+
+Now, p divides (3*q+1) = (9*p+7)/4, so p = 7, which = -1 mod 4.
+
+Contradiction.
+
+Case(B). Suppose p = +3 mod 4.
+
+Then (3*p+1) = 2 mod 4, and (3*p+1)/2 = q * r, where q and r are odd.
+
+q = (3*p+1)/(2*r).
+
+For a 2-cycle, p must divide (3*q+1), and (3*q+1) is even,
+
+so (3*q+1) >= 2*p.
+
+i.e. (9*p+3)/(2*r) + 1 >= 2*p,
+
+i.e. (9*p+3)/(2*r) >= (2*p-1)
+
+i.e. r <= (9*p+3)/(4*p-2)
+
+So r cannot be 3, so r = 1, and q = (3*p+1)/2.
+
+Now, p divides (3*q+1) = (9*p+5)/2, so p = 5, which = +1 mod 4.
+
+Contradiction.
+
+So there are no 2-cycles.
+
+***
+
+Even Rudolph Knjzek added this interesting feature:
+
+A prime number of the form p=4n+1 can't be the first prime of an increasing subsequence, because (3p+1)/2 is even and the next prime is less than p.
+
+An increasing subsequence must start with a prime of the form p=4n-1.
+
+It is easy to proof, that the primes of an increasing subsequence have the form
+
+4n(3/2)^k-1. This deduces, that the maximum possible length of the sequence is determined by the power of 2 in the prime factorisation of n. If n=2^r*odd and k=r+2 we get an even number and the subsequence ends, assuming the sequence hasn't been terminated by a composite before.
+
+To obtain large subsequences, we need a large first prime number. But question 3 is still open, written in another form:
+
+Is it possible to construct a sequence of the form 4n(3/2)^k-1, all numbers prime for k=0,1,2,3,... of arbitrary length, when chosing an appropriate value for n ?
+
+In opposition to Faride, I guess, it isn't possible, because primes become rare when the numbers get large.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

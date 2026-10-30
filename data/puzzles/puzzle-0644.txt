@@ -1,0 +1,261 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_644.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 644. 123 Curio
+Source: https://www.primepuzzles.net/puzzles/puzz_644.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0644.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_643.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_645.htm
+  https://www.primepuzzles.net/puzzles/puzz_644.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 644. 123 Curio
+
+Problems & Puzzles: Puzzles
+
+Puzzle 644. 123 Curio
+
+Recently I found a nice toy to play with. It's a recursive rule to apply to any integer. The curio thing is that no matter what is your initial integer choice, you will terminate always in the integer 123.
+The only & recursive rule is this one: Given any integer N1 construct a new integer N2= E&O&T, where E is the count of even digits in N1; O is the count of odd digits in N1 & T=E+O.
+
+Example: Let N1=2147483647 (the beautiful Mersenne prime discovered by Euler in 1772)
+
+N1 = 2147483647 -> 6410 -> 314 -> 123
+
+(K steps to reach 123 from N1 = 3)
+
+After playing a while with this curio I started asking myself for the smallest integer that needs K steps to reach 123
+
+The smallest prime for K=3 is not 2147483647 but the much smaller 1021.
+
+Then I managed to imagine, construct & verify the smallest integer and the smallest prime for K=4 (quite larger than 2147483647 ) and... then I decided to post this puzzle because I failed even to imagine the smallest solutions for K=5
+
+Q1. Can you explain why applying this rule you always end in 123?
+
+Q2. Can you rediscover the smallest integer and the smallest prime for K=4?
+
+Q3. Can you indicate what is the smallest integer for K=5?
+
+First of all two comments:
+
+1) I missed to explain that I was accepting leading zeros from the first step on.
+
+2) I made a mistake when I wrote that for K=3, the smallest prime was 1021; it should have been 1009.
+
+E&O&T means the concatenations of E, O and T.
+
+Sorry folks!
+
+***
+
+Contributions came from Giovanni Resta, Fred Schalekamp, Gaurav Kumar, Emmanuel Vantieghem, Antoine Verroken and Farideh & Jahangeer
+
+***
+
+Giovanni wrote:
+
+it seems to me that some very small numbers need 5 iterations.
+
+For example, starting from 1 (0 even digits, 1 even digit, 1 total digits) I obtain 011 = 11 and along this line I have:
+
+1 -> 11 -> 22 -> 202 -> 303 -> 123
+
+Analogously, the smallest prime that needs 3 iterations seems to
+
+be 1009, not 1021.
+
+1009 -> 224 -> 303 -> 123
+
+Maybe there is something I'm missing.
+
+***
+
+Fred wrote:
+
+I'm doing something wrong.
+
+When I start with N1=1 I get:
+
+1=>11=>22=>202=>303=>123
+
+It seems too easy.....
+
+***
+
+Gaurav wrote:
+
+Why is 1009 not the smallest prime for K = 3?
+
+1009 -> 224-> 303 -> 123
+
+***
+
+Emmanuel wrote:
+
+Q1. This is easy. Simply prove it for all numbers with, say, four digits 'by hand' (by PC is also allowed) and prove the general statement by induction : every five- or more-digit number is transformed by the rule in a number with fewer digits...
+
+Q2. K = 1. Smallest number = 101 = Smallest prime
+
+K = 2. Smallest number = 2 = Smallest prime
+
+K = 3. Smallest number = 20 ; smallest prime = 1009 (and not 1021)
+
+K = 4. Smallest number = 11 = smallest prime
+
+Q3. K = 5. Smallest number = 1 ; Smallest prime = 3
+
+Indeed, define the function F by the rule F(m) = E&O&T.
+
+The chain obtained by the itteration of F is then :
+
+3 -> 11 -> 22 -> 202 -> 303 -> 123
+
+However, I think that the really tough problem is to find a chain of length 6 (or longer).
+
+Here is how I constructed a chain of infinite length :
+
+... -> X(n+1) -> X(n) -> ... -> X(2) -> X(1) -> 123
+
+with X(1) = 145, X(2) = 11011, X(3) = 11111011111,
+
+X(4) is a number with 11111 digits, all ones except the middlest which is zero.
+
+Thus, X(4) is of the form
+
+A&0&A
+
+where A is the repunit consisting of 5555 ones.
+
+Further, X(5) will be of the form
+
+B&0&B
+
+where B is the repunit consisting of (A-1)/2 ones.
+
+Further, X(6) will be of the form
+
+C&0&C
+
+where C is the repunit consisting of (B-1)/2 ones, etcetera.
+
+In that way we can extend the chain to the left ad infinitum !
+
+If we ask for the smallest number m with K = 6, we must replace X(6) by the smaller number obtained by moving the middlest 0 to the second position from the left. Thus, m will be of the form 1011...11 = 1&0&M, where M is the repunit with 2C-1 ones. Since F(m) is obviously the same as F(X(6)), the chains
+
+m -> F(m) -> F(F(m)) -> ...
+
+ends with the same tail.
+
+However, I cannot prove that m is effectively the smallest possible.
+
+But that number is tremendously big so that perhaps no one can have an idea what will be the smallest prime ...
+
+***
+
+Antoine wrote:
+
+Q1 :
+
+1. Applying several times the ‘ rule ‘ we get a 3 digit number.
+
+2. with “ e = even z =zero = e o = odd n = e + o “ the different possibilities for
+
+that 3 digit number are :
+
+e o n e e n o o n
+
+or e o o e e e o o e
+
+or 1 2 3 3 z 3 1 2 3
+
+1 2 3
+
+***
+
+Farideh & Janeeger wrote:
+
+a) If n has only one digit then we have two following cases:
+
+1. n is odd: n --> 11 --> 22 --> 202 --> 301 --> 123 k = 5
+
+2. n is even: n --> 101 --> 123 k = 2
+
+b) If n has two digits then we have four following cases:
+
+1. n has two even digits : n --> 202 --> 303 --> 123 k = 2
+
+2. n has only one even digits : n --> 213 --> 123 k = 2
+
+3. n has two odd digits : n --> 22 --> 202 --> 301 --> 123 k = 4
+
+c) If n has three digits then we have four following cases:
+
+1. n = 123, k = 0.
+
+2. n <> 123, n has three even digits : n --> 303 --> 123 k = 2
+
+3. n <> 123, n has two even digits : n --> 213 --> 123 k = 2
+
+4. n <> 123, n has only one even digit : n --> 123 k = 1
+
+5. n <> 123, n has three odd digits : n --> 33 --> 22 --> 202 --> 303 --> 123 k = 5
+
+d) If n has more than three digits then after one or more steps we get a three digits
+
+which we discussed in this in (c).
+
+So for each positive integer by applying this rule we always end with 123.
+
+Answer to Q2 :
+
+The smallest integer and the smallest prime for k = 4 is 11.
+
+11 --> 22 --> 202 --> 301 --> 123 k = 4.
+
+Answer to Q3 :
+
+The smallest integer for k = 5 is 1.
+
+1 --> 11
+
+The smallest prime for k = 5 is 3.
+
+3 --> 11 --> 22 --> 202 --> 301 --> 123 k = 5.
+
+***
+
+It is interesting that for some numbers d, d = 10000, 10001, ... , 10100, ... k for all
+
+d-digits integers is 4.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

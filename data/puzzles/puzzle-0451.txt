@@ -1,0 +1,374 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_451.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 451. Prime factors of n, φ(n) & σ(n)
+Source: https://www.primepuzzles.net/puzzles/puzz_451.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0451.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_450.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_452.htm
+  https://www.primepuzzles.net/puzzles/puzz_451.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 451. Prime factors of n, φ(n) & σ(n)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 451. Prime factors of n, φ(n) & σ(n)
+
+Farideh Firoozbakht sent the following puzzle:
+
+Prove that there is no number n (n>1) such that the three sets distinct prime factors of n, distinct prime factors of φ(n) and distinct prime factors of σ(n) are equal or find a counter example.
+
+Only Luke Pebody solved this puzzle. A remarkable result and approach: He found some counterexamples and a clever approach. Congratulations Luke!
+
+***
+
+6534150553412193640795377701190=2*3*5*7*11*13^3*17^2*29^2*31^3*37^2*67^2*307^3
+
+Phi(6534150553412193640795377701190)=2^18*3^8*5^2*7*11*13^2*17^2*29*31^2*37*67*307^2
+
+Sigma(6534150553412193640795377701190)=2^19*3^5*5^4*7^5*11*13^3*17*29*31*37*67^2*307
+
+103654150315463023813006470 is another counterexample. The largest
+
+prime divisor of it is 67. I think this is as small as the largest
+
+prime divisor can be. By that way, that second example is the smallest of the 96 such
+
+numbers with the largest prime power divisor being 29791=31^3. The
+
+largest such is the same multiplied by 31360000
+103654150315463023813006470 = 2*3^4*5*7*11*13^3*17^3*29^2*31^3*37^2*67^2
+
+Phi(103654150315463023813006470) = 2^17*3^9*5^2*7*11*13^2*17^2*29*31^2*37*67
+
+Sigma(103654150315463023813006470) =
+I have found all of the counterexamples whose prime powers are at most
+
+10^12. Let us say that a number such as this is a type-F number
+
+Let n be a type-F number such that n is not divisible by any prime
+
+power greater than 10^12.
+
+Let p be the largest prime factor of n, and suppose that p^k is a
+
+factor of n. Then p is also
+
+a factor of phi(n), which either means that k>1 or there exists a
+
+prime q|n such that p is a
+
+factor of q-1. The latter case is impossible (as p is the largest
+
+prime factor of n), and hence
+
+k>1.
+
+Thus p^2<=p^k<=n=10^12. Thus p<10^6.
+
+Thus for every p, k such that p^k|n and p^(k+1) is not a factor of n:
+
+2<=p<10^6
+
+p^k<10^12
+
+every prime divisor of sigma(p^k), being a prime divisor of sigma(n)
+
+and therefore of n
+
+is less than 10^6.
+
+Let T_0 be the set of such prime powers. T_0 is quite large: note
+
+that, for k = 1, the second and
+
+third conditions state nothing so T_0 contains at least the set of all
+
+78498 primes in the range
+
+[2..10^6]. In fact T_0 has 105959 elements. These are too many
+
+elements to deal with, so we need to
+
+get rid of some.
+
+Given p^k|n and p^(k+1) not a factor of n, any prime q which is a
+
+factor of p^k, sigma(p^k)
+
+or phi(p^k) must be a factor of n, sigma(n) or phi(n), and hence must
+
+be a factor of all of
+
+n, sigma(n), phi(n). Thus for 1<=i<=3, there must be p_i^{k_i} which
+
+are factors of n, and
+
+hence are in T_0, such that q|p_1^{k_1}, sigma(p_2^{k_2}) and
+
+phi(p_3^{k_3}). Thus if we let
+
+U_0 denote the set of prime numbers p that are:
+
+* divisors of elements of T_0
+
+* divisors of sigma(k) for some k in T_0
+
+* divisors of phi(k) for some k in T_0
+
+Then all prime factors of p^k, sigma(p^k) and phi(p^k) must lie in U_0.
+
+Thus if we let T_1 be the set of elements x of T_0 such that no prime
+
+factor of x, sigma(x)
+
+or phi(x) lie outside of U_0, all maximal prime factors of n must be
+
+in T_1. U_0 consists of
+
+14049 of the 78498 primes in that range, and T_1 only has 21658 elements.
+
+Similarly from T_1, we can make T_2 and so forth. U_1 only has 4107
+
+primes, and T_2 only has
+
+6853 elements. And so it continues:
+
+U_2|=1712
+
+T_2|=3157
+
+U_3|=914
+
+T_3|=1815
+
+U_4|=594
+
+T_4|=1239
+
+U_5|=433
+
+T_5|=899
+
+U_6|=254
+
+T_6|=568
+
+U_7|=208
+
+T_7|=492
+
+U_8|=183
+
+T_8|=446
+
+U_9|=161
+
+T_9|=399
+
+U_10|=143
+
+T_10|=354
+
+U_11|=130
+
+T_11|=328
+
+U_12|=120
+
+T_12|=305
+
+U_13|=113
+
+T_13|=291
+
+U_14|=107
+
+T_14|=272
+
+U_15|=98
+
+T_15|=253
+
+U_16|=91
+
+T_16|=240
+
+U_17|=85
+
+T_17|=232
+
+U_18|=82
+
+T_18|=227
+
+U_19|=79
+
+T_19|=214
+
+U_20|=73
+
+T_20|=185
+
+U_21|=61
+
+T_21|=162
+
+U_22|=52
+
+T_22|=142
+
+U_23|=42
+
+T_23|=111
+
+U_24|=36
+
+T_24|=96
+
+U_25|=30
+
+T_25|=85
+
+U_26|=27
+
+T_26|=79
+
+U_27|=25
+
+T_27|=75
+
+U_28|=23
+
+T_28|=70
+
+U_29|=21
+
+T_29|=65
+
+U_30|=19
+
+T_30|=54
+
+U_31|=17
+
+T_31|=50
+
+U_32|=16
+
+T_32|=47
+
+U_33|=15
+
+T_33|=45
+
+U_34|=14
+
+T_34|=43
+
+U_35|=14
+
+So only 14 primes can be a factor of n, namely
+
+2,3,5,7,11,13,17,29,31,37,41,67,73,307.
+
+Indeed, we can say that n must be of the form:
+
+2^a3^b5^c7^d11^e13^f17^g29^h31^i37^j41^k67^l73^m307^o where:
+
+a is in {0,1,2,3,4,5,7,8,9,11,19}
+
+b is in {0,1,2,3,4,5,7,11}
+
+c is in {0,1,2,3,5}
+
+d is in {0,1,3}
+
+e is in {0,1}
+
+f is in {0,1,3}
+
+g is in {0,1,2,3,5}
+
+h is in {0,1,2}
+
+i is in {0,1,3}
+
+j is in {0,2}
+
+k is in {0,1,3}
+
+l is in {0,1,2}
+
+m is in {0,1,3}
+
+o is in {0,1,3}
+
+We are left with only 57,736,800 possible integers, all of which could
+
+be checked by hand.
+
+However, let's get rid of the some of the potential values:
+
+In particular, let p be any of {13,29,31,37,41,67,73,307}. Then, by
+
+inspection, none of the
+
+14 primes are equivalent to 1 (mod p). Now if p|n, then we know
+
+p|phi(n), and hence
+
+p|phi(q^k) for some maximal prime power factor of n. This means that
+
+q=1 (mod p) (which is not true)
+
+or q=p and k>1. Thus we have shown that if p|n, p^2|n for all of these
+
+p, and hence
+
+f,h,i,k,l,m,o are not equal to 1. This reduces the number of
+
+possibilities to 3379200.
+
+I went through these by hand. It turns out that there are 1296=6^3
+
+such numbers (excluding 1).
+
+The smallest is the number I discovered earlier:
+
+103654150315463023813006470, and the largest is
+
+408022974940131316797952098741068774084359509019326873600000
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

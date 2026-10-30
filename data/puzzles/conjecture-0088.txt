@@ -1,0 +1,99 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_088.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 88. Special Goldbach Partitions
+Source: https://www.primepuzzles.net/conjectures/conj_088.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0088.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A045917
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_087.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_089.htm
+  https://www.primepuzzles.net/conjectures/conj_088.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 88. Special Goldbach Partitions
+
+Problems & Puzzles: Puzzles
+
+Conjecture 88. Special Goldbach Partitions
+
+Ivan Ianakiev sent the following nice conjecture
+
+"Let p denote any prime in any decomposition of 2n. 4 and 6 are the only numbers n such that 2n + p is prime for every p". See OEIS A045917.
+
+Known examples:
+
+8=3+5; then 8+3 & 8+5 are primes.
+
+12=5+7; then 12+5 &12+7 are primes.
+
+Q. Can you find another example or prove the conjecture?
+
+On May 27, 2024, John W. Nicholson wrote:
+
+The question is equivalent to:
+
+For which n is 2n + p =/= 0 mod 5 for all p as defined, where =/= is not congruent.
+
+One may notice the double negative going on here caused by the 0 mod 5.
+
+For all p > 6 are of the form {1, 3, 7, or 9} mod 10.
+
+So, 1+1 = 2, 1+3 =4, 1+7 = 8 == 3 mod 5, 1 + 9 = 10 = 0 mod 5.
+
+For 3+1 = 4, 3+3 =6 == 1 mod 5, 3+7 = 10 == 0 mod 5, 3 + 9 = 12 = 2 mod 5.
+
+And for 7 + 1 = 8 == 3 mod 5, 7 + 3 = 10 == 0 mod 5, 7 + 7 = 14 == 4 mod 5, 7 + 9 = 16 == 1 mod 5.
+
+Lastly and, for 9 + 1 = 10 == 0 mod 5, 9 + 3 = 12 == 2 mod 5, 9 + 7 = 16 == 1 mod 5, 9 + 9 = 18 == 3 mod 5.Since all RC have at least one 0 mod 5 for all p the conjecture holds.
+
+***
+
+On June 9, 2024, Ivan Ianakev wrote:
+
+While I' m grateful for John W. Nicholson' s efforts to prove the conjecture, I do not think that my original definition is "equivalent to: For which n is 2*n + p =/= 0 mod 5 for all p as defined, where =/= is not congruent".
+
+Let us take for example n = 25. The Goldbach parts of 2*25 = 50 form A = {3, 47, 7, 43, 13, 37, 19, 31}
+
+and their sums with 50 form B = {53, 97, 57, 93, 63, 87, 69, 81}. No element of B is congruent to 0 mod 5, but that does not mean they are all prime (in fact, only 53 and 97 are prime). That is why n =
+
+25 is not a solution. This, I think, is enough to invalidate John' s argument.
+
+The following Mathematica code, based on John' s argument, produces many false solutions such as 2, 3, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, ...
+
+f[n_] := PrimePi[n/2];
+
+g[n_] := Module[{lst = {}}, Do[If[PrimeQ[n - Prime[i]], AppendTo[lst, {Prime[i], n - Prime[i]}]], {i, 1, f[n]}]; lst];
+
+Select[Range[2, 100], FreeQ[Mod[2*# + Flatten[g[2*#]], 5], 0] &]
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

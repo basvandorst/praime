@@ -1,0 +1,153 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1035.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1035. tau(sigma(x)) * sigma(tau(x))
+Source: https://www.primepuzzles.net/puzzles/puzz_1035.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1035.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A004394
+  https://www.primepuzzles.net/puzzles/puzz_1034.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1036.htm
+  https://www.primepuzzles.net/puzzles/puzz_1035.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1035. tau(sigma(x)) * sigma(tau(x))
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1035. tau(sigma(x)) * sigma(tau(x))
+
+Ivan Ianakiev sent the following nice puzzle:
+
+Let x = tau(sigma(x)) * sigma(tau(x)) ,
+
+where tau(x) and sigma(x) denote the number and sum of integer divisors of x.
+
+The only roots (up to 100000000) are x=1, 468 and 3240.
+
+Q. Can you get more roots?
+
+Contribution came from Fred Schneider on April 24, 2021:
+
+The goal is to demonstrate by computing upper bounds for the sigma(n) and tau(n) functions relative to n, there are no further possible solutions.
+
+Our goal is to find more cases where
+
+x = tau( sigma(x) ) * sigma ( tau(x))
+
+Let's consider the tau function first
+
+Because tau(n) is based on the number of prime divisors, it's clear to see that the ratio of tau(n) / n converges to zero as n gets large. One important insight is the relationship between sigma(n) / n, the greater tau(n) for a given n s, the greater tau(n)/n and sigma(n)/n are.
+
+In fact, the greatest n such that tau(n)^2 > n is only n = 1260 (which has 36 divisors).
+
+(Note: 9 is the only case such that tau(x)^2 = x)
+
+Checking further out, the min(n) such that tau(n) = 1000 is 810,810,000. The tau ^2 is < 1/810 of n.
+
+Sigma(n) is at a minimum n + 1 for a prime and generally less than 2n. Exceptions exist for extremely smooth numbers.. Let's say that the maximum: sigma(n) through n is: k^2 * n where k is some upper bound. For reference, let's refer to the concept and listing of superabundant numbers: http://oeis.org/A004394 which helps gives us an idea of how quickly sigma(n)/n grows so that we can create an upper bound for k^2.
+
+Let's manipulate the original formula
+
+tau( sigma(x) ) * sigma ( tau(x)) <=
+
+tau (k^2 * x) * sigma (tau x) <=
+
+k * tau(x) * k^2 * tau(x) = k^3 * tau(x)^2
+
+So in order to have a solution to x = tau( sigma(x) ) * sigma ( tau(x))
+
+We need for cases to exist such that k^3 * tau(x)^2 >= x
+
+In order for there to be another solution, we need to first compare how k^3 grows with respect to how tau(x)^2 decreases (as a proportion of sqrt(x)).
+
+The author of the puzzle had searched through 100M. Let's check the OEIS list and find the first number greater than 100M. This serves as the ideal candidate in terms of tau(x) with respect to sqrt(x).
+
+Let n = 122522400
+
+tau n = 864.
+
+n / tau(n)^2 = 164.1300154320988
+
+k^2 = sigma(n) / n = 5.013048128342246
+
+k^3 = 11.224133180426811
+
+k^3 * tau^2 = x * 11.224133180426811 / 164.1300154320988 ~ .07x
+
+So, even the upper bound for this optimal computation around n is less than 7% of what is needed for a match.
+
+What if we derived k from tau n = 164?
+
+164^(2/3) = k^2 ~ 30
+
+Let's go back to the list and find a superabundant number such that sigma(x)/x = 30 or somewhere close.
+
+On reviewing this list, you will see the ratio with each number in the list grows extremely slowly.
+
+Here is the massive but minimal n such that sigma(n)/n >= 10. It's "abundantly" clear, that this ratio sigma(n)/n grows extremely slowly with respect to n.
+
+n = 25635551923920545633428119107919642299618796225234764843733449059620074026936003401444
+
+1589386872615171550662223933420801920000
+
+tau(n) = 210667131569323376640
+
+If we compute div n (tau^2(n)), we get
+
+5776291585018338834898033982782461300810930985315421309183099660741754996575051618214
+
+Clearly, we are in a much worse situation now. There is no point in raising this to the 2/3 power to compute k^2.
+
+I can say with certainty that there are no other solutions.
+
+To illustrate this concept of upper bounds, let's check two examples of numbers less than 100M.
+
+In the range of the last solution, we pick n = 5040
+
+k^2 = sigma n / n = 3.836
+
+tau n = 19344
+
+n / tau(n)^2 = 1.4
+
+1.4 ^ (2/3) = 1.25 < 3.836 so it was worth checking around this n. There is a possibility.
+
+I also computed this for a smaller number on the superabundant list 1441440.
+
+sigma n / n = 4.5818
+
+div n / (tau(n)^2) = 17.3784
+
+(17.3784)^(2/3) = 6.6115 > 4.5818 (much closer with this smaller figure but still impossible)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

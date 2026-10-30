@@ -1,0 +1,112 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_291.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 291.  Primes embedding a given sequence
+Source: https://www.primepuzzles.net/puzzles/puzz_291.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0291.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_290.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_292.htm
+  https://www.primepuzzles.net/puzzles/puzz_291.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 291. Primes embedding a given sequence
+
+Problems & Puzzles: Puzzles
+
+Puzzle 291. Primes embedding a given sequence
+
+Jacques Tramu proposes the following puzzle:
+
+Given a sequence S of decimals digits, find the smallest prime SP which includes (embeds) this sequence. Let L(S) = number of digits of S and L(SP) = number of digits of SP .
+
+For example :
+
+S = 20 L(S) = 2
+
+SP = 1201 L(SP) = 4
+
+S= 6666666666666 L(S) = 13
+
+SP =166666666666667 L(SP) = 15
+
+S = 987654321987654321987654321987654321 L(S) = 36
+
+SP = 103987654321987654321987654321987654321 L(SP) = 39
+
+The sequence may begin with '0'
+
+For example :
+
+S = 00000000000000000000 L(S) = 20
+
+SP = 8000000000000000000009 L(SP) = 22
+
+Now, my questions :
+
+1 Find a sequence S for which L(SP) = L(S) + 5
+
+2 Find a sequence S for which L(SP) > L(S) + 5
+
+3 Given L(S) what is the order of magnitude of L(SP) ?
+
+Contributions came form Faride Firoozbakht and Andrew Rupinski:
+
+Faride wrote:
+
+Answer to question 1 :
+
+S = 0(3000) = 000 ... 000 L(S) = 3000
+
+SP = 1064.0(3000).3 = 1064*10^3001+3 L(SP) = 3005
+
+Dot between numbers means concatenation. Mathematica says SP is prime, so SP is a probable prime.
+
+***
+
+Andrew wrote:
+
+I have an answer for your third question, and it gives an idea of where to search for an S for the first two parts, namely with really big numbers. Here's my reasoning (again with a corollary):
+
+We can give an upper bound on L(SP) as follows: suppose L(S) = d, say S = s_1s_2…s_d where s_i is a digit. If gcd(S,10) is greater than 1, then we append a 1 onto the right of S and let the resulting string be our new S. Now we have that k*10^d+S for k>0 is prime infinitely often by Dirichlet's theorem. Next we apply Linnik's theorem to find that there is a prime in this sequence below
+
+10^(2d) [it is known that 2 will work here almost all the time and is conjectured to hold universally]. We shall assume for simplicity that 2 holds universally. Therefore L(SP) <= 2d for every sequence S [note that for large S this is a horrendous upper bound as we shall see below]. This immediately
+
+gives:
+
+Corollary: L(SP) grows linearly with respect to L(S) since 1<= L(SP)/L(S) <= 2 for all S by the above, i.e o(L(S)) = o(L(SP)).
+
+Therefore if we want a sequence for which L(SP) = L(S) + 5, we must begin with L(S) => 5 (any sequence S of 4 or fewer digits necessarily has L(SP) <
+
+L(S)+5 as a consequence of Linnik's theorem). Now consider a given S. If we append 5 random digits onto the front of it, we must have that the 10^4 digit combinations in which the leading digit is 0 are not prime (for if one were, we would have L(SP) < L(S)+5. By the prime number theorem we have that the odds of a random number x being prime is about 1/ln(x), so when ln(x) > 10^4 we will have that it is likely that the first prime occurs after these first 10^4 terms of the arithmetic sequence; this occurs about 10^4343. Note also that we are assuming S is on the right of SP, we have not calculated when it is in the middle or on the left, such a correction will change the estimate below by some orders of magnitude but should not affect the asymptotic behavior predicted. Of course we could very well have that an S with fewer than 4343 digits has L(SP) = L(S) + 5, this is just the area where we expect that a random sequence will give the +5 result. Based on the speed of growth required to find a sequence where it is likely that L(SP) = L(S) + 5, combined with the prior corollary to Linnik's theorem, I would guess that in the long run L(SP) grows at exactly the same rate as L(S); i.e. L(SP)/L(S) tends to 1 as S grows large.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

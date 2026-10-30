@@ -1,0 +1,225 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1014.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1014. Observation about three consecutive primes
+Source: https://www.primepuzzles.net/puzzles/puzz_1014.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1014.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1013.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1015.htm
+  https://www.primepuzzles.net/puzzles/puzz_1014.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1014. Observation about three consecutive primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1014. Observation about three consecutive primes
+
+Sebastián Martín Ruiz noted that:
+
+For any three consecutive primes p, q, r such that p<q<r
+
+No one of the following conditions are satisfied if p>13
+
+a) p divides (q^2 +r^2)
+
+b) q divides (p^2 +r^2)
+
+c) r divides (p^2 +q^2)
+
+Q. Find an explanation or a counterexample, for each condition.
+
+On the week 23-"9 Aug, 2020, contributions came from Oscar Volpatti, Fausto Morales and Emmanuel Vantieghem
+
+***
+
+Oscar wrote:
+
+Sebastián's observation can be explained (but not proved) as follows.
+
+Consider the prime gaps g=q-p and h=r-q.
+
+a) if p divides q^2+r^2 = (p+g)^2+(p+g+h)^2, then p also divides g^2+(g+h)^2 = x;
+
+b) if q divides p^2+r^2 = (q-g)^2+(q+h)^2, then q also divides g^2+h^2 = y;
+
+c) if r divides p^2+q^2 = (r-g-h)^2+(r-h)^2, then r also divides (g+h)^2+h^2 = z.
+
+According to Cramer-Granville conjecture, g and h grow about as fast as (ln p)^2, (ln q)^2, (ln r)^2, up to some constant factor.
+If so, the positive quotients x/p, y/q, z/r must converge to 0 as p,q,r grow to infinity.
+
+In particular, for p,q,r large enough, the three quotients must be smaller than 1. Then we have:
+
+a1) 0 < x < p, so p can't divide x;
+
+b1) 0 < y < q, so q can't divide y;
+
+c1) 0 < z < r, so r can't divide z.
+
+Numerical computations suggest precise lower bounds:
+
+condition a1 possibly holds for every prime p > 2477;
+
+condition b1 possibly holds for every prime q > 293;
+
+condition c1 possibly holds for every prime r > 2203.
+
+The finite range 2<=p<=2477 can be easily checked:
+
+condition a is satisfied for p=2, p=5, and p=13;
+
+conditions b and c are never satisfied.
+
+***
+
+Fausto wrote:
+
+For any re-naming (x, y, z) of the triplet {p, q, r}, we have that, for some pair of (positive or negative) integers i and j:
+
+x + i = y + j = z,
+
+so that
+
+x^2 + y^2 = 2z^2 + i^2 + j^2 - 2z*(i+j).
+
+Now, if z is to divide the LHS of this expression, then it must divide i^2 + j^2 aswell. In particular, a requirement implied is:
+
+i^2 + j^2 >= z,
+
+something that has not occurred in the range
+
+2521 < z < 10^8.
+
+Accordingly, my guess is that Sebastian's observations must hold for all z, since primes in consecutive triplets appear to have become too close together for any counterexamples to exist.
+
+***
+
+Emmanuel wrote:
+
+Let a = q - p, b = r - q, c = r - p.
+
+Then, modulo p we have : q^2 + r^2 == a^2 + c^2
+
+So, if p divides q^2 + r^2 we have that p divides a^2 + c^2.
+
+As a, b, c are even we then have : p divides (a^2 + c^2)/4.
+
+An immediate intuitive approach tells me that this will be impossible because (a^2 + c^2)/4 is too small.
+
+But I find no proof of this in the literature. So, that is a conjecture.
+
+Similarly for the other cases.
+
+To give an idea of the size of (a^2 + c^2)/4 in comparizon with the size of p, q, r I computed a record table :
+
+[p, q, r} (a^2 + c^2)/4
+
+{17, 19, 23} 10
+
+{19, 23, 29} 29
+
+{31, 37, 41} 34
+
+{47, 53, 59} 45
+
+{83, 89, 97} 58
+
+{109, 113, 127} 85
+
+{113, 127, 131} 130
+
+{199, 211, 223} 180
+
+{523, 541, 547} 225
+
+{887, 907, 911} 244
+
+{1129, 1151, 1153} 265
+
+{1321, 1327, 1361} 409
+
+{1327, 1361, 1367} 689
+
+{5591, 5623, 5639} 832
+
+{9551, 9587, 9601} 949
+
+{15683, 15727, 15731} 1060
+
+{18803, 18839, 18859} 1108
+
+{19609, 19661, 19681} 1972
+
+{31397, 31469, 31477} 2896
+
+{58789, 58831, 58889} 2941
+
+{155893, 155921, 156007} 3445
+
+{155921, 156007, 156011} 3874
+
+{188029, 188107, 188137} 4437
+
+{338033, 338119, 338137} 4553
+
+{360653, 360749, 360769} 5668
+
+{370261, 370373, 370387} 7105
+
+{396733, 396833, 396871} 7261
+
+{492113, 492227, 492251} 8010
+
+{1349533, 1349651, 1349669} 8105
+
+{1357201, 1357333, 1357337} 8980
+
+{1671781, 1671907, 1671941} 10369
+
+{2010733, 2010881, 2010887} 11405
+
+{4652353, 4652507, 4652513} 12329
+
+{10937921, 10938023, 10938119} 12402
+
+{15203977, 15204131, 15204169} 15145
+
+{17051707, 17051887, 17051899} 17316
+
+{20831323, 20831533, 20831557} 24714
+
+{47326693, 47326913, 47326919} 24869
+
+{90438133, 90438343, 90438379} 26154
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

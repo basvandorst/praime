@@ -1,0 +1,173 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_875.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 875.Vector of primes that generates distinct primes
+Source: https://www.primepuzzles.net/puzzles/puzz_875.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0875.htm
+
+References (local copies):
+  ../../references/2017_prime-sums-of-primes-dmitry-kamenetsky.pdf  (from https://arxiv.org/pdf/1703.06778.pdf)
+  ../../references/2017_prime-sums-of-primes-dmitry-kamenetsky.txt  (extracted text)
+
+Links on the page:
+  https://arxiv.org/pdf/1703.06778.pdf
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_874.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_876.htm
+  https://www.primepuzzles.net/puzzles/puzz_875.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 875.Vector of primes that generates distinct primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 875.Vector of primes that generates distinct primes
+
+Dmitry Kamenetsky very recently, published a paper related to "a variety of prime-generating constructions that are based on sums of primes".
+
+One of these constructions is this one:
+
+A prime vector of order n is an array of distinct primes P = ( p0, p1, . . . , pn−1), such that every sum of an odd number of consecutive elements is also prime.
+
+His best example is this one, with 23 elements:
+
+(239, 131, 109, 181, 83, 43, 41, 223, 53, 233, 271, 103, 269, 71, 19, 47, 241, 23, 277, 199, 281, 29, 37)
+
+which produces 121 distinct primes.
+
+Q1.Would you produce a better vector (with more than 23 elements) then the one from Kamenetsky.
+
+Contributions came from Emmanuel Vantieghem, Jan van Delden, J. K. Andersen, Dmitry Kamenetsky and Michael Hürter.
+
+***
+
+Emmanuel wrote:
+
+This is a 26-prime vector :
+
+(211507, 239, 131, 109, 181, 83, 43, 41, 223, 53, 233, 271, 103, 269, 71, 19, 47, 241, 23, 277,
+
+199, 281, 29, 37, 473513, 559201)
+
+I came to this by joining primes to the left/right of Dmitri's solution.
+
+If there is an extension of my solution by this method (which is maybe not impossible), one should
+
+search among primes > 22*10^9.
+
+***
+
+Jan wrote:
+
+My contribution
+
+The vector [991,89,43,67,101,83,283,53,277,113,151,193,1487,109,401,2029,5807,827,2803,68473,
+
+1048877,1170277,277169, 3000301,37234667,150879853,99485549,504200261,238748743]
+
+has 29 elements. The number of different prime sums, including the primes in the vector itself, is 225, which is the maximum number of primes possible for a vector of this size.
+
+However it is probably not optimal in the sense of Dmitry, I did not try to minimize it’s weight.
+
+I used a routine where the first prime number is a random prime in [3..1000] and for the other elements a random starting prime is used in [3..100]. Better procedures will probably exist.
+
+***
+
+Andersen wrote:
+
+Kamenetsky does not require distinct sums. His 121 primes only include
+
+105 distinct primes. For example, 181+83+43 = 43+41+223 = 19+47+241 = 307.
+
+If we start with an empty vector and extend it one element at the time
+
+with the smallest possible odd prime then the first 34 elements are:
+
+(3, 5, 11, 7, 41, 19, 23, 61, 29, 151, 137, 79, 1013, 14347, 43151, 7873,
+
+82469, 444187, 63680783, 80158627, 531845381, 13726723, 2948038229,
+
+341461831, 5391683657, 4759989589, 45033191681, 3342118271593,
+
+57517957292507, 25358009530039, 2584135512217541, 616856808553033,
+
+21225241347141287, 10855325323825603)
+
+They produce 272 primes, 270 distinct. 67 and 83 are produced twice.
+
+Kamenetsky defines the weight of a prime vector as the sum of the n elements.
+
+He then defines an optimal vector as having the lowest possible weight.
+
+He lists optimal vectors for n = 1 to 14. My computation agrees.
+
+He lists upper bounds on the weight of the optimal vectors for n = 15 to 23.
+
+My computation says his upper bounds for n = 15 to 17 are optimal.
+
+n=15, weight 443: (23, 11, 19, 31, 53, 67, 29, 17, 7, 47, 13, 43, 41, 5, 37)
+
+n=16, weight 522: (23, 67, 59, 37, 5, 61, 31, 47, 29, 13, 11, 7, 53, 19, 17,
+
+43)
+
+n=17, weight 641: (11, 59, 67, 73, 71, 13, 53, 31, 23, 29, 37, 7, 17, 19, 47,
+
+41, 43)
+
+Some of his other upper bounds are not optimal.
+
+***
+
+Dmitry wrote:
+
+Regarding the example in my paper, a vector of 23 primes, "There are 144 sums (including single numbers) with 128 of them distinct. There are 144-23=121 sums if you don't include the single numbers, where 128-23=105 are distinct. I hope that helps."
+...
+
+And now I have found prime vectors of length 28!
+
+(104829763 188927 880703 15319 32251 239 131 109 181 83 43 41 223 53 233 271 103
+
+269 71 19 47 241 23 277 199 281 2843 43122199)
+
+(229082171 64512013 211507 479 181 83 43 41 223 53 233 271 103 269 71 19 47 241
+
+23 277 199 281 29 37 324403 8751593 78840191 4538953)
+
+(484102337 201847 3157949 62851 653 4483 197 43 41 223 53 233 271 103 269 71 19
+
+47 241 23 277 199 281 29 37 30103 1448021 484846553
+
+***
+
+Michael wrote:
+
+I found a vector with 27 elements:
+
+( 168548962471, 473513, 37, 29, 281, 199, 277, 23, 241, 47, 19, 71, 269, 103, 271, 233, 53, 223, 41, 43, 83, 181, 109, 131, 239, 211507, 1223550247 )
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

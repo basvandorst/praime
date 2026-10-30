@@ -1,0 +1,207 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1134.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1134 F(n)=|(2^n-1)/(2n+1)|
+Source: https://www.primepuzzles.net/puzzles/puzz_1134.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1134.htm
+
+References (local copies):
+  ../../references/2023_on-the-puzzle-1134-alessandro-casini.pdf  (from https://www.primepuzzles.net/puzzles/Pu1134%20AC.pdf)
+  ../../references/2023_on-the-puzzle-1134-alessandro-casini.txt  (extracted text)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A239638
+  https://www.primepuzzles.net/puzzles/Pu1134%20AC.pdf
+  http://factordb.com/
+  https://www.primepuzzles.net/puzzles/puzz_1133.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1135.htm
+  https://www.primepuzzles.net/puzzles/puzz_1134.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1134 F(n)=|(2^n-1)/(2n+1)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1134 F(n)=|(2^n-1)/(2n+1)
+
+By Sebastián Martín Ruiz. Consider the integer values of the function F(n)=(2^n-1)/(2n+1). We have if F(n) is prime then n and 2n+1 are also prime numbers.
+
+Q1) Prove it or find a counterexample.
+
+I have found the following values expressed in MATHEMATICA
+F[n_]:=(2^n-1)/(2n+1)
+
+Do[If[PrimeQ[F[n]],Print[F[n]," ",n," ",2n+1," ",PrimeQ[F[n]]," ",PrimeQ[n]," ",PrimeQ[2n+1]]],{n,1,15000}]
+
+89 11 23 True True True
+
+178481 23 47 True True True
+
+57912614113275649087721 83 167 True True True
+
+10350794431055162386718619237468234569 131 263 True True True
+
+2150061062571132232545030150231494321261931502937914161854451735782815972183153772
+
+9658958459122860204118390753258481506847174729117738689892562247720853011571496235
+
+529484213513789047439494933924925933540771001858448005515782538708941691223325271
+
+4054247018216597994795059161567922302450277281351135838393171424038832688432240078
+
+3612641615239043555390859277387539681570185502584761638520908267561579157052834132
+
+2600081615171254383858106628160065027869053471937111299739319072106813684059679052
+
+5950480851370510277560248341182341805553054000587378384785994695875587394905226703
+
+1496056898302577682299877147709491924833025835697991410798675970511901340787180117
+
+3050848254256728441883811900056344398559369122120306013704764871309550287777529006
+
+2907208508727269017130916691676838817452529964938878349395785642430571852241837461
+
+6041363744484437301750818895020562905124977171775774927365557840817319985657655985
+
+1810482251652034030170103412392676747278466577677948062882162827968765173619854133
+
+0802238405154786248043073 3359 6719 True True True
+
+Q2) Find more prime values of F(n) , n and 2n+1
+
+During the week 10-16 JUne 2023, contributoons came from Michael Branicky, Alessandro Casini, Giorgos Kalogeropoulos, Oscar Volpatti, Emmanuel Vantieghem
+
+Michael wrote:
+
+This problem is partially studied in OEIS A239638, so besides n = 11, 23, 83, 131, and 3359 above, we have n = 130439 and 406583 are solutions with n and 2n+1 prime.
+
+***
+
+Alessandro wrote:
+
+Two related OEIS sequence are A085724 and A002326.
+
+Q1) I could neither find a counterexample nor prove the statement. However, here is the proof of a (very) little step towards it. Therefore the search for counterexamples is limited to composite with 2n+1 composite only, that are nevertheless a lot.
+
+Q2) No other N < 10^5
+
+***
+
+Giorgos wrote:
+
+Q2: We know two more terms from A239638
+
+n=130439 (prime) and 2n+1=260879 (prime)
+
+n=406583 (prime) and 2n+1=813167 (prime)
+
+F(n) is also prime in both cases because it is stated that 2^n-1 is semiprime
+
+***
+
+Oscar Volpatti wrote:
+
+About Q1, the statement by Sebastián Martín Ruiz is true.
+
+I'll prove it in two steps.
+
+Step 1: if F(n) is a prime number, then n is prime too.
+
+Step 2: if F(n) is an integer and n is a prime number, then 2*n+1 is prime too.
+
+STEP 1.
+
+Given the Mersenne number M(n)=2^n-1 (exponent not notessarily prime), let A(n)=2*n+1 be its desired factor, so that F(n)=M(n)/A(n).
+
+Also define functions B(n)=2^sqrt(n)-1 and C(n)=2^(n/2)-1, which will be used later.
+
+Consider the following inequality chain:
+
+n < A(n) < B(n) < C(n) < F(n) < M(n).
+
+It necessarily holds for n large enough, because the given functions have different, increasing growth rates.
+
+More precisely, the chain actually holds for every integer n>40; the bottleneck is inequality A(n)<B(n).
+
+Proof by contradiction for n>40.
+
+Assume that F(n) is a prime number but n is composite, so that n=x*y with 2<=x<=y.
+
+As F(n) is prime, M(n) has no divisor d belonging to interval A(n)<d<F(n):
+
+if d is coprime with F(n), then d<= A(n);
+
+otherwise d must be a positive multiple of F(n), therefore d>=F(n).
+
+But, as n has the proper factor y, M(n) has the proper factor M(y)=2^y-1, belonging to the forbidden interval:
+
+n=x*y<=y^2, so y>=sqrt(n), so M(y)>=B(n)>A(n);
+
+x>=2, so y=n/x<=n/2, so M(y)<=C(n)<F(n).
+
+Contradiction, QED.
+
+Exaustive search for 0<=n<=40.
+
+F(n) is an integer for n in {0,3,8,11,15,20,23,35,36,39}.
+
+F(n) is a prime for n in {11,23}; in both cases, n is prime too.
+
+STEP 2
+
+The value F(2)=3/5 is not an integer, so let n be an odd prime. A(n) divides M(n), so:
+
+2^n == 1 mod A(n),
+
+4^n = (2^n)^2 == 1*1 == 1 mod A(n).
+
+By Miguel Pineda Martin's proof of puzzle 1133, A(n) is prime.
+
+About Q2, next prime value of sequence F(n) is F(130439),
+
+I tested prime arguments n<=200000; A(n) divides M(n) for about one thousand primes.
+
+I checked if M(n) has more small factors of the form q=2*n*k+1, with k<=10^6, excluding about 50% of candidates.
+
+Then I checked if F(n) is a Fermat 3-PRP, obtaining a positive answer for n=130439.
+
+According to factordb.com, F(130439) is actually a proven prime, with certificate uploaded by Alan Mock in February 2023.
+
+***
+
+Emmanuel wrote:
+
+Q2
+
+The sequence 11, 23, 83, 131, 3359 is A239638 in the OEIS.
+
+There we find two extra terms : 130439 and 406583.
+
+Also, in the comment lines we find that the next term (if existing) is > 500000
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

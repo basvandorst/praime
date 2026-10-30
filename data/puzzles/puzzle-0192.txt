@@ -1,0 +1,127 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_192.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 192. Reversible & Digit Complementary Prime Pairs (*)
+Source: https://www.primepuzzles.net/puzzles/puzz_192.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0192.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.geocities.com/CapeCanaveral/Launchpad/4057/primes.htm
+  https://www.primepuzzles.net/puzzles/puzz_191.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_193.htm
+  https://www.primepuzzles.net/puzzles/puzz_192.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 192. Reversible & Digit Complementary Prime Pairs (*)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 192. Reversible & Digit Complementary Prime Pairs (*)
+
+Two numbers (A,B) are said to be a 'Digit Complementary Prime Pair' (DCPP from now on) if:
+
+a) A & B are primes
+
+b) digits in corresponding positions sum to "10" or "0"
+
+Heinz example for K=4 digits in A & B:
+
+A = 4721
+
+B = 6389
+
+If we rule an additional condition for A & B, to be a reversible prime pair, Heinz provide the following example:
+
+A = 3467
+
+B = 7643
+
+This is the kind of numbers we will ask for in this puzzle: DCCP & reversible
+
+Questions:
+
+Find the smallest K digits example for:
+
+a) K=50
+
+b) K=500
+
+c) K=1000
+
+_____
+
+* The definition goes up to Charles W. Trigg, JRM 22:2, 1990, p 95-97, according to one of the prime patterns interesting page by Harvey Heinz.
+
+Solution:
+
+Sudipta Das and Jens Kruse Andersen got both the same solution for K=50 & K=500. Jens Kruse Andersen got the solution for K=1000. Here are the solutions:
+
+K | A & B
+
+50 | A=1*10^49+188229*10^27+9
+
+B=9*10^49+922881*10^27+1
+
+500 | A=1*10^499+278661944238*10^244+9 B=9*10^499+832449166872*10^244+1
+
+1000 | A=1*10^999+411369147996*10^494+9 B=9*10^999+699741963114*10^494+1
+
+***
+
+This is the approach by Andersen:
+
+I assume the "smallest" solution means the smaller of the two primes is as small as possible. Then it must have the decimal form A=10...0D0...09 where the number D (not a digit) is centered, digit complementary with itself, and as small as possible.
+
+My algorithm: Test all D from 0 to the first solution, i.e. the first time both A and B=reverse(A) are primes. I wrote a C program with the Miracle big integer library. When the first half of D's digits are chosen, the other half is given. A and therefore D always has an even number of digits for the solutions asked. I computed A and B and first trial factored them in parallel: Test if a prime divides any of them, then try the next prime. This prevents "wasted" time on one number when the other has a small factor. If no factor below 65536 is found, I make a single probabilistic test on A, and then B if A is a probable prime. When a probable solution is found I make more tests to give a high certainty. All probable primes were finally proven prime with Primo. The primality certificates were validated by Cert_Val.
+
+The trial factoring part could be much faster by only computing D mod p for each D and prime p and then look up in a precomputed table whether that modulo means A is divisible by p. If not then compute reverse(D) mod p and look up in another table whether p divides B. Assume we want a 50-digit solution and D has 6 digits. Then A=10^49+D*10^27+9. To precompute the tables use this: A mod p = ( (10^49 mod p) + (D mod p)*(10^27 mod p) + 9 ) mod p. B=9*10^49+reverse(D)*10^27+1 is similar. I estimated the simple trial division would find the 1000-digit solution within a few hours and did not bother to implement this fast version. The probable solution took around 1 hour. Primality proofs took 2.5 hours.
+
+Smallest 50-digit solution:
+
+A=1*10^49+188229*10^27+9
+
+B=9*10^49+922881*10^27+1
+
+Decimal expansions: A=10000000000000000000001882290000000000000000000009
+
+B=90000000000000000000009228810000000000000000000001
+
+Smallest 500-digit solution:
+
+A=1*10^499+278661944238*10^244+9 B=9*10^499+832449166872*10^244+1
+
+Smallest 1000-digit solution:
+
+A=1*10^999+411369147996*10^494+9 B=9*10^999+699741963114*10^494+1
+
+It would be relatively easy to compute probable solutions with 2000 or more digits but the time required for primality proofs would grow fast.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

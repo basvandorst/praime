@@ -1,0 +1,801 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: http://numberofprimenumbers.files.wordpress.com/2009/04/a-new-method1.pdf. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: http://numberofprimenumbers.files.wordpress.com/2009/04/a-new-method1.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+A New Method of Calculating the Number of Prime Numbers less than 
+a Given Quantity 
+ 
+2nd , edited and expanded edition, March 2008 
+ 
+by   Werner D. Sand 
+ 
+ 
+ 
+ 
+Index 
+ 
+ 
+Abstract     2 
+ 
+ 
+Introduction     2      
+ 
+ 
+1.  The original form     3 
+ 
+2.  Enlargement and generalization:  Sand’s summation theorem     5 
+ 
+3.  Examples and verifications     7 
+ 
+4.  Proof of the summation theorem     8 
+ 
+5.  Further generalization     9 
+ 
+6.  Comparison of certain procedures to determine the number of primes     10 
+ 
+7.  Extending the method to prime twins     12 
+ 
+8.  Extending the method to k-tuples     13 
+ 
+9.  Closing remark     15 
+ 
+ 
+Literature     15 
+ 
+ 
+ 
+ 
+_____________________________________________________________________________
+
+--- page 2 ---
+2
+Abstract 
+ 
+This is a presentation of new procedures  for calculating the number of prime numbers up to x  
+by summation of  prime powers. The idea is that the  natural numbers count themselves, the 
+prime numbers in some way do as well. Besides, the procedures are compared with existing 
+formulas. In addition to the 1 st  edition the prime twins and k-tuples are now included.  
+ 
+ 
+Introduction 
+ 
+The object of this paper is to present a new method  to determine the “Anzahl der Primzahlen 
+unter einer gegebenen Größe” (Riemann), which means  the number of primes less than a 
+given x. This is not about competition with existin g procedures, but only to increase 
+knowledge.  
+ 
+Let π (x)  be the familiar name of the (exact) number of prime numbers less than or equal to x.  
+Let  log x  be the natural logarithm of x. 
+ 
+For the calculation of π (x) there are approximate formulas, of which  
+ 
+( )x x / log x π ∼  prime number theorem,  PNT,  Gauss 
+( ) ( )x x / log x 1 π − ∼  Legendre  etc. 
+( ) ( )x Li x π ∼  logarithmus integralis,  Gauss 
+( ) ( )x R x π ∼  Riemann 
+ 
+are the best known ones. To explain the formulas see chapter 6.  Since 
+ 
+ ( )xlog x x x 1 , ≈ ⋅ −  
+ 
+the PNT can be written in the form 
+ 
+( ) x
+1x
+x 1 
+π
+−
+∼  
+ 
+and the logarithmus integralis  
+ 
+( )
+x
+n 2 
+1Li x log n == ∑  
+ 
+in the form 
+ 
+( )
+( )
+x
+n
+n 2 
+1Li x , 
+n n 1 =
+≈
+⋅ − ∑
+
+--- page 3 ---
+3
+ 
+thus 
+ 
+( )
+( )
+x
+n
+n 2 
+1x
+n n 1 
+π
+= ⋅ − ∑∼ . 
+ 
+ 
+ 
+There is full equality between the two forms, if th e results are rounded to units. Usually Li(x) is 
+written in integral form. 
+ 
+The character  ~  means asymptotic equality, i.e. t he quotient of both sides of the equation 
+approaches  1  with increasing  x.  Yet the (absolu te) difference of the sides of the equation 
+goes to infinity,  which is usually kept secret and  gives the approximation formulas only 
+fundamental importance. The formulas are suitable f or the theoretical understanding and a 
+rough estimate of dimensions, an accurate evaluatio n of the number of primes cannot be 
+expected. If authors speak of “increasing accuracy with increasing x”, this means always 
+relative accuracy. Thus the formulas offer little (absolute) accuracy at low computing time. 
+ 
+From formulas in the strict sense of the term expre ssions have to be distinguished which 
+contain e.g.  continuous summation or multiplicatio n (Σ, Π) and which should rather be called 
+“algorithms” or “calculating prescriptions”.  Examp les are the logarithmus integralis and the 
+Riemann formula.  The Hardy algorithm (1979) counts  the prime numbers even exactly. Upon 
+closer inspection these algorithms are more or less  a counting.  The “New Method” is a 
+mixture.  
+ 
+ 
+ 
+1.  The original form 
+                                             
+The “ideal“ algorithm to determine the number of pr ime numbers is to count them. Here we 
+have highest precision coupled with greatest time e xpenditure. If it may be a little more 
+inaccurate, then it will work faster.   At this poi nt a contribution by “Sabine” in the forum of 
+the German “Primzahlenseite” was useful, who posted  the surprising statement (not literally): 
+The number of prime numbers less or equal x is asym ptotically equal the sum of the prime 
+numbers up to the square root of x. In other words:  
+ 
+Statement. The sum of the prime numbers up to x equals asympto tically the number of prime 
+numbers up to x²: 
+(1.1) ( )
+x 2
+2
+p x π∑ ∼  
+ 
+ 
+Here p is less or equal x. The formula gets more exact if x is prime:
+
+--- page 4 ---
+4
+(1.2) ( )
+n 2
+i n 
+i 1 
+p p 
+=
+π∑ ∼  
+  
+Some examples show the truth of the statement:  
+ 
+  x 
+x ∑ p  π(x²)  ∑/π  
+  2    
+ 
+110  17  25   0.68  
+210  1060  1229  0.8624898291...  
+310  76127  78498    0.9697954088...  
+410  5736396  5761455  0.9956505778… 
+510  454396537  455052511  0.9985584653...  
+610  37550402023  37607912018  0.9984708008...  
+710  3203324994356  3204941750802  0.9994955426… 
+810  279209790387276  279238341033925  0.9998977551...  
+ 
+Thus there is asymptotic equality between the appro ximate and the actual number of prime 
+numbers.  
+ 
+Proof. Reflecting the assumption I noticed its similarity to 
+ 
+(1.3) ( )
+n 2
+k 1 
+2k 1 n 
+=
+− = ∑  
+ 
+I.e.: The sum of the odd numbers up to n equals n².  You can also say: The sum of the odd 
+numbers up to n equals the number of the natural nu mbers up to n². The natural numbers 
+count themselves. Do the prime numbers count themse lves in a certain way, too?  At any rate 
+there is also a relationship  between sum and quantity  and  the increase of the degree by 1  
+(n to n²).  The difference compared with the formul as (1.1) and (1.2) consists in the difference 
+between odd numbers and prime numbers only. 
+ 
+As a proof we start from the prime number theorem i ntroduced above:  π(x) ~ x/log x. It has 
+been proven several times (first in 1896 by Hadamard and de la Vallée-Poussin).  
+ 
+Furthermore one can assume the (arithmetically) average size pø of the primes up to x to be  
+ 
+  
+(1.4)    
+2
+xpφ ∼
+ 
+ 
+The exact value of pø is somewhat smaller than x/2,  but the difference is not very important, 
+since pø approximates x/2 asymptotically with increasing x.
+
+--- page 5 ---
+5
+ 
+Now the sum of the prime numbers up to x simply res ults from multiplication of the number 
+of primes by the average size:  
+ 
+ 
+(1.5)                                  ( )
+x 2 2 2
+2
+2
+x x x x p x log x 2 2 log x log x ⋅ = = π ⋅∑ ∼ ∼  
+ 
+ 
+According to PNT the outcome is the number of primes up to x², which had to be proved.   
+ 
+Another proof starts from the summation formula of the natural numbers 
+ 
+x 2
+k 1 
+x x k 2 2 = = + ∑ . 
+ 
+We „shorten“ it logarithmically according to PNT, i .e. we elect the π(x) prime numbers from 
+the x natural numbers. Its quantity is about x/log x. The right side is then shortened by the 
+same ratio, too.  Previously, we omit the summand x /2, since it is dispensable for the rough 
+order. We receive once more: 
+ 
+ (1.6)                                            
+x
+2
+x² 1 x² p (x²). 2 log x log x² π⋅ = ∑ ∼ ∼ 
+ 
+ 
+ 
+ 
+ 
+ 
+2.  Enlargement and generalization: Sand’s summation theorem  
+ 
+As already indicated, sum and number of a polynomia l of natural numbers are related to each 
+other dimensionally. If the polynomial has degree n, the interval for counting the numbers will 
+have degree n+1. This finds its clearest expression in the integration formula 
+ 
+(2.1) 
+n 1 n xx dx for n 1 n 1 += ≠ − +∫
+
+--- page 6 ---
+6
+The  sum formulas themselves show this relationship, too: 
+ 
+ 
+(2.2) 
+n 2
+k 1 
+n n k 2 2 = = + ∑  
+ 
+ 
+n 3 2 2
+k 1 
+n n n k 3 2 6 = = + + ∑  
+ 
+ 
+n 4 3 2 3
+k 1 
+n n n k 4 2 4 = = + + ∑  
+ 
+ 
+n 5 4 3 4
+k 1 
+n n n n k 5 2 3 30 = = + + − ∑  
+ 
+ ( )
+n m 1 m m m 1 
+k 1 
+n n k O n m 1 2 + −= = + + +∑  
+ 
+ 
+The last, general formula contains a residual membe r which consists of m-1 summands with 
+binomial coefficients and Bernoulli numbers which w e will prefer to avoid.  As I said, we 
+always understand the right side of the equations as the quantity of natural numbers.  
+ 
+It seems reasonable to form the correspondences for prime numbers: 
+ 
+ 
+(2.3) ( )2p O (p ) = π ∑  
+ 
+ ( )2 3 p O (p ) = π ∑  
+ 
+ ( )3 4 p O (p ) = π ∑  
+ 
+ 
+and so on,  generally: 
+ 
+ ( )n n 1 p O (p ) += π ∑
+
+--- page 7 ---
+7
+It is only one more step towards the generalization  of statement (1.1) (“Sand’s summation 
+theorem”): 
+ 
+The sum of the nth powers of primes less or equal x  is asymptotically equal to the number of 
+primes less or equal n 1 x + : 
+ 
+(2.4)  ( )
+x
+n n 1 
+p 2 
+p x +
+=
+π∑ ∼  
+ 
+ 
+Or: The number of prime numbers up to x is asymptot ically equal to the sum of the nth 
+powers of the prime numbers up to  1/(n 1) x + : 
+ 
+(2.5) ( )
+1/(n 1) x
+n
+p 2 
+x p 
++
+=
+π ∑∼  
+  
+3.  Examples and verifications 
+ 
+By the example  x=10¹⁶  the precision of formula (2.5) shall be examined in dependence of n: 
+ 
+( )
+16 10 
+16 
+p 2 
+1 10 
+=
+= π = ∑  279.238.341.033.925 exact value,  „counting“ 
+ 
+810 
+p 2 
+p
+=
+=∑  279.209.790.387.276 
+ 
+16 3 10 
+2
+p 2 
+p
+=
+=∑  278.959.908.085.255 
+410 
+3
+p 2 
+p
+=
+=∑  279.351.181.974.090 
+16 5 10 
+4
+p 2 
+p
+=
+=∑  282.984.841.298.409 
+16 6 10 
+5
+p 2 
+p
+=
+=∑  302.727.488.671.143
+
+--- page 8 ---
+8
+Obviously (see first line) one can start already with n=0: 
+( )
+x x 
+0
+p 2 p 2 
+p 1 x 
+= = 
+= = π ∑ ∑  
+and gets the exact  number of prime numbers, though at a maximum time expenditure 
+(“counting”). Following the list downwards, the pre cision decreases, the required time 
+decreasing as well. The list comes to an end at  16 / n 1 10 +  = 2, i.e. at n = 52. Then 
+52 52 p 2 Σ = = 4.503.599.627.370.496. This is the fastest but  mos t inaccurate “approximation”.  
+Between n=0 and n=52 the precision varies a lot.  
+For the practical use it may be considered with which n there is a reasonable balance between 
+accuracy and time.   This is partly a matter of tas te. In our example I would choose n=3 or 4. 
+The time expenditure decreases a lot between n=1 an d n=3, after that only slightly. The 
+difference at n=3 compared with the actual value (n=0) is 0.04 %.   
+Summary: 
+( )
+1/(n 1) x
+n
+p 2 
+x p 
++
+=
+π ∑∼  
+ 
+yields useful formulas at least for n=0,1,2,3,4 for  determining the number of prime numbers 
+below x (see also table in chapter 6). To what exte nt these observations can be generalized 
+must still be investigated.  
+ 
+4.  Proof of the summation theorem 
+Theorem:                                        ( )
+x
+n n 1 
+p 2 
+p x +
+=
+π∑ ∼    0n ∈ ℕ  
+ 
+ 
+Proof:  We start from the summation formula (2.2) in its general form: 
+ 
+  
+n m 1 m m m 1 
+k 1 
+n n k O(n ) m 1 2 + −= = + + +∑ , 
+ 
+ 
+in which the 2nd and 3rd summand can be neglected w ithout effect on the main order of the 
+equation. n is changed to x, m to n:
+
+--- page 9 ---
+9
+ 
+(4.1)                                                        
+x n 1 n
+k 1 
+xk n 1 += +∑ ∼ . 
+ 
+ 
+Again we shorten logarithmically according to PNT, i.e. we elect the π(x) ∼ x/log x primes out 
+of the x natural numbers (we multiply by the density): 
+ 
+ 
+(4.2)                                  
+x n 1 n 1 n n 1 
+n 1 
+p 2 
+x 1 x p (x ) n 1 log x log(x ) π+ + ++= ⋅ = +∑ ∼ ∼ , 
+qed. 
+ 
+ 
+5.  Further generalization 
+ 
+If we pass over from  n ϵ N₀  to  r ϵ R₀⁺  , we get to theorem 
+ 
+(5.1)                                                           ( )r r 1 
+p x 
+p x π +
+≤
+∑ ∼ . 
+ 
+The proof goes by anology to n. 
+ 
+ 
+1st example: r = 1,5 
+ 
+x rp
+p x 
+∑
+<= 
+ ( )r 1 xπ +  /π∑  
+ 
+110  37.72517861 65 0.5803873632 
+210  8143.985693 9592 0.8490393758 
+310  1893442.417 1951958 0.9700221096 
+410  453736185.7 455052511 0.9971073112 
+ 
+ 
+2nd example: r = log 2 = 0.6931471806... 
+ 
+110  10.66242971 15 0.7108286473 
+210  315.2843774 360 0.8757899372 
+310  10971.55199 11307 0.9703327134 
+410  405819.5106 407983 0.9946971089 
+510  15827149.88 15854441 0.9982786451
+
+--- page 10 ---
+10 
+ 
+ 
+ 
+Since we are dealing with real prime numbers and intervals, the possibility of gen eralizations 
+ends here. David Broadhurst drew  my  attention to  the  fact  that even negative r (r>-1) is 
+possible and reasonable. 
+ 
+ 
+ 
+6. Comparison of certain procedures to determine  the number of primes  
+ 
+The procedures compared:  
+ 
+ 
+x
+2
+1Li(x) log n = ∑  
+ 
+n
+n
+n 1 k 1 
+log (x) 1 R(x) 1 , where (n) is Riemann 's zeta function n n! (n 1) k ζζ
+∞ ∞ 
+= = 
+= + = − ⋅ ⋅ + ∑ ∑  
+ 
+( ) prime number theorem log xx xπ ∼  
+ 
+x(x) originates from Legendre, who still used th e value 1.08366 instead of 1 log x 1 π −∼  
+ 
+x
+2
+S1(x) p = ∑                                           
+3 x
+2
+S2(x) p² = ∑  
+ 
+ 
+The values in column 2. and 3. were rounded on units. 
+The values in column 1., 4., and 5. were taken from Sautoy p. 116. 
+The values in column 6. and 7. were calculated by MuPAD. 
+ 
+ 
+Under “comments“  the formula is given which comes nearest to S1 or S2. Thus S1 and S2 shall 
+be put in the context of existing formulas. The fac t that the Si tend to get more inaccurate 
+with increasing i, has already been mentioned  but can hardly be observed in this table. It is 
+well known that in general x/log x provides the mos t inaccurate and R(x) the most accurate 
+results.
+
+--- page 11 ---
+11 
+ 
+ 
+ 
+ 
+Comparison: 
+ 
+ 
+  1. 2. 3. 4. 5. 6. 7.                 
+ 
+x π(x) x/log x x/(log x-1) Li(x) R(x) S1(x) S2(x) C om. 
+           
+110  4 4 8 6 5 5 4  5,2 
+210  25 22 28 29 26 17 13 2,2 
+310  168 145 169 177 168 160 87 5,2 
+410  1.229 1.086 1.218 1.245 1.227 1.060 1.027 2,2 
+510  9.592 8.686 9.512 9.629 9.587 9.206 10.466 3,4 
+610  78.498 72.382 78.030 78.627 78.527 76.127 65.796 3 ,2 
+710  664.579 620.421 661.459 664.917 664.667 642.869 60 9.586 3,2 
+810  5.761.455 5.428.681 5.740.304 5.762.208 5.761.552 5.736.396 5.860.205 3,4 
+910  50.847.534 48.254.942 50.701.542 50.849.234 50.847 .455 50.481.978 49.345.379  3,2 
+10 10  455.052.511 434.294.482 454.011.971 455.055.614 45 5.050.683 454.396.537 455.139.960 3,4 
+11 10  4.118.054. 3.948.131. 4.110.416. 4.118.066. 4.118. 052. 4.108.749. 4.048.935. 3,3 
+ 813 654 301 400 495 732 205  
+12 10  37.607.912. 36.191.206. 37.550.193. 37.607.950. 37 .607.910. 37.550.402. 37.546.387. 3,3 
+  018 825 650 280 542 023 960 
+13 10  346.065.536. 334.072.678. 345.618.860. 346.065.645 . 346.065.531. 345.842.863. 343.650.297. 3,3 
+ 839 387 221 810 066 160 652 
+14 10  3.204.941. 3.102.103. 3.201.414. 3.204.942. 3.204. 941. 3.203.324. 3.183.524. 5,3 
+ 750.802 442.166 635.781 065.692 731.602 994.356 21 4.008 
+15 10  29.844.570. 28.952.965. 29.816.233. 29.844.571. 29 .844.570. 29.841.977. 29.822.760. 5,3 
+ 422.669 460.217 849.001 475.288 495.887 261.093 08 3.883 
+16 10  279.238.341. 271.434.051. 279.007.258. 279.238.344 . 279.238.341. 279.209.790. 278.959.908. 5,3 
+ 033.925 189.532 230.820 248.557 360.977 387.276 08 5.255 
+ 
+ 
+ 
+ 
+Both the S1 and S2 values seem to improve relativel y with increasing x. In general S1 and S2 
+stand qualitatively between Legendre and Riemann. It is certainly an interesting task to extend 
+the list by S3 and s4 values and up to higher x-areas.
+
+--- page 12 ---
+12 
+7.  Extending the method to prime twins 
+If we are to use a similar procedure for prime numb er twins  as we used for “singles”, we 
+assume that their number is infinite, which for now  must remain speculation, as a proof has 
+yet to be found. The fact that there are formulas f or the number of twins just as for single 
+primes  is not proof for infiniteness of their numb er. A prime number twin is defined by the 
+span d=2 between adjacent prime numbers: d=q-p=2, p <q. This means that (2,3) is not a twin. 
+The number of prime twins below x is represented by π 2 (x). Their simplest formula is: 
+ 
+(7.1)                                                       
+( )
+2 2( ) ~ log xx xπ  
+ 
+This is easy to see looking at the prime number the orem if one simply postulates an additional 
+prime number in the place of x. The overall probabi lity for two prime numbers in x then is 
+1/(log x)². Strictly speaking, it is a bit more tha n that, because if x is a prime, either x+2 or x-2 
+can also be prime. This is taken into account by a 2 “prime twin constant”  c 2 = 0,66016…,  so 
+the formula is now, somewhat more precisely,: 
+ 
+(7.2)                                                        
+( )
+2 2 22( ) ~ log c xx xπ ⋅ ⋅  
+ 
+Corresponding to the simple primes, there are still  other more precise formulas which to 
+elaborate would go beyond the scope of this essay. Read, for instance, what Hardy and 
+Littlewood have found on the number of k-tuples; it  corresponds to the integral logarithm 
+applying to simple primes. It should be noted at th is point that the exactitude of Sand’s 
+summation theorem is somewhere between formula 7.2 and the formula by Hardy and 
+Littlewood.  
+ 
+It still needs to be explained what it actually is we count when we count prime number twins. 
+The twin is regarded as a unit, as a double, which means it is counted only once. As our 
+intention is obviously to sum twins, we want to kno w the value of the individual twin. The 
+smaller (p) or the larger (q) partner of the two or  the arithmetic mean value (m) can be taken 
+here. Which one we choose  does not really matter f or our scheme, but we have to decide, so 
+we go for the impartial m.  Thus follows that the s um of twins here is the sum of their mean 
+values m=(p+q)/2.  
+ 
+Following these preparations, now the 
+ 
+Conjecture. The number of prime number twins below x is asympto tically equal to half the 
+sum of the prime number twins below the square root of x: 
+ 
+ 
+ 
+(7.3)                                                      ( )2
+4
+1
+2
+x
+mxπ ⋅ ∑∼
+
+--- page 13 ---
+13 
+ 
+Again a few evidences, combined with a comparison with formula 7.1:  
+ 
+ 
+x π₂(x) x/(log x)² ∑m/2 (m<√x) ∑/π₂ 
+10¹ 2 2 0 0 
+10² 8 5 5 0.625 
+10³ 35 21 35 1 
+10⁴                 205                                       118 122 0.59512195… 
+10⁵                 1224 754 1322 1.08006535… 
+10⁶                 8169 5239 6059 0.74170645… 
+10⁷                 58980    38492 52631 0.89235334 … 
+10⁸ 440312 294706 431603 0.98022084… 
+10⁹ 3424506 2328539 3310013 0.96656656… 
+10¹⁰ 27412679 18861170 27278642 0.99511040… 
+10¹¹ 224376048 155877436 222430448 0.99132884… 
+10¹² 1870585220 1309803451 1856091662 0.99225185… 
+10¹³ 15834664872 11160455444 15900559214 1.00416139 … 
+10¹⁴ 135780321665 96230457659 136419649148 1.004708 54… 
+10¹⁵ 1177209242304 838274208941 1176717615908 0.999 58237… 
+10¹⁶ 10304195697298 7367644414516 10301443659233 0. 99973292… 
+ 
+I cannot yet offer a proof of the twin version of my theorem. The problem is the factor ½. 
+ 
+ 
+ 
+8.  Extending the method to k-tuples 
+ 
+Let k be an arbitrary but firm natural number > 0. Then a k-tuple is a  set of k consecutive 
+prime numbers, where the difference between the gre atest and the smallest is a minimum. 
+The difference is even and produces more than 1 tuple. One assumes that then infinitely many 
+tuples are produced. Thus e.g. (2,3) is not a twin and (3,5,7) not a triplet. The simple prime 
+numbers are 1-tuples, the twins are 2-tuples. In th is context we disregard the structure of the 
+tuple, so e.g.  (5,7,11) and (7,11,13) are simply triplets.
+
+--- page 14 ---
+14 
+ 
+An expansion of the proceeding on k-tuples with k≧1 requires a factor c in 
+ 
+(8.1)                                                                ( ) k
+m x 
+x c m π
+<
+⋅ ∑∼     
+  
+where m is the arithmetic mean of the prime numbers concerned:  
+ 
+(8.2)                                                  ( )1 2 ... /km k p p p + + + =  
+ 
+m might as well be any other value derived from the k-tuple. 
+ 
+c is assumedly 
+ 
+(8.3)                                                         1
+1
+1 2
+2
+k
+kc −−= =  . 
+ 
+ 
+By analogy to the prime powers c is for certain ver ifiable for k=1 to 4; from k=5 upwards the 
+results scatter considerably, understandable becaus e of the increasing thinning of the tuple 
+distribution.  
+ 
+We have still to investigate the summation of tuple  powers starting from degree 2, as we did 
+with the simple prime numbers. How useful is e.g. 
+ 
+ (8.4)                                                          
+3
+12 2( ) ² 
+m x 
+x m π
+<
+⋅ ∑∼      ?          
+ 
+ 
+A verification test for x=10² to 10¹⁶ does not yield a clear result: the ratios ∑/π₂ are between  
+0.7 and 1.7, without a clear trend: a challenge for  stronger computers and programs. The 
+simple prime numbers already showed the ratios incr easing with increasing prime power. I 
+assume the k-tuples of degree 2 and more behave as well. Nevertheless we can theoretically 
+state a generalized conjecture at least for the prime number twins: 
+ 
+ 
+(8.5)                                                      
+1
+1
+12 2 4( ) 
+nx n
+m
+x m π
++
+=
+⋅ ∑∼
+
+--- page 15 ---
+15 
+ 
+Summarizing  what has been said above we come to the overall conjecture: 
+ 
+ 
+(8.6)                                             
+( )
+1/( 1) 1
+1
+2 r
+r
+k k
+m x 
+mxπ
++− <⋅ ∑∼          or 
+ 
+ 
+(8.7)                                               ( ) 1 112 rrk k m x mxπ + − <⋅ ∑∼      
+with real  r ≥ 0. 
+ 
+ 
+ 
+9.  Closing remark 
+ 
+ 
+The reasonable summation of prime numbers resp. pri me powers has certainly not come to 
+an end. The procedure seems also to be applicable e .g. to “primeth primes” (prime numbers 
+with prime index) or quite generally to “patterns”,  which are repeating sequences of  gaps 
+between adjacent prime numbers.  I ask interested p eople to participate in the subject with 
+ideas and discoveries of their own. Furthermore I a sk to tell me about maybe still existing 
+faults in this script. If there are understanding questions, I will readily answer them. Above all I 
+ask to point out other work in this field which has  been done perhaps by other means and 
+which have escaped me. I hope to have shown a littl e of the fascination which lies in the 
+addition resp. summation of numbers actually made f or multiplication, see Goldbach’s 
+conjecture.  Actually mathematics gets truly exciting not before being brushed the wrong way.     
+ 
+ 
+ 
+Literature 
+ 
+ 
+Bundschuh, Peter:  Einführung in die Zahlentheorie. 4. Aufl. Springer, 1998. 
+Du Sautoy, Marcus:  Die Musik der Primzahlen. 3. Aufl. C.H.Beck, 2004. 
+Herrmann, Dietmar:  Algorithmen-Arbeitsbuch. Addison-Wesley, 1992. 
+Hardy-Littlewood siehe:  http://mathworld.wolfram.com/k-TupleConjecture.html 
+ 
+ 
+ 
+ 
+ 
+ 
+Copyright © Werner D. Sand, May 2006 
+E-Mail: Werner.Sand@web.de

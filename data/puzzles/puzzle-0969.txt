@@ -1,0 +1,370 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_969.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 969. Rad(m - 1) = Rad(phi(m))
+Source: https://www.primepuzzles.net/puzzles/puzz_969.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0969.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A306478
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A306479
+  https://www.primepuzzles.net/puzzles/puzz_968.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_970.htm
+  https://www.primepuzzles.net/puzzles/puzz_969.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 969. Rad(m - 1) = Rad(phi(m))
+
+Problems & Puzzles: Puzzles
+
+Puzzle 969. Rad(m - 1) = Rad(phi(m))
+
+Emmanuel Vantighem sent the following nice puzzle.
+
+Let's define the radical Rad(m) of a number m by the product of the prime factors of m.
+
+Examples : Rad(12) = 6; Rad(360) = 30; ...
+
+On 16 of February 2019, in a mail to the SeqFans, Tomasz Ordowski introduced what he called 'phi-radical numbers '.
+
+These are numbers m such that Rad(m - 1) = Rad(phi(m)), where phi(m) is Euler's totient function. See A306478
+
+Here are the first such numbers computed by him :
+
+1729, 2431, 6601, 9605, 10585, 12801, 15211, 30889, 46657, 69751, 88561, 92929, 105001, 159895, 272323, 368641, 460801, 534061, 610051, 622909, 950797, 992251, ...
+
+They are all odd and squarefree but he found only one semiprime among them : m =1525781251 = p*q = 19531*78121 ; m - 1 = 2^3 * 3^2 * 5^8 * 7 * 31 ; p - 1 = 2 * 3^5 * 5 * 7 * 31 ; q - 1 = 2^3 * 3^2 * 5 * 7 * 31 ; Rad(m - 1) = Rad(p - 1) = Rad(q - 1) = Rad((p - 1)(q - 1)) = 2*3*5*7*31.
+
+He asked to find more semiprimes.
+
+It was with his permission that I pose this problem to the puzzlers of Carlos' site :
+
+Q. Find more phi-radical semiprime numbers
+
+Contributions came from Emmanuel Vantieghem, Oscar Volpatti
+
+***
+
+Emmanuel wrote on Set 8, 2019
+
+These are the solutions I found around 3 March 2019 and that I sent to Tomasz Ordowski :
+
+46526102797441*116315256993601
+
+111709172816656801*279272932041642001
+
+177635683940025046467781066894531*710542735760100185871124267578121 (*)
+
+2141993519227*34271896307617 (*)
+
+A bit alter I found also :
+
+291271*2621431 (*)
+
+45511111*409599991 (*)
+
+45953231799732552282931*229766158998662761414651
+
+At the beginning of this week I found also :
+
+57267349137931*1660753124999971
+
+42376302249137634697112108001725217391*139236421675737942576225497719954285711
+
+432489788904264079990671641791044776119402985074626865671641791*9658938618861897786458333333333333333333333333333333333333333311
+
+Then I also discovered that some of my solutions figure at the OEIS (marked with (*)) in A306479 :
+
+squarefree composite numbers m such that RAD(p - 1) = RAD(m - 1) for every prime p dividing m.
+
+That sequence has many semiprimes. But it is easy to show every phi-radical semiprime is in A306479.
+
+This follows immediately from the identity :
+
+p*q - 1 = (p - 1)*(q - 1) + (p - 1) + (q - 1) (1)
+
+since a prime divisor of p*q - 1 and p - 1 (resp. q - 1) must be in q - 1 (resp. p - 1).
+
+Here is how I found my solutions.
+
+Suppose in (1) we have Rad(p*q - 1) =Rad(p - 1) = RAD(q - 1) = R.
+
+We distinguish three kind of primes in R.
+
+kind 1 : primes a that occur in p - 1 with same exponent as in q - 1,
+
+kind 2 : primes b that occur in p - 1 with a strictly bigger exponent than in q - 1,
+
+kind 3 : primes c that occur in p - 1 with a strictly smaller exponent than in q - 1.
+
+Then, after canceling d in both members of (1) there will remain an expression of the form :
+
+L = A*M*N + B + C (2).
+
+where :
+
+A is the product of the factor of p - 1 that consists of the primes a with the similar factor of q - 1.
+
+B has only prime factors b
+
+C has only prime factors c
+
+M has only prime factors b with exponents at least one unit higher than in B
+
+N has only prime factors c with exponents at least one unit higher than in C
+
+L has only prime factors a.
+
+Of course one will have B, C coprime and rad(L) divides B + C.
+
+In order to return to (1) we must multiply both members of (2) with the factor d which is the unique number such that
+
+d*A*M*N = d*B * d*C, i. e. : d = A*M*N / (B*C) and which is automatically an integer.
+
+Of course, we shall have p - 1 = d*B and q - 1 = d*C but wether of not p and q are prime is not at all sure.
+
+A very simple example of an equation like (2) is :
+
+3^k = 2^2 * 3X + 1 + 2
+
+where you may take any odd k > 1.
+
+Here, X is always of the form (3^(k-1) - 1) / 4 (it will have 'foreing' prime factors : the ones that disappeared after dividing (1) by d),
+
+and d will be (3^(k-1) -1 ) /2.
+
+The smallest k that gives prime p and q is 541 (that solution can be seen in one of the comment lines of A306479)
+
+Here is how I found my biggest solution.
+
+I tried to have for L a number of the form 2^u * 5^v * 7^w that satisfies :
+
+2^u * 5^v * 7^w = 2*5*7*(3^2)*(67^2)*X + 3 + 67
+
+So, I constructed the set of all numbers m of that form such that (m - 70) is divisible by 3^2 * 67^2.
+
+(I examined also other combinations for B + C = 70 without obtaining a solution).
+
+***
+
+Oscar wrote on Set 13, 2019
+
+I was able to add seven more entries to the list of phi-radical semiprime numbers:
+
+m6510 = 1525781251 (known);
+
+m291270 = 763546828801;
+
+m132990 = 6031047559681;
+
+m3038070 = 184597450297471;
+
+m252210 = 732785991945841;
+
+m15170370 = 18641350656000001;
+
+m870870 = 55212580317094201;
+
+m139543170 = 9969815738350374661.
+
+This list is complete up to 1e16, but I suspect that there are no further solutions below 1e19.
+
+Useful properties.
+
+Every phi-radical semiprime number m=pq satisfies the following equality, noticed by Emmanuel Vantighem:
+
+Rad(m-1) = Rad(p-1) = Rad(q-1).
+
+Let the squarefree number r be the common radical of the numbers m-1 and phi(m);
+
+if a prime number f divides r, then it divides m-1 AND at least one factor of the product (p-1)(q-1);
+
+wlog, suppose that f divides p-1; then it divides the difference (m-1)-(p-1) = p(q-1);
+
+but f is coprime with p, so it divides q-1 too.
+
+We can summarize the constraints on m, p, q as follows:
+
+1) m = pq, with p < q;
+
+2) p is prime;
+
+3) q is prime;
+
+4) m = ru+1;
+
+5) p = rx+1;
+
+6) q = ry+1;
+
+7) Rad(u) divides r;
+
+8) Rad(x) divides r;
+
+9) Rad(y) divides r;
+
+For a given radical r, infinitely many numbers m satisfy properties 4 and 7.
+
+The numbers m in the range m < r^3 can be easily checked, because at most one pair (p,q) satisfies properties 1,5,6.
+
+Property 1 can be restated in terms of u,x,y as u = rxy+x+y;
+
+if m < r^3, then u < r^2 and xy < r;
+
+if xy = r-1 then x and y are coprime with r, violating properties 8 and 9;
+
+therefore xy <= r-2, and x+y <= x + (r-2)/x <= r-1;
+
+compute the coefficients a = u%r = x+y, b = (u-a)/r = xy;
+
+find x and y as the roots of the quadratic equation z^2 - az + b = 0;
+
+if such roots are different positive integers, check properties 2,3,8,9.
+
+Finally, the primes 2 and 3 necessarily divide r.
+
+(For all the solutions found, 5 divides r too).
+
+I'll submit the factorizations of m,p,q for the new solutions, sorted by increasing r.
+
+Solution 1
+
+r = 132990;
+
+m = 6031047559681;
+
+p = 1462891;
+
+q = 4122691;
+
+m-1 = 2^9 * 3^12 * 5 * 11 * 13 * 31;
+
+p-1 = 2 * 3 * 5 * 11^2 * 13 * 31;
+
+q-1 = 2 * 3 * 5 * 11 * 13 * 31^2;
+
+Solution 2
+
+r = 252210;
+
+m = 732785991945841;
+
+p = 6053041;
+
+q = 121060801;
+
+m-1 = 2^4 * 3^3 * 5 * 7^10 * 1201;
+
+p-1 = 2^4 * 3^2 * 5 * 7 * 1201;
+
+q-1 = 2^6 * 3^2 * 5^2 * 7 * 1201;
+
+Solution 3
+
+r = 291270;
+
+m = 763546828801;
+
+p = 291271;
+
+q = 2621431;
+
+m-1 = 2^20 * 3 * 5^2 * 7 * 19 * 73;
+
+p-1 = 2 * 3 * 5 * 7 * 19 * 73;
+
+q-1 = 2 * 3^3 * 5 * 7 * 19 * 73;
+
+Solution 4
+
+r = 870870;
+
+m = 55212580317094201;
+
+p = 121921801;
+
+q = 452852401;
+
+m-1 = 2^3 * 3^10 * 5^2 * 7 * 11^6 * 13 * 29;
+
+p-1 = 2^3 * 3 * 5^2 * 7^2 * 11 * 13 * 29;
+
+q-1 = 2^4 * 3 * 5^2 * 7 * 11 * 13^2 * 29;
+
+Solution 5
+
+r = 3038070;
+
+m = 184597450297471;
+
+p = 3038071;
+
+q = 60761401;
+
+m-1 = 2 * 3^12 * 5 * 7^4 * 17 * 23 * 37;
+
+p-1 = 2 * 3 * 5 * 7 * 17 * 23 * 37;
+
+q-1 = 2^3 * 3 * 5^2 * 7 * 17 * 23 * 37;
+
+Solution 6
+
+r = 15170370;
+
+m = 18641350656000001;
+
+p = 45511111;
+
+q = 409599991;
+
+m-1 = 2^18 * 3^2 * 5^6 * 37 * 79 * 173;
+
+p-1 = 2 * 3^2 * 5 * 37 * 79 * 173;
+
+q-1 = 2 * 3^4 * 5 * 37 * 79 * 173;
+
+Solution 7
+
+r = 139543170;
+
+m = 9969815738350374661;
+
+p = 279086341;
+
+q = 35723051521:
+
+m-1 = 2^2 * 3^6 * 5 * 13 * 43^6 * 53 * 157;
+
+p-1 = 2^2 * 3 * 5 * 13 * 43 * 53 * 157;
+
+q-1 = 2^9 * 3 * 5 * 13 * 43 * 53 * 157;
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

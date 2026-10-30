@@ -1,0 +1,252 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_003.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 3.- Erdos Conjecture
+Source: https://www.primepuzzles.net/problems/prob_003.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0003.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/problems/prob_002.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_004.htm
+  https://www.primepuzzles.net/problems/prob_003.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Problem 3.- Erdos Conjecture
+
+Problems & Puzzles: Problems
+
+Problem 3.- Erdos Conjecture
+
+N = n - 2^k =prime, for all k such that 2<=2^k <n, only for n=4,7,15,21,45,75 105)
+
+Similar to the Pomerance observation, Erdös observation got a simple relation "crowded" with primes.
+
+This conjecture has been empirically verified until 2^77 by Uchiyama & Yorinaga.
+
+Do you wan to try to extend the range ? Or to prove that there is no other numbers ? Can you construct a similar interesting question like or related with this of Erdös?
+
+(Ref. 2, p. 42)
+
+Solution
+
+At last, a first strong hit on this problem. Imran Ghory has produced (15/9/2000) an almost-solution to this conjecture showing that any further solution larger than 105 - if any - must end in 5, using an extremely simple reasoning. So the Conjecture is now reduced to deal with only one type of numbers. This is his e-mail:
+
+"I've managed to almost to prove Problem 3 (Erdos Conjecture), but I'm stuck at the final hurdle; in developing the proof I've managed to show that any further solutions have to be multiples of 165.
+
+Here's my partial proof. For ease I use the definition: lad(x)=Last digit of x. Firstly we can exclude multiples of 2, so the lad(n) cannot be {0,2,4,6,8}. When lad(n)=7, 7-(2^1) means that for every lad(n)=7 there exist a non-prime in the form 5x+2.
+
+By the same technique lad(n)=9, 9-(2^2) and for lad(n)=1, 1-(2^4) will mean that in the formula n-2^k, k has a value which means that the formula results in a multiple of 5.
+
+All values of n for which lad(n)=3 can be excluded for the following reason, if lad(n)=3, n can be expressed in the form 10x-7. If we subtract 2^3 from this equation we get, 10x-15, an equation which factorizes by 5.
+
+So we can extend our initial exclusion area to include {0,1,2,3,4,6,7,8,9}. This only leaves us with the problem of numbers which have lad(n)=5.
+
+I have only made partial progress for these numbers, I've broken the numbers left into a set of equations. In the brackets I've included the number (power of two) which needs to be subtracted in order for the equation to be factorized.
+
+15x+5 (- 2^1)
+
+15x+10 (- 2^2)
+
+55x+5 - (2^4)
+
+55x+10 - (2^5)
+
+55x+15 - (2^2)
+
+55x+20 - (2^6)
+
+55x+25 - (2^8)
+
+55x+30 - (2^3)
+
+55x+35 - (2^1)
+
+55x+40 - (2^7)
+
+55x+45 - (2^10)
+
+55x+50 - (2^9)
+
+This leaves us with only numbers which are multiples of 55 and 15, as the factors of these two numbers are 3,5 and 11 that means any value of n greater then 1024 is a multiple of 165 (3*5*11).
+
+I've tried to generalize this method to cover all numbers which are lad(n)=5 but so far my attempts haven't succeeded. Imran Ghory"
+
+***
+
+Does anybody wants to finish the task started by Imran to solve (positively or negatively) the Erdos Conjecture? Or even with this reduction the Conjecture is intractable?
+
+**
+
+Chris Nash has extended the Ghory's analysis:
+
+"Congratulations to Imran Ghory on some beautiful reasoning in Problem3! I believe Imran may well have discovered an impressive technique that could assist greatly in the search, or prove that a larger example does not exist.
+
+I thought I'd have a look closely at Imran's method and see what can be done, and I came up with the following. When Imran looks at the last digit of n, he is looking at the values of n and 2^k modulo 2 and modulo 5. Powers of 2 modulo 5 are as follows
+
+2^1=2 (mod 5)
+
+2^2=4 (mod 5)
+
+2^3=3 (mod 5)
+
+2^4=1 (mod 5)
+
+So every possible value mod 5, except 0, is 'covered'. If n takes one of these 'covered' values, then n-2^k is going to be divisible by 5 for some k. So unless n-2^k *is* 5, or that covering value for k does not satisfy 2^k<n-1, then n-2^k is not a prime. Similarly, 0 mod 2 is 'covered', so large enough solutions must be odd.
+
+I generalized Imran's method to other primes:
+
+Suppose n is a solution, Let p be an odd prime number such the numbers 2^1, 2^2, 2^3....2^(p-1) all leave a different remainder after division by p. Then all solutions - if any exist - larger than 2^(p-1)+p must be a multiples of p.
+
+That the powers of 2 leave a different remainder, translates as p divides 2^(p-1)-1, but does not divide 2^x-1 for any smaller value of x. (2 is a primitive root mod p).
+
+So I looked at http://www.cerias.purdue.edu/homes/ssw/cun/main600 to see when this occurs. Beware, these tables can be very hard to read.
+
+p=3: Yes. So all solutions after 3+2^2=7 must be multiples of 3. We quickly test the values up to and including 7, and get the two solutions 4 and 7. Larger solutions must be multiples of 3.
+
+p=5: Yes. So all solutions after 5+2^4=21 must be multiples of 5. We quickly test the values from 8 to 21. (Remember we only have to test odd multiples of 3). We find the two solutions 15 and 21. Now we know larger solutions must be multiples of 3*5.
+
+p=7: 7 divides 2^3-1. So we can't use 7 in this reasoning. (but we could use it to help see if any n-2^k is divisible by 7 - in fact you now know you only need to test n-2^1, n-2^2, n-2^3 for the factor 7).
+
+p=11: Yes. So all solutions after 11+2^10=1035 must be multiples of 11. We quickly test odd multiples of 15 from 22 to 1035, and discover the three remaining known solutions. Now we know larger solutions must be multiples of 3*5*11. This is Imran's result, all other solutions must be a multiple of 165.
+
+By now you get the idea. Now we can use the Uchiyama & Yorinaga result, that up to 2^77 has already been tested. This means we can look at all the primes up to 77 and see which ones match the condition. Here is the list of primes up to 77 satisfying that condition: 3 5 11 13 19 29 37 53 59 61 67
+
+And so I now conclude that Any other solution to the Erd\"os Conjecture must be an odd multiple of M=3*5*11*13*19*29*37*53*59*61*67=558873012475635 (and must also be larger than 2^77).
+
+Note that at each stage we find a prime p that satisfies our condition, and we know a solution must be a multiple of M. We test the multiples of M up to 2^(p-1)+p, and if no new solution is found, we increase M to M*p. Which number increases more quickly, 2^(p-1)+p for all 'possible' primes p, or M? Unfortunately the answer to that is M grows more slowly. For example, 83 is the next prime in the sequence. So to improve M by a factor of 83, it will be necessary to test all odd multiples of 558873012475635 from 2^77 to 2^82+83. The test can be made very fast but that is still billions of tests. The gap to the next prime satisfying the condition, and the number of tests needed, grows bigger and bigger. Perhaps someone might like to do this test, and improve the value of M to 46386460035477705?
+
+***
+
+In the same trend Pavlos Ask adds:
+
+"Hi. I would like to comment on the Erdos conjecture for
+
+the numbers such that n-2^k is prime for every k with
+
+2^k<n. consider an odd prime factor p of n-1.then n can
+
+be written in the form n=s*p+1.So,N=n-2^k=s*p+1-2^k. In
+
+order N is prime for every k(2^k<n) the following must
+
+hold:2^k#1modp.But we have 2^(p-1)=1mod p. this means
+
+that k<p-1(that is obvious, someone else can conclude
+
+something more interesting from that). Since all the
+
+n's up to 2^77 have been tested (as i read in the
+
+web page) we can speed any further search by checking
+
+if (n-1)/2 has a prime factor up to 73.If yes, then it
+
+cannot be the one we are looking for (all odd prime
+
+factors of n-1 must exceed 77=>they are >=79)"
+
+***
+
+The 20/9/2000, Chris Nash comments the Pavlos's contribution:
+
+I have seen Pavlos Saridis's very clever contribution, it seems this works with all the primes that are *not* included in the list I gave!
+
+So now we have some very difficult conditions:
+
+* n must be divisible by 3 5 11 13 19 29 37 53 59 61 67
+
+* n-1 must *not* be divisible by any of the other primes less than 77
+
+* and - of course
+- n-2^k is a prime for all k.
+Even Pavlos' result can be improved upon! Pavlos used the fact that 2^(p-1)=1 mod p to prove that, if p divides n-1, then one of the numbers n-2^k must be a prime. But all that is needed is that p divides 2^k-1, for some value of k less than 76. There are many primes *greater* than 77 that do not satisfy this, for example 2^7-1 is 127. So 127 divides 2^7-1. 7<77, and so 127 cannot divide n-1.
+
+In fact any of the primes listed at http://www.cerias.purdue.edu/homes/ssw/cun/main600 (currently broken 1/9/01) as factors of 2^x-1 (up to 76) or 2^x+1 (up to 38) will work, and cannot be factors of n-1 by Pavlos' method.
+
+So n-1 can have no common factor with (2^2-1)(2^3-1)(2^4-1)(2^5-1)........(2^76-1). <- I do not know whether this fact is useful to test n, though!
+
+***
+
+Roberto Botrugno has detected (17/10/2000) a relationship between the Erdös conjecture and the Twin primes conjecture. In his own words:
+
+"The Erdos conjecture establish that N = n - 2^k prime for all 2<= 2^k <n only for n = 4, 7, 15, 21, 45, 75, 105; but if there are infinitely numbers n of this form ...then the twin prime conjecture is true..."
+
+His argument runs something like this: Let's suppose there are infinite of these numbers n1, n2, n3,... named in the Erdös conjecture. For each one of these numbers n_i exists a pair of twin primes, when k=1 & k=2. Then there are infinite twin primes.
+
+His last comment is: "...Perhaps its already know, or I can have mistaken my conjecture, or its too obvious..."
+
+***
+
+Steve Whitaker wrote (May 2010)
+
+I've been considering the Erdos conjecture, that 105 is the largest number n such that n-2^k is prime for all k where 2<=2^k<n.
+
+It's probably obvious to most of your readers, but there is no finite set of primes p1, p2...pa, at least one of which divides N=n-2^k for some k. i.e. that all n can be shown to agree with the Erdos conjecture. [Consider the product p1.p2...pa or any odd multiple of it. Subtracting 2^k from that cannot produce a number divisible by any of p1...pn.]
+
+However, that doesn't mean that there aren't some infinite sets of numbers that can be shown to agree.
+
+Consider n=2^r+1.
+
+If r=0 mod 2, we can let k=1 so N=2^r-1. As 2^r=2^(r-2) mod 3, N=0 mod 3. So n is not a counter-example as long as it is greater than 2+3=5.
+
+If r=1 mod 4, we let k=3. 2^r=2^(r-4) mod 5 so N=2^1+1-2^3=0 mod 5. So n is not a counter example as long as it is greater than 2^3+5=13.
+
+If r=3 mod 4, we let k=2. N=2^3+1-2^2=0 mod 5. So N is not a counter example as long as it is greater than 2^2+5=9.
+
+So there are no counter examples apart from those known.
+
+If we add another term to get n=2^r+2^s+1, we can use the above idea combined with the Ghory/Nash idea to say that we can consider only elements with r, s between 0 and 3 and any counter example must be divisible by both 3 and 5.
+
+In tabular form:
+
+n mod 3 n mod 5
+
+r 0 1 2 3 r 0 1 2 3
+
+s s
+
+0 0 1 0 1 0 3 4 1 0
+
+1 1 2 1 2 1 4 0 2 1
+
+2 0 1 0 1 2 1 2 4 3
+
+3 1 2 1 2 3 0 1 3 2
+
+So as there is no r, s that simultaneously give n=0 mod 3 and 5, there can be no counter-example greater than 2^4+5=21.
+
+When we go to three terms, n=2^r+2^s+2^t+1, it turns out that working modulo 4 is insufficient. n=2^(4n+1)+2^(4n+2)+2^(4n+3)+1 is divisible by both 3 and 5. However, if we increase the modulus m, we can start to use additional factors so long as they divide 2^m-1. It turns out that when we go to a modulus of 60, we can cover all r, s, t = 0...59 mod 60 using factors 61, 13, 11, 5 and 31.
+
+So any counter-example must be less than 2^60+61. But we know from the work of Uchiyama & Yorinaga that there are no more counter examples in this range.
+
+So, is there always a covering set for any fixed number of terms? I speculate that this is indeed the case. Let the number of terms be z. Now the number of sets of moduli ('elements') that we need to cover is O(m^z). If we consider modulo 60, then approximately 1/3 of those elements remain after elimination using 3 as a factor, 1/5 by using 5, 4/7 by using 7 and so on. Now multiplying these together, the denominator is the product of the distinct factors of 2^m-1. The numerators are less and often they are 1 so I speculate that that we can eliminate elements by dividing by a factor of order O(a^m) with 1<a<=2. That means that whatever the value of z, we can always make m sufficiently large such that all of the elements will be eliminated. Perhaps a mathematician can take this idea further.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

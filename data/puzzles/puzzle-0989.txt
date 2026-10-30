@@ -1,0 +1,220 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_989.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 989. Smallest integer that generate at least n different primes
+Source: https://www.primepuzzles.net/puzzles/puzz_989.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0989.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_988.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_990.htm
+  https://www.primepuzzles.net/puzzles/puzz_989.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 989. Smallest integer that generate at least n different primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 989. Smallest integer that generate at least n different primes
+
+Paolo Lava sent the following nice puzzle:
+
+Take an integer k, insert it into itself and divide this number by k getting a rational x. Of course, if k has j digits you can perform j-1 divisions generating j-1 values for x.
+
+My question is: which is the smallest integer that generate at least n different primes?
+
+I made a search and here are the first three results:
+
+n = 1, k = 11, x = 101 because 1111/11 = 101.
+
+n = 2, k = 185, x = 641 and 983 because 118585/185 = 641 and 181855/185 = 983.
+
+n = 3, k = 213675, x = 1036001, 992801 and 999749
+
+because 221367513675/213675 = 1036001, 212136753675/213675 = 992801, 213213675675/213675 = 997841 (not prime), 213621367575/213675 = 999749, 213672136755/213675 = 4999933/5 (obviously not prime).
+
+Q. Can we find additional solutions for n = 4, 5, 6, etc. ?
+
+Along the week 8 to 14 February 2020, contributions came from Paul Leary, Giovanni Resta, Emmanuel Vantieghem, Oscar Volpatti
+
+***
+
+Paul wrote:
+
+Here is the first solution I found for n = 4.
+
+2710027100 Has 4 Primes {8380000001, 10000900001, 9999983801, 10000000631},
+
+From
+
+{22710027100710027100, 27102710027100027100, 27100227100271007100, 27100272710027100100}
+
+***
+
+Giovanni wrote:
+
+The smallest number that gives 4 primes is 2710027100. The multiples and
+
+the primes are:
+
+22710027100710027100 => 8380000001,
+
+27100227100271007100 => 9999983801,
+
+27100272710027100100 => 10000000631,
+
+27102710027100027100 => 10000900001.
+
+I searched for the smallest number that gives 5 primes up to 7.5*10^12
+
+without success,
+
+however, one such number, probably not minimal, is 1307189542483660 :
+
+13013071895424836607189542483660 => 9955000000000001,
+
+13071130718954248366089542483660 => 9999415000000001,
+
+13071895413071895424836602483660 => 9999999991000001,
+
+13071895424813071895424836603660 => 9999999999982001,
+
+13071895424836130718954248366060 => 9999999999999641.
+
+I found some other numbers that give 5 primes:
+
+3267973856209150, 9803921568627450, 107105370263265000,
+
+142807160351020000, 178508950438775000, 285614320702040000, etc.
+
+One that gives 6 primes: 209414435355857950000.
+
+(The primes are 965044000000000000001, 999999931168000000001,
+
+999999984424600000001, 999999999982027000001, 999999999999996463541,
+
+1000031068000000000001).
+
+And one number that gives 8 primes: 231589170445738750000.
+
+(The primes are 963598240000000000001, 998455967200000000001,
+
+999999795815920000001,
+
+999999999902500480001, 999999999997810084001, 999999999999932677841,
+
+999999999999972217577, 1000000264016800000001).
+
+***
+
+Emmanuel wrote:
+
+The number 2710027100 generates four primes : 10000000631, 9999983801, 10000900001, 8380000001
+
+It is the smallest (if I made no mistakes).
+
+The number 1307189542483660 generates five primes : 9999999999999641, 9999999999982001, 9999999991000001, 9999415000000001, 9955000000000001
+
+But I'm not sure it is the smallest.
+
+***
+
+Oscar wrote:
+
+Dear Carlos,
+
+I'll submit my findings with k<1e29 (my current searching algorithm runs out of memory for 30-digit numbers).
+
+p_m is the prime obtained inserting a copy of k after the m least significant digits of k itself
+
+n = 4;
+
+k = 2710027100 (10 digits);
+
+p_3 = 10000000631;
+
+p_4 = 9999983801;
+
+p_6 = 10000900001;
+
+p_9 = 8380000001;
+
+n = 5;
+
+k = 1307189542483660 (16 digits);
+
+p_2 = 9999999999999641;
+
+p_4 = 9999999999982001;
+
+p_7 = 9999999991000001;
+
+p_11 = 9999415000000001;
+
+p_13 = 9955000000000001;
+
+n = 6;
+
+k = 209414435355857950000 (21 digits);
+
+p_6 = 999999999999996463541;
+
+p_10 = 999999999982027000001;
+
+p_13 = 999999984424600000001;
+
+p_14 = 999999931168000000001;
+
+p_17 = 1000031068000000000001;
+
+p_19 = 965044000000000000001;
+
+n = 8;
+
+k = 231589170445738750000 (21 digits);
+
+p_7 = 999999999999972217577;
+
+p_8 = 999999999999932677841;
+
+p_9 = 999999999997810084001;
+
+p_11 = 999999999902500480001;
+
+p_14 = 999999795815920000001;
+
+p_15 = 1000000264016800000001;
+
+p_18 = 998455967200000000001;
+
+p_20 = 963598240000000000001;
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

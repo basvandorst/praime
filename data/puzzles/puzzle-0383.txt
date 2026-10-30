@@ -1,0 +1,265 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_383.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 383. Brougnard sequences.
+Source: https://www.primepuzzles.net/puzzles/puzz_383.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0383.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.echolaliste.com/gbnums/gb1.jpg
+  http://www.echolaliste.com/gbnums/gb2.jpg
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_382.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_384.htm
+  https://www.primepuzzles.net/puzzles/puzz_383.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 383. Brougnard sequences.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 383. Brougnard sequences.
+
+Jacques Tramu sent the following interesting puzzle:
+
+I found in an old paper by G. Brougnard the following sequence of primes (in french "suite de Brougnard"), which may be interesting to your prime puzzlers.
+
+The gb[n] sequence definition is the following :
+
+1) gb[0] = starter = any prime > 2
+
+2) computation of gb[n+1]
+
+let p : = gb[n]
+
+if p = 2 (mod 3)
+
+then p := (p-1)/2 ;
+
+else p := p * 2 ;
+
+gb[n+1] := next prime > p ;
+
+Remark : The sequence 7 17 11 7 .. is periodic.
+
+Definitions:
+
+A gb-sequence is convergent if gb[n] = 7 for some n . The sequence stops at n . Its length is n+1.
+
+A sequence which is not convergent is divergent .
+
+Examples :
+
+gb[0]=23, then {23, 13, 29, 27, 11, 7} (length 6)
+
+gb[0]=281, then {281, 149, 79, 163, 331, 673, 1361, 683, 347, 179, 97, 197, 101, 53, 29, 17, 11, 7} (length 18)
+
+pictures: 1, 2
+
+Questions.
+
+Q1. What is the larger length you can find for a convergent gb-sequence ?
+
+Q2. What is the larger starter value you can find for a convergent gb-sequence ?
+
+Q3. What is the larger starter value S you can find such as for any starter <= S all gb-sequences are convergent ?
+
+Q4. Are there sequences gb[0]... gb[n] such as gb[n] = gb[0] , and gb[0] > 17 ? (periodic sequences)
+
+Q5. Is there an infinite number of convergent sequences ? An infinite number of divergent sequences ?
+
+Contributions came from Anton Vrba, B. Boncompagni & J. Wroblewski,
+
+***
+
+Wroblewski wrote:
+
+Regarding Puzzle 383:
+
+Q1.
+
+Farideh suggested me to start with 2501833.
+
+I have used C with gmp mpz_nextprime routine on a 64-bit computer.
+
+The sequence is in:
+
+http://www.math.uni.wroc.pl/~jwr/pp383/f.txt
+
+Note that I have started numbering terms of the sequence from 1 instead
+
+of 0.
+
+Then I was able to find:
+
+http://www.math.uni.wroc.pl/~jwr/pp383/j.txt
+
+which falls into beginning of Farideh's sequence.
+
+My goal is to find a sequence 1,000,000 terms long, so I am trying to
+
+find a sequence which would fall into the begining of the sequence in
+
+j.txt. Unfortunately it will most likely start with a very large term.
+
+Q2-5. I believe that all the sequences are convergent and that there are
+
+no periodic sequences with terms over 17 and moreover I believe noone
+
+will ever prove those claims.
+
+...
+
+Here is my final sequence for Puzzle 383, Question 1.
+
+It comes from putting together 3 sequences:
+
+http://www.math.uni.wroc.pl/~jwr/pp383/m.txt
+
+http://www.math.uni.wroc.pl/~jwr/pp383/j.txt
+
+http://www.math.uni.wroc.pl/~jwr/pp383/f.txt
+
+the last one having starting point suggested by Farideh.
+
+In the files you will find indices together with terms - only terms with
+
+indices divisible by 1000 are reported (also some starting and ending
+
+terms are included).
+
+I have started numbering the terms from 1 instead of 0.
+
+The sequence M starts with
+
+M(1) = 214454067756691347809297997811471503569947533403788989003669094960113749683
+
+080579721707820056537994639493885125453442129276854991981893942069773550759769026
+
+098605936229560221990917712971148299390166534453098783745065431878279697477626132
+
+044803967009588605392355132211787896976995017792743567388330476833866519
+
+The sequence J starts with
+
+J(1) = 22005865332386878933
+
+and we have
+
+J(5) = M(670683) = 352093845318190063331
+
+The sequence F starts with
+
+F(1) = 2501833
+
+and we have
+
+F(5) = J(429980) = 10007401 = M(1100658)
+
+The sequence F ends with
+
+F(390045) = 7 = M(1490698)
+
+Hence we have the sequence M with 1490698 terms.
+
+***
+
+B. Boncompagni wrote:
+
+Q1. The sequence starting with 2501833 returns to 7 after 389754 steps
+
+(counting may be wrong by a couple of units due to the process I used to
+
+calculate the sequence) and having reached 311 digits at step 289183.
+
+Q2-Q3. I don't think there are divergent sequences. If we consider the
+
+way we construct a new term, it is clear that the 3-residual may be
+
+considered random. Also, you will get a value which, for large numbers,
+
+is only a tiny bit* more than the double or the half of the previous
+
+term. That means that every second term we have a 50% chance of
+
+returning to (two tiny bits* more than) the same number, and a 25% each
+
+to get it halved or doubled. This is a typical binomial behavior for
+
+which probabilistic analysis says that the chance to get to infinity is
+
+zero: it is logically the same as tossing a coin an infinity of times
+
+and betting on a chance that we will always have more heads than tails.
+
+Q5. That said, the 3-residual might not be random and we might
+
+eventually find a way to construct an infinite sequence: in that case,
+
+we will obviously have an infinity of divergent sequences because every
+
+term in the sequence would start the same infinite sequence. The problem
+
+about the infinity of convergent sequences remains open.
+
+Q4. Because of the binomial behavior and of the fact that we actually
+
+move a tiny bit* forward at every step, the larger the number we start
+
+from, the more unlikely it is to reach a number we have already visited
+
+even with a huge quantity of steps (you will need at least n/log(n)
+
+steps if alternating up and down), so I don't believe any more recurring
+
+sequence exist.
+
+* the average distance between the consecutive primes n-a and n+a is
+
+log(n), so the "tiny bit" should be of the order of magnitude of log(n)/2.
+
+***
+
+Anton wrote:
+
+The question to ask is "do divergent sequences exist at all?" For example the
+
+sequence starting with the twin prime 1000289 converges in 30 steps but the
+
+sequence starting with its twin, 1000291, finally converges to 17 after 25715
+
+steps and series terms growing as big as 106 digits (at step 16526).
+As there are many similar examples for adjacent primes one could speculate that
+
+every sequence finally converges to 17. There is no way in determining if a sequence
+
+is divergent other than using infinite computing power.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

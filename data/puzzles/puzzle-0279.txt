@@ -1,0 +1,124 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_279.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 279.  Faride Firoozbakht asks for the next term.
+Source: https://www.primepuzzles.net/puzzles/puzz_279.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0279.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_278.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_280.htm
+  https://www.primepuzzles.net/puzzles/puzz_279.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 279. Faride Firoozbakht asks for the next term.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 279. Faride Firoozbakht asks for the next term.
+
+Faride Firoozbakht asks for the next term in the following two alike sequences:
+
+1) 17, 73, 2475989, ?
+
+Here 17 = p(1*7); 73 = p(7*3) and so on...
+
+2) 14, 154, 1196, 279174,?
+
+Here 14 = p(1)*p(4); 154=p(1)*p(5)*p(4), and so on...
+
+In both sequences p(i) represents the i-th prime.
+
+Solution:
+
+Contribution came from Sambit Nayak and Jim Fougeron:
+
+I tested all primes (> 2475989), up to the 200,000,001 th prime. (The 200,000,001 th prime is 4,222,234,763.) But I could not find any prime satisfying the property of the sequence. Based on these results, I guess that there is no other term in the sequence.
+
+***
+
+Faride reports the following:
+
+Next term of the sequence A097223 (17,73,2475989,...) is greater than 12207648773 and the next term of the sequence A097227 (14,154,1196,279174,...) is greater than 11400000000.
+
+***
+
+Jim Fougeron found no solution for part 1) up to 12B and for part 2) up to 10^64. Here is his email:
+
+I checked part a up to about 12B. No good values found.
+
+For part b, I started a "slow" search, then realized that I could speed things up significantly. My method is this. First, we are simply looking for "good" permutations of mixed base numbers. I will show (in decimal) the pattern that gets all usable permutations:
+
+1111
+
+1112
+
+1113
+
+...
+
+1119
+
+1122
+
+1123
+
+1124
+
+...
+
+1129
+
+1133
+
+1134
+
+...
+
+1199
+
+1222
+
+1223
+
+...
+
+9999
+
+As you can see, 0's are not used (they are invalid). Also, we skip from 1119 to 1122. This is because 1120 has a zero. 1121 is 1112, and thus a dup. Also, keep in mind that the decimal representations shown above (say 1123) are actually in base prime, this 1123 is 2*2*3*5 which we will be computing, and converting back to base 10.
+
+Using the above method, I created a program which would start from the 1111.....111 value, and compute this in base-prime (vs in base 10). I then created a function that is sent a "base" digit, and the result digit, and the would update the "base-prime" number. Thus, if computing the current number, 33355556 (which is 5^3*11^4*13), the next number would be 3335557, I would simply call the function passing it 13 and 17. Thus 13 is divided out, then 17 is multiplied in (since p(6)=13 and p(7)=17).
+
+At each step, this "base-prime" number is converted into a base-10 number. This was only done if the number was "in range" (i.e. had the same number of decimal digits as we are using. Thus, if the base-10 number of 5^3*11^4*17 contained the digits 33355556, (it is 31112125) then we have success. These digits can be in any order, but ALL must be accounted for, with no extras. A quick check is during the base-10 conversion, if there are any '0' digits, then abort, as there can be no 0's due to p(0) not making since.
+
+I have checked up to 9999999..999*10^64 with no successful values. The 10^64 stopping point was due to the time the program was taking to run, and due to I was using a 64 bit integer to track which digits were used, while searching between the original "permutation" base-10, and the base-10 from the base-prime to base-10 conversion. I could easily write the program to handle more than 64 digits, but I imagine this puzzle will be very hard to find the next value. That value might have 1000's of digits (just a wild guess, as it could have only 65 digits :)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

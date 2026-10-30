@@ -1,0 +1,137 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1241.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1241 Floor[n^2/3] is composite for all n>4
+Source: https://www.primepuzzles.net/puzzles/puzz_1241.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1241.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A000212
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1240.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1242.htm
+  https://www.primepuzzles.net/puzzles/puzz_1241.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1241 Floor[n^2/3] is composite for all n>4
+
+Problems & Puzzles: Puzzles
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1241 Floor[n^2/3] is composite for all n>4
+
+Sebastián Martín Ruiz sent the following interesting puzzle:
+
+Prove that Floor[n^2/3] is composite for al n>4. OEIS A000212.
+
+Mr Martín Ruiz claims he has a formal proof of this.
+
+Q. Send your proof or find a counterexample.
+
+From Oct 11-17, 2025, contributions came from Ivan Ianakev, Emmanuel Vantieghem, Michael Branicky, Adam Stinchcombe, Gennady Gusev, Adam Stinchcombe
+
+***
+
+I
+van wrote:
+The proof is very simple if we start with Jon Perry's observation at A000212 (dated Sep 10 2012). After a case analysis we see that:
+
+1. If n is congruent to 0 mod 3, then 3 divides a(n);
+
+2. If n is not congruent to 0 mod 3, then (y-1)(y+1) is divisible by 2 or 3, so a(n) is composite again.
+
+***
+
+Emmanuel wrote:
+
+Proof.
+
+Let F(n) = Floor(n^2 / 3).
+
+When n = 3k then F(n) = 3k^2, composite when k > 1.
+
+When n = 3k + 1 then F(n) = Floor(3k^2 + 2k + 1/3) = 3k^2 + 2k, composite when k > 1 .
+
+When n = 3k + 2 then F(n) = Floor(3k^2 + 4k + 1 + 1/3) = (k + 1)(3k + 1), composite for k >= 1.
+
+Thus, F(n) is composite for n > 4, QED.
+
+***
+
+Michael wrote:
+
+I first quickly checked that there were no counterexamples 4 < n <= 10^9 using computer search (~6 min). Then, I turned to proof. It is easy to prove the statement is true by reasoning over the three cases for n mod 3. Indeed, a Google search on [prove that Floor[n^2/3] is composite for all n>4] quickly proved this, which I checked, finding no flaw. A screenshot of its proof attached. (NB by CR: the proof is similar to the sent by Emmanuel and others)
+
+****
+
+Adam wrote:
+
+You can prove this on a case by case basis. If n=3k then n^2/3 = (3k)^2/3 = 3k^2 which is composite for k>1. If n=3k+1, n^2/3 = (3k+1)^2/3 = (9k^2+6k+1)/3 = 3k^2 + 2k + 1/3 which has a floor of 3k^2+2k = k(3k+2) which is composite for k>1. Finally, if n=3k+2, n^2/3 = (9k^2 +12k + 4)/3 = 3k^2 +4k +4/3 which has a floor of 3k^2 + 4k + 1 =(k+1)(3k+1) which is composite for k>=1.
+
+***
+
+Gennady wrote:
+
+Note that floor(integer+1/3)=integer.
+
+Consider 3 cases for n.
+
+1. n=3*k.
+
+(3*k)^2/3=3*k^2. Composite for k=2,3,4.. -> n=6,9,12,...
+
+2. n=3*k-1.
+
+floor((3*k-1)^2/3)= (subtract 1 and add 1)
+
+=floor(((3*k-1)^2-1+1)/3)=floor((3*k-2)*3*k/3+1/3)=floor((3*k-2)*k+1/3)=(3*k-2)*k.
+
+Composite for k=2,3,4.. -> n=5,8,11...
+
+3. n=3*k-2.
+
+floor((3*k-2)^2/3)= (subtract 1 and add 1)
+
+=floor(((3*k-2)^2-1+1)/3)=floor(((3*k-3)*(3*k-1))/3+1/3)=floor((k-1)*(3*k-1)+1/3)=(k-1)*(3*k-1).
+
+Composite for k=3,4.. -> n=7,10,13...
+
+Result: floor(n^2/3) is composite for all n>4.
+
+***
+
+Adam wrote:
+
+Conjecture: for each sufficiently large D (maybe D>16) and for each A there is an N>A such that floor(N^2/D) is prime. In other words, "all composite" only happens for select few denominators.
+
+My candidate D that have tail end all composite are {1,2,3,4,5,8,12,16}.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

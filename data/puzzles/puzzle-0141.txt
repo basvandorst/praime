@@ -1,0 +1,228 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_141.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 141.  Smarandache Prime Base representation of the natural
+numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_141.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0141.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.gallup.unm.edu/~smarandache/bases.txt
+  http://www.gallup.unm.edu/~smarandache/snaqint.txt
+  http://oeis.org/classic/A066352
+  https://www.primepuzzles.net/puzzles/puzz_140.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_142.htm
+  https://www.primepuzzles.net/puzzles/puzz_141.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 141. Smarandache Prime Base representation of the natural numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 141. Smarandache Prime Base representation of the natural numbers
+
+María T. Marcos from Philippines, some days ago sent an unsolved and very nice problem related to the Smarandache Prime Base (SPB) representation of the natural numbers.
+
+The SBP is the ordered infinite set of the prime numbers proceeded by the number 1:
+
+SBP={1, 2, 3, 5, 7, 11, 13, ...}
+
+A formal and rigorous explanation of a "representation" of any natural number n in the SPB can be found here, but I will explain this "representation" with an example:
+
+Let's suppose that n = 27, then you partition 27 as a sum of the prime less or equal to 27 plus its complement (n = p + c):
+
+27 = 23 + 4
+
+If the complement is "0" or any of the members of the SPB set you have done it; if not you repeat and find the partition to the complement:
+
+4 =3 +1 (Done!)
+
+Then 27 = 23 +3 +1, and the representation of 27 in the SBP is a string of bits informing you what primes enter in the partition of n:
+
+27 = 1x23+0x19+0x17+0x11+0x7+0x5+1x3+0x2+1x1 = 100000101
+
+Evidently the k-th prime number is represented in this system as 1(0)_k.
+
+The representation of the first 27 natural numbers in the SPB system is this:
+
+0, 1, 10, 100, 101, 1000, 1001, 10000, 10001, 10010, 10100, 100000, 100001, 1000000,
+1000001, 1000010, 1000100, 10000000, 10000001, 100000000, 100000001, 100000010, 100000100, 1000000000, 1000000001, 1000000010, 1000000100, 1000000101 (primes are in bold type)
+The María's question is this:
+
+1. What is the integer with the largest number of digits "1" in this base?
+
+***
+
+By my own, I have calculated the earliest numbers n that uses K digits "1":
+
+K, quantity of digits "1" in the SPB representation of n | Earliest n(K) | Partition
+
+0 | 0 | 0=0
+
+1 | 1 | 1=1
+
+2 | 4 | 4 =3+1
+
+3 | 27 | 27=23+3+1
+
+4 | 1354 | 1354 =1327+23+3+1
+
+5 | ?
+
+2. Can you extend the table?
+
+In the meanwhile that someone can get the earliest n(K) I would like to advance two things:
+
+A.- Theoretically n(5) should be around 1.7962*10^17.
+
+3a) Can you explain where comes from this value, or provide another estimate?
+
+B.- I have gotten one solution for K=5, but definitively NOT the earliest because the n value obtained has 102 digits against the 18 digits forecasted. The only purpose of this solution is to show that solutions exist, and to show a way of effectively calculating n(5):
+
+n = p+1327+23+3+1, such that
+
+p = prime, digits(p) = 102
+
+8504785885678623175211676442399260102885846081207962358864307633885
+
+88680378079017697279999999999999249
+
+n - p = 1354
+
+There is not any prime between n & p (as a matter of fact the total prime gap after p is 1608)
+
+3b) Can you devise how I calculated p and/or improve it (to get a smaller solution for K=5)?
+
+4. Suppose that someone obtains the real earliest n(5) and that its value is according to the theoretical forecast (n(5) ~ 1.7962*10^17 ). Can you estimate the magnitude order of n(6)?
+
+N. B: Last but not least: Gentlemen, please say all of us Welcome! to María T. Marcos, the first woman puzzler of our pages.
+
+***
+
+________________________
+
+References:
+
+[1] Dumitrescu, C., Seleacu, V., "Some notions and questions in number theory", Xiquan Publ. Hse., Glendale, 1994, Sections #47-51; http://www.gallup.unm.edu/~smarandache/snaqint.txt
+
+[2] Grebenikova, Irina, "Some Bases of Numerations", <Abstracts of Papers Presented at the American Mathematical Society>, Vol. 17, No. 3, Issue 105, 1996, p. 588.
+
+[3] Smarandache Bases, http://www.gallup.unm.edu/~smarandache/bases.txt
+
+Solution
+
+Regarding the Maria's question (1) Chris Nash wrote:
+
+"...it is certain n(k) exists for every k, we just need to find a big enough gap (and of course we can use things like n!+2, n!+3..... n!+n to know gaps of any size do exist and so a gap exists that is bigger than the previousn(k)).
+
+A similar idea was expressed by Key Toshihara from Osaka, Japan:
+
+"...there are numbers with as many as we want digits of "1". I base my reasoning on the fact that fact that the gap between any two consecutive prime can be as much as we want..."
+
+Chu Lai, from Beijing, China wrote simply: "The problem has infinitely many solutions."
+
+***
+
+Regarding the theoretical estimate for n(5)- question 3a - Chris Nash and Jud McCranie argued basically the same:
+
+"The number for k=5 must be after a prime gap > 1354. (If it were a smaller gap, the number minus the largest prime less than it would be < 1354, so less than four more primes would be needed to represent it, so it wouldn't require five primes.) There is an estimate of where the first gap of size G occurs - e^(r*sqrt(G)), where r is a constant about 1. For gaps currently known, r is about 1.1 to 1.13. Using G=1356, r=1.1 to 1.13, we get an estimate of 3.9E17 to 1.2E18." (Jud)
+
+A similar reasoning come from Felice Russo.
+
+But only Chris Nash discovered how I calculated my solution for K=5 (Question 3.b):
+
+"...When I wrote last time I did not see where it came from. Then I saw all the 9's and I thought to round up to the number ending in many zeroes.... which is N=2^67*3^32*5^16*7^11*11^6*13^5*17^4*19^3*23^3*29^2*31^2*37*41*43*47*53 *59*61*67*71 Oh! I think I see it :) That is 71! So we test N-1 and N+1 (they are composite) and so we certainly are in a large prime gap (*at* least from N-71 to N+71). So then we seek for two primes N-a and N+b to work out the exact gap size? I am guessing you tested all the factorials up to 71 and finally this one produced a big enough gap... That gives me some search ideas :)"
+
+***
+
+The order of magnitude of n(6) - question 4 - was estimated by Jud and Chris:
+
+"...Well, I'll take n(5)=10^16 as an easy estimate and now what's needed is the first prime gap of size 10^16, and so p ~ exp(sqrt(M)) = exp(10^8) which has over 43 million digits..." (Chris)
+
+"...This gets really large, and the estimate is very imprecise because it is based on another estimate. But assuming that n(5) is about 3.9E17, we need a gap that large to have n(6), so it would probably be at least e^(sqrt(3.9E17)), a number with more than 271,000,000 digits." (Jud)
+
+Felice Russo wrote "...the magnitude of term n(6) should be very big being: n(6)~exp(sqrt(1.165746*1.82222*10^17))
+
+***
+
+I asked to Chris for an estimate when - in the future - n(6) could be effectively calculated. This is his answer:
+
+"I do not know. Unless there is new theory, finding just *one* prime of D digits takes time that grows faster than D^3. So it would take a million times as long. Perhaps in 30 years time our computers will be a million times faster, so perhaps in 2031 someone will find the *first known* two hundred million digit prime. But that is just for *one* prime!
+
+But finding these gaps (and finding the smallest prime with a given gap) is *much* harder (because all the other gaps before it need to be checked?). Today I think the gap tables are only complete to about 1100, and this seem to takes time that grows with N, not with digits - so who knows, perhaps even the *smallest* n(5) solution is difficult. We may have to settle for *the smallest known*"
+
+***
+
+So, after all these smart collaborations the only question remaining is to calculate the earlier n(5). For this we need really brave people. Of course that we may accept - in the mean while - smaller solutions than the one I got.
+
+***
+
+But the SPB has some attraction here and there.
+
+Key Toshihara asked "...find numbers in Smarandache prime base whose digits are equal to "1" only, what is the largest such number...".
+
+Motua Guang, form Cairo, Egypt ask for "...the biggest pierced number in the SBP..." [a pierced number is any number 1(01)_n, n=odd ].
+
+I believe that after the discussion above over the numbers n(k), easy answers can be given to both questions.
+
+***
+
+Charles Greathouse wrote (Aug, 2010):
+
+1. The fifth term is 401429925999155061 = 401429925999153707 + 1327 + 23 + 3 + 1. This was independently calculated in 2007 by Richard Mathar and Florian Luca & Ravindranathan Thangadurai, both using Thomas Nicely's tables.
+
+See http://oeis.org/classic/A066352 and Florian Luca & Ravindranathan Thangadurai, "On an arithmetic function considered by Pillai", Journal de théorie des nombres de Bordeaux 21:3 (2009), pp. 695-701.
+
+2. The problem does not originate with Smarandache! It was considered
+
+by Pillai 80 years ago in his paper "An arithmetical function
+
+concerning primes" (Annamalai University Journal (1930), pp. 159–167.)
+
+3. In the above paper, Pillai answers María's question: arbitrarily
+
+many primes may be needed.
+
+4. Pillai proved several interesting results about the sequence not on
+
+the page. For example, O(log n) primes are needed to represent n.
+
+5. Florian Luca & Ravindranathan Thangadurai (2009) improve on
+
+Pillai's results. In particular, O(log log n) primes are needed to
+
+represent n.
+
+6. On Cramer's conjecture (or Maier's version), the number of primes
+
+required is O(log* n), where log* is the iterated logarithm.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

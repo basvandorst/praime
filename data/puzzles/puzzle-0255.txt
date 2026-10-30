@@ -1,0 +1,254 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_255.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 255.  k*p+1
+Source: https://www.primepuzzles.net/puzzles/puzz_255.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0255.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://primes.utm.edu/curios/ByOne.php?submitter=Luhn
+  http://primes.utm.edu/curios/page.php?number_id=648
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_254.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_256.htm
+  https://www.primepuzzles.net/puzzles/puzz_255.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 255. k*p+1
+
+Problems & Puzzles: Puzzles
+
+Puzzle 255. k*p+1
+
+Norman Luhn has published that:
+
+2481129210 x p - 1 is prime for p = 2, 3, 5, 7, 11, 13, 17, 19, 23 or 29 (the first 10 primes!)
+
+But I have not found the counterpart to this curio, that is to say what is the minimal k value such that k.p +1 is prime for the first 10 primes p.
+
+Q. Can you find such k earliest value?
+
+Solution:
+
+Contributions came form Patrick De Geest, Adam Stinchcombe, Jon Wharf, Faride Firoozbakht, J. C. Rosa and Ken Wilke.
+
+Patrick and Faride just found that the asked question was solved by the sequence A084700 reported by Amarnat Murphy, and then k= 37202202450
+
+Stinchcombe, Rosa and Wilke devised a smart approach in order to calculate not by an exhaustive search the asked question:
+
+Stinchcombe wrote:
+
+I find k=37202202450 as the first value. I first sieved and found 25200 values of k mod m=2*3*5*7*11*13*17*19*23 which were good candidates for k (i.e., had k*p+1 divisible by neither 2,3,5,7,11,13,17,19, nor 23), then searched the residues classes for actual values of k. I did not include the factor 29 in the modulus because of concern over memory requirements.
+
+Rosa wrote
+
+I have found that the minimal k value such that k.p+1 is prime for the first 10 primes is: k=37202202450=2.3.3.3.3.5.5.7.17.77191... I have found the minimal k value such that k.p+1 is prime for the first 11 primes . It is : k=148684126500 = 2.2.3.3.3.3.5.5.5.7.13.40343 ... I have found the minimal k value such that k.p+1 is prime for the first 12 primes p . Here it is : k=2258581791060=2.2.3.3.5.7.7.971.263723
+
+Here is my approach of this problem :
+
+a) k is an even number .Indeed if k is odd , 3.k+1 is even.
+
+b) k=0 mod 3. Indeed if k=1 mod 3 , 2.k+1=0 mod 3, if k=2 mod 3 , 7*k+1=0 mod 3
+
+c) k=0 mod 5 . Indeed if k=1 mod 5 , 19*k+1=0 mod 5
+
+if k=2 mod 5 , 2*k+1=0 mod 5
+
+if k=3 mod 5 , 3*k+1=0 mod 5
+
+if k=4 mod 5 , 11*k+1=0 mod 5
+
+d) k=0 mod 7 . Indeed if k=1 mod 7 , 13*k+1=0 mod 7
+
+if k=2 mod 7 , 3*k+1=0 mod 7
+
+if k=3 mod 7 , 2*k+1=0 mod 7
+
+if k=4 mod 7 , 5*k+1=0 mod 7
+
+if k=5 mod 7 , 11*k+1=0 mod 7
+
+if k=6 mod 7 , 29*k+1=0 mod 7
+
+Therefore k is of the form : k=210*m.
+
+Over more for the first 10 primes , we have :m=0;1;6 or 8 mod 11 the first 11 primes, we have : m=0;1 or 8 mod 11 the first 12 primes , we have : m=0 or 1 mod 11
+
+Wilke wrote
+
+The smallest value I've found which satisfies the conditions of the problem is 37202202450; i.e. 37202202450*k + 1 is prime for k = 2, 3, 5, 7, 11, 13, 17, 19, 23 and 29.
+
+Let P denote the product of 2k + 1, 3k + 1, 5k + 1, 7k + 1, 11k + 1, 13k + 1, 17k + 1, 19k + 1, 23k + 1 and 29k + 1. Then considering the residues of the individual factors (mod r) for r = 2, 3, 5 and 7, it is easy to show that the product is divisible by 2, 3, 5 or 7 unless k is a multiple of 2*3*5*7 = 210. Then one can easily set up code which tries multiples of 210 as possible values of k and generates the product P. Then if
+
+gcd(P,6469693230) > 1, we proceed to the next value of k. (6469693230 is the product of the first 30 primes.)
+
+Then one sets up a sieve for each factor using a Fermat theorem test. The value of k = 210*177153345 = 37202202450. The corresponding values of each factor of P are 74404404901, 111606607351, 186011012251, 260415417151, 409224226951, 483628631851, 632437441651, 706841846551, 855650656351 and 1078863871051. That each of these is prime was verified using UBASIC's ecmx program.
+
+***
+
+Warf found by his own calculations the asked solution k= 37202202450 "...It was a numerical search but taking advantage of the same sieving that Rosa described."
+
+***
+
+Phil Carmody wrote:
+
+"Next 3 terms 148684126500 and 2258581791060 and 161082438032880 [8/3/04]"
+
+Later - the same day - he added:
+
+"and another, number 14: 24581646307811670 "
+
+Then almost one month later, he wrote again:
+
+"I accidentally left my program running for several weeks (maybe a month!) I was only searching for 14s, but found 3 15s in the process!
+
+Here are all the 14s:
+
+24581646307811670
+
+39055674088756710
+
+79565092682014170
+
+187231486701238980
+
+262260412776497520
+
+472549586664565410
+
+656422023176535000
+
+732677307101562900
+
+1095883279219325520
+
+1183192161007235610
+
+1229573338316071980
+
+1264128917439090780
+
+1280383876469553240
+
+1581963212913969270
+
+1652784273771770370
+
+1782603781183482180
+
+1844573648776946010
+
+1931039388156287640
+
+1953226765141191540
+
+2187367341150106500
+
+2226258759701725980
+
+2449882138257641010
+
+2520231288741469380
+
+2626881197880169230
+
+2779573811003028270
+
+2791365043355648760
+
+2810623488909071220
+
+3345387534651517740
+
+3570758835454976550
+
+4002123460460010270
+
+4139477891763459630
+
+4252710523844502720
+
+4330249453053989850
+
+4641402144052983540
+
+4745139032813999820
+
+4946661784515169950
+
+5459821650103770180
+
+5498746144270604610
+
+5531940030180466980
+
+6008290332226475370
+
+6044330330247476190
+
+6158034781993229520
+
+7382603195510539920
+
+7437473314587686370
+
+7463014630493124780
+
+8452739497646953740
+
+8465448552769897920
+
+8686873456895340630
+
+9311435976194437470
+
+9488427197189043180
+
+9993949639276952580
+
+10055870246010922410
+
+11873020883253483030
+
+12062272620328140210
+
+12272321084015751990
+
+of which
+
+2791365043355648760
+
+1183192161007235610
+
+8686873456895340630
+
+are 15s (primes up to k=47)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

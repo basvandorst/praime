@@ -1,0 +1,109 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_154.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 154.  Extension and Variation of the GC
+Source: https://www.primepuzzles.net/puzzles/puzz_154.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0154.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://web2.airmail.net/goak/Goldbachs_conjecture.htm
+  https://www.primepuzzles.net/puzzles/puzz_153.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_155.htm
+  https://www.primepuzzles.net/puzzles/puzz_154.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 154. Extension and Variation of the GC
+
+Problems & Puzzles: Puzzles
+
+Puzzle 154. Extension and Variation of the GC
+
+Rober Burrage, poses in one of his Web pages an "Extensión of the Goldbach's Conjecture" (EGC). This EGC proposes that:
+
+"If N = A.B, then N can be expressed as a sum of A primes."
+
+He also wonders if this his conjecture can be proved true supposing true the Goldbach Conjecture (GC).
+
+It is a kind of easy to prove that the EGC follows directly from the GC, but I will let the readers to find that proof his own way. I will only provide - as indirect evidence that such proof exists - a code in Ubasic of mine to produce such representations for A & B >3.
+
+10 input A,B:'goldbext.ub
+
+20 P=2: if odd(B)=1 then P=3
+
+30 Z=A*B-P*(A-2):Q=1
+
+40 Q=nxtprm(Q):if (Z-Q)<>prmdiv(Z-Q) then goto 40
+
+50 print A;"*";B;"=";
+
+60 for I=1 to A-2:print P;"+";:next I
+
+70 print Q;"+";(Z-Q):end
+
+Some examples are:
+
+5 * 12 = 2 + 2 + 2 + 7 + 47
+
+4 * 15 = 3 + 3 + 7 + 47
+
+12 * 9 = 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 3 + 5 + 73
+
+Now I propose a variation of the Burrage's EGC that I will name VEGC:
+
+"If N = A.B, then N can be expressed as a sum of A distinct primes under the condition X"
+
+Questions:
+
+a) Does the VEGC follow also from the GC?
+
+b) What is that X condition?
+
+c) Can you produce a code to make such expansion?
+
+Solution
+
+Luis Rodríguez has proved his own way the Burrage's conjecture (EGC):
+
+Let N=A.B
+
+a) Let N is even. Then N = (N -2(A-2)) +2(A-2). Then (N -2(A-2)) has the same parity than N, that is to say even. By the GC (N -2(A-2)) = p1 +p2 if (N -2(A-2))>3. Then N = p1+p2+2(A-2) if (N -2(A-2))>3
+
+b) N is odd. Then N = (N - 2(A-3) - 3) + 2(A-3) + 3. Then (N - 2(A-3) - 3) has opposite parity than N, that is to say even. By the GC (N - 2(A-3) - 3) = p1 + p2 if (N - 2(A-3) - 3)>3. Then N = p1+p2+2(A-3)+3.
+
+***
+
+As you can see this correct proof provides another solution than the given by my code written above, specifically to the case where N is odd. In the Rodríguez solution for N=5x7 then A=5 and N=(35-2(5-3)-3)+2(5-3)+3=(28)+(2+2+3)=(11+17)+(2+2+3)
+
+While using my code the solution is:
+
+N=Z+3(5-2)=Z+(3+3+3)=26+(3+3+3)=(3+23)+(3+3+3)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

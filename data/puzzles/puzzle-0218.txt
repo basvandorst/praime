@@ -1,0 +1,130 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_218.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 218. Rupinski primes
+Source: https://www.primepuzzles.net/puzzles/puzz_218.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0218.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_217.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_219.htm
+  https://www.primepuzzles.net/puzzles/puzz_218.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 218. Rupinski primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 218. Rupinski primes
+
+Andrew Rupinski has been studying the numbers B(O, E, D), defined by the following conditions:
+
+B has D digits
+
+B has only two kind of digits: O (odd) and E (even)
+
+B is divided by 2^D
+
+Examples:
+
+1) B(3, 8, 23) ≠ 33333333333333383333888, because while conditions 1 & 2 are satisfied, 3 is not, that is to say 2^23 does not divide 33333333333333383333888.
+
+2) B(3, 8, 23) = 88888888888833383333888, because all the three conditions are satisfied. As a matter of fact 88888888888833383333888/2^23 = 10596381293396161
+
+It's not hard demonstrate that B(O, E, D) is one singular number once O, E & D are given. "Singular" here means that there are always one, and no more than one, B number for a given triad O, E & D. Moreover, B can be easily constructed after O & E are given.
+
+Suppose O, E & D are given then B(O, E, D) = 2^D*R is satisfied in a singular manner by a number B that is equal to the product of two singular numbers 2^D & a cofactor R.
+
+Sometimes R is composite sometimes R is prime. Soon you'll learn that in order to R to be prime, we need that O & E are coprimes.
+
+Rupinski has been studying in particular these instances O, E, D where R is prime.
+
+For example he has told me that R is prime for the following (O, E, D) triads: (3, 8, 23), (7, 6, 167), (9, 8, 167) and a few others.
+
+I have found that R is a titanic prime for (7, 6, 1449) and for sure the smallest one.
+
+Questions:
+
+1. Demonstrate that given (O, E & D), B is unique and show how to compute it.
+
+2. Find the earliest Rupinski titanic prime for every pair (O, E)?
+
+Solution:
+
+Ken Wilke, Jon Wharf and J. K, Andersen sent contributions to this puzzle:
+
+Ken Wilke wrote:
+
+I saw Puzzle 218 this morning and I have an answer for question 1.
+
+Let B be a D digit number such that B==0(mod 2^D) and each digit of B is either Q or E where Q and E are given odd and even digits respectively. ( I have chosen to use Q instead of O to avoid confusion with zero.) Since there are two choices of possible digits (Q and E) for each digit of B there are 2^d possible numbers B which can be constructed. We shall show that only one such choice of B satisfies the requirement that B==0(mod 2^D)
+
+Proof: Consider the following sequence of numbers defined by T(n+1) = 10^n*f+T(n)where T(n) consists only of digits Q and E and T(n)==0(mod 2^n) for all integers D >= n >=1 and f is a digit to be determined. Then T(n+1) == 10^n*f + T(n) == 0 (mod 2^(n+1)). Then since T(n)==0(mod 2^n), we must have 10^n*f == -T(n)(mod 2^(n+1)). Thus 5^n*f == f == (-T(n))/(2^n)(mod 2). Note that T(n) == 0(mod 2^n)) guarantees that (-T(n)/2^n) is an integer. Thus at each stage f is uniquely determined to be odd or even. If f is odd, we take f = Q so that T(n+1) = 10^n*Q+T(n). Similarly if f is even we can take f = E so that T(n+1) = T(n+1) = 10^n*E+T(n). Each time the process is repeated cuts in half the possible choices for a properly constructed choice of B. Since T(1) must be divisible by 2, it suffices to take T(1) = E in order to guarantee that the process works. After D repetitions of the process we are left with the uniquely constructed integer B which satisfies all three conditions imposed on B. QED.
+
+***
+
+Jon Wharf wrote:
+
+The proof of uniqueness is by induction, which also gives the construction:
+
+Using only odd digit o and even digit e, only one single-digit number is divisible by 2: e. Now assume that we have a unique solution for n digits. That is, there is only one number, k, between 10^(n-1) and 10^n composed only of digits o and e which has k == 0 mod 2^n. First note that 10^n == 2^n mod 2^(n+1). So, looking at the first digit, o.(10^n) == 2^n mod 2^(n+1) and e.(10^n) == 0 mod 2^(n+1). In order to complete the number we require a number m between 10^(n-1) and 10^n composed only of digits o and e which has m == (either 0 or 2^n) mod 2^(n+1). But in either case m == 0 mod 2^n so only m=k will work.
+
+Now if k=0 mod 2^(n+1) then only e.(10^n) + k == 0 mod 2^(n+1) (for n+1 digits) If k = 2^n mod 2^(n+1) then only o.(10^n) + k == 0 mod 2^(n+1) (for n+1 digits). In either case there a solution and there is only one solution for n+1 digits.
+
+So the construction method builds up the number, one digit at a time: if B(o,e,d)/2^d is even, the first digit of B(o,e,d+1) is e; if B(o,e,d)/2^d is odd, it's o.
+
+The logic also works when the even number is zero but following the process through it is clear that the odd number is never used - all you get is a lengthening string of zeroes.
+
+***
+
+J. K. Andersen wrote:
+
+Question 1
+
+B(O,E,D) can be constructed by appending the digit O or E to the left of B(O,E,D-1). Just test which one works.
+
+Let odd O and even E be given.
+
+The uniqueness of B(O,E,D) can be proved by induction on D. Induction start, D=1: B(O,E,1) = E is easy to see. Induction step, D>1: Assume F=B(O,E,D-1) is unique. By definition, 2^(D-1) divides F. Then 2^D divides either F or F+2^(D-1). 2^D always divides 2*10^(D-1) and 10^(D-1)+2^(D-1), so 2^D divides E*10^(D-1) and O*10^(D-1)+2^(D-1). Let G be a solution to B(O,E,D), i.e. G contains only digits O and E, and 2^D divides G. Case 1: The first digit of G is E. The digit E contributes E*10^(D-1) to G and this is divisible by 2^D, so the number made of the rest D-1 digits must also be divisible by 2^D. The unique F either satisfies this or not, giving 1 or 0 solutions. Case 2: The first digit of G is O. The digit O contributes O*10^(D-1) to G and this is 2^(D-1) (mod 2^D), so the number made of the rest D-1 digits must also be 2^(D-1) (mod 2^D). Then it is divisible by 2^(D-1) and must be F=B(O,E,D-1). The unique F is either 2^(D-1) (mod 2^D) or not, giving 1 or 0 solutions. Case 1 & 2 combined: If Case 1 gives a solution then Case 2 does not, and vice versa. It has now been proved that there is a unique solution and the solution appends O or E to the left of B(O,E,D-1).
+
+Question 2
+
+If O and E are both divisible by 3 then 3 divides B(O,E,D), more precisely
+
+B(O,E,D) = 3*B(O/3,E/3,D).
+
+Define R(O,E,D) = B(O,E,D)/2^D. This has around 0.7*D digits. If O and E are both divisible by 3 then the only prime is R(3,6,1) = R(9,6,1) = 6/2^1 = 3. If we allow E=0 (zero) then B(O,zero,D)=zero which can also be written as D zeros to get the right digit count. For all other combinations of O and E, I would guess there are infinitely many primes, based on heuristics. The earliest Rupinski titanic probable primes for different (O,E) pairs are: R(1,2,1998), R(1,4,4912), R(1,6,33587), R(1,8,7162), R(3,2,3991), R(3,4,5157), R(3,8,15021), R(5,2,3029), R(5,4,???), R(5,6,2328), R(5,8,1954), R(7,2,1870), R(7,4,1988), R(7,6,1449), R(7,8,1677), R(9,2,4391), R(9,4,3977), R(9,8,1976).
+
+These were found with a C program using the Miracl bigint library and PrimeForm/GW. All seven R(O,E,D) in the list with D<2000 have been proved prime with Marcel Martin's Primo.
+
+R(5,4,D) is not a titanic prime for D<32000 but there are sub titanic primes.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

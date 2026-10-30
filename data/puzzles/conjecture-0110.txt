@@ -1,0 +1,168 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_110.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 110. Conjecture -- General Cubic Composite Test
+Source: https://www.primepuzzles.net/conjectures/conj_110.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0110.htm
+
+References (local copies):
+  ../../references/2025_a-cubic-composite-test-pierre-laurent-paul-underwood.pdf  (from https://arxiv.org/abs/2505.02167)
+  ../../references/2025_a-cubic-composite-test-pierre-laurent-paul-underwood.txt  (extracted text)
+
+Links on the page:
+  https://arxiv.org/abs/2505.02167
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_110.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/index.html
+  https://www.primepuzzles.net/conjectures/conj_110.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 110. Conjecture -- General Cubic Composite Test
+
+Problems & Puzzles: Conjectures
+
+Conjecture 110. Conjecture -- General Cubic Composite Test
+
+On March 6, 2026 Paul Underwood sent the following Conjecture.
+
+Conjecture:
+
+There is no composite number that satisfies the following:
+
+gcd(a,n) == 1
+
+a^n == a (mod n)
+
+jacobi(D, n) == 1
+
+x^2*(B^2+B+1) == a (mod n, f)
+
+where:
+
+n is odd positive integer and not a square
+
+f = x^3 - a*x - b
+
+a is an integer.
+
+b is a non-zero integer.
+
+f is irreducible
+
+D is the discriminant of f, which is 4*a^3-27*b^2
+
+B = x^(n - 1) (mod n, f)
+
+Q1. Can you find a counterexample?
+
+Q2. Can you prove no pseudoprime of this test exists?
+
+Q3. Can you advance our verification of the test above n = 200000
+
+Additional notes
+
+The hope is that this test of ours is fool-proof and we will be able to prove any number n is prime or not in a reasonable amount of time.
+
+The time taken for our test is similar to that of BPSW which is a combination of Fermat test and a Lucas test. Currently ECPP, which is of order O((log n)^(4+eps)). is the quickest test for large arbitrary numbers, but for a number with millions of digits it is unfeasible to run.
+
+Let f = x^3 - a*x - b for integer parameters a and b.
+
+We can work "mod f" as follows:
+
+x == x
+
+x^2 == x^2
+
+x^3 == a*x + b mod f
+
+x^4 == a*x^2 + b*x mod f
+
+x^5 == a*x^3 + b*x^2 mod f
+
+== a*(a*x+b) + b*x^2 mod f
+
+== b*x^2 + a^2*x + a*b mod f
+
+Whenever we have x^3 or higher power we can reduce it to no more than a quadratic expression in x mod f. Rather than a recursive method we can use iteration in much the same way we do for ordinary integers. We loop over the bits of the binary representation of the exponent from left to right, squaring the intermediate quadratic mod f, and if the bit is 1 then multiplying by the base mod f, which is x this case. We also keep the size of the coefficients of the resulting quadratics smaller than n by taking these mod n.
+
+Together this "(mod n, f)".
+
+In Pari/GP we can represent this as Mod(Mod(x, n), f)^exp.
+
+When we compute, in Pari/GP, B = Mod(Mod(x, n), f)^(n - 1) and about a 1/3 of the time B == 1 (mod n, f) for prime n and sometimes it is a random-looking quadratic expression. However for prime n we can write:
+
+(x^(3*n) - a*x^n - b) - (x^3 - a*x - b) (mod n, f) as:
+
+(x^3*(x^(3*(n - 1)) - a*x^(n - 1) - b) - (x^3 - a*x - b) (mod n, f) or:
+
+(x^3*B^3 - x^3) - (a*x*B - a*x) (mod n, f) or:
+
+x^3*(B^3 - 1) - a*x*(B - 1) (mod n, f) or:
+
+x^3*(B - 1)*(B^2 + B + 1) - a*x*(B - 1) (mod n, f) or:
+
+x*(B - 1)*(x^2*(B^2 + B + 1) - a) (mod n, f).
+
+Now if we ignore the trivial case where B == 1 mod (n, f) then B - 1 != 0 Mod(n, f) has an inverse for prime n.
+
+Note also that x has an inverse too if gcd(a, n) == 1. To see this suppose g = gcd(a, n) is greater 1 and g | x. Then, because x^3 - a*x -b == 0, we have
+
+g | b and so g | D, the discriminant 4*a^3 - 27*b^2, which in turn means the Jacobi symbol
+
+(D, n) is 0.
+
+Thus for the non-trivial cases we have the equation:
+
+x^2*(B^2 + B + 1) == a (mod n, f) when n is prime.
+
+We have confirmed the test up to n = 200000 by running this Pari/GP script:
+
+{forstep(n=3,200000,2,
+
+if(!ispseudoprime(n)&&!issquare(n),
+
+for(b=1,(n-1)/2,
+
+if(Mod(b,n)^n==b,
+
+for(a=1,n-1,
+
+if(Mod(a,n)^n==a,D=4*a^3-27*b^2;
+
+if(kronecker(D,n)==1,
+
+f=x^3-a*x-b;B=Mod(Mod(x,n),f)^(n-1);
+
+if(x^2*(B^2+B+1)==a,g=gcd(a,n);print([n,f,g]);
+
+if(g==1,break(4))))))))));}
+
+Note that Fermat b-PRP is implicit by the exponentiation of x.
+
+A practical cubic composite test for which b = a is given in our paper:
+
+Laurent, P. Underwood, P. "A Cubic Composite Test", 2025, https://arxiv.org/abs/2505.02167
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,873 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_934.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 934. The prime 7499
+Source: https://www.primepuzzles.net/puzzles/puzz_934.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0934.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_933.htm
+  mailto:cbrfgm@gmail.com
+  http://www.wolframalpha.com/
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_935.htm
+  https://www.primepuzzles.net/puzzles/puzz_934.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 934. The prime 7499
+
+Problems & Puzzles: Puzzles
+
+Puzzle 934. The prime 7499
+
+While solving our Puzzle 933, Jeff Heleen discovered this green emerald: the prime 7499, which has the following two properties needing not words:
+
+7499^9 = 74994632695013731827926060475067499
+
+7499^17 = 74999265676223797703801732050342536/
+
+0262553344102235443117350127499
+
+Q. Find out more of these, prime or not, but if prime the better.
+
+Contributions came from Fred Schneider, Paolo Lava, Simon Cavegn, Jeff Heleen, Emmanuel Vantieghem
+
+***
+
+Fred wrote on Dec 1, 2018:
+
+I wrote a small Haskell program to find them. You just need supply a proper cycle length. (e.g. 8 for 43 and 7499, 2 for 251)
+
+sol :: Int -> Int -> Int -> [Int]
+
+sol n ub c = map fst $ filter (\(x,l) -> l <= r && (floor (n' * 10.0 ** l) == n)) $
+
+map (\x -> (x, f $ fromIntegral x)) [1..ub]
+
+where r = 10.0 ** (fromIntegral (floor (1.0 + log n' / log 10.0)) * (-1.0))
+
+f x = f' x - (fromIntegral $ floor $ f' x)
+
+where f' x = log n' * (c' * x) / log 10
+
+n' = fromIntegral n :: Double
+
+c' = fromIntegral c :: Double -- Length of cycle (e.g. 43's is 8)
+
+It's fairly quick to find massive solutions. I cherry-picked some primes found in puzzle 933 (including 7499).
+
+Solutions for p = 2
+
+for n where 2^(4*n + 1) is a green emerald and n < 100
+
+[5,10,15,20,49,54,59,64,69,98]
+
+Solutions for p = 43
+
+for n where 43^(8*n+1) is a green emerald and n < 10000
+
+[192,251,310,502,561,620,679,871,930,989,1181,1240,1299,1358,1550,1609,
+
+1668,1727,1919,1978,2037,2229,2288,2347,2406,2598,2657,2716,2967,3026,
+
+3085,3277,3336,3395,3454,3646,3705,3764,3956,4015,4074,4133,4325,4384,
+
+4443,4694,4753,4812,5004,5063,5122,5181,5373,5432,5491,5683,5742,5801,
+
+5860,6052,6111,6170,6229,6421,6480,6539,6731,6790,6849,6908,7100,7159,
+
+7218,7469,7528,7587,7779,7838,7897,7956,8148,8207,8266,8458,8517,8576,
+
+8635,8827,8886,8945,9196,9255,9314,9506,9565,9624,9683,9875,9934,9993]
+
+Solutions for p = 7499
+
+for n where 7499^(8*n+1) is a green emerald and n < 1000000
+
+[1 **,2 **, 37274,37275,74547,74548,111821,111822,149094,149095,186367,186368,
+
+186369,223641,223642,260914,260915,298188,298189,335461,335462,
+
+372734,372735,410008,410009,447281,447282,484554,484555,484556,
+
+521828,521829,559101,559102,596375,596376,633648,633649,670921,
+
+670922,708195,708196,745468,745469,782741,782742,782743,820015,
+
+820016,857288,857289,894562,894563,931835,931836,969108,969109]
+
+** these correspond to 9 and 17 and are just included for completeness
+
+Solutions for p = 251
+
+for n where 251^(2*n+1) is a green emerald and n < 100000
+
+[22372,22985,23598,24211,24824,25437,26050,26663,27276,27889,28502,
+
+29115,29728,30341,30954,31567,32180,32793,33406,34019,34632,35245,
+
+35858,36471,37084,37697,38310,38923,39536,40149,40762,41375,41988,
+
+42601,43214,43827,44440,45053,45666,46279,46892,47505,48118,48731,
+
+49344,49957,50570,51183,51796,52409,53022,53635,54248,54861,55474,
+
+56087,56700,79685,80298,80911,81524,82137,82750,83363,83976,84589,
+
+85202,85815,86428,87041,87654,88267,88880,89493,90106,90719,91332,
+
+91945,92558,93171,93784,94397,95010,95623,96236,96849,97462,98075,
+
+98688,99301,99914]
+
+Solutions for p = 48751
+
+for n where 48751^(10*n + 1) is a green emerald and n < 10m
+
+[132593,179462,358924,405793,538386,585255,764717,811586,944179,
+
+991048,1170510,1217379,1396841,1576303,1623172,1802634,1849503,
+
+1982096,2028965,2208427,2255296,2387889,2434758,2614220,2661089,
+
+2793682,2840551,3020013,3066882,3246344,3425806,3472675,3652137,
+
+3699006,3831599,3878468,4057930,4104799,4237392,4284261,4463723,
+
+4510592,4643185,4690054,4869516,4916385,5095847,5275309,5322178,
+
+5501640,5548509,5681102,5727971,5907433,5954302,6086895,6133764,
+
+6313226,6360095,6492688,6539557,6719019,6765888,6945350,7124812,
+
+7171681,7351143,7398012,7530605,7577474,7756936,7803805,7936398,
+
+7983267,8162729,8209598,8389060,8568522,8615391,8794853,8974315,
+
+9021184,9200646,9247515,9380108,9426977,9606439,9653308,9785901,
+
+9832770]
+
+Solutions for p = 218749
+
+for n where 218749^(16*n + 1) is a green emerald and n < 50m
+
+[1850162,1885397,3735559,3770794,5656191,5691426,7541588,7576823,
+
+9426985,9462220,11347617,11382852,13233014,13268249,15153646,
+
+15188881,17039043,17074278,18924440,18959675,20845072,20880307,
+
+22730469,22765704,22800939,24615866,24651101,24686336,26536498,
+
+26571733,28421895,28457130,28492365,30307292,30342527,30377762,
+
+32227924,32263159,34113321,34148556,34183791,35998718,36033953,
+
+36069188,37919350,37954585,39804747,39839982,39875217,41725379,
+
+41760614,41795849,43610776,43646011,45496173,45531408,45601878,
+
+47381570,47416805,47452040,47487275,49302202,49337437,49372672]
+
+Note: This is kind of interesting: Many of these are pairs which differ by 35235.
+
+I checked 218759^(16*35235) and I see why:
+
+9.9999878775574812672581042437521538205736275845722... × 10^3010447
+
+Looking at it further. The differences under 100m were of the form
+
+1850162r + 35235s where r = 0 or 1, and s is between -4 and 1
+
+So, it illustrates how multiplying by powers of p that are close to a power of 10 allow us to generate new green emerald solutions.
+
+Solutions for p =
+
+for n where 5422943^(4*n+ 1) is a green emerald and n < 100m
+
+[2225965,16552119,18778084,33104238,49656357,51882322,54108287,66208476,
+
+68434441,72886371,76082700,80534630,81790231,82760595,84986560,
+
+87212525,89438490,91664455,92634819,97086749,98342350,99312714]
+
+By the way, I used www.wolframalpha.com to check my initial solutions and later spot check.
+
+As a postscript, I conjecture that all of the primes that are solutions in puzzle 933 have an infinite number of green emerald solutions
+
+***
+
+On Dec 3, 2018, Paolo wrote:
+
+It appears that any prime p has at least one exponent k>1 such that p^k starts and ends in p.
+
+For the first primes we have:
+
+n p k
+
+1 2 21
+
+2 3 41
+
+3 5 24
+
+4 7 33
+
+5 11 171
+
+6 13 361
+
+7 17 461
+
+8 19 471
+
+9 23 1281
+
+10 29 1091
+
+11 31 231
+
+12 37 221
+
+13 41 236
+
+14 43 61
+
+15 47 861
+
+16 53 2761
+
+17 59 241
+
+18 61 546
+
+19 67 3261
+
+20 71 1991
+
+21 73 6081
+
+22 79 421
+
+23 83 9541
+
+24 89 5731
+
+25 97 4461
+
+26 101 1621
+
+27 103 21501
+
+28 107 10381
+
+29 109 5051
+
+30 113 1301
+
+31 127 16301
+
+32 131 30051
+
+33 137 18601
+
+34 139 13601
+
+35 149 3171
+
+36 151 8991
+
+37 157 7561
+
+38 163 3201
+
+39 167 33501
+
+40 173 8701
+
+It appears again that primes have a lot of exponents (where some patters can be detected):
+
+2: 21, 41, 61, 81, 101, 121, 141, 161, 197, 217, 237, 257, 277, 297, 317, 337, 357, 393, 413, 433, 453, 473, 493, 513, 533, 553, 589, 609, 629, 649, 669, 689, 709, 729, 749, 785, etc.
+
+3: 41, 85, 129, 173, 217, 261, 305, 349, 389, 393, 433, 437, 477, 481, 521, 525, 565, 569, 609, 653, 697, 741, 785, 829, 873, 917, 961, 1001, 1005, 1045, etc.
+
+5: 24, 34, 44, 54, 64, 74, 84, 94, 127, 137, 147, 157, 167, 177, 187, 220, 230, 240, 250, 260, 270, 280, 290, 313, 323, 333, 343, 353, 363, 373, 383, 416, 426, etc.
+
+...
+
+43: 61, 533, 1005, 1537, 2009, 2481, 2541, 3013, 3485, 3957, 4017, 4489, 4961, etc.
+
+47: 861, 1721, 5341, 6201, 9821, 10681, 15161, 16021, etc.
+
+and so on.
+
+It could be that for 7499 the values 9 and 17 are not the only ones.
+(So, Perhaps there is a proof of this or a counterxample?, CR)
+In fact this is the question. I am still in search for the exponent for 211...
+Found exponent for 211. It is 65151. No counterexamples at the moment. What is clear is that the search became harder and harder because some exponents are very high. 7499 is particular because of the low exponent (9).
+
+***
+
+Simon wrote on Dec 4, 2018:
+
+Did not find a solution where p^e starts and ends with p for 6 digits up to exponent 1500.
+
+p^e starts and ends with p (5 digits):
+
+89499^2201 repeats when e = 1 mod 2200, last repetition: e = 4401 (2 Repetitions)
+
+47687^2501 repeats when e = 1 mod 2500, last repetition: e = 5001 (2 Repetitions)
+
+13568^2529 not repeating
+
+11424^2751 does not repeat: 11424^5501 starts 11425, ends 11424
+
+24999^2793 repeats when e = 1 mod 2792, last repetition: e = 39089 (14 Repetitions)
+
+19193^3501 not repeating
+
+89499^4401
+
+47687^5001
+
+16807^5101 not repeating
+
+p^e starts and ends with p (4 digits):
+
+7499^9
+
+7499^17 p and e both prime
+
+1157^301 repeats when e = 1 mod 300, last repetition: e = 14401 (48 Repetitions)
+
+1157^601
+
+4193^809 not repeating
+
+1157^901
+
+1157^1201
+
+2401^1276 repeats when e = 1 mod 1275, last repetition: e = 56101 (44 Repetitions)
+
+1157^1501
+
+3376^1691 not repeating
+
+1157^1801
+
+1157^2101
+
+4849^2301 repeats when e = 1 mod 2300, last repetition: e = 6901 (3 Repetitions)
+
+1157^2401
+
+2401^2551
+
+1157^2701
+
+1157^3001
+
+2943^3109 not repeating
+
+1157^3301
+
+1157^3601
+
+2401^3826
+
+1157^3901
+
+1711^4001 repeats when e = 1 mod 4000, last repetition: e = 24001 (6 Repetitions)
+
+1557^4021 not repeating
+
+7501^4197 repeats when e = 1 mod 4196, last repetition: e = 12589 (3 Repetitions)
+
+1157^4201
+
+2449^4451 not repeating
+
+1157^4501
+
+4933^4501 repeats when e = 1 mod 4500, last repetition: e = 18001 (4 Repetitions)
+
+4849^4601 not repeating
+
+1151^4651 p and e both prime, not repeating
+
+1157^4801
+
+1157^5101
+
+2401^5101
+
+1249^5179 p and e both prime, not repeating when e = 1 mod 5178, but when e = 1 mod 8378
+
+1507^5301 not repeating
+
+1157^5401
+
+8693^5541 not repeating
+
+1157^5701
+
+2057^5789 repeats when e = 1 mod 5788, last repetition: e = 11577 (2 Repetitions)
+
+1157^6001
+
+2743^6201 repeats when e = 1 mod 6200, last repetition: e = 136401 (22 Repetitions)
+
+1157^6301
+
+1875^6305 repeats when e = 1 mod 6304, last repetition: e = 75649 (12 Repetitions)
+
+2401^6376
+
+1157^6601
+
+1157^6901
+
+4849^6901
+
+1157^7201
+
+2809^7251 not repeating
+
+1157^7501
+
+1193^7621 p and e both prime, repeats when e = 1 mod 7620, last repetition: e = 15241 (2 Repetitions)
+
+2401^7651
+
+1693^7685 repeats when e = 1 mod 7684, last repetition: e = 23053 (3 Repetitions)
+
+2064^7751 not repeating
+
+1157^7801
+
+1711^8001
+
+1157^8101
+
+5057^8221 not repeating
+
+1249^8379 repeats when e = 1 mod 8378, last repetition: e = 25135 (3 Repetitions)
+
+1157^8401
+
+7501^8393
+
+2017^8501 p and e both prime, not repeating
+
+9375^8635 repeats when e = 1 mod 8634, last repetition: e = 915205 (106 Repetitions)
+
+1157^8701
+
+2401^8926
+
+1157^9001
+
+4933^9001 p and e both prime
+
+1157^9301
+
+1157^9601
+
+1157^9901
+
+2293^9901 p and e both prime, not repeating
+
+3111^10001 not repeating
+
+1857^10101 not repeating
+
+8801^10151 repeats when e = 1 mod 10150, last repetition: e = 30451 (3 Repetitions)
+
+1157^10201
+
+2401^10201
+
+1157^10501
+
+1157^10501
+
+1157^10501
+
+1157^10801
+
+3125^11069 repeats when e = 1 mod 11068, last repetition: e = 30451 (3 Repetitions)
+
+1251^11085 repeats when e = 1 mod 11084, last repetition: e = 177345 (16 Repetitions)
+
+1157^11101
+
+1157^11401
+
+2401^11476
+
+2057^11577
+
+1157^11701
+
+1157^12001
+
+1711^12001
+
+6809^12001 repeats when e = 1 mod 12000, last repetition: e = 72001 (6 Repetitions)
+
+1157^12301
+
+4375^12393 not repeating
+
+2743^12401
+
+1149^12501 not repeating
+
+1157^12601
+
+7501^12589
+
+1875^12609
+
+7807^12641 repeats when e = 1 mod 12640, last repetition: e = 25281 (2 Repetitions)
+
+3943^12701 not repeating
+
+2401^12751
+
+2001^12831 not repeating
+
+1157^12901
+
+1232^13101 not repeating
+
+1157^13201
+
+1157^13501
+
+4933^13501
+
+1157^13801
+
+2401^14026
+
+1157^14101
+
+1157^14401
+
+4224^14851 not repeating
+
+5001^15057 repeats when e = 1 mod 15056, last repetition: e = 617297 (41 Repetitions)
+
+1376^15201 not repeating
+
+1193^15241 p and e both prime, not repeating
+
+2401^15301
+
+1693^15369
+
+1711^16001
+
+3751^16239 repeats when e = 1 mod 16238, last repetition: e = 64953 (4 Repetitions)
+
+3307^16261 repeats when e = 1 mod 16260, last repetition: e = 227641 (14 Repetitions)
+
+2401^16576
+
+1249^16757
+
+5807^16773 repeats when e = 1 mod 16772, last repetition: e = 33545 (2 Repetitions)
+
+9375^17269
+
+2401^17851
+
+4933^18001
+
+9149^18201 repeats when e = 1 mod 18200, last repetition: e = 36401 (2 Repetitions)
+
+1001^18431 repeats when e = 1 mod 18430, last repetition: e = 165871 (9 Repetitions)
+
+2743^18601
+
+1875^18913
+
+1639^19001 repeats when e = 1 mod 19000, last repetition: e = 38001 (2 Repetitions)
+
+2401^19126
+
+5479^19251 repeats when e = 1 mod 19250, last repetition: e = 38501 (2 Repetitions)
+
+4629^19501 repeats when e = 1 mod 19500, last repetition: e = 58501 (3 Repetitions)
+
+9376^19549 repeats when e = 1 mod 19548, last repetition: e = 39097 (2 Repetitions)
+
+1249^19957
+
+1711^20001
+
+8801^20301
+
+A 4 digit number with multiple "unique" solutions:
+
+1249^5179 no repetitions, both prime
+
+1249^8379 3 repetitions
+
+1249^16757 (8378*2+1)
+
+1249^19957 17 repetitions up to 339253
+
+1249^25135 (8378*3+1)
+
+1249^28335 2 repetitions up to 56669
+
+1249^36713 both prime, no repetitions
+
+1249^39913 (19956*2+1)
+
+1249^45091 no repetitions
+
+1249^48291 2 repetitions up to 96581
+
+1249^56669 (28334*2+1)
+
+1249^59869 (19956*3+1)
+
+1249^68247 2 repetitions up to 136493
+
+1249^76625 no repetitions
+
+A question is, can these 4 or 5 digit numbers be identified in another way?
+
+I noticed most p^2 end either with 49 or 01.
+...
+
+(later)
+
+...Here is a solution with 8 digits: 10095807^22440501
+
+***
+
+Jeff wrote on Dec 7, 2018:
+
+Looking at primes p, 10 < p ≤ 25,000,000 for powers n from 2 to as high as I could go without an overflow error are the following:
+
+Prime, p
+
+powers, n
+
+11
+
+171, 291, 581, 871, 1161, 1451, 1741, 2031, 2321
+
+13
+
+361, 1221, 1581, 2081
+
+17
+
+461, 921, 1381
+
+19
+
+471, 801, 1271, 1601
+
+23
+
+1281
+
+29
+
+1091, 1171
+
+31
+
+231, 811, 1621
+
+37
+
+221, 441
+
+41
+
+236, 471, 1331 1566
+
+43
+
+61, 533, 1005, 1537
+
+47
+
+861
+
+59
+
+241
+
+61
+
+546, 1296
+
+79
+
+421
+
+193
+
+901
+
+199
+
+871
+
+251
+
+609
+
+7499
+
+9, 17
+
+***
+Emmanuel wrote on Dec 7, 2018:
+
+I took m from 2 to 10^6 and k from 2 to 200 and looked if m^k began and ended in m. Here is what I found :
+
+m k
+
+2 {21, 41, 61, 81, 101, 121, 141, 161, 197}
+
+3 {41, 85, 129, 173}
+
+4 {11, 21, 31, 41, 99, 109, 119, 129, 139, 197}
+
+5 {24, 34, 44, 54, 64, 74, 84, 94, 127, 137, 147, 157, 167, 177, 187}
+
+6 {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100, 109, 118, 127, 136, 145, 154, 163, 172}
+
+7 {33, 117}
+
+8 {73, 145, 197}
+
+9 {153, 175, 197}
+
+11 {171}
+
+16 {6}
+
+24 {51, 193}
+
+25 {94, 187, 192}
+
+32 {197}
+
+36 {161}
+
+43 {61}
+
+49 {143}
+
+51 {107}
+
+56 {136}
+
+75 {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89}
+
+76 {152}
+
+624 {167}
+
+7499 {9, 17}
+
+For these m I counted the powers <= 10000 that ended and began with m :
+
+m #k
+
+2 443
+
+3 308
+
+4 487
+
+5 792
+
+6 663
+
+7 146
+
+8 134
+
+9 227
+
+11 38
+
+16 51
+
+24 91
+
+25 169
+
+32 32
+
+36 17
+
+43 26
+
+49 58
+
+51 41
+
+56 16
+
+75 35
+
+76 55
+
+624 4
+
+7499 2
+
+This may suggest that there might be infinitely many k for some m.
+
+***
+Jim Howell wrote on set 8, 2019
+
+In the solutions to this puzzle, Fred Schneider found the exponents 8n+1 for n=37274 and 37275, corresponding to exponents 298193 and 298201. I have found two smaller exponents which also solve the puzzle, namely 149101 and 149109.
+
+7499^149101 = 749937584…..180757499 [577767 digits]
+
+7499^149109 = 749983913…..655817499 [577798 digits]
+
+I believe these are the smallest exponents which satisfy the puzzle, other than 9 and 17.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,155 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_043.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 43 . Catalan Numbers
+Source: https://www.primepuzzles.net/problems/prob_043.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0043.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathworld.wolfram.com/CatalanNumber.html
+  mailto:crivera@primepuzzles.net
+  https://www.primepuzzles.net/problems/prob_042.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_044.htm
+
+========================================================================
+
+Problem 43 . Catalan Numbers
+
+Problems & Puzzles: Problems
+
+Problem 43 . Catalan Numbers
+
+Bruce Fleming sent (Feb. 2003) the following problem
+
+The Catalan numbers, C(n), have the form C(n) = (2n)!/((n!)^2)(n+1). The first few such numbers are 1, 2, 5, 14, 42, ...
+
+The problem is to find all cases where C(n) has no squared (i.e. repeated prime) factor.
+
+This appears to be the case where n = 1-5, 7-9, 11.17. 19 and 31. So is it necessary for n to be a prime or the power of a prime? No, since when n = 35 we find that
+
+C(n) = 2.7.13.19.23.37.41.43.47.53.59.61.67.
+
+Questions
+
+Under what conditions is C(n) square-free?
+
+Can it be shown that there are finitely many (or infinitely many) such Catalan numbers?
+
+I can not resist the temptation to add two more questions - being so close to these interesting numbers.
+
+It's well known that C(n) is odd only when n=2^k-1, and that the ending digit for C(n) is "5" for k=9 to 15; while C(n) is prime only for n=2 and n=3 for n<=2^15-1.
+
+Can you get the next odd Catalan number not ending in "5", for k>15?
+
+Is it possible that C(n) is a prime larger than 5?
+
+Contributions to this problem came from Jon Perry, Jon Bowker, Jon Wharf & L. T. Peabody.
+
+Q1.
+
+Jon Perry wrote:
+
+...there are no other square-frees up to n=5000...
+
+Jon Wharf wrote:
+
+Catalans are Sloane's A000108. One way of viewing the formula for this sequence:
+
+Cn = product(i=2,n) [(n+i)/i] or Cn = product(i=2,n)[n+i] / i!
+
+is where I've found most benefit.
+
+First of all, compare prime factors in the numerator and denominator of this expression. For p<=n, find r == p mod n and s = (n-r)/p. Then there are s numbers divisible by p in 2..n and either s or (if 2r>=p and r<>p-1) s+1 numbers divisible by p in n+2..2n
+
+1. To see if a particular Catalan has a square, we only need to concern ourselves with primes p such that p^2 <= 2n. Larger primes cannot produce a square. For each prime, check whether there are more instances multiplying than dividing (2r>=p) and repeat for each higher power of p until greater than 2n.
+
+In fact checking only the first 11 primes is enough to verify that there are no square-free Catalans after C35 up to C1073741823 = C(2^30-1).
+
+Q2
+
+Jon Perry wrote:
+
+...I believe that this (n = 1-5, 7-9, 11, 17, 19, 31 & 35 ) is the lot. This is backed up by the hazy impossibility of 2n!/n!(n+1)! continuing to be square-free for large n...
+
+Just a quick observation, for C(n) to be square-free, n needs to be 2^k+/-1 or 2^k+/-3 or 2^k
+
+Jon Wharf wrote:
+
+My instincts after investigating questions 1 and 3 suggest that the number of square-free Catalans is (very) finite. Difficult to verify though.
+
+Later he added:
+
+To correct Mr Perry's quick observation, for C(n) to be squarefree in 2, n = 2^k-1 (when C(n) is odd) or n = 2^k + 2^m -1, k>m>=0 (when C(n) == 2 mod 4),
+
+Using my modular tests on the first 18 primes to their first 5 powers, coupled with the above knowledge, I cleared out n>35 (k=5, m=2) up beyond k=77605 ie. there are no more squarefreee Catalans for 35<n<=2^77605. At k=77605, m=41298 there is a number which survives my initial tests against a few small primes but will inevitably fall to a wider test. Thereafter the initial tests eliminate all candidates to 2^85000... (later) 2^77605 + 2^41298 - 1 is confirmed as not squarefree.
+
+Q3
+
+Jon Perry wrote:
+
+...I have managed to extend k significantly, to k=10000. I did this using some Pari/GP code and a 900Mhz machine in about 3 hours. I do not think there are any more k that do not end in a 5, the powers of 5 that remain are generally increasing...
+
+Jon Wharf wrote:
+
+I checked for factors of 5 in Catalans C(2^k-1) for k up to 95. From 9 onwards they all have 5 as a factor at least once and trending upwards. The other small odd primes follow a similar irregular pattern. I can send a full table if you'd like.
+
+Q4
+
+Jon Perry wrote:
+
+Here is a proof of part 4:
+
+[1] C(n+1) = 2(2n+1)/(n+2) . C(n)
+
+C(n+1) > C(n) for all n.
+
+Assume the first few integers in Catalan's sequence as 1,2,5,14,42. Note that C(4)=14, and 14/(4+1)>2, whereas C(3)=5, and 5/(3+1)<2. This ratio obviously increases, as by [1], for n>1, (2n+1)/(n+2)>1. Also note that 2(2n+1) becomes a lot bigger than n+2, as does C(n). Now whatever happens, both 2(2n+1) and C(n) components of [1] are going to be greater than 1 after the division by (n+2), hence C(n+1) will never be prime again. It's a bit sketchy, but the essence is there.
+
+L. T. Peabody wrote:
+
+Theorem: If n>3, the nth Catalan number is not prime
+
+Proof:
+
+The nth Catalan number, from the formula, is a factor of (2n)!. Therefore if it is prime it must be less than 2n. Therefore if the nth Catalan number is larger than (2n-1), it is not prime.
+
+That is to say, if (2n)!/(n!)((n+1)!)>(2n-1) for all n>3 we are done. This is equivalent to (2n)(2n-1)((2n-2)!)>n(2n-1)((n-1)!)((n+1)!).
+
+Canceling n(2n-1), this is equivalent to 2*(2n-2)!>((n-1)!)((n+1)!). We will prove this for n>3 by induction. For n=4, 2*6!=1440>3!*5!=720. Suppose true for n. Then in increasing n by 1, the LHS is multiplied by (2n)(2n-1), where as the RHS is multiplied by (n)(n+2). Since
+
+(2n)(2n-1)=n(4n-2)=n(n+2)+n(3n-4)>n(n+2) for n>3, we are done. END OF PROOF
+
+Jon Bowker wrote:
+
+I've attached a zipped version of a very large text file (about 10000 lines, each of which is 2280 characters long) which shows the factorizations of all the Catalan numbers up to C(9999). Each line looks like these :
+
+C(5)* : 3 : 11010000000...
+
+C(6) : 3 : 21001000000...
+
+C(7)* : 3 : 01001100000...
+
+This means, for example, that C(5) is squarefree (hence the *), it has 3 prime factors, and they are 2^1, 3^1, and 7^1. Similarly, C(6) has the three prime factors 2^2, 3^1, and 11^1. I hope this is clear! (By the way : where necessary, I've used 'a' to mean '10', 'b' to mean '11', etc, so as to preserve the column widths...).
+
+I derived the factorizations using the well-known recurrence relation C(n+1) = C(n)*(4n+2)/(n+2), or, equivalently, C(n) = C(n-1)*(4n-2)/(n+1) = 2*C(n-1)*(2n-1)/(n+1).
+
+The first thing that strikes me when I scroll around the large text file is that the answer to Q4 is 'No' - it is *not* possible for C(n) to be a prime > 5. As a non-rigorous piece of reasoning : C(n) has as factors all primes between n+2 and 2n-1. So if there are two or more primes between n+2 and 2n-1 then C(n) cannot possibly be prime. This appears to be true for n >= 7.
+
+Jon Wharf wrote:
+
+This can be simply answered by asking "Is there more than one prime in the range (n+2,2n)?". For n>6 the answer is always "Yes" and as a result the Catalan numbers are never prime, nor are they a single odd prime times a power of 2.
+
+Follow-up question: How often does a Catalan number consist of the product of only the odd primes in (n+2,2n)? or those primes multiplied by some power of 2? My expectation is that C10 = 16796 = 4.13.17.19 is the last.
+
+***
+
+Records | Conjectures | Problems | Puzzles

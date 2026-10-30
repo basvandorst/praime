@@ -1,0 +1,128 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_117.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 117. Certain p# +1 values
+Source: https://www.primepuzzles.net/puzzles/puzz_117.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0117.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=058233
+  https://www.primepuzzles.net/puzzles/puzz_116.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_118.htm
+  https://www.primepuzzles.net/puzzles/puzz_117.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 117. Certain p# +1 values
+
+Problems & Puzzles: Puzzles
+
+Puzzle 117. Certain p# +1 values
+
+We know that p#+1 can not be divided by any prime from 2 to p; then p#+1 has a prime divisor greater than p. As a matter of fact this is exactly the Euclid's proof of the infiniteness of the quantity of prime numbers.
+
+Question
+If we ask for such numbers p#+1 divided precisely by the next larger prime to p, then the first 4 cases are: p = 2, 17, 1459, 2999. (See A058233) Can you find the next 3 cases?
+
+_____
+
+Note: For sure you know that p# is the "primorial of p" or the product of all the primes less than or equal to p.
+
+Observation: This puzzle mainly tests your skill to handle large numbers. For p=2999 the number p# +1 has 1274 digits.
+
+Solution
+
+Paul Jobling reports (December 5, 2000) that he found no one more example for 2999<p<=20,000,000.
+
+Previously he explained to me that by no means this puzzle implies to handle very large numbers (as I naively supposed in the "observation") because p# can be calculated mod q (and then never greater than q) in a loop of n steps, where n is the index of the prime p, and q is "the following prime to p" of course.
+
+Finally he sent to me the source and its corresponding executable of a code he made & used in his search, in order to be provided on request to any reader who wants to continue the search beyond the range he covered this week.
+
+***
+
+In Ubasic the code to get the solutions asked in this puzzle is:
+
+10 P=2:'puzz117.ub
+
+20 P=nxtprm(P)
+
+30 Q=1:F=1
+
+40 if nxtprm(Q)=P then goto 60
+
+50 Q=nxtprm(Q):F=(F*Q)@P:goto 40
+
+60 if (F+1)@P=0 then print Q,P
+
+70 goto 20
+
+***
+
+Wilfred Whiteside wrote (November, 2005):
+
+I decided to try my luck at running puzzle 117 on my new dual core. It had been almost 5 years since Paul Jobling's result, so I hoped to expose it to increased fire power with the chance of finding something.
+
+Paul Jobling reports (December 5, 2000) that he found no one more example for 2999<p<=20,000,000."
+
+I searched up to p=272,112,959 (the 14,820,001th prime) with no solution. I had the program print all remainders r= (P#+1) mod Pnext that were <=20. Given how rare remainders less than or equal to 20 are (about 3 or 4 for every power of 10), I came to realise that the next number solving this puzzle is likely quite large. Given that the compute power to test up to the nth prime goes like n^2, of course, makes matters far worse. I stopped after a 2x3.2 GHz month.
+
+I also looked for the case of a remainder r=2, which would mean a solution to (P#-1) mod Pnext = 0, a modified puzzle 117. After 3 and 7, only 1 number in the range 7<p<=272,112,959 showed up as a solution! The magic number was 176,078,267.
+
+So, if puzzle 117 had been posed as find the next P after 3 and 7 where (P#-1) mod Pnext=0, the sequence of numbers would be 3, 7, 176078267 (assuming my code was working correctly)
+
+Note: Below are the numbers p and the remainders r=(P#+1) mod Pnext where the remainder was <=20, for p>100,000. This showed me how hard a solution might to puz117 might be to find!
+
+p=158,071 -> r=17
+
+p=325,079 -> r=9
+
+p=362,927 -> r=13
+
+p=2,186,389 -> r=8
+
+p=3,539,831 -> r=17
+
+p=7,129,561 -> r=10
+
+p=9,573,937 -> r=14
+
+p=12,553,753 -> r=10
+
+p=75,236,351 -> r=11
+
+p=109,818,281 -> r=5
+
+p=129,160,789 -> r=15
+
+p=176,078,267 -> r=2
+
+p=266,350,537 -> r=14
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

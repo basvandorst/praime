@@ -1,0 +1,355 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_773.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 773. Necklaces with k primes
+Source: https://www.primepuzzles.net/puzzles/puzz_773.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0773.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_772.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_774.htm
+  https://www.primepuzzles.net/puzzles/puzz_773.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 773. Necklaces with k primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 773. Necklaces with k primes
+
+Jean Brette sent the following nice puzzle:
+
+Let S(k) = ( p1, p2, …, pk) be a sequence of k odd distinct primes, and N(k) its associate sequence (p1, …, pk, p(k+1), p(k+2)), where p(k+1) = p1 and p(k+2) = p2.
+
+We can see the sequence S(k) as a circular necklace of k prime pearls, and we can define a new necklace S’(k) = (q1, q2, …qi, .., qk) where each pearl qi is the sum of three consecutive pearls of N(k) : qi = pi + p(i+1) +p(i+2). (1 ≤ i ≤ k)
+
+If all the qi’s of S’(k) are primes, I call S(k) a good necklace. (G)
+
+If all the qi’s are distinct primes, I call S(k) a very good necklace (VG)
+
+Examples :
+
+k = 3 : S (3) = (3, 5, 7) => S’(3) = (15, 15, 15) is not a good necklace
+
+: S (3) = (3, 5, 11) => S’(3) = (19, 19, 19) is a good necklace G
+
+k = 4 : S(4) = (3, 5, 11, 7 ) => S’(4) = (19, 23, 21, 15) . is not good
+
+S(4) = (7, 11, 13, 23) => S’(4) = (31, 47, 43, 41). is very good VG
+
+k = 7 : S(7) = (3, 5, 11, 7, 13, 17, 23) => S’(7) = (19, 23, 31, 37, 53, 43, 31) is only G
+
+In order to compare two sequences of the same length k , we need a criterion. I choose the following :
+
+For a sequence S, let be P(S) the product of all the terms of S and its S' :
+
+P(S) = p1* p2*...*pk * q1*q2*....* qk. To avoid very big numbers, let be I(S) = log (P(S)) .
+
+A sequence S1(k) is said better than an other sequence S2(k) if I(S1) < I(S2) .
+
+Examples : When k = 6, the three follwing sequences S1, S2, S3 are VG
+
+S1 = 5, 17, 7, 13, 11, 37 => S'1 = 29, 37, 31, 61, 53, 59 VG I(S1) = 14,96
+
+S2 = 7, 13, 11, 19, 37, 17 => S'2 = 31, 43, 67, 73, 61, 37 VG I(S2) = 16,3
+
+S3 = 3, 7, 13, 11, 19, 31 => S'3 = 23, 31, 43, 61, 53, 41 VG I(S3) = 14, 38
+
+So S3 is better than S1, which is better than S2.
+
+Q1 : Does it exist a good (or a very good) sequence S(k) for each number k ?
+
+Q2 : For each k, could you give your own records (i.e. your S(k) with the smallest I(S(k)) )
+
+Q3 : Iteration : does it exist some very good sequence S(k) such that S’(k) is also good (or very good) ? etc.
+
+Contributions came from Jan van Delden, Emmanuel Vantieghem and Jean Brette
+
+***
+
+Jan wrote:
+
+Q1: Yes k>=3, no proof.
+
+Q2: Solutions which are VG with smallest index I
+
+k I Necklace
+
+4 10.25 [19, 5, 7, 17]
+
+5 12.77 [19, 11, 7, 5, 17]
+
+6 14.63 [23, 3, 11, 5, 7, 17]
+
+7 18.25 [31, 13, 3, 7, 19, 5, 17]
+
+8 21.28 [41, 7, 11, 5, 3, 23, 17, 13]
+
+9 24.26 [41, 13, 17, 23, 3, 5, 11, 7, 19]
+
+10 27.65 [41, 19, 7, 5, 11, 3, 23, 17, 13, 29]
+
+11 31.10 [41, 19, 7, 5, 11, 3, 23, 17, 13, 31, 29]
+
+12 34.76 [41, 19, 7, 5, 11, 3, 23, 17, 31, 13, 29, 37] *
+
+13 38.64 [47, 13, 23, 17, 3, 11, 5, 7, 29, 31, 41, 37, 19]
+
+14 42.43 [47, 13, 29, 31, 37, 41, 23, 3, 5, 11, 7, 19, 17, 43] *
+
+15 46.46 [53, 31, 29, 37, 43, 47, 41, 13, 17, 23, 3, 5, 11, 7, 19] *
+
+16 50.45 [59, 31, 19, 47, 41, 43, 29, 7, 5, 11, 3, 17, 23, 13, 53, 37] *
+
+17 54.44 [61, 37, 29, 43, 41, 19, 7, 5, 11, 3, 23, 17, 13, 53, 31, 47, 59] *
+
+* Indicates that the largest prime in necklace S(k) is equal to prime(k+1), for these solutions it’s not necessary to check a larger prime in the necklace for smaller index I.
+
+However they contain the prime 3 and hence there will be no extra iterate (check mod 6).
+
+Q3: There are no necklaces with odd length and iterates larger than 1. The proof also uses addition mod 6.
+
+Given a necklace with primes p[1]..p[k], put these in a vector p[0], our starting necklace.
+
+The next one p[1] can be found by finding a suitable matrix A: p[1]=A.p[0].
+
+For our iterates we have: p[n]=A^n.p[0].
+
+If k=4 this behaves particularly nice. We can write A = J – C, with the 4x4 matrix, all elements equal to 1 and
+
+C equal to [e[2],e[3],e[4],e[1]], with e[j] the elementary columnvectors. C^j behaves cyclic: C^4=I, the identity matrix.
+
+Skipping some algebra, we find: A^4 = I+20J.
+
+Or if we compute the effect of A^4 on a certain element of p[i]: p[i,j]:
+
+p[i+4,j]=(A^4 p[i])[j] = p[i,j] + 20* sum(p[i,j],j=1..4)
+
+Which tells us that we only have to compute A,A^2,A^3, the rest follows by adding sums of the primes.
+
+Furthermore these sums increase by a factor 3 in each step, so only sum(p[0,j],j=1..4) has to be computed.
+
+If one wants to find a necklace having at least n>=4 we could reduce our combinations of p[0,j] by directly checking if the right hand side is prime as well. We only have to check an ordered sequence of primes p[0,j].
+
+The necklace with smallest index 20.01 and 4 iterates:
+
+[[673, 17, 53, 397], [743, 467, 1123, 1087], [2333, 2677, 2953, 2297], [7963, 7927, 7583, 7307], [23473, 22817, 22853, 23197]]
+
+The first necklace with 5 iterates, index=25.39:
+
+[[3001, 257, 271, 1091], [3529, 1619, 4363, 4349], [9511, 10331, 12241, 9497], [32083, 32069, 31249, 29339], [95401, 92657, 92671, 93491], [280729, 278819, 281563, 281549]
+
+***
+
+Emmanuel wrote:
+
+My best solution for S(20) :
+
+{3,5,11,7,13,17,23,19,31,29,47,37,43,59,61,71,67,73,41,53} with I(S(20)) = 154.19
+
+***
+
+Jean wrote:
+
+Q3. Answer : If a such sequence S exists, the number 3 is not inside, and all the terms of S are only equal to 1 and 5 mod 6.
+
+Suppose that the number 3 is inside S .
+
+All the other terms of S are > 3, and, in S’ , all the terms are ≥ 15 = 3+5+7.
+
+Now, if we work modulo 6, the other terms of T = S (mod 6) are equal to 1 or 5 mod 6.
+
+Locally, in the neighborhood of the number 3, the sequence T looks like this :
+
+T = … d c 3 a b …..
+
+where a = 1 or 5 (mod 6)
+
+If a = 1 (mod 6) then b = 1 (mod 6). (b cannot be 5 since 3+1+5 = 3 (mod 6))
+
+For the same reasons, c = 1 and d = 1 (mod 6) .
+
+Now, d+c+3 = 5 ; c+3+a = 5 ; et 3+a+b = 5
+
+So we have T = … 1 1 3 1 1 …
+
+and T ’ = … … … 5 5 5 …
+
+and, with the next step , it will appear a multiple of 3 in T ’’, so T ’ cannot be a good sequence
+
+We don’t need to study the case a = 5. It suffices to replace a,b,c,d with their complements to 6.
+
+--------
+
+When all the primes of S are 1 or 5 (mod 6) i have not found such obstructions.
+
+For example, mod 6, the sequence T = 1, 1, 5, 5 => T ' = 1, 5, 5, 1.=> T ''= 5, 5, 1, 1 , and the chain potentially never end.
+
+***
+
+Emmanuel wrote on Feb 3, 2015:
+
+Maybe it is worthwhile to mention that it is very easy to construct long very good necklaces. I used a kind of greedy algorithm : start with a small necklace S and expand it to a good necklace with the least prime not in S and so on.
+
+For instance, this allowed me to find a very good S with 1000 members (in less than 15 minutes) :
+
+{7,17,19,5,29,37,23,13,47,43,59,127,107,79,293,89,547,173,103,83,167,139,467,113,73,233,157,257,199,227,307
+
+,419,283,479,677,883,149,577,797,349,857,373,617,239,463,269,397,593,409,887,733,719,727,863,359,1777
+
+,563,709,1277,953,499,947,653,1009,1697,313,1613,1283,433,2063,967,773,839,1297,1163,443,787,1193,
+
+523,1487,1303,929,997,2213,1213,1583,1093,1787,853,1409,2417,3823,1907,607,1499,1823,439,4457,1987,
+
+1259,1427,2113,1847,829,2243,859,2087,2357,1459,1877,1423,2729,3307,2333,659,2287,2903,1429,3167,
+
+1447,1709,1753,1559,4177,2687,1129,2633,1069,5717,1993,2129,2347,2753,569,2767,3677,1723,2273,1063,
+
+2777,2003,2089,3467,2393,2833,3557,1543,1979,1597,4217,1399,3593,2137,2879,2683,3389,2647,3797,
+
+2269,3347,3517,1889,2837,4567,1973,2309,5407,4397,1279,4493,2179,6947,2423,1699,5507,3163,2039,
+
+3907,4793,619,7127,3533,1669,6197,2663,3709,5147,5693,3037,3923,2689,7187,2707,2609,3547,4133,
+
+2593,5393,3607,1949,4273,2939,5477,3853,2819,6067,5417,2399,3673,3779,5557,3323,4219,6287,4027,
+
+3299,4003,4049,5827,5483,3559,9497,4933,4943,4153,5273,5077,4349,5503,4229,5237,3433,6173,6967,
+
+2999,4483,5669,4987,6737,3769,5843,4789,7457,5903,4129,8837,4423,4259,5987,5323,3989,6247,7433,
+
+1759,9137,5623,6089,5857,7517,3229,4523,5419,9767,5413,5879,6547,7793,2029,9467,6427,4649,6833,
+
+4999,8087,3943,7883,6977,3583,7559,4597,7817,3919,9413,3319,10607,6397,4679,6373,4919,7927,7283,
+
+1039,7307,7717,5309,7537,9437,4639,8273,4969,10037,7297,5279,6263,6709,9257,6803,4339,12227,
+
+4373,2659,12917,6553,5783,6043,11633,8123,6637,6329,7393,7877,5209,7703,6299,8707,7103,3613,
+
+8423,6883,8093,6337,7829,8513,5479,10247,8147,6277,7649,6343,6029,8807,8167,7019,7853,6529,
+
+12377,7213,8219,8737,13757,4759,10433,4909,10067,8293,10079,9907,13127,6449,9127,7523,6959,
+
+9067,10313,8539,11597,8443,8069,8287,9833,7699,15077,8363,7369,10667,9473,7549,11987,9397,
+
+6779,8573,6679,11447,9157,10169,10463,8599,13877,7583,7993,12983,8623,12647,8839,9203,8209,
+
+13907,9103,7079,15877,10223,7309,16787,8263,10709,11287,11777,5659,11903,10639,14387,11783,
+
+9109,14057,9133,8783,10477,7229,9743,8419,13697,10687,10289,11503,12119,11467,11093,9883,
+
+14153,12277,11807,8329,11657,10333,10589,12697,13313,9719,13267,14423,8779,17327,9697,11909,
+
+8353,10859,13217,8713,10139,15307,13163,8669,12757,12203,9787,10979,10627,13463,8689,14867,
+
+11863,11423,10243,14717,10837,12899,10867,14033,9859,15767,11003,12553,15137,9619,13883,8269,
+
+20747,12577,12503,10453,13397,11069,12433,11789,11677,12413,9949,19727,11593,14009,13807,
+
+15107,11149,12473,7219,17957,10663,11369,12517,12323,8863,15377,11329,14537,11173,14723,
+
+9043,16103,12487,12239,12253,7499,17737,14747,12893,13417,13859,14797,16427,11527,10949,
+
+16963,13499,13567,15443,9439,19937,11443,15263,14173,13553,12073,17093,15083,14713,15773,
+
+13147,12479,13513,14759,17317,13103,10429,22067,14923,17573,11047,15647,13009,17207,
+
+14303,10069,20177,12613,11399,15737,15913,15473,14437,14633,12689,14197,16067,11719,
+
+15527,13687,14699,16453,17159,17377,18233,12799,20897,14827,15149,17167,19013,12829,
+
+16607,14323,16529,15427,17657,12589,16193,11059,23537,14407,20123,10729,18287,18593,
+
+9319,22247,14533,18329,17467,16073,15583,22787,12739,17393,13159,24527,15193,15053,16063,
+
+19157,12409,19997,15217,17099,14083,19949,17827,19913,14519,16987,21377,15559,20333,
+
+17989,25097,17053,16229,16087,19433,12049,23297,17183,15643,20873,16763,16633,21317,
+
+12959,20047,22613,14843,18493,19553,18427,16649,17783,11839,27527,19213,20879,18457,
+
+20693,14149,28547,19183,19559,18517,21323,14479,21587,21727,15749,17443,23057,16033,
+
+18719,21817,21467,13879,20483,15349,25577,16903,21839,21937,22853,14629,22727,19423,
+
+19403,18097,20939,19207,26927,15359,21577,22133,16879,26687,17293,18119,21187,21383,
+
+13669,23957,19447,22283,17419,28517,17713,18773,19417,23063,15889,29717,19483,21713,
+
+18433,23003,17683,19973,21563,19507,22937,18289,24083,15619,31727,19843,19379,20707,
+
+26153,16339,27407,18637,19139,22003,20369,22027,24113,17359,22367,23333,12979,28607,
+
+22013,17659,22877,20407,25349,22343,19819,27917,20023,19739,22147,27767,15289,25343,
+
+20749,26777,19477,25919,21493,20849,25087,26987,19867,22109,23143,24509,23227,24953,
+
+19309,22697,23557,25439,22123,22259,25447,26237,23173,25997,18199,27893,20509,32027,
+
+21163,25013,19753,36083,23017,22409,25147,29123,19777,20639,23603,23029,32297,23663,
+
+21589,34337,20323,27827,22717,23039,25633,18749,27337,25367,23599,29207,24223,24419,
+
+24097,25073,21139,30047,25237,25679,26573,16249,36527,26993,17839,32537,23833,30323,
+
+27043,29387,21499,28493,20149,35747,26293,28619,25537,33287,22039,28283,21649,35117,
+
+22543,25229,28387,25643,23743,26297,25747,23609,22783,26669,26227,32303,21169,34487,
+
+22993,24659,25717,26903,18229,40127,23203,24179,23977,32117,22549,27803,19889,27457,
+
+29303,22129,36107,26393,20719,38327,28597,28793,20089,37847,24547,26489,23887,26693,
+
+27259,35507,26203,26879,30187,31223,17029,38867,25033,29363,27067,29399,23473,27749,
+
+26017,34313,19249,31247,28087,26399,28573,22619,41177,28663,29009,32237,27253,30113,
+
+26407,27779,23893,33029,29287,27743,23789,30367,38543,17599,34847,32887,29339,27793,
+
+26759,29167,31253,25219,34607,27103,33179,32917,33617,22279,39317,26083,28409,28057,
+
+33353,25693,30467,26347,30869,31583,27919,31517,29077,30137,24019,32213,31489,35027,
+
+25423,31793,27943,33767,23719,36563,24109,42257,30637,24989,29587,35573,28027,32003,
+
+27823,32507,23539,39227,30757,33827,24709,37337,30817,32159,31333,30269,28687,31643,
+
+30493,34757,28513,29129,34327,36923,28099,42677,34583,30829,43457,26713,25889,31957,
+
+35267,28549,33563,25579,36137,30553,30089,32587,32693,25849,50387,33623,25609,41597,35227}.
+
+Index (wit base 10 logarithm) :8371.67
+
+Search for such a one with a smaller index could be a nice puzzle.
+
+I forgot to say that you cannot start the procedure with any starting set.
+
+Also, the computing time is much less than 15 minutes. About 75 seconds are enough for most of the cases I tried.
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

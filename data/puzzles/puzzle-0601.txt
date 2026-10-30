@@ -1,0 +1,243 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_601.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 601. Pair of primes (p,q) such that...
+Source: https://www.primepuzzles.net/puzzles/puzz_601.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0601.htm
+
+References (local copies):
+  ../../references/f1000.txt  (from http://mersennus.net/fibonacci/f1000.txt)
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://mathworld.wolfram.com/CatalansIdentity.html
+  http://oeis.org/A001605
+  http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibtable.htm
+  http://mersennus.net/fibonacci/
+  http://mersennus.net/fibonacci/f1000.txt
+  https://www.primepuzzles.net/puzzles/puzz_600.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_602.htm
+  https://www.primepuzzles.net/puzzles/puzz_601.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 601. Pair of primes (p,q) such that...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 601. Pair of primes (p, q) such that...
+
+Emmanuel Vantieghem asks if someone can give a link to the following puzzle:
+
+Find pairs of different primes ( p, q ) such that p divides q^2 +1 and q divides p^2 +1.
+
+Examples : ( p , q ) = ( 2 , 5 )
+
+( p , q ) = ( 5 ,13 )
+
+( p , q ) = ( 89 , 233 ).
+
+Q. Or, can you find other pairs?
+
+Contributions came from W. Edwin Clark, Ken Wilke & J. K. Andersen
+
+***
+
+W. Edwin wrote:
+
+Concerning Puzzle 601 I'm sure others will notice all
+
+those Fibonacci numbers in the examples given and see that:
+
+It follows from the first Catalan identity (see,e.g., http://mathworld.wolfram.com/CatalansIdentity.html )
+
+that if F(n) is the n-th Fibonacci number then for odd n we have F(n+2) divides F(n)^2+1 and F(n) divides F(n+2)^2+1. So we can get examples by finding n such that n is odd and both p = F(n) and q = F(n+2) are prime. Examples up to 11000 were found for n = 3, 5, 11, 431, 569.
+
+I found them using Maple's isprime procedure....they can also be found
+
+at http://oeis.org/A001605
+
+***
+
+Ken wrote:
+
+Solution:
+
+We shall show that there is an infinite number of integers, prime or otherwise, that satisfy the conditions of the problem. It is well known that the prime divisors d of integers of the form T^2 + 1 are d = 2 or d = 4*v + 1 for some positive integer v. First we replace the condition that p and q be primes with the conditions q > p and p and q are relatively prime; e.g. (q, p) =1. Then there are integers k and l such that
+
+q^2 + 1 = p*k (1) and
+
+p^2 + 1 = q*l . (2)
+
+Since q > p, equation (1) implies k > (q^2)/p > q (3) and
+
+equation (2) implies pq > p^2 > ql or p > l . (4)
+
+Thus k > q > p > l. (5)
+
+Then q^2 - p^2 = p*k - q*l or
+
+q(q + l) = p(p + k) (6)
+
+Hence (q + l )== 0 (mod p) and q^2 == l^2 (mod p) (7)
+
+Similarly (p + k ) == 0 (mod q) and p^2 == k^2 (mod q) (8)
+
+Thus q^2 + 1 == l^2 + 1 == 0 (mod p) (9)
+
+with l < p and we have descended to a new pair of integers (p, l) such that l divides (p^2 + 1) and p divides (l^2 + 1).
+
+We can continue this descent only a finite number of times until we reach the representation 5 = 2^2 + 1^2. Then we can reverse the process to ascend to an infinite number of pairs of relatively prime integers (p, q) such that p divides (q^2 + 1) and q divides (p^2 + 1).
+
+This “descent method” satisfies the recursive relation x(n + 2)*x(n) = x(n+1)^2 + 1 where x(0) = 1 and x(1) = 2. Hence the solutions required are found in the series 1, 1, 2, 5, 13, 34, 89, 233, 610, 1597, 4181, 10946, 28657, 75025, 196418, 514229, 1346269, 3524578, 9227465, 24157817, 63245986, 165580141, 433494437, 1134903170, 2971215073, 7778742049, 20365011074, 53316291173, 139583862445, ....
+
+This is series No. A001519 on Sloane’s Online Encyclopedia of Integer Sequences. Also starting with 2,5 13 ..., the terms of our series are alternate terms of the Fibonacci series. Reimposing the requirement that p and q be primes, we find the solutions (p, q) = (2, 5), (5, 13), (89, 233). After checking 100 terms of the sequence using UBASIC, no further solutions were found.
+
+In addition the following information was found on the internet. The website
+
+http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibtable.htm lists the following
+
+There is a complete list of all Fibonacci numbers and their factors up to the 1000-th Fibonacci and 1000-th Lucas numbers and partial results beyond that on Blair Kelly's Factorisation pages. The hyperlink to Blair Kelly’s Factorisation pages goes to http://mersennus.net/fibonacci/ which in turn refers to a table of Fibonacci factorisations for n < 1,000 which is found at http://mersennus.net/fibonacci/f1000.txt
+
+The following are found in that table.
+
+F(0)= 0
+
+F(1)= 1
+
+F(2)= 1
+
+F(3)= 2
+
+F(4)= 3
+
+F(5)= 5
+
+F(7)= 13
+
+F(11)= 89
+
+F(13)= 233
+
+F(431)= 5298927110060956217920395567877846701971127590295345066
+
+20905162834769955134424689676262369
+
+F(433)= 1387277127804783827114186103186246392258450358171783690
+
+079918032136025225954602593712568353
+
+F(569)= 3668447431608097806147361364627563045110058690119522981
+
+52702428684177680611935608579043350178795405152281437777810658
+
+69
+
+F(571)=96041200618922553823942883360924865026104917411877067816
+
+822264789029014378308478864192589084185254331637646183008074629
+
+F(431) and F(433) provide a solution to Problem 601 as also does F(569) and F(571).
+
+***
+
+J.K. Andersen wrote:
+
+I haven't found other mention of the puzzle.
+
+I found two other pairs based on large Fibonacci numbers:
+
+(p, q) = (F(431), F(433)), and (p, q) = (F(569), F(571)).
+
+Catalan's Identity says:
+
+F(n)^2-F(n+r)*F(n-r) = (-1)^(n-r)*F(r)^2, where F(n) is a Fibonacci number.
+
+Let n be odd in all the following. If r=2 then the identity becomes
+
+F(n)^2-F(n+2)*F(n-2) = (-1)^(n-2)*F(2)^2 = -1*1^2 = -1.
+
+So we have F(n)^2+1 = F(n+2)*F(n-2). This holds for all odd n,
+
+so we also have F(n+2)^2+1 = F(n+4)*F(n).
+
+Let (p, q) = (F(n), F(n+2)). Then q divides p^2+1, and p divides q^2+1.
+
+If (p, q) are both prime then the puzzle conditions are satisfied.
+
+If F(n) is prime for n<>4 then n also has to be prime, so (n, n+2) must be
+
+twin primes to give a chance. We get solutions for n = 3, 5, 11, 431, 569,
+
+and probably no others according to heuristics.
+
+n = 3, 5, 11 gives the three mentioned solutions (2, 5), (5, 13), (89, 233).
+
+n = 431 gives (p, q) with 90 and 91 digits. n = 569 gives 119 digits in each.
+
+I don't know whether all solutions to the puzzle are of the Fibonacci form.
+
+A computer search only found such solutions for p < 10^9.
+
+If we also allow solutions with composite p and/or q then a computer search
+
+still only found Fibonacci solutions for p < 10^8.
+
+***
+
+Emmanuel wrote:
+
+To solve the problem, consider any pair of positive integers (y,z) such that y < z and y divides z^2+1 and z d
+
+ivides y^2+1. Such pairs I call 'solutions'. Then, y^2+1 = xz, with x< y and y < z. Thus :
+
+z =(y^2+1)/x and since y | z^2+1 : ((y^2+1)/x)^2+1 = 0 ( mod y).
+
+Since x and y have no divisor in common, it follows from the last congruence that x^2+1 is divisible by y.
+
+I.e.: (x,y) is also a 'solution'.
+
+This makes it possible to construct a chain of solutions (a,b), (b,c), ... , (x,y),(y,z) with a as small as possible.
+
+Hence, this leads us to a = 1, b = 2, c = 5, d = 13, e = 34, f = 89,g = 233, h = 610, etc... . It is clear that there
+
+is thus only one sequence of numbers : 1, 2, 5, 13, ... ,a(n), ... such that ( a(n-1) , a(n) ) is a solution of our
+
+problem. It is not difficult to recognize the Fibonacci numbers F(2n+1) as our a(n). Also, the recursive relation
+
+a(n+1) = 3 a(n) - a(n-1) is easy to prove by induction. With Mathematica, it was possible to find two 'prime solutions' :
+
+(p,q) = ( F(431),F(433) ) = (52989271100609562179203955678778467019711275902953450662090516283476995513
+
+4424689676262369,
+
+138727712780478382711418610318624639225845035817178369007991803213602522595
+
+4602593712568353).
+
+and (p,q) = ( F(569),F(571) ) which I shall not print out here. All primes are proved primes by Mathematica.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

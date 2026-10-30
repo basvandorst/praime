@@ -1,0 +1,116 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_112.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 112. A possible Lucas-Lehmer type test for primes of the form 
+2^k+3
+Source: https://www.primepuzzles.net/conjectures/conj_112.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0112.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A057732
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_111.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_113.htm
+  https://www.primepuzzles.net/conjectures/conj_112.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 112. A possible Lucas-Lehmer type test for primes of the form 2^k+3
+
+Problems & Puzzles: Conjectures
+
+Conjecture 112. A possible Lucas-Lehmer type test for primes of the form 2^k+3
+
+On July 23, 2026 Davide Rotondo sent the following Conjecture.
+
+I would like to share with you a computational observation and a conjecture.
+
+Starting from the Lucas-Lehmer recurrence:
+
+s(0) = 4 s(n+1) = s(n)^2 - 2
+
+I considered the numbers:
+
+N = 2^(n-1) + 3
+
+and the following expression:
+
+T(n) = (s(n-2)/2 + (2^n - 1)) / (2^(n-1) + 3)
+
+The experiments suggest that this expression is connected with the primality of N, but with two different cases depending on the parity of n.
+
+For odd n, whenever N = 2^(n-1)+3 is prime, I obtain:
+
+s(n-2)/2 + (2^n - 1) ≡ 0 (mod N)
+
+Examples:
+
+n = 3 N = 7 residue = 0 n = 5 N = 19 residue = 0 n = 7 N = 67 residue = 0 n = 13 N = 4099 residue = 0 n = 17 N = 65539 residue = 0 n = 19 N = 262147 residue = 0 n = 29 N = 268435459 residue = 0 n = 31 N = 1073741827 residue = 0
+
+For even n, the same expression does not give zero. Instead, for prime values of N, I observe:
+
+s(n-2)/2 + (2^n - 1) ≡ -9 (mod N)
+
+Examples:
+
+n = 8 N = 131 residue = 122 = N-9 n = 16 N = 32771 residue = 32762 = N-9 n = 56 N = 36028797018963971 residue = N-9
+
+Therefore I conjecture the following parity-dependent Lucas-Lehmer type behavior:
+
+For N = 2^(n-1)+3 prime:
+
+Case 1: n odd
+
+s(n-2)/2 + (2^n - 1) ≡ 0 (mod N)
+
+Case 2: n even
+
+s(n-2)/2 + (2^n - 1) ≡ -9 (mod N)
+
+Equivalently:
+
+s(n-2)/2 ≡ 7 (mod N) if n is odd s(n-2)/2 ≡ -2 (mod N) if n is even
+
+The numerical evidence suggests that the Lucas-Lehmer sequence detects the primality of numbers of the form 2^k+3 in the odd exponent case, while the even exponent case requires a correction term.
+
+I would be interested in any theoretical interpretation or possible connections with Lucas sequences, cyclotomic identities, or known primality tests for numbers of the form 2^k+3.
+
+Also I hope you can prove my conjecture and look (using this test) to the biggest prime number of the form 2^n + 3.
+
+The current PRP record for 2^n+3 form, is for n=2205444, by Paul Bourdelais, 2020. See A057732.
+
+Prime numbers found (N = 2^(n-1)+3) for the values of n: 3, 4, 5, 7, 8, 13, 16, 17, 19, 29, 31, 56, 68, 85, 229, 391, 785, A friend of mine helped me to test up to 785...Except for 1, these values correspond exactly to the initial values (-1) of the sequence OEIS A057732... A friend helped me developing this conjecture and finally we arrived at the conclusion that probably exist pseudoprimes for this test.
+
+Q1. Can you prove the Davide's Conjecture?
+
+Q2: Can you find a pseudoprime using this test?
+
+Q3. If this conjecture results to be true and the algorithm is faster than the alternative tests, would you try to beat the current PRP record (2^n+3, n=2205444) using this test?
+
+Q4. If this Conjecture results to be false but the algorithm is faster than the alternative tests, could it at least to be a useful screening test for finding candidates for absolute primes of this form?
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

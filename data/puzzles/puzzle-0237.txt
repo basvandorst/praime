@@ -1,0 +1,237 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_237.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 237. Alien neighboors
+Source: https://www.primepuzzles.net/puzzles/puzz_237.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0237.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://mathforum.org/wagon/
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_236.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_238.htm
+  https://www.primepuzzles.net/puzzles/puzz_237.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 237. Alien neighboors
+
+Problems & Puzzles: Puzzles
+
+Puzzle 237. Alien neighbors
+
+Bernardo Recamán Santos (Bogotá, Colombia) created a beautiful and interesting puzzle, published originally in the American Mathematical Monthly (Problem 11019, June-July, 2003).
+
+An easier version of the same problem, also by Recamán, resulted in the POTW 989 of the McAlester College POTW site maintained by Stan Wagon.
+
+I will make a variation of both problems, hopefully as interesting - but maybe easier - than them.
+
+Q.1.a Find the minimal K such that the K integers from 1 to K, when rearranged into a circle, every two adjacent integers are:
+
+a) not consecutive
+
+b) coprime.
+
+Example (not solution because - intentionally - this is not the minimal K):
+
+K=20: 2, 7, 10, 17, 14, 19, 12, 5, 8, 15, 4, 11, 18, 13, 6, 1, 16, 3, 20, 9
+
+Q.1.b. Do you devise a successful strategy (avoiding any exhaustive scheme) in order to find solutions to Q1.? If so, please send a solution for K=100.
+
+Q.2. Find the earliest set of K consecutive integers, all of them composite, such that when rearranged into a circle, every two adjacent integers are: a) not consecutive
+
+b) coprime
+
+Do this for every 3<K<12 and for K=20, 50 & 100.
+
+Example, not solution because - intentionally- it's not the earliest set for the K involved:
+
+K=9, in a circle [319, 327]:{325, 322, 327, 320, 323, 326, 321, 319, 324}
+
+Solution:
+
+Luke Pebody, Jon Wharf and Enoch Haga sent contributions to this puzzle. Only Jon solved all the questions of this puzzle.
+
+***
+
+Luke found a very smart method when "K is a multiple of 4, greater than 4, such that K+1 and K+3 are primes" and also sketched a general procedure, for the question 1b:
+
+Suppose K is a multiple of 4, greater than 4, such that K+1 and K+3 are primes (for example 100). Say K=4n. Then you can arrange the numbers [1..4n] around a circle as follows:
+
+(i) If x+y=4n+1 and {x,y} are neither {1,4n} or {2n,2n+1} then make x and y adjacent
+
+(ii) make 1 adjacent with 2n and 4n adjacent with 2n+1
+
+(iii) If x+y=4n+3 and {x,y} are not {2n+1,2n+2} then make x and y adjacent
+
+(iv) make 1 adjacent with 2n+2 and 2 adjacent with 2n+1.
+
+Then it is easy to check that:
+
+(i) this makes a circle
+
+(ii) every pair of adjacent numbers are non-consecutive and coprime.
+
+Examples:
+
+K=16
+
+(i) gives adjacent pairs: 2-15,3-14,4-13,5-12,6-11,7-10
+
+(ii) gives adjacent pairs: 1-8,9-16
+
+(iii) gives adjacent pairs: 3-16,4-15,5-14,6-13,7-12,8-11
+
+(iv) gives adjacent pairs: 1-10,2-9
+
+Putting these all together gives the circular order 1-8-11-6-13-4-15-2-9-16-3-14-5-12-7-10-1
+
+K=28 has 1-14-17-12-19-10-21-8-23-6-25-4-27-2-15-28-3-26-5-24-7-22-9-20-11-18-13-16
+
+...
+
+A general heuristic method is to pick two prime numbers as close as possible to K+1 and make things adjacent if they add up to those prime numbers, and then just fiddle around with the remaining vertices to make it a circle.
+
+***
+
+Jon wrote:
+
+I looked at your problem 1.a in several stages:
+
+Make a ring keeping consecutive numbers apart: minimum K=5, {1,3,5,2,4}
+
+Make a ring keeping even numbers apart, minimum K=7, {1,4,7,2,5,3,6}
+
+Now 6 is in there, a very fussy neighbor. The next number it's coprime to is 11, so:
+
+1.a
+
+Make a ring with coprime non-consecutive neighbors, minimum K=11, {1,6,11,7,4,9,2,5,8,3,10}
+
+The section of this ring [7,4,9,2] can be reversed so that the ring can be extended by dropping 12 between 7 & 5: {1,6,11,2,9,4,7,12,5,8,3,10}
+
+This gave me an idea for 1.b, a systematic way to build larger rings.
+
+Adding an odd number k: try next to the odd numbers starting with k-4 and descending.
+
+Adding an even number k is more complicated:
+
+cut the ring between the two adjacent odds. If possible insert the even number there
+
+If not possible reflect a section of the ring to push the problem number(s) somewhere else.
+
+Example: insert 14 into {1,6,11,2,9,13,4,7,12,5,8,3,10}
+
+9 & 13 are adjacent odds but 13 is a problem so reflect 13 - 5 to give:
+
+{1,6,11,2,9,5,12,7,4,13,8,3,10} then insert 14 between 9 & 5:
+
+{1,6,11,2,9,14,5,12,7,4,13,8,3,10}
+
+This is the step-by-step approach, which could be programmed. It's a little tough to do by hand, especially if the goal is 100. I went as far as 20:
+
+{1,6,11,16,7,12,19,4,17,20,13,18,5,14,9,2,15,8,3,10}
+
+I also tried a modular approach: take the 12-ring and make copies of it adding 12k to each member, adding a longer ring to reach a particular number (100). This doesn't make a perfect ring - lots of neighbors sharing a factor of 5 or 7. I corrected each problem with section reversals. This was the result:
+
+1.b
+
+{1,6,11,14,23,18,13,10,3,20,
+
+17,24,19,30,7,12,5,8,15,22,
+
+25,4,9,2,21,16,35,26,45,38,
+
+47,42,37,34,27,32,29,36,31,28,
+
+33,40,43,48,55,52,57,50,59,54,
+
+49,46,39,44,41,60,77,80,53,78,
+
+85,82,75,56,51,58,63,68,65,72,
+
+67,64,69,62,95,66,61,70,73,84,
+
+79,76,81,74,99,86,93,100,71,90,
+
+83,98,89,96,91,88,97,92,87,94}
+
+Your Q2 example is broken, of course - you have 324 and 325 adjacent.
+
+Obviously from my first steps on Q1 there are no solutions for K=3,4,5,6. For K=7 there will be a multiple of 6, the nearest possible neighbors are n+/- 5, n+/-7. No solutions for K=7 or 8: the shortest span this can be achieved in is K=9, starting at 6k-1 up to 6k+7 . Unfortunately 6k takes 6k+5 and 6k+7 as neighbors, 6k+6 takes 6k-1 and 6k+1 as neighbors, leaving 6k+2,3,4 as the rest of the ring, which can't be done. So no solutions for K=9 either.
+
+K=10 will still require two multiples of 6 and adds another even number so this doesn't work any better. No solutions for K=10.
+
+K=11 we now have the option of only one multiple of 6 bracketed by 6k-5 and 6k+5. From Q1 we know this can be done. Of course the first and last number must be odd so we need a gap between primes of at least 14.
+
+The first such feasible gap is after 317, which gives:
+
+{319,324,329,320,327,322,325,323,326,321,328} for K=11, and, luckily,
+
+{319,324,329,320,327,322,325,318,323,326,321,328} for K=12
+
+My expectation is that the first large-enough gap will work for the higher-population rings because there are more options for arrangement. The gap of 22 after 1129, even though tight, works for K=20:
+
+{1147,1130,1143,1148,1135,1146,1141,1136,1131,1142,1149,1132,1137,1144,1139,1134,1145,1138,1133,1140}
+
+Although I haven't tried them, the gap after 19609 will probably work for 50 and the gap after 370261 will probably work for 100.
+
+2.
+
+Summarizing:
+
+No solutions for K=3,4,5,6,7,8,9,10
+
+K=11, minimum [319,329]
+
+K=12, minimum [318,329]
+
+K=20, minimum [1130,1149]
+
+Guesses:
+
+K=50, minimum [19610,19659]
+
+K=100, minimum [370262,370361]
+
+***
+
+Enoch solved the questions 1a and 1b. This is what he wrote:
+
+Since the integers are arranged in a circle, the puzzle calls for coprime pairs having no adjacent integers either in ascending or descending order. Also, the tails must be coprime along with the other pairs.
+
+The minimal K that met the requirements of the puzzle was K=11: 7 10 3 8 11 6 1 4 9 2 5.
+
+Question 1b
+
+I suppose the phrase "avoiding any exhaustive scheme" means that some tinkering with one's code is OK. The same code that successfully produced K=12 failed to complete K=100, omitting 1, 3, and 4. Therefore I was obliged to insert these numbers (and to move 100 from the beginning to between 3 and 39), as you will see below, in order to meet the requirements of the puzzle.
+
+For K=100: 97 94 99 92 89 84 95 98 93 88 91 82 85 96 83 90 77 86 81 76 87 80 71 78 73 66 61 70 79 72 67 64 75 62 69 58 55 52 57 74 65 48 59 68 63 50 53 60 49 54 47 56 51 46 43 40 33 38 45 34 3 100 39 44 35 32 41 30 37 42 31 36 25 28 19 24 29 18 23 20 27 16 21 26 17 14 9 22 15 8 11 6 13 10 7 4 1 12 5 2.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

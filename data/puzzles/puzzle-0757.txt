@@ -1,0 +1,282 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_757.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 757. Follow-up to Puzzle 756
+Source: https://www.primepuzzles.net/puzzles/puzz_757.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0757.htm
+
+References (local copies):
+  ../../references/2004_a-new-fibonacci-like-sequence-of-composite.pdf  (from https://cs.uwaterloo.ca/journals/JIS/VOL7/Vsemirnov/vsem5.pdf)
+  ../../references/2004_a-new-fibonacci-like-sequence-of-composite.txt  (extracted text)
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_756.htm
+  http://www.primepuzzles.net/problems/prob_031.htm
+  mailto:cbrfgm@gmail.com
+  https://cs.uwaterloo.ca/journals/JIS/VOL7/Vsemirnov/vsem5.pdf
+  http://vddb.library.lt/fedora/get/LT-eLABa-0001:E.02~2013~D_20131015_155936-95267/DS.005.1.01.ETD
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_758.htm
+  https://www.primepuzzles.net/puzzles/puzz_757.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 757. Follow-up to Puzzle 756
+
+Problems & Puzzles: Puzzles
+
+Puzzle 757. Follow-up to Puzzle 756
+
+Emmanuel Vantieghem sent this nice follow-up to Puzzle 756:
+
+Find odd numbers a, b, c such that the sequence
+
+F(n) such that
+
+F(1) = a
+
+F(2) = b,
+
+F(n) = F(n-1) + F(n-2) + c
+
+contains no prime at all.
+
+Q. Find your a, b, c values.
+
+Observations:
+
+1.- (I omitted the condition a < b because it is completely unnecessary: if you find a solution F(n) with a > b,
+
+you can take the sequence F*(n) defined by F*(n) = F(n+1) )
+
+2. This problem is somewhat analogue with problem 31. Finding a decent covering could solve it, but the fact that all numbers in the sequence must be odd makes it very very difficult.
+
+Contributions came from Claudio Meller, Jan van Delden, Fred Schneider and Emmanuel Vantieghem
+
+***
+
+Claudio wrote:
+
+Con a= 8, b=9 y C= 501 se obtienen más de 1184 números no primos
+
+Con 25, 27 y 1541 obtengo 147 términos no primos.
+
+***
+
+Jan wrote:
+
+That might be too much to ask for.
+
+Given: G[n+1]=G[n]+G[n-1]+c, with G[0]=a, G[1]=b
+
+Rewrite as: G[n]=A[n]-c with A[n+1]=A[n]+A[n-1], with A[0]=a+c, A[1]=b+c.
+
+Or: G[n]=F[n-1]*(a+c)+F[n]*(b+c)-c , with F[-1]=1
+
+Or: G[n]=F[n-1]*a+F[n]*b+(F[n+1]-1)*c
+
+Where F[n] is de Fibonacci-sequence.
+
+The article A New Fibonacci-like Sequence of Composite (M. Vsemirnov) covers the situation where c=0.
+
+In it the author chooses a set of (r[i],m[i],p[i],c[i]) such that
+
+. the congruences n=r[i] mod m[i] cover the integers.
+
+. a=c[i]F[m[i]-r[i]] mod p[i] and
+
+. b=c[i]F[m[i]-r[i]+1] mod p[i]
+
+. F[m[i]]=0 mod p[i]
+
+[And (a,b)=1]
+
+We have
+
+A[n]=F[n-1]*a+F[n]*b, substitute formulae for a,b:
+
+A[n] mod p[i] =
+
+c[i]*(F[n-1]*F[m[i]-r[i]]+F[n]*F[m[i]-r[i]+1]) mod p[i]= (*)
+
+c[i]*F[n+m[i]-r[i]] mod p[i]=
+
+c[i]*F[k*m[i]] mod p[i] for some k>=1, since n=r[i] mod m[i] for some i.
+
+A[n]=0 mod p[i], since F[m[i]]|F[k*m[i]] and F[m[i]]=0 mod p[i].
+
+So there is a prime p[i]|A[n] for all n, and since p[i] small compared to A[n], we have A[n] composite.
+
+(*) F[k+l]=F[k-1]F[l]+F[k]F[l+1] (and from which also the property F[m]|F[n] if and only if m|n follows).
+
+The author’s solution doesn’t have both a,b odd. However his work is an extension of the work of Knuth,
+
+who found (62638280004239857,49463435743205655) [who didn’t use the c[i] above].
+
+We could try and use the same scheme as follows:
+
+Change a to a+c, b to b+c, take c=product(p[i]), p[i] in coverset, since that would preserve p[i]|G[n].
+
+However all coversets discussed in the article contain prime 2, hence c is even, which was not allowed.
+
+One might argue that maybe one could find a coverset not using prime 2.
+
+However I think you might agree that we do need a rule like (*),
+
+because one has to extend composite G[n] from a set [2..N] to all integers somehow.
+
+I think we might have better luck by defining:
+
+H[n]=T[n-1]+T[n-2]+T[n-3], with T[0]=a, T[1]=b, T[2]=c
+
+An extension to trionacci numbers.
+
+In Linear recurrence sequences of composite numbers, chapter 4, the author Jonas Šiurys gives a solution:
+
+a= 99202581681909167232;
+
+b = 67600144946390082339;
+
+c = 139344212815127987596;
+
+with gcd(a,b,c)=1. However 2 even numbers are used.
+
+However rules similar to (*) are much trickier...
+
+***
+
+Fred wrote:
+
+I wasn't able to find a perfect covering set given the time constraints but I did find a set of moduli that guarantees a composite for a minimum of 99.47% and it guarantees an initial sequence of 463 composites (at a minimum).
+
+I constructed a set of moduli which has a cycle of length 10080 and only has 53 values in that cycle which are not divisible by any factors of this number:
+
+961028822148391116866530785 =
+
+3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 41 * 47 * 61 * 71 * 107 * 181 * 211 * 281
+
+The numbers are of the form:
+
+c = 961028822148391116866530785 * n1 + 489436429316952505141575361
+
+a = 961028822148391116866530785 * n2 + 552673760827668088187032942
+
+b = 961028822148391116866530785 * n3 + 201462026909451669613400188
+
+It's just a matter of finding a set of odd composites of this pattern
+
+which are relatively prime to each other. Due to the size of the numbers, this is a simple step:
+
+For n1 = 0, n2 = 1, n3 = 3, we get:
+
+c = 489436429316952505141575361 = 53 * 307 * 373 * 80644214178147259667
+
+a = 1513702582976059205053563727 = 103 * 9901 * 1484308815502660028509
+
+b = 3084548493354625020212992543 = 509 * 2043409 * 2975849 * 996569582947
+
+Per the factoring, these are relatively prime to each other.
+
+Also the order is significant, flipping a and b does result in different answers.
+
+Here is a screen capture of the moduli set. The moduli set for "c" is found on row 2, "a" is row 3, "b" is row 4.
+
+For instance, cell S3 means that "b" must be of the form: 45 mod 47.
+
+Cell G1 (whose formula is in the display window) finds 53 non-zeros out of the 10080.
+
+The interesting thing is that I could find a solution that guaranteed > 94% composites with just 3, 5, 7, 11, 31, 41.
+
+Can anyone find a perfect covering set?
+
+***
+
+Emmanuel wrote:
+
+It was a hell of a job, but finally I could find the following a, b, c :
+
+a = 34645070838898447188004862254466286597623202852789118513550297680601605381
+
+8574266131717600487941201063 (102 digits)
+
+b = 14966963365244319054365268415392264472679965924154087218223476376958335184134779
+
+3731397086724941199065 ( id )
+
+c = 4650952997556328445704238092273930989775254356619718459590888278561977254701832
+
+04031145580541320803285 ( id ).
+
+Every term in the sequence ( F(n) ) will be divisible by at least one prime of the set
+
+{3, 5, 7, 17, 11, 61, 47, 19, 41, 23, 53, 31, 2207, 107, 2161, 109441, 5779, 2521, 1087, 4481, 103681, 1601, 3041, 2269, 4373, 19441, 181, 3167, 241, 20641, 10749957121, 23725145626561} .
+
+First of all, I looked for odd initial numbers for a Fibonacci-like sequence of composite elements with a covering that uses only odd primes (in problem 31, covering with the prime 2 is admitted). Then, taking c to be the product of the covering primes gives automatically a solution for our problem.
+Note that this way of getting a, b, c makes it impossible to have relative primality of a,c and of b,c (a and b are relatively prime).
+
+In my opinion, there might be smaller solutions. However, if one solves the problem the way I did, no spectacular diminishing of the number of digits should be expected. But, there may be other ways to solve this.
+...
+
+Here are two smaller values for a and b ( c remains the same ) :
+
+a = 149483900952505429036911987254877061234303653849505978343470140460157739831
+
+43074352949592692139622991 (101 digits)
+
+b = 22272586420437209242563238322172756859489578324602952645110151017835819895020
+
+22797016924497336963411 (100 digits).
+
+...
+
+Here is a still better result (with the same c) :
+
+a = 1477123774381693815397108129878903385941002824052228965359499710130619268725289
+
+063520334348471050217
+
+b = 24996240119054494946454777417299937518305742714812110683693766230306708739251
+
+56149225660116431748763
+
+I believe that there is no smaller result with the same c.
+
+...
+
+I think it is very difficult to obtain a covering with c relatively prime to the primes in the covering set.
+
+The reason is that we can write the elements in our sequence in the form
+
+Fib(n-2)*a+Fib(n-1)*b+(Fib(n)-1)*c (where Fib(k) is the k-th Fibonacci number).
+
+The sum Fib(n-2)*a+Fib(n-1)*b is the (n-1)-th element in the Fibonacci-like sequence ( G(n) ) with initial terms a, b.
+
+Eilas, the regularity with which the primes enter in the Fibonacci sequence (and hence in the sequence ( G(n) )) is not the same as in the sequence
+
+( Fib(n)-1 ) ( = ( 0, 0, 1, 2, 4, 7, 12, 21, ...) ).
+
+Nevertheless, this remark is intuitive. I would be happy if I got it wrong !
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

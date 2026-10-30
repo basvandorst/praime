@@ -1,0 +1,172 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_645.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 645. Generalized Dudeney Numbers
+Source: https://www.primepuzzles.net/puzzles/puzz_645.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0645.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://en.wikipedia.org/wiki/Dudeney_number
+  http://www.jakob.at/steffen/dudeney.html
+  http://hostilefork.com/2009/12/24/six-dudeney-numbers-proof/
+  mailto:cbrfgm@gmail.com
+  https://www.jakob.at/steffen/dudeney.html
+  https://www.primepuzzles.net/puzzles/puzz_644.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_646.htm
+  https://www.primepuzzles.net/puzzles/puzz_645.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 645. Generalized Dudeney Numbers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 645. Generalized Dudeney Numbers
+
+Perhaps you know already what a Dudeney number is. If not, see this reference.
+In short, a Dudeney number is any number n^3 such that SOD(n^3)=n; SOD means here "sum of digits".
+
+Then it's natural generalize the concept: A Generalized Dudeney Number is any number n^m such that SOD(n^m)=n.
+
+Steffen Jakob has the record: SOD(547210^25662) = 547210 where 547210^25662 is a number of 147253 digits.
+
+Q1. Perhaps you would like to improve such record (more digits).
+Two Sunday additions:
+Q2. Perhaps you will success beating the record using a prime base n?
+Q3. Perhaps you will find useful to redefine the n-searching space for each exponent m, as was done here.
+
+Contributions came from Steffen Jakob, Jan van Delden, Giovanni Resta.
+
+***
+
+Steffen wrote:
+
+1001983^37099 is a new prime based record (222626 digits). :-)
+
+I just beat my old hiscore. The new largest number is 653230^30192
+
+(175569 digits). I already updated my web page.
+
+***
+
+Jan wrote:
+
+Q1: Large solutions can be found with less effort if one uses: DigitSum(v^p)=DigitSum((v*10^k)^p)=v*10^k.
+
+Instead of trying the powers of v*10^k the numbers can be kept relatively small by searching for v*10^k in the digit sum of v^p.
+
+I used v=9 because we always have DigitSum(9^p)=0 mod 9, which hopefully increases our luck.
+
+Solution: 900000^209412 Digits 1246890
+
+Q3: If we assume that the average digit is 4.5 (the digits are uniformly distributed over 0..9), and the digit sum equals v, we should require v/4.5 digits approximately.
+
+The power required can be approximated by using 9^p=10^(v/4.5), i.e. p*log[10](9)=v/4.5 hence p=v/(4.5*log[10](9)). If we substitute v=9*10^5 we get p about 209590.
+
+So the given estimate is not bad at all.
+
+Or more sophisticated: 9^p=4.5*[10^(v/4.5)-1]/9 assuming all those digits are 4.5 (which is not possible in real life..), which generates essentially the same p.
+
+The real trick is to calculate an interval in which p probably lies. Each digit can be described as drawn from a uniform distribution (*) with mean 4.5 and variance 99/12.
+
+If we draw n digits the average value of a digit will follow a normal distribution with mean 4.5 and variance 99/(12*n), if n is large enough. The variance decreases rapidly with n.
+
+If n is approx 200000 this would give us an 95% confidence interval for the average digit [4.475,4.525]. Which would give an estimate for p: [208432,210761] <skewed>.
+
+(*) This might not be true, because the digits are not drawn independently, but calculated using v^p. However the predictions for v=9*10^k, for k<=5, seem to work fine...
+
+***
+
+Resta wrote:
+
+My best result for puzzle 645 is
+
+35900000^3122353 which has 23589672 digits whose sum is 35900000.
+
+I also searched for examples of n^e with d digits such
+
+that n,e, and d are prime numbers.
+
+One such example is 5059937^167677 with 1124131 digits.
+
+***
+
+On June, 11, 2025, Steffen Jakob wrote:
+I found a new record for Puzzle 645:
+
+20000000000^14764030693 has 152,084,723,026 digits, and its digit sum is 20,000,000,000.
+
+I also updated my page https://www.jakob.at/steffen/dudeney.htm
+
+Last record was from G. Resta: 35900000^3122353 a number with 23589672 digits obtained in 2012-07-21.
+
+...
+
+Later he added:
+
+I attached a script to check the record independently: about 15 lines of Python (3.12 or newer), nothing to install. The base is 2 * 10^10, soi.e. the record number is "just" 2^14764030693 followed by 147,640,306,930 zeros. Zeros add nothing to the digit sum, so the script simply sums the digits of 2^14764030693. The padded-base idea itself is due to Jan van Delden, as described on the puzzle page. I only pushed it further. On my machine (Apple M1) it finishes in 9 minutes using about 12 GB of RAM and prints:
+
+Here is his Python Script:
+
+import sys
+
+import time
+
+K = 14764030693
+
+N = 20000000000
+
+if sys.version_info < (3, 12):
+
+sys.exit(f"needs Python 3.12 or newer (fast int -> str conversion) - "
+
+f"this is Python {sys.version.split()[0]}")
+
+sys.set_int_max_str_digits(0) # lift Python's int -> str safety limit
+
+# (by default str() refuses beyond 4300 digits)
+
+t0 = time.time()
+
+x = 1 << K # shifting 1 left by K bits is exactly 2^K, built instantly
+
+s = str(x) # all 4.4 billion decimal digits of 2^K as one string
+
+del x
+
+# digit sum = 0*count('0') + 1*count('1') + ... + 9*count('9')
+
+digit_sum = sum(int(d) * s.count(d) for d in "0123456789")
+
+print(f"digit sum of 2^{K}: {digit_sum:,} (claim: {N:,})")
+
+print(f"time: {time.time() - t0:.0f}s")
+
+print("RESULT:", "VALID" if digit_sum == N else "INVALID")
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

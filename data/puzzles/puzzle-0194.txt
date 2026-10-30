@@ -1,0 +1,175 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_194.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 194. The Palinpoints
+Source: https://www.primepuzzles.net/puzzles/puzz_194.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0194.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://jlpe.tripod.com/ppn/ppnpaper.htm
+  http://mathworld.wolfram.com/PalindromicNumber.html
+  http://mathworld.wolfram.com/Reversal.html
+  http://www.research.att.com/cgi-bin/access.cgi/as/njas/sequences/eisA.cgi?Anum=069469
+  http://www.math.princeton.edu/~arbooker/algorithm.html
+  http://www.math.princeton.edu/~arbooker/nthprime.html
+  https://www.primepuzzles.net/puzzles/puzz_051.htm
+  https://www.primepuzzles.net/puzzles/puzz_193.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_195.htm
+  https://www.primepuzzles.net/puzzles/puzz_194.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 194. The Palinpoints
+
+Problems & Puzzles: Puzzles
+
+Puzzle 194. The Palinpoints
+
+Joseph L. Pe defined (see his paper) an entertaining functional equation:
+
+f(r(x)) = r(f(x)) ....................... (1)
+
+x is an integer
+
+f(x) is a given arithmetic function of x, and an integer itself
+
+r(x) means the digital-reverse of the integer x
+
+The palinpoints are all these x values that solve the equation (1) for a given specific function f(x).
+
+Example:
+
+Let f(x)=isqrt(x); isqrt(x) is the integer square root of x. Thus (1) becomes:
+
+isqrt(r(x))=r(isqrt(x)).......(1.a)
+
+Palinpoints = 1 2 3 4 5 6 7 8 9 11 22 33 44 55 66 67 76 77 88 89 98 99 100 121 131 141 144 154 164 169 179 189 400 441 451 461 484 494 505 515 525 900 961 971 981 ...and so on
+
+Example: x=154 then isqrt(r(154))=isqrt(451)=21 & r(isqrt(154)=r(12)=21
+
+Pe has obtained the earliest palinpoints for several well known arithmetical functions f(x) such as: x^2, φ(x), σ(x), p(x).
+
+Maybe Pe named palinpoints the solutions of (1) because usually these are:
+
+palindromic numbers or
+
+pairs of reversal numbers.
+
+But not always happens b.
+
+Question 1.
+
+Can you establish when b. is not followed?
+
+***
+
+If f = p(x), being p(x) the x-th prime number, the equation (1) becomes:
+
+p(r(x)) = r(p(x))...........(1.b)
+
+For (1.b) Pe has found only seven palinpoints:
+
+x = 1, 2, 3, 4, 5, 12 & 21 ( see EIS A069469 )
+
+Question 2.
+
+Can you find one more palinpoint to (1.b)?
+
+***
+
+Some minutes before the final edition of this page, Joseph sent two new puzzling questions about his equation (1):
+
+Question 3:
+
+a) What is the minimum number of palinpoints an arithmetical function can have? b) Are there such functions with no palinpoints at all?
+
+_____
+
+For tackling the question 2 maybe you'll find useful to know the very efficient strategy applied by the authors (?) of the well known "The Nth Prime Page"
+
+Solution:
+
+Question 1 was solved by J. K. Andersen:
+
+I interpret the question as: Assume x is a palinpoint. Determine when r(x) is not a palinpoint.
+
+The assumption is f(r(x)) = r(f(x))
+
+r(x) is by definition a palinpoint if and only if: f(r( r(x) )) = r(f( r(x) ))
+
+Let r2(x) = r(r(x)), insert the assumption and the requirement is:
+
+f(r2(x)) = r( r(f(x)) ) = r2(f(x))
+
+r2(x) is x with any ending 0's removed.
+
+r(x) is a palinpoint if and only if:
+
+f(x with ending 0's removed) = f(x) with ending 0's removed.
+
+If neither x nor f(x) has ending 0's then it is trivially satisfied.
+
+It can be satisfied in other cases, e.g.. x=10 is a palinpoint for f when: f(10)=20 and f(1)=2. Here r(10)=1 is also a palinpoint.
+
+Question 2 was solved also by J. K. Andersen!!!
+
+The next palinpoint is x = 8114118 with p(x) = 143787341.
+
+Later he added:
+
+I did not know the problem in advance. I modified a prime-finding C program for the search and got the result in a few seconds running. I continued searching for bigger palindromic solutions (and only that) with p(i)<2^32 (meaning i<=203280221) but found none. I then realized a number with an even number of digits could never be a palprime (except 11). I could have stopped at 10^9 but it only took a few minutes anyway.
+
+Wondering if others had noted p(8114118) = 143787341, I just did a Google search on "143787341". I was surprised to see that you had noted it, even in one of your own puzzles: puzzle 51 with no solutions yet. I saw you also submitted it to Prime Curios and EIS. It is also at Mathworld.
+
+It appears that the search done by J.K.A. was simplified using the following lemma pointed out by him in his email: "x is always a palinpoint of f if x and f(x) are both palindromes".
+
+In any case I wonder if this is the claimed "next" 8th palinpoint or just - as asked - "another palinpoint". BTW, as a curio note, 143787341 is palprime!
+
+J.K.A. replied this to my worries:
+
+Maybe I was a little unclear in my earlier post. I made an exhaustive search to x = 10 million and found the first new solution p(8114118) = 143787341. This should be guaranteed to be the 8th solution if my program is correct. It was after this I switched to only looking for palindromic solutions. There may still be non-palindromic solutions with x above 10 million.
+
+Question 3 was solved by Frank Rubin and J. K. Andersen:
+
+F. R.:An answer to Part 3 occurred to me right away. Let f(x) be 10^(abs(x)+2)-2.
+
+So f(0)=98, f(1)=998, f(2)=9998, etc. Then there are no integers x and y for which f(x)=r(f(y)) so there cannot be any integer n for which f(r(n))=r(f(n)). f has no palinpoints.
+
+J. K. A.: I don't know whether any limitation on "arithmetical function" is intended. It is easy to construct functions with no palinpoints at all. f(x) = c for a non-palindromic constant c has no palinpoints since: f(r(x)) = c, and r(f(x)) = r(c). I think f(x) = 10 is the simplest function without palinpoints.
+
+Asked by me if he could produce a non-constant f(x) function with the asked property, he replied a solution similar to that one sent by Rubin:
+
+It is still easy to construct "artificial" functions without palinpoints e.g.. f(x) = 10^(x+1)+2.
+
+r(f(x)) = f(r(x)) will never be satisfied if the set of all function values has no reversible pairs, i.e.. if there is not even a solution to r(f(x)) =f(y) for any combination of x and y.
+
+I have not looked for "normal" functions. I don't know what that would mean anyway. Maybe a small challenge would be a function which can take any value.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

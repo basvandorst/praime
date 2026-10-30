@@ -1,0 +1,190 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_240.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 240.  Consecutive  numbers and consecutive prime factors
+Source: https://www.primepuzzles.net/puzzles/puzz_240.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0240.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_239.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_241.htm
+  https://www.primepuzzles.net/puzzles/puzz_240.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 240. Consecutive numbers and consecutive prime factors
+
+Problems & Puzzles: Puzzles
+
+Puzzle 240. Consecutive numbers and consecutive prime factors
+
+Here we will ask for pairs of consecutive numbers (n, n+1) such that each is composed only by consecutive prime factors.
+
+As a matter of fact I have found four examples:
+
+(384,385)
+
+(539,540)
+
+(2430,2431)
+
+(4199,4200)
+
+Example: 4199=13*17*19, 4200=2^3*3*5^2*7
+
+Questions:
+
+1. Can you find the next 3 examples?
+
+2. Can you find a moderate large example, let's say 20 digits?
+
+3. Can you find a pair of these where the primes involved are not repeated in each number?
+
+Solution:
+
+Jon Wharf, Adam Stinchcombe, Enoch Haga, Faride Firoozbakht, Eric Brier and J. K. Andersen solved Q1.
+
+Wharf, Firoozbakht, Brier and Andersen observed the relation of these kind of asked pairs and the twin primes as a basis to construct a smart approach in order to get larger examples and, consequently, solved Q2 by far.
+
+Nobody has found an example for the case Q3, so probably there is not any one.
+
+***
+
+Q1: Here are the first pairs below 100000, as reported by several of the solvers of this puzzle.
+
+(35, 36)
+
+(143, 144)
+
+(323, 324)
+
+(384, 385)*
+
+(539, 540)*
+
+(899, 900)
+
+(2430, 2431)*
+
+(3599, 3600)
+
+(4199, 4200)*
+
+(4374, 4375)**
+
+(5183, 5184)
+
+(11663, 11664)
+
+(22499, 22500)
+
+(32399, 32400)
+
+(36863, 36864)
+
+(57599, 57600)
+
+(72899, 72900)
+
+* given as examples in this puzzle
+
+** found by the solvers
+
+Q2: What is the relation on the pairs (n, n+1) and the twin primes, mentioned above?
+
+Let p and p+2 twin primes; so if n=p(p+2) then n+1=(p+1)^2. From start n is a product of consecutive primes (because p & p+2 are twin and necessarily consecutive primes), so all we need is that p+1 (an even and composite quantity) can be factorized as a product of consecutive primes.
+
+While not all the known solutions are of this type (all pairs in the list above marked with an asterisk are not of this type), this model provides a basis in order to hunt systematically the asked (n , n+1) pairs of large size for this puzzle
+
+Before presenting the large solutions gotten I would like to say that Wharf and Andersen neatly noticed that after (4374, 4375) they are all of the 'twin-prime + square' type (Why?... See at the bottom the new questions emerging of this)
+
+Large solutions: In order to get large solutions you should use the twin-prime + square model. In order to guarantee that (p+1) is a product of consecutive primes you have several options as: p=k*q# -1 or p=k-q! - 1, and so on, all related with the 'minus one" primorial or factorial functions, using a k multiplier appropriate, that is to say a multiplier k having its largest prime factor less that q.
+
+J. K. Andersen sent the largest one (5138 digits)
+
+I made my own search with PrimeForm/GW which found and proved the 2569-digit twins 2379752375*6000#+/-1. 6000# is the product of all primes below 6000, and 2379752375 = 5^3*7^2*11^2*13^2*19. The solution n=x^2-1 has 5138 digits.
+
+Others sent by Andersen (I checked Chris Caldwell's prime database and found two large twin primes x+/-1 satisfying the requirement for x) were:
+
+2846!4+/-1 with 2151 digits was found in 1992 by Harvey Dubner. 2846!4 is the multifactorial 2846*2842*2838*...*2 which contains all prime factors <= 1423
+
+5775*2^5907+/-1 with 1782 digits was found in 1998 by Bradford Brown with Yves Gallot's Proth.exe. 5775 = 3*5^2*7*11 which is fine for our purpose.
+
+Faride sent the following one:
+
+2*3*5^995*7*11*...*541*547+/-1. digits=1835
+
+Jon Wharf sent this one:
+
+Titanic pair: ( (950*1193#)^2-1, (950*1193#)^2 ). Proved 950*1193# - 1 and 950*1193# + 1 with PrimeForm.
+
+Adam Stinchcombe wrote:
+
+I just wanted to add that I found some 200+ digit examples:
+
+n=2^2*3^21*5^19*7^22*11^19*13^20*17^19, n^2 215 digits
+
+n=2^8*3^11*5^20*7^22*(11*13817)^19, n^2 218 digits
+
+Q3. In order to get this target you should use the twin-pair + square model together with the primorial minus one option. This is what two solvers wrote:
+
+Faride:
+
+Assume n & n+1 be product of consecutive primes and be squarefree ,since one of them is even ,thus n or n+1 must be of the form p#.
+
+If n be even then n=p# and n+1=p#+1 ,but for n < 163, p#+1 isn't product of consecutive primes (I checked ).
+
+If n is odd then n+1=p# and n=p#-1 ,also for n < 163 , p#-1 isn't product of consecutive primes.
+
+Thus if such n exist n must be greater than 163#-2.163#-2= 5766152219975951659023630035336134306565384015606066319856068808.
+
+I think there is no such n.
+
+Andersen:
+
+The even number of n,n+1 must be p# for some prime p.
+
+Then we need p#-1 or p#+1 to have consecutive distinct prime factors. It seems unlikely to me and a computer search to 3803# with 1624 digits gave no solutions.
+
+My search used two methods to eliminate m=p#-1 or m=p#+1:
+
+1) Trial factoring first searched for a small factor. If the smallest prime factor of m is found then the following prime must also be a factor to give us a chance. This never happened.
+
+2) If m is assumed to be the product of k consecutive primes then the next prime after the k'th root of m must divide m to give us a chance. This was tried for k=2,3,... until the root became below the trial factor limit from 1). A factor of m was never found. The gmp library was used for prp testing to find the next prime. The prime/prp was not proved so very theoretically a factor could have been missed.
+
+***
+
+Rising questions
+
+Is (4374, 4375)** the last of a finite set of solutions NOT of the twin-pair + square type?
+
+Can you give a reason for this or find more examples?
+
+In particular can you find one more example as (4199, 4200) where n=4199 is a product of three consecutive primes?
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

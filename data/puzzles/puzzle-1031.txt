@@ -1,0 +1,199 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1031.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1031. Rigidly-deletable primes again
+Source: https://www.primepuzzles.net/puzzles/puzz_1031.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1031.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://oeis.org/A188809
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1030.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1032.htm
+  https://www.primepuzzles.net/puzzles/puzz_1031.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1031. Rigidly-deletable primes again
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1031. Rigidly-deletable primes again
+
+Arkadiusz Wesolowski sent the following nice puzzle
+
+For an positive integers k and n with 1 < k < n and k|n, let P(n, k) be the smallest n-digit prime with the property that deleting some k digits, not necessarily contiguous, one at a time in unique order gives a prime at each step, until the empty string is reached. Note: leading zeros are allowed.
+
+Examples for k=2:
+
+a) P(4, 2) = 1009, because 1009 is primes and only 1XX9 is prime.
+
+b) (P(4, 2))=2657 because 2657 is prime and the set {57, 67, 65, 27, 25, 26} (step 1) contains only one prime.
+
+Rigidly-deletable primes for k=1 are in A188809.
+
+Q. Send your largest examples for 1 < k < n and k|n .
+
+____
+
+This puzzle was edited on Sunday 7 of March, 2021.
+
+During the week 5-12 March, 2021, contributions came from Emmanule Vantieghem,
+
+***
+
+Emmanuel wrote.
+
+These are the longest chains I could find:
+
+P(12, 2) = 100140952927.
+
+100140952927 >> 10014*952*27 = 1001495227 >> 1**1495227 = 11495227 >> 11*9*227 = 119227 >> **9227 = 9227 >> 9**7 = 97.
+
+(I'm quite sure there is no smaller 12-digit number that gives a chain of that length).
+
+P(12, 3) <= 111444884899
+
+111444884899 >> ***444884899 = 444884899 >> ***884899 = 884899 >> **4*99 = 499.
+
+(I think It is possible that there is a smaller 12-digit number that gives a chain of that length).
+
+...
+
+I changed my strategy so that now my best result is :
+
+P(28, 2) = 8983300668045233737988665427.
+
+The corresponding chain is :
+
+8983300668045233737988665427 >> 89833006684523377988665427 >> 893300668453377988665427 >> 8330066845337798866427 >> 83300668533779886647 >
+
+> 833006653377988667 >> 8006653377988667 >> 80066533779887 >> 800533779887 >> 8533779887 >> 85779887 >> 779887 >> 9887 >> 97
+
+I restricted myself to numbers with an even number of digits, i. e. : I did not allow initial zeros. So, it is possible that there exist 'smaller' solutions with longer chains.
+
+If you want a table { P(2n,2) | n = 1 to 13 }, let me know.
+
+...
+
+n P(2n, 2)
+
+2 1009
+
+3 100801
+
+4 10131557
+
+5 1001495227
+
+6 100140952927
+
+7 10013551285567
+
+8 1009135512785567
+
+9 101499476982207001
+
+10 10331914669692209647
+
+11 1137899646227100132401
+
+12 166397047330565527043201
+
+13 34344792550711992070815007
+
+14 8983300668045233737988665427
+
+....
+
+{1009, 19}
+
+{100801, 1801, 11}
+
+{10131557, 113557, 3557, 37}
+
+{1001495227, 11495227, 119227, 9227, 97}
+
+{100140952927, 1001495227, 11495227, 119227, 9227, 97}
+
+{10013551285567, 113551285567, 1135512557, 11312557, 113557, 3557, 37}
+
+{1009135512785567, 10013551285567, 113551285567, 1135512557, 11312557, 113557, 3557, 37}
+
+{101499476982207001, 1149947692207001, 11499479227001, 114994722001, 1199422001, 11994001, 114001, 4001, 41}
+
+{10331914669692209647, 103311466969220647, 1331146699220647, 33114669922067, 331146622067, 1146622067, 11662267, 662267, 2267, 67}
+
+{1137899646227100132401, 11378996422100132401, 113996422100132401, 1199642210013241, 11994221001341, 119942210041, 1199422001, 11994001, 114001, 4001, 41}
+
+{166397047330565527043201, 1669707330565527043201, 16697733056557043201, 669773306557043201, 6677330655043201, 66770655043201, 667765504201, 6677655001, 66776551, 776551, 6551, 61}
+
+{34344792550711992070815007, 343449255071199207081007, 3344925507119920708007, 33449207119920708007, 334492011992008007, 3344920119928007, 33449011992007, 334490119927, 3344901199, 33449011, 449011, 9011, 11}
+
+{8983300668045233737988665427, 89833006684523377988665427, 893300668453377988665427, 8330066845337798866427, 83300668533779886647, 833006653377988667, 8006653377988667, 80066533779887, 800533779887, 8533779887, 85779887, 779887, 9887, 97}
+
+Later he added on March 19, 2021:
+
+I found the exact value of P(12, 3) :
+
+P(12, 3) = 111099000109
+
+with sequence :
+
+111099000109 >> 111*990001** = 111990001 >> ***990001 = 990001 >> 99***1 = 991
+
+(We have also :
+
+P(9,3) = 100220009 with sequence
+
+100220009, 220009, 229
+
+and P(6, 3) = 100669 with sequence
+
+106669, 109)
+
+Then on March 26, he added:
+
+I found in addition :
+
+P(15, 3) = 102288899440009 with sequence :
+
+102288899440009 >> 1*2288899**0009 = 122888990009 >> 122***990009 = 122990009 >> *22**0009 = 220009 >> 22***9 = 229
+
+and
+
+P(18, 3) = 866655665488832627 with sequence
+
+866655665488832627 >> 866655665*888**627 = 866655665888627 >> *6665566*888*27 = 666556688827 >> 66655**888*7 = 666558887 >> 66655***7 = 666557 >> ***557 = 557.
+
+Moreover, P(21, 3) does not exist.
+
+Neither does P(30, 2).
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

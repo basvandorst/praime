@@ -1,0 +1,138 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_108.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 108. On the counting function of semiprimes
+Source: https://www.primepuzzles.net/conjectures/conj_108.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0108.htm
+
+References (local copies):
+  ../../references/2021_on-the-counting-function-of-semiprimes.pdf  (from https://math.colgate.edu/~integers/v122/v122.pdf)
+  ../../references/2021_on-the-counting-function-of-semiprimes.txt  (extracted text)
+
+Links on the page:
+  https://math.colgate.edu/~integers/v122/v122.pdf
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_107.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_109.htm
+  https://www.primepuzzles.net/conjectures/conj_108.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 108. On the counting function of semiprimes
+
+Problems & Puzzles: Conjectures
+
+Conjecture 108. On the counting function of semiprimes
+
+On Dec. 30, Alain Rocchelli sent the following conjecture:
+
+In OEIS A001358 (Numbers of the form p*q where p and q are primes), it is mentioned:
+
+"However, the asymptotic formula shows that the linearity is an illusion and in fact a(n)/n ~ log(n)/log(log(n)) goes to infinity". Here, log(e)=1.
+
+Based on expansive computations, integrating the data from A066265 and the formula of Dragos Crisan and Radek Erban, On the counting function of semiprimes, it seems that this formula can be improved by modifying it:
+
+a(n)/n ~ [log(n)/log(log(n))]*{1-(0.08/sqrt[log(log(n))])} which remains equivalent for n --> infinity.
+
+Q1. Do you agree with this new formula?
+
+Q2. Can you get a better formula, especially for the value 0.08?
+
+On Jan 29, 2025, Alain Rochelli wrote:
+
+After much thought, it seems that this conjecture is not entirely relevant but it helps to numerically verify Landau's theorem.
+
+To allow very heavy and intensive computations with GP PARI (or other applications), it is judicious to be interested in the local form of this conjecture:
+
+By derivation of the simplified formula of Dragos Crisan and Radek Erban we obtain:
+
+{DN/DX} (X*log(log(X)/log(X))+0.265*X/log(X) ~ log(log(X))/log(X)+0.265/log(X) = [log(log(X)+0.265] / log(X)
+
+with N as the number of semiprimes less than X.
+
+It follows that: DX/DN ~ log(X) / [log(log(X))+0.265]
+
+Similarly for X ~ C*N*log(N)/log(log(N)) with C considered as constant:
+
+DX/DN = C * [ (log(N)+1) / log(log(N)) - 1/(log(log(N)))^2 ] ~ C * log(N) / log(log(N)) for N (and X) --> infinity
+
+By computation, we get with C = {1-[A/sqrt(log(log(N)))]} :
+
+X=10^100 ; DX/DN=40.36647 ; C=0.97302 ; A=0.06675
+
+X=10^200 ; DX/DN=71.98559 ; C=0.96609 ; A=0.08391
+
+X=10^400 ; DX/DN=129.8970 ; C=0.96699 ; A=0.08621
+
+X=10^800 ; DX/DN=236.6588 ; C=0.96845 ; A=0.08650
+
+X=10^1600 ; DX/DN=434.6145 ; C=0.97014 ; A=0.08555
+
+X=10^3200 ; DX/DN=803.5247 ; C=0.97188 ; A=0.08390
+
+X=10^6400 ; DX/DN=1494.111 ; C=0.97356 ; A=0.08319
+
+X=10^12800 ; DX/DN=2792.008 ; C=0.97513 ; A=0.08211
+
+X=10^25600 ; DX/DN=5239.949 ; C=0.97657 ; A=0.08083
+
+We can see that C converges to 1, but A seems to decrease very very slowly to 0.
+
+***
+
+On Feb 9, 2025 Alain added:
+
+I complete my previous contribution by proposing a better formula for a(n)/n=X/N, namely:
+
+X/N ~ [log(N)/log(log(N))] * {1-[M/log(log(N))]} where M is the Mertens constant (0.261497..)
+
+The explanation is obtained by proceeding as before but this time starting from the slightly different formula:
+
+N ~ (X*log(log(X))/log(X)) + 0.261497*X/log(X) ; cf. formula 17 of the publication by D. Crisan and R. Erban
+
+We then obtain:
+
+DN/DX ~ [log(log(X))+0.261497] / log(X) with N as the number of semiprimes less than X.
+
+It follows that: DX/DN ~ log(X) / [log(log(X))+0.261497].
+
+Now, for X (and N) --> infinity, we can verify that: log(X)/log(log(X)) ~ log(N)/log(log(N)).
+
+Indeed, by direct application of Landau's theorem and by its derived form, we obtain:
+
+X ~ N*log(N)/log(log(N)) involving DX/DN ~ log(N)/log(log(N)) and by combining the two:
+
+X/N ~ DX/DN involving DX/X ~ DN/N
+
+Recognizing the logarithmic derivation, we get log(X) ~ log(N) and log(log(X)) ~ log(log(N))
+
+Then, reconsidering, as before, DX/DN ~ C * log(N)/log(log(N)) for N (and X) --> infinity.
+
+It follows that:
+
+DX/DN ~ log(X)/[log(log(X))+0.261497] ~ log(N)/[log(log(N))+0.261497] ~ C*log(N)/log(log(N))
+
+By setting C = 1-[M/log(log(N))], we obtain the value 0.261497 for M as N tends to infinity.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

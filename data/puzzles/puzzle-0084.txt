@@ -1,0 +1,116 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_084.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 84.- Non-primes adding up to non-primes (By TWA)
+Source: https://www.primepuzzles.net/puzzles/puzz_084.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0084.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_083.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_085.htm
+  https://www.primepuzzles.net/puzzles/puzz_084.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 84.- Non-primes adding up to non-primes (By TWA)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 84.- Non-primes adding up to non-primes (By TWA)
+
+TWA sent last week a fine and very interesting puzzle. He defined and proposed to find the following set:
+
+"The least non-prime numbers such that the addition of all of them or any of its subsets, produces only non-prime numbers".
+
+TWA and myself have found the first 10 members of this set: 1, 8, 24, 25, 86, 1260, 1890, 14136, 197400, 10467660,…?
+
+I have added one more condition to the members of the before set: to be odd numbers; and these are the first members of the new set: 1, 9, 15, 39, 105, 731, 2805, 59535, …?
+
+Finally, if the condition is that all the members are even, except the first one (1), the first members are: 1, 8, 24, 86, 90, 780, 5940, …
+
+1) Can you extend these sequences?
+
+2) Can you argue if these sequences are finite or infinite?
+
+Solution
+
+Chris Nash has solved the part 2) of this puzzle, demonstrating that all thes sets asked contain infinite members. It's "existence" proof also serves as a tool for calculating at least other member to a pre-existing set. This is his proof (but before please use your reinforced glass lenses...:-)
+
+"We will show that given a set S, with n elements, such that the sum of elements in all subsets is composite, the set can be extended by the addition of another element preserving the same property.
+
+S has 2^n subsets, including the empty set. Let the sums of these subsets be s_0=0, s_1, s_2, s_3... and so on. We construct a list of congruences as follows.
+
+Let T={s_0, s_1, s_2, s_3, s_4.......} be the set of all the currently-existing sums. while T is not empty choose an odd prime p. The primes chosen at this stage are all distinct. Find x_p suct that x_p+s_i=0 mod p has some solutions for s_i in T. (Choosing x_p so the most s_i are in T may be efficient, but will not necessarily find the smallest solution). Write down Q=x_p mod p, and remove those s_i from T.
+
+Since at least one element is removed from T at every step, the algorithm terminates with a set of congruences Q=x_p mod p for several distinct primes p. By the Chinese Remainder Theorem, these congruences have an infinite number of solutions in arithmetic progression, and an infinity of these solutions are composite. If you require odd solutions, add Q=1 mod 2 to the set of equations.
+
+To prove this works, note that the new set S has all the original subsets, plus 2^n new subsets formed by adding Q to an original subset. Since each s_i was eliminated in the algorithm for some prime p, Q+s_i is divisible by p and hence is composite. (if Q+s_i=p, simply choose the next solution for Q).
+
+Note this is only an existence proof, but it shows a means of finding a solution (not necessarily the smallest one).
+
+For instance, consider 1, 8, 24, 86, 90, 780, 5940. There are 64 subsets. Choose p=3. We may choose x_3 to eliminate at least 1/3 of the elements in T. So at least 22 elements are eliminated, and we are left with 42. For p=5, we eliminate at least 9 more from the 42. So we are left with 33. For p=7, we eliminate at least 5 more, leaving 28. For p=11, we eliminate at least 3, leaving 25. p=13,17,19 each eliminate at least 2, leaving 19. At most the next 19 primes are needed to finish the construction.
+
+The solutions for Q are in arithmetic progression. The first term is less than the product of these primes, the difference is the product of these primes. If the product is P, a composite solution Q exists that is less than P^2 (if a+nP is an arithmetic progression, put n=a to get a composite term). Note that P^2 is extremely large, so I'm sure people will find much smaller solutions! (I am not attempting that part as this is only the first day of the new puzzle).
+
+Note the problem can in fact be made MUCH harder, and there will still be infinite sequences. For instance, you may add the condition not only do all the sums of subsets need to be composite, but they can have no factor in common - simply choose a prime and a value x in the construction above that only has one solution to x+s_i=0 mod p.
+
+So, the good new for those of you who are looking for the next members oof these sets, the Nash's proof assures that there are enough proper members of these sets out there somewhere (is anybody going to make a code for putting in action the Nash's proof-algorithm?) ...
+
+***
+
+Yesterday I wrote to Chris Nash the following:
+
+"For the sake of the whole comprehension of your existence proof for the amateurs (like me..:-), why don't you calculate - let's say - the 4th term of the sequences using your algorithm, just to see it in action, and to see how larger the solution are (without any attempt of optimizing) against the minimal one obtained by trial and error."
+
+This is his very kind answer:
+
+"I think this is a great idea, so I'll do this right now. I'll attempt it to all three of the sequences you suggest on the page.
+
+1) 1, 8, 24, ???
+
+First we list the sums of all the subsets: {0, 1, 8, 9, 24, 25, 32, 33}. First take p=2. We note 4 members of this set are equal to 0 modulo 2. So we choose Q=0 mod 2 (so Q plus any of these four members is divisible by 2). We are left with {1,9,25,33}. Now take p=3. 2 members are 0 modulo 3, 2 are 1 modulo 3. We will choose Q=0 modulo 3, and are left with {1,25}. For p=5, again we have a choice. 1 member is 0 modulo 5. So choose Q=0 modulo 5. We are left with {1}. Finally for p=7, the last member is 1 modulo 7. So choose Q=6 modulo 7. Note at each stage we had many choices and each would produce a different result. So we solve
+
+Q=0 mod 2
+
+Q=0 mod 3
+
+Q=0 mod 5
+
+Q=6 mod 7
+
+and we have Q=90+210k as a suitable solution. Q=90 works just fine. (But this not the smallest).
+
+The other two I will do more quickly :)
+
+2) 1, 9, 15, ???. We need an odd answer, so Q=1 mod 2. The list of sums is {0,1,9,10,15,16,24,25}. We can already eliminate the odd members. We are left with {0,10,16,24}. p=3: 2 members equal to 0 mod 3. Choose Q=0 mod 3, we are left with {10,16}. p=5. 1 members equal to 0 mod 5. Choose Q=0 mod 5. We are left with {16}. p=7. 1 member equal to 2 mod 7. Choose Q=5 mod 7. Q=75 works here. (Again not as good as 39, but again we had choices).
+
+3) 1, 8, 24, ???. We need an even answer, Q=0 mod 2. The rest follows as above and we find the solution Q=90.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

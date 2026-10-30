@@ -1,0 +1,187 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_896.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 896. Optimal packing of a set of integers
+Source: https://www.primepuzzles.net/puzzles/puzz_896.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0896.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://en.wikipedia.org/wiki/Subsequence
+  http://digitalcommons.butler.edu/wordways/vol34/iss2/24/
+  http://digitalcommons.butler.edu/wordways/vol34/iss3/15/
+  https://en.wikipedia.org/wiki/Computers_and_Intractability
+  https://en.wikipedia.org/wiki/Michael_Garey
+  https://en.wikipedia.org/wiki/David_S._Johnson
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+  http://oeis.org/A294267
+  http://oeis.org/A294268
+  https://www.primepuzzles.net/puzzles/puzz_895.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_897.htm
+  https://www.primepuzzles.net/puzzles/puzz_896.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 896. Optimal packing of a set of integers
+
+Problems & Puzzles: Puzzles
+
+Puzzle 896. Optimal packing of a set of integers
+
+Here we ask for an algorithm that produces an optimal answer. The original problem goes back up to 1979 (See Ref 3). But in this puzzle I use a numerical version of it.
+
+Problem. "Given a set of decimal integers, what is the shortest string S of L decimal digits that contains all the integers as subsequences in the asked string."
+
+Example:
+
+Set of integers: {123, 451, 46733}
+
+Optimal string: S = 46751233, L = 8.
+
+Usually there are several distinct strings S with the same L minimal value.
+
+Regarding the asked algorithm remember that we ask here for the optimal solution, that is to say, the minimal L for the S asked solution.
+
+There are some other very simple algorithm & solutions, but these are not the optimal asked ones:
+
+a) The worst solution L_WS, is just to concatenate all the integers of the set. For this solution L is the sum of the lengths of all the integers.
+
+b) A better solution L_BS is to sum the counts of the distinct digits in each position of the integers. In this case, L is the sum of all the counts.
+
+But none of these algorithms produce the optimal solution L_OS, as you soon will discover.
+
+Going back to the example shown above, L_WS = 3+3+5 = 11, L_BS = 2+3+3+1+1 = 10 but L_OS = 8.
+
+OK. Hands to work! Let's define three sets:
+
+Set A: {4242064951, 5519385407, 6886477529, 3816749731, 4700006089, 9650560979, 4371455527, 5419320281, 8761823531, 3454277693}
+
+Set B: {Prime numbers from 2 to 97}
+
+Set C: {Prime numbers from 2 to 997}
+
+Q1. Develop and send your algorithm description.
+
+Q2. Send your best string S solutions for Sets A, B & C, respectively, as produced by your algorithm. [Starting point: my best solutions are L=45, 11, 21 for sets A, B & C, respectively]
+
+References:
+
+PLANET PACKING by A. ROSS ECKLER (2001)
+
+PLANET PACKING REVISITED by DANA RICHARDS (2001)
+
+Computers and Intractability: A Guide to the Theory of NP-Completeness, by Michael Garey and David S. Johnson. Appendix A4.2, SR8, Shortest Common Super sequence.
+
+On Feb. 8, 2018 Dmitry Kamenetsky wrote:
+
+What an interesting puzzle, I had some great time with it!
+
+For Set A, I found a solution with 36 digits:
+
+435874506198230864527700564095278391
+
+For primes < 100 (Set B), 11 digits is the best we can do.
+
+For primes < 1000 (Set C), 21 digits is the best we can do. I did find an almost-solution with 20 digits, but it is missing 661 (need an extra 6): 81427359628750419371
+
+I then looked for primes < 10,000 and found a solution with 30 digits:
+
+425813679450328167906458231793
+
+My friend (Tomek Czajka) showed that this is optimal:
+
+"You need at least 2 zeroes and 3 of every other digit, because there are primes containing that many. So that's at least 29. Suppose you use exactly that many.
+
+7333, 3733, 3373 are all prime, so digits 737373 have to be in that order.
+
+3331 is a prime, so there is a 1 after the last 3.
+
+1117 is a prime, so all three 1s are before the last 7.
+
+Contradiction!"
+
+I then looked for primes < 100,000 and found a solution with 40 digits:
+
+2145879637814520936740281539610872549371. I don't know if it is optimal.
+...
+Here is a brief description of my algorithm.
+
+The key to this problem was finding a good method to evaluate partial solutions. Suppose we have built a string S and we also have a list of strings P (such as primes below 1000) that we want to be subsequences of S. I used the following scoring function:
+
+score=0
+
+for p in P:
+
+lcs=longestCommonSubsequence(S,p)
+
+score+=(p.length()-lcs.length())
+
+return score
+
+longestCommonSubsequence(a,b) computes the longest common subsequence between a and b. If the length of lcs is the same as the length of p then p is a subsequence of S. Otherwise we want the lengths to be as close as possible. A solution is obtained when the final score is 0. For this function I used the algorithm from Wikipedia:
+
+https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+
+Then I used a hill-climbing approach to find the best solution. It looks something like this:
+
+Initialise S randomly
+
+while (true):
+
+mutate(S) #change some digits of S
+
+optimize(S) #try making all possible pairwise digit swaps, as well as, changing each digit. Only keep changes that improve the score
+
+if the score of S has improved then we keep it and print it, otherwise we reject all changes
+...
+The algorithm part can be improved with this:
+
+Initialise S randomly
+
+while (true):
+
+S'=mutate(S) #change some digits of S
+
+optimize(S') #try making all possible pairwise digit swaps, as well as, changing each digit. Only keep changes that improve the score
+
+if score(S') < score(S):
+
+S=S'
+
+***
+
+On Feb 23, 2018 Dmitry wrote:
+
+I've created some sequences related to this puzzle:
+
+http://oeis.org/A294267
+
+http://oeis.org/A294268
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

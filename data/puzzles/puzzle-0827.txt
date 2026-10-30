@@ -1,0 +1,343 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_827.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 827. A sieve for twin primes
+Source: https://www.primepuzzles.net/puzzles/puzz_827.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0827.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_821.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_826.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_828.htm
+  https://www.primepuzzles.net/puzzles/puzz_827.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 827. A sieve for twin primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 827. A sieve for twin primes
+
+John Arioni sent the following nice puzzle closely related to Sunduram's sieve, Puzzle 821.
+
+This is a sketch of the matrix M_ you can construct using rules 1) and 2)
+
+4 5 7 8 10 11 13 14 16 17...
+
+7 8 12 13 17 18 22 23 27 28...
+
+10 11 17 18 24 25 31 32 38 39...
+
+13 14 22 23 31 32 40 41 49 50...
+
+16 17 27 28 38 39 49 50 60 61...
+
+...
+
+Rule 1) columns 1, 3, 5, ….... 2n-1.......
+
+M[r,c] = 2rc' + r + c' where c' = (c+1)/2
+
+Rule 2) columns 2, 4, 6, ….... 2n …....
+
+M[r,c] = M[r,c-1] +1
+
+Q1. Show that any number x not present in the matrix produces the couple 2x-1,2x+1 of twin primes.
+
+Q2 How can you construct a matrix where any integer x not present in the matrix produces pairs of primes p, p+d ? ( d is any even integer ).
+
+Q3 Construct a simple algorithm to sieve pairs of primes p, p+d , given an integer d = 2n .
+
+Contribution came from Emmanuel Vantighem
+
+***
+
+Emmanuel wrote:
+
+Q1. The question should be : show that any number x > 1 not present in the matrix produces the couple 2x-1, 2x+1 of twin primes.
+
+This can then be proved as follows :
+
+we can write :
+
+M[r,c] = (2r+1)(c+1)/2 + r if c is odd
+
+M[r,c] = (2r+1)c/2 + r + 1 if c is even.
+
+Thus :
+
+2 M[r,c] + 1 = (2r+1)(c+2) if c is odd
+
+2 M[r,c] - 1 = (2r+1)(c+1) if c is even.
+
+Hence, if an element x is in the matrix, either 2x+1 or 2x-1 is composite.
+
+Suppose x is a number > 1 such that y = 2x-1 is composite.
+
+Then y is odd and > 1 and thus y can be written as a product of two odd numbers, say :
+
+y = (2r+1)(2u+1), which is easily identified with 2M[r,2u] - 1.
+
+Thus, x = M[r,2u] is in the matrix.
+
+Suppose x is a number > 1 such that y = 2x+1 is composite.
+
+Then we also can write y as a product of two odd numbers, i.e. :
+
+y = (2r+1)(2u+1) which is easy to identify with 2M[r,2u-1] + 1.
+
+Hence, x = M[r,2u-1] is an element of the matrix, QED.
+
+Q2.
+
+Given a number k > 0, I define a matrix M which has the following property :
+
+Every number x > 1 not in the matrix has the property that 2x-1 and 2x+2k+1 are both prime.
+
+I simply define the entries M[r,c] by :
+
+M[r,c] = (2r+1)(c+1)/2+r+1 if c is odd
+
+M[r,c] = (2r+1)c/2+r-k if c is even.
+
+Example, when k = 2, the matrix is :
+
+5 2 8 5 11 8 14 11 ...
+
+8 5 13 10 18 15 23 20 ...
+
+11 8 18 15 25 22 32 29 ...
+
+... ...
+
+Here, 4 is not in the matrix : 2*4-1 = 7 and 2*4+5 = 13 are both prime.
+
+The proof is - mutatis mutandis - the same as in Q2.
+
+Remark : you may take k = 0 in Q2. Then M will not be the same as in Q1 : the columns with numbers 2i+1 and 2i are simply interchanged. Thus : the numbers x are the same in Q1 as in Q2.
+
+***
+
+ON April 30, John Arioni wrote:
+
+Let q = (2n+1) be the generic odd integer (n =1,2,3,....).
+
+The notations :
+
+h(q) = n = (q-1)/2
+
+H(q)= (n+1) = (q+1)/2
+
+will be helpful in the following – trivially H(q)= h(q) +1 = h(q+2).
+
+Q1
+
+The matrix M can be split into the following two:
+
+___Matrix A ________________ Matrix B_______
+
+4 7 10 13 16 ….. 5 8 11 14 17 …...
+
+7 12 17 22 27 …. . 8 13 18 23 28 ….
+
+10 17 24 31 38 …. 11 18 25 32 39 …..
+
+….......................... ...............................
+
+Columns 1, 2, 3, ….c in A are columns 1, 3, 5, …...2c-1 of M
+
+Columns 1, 2, 3, ….c in B are columns 2, 4, 6, .….. 2c of M
+
+A[r,c] = 2rc+r+c B[r,c] = 2rc+r+c+1
+
+But what are 2rc+r+c and 2rc+r+c+1 ?
+
+Well, the product (2r+1)*(2c+1) = 4rc+2r+2c+1 with r and c varying
+
+from 1 to infinite produces all of the odd composite integers, and:
+
+h(4rc+2r +2c+1) = 2rc+r+c = A[r,c]
+
+H(4rc+2r +2c+1) = 2rc+r+c+1 =B[r,c]
+
+then, if q is any odd composite integer h(q) is an entry in A and H(q) is
+
+an entry in B, while, if p is any prime number, h(p) is not an entry in A and
+
+H(p) is not an entry in B.
+
+Now, if p is a prime number then H(p) is not present in matrix B, but in the
+
+case that p+2 is composite h(p+2) = H(p) is present in matrix A and then
+
+H(p) is present in matrix M.
+
+Differently if p+2 is prime then h(p+2) = H(p) is not present in matrix A as well
+
+as it is not present in matrix B, which means that H(p) is not an entry of matrix M.
+
+As: 2*H( p)–1 = p and 2*H( p)+1 = 2* h(p+2)+1 = p+2 , we can state that:
+
+every x not present in the matrix produces a pair (2x-1),(2x+1) of twin primes.
+
+Q2
+
+Let's consider the following matrices A and C:
+
+___Matrix A ________________ Matrix C_______
+
+4 7 10 13 16 ….. 6 9 12 15 18 …...
+
+7 12 17 22 27 ….. 9 14 19 24 29 ….
+
+10 17 24 31 38 …. 12 19 26 33 40 …..
+
+….......................... .................................
+
+Entries in C are the corresponding in B increased by 1, then if q is the generic
+
+odd composite integer q = (2r+1)*(2c+1), the entries of C are :
+
+C[r,c] = B[r,c] +1 = (2rc+r+c+1)+1 = H(q)+1 = H(q+2) = h(q+4) = h(q)+2
+
+Let's define AUC :
+
+________Matrix AUC ________
+
+4 6 7 9 10 12 13 15 16 18 …..
+
+7 9 12 14 17 19 22 24 27 29 …..
+
+10 12 17 19 24 26 31 33 38 40 …..
+
+…...........................................
+
+Columns 1, 3, 5, …...2c-1 in AUC are columns 1, 2, 3, ….c of A
+
+Columns 2, 4, 6, .….. 2c in AUC are columns 1, 2, 3, ….c of C
+
+If p is any prime, then h(p)+2 is not present in C, but, if p+4 is composite, then
+
+h(p+4) = h(p)+2 is present in matrix A: in this case h(p)+2 is present in AUC.
+
+Differently if p+4 is prime then h(p+4) = h(p)+2 is not present in A as well as it
+
+is not present in C, then h(p+4) is not present in AUC.
+
+As p+4 = 2* h(p+4)+1 and p = 2* h(p+4)+1- 4, we can state that: every number
+
+x not present in AUC produces a pair (2x-3),(2x+1) of primes ( p, p+4 ):
+
+e.g. 3 produces 3,7 , 5 produces 7,11, 8 produces 13,17, and so on.
+
+Now we are ready to generalize:
+
+let d be any even integer and and q the generic odd composite integer:
+
+we can construct a matrix (say Y) with entries Y[r,c] such that
+
+Y[r,c] = h(q+d) = h(q)+d/2= 2rc+r+c+d/2
+
+Let AUY be a matrix such that:
+
+Columns 1, 3, 5, …...2c-1 are the columns 1, 2, 3, ….c of A
+
+Columns 2, 4, 6, .….. 2c are the columns 1, 2, 3, ….c of Y
+
+Well, if p is prime then h(p)+d/2 is not present in Y, but, if p+d is composite, then
+
+h(p+d) = h(p)+d/2 is present in matrix A: in this case h(p)+d/2 is present in AUY.
+
+Differently if p+d is prime then h(p+d) =h(p)+d/2 is not present in A as well as it is
+
+not present in Y so h(p)+ d/2 is not present in AUY
+
+As p+d = 2*h(p+d) +1 and p = 2* h(p+d)+1- d we can state that: every number x
+
+not present in AUY produces a pair (2x+1-d),(2x+1) of primes ( p, p+d)
+
+note: generally p+d is not the prime successive to p,
+
+but it is simply a prime at a distance d from p.
+
+i.e. d is not generally the same as gap.
+
+for d=2 and d=4, d is is the same as gap
+
+Q3
+
+A simple algorithm to sieve pairs of primes p,p+d makes use of an array (arr( ) ) to
+
+record all of the entries of matrix AUY above while computing A[r,c] = 2rc+r+ c and
+
+Y[r,c] = 2rc+r+ c+d/2. Once all steps of calculus have been completed arr(i) =1 if i
+
+is an entry of AUY, differently arr(i) = 0.
+
+The algorithm operates on a list of integers whith upper limit = Sup.
+
+d and Sup are parameters that are acquired in the input section
+
+A premise in order to better understand the algorithm:
+
+As A[r,c] = 2rc+r+c = (2r+1)c+r , the entries, row by row, of A are:
+
+A[1,c] = 3c+1 = h(6c+3) (6c+3) is the generic odd multiple of 3
+A[2,c] = 5c+2 = h(10c+5) (10c+5) is the generic odd multiple of 5
+A[3,c] = 7c+3 = h(14c+7) (14c+7) is the generic odd multiple of 7
+…..
+A[r,c] = (2r+1)c+r
+…..
+
+Here below the code in Visual Basic for the section of calculus.
+
+row = 1
+
+col = 1
+While (2 * row + 1) * col + row < Int(Sup / 2)
+oddinteger = (2 * row + 1)
+littleh = oddinteger * col + row
+While littleh - d /2 <= Int(Sup / 2)
+arr(littleh) = 1
+arr(littleh + d /2) = 1
+littleh = littleh + oddinteger
+Wend
+row =row + 1
+col = row '***
+Wend
+
+All we need, now, is to test arr(i) for i=1,2,3,....and print (2i+1-d),(2i+1)
+every time we encounter a zero in arr(i).
+
+' *** col = row instead of col = 1
+because A and Y are symmetric matrices
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

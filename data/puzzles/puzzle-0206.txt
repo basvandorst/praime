@@ -1,0 +1,127 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_206.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 206.  (N-k)/k primes
+Source: https://www.primepuzzles.net/puzzles/puzz_206.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0206.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_181.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_205.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_207.htm
+  https://www.primepuzzles.net/puzzles/puzz_206.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 206. (N-k)/k primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 206. (N-k)/k primes
+
+Ken Wilke sent the following puzzle, as a companion piece to Puzzle 181:
+
+Find the smallest positive integer N such that (N - k)/k is prime for k = 1, 2, ..., n, for a given value of n.
+
+Here are the first Wilke's results:
+
+n
+
+N
+
+1
+
+3
+
+2
+
+6
+
+3
+
+12
+
+4
+
+12
+
+5
+
+174600
+
+6
+
+7224840
+
+7
+
+10780560
+
+8
+
+10780560
+
+9
+
+2360150402400
+
+10
+
+50060257410240
+
+11
+
+7720634052774720
+
+Needless to say that these results are not coming from a totally brute force approach.
+
+Question: Can you extend the above table using your own approach?
+
+Solution:
+
+J. K. Andersen and J. Wiesenbauer found a smaller solution for n=9 than the reported by Ken Wilke. Andersen also found solutions for n=12, 13 & 14.
+
+This what Andersen wrote:
+
+I found a single smaller solution than Wilke for n=9: N=1086338816640 I agree with the rest of his results and add these:
+
+n=12: N=227457297898150320
+
+n=13: N=7272877497848202240
+
+n=14: N=7272877497848202240 (~ 7.27*10^18)
+
+n=15: N>10^21
+
+I wrote a C program to eliminate candidates with small factors. prp-testing (and finally primality proving) of remaining candidates was done with PrimeForm/GW but the time for this was insignificant. I prefer to write N/k-1. N is obviously divisible by 1, 2, ..., n. For n=12, N is then divisible by 2^3, 3^2, 5, 7, 11, plus 16 because N/8-1 must be odd. So 16*9*5*7*11=55440 divides N. Let N =A*x, where A=55440 Then N/k-1 = (A/k)*x-1 = ak*x-1, where a1=A/1, ..., a12=A/12 are constants. A prime p divides N/k-1 if ak*x-1 == 0 (mod p). The value of x (mod p) decides this. For all small p, all remainders making p divide one of N/k-1 can be computed and stored during initialization. I used this for a mix of wheeling, sieving and trial factoring, making optimizations along the way. Some were only for n=15 without result so far, but I will let it run some days if nobody else finds it. The speed is around 5*10^19 pr hour but my heuristics say it could still take months. n=14 was lucky and I hope for more luck. For n=15, I use a big wheel to reduce the candidates. Only 1261568 x's out of 3706662405 = 3*5*17*19*23*29*31*37 consecutive numbers, or 1/2938, have no N/k-1 divisible by one of 3,5,17,19,23,29,31,37. These x's modulo 3706662405 are stored and this means only one N must be tested for every 2938*(55440*13) ~ 2 billion integers. These tests could be faster and I may optimize them unless the solutions show a sieve expert (maybe Phil Carmody?) has already searched much longer.
+
+I stopped my search for n=15 at N=25*10^21 without finding a solution.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

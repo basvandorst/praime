@@ -1,0 +1,111 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1178.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1178  F[n] = Floor[(Prime[n] + 1)^2/(Prime[n + 1] - 1)]
+Source: https://www.primepuzzles.net/puzzles/puzz_1178.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1178.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Prime_gap
+  https://en.wikipedia.org/wiki/Oppermann's_conjecture
+  https://www.primepuzzles.net/puzzles/puzz_1177.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1179.htm
+  https://www.primepuzzles.net/puzzles/puzz_1178.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1178 F[n] = Floor[(Prime[n] + 1)^2/(Prime[n + 1] - 1)]
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1178 F[n] = Floor[(Prime[n] + 1)^2/(Prime[n + 1] - 1)]
+Sebastián Martín Ruiz sent the following puzzle:
+
+Let: F[n] = Floor[(Prime[n] + 1)^2/(Prime[n + 1] - 1)]
+
+I have obtained only one prime on this form:It is 103
+
+n=30 Prime(30)=113 Prime(31)=127 F(30)=103
+
+Q) Find other primes on this form or prove it does not exist
+
+I have tested it from n=1 to 10000000
+
+From June 22-28, contributions came from Michael Branicky, Alessandro Casini, Jeff Heleen, Emmanuel Vantieghem, Adam Stinchcombe
+
+***
+
+Michael wrote:
+
+No further terms for n <= 10^10.
+
+***
+
+Alessandro wrote:
+
+Most likely no other primes of this form exist. In fact, letting p[n+1] = p[n] + g, it follows from polynomial division that (p+1)^2 = (p-g+3)(p+g-1) + (g-2)^2. Since the remainder is no-negative, then F[n] = p-g+3 + floor( (g-2)^2/(p+g-1)). If the floor's argument is less than 1, i.e. g^2 - 5g + 5 < p[n], we get that F[n] is even and hence not a prime. The inequality on g is essentially an even weaker condition than Oppermann's conjecture on prime gaps (g^2 < p[n]), for the moment without counterexamples greater than n = 30 (coincidentally) and generally believed to be true. Therefore a new puzzle's prime must be searched for in any hypothetical prime gaps that do not meet the Oppermann's condition, thus certainly n > 4.28 * 10^17.
+
+***
+
+Jeff wrote:
+
+I have checked the primes up to 2,000,000,000 with no other solutions found.
+
+***
+
+Emmanuel wrote:
+
+Let f(n) be (p(n) + 1)^2 / (p(n+1) - 1). Thus : F(n) = Floor(f(n)).
+
+We can write p(n)+1 as p(n+1) - 1 - 2k, where k is a natural number <= 0.
+
+This allows us to write f(n) as :
+
+p(n+1) - 1 - 4k + [4k^2 / (p(n+1) - 1)].
+
+For n < 428472240920394478 and != 30, I found that the last term (the one between [ and ]) is < 1.
+
+For these n we thus find F(n) = p(n+1) - 1 - 4k, even and hence not prime.
+
+I used the table of the 82 known maximal prime gaps from Wikipedia.
+
+If Oppermann's conjecture is true, the result is true for all n.
+
+***
+
+Adam wrote:
+
+Write p(n+1)=p and p(n)=p-g, g the "backwards" gap. Our formula is (p-g+1)^2/(p-1) which expands as [(p-1) - (g-2)]^2/(p-1) = [(p-1)^2 -2(p-1)(g-2) + (g-2)^2] / (p-1) = p-1 - 2(g-2) + (g-2)^2/(p-1) which is an even number + a remainder (g-2)^2/(p-1), The remainder has to be >=1 so that the floor function adds 1 to make it an odd number. The belief is that the gap size is related to log(p) and log(p)/p goes to zero fast as p -> 00. However, (so far) my internet searches have only produced a proved gap (Baker et al) proportional to p^0.525 so a g^2 term could be on the size of p and this remainder could be 1 (maybe even 3 or 5...).
+
+Given the test through n=10000000, I think it is unlikely to be prime again.
+
+Note: the example when it works has g=14 and p-1=126 so (g-2)^2/(p-1) = 144/126 with a floor of 1. Then, just luckily, that odd number ends up prime.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

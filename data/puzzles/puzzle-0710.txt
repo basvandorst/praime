@@ -1,0 +1,186 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_710.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 710 6252893229398 & non-semiprimes
+Source: https://www.primepuzzles.net/puzzles/puzz_710.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0710.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://primes.utm.edu/glossary/xpage/Semiprime.html
+  http://primes.utm.edu/curios/ByOne.php?submitter=Luhn
+  http://primes.utm.edu/curios/page.php?short=98189036755454
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_709.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_711.htm
+  https://www.primepuzzles.net/puzzles/puzz_710.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 710 6252893229398 & non-semiprimes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 710 6252893229398 & non-semiprimes
+
+The start of a record-breaking run of 173 consecutive integers (6252893229398-6252893229570) that are non-semiprimes. [Luhn]
+
+Q1. Can you find a larger record-breaking run?
+
+Note: The real puzzle must take into account an update shown here: http://primes.utm.edu/curios/page.php?short=98189036755454
+
+(Thank to Shyam Sunder Gupta)
+
+Contributions came from Fred Schneider
+
+***
+
+Fred wrote:
+
+It's easy to create a sequence of non-semi-primes of arbitrary length using the
+
+the Chinese Remainder theorem.
+
+Finding the minimum answer is a much more difficult problem.
+
+This approach doesn't look for prime numbers. It just finds a list of numbers
+
+that is guaranteed to have at least three distinct prime factors.
+
+Set up this system of equations to solve (note: how the consecutive primes are distributed):
+
+0 mod 2 * 3 * 5
+
+1 mod 7 * 11 * 13
+
+2 mod 17 * 19 (already divisible by 2)
+
+3 mod 23 * 29 (already divisible by 3)
+
+4 mod 31 * 37 (already divisible by 2)
+
+5 mod 41 * 43 (already divisible by 5)
+
+6 mod 47 (already divisible by 2 and 3)
+
+ETC
+
+Similarly, you do a construction that found an arbitrary list of numbers where each had more than 10, 1000 or 1000000 distinct prime factors.
+
+...
+
+My idea could be refined quite a bit. For instance, if the first number is a multiple of 4, it can't be a semi-prime.
+
+Because, it must be 4 multiplied by some other number. Keeping in mind we can do the following:
+
+0 mod 2*2
+
+1 mod 3*3
+
+2 mod 5 (will be divisible by 2)
+
+3 mod 7 * 11
+
+4 (This will be divisible by 2*2 and 3)
+
+5 mod 13 * 17
+
+6 mod 19 (this will be divisible by 2)
+
+7 (This will be divisible by 3 and 5)
+
+8 (This will be divisible by 2*2)
+
+I'll try to find some time for this ...
+
+...
+Here's a solution for 250:
+
+I created a set of equations and used the Chinese Remainder Theorem to find a set of
+
+250 consecutive numbers that had at all have at least 3 prime factors.
+
+It's a matter of distributing prime numbers along a set of n consecutive numbers and solving for "x" below
+
+(Note how the primes 2 through 13 are distributed below)
+
+x = 0 mod 2^2 (The first number is clearly multiple of 4 and greater than 4 if it's part of this solution set so it can't be a semi-prime).
+
+x = -1 mod 3^2
+
+x = -2 mod 5 (already divisible by 2, just include 5)
+
+x = -3 mod 7^2
+
+x = -4 (This will be divisible by 2^2 * 3, no need for this one to be in set of equations)
+
+x = -5 mod 11^2
+
+x = -6 mod 2 * 13 (already divisible by 2, just include 13)
+
+x = -7 (This will be divisible by 3 * 5, no need for this one to be in set of equations)
+
+x = -8 (This will be divisible by 2^2, no need for this one to be in set of equations)
+
+ETC
+
+-----------------------------------------------
+
+It turned out that I needed to use primes 2 through 503 to create a system of 96 "necessary" equations and used the Chinese Remainder Theorem to find this solution:
+
+x =
+
+145588919617782819139657818570193901796722980344052442144636947492782113921572549361677077492
+
+188414853163677542089291950571255518251205598326362705599991667882891323722551855754824221004
+
+259402021853203720921200613571503408222769230710605591614200274480053946255270147804512543515
+
+89478948
+
+mod
+
+349343760392597571262366683355847121573220014817366177145702534896441672521373733284542872972
+
+190007417288572833315944102555171785806142662807096846939554867417632893214729052233037880772
+
+038023602862340146234777805329509236693224222091230172718951656358062546854265839325382980338
+
+15187220
+
+So, none of the numbers between:
+
+1455889196...89478948
+
+and
+
+1455889196...89479197
+
+are semi-primes.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

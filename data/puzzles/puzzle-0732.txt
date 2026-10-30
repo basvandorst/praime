@@ -1,0 +1,293 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_732.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 732. Sum of cubes a square
+Source: https://www.primepuzzles.net/puzzles/puzz_732.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0732.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://simplementenumeros.blogspot.mx/2014/02/1276-suma-de-cubos-de-numeros.html
+  mailto:cbrfgm@gmail.com
+  http://es.wikipedia.org/wiki/Curva_elíptica
+  http://homepages.warwick.ac.uk/~masgaj/ftp/data/
+  http://www.lmfdb.org/EllipticCurve/Q/
+  http://www.sagemath.org/
+  https://www.primepuzzles.net/puzzles/puzz_731.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_733.htm
+  https://www.primepuzzles.net/puzzles/puzz_732.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 732. Sum of cubes a square
+
+Problems & Puzzles: Puzzles
+
+Puzzle 732. Sum of cubes a square
+
+Here we will ask for more solutions than the already found to the entry 1276 from the site of my friend Claudio Meller.
+In that entry 1276 you are asked to found tree consecutive numbers such that the sum of its cubes produces a square.
+
+For example for 23, 24 & 25 it happens that 23^3+24^3+25^3 = 204^2
+
+If n is the central number of such triplets of consecutive integers, it's already known that there are the following four solutions: n= 0, 1, 2 & 24
+
+Q. Can you find the fifth solution?
+
+Contributions came from Jean Brette, Antoine Verrokn and Jan van Delden.
+
+***
+
+Jean wrote:
+
+One ask three consecutive integers (n-1) ; n ; (n+1) such the sum of their cubes is a square c^2.
+
+(n-1)^3 + n^3 + (n+1)^3 = c^2, or
+
+3n^3 + 6 n = c^2 (*)
+
+which becomes, after multiplication by 9 :
+
+27 n^3 + 54 n = 9 c^2
+
+and, with x = 3n and y = 3c :
+
+y^2 = x^3 + 18x (**)
+
+This equation is a standard form for a cubic curve called « elliptic curve ».
+
+The problem is to find on this curve the points with integral coordinates.
+
+From the known solutions of (*) the first solutions of (**) are the points
+
+(x, y) = (0, 0) ; (3, 9) ; (6, 18) and (72, 612).
+
+One can define on this elliptic curve a law of addition, i.e. given a point Q, one can compute the coordinates of the point Q + Q = 2Q, which is also a solution, and 2Q + Q = 3Q, …. a Q , with a integer.
+
+Similarly, with two points P and Q, we can find the P + Q .
+
+Unfortunately, all these combinations (a Q + b P ) , are rationals but not always integers.
+
+Points x y
+
+Q 3 9
+
+2Q 1/4 -17/8
+
+3Q 1587/121 66447 / 1331
+
+P 0 0
+
+2P infinity infinity
+
+P+Q 6 18
+
+P+2Q 72 612
+
+P+3Q 726 / 529 63558 / 12167
+
+Among the multiples of Q, only the first have x and y integers. (because, in this case, the lengths of the denominators are growing)
+
+The others integral solutions are P, P+Q and P+2Q.
+
+For the elliptic curves, it is also well known that the number of integral solutions is finite.
+
+So the problem is now :
+
+Does it exist an integral solution R not of the two forms : aQ or P+ aQ, where a is an integer ?
+
+If YES, others solutions could be of the form P + aQ + bR …
+
+On elliptic curves, you can read :
+
+http://es.wikipedia.org/wiki/Curva_el%C3%ADptica
+
+or, more complete, the english or french versions.
+
+***
+
+Antoine wrote:
+
+(x-1)³ + x³ + (x+1)³ = y² leads to Y² = X³ + 18*X (1) , with Y = 3*y and X = 3*x.
+
+(1) Is an elliptic curve because it doesn’t have double points and the discriminant doesn’t equal zero.
+
+All integral solutions of (1) are :
+
+X Y
+
+0 0
+
+3 9
+
+3 -9
+
+6 18
+
+6 -18
+
+72 612
+
+72 -612
+
+Rational solutions : 726/529 , 63558/12167 ; ¼,-17/8 ; …
+
+Thus there are seven integral solutions to puzzle 732
+
+***
+
+Jan wrote:
+
+We have (n-1)^3+n^3+(n+1)^3=k^2. Simplifying to 3n(n^2+2)=k^2.
+
+Since 3|k^2, say k=3m, we have: n(n^2+2)=3m^2. [*]
+
+This can not be simplified further, without assumptions on n, since 3|n(n^2+2) for all n.
+
+I used brute force and searched all n<=10^11 and found no further solutions.
+
+However one could use an integer N and consider comparing residues mod N for the left and right
+
+hand side of [*] in order to reduce the time consuming integer squareroot calculations to find m.
+
+Also the number of residues to compare with is preferably small.
+
+Some choices might be (N,#residues 3m^2 mod N,fraction #n used): (1728,48,1/9), (432,16,1/6), (144,8,1/4), (64,8,1/4).
+
+I used N=432. One could also try 64 and use a bitmask instead of a mod operation.
+
+I also investigated the special form n=6x^2. Substitution in [*] and simplication gives:
+
+4x^2(18x^4+1)=m^2. Since 4x^2 is a square, we must have 18x^4+1=r^2 for some positive integers x,r.
+
+This type of Diophantine equation was investigated by W. Ljunggren in 1965.
+
+He concluded that it has at most two solutions in positive integers.
+
+So the trick is to find the other one, if it exists. All solutions of the Pell equation 18z^2+1=r^2
+
+are given by r[i]+z[i]*sqrt(18)=(17+4*sqrt(18))^i.
+
+If we substitute i=1, we get r=17,z=4, so n=6*z=24 and k=6*r*sqrt(z)=204.
+
+I checked i<=400000 and didn't find any other solution where z is a square.
+
+So n, if it exists, has at least 612443 digits and k has at least 918665 digits.
+
+***
+
+One day later, after reading the Jean & Antoine answers, Jan added:
+
+The two answers given by Antoine and Jean conflict in the sense that Antoine states that the 7 solutions in integers comprise all the solutions. Jean leaves the door open to other type of integer solutions.
+
+I’ve been reading up on Elliptic Curves recently. With C:y^2=f(x)=x^3+18x we have that it’s an elliptic non-singular curve because f(x)=x(x^2+18) has 3 different complex roots. With Antoine we have 2P=O (point at infinity), so the order of P is 2.
+
+And P and O are the only points with order 2, since we should solve y=0. The discrimant D of C is equal to –4*18^3. All rational points with finite order have y|D or y=0 and they have integer coordinates [Nagell-Lutz]. If we check with Jean’s notation, the y-values of Q,P+Q [and –Q, P-Q] also divide D (in fact his P+Q is actually P-Q). However they are not of finite order, i.e. nQ and n(P+Q) are not O for some n [n can only be 1..10 or 12 (Mazur)]. Since 612 is not a divisor of D, we don’t have to check the order for P+2Q. So there are 2 points of finite order (P and O [infinity]) and Antoine and Jean found 6 points of infinite order with integer coordinates. Siegel states that the number of integer coordinates is finite for a non-singular curve C with integer coefficients. Baker gave a method to find all integer solutions, later refined by others (the upperbound M of max(|x|,|y|) with x,y integer was reduced). So I think Jean’s conclusion is right and Antoine is probably right...
+
+***
+
+Later Jan added:
+
+On the Website Elliptic Curve Data by J. E. Cremona we first find that our curve is called 2304p1 (Table 2) and once we know the conductor is 2304 we can look up the integral solutions (x-values) in Table 7. They are the same as given by Jean and Antoine. So I think that settles it definitely.
+
+...
+
+Again, better explanation and a bit more information, I hope.
+
+On the Website Elliptic Curve Data by J. E. Cremona one can find all there is to know about properties of Elliptic Curves. Tables are based on the so called conductor. Since I didn’t know how to compute this I searched for the curve [0,0,0,18,0] which is our candidate. In Table 7 one can find that the conductor is 2304, our curve is called 2304p1 and all the integral solutions (x-values) are tabulated. They are the same as given by Jean and Antoine. A footnote says: “A table giving the x-coordinates of (almost) all integral points on all curves. Corrected 2009-01-01, but still incomplete”. Although maybe incomplete one can also ask for the generators of the groups in Table 2. It says 2304 p 1 [0,0,0,18,0] 1 [2] [3:9:1] [0:0:1]. Which means that the point P [0,0] is the generator of a group of order 2 (the torsion group) and [3,9] is the “sole” generator of a different group with rank 1 (having no finite order). Which means that Jean doesn’t have to look for a different generator R. So I think that settles it definitely. See http://homepages.warwick.ac.uk/~masgaj/ftp/data/
+
+...
+(I found an easier access to the database of J.E
+. Cremona.
+
+And special thanks to Jean and Antoine for their solution, because I learned a lot!
+J.E.Cremona has a website concerning properties of Elliptic Curves. It can be reached directly, however the following link
+
+will give an easier approach to the same data: http://www.lmfdb.org/EllipticCurve/Q/
+
+A general curve has the form: y^2+a1.xy+a3.y=x^3+a2.x^2+a4.x+a6. One has to enter [a1,a2,a3,a4,a6]
+
+As you can see I entered [0,0,0,18,0] next to the button [label or isogeny class]. Press the button.
+
+We see that the rational points Q on this curve C:y^3=x^2+18x has Mordell-Weil group structure Z x Z/2Z.
+
+The first part of this group structure reflects the fact that given a generator Q all mutiples mQ are part of the group of rational points on C.
+
+The integers Z have the same structure, where the generator is the number 1. So the additive group {mQ|m in Z} is isomorph to Z.
+
+As we know Z has infinite order (the number of elements is infinite) and we can see that the generator Q=[3,9].
+
+There is only one group with infinite order: the rank is 1. This group might contain integral points.
+
+The second part of this group structure tells us that like Z/2Z (the numbers mod 2), there should be 2 points, say {P,O} with the same effect of the addition rules:
+
+P+P=O, O+O=O and O+P=P+O=P. This part of the expression is called the Torsion group. We see that [0,0] is it’s generator. Here we have P=[0,0].
+
+The point O is the “point at infinity” which is “added” to our curve C, in order to make the group closed.
+
+In order to understand the addition rule in a graph of C it helps if one sees O as infinity.
+
+But if one uses formal notation of points it behaves like the 0 in ordinary addition.
+
+This group has finite order 2. So all rational points in this group are integral points according to Nagell-Lutz.
+
+The groups are connected with the symbol x. Usually one uses a symbol for the direct sum: ⊕.
+
+The result is that we can find every rational point on C by calculating nP+mQ, with n in {0,1} and m in Z.
+
+The integral points are: P=[0,0], Q=[3,9], -Q=[3,-9], P-Q=[6,18], P+Q=[6,-18], P+2Q=[72,612] and P-2Q=[72,612].
+
+As we see the – sign has the effect that points are reflected in the x-axis. We have P+P=0, so P=-P.
+
+Which tells us that P is a point with y-coordinate 0.
+
+J.E. Cremona is also the author of the library NWRanks, now incorporated in eclib. This library can be incorporated into PARI.
+
+It’s also part of SAGE, which you can download here: http://www.sagemath.org/. I didn’t test it yet, but I certainly will.
+
+Eclib could calculate all of the information displayed, and will give you for instance all integral points (if your curve is not “too bad behaving”).
+
+One can also query the database from within this library.
+
+For those interested I investigated the group structure by hand. The Torsion group is the easy part. Finding the rank is the hard part.
+
+One has to find the group structure of two seperate multiplicative groups mod Q^2. One group connected to our curve C, the group {1,2,3,6} giving group structure Z/4Z,
+
+the other {1,-2} connected to C’:y^2=x^3-72x, giving group structure Z/2Z. The rank follows from the equation 2^r=(#(Z/4Z)*#(Z/2Z))/4=(4*2)/4=2, so r=1.
+
+If you’re unfamiliar with multiplicative groups: multiply the elements and reduce the answer mod squares (by dividing).
+
+So for instance –2.-2=4 but 4 is a square so we get 4/4=1. Since 1.1=1 and 1.-2=-2 the group is closed.
+
+In the same fashion 3.6=18 and 18/9=2 so 18 is congruent to 2. Check that the {1,2,3,6} behaves like Z/4Z, instead of Z/2Z⊕Z/2Z ;-).
+
+Here the method will produce all the other rational points as a side-effect.
+
+I used the book Rational Points on Elliptic Curves by Joseph H. Silverman and John Tate.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

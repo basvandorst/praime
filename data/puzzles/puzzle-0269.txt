@@ -1,0 +1,301 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_269.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 269.  13 primes in A.P.
+Source: https://www.primepuzzles.net/puzzles/puzz_269.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0269.htm
+
+References (local copies):
+  ../../references/2005_prime-number-patterns-andrew-granville.pdf  (from http://www.dms.umontreal.ca/~andrew/PDF/PrimePatterns.pdf)
+  ../../references/2005_prime-number-patterns-andrew-granville.txt  (extracted text)
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_268.htm
+  http://listserv.nodak.edu/scripts/wa.exe?A2=ind0111&L=nmbrthry&F=&S=&P=941
+  http://hjem.get2net.dk/jka/math/aprecords.htm
+  http://www.primepuzzles.net/puzzles/puzz_167.htm
+  mailto:cbrfgm@gmail.com
+  http://www.dms.umontreal.ca/~andrew/PDF/PrimePatterns.pdf
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_270.htm
+  https://www.primepuzzles.net/puzzles/puzz_269.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 269. 13 primes in A.P.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 269. 13 primes in A.P.
+
+M. Cantor statement says:
+
+Let d=>2, let a, a+d, a+2d, ..., a+(n-1)d be n prime numbers in arithmetic progression. Let q be the largest prime such that q<=n. Then either (∏_p<=q p) divides d or a=q and (∏_p<q p) divides d. (*)
+
+In this puzzle we will use the general Cantor statement following the second alternative: a=q & (∏_p<q p) divides d.
+
+Let q, q+d, q+2d, ..., q+(q-1)d be q prime numbers in A.P. Then (∏_p<q p) divides d.
+
+Or in simpler words:
+
+Let q be a prime number. Let q prime numbers be in A.P. starting in q. Then they are separated by a multiple of z, m.z=d, being z the product of all the primes less than q:
+
+q+m.z.(i-1) are q primes in A.P. for i=1 to q, z=(∏_p<q p), for some integer m
+
+Notice that for this kind of prime sequences in A.P. starting in q, the length can not be larger than q, because precisely the q+1 member of this sequence is a composite divided by q.
+
+Here are some examples that I have calculated:
+
+q | z=(∏_p<q p) | Earliest m | Sequence of primes in A.P.
+
+q +m.z(i-1), for i=1 to q
+
+3 | 2 | 1 | 3, 5, 7
+
+5 | 2.3 | 1 | 5, 11, 17, 23, 29
+
+7 | 2.3.5 | 5 | 7, 157, 307, 457, 607, 757, 907
+
+11 | 2.3.5.7 | 7315048 | 11, ..., 15361600811
+
+13 | 2.3.6.7.11 | ? | ?
+
+17 | 2.3.5.7.11.13 | ? | ?
+
+19 | 2.3.5.7.11.13.17 | ? | ?
+
+23 | 2.3.5.7.11.13.17.19 | ? | ?
+
+This kind of search is simpler than the search implied in the previous Puzzle (268), because now, once you fix q, z is known and you have only one unknown value (m) to hunt. Perhaps the price for this simplicity is that the hunt for sequences of this type is harder than before (I'm not totally sure of this) for A.P's of the same length, unless someone discover how to speed it...
+
+Question: Find the earliest sequence of q primes in A.P. starting in q, for q=>13. (please just report the corresponding earliest m value)
+
+Important news!
+
+Three hours after releasing this puzzle Jens K. Andersen communicate to me that the solution for q=13 & 17 have been already gotten by Löh (1986) and Phil Carmody (2001).
+
+See the section "Smallest AP-k with minimal start" here.
+
+The earliest m is 4293861989 and 11387819007325752 for q=13 and 17 respectively. By the size (pretty large) of the m value obtained by Carmody, no doubt that he got this solution by a very smart code (gensv) "After roughly 5 days on a single 533MHz Alpha ..."
+
+So, the puzzle now is to find the earliest m for q=>19.
+
+________
+
+* Ribenboim, 'The new book of prime number records', p. 284
+
+Solution:
+
+Contributions came form J. K. Andersen, Ray Opao and Faride Firoozbakht:
+
+J.K. Andersen responded to my question: "Can you argument your "Finding long AP's in this way is far harder than if the first prime can be arbitrary?"
+
+If the goal is a long AP q+d*x, for consecutive x and arbitrary (q,d), then there is a huge number of potential (q,d) combinations. Each prime has lots of chances to be part of an AP by varying both q and d. An AP search can compute a limited number of primes and then look for AP's among them. Computing primes to search among is actually the easy part of an AP23 search (I have made one). If q is fixed, whether it is a small or large prime, then only d can vary. Each larger prime has at best a few chances to be in AP with q, so a huge number of distinct primes must usually be computed to find a long AP. This becomes a computational problem for a 2nd reason: The numbers quickly get much larger than needed with an arbitrary q. Primes become rarer at larger sizes, so finding a long AP becomes even harder.
+
+Ray Opao observed:
+
+Starting from q=11, I've noticed that the earliest m is actually divisible by the next q:
+
+q m m is divisible by
+
+11 7315048 13
+
+13 4293861989 17
+
+17 11387819007325752 19
+
+19 ? 23?
+
+23 ? 29?
+
+I'm not sure if this holds true for all succeeding q's but I guess this could be helpful in the search for values of m.
+
+Faride Firoozbakht stated:
+
+If the numbers 19 + 17#*m*i (i=0,1,...,18) are primes then the remainder of m divided by 23 is one of the five numbers 0,7,11,21& 22.
+
+By using the similar fact for p=13 (the remainder of m divided by 17 is one of the five numbers 0,1,2,9& 12), I could find the number " 4293861989 " that today !!I knew this number has been already gotten by Lِöh (1986).
+
+I think the earliest m for q=19 is large and we can not find it.
+
+For the case p=19, since all the nineteen numbers 19+17#*m*i (i=0,1,...,18) are primes the reminders of these numbers when divided by 23 aren't zero.
+
+19+17#*m*i != 0 (mod 23) -1<i<19 and
+
+19=-4 (mod 23) , 17#=2 (mod 23) so,
+
+-4+2m*i != 0 (mod 23) -1<i<19 or ,
+
+-2(2-m*i) != 0 (mod 23) -1<i<19 so,
+
+m*i != 2 (mod 23 ) -1<i<19 (*)
+
+take i=1,2,...,18 in (*):
+
+i=1 then m != 2 (mod 23) , m != 2 (mod 23)
+
+i=2 then 2m != 2 (mod 23) so m != 1 (mod 23)
+
+i=3 then 3m != 2 (mod 23) so m != 16 (mod 23)
+
+i=4 then 4m != 2 (mod 23) so m != 12 (mod 23)
+
+i=5 then 5m != 2 (mod 23) so m != 5 (mod 23)
+
+i=6 then 6m != 2 (mod 23) so m != 8 (mod 23)
+
+i=7 then 7m != 2 (mod 23) so m != 20 (mod 23)
+
+i=8 then 8m != 2 (mod 23) so m != 6 (mod 23)
+
+i=9 then 9m != 2 (mod 23) so m != 13 (mod 23)
+
+i=10 then 10m != 2 (mod 23) so m != 14 (mod 23)
+
+i=11 then 11m != 2 (mod 23) so m != 19 (mod 23)
+
+i=12 then 12m != 2 (mod 23) so m != 4 (mod 23)
+
+i=13 then 13m != 2 (mod 23) so m != 9 (mod 23)
+
+i=14 then 14m != 2 (mod 23) so m != 10 (mod 23)
+
+i=15 then 15m != 2 (mod 23) so m != 17 (mod 23)
+
+i=16 then 16m != 2 (mod 23) so m != 3 (mod 23)
+
+i=17 then 17m != 2 (mod 23) so m != 15 (mod 23)
+
+i=18 then 18m != 2 (mod 23) so m != 18 (mod 23)
+
+Hence if all the nineteen numbers 19+17#*m*i (i=0,1,...,18) are primes then the remainder of m divided by 17 doesn't belong to the set {2,1,16,12,5,8,20,6,13,14,19,4,9,10,17,3,15,18} so it is in the set {0,7,11,21,22}.
+
+***
+
+For sure you already know that on January 18 2007 Jaroslaw Wroblewski found the first known AP24: 468395662504823 + 205619·23#·n, n=0..23 (See: http://hjem.get2net.dk/jka/math/aprecords.htm)
+
+Himself was so kind to send to me a short note the same day about his discovery.
+
+After sending him the deserved congratulations I asked him the following:
+
+Perhaps is time you try the puzzle 269 and its challenge to get 19 primes in AP as the asked there. ... It would be a nice double crown if you get them!. Please let me know what you decide.
+
+Having his explicit permission I copy his answer dated on January 20:
+
+Sorry, I am afraid this is out of reach with the methods I am using now,
+
+so I am not planning to take this challenge in forseeable future :-(
+
+Firstly, according to JKA's page, the smallest solutions are:
+
+11 - 11 digits
+
+13 - 15 digits
+
+17 - 22 digits
+
+19 - ???
+
+Secondly, Gusev's last result suggests that there is even no AP18 starting
+
+with 19 below 24 digits.
+
+The algorithm I am using is efficient when I fix the sequence
+
+difference, but not when I fix one of the terms. I am not sure if it is
+
+capable of finding any 19-term sequence as large as 24 digits. The one
+
+you are asking for is most likely much larger and harder to search.
+
+Anyway, thanks for pointing the problem to me, I will keep it in mind.
+
+BUT: with any problem like that it is important to have an approximate
+
+heuristic model predicting how many solutions one should expect to
+
+exist. I do not have anything like it. When you ask about an AP19
+
+strting with 19, I should at least be able to give you:
+
+expected size of the smallest solution,
+
+expected CPU time needed to find one,
+
+expected number of solutions below, say, 10^30.
+
+At the moment I am even not able to reasonably answer questions like
+
+that. Perhaps I will work out such a model in future, but at the moment
+
+I have no clue how to do this. I will let you know if I can make a
+
+significant progress in this direction.
+
+One day later he added:
+
+A heuristic on this and related problems is given in Andrew Granville's
+
+paper:
+
+http://www.dms.umontreal.ca/~andrew/PDF/PrimePatterns.pdf
+
+This puzzle is discussed in section 2.8 pp. 8-9.
+
+The heuristic gives the size of the last term of the smallest solution
+
+to the puzzle as (e^(1-EulerGamma)*p)^p = (1.52621*p)^p.
+
+Below you have: p, heuristic, actual value, ratio heuristic/actual:
+
+p=11 2.98581*10^13 15361600811 1943.68
+
+p=13 7.38297*10^16 119025854335093 620.283
+
+p=17 1.09408*10^24 5471619276639877320977 199.956
+
+p=19 6.09486*10^27 ?????????????????????? 100???
+
+While Granville's heuristic on arbitrary arithmetic progressions
+
+of primes is perfect, this one is very pessimistic.
+
+Given the heuristic is pessimistic I would experimentally correct it to
+
+give 5*10^25-10^26 for p=19.
+
+My conclusion based on comparing heuristic given in the paper with
+
+experimental data is: We should expect one (at most two) solutions
+
+in 26 digits.
+
+As for an estimate of the CPU needed for a search like that, it is hard
+
+to do without actually writing a program. My wild guess is that it should be
+
+somewhere in the range 30-300 years of a single 64-bit computer.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

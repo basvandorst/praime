@@ -1,0 +1,424 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_292.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 292.  Zigzag Primes
+Source: https://www.primepuzzles.net/puzzles/puzz_292.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0292.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_291.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_293.htm
+  https://www.primepuzzles.net/puzzles/puzz_292.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 292. Zigzag Primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 292. Zigzag Primes
+
+Phil Carmody proposes the following nice puzzle:
+
+Define a 'zigzag' prime to be a prime whose representation in base B consists of a sequence of digits from 1 to B-1 and back down to 1 again, repeating the pattern any number of times. The number of zigzags in the number being the number of B-1's in the representation.
+
+e.g.
+
+2 zigzags in base 3 = "12121"_3 = 151
+
+(note that the "1" is not being repeated in the pattern.)
+
+Here are some minimal zigzag primes for various bases
+
+b z value expr
+
+2 2 3 "11"
+
+3 2 151 "12121"
+
+4 2 113081 "123212321"
+
+5 >500
+
+6 50 large
+
+7 78 large
+
+8 4 29127476154728254578693915767122615202699473
+
+9 >250
+
+10 6 large
+
+11 2 "123456789A98765432123456789A987654321"
+
+12 >200
+
+13-19 >50
+
+20-32 >20
+
+33 14 large
+
+34-40 >20
+
+The first part of the puzzle is to fill in gaps in the table, obviously.
+
+Some hints to help people on their way -
+
+1) Can a number with a single zigzag ever be prime? (easy)
+
+2) All of the above minimal examples have an even number of zigzags - do all zigzag primes have an even number of zigzags? If not true for all bases, is it true for some bases? (easyish)
+
+3) Are there other properties similar to those in (2) that can be used to reduce the quantity of candidates that need to be tested? (medium)
+
+The second part of the puzzle is an open question -
+
+4) Is there
+
+(a) at least one zigzag prime for every base?
+
+(b) an infinite number?
+
+Contributions came from Mike Oakes and Faride Firoozbakht.
+
+Mike wrote:
+
+First, a little algebra.
+
+For b >= 3 and z >= 1, define
+
+t = b^(2*b-4)
+
+u = 1 + b + b^2 + .. + b^(b-2) = (b^(b-1)-1)/(b-1)
+
+v = 1 + t + t^2 + .. + t^(z-1) = (t^z-1)/(t-1)
+
+Then the value of the base-b pattern with z zigzags can be written as:-
+
+N = (u^2-t)*v + t^z
+
+If z=1, v=1 and N = u^2.
+
+This solves problem 1), with the answer No.
+
+If b = +1 mod n,
+
+t = +1 mod n,
+
+u = b-1 = 0 mod n,
+
+v = z mod n,
+
+so N = -z+1 mod n.
+
+So n | N if z = +1 mod n.
+
+Taking n = 2, we find that if b is odd, then z must be even, which solves problem 2).
+
+If b = -1 mod n,
+
+t = +1 mod n,
+
+u = 0 mod n (b odd) or +1 mod (b even),
+
+v = z mod n,
+
+so N = -z+1 mod n (b odd) or +1 mod n (b even).
+
+So n | N if z = +1 mod n (b odd), n does not divide N (b even).
+
+Taken together with the above result for b = +1 mod n, this answers problem 3).
+
+Now for questions 4) (a) and (b).
+
+For b <= 10, and up to the stated maximum values of z (in brackets) which correspond to numbers of about 40,000 digits, I have found the following primes:-
+
+b z
+
+3 2,4,56,310,1014,1028,1174,1872,2436,4694 (<=10000)
+
+4 2,3,36,89,431,1170,4319 (<=10000)
+
+5 0 (<=10000)
+
+6 50,1310 (<=6000)
+
+7 78 (<=5000)
+
+8 4,9 (<=4000)
+
+9 0 (<=3000)
+
+10 6 (<=2000)
+
+Also, the following specific new primes not given in the original Puzzle:-
+
+b z
+
+20 120 (<=500)
+
+21 28 (<=500)
+
+51 10 (<=100)
+
+124 26 (<=50)
+
+134 10 (<=50)
+
+What distribution of these primes is to be expected?
+
+Write B = (2*b-4)*ln(b).
+
+Then, for z >> 1, we can approximate
+
+N(b,z) ~ exp(B*z).
+
+For fixed b, there are z numbers N(b,z) <= X=exp(B*z),
+
+i.e. z = ln(X)/B.
+
+Differentiating, the number of Zigzag numbers in the range [X,X+dX] is
+
+(dX/X)/B.
+
+Assuming these are not special, the probability that each is prime is 1/ln(X).
+
+So the expected number of Zigzag primes in the range [X,X+dX] is
+
+(dX/X)/(B*ln(X)).
+
+Integrating, the expected no. of Zigzag primes <= X is approximately
+
+ln(ln(X))/B,
+
+i.e. the expected no. of Zigzag primes for z <= Z is
+
+ln(B*Z)/B.
+
+This would give the following table of expected counts, for reasonably achievable values of Z:-
+
+b ln(b) B Z=10^1 Z=10^2 Z=10^3 Z=10^4 Z=10^5
+
+3 1.099 2.198 1.406 2.454 3.501 4.549 5.596
+
+5 1.609 9.654 0.473 0.712 0.950 1.189 1.427
+
+10 2.303 36.85 0.160 0.223 0.285 0.348 0.410
+
+20 2.996 107.9 0.065 0.086 0.107 0.129 0.150
+
+50 3.912 375.6 0.022 0.028 0.034 0.040 0.046
+
+100 4.605 902.6 0.010 0.013 0.015 0.018 0.020
+
+150 5.011 1483 0.006 0.008 0.010 0.011 0.013
+
+200 5.298 2098 0.005 0.006 0.007 0.008 0.009
+
+In fact, though, these are underestimates, as they assume that N(b,z) has the same chance
+
+of being divisible by the various primes as a "typical" number of that size.
+
+Define a "goodness" factor G(b) to be the factor by which the probability of being prime exceeds the "typical" probability.
+
+Studying only primes up to 47, we find that the primes which can divide N(b,z) are:-
+
+3 2[2],23[11]
+
+4 3[3],7[3],17[17],19[9],23[11]
+
+5 2[2],3[3],7[7],13[2],41[10],47[23]
+
+6 5[5],11[5],19[9],23[11],47[23]
+
+7 2[2],3[3],11[11],19[3],43[3]
+
+8 5[5],7[7],13[13],37[37],43[7]
+
+9 2[2],5[5],17[4],23[11],29[29],31[15],41[2]
+
+10 3[3],17[17],19[9],31[15],37[3],43[21],47[23]
+
+where the [n] figure after each is the period with which it appears as a divisor.
+
+Taking just the last row, for example, the calculation of G looks like this:-
+
+1/G(10)=(1/2)*(4/5)*(6/7)*(10/11)*(12/13)*((18/19)/(8/9))*(22/23)*(28/29)*
+
+((30/31)/(14/15))*(36/37)*(40/41)*((42/43)/(20/21))*((46/47)/(22/23))=0.2922
+
+Using these approximate values of G(b) for 3 <= z <= 10, z <= z_max,
+
+here is a table comparing the predicted counts G*ln(B*z_max)/B with the actual counts listed above:-
+
+b G(b) B z_max predicted actual
+
+3 3.24 2.198 10000 14.74 10
+
+4 3.66 5.544 10000 7.210 7
+
+5 1.82 9.654 10000 2.164 0
+
+6 3.57 14.34 6000 2.829 2
+
+7 2.19 19.46 5000 1.293 1
+
+8 3.81 24.95 4000 1.758 2
+
+9 2.36 30.76 3000 0.877 0
+
+10 3.42 36.85 2000 1.040 1
+
+The agreement is seen to be quite good, and gives confidence in the correctness of these heuristics.
+
+As another test of the formula, the expected no. of primes in the range 101<=b<=200 for z <= 50, using the average values of B(150)=1483 and G=3.0, is:
+
+100*G*ln(B*Z)/B = 2.25.
+
+In fact, there are 2 primes in this range, as listed above.
+
+So, we are lead to the Conjecture:
+
+For each b >= 3, the number of Zigzag primes with z <= z_max is approximated by
+
+G*ln(B*z_max)/B,
+
+where B(b) = (2*b-4)*ln(b),
+
+and G(b) is an in-principle-calculable function of b, with values in the approximate range 1.0 - 5.0.
+
+In particular, therefore, both questions (a) and (b) in the second Part of this puzzle most probably have the answer Yes.
+
+However, any proof is certainly far out of reach, remembering that the related
+
+conjecture that there are infinitely many Mersenne primes is still unsettled
+
+Faride wrote:
+
+I extended the table as follows,
+
+b z length of minimal
+
+zigzag prime
+
+2 2 1
+
+3 2 3
+
+4 2 6
+
+5 >4500
+
+6 50 312
+
+7 78 660
+
+8 4 44
+
+9 >1700
+
+10 6 97
+
+11 2 38
+
+12 >1240
+
+13-20 >100
+
+21 28 1407
+
+22-32 >100
+
+33 14 1319
+
+34-50 >50
+
+51 10 1674
+
+52-70 >50
+
+70-133 >20
+
+134 10 5616
+
+135-200 >20
+
+1) Can a number with a single zigzag ever be prime? (easy)
+
+No, there is no zigzag prime with z=1 because every zigzag number in base b with z=1 is divisible by b-1, the proof is easy.
+
+2) ...- do all zigzag primes have an even number of zigzags?
+
+No, there exist zigzag primes with odd z.
+
+Examples :
+
+b1=4 z1=3 p1=28948921 expr1= "1234321234321234321"_4
+
+b2=8 z2=9 p2=446377273237985571283106290841680
+
+214692807308440953538989151532178
+
+74476424044069826556268392700113
+
+expr2= "123456787654321234567876543212345678765432
+
+123456787654321234567876543212345678765432
+
+1234567876543212345678765432123456787654321"_8
+
+If not true for all bases, is it true for some bases? (easyish)
+
+Yes, it's obvious that if b is odd then z is even.
+
+3) Are there other properties similar to those in (2) that can be used to reduce the quantity of candidates that need to be tested? (medium)
+
+Yes. let f(n,z) be a number m in base n such that the number of zigzag of m is z, for example f(3,1)="121"_3=16.
+
+By this definition we have :
+
+For each n & z f(2n+1, 2z-1) is even I-1
+
+n divides f(n+1,1) for each n I-2
+
+n divides f(n+1,z) iff z = 1 (mod n) I-3
+
+Note that I-2 is a result of I-3.
+
+For some n we can determine some of properties of f(n,z):
+
+1) 3 divides f(5,3k+1) (k>=0) so there is no prime of this form.
+
+Infact since f(5,2k+1) is even ,if f(5,z) is prime then z is of the form 6k or 6k+2.
+
+2) 7 divide f(5,7k+2) (k>=0) so there is no prime of this form.
+
+3) 5 divides f(9,5k+1) (k>=0) so there is no prime of this form.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,405 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Puzzle 164. Sequences of Fermatian primes </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td><p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font>
+
+        </p>
+
+      <p><b>Puzzle 164.<font color="#008080">&nbsp;Sequences of Fermatian primes</font></b></p>
+
+      <p><font size="2">The following puzzle has been posted by <b>Daniel Gronau</b></font>.
+      <font size="2">It's about the <b>Fermat</b> Numbers, usually
+      described by the function: F<sub>n</sub> = 2^(2^n)+1, for n=0, 1, 2, .... <b>Gronau</b>
+      wrote:</font></p>
+      <font SIZE="2">
+      <blockquote>
+        <p>&quot;There is an alternative description - a recursive one - of <b>Fermat</b> numbers:</p>
+        <blockquote>
+          <p><b><font color="#008000">f(n+1) = 2 + f(0)*f(1)*f(2)*...*f(n).<br>
+          f(0) = 3</font></b></p>
+        </blockquote>
+        <p>Following this &quot;rule&quot; we get the five (known) <b>Fermat</b>
+        successive numbers &amp; primes:</p>
+        <p>3, 5, 17, 257, 65537.</p>
+        <p>So I asked myself if we can get again <b>five</b> successive primes
+        if we substitute f(0) with a prime other than 3.</p>
+        <p>The answer was: YES! As a matter of fact I found <b>five</b> successive primes
+        solutions for the following f(0) values: 19379, 9443669, 11054759, 15992069, 22482329,
+        32557379, 51102509, ...&quot;</p>
+      </blockquote>
+      <p><b>Daniel</b> wondered if the quantity of successive primes obtained by
+      this recursive procedure were limited or not.</p>
+      <p>I (<b>C.R.</b>) found several f(0) values producing <b>six</b> successive primes.
+      Here are the first 3 of them:</p>
+      <p>1) 1288004999<br>
+      2) 1417870889<br>
+      3) 1619225519</p>
+      </font>
+      <p><b><font size="2" color="#0000FF">Question: </font></b></p>
+      <p><b><font size="2" color="#0000FF">1. Can you find 3 more f(0) solution
+      for sequences of </font><font size="2" color="#008000">six</font><font size="2" color="#0000FF">
+      successive Fermatian primes?</font></b></p>
+      <p><b><font size="2" color="#0000FF">2. Can you find f(0) solutions
+      for sequences with </font><font size="2" color="#800000">seven</font><font size="2" color="#0000FF">
+      and </font><font size="2" color="#FF00FF">eight</font><font size="2" color="#0000FF">
+      successive Fermatian primes</font></b></p>
+      <hr>
+      <p><b><font color="#FF0000">Solution:</font></b></p>
+
+      <p align="left"><font size="2"><b>Sudipta Das</b> notices that the
+      recursive expression of the Fermatian numbers, given by <b>Gronau</b>:</font></p>
+
+      <blockquote>
+        <p align="left">
+      <font SIZE="2">
+      <b><font color="#008000">f(n+1) = 2 + f(0)*f(1)*f(2)*...*f(n).<br>
+          f(0) = 3</font></b>
+      </font>
+        </p>
+
+      </blockquote>
+
+    <p align="left"><font size="2">Can be transformed in a <u>closed</u>
+    expression:</font></p>
+
+      <blockquote>
+
+    <p align="left"><font SIZE="2"><b><font color="#008000">f(n) =
+    (f(0)+1)^(2^(n-1)) + 1, for n&gt;0&nbsp;<br>
+    f(0) = 3</font></b>
+      </font>
+        </p>
+
+      </blockquote>
+
+    <p align="left"><font size="2"><b>Sudipta</b> claims that this expression
+    &quot;<i>is much easier to program and to test for primality, than the
+    recursive form</i>&quot;</font></p>
+
+    <p align="left"><font size="2">***</font></p>
+
+      <p align="left"><font size="2"><b>Shyam Sunder Gupta</b> has found 3 more
+      f(0) prime values producing sequences of six consecutive primes:</font></p>
+
+      <p align="left"><font size="2">3998094509<br>
+      4997719499<br>
+      7369307219</font></p>
+
+      <p align="left">***</p>
+
+      <p align="left"><font size="2">Both <b>Shyam</b> and <b>Sudipta</b> point
+      out that f(0) must leave a remainder of 29 when divided by 30.</font></p>
+
+      <p align="left">***</p>
+
+      <p><font size="2"><b>Jim Fougeron</b> made an extensive search and here
+      are his results:</font></p>
+
+      <font SIZE="2">
+      <blockquote>
+        <p>I have found no &quot;order 7&quot; or &quot;order 8&quot;. I have
+        search ALL ranges up to &gt; 1.6767 trillion. Within this range, there
+        were 217 numbers which satisfied 6 consecutive primes, and 13927 numbers
+        which satisfied 5 consecutive primes (not counting the 217 order 6
+        numbers). I tested some of the 7th candidate numbers (factoring), and it
+        appears that there is no &quot;pattern&quot; which would eliminate a 7th
+        number being prime (i.e. all were not divisible by 3 or 13 &gt; or 101,
+        ...). It also appeared that the 7th number's behave as to be partly
+        factored, similar to the Fermat numbers, the General Fermat numbers, or
+        the Mersenne type numbers. The prime density would certainly be more
+        than simply a &quot;random&quot; 300 to 400 digit number. At 200+ order
+        6's I did &quot;expect&quot; to see an order 7 result, but none were
+        found :((((</p>
+        <p>I did also observe a few &quot;rules&quot; for this sequence.&nbsp;</p>
+        <p>1. The f(0) and f(1) must be a twin, since f(1) = f(0)+2</p>
+        <p>2. f(0)%10 must be 9 : (except for f(0)=3)<br>
+        if f(0)%10 is even, then f(0) is not a prime<br>
+        if f(0)%10 is 1, then f(10)%10=3 and 3*1+2 is 5, so f(2) is divisible by
+        5<br>
+        if f(0)%10 is 3 then f(1)%10=5 so it is not prime (except if f(0)=3)<br>
+        if f(0)%10 is 5 then f(0) is not prime (except if f(0) is 5)<br>
+        if f(0)%10 is 7 then f(1)%10 is 9 and 7*9+2 is 65%10=5.<br>
+        if f(0)%10 is 9 then f(1)%10 is 1 and f(2)%10 is 9 and f(3,4,...)%10</font>
+        <font SIZE="2">is 1</p>
+        <p>3. f(n) as n grows it will end with many 0's followed by a single 1
+        digit, so MANY (most) of these primes, even when large, will be VERY
+        easily provable (N-1 will be 10^many*something with 10^many often being
+        larger than N^1/3 which allows easy N-1 proving)</p>
+      </blockquote>
+      <p>***</p>
+      <p>I asked to <b>Jim</b>: &quot;Can you also add the type of program (language),
+      computer and time spent in your search? One more question: trillion is
+      like in our system 10^18?&quot;. And his answer was:</p>
+      <blockquote>
+        <p>1 trillion is 2^12 (1,000,000,000,000).&nbsp; I am currently at
+        3.845*10^12 and<br>
+        have found 187 more order 6 values, but no order 7's yet.<br>
+        <br>
+        I have coded this in VC++ using my own 64 bit Erat primegenerator to
+        find<br>
+        the twins, and then Miracl large integer library to prp test the
+        &quot;larger&quot;<br>
+        numbers.&nbsp; Coding took a few hours, and runtime to 10^12 took 3
+        Athlon 750mhz<br>
+        PC about 16 hours each.&nbsp; I have optimized my code better, and now a
+        single<br>
+        PC running for about 30 hours pushed from 1.2*10^12 to 3.8*10^12.&nbsp;
+        Note that<br>
+        the size of the f(4+) is increasing now, so testing the numbers is
+        slowing<br>
+        down.&nbsp; I do expect a series of length 7, but not sure how high I
+        will have<br>
+        to push to find it.&nbsp; I will not be searching for a length 8 item ;)&nbsp;
+        I will<br>
+        leave that to someone else.&nbsp; I currently have over 400 length 6
+        results found.<br>
+        <br>
+        Here is some new information.&nbsp; [higher modular requirements for
+        f(0)]<br>
+        <br>
+        The f(0) numbers in the series (other than f(0)==3) MUST be of the form<br>
+        f(0)==509 mod(510)&nbsp;&nbsp;&nbsp; That is why 9 mod(10) and 29
+        mod(30) were both &quot;valid&quot;.<br>
+        510 is 2*3*5*17 so any number which is made up exclusively of these
+        factors<br>
+        (10=2*5, 30=3*2*5, 85=17*5, ...) would all &quot;satisfy&quot; the f(0)
+        to be n-1 mod(n).<br>
+        However, 509 mod(510) is the optimal (maximal) case.</p>
+      </blockquote>
+      <p>***</p>
+      <p>A few hours later <b> Jim</b> informed a beautiful result:</p>
+      <blockquote>
+      <p>Carlos, here is an update on puzzle 164<br>
+      <br>
+      I have processed from f(0)=3 to f(0)=4319420014079 and here are the
+      results:<br>
+      There were 29777 length 5 finds<br>
+      There were 456 length 6 finds<br>
+      There is 1 length 7 find.&nbsp; That find is:<br>
+      <br>
+      f(0)=4109355036959<br>
+      f(1)=4109355036961<br>
+      f(2)=16886798819788522966041601<br>
+      f(3)=285163974380011052145033104437715842266772930560001<br>
+      f(4)=<br>
+      813184922842035997316061285984072393325394068447975735939012051758969<br>
+      56396923659519570581913600000001<br>
+      f(5)=<br>
+      661269718737608038306331633156409174030623576506013895765168627135044<br>
+      165565655941249372213421363090241527339594205302044863667773950048188<br>
+      0593852970658833909784236964257314836927437864960000000000000001<br>
+      f(6)=<br>
+      437277640919315243514787851517751082721195257036696929098144568407957<br>
+      920797032668040071454163950082962790256662644321871244216898947128310<br>
+      396937497654368156594418147998528995865975591284432223136928623664627<br>
+      293496717205649428628521123863684172634387233026153590991365834794438<br>
+      361887012729368899010291270461836799147284907986146416473268907016127<br>
+      38703984886086481563195801600000000000000000000000000000001<br>
+      <br>
+      Note f(6) is a 402 digit prime.&nbsp; Also note that f(0) is the smallest
+      value<br>
+      which is prime for length 7.&nbsp; All primes are proven.<br>
+      <br>
+      <b>Jim</b>.<br>
+        </p>
+      </blockquote>
+      </font><p align="left"><font size="2">What a splendid work!</font></p>
+
+      <p align="left">***</p>
+
+      <p><font size="2">The 24/3/2002 <b>Phil Carmody</b> came with an example
+      for length 8: </font><font SIZE="2">f(0)+1=7,190,597,297,273,100</font></p>
+
+      <font SIZE="2">
+      <blockquote>
+        <p>&quot;... something like 3 weeks on my PPro200, and than a final
+        burst on my Duron 900 for a week finally yielded &gt;550 length 7
+        results before providing a single solitary length 8 result:</p>
+        <p>f(0)+1 = 7,190,597,297,273,100</p>
+        <p>...</p>
+        <p>The filters required for this test are quite unusual, compared with
+        the usual tasks I've thrown at GenSv, and so I've had to make some
+        tweaks to the code to improve the efficiency in the sieve in these kinds
+        of situations. The thing I'm most proud of is the fact that the largest
+        term is titanic!</p>
+      </blockquote>
+      </font><p align="left">***</p>
+
+      <p align="left">&nbsp;</p>
+
+      <hr>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_163.htm"><img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_165.htm"><img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1"> 
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>
+

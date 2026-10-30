@@ -1,0 +1,137 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_879.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 879. More on Q3 in Puzzle 876.
+Source: https://www.primepuzzles.net/puzzles/puzz_879.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0879.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_876.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_878.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_880.htm
+  https://www.primepuzzles.net/puzzles/puzz_879.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 879. More on Q3 in Puzzle 876.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 879. More about Q3 from Puzzle 876.
+
+Q3 in the Puzzle 876 asked the following:
+
+"Now, let's forget the weight, just for each odd n=>3 find the first n primes that produce a maximal k."
+
+Here we are interested in trying to find out what is the largest sequence of integers possible, disregarding if the members of the sequence are primes or not after the first n members, before an arithmetical condition emerges, as "ending in 5" or "being divided by 3"
+
+Claudio Meller introduced a way to answer this question. Let's remember it:
+
+...limited only to the case n=3
+
+a) Considering just the rightmost digit of the sequence of primes produced, the largest quantity of primes produced before a digit "5" appears as the rightmost digit is 11, so kmax=14.
+
+b) But considering just the divisibility by 3 of the members of the sequence produced the largest sequence of primes produced is 3, so kmax=6, except that one of the three initial primes is the prime 3, then kmax=7
+
+I continued this double-approach for other n values. My results are summarized in the following Table:
+
+Ending digit =5 | Sum divided by 3
+
+n | kmax | # Solutions | Example:
+
+Each digit is the ending digit | kmax | # Solutions | Example:
+
+Each digit is a={1, 3, 5}
+
+type of term as 6k+a | Smallest k | DK | Could grow?
+
+3 | 14 | 4 | 511 | 7 | 2 | 311 | 7 | 7 | No
+
+5 | 27 | 4 | 17135 | 11 | 4 | 11113 | 11 | 11 | No
+
+7 | Infinite | ? | 1137719 | Infinite | ? | 1111111 | Infinite | 25 | Yes
+
+9 | 46 | 4 | 137719775 | 19 | 6 | 111111355 | 19 | 19 | No
+
+11 | Infinite | ? | R(11) | 23 | 8 | 11111111113 | 23 | 23 | No
+
+13 | 66 | 4 | 1377199313571 | Infinite | ? | 1111111111111 | 66 | 34 | Yes
+
+15 | 80 | 4 | 139713953911373 | 31 | 10 | 111111111111355 | 31 | 31 | No
+
+Comments | Rule? | Rule=4 | No more than one "5" | Rule: 2n+1 | Rule? | No more than one "3"
+
+Explanation:
+
+For n=3 & the arithmetical condition "before an ending 5 emerges", my results kmax=14 and example=511 means that if the first 3 members of the sequence are 5, 11, 31, then the sequence may be extended until 14 terms, disregarding if they are primes or not, because the 15th member ends in necessarily in "5":
+
+5, 11, 31, X7, X9, X7, X3, X9, X9, X1, X9, X9, X9, X7, X5
+
+For n=3 and the arithmetical condition of "the sum being divided by 3" my results kmax=7 and example 311 means that if the first 3 members of the sequence were (by example) 3, 7, 13, then the sequence may me extended until 7 temrs, disregarding if they are primes or not, because the 8th member necessarily is divided by 3:
+
+3, 7, 13, 23, 43, 79, 145, 267
+
+Combining the results of this Table for the range n=3 to 15, with the empirical results by D. Kamenetsy in the Puzzle 876, we may observe that the only sequences that could grow, IF NO OTHER LIMITING CONDITION EXISTS, are for n=7 and for n=13.
+
+Q1. Do you devise limiting conditions other than the two introduced by Claudio Meller and studied by CR?
+
+Q2. Can you exetend the Table up to n=19?
+
+Q3. For the cases n=7 and/or 13, can you produce a prime sequence larger than the obtained by DK?
+
+Contribution came from Claudio Meller
+
+***
+
+Claudio wrote:
+
+Para n=7, si lo analizamos Módulo 7, el k máximo es 62, generado por este 7uplo : 6436551
+
+Estos seis 7uplos generan un máximo de 62 números hasta que si o si aparece un múltiplo de 7, al estudiarlo módulo 7
+
+6 4 3 6 5 5 1
+
+5 1 6 5 3 3 2
+
+4 5 2 4 1 1 3
+
+3 2 5 3 6 6 4
+
+2 6 1 2 4 4 5
+
+1 3 4 1 2 2 6
+
+Fijate que para ser un un uplo que llegué al máximo el último témino es igual a la suma de los anteriores módulo 7
+
+Por ejemplo en el 7uplo :
+
+6436551 6+4+3+6+5+5 = 29 y 29 módulo 7 es 1, esto es lógico porque si fuera otro número se podría alargar la serie poniendo un número delante, de esta forma no se puede poner otro número delante, ya que el que se pondría debe ser múltiplo de 7
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

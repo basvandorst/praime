@@ -1,0 +1,480 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: http://www.maths.lancs.ac.uk/~jameson/carfind.pdf. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: http://www.maths.lancs.ac.uk/~jameson/carfind.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+Finding Carmichael numbers
+Notes by G.J.O. Jameson
+Introduction
+Recall that Fermat’s “little theorem” says that if p is prime and a is not a multiple of
+p, then ap−1 ≡ 1 mod p.
+This theorem gives a possible way to detect primes, or more exactly, non-primes: if
+for some positive a ≤ n − 1, an−1 is not congruent to 1 mod n, then, by the theorem, n is
+not prime. A lot of composite numbers can indeed be detected by this test, but there are
+some that evade it. In other words, there are numbers n that are composite but still satisfy
+an−1 ≡ 1 mod n for all a coprime to n. Such numbers might be called “false primes”, but in
+fact they are called Carmichael numbers in honour of R.D. Carmichael, who demonstrated
+their existence in 1912 [Car] – so the year 2012 marks their centenary. (Composite numbers
+that satisfy the stated condition for one particular a are called a-pseudoprimes. They are
+the subject of a companion article [Jam1]).
+It is easy to see that every Carmichael number is odd: if n (≥ 4) is even, then
+(n − 1)n−1 ≡ (−1)n−1 = −1 mod n, so is not congruent to 1 mod n.
+There is a pleasantly simple description of Carmichael numbers, due to Korselt:
+THEOREM 1. A number n is a Carmichael number if and only if n = p1p2 . . . p k, a
+product of (at least two) distinct primes, and pj − 1 divides n − 1 for each j.
+Proof. Let n be as stated, and let gcd( a, n ) = 1. By Fermat’s theorem, for each j, we
+have apj −1 ≡ 1 mod pj. Since pj − 1 divides n − 1, an−1 ≡ 1 mod pj. In other words,
+an−1 − 1 is a multiple of each pj. It follows that it is a multiple of n, so an−1 ≡ 1 mod n.
+We leave out the proof of the converse, that every Carmichael number is of this form.
+It can be found in many textbooks on number theory, for example [JJ, section 6]. □
+At this point, some texts simply state that 561 (= 3 × 11 × 17) is a Carmichael number,
+and invite the reader to verify it. This is indeed easily done using Theorem 1. But how was
+it found? Is it the ﬁrst Carmichael number? More generally, how might one detect all the
+Carmichael numbers up to a certain magnitude N ? We will show how this can be done very
+quickly for N = 3000 (this value is chosen because it is just large enough to produce several
+examples and to illustrate the principles involved; of course, the reader may choose to extend
+the search). We then go on to show how one can ﬁnd all the Carmichael numbers of certain
+1
+
+--- page 2 ---
+types, such as those having three prime factors, with the smallest one given.
+For numbers within the range considered, these investigations require only minimal
+numerical calculations, and we hope to convince the reader that they oﬀer an entertaining
+and instructive piece of detective work, easily carried out with bare hands. Of course, a
+search up to seriously large numbers has to be a computer exercise, and this has been very
+eﬃciently undertaken by Pinch [Pi1], [Pi2]; the methods, greatly reﬁning those used here,
+are described in [Pi1].
+We conclude with a brief account of some recent research topics. For any readers whose
+interest has been stimulated, further information about Carmichael numbers can be found
+in [Rib] and [Jam2].
+We record here some easy consequences of Theorem 1 which we shall use constantly.
+LEMMA 2. Let n = pu, where p is prime. Then p − 1 divides n − 1 if and only if it
+divides u − 1.
+Proof. ( n − 1) − (u − 1) = n − u = pu − u = ( p − 1)u. The statement follows. □
+PROPOSITION 3. A Carmichael number has at least three prime factors.
+Proof. Suppose that n has two prime factors: n = pq, where p, q are prime and p > q .
+Then p − 1 > q − 1, so p − 1 does not divide q − 1. By Proposition 2, p − 1 does not divide
+n − 1. So n is not a Carmichael number. □
+PROPOSITION 4. Suppose that n is a Carmichael number and that p and q are prime
+factors of n. Then q is not congruent to 1 mod p.
+Proof. Suppose that q ≡ 1 mod p, so that p divides q − 1. Since q − 1 divides n − 1, it
+follows that p divides n − 1. But this is not true, since p divides n. □
+The Carmichael numbers up to 3000
+We start by considering numbers with three prime factors: n = pqr, with p < q < r .
+By Theorem 1 and Lemma 2, we have to discover triples ( p, q, r ) that ﬁt together as follows:
+(1) p − 1 divides qr − 1 (equivalently, qr ≡ 1 mod p − 1),
+(2) q − 1 divides pr − 1,
+(3) r − 1 divides pq − 1.
+Given a pair of primes ( p, q ) with p < q , the following procedure will detect all the
+2
+
+--- page 3 ---
+primes r > q such that pqr is a Carmichael number. Consider the even divisors (if there are
+any) d of pq − 1 with q < d < pq − 1 and check whether d + 1 (= r) is prime (we exclude
+d = pq − 1 since it would give r = pq). Then we have ensured (3), and we check whether (1)
+and (2) hold.
+We do this for all pairs of primes ( p, q ) for which pqr < 3000 for at least some primes
+r > q . However, because of Proposition 4, we leave out any combination that has q ≡ 1 mod p
+(for example, (3 , 7), (3, 13), (5, 11)).
+The results are best presented in tabular form, as follows. In each case, we only list
+the values of d for which r is prime; the reader can easily check that none have been missed.
+(p, q ) pq − 1 d r (1) (2) Carmichael number
+(3,5) 14 –
+(3,11) 32 16 17 yes yes 3 × 11 × 17 = 561
+(3,17) 50 –
+(3,23) 68 –
+(5,7) 34 –
+(5,13) 64 16 17 yes yes 5 × 13 × 17 = 1105
+(5,17) 84 28 29 yes yes 5 × 17 × 29 = 2465
+42 43 no
+(5,19) 94 –
+(7,11) 76 –
+(7,13) 90 18 19 yes yes 7 × 13 × 19 = 1729
+30 31 yes yes 7 × 13 × 31 = 2821
+(7,17) 118 –
+(11,13) 142 –
+Note on checking (1) and (2): To check whether qr ≡ 1 mod p − 1, we do not need
+to calculate qr; all we need is the values of q and r mod p − 1. For example, 17 ≡ 1 and
+29 ≡ 1 mod 4, hence 17 × 29 ≡ 1 mod 4.
+It is not hard to check that these really are the only pairs ( p, q ) that need to be
+considered: for example, (3,29) cannot occur with 31, and 3 × 29 × 37 = 3219.
+What about numbers with four prime factors? The very ﬁrst candidate, bearing in
+mind excluded combinations, is 3 × 5 × 17 × 23 = 5865, well outside our range (of course,
+this is a bit of an evasion; we come back later for a more resolute look at these numbers).
+So the complete list of Carmichael numbers below 3000 is as seen in the table. Note
+that to show that 561 is the ﬁrst one, only the cases (3 , 5), (3 , 11) and (5 , 7) are needed.
+3
+
+--- page 4 ---
+From now on, we will usually present Carmichael numbers by stating the prime factors
+without multiplying them out, since it is really the factors themselves that are of interest.
+Carmichael numbers pqr with given p
+What we have been doing is ﬁnding the Carmichael numbers of form pqr for a given
+(p, q ). We now establish a much more striking fact: there are only ﬁnitely many Carmichael
+numbers of the form pqr for a given p. Furthermore, we can give an upper bound for the
+number of them and describe a systematic way of ﬁnding them. These results were originated
+by Beeger [Be] and Duparc [Du].
+We restate the previous (1),(2),(3) more explicitly: n = pqr is a Carmichael number if
+and only if there are integers h1, h 2, h 3 such that
+qr − 1 = h1(p − 1), (4)
+pr − 1 = h2(q − 1), (5)
+pq − 1 = h3(r − 1). (6)
+The rough signiﬁcance of these numbers is shown by the approximations h1 ≈ qr/p (etc.)
+when p, q, r are large.
+PROPOSITION 5. We have 2 ≤ h3 ≤ p − 1.
+Proof. Since r − 1 > q , we have qh3 < pq , hence h3 < p . Since both are integers,
+h3 ≤ p − 1. Also, h3 ⁄= 1 since r ⁄= pq (r is prime!). So h3 ≥ 2. □
+The essential point is that we can express q and r in terms of p, h2 and h3:
+PROPOSITION 6. We have
+q − 1 = (p − 1)(p + h3)h2h3 − p2 . (7)
+Proof. By (5) and (6),
+h2(q − 1) = p(r − 1) + ( p − 1)
+= ph3 (pq − 1) + ( p − 1),
+so
+h2h3(q − 1) = p(pq − 1) + h3(p − 1) = p[p(q − 1) + ( p − 1)] + h3(p − 1),
+hence
+(h2h3 − p2)(q − 1) = ( p + h3)(p − 1). □
+4
+
+--- page 5 ---
+Once p, q and h3 are known, r is determined by (6).
+THEOREM 7. Let p be prime. Then there are only ﬁnitely many 3-factor Carmichael
+numbers with smallest prime factor p. Denote this number by f3(p). Then
+f3(p) ≤ (p − 2)(log p + 2) .
+Moreover, for any ε > 0, we have f3(p) < εp log p for suﬃciently large p, so in fact
+f3(p)
+p log p → 0 as p → ∞.
+Proof. Choose h3 satisfying 2 ≤ h3 ≤ p − 1. Write h2h3 − p2 = ∆. We will work with
+∆ rather than h2. When ∆ is chosen, q is determined by (7) and then r by (6). By (7),
+∆ = (p − 1)(p + h3)q − 1 .
+Clearly, ∆ is a positive integer, so ∆ ≥ 1. Also, since p − 1 < q − 1, we have ∆ < p + h3,
+so in fact ∆ ≤ p + h3 − 1, and ∆ must lie in an interval of length p + h3 − 2. In addition,
+∆ must be congruent to −p2 mod h3, so each block of length h3 contains only one possible
+value for ∆. Hence the number of choices for ∆ is no more than
+p + h3 − 2
+h3
++ 1 = p − 2h3 + 2 .
+We now add over the possible values of h3 and use the well-known fact that ∑ph=2 1h < log p
+to obtain
+f3(p) ≤
+p−1∑
+h=2
+( p − 2
+h + 2
+)
+< (p − 2)(log p + 2) .
+The reader is at liberty not to bother with the second half of the proof! For those
+bothering, the point is that the estimation just found took no notice of the fact that ∆
+also has to be a divisor of ( p − 1)(p + h3). We use the well-known fact that for any ε > 0,
+τ (n)/nε → 0 as n → ∞ , where τ (n) is the number of divisors of n. So the number of
+choices for ∆ is also bounded by τ [(p − 1)(p + h3)], which is less than pε for large enough
+p (since ( p − 1)(p + h3) < 2p2). Using this bound for h3 ≤ p1−ε and the previous one for
+h3 > p 1−ε, together with the elementary estimation ∑y<n≤x 1n ≤ log x − log y + 1, we see
+that f3(p) ≤ S1 + S2, where S1 = p1−εpε = p and
+S2 ≤
+∑
+p1−ε<h<p
+( p
+h + 2
+)
+≤ p(ε log p + 1) + 2 p = εp log p + 3 p,
+so f3(p) < εp log p + 4 p < 2εp log p for large enough p. Of course, we can now replace 2 ε
+by ε. □
+5
+
+--- page 6 ---
+Note. Using known bounds for the divisor function, the estimate can be reﬁned to
+show that f3(p) ≤ (p log p)/(log log p) for large enough p (see [Jam2]). This still makes no
+allowance for the need for q and r to be prime. Because of the prime number theorem, which
+says that the number of primes less than N is approximated by N/ log N , one might expect
+these conditions to reduce the estimate for f3(p) by a factor like (log p)2; however, as far as
+I know, no such result has been proved.
+The proof of Theorem 7 also amounts to a procedure for ﬁnding the Carmichael num-
+bers pqr for a given p. We choose h3, then search for possible values of ∆. They have to
+satisfy:
+∆ ≤ p + h3 − 1,
+∆ ≡ −p2 mod h3,
+∆ divides ( p − 1)(p + h3).
+For example, if h3 = 2, the second condition restricts ∆ to odd values.
+We list the values of ∆ satisfying these conditions. For each of them, q is deﬁned
+by q − 1 = ( p − 1)(p + h3)/∆. Of course, q may or may not be prime. If it is, we continue,
+deriving r from (6). (The r deﬁned this way will always be an integer: by the expression
+for h2(q − 1) in the proof of Proposition 6, h3 divides p(pq − 1); now by Euclid’s lemma, h3
+divides pq − 1). The algebra of Proposition 6, taken in reverse, shows that we have ensured
+that (5) is satisﬁed. We still have to check whether r is prime and whether qr ≡ 1 mod
+(p − 1): if both these things happen, then pqr is a Carmichael number. Furthermore, this
+process will detect all Carmichael numbers of the form pqr.
+We now work through the cases p = 3 , 5, 7. First, take p = 3. The only value for h3 is
+2. We require ∆ to be odd, no greater than 4, and a divisor of 10. The only choice is ∆ = 1,
+giving q = 11. By (6), 2( r − 1) = 32, so r = 17. Clearly, qr ≡ 1 mod 2. So 3 × 11 × 17 is a
+Carmichael number, and it is the only one with p = 3.
+We present the cases p = 5 and p = 7 in tabular form. A composite value of q or r,
+terminating the process, is indicated by c.
+h3 5 + h3 52 mod h3 ∆ q r qr mod 4 Carmichael number
+2 7 1 1 29 73 1 5 × 29 × 73
+3 8 1 2 17 29 1 5 × 17 × 29
+4 9 1 3 13 17 1 5 × 13 × 17
+6
+
+--- page 7 ---
+h3 7 + h3 72 mod h3 ∆ q r qr mod 6 Carmichael number
+2 9 1 1 55 c
+3 19 67 1 7 × 19 × 67
+3 10 1 2 31 73 1 7 × 31 × 73
+5 13 31 1 7 × 13 × 31
+4 11 1 3 23 41 1 7 × 23 × 41
+5 12 4 1 73 103 1 7 × 73 × 103
+6 13 19 1 7 × 13 × 19
+6 13 1 −
+These cases have a success rate that is quite untypical of larger numbers! In fact, 11 is
+already very diﬀerent: there are no Carmichael numbers 11 qr. The reader is invited to work
+through this for him/herself: there are ten admissible combinations of h3 and ∆; six cases
+have q prime, then two have r prime. Both then fail at the hurdle qr ≡ 1 mod 10.
+At the risk of spoiling the fun, we now list the 3-factor Carmichael numbers pqr for all
+p up to 61, grouped by p, then ordered by q and r in turn.
+3 × 11 × 17
+5 × 13 × 17
+5 × 17 × 29
+5 × 29 × 73
+7 × 13 × 19
+7 × 13 × 31
+7 × 19 × 67
+7 × 23 × 41
+7 × 31 × 73
+7 × 73 × 103
+13 × 37 × 61
+13 × 37 × 97
+13 × 37 × 241
+13 × 61 × 397
+13 × 97 × 421
+17 × 41 × 233
+17 × 353 × 1201
+19 × 43 × 409
+19 × 199 × 271
+23 × 199 × 353
+29 × 113 × 1093
+29 × 197 × 953
+31 × 61 × 211
+31 × 61 × 271
+31 × 61 × 631
+31 × 151 × 1171
+31 × 181 × 331
+31 × 271 × 601
+31 × 991 × 15361
+37 × 73 × 109
+37 × 73 × 181
+37 × 73 × 541
+37 × 109 × 2017
+37 × 613 × 1621
+41 × 61 × 101
+41 × 73 × 137
+41 × 101 × 461
+41 × 241 × 521
+41 × 241 × 761
+41 × 881 × 12041
+41 × 1721 × 35281
+43 × 127 × 211
+43 × 127 × 1093
+43 × 127 × 2731
+43 × 211 × 337
+43 × 211 × 757
+43 × 271 × 5827
+43 × 433 × 643
+43 × 547 × 673
+43 × 631 × 1597
+43 × 631 × 13567
+43 × 3361 × 3907
+47 × 1151 × 1933
+47 × 3359 × 6073
+47 × 3727 × 5153
+53 × 79 × 599
+53 × 157 × 521
+53 × 157 × 2081
+59 × 1451 × 2089
+61 × 181 × 1381
+61 × 181 × 5521
+61 × 241 × 421
+61 × 271 × 571
+61 × 277 × 2113
+61 × 421 × 12841
+61 × 541 × 3001
+61 × 661 × 2521
+61 × 1301 × 19841
+61 × 3361 × 4021
+Remark. If pqr is a Carmichael number and q − 1 is a multiple of p − 1, then so is r − 1.
+This follows from (2) and the identity pr − 1 = ( p − 1)r + ( r − 1). It is very common for
+7
+
+--- page 8 ---
+Carmichael numbers to have this property, at least in the early stages: of the 69 numbers
+listed above, 57 have it. The same comment applies to the q and r generated by the process
+we have described.
+Another consequence of Proposition 6 is that we can give bounds for q, r and n in
+terms of p:
+PROPOSITION 8. If pqr is a Carmichael number, with p < q < r , then
+q < 2p(p − 1), r < p 2(p − 1), n < 2p4(p − 1)2 (< 2p6).
+Proof. By (7) and the fact that h3 ≤ p − 1, we have
+q ≤ (p − 1)(p + h3) + 1 ≤ (p − 1)(2p − 1) + 1 < 2p(p − 1).
+Now by (6),
+r = 1h3 (pq − 1) + 1 ≤ 12(pq − 1) + 1 = 12(pq + 1) < p 2(p − 1) + 12,
+so in fact r < p 2(p − 1) (equality doesn’t occur, since r is prime!). Hence n = pqr <
+2p4(p − 1)2. □
+With a bit more care, one can improve these bounds to r < 12 p2(p + 1) and n <
+1
+2 p4(p + 1) 2, which are close to being optimal (see [Jam2]).
+Carmichael numbers pqr with given r
+Now let us vary the problem and ask how one might ﬁnd all the Carmichael numbers
+pqr for a given r (of course, the results for all r ≤ 71 could be read oﬀ from our list, but that
+really would be cheating!). A very diﬀerent method is appropriate. Because of Proposition
+4, we only need to consider primes p < r that do not divide into r − 1. For such p, (3)
+demands q such that pq ≡ 1 mod ( r − 1). By elementary number theory, there is exactly
+one integer q < r − 1 that satisﬁes this, found either by applying the Euclidean algorithm
+to obtain an expression xp + y(r − 1) = 1 or (more quickly when the numbers are small) by
+simply trying the numbers k(r − 1) + 1 ( k = 1 , 2, . . . ) in turn until a multiple of p is found.
+If q is prime and diﬀerent from p, we now check whether (1) and (2) are satisﬁed. We do
+this for successive p, but of course leave out any prime that has already appeared as the q
+corresponding to an earlier p. We set out the result for the case r = 19:
+p q (1) (2) Carmichael number
+5 11 yes no
+7 13 yes yes 7 × 13 × 19
+17 17
+8
+
+--- page 9 ---
+Four prime factors
+Now consider numbers with four prime factors: n = pqrs, with p < q < r < s . The
+requirements are now: p − 1 divides qrs − 1 and three similar conditions. The analogy of the
+ﬁrst type of problem we considered for 3-factor numbers is: given ( p, q, r ), ﬁnd the s (> r )
+such that pqrs is a Carmichael number. To solve this, observe that s − 1 must be a divisor of
+pqr − 1 and s must satisfy the three other congruence conditions. We identify the numbers
+s that satisfy all these conditions, and check whether they are prime. We work through two
+examples.
+Example. ( p, q, r ) = (7 , 11, 13). Then pqr = 1001, so s − 1 must be a divisor of 1000.
+The congruence conditions for 6 will be implied by the one for 12, so we can leave it out.
+The other two are:
+7 × 13 × s ≡ 1 mod 10; since 7 × 13 = 91 ≡ 1 mod 10, this is equivalent to s ≡ 1 mod 10;
+7 × 11 × s ≡ 1 mod 12; since 77 ≡ 5 mod 12, this is equivalent to 5 s ≡ 1 mod 12, hence
+to s ≡ 5 mod 12.
+This pair of conditions is equivalent to s ≡ 41 mod 60 (found by considering 5, 17, 29, 41
+until we ﬁnd a number congruent to 1 mod 10). So s − 1 is congruent to 40 mod 60 and a
+divisor of 1000. The only numbers satisfying this are 40 and 100. Since 41 and 101 are prime,
+these two values of s are the solution to our problem. (In fact, 7 × 11 × 13 × 41 = 41 , 041 is
+the smallest 4-factor Carmichael number.)
+If pqr is itself a Carmichael number, then the congruence conditions equate to s being
+congruent to 1 mod p − 1, q − 1 and r − 1, since (for example) qr ≡ 1 mod p − 1.
+Example. ( p, q, r ) = (7 , 13, 19) (a particularly rewarding example). By the previous
+remark, s is congruent to 1 mod 6, 12 and 18, hence congruent to 1 mod 36. Also, s − 1
+must divide pqr − 1 = 1728 = 48 × 36. So the possible values for s are of the form 36 k + 1,
+where k is a divisor of 48. We list these values, indicating by * those that are prime, thereby
+giving a Carmichael number:
+37∗, 73∗, 109∗, 145, 217, 289, 433∗, 577∗, 865.
+Now for the second type of problem, to ﬁnd the Carmichael numbers pqrs for given
+(p, q ). All we have to do is substitute pq for p in our previous reasoning. It doesn’t make
+any diﬀerence that pq is not prime until the ﬁnal step, where of course the congruences for
+p − 1 and q − 1 must be checked separately. We deﬁne h4 by h4(s − 1) = pqr − 1, from which
+it follows that 2 ≤ h4 ≤ pq − 1 (and also h4 cannot be a multiple of p or q). Proposition 6
+9
+
+--- page 10 ---
+becomes r − 1 = ( pq − 1)(pq + h4)/∆, where ∆ = h3h4 − p2q2, so that
+∆ = (pq − 1)(pq + h4)r − 1 < p (pq + h4).
+Of course, ∆ also has to divide ( pq −1)(pq +h4). This limits the number of possible values for
+it to ( pq)ε (for any given ε > 0) for large enough pq, so the number of Carmichael numbers
+of this form is bounded by ( pq)1+ε.
+The reader may care to work through the ﬁrst case, ( p, q ) = (3 , 5). In this case, because
+of the exclusions given by Proposition 4, the smallest possible value for r is 17, so in fact
+∆ < 15 + h4. You should discover that there is only one resulting Carmichael number,
+3 × 5 × 47 × 89.
+How many Carmichael numbers?
+There are just 43 Carmichael numbers up to 10 6, whereas there are 78,498 primes – so
+the original idea of using the Fermat property to detect primes is not so bad after all! As
+mentioned above, Pinch [Pi1], [Pi2] has computed the Carmichael numbers up to 10 18 (more
+recently, even to 10 21). Some of his results are as follows. Here, C(x) denotes the number of
+Carmichael numbers up to x, and C3(x) the number with three prime factors.
+x 106 107 108 109 1012 1015 1018
+C(x) 43 105 255 646 8 , 241 105 , 212 1 , 401, 644
+C3(x) 23 47 84 172 1 , 000 6 , 083 35 , 586
+It was an unsolved problem for many years whether there are inﬁnitely many Carmichael
+numbers. The question was resolved in 1994 in a classic article by Alford, Granville and
+Pomerance [AGP]. Here it was shown, using sophisticated methods, not only that the an-
+swer is yes, but that in fact C(x) > x 2/7 for suﬃciently large x. Harman [Har] has improved
+the 27 to 0.33.
+There is a very wide gap between these estimates and the known upper bounds for
+C(x). These involve the following rather unwieldy expressions: write log 2(x) = log log x
+(etc.) and l(x) = exp(log x log3 x/ log2 x). Erd¨ os [Erd] obtained the upper bound x/l(x)c
+for some c > 12 , valid for large enough x. It was improved to x/l(x)1−ε in [PSW], and the
+method was simpliﬁed in [Pom]. Erd¨ os conjectured (with reasons) that C(x) is not bounded
+above by xα for any α < 1. This is a very bold conjecture in view of the computed values
+(Pinch’s largest ﬁgure is only slightly more than x1/3), but it is still regarded as a serious
+possibility. The question is discussed in depth in [GP].
+For 3-factor Carmichael numbers, the situation is just the reverse. As yet, nobody has
+10
+
+--- page 11 ---
+come near to proving that there are inﬁnitely many of them, though this seems compellingly
+likely in view of Pinch’s calculations. One approach to this problem is deceptively enticing.
+Suppose, for some n, that p = 6 n + 1, q = 12 n + 1 and r = 18 n + 1 are all prime. It is easily
+veriﬁed that (1), (2) and (3) hold, for example
+(6n + 1)(12 n + 1) = 72 n2 + 18 n + 1 ≡ 1 mod 18 n.
+So pqr is a Carmichael number. This occurs, for example, for n = 1 and n = 6. Are there
+inﬁnitely many values of n for which it occurs? Unfortunately, this question is unsolved: it
+is a typical example of a whole family of questions about prime numbers that sound simple,
+but stoutly resist solution.
+In contrast, a lot of progress has been made on upper bounds. We remark ﬁrst the
+estimation C3(x) ≤ Cx 2/3 (for some constant C) follows easily from our Theorem 7, together
+with Chebyshev’s well-known estimate for prime numbers, which states the following: let
+P (x) denote the set of primes not greater than x, and let θ(x) = ∑p∈P (x) log p. Then
+θ(x) ≤ cx for all x, where c is a constant not greater than log 4. By Proposition 7 (in the
+form f3(p) ≤ 2p log p), we have
+C3(x) ≤
+∑
+p∈P (x1/3)
+2p log p ≤ 2x1/3θ(x1/3) ≤ 2cx2/3.
+However, much stronger results are known. Following methods developed by earlier authors,
+it was shown in [BN] that, for any ε > 0, C3(x) < x 5/14 + ε for large enough x, and the 514
+has been further reduced to 720 in [HBr]. In [GP], it is conjectured, with heuristic reasoning,
+that the true bound is Kx 1/3/(log x)3 for a certain speciﬁed K.
+The starting point for all these methods is to consider the gcd g of p − 1, q − 1 and
+r − 1 and to write
+p − 1 = ag, q − 1 = bg, r − 1 = cg.
+There is an intricate algebra relating these quantities and the hj, and one ﬁnds, for example,
+that there are only ﬁnitely many 3-factor Carmichael numbers with a given value of g. A
+gentle exposition of these results can be seen in [Jam2].
+11
+
+--- page 12 ---
+REFERENCES
+[AGP] W.R. Alford, Andrew Granville and Carl Pomerance, There are inﬁnitely many
+Carmichael numbers, Annals of Math. 140 (1994), 703–722.
+[BN] R. Balasubramanian and S.V. Nagaraj, Density of Carmichael numbers with three
+prime factors, Math. Comp. 66 (1997), 1705–1708.
+[Be] N.G.W.H. Beeger, On composite numbers n for which an−1 ≡ 1 mod n for
+every a prime to n, Scripta Math. 16 (1950), 133–135.
+[Car] R.D. Carmichael, On composite numbers P which satisfy the Fermat congruence
+aP −1 ≡ 1 (mod P ), American Math. Monthly 19 (1912), 22–27.
+[Du] H.J.A. Duparc, On Carmichael numbers, Simon Stevin 29 (1952), 21–24.
+[Erd] P. Erd¨ os, On pseudoprimes and Carmichael numbers, Pub. Math. Debrecen
+4 (1956), 20–206.
+[GP] Andrew Granville and Carl Pomerance, Two contradictory conjectures concerning
+Carmichael numbers, Math. Comp. 71 (2001), 883–908.
+[Har] Glyn Harman, On the number of Carmichael numbers up to x, Bull. London
+Math. Soc. 37 (2005), 641–650.
+[HBr] D.R. Heath-Brown, Carmichael numbers with three prime factors,
+Hardy-Ramanujan J. 30 (2007), 6–12.
+[Jam1] G.J.O. Jameson, Finding pseudoprimes, at www.maths.lancs.ac.uk/~jameson
+[Jam2] G.J.O. Jameson, Carmichael numbers with three prime factors, at
+www.maths.lancs.ac.uk/~jameson
+[JJ] G.A. Jones and J.M. Jones, Elementary Number Theory , Springer (1998).
+[Pi1] R.G.E. Pinch, The Carmichael numbers up to 10 15, Math. Comp. 61 (1993), 381–391.
+[Pi2] R.G.E. Pinch, The Carmichael numbers up to 10 18, at
+www.chalcedon.demon.co.uk/rgep/carpsp.html
+[Pom] Carl Pomerance, Two methods in elementary number theory, Number Theory and
+Applications (Banﬀ, 1988; R.A. Mollin, ed.), NATO Adv. Sci. Ser. C 265 (1989),
+135–161.
+[PSW] Carl Pomerance, J.L. Selfridge and Samuel S. Wagstaﬀ, The pseudoprimes
+to 25 .109, Math. Comp. 35 (1980), 1003–1026.
+[Rib] P. Ribenboim, The New Book of Prime Number Records , Springer (1995).
+March 2010
+12

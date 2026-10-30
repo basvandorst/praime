@@ -1,0 +1,412 @@
+<html>
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Puzzle 213.&nbsp; Hailstone champion sequences </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  <table border="0" width="616" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10" width="616">
+	<!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td width="616"><p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span>
+
+        </p>
+
+      <p><b><span lang="en-us">Puzzle 213. <font color="#008080">&nbsp;</font></span></b><font color="#008080"><b><span lang="en-us">Hailstone Champion Sequences</span></b></font></p>
+
+      <p><font size="2"><span lang="en-us"><b>Hailstone sequences</b> of numbers, {a<font face="Verdana"><sub>i</sub></font>} 
+      are these produced in the so-called <b>Collatz</b> <b>problem</b> for a 
+      given starting number a<font face="Verdana"><sub>1</sub></font> (see
+      <a href="http://mathworld.wolfram.com/HailstoneNumber.html">1 </a>&nbsp;&amp;
+      <a href="http://mathworld.wolfram.com/CollatzProblem.html">2</a>), 
+      applying recursively the following rule:</span></font></p>
+
+      <p align="center"><b><font size="2" color="#008000"><span lang="en-us">a<sub><font face="Verdana">i+1</font></sub> 
+      = 3*a<font face="Verdana"><sub>i</sub></font> +1 if 
+      a<font face="Verdana"><sub>i</sub></font> is odd; 
+      otherwise a<font face="Verdana"><sub>i+1</sub></font> 
+      = a<font face="Verdana"><sub>i</sub></font> / 2</span></font></b></p>
+    <p><span lang="es-mx"><font size="2">For</font></span><font size="2"><span lang="en-us"> each particular  initial value a<font face="Verdana"><sub>1</sub></font> there is only one maximal member, M(a<font face="Verdana"><sub>1</sub></font>) 
+    in the corresponding sequence.</span></font></p>
+    <p><span lang="en-us"><font size="2">For example if  </font></span><font size="2">
+    <span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">=7 , the hailstone 
+    sequences is:</font></span></p>
+    <p><span lang="en-us"><font color="#0000FF"><b><font size="2">7</font></b></font><font size="2">, 
+    22, 11, 34, 17, <font color="#FF0000"><b>52</b></font>, 26, 13, 40, 20, 10, 
+    5, 16, 8, 4, 2, 1, 4, 2, 1, ....</font></span></p>
+    <p><span lang="en-us"><font size="2">and M(7)=52</font></span></p>
+    <p><span lang="en-us"><font size="2">According to the rules of the <b>
+    Collatz</b> <b>problem</b> for generating the hailstone sequences, M(</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">)=</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2"> 
+    only if  </font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">=2^k, for k=&gt;2; otherwise, M(</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">)&gt;</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font>.</span></font></p>
+    <p><span lang="en-us"><font size="2">The quotient Q(</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">)=M(</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">)/</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2"> 
+    is a measure of the height </span><span lang="es-mx">of</span><span lang="en-us"> M(</span></font><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">) relative to the initial value  </font></span><font size="2">
+    <span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2"> of the corresponding 
+    hailstone sequence.</font></span></p>
+    <p><font size="2"><span lang="en-us">I have produced 
+    a table of &quot;<b>champion 
+    hailstone sequences</b>&quot;, for a</span><sub><font face="Verdana"><span lang="en-us">1
+    </span></font></sub><span lang="en-us">&gt;0. In this table we annotate in the 
+    first row the triad of values {a</span><sub><font face="Verdana"><span lang="en-us">1,
+    </span></font></sub></font><span lang="en-us"><font size="2">M(</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">)</font></span><font size="2"><span lang="en-us">,
+    </span></font><span lang="en-us"><font size="2">Q(</font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">) 
+    } for </font></span><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><span lang="en-us"><font size="2">=1; 
+    then we annotate in the next row, the next earliest </font></span><font size="2">
+    <span lang="en-us">a</span><sub><font face="Verdana"><span lang="en-us">1
+    </span>
+    </font></sub><span lang="en-us">value such that its Q(a<sub><font face="Verdana">1</font></sub>) 
+    is larger than the Q(a<sub><font face="Verdana">1</font></sub>) 
+    of the previous row; and so on... </span><font face="Verdana"><sub>
+    <span lang="en-us">&nbsp;</span></sub></font></font></p>
+    <table border="3" cellspacing="0" width="264" style="border-collapse:
+ collapse;width:198pt">
+      <colgroup>
+        <col width="80" style="width:60pt"><col width="104" style="width: 78pt">
+        <col width="80" style="width:60pt">
+      </colgroup>
+      <tr>
+        <td height="17" align="right" width="80" style="height: 12.75pt; width: 60pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font></td>
+        <td align="right" width="104" style="width: 78pt; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <b><span lang="en-us">M(</span></b><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><b><span lang="en-us">)</span></b></td>
+        <td width="80" style="width: 60pt; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="5.3" align="right">
+        <b><span lang="en-us">Q(</span></b><font size="2"><span lang="en-us">a<font face="Verdana"><sub>1</sub></font></span></font><b><span lang="en-us">) </span></b></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" width="80" style="height: 12.75pt; width: 60pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">1</span></td>
+        <td align="right" width="104" style="width: 78pt; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">4</span></td>
+        <td width="80" style="width: 60pt; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="5.3" align="right">
+        <span lang="en-us">4.0</span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" width="80" style="height: 12.75pt; width: 60pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">3</span></td>
+        <td align="right" width="104" style="width: 78pt; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">16</span></td>
+        <td width="80" style="width: 60pt; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="5.3" align="right">
+        <span lang="en-us">5.3</span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">7</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">52</span></td>
+        <td x:num="7.4" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.4 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">15</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">160</span></td>
+        <td x:num="10.6" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.6 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">27</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">9232</span></td>
+        <td x:num="341.9" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 341.9 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">703</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">250504</span></td>
+        <td x:num="356.3" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 356.3 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">1819</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">1276936</span></td>
+        <td x:num="701.9" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 701.9 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">4255</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">6810136</span></td>
+        <td x:num="1600.5" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,600.5 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">4591</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">8153620</span></td>
+        <td x:num="1776" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,776.0 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">9663</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">27114424</span></td>
+        <td x:num="2806" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2,806.0 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">26623</span></td>
+        <td align="right" x:num style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">106358020</span></td>
+        <td x:num="3994.9" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3,994.9 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">60975</span></td>
+        <td align="right" x:num="593279152" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">593279152</span></td>
+        <td x:num="9729.8" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9,729.8 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">77671</span></td>
+        <td align="right" x:num="1570824736" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">1570824736</span></td>
+        <td x:num="20224" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp; 20,224.0 </span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">...</span></td>
+        <td align="right" x:num="1570824736" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">...</span></td>
+        <td x:num="20224" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">...</span></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">3873535</span></td>
+        <td align="right" x:num="1570824736" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us"><font face="Arial" size="2">858555169576</font></span></td>
+        <td x:num="20224" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <font face="Arial" size="2"><span lang="en-us">221,646.4</span></font></td>
+      </tr>
+      <tr height="17" style="height:12.75pt">
+        <td height="17" align="right" style="height: 12.75pt; font-family: Arial, sans-serif; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num>
+        <span lang="en-us">...</span></td>
+        <td align="right" x:num="1570824736" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+        <span lang="en-us">...</span></td>
+        <td x:num="20224" style="color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; text-align: general; vertical-align: bottom; white-space: nowrap; border: medium none; padding-left: 1px; padding-right: 1px; padding-top: 1px" align="right">
+        <span lang="en-us">...</span></td>
+      </tr>
+    </table>
+    <p><b><span lang="en-us"><font size="2" color="#0000FF">Questions:</font></span></b></p>
+    <p><font size="2" color="#0000FF"><span lang="en-us"><b>1. </b></span><b>
+    <span lang="en-us">Does</span></b></font><b><span lang="en-us"><font size="2" color="#0000FF"> 
+    Q(</font></span></b><font size="2"><span lang="en-us">a</span><sub><font face="Verdana"><span lang="en-us">1</span></font></sub></font><b><span lang="en-us"><font size="2" color="#0000FF">) grow beyond any limit?</font></span></b></p>
+    <p><font size="2" color="#0000FF"><b><span lang="en-us">2. Do you devise any 
+    special (non-trivial) property for the  </span></b></font><font size="2">
+    <span lang="en-us">a</span><sub><font face="Verdana"><span lang="en-us">1
+    </span>
+    </font></sub></font><font size="2" color="#0000FF"><b><span lang="en-us">values in the table of champions hailstone sequences?</span></b></font></p>
+
+      <hr>
+      <p><span lang="en-us"><b><font color="#FF0000">Solution:</font></b></span></p>
+
+      <p><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+
+    <p><font size="2"><span lang="en-us"><b>William Lipp</b> solved the question 
+    1:</span></font></p>
+
+      <font SIZE="2">
+    <blockquote>
+      <p><span lang="en-us">3^a*2^b-1 goes to 3^(a+1)*2^b-2 goes to 
+      3^(a+1)*2^(b-1)-1. Hence 3^a*2^b-1 goes to 3^(a+1)*2^(b-1)-1 in two steps. 
+      Hence 2^n-1 goes, in (2n-2) steps, to 3^(n-1)*2-1and is (2n-1) steps to 
+      3^n*2-2. Hence M(2^n-1) &gt;= 3^n*2-1 and Q(2^n-1) &gt;= (3^n*2-2)/(2^n-1). For 
+      large n this number is approximately 2*(3/2)^n, and it clearly increases 
+      without bound as n increases.</span></p>
+    </blockquote>
+    <p><span lang="en-us">***</span></p>
+    </font>
+
+    <p><font size="2">&nbsp;</font></p>
+
+      <hr>
+
+  <center>
+
+        <hr>
+
+      </center>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20" width="616">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_212.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp; <a href="./">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_214.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td width="616">
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td width="616"><font face="MS Sans Serif, Helvetica" size="1"> 
+	<!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

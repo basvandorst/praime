@@ -1,0 +1,664 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 820. The&nbsp; Sunduram's sieve </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+span.apple-converted-space
+	{}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font><font color="#0000FF">Puzzles </font></b></font></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1" height="106">
+        <tr>
+          <td height="88" valign="top">
+          <blockquote>
+            <p><b><span style="font-family: Verdana">Puzzle 820. The&nbsp; 
+			Sunduram's sieve</span></b></p>
+			<blockquote style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: small; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+				<wbr>
+				<p><font face="Verdana" size="2">In 1934 S. P. Sunduram devised 
+				the following was of sieving prime numbers</font></p>
+				<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+					<font face="Verdana" size="2" color="#000000">1) Construct 
+					the first row of numbers in A.P. starting in 4 and common 
+					difference 3:</font><p>
+					<font face="Verdana" size="2" color="#000000">4, 7, 10, 
+					13,...</font></p>
+					<p><font face="Verdana" size="2" color="#000000">2) Make the 
+					first column as the first row</font></p>
+					<p><font face="Verdana" size="2" color="#000000">3) All the 
+					rest of the rows are in A.P.'s as the first one but the common difference are 
+					5, 7, 9, 11, ..., respectively</font></p>
+					<p><font face="Verdana" size="2" color="#000000">Here is a 
+					sketch of the matrix you will&nbsp; got:</font></p>
+					<table border="1" width="80%">
+						<tr>
+							<td align="center"><b>4</b></td>
+							<td align="center"><b>7</b></td>
+							<td align="center"><b>10</b></td>
+							<td align="center"><b>13</b></td>
+							<td align="center"><b>16</b></td>
+							<td align="center">...</td>
+						</tr>
+						<tr>
+							<td align="center"><b>7</b></td>
+							<td align="center">12</td>
+							<td align="center">17</td>
+							<td align="center">22</td>
+							<td align="center">27</td>
+							<td align="center">...</td>
+						</tr>
+						<tr>
+							<td align="center"><b>10</b></td>
+							<td align="center">17</td>
+							<td align="center">24</td>
+							<td align="center">31</td>
+							<td align="center">38</td>
+							<td align="center">...</td>
+						</tr>
+						<tr>
+							<td align="center"><b>13</b></td>
+							<td align="center">22</td>
+							<td align="center">31</td>
+							<td align="center">40</td>
+							<td align="center">49</td>
+							<td align="center">...</td>
+						</tr>
+						<tr>
+							<td align="center"><b>16</b></td>
+							<td align="center">27</td>
+							<td align="center">38</td>
+							<td align="center">49</td>
+							<td align="center">60</td>
+							<td align="center">...</td>
+						</tr>
+						<tr>
+							<td align="center">...</td>
+							<td align="center">...</td>
+							<td align="center">...</td>
+							<td align="center">...</td>
+							<td align="center">...</td>
+							<td align="center">...</td>
+						</tr>
+					</table>
+					<p><span style="color: rgb(0, 0, 0)">
+					<font size="2" face="Verdana">And the &quot;primality rules&quot; 
+					are, 
+					simply:</font></span></p>
+					<ul>
+						<li><font face="Verdana" size="2" color="#000000">Every 
+						number x present in the table produces a composite 
+						number 2x+1.</font></li>
+						<li><font face="Verdana" size="2" color="#000000">Every 
+						number x not present in the table produces a prime 
+						number 2x+1.</font></li>
+					</ul>
+				</div>
+				<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+					<span style="color: #000080; font-weight: 700">
+					<font face="Verdana" size="2">Q1. Explain why these rules 
+					work.</font></span><p><span style="font-weight: 700">
+					<font face="Verdana" size="2" color="#000080">Q2. Show that 
+					all the primes numbers greater than 2 are generated by this 
+					matrix &amp; rules.</font></span></p>
+					<p><span style="font-weight: 700">
+					<font face="Verdana" size="2" color="#000080">Q3. Construct 
+					a simple and efficient algorithm to compute if a given 
+					integer X is or not in the table.</font></span></div>
+			</blockquote>
+			<wbr style="color: rgb(0, 0, 0); font-family: monospace; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: -16px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          <p></p>
+			<p>
+          </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+		<p>
+      Contributions came from Jan van Delden, John Arioni and Vicente Felipe 
+		Izquierdo.</p>
+		<p>
+      ***</p>
+		<p>
+      Jan wrote:</p>
+		<blockquote>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">A general value in the table: 
+				A[i,j]=A[i,1]+(2i+1)*(j-1).</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">A[i,j] mod (2i+1) =&nbsp; A[i,1] mod 
+				(2i+1) = i mod (2i+1)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">2*A[i,j]+1 mod (2i+1) = 2i+1 mod 
+				(2i+1) = 0 mod (2i+1)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">So the numbers 2x+1 are composite.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">II)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For a number x not present in the 
+				table we have:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For all i&lt;x:&nbsp;&nbsp; x mod (2i+1) &lt;&gt; i 
+				mod (2i+1) [Otherwise x would be in row i]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">For all i&lt;x: (2x+1) mod (2i+1) &lt;&gt; 
+				0 mod (2i+1)</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">So 2x+1 is an odd number not 
+				divisible by an odd number in [3..2x-1] and therefore prime.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Q2:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Suppose p is an odd prime, p=2x+1.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Then p mod (2i+1)&lt;&gt;0 mod (2i+1) 
+				for all i such that 3&lt;=(2i+1)&lt;p or&nbsp; 1&lt;=i&lt;x.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Therefore x is not present in row 
+				1 .. x-1.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Also x can't be present in row i&gt;=x, 
+				because A[i,j]&gt;=A[i,1]=3i+1&gt;3x&gt;x</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">So if p is an odd prime it 
+				corresponds to an x which is not present.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Q3:</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">Use the fact that A[i,j]=A[j,i]. 
+				If present all values i&lt;j are allready detected.<br>
+				In row i we could start searching from the value A[i,i]=2i(i+1).<br>
+				Solving A[i,i]=x gives i=(sqrt(2x+1)-1)/2<br>
+&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">A simple algorithm in (quasi) c, 
+				upperbound based on A[i,i]</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">upbi=trunc((sqrt(2x+1)-1)/2);</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">present=false;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">residue=1;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">modulus=3;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">i=1;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">while (i&lt;=upbi) do {</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; if (x % modulus == residue) {</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;&nbsp;&nbsp; present=true;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;&nbsp;&nbsp; break;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; }</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; i+=1;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; residue+=1;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp; modulus+=2;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">}</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">present;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">I included the variable residue 
+				for readability.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">&nbsp;</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">The maximum number of tests in 
+				this algorithm is (sqrt(2x+1)-1)/2.<br>
+				In standard trial division the maximum number of tests is 
+				pi(sqrt(2x+1))-1.</font></div>
+			<div style="color: rgb(0, 0, 0); font-family: Calibri; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><br>
+				For small values of x (x&lt;138) this algorithm will outperform 
+				trial division:</font><p>&nbsp;</div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<img border="0" src="../images/Puzzle%20820,%20JvD.png" width="404" height="404"></div>
+&nbsp;<p><font face="Verdana">...</font></p>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">My general impression (hope it's 
+				correct..)<br>
+&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">I think Sunduram's sieve is based 
+				on an elegant idea. Generating the sieve is easy. The next row 
+				in the table can be computed without first calculating/searching 
+				numbers with a special property (like primes). The drawback are 
+				the rows (/columns) where one computes i mod (2i+1) where 2i+1 
+				is not prime. That's where it loses efficiency compared to the 
+				sieve of Eratostenes.&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2"><br>
+&nbsp;</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+				<font face="Verdana" size="2">On the other hand, my given 
+				algorithm could be further improved, to exclude these tests on 
+				composite 2i+1, by first testing if i is in the table (at the 
+				cost of being more complex).&nbsp;<br>
+				<br>
+				If one wants to extend the sieve of Eratostenes using a wheel, 
+				say mod 2,3,5, one has to precompute residues mod 30. Sunduram's 
+				sieve is easily adjusted for numbers not equal to 0 mod {2,3,5}. 
+				Just skip the first two rows! So less headache to implement.</font></div>
+		</blockquote>
+		<p><br class="Apple-interchange-newline">
+&nbsp;</p>
+		<p>
+      ***</p>
+		<p>
+      John wrote:</p>
+		<blockquote>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>h</b><span class="Apple-converted-space">&nbsp;</span>&amp;<span class="Apple-converted-space">&nbsp;</span><b>H</b>: 
+			little eich and BIG EICH</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Let<span class="Apple-converted-space">&nbsp;</span><i>q</i><span class="Apple-converted-space">&nbsp;</span>= 
+			(2<i>n</i>+1) be the generic odd integer (<i>n<span class="Apple-converted-space">&nbsp;</span></i>=1,2,3,....).</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			The notations<span class="Apple-converted-space">&nbsp;</span><b>h</b>(<i>q</i>) 
+			=<span class="Apple-converted-space">&nbsp;</span><i>n</i><span class="Apple-converted-space">&nbsp;</span>and<span class="Apple-converted-space">&nbsp;</span><b>H</b>(<i>q</i>)= 
+			(<i>n</i>+1) will be helpful in the following .</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Trivially:&nbsp;<b>h</b>(<i>q</i>)+<b>H</b>(<i>q</i>)=<i>q</i>.</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;h</b>(<i>q</i>) = (<i>q</i>-1)/2 ;<span class="Apple-converted-space">&nbsp;</span><i>q</i><span class="Apple-converted-space">&nbsp;</span>= 
+			2*<b>h</b>(<i>q</i>) + 1</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; H</b>(<i>q</i>) = (<i>q+</i>1)/2 ;<span class="Apple-converted-space">&nbsp;</span><i>q</i><span class="Apple-converted-space">&nbsp;</span>= 
+			2*<b>H</b>(<i>q</i>) - 1</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>Q1 + Q2</b><span class="Apple-converted-space">&nbsp;</span>:</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			The generic odd multiple of 3 is &nbsp;(6<i>n</i>+3), and &nbsp;&nbsp;<b>h</b>(6<i>n</i>+3) 
+			= 3<i>n</i>+1 – i.e. row 1 of the table</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			The generic odd multiple of 5 is (10<i>n</i>+5), and<span class="Apple-converted-space">&nbsp;</span><b>h</b>(10<i>n</i>+5) 
+			=5<i>n</i>+2 – i.e. row 2</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			The generic odd multiple of 7 is (14<i>n</i>+7), and<span class="Apple-converted-space">&nbsp;</span><b>h</b>(14<i>n</i>+7) 
+			=7<i>n</i>+3 – i.e. row 3</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			And so on …....</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			The entries of the matrix are<span class="Apple-converted-space">&nbsp;</span><b>h</b>(any 
+			odd composite integer)</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			If<i><span class="Apple-converted-space">&nbsp;</span>p</i><span class="Apple-converted-space">&nbsp;</span>is 
+			a prime number then x =<span class="Apple-converted-space">&nbsp;</span><b>h</b>(<i>p</i>) 
+			is not present in the matrix, so:&nbsp;<i>p<span class="Apple-converted-space">&nbsp;</span></i>=2<b>*h</b>(<i>p</i>)+1 
+			= 2x+1.</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Alternately we could construct the following matrix :</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			row 1: 5 8 11 14 17 …..</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			row 2: 8 13 18 23 28 …..</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			row 3: 11 18 25 32 39 …..</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			….............................<wbr>..............</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			where we have<span class="Apple-converted-space">&nbsp;</span><b>H</b>(6<i>n</i>+3) 
+			in row 1,<span class="Apple-converted-space">&nbsp;</span><b>H</b>(10<i>n</i>+5) 
+			in<b><span class="Apple-converted-space">&nbsp;</span></b>row 2<b><span class="Apple-converted-space">&nbsp;</span></b>,<span class="Apple-converted-space">&nbsp;</span><b>H</b>(14<i>n</i>+7) 
+			in row 3<b><span class="Apple-converted-space">&nbsp;</span>,</b>…......</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Every number x in the new matrix produces a composite number 2x-1 
+			and every number x not present in the matrix is the BIG EICH of some 
+			prime, then x produces a prime number 2x-1 as&nbsp;<i>p<b><span class="Apple-converted-space">&nbsp;</span></b></i>= 
+			2<b>*H</b>(<i>p</i>)-1 = 2x-1.</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>Q3</b><br>
+			Entries in the matrix of the puzzle (say matrix A) are the little 
+			eiches (<b>h)<span class="Apple-converted-space">&nbsp;</span></b>of the 
+			odd composite numbers.</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Since the product (2<i>r</i><span class="Apple-converted-space">&nbsp;</span>+ 
+			1)*(2<i>c</i><span class="Apple-converted-space">&nbsp;</span>+ 1) = 4<i>rc</i><span class="Apple-converted-space">&nbsp;</span>+ 
+			2<i>r</i><span class="Apple-converted-space">&nbsp;</span>+ 2<i>c</i><span class="Apple-converted-space">&nbsp;</span>+1 
+			[<i><span class="Apple-converted-space">&nbsp;</span>r</i><span class="Apple-converted-space">&nbsp;</span>= 
+			1,2,3, …<span class="Apple-converted-space">&nbsp;</span><i>c</i><span class="Apple-converted-space">&nbsp;</span>= 
+			1,2,3, …. ] describes the generic odd composite integer, and<span class="Apple-converted-space">&nbsp;</span><b>h</b>(4<i>rc</i><span class="Apple-converted-space">&nbsp;</span>+<span class="Apple-converted-space">&nbsp;</span><i>2r<span class="Apple-converted-space">&nbsp;</span></i>+ 
+			2<i>c</i><span class="Apple-converted-space">&nbsp;</span>+1) = 2<i>rc</i><span class="Apple-converted-space">&nbsp;</span>+<span class="Apple-converted-space">&nbsp;</span><i>r</i><span class="Apple-converted-space">&nbsp;</span>+<span class="Apple-converted-space">&nbsp;</span><i>c 
+			,</i><span class="Apple-converted-space">&nbsp;</span>the value of the 
+			generic entry A<sub><i>rc</i></sub><span class="Apple-converted-space">&nbsp;</span>of 
+			the matrix is: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A<sub><i>rc</i></sub><i><span class="Apple-converted-space">&nbsp;</span></i>= 
+			2<i>rc</i><span class="Apple-converted-space">&nbsp;</span>+<i><span class="Apple-converted-space">&nbsp;</span>r<span class="Apple-converted-space">&nbsp;</span></i>+<span class="Apple-converted-space">&nbsp;</span><i>c 
+			&nbsp; &nbsp;&nbsp;</i>&nbsp; &nbsp;&nbsp;<i>&nbsp;</i>[*] &nbsp;</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Exchanging<span class="Apple-converted-space">&nbsp;</span><i>r</i><span class="Apple-converted-space">&nbsp;</span>and<span class="Apple-converted-space">&nbsp;</span><i>c,<span class="Apple-converted-space">&nbsp;</span></i>[*] 
+			produces identical values, then the matrix is symmetric</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			[*] can produce every integer 3<i>n+</i>1 (all of these numbers are 
+			already present in row 1), because<span class="Apple-converted-space">&nbsp;</span><b>h</b>(6<i>n+</i>3) 
+			= 3<i>n+</i>1 and, of course, 6<i>n+</i>3 is composite.</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			The values that [*] does not produce are among the integers of the 
+			kind 3<i>n-</i>1 or 3<i>n<span class="Apple-converted-space">&nbsp;</span></i>because 
+			a prime number can be a 6<i>n-</i>1 or a 6<i>n+</i>1 and:<span class="Apple-converted-space">&nbsp;</span><b>h</b>(6<i>n-</i>1) 
+			= 3<i>n-</i>1 ;<span class="Apple-converted-space">&nbsp;</span><b>h</b>(6<i>n+</i>1) 
+			= 3<i>n</i></p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			To compute if a given x = 3<i>n-</i>1 or a given x = 3<i>n</i><span class="Apple-converted-space">&nbsp;</span>is 
+			present or not in the matrix the following is a simple algorithm:</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>a)</b><span class="Apple-converted-space">&nbsp;</span>input: x</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>b)</b><span class="Apple-converted-space">&nbsp;</span>if x is 
+			congruent to 1(mod 3) then<span class="Apple-converted-space">&nbsp;</span><i>thereis</i><span class="Apple-converted-space">&nbsp;</span>= 
+			true - exit</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>c)</b><span class="Apple-converted-space">&nbsp;</span>set:<span class="Apple-converted-space">&nbsp;</span><i>r<span class="Apple-converted-space">&nbsp;</span></i>= 
+			2<span class="Apple-converted-space">&nbsp;</span><i>thereis</i><span class="Apple-converted-space">&nbsp;</span>= 
+			false</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>d)</b><span class="Apple-converted-space">&nbsp;</span>compute [*] for<span class="Apple-converted-space">&nbsp;</span><i>c</i><span class="Apple-converted-space">&nbsp;</span>= 
+			r, r+1, r+2, r+3, ….. until [*] &gt;= x</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>e)</b><span class="Apple-converted-space">&nbsp;</span>if [*] = x then<span class="Apple-converted-space">&nbsp;</span><i>thereis<span class="Apple-converted-space">&nbsp;</span></i>= 
+			true - exit</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; else</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r<span class="Apple-converted-space">&nbsp;</span></i>=<span class="Apple-converted-space">&nbsp;</span><i>r 
+			+<span class="Apple-converted-space">&nbsp;</span></i>1</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp;end if</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>f)</b><span class="Apple-converted-space">&nbsp;</span>if<span class="Apple-converted-space">&nbsp;</span><i>r</i><span class="Apple-converted-space">&nbsp;</span>is 
+			congruent to 1(mod 3) then<span class="Apple-converted-space">&nbsp;</span><i>r</i><span class="Apple-converted-space">&nbsp;</span>=<span class="Apple-converted-space">&nbsp;</span><i>r</i>+1</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>g)</b><span class="Apple-converted-space">&nbsp;</span>[*] = 2<i>rr</i><span class="Apple-converted-space">&nbsp;</span>+<span class="Apple-converted-space">&nbsp;</span><i>r 
+			+ r</i></p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			<b>h)<span class="Apple-converted-space">&nbsp;</span></b>if [*] = x then<b><span class="Apple-converted-space">&nbsp;</span></b><i>thereis<span class="Apple-converted-space">&nbsp;</span></i>= 
+			true - exit</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; &nbsp;else</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; &nbsp; if [*] &gt; x then exit</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; goto<b><span class="Apple-converted-space">&nbsp;</span>d)</b></p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;end if</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			&nbsp; &nbsp; &nbsp; &nbsp;end if</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Why step<span class="Apple-converted-space">&nbsp;</span><b>f)</b><span class="Apple-converted-space">&nbsp;</span>in 
+			the algorithm:</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			for<span class="Apple-converted-space">&nbsp;</span><i>r</i><span class="Apple-converted-space">&nbsp;</span>= 
+			(3<i>a</i><span class="Apple-converted-space">&nbsp;</span>+ 1), [*] 
+			becomes: 2<i>c</i>(3<i>a</i><span class="Apple-converted-space">&nbsp;</span>+ 
+			1) + (3<i>a</i><span class="Apple-converted-space">&nbsp;</span>+ 1) +<span class="Apple-converted-space">&nbsp;</span><i>c</i><span class="Apple-converted-space">&nbsp;</span>= 
+			6<i>ac</i><span class="Apple-converted-space">&nbsp;</span>+ 3<i>a</i><span class="Apple-converted-space">&nbsp;</span>+ 
+			3<i>c</i><span class="Apple-converted-space">&nbsp;</span>+ 1 that are 
+			values congruent to 1 (mod 3), but the algorithm is devised to find 
+			numbers like x = 3<i>n-</i>1 or x = 3<i>n</i>.</p>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Step<span class="Apple-converted-space">&nbsp;</span><b>d)</b>:<span class="Apple-converted-space">&nbsp;</span><i>c</i><span class="Apple-converted-space">&nbsp;</span>= 
+			r, r+1, r+2, r+3, ….. instead of<span class="Apple-converted-space">&nbsp;</span><i>c</i><span class="Apple-converted-space">&nbsp;</span>= 
+			1, 2, 3, 4 ….. because the matrix is symmetric,</p>
+		</blockquote>
+		<wbr>
+		<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+		***</p>
+		<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+		Vicente wrote:</p>
+		<blockquote>
+			<p style="color: rgb(34, 34, 34); font-family: Verdana; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; margin-bottom: 0cm; background-color: rgb(255, 255, 255)">
+			Q1. The numbers of matrix are of form:&nbsp;&nbsp; x= 4+3 (r+c)+2 r c, when 
+			r-&gt;Row and c-&gt;Column in the matrix. Q1, rule 1: 2x+1 is composite 
+			because 2x+1=9+6(c+r)+4 c r = (3+2c)(3+2r).</p>
+		</blockquote>
+		<p>
+      <font face="Verdana">***</font><br>
+&nbsp;</p>
+		<p>
+      &nbsp;</p>
+      </font>
+		<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); -webkit-text-size-adjust:auto">
+    </blockquote>
+	<o:p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+		
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="21">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td>
+      <font SIZE="2">
+            <p><a href="puzz_819.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></p>
+      </font></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_821.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      &nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

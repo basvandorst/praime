@@ -1,0 +1,210 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_111.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 111. The density approaches at the constant 1/e^2
+Source: https://www.primepuzzles.net/conjectures/conj_111.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0111.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/C111%20GG.xlsx
+  https://www.primepuzzles.net/conjectures/conj_110.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_112.htm
+  https://www.primepuzzles.net/conjectures/conj_111.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 111. The density approaches at the constant 1/e^2
+
+Problems & Puzzles: Conjectures
+
+Conjecture 111. The density approaches at the constant 1/e^2
+
+On April 9, 2026 Angelos Ormpelidis sent the following Conjecture.
+The "Shielded Primes" Sieve.
+
+Consider a novel sieve applied to the first k prime numbers.
+
+Instead of sieving by divisibility, we sieve by the size of the gaps between originally consecutive primes.
+
+We process gap sizes in strict ascending order. To be eliminated, two primes must currently be next to each other in the surviving list AND they must have been consecutive in the original sequence.
+
+Here is an example of how the sieve works in the first 50 primes:
+
+We start with an unbroken chain of the first 50 prime numbers: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229.
+
+Step 1: Processing Gap 1
+
+We start with the absolute smallest gap between any two primes: a gap of 1.
+
+Scanning: We look for any original neighbors separated by 1. There is only one such pair in existence: (2, 3). Eliminated: 2 and 3.
+
+Surviving List: 5, 7, 11, 13, 17, 19, 23... (all primes from 5 to 229).
+
+Step 2: Processing Gap 2 (The Twin Prime Cleansing)
+
+Next, we scan left-to-right for original neighbors separated by a gap of 2 (Twin Primes).
+
+Matches Found: (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73), (101, 103), (107, 109), (137, 139), (149, 151), (179, 181), (191, 193), (197, 199), (227, 229). Eliminated: All of the twin primes listed above.
+
+Surviving List: 23, 37, 47, 53, 67, 79, 83, 89, 97, 113, 127, 131, 157, 163, 167, 173, 211, 223.
+
+Step 3: Processing Gap 4 (Cousin Primes)
+
+We look for originally consecutive primes separated by 4, but only if both primes are still alive.
+
+Checking (19, 23): 19 was eliminated in Step 2. The pair is broken. 23 is shielded and survives.
+
+Checking (37, 41): 41 was eliminated in Step 2. 37 is shielded and survives.
+
+Matches Found: Scanning our surviving list, we find exactly three pairs where both members survived Step 2 and were original neighbors separated by 4: (79, 83), (127, 131) and (163, 167)Eliminated: 79, 83, 127, 131, 163, 167.
+
+Surviving List: 23, 37, 47, 53, 67, 89, 97, 113, 157, 173, 211, 223.
+
+Step 4: Processing Gap 6 (Sexy Primes)
+
+We scan the remaining primes for originally consecutive pairs separated by 6.
+
+Checking (23, 29): 29 is gone. 23 is shielded.
+
+Matches Found: We scan the surviving list left-to-right. We find two intact pairs: (47, 53) and (211, 223). Eliminated: 47, 53, 211, 223.
+
+Surviving List: 23, 37, 67, 89, 97, 113, 157, 173.
+
+Step 5: Processing Gap 8
+
+We scan the remaining 8 primes for original pairs separated by 8.
+
+Match Found: There is exactly one pair left that fits this criteria: (89, 97). Eliminated: 89, 97.
+
+Surviving List: 23, 37, 67, 113, 157, 173.
+
+Step 6: Processing Gaps 10+
+
+At this point, we check for gaps of 10, 12, 14, and so on. However, if we look at our surviving primes, 23, 37, 67, 113, 157 and 173, none of them have their original right-side neighbor remaining.
+
+Because all of their original neighbors have been eliminated by smaller gaps, these remaining primes are permanently shielded. No larger gap size can ever eliminate them.
+
+So, the final survivors are: 23, 37, 67, 113, 157, 173.
+
+We are interested in the density of the remaining primes. We have computed the following results for the first k primes:
+
+10^2 primes -> 14 survivors
+
+10^3 primes -> 134 survivors
+
+10^4 primes -> 1374 survivors
+
+10^5 primes -> 13494 survivors
+
+10^6 primes -> 135530 survivors
+
+10^7 primes -> 1358010 survivors
+
+We see that the density for the first 10^7 primes is 0.135801.
+
+Conjecture:
+
+We conjecture that when k goes to infinity, the density approaches a constant and this constant is 1/e^2 = 0.1353352832366...
+
+Q1. Can you verify our calculations?
+
+Q2. Can you extend our calculations beyond 10^7?
+
+Q3. Can you prove the above conjecture?
+
+From April 25 to May 2, 2026, contributions came from Emmanuel Vantieghem, Gennady Gsev, Simon Cavegn
+
+***
+
+Emmanuel wrote:
+
+I checked the results up to 10^7. I found the same values (though there is an error in the introductory text : the pair (211, 223) is not eliminated in step 4 but will be in step 7, gap 12).
+
+Regarding Q3, I agree to conjecture that the limit exists (or that lim inf = lim sup). But, for the value e^(-2) there should be some reasonable arguments or numerical evidence.
+
+***
+
+Gennady wrote:
+
+Q1.All the results are correct.
+
+Q2.
+
+10^8 -> 13568878
+
+10^9 -> 135628848
+
+3*10^9 -> 271213848 -> 0.135606924
+
+I have performed calculations for primes up to 26*10^10 (about 10^10 primes).
+
+10300824253 -> 1396428992 -> 0.1355647817788
+
+Calculations show that there is a decrease, but it occurs unevenly and there are statistical fluctuations around the global trend.
+
+See attached Excel.xlsx file.
+
+Q3. Who knows, it's likely.
+
+***
+
+Simon wrote:
+
+Q1 & Q2:
+
+I ended up removing survivors that will be dead eventually. Keeping only eternal survivors.
+
+This way I was able to compare the results of two different algorithms for a better verification.
+
+That's why my results are sometimes off by 1 survivor compared to conjecture 111.
+
+The later uncertainty arises from different results of the algorithms.
+
+10^2 Survivors:13, Density:0.13
+
+10^3 Survivors:133, Density:0.133
+
+10^4 Survivors:1373, Density:0.1373
+
+10^5 Survivors:13493, Density:0.13493
+
+10^6 Survivors:135529, Density:0.135529
+
+10^7 Survivors:1358010, Density:0.135801
+
+10^8 Survivors:13568878, Density:0.13568878
+
+10^9 Survivors:135628923, Density:0.135628923 (Up to here both algorithms agree exactly.)
+
+10^10 Survivors:1355656258..1355656261, Density 0.135565626 (rounded)
+
+10^11 Survivors:13552492935 (+- 35?), Density:0.13552493 (rounded)
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

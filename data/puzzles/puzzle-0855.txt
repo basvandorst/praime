@@ -1,0 +1,446 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_855.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 855. Second follow up to Puzzle 853
+Source: https://www.primepuzzles.net/puzzles/puzz_855.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0855.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A122131
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Highly_composite_number
+  http://dxdy.ru/topic112848.html
+  https://www.primepuzzles.net/puzzles/puzz_854.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_856.htm
+  https://www.primepuzzles.net/puzzles/puzz_855.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 855. Second follow up to Puzzle 853
+
+Problems & Puzzles: Puzzles
+
+Puzzle 855. Second follow up to Puzzle 853
+
+Dmitry Kamenetsky sent the following follow up to Puzzle 853:
+
+x^12+488669 is composite for 616980 consecutive terms, namely for 0<=x<=616979 (see https://oeis.org/A122131).
+
+Can you find a polynomial f(x) that is composite for more terms before a prime appears? In other words, find f(x) that is composite for 1<=x<=K (where K>616980) and f(K+1) is prime.
+
+f(x) must be of the form A0+A1.x+A2.x^2+ ... + An.x^n, where A0 ... An are all integers
+
+Q. Send your best f(x) for this puzzle.
+
+Emmanuel Vantieghem, Jan van Delden, Shyam Sunder Gupta,Seiji Tomita, Dmitry Kamenetsky and J. K. Andersen
+
+***
+
+Emmanuel wrote:
+
+Here is a somewhat simpler polynomial :
+
+f ( x ) = x^24 + 835379
+
+It is prime for x = 0 and 1961860 and composite in-between
+
+...
+
+Looking at the cited sequence A122131 revealed that the function
+
+x^12 + 488669 is prime at 1758120 and at 2467920 and composite for
+
+709799 values in-between.
+
+Thus, the function (x + 1758120)^12 + 488669 is prime at 0 and 709800
+
+and composite at all x between these values.
+
+However, the coefficients are rather big ...
+
+(Here is the polynomial form of that function :
+
+872131901649211830923500570850684704430378886001984020525613056000000488669 + 5952712454093316708234936665420003442975761968479858170265600000000000 x +
+
+18622118227147886319075007200765601287947745789046947840000000000 x^2 +
+
+35306877473566245609088130504488888297248852541440000000000 x^3 +
+
+45184898821197672866725987779616862710628352000000000 x^4 +
+
+41121105563850178933611801496704991887360000000 x^5 +
+
+27287456577381071119081993879535616000000 x^6 +
+
+13303556352750700156538312294400000 x^7 +
+
+4729326053096027346163200000 x^8 +
+
+1195551322017212160000 x^9 +
+
+204005071670400 x^10 +
+
+21097440 x^11 +
+
+x^12)
+
+But, I think it will be worthwhile to look further for polynomials with smaller coefficients.
+
+...
+
+A more modest solution, still of degree 12 is
+
+f ( x ) = x^12 + 3480749
+
+It is prime for x = 0 and 925470 and composite in-between.
+...
+
+Here are my best results for puzzle 855:
+
+The polynomial :
+
+f ( x ) = x^12 + 3480749
+
+is prime for x = 0 and 925470 and composite in-between.
+
+If you allow bigger degree : the polynomial
+
+f ( x ) = x^24 + 835379
+
+It is prime for x = 0 and 1961860 and composite in-between.
+
+***
+
+Jan wrote:
+
+The given example x^12+488669 looks intimidating. But the underlying idea is simple.
+
+Given a polynom of the form f[M,N](x)=x^M+N.
+
+If (x,p)=1 we know that x^(p-1)=1 mod p. (p prime).
+
+If we make sure that p-1|M and choose N=1 mod p we have f[M,N](x)=0 mod p for these x.
+
+The idea is to choose an M with as much possible divisors d[i] of the form p[i]-1.
+
+Then we search for N (as small as possible) such that N=-1 mod p[i] for these p[i].
+
+If we denote the product of these p[i] by P then the smallest solution N is equal to P-1 and the others can be found by adding a multiple of P.
+
+The only values x where we could have f[M,N](x) prime are multiples of P, since we can’t exclude a different divisor q.
+
+If we try M=12, or x^12+N, our set of primes is {2,3,5,7,13} having product P=2730, so we try N=2729+k*2730.
+
+We merely test whether f[6,N](x) is prime, with x=m*2730 and try to find as large a value for m as possible.
+
+k
+
+N
+
+m
+
+# composites
+
+m/(k+1)
+
+1
+
+5459
+
+11
+
+30030
+
+5,50
+
+2
+
+8189
+
+66
+
+180180
+
+22,00
+
+6
+
+19109
+
+68
+
+185640
+
+9,71
+
+19
+
+54599
+
+104
+
+283920
+
+5,20
+
+90
+
+248429
+
+153
+
+417690
+
+1,68
+
+178
+
+488669
+
+226
+
+616980
+
+1,26
+
+824
+
+2252249
+
+240
+
+655200
+
+0,29
+
+900
+
+2459729
+
+282
+
+769860
+
+0,31
+
+2811
+
+7676759
+
+523
+
+1427790
+
+0,19
+
+9545
+
+26060579
+
+533
+
+1455090
+
+0,06
+
+In blue the giving example. The number of composites can be improved by enlarging N, as shown. However if one measures the efficiency of N by computing m/(k+1), the solution x^6+8189 is the best (given in green).
+
+The next M to try would probably be 36. The set of primes is {2,3,5,7,13,19,37}, P=1919190. We only miss a matching prime for the divisors 4 and 9. [If M=12 we miss 1 divisor on a total of 6].
+
+k
+
+N
+
+m
+
+# composites
+
+m/(k+1)
+
+0
+
+1919189
+
+80
+
+153535200
+
+80,00
+
+1
+
+3838379
+
+103
+
+197676570
+
+51,50
+
+3
+
+7676759
+
+369
+
+708181110
+
+92,25
+
+10
+
+21111089
+
+909
+
+1744543710
+
+82,64
+
+156
+
+301312829
+
+1054
+
+2022826260
+
+6,71
+
+720
+
+1383735989
+
+1062
+
+2038179780
+
+1,47
+
+1123
+
+2157169559
+
+1924
+
+3692521560
+
+1,71
+
+So x^36+7676759 is composite for x in [0,708181109].
+
+Getting more composites is easy, just enlarge P (and thus M).
+
+If one wants to find the “best” combination of (M,N) one should include M in a formula to measure efficiency.
+
+Would something like m/(M*(k+1)) do?
+
+***
+
+Shyam wrote:
+
+The polynomial x^12 + 7676759 is composite for 1427790 consecutive terms, namely for 0<=x<=1427789
+
+However the polynomial (x+81590145)^12 + 2414684 is composite for 3426149 consecutive terms, namely for 1<=x<=3426149
+
+Seiji wrote:
+
+N: number of consecutive positive integer
+
+f(x): composite for 1<=x<=N
+
+f(N+1): prime number
+
+N>700000
+
+[f, N]
+
+[x^12+2459729, 769859]
+
+[x^12+3480749, 925469]
+
+[x^12+2414684, 975974]
+
+[x^24+337154, 702974]
+
+[x^24+202019, 712529]
+
+[x^24+111929, 723449]
+
+[x^24+790334, 724814]
+
+[x^24+346709, 739829]
+
+[x^24+417689, 783509]
+
+[x^24+54599, 835379]
+
+[x^24+428154, 844024]
+
+[x^24+148784, 918644]
+
+Dmitry wrote:
+
+Here are my results. zhekas (from the Russian forum) found a way to generate an arbitrary number of composite values for polynomial orders n>1. Take some order n. Find all primes p such that n divides by (p-1). Let P be the product of such primes, then the polynomial
+
+f(x)=x^n + P - 1 will be composite for 0<=x<=P-1. But it may be composite for more values, so you need to check. In fact, f(x) will be prime only for values x=P*m-1, for some integer m>0. Now we can iterate over multipliers k that maximise the number of composites produced by f(x)=x^n+P*k - 1. The best results I got using this method are
+
+f(x)=x^36+1919190*1124-1, which generates 1919190*1924=3692521560 composites.
+
+f(x)=x^60+56786730*2090-1, which generates 56786730*3181=180638588130 composites.
+
+If we are limited to small additive constants (less than 10 million) then the best results I got:
+
+f(x)=x^60 + 1352064, which gives 1753628304 composites.
+
+f(x)=x^120 + 293600, which gives 2012047652 composites.
+
+For orders n, I found it useful to look at highly composite values:
+
+https://en.wikipedia.org/wiki/Highly_composite_number
+
+P.S. The Russian forum is here: http://dxdy.ru/topic112848.html
+
+***
+
+J. K. wrote:
+
+For any natural K, f(x) = (x-K-2)*(x-K-3) is composite for 1<=x<=K,
+
+and f(K+1) = 2 is prime. Irreducible polynomials are more interesting.
+
+x^180+7225713885389 is first prime for x = 4631682600534990, proved by Primo.
+
+x^540+115471236091149548609 is first prp for x = 1489578945575829177069000.
+
+x^1260+4554106624556364764691012209 for x = 22970913814262303873101465587240.
+
+PrimeForm/GW made prp tests.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

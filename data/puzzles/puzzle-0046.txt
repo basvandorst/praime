@@ -1,0 +1,245 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_046.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 46.-  Primes expressible as sum of consecutive primes in K
+
+ways.
+Source: https://www.primepuzzles.net/puzzles/puzz_046.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0046.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_045.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_047.htm
+  https://www.primepuzzles.net/puzzles/puzz_046.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 46.- Primes expressible as sum of consecutive primes in K ways.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 46.- Primes expressible as sum of consecutive primes in K ways.
+
+I have found that the prime 34421 is expressible as a sum of consecutive primes in five (5) ways :
+
+34421 = 269 + … + 709 (71 primes)
+
+34421 = 1429 + … + 1571 (23 primes)
+
+34421 = 3793 + … + 3853 (9 primes)
+
+34421 = 4889 + … + 4937 (7 primes)
+
+34421 = 11467 + … + 11483 (3 primes)
+Can you find a prime expressible a sum of consecutive primes in six(6) or more ways ?
+
+Solution
+
+First of all, I need to make a correction: 34421 is expressible in six distinct ways as a sum of consecutive primes - and not in five ways as I stated - just because 34421 is prime and then 34421 is the sum of 71 or 23 or 9 or 7 or 3 or 1 consecutive primes.
+
+This is congruent with the function f(n) defined, and the questions posed, by Leo Moser (see C2, p. 108, R.K. Guy's book). According to his function then f(34421) = 6
+
+***
+
+This week I made another search for the same subject, but now I decided to eliminate the condition of n to be a prime number, and I got two nice surprises f(130638)=6 and f(218918) = 7.
+
+218918 =
+
+= 3301 + … + 3769 (62)
+
+= 4561 + … + 4957 (46)
+
+= 5623 + … + 5897 (38)
+
+= 7691 + … + 7937 (28)
+
+= 9851 + … + 10069 (22)
+
+= 13619 + … + 13729 (16)
+
+= 18199 + … + 18289 (12)
+
+I don't have at hand my first code, the one used when I got f(34421) = 6 but or I had a bug in my original program or I simply ignored the n composite numbers. Now I have suspended my search in n = 300,000.
+
+Today I'm more confident that f(n)=k has solution for higher and higher values. C'mon my friends!... Let's produce the least solutions for k = 8, 9 & 10.
+
+***
+
+Jean Charles Meyrignac has gotten (8/4/2000) the following results: f(442019)=7 & f(3634531)=8, f(48205429) = 9 being 442019, 3634531, 48205429 all prime numbers!.... Congratulations Jean Charles!...
+
+"My current machine is a Celeron 300 over clocked 450 with 128 Mb RAM. My program solved the 46th problem in less than one hour. I discovered your page yesterday, and found the 46th problem very easy to program. You'll find the source code attached in case you want to compute more than one hour. The algorithm I use is based on a sliding window:
+
+1) First, pre-compute a table of primes
+
+2) Lower bound = 0
+
+3) Higher Bound=Lower Bound + size of sliding window
+
+4) Compute all consecutive sums of n elements for every element of the pre-computed table and counts every occurrence.
+
+5) Display the best occurrences
+
+6) Change the lower bound and go to 3)
+
+The problem of this method is that since I don't store the decompositions, we need to re-compute the sums for the full decomposition.
+But the advantage is that we have no memory limitation for the sums !The source file is compilable with Visual C++ 6"
+***
+
+Jean-Charles sent his code to Nuutti Kuosa - who has a faster PC - to run his code with the hope of finding the least solution for f(n)=10. Nuutti found 8 more solutions for f(n)=9, but no one solution smaller than 710000000 for f(n)=10. His largest solutions was f(460421347)=9 and f(556259425)=9, being 460421347 prime.
+
+"I have been running that puzzle program since you mailed it to me and here is current log...I don't know if there is bug or there is quite large gar, because it was about two weeks when I found last 9 result...", says Nuutti to Jean-Charles.
+
+Does anybody wants to certificate the Nuutti calculations?
+
+***
+
+Jud McCranie has verified the Nuutti solutions and has gotten other 12 solutions for f(n)=9 beyond 710,000,000 up to 1,500,000,000 without any solution for f(n)=10:
+
+990240515
+
+1028831663 prime
+
+1077712387 prime
+
+1228965883 prime
+
+1279321201 prime
+
+1381188305
+
+1409812507 prime
+
+1457421941
+
+1467136109 prime
+
+1482133987 prime
+
+1496514589 prime
+
+1496846569 prime
+
+***
+
+Wilfred Whiteside wrote (4/6/07).
+
+This past week worked on puz46. Attached are the results of systematically searching up to 260 billion. 7 years of Moore's Law definitely helps!
+
+Found 5722 values for f(x)=9 (2107 were prime, 3615 not prime).
+
+Found 300 values for f(x)=10 (119 were prime, 181 not prime).
+
+Found 13 values for f(x)=11 (8 were prime, 5 not prime).
+
+Found 1 values for f(x)=12 (it was prime).
+
+Only soln. found with 12 ways:
+
+There were 12 ways found to sum to 166400805323 which is prime
+
+166400805323 = 55466935091 + ... + 55466935123 (3)
+
+166400805323 = 18488978293 + ... + 18488978441 (9)
+
+166400805323 = 3025468583 + ... + 3025469801 (55)
+
+166400805323 = 155650259 + ... + 155670083 (1069)
+
+166400805323 = 135604109 + ... + 135627281 (1227)
+
+166400805323 = 50227297 + ... + 50286373 (3311)
+
+166400805323 = 29640257 + ... + 29735219 (5605)
+
+166400805323 = 19365569 + ... + 19509173 (8561)
+
+166400805323 = 6284627 + ... + 6688103 (25655)
+
+166400805323 = 3188819 + ... + 3897083 (46977)
+
+166400805323 = 429467 + ... + 2213353 (127483)
+
+(The other results gotten by Wilfred available on request, CR)
+
+Looks like each level requires finding typically around 20 of the previous level.
+
+Note: A compact prime seive was used up to 82 billion. For larger N, the GMP big number library was used with 6 Miller-Rabins (slowing things down considerably). Fortunately only a small fraction of the summing involved Miller-Rabin tested primes.
+
+Attached are the results (more stuff than you need, just for your interest). It is interesting that the density of X with f(X)>=9 seems to stay uniform (about 23 solutions per billion).
+
+1st X with f(X)=10 is 1,798,467,197 which is prime (4,611,108,324 is the first non-prime with 10) - oh were they close
+
+1st X with f(X)=11 is 12,941,709,050 which is not prime (36,154,343,837 is the first prime with 11)
+
+1st X with f(X)=12 is 166,400,805,323 which is prime (only one found up to 260 Billion)
+
+PS. Largest gap found out of all the 6036 solns with f(X)>=9 was the gap found by Nutti and Jean-Charles from 556,259,425 to 990,240,515 (a gap of 433,981,090). Smallest gap found was between 138,899,337,197 and 138,899,340,891 (a gap of only 3694)
+
+***
+
+On may 7, 2020 Giovanni Resta write:
+
+For puzzle 46, I found that 6123584726269 is smallest number (a prime,
+
+by the way) that
+
+can be written in 13 ways as a sum of 1 or more primes:
+
+6123584726269 = 6123584726269 (1)
+
+6123584726269 = 360210866021 + ... + 360210866429 (17),
+
+6123584726269 = 197534990813 + ... + 197534991527 (31),
+
+6123584726269 = 124971116311 + ... + 124971117499 (49),
+
+6123584726269 = 48217200953 + ... + 48217204019 (127),
+
+6123584726269 = 40023427859 + ... + 40023431363 (153),
+
+6123584726269 = 21188870723 + ... + 21188878031 (289),
+
+6123584726269 = 13225879553 + ... + 13225890373 (463),
+
+6123584726269 = 6166740911 + ... + 6166762933 (993),
+
+6123584726269 = 3642804197 + ... + 3642840821 (1681),
+
+6123584726269 = 2232410683 + ... + 2232470563 (2743),
+
+6123584726269 = 992896649 + ... + 993023989 (6167),
+
+6123584726269 = 17062531 + ... + 22292033 (311319).
+
+before reaching it, I found other 17 numbers (primes and composites)
+
+with 12 decompositions, from 433344579131 to 5721975038047
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

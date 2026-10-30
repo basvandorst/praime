@@ -1,0 +1,186 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_191.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 191. P(n)=n(n+1)(n+2)(n+3) - 1
+Source: https://www.primepuzzles.net/puzzles/puzz_191.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0191.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_190.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_192.htm
+  https://www.primepuzzles.net/puzzles/puzz_191.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 191. P(n)=n(n+1)(n+2)(n+3) - 1
+
+Problems & Puzzles: Puzzles
+
+Puzzle 191. P(n)=n(n+1)(n+2)(n+3) - 1
+
+Jean Brette sent the following puzzle:
+
+Let P(n) be the product of four consecutive integers, starting with n, minus one.
+
+P(n) = n (n+1) (n+2) (n+3) - 1
+
+Of course, P(n) can be prime or not. : P(1) = 23 is prime and P(2) = 119 = 7*17 is not.
+
+I call " k-tuple " k consecutive values : { n, n+1, n+2, ..., n+k-1} such that : P(n), P(n+1), ... , P(n+k-1) are all prime.
+
+There is a large number of twins (k = 2) or triplets (k = 3) but the quadruplets (k = 4) are rather sparse, not to speak about 5 or 6-tuples.
+
+Here, for each k, I give the smallest value of n that I have found :
+
+k = 2 n = 3 : P(3) = 359 and P(4) = 839 are both primes
+
+k = 3 n = 6 : P(6), P(7), P(8) are primes (respectively 3023, 5039, 7919)
+
+k = 4 n = 7046
+
+Questions:
+
+1) Can you explain why there are not k-tuples for k=>7?
+
+2) Can you find the earliest four examples for k=5 & for k=6?
+
+______
+
+Solution:
+
+Well, this puzzle became very popular!...
+
+The question 1 was solved correctly by several puzzlers: Felice Russo, Daniel Gronau, Pavlos N, Igor Schein, Jens Kruse Andersen, Ken Wilke & Phil Carmody.
+
+2*3*4*5-1 = 119 = 0 mod 7, hence 7 | P(7n+2)
+
+On my request, Gronau explained in non-modular terms:
+
+If we add to every factor 7, we get:
+
+(2+7)*(3+7)*(4+7)*(5+7) - 1.
+
+This is
+
+2*3*4*5 + 2*3*4*7 + 2*3*7*5 + ...(many other terms containing one or more 7's)... - 1
+
+BUT: If we are only interested in the divisibility by 7, we can throw away any product containing 7. The only product containing no 7s is again: 2*3*4*5. So we have
+
+P(2+7) = 2*3*4*5 + (something divisible by 7) - 1.
+
+Because also 2*3*4*5-1 is divisible by 7, this is true for the whole thing. Of course nothing changes if you add not 7 but any multiple of 7. This means: 7 | P(7k + 2) for every k
+
+***
+
+The most of all the puzzles got partial solutions for the question 2, but only J. K. Andersen & Igor Schein got them all:
+
+For k=5: Start at n = 6985660, 22083548, 26203678, 30014408.
+
+For k=6: Start at n = 512176360, 6958923639, 9427700628, 10205244472.
+
+***
+
+I have not the details of the shortcuts used by Andersen, but other puzzlers sent to me several hints of their respective approach:
+
+From Igor:
+
+First, I use the fact that P(n) is (((n+6)*n+11)*n+6)*n-1 - it's faster than dump multiplication. 2nd, I use recursion
+
+P(n+1) = (P(n)+1)/n*(n+4)-1.
+
+Now, in order to find a 6-tuple I need P(7*m-4),...,P(7*m+1) to be pseudoprime. So I test them in order until I hit a composite, in which case I jump straight to P(7*(m+1)-4). That saves unnecessary primality testing....
+
+It's possible to improve further, using the fact that P(n) is the 1st prime of a 6-tuple only if n is 6, 7, 8 or 9 mod 23. Take other
+
+primes like 17, 31 etc. and you'll get more congruence inequalities, reducing the total computational time...
+
+Actually, P(n)=((n+3)*n+1)^2-2 is a more effective formula - only 5 arithmetic operations instead of 7. It doesn't make much difference in my approach, because I use recursion, which is also 5 operations, but if one chooses to sieve more aggressively, then this formula may come in handy.
+
+From Ken Wilke:
+
+I noticed the following observations which make programming easier.
+
+P(n) = n(n+1)(n+2)(n+3) -1 = (n^2 + 3n +1)^2 -2. Clearly P(n) has the form 8m + 7 for some
+
+integer m. Now if P(n) is prime, P(n) is a solution of the congruence x^2 = 2 (mod P(n)). This means that 2 is a quadratic residue (mod P(n)). Thus 2^((P(n)-1)/2) = 1((mod P(n)). Then
+
+2^(1+(P(n)-1)/2) =2^((P(n)+1)/2) = 2 = x^2((mod P(n)) so x =
+
++2^((P(n)+1)/4) ((mod P(n)).
+
+Thus x = 2^((P(n)+1)/4) or P(n) - 2^((P(n)+1)/4) (mod P(n)).
+
+***
+
+Here are the details of the search by Andersen:
+
+I wrote a C program using the Miracl big integer library for the search.
+
+In search of tuples I first trial factored the numbers with stored small
+
+primes. If no factor was found in any number, I made probabilistic tests
+
+until a composite was found or a probable prime tuple was complete. In the
+
+latter case I proved the primes.
+
+There are many ways to optimize the search.
+
+A search for 6-tuples can start at every 7th n (for n mod 7 = 3), since 7
+
+divides P(n) for n mod 7 = 2.
+
+5-tuples can start when n mod 7 is 3 or 4.
+
+An important optimization follows from noting:
+
+P(n) mod p = P(n mod p) mod p.
+
+For small primes p, during initialization I made an array of the value of
+
+P(m) mod p for all m<p.
+
+Actually only a bit is needed to save whether p divides P(m).
+
+Then trial division of P(n) for a big n and small prime p simply amounts to
+
+computing n mod p and looking up whether p divides P(n mod p).
+
+I noted that many primes, e.g. 2, 3, 5, 11, 13, 19, 29, 37, would never
+
+divide P(n).
+
+Therefore I made an array of primes which could divide P(n) (the first are
+
+7, 17, 23, 31, ...) and only stored P(n) mod p for those. Trial division can
+
+skip the rest of the primes.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

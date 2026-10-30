@@ -1,0 +1,278 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_408.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 408. First primes embedded in the smallest number.
+Source: https://www.primepuzzles.net/puzzles/puzz_408.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0408.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.research.att.com/~njas/sequences/A054260
+  http://www.research.att.com/~njas/sequences/A054261
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_407.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_409.htm
+  https://www.primepuzzles.net/puzzles/puzz_408.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 408. First primes embedded in the smallest number.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 408. First primes embedded in the smallest number.
+
+Jean-Charles Meyrignac contributes the following nice puzzle:
+
+Form the smallest number such that all the primes from 2 to 100 can be extracted from consecutive digits.
+
+He gives the following example: 5113171923293741, contains all primes from 2 to 41 (but this is not the asked smallest number).
+
+This kind of numbers has been studied and reported here: A054260 & A054261.
+
+Questions:
+
+1. Solve the Meyrignac's question as stated and also if this smallest number must be a prime.
+
+2. Redo the exercise for the primes from 2 to 200.
+
+Contributions came from Patrick Capelle, Bernard Leak,
+
+***
+
+Patrick wrote:
+
+The smallest number including the first 25 prime numbers :
+
+23112941343471735359619678378979 [32 digits]
+
+The smallest number including the first 46 prime numbers :
+
+10103107109113127137139149151571631671731791819193232941974347535961998389 [74 digits].
+
+I didn't search the smallest prime number including the first 25 or 46 prime numbers.
+
+My approach for the first case (with some comments for the second case) :
+
+1. We delete the first four prime numbers (2, 3, 5 and 7), because they are already included in some of the next primes.
+
+2. The prime numbers from 11 to 97 can be divided into two categories :
+
+A. 23, 29, 41, 43, 47, 53, 59, 61, 67, 83, 89 [total : 22 digits].
+
+B. 11, 13, 17, 19, 31, 37, 71, 73, 79, 97 [total : 20 digits, to reduce after 'fusion'].
+
+The prime numbers of the category A begin with a digit which cannot be the last digit of any other multi-digit prime number. They are like 'blocks', without any possibility to reduce the number of their digits by 'fusion'. We start with them, put them in an increasing order. After, we must try to fill the holes between them by the prime numbers of the category B such that we have the opportunity to delete a digit by 'fusion' after each concatenation. If the process of reduction of the size of the numbers succeeds completely for all the prime numbers of the category B, then half of the digits will disappear in this category, and finally we will obtain a long number of 22 (from the category A) + 20/2 (from the category B) = 32 digits. We are lucky here because it is possible to do it. Note that if you want that the required number begins by at least one of the primes of the category B, then the best result is a number of 33 digits, because there is one of those primes whose size cannot be reduced : the first one. For the research of the number including the first 46 prime numbers, the situation is not so simple : it is not possible to reduce the size of all the numbers of the category B, and consequentely we must try to put some of them before the smallest 'block' of the category A.
+
+3. In the first case, all the prime numbers of category A can be followed by prime numbers of category B :
+
+23 : 31, 37.
+
+29 : 97.
+
+41 : 11, 13, 17, 19.
+
+43 : 31, 37.
+
+47 : 71, 73, 79.
+
+53 : 31, 37.
+
+59 : 97.
+
+61 : 11, 13, 17, 19.
+
+67 : 71, 73, 79.
+
+83 : 31, 37.
+
+89 : 97.
+
+Of course, there is no obligation to place at least one number of category B after each number of category A. For the prime number 23, we must look at the prime numbers 31 and 37. We try first with 31, because it is smaller than 37. To accept to put 31 before 29, its last digit must be smaller than the first digit of 29. It is ok here for 31, and by 'fusion' we obtain 231. We must see whether it is possible to place another prime (of category B) just after 231 but before 29. For that, we must look at the list below, concerning only the prime numbers of category B :
+
+11 : 13, 17, 19.
+
+13 : 31, 37.
+
+17 : 71, 73, 79.
+
+19 : 97.
+
+31 : 11, 13, 17, 19.
+
+37 : 71, 73, 79.
+
+71 : 11, 13, 17, 19.
+
+73 : 31, 37.
+
+79 : 97.
+
+97 : 71, 73, 79.
+
+We see that 31 can be followed by 11, 13, 17 and 19. The number 11 is the smallest and its last digit is smaller than the first digit of 29. The 'concatenation-fusion' between 231 and 11 gives 2311.The process can continue like this with the other prime numbers of category B, until we don't have the choice for their placement. When we look at the final result, it appears that some prime numbers of category A are not followed by primes of category B. The principal goal is to reduce the size of all the primes of category B, even if after a while we have primes whose last digit is greater than the first digit of the next 'block' of category A.
+
+4. After each concatenation of two prime numbers, even if it is not followed by a 'fusion', we must check whether another prime number doesn't appear in the sequence of digits. Example : for the research of the smallest number including the first 46 prime numbers, the concatenation of the consecutive primes 113 and 127, giving 113127 (without any possibility of 'fusion'), reveals the presence of 131, which is the next prime number. Note that 131 is the smallest prime number appearing after concatenation of the two preceding prime numbers.
+
+***
+
+Bernard wrote:
+
+For primes up to 100, the least digit-string containing all of them is
+
+2311 29 413 43 47173 53 59 619 67 837 8979
+
+(gaps denote the absence of an overlap between primes occurring in
+
+the string). This is (errors and omissions excepted!) the least possible.
+
+Requiring the digit-string to represent a prime number, I get the
+
+least matching prime to be
+
+2311 29 413 43 47173 53 59 679 837 6197 89
+
+Again, unless I've blundered, this is the least possible.
+
+For primes up to 200, the least digit-string containing all of them is
+
+10103 107109 113127 137 139 149 15157 163 167 173 179 1819193 23 29 4197 43 47 53 59 6199 83 89 [74 digits]
+
+The smallest prime whose decimal representation matches this is hard to
+
+find certainly, and I haven't seriously tried. It must have at least one
+
+additional decimal digit as the number just found divides by 3. A single extra digit must therefore not be '0', '3', '6' or '9'.
+
+The best I've found with some heavily-directed trial and error is
+
+10103 107109 113127 137 139 149 15157 163 167 173 179 1819193 23 29 4197 43 47 53 1 83 89 59 6199 [75 digits]
+
+I think this is probably the smallest in which the extra digit (the atom '1' near the end) is placed so near to the units place, but I find it less clear whether one can benefit from putting it earlier, before a larger digit, with some rearrangement of the subsequent digits.
+
+Later he added:
+
+Thanks to Carlos Rivera for pointing out a mistake in an earlier version
+
+of this posting.
+
+I am reasonably sure I have the true (least possible) solution to Part
+
+ii (the smallest natural number whose decimal representation contains
+
+decimal representations of all primes up to 200).
+
+If there is a minimum prime solution, it must have at least an extra
+
+digit inserted. Breaking up an existing overlap between primes
+
+means that the overlapping digit (or digits) must also be repeated,
+
+leading to yet more digits and a larger number. Of course, inserting
+
+at one end of a run is just the same as inserting a new adjacent run.
+
+I assume, heuristically, that I can get away with a single extra digit,
+
+so it must be inserted as an extra 1-digit run in between the existing
+
+runs, taken in some order or other. If such a solution exists, it is
+
+clearly smaller than any created by inserting more digits, as long
+
+as we ignore leading zeroes.
+
+Roughly speaking, we should put the runs in increasing lexical
+
+order to get the smallest result. This is not quite right, however,
+
+using "nothing before something" ordering. None of the existing runs
+
+is an initial string of any other run, because that would be simply
+
+redundant in terms of the specification of the problem. However, an
+
+existing run may begin with the newly-inserted digit. The insertion
+
+point which gives the numerically least result then depends on the
+
+following digits in the longer run. We disregard repetitions of the
+
+initial digit, and observe whether the next following digit is greater or
+
+smaller. If the longer run consisted only of the single digit repeated
+
+then we would have further difficulties to contend with, but in fact this
+
+awkward case does not arise.
+
+We already know from the digit-sum that inserting '0' will not
+
+work: the resulting number would be a multiple of 3. The
+
+smallest number that results from inserting '1' is created
+
+by inserting it after the two runs beginning '10', so we have
+
+as the smallest candidate number
+
+10103 107109 1 113127 137 139 149 15157 163 167 173 179 1819193 23 29 4197
+
+43 47 53 59 61899 83 89
+
+If we insert a higher digit instead, we plainly get a larger number
+
+than by replacing it with '1'. Thus, the smallest candidate solutions
+
+remaining are those which begin
+
+10103 107109 1
+
+followed by the same series of subsequent runs, perhaps in a
+
+different order. If none of these were prime then we would have
+
+to go back to considering inserting a digit higher than '1'. However,
+
+as long as one of them is prime, then the smallest prime of this form
+
+will be the desired solution.
+
+Permuting the later runs in lexical order, the first five cases are
+
+composite (the first of them is exactly the number just listed), but the
+
+sixth is prime:
+
+10103 107109 1 113127 137 139 149 15157 163 167 173 179 1819193 23 29 4197
+
+43 47 53 59 89 83 61899
+
+.... and that's the solution.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

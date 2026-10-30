@@ -1,0 +1,348 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 657 Look and say sequence </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+span.apple-style-span
+	{}
+span.apple-converted-space
+	{}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><font face="sans-serif,arial,geneva" size="5"><b><font color="#000080">Problems &amp; Puzzles:
+      </font><font color="#0000FF">Puzzles </font></b></font></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1" height="106">
+        <tr>
+          <td height="88" valign="top">
+          <blockquote>
+            <p><span style="font-family: Verdana"><b>Puzzle 657
+			<font color="#008080">Look and say sequence</font></b></span></p>
+            <font FACE="Verdana" size="2">
+            <div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+				<font face="Verdana">
+				<p>For sure you know what is the <b>look &amp; say</b> sequence. See 
+				these <a href="http://oeis.org/A005150">A</a>,
+				<a href="http://mathworld.wolfram.com/LookandSaySequence.html">B</a> 
+				&amp; 
+				<a href="http://en.wikipedia.org/wiki/Look-and-say_sequence">C</a>, references.</p>
+				<p>Only three primes are <a href="http://oeis.org/A100108">known</a> 
+				(Oct. 2012) 
+				in this sequence: 11, 312211&nbsp; 13112221<p>
+				<font color="#000080"><b>Q1- Find the fourth prime.</b></font><p>
+				Some digital properties are already known. For example: No 
+				digits different from 1, 2 &amp; 3 are contained in any term. This 
+				implies that there are not substrings of four or more of 
+				repeated digits (&quot;...xxxx...&quot; for x= 1, 2 or 3) in any term.<p>
+				Therefore, I started asking myself about of substrings of three 
+				or less digits. Specifically I wonder to know this: is any 
+				combination of three or less digits found as substring in some 
+				terms?<p>Related with this last question, I got an unexpected 
+				output: analyzing up to the
+				<a href="http://oeis.org/A005150/b005150.txt">25 term</a>s<span style="color: #222222"> 
+				easily available in the web (around 5000 total digits in the 25 
+				terms)</span> the following three digits combinations were 
+				absent: &quot;333&quot;, &quot;323&quot;, &quot;313&quot; &amp; &quot;233&quot;.<p>
+				I must say that I was unable to find references to these four 
+				absent-combinations, so perhaps going further my four claims 
+				above are wrong.<p>
+				<font color="#000080"><b>Q2. Can you check this 
+				absent-combinations in larger terms of the L&amp;S sequence, or 
+				exhibit a reason for the absences?</b></font></font></div>
+            </font>
+			<wbr>
+            </blockquote>
+            </td>
+        </tr>
+        <tr>
+          <td height="18" valign="top">
+          <p></p>
+			<p>
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <p>
+      <a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></p>
+		<p>
+      Contributions came from Jahangeer &amp; Farideh Firoozbakht and Emmanuel 
+		Vantieghem-</p>
+		<p>
+      ***</p>
+		<p>
+      &nbsp;Jahangeer &amp; Farideh Firoozbakht wrote:</p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: garamond, 'new york', times, serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana" size="2">Between the first 46 terms of the 
+				sequence A005150 (look &amp; say&nbsp;sequence)there exist only three 
+				prime terms. A005150(47) has 403966 digits and we don't know 
+				this term is prime or composite. So next prime term of the 
+				sequence has more than 403965 digits... </font>
+				<div style="color: rgb(34, 34, 34); font-family: garamond, 'new york', times, serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: transparent; ">
+					<font face="Verdana" size="2">A005150(47) has 403966 digits 
+					and for&nbsp;Mathemtica&nbsp;it is too large&nbsp;to&nbsp;determine&nbsp;whether&nbsp;it 
+					is composite&nbsp;or probable-prime. This test was done&nbsp;about&nbsp;few 
+					hours.</font></div>
+			</div>
+		</blockquote>
+		<p>
+      <font face="Verdana">***</p>
+		<p>
+      Emmanuel wrote:</font></p>
+		<blockquote>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">Q1 : I could not find another prime among 
+				the first 46 numbers of the sequence.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+&nbsp;</div>
+			<p><font face="Verdana">Q2.&nbsp;&nbsp;The digit combinations&nbsp;333, 323, 313, 
+			233&nbsp;never occur !</font></p>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">Proof.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">Any number&nbsp;&nbsp;m&nbsp;&nbsp;&gt; 1&nbsp;&nbsp;in the sequence is 
+				composed of&nbsp;&nbsp;two kinds of digits :&nbsp;counting&nbsp;&nbsp;digits 
+				and&nbsp;counted&nbsp;digits.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); margin: 0cm 0cm 0pt; ">
+				<font face="Verdana">For instance, in the 9th number m =&nbsp;<span class="Apple-converted-space">&nbsp;</span><u>3</u>1<u>1</u>3<u>1</u>2<u>1</u>1<u>1</u>3<u>1</u>2<u>2</u>1, 
+				the counting digits are underlined. The first digit (3) is a 
+				counting digit ; it counts the number 1 (= the counted digit) of 
+				the 8th number n = 1113213211. The next digit of m is a counted 
+				digit, the next one is a counting digit, and so on.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); margin: 0cm 0cm 0pt; ">
+				<font face="Verdana">Thus, the counting digits occur 
+				alternatively.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">Also, the look and say conditions implie 
+				that in a configuration ...aba... the digit b cannot be a 
+				counting digit.</font></div>
+			<p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+			<font face="Verdana">Thus, ...333... must be ...<u>3</u>3<u>3</u>... 
+			and should come from ...333xxx... But then either 3 or x is a 
+			counting digit which is impossible.</font></p>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">The string ...<em>3</em><u>2</u>3... is not 
+				possible ; ...<u>3</u>2<u>3</u>... should come from ...222xxx... 
+				, impossible.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">The string ...3<u>1</u>3... is not possible 
+				; ...<u>3</u>1<u>3</u>... should come from ...111xxx... , 
+				impossible.</font></div>
+			<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+				<font face="Verdana">The string ...2<u>3</u>3... is not possible 
+				; ...<u>2</u>3<u>3</u>... should come from ...x33yyy... which is 
+				only possible as ...x<u>3</u>3<u>y</u>y<u>y</u>... , which 
+				should come from ...333... , impossible.</font><div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+					<font face="Verdana">With the same argumentation we can 
+					prove that the following digit combinations are impossible :</font></div>
+				<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+					<font face="Verdana">1111, 1212, 1233, 1313, 1323, 1333, 
+					2121, 2222, 2223, 2232, 2233, 2313, 2323, 2331, 2332, 2333, 
+					3131, 3132, 3133, 3231, 3232, 3233, 3313, 3323, 3331, 3332, 
+					3333</font></div>
+				<p>&nbsp;</div>
+		</blockquote>
+		<p>
+      ***</p>
+		<p>
+      &nbsp;</p>
+		<wbr>
+      </font>
+    </blockquote>
+	<o:p style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+      <wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgba(255, 255, 255, 0.917969)">
+		
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_656.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">
+			Records</a>&nbsp;&nbsp; |&nbsp; <a href="../conjectures/">
+			Conjectures</a>&nbsp; |&nbsp; <a href="../problems/">Problems</a>&nbsp; 
+			|&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_658.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      &nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

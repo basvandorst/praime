@@ -1,0 +1,223 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_347.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 347. Properties of numbers that have a Mersenne Number as a 
+factor.
+Source: https://www.primepuzzles.net/puzzles/puzz_347.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0347.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_346.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_348.htm
+  https://www.primepuzzles.net/puzzles/puzz_347.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 347. Properties of numbers that have a Mersenne Number as a factor.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 347. Properties of numbers that have a Mersenne Number as a factor.
+
+Anton Vrba sent the following puzzle (original from him?):
+
+Consider a Mersenne number 2^b-1
+
+A. The insert property:
+
+1. Choose any number, multiply it by the Mersenne and express result as a binary string
+
+2. Repeat 1 with a another number and pad the binary at either the ends with zeros, such that it has b, 2 b, 3 b, …n b binary digits
+
+3. Now insert the binary string obtained in step 2 anywhere within the binary string of step 1
+
+Believe it or not the new number is divisible by the 2^b-1
+
+Example:
+
+1. 3 x 127 = 381 = 101111101 base 2
+
+2. 7 x 17 x 127 = 15113= 11101100001001 base 2
+
+3 10111111101100001001101 base 2 = 127 x 49459
+
+This can be repeated ad infinitum. Ie: inserting 7 zeros and 7 ones in above result:
+
+1010000000111111011111111100001001101 base 2 = 3 x 127 x 225807121
+
+B. The rotate property:
+
+Another interesting property if the binary expansion obtained in step 2 above is that you can rotate that binary number and the result is always divisible by 2^b-1.
+
+Example:
+
+11101100001001 base 2 = 7 x 17 x 127
+
+11110110000100 base 2 =2^2 x 31 x 127
+
+10011110110000 base 2 = 2^4 x 5 x 127
+
+10000100111101 base 2 = 67 x 127
+
+11000010011110 base 2 = 2 x 7^2 x 127
+
+10110000100111 base 2 = 89 x 127
+
+11011000010011 base 2 = 109 x 127
+
+or
+
+1010000000111111011111111100001001101 base 2 (from above) = 3 x 127 x 225807121 (before rotating pad with 5 zeros = 42 binary digits)
+
+100000101000000011111101111111110000100110 base 2 = 2 x 3 x13 x127 x 226331467
+
+Question: Can you explain both properties.
+
+John Arioni solved this puzzle. Jan van Delden asked two question to Anton.
+
+***
+
+Arioni wrote:
+
+The insert property
+
+Let N*(2^b – 1) be the result after performing step 1 - N is any number -
+
+Let M*(2^b – 1)*2^a be the result after performing step 2
+
+- M is any number, a is the number of binary zeros after padding the right end of binary M*(2^b - 1 ) -
+
+Step 3 :
+
+Shift to the left by n*b positions the first (from left) x digits of the binary expansion of N*(2^b-1) and fill with zeros the gap before the remaining y unmoved digits ( x is any integerer not greater than the number of digits of the binary expansion of N*(2^b–1) ).
+
+What we get is the binary of: X*2^y*2^(nb)+ Y = X*2^y*2^(nb) + N*(2^b–1) – X*2^y = X*2^y*(2^(nb)–1) + N*(2^b–1)
+
+( the binary expansion of X is the string of x bits moved to the left and the expansion of Y is the string of the remaining y bits that were not moved )
+
+Inserting the binary string of M*(2^b – 1)*2^a is equivalent to add M*(2^b–1)*2^a*2^y So what you get after step 3 is: X*2^y*(2^(nb)–1) + N*(2^b – 1) + M*(2^b–1)*2^a*2y , that is divisible by (2^b–1) (in fact (2^(nb)–1)= (2^b–1)* Q, where Q=(2^(nb–b)+ 2^(nb–2b)+ + 2^(nb–3b)+ ....... + 1), i.e. an odd integer ) The number you get after step 3 is one you can get through step 1, so you can repeat step 2 and step 3 as many times as you like, generating an indefinitely long sequence of increasing multiples of (2^b – 1 ).
+
+The rotate property
+
+Rotating M*(2^b–1)*2^a “a” times you get the sequence:
+
+M*(2^b–1)*2^(a-1) , M*(2^b–1)*2^(a-2) , .... , M*(2^b – 1) that are obviously divisible by (2^b-1).
+
+Now you can have two cases:
+
+a) M is even – then, rotating one more bit you get M/2*(2^b–1)
+
+b) M is odd – then, rotating one more bit you get:
+
+[M*(2^b–1)-1] /2+ 2^(nb-1) = [M*(2^b–1) -1]/2 + 1 /2 *2^(nb) because the lsb of M*(2^b – 1) is moved to the first position on the left side in the string of n*b bits, that is to the MSB of a string of n*b binary digits, which has weight 2^(nb-1).
+
+The new number so obtained is :
+
+M/2 (2^b–1) + 1/2*(2^(nb)–1) = M/2*(2^b–1) + 1/2*(2^b–1)* Q = = (M+Q)/2*(2^b – 1) which is still divisible by (2^b–1) , as the sum M+Q is even ( either M and Q are odd integers ).
+
+The new string of bits is now the expansion of A*(2^b – 1) , A=M/2 or A= ( M+Q )/2, and you can go on rotating, moving through case a) or b) to produce new multiples of (2^b–1), until you get the starting sequence of bits.
+
+In the example, where : (2^b–1)= (2^7–1) =127, M = 17*7 =119, Q=( 2^7 + 1 )= (2^(2*7)-1)/ (2^7-1) = 129 , the 2*7 numbers generated by rotating 17*7*(2^7- 1 ) are:
+
+(129 +119)/2 * 127 = 124 * 127 = 4* 31 * 127
+
+124/2 * 127 = 62*127
+
+62/2 * 127 = 31*127
+
+(31+129)/2*127 =80*127 = 16*5*127
+
+80/2*127 = 40*127
+
+40/2 * 127 = 20*127
+
+20/2 *127 = 10 *127
+
+10/2*127 = 5*127
+
+(5+129)/2*127 = 67*127
+
+(67+129)/2*127 = 98*127 = 2*49*127
+
+98/2*127 = 49*127
+
+(49+129)/2*127 = 89*127
+
+(89+129)/2*127 = 109*127
+
+(109+129)/2*127 = 119*127 = starting sequence
+
+***
+
+van Delden wrote:
+
+I don't understand b, 2b ,..nb (Property 2).
+
+BTW, according to me it can be reformulated with a^b-1 in base a. Not sure why 2^b-1 should be Mersenne-prime (yet), probably because then a^b-1 has no factor of the type a^d-1 with d|b. (Aurifeuillian factorization). It looks to me that the proof entails proving that for each 2^b-1 multiple the sum of the 1's is divisible by b (And vice versa). Of course rearranging each of these sequences or inserting one in the other will not change this property.
+
+Anton replied:
+
+Jan wrote: Not a solution, but a question. I don't understand b, 2b ,..nb (Property 2).
+
+Ok, maybe I expressed it wrongly and lets look following example
+
+N1 = 100001101111 = 17 x 127 (N1 has 12 binary disgits)
+
+N2 = 101111101 = 3 x 127 (N2 has 9 binary digits)
+
+now lets insert N2 into N1
+
+100001101111101101111 = 5^2 x 11 x 4021
+
+Now lets pad N2 with 5 zeros such that N2' has 14 digits. This padding can be at either or both ends as long as 5 zeros are added
+
+10000100010111110100101111= 127 x 273233 or
+
+10000100101111101000101111= 7 x 13 x 127 x 3011 or
+
+10000110111110100000101111= 127 x 278609 etc...
+
+127 =2^7-1 hence padding was done to 2*7 (2 b) digits or
+
+N2 could be padded to 3x7 (3 b) =21 binary digits
+
+100001000000000000101111101101111 =5 x 11 x 127 x 634103
+
+Jan also wrote:"Not sure why 2^b-1 should be Mersenne-prime (yet), "
+
+2^b-1 does not need to be prime nor does b have to be prime
+
+***
+
+Regarding the origin of this puzzle, Anton wrote:
+
+If this is a new or not I do not know, maybe the readers could help.I have found this property while comparing binary patterns and properties of primary and compound numbers
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

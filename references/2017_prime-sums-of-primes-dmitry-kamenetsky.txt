@@ -1,0 +1,622 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://arxiv.org/pdf/1703.06778. These files are used for reasoning.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://arxiv.org/pdf/1703.06778
+Retrieved: 2026-10-30
+
+--- page 1 ---
+Prime Sums of Primes
+Dmitry Kamenetsky
+dkamenetsky@gmail.com
+Adelaide, Australia
+March 28, 2017
+Abstract
+We present a variety of prime-generating constructions that are based
+on sums of primes. The constructions come in all shapes and sizes, varying
+in the number of dimensions and number of generated primes. Our best
+result is a construction that produces 6 new primes for every starting
+prime.
+1 Introduction
+Constructions made from primes have fascinated mathematicians for many
+decades due to the beauty of their design. A number of such constructions
+have been proposed, such as: prime magic squares [4, 9], prime arrays [8]
+and primes in arithmetic progressions [1, 2].
+In this paper we investigate some new prime-generating constructions
+that are based on sums of primes. Our constructions come in two ﬂavours:
+standard and recursive. In standard constructions new primes are gener-
+ated as the sum of primes used in the construction. Recursive construc-
+tions generate new primes, which in turn generate further primes. The
+recursion terminates when no more primes can be generated. Typically
+we only use odd primes (ignore 2), forcing our sums to contain an odd
+number of elements. Our overall aim is to generate constructions of the
+largest size ( order). If two constructions have the same order then we
+typically prefer the one with smallest sum of elements ( weight). To ﬁnd
+all the constructions we use a variant of the randomised hill-climbing algo-
+rithm. For small constructions we were able to ﬁnd the optimal solutions
+(smallest weight) by using a brute force method.
+We describe the following standard constructions: prime vectors (Sec-
+tion 2), cyclic prime vectors (Section 2.1), Goldbach squares (Section 6)
+and prime matrices (Section 7). We describe the following recursive con-
+structions: prime tuples (Section 3), prime stairs (Section 4), prime pyra-
+mids (Section 4.1) and prime cylinders (Section 5).
+2 Prime Vectors
+Deﬁnition 2.1. A prime vector of order n is an array of distinct primes
+P = (p0, p1, . . . , pn−1), such that every sum of an odd number of consec-
+1
+arXiv:1703.06778v2  [math.HO]  27 Mar 2017
+
+--- page 2 ---
+utive elements is also prime. In other words
+∑
+0≤k≤2L
+P (i + k) is prime for
+∀ i such that 0≤ i≤ i + 2L < n.
+(1)
+In the above deﬁnition, i is the index of the ﬁrst prime in each sum,
+while (2L + 1) is the number of terms in each sum. 1 For a given n there
+are⌊(n−1)2/4⌋ sums. Consider a prime vector of order 5: (3 , 11, 5, 7, 17).
+Its every element is prime, as well as, every sum of an odd number of
+consecutive elements:
+3 + 11 + 5 = 19, 11 + 5 + 7 = 23,
+5 + 7 + 17 = 29, 3 + 11 + 5 + 7 + 17 = 43. (2)
+We used a variant of hill-climbing to ﬁnd prime vectors (see Algo-
+rithm 1). We start with a random array of distinct primes and then
+perform various mutations, such as swapping two primes or replacing one
+prime with a new one. If the mutation improves the score then we keep
+it, otherwise we revert it. The score measures the number of “incorrect”
+(composite) sums that the array generates. Hence we want to minimise
+this score. Using this algorithm we were able to obtain a prime vector of
+order 23 that generates 121 primes 2:
+(239, 131, 109, 181, 83, 43, 41, 223, 53, 233, 271, 103, 269, 71, 19, 47,
+241, 23, 277, 199, 281, 29, 37).
+For small orders it is possible to obtain multiple solutions. In such
+cases we choose the solution with the smallestweight - sum of all elements.
+In fact, this allows us to deﬁne an optimal prime vector :
+Deﬁnition 2.2. A prime vector is optimal if its weight is the lowest
+possible.
+For n≤ 14 we were able to ﬁnd the optimal prime vectors (see Table 1).
+To achieve this we used a brute force algorithm. This algorithm iterates
+through every permutation of n distinct odd primes whose weight is below
+the best known weight. If a permutation forms a prime vector then the
+best known weight is updated and the array is printed out. The algorithm
+terminates when there are no more permutations whose weight is less
+than the best known weight. Table 1 also shows the running time of this
+algorithm.
+For n > 14 we used Algorithm 1 to ﬁnd the upper bounds on the min-
+imal weight (see Table 2). To obtain the lower bound we used sequences
+from the OEIS [7]. For odd n the weight must be a prime, so we used
+sequence A068873 - smallest prime which is a sum of n distinct primes.
+For even n we used sequence A071148 - sum of the ﬁrst n odd primes.
+2.1 Cyclic Prime Vectors
+We can also introduce a cyclic prime vector and deﬁne its optimality in
+a similar fashion:
+1If L = 0 then we have a singleton rather than a sum.
+2Prime vectors of smaller orders are sub-arrays of this array.
+2
+
+--- page 3 ---
+Algorithm 1 : Algorithm for ﬁnding prime vectors.
+1 bestScore←∞
+2 S∗← random set of n distinct primes
+3
+4 while True
+5 S← S∗
+6 mutate( S)
+7 score← score(S)
+8 if score < bestScore
+9 bestScore← score
+10 S∗← S
+11 print( S∗)
+12 end
+13 end
+n Prime Vector Weight Time
+1 (2) 2
+2 (3, 5) 8
+3 (3, 5, 11) 19
+4 (3, 5, 11, 7) 26
+5 (3, 11, 5, 7, 17) 43
+6 (3, 11, 5, 7, 17, 13) 56
+7 (3, 17, 23, 7, 11, 13, 5) 79
+8 (3, 11, 17, 13, 29, 19, 5, 7) 104
+9 (7, 17, 13, 23, 11, 3, 29, 5, 19) 127
+10 (3, 7, 19, 11, 13, 23, 31, 5, 37, 17) 166
+11 (3, 23, 41, 19, 11, 13, 17, 7, 5, 31, 53) 223 17s
+12 (7, 41, 19, 11, 23, 3, 5, 29, 13, 47, 43, 17) 258 8m
+13 (13, 53, 7, 23, 11, 3, 29, 5, 19, 17, 43, 47, 37) 307 73m
+14 (17, 43, 47, 13, 29, 5, 3, 23, 11, 19, 41, 7, 53, 37) 348 14h
+Table 1: Optimal prime vectors for n≤ 14, their weight and the time required
+to compute them. Computation times less than 1 second are not shown.
+n 15 16 17 18 19 20 21 22 23
+lower bound 379 438 499 566 643 710 809 872 983
+upper bound 443 522 641 888 983 1430 1627 1824 3203
+Table 2: Best bounds on the minimal weight of prime vectors for 15 ≤ n≤ 23.
+3
+
+--- page 4 ---
+Deﬁnition 2.3. A cyclic prime vector of order n is a prime vector P of
+order n with the additional property that prime sums can span from the
+end to the start of the array. In other words
+∑
+0≤k≤2L
+P ((i + k) mod n) is prime for
+∀ i such that 0≤ i < n and
+∀ L such that 0≤ 2L < n.
+(3)
+For a given n there are ( n− 2)(2n− 1 + (−1)n)/4 sums. For example
+the cyclic prime vector (5 , 7, 17, 13, 11) generates the following 6 sums:
+5 + 7 + 17 = 29, 7 + 17 + 13 = 37,
+17 + 13 + 11 = 41, 13 + 11 + 5 = 29,
+11 + 5 + 7 = 23, 5 + 7 + 17 + 13 + 11 = 53.
+(4)
+Cyclic prime vectors diﬀer from normal prime vectors in a few key
+ways. Every cyclic prime vector is also a normal prime vector, but the
+opposite may not be the case. Unlike normal prime vectors, cyclic prime
+vectors can be permuted without aﬀecting their prime sums. Also we
+cannot easily generate cyclic prime vectors as sub-arrays of larger cyclic
+prime vectors. Due to the cyclic requirement, cyclic prime vectors require
+more prime sums for the same order, making them signiﬁcantly harder to
+ﬁnd.
+Using the brute force algorithm described above we were able to ﬁnd
+the optimal cyclic prime vectors for n≤ 10 (see Table 3). The computa-
+tion for the optimal cyclic prime vector of order 11 was still running after
+4 days, so it is not shown. It is interesting to note that the weight for
+n = 9 is smaller than the weight for n = 8. Using an algorithm similar to
+Algorithm 1 we found cyclic prime vectors up to order 14 (see Table 4).
+The largest array generates 84 primes.
+n Cyclic Prime Vector Weight Time
+1 (2) 2
+2 (3, 5) 8
+3 (3, 5, 11) 19
+4 (5, 7, 17, 19) 48
+5 (5, 7, 17, 13, 11) 53
+6 (5, 29, 7, 11, 19, 37) 108
+7 (5, 7, 17, 13, 29, 31, 11) 113
+8 (11, 17, 43, 47, 13, 19, 29, 31) 210
+9 (7, 17, 13, 11, 19, 41, 29, 37, 23) 197 9s
+10 (11, 19, 23, 47, 31, 53, 43, 67, 89, 127) 510 2m
+Table 3: Optimal cyclic prime vectors for n≤ 10, their weight and the time
+required to compute them. Computation times less than 1 second are not shown.
+3 Prime Tuples
+Deﬁnition 3.1. A prime tuple of order n (odd) with length k is an array
+of distinct odd primes ( p0, p1, . . . , pk−1), such that every term after the
+4
+
+--- page 5 ---
+n Cyclic Prime Vector Weight
+11 (23, 73, 17, 13, 71, 19, 11, 193, 59, 137, 67) 683
+12 (73, 47, 43, 137, 97, 59, 151, 239, 31, 163, 89, 131) 1260
+13 (41, 43, 23, 73, 71, 53, 13, 173, 151, 59, 127, 263, 283) 1373
+14 (73, 179, 41, 97, 43, 197, 199, 173, 379, 311, 131, 37, 29, 421) 2310
+Table 4: Smallest (by weight) cyclic prime vectors found for 11 ≤ n≤ 14.
+n-th term is the sum of the previous n terms. In other words
+pi =
+i−1∑
+q=i−n
+pq, ∀i≥ n. (5)
+Note it is suﬃcient to use the ﬁrst n terms to represent a prime tuple,
+since the remaining terms can be generated via sums of previous terms.
+We seek to ﬁnd prime tuples of order n such that their length is greatest.
+For example, here is a prime tuple of order 7 with length 25 - the longest
+we have found:
+(157, 379, 487, 109, 13, 7, 271 , 1423, 2689, 4999, 9511, 18913,
+37813, 75619, 150967, 300511, 598333, 1191667, 2373823, 4728733, 9419653,
+18763687, 37376407, 74452303, 148306273).
+The ﬁrst 7 terms are shown in bold. The weight of a prime tuple of
+order n is the sum of its ﬁrst n terms. When two tuples of the same order
+have the same length, then we prefer the one with the smaller weight.
+Table 5 shows the best prime tuples that we found for n≤ 19. We
+have used a brute force approach to prove that the prime tuples for n∈
+{3, 5, 9, 11} are optimal. We notice that for n mod 6 = 3 and n mod 6 =
+5 the optimal prime tuples have length 2 n + 1 and must contain a 3.
+n Prime Tuple Length Weight
+3 (3, 13, 7) 7 23
+5 (17, 3, 19, 7, 13) 11 59(17, 5, 11, 23, 3)
+7 (157, 379, 487, 109, 13, 7, 271) 25 1423
+9 (11, 47, 17, 23, 41, 5, 3, 13, 19) 19 179
+11 (43, 7, 19, 13, 3, 17, 11, 5, 29, 41, 23) 23 211
+13 (53, 137, 11, 17, 41, 227, 47, 34 1163101, 83, 5, 149, 263, 29)
+15 (29, 5, 23, 11, 41, 47, 89, 17, 31 49171, 3, 7, 13, 37, 19, 79)
+17 (5, 47, 53, 11, 17, 41, 89, 3, 61, 35 64743, 97, 19, 13, 7, 37, 31, 73)
+19 (89, 227, 29, 17, 5, 251, 269, 107, 101, 197, 43 208141, 191, 173, 179, 47, 53, 71, 11, 23)
+Table 5: Best prime tuples found for n≤ 19.
+5
+
+--- page 6 ---
+4 Prime Stairs
+Deﬁnition 4.1. A prime stair of order n≥ 3 is a⌈ n2⌉× n matrix P such
+that every element P (r, c) at row r > 0 and column c is a distinct prime
+and each new row is generated from the previous row as follows:
+P (r, c) := P (r− 1, c− 1) + P (r− 1, c) + P (r− 1, c + 1). (6)
+For a given r > 0 we must have c∈ [r, n− r− 1]. For a given n there
+are⌊(n− 1)2/4⌋ sums. As a shorthand we can represent a prime stair of
+order n via its ﬁrst (top) row only, i.e., using an array of length n. For
+example, the prime stair (13 , 17, 7, 5, 11, 3, 23) looks like this:
+13, 17, 7, 5, 11, 3, 23
+37, 29, 23, 19, 37
+89, 71, 79
+239
+The weight of a prime stair is deﬁned as the sum of all elements in the
+ﬁrst row. We were able to ﬁnd the optimal prime stairs for n≤ 11 (see
+Table 6). The computation for the optimal prime stair of order 12 was
+still running after 4 days, so it is not shown. Using an algorithm similar
+to Algorithm 1 we found prime stairs up to order 15 (see Table 7). The
+largest stair generates 49 primes.
+n Prime Stair Weight Time
+3 (3, 5, 11) 19
+4 (7, 5, 11, 3) 26
+5 (7, 13, 11, 5, 3) 39
+6 (7, 17, 13, 11, 5, 3) 56
+7 (13, 17, 7, 5, 11, 3, 23) 79
+8 (5, 17, 31, 11, 19, 7, 3, 13) 106
+9 (29, 23, 37, 13, 11, 5, 7, 19, 17) 161 8s
+10 (5, 29, 7, 17, 13, 11, 37, 23, 19, 41) 202 3m
+11 (7, 17, 19, 5, 73, 11, 13, 23, 31, 29, 41) 269 2.5h
+Table 6: Optimal prime stairs for n≤ 11, their weight and the time required to
+compute them. Computation times less than 1 second are not shown.
+n Prime Stair Weight
+12 (37, 13, 17, 23, 7, 67, 5, 59, 19, 61, 29, 11) 348
+13 (29, 19, 11, 127, 89, 7, 17, 37, 5, 31, 23, 43, 41) 479
+14 (53, 17, 67, 29, 13, 5, 19, 149, 31, 101, 79, 11, 7, 43) 624
+15 (433, 139, 491, 97, 89, 163, 29, 7, 5, 61, 17, 79, 263, 541, 83) 2497
+Table 7: Best (by weight) prime stairs found for 12 ≤ n≤ 15.
+4.1 Prime Pyramids
+Similarly we can deﬁne a 3D version of the prime stair that we will call a
+prime pyramid :
+6
+
+--- page 7 ---
+Deﬁnition 4.2. A prime pyramid of order n≥ 3 is a⌈ n2⌉× n× n matrix
+P such that every element P (k, r, c) at level k > 0, row r and column c is
+a distinct prime and each new level is generated from the previous level
+as follows:
+P (k, r, c) :=
+∑
+−1≤dr≤1
+∑
+−1≤dc≤1
+P (k− 1, r + dr, c + dc). (7)
+For a given k > 0 we must have r, c∈ [k, n− k−1]. For a given n there
+are n(n− 1)(n− 2)/6 sums. As a shorthand we can represent a prime
+pyramid of order n via its ﬁrst (bottom) level only, i.e., using a n× n
+array. For example, Table 8 shows a prime pyramid of order 5:
+Level 0 Level 1 Level 2
+73 11 67 71 53
+101 41 43 79 83
+13 3 31 7 23
+17 61 37 5 29
+97 89 19 59 47
+383 353 457
+347 307 337
+367 311 257
+3119
+Table 8: Prime pyramid of order 5.
+The weight of a prime pyramid is the sum of all elements in its ﬁrst
+level. We were able to ﬁnd all the optimal prime pyramids up to order 8
+(see Table 9). We also found an order 9 prime pyramid with a weight of
+27325, but its optimality is not conﬁrmed (see Table 10).
+7
+
+--- page 8 ---
+n Prime Pyramid Weight
+3
+7 11 29
+19 17 23
+5 13 3
+127
+4
+53 19 47 7
+37 3 41 13
+43 5 29 17
+11 79 23 31
+458
+5
+73 11 67 71 53
+101 41 43 79 83
+13 3 31 7 23
+17 61 37 5 29
+97 89 19 59 47
+1159
+6
+97 43 47 149 79 3
+113 103 61 151 11 37
+109 53 107 19 127 67
+31 23 101 29 13 7
+83 5 59 71 73 157
+137 139 41 89 131 17
+2582
+7
+199 47 223 79 61 107 157
+229 89 5 71 29 163 211
+167 109 83 3 23 137 151
+97 197 43 73 59 19 31
+191 103 139 179 41 7 11
+17 173 227 37 13 149 127
+181 53 67 113 131 193 101
+5115
+8
+263 229 23 167 89 61 109 79
+97 149 173 67 281 211 59 47
+113 163 283 197 11 7 233 227
+277 19 293 223 181 251 43 241
+179 139 191 239 193 71 41 103
+101 107 13 83 73 137 269 37
+3 127 311 271 157 307 199 53
+5 17 313 131 257 151 29 31
+9204
+Table 9: Optimal prime pyramids for 3 ≤ n≤ 8.
+8
+
+--- page 9 ---
+11 79 349 461 433 859 683 587 631
+367 31 593 167 331 307 277 577 743
+311 67 191 151 281 47 101 619 439
+389 761 613 229 173 607 13 43 271
+421 563 241 557 317 337 673 751 113
+73 71 127 137 163 193 661 23 181
+409 571 691 61 83 251 179 233 877
+467 53 227 59 89 373 401 37 149
+19 547 809 521 131 41 659 503 491
+Table 10: Prime pyramid of order 9 with weight 27325.
+5 Prime Cylinders
+Deﬁnition 5.1. A prime cylinder of order n with k layers is a n× k
+matrix P of odd primes, such that for every c and r > 0: P (r, c) =
+P (r− 1, c− 1) + P (r− 1, c) + P (r− 1, c + 1).
+Note that the columns wrap around and hence the term ‘cylinder’. For
+example here is a prime cylinder of order 4 and 6 layers - the best found
+so far:
+1091, 3001, 271, 257
+4349, 4363, 3529, 1619
+10331, 12241, 9511, 9497
+32069, 32083, 31249, 29339
+93491, 95401, 92671, 92657
+281549, 281563, 280729, 278819
+Since all the values below the ﬁrst layer can be generated from previous
+values, a prime cylinder can be described using its ﬁrst layer only. So the
+above prime cylinder would be described as (1091 , 3001, 271, 257). The
+weight of a prime cylinder is the sum of values in its ﬁrst layer. When
+multiple prime cylinders have the same order and number of layers, then
+we prefer the one with the smaller weight. Prime cylinders were originally
+introduced in [5], but were limited to n = 4. Here we investigate other
+values of n. It turns out that prime cylinders of odd orders cannot have
+more than two layers, so we focus on prime cylinders of even orders.
+Table 11 shows the best prime cylinders found for n≤ 12.
+6 Goldbach Squares
+The famous Goldbach conjecture states that
+9
+
+--- page 10 ---
+n Prime Cylinder Layers Weight
+4 (1091, 3001, 257, 271) 6 4620
+6 (163, 1109, 307, 1163, 109, 1307) 6 4158
+8 (67, 541, 23, 137, 109, 193, 389, 431) 5 1890
+10 (19, 17, 7, 107, 43, 23, 13, 71, 79, 101) 4 480
+12 (11, 29, 31, 79, 53, 5, 109, 43, 47, 41, 61, 139) 4 648
+Table 11: Best prime cylinders found for n≤ 12.
+Every even integer greater than 2 can be expressed as the sum of two
+primes.
+Although the conjecture has been veriﬁed up to 4×1018 [3], a proof still
+remains elusive. Here we investigate a problem related to the Goldbach
+conjecture: can we place primes into a square such that every even number
+is generated as the sum of two adjacent cells? This puzzle has been
+explored in [6]. More formally we have:
+Deﬁnition 6.1. A Goldbach square of order n is a n× n matrix of odd
+primes (not necessarily unique) such that the sum of any two adjacent
+cells is one of the even numbers from 6 to 4 + 4 n(n− 1) inclusive and
+every even number in this range appears exactly once.
+For example, here is a Goldbach square of order 3:
+7 5 3
+17 11 3
+3 7 19
+The sums across rows are:
+7 + 5 = 12, 5 + 3 = 8,
+17 + 11 = 28, 11 + 3 = 14,
+3 + 7 = 10, 7 + 19 = 26.
+(8)
+The sums down columns are:
+7 + 17 = 24, 17 + 3 = 20,
+5 + 11 = 16, 11 + 7 = 18,
+3 + 3 = 6, 3 + 19 = 22.
+(9)
+Notice that every even number from 6 to 28 appears exactly once. If
+there are multiple Goldbach squares for a given n then we prefer the one
+with the smallest sum of cells ( weight). Tables 12 and 13 show the best
+Goldbach squares that we found for n≤ 10.
+10
+
+--- page 11 ---
+n Goldbach Square Weight
+2 5 7
+3 3
+18
+3
+3 5 7
+7 11 17
+19 3 3
+75
+4
+5 11 13 5
+17 19 31 7
+3 29 11 3
+5 23 23 3
+208
+5
+5 7 11 17 5
+31 31 23 53 3
+11 37 43 29 23
+3 47 31 29 17
+3 17 13 3 7
+499
+6
+7 79 13 17 11 3
+41 17 71 43 31 19
+37 29 23 59 59 13
+61 7 47 53 3 31
+19 103 17 23 101 7
+5 13 3 3 5 5
+1078
+7
+37 11 19 7 83 47 53
+5 17 109 61 19 17 53
+47 67 37 61 73 59 3
+11 7 71 11 83 89 7
+13 151 17 149 3 29 109
+3 3 107 13 137 5 3
+17 37 29 31 7 7 43
+2077
+Table 12: Goldbach squares for 2 ≤ n≤ 7.
+11
+
+--- page 12 ---
+n Goldbach Square Weight
+8
+17 23 157 13 43 37 31 67
+17 7 47 71 79 79 97 127
+3 71 131 31 61 127 37 73
+23 5 7 11 149 19 89 139
+41 53 113 41 3 3 127 17
+149 59 11 131 83 13 47 179
+71 29 3 5 31 59 3 7
+11 37 181 41 151 47 101 31
+3766
+9
+101 47 13 107 97 131 113 59 149
+59 191 43 107 31 101 163 13 73
+107 29 19 3 7 173 109 139 7
+139 79 13 13 11 89 127 151 137
+23 173 37 31 83 7 7 13 61
+89 113 29 227 41 5 23 41 43
+101 179 5 3 127 73 29 41 199
+73 3 37 223 31 67 89 17 71
+113 3 151 61 163 103 103 19 107
+6187
+10
+89 11 101 71 271 13 5 89 59 197
+107 227 23 251 67 19 3 211 29 47
+13 83 47 79 43 313 3 139 127 131
+3 223 11 163 7 13 181 181 37 61
+89 79 73 151 3 173 73 131 227 97
+199 149 179 97 41 7 127 233 71 47
+97 17 11 31 5 7 109 53 37 31
+257 89 251 101 131 19 37 241 67 7
+79 109 31 191 29 11 43 19 163 53
+127 163 181 89 179 23 59 5 47 19
+9212
+Table 13: Goldbach squares for 8 ≤ n≤ 10.
+12
+
+--- page 13 ---
+7 Prime Matrices
+Deﬁnition 7.1. A prime matrix of order n is a n× n matrix P of odd
+primes, such that the sum of every odd number of elements in any straight
+line is prime. More formally, we have
+∑
+0≤k≤2L
+P (r + kdr, c + kdc) is prime for
+∀ r, c such that 0≤ r, c < n and
+∀ dr, dc such that (dr, dc)∈{ (0, 1), (1, 0), (1, 1)} and
+∀ L such that 0≤ 2L < n and
+r + 2Ldr < n and c + 2Ldc < n.
+(10)
+We were able to ﬁnd prime matrices up to order 7. For n≤ 4 we
+found optimal (smallest weight) prime matrices. The results can be seen
+in Table 14. The lower bound on the optimal weight is the sum of the
+ﬁrst n2 odd primes.
+13
+
+--- page 14 ---
+n Prime Matrix Weight Lower Bound
+3
+5 19 13
+3 17 23
+29 11 7
+127
+4
+19 53 17 3
+47 23 31 29
+43 7 11 5
+41 13 59 37
+438
+5
+101 107 61 109 41
+127 43 11 29 31
+5 17 37 13 59
+79 97 23 131 19
+47 53 7 67 89
+1403 1159
+6
+73 131 113 109 61 227
+149 541 229 41 11 211
+379 491 419 349 139 53
+89 97 13 71 83 277
+193 59 137 307 127 29
+167 43 31 5 101 241
+5796 2582
+7
+547 719 1117 983 1201 29 397
+691 827 103 1307 373 131 37
+53 457 503 7 419 73 557
+347 463 683 307 647 337 1433
+163 167 313 1013 127 1217 643
+367 677 787 107 193 653 13
+1223 1087 23 769 227 487 887
+25891 5115
+Table 14: Prime matrices for 3 ≤ n≤ 7.
+14
+
+--- page 15 ---
+8 Conclusion and Future Work
+We have investigated a number of constructions that generate primes via
+the sum of primes. Some constructions are more eﬃcient than others
+at generating primes. We can deﬁne a construction’s eﬃciency as the
+number of primes it generates divided by the number of primes used to
+construct the construction. Table 8 shows the greatest eﬃciency achieved
+by each construction sorted from highest to lowest:
+Construction Order n Eﬃciency
+Cyclic Prime Vector 14 6
+Prime Vector 23 5.26
+Prime Cylinder 4 and 6 5
+Prime Matrix 7 4
+Prime Stair 15 3.27
+Prime Tuple 7 2.57
+Prime Pyramid 9 1.04
+Many questions remain unresolved:
+• What are the optimal prime vectors for 15 ≤ n≤ 23 ?
+• Is there a prime vector of order 24 ?
+• What are the optimal cyclic prime vectors for 11 ≤ n≤ 14 ?
+• Is there a cyclic prime vector of order 15 ?
+• What are the optimal prime tuples for n = 7, 13, 19 ?
+• What are the optimal prime stairs for 12 ≤ n≤ 15 ?
+• Is there a prime stair of order 16 ?
+• What is the optimal prime pyramid of order 9 ?
+• Is there a prime pyramid of order 10 ?
+• What are the optimal prime cylinders for n≤ 12 ?
+• Is there a Goldbach square of order 11 ?
+• What are the optimal prime matrices for 5 ≤ n≤ 7 ?
+• Is there a prime matrix of order 8 ?
+9 Acknowledgements
+We are very grateful to Trevor Tao for reviewing the paper and provid-
+ing great suggestions. We also want to thank Carlos Rivera for running
+primepuzzles.net that inspired many of the constructions in this paper.
+15
+
+--- page 16 ---
+References
+[1] Primes in arithmetic progression. https://en.wikipedia.org/wiki/
+Primes_in_arithmetic_progression.
+[2] Jens Kruse Andersen. Primes in arithmetic progression records. http:
+//primerecords.dk/aprecords.htm.
+[3] Tom´ as Oliveira e Silva. Goldbach conjecture veriﬁcation. http://
+www.ieeta.pt/~tos/goldbach.html.
+[4] Harvey Heinz. Prime Magic Squares. http://recmath.org/Magic%
+20Squares/primesqr.htm.
+[5] Carlos Rivera. Puzzle 831. Rings of primes. http://primepuzzles.
+net/puzzles/puzz_831.htm.
+[6] Carlos Rivera. Puzzle 835. Goldbach squares. http://primepuzzles.
+net/puzzles/puzz_835.htm.
+[7] Neil Sloane. The On-Line Encyclopedia of Integer Sequences. http:
+//oeis.org.
+[8] Eric W. Weisstein. Prime Array. http://mathworld.wolfram.com/
+PrimeArray.html.
+[9] Eric W. Weisstein. Prime Magic Square. http://mathworld.wolfram.
+com/PrimeMagicSquare.html.
+16

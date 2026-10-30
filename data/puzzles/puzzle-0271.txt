@@ -1,0 +1,214 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_271.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 271.  Prime gap tug of war
+Source: https://www.primepuzzles.net/puzzles/puzz_271.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0271.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.geocities.com/SoHo/Exhibit/8033/pgtow/pgtow.html
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/images/g1900.jpg
+  https://www.primepuzzles.net/puzzles/puzz_270.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_272.htm
+  https://www.primepuzzles.net/puzzles/puzz_271.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 271. Prime gap tug of war
+
+Problems & Puzzles: Puzzles
+
+Puzzle 271. Prime gap tug of war
+
+Joseph L. Pe sent the following puzzle (more details here):
+
+The prime gap tug of war game is a numerical competition between prime gap increases and prime gap decreases. The increases apparently win most of the time, but how often? Will they eventually win all the time?
+
+To play prime gap tug of war, let's start with the first prime gap d = prime(2) - prime(1) = 3 - 2 = 1. At this first stage, where the stage number n = 1, the game's score s equals 0. On the second stage, with n = 2, we look at the second prime gap new_d = prime(3) - prime(2). If new_d > d, then there's an increase in the gap, and we add 1 to the score s; if new_d < d, there's a decrease in the gap, and we subtract 1 from s. Then we set d = new_d, and "play" at the next stage n = 3, and so on.
+
+In general, at stage n = k, we set: new_d = prime(k + 1) - prime(k); and s = s + 1 if new_d > d, s = s - 1 if new_d < d; and d = new_d.
+
+The first 200 values of s, corresponding to n = 1, ..., 200, are:
+
+0, 1, 1, 2, 1, 2, 1, 2, 3, 2, 3, 2, 1, 2, 3, 3, 2, 3, 2, 1, 2, 1, 2, 3, 2, 1, 2, 1, 2, 3, 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 2, 3, 2, 3, 3, 2, 1, 2, 3, 2, 3, 2, 2, 2, 1, 2, 1, 0, 1, 2, 1, 0, 1, 2, 1, 2, 1, 2, 3, 4, 3, 3, 2, 3, 4, 3, 4, 5, 4, 5, 4, 5, 4, 5, 6, 5, 4, 5, 6, 5, 4, 5, 4, 5, 6, 5, 6, 5, 6, 5, 5, 4, 5, 6, 5, 5, 4, 5, 5, 4, 3, 4, 3, 2, 3, 4, 4, 3, 4, 3, 4, 5, 6, 5, 6, 5, 4, 4, 3, 4, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 4, 3, 4, 5, 4, 3, 4, 4, 5, 4, 5, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 7, 6, 7, 6, 7, 8, 7, 6, 7, 8, 8, 9, 8, 8, 9, 8, 9, 8, 9, 8, 8, 9, 10, 9, 10, 10
+
+It appears that s slowly but surely increases, and will never be negative. But amazingly, s attains its first negative value at n = 41,253 where s = -1. It goes as low as s = -15 at values of n such as 41,723. Then at n = 43,202, s = -1, after which s is again consistently positive for 43,202 < n < 121,142.
+
+The story doesn't end there! Shortly after n = 121,142, the negative values of s outnumber the positive ones, and eventually overwhelm them. At n = 140,000, s = -85. A rally leading to positive s-values doesn't seem likely any time soon.
+
+Questions
+
+1. Is s > 0 for some n > 140,000?
+
+2. Is s>0 for infinitely many values of n? Is s<0 for infinitely many values of n?
+
+Solution:
+
+Contributions came from Jeff Heleen, Faride Firoozbakht, Luke Pebody and Johann Wiesenbauer, and Enoch Haga.
+
+Jeff wrote:
+
+For Puzzle 271, Q1.
+
+I have checked this up to prime 4,294,967,291 (or 2^32 -5). The next instance where s>0 is at n=261,150. It alternates between s>0 and s<0 many times thereafter until n=268,869 where again s>0. The next time s<0 is not until n=1,401,376. It then starts alternating again.
+
+In the range tested:
+
+The highest s gets above zero is +3608 at n=28,799,028.
+
+The lowest s gets below zero is -6280 at n=124,926,954.
+
+The last time s switched to >0 was at n=202,493,773.
+
+The last time s switched to <0 was at n=202,493,775.
+
+At the last, when prime 4,294,967,291 was reached, sum s=-851.
+
+So s<0 from n=202,493,775 through n=4,294,967,291 and beyond, which leads to Q2.
+
+Faride wrote:
+
+About puzzle 271, some of the computational results:
+
+The sign of s(n) for n<114000000 changes 2323 times.
+
+For n<114000000 there exist 17 intervals with length greater than 30000, such that the sign of s(n) doesn't change on those.
+
+The intervals are:
+
+s(a1+1)=1/-1, s(b1)=-1/1 a1<n<b1 s(n)>=0/s(n)<=0
+
+s(2)=1, s(41253)=-1 1<n<41253 s(n)>=0
+
+s(43204)=1, s(121142)=-1 43203<n<121142 s(n)>=0
+
+s(128424)=-1, s(261150)=1 128423<n<261150 s(n)<=0
+
+s(268869)=1, s(1401376)=-1 268868<n<140376 s(n)>=0
+
+s(1468334)=-1, s(1561327)=1 .
+
+s(1626705)=-1, s(3138073)=1 .
+
+s(3199514)=-1, s(3321495)=1 .
+
+s(3328601)=1, s(3606686)=-1
+
+s(3732826)=1, s(3769550)=-1
+
+s(3815000)=1, s(71732080)=-1
+
+s(71760239)=1, s(75148693)=-1
+
+s(75150837)=1, s(75238040)=-1
+
+s(75264114)=1, s(75345566)=-1
+
+s(75345797)=1, s(75829160)=-1 .
+
+s(75837533)=1, s(75963178)=-1 .
+
+s(76029837)=1, s(76077902)=-1 76029836<n<6077902 s(n)>=0
+
+s(76080399)=-1, s(b17)=1 76080398<n<b17 s(n)<=0
+
+Question:
+
+What is the earliest number m greater than 114000000 such that s(m)>0 ( b17=?? ).
+
+Luke wrote:
+
+I've gone up as far as 1,000,000,000.
+
+s(2)=1 not beaten until s(4)=2
+
+s(4)=2 not beaten until s(9)=3
+
+s(9)=3 not beaten until s(72)=4
+
+s(87)=6 not beaten until s(175)=7
+
+s(259)=19 not beaten until s(569)=20
+
+s(898)=30 not beaten until s(1663)=31
+
+s(2057)=42 not beaten until s(3725)=43
+
+s(3858)=52 not beaten until s(7779)=53
+
+s(9616)=77 not beaten until s(13033)=78
+
+s(15254)=93 not beaten until s(72663)=94
+
+s(86689)=172 not beaten until s(167328)=-173
+
+s(191999)=-303 not beaten until s(326817)=304
+
+s(327134)=330 not beaten until s(422009)=331
+
+s(578509)=877 not beaten until s(2355250)=-878
+
+s(2438928)=-993 not beaten until s(7111425)=994
+
+s(10766483)=2405 not beaten until s(14596487)=2406
+
+s(15062782)=2899 not beaten until s(24609475)=2900
+
+s(28799028)=3608 not beaten until s(103219629)=-3609
+
+s(124926954)=-6280 not beaten until s(293802984)=-6281
+
+s(310525628)=-10461 not beaten until s(651433746)=-10462
+
+s(673888790)=-17515 not beaten until s(865881664)=-17516
+
+s(933861368)=-27085 not beaten until s(1013422254)=-27086
+
+It looks possible that s(n)-> -infinity but I cannot come up with a heuristic argument for it.
+
+Johann wrote:
+
+Q1: s=1 for n=261150 and later (for 268,869<n<1,401,374 there is a very long series of positive numbers, then it becomes negative again etc.
+
+Q2: Due to the numerical data for n<=2,000,000 my best guess is that the answer is yes to both questions, but I can't prove it.
+
+Enoch wrote:
+
+For Q1, s=1 when n=261150, primes 3666581 - 3666539, d=42.
+
+For Q2, there are other ascents and descents, so the descent to s = -85 is not as drastic as represented. The recovery, as indicated by the evidence of the solution to Q1, as well as the graphs, can be as rapid as the descent. In the absence of evidence to the contrary, my guess is that the zero line is crossed infinitely often.
+
+***
+
+On January, 2005, Georges Brougnard, sent the following contribution:
+
+I have plotted the s(n) function up to n = 190 x 10^9 . (results in accord with Luke who went up to 10^9) . As one can see in the graph, s(n) does not go to -infinity, but seems to oscillate (very LARGE oscillations), around 0.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

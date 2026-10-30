@@ -1,0 +1,364 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1060.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1060 Can you find more solutions?
+Source: https://www.primepuzzles.net/puzzles/puzz_1060.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1060.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Pell's_equation
+  https://oeis.org/A004189
+  https://oeis.org/A001079
+  https://www.primepuzzles.net/puzzles/puzz_1059.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1061.htm
+  https://www.primepuzzles.net/puzzles/puzz_1060.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1060 Can you find more solutions?
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1060 Can you find more solutions?
+
+Sebastián Martín Ruiz sent the following nice challenge:
+
+(p^2-1)/24 is integer for all p>3
+
+What about the square rooth of (p^2-1)/24?
+
+I have the following two solutions
+
+p Rooth((p^2-1)/24)
+
+5 1
+
+4801 980
+
+Q. Find more solutions or prove that there are not any other more.
+
+During the week from 23 to 29 October 2021, contributions came from Seiji Tomita, Jan van Delden, Vicente Felipe Izquierdo, Giorgos Kalogeropoulos, Simon Cavegn, Emmanuel Vantieghem, Oscar Volpatti
+
+***
+
+Seiji wrote:
+
+This problem can be reduced to Pell's equation p^2-6(2q)^2=1.
+
+https://en.wikipedia.org/wiki/Pell%27s_equation
+
+Since the fundamental solution is (p,q)=(5,2), p is given below.
+
+p=( (5+2sqrt(6))^n+(5-2sqrt(6))^n )/2 with n is integer.
+
+Though I searched for p such that p is a prime number, only two solutions were found with n<10000.
+
+(n,p,q)=(1, 5, 1),(4, 4801, 980).
+
+***
+
+Jan wrote:
+
+We need to find a solution to the equation:
+
+p^2-24q^2=1
+
+with p prime and q a positive integer (the root we seek).
+
+This is a well known Diophantine equation, called the Pell equation. Its solutions (where we don’t impose p prime) may be found by considering the simple continued fraction of sqrt(24). Its convergents p_k/q_k are always in lowest terms, i.e. gcd(p_k,q_k)=1. I decided for a simpler attack and consider Z(sqrt(24)); I consider numbers of the form:
+
+a+b sqrt(24)
+
+with a,b integer.
+
+In this ring Z(sqrt(24)) the norm equals (a+b sqrt(24))(a-b sqrt(24))=a^2-24b^2. The numbers with norm 1 (which we seek) are called units. The smallest solution for which a,b are both unequal to 0 is called the fundamental unit. Here we may pick a=5, b=1, as already given in the table. All solutions (with positive integer values a,b) may be found by defining (implicitly):
+
+p(k+1)+q(k+1) sqrt(24) = (5+sqrt(24))^k
+
+This also means that we have:
+
+p(k+1)+q(k+1) sqrt(24) = (5 + sqrt(24)) (p(k)+q(k) sqrt(24))
+
+If we expand the right hand side we find:
+
+p(k+1)=5p(k)+24q(k)
+
+q(k+1)=p(k)+5q(k)
+
+We may start the sequence by choosing p(0)=1, q(0)=0 and retrieve the two given solutions for k=1 and k=4. If we have gcd(p(k),g(k))=g>1 we automatically have g|gcd(p(k+1),q(k+1)); if p(k) is not prime and shares a factor with q(k) then p(k+n) won’t be prime either. However we are ‘out of luck’: if gcd(p(k),q(k))=1 we also have gcd(p(k+1),q(k+1))=1; either by algebraic manipulations or by directly using the previously mentioned property of the convergents of sqrt(24). We can’t use this gcd for an early bailout (decide that the next values must be composite).
+
+At this point I decided to compute a few of these p(k) and check for factors. If you do you’ll find:
+
+p(k)=0 mod 5 if k=1 mod 2
+
+p(k)=0 mod 7 if k=2 mod 4 (in fact we even have divisor 7^2)
+
+p(k)=0 mod 4801 if k=4 mod 8
+
+And the list seems to go on and on. Each term has (seems to have) the form, for some prime r(k):
+
+(I) p(k)=0 mod r(m) if k=2^m mod 2^(m+1)
+
+If this is true for every value of k less than or equal to N, then the only k we miss out on are of the form:
+
+k=0 mod 2^(N+1)
+
+I am not able to prove that these prime divisors r(2^m) exist for all m. But verified it for m<=13 and this list can probably be extended further. I found a value for r(m) for m<=9 and m=11. If you are interested I’ll give a tip how to find these factors for larger m later on.
+
+I can show that we have, for all positive integer values s:
+
+(II) p(2^m+s*2^(m+1)) = 0 mod p(2^m)
+
+That is, each value m for which p(2^m) is composite we automatically have (I); we may take any r(m)|p(2^m).
+
+In order to show this we need to isolate p(k). I’ll do this with a trick and prove a stronger result:
+
+p(k) = [ (p(1)+q(1)sqrt(24))^k + (p(1)-q(1) sqrt(24))^k ]/2
+
+all the terms beloning to sqrt(24) in the expansion at the right hand side above drop out. We found that we may write:
+
+p(k) = (x^k+y^k)/2
+
+for some expressions x,y [in Z(sqrt(24))].
+
+Start the proof by using a trivial equivalence relation:
+
+x^k = -y^k mod (x^k+y^k)
+
+If we take an odd power t of this expression we find
+
+x^(tk) = - y^(tk) mod (x^k+y^k)
+
+Thus:
+
+x^(tk)+y^(tk) = 0 mod (x^k+y^k)
+
+That is we found that:
+
+p(k)=x^k+y^k divides p(kt)=x^(kt)+y^(kt)
+
+Or
+
+(III) p(k+2s) = 0 mod p(k)
+
+All odd multiples kt define the sequence: k mod 2k. If we plug in k=2^m we arrive at the statement (II) we had to prove.
+
+‘All that remains’ is to show that all these p(2^m) are composite. If you would like to find a prime divisor r(2^m) than you might use that we have:
+
+p(2k)=(p(k)+q(k) sqrt(24))^2 = p(k)^2+24q(k)^2 + 2p(k)q(k) sqrt(24)
+
+We also know that 24q(k)^2=p(k)^2-1, thus:
+
+p(2k)=2 p(k)^2-1
+
+Or specifically (for our needs):
+
+p(2^(m+1))=2p(2^m)^2-1
+
+If we want to find the divisors of p(2^(m+1)) we may use a N+1 test where we already know that 2 and p(2^m) (twice) are factors of N. That should speed things up a bit.
+
+All in all no proof. But at least a way to exclude a lot of numbers. As a bonus a curiosity, we may write:
+
+p(k)=cosh(arccosh(5 2^k))
+
+if we set p(0)=5.
+
+***
+
+Vicente wrote:
+
+T
+he solution to the problem proposed by Sebastian can be written as:
+
+((2k + 1)^2 - 1) / 24 = x^2
+
+Where (2k + 1) must be prime number.
+
+Rearranging and simplifying:
+
+(2k + 1)^2 - 1 = 24 x^2
+
+4k + 4k^2 = 24 x^2
+
+k + k^2 = 6 x^2
+
+Solutions for "k" can be found in OEIS A132596.
+
+It only remains to filter those where 2k + 1 is a prime number.
+
+For k <= 10^800, I only find the 2 solutions indicated by Sebastian.
+
+***
+
+Giorgos wrote:
+
+We are searching for primes p that satisfy the equation (p^2-1)/24 = x^2 for some integer x.
+The integer solutions (p,x) of the equation p^2 - 1 - 24x^2 = 0 are given by the following recursive functions:
+
+p: a(n) = 10*a(n-1) - a(n-2); a(0) = 1, a(1) = 5 [which is A001079 and also Chebyshev sequence T(n, 5)]
+
+x: b(n) = 10*b(n-1) - b(n-2); b(0) = 0, b(1) = 1 [which is A004189 and also Chebyshev sequence U(n, 5)]
+
+So, we are searching for primes in a(n)
+
+I noticed that if n is congruent to 2^(k-1) mod 2^k then all terms of a(n) have a common prime factor.
+
+For example if k=1 then if n is congruent to 1 mod 2 (if n is odd) then all terms are divisible by 5.
+
+Also, for k=2 if n is congruent to 2 mod 4 then all terms are divisible by 7.
+
+for k=3 if n is congruent to 4 mod 8 then all terms are divisible by 4801.
+
+for k=4 if n is congruent to 8 mod 16 then all terms are divisible by 31.
+
+for k=5 if n is congruent to 16 mod 32 then all terms are divisible by 52609
+
+.for k=6 if n is congruent to 32 mod 64 then all terms are divisible by 127.
+
+to continue this list in a more compact way we have:
+
+k=7 -> 1279 | a(n), k=8 -> 3583 | a(n), k=9 -> 5119 | a(n), k=10 -> 51199 | a(n)
+
+k=11 -> 4906458295537663 | a(n), k=12 -> 8191 | a(n), k=13 -> 177542807551 | a(n)
+
+Using this sieve method we don't have to check all terms of a(n) but only the n's that are powers of two
+
+hoping to find a term that is prime.
+
+This search stops at n=2^16 because a(n) has more than 65000 digits. We only had to check 16 terms for primality.
+
+No primes were found.
+
+***
+
+Simon wrote:
+
+Found no more solutions, searched up to root: 24000000000.
+
+Then I noticed:
+
+( https://oeis.org/A004189 )^2 * 24 + 1 = ( https://oeis.org/A001079 )^2
+
+Found no more solutions with this sequence, searched up to 288512 digit long numbers.
+
+***
+
+Emmanuel wrote:
+
+If I understand well, Sebastian asks for primes p for which the integer (p^2 - 1) / 24 is a square.
+
+This is the same as asking prime values of x such that
+
+x^2 - 24 y^2 = 1.
+
+This is a Pell equation.
+
+Putting w = Sqrt(24), it is well known that all solutions x are given by :
+
+x = ((5 + w)^n + (5 - w)^n) / 2, n = 0, 1, 2, 3, ...
+
+It is not difficult (when you are acquainted with numbers of the form a + b w) to see that x never will be prime when n has an odd prime divisor.
+
+Thus, the only prime values for x are possibly those in which n = 2^t.
+
+We find primes for t = 0 and t = 2.
+
+I examined all values t <= 15 and found no more primes.
+
+I gave up when t was 16 : x is then an integer with 65247 digits, a bit too much for my humble PC ...
+
+***
+
+Oscar wrote:
+
+We can rewrite the given equation:
+
+sqrt((x^2-1)/24) = y
+
+in a more familiar way, as a Pell equation:
+
+x^2 - 24*y^2 = 1
+
+which is known to have infinitely many integer solutions.
+
+Define parameter w = sqrt(24) ~ 4,898979...
+
+and represent integer solutions (x,y) as irrational numbers z = x+w*y.
+Given the primitive solution z = 5+w, all solutions can be computed as z(n) = (5+w)^n:
+
+z(0) = 1+w*0
+
+z(1) = 5+w*1
+
+z(2) = 49+w*10
+
+z(3) = 485+w*99
+
+z(4) = 4801+w*980
+
+and so on (known primes in bold red).
+
+Given an index n = a*b, we can compute n-th solution as:
+
+z(n) = x(n)+w*y(n) = z(a)^b = (x(a)+w*y(a))^b.
+
+We have the following divisibility rules:
+
+y(a) always divides y(n)
+
+x(a) divides x(n) if b is odd and divides y(n) if b is even.
+
+Proof.
+
+Let's apply binomial theorem:
+
+the only term not divisible by y(a) is 1*x(a)^b, which always contributes to x(n);
+
+the only term not divisible by x(a) is 1*(w*y(a))^b, which contributes to x(n) if b is even and to y(n) if b is odd.
+
+Consequences.
+
+If n is composite, then y(n) is composite.
+
+If n has an odd divisor greater than 1, then x(n) is composite.
+
+Prime hunting.
+
+y(n) can be prime only if n is prime.
+
+Prime indexes n <= 20000 checked, no prime solutions found.
+
+x(n) can be prime only for n = 2^k.
+
+Indexes k <=20 checked, prime solutions found only for k = 0 and for k = 2.
+
+Next candidate x(2^21) has 2087905 digits...
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,187 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1050.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1050. A follow-up to Puzzle 1049
+Source: https://www.primepuzzles.net/puzzles/puzz_1050.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1050.htm
+
+References (local copies):
+  ../../references/2009_on-a-curious-property-of-3435.pdf  (from https://arxiv.org/pdf/0911.3038.pdf)
+  ../../references/2009_on-a-curious-property-of-3435.txt  (extracted text)
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_1049.htm
+  mailto:cbrfgm@gmail.com
+  https://arxiv.org/pdf/0911.3038.pdf
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1051.htm
+  https://www.primepuzzles.net/puzzles/puzz_1050.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1050. A follow-up to Puzzle 1049
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1050. A follow-up to Puzzle 1049
+
+While solving the Puzzle 1049, Emmanuel Vantieghem found an infinite chain of composite terms starting in 3345, that obviously is not a solution to Puzzle 1049, but...
+Q. Is there a prime that generates an infinite chain solution to Puzzle 1049, as the composite 3345 almost does?
+
+Contributions during the week 14-19 of August came from Giorgos Kalogeropoulos, Oscar Volpatti and Emmanuel Vantieghem
+
+***
+Giorgos wrote:
+3345 produces the following infinite chain 3345->3435->3435->3435->3435...
+So, 3435 repeats forever. This happens because 3435 has a unique property: 3435 = 3^3 + 4^4 + 3^3 + 5^5.
+
+3435 is called "Munchausen Number" and no other integer in base 10 has this property (except 1).
+
+Here is a paper on this number: https://arxiv.org/pdf/0911.3038.pdf
+
+The first prime number that produces the same infinite chain is 1122224353->3453->3435->3435->3435...
+
+So, a prime number that repeats itself forever in an infinite chain does not exist.
+
+On the other hand, in order to have an infinite chain, there may exist a set of primes that create a loop which repeats forever. I believe that finding such a loop is a very hard task...
+
+***
+
+Oscar wrote:
+
+About puzzle 1050, no prime generates an infinite chain of primes.
+
+Let's drop zeroless constraint by defining 0^0 = 1.
+
+Now every integer generates an infinite chain of integers.
+
+I'll prove that any such chain eventually enters some loop of finite period, involving only numbers below 10^10.
+
+Inequality 1: if x >= 10^10, then f(x) < x.
+
+If x has m digits, we have the bounds x >= 10^(m-1) and f(x) <= m*9^9;
+
+inequality m*9^9 < 10^(m-1) also holds for every m >= 11.
+
+Inequality 2: if x < 10^10, then f(x) < 10^10.
+
+As x has 10 digits or less, we have the bound f(x) <= 10*9^9 < 10*10^9 = 10^10.
+
+If the starting value is above 10^10, then next values are strictly decreasing, until a value below 10^10 is reached.
+
+As the following values remain below 10^10, some value is eventually repeated, starting a loop of finite period.
+
+QED.
+
+In particular, an infinite chain of primes must enter a loop involving only primes below 10^10.
+
+But no such loop exists: even after dropping zeroless constraint, every prime below 10^10 is followed by at most three more primes before reaching a composite.
+
+However, there are exactly five loops involving only composites below 10^10; the first of such loops is also zeroless.
+
+Loop 1, with period 1:
+
+3435, 3435, ...
+
+Loop 2, with period 2:
+
+16780890, 421845123, 16780890, ...
+
+Loop 3, with period 3:
+
+3418, 16777500, 2520413, 3418, ...
+
+Loop 4, with period 11:
+
+824599, 791621579, 776537851, 19300779, 776488094, 422669176, 388384265, 50381743, 17604196, 388337603, 34424740, 824599, ...
+
+Loop 5, with period 40:
+
+3388, 33554486, 16830688, 50424989, 791621836, 405114593, 387427281, 35201810, 16780376, 18517643, 17650825, 17653671, 1743552, 830081, 33554462, 53476, 873607, 18470986, 421845378, 34381644, 16824695, 404294403, 387421546, 17651084, 17650799, 776537847, 20121452, 3396, 387467199, 793312220, 388244100, 33554978, 405027808, 34381363, 16824237, 17647707, 3341086, 16824184, 33601606, 140025, 3388, ...
+
+What about a prime followed by an infinite chain of composites?
+
+I found the smallest prime for each loop.
+
+Loop 1 reached after 2 steps from prime p = 1122224353:
+
+1122224353, 3453, 3435.
+
+Loop 2 reached after 4 steps from prime p = 2081:
+
+2081, 16777222, 2517298, 405024382, 16780890.
+
+Loop 3 reached after one step from prime p = 1483:
+
+1483, 16777500.
+
+Loop 4 reached after 10 steps from prime p = 881:
+881, 33554433, 6870, 17647416, 1740912, 388244295, 420978593, 792445150, 388250800, 50334807, 17604196.
+
+Loop 5 reached after 19 steps from prime p = 2:
+
+2, 4, 256, 49785, 405024629, 387470792, 406668622, 16964105, 387517185, 35207797, 389894275, 809222365, 404247526, 874101, 17601018, 17647420, 1694260, 387514063, 17650852, 17653671.
+
+***
+
+Emmanuel wrote:
+
+Let's define F(m) as the sum of the digts of m each powered to themselves.
+
+There is no other number than 3435 that is mapped on itself.
+
+I examined the absolute value of the difference m - F(m) for all zerofree numbers with n digits.
+
+This is what I found :
+
+n Min | m - F(m)
+
+2 1 for m = 32, F(m) = 31
+
+3 20 for m = 241, F(m) = 261
+
+4 0 for m = 3435 = F(m)
+
+5 123 for m = 56155, F(m) = 56032
+
+6 1440 for m = 141666, F(m) = 140226
+
+7 266 for m = 2473775, F(m) = 2474041
+
+8 1 for m = 34378338, F(m) = 34378339
+
+9 7 for m = 792445398, F(m) = 792445305
+
+10 4 for m = 1179958669, F(m) = 1179958665
+
+No need to search for n > 10 since the value of F(m) then is at most n*9^9
+
+while m is at least (10^n - 1)/9.
+
+I made similar computations for | m - F(F(m)) | and found 0 only when m was 3435.
+
+So, no chain of the form a -> b -> a exist.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

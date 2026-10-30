@@ -1,0 +1,191 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_649.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 649. An algorithm for this conjecture
+Source: https://www.primepuzzles.net/puzzles/puzz_649.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0649.htm
+
+References (local copies):
+  ../../references/pu648_for_p181.txt  (from https://www.primepuzzles.net/puzzles/pu648_for_p181.txt)
+  ../../references/Puzzle_649_data_10007.txt  (from https://www.primepuzzles.net/puzzles/Puzzle_649_data_10007.txt)
+  ../../references/Puzzle649.6673.txt  (from https://www.primepuzzles.net/puzzles/Puzzle649.6673.txt)
+  ../../references/Crls1297.txt  (from https://www.primepuzzles.net/puzzles/Crls1297.txt)
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/pu648_for_p181.txt
+  mailto:cbrfgm@gmail.com
+  http://books.google.dk/books?id=LgeP62-ZxikC&pg=PA6&lpg=PA6&dq="Transversal+of+Primes"&source=bl&ots=jl4rqYb3so&sig=Sgw4rxq6uivUznfDBSuDOZOetn8&hl=en&sa=X&ei=kbglULXIHsaA4gSAvIHgDw&redir_esc=y#v=onepage&q="Transversal of Primes"&f=false
+  https://www.primepuzzles.net/puzzles/Puzzle_649_data_10007.txt
+  https://www.primepuzzles.net/puzzles/Puzzle649.6673.txt
+  https://www.primepuzzles.net/conjectures/conj_026.htm
+  https://www.primepuzzles.net/puzzles/Crls1297.txt
+  https://www.primepuzzles.net/puzzles/puzz_648.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_650.htm
+  https://www.primepuzzles.net/puzzles/puzz_649.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 649. An algorithm for this conjecture
+
+Problems & Puzzles: Puzzles
+
+Puzzle 649. An algorithm for this conjecture
+
+For this puzzle I will assume that the following conjecture is true.
+
+Conjecture (name? link?)
+
+Given a prime number p, if you fill the pxp cells of a square array with the natural numbers 1 to p^2 from left to right and from top to bottom, you can always find a set of p primes such that no two of them share row & column.
+
+Example: For p=11, this is one set-solution: {11, 19, 29, 37, 53, 61, 71, 79, 89, 109 & 113}
+
+Here we will ask for an effective algorithm the get these kind of set-solutions.
+
+Regarding the asked algorithm (for which I suppose to have constructed one this past week), the only two things that I have found for sure, are the following basic arithmetic properties for the set-solutions:
+
+a) the prime p is a member of the asked set-solutions.
+
+b) for some given p values, there are several different set-solutions; but the sum of all the primes of any set-solution is equal to p(p^2+1)/2
+
+Due to memory limitations with my Ubasic code I have verified this conjecture up the prime p=181. Here you can find my solution for p=181. I will show my algorithm next weekend.
+
+Q1. Please send you algorithm in order to get the asked set of primes for a given prime p value.
+
+Q2. Send also and just your largest solution as a .txt attached file in a format similar to my .txt file above.
+
+Q3. Can you find arithmetical properties for the set-solutions, other than the two given above?
+Q4. Can you provide a web-link to the used conjecture in this puzzle?
+
+Contributions came from J. K. Andersen, W. Edwin Clark, Jud McCranie, Carlos Rivera, & Emmanuel Vantieghem.
+
+***
+
+Andersen wrote:
+
+Q4. The name "Transversal of primes" is in the 2011 book "Beautiful Mathematics" by Martin Erickson. The book asks whether there is a solution for all primes p. It shows another solution for p=11
+
+[Note by CR: this solution is wrong because 87 & 93 aren't prime numbers]
+
+***
+
+W. E. Clark wrote:
+
+Q1. Algorithm:
+Given a prime p:
+
+(1) Construct the adjacency matrix A of the bipartite graph G on the vertices {1,2,...,2p} with the edge {1,2p}
+
+and for each prime q with p < q < p^2 add the edge {i,j+p} where q = (i-1)p+j. (Using A to specify G runs faster
+
+in Maple than using the set of edges to specify the graph.)
+
+(2) Use the Maple procedure GraphTheory:-BipartiteMatching to obtain a maximum matching M for G.
+
+(3) If M has size p then each edge {i,k}, i < k, in M gives the location (i,k-p) of a prime in the desired transversal.
+
+(4) If M has size less than p we will have a counter-example. So far I haven't found one.
+
+Q2 My computations show that the conjecture holds for all primes from 2 to 2357 at which point I stopped testing all the primes. I jumped ahead and found a solution for p = 10007 which is in the attached file.
+
+Jud wrote:
+
+Q1.algorithm
+
+At first I used a standard recursive backtracking algorithm on rows after the first one, keeping track of which columns have been used. On each row, loop on the primes that were in a column that needs to have a prime selected. When I tested it on small p, many of times it found a solution in a small fraction of a second, sometimes under 0.01 seconds. But sometimes it took several minutes to find a solution and sometimes it ran for hours without finding a solution.
+
+So I looked at what was happening on the ones that took a long time. It would get several rows down and then search until it tried all of the possibilities from that point down, not find any, back up, etc. There were just too many possibilities, and it seems that it would get to a point from which no solution from there on down was possible.
+
+The final version chooses a random prime on a row (that is in a column that needs one) until it gets to the last several rows, then it starts doing the recursive backtrack process from there on down. It can check all of the possibilities from that point (10 or so rows from the end), and if it doesn't find a solution it starts back over at the second row (choosing a random prime in each row, etc). It will repeat this until a solution is found.
+
+Q2. I tested the conjecture in puzzle 649 for all primes < 10,000 and it holds. Attached is the one file for p=6673. I use Delphi/Object Pascal.
+
+Q3. For prime p, you have to have p from the first row (call that row 0) since the others in that column are multiples of p. Then for the other rows, say i = 1 to p-1, the values in that row are i*p+j, where j is between 1 and p-1.
+
+So you have p + p*(sum of i from 1 to p-1) + (sum of 1 to p-1). The last term is because you have to have one from each of the first p-1 columns.
+
+That gives p + (p+1)*(sum of i from 1 to p-1). That sum is p*(p-1)/2.
+
+So you have
+
+p+(p+1)(p^2-p)/2 = (p(p^2-p) + p^2-p+2P)/2 = (p^3-p^2+p^2-p+2p)/2 = (p^3+p)/2
+
+Q4. This is closely related to Conjecture 26
+
+[Note by CR: This reveals that the conjecture studied in this puzzle has been posed but not named by Enoch Haga as a result of the discussion of original Conjecture 26, these days at the end of 2001.]
+
+***
+
+Carlos Rivera wrote:
+
+Q1. Algorithm
+
+For any given square array pxp, p=prime
+
+a) Compute for each row the quantity of primes
+
+b) Compute for each column the quantity of primes
+
+c) Get the row with the minimum quantity of primes
+
+d) Get the column with the minimum quantity of primes
+
+e) Work with the row or column having the minimal of these two
+
+f) Locate the smallest prime in that row or column. If we can not locate a single prime the algorithm fails.
+
+g) Print the prime located & its coordinates.
+
+h) Discard or ignore the column & row of the prime printed for the computations of the next cycles.
+
+g) If we have printed p primes then end, else return to a)
+
+I tested this algorithm in a code in Ubasic and no fail was found in the complete range of 2<=p<=181; then I jumped up to p=2003 without fail too (after solving the memory difficult with my first code) spending 2 hours, 1 minute and 34 second, for this last calculation.
+
+***
+
+Emmanuel wrote:
+
+Q1.My algorithm goes as follows :
+
+Compute the number of primes in every row and every column.
+
+Determine a prime q in the table for which the total number of primes in its row and column is minimal.
+
+Delete the row and column where you found q and do the same for that smaller table till you get only one prime left.
+
+The set of primes q thus obtained is a solution.
+
+My algorithm works well for all primes < 1300. For p = 1297, it took about 4130 seconds.
+
+Q2. See attached file (p = 1297).
+
+Q3. A specific arithmetical property for the set-solutions is the following : 1 + the product of all the primes (!=p) in any solution, is divisible by p (Wilson's theorem).
+
+The arithmetical property that the sum of the q is p(p^2 + 1)/2 has nothing to do with primes : it holds also for non prime p and for any set of p different numbers chosen in the table of which no two of them share the same row or column (very easy to prove !).
+
+I cannot give an answer to Q4.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,532 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+
+<head>
+
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+<title>Puzzle 353. The first n2 primes in a matrix </title>
+
+<link rel="stylesheet" type="text/css" href="../links.css">
+
+<bgsound src="../midi/midi.mid" loop="-1">
+
+<style>
+<!--
+div.Section1
+	{page:Section1;}
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+table.MsoTableGrid
+	{border:1.0pt solid windowtext;
+	font-size:10.0pt;
+	font-family:"Times New Roman"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+.sans { font-family: verdana,arial,helvetica,sans-serif; font-size: small; }
+span.GramE
+	{}
+span.SpellE
+	{}
+-->
+</style>
+
+</head>
+
+
+
+<body link="#000080" vlink="#3366FF" alink="#FF0000" background="../images/background.gif" bgproperties="fixed" style="font-family: verdana, arial, geneva">
+
+
+
+  <center>
+
+  &nbsp;<table border="0" width="600" cellspacing="0" cellpadding="0">
+
+          </center>
+
+  <center>
+
+  <tr>
+
+    <td height="10">
+    <!--webbot bot="Include" U-Include="../index.menu.top.htm" TAG="BODY" startspan -->
+
+<div align="center">
+  <center>
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+  <tr>
+    <td valign="top"><a name="header">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH="640" HEIGHT="55">
+      <param NAME="movie" VALUE="http://www.primepuzzles.net/flash/menu_top.swf">
+      <param NAME="loop" VALUE="false">
+      <param NAME="menu" VALUE="false">
+      <param NAME="quality" VALUE="high">
+      <param NAME="wmode" VALUE="transparent">
+      <param NAME="bgcolor" VALUE="#FFFFFF">
+      <EMBED src="http://www.primepuzzles.net/flash/menu_top.swf" loop=false menu=false quality=high wmode=transparent bgcolor=#FFFFFF  WIDTH=640 HEIGHT=55 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED></object>
+    </a></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+
+  </center>
+</div>
+
+<!--webbot bot="Include" i-checksum="3877" endspan --></td>
+
+  </tr>
+
+  </center>
+
+  <tr>
+
+    <td>
+    <blockquote>
+      <p><span lang="en-us"><font face="sans-serif,arial,geneva" size="5"><b>
+      <font color="#000080">Problems &amp; Puzzles:
+
+      </font></b><font color="#3366FF"><b>Puzzles</b></font></font> </span></p>
+      <o:p>
+      <font SIZE="2">
+      <table cellSpacing="0" cellPadding="0" width="600" border="0" id="table1">
+        <tr>
+          <td>
+          <blockquote>
+            <p><b><span lang="EN-US" style="font-family: Verdana">Puzzle 353.
+            <font color="#008080">The first n<sup>2</sup> primes in a matrix</font></span></b></p>
+            <div class="Section1">
+              <p><font size="2">Anurag Sahay posed the following puzzle:</font></p>
+              <p><font size="2">Arrange the first n<sup><font face="Verdana">2</font></sup> 
+              primes in a n by n matrix such that every two adjacent primes 
+              should not have any digit in common.</font></p>
+              <p><font size="2">He found solutions for n=3 &amp; 5. Examples:</font></p>
+              <p class="MsoNormal" style="text-autospace: none">
+              <span lang="ES-MX" style="font-size: 10.0pt; font-family: Tahoma">
+              23 19&nbsp;&nbsp; 3 <br>
+              11&nbsp; 5&nbsp; 17<br>
+              &nbsp;7 13&nbsp;&nbsp; 2</span></p>
+              <p class="MsoNormal" style="text-autospace: none">
+              <span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma">
+              97 43&nbsp; 67&nbsp;&nbsp; 3 41<br>
+              31&nbsp; 7 &nbsp;89&nbsp; 17 53<br>
+              47 61 73&nbsp;&nbsp; 2&nbsp; 79<br>
+              59 23 19&nbsp;&nbsp; 5 13<br>
+              37 11 83&nbsp; 71 29 </span></p>
+              <p><font size="2">He says that no solutions were found for n=4 &amp; 
+              6.</font></p>
+              <p><b><font size="2" color="#0000FF">Questions:</font></b></p>
+              <p><font size="2" color="#0000FF"><b>1. </b></font>
+              <font color="#0000FF"><b><font size="2">
+              <span style="font-family: Tahoma">Sahay asks for </span></font>
+              <span lang="EN-US" style="font-size: 10.0pt; font-family: Tahoma">
+              an efficient algorithm for the computer&nbsp;to find all the solutions 
+              for a given n?</span></b></font></p>
+              <p><font size="2" color="#0000FF">
+              <span style="font-family: Tahoma; font-weight: 700">2. Can you 
+              confirm that there are no solutions for n=4 &amp; 6?</span></font></p>
+              <p><font size="2" color="#0000FF">
+              <span style="font-family: Tahoma; font-weight: 700">3. In a fast 
+              phrase, would say that no solutions are for n grater than a given 
+              integer M. Is this correct?</span></font></p>
+              <p>&nbsp;</div>
+          </blockquote>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          &nbsp;</td>
+        </tr>
+      </table>
+      <hr>
+      <p><span lang="en-us"><a href="mailto:cbrfgm@gmail.com">
+      <img border="0" src="../images/sendasolution.gif" width="100" height="80"></a></span></p>
+      <p>One more time we can say that there are not 'ugly' puzzles in the hands 
+      of skilled puzzlers. Very smart contributions were made by Jon Warf, Dan 
+      Dima and Fred Schneider. Short notes were sent too by Giovanni Resta &amp; 
+      Farideh Firoozbakht:</p>
+      <p>***</p>
+      <p>Fred wrote:</p>
+      <blockquote>
+        <p>First of all, we must determine with the maximum count of a digit to 
+        be placed in an nxn grid, so that they are none are in adjacent<br>
+        squares. The best answer of course would be to put the answers in a<br>
+        checkerboard pattern.<br>
+        <br>
+        For even n, we have n^2/2 as the maximum number of times a given digit 
+        could appear. For n=4, we have 16/2=8 as the maximum:<br>
+        x-x-<br>
+        -x-x<br>
+        x-x-<br>
+        -x-x<br>
+        <br>
+        For even n odd, we have (n-1)/2*+(n+1)/2=(n^2+1)/2. For n=5, we have<br>
+        x-x-x<br>
+        -x-x-<br>
+        x-x-x<br>
+        -x-x-<br>
+        x-x-x<br>
+        giving a max of 13<br>
+        <br>
+        We can represent this for all n with the fmula max=(n^2+n%2)/2<br>
+        <br>
+        <b>Question 1:<br>
+        </b><br>
+        I have a general idea of how to get started:<br>
+        <br>
+        First determine if a solution is possible for that n.<br>
+        <br>
+        Let's call the d1 and d2 the two digits that occur most and 2nd most 
+        frequently. Call p12 the set of primes that contain both digits, p1 and 
+        p2 the set of primes containing d1 and d2 respectively. Place the p12 
+        primes along the diagonals in the upper left corner. Then continue with 
+        the p1 primes in the same manner. Now, place the p2 primes starting from 
+        the lower right corner.<br>
+        <br>
+        <b>Question 2:<br>
+        </b><br>
+        There at least one solution for n=4:<br>
+        <br>
+        3 41 37 11<br>
+        7 23 19 53<br>
+        13 5 43 2<br>
+        47 31 29 17<br>
+        <br>
+        A solution for 6 is not possible because there are 19 1's more than the 
+        max of 18 (=6^2/2).<br>
+&nbsp;</p>
+        <p><b>Question 3:<br>
+        </b><br>
+        In short, yes. Here's why:<br>
+        <br>
+        I did a brute force search and by my simple criterion explained at the 
+        beginning answers haven't been ruled out for the following values n: 
+        9***-14, 28-36<br>
+        <br>
+        *** this has been ruled in a different way at the bottom<br>
+        <br>
+        Intuitively, the average digit count is an increasing function for x 
+        where x is the set of the the first n^2 primes. If the average digit 
+        count is &gt; the max for a given level, then one of the digits must have a 
+        count &gt; that max, meaning a solution is not possible. If we can show 
+        that, the avg. digit count will always be &gt; the max after a given x, all 
+        that remains is that we verify from 37 through that x, that we have no 
+        solution using the same method in part 2.<br>
+        <br>
+        At n=505, the average digit count &lt; than the max for the last time. <br>
+        The ratio between the avg. digit count appears to be an increasing 
+        function so there's the ratio could never dip below 1, meaning there 
+        could not be a solution to puzzle at some n &gt; 505.<br>
+        <br>
+        Note: There are violating digits for each n between 37 and 505. <u>So,<br>
+        M=36 is the max possible solution, although I suspect the upper bound is 
+        much lower than this.</u><br>
+        <br>
+        ========================================================<br>
+        Incidentally for n=9, a solution is not possible. There are 40 1's and 
+        39 3's, after placing the primes with 1's in a checkerboard pattern, 
+        it's only possible to place 36 of the 3's. There's very little wiggle 
+        room as the max for n=9 is only 41.<br>
+        <br>
+        Here's a sample:<br>
+        <br>
+        <br>
+        379 _?_ 113 _?_ 173 _?_ 197 263 19<br>
+        _?_ 311 _?_ 313 _?_ 139 _?_ 17 223<br>
+        13 _?_ 331 _?_ 193 _?_ 401 233 199<br>
+        _?_ 131 _?_ 103 _?_ 419 3 109 83<br>
+        31 _?_ 137 _?_ 157 389 41 373 149<br>
+        _?_ 317 _?_ 127 283 71 397 281 53<br>
+        163 _?_ 271 293 151 383 211 353 179<br>
+        _?_ 167 349 101 347 191 367 181 37<br>
+        61 239 107 307 251 337 241 73 11</p>
+      </blockquote>
+      <p>***</p>
+      <p>Dan wrote:</p>
+      <blockquote>
+        <p><b>For Q3</b>: There is such M since there is a prime that contains 
+        all the digits so n^2 is at most the number of all distinct primes 
+        smaller than such &quot;all-digits&quot; prime. For example a prime p of 10 
+        digits: {1,1,2,3,4,5,6,7,8,9} p &lt; 10^10 and pi(p) &lt; 10^10 then M &lt; 
+        10^5...(later he added) At least 2-digits primes end only in {1,3,7,9}. 
+        The smaller two primes made by all these digits are: p(298) = 1973, 
+        p(519) = 3719, ... Using the remaining digits {0,2,4,5,6,8} the only 
+        primes that can be formed are 2 &amp; 5. By contradiction suppose you may 
+        arrange all the n^2 primes including the prime 3719. Then both 1973 &amp; 
+        3719 may have at most 2 prime neighbors (only 2 &amp; 5) and they must be 
+        placed in the corners of the n^2 square. But this is impossible because 
+        you will use 2 times each of the primes 2 &amp; 5. Then you can make such an 
+        arrangement for the first n^2 primes only if the greatest is smaller 
+        than 3719. p(519) = 3719 =&gt; n^2 &lt; 519; 22^2 &lt; 519 &lt; 23^2 leads to n &lt;= 
+        22, hence M=22.</p>
+      </blockquote>
+      <p>Jon wrote:</p>
+      <blockquote>
+        <p><b>Q3</b>. Clearly once we have a prime in the set which contains all 
+        digits - which of course is most primes - we cannot form a matrix under 
+        the rules. However the limit under such consideration can be brought 
+        much closer. The lowest two primes permutations of 1-3-7-9 are 1973 and 
+        3719 (the 519th prime). In a matrix of this type, these each require 
+        neighbors which do not contain the digits 1, 3, 7 or 9. There are only 
+        two such primes - 2 and 5. To achieve only two neighbors a number must 
+        be placed in the corner of the grid. Since 2 and 5 cannot be adjacent to 
+        two corners simultaneously, a matrix with both 1973 and 3719 is 
+        impossible and therefore there are no qualifying matrices with n&gt;= M = 
+        23.<br>
+        <br>
+        2. Having brought this problem into the low finite, I examined the 
+        number of primes which contain various digits - again the digits of 
+        interest being 1, 3, 7 and 9 - particularly 1. A matrix cannot have more 
+        than half its entries sharing a certain digit (half of entries+1 in the 
+        cases of odd squares). Examination of the number of primes containing 
+        the digit 1 thus eliminates squares with n = 6, 7, 8, 15, 16, 17, 18, 
+        19, 20, 21 and 22.<br>
+        <br>
+        A matrix with n=9 is also probably impossible, because this 81-entry 
+        square has 40 entries containing the digit 1 and 39 entries containing a 
+        3, with 14 containing both. I strongly suspect, but have not proved, 
+        that a qualifying layout of these numbers cannot be achieved.<br>
+        <br>
+        However this analysis gave me the clues necessary to achieve n=4:<br>
+        <br>
+        17 3 2 13<br>
+        53 41 37 5<br>
+        7 29 11 43<br>
+        31 47 23 19<br>
+        <br>
+        Notice that the 1-containing primes are down the diagonal and in the 
+        corners, and the 3-containing primes almost form a grid. As noted above 
+        n=6 is impossible, and we have solutions for n = 1 to 5.<br>
+        <br>
+        This only leaves the cases n = 10 to n=14 as possible solutions, with 
+        perhaps another glance at n=9 to kill it off.<br>
+        <br>
+        1. As for a quick algorithm to to find all solutions for any of these; 
+        generally finding all solutions will be a slow job, but using some kind 
+        of qualifying template based on the 4 key digits might speed things up.</p>
+      </blockquote>
+      <p>***<br>
+      Giovanni wrote:</p>
+      <blockquote>
+        <p>There are several solutions of the 4x4 case as:<br>
+        <br>
+        2 3 5 13<br>
+        43 11 37 29<br>
+        17 23 19 47<br>
+        53 41 7 31<br>
+        <br>
+        indeed, if I'm correct, there are 2192080 such solutions, while there 
+        are 928 solutions of the 3x3 case.<br>
+&nbsp;</p>
+      </blockquote>
+      <p>***</p>
+      <p>Farideh wrote:</p>
+      <blockquote>
+        <div>
+          Answer to Q3: It seems that if n&gt;5 there is no solution. Because in 
+          this case 
+        </div>
+        <div>
+          many of the n^2 primes are common in the first digit from the left.</div>
+        <div>
+          For example if n=6 the first digit of 15 primes of the first 36 
+          primes&nbsp;is equal to 1.</div>
+      </blockquote>
+      <p>***</p>
+      <p>At the end (April 3, 06), Jon Warf came the first with a solution for 
+      n&gt;6, in his case, <b>n=11</b>:</p>
+      <blockquote>
+        <p>Here's a solution for 11 x 11, produced by manual arrangement.<br>
+        <br>
+        317 659 173 409 17 283 179 23 61 379 641<br>
+        269 137 89 71 263 197 223 571 389 461 397<br>
+        431 229 113 499 107 233 167 349 617 239 41<br>
+        509 313 449 127 443 157 439 281 593 11 523<br>
+        31 577 331 599 601 383 271 359 67 29 181<br>
+        557 631 487 661 479 5 433 607 293 541 2<br>
+        613 277 103 47 251 463 97 43 151 73 569<br>
+        457 163 547 619 347 199 643 79 3 59 337<br>
+        13 257 131 587 191 653 19 563 211 373 521<br>
+        467 139 227 109 83 419 53 421 503 149 37<br>
+        193 647 311 7 101 367 491 307 241 353 401<br>
+        <br>
+&nbsp;</p>
+      </blockquote>
+      </font>
+      <p align="left"><font size="2">In this very moment, case n=10 is still 
+      not decided...</font></p>
+      <p align="left">***</p>
+      <p align="left"><font size="2">Jon also found this solution for 14x14:</font></p>
+      <p align="left"><font size="2">137 659 317 509 617 239 761 359 107 653 701 
+      863 271 983<br>
+      829 173 269 13 809 167 293 1117 593 1087 643 127 389 157<br>
+      113 859 313 569 17 349 1171 953 1187 563 71 883 571 839<br>
+      929 131 47 1123 409 281 439 881 463 811 263 1051 233 751<br>
+      1013 967 103 67 211 503 821 433 181 599 101 887 1151 443<br>
+      769 1031 947 31 677 241 353 1181 59 2 499 251 397 151<br>
+      1033 797 1103 997 421 683 401 29 7 449 1021 739 521 937<br>
+      79 613 977 431 757 41 277 461 229 5 89 61 379 601<br>
+      1063 97 631 907 11 283 641 877 541 727 661 347 1061 743<br>
+      479 163 709 331 857 199 577 1129 37 941 827 619 733 1069<br>
+      1163 547 311 607 19 823 491 373 419 307 691 557 919 383<br>
+      487 1193 647 1153 467 109 367 149 673 191 83 911 3 1097<br>
+      193 457 139 787 1109 853 1009 773 1049 223 719 53 179 43<br>
+      227 1093 257 1039 587 1091 73 1019 337 991 523 971 23 197<br>
+      <br>
+      I also think 10 x 10 is probably impossible. because the number of 
+      1-containing primes is 46, the number of 3-containing primes is also 46 
+      and the number containing both is 15. Assuming I arrange the 15 &quot;1-3&quot;s in 
+      a grid, either the &quot;1&quot;s or the &quot;3&quot;s must then avoid the next grid-line. In 
+      switching to the alternate grid, 5 squares of the fifty max will be lost 
+      and the maximum placeable primes will be 45 - not enough to complete. This 
+      is not rock solid proof, but should be easier to prove than the full 
+      placement of the primes. If the &quot;1&quot;s and &quot;3&quot;s CAN be placed, I would 
+      expect a solution to be straightforward.</font><br>
+&nbsp;</p>
+      <p align="left">***</p>
+		<p align="left"><font size="2">On May 20, 2014 Jon Wharf wrote the 
+		following:</font></p>
+		<blockquote>
+			<p align="left"><font size="2">For some reason I happened to turn 
+			back to puzzle 353 to have another look at the 10x10 square....<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			and (to my surprise) here is a solution for that:<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			173,449,31,457,139,487,313,67,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">499,151<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			59,317,229,13,467,193,227,509,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">271,349<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			137,409,311,257,331,277,53,17,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">439,157<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			269,113,479,103,79,5,281,43,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">71,239<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			131,89,163,97,463,179,433,101,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">293,167<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			29,431,7,23,197,283,61,383,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">107,359<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			47,2,83,19,223,41,353,241,389,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">127<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			191,73,149,367,11,263,401,397,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">251,443<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			523,419,337,109,373,181,233,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">541,379,521<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			491,307,199,347,211,503,461,<wbr style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">37,421,3<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			<br style="color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255)">
+			The gap in either 1-primes or 3-primes arrangement that I was 
+			worried about was resolved by having it on the diagonal, but I'm 
+			sure the 9x9 constraints are impossible to resolve.</font></p>
+		</blockquote>
+		<p align="left">
+		<span style="font-family: arial, sans-serif; font-size: 13px; color: #222222; letter-spacing: normal; background-color: #FFFFFF">
+		***</span></p>
+      <center><hr></center>
+    </blockquote>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td height="20">
+
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td><a href="puzz_352.htm">
+          <img border="0" src="../images/b_previous.gif" width="76" height="20"></a></td>
+
+          <td align="center"><font face="ms sans serif,helvetica,geneva" size="1"><a href="../records/">Records</a>&nbsp;&nbsp;
+
+        |&nbsp; <a href="../conjectures/">Conjectures</a>&nbsp;
+
+        |&nbsp; <a href="../problems/">Problems</a>&nbsp; |&nbsp;
+          <a href="http://www.primepuzzles.net/puzzles/">Puzzles</a></font></td>
+
+          <td align="right"><a href="puzz_354.htm">
+          <img border="0" src="../images/b_next.gif" width="50" height="20"></a></td>
+
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <hr>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td><font face="MS Sans Serif, Helvetica" size="1">
+    <!--webbot bot="Include" U-Include="../index.menu.bottom.htm" TAG="BODY" startspan -->
+
+
+
+<div align="center">
+
+  <center>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="#111111">
+
+  <tr>
+
+    <td height="32"><a href="#header"><map name="FPMap0_I2">
+
+    <area href="#header" shape="rect" coords="2, 1, 60, 27">
+
+    </map><img border="0" src="../images/footer.gif" usemap="#FPMap0_I2" width="640" height="28"></a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="28"><p class="menu"><a href="../index.shtml">Home</a> | <a href="../melancholia.htm"> Melancholia</a> | <a href="../ppp.htm">Problems &amp; Puzzles</a> | <a href="../references.htm">References</a> | <a href="../new/index.html">News</a> | <a href="../personal.htm">Personal Page</a> | <a href="../puzzlers.htm">Puzzlers</a> | <a href="../search.html">Search</a> | <a href="/cgi-bin/UltraBoard/UltraBoard.cgi">Bulletin Board</a> | <a href="../chat/index.html">Chat</a> | <a href="/cgi-bin/random/rand_link.pl"> Random Link</a><br>
+      Copyright © 1999-2012 <a href="mailto:cbrfgm@gmail.com">primepuzzles.net</a>. All rights reserved. </p>      <p class="menu"></td>
+
+  </tr>
+
+</table>
+
+
+
+  </center>
+
+</div>
+
+
+
+<!--webbot bot="Include" i-checksum="41873" endspan --></font></td>
+
+  </tr>
+
+  </table>
+
+
+
+</body>
+
+
+
+</html>

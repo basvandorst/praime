@@ -1,0 +1,863 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_684.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 684 Primes in N dice
+Source: https://www.primepuzzles.net/puzzles/puzz_684.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0684.htm
+
+References (local copies):
+  ../../references/PUZ684 JW 2300.TXT  (from https://www.primepuzzles.net/puzzles/PUZ684%20JW%202300.TXT)
+  ../../references/b224397.txt  (from https://oeis.org/A224397/b224397.txt)
+  ../../references/Pu684 data VFI.txt  (from https://www.primepuzzles.net/puzzles/Pu684%20data%20VFI.txt)
+
+Links on the page:
+  http://simplementenumeros.blogspot.mx/2013/04/1115-uno-de-probabilidad.html
+  mailto:cbrfgm@gmail.com
+  http://mathworld.wolfram.com/Dice.html
+  https://www.primepuzzles.net/puzzles/PUZ684%20JW%202300.TXT
+  https://www.primepuzzles.net/puzzles/Graph%20Pu684-c.png
+  https://oeis.org/A224397
+  https://oeis.org/A224397/b224397.txt
+  https://www.primepuzzles.net/puzzles/dice%20120%20GR.png
+  https://www.primepuzzles.net/puzzles/Dice%20200%20JVD.png
+  https://www.primepuzzles.net/puzzles/Pu684%20data%20VFI.txt
+  http://pari.math.u-bordeaux.fr/download.html
+  https://www.primepuzzles.net/puzzles/Dice%202M%20JKA.png
+  https://www.primepuzzles.net/puzzles/puzz_683.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_685.htm
+  https://www.primepuzzles.net/puzzles/puzz_684.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 684 Primes in N dice
+
+Problems & Puzzles: Puzzles
+
+Puzzle 684 Primes in N dice
+
+Very recently Claudio Meller in the entry 1115 of his interesting site posed the following puzzle:
+
+If we throw four common dice, what is the probability that the sum of the values obtained makes a prime number?
+
+One of the puzzlers, Vicente Izquierdo, responded not only the asked question but reported the solutions for N dice, from N=2 to 10
+
+N, probability
+
+2, 0.41666
+
+3, 0.33796
+
+4, 0.33333
+
+5, 0.31713
+
+6, 0.27199
+
+7, 0.24158
+
+8, 0.23570
+
+9, 0.23605
+
+10, 0.24441
+
+noticing that the probability (effectively computed by exhaustive generation of the possibilities for N dice) shows a minimal for N=8. Mr. Izquierdo added that he was not able to make the computations for N>10.
+
+Carlos Rivera confirmed the previous Izquierdo's results and computed three more values:
+
+11, 0.25741
+
+12, 0.258243
+
+13, 0.242244
+
+Showing that for N=12 the probability thus computed shows a new secondary maximal value before the probability return to decrease.
+
+So it's time to ask for the analytical solution for this probability for N dice thrown.
+
+Q1. Can you send more effective exhaustive computations for N>13?
+Q2. What is the analytical general solution for the probability that when N common dice are thrown, the sum of the values obtained makes a prime number?
+
+Contributions came from J. Wrobrlewski, Giovanni Resta, Jan van Delden, Vicente F. Izquierdo, Seiji Tomita, Fred Schneider, Hakan Summakoglu, Emmanuel Vantieghem & J. K. Andersen
+
+An overall comment. This was a very nice puzzle and a splendid set of contributions to solve it. While the answer to Q2 was known since 1937 (Uspenski, Formula (10) here), the computing efforts made by some of the puzzlers were really outstanding and perhaps really new.
+
+***
+
+Jarek Wroblewski wrote:
+
+Attached results of my computations regarding Puzzle 684. They were
+
+performed in integer arithmetic and rounded at the end, so the values
+
+should be exact up to 50 places. Plus/minus signs refer to comparison
+
+with the previous value to make it easier for a human to trace the
+
+behavior of the probability while viewing the file.
+
+Quick conclusions:
+
+One can expect that the general tendency is decreasing, with random
+
+fluctuations. However we do not observe single jumps up and down, but
+
+there are long series of increasing and decreasing.
+
+It is amazing how large the fluctuations are. At N=390 we have 0.0971
+
+which quickly recovers to 0.1615 at N=418 (over 60% grow !!!) and stays
+
+above 0.1 until N=1698.
+
+...
+
+Extended results attached N<=2300.
+
+[And a graph prepared by Carlos Rivera for these 2300 results by JW here ]
+
+[Can you say a little bit about how did you computed these results?]
+
+When d is the list of possible ways to obtain consecutive sums of
+
+values from n to 6n, then it can be computed using the following
+
+recurrence formula in Mathematica:
+
+d={1,1,1,1,1,1} for n=1 and then iterating:
+
+d=
+
+Join[d,{0,0,0,0,0}]+
+
+Join[{0},d,{0,0,0,0}]+
+
+Join[{0,0},d,{0,0,0}]+
+
+Join[{0,0,0},d,{0,0}]+
+
+Join[{0,0,0,0},d,{0}]+
+
+Join[{0,0,0,0,0},d];
+
+Then the probability is given by:
+
+Sum[d[[Prime[i]-n+1]],{i,PrimePi[n-1]+1,PrimePi[6n]}]/6^n
+
+[¿What about Q2?]
+
+No idea about Q2.
+
+***
+
+Giovanni wrote:
+
+Curiously, on April 6, I contributed the first 60 terms to the sequence
+
+A224397 in Oeis, (Number of possibilities of getting a prime sum when rolling n six-sided dice, https://oeis.org/A224397 ), which provides my answer to puzzle 684.
+
+Tonight I have added other 60 terms and a link to your site.
+
+So I have computed the exact probabilities up to 120 dice,
+
+which can be read from the sequence as p(n) = A224397(n) / 6^n,
+
+so the probability for 120 dice
+
+is 3977834520151238216962799294373574830102236940984621237865283454229591
+
+89995393352787459037640/6^120 = 0.166532...
+
+Clearly, I've not generated all the 6^120 possible outcomes and selected those
+
+whose sum is a prime number.
+
+Given a number of dice N (say 10), and a prime P (say 37), I have computed the probability to obtain P with N dice in this way:
+
+I have partitioned P in N addends in the range [1,...,6]. For each partition,
+
+say 37 = {6, 6, 5, 5, 5, 5, 2, 1, 1, 1} I have computed the number of permutations
+
+that correspond to that partitions. This is obtained counting the occurrences of the various numbers, here (2,4,1,3) and using the multinomial coefficient, i.e., in this
+
+case (2+4+1+3)! / (2!*4!*1!*3!).
+
+Summing up all the ways in which each prime P between N and 6*N can be
+
+obtained, and dividing by 6^N we obtain the probability that the sum is a prime.
+
+I've attached a graphic showing the probabilities up to 120 dice.
+
+***
+
+Jan wrote:
+
+Q2: The sum s for 1 dice has E(s)=7/2 and var(s)=35/12.
+
+The sum s for N dice has E(s)=7/2*N and var(s)=35/12*N, since the outcome of the throws are independent.
+
+Let’s approximate the distribution of the sum of the N throws with a normal distribution having mu=E(s)=7/2*N and sigma=sqrt(var(s))=sqrt(35/12*N).
+
+This distribution has a probability density function p(u), which can be found in any good textbook.
+
+An approximation of the probability that the sum of N dice is prime is now equal to int(p(u)/ln(u),u in [N,6N]).
+
+This interval of the integral could be restricted to [mu-3*sigma,mu+3*sigma], if one prefers (smaller and larger values are very unlikely and don’t contribute to the integral).
+
+It is not possible to find an exact expression of the result expressed in N.
+
+However, if we standardize the pdf p(u) to q(z), with z=(u-mu)/sigma, we have u=mu+sigma*z, so
+
+p(u)/ln(u) now looks like q(z)/ln(mu+sigma*z) which behaves like q(z)/ln(mu). The integral of q(z) equals 1 (or nearly 1), and the integral therefore behaves like 1/ln(7/2*N).
+
+Note: It is possible to prove analytically that the int(abs(p(u)/ln(u)-p(u)/ln(mu)),u=N..6N)<0.0001 if N>=289, actually this happens if N>=59.
+
+A table of values:
+
+N Exact Integral 1/ln(7/2*N)
+
+2 0.41666 0.5313 0.5139
+
+3 0.33796 0.4354 0.4253
+
+4 0.33333 0.3865 0.3789
+
+5 0.31713 0.3547 0.3494
+
+6 0.27199 0.3332 0.3285
+
+7 0.24158 0.3156 0.3126
+
+8 0.23570 0.3024 0.3001
+
+9 0.23605 0.2917 0.2899
+
+10 0.24441 0.2828 0.2813
+
+11 0.25741 0.2753 0.2739
+
+12 0.25824 0.2687 0.2675
+
+13 0.24224 0.2629 0.2619
+
+The asymptotic value overshoots the exact value but gets better and better.
+
+Q1: The exact distribution of the sum s of the values of an 6-sided dice (or more/less sides) can be found on Mathworld.
+
+For 6-sided dice with N throws we have, with s a particular sum s:
+
+P(s) = sum((-1)^k*binom(N,k)*binom(s-6*k-1,N-1),k=0..floor((s-N)/6))/6^N
+
+The probability that s is prime can be incorporated by using:
+
+P(s and s=prime)=P(s)*Isprime(s) with Isprime(s)=0 if s not prime and Isprime(s)=1 if s is prime
+
+The total probability that the sum is prime is therefore:
+
+sum(P(s and s=prime),s=N..6N)
+
+A quick verification shows that the values in the given table are correct.
+
+Note: The asymptotic formula for the probability using the normal distribution as an approximation to the answer given in Q2 can also underestimate the correct answer if N is large, see graph:
+
+***
+
+Vicente wrote:
+
+The following equations allow us to calculate the various dice combinations that result in a prime number:
+
+n1 + 2 n2 + 3 n3 + 4 n4 + 5 n5 + 6 n6 = p
+
+n1 + n2 + n3 + n4 + n5 + n6 = N
+
+subject to the limits:
+
+0<=n1<=N
+
+0<=n2<=N
+
+0<=n3<=N
+
+0<=n4<=N
+
+0<=n5<=N
+
+0<=n6<=N
+
+6N>p>=N
+
+where
+
+N=number of dices (know)
+
+p=prime number to investigate (know)
+
+n[1 to 6]= indicates the number of dice facing coefficient score (unknow)
+
+With this method I was able to calculate the probability of getting a prime number up to 80 dice. Te values ​​indicated below in an attached file.
+
+***
+
+Seiji wrote:
+
+Q1,Q2:
+
+Let f(x)=(x+x^2+x^3+x^4+x^5+x^6)^N.
+
+N<=prime<6*N
+
+Probability= (Sum of coefficient of prime power term in f(x))/6^N.
+
+Example of N=4:
+
+f(x)=x^24+4x^23+10x^22+20x^21+35x^20+56x^19+80x^18+104x^17+125x^16+140x^15
+
++146x^14+140x^13+125x^12+104x^11+80x^10+56x^9+35x^8+20x^7+10x^6+4x^5+x^4.
+
+Prime power term={x^5,x^7,x^11,x^13,x^17,x^19,x^23} and corresponding coefficient={4,20,104,140,104,56,4}.
+
+Probability=(4+20+104+140+104+56+4)/6^4=0.3333333333
+
+N Probability
+
+14, 0.2227892740
+
+15, 0.2133198090
+
+16, 0.2155226538
+
+17, 0.2237951080
+
+18, 0.2327055650
+
+19, 0.2385967406
+
+20, 0.2389067735
+
+[Can you explain why ""Probability= (Sum of coefficient of prime power term in f(x))/6^N." is true? Can you compute larger values?]
+
+1. mathematical reason
+
+Let f(x)=(x+x^2+x^3+x^4+x^5+x^6)^N.
+
+Example of N=2:
+
+6*N=12
+
+(x+x^2+x^3+x^4+x^5+x^6)^2= x^2+2*x^3+3*x^4+4*x^5+5*x^6+6*x^7+5*x^8+4*x^9+3*x^10+2*x^11+x^12........(1)
+
+Prime number={2,3,5,7,11} and each prime number is shown as sum of two number under six.
+
+For example, case of prime number=5:
+
+Sum of two number corresponds to multiplying two number by powering as follows.
+
+1+4--->x^1*x^4
+
+4+1--->x^4*x^1
+
+2+3--->x^2*x^3
+
+3+2--->x^3*x^2
+
+Prime number 5 is expressed in 4 ways--->coefficient of x^5 is 4 in (1).
+
+Hence, we can transform the combination of {1,2,3,4}+{1,2,3,4} into {x^1+x^2+x^3+x^4}*{x^1+x^2+x^3+x^4}.
+
+Thus, all combination of {1,2,3,4,5,6}+{1,2,3,4,5,6} is transformed into {x^1+x^2+x^3+x^4+x^5+x^6}*{x^1+x^2+x^3+x^4+x^5+x^6}.
+
+Similarly, our argument holds when N>2.
+
+2=1+1
+
+3=1+2
+
+=2+1
+
+5=1+4
+
+=4+1
+
+=2+3
+
+=3+2
+
+7=1+6
+
+=6+1
+
+=2+5
+
+=5+2
+
+=3+4
+
+=4+3
+
+11=5+6
+
+=6+5
+
+2. more probability
+
+N Probability
+
+100, 0.1637377065
+
+200, 0.1335127939
+
+[How do you compute these large values?]
+
+I usually use PARI-GP.
+
+PARI-GP is free soft for number theory, handling of multi-precision numbers.
+
+You can download it.(latest version for windows: gp-2-5-3.exe)
+
+http://pari.math.u-bordeaux.fr/download.html
+
+This is sourcecode of pz684.
+
+pz684(nmin,nmax)=
+
+{
+
+for(n=nmin,nmax,
+
+f=(x+x^2+x^3+x^4+x^5+x^6)^n;
+
+s=0;
+
+forprime(p=n,6*n,
+
+s=s+polcoeff(f,p);
+
+);
+
+print([n,s/6^n*1.0]);
+
+);
+
+***
+
+Fred wrote:
+
+I found an easy way to recursively generate the answers starting with generating functions.
+
+The number of ways you could add to d with n 6-sided dice is the coefficient of
+
+x^d in this function.
+
+(x + x^2 + x^3 + x^4 + x^5 + x^6) ^n
+
+Recursively, though consider what you are doing when you multiply
+
+(x + x^2 + x^3 + x^4 + x^5 + x^6) ^(n-1) by
+
+(x + x^2 + x^3 + x^4 + x^5 + x^6)
+
+Let f = 6 (faces)
+
+h = n * (1+f)
+
+ub = h/2
+
+c is the array of coefficients, n : # of dice
+
+When n= 1,
+
+c[1][i] = 1 for i= 1 to f
+
+For n > 1
+
+c[n][n] = 1
+
+For n < i < n + f
+
+c[n][i] = c[n][i-1] + c[n-1][i-1]
+
+Below is like the above but subtract away third term, so you inch along with calculation adding up f terms of n-1's expansion:
+
+For n +f <= i <= ub
+
+c[n][i] = c[n][i-1] + c[n-1][i-1] - c[n-1][i-f-1]
+
+For ub+1 <= i <= h (The coefficients are symmetrical)
+
+c[n][i] = c[n][h-i]
+
+Then to compute the total, divide the sum of the prime subscripts by f^n
+
+Everything else just addition and subtraction. It's also possible
+
+to do this with combinatorics but I think this is more elegant, especially if you want
+
+do a calculation for each die count.
+
+===============================
+
+f #d probability
+
+6 1 0.50000
+
+6 2 0.41666
+
+6 3 0.33796
+
+6 4 0.33333
+
+6 5 0.31712
+
+6 6 0.27199
+
+6 7 0.24158
+
+6 8 0.23570
+
+6 9 0.23605
+
+6 10 0.24441
+
+6 11 0.25741
+
+6 12 0.25824
+
+6 13 0.24224
+
+6 14 0.22278
+
+6 15 0.21331
+
+6 16 0.21552
+
+6 17 0.22379
+
+6 18 0.23270
+
+6 19 0.23859
+
+6 20 0.23890
+
+6 21 0.23263
+
+6 22 0.22089
+
+6 23 0.20677
+
+6 24 0.19492
+
+6 25 0.19035
+
+6 26 0.19603
+
+6 27 0.21047
+
+6 28 0.22738
+
+6 29 0.23837
+
+6 30 0.23720
+
+6 31 0.22307
+
+6 32 0.20086
+
+6 33 0.17841
+
+6 34 0.16254
+
+6 35 0.15628
+
+6 36 0.15843
+
+6 37 0.16531
+
+6 38 0.17310
+
+6 39 0.17942
+
+6 40 0.18366
+
+6 41 0.18631
+
+6 42 0.18808
+
+6 43 0.18946
+
+6 44 0.19063
+
+6 45 0.19159
+
+6 46 0.19231
+
+6 47 0.19287
+
+6 48 0.19340
+
+6 49 0.19409
+
+6 50 0.19507
+
+6 51 0.19622
+
+6 52 0.19705
+
+6 53 0.19674
+
+6 54 0.19436
+
+6 55 0.18930
+
+6 56 0.18168
+
+6 57 0.17254
+
+6 58 0.16361
+
+6 59 0.15687
+
+6 60 0.15386
+
+6 61 0.15522
+
+6 62 0.16048
+
+6 63 0.16824
+
+6 64 0.17662
+
+6 65 0.18378
+
+6 66 0.18847
+
+6 67 0.19024
+
+6 68 0.18948
+
+6 69 0.18714
+
+6 70 0.18445
+
+6 71 0.18249
+
+6 72 0.18193
+
+6 73 0.18293
+
+6 74 0.18509
+
+6 75 0.18763
+
+6 76 0.18960
+
+6 77 0.19010
+
+6 78 0.18856
+
+6 79 0.18484
+
+6 80 0.17927
+
+6 81 0.17259
+
+6 82 0.16572
+
+6 83 0.15953
+
+6 84 0.15465
+
+6 85 0.15130
+
+6 86 0.14935
+
+6 87 0.14837
+
+6 88 0.14787
+
+6 89 0.14742
+
+6 90 0.14685
+
+6 91 0.14621
+
+6 92 0.14576
+
+6 93 0.14582
+
+6 94 0.14666
+
+6 95 0.14841
+
+6 96 0.15099
+
+6 97 0.15415
+
+6 98 0.15755
+
+6 99 0.16084
+
+6 100 0.16373
+
+***
+
+Hakan wrote:
+
+Q1:Probabilities for N=14 to 100:
+0.22279, 0.21332, 0.21552, 0.22380, 0.23271, 0.23860, 0.23891, 0.23263, 0.22089, 0.20678, 0.19493, 0.19036, 0.19604, 0.21048, 0.22739, 0.23837, 0.23721, 0.22308, 0.20087, 0.17841, 0.16255, 0.15629, 0.15844, 0.16532, 0.17310, 0.17942, 0.18367, 0.18631, 0.18808, 0.18947, 0.19064, 0.19159, 0.19231, 0.19287, 0.19340, 0.19410, 0.19508, 0.19622, 0.19706, 0.19675, 0.19437, 0.18931, 0.18169, 0.17254, 0.16362, 0.15688, 0.15386, 0.15522, 0.16048, 0.16825, 0.17662, 0.18379, 0.18848, 0.19025, 0.18948, 0.18715, 0.18446, 0.18249, 0.18194, 0.18293, 0.18509, 0.18764, 0.18960, 0.19011, 0.18856, 0.18484, 0.17928, 0.17260, 0.16572, 0.15953, 0.15465, 0.15131, 0.14936, 0.14838, 0.14787, 0.14743, 0.14686, 0.14622, 0.14576, 0.14582, 0.14667, 0.14842, 0.15099, 0.15415, 0.15756, 0.16085, 0.16374
+
+***
+
+Emmanuel wrote:
+
+To throw 14 dice takes too much time for my PC.Instead, I made the following simplistic reasoning :
+
+There are 6^N different throws. There are 5N+1 possible values for the sum. If these values would be equally distributed (which is certainly not true) every outcome would occur 6^N/5N times. There are about 5N/Log(5N) primes, so, the probability that the sum is prime is about 1/Log(5N).
+
+Strange enough, this is not very different from the experiments !
+
+***
+
+Andersen wrote:
+
+Let f(N,S) be the probability that the sum after N throws is S.
+
+f(0,0) = 1. f(0,S) = 0 for all non-zero S, including negative S.
+
+If the sum after N+1 throws is S then it must have been somewhere
+
+from S-6 to S-1 after N throws.
+
+In each such case there is a 1/6 chance of landing on S:
+
+f(N+1,S) = (f(N,S-6)+f(N,S-5)+f(N,S-4)+f(N,S-3)+f(N,S-2)+f(N,S-1)) / 6
+
+The chance of a prime sum after throw N is the sum of f(N,S) for primes S.
+
+For each N starting at 0 we can store f(N,S) for all S, and use it to
+
+compute f(N+1,S) for all S. We only need the values for N to compute N+1,
+
+so the older values don't have to be kept.
+
+The prime probability up to throw 2 million was computed with a C program
+
+using double-precision floating-point values. Below are the local extrema
+
+which are either larger (+) or smaller (-) than all others for 50000 N
+
+values to both sides.
+
+The last column 1/log(3.5N) is the probability we would have expected
+
+from the prime number theorem: The chance a random number near 3.5N is prime,
+
+where 3.5N is the expected sum after N throws. The actual probability depends
+
+on how many primes are close to 3.5N.
+
+N probability 1/log(3.5N)
+
+------ -------- --------
+
+51709 0.069449 - 0.082603
+
+138610 0.064418 - 0.076381
+
+259610 0.080019 + 0.072888
+
+261004 0.064001 - 0.072859
+
+332216 0.079489 + 0.071601
+
+352526 0.064721 - 0.071298
+
+399304 0.077917 + 0.070670
+
+404275 0.062667 - 0.070608
+
+457943 0.077368 + 0.069992
+
+502978 0.062316 - 0.069536
+
+550563 0.074497 + 0.069102
+
+616493 0.074259 + 0.068566
+
+652214 0.062651 - 0.068302
+
+721141 0.073991 + 0.067836
+
+802960 0.072784 + 0.067345
+
+807682 0.062154 - 0.067319
+
+885589 0.061360 - 0.066904
+
+959384 0.061352 - 0.066548
+
+961720 0.071874 + 0.066537
+
+1050694 0.071813 + 0.066148
+
+1074661 0.059648 - 0.066049
+
+1180750 0.061315 - 0.065641
+
+1189156 0.069868 + 0.065610
+
+1234911 0.061261 - 0.065448
+
+1281576 0.069988 + 0.065290
+
+1330064 0.061158 - 0.065132
+
+1381747 0.070713 + 0.064970
+
+1486842 0.068236 + 0.064662
+
+1509606 0.060735 - 0.064599
+
+1581439 0.069159 + 0.064406
+
+1583844 0.060453 - 0.064399
+
+1680818 0.068762 + 0.064154
+
+1724069 0.057700 - 0.064049
+
+1799264 0.068048 + 0.063875
+
+1820257 0.060271 - 0.063827
+
+1880743 0.067482 + 0.063695
+
+1940051 0.059926 - 0.063569
+
+1986053 0.067654 + 0.063474
+
+See graph.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

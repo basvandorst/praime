@@ -1,0 +1,241 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1259.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1259 Calculations with the conjectured prime test from S.M. Ruiz
+Source: https://www.primepuzzles.net/puzzles/puzz_1259.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1259.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/conjectures/conj_109.htm
+  mailto:cbrfgm@gmail.com
+  https://www.desmos.com/calculator/zbt83xbcuu
+  https://kevib-my.sharepoint.com/personal/20jameel937_chb_kevibham_org/_layouts/15/guestaccess.aspx?share=IQBMJgCuCQqaSIr3j3cd2jgXAUU8s4Fn1nCHT9fONqUsWzE&e=jZgSTk
+  https://www.primepuzzles.net/puzzles/puzz_1258.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1260.htm
+  https://www.primepuzzles.net/puzzles/puzz_1259.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1259 Calculations with the conjectured prime test from S.M. Ruiz
+
+Problems & Puzzles: Puzzles
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1259 Calculations with the conjectured prime test from S.M. Ruiz
+
+In the Conjecture 109, SMR conjectured that:
+
+If p=(3 mod 4) > 3 then p is prime if and only if: (1+i)^p=1-i (mod p) and (1+2i)^p=1-2i (mod p)
+
+Emmanuel Vantieghem found not a counterexample less than 10^12.
+
+Regarding the claim from SMR, that his test can compete in speed with the current alternative primality tests, Alessandro Casini said: "If it were true, certainly". (See his argument in the Conjecture 109)
+
+So, I (CR) propose to evaluate the speed of this test with only two integers (arbitrarily chosen by me) but using different programming languages & PC's, and reporting: a) The language & code used, b) the characteristics of the PC used & c) the time spent in obtaining d) the results.
+
+The two prime integers 3 mod 4. chosen by me are:
+
+n1 = 10^9999 + 33603, 10000 digits, From: https://t5k.org/curios/index.php
+
+n2 = 2^176177 + 60947, 53035 digits, From: https://t5k.org/primes/lists/all.txt
+
+Q. Please report your:
+
+a) results together with
+
+b) the language & code used
+
+c) the characteristics of your PC and
+
+d) the time spent in each one of the tests, n1 & n2.
+
+Hopefully the puzzlers could use distinct languages of codification as "Mathematica", "Python", "Maple". "PARI", and so on... That would be wonderful!
+
+From Feb 21-27, 2026 contributions came from Emmanuel Vantieghem, Carlos Rivera, Sebastián Martín Ruiz, Ashaz Jameel,
+
+***
+
+Emmanuel wrote:
+
+Programmation language used:
+
+I used the following Mathematica program (V 13.0) to perform Ruiz's test twice for each prime: the first time with the Ruiz Test and the second time with the built -in primality test from Matyematica. Here are my results:
+
+Code in Mathematica of the SMR test:
+
+SMRQ[p_] := If[Mod[p, 4] != 3, 0== 1,
+Module[{},If[PowerMod[1 + I, p, p] != 1 - I, 1 == 0,
+
+If[PowerMod[1 + 2 I, p, p] != 1 - 2 I, 1 == 0, 1 == 1]]]]
+
+Results:
+
+If p = 10^9999 + 33603, then Timing[SMRQ[p]] gives :
+
+{14.9375", True}.
+
+Mathematica's built-in program Timing[PrimeQ[p] gives :
+
+{15.375", True},
+
+a bit longer as you see.
+
+If p = 2^176177 + 60947 then Timing[SMRQ[p]] gives :
+
+{911.609375", True}
+
+Mathematica's built-in program Timing[PrimeQ[p] gives :
+
+{{936.71875", True}.
+
+a bit longer as you see.
+
+Comments
+
+Seemingly,
+
+SMRQ would be a quicker test for primality.
+
+In my opinion, SMRQ performs four Fermat primality checks. The chance that we meet a counterexample is very small
+
+but still possible.
+
+PC used:
+
+Some characteristics of my PC :
+
+System type : x64-based PC
+Processor 11th Gen Intel(R) Core(TM) i5-11600K @ 3.90GHz, 3912 MHz, 6 core('s), 12 logical processor(s)
+
+Memory RAM installed ; 16GB
+
+Windows 11.
+
+***
+
+Carlos Rivera wrote:
+
+Results:
+
+P=10^9999 + 33603, 10000 digits
+
+Step 1: BPSW probable prime algorithm: Strong Miller-Rabin with base 2: Time: 12"
+
+Step 2: BPSW Strong Lucas Rubin Test B=1, P=5, Q=-1: 47" (Total Time, including the step 1)
+
+Mod(P,4)=3
+
+2^176177+60947, 53035 digits
+
+Step 1: BPSW probable prime algorithm: Strong Miller-Rabin with base 2: Time: 9'10"
+
+Step 2: BPSW probable prime algorithm: Strong Lucas with P=1, D=19, Q=4: 46':02" (Total Time, including the step 1)
+
+Mod(P,4)=3
+
+OnLine Tool Used:
+
+https://www.alpertron.com.ar/ECM.HTM from Dario Alpern. Last updated on 12 December 2025.Laptop
+
+PC Used:
+
+Laptop HP. Processor x64, Intel (R) Core (TM) i3-N305; 1.80 GHz, Storage. 477 GB; Ram 8GB; OS, Windows 11 HSL.
+
+***
+
+Sebastián wrote:
+
+Here are my results
+
+Languaje Code: MATHEMATICA 13.3
+
+Code:
+
+n1 = 10^9999 + 33603;
+
+p = n1;
+
+If[PowerMod[1 + I, p, p] == 1 - I &&
+
+PowerMod[1 + 2 I, p, p] == 1 - 2 I, Print[prime],
+
+Print[composite]]; Print[time, " ",
+
+Timing[PowerMod[1 + I, p, p]][[1]] +
+
+Timing[PowerMod[1 + 2 I, p, p]][[1]], " ", sec]
+
+prime
+
+time 13.625 sec
+
+n2 = 2^176177 + 60947;
+
+p = n2;
+
+If[PowerMod[1 + I, p, p] == 1 - I &&
+
+PowerMod[1 + 2 I, p, p] == 1 - 2 I, Print[prime],
+
+Print[composite]]; Print[time, " ",
+
+Timing[PowerMod[1 + I, p, p]][[1]] +
+
+Timing[PowerMod[1 + 2 I, p, p]][[1]], " ", sec]
+
+prime
+
+time 722.766 sec
+
+PC characteristics
+
+Desktop SFF-12 Gen-Intel Core i5 12400,16 GB DDR4. Windows 11 PRO
+
+***
+
+Ashaz Jameel wrote:
+
+As (1+i)^n is periodic, we don't need to calculate what (1+i)^n is, as it will be of the form (1-i ) when n = 3 or 7 mod 8, which is given in the initial conditions of the equation. So all we are really checking for is if 2^floor(p/2) mod p = ±1
+
+(I haven't checked, but I feel as if this may link to an already existing prime checking algorithm)
+
+Writing this in python is simple enough. Using this equation I have tested all primes up to 10^8 and they all hold. What I find strange is that this equation holds both for primes 3 mod 4 and for primes 1 mod 4, despite the original equation only working for primes 3 mod 4. Also the original conjecture required a second congruence, however this equation uses only the first congruence and the equation still holds.
+
+For n1, it is able to calculate it in 110 seconds using an intel i5-9400. For n2 it took 15,220 seconds.
+
+Regardless, this is just fermats little theorem, so shouldn't make a major difference to prime hunting
+
+As for the largest prime proven with this program, I was able to prove the 28^th Mersenne prime to be prime in around 5 minutes (25,962 digits)
+
+Desmos file: https://www.desmos.com/calculator/zbt83xbcuu
+
+Python code:​prime detector 1​
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

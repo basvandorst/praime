@@ -1,0 +1,320 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_074.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 74.- SOD(26972593-1)
+Source: https://www.primepuzzles.net/puzzles/puzz_074.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0074.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_073.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_075.htm
+  https://www.primepuzzles.net/puzzles/puzz_074.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 74.- SOD(26972593-1)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 74.- SOD(2^6972593-1)
+
+The current largest known prime number is 2^6972593-1, a number supposedly composed of 2,098,960 digits.
+
+Questions:a) Confirm the quantity of digits of 2^6972593-1 and b) calculate the sum of those 2,098,960 digits (explain the method/tools used).
+
+Hints:
+
+1) The expected sum of digits of 2^6972593-1 should be near to 45*209896 = 9445320 if we suppose that the decimal digits of this prime number appear at random, but - of course - it should not to be exactly 9445320 because then 3 would divide 2^6972593-1 … J
+
+2) Can you obtain the asked SOD adding by separate the digits in odd position and the digits in even position? In such a way you would demonstrate very easily 11 do not divide that 2^6972593-1 … J
+
+Solution
+
+Enoch Haga (7/9/99) has calculated that SOD(2^6972593-1) = 9440671 . How? This is his own explanation:
+
+"I have confirmed the count by first downloading M38* and then saving to my Zip disk. From there I moved to a word processor. In Word 97 I removed commas and verified the count with the File / Properties / Statistics feature. Then I did the necessary digit counts using the Find / Replace feature, and finally multiplied to get the total SOD = 9440671...
+
+...My counts were as follows:
+
+1 - 210744*1 = 210744
+
+2 - 209678*2 = 419356
+
+3 - 209382*3 = 628146
+
+4 - 209832*4 = 839328
+
+5 - 209863*5= 1049315
+
+6 - 210356*6= 1262136
+
+7 - 209314*7= 1465198
+
+8 - 209961*8= 1679688
+
+9 - 209640*9= 1886760
+
+0 - 210190*0= 0
+
+Totals -...... 2098960 & 9440671"
+
+Note: * http://reality.sgi.com/chongo/tech/math/prime/merdigit/index.html (detected broken 1/9/01)
+
+Can you confirm this results not using any published result of M38?
+
+***
+
+Landon Curt Noll and - independently - Jim Howell confirmed the Enoch's results. Howell also has calculated "SOD adding by separate the digits in odd position and the digits in even position" as was asked in the hint 2. Here are their contributions in detail.
+
+Landon Curt Noll wrote:
+
+"The known Mersenne primes may be found at:
+
+http://reality.sgi.com/chongo/tech/math/prime/merdigit/index.html
+
+The decimal values were computed using calc (I ran calc on my laptop PC which is runing Linux):
+
+http://reality.sgi.com/chongo/tech/comp/calc/index.html
+
+and the English names were computed (with input from calc) using number:
+
+http://reality.sgi.com/chongo/tech/math/number/number.html
+
+http://reality.sgi.com/chongo/cgi-bin/number.cgi
+
+The decimal digits of the M38 number may be obtained (without commas or dots)
+
+from the URL:
+
+http://reality.sgi.com/chongo/tech/math/prime/merdigit/m6972593/prime-l.html
+
+The answer to the 'sum of the decimal digits' depends on your exact meaning.
+
+If you are asking. What is the decimal sum of the decimal digits of 2^6972593-1? Then the answer may be obtained thru one of two ways:
+
+method 1
+
+Go to the above URL (http:// ... /m6972593/prime-l.html)
+
+Save the URL into a file called prime-l.html
+
+extract the prime from the file (strip off the HTML header):
+
+head -29 prime-l.html | tail -1 > /tmp/prime
+
+Verify that you have the right sized file and it starts/ends with
+
+the correct digits (to be sure your browser download the
+
+entire number):
+
+wc /tmp/prime
+
+1 1 2098961 /tmp/prime
+
+cut -c1-10 /tmp/prime
+
+4370757441
+
+cut -c2098951-2098960 /tmp/prime
+
+2924193791
+
+Use a perl script to sum the digits:
+
+perl -e '@dig = split(//,<>); for ($sum=0,$i=0; $i<$#dig; ++$i) {$sum += $dig[$i];} print "$sum\n"' < /tmp/prime
+
+9440671
+
+The output of the above perl command, 9440671, is your answer.
+
+method 2
+
+Note that using calc and perl, one could both compute the decimal value
+
+and print the answer:
+
+calc -p '2^6972593-1' | perl -e '@dig = split(//,<>); for ($sum=0,$i=0; $i<$#dig; ++$i) {$sum += $dig[$i];} print "$sum\n"'
+
+9440671
+
+I like the method #2 because it uses a combination of calc and perl.
+
+Each tool is being used to do what it does best. Last, you can obtain
+
+the answer on a single command line. But for those who do not have calc, or have a slow computer, method 1 (using the URL containing the value pre-calculated by calc) works just
+
+as well".
+
+***
+
+Jim Howell wrote:
+
+" I wrote a program, using my own big-arithmetic routines, which computes 2^6972593-1 and writes the number to a disk file. Then a second program to read the file, and add all the digits, as well as count the number of digits. The output is:
+
+Number of digits = 2098960
+
+Sum of digits = 9440671
+
+Sum of 1st, 3rd, 5th etc. digits = 4722301
+
+Sum of 2nd, 4th, 6th etc. digits = 4718370
+
+Difference = 3931
+
+... Since the difference of these two sums (3931) is not divisible by 11, the
+
+original number is also not divisible by 11...
+
+My big arithmetic routines are written in C, with a small amount of assembler code. The program to read the file and add the digits was written in C also.
+
+On my Pentium-III/450, it takes about 8 minutes to compute 2^6972593-1 and about 1.5 hours to convert it from binary to decimal. Adding and counting the digits takes only a few seconds ".
+
+***
+
+Enoch also counted the now (17/12/2001) supposed M39 :2^13466917-1:
+
+I get 4053946 digits and a sum of digits of 18243946
+
+0 - 405083*0=0
+
+1 - 405614*1=405614
+
+2 - 405068*2=810136
+
+3 - 405928*3=1217784
+
+4 - 405491*4=1621964
+
+5 - 404915*5=2024575
+
+6 - 405154*6=2430924
+
+7 - 405308*7=2837156
+
+8 - 406672*8=3253376
+
+9 - 404713*9=3642417
+
+T - 4053946 - 18243946
+
+***
+
+Andrew Rupinski updated these calculations (March 12, 2005):
+
+I notice on Puzzle 74 that Enoch Haga updated the original question to address M13466917. Since 3 additional Mersennes have since been discovered, including one just a few weeks ago, I decided to go ahead and compute their digit counts if you are interested. They are as follows (the expected sum is
+
+4.5 x #digits, the sum if all digits were equidistributed):
+
+M20996011
+
+0 - 631705
+
+1 - 632720
+
+2 - 630989
+
+3 - 631467
+
+4 - 632004
+
+5 - 633283
+
+6 - 630929
+
+7 - 633503
+
+8 - 632964
+
+9 - 630866
+
+Total: 6320430
+
+SOD(M20996011) = 28445131
+
+Expected sum = 28441935
+
+M24036583
+
+0 - 722613
+
+1 - 723188
+
+2 - 722754
+
+3 - 722181
+
+4 - 723758
+
+5 - 724196
+
+6 - 723856
+
+7 - 724543
+
+8 - 723551
+
+9 - 725093
+
+Total: 7235733
+
+SOD(M24036583) = 32580433
+
+Expected sum = 32560798.5
+
+M25964951
+
+0 - 782138
+
+1 - 782118
+
+2 - 781551
+
+3 - 781856
+
+4 - 780817
+
+5 - 781588
+
+6 - 780774
+
+7 - 781662
+
+8 - 781424
+
+9 - 782302
+
+Total: 7816230
+
+SOD(M25964951) = 35170384
+
+Expected sum = 35173035
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

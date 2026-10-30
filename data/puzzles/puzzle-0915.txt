@@ -1,0 +1,372 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_915.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 915. Follow-up to Puzzles 172 & 914
+Source: https://www.primepuzzles.net/puzzles/puzz_915.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0915.htm
+
+References (local copies):
+  ../../references/Results for Puzzle 915.txt  (from https://www.primepuzzles.net/puzzles/Results%20for%20Puzzle%20915.txt)
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_172.htm
+  https://www.primepuzzles.net/puzzles/puzz_914.htm
+  https://www.primepuzzles.net/puzzles/Results%20for%20Puzzle%20915.txt
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_916.htm
+  https://www.primepuzzles.net/puzzles/puzz_915.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 915. Follow-up to Puzzles 172 & 914
+
+Problems & Puzzles: Puzzles
+
+Puzzle 915. Follow-up to Puzzles 172 & 914
+
+Here we will explore another variety of the so-called "Minimal-prime-complete-rules (MPCR)" that were the main subject of the Puzzles 172 & 914.
+
+This variety will consist in a ruler composed by two parts:
+
+Part I: The first KP primes set in strict ascending order from left to right, from 2 to P(KP).
+
+Part II: a) K1B ones before or b) K1A after the Kp primes.
+
+In any case, the total length L of the ruler is: L=SP+K1, where SP is the sum of the primes from 2 to P(KP).
+
+A couple of examples:
+
+Example #1 of MPCR for KP=2
+
+a) 1.1.2.3 (K1B=2), L=5+2=7
+
+b) 2.3.1 (K1A=1), L=5+1=6
+
+Example #2 of MPCR for KP=4
+
+a) 1.1.1.1.1.1.2.3.5.7 (K1B=6), L=17+6=23
+
+b) 2.3.5.7.1.1.1.1.1.1 (K1A=6), L=17+6=23
+
+Please check by yourself that these examples are real MPCR rulers, that is to say that in each ruler you can obtain any integer from 1 to L adding a pertinent set of contiguous distances in the ruler, for the K1 stated and this K1 is minimal.
+
+I have obtained all the rulers from KP=1 to 149. See the whole results in this file. From that work I derived the following three empirical results:
+
+R1: K1B = P(KP)-1 for all 1<= KP <=149
+
+R2: K1A <= K1B for all 1<= KP <=149
+
+R3: K1B-K1A = {0, 1, 2, or 3} for all 1<= KP <=149, with just one exception in the same range.
+
+The exception mentioned above is for KP = 38 where K1B-K1A = 8
+
+This is the statistics:
+
+K1B-B1A | Frec. | %
+
+0 | 67 | 44.97%
+
+1 | 36 | 24.16%
+
+2 | 32 | 21.48%
+
+3 | 13 | 8.72%
+
+8 | 1 | 0.67%
+
+149 | 100%
+
+Q1. Can you verify & explain R1 & R2.
+
+Q2. Are there more exceptions for KP>149
+
+Contributions came from Jan vand Delden and Emmanuel Vantieghem
+
+***
+
+Jan wrote:
+
+Q1. Both statements are true.
+
+Extension to the left with 1’s (K1B):
+
+I)
+
+Given a list of primes P[1,n]=[p[1],..,p[n]]
+
+Define S[i,j]=sum(p[k],k=i..j) and T={S[i,j], 1<=i<=j<=n} the set of all sums of consecutive primes.
+
+We know that S[1,n]-1 is not part of T.
+
+II)
+
+Extend P[1,m] with k 1’s to the left, EP[k,m]=[1,…,1,p[1],..,p[m]]
+
+Since S[1,n]-1 is not part of T we need to construct it using EP[k,m] for some k and m.
+
+The sum of the elements of EP[k,m] is k+S[1,m] and this should equal S[1,n]-1: k+S[1,m]=S[1,n]-1
+
+k = S[m+1,n]-1
+
+The smallest value for k is attained if m+1=n, or m=n-1, or k=S[n,n]-1=p[n]-1
+
+We need k to be at least equal to p[n]-1.
+
+III)
+
+We need to proof that with k=p[n]-1 the induced set ET[n] of partial sums is complete.
+
+Where ET[n] is the set of partial sums belonging to EP[p[n]-1,n].
+
+We proceed by induction on n.
+
+If n=1 we have p[1]=2 and k=2-1=1, EP[1,2]=[1,2] and ET[2]={1,2,3} is complete.
+
+Induction step: ET[n] is complete implies the resulting ET[n+1] is complete
+
+ET[n] = {1,2,3,…,p[n]-1+S[1,p[n]]} implies ET[n+1]={1,2,3,…,p[n+1]-1+S[1,p[n+1]]}
+
+Consider EP[k,n].
+
+If k=p[n]-1 we have ET[n]={1,2,3,..,p[n]-1+S[1,p[n]]} by assumption and hence a part of ET[n+1].
+
+For every increase in k in EP[k,n] the maximum value in the set above is increased by 1, this can be repeated p[n+1]-p[n] times.
+
+If k=p[n+1] -1 we therefore know that U={1,2,3,…,p[n]-1+p[n+1]-p[n]+S[1,p[n]]}={1,2,3,..,p[n+1]-1+S[1,p[n]]} is in ET[n+1].
+
+We must still account for the values of ET[n+1]\U = {p[n+1]+S[1,p[n]],…,p[n+1]-1+S[1,p[n+1]]}
+
+But cleary S[1,p[n]]+p[n+1]=S[1,p[n+1]] is in ET[n+1] (The sum of all primes in P[1,n+1]).
+
+Which we extended to the left by using p[n+1]-1 extra 1’s, so all these values are in ET[n+1].
+
+Summary:
+
+So we found that we need k to be at least equal to p[n]-1 and proved that the induced set of partial sums is complete for this k.
+
+q.e.d.
+
+Extension to the right with 1’s (K1A):
+
+Define F[k]=[1,..,1] (a list of k 1’s)
+
+Extend a partial list of P[m,n] with F[k] to the right: EP[m,n,k]=[p[m],…,p[n],1,…,1]
+
+Define ET[k,n] equal to all partial sums of EP[1,n,k].
+
+Define S[i,j]=sum(p[k],k=i..j) as before.
+
+First we show that ET[p[n]-1,n] is complete.
+
+The partial sums of F[k]: {1,2,..,p[n]-1} are part of the set ET[p[n]-1,n].
+
+Extend with p[n], EP[n,n,p[n]-1]: {p[n],p[n]+1,…,p[n]+p[n]-1} or {S[n,n],..,S[n,n]+p[n]-1} are part of the set.
+
+Extend with p[n-1], EP[n-1,n,p[n]-1]: {p[n]+p[n-1],…,p[n]+p[n-1]+p[n]-1} or {S[n-1,n],..,S[n-1,n]+p[n]-1} are part of the set.
+
+Etc.
+
+Please note that we have S[n,n]<S[n-1,n]=S[n,n]+p[n-1]<=S[n,n]+p[n]-1 because all primegaps are larger than 1, so the sets given in B) and C) overlap.
+
+Finally ET[p[n]-1,n] is equal to the union of {1..p[n]-1} and the sets {S[k,n],…,S[k,n]+p[n]-1} = {1,…S[1,n]+p[n]-1} and hence complete.
+
+k might not be minimal, we have: k<=p[n]-1.
+
+If one has k<p[n]-1 it still might happen that the values of {k+1,…,p[n]-1} are equal to S[i,j] for some i and j.
+
+This might solve “filling the gap” from A to B, but then one should check this doesn’t lead to a gap from B to C.
+
+An example is easier than giving a general rule:
+
+Consider n=27, p=103. The last few primes in L are [97,101,103]
+
+For this prime we have that p-1=102,p-2=101,p-3=100 are in S[i,j], so one is tempted to try k=99 (or K1B-K1A=3)
+
+{1,..,99} are in the set, {100,101,102} are in S[i,j] so in the set ET[99,27]
+
+{103,..,202} are in the set ET[99,27]
+
+{204,…,303} are in the set ET[99,27]
+
+{303,…,400} are in the set ET[99,27]
+
+So 203 is missing from ET[99,27] unless it is in S[i,j] for some i and j, BUT IT ISN’T.
+
+There is no gap between the numbers in the sets belonging to C) and D) anymore (or further down the line).
+
+A more careful analysis gives that the following procedure will take care of the gaps A)-B) and B)-C):
+
+For the primes in P[1,n] keep all partial sums S[i,j] if S[i,j]<=2*p[n] in a set T. [Considerable speedup]
+
+k=p[n]-1;
+
+delta=0; //The value of K1B-K1A
+
+while k is a member of T {
+
+if k<=p[n-1]-1{
+
+if (p[n]+k) is not a member of T{
+
+break;
+
+}
+
+}
+
+k--;
+
+delta++;
+
+}
+
+This will give a correct result if delta<p[n]-p[n-2]. If the last condition is not fullfilled the sets in C) and D) don’t overlap.
+
+And one either has to keep a larger set of partial sums (slower), or check the resulting numbers between C) and D) (rarely, but very slow).
+
+Q2
+
+The following values of delta=K1B-K1A>8 exist for p<10^6, with the additional check (p[n]-p[n-2]):
+
+n: 12404 p[n] 132887 delta 9 (28)
+
+n: 14570 p[n] 158611 delta 10 (20)
+
+n: 15296 p[n] 167437 delta 9 (14)
+
+n: 19005 p[n] 212437 delta 11 (18)
+
+n: 23388 p[n] 266947 delta 9 (20)
+
+n: 37830 p[n] 451481 delta 13 (42)
+
+n: 42899 p[n] 517901 delta 10 (28)
+
+n: 49492 p[n] 605173 delta 9 (26)
+
+n: 58357 p[n] 724219 delta 9 (32)
+
+n: 58967 p[n] 732449 delta 10 (76)
+
+n: 68231 p[n] 858427 delta 10 (54)
+
+n: 75145 p[n] 953221 delta 10 (42)
+
+I found the following two critical values for delta=8:
+
+n: 34305 p[n] 405997 delta 8 (8)
+
+n: 55578 p[n] 686977 delta 8 (8)
+
+I didn’t perform a check on these in order to determine if delta should be decreased or not.
+
+***
+
+Emmanuel wrote:
+
+It is possible to prove R1.
+
+Let's first introduce some notations :
+
+p(n) is the nth prime
+
+S(n) = the sum of the first n primes.
+
+B(n) = ( 1, 1, ..., 1, 2, 3, 5, ..., p(n) ) where the number of ones is precisely p(n) - 1.
+
+T(n) = Sum of all elements of B(n)
+
+= p(n) - 1 + S(n)
+
+We must prove that
+
+(1) every number k from 1 till T(n) can be obtained as sum of consecutive elments out of B(n)
+
+(we then shall say that k is 'reached')
+
+(2) if we put B'(n) = B(n) with one one dropped, there is at least one number < T(n) - 1
+
+that cannot be obtained as sum of consecutive elments out of B'(n).
+
+We prove (1) with mathematical induction.
+
+The assertion (1) is true when n = 1 (obvious).
+
+Asume the assertion (1) holds for n.
+
+It is clear that B(n) is a 'substring' of B(n+1).
+
+Hence, without using p(n+1) or any of the first p(n+1) - p(n) 'ones',
+
+all numbers from 1 till T(n) can be obtained as sums of consecutive elements out of B(n+1),
+
+If we involve these 'ones', we also can reach all numbers from T(n) + 1 till T(n) + p(n+1) - p(n) = S(n+1) - 1.
+
+Thus, we certainly can reach all numbers from 1 till S(n+1) - 1 without involving p(n+1).
+
+Now, let us look at all substrings of B(n+1) that involve p(n+1) but none of the 'ones'.
+
+Their sums provide n+1 numbers <= S(n+1)
+
+Involving the 'ones' then finally will give all numbers from S(n+1) till T(n+1)
+
+Thus, all numbers form 1 till T(n+1) can be reached by B(n+1).
+
+This proves (1).
+
+To prove (2) we consider B'(n) = ( 1, 1, ..., 1, 2, 3, ..., p(n) ) (with p(n) - 2 'ones').
+
+By the fact that (1) is proved now, every number from 1 till S(n-1)+p(n) - 2 = S(n) - 2
+
+is reached by substrings of B'(n) that do not involve p(n).
+
+We see immediately that no substring that involves p(n) will ever reach S(n) - 1 !
+
+That gives Q.E.D !
+
+Eilas, that way of reasoning fails for the proof of the assertions R2 and R3.
+
+I verified them for N up to 240. This is what I got :
+
+K1B-B1A Frec. %
+
+0 112
+
+1 60
+
+2 49
+
+3 16
+
+4 2
+
+8 1
+
+240
+
+Further examination leads to memory overflow on my PC.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

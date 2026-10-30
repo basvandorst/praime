@@ -1,0 +1,950 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://arxiv.org/pdf/1301.2242. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://arxiv.org/pdf/1301.2242
+Retrieved: 2026-10-30
+
+--- page 1 ---
+arXiv:1301.2242v3  [math.NT]  14 Apr 2013
+Maximal Gaps Between Prime k-Tuples:
+A Statistical Approach
+Alexei Kourbatov
+JavaScripter.net/math
+akourbatov@gmail.com
+Abstract
+Combining the Hardy-Littlewood k-tuple conjecture with a heuristic application of
+extreme-value statistics, we propose a family of estimator formulas for predicting max-
+imal gaps between prime k-tuples. Extensive computations show that the estimator
+a log(x/a) − ba satisfactorily predicts the maximal gaps below x, in most cases within
+an error of ±2a, where a = Ck logk x is the expected average gap between the same
+type of k-tuples. Heuristics suggest that maximal gaps between prim e k-tuples near x
+are asymptotically equal to a log(x/a), and thus have the order O(logk+1 x). The dis-
+tribution of maximal gaps around the “trend” curve a log(x/a) is close to the Gumbel
+distribution. We explore two implications of this model of g aps: record gaps between
+primes and Legendre-type conjectures for prime k-tuples.
+1 Introduction
+Gaps between consecutive primes have been extensively studied. T he prime number theorem
+[15, p. 10] suggests that “typical” prime gaps near p have the size about log p. On the other
+hand, maximal prime gaps grow no faster than O(p0.525) [15, p. 13]. Cram´ er [4] conjectured
+that gaps between consecutive primes pn − pn−1 are at most about as large as log 2 p, that is,
+lim sup(pn − pn−1)/ log2 pn = 1 when pn → ∞ . Moreover, Shanks [28] stated that maximal
+prime gaps G(p) satisfy the asymptotic equality
+√
+G(p) ∼ log p. All maximal gaps between
+primes are now known, up to low 19-digit primes (OEIS A005250) [29], [23]. This data
+apparently supports the Cram´ er and Shanks conjectures1: thus far, if we divide by log 2 p the
+maximal gap ending at p, the resulting ratio is always less than one — but tends to grow
+closer to one, albeit very slowly and irregularly.
+1While the Shanks conjecture √G(p) ∼ log p is plausible, the “inverted” Shanks conjecture p ∼ e√G(p) is
+likely false. (In general, X ∼ Y ⁄⇒ eX ∼ eY ; for example, x + log x ∼ x, but ex+log x = xex ⁄∼ ex as x → ∞.)
+Wolf [31, p. 21] proposes an improvement: a gap G(p) is likely to ﬁrst appear near p ∼
+√
+G(p)e
+√
+G(p).
+1
+
+--- page 2 ---
+Less is known about maximal gaps between prime constellations, or p rime k-tuples. One
+can conjecture that average gaps between prime k-tuples near p are O(logk p) as p → ∞ ,
+in agreement with the Hardy-Littlewood k-tuple conjecture [14]. Kelly and Pilling [17],
+Fischer [5] and Wolf [32] report heuristics and computations for gap s between twin primes
+(k = 2). Kelly and Pilling [18] also provide physically-inspired heuristics for p rime triplets
+(k = 3); Fischer [6] conjectures formulas for maximal gaps between k-tuples for both k = 2
+and k = 3. All of these conjectures and heuristics, as well as extensive c omputations, suggest
+that maximal gaps between prime k-tuples are at most about log p times the average gap,
+which implies that maximal gaps are O(logk+1 p) as p → ∞.
+In this article we use extreme value statistics to derive a general formula predicting the
+size of record gaps between k-tuples below p: maximal gaps are approximately a log(p/a)−ba,
+with probable error O(a). Here a = Ck logk p is the expected average gap near p, and Ck
+and b are parameters depending on the type of k-tuple. This formula approximates maximal
+gaps better and in a wider range than a linear function of log k+1 p. We will mainly focus on
+three types of prime k-tuples:
+• k = 2: twin primes (maximal gaps are OEIS A113274);
+• k = 4: prime quadruplets (maximal gaps are OEIS A113404);
+• k = 6: prime sextuplets (maximal gaps are OEIS A200503).
+The observations can be readily applied to other k-tuples; however, numerical values of
+constants Ck will change depending on the speciﬁc type of k-tuple. See, e. g., the following
+OEIS sequences for data on maximal gaps between prime k-tuples for other k:
+• k = 3: prime triplets (maximal gaps are A201596 and A201598);
+• k = 5: prime quintuplets (maximal gaps are A201073 and A201062);
+• k = 7: prime septuplets (maximal gaps are A201051 and A201251);
+• k = 10: prime decuplets (maximal gaps are A202281 and A202361).
+2 Deﬁnitions, notations, examples
+Twin primes are pairs of consecutive primes that have the form {p, p+2}. (This is the densest
+repeatable pattern of two primes.) Prime quadruplets are clusters of four consecutive primes
+of the form {p, p + 2, p + 6, p + 8} (densest repeatable pattern of four primes). Prime
+sextuplets are clusters of six consecutive primes of the form {p, p + 4, p + 6, p + 10, p + 12,
+p + 16} (densest repeatable pattern of six primes).
+Prime k-tuples are clusters of k consecutive primes that have a repeatable pattern. Thus,
+twin primes are a speciﬁc type of prime k-tuples, with k = 2; prime quadruplets are another
+speciﬁc type of prime k-tuples, with k = 4; and prime sextuplets are yet another type of
+prime k-tuples, with k = 6. (The densest k-tuples possible for a given k may also be called
+prime constellations or prime k-tuplets.)
+2
+
+--- page 3 ---
+Gaps between prime k-tuples are distances between the initial primes in two consecutive
+k-tuples of the same type. If the prime at the end of the gap is p, we denote the gap gk(p).
+For example, the gap between the quadruplets {11, 13, 17, 19} and {101, 103, 107, 109} is
+g4(101) = 90. The gap between the twin primes {17, 19} and {29, 31} is g2(29) = 12.
+Hereafter p always denotes a prime. In the context of gaps between prime k-tuples, p will
+refer to the ﬁrst prime of the k-tuple at the end of the gap; we call p the end-of-gap prime.
+(Note that primes preceding the gap might be orders of magnitude smaller than the gap
+size itself; e. g., the gap g6(16057) = 15960 starts at {97, 101, 103, 107, 109, 113}; the gap
+g6(1091257) = 1047480 starts at {43777, 43781, 43783, 43787, 43789, 43793}.)
+A maximal gap is a gap that is strictly greater than all preceding gaps. In other wo rds,
+a maximal gap is the ﬁrst occurrence of a gap at least this size. As an example, con-
+sider gaps between prime quadruplets (4-tuples): the gap of 90 pr eceding the quadruplet
+{101, 103, 107, 109} is a maximal gap (i.e. the ﬁrst occurrence of a gap of at least 90), wh ile
+the gap of 90 preceding {191, 193, 197, 199} is not a maximal gap (not the ﬁrst occurrence of
+a gap at least this size). A synonym for maximal gap is record gap. By Gk(x) we will denote
+the largest gap between k-tuples below x. ( Note: Statements like this will always refer to a
+speciﬁc type of k-tuples.) We readily see that
+gk(p) ≤ Gk(p) wherever gk(p) is deﬁned, and
+gk(p) = Gk(p) if gk(p) is a maximal gap.
+In rare cases, the equality gk(p) = Gk(p) may also hold for non-maximal gaps gk(p); e. g.,
+g4(191) = G4(191) = 90 even though the gap g4(191) is not maximal.
+The average gap between k-tuples near x is denoted gk(x) and deﬁned here as
+gk(x) =
+∑
+1
+2 x ≤ p−gk(p) < p ≤ 32 x
+gk(p)
+∑
+1
+2 x ≤ p−gk(p) < p ≤ 32 x
+1
+= the sum of all gaps between k-tuples with p ∈ [ 12x, 32 x]total count of gaps between k-tuples with p ∈ [ 12x, 32x] .
+(The value of gk(x) is undeﬁned if there are less than two k-tuples with 12x ≤ p ≤ 32x.)
+The expected average gap between k-tuples near x (for any x ≥ 3) is deﬁned formally as
+a = a(x) = Ck logk x, where the positive coeﬃcient Ck is determined by the type of the
+k-tuples. (See the Conjectures section for further details on this.)
+3 Motivation: is a simple linear ﬁt for Gk(p) adequate?
+The ﬁrst ten or so terms in sequences of record gaps (e. g., A1132 74, A113404, A200503)
+seem to indicate that maximal gaps between k-tuples below p grow about as fast as a linear
+function of log k+1 p. For twin primes (k = 2), Rodriguez and Rivera [26] gave simple linear
+approximations of record gaps, while Fischer [6] and Wolf [32] propos ed more sophisticated
+non-linear formulas. Why bother with any non-linearity at all? Let us lo ok at the data.
+Table 1 presents the least-squares zero-intercept trendlines [16 ], [22] for record gaps between
+k-tuples below 10 15 (k = 2, 4, 6).
+3
+
+--- page 4 ---
+TABLE 1
+Least-squares trendlines for maximal gaps between prime k-tuples ( k = 2, 4, 6).
+Trendline equation for maximal gaps between prime k-tuples:
+End-of-gap prime p twin primes prime quadruplets prime sextuplets
+(k = 2; ξ = log 3 p) ( k = 4; ξ = log 5 p) ( k = 6; ξ = log 7 p)
+1 < p < 106 y = 0.4576ξ y = 0.0627ξ y = 0.0016ξ
+106 < p < 109 y = 0.4756ξ y = 0.1031ξ y = 0.0147ξ
+109 < p < 1012 y = 0.5203ξ y = 0.1245ξ y = 0.0181ξ
+1012 < p < 1015 y = 0.5628ξ y = 0.1451ξ y = 0.0249ξ
+Table 1 shows that, for a ﬁxed k, record gaps between k-tuples farther from zero have a
+steeper trendline (when plotted against log k+1 p). This is not a “one-slope-ﬁts-all” situation!
+There is a good reason to expect that the same tendency holds in ge neral for any k: As we
+will see in the next sections, there exist curves that predict the record gap sizes, on average,
+better than any linear function of log k+1 p — and the farther from zero, the steeper are these
+curves (approaching certain limit values of slope, Ck). Nevertheless, a linear approximation
+can also be useful; computations and heuristics suggest that a linea r function of log k+1 p can
+serve as a convenient upper bound for gaps. For example: Maximal gaps between twin primes
+are less than 0.76 log3 p. In what follows, we will combine the Hardy-Littlewood k-tuple
+conjecture with extreme value statistics to better predict the siz es of maximal gaps between
+prime k-tuples of any given type, accounting for their non-linear growth t rend.
+4 Conjectures
+In this section we state several conjectures based on plausible he uristics and supported
+by extensive computations. As far as rigorous proofs are concer ned, we do not even know
+whether there are inﬁnitely many k-tuples of a given type — e. g., whether there are inﬁnitely
+many twin primes for k = 2. (The famous twin prime conjecture thus far remains unproven.
+A fortiori there is no known proof of the more general k-tuple conjecture described below.)
+4.1 The Hardy-Littlewood k-tuple conjecture
+The Hardy-Littlewood k-tuple conjecture [14], [25, pp. 60–68] predicts the approximate t otal
+counts of prime k-tuples (with a given admissible 2 pattern):
+The total number of prime k-tuples below x ∼ Hk
+∫ x
+2
+dt
+logk t.
+The actual counts of k-tuples match this prediction with a surprising accuracy [25, p. 62].
+The coeﬃcients Hk are called the Hardy-Littlewood constants. Note that, in general, the
+2Any pattern of k primes is deemed admissible (repeatable) unless it is prohibited by divisib ility consid-
+erations. For instance, the pattern of {p, p + 2, p + 4} is prohibited: one of the numbers p, p + 2, p + 4 must
+be divisible by 3. But {p, p + 2, p + 6} is not prohibited, hence admissible. For a more detailed discussion
+of admissible patterns, see [25, pp. 62–63].
+4
+
+--- page 5 ---
+constants Hk depend on k and on the speciﬁc type of k-tuple (e. g., there are three types of
+prime octuplets, with two diﬀerent constants). Hardy and Littlewo od not only conjectured
+the above integral formula but also provided a recipe for computing the constants Hk as
+products over subsets of primes. For example, in special cases wit h k = 2, 4, 6 we have
+H2 = 2
+∏
+p≥3
+p(p − 2)
+(p − 1)2 ≈ 1.32032 (for twin primes),
+H4 = 272 ∏p≥5 p3(p − 4)(p − 1)4 ≈ 4.15118 (for prime quadruplets),
+H6 = 155213 ∏p≥7 p5(p − 6)(p − 1)6 ≈ 17.2986 (for prime sextuplets) .
+These formulas for Hk have slow convergence. Riesel [25] and Cohen [3] describe eﬃcient
+methods for computing Hk with a high precision. Forbes [8] provides the values of Hk for
+dense k-tuples, or k-tuplets, up to k = 24. The k-tuple conjecture implies that
+• The sequence of maximal gaps between prime k-tuples of any given type is inﬁnite.
+(Thus, all OEIS sequences mentioned in Introduction are inﬁnite.)
+• When x → ∞ , the largest gaps below x will grow (asymptotically) at least as fast as
+average gaps, i. e., as fast as O(logk x) or faster.
+But exactly how much faster? Conjectures (D) and (E) below give p lausible answers.
+4.2 Conjectured asymptotics for gaps between k-tuples
+Let Ck denote the reciprocal to the corresponding Hardy-Littlewood co nstant: Ck = H −1k .
+The following formulas provide rough estimates of the gap gk(p) ending at a prime p:
+(A) Average gaps between prime k-tuples near p are gk(p) ∼ Ck logk p.
+(B) Maximal gaps between prime k-tuples are O(logk+1 p):
+gk(p) < M k logk+1 p, where Mk ≈ Ck (and possibly Mk = Ck).
+Deﬁning the expected average gap near x to be a = Ck logk x (x ≥ 3), we further conjecture:
+(C) Maximal gaps below x are asymptotically equal to Ck logk+1 x:
+Gk(x) ∼ Ck logk+1 x as x → ∞, with probable error O(a log a).
+(D) Maximal gaps below x are more accurately described by this asymptotic equality:
+Gk(x) ∼ a log(x/a) as x → ∞, with probable error O(a).
+(E) For any given type of k-tuple, there exists a real b (e. g., b ≈ 2k ) such that the diﬀerence
+Gk(x) − a(log(x/a) − b) changes its sign inﬁnitely often 3 as x → ∞.
+3 Moreover, on ﬁnite intervals x ∈ [3, Xmax] the diﬀerence Gk(x) − a(log(x/a) − b) changes its sign more
+often than Gk(x) − L(logk+1x), where L(logk+1x) is any linear function of log k+1x and Xmax is large enough.
+5
+
+--- page 6 ---
+A key ingredient in these conjectures is provided by the constants Ck = Hk−1:
+C2 = H −12 ≈ 0.75739, C 4 = H −14 ≈ 0.240895, C 6 = H −16 ≈ 0.057808.
+Another key ingredient is a statistical formula: for certain kinds of random events occurring
+at mean intervals a, the record interval between events observed in time T is likely 4 near
+a log(T /a). In Appendix we derive this formula for a = const. Here, we heuristically apply
+this formula for a slowly changing a (i. e., a = Ck logk x). For now, we can informally
+summarize the behavior of maximal gaps between k-tuples near p as follows: Maximal gaps
+are at most about log p times the average gap.
+4.3 Estimators for maximal gaps between k-tuples
+Prime k-tuples are rare and seemingly “random”. Life oﬀers many examples of unusually
+large intervals between rare random events, such as the longest r uns of dice rolls without
+getting a twelve; maximal intervals between clicks of a Geiger counte r measuring very low
+radioactivity, etc. Reasoning as in Appendix, one can statistically estimate the mathematical
+expectation of maximal intervals between rare random events by e xpressing them in terms
+of the average intervals:
+Expected maximal intervals = a log(T /a) + O(a), (∗)
+where a is the average interval between the rare events, and T is the total observation time
+or length (1 ≪ a ≪ T ).
+To account for the observed non-linear growth of record gaps be tween prime k-tuples
+(Table 1), we will simulate gap sizes using estimator formulas very simila r to the above ( ∗).
+We deﬁne a family of estimators for the maximal gap that ends at p:
+E1(Gk(p)) = max( a, a log(p/a) − ba), probable error: O(a); (1)
+E2(Gk(p)) = max( a, a log(p/a)), probable error: O(a); (2)
+E3(Gk(p)) = a log p = Ck logk+1 p, probable error: O(a log a). (3)
+Here, the role of the statistically average interval a is played by the expected average gap
+between k-tuples: as before, we set a = Ck logk p. The role of the total observation time T
+is played by p (we are “observing” gaps that occur from 0 to p). We also empirically choose
+b = 2k . (The latter choice is not set in stone; by varying the parameter b in E1 one can get
+an inﬁnite family of useful estimators with similar asymptotics. In Sec tion 6 we will see that
+b ≈ 3 appears quite suitable for modeling prime gaps , in which case k = 1, a = log p, and
+C1 = 1.) It is easy to see that, for any ﬁxed k ≥ 1 and any ﬁxed b ≥ 0, we have
+a ≤ E1 ≤ E2 < E 3 for all p ≥ 3, but at the same time a ≪ E1 ∼ E2 ∼ E3 as p → ∞.
+4 In particular, if intervals between rare random events have the ex ponential distribution, with mean
+interval a sec and CDF 1 − e−t/a, then the most probable record interval observed within T sec is about
+a log(T /a) sec (provided that a ≪ T ). After many observations ending at times a ≪ T1 ≪ T2 ≪ T3 . . .
+almost surely for some Ti we will observe record intervals exceeding a log(Ti/a). However, for other values
+of Ti we will also observe record intervals below a log(Ti/a). It is this formula for the most probable extreme,
+with the aid of the estimate SD = O(a) for the standard deviation of extremes, that allows us to heurist ically
+predict the bounds, errors, asymptotics, and sign changes in con jectures (B), (C), (D), (E).
+6
+
+--- page 7 ---
+Indeed, when p → ∞ we have
+E1(Gk(p)) = a log(p/a) − ab = a log p − a(log a + b) = a log p − o(logk+1 p) ∼ E3(Gk(p)).
+Note: We use the max function in the estimators to guarantee that Ei(Gk(p)) ≥ a. This
+precaution is needed because, if p is not large enough, log( p/a) might be negative or too
+small. We want our estimators to give positive predictions no less than a even in such cases.
+The above conjectures (C), (D), (E) tell us that E1 and E2 are better estimators than E3:
+the probable error of E3 is greater than that of E1 or E2. In Section 5.1 we will compare the
+predictions obtained with these estimators to the actual sizes of m aximal gaps.
+4.4 Why extreme value statistics?
+In number theory, probabilistic models such as Cram´ er’s model [4] f ace serious diﬃculties.
+One such diﬃculty will be noted in Section 6. Pintz [24] points out additio nal problems
+with Cram´ er’s model. Number-theoretic objects (such as primes o r prime k-tuples) are too
+peculiar; they are clearly not independent and cannot be ﬂawlessly simulated by independent
+and identically distributed (i.i.d.) random variables or “events” or “coin tosses” that we
+usually deal with in probabilistic models. Why then should one build heuris tics for prime
+k-tuples based on extreme value statistics?
+An obvious reason is that we are studying extreme gaps, so it would be unwise to outright
+dismiss the existing extreme value theory without giving it a try. When our goal is just to
+guess the right formula, rigor is not the highest priority; it is perhap s more important to
+accumulate as much evidence as possible, look for counterexamples , and make reasonable
+simpliﬁcations. The above formula for the expected maximal interva l ( ∗) appears to be at
+the right level of simpliﬁcation and ﬁts the actual record gaps fairly well even without the
+O(a) term (as we will see in Section 5.1). To ﬁne-tune formula ( ∗) for record gaps between
+prime k-tuples, we simply have to ﬁnd a suitable O(a) term. The latter can be done using
+number-theoretic insights and/or numerical evidence.
+Extreme value theory also oﬀers additional beneﬁts. Not only does it tell us the mathe-
+matical expectation of extremes in random sequences — it also pred icts distributions of ex-
+tremes. While in general there are inﬁnitely many probability distribut ion laws, there exist
+only three types of limiting extreme value distributions applicable to sequences of i.i.d. random
+variables: the Gumbel, Fr´ echet, and Weibull distributions [1]. When n o limiting extreme
+value distribution exists, a known type of extreme value distribution may still be a good
+approximation [11], [27]. A large body of knowledge has been accumulat ed that extends the
+same types of extreme value distributions from i.i.d. random variables to certain kinds of de-
+pendent variables, for example, m-dependent random variables [30], exchangeable variables
+[2], [9, pp. 163–191], and other situations [1], [9]. Although no theorem currently extends the
+known types of extreme value distributions to record gaps betwee n primes or prime k-tuples,
+we might have an aesthetic expectation that “the usual suspects ” would show up here, too. It
+turns out that one common type of extreme value distribution — the Gumbel distribution —
+does show up! (See Section 5.2, The distribution of maximal gaps .)
+7
+
+--- page 8 ---
+5 Numerical results
+Using a fast deterministic algorithm based on strong pseudoprime te sts [25, pp. 91–92],
+the author computed all maximal gaps between prime k-tuplets up to 10 15 for k = 4, 6.
+Fischer (2008) [5] reported a similar computation for k = 2. Below we analyze this data.
+5.1 The growth of maximal gaps
+Figure 1 shows record gaps between twin primes (A113274) for p < 1015; the curves are
+predictions obtained with estimators E1, E2, E3 deﬁned above. Figure 2 shows similar data
+for prime quadruplets (A113404), and Figure 3 for prime sextuplet s (A200503). Tables 2–4
+give the relevant numerical data; see also OEIS sequences mention ed in Introduction.
+0
+5000
+10000
+15000
+20000
+25000
+30000
+0 5000 10000 15000 20000 25000 30000 35000 40000
+(log p)^3
+Maximal gap size
+a
+E1
+E2
+E3
+Figure 1: Maximal gaps between twin primes {p, p+ 2} (A113274). Plotted (bottom to top):
+expected average gap a = 0 .75739 log2 p, estimators E1 = a log(p/a) − ba, E2 = a log(p/a),
+E3 = a log p = 0.75739 log3 p, where p is the end-of-gap prime; b = 1.
+Here are some observations suggested by these numerical result s. (As before, a denotes
+the expected average gap, a = Ck logk p, and b = 2k unless stated otherwise.)
+1. Estimators E1 and E2 overestimate some of the actual record gaps, but underestimat e
+others. For k ≤ 6, the data shows that E1 is closer to a median-unbiased estimator. 5
+(We can make it even closer by tweaking the b value; e. g., setting b ≈ 1.2597 for twin
+primes, or b ≈ 0.7497 for prime quadruplets, would turn E1 into a median-unbiased
+estimator for maximal gaps below 10 15.)
+5A median-unbiased estimator Emed(x) has as many observed values above it as below it.
+8
+
+--- page 9 ---
+2. About 90% of the observed gaps are within ±2a of the E1 curve. Over 50% of the
+observed gaps are within ±a of E1. This level of accuracy appears to be in line with
+heuristics based on statistical models (where the relevant extrem e-value distributions
+have the standard deviation πa/
+√
+6 ≈ 1.28a; see Appendix).
+3. Consider median-unbiased estimators Emed(Gk(p)) = a(log(p/a) − bmed) for p < 1015.
+Computations show that the value of bmed tends to decrease when k increases; also, our
+empirical value b = 2k in the E1 estimator is a little closer to zero than the median-
+unbiased value bmed. (For a simple way to reﬁne b, see remark at the end of sect. 5.2.)
+4. For relatively small values of p that we deal with, the estimator E3 may seem useless
+(too far above the realistic values). However, all three estimator s are asymptotically
+equivalent, E1 ∼ E2 ∼ E3 when p → ∞.
+5. The estimator E3 = Ck logk+1 p overestimates all known record gaps. In most cases, the
+error of E3 is close to a log a, exactly as expected from extreme-value statistics. Thus
+E3 may be a good candidate for an upper bound for all record gaps; so in statement
+(B) of section 4.2 we may have Mk = Ck = H −1k , and
+Gk(p) < C k logk+1 p (an analog of Cram´ er’s conjecture).
+It would be interesting to see any counterexamples, i. e., gaps exce eding Ck logk+1 p.
+0
+1000000
+2000000
+3000000
+4000000
+5000000
+6000000
+7000000
+8000000
+0.0E+00 1.0E+07 2.0E+07 3.0E+07 4.0E+07 5.0E+07
+(log p)^5
+Maximal gap size
+E3
+E1
+E2
+a
+Figure 2: Maximal gaps between prime quadruplets {p, p+2, p+6, p+8} (A113404). Plotted
+(bottom to top): expected average gap a = 0 .24089 log4 p, estimators E1 = a log(p/a) − ba,
+E2 = a log(p/a), E3 = a log p = 0.24089 log5 p, where p is the end-of-gap prime; b = 1/2.
+9
+
+--- page 10 ---
+Absolute error. The absolute error |Ei − Gk(p)| tends to grow (but not monotonically) as
+p → ∞ for all three estimators E1, E2, E3. Heuristically, we expect the absolute error to
+be unbounded and, on average, continue to grow for all three est imators. Probable absolute
+errors are O(a) for E1 and E2, and O(a log a) for E3.
+Relative error. The relative error |εi| = |Ei − Gk(p)|/Gk(p) tends to decrease (but not
+monotonically) for all three estimators as p → ∞. It may not be obvious from Figures 1–3,
+but we must have |εi| → 0 either for all three estimators or for none of them. ( Note: the
+limit of |εi| as p → ∞ might not exist at all; that would invalidate most of our conjectures.)
+Error in average-gap units a. The error ( E3 − Gk(p))/a, i. e., the E3 error expressed as
+a number of expected average gaps, grows about as fast as log a (but not monotonically).
+Judging from limited numerical data, the corresponding error ( Ei − Gk(p))/a seems bounded
+as p → ∞ if we use estimators E1 or E2. Heuristically, for E1 and E2 this error should remain
+bounded for the majority (but not all) of the record gaps.
+0.0E+00
+2.0E+08
+4.0E+08
+6.0E+08
+8.0E+08
+1.0E+09
+1.2E+09
+1.4E+09
+1.6E+09
+0.0E+00 1.0E+10 2.0E+10 3.0E+10 4.0E+10 5.0E+10
+(log p)^7
+Maximal gap size
+E3
+E2
+E1
+a
+Figure 3: Maximal gaps between prime sextuplets {p, p + 4, p + 6, p + 10, p + 12, p + 16}
+(A200503). Plotted (bottom to top): expected average gap a = 0 .057808 log6 p, estimators
+E1 = a log(p/a) − ba, E2 = a log(p/a), E3 = a log p = 0.057808 log7 p, where p is the end-of-
+gap prime; b = 1/3.
+Overall, the prediction that record gaps are about a log(p/a) + O(a) appears correct for the
+vast majority of actual gaps, as far as we have checked ( p < 1015). Note that the “optimal”
+O(a) term ( −ba in the E1 estimator) is negative, at least for k ≤ 6. For larger values of k,
+the parameter b gets closer to zero. Empirically, for k-tuples with k ≥ 6, the E1 estimator
+will likely produce good results even with b ≈ 0. Therefore, for large k we might want to
+simplify the model and use b = 0, i. e., use the estimator E2 = max(a, a log(p/a)), the dotted
+10
+
+--- page 11 ---
+curve in the above ﬁgure. However, maximal gap estimators with ce rtain special properties
+(e.g., median-unbiased estimators) will still require nonzero values o f b.
+TABLE 2
+Maximal gaps between twin primes {p, p + 2} below 10 15
+End-of-gap prime Gap g2 g∗2 End-of-gap prime Gap g2 g∗2
+5 2 0.084 24857585369 6552 −2.765
+11 6 0.451 40253424707 6648 −3.585
+29 12 0.180 42441722537 7050 −2.811
+59 18 −0.115 43725670601 7980 −0.830
+101 30 0.025 65095739789 8040 −1.625
+347 36 −1.205 134037430661 8994 −1.323
+419 72 −0.112 198311695061 9312 −1.604
+809 150 1.247 223093069049 9318 −1.865
+2549 168 −0.396 353503447439 10200 −1.262
+6089 210 −1.011 484797813587 10338 −1.747
+13679 282 −1.189 638432386859 10668 −1.792
+18911 372 −0.486 784468525931 10710 −2.195
+24917 498 0.645 794623910657 11388 −1.032
+62927 630 0.290 1246446383771 11982 −1.081
+188831 924 0.834 1344856603427 12138 −0.998
+688451 930 −1.728 1496875698749 12288 −1.002
+689459 1008 −1.161 2156652280241 12630 −1.309
+851801 1452 1.577 2435613767159 13050 −0.916
+2870471 1512 −0.721 4491437017589 14262 −0.481
+4871441 1530 −1.689 13104143183687 14436 −2.773
+9925709 1722 −2.070 14437327553219 14952 −2.255
+14658419 1902 −1.948 18306891202907 15396 −2.181
+17384669 2190 −0.918 18853633240931 15720 −1.793
+30754487 2256 −1.805 23275487681261 16362 −1.398
+32825201 2832 0.601 23634280603289 16422 −1.351
+96896909 2868 −1.646 38533601847617 16590 −2.291
+136286441 3012 −1.812 43697538408287 16896 −2.178
+234970031 3102 −2.611 56484333994001 17082 −2.539
+248644217 3180 −2.451 74668675834661 18384 −1.507
+255953429 3480 −1.454 116741875918727 19746 −0.864
+390821531 3804 −1.260 136391104748621 19992 −0.940
+698547257 4770 0.571 221346439686641 20532 −1.467
+2466646361 5292 −0.816 353971046725277 21930 −0.955
+4289391551 6030 −0.075 450811253565767 22548 −0.834
+19181742551 6282 −2.831 742914612279527 23358 −1.149
+24215103971 6474 −2.888
+11
+
+--- page 12 ---
+TABLE 3
+Maximal gaps between prime quadruplets {p, p + 2, p + 6, p + 8} below 10 15
+End-of-gap prime Gap g4 g∗4 End-of-gap prime Gap g4 g∗4
+11 6 0.430 3043668371 557340 −0.750
+101 90 0.902 3593956781 635130 0.188
+821 630 0.770 5676488561 846060 2.366
+1481 660 0.192 25347516191 880530 −1.576
+3251 1170 −0.014 27330084401 914250 −1.358
+5651 2190 0.194 35644302761 922860 −1.966
+9431 3780 0.518 56391153821 1004190 −2.244
+31721 6420 −0.125 60369756611 1070490 −1.697
+43781 8940 0.211 71336662541 1087410 −1.967
+97841 9030 −0.998 76429066451 1093350 −2.089
+135461 13260 −0.539 87996794651 1198260 −1.383
+187631 16470 −0.434 96618108401 1336440 −0.242
+326141 24150 −0.094 151024686971 1336470 −1.535
+768191 28800 −1.004 164551739111 1348440 −1.663
+1440581 29610 −1.957 171579255431 1370250 −1.577
+1508621 39990 −0.977 211001269931 1499940 −0.986
+3047411 56580 −0.812 260523870281 1550640 −1.150
+3798071 56910 −1.217 342614346161 2550750 6.412
+5146481 71610 −0.714 1970590230311 2561790 0.197
+5610461 83460 −0.049 4231591019861 2915940 −0.076
+9020981 94530 −0.379 5314238192771 2924040 −0.748
+17301041 114450 −0.678 7002443749661 2955660 −1.421
+22030271 157830 0.996 8547354997451 3422490 0.447
+47774891 159060 −0.861 15114111476741 3456720 −1.200
+66885851 171180 −1.135 16837637203481 3884670 0.533
+76562021 177360 −1.202 30709979806601 4228350 0.134
+87797861 190500 −1.023 43785656428091 4537920 0.307
+122231111 197910 −1.515 47998985015621 4603410 0.278
+132842111 268050 0.677 55341133421591 4884900 0.972
+204651611 315840 1.022 92944033332041 5851320 2.995
+628641701 395520 0.099 412724567171921 6499710 0.021
+1749878981 435240 −1.669 473020896922661 6544740 −0.293
+2115824561 440910 −2.020 885441684455891 6568590 −2.253
+2128859981 513570 −0.617 947465694532961 6750330 −1.932
+2625702551 536010 −0.749 979876644811451 6983730 −1.356
+2933475731 539310 −0.982
+Notes: Computing Tables 3 and 4 took the author two weeks on a quad-core 2.5 GHz CPU.
+Table 2 reﬂects Fischer’s extensive computation [5]. For earlier comp utations of maximal
+gaps by Boncompagni, Rodriguez, and Rivera, see OEIS A113274, A 113404 [29], [26].
+12
+
+--- page 13 ---
+TABLE 4
+Maximal gaps between prime 6-tuples {p, p + 4, p + 6, p + 10, p + 12, p + 16} below 10 15
+End-of-gap prime Gap g6 g∗6 End-of-gap prime Gap g6 g∗6
+97 90 1.856 422248594837 159663630 −2.389
+16057 15960 1.414 427372467157 182378280 −1.353
+43777 24360 0.949 610613084437 194658240 −1.751
+1091257 1047480 1.570 660044815597 215261760 −1.079
+6005887 2605680 1.176 661094353807 230683530 −0.427
+14520547 2856000 −0.048 853878823867 245336910 −0.573
+40660717 3605070 −1.035 1089869218717 258121710 −0.786
+87423097 4438560 −1.646 1248116512537 263737740 −0.968
+94752727 5268900 −1.380 1475318162947 311017980 0.246
+112710877 17958150 3.778 1914657823357 322552230 −0.170
+403629757 21955290 1.526 1954234803877 342447210 0.436
+1593658597 23910600 −1.149 3428617938787 421877610 1.085
+2057241997 37284660 0.730 9368397372277 475997340 −0.740
+5933145847 40198200 −1.318 10255307592697 507945690 −0.256
+6860027887 62438460 1.224 13787085608827 509301870 −1.159
+14112464617 64094520 −0.506 21017344353277 629540730 0.084
+23504713147 66134250 −1.523 33158448531067 659616720 −0.819
+24720149677 70590030 −1.228 41349374379487 797025180 0.985
+29715350377 77649390 −1.038 72703333384387 813158010 −0.682
+29952516817 83360970 −0.556 89166606828697 823158840 −1.190
+45645253597 90070470 −1.064 122421855415957 854569590 −1.723
+53086708387 93143820 −1.202 139865086163977 888931050 −1.642
+58528934197 98228130 −1.063 147694869231727 1010092650 −0.077
+93495691687 117164040 −0.935 186010652137897 1018139850 −0.755
+97367556817 131312160 −0.108 202608270995227 1139590200 0.603
+240216429907 151078830 −1.388 332397997564807 1152229260 −0.967
+414129003637 154904820 −2.566 424682861904937 1204960680 −1.155
+419481585697 158654580 −2.420 437805730243237 1457965740 1.725
+5.2 The distribution of maximal gaps
+We have just seen that maximal gaps between prime k-tuples below p grow about as fast as
+a log(p/a). Thus, the curve a log(p/a) (the dotted curve in Figures 1–3) may be regarded as
+a “trend.” Now we are going to take a closer look at the distribution of maximal gaps in
+the neighborhood of this “trend” curve. In our analysis, we will also include the case k = 1,
+record gaps between primes (A005250). For each k = 1, 2, 4, 6, we will make a histogram of
+shifted and scaled ( standardized) record gaps: subtract the “trend” a log(p/a) from actual
+gaps, and then divide the result by the “natural unit” a, the expected average gap. This
+way, all record gaps gk(p) are mapped to standardized values g∗k (shown in Tables 2–4):
+gk(p) → g∗k = gk(p) − a log(p/a)a , where a = Ck logk p.
+13
+
+--- page 14 ---
+Record gaps that exceed a log(p/a) are mapped to standardized values g∗k > 0, while those
+below a log(p/a) are mapped to g∗k < 0. Note that the majority of known record gaps are
+below the dotted curve in Figures 1–3; accordingly, most of the sta ndardized values g∗k are
+negative. It is also immediately apparent that the histograms and ﬁt ting distributions are
+skewed: the right tail is longer and heavier. This skewness is a well-kn own characteristic
+of extreme value distributions — and it comes as no surprise that a good ﬁt obtained with
+the help of distribution-ﬁtting software [21] is the Gumbel distribution , a common type of
+extreme value distribution (see Appendix).
+k = 1
+µ∗ = −3.633
+k = 2
+µ∗ = −1.659
+k = 4
+µ∗ = −1.019
+k = 6
+µ∗ = −0.9843
+Figure 4: The distribution of standardized maximal gaps g∗k: histograms and the ﬁtting
+Gumbel distribution PDFs. For k = 1 (primes), the histogram shows record gaps below
+4 × 1018. For k = 2, 4, 6 ( k-tuples), the histograms show record gaps below 10 15.
+Here is why we can say that the Gumbel distribution is indeed a good ﬁt :
+(1) Based on goodness-of-ﬁt statistics (the Anderson-Darling t est as well as the Kolmogorov-
+Smirnov test), one cannot reject the hypothesis that the standardized values g∗k might be
+values of independent identically distributed random variables with th e Gumbel distribution.
+(2) Although a few other distributions could not be rejected either , the Anderson-Darling
+and Kolmogorov-Smirnov goodness-of-ﬁt statistics for the Gumb el distribution are better
+than the respective statistics for any other two-parameter dist ribution we tried (includ-
+ing normal, uniform, logistic, Laplace, Cauchy, power-law, etc.), an d better than for several
+three-parameter distributions (e. g., triangular, error, Beta-P ERT, and others).
+An equally good or even marginally better ﬁt is the three-parameter generalized extreme
+value (GEV) distribution, which in fact includes the Gumbel distribution as a special case.
+The shape parameter in the ﬁtted GEV distribution turns out very close to zero; note tha t
+a GEV distribution with a zero shape parameter is precisely the Gumbe l distribution. The
+scale parameter of the ﬁtted Gumbel distribution is close to one. The mode µ∗ of the ﬁtted
+distribution is negative. Figure 4 gives the approximate value of µ∗ for k = 1 , 2, 4, 6; µ∗ is
+the coordinate of the maximum of the distribution PDF (probability de nsity function).
+Note: Now that we have a more precise value of the mode µ∗, we can reﬁne the parameter
+b in the E1 estimator: use −b = µ∗ + γ, which estimates the mean of the ﬁtted Gumbel
+distribution in Fig. 4. Here γ = 0.5772... is the Euler-Mascheroni constant.
+14
+
+--- page 15 ---
+6 On maximal gaps between primes
+Let us now apply our model of gaps to maximal gaps between primes (A005250) [29], [23]:
+Maximal prime gaps are about a log(p/a) − ba, with a = log p and b ≈ 3.
+If all record gaps behave like those in Figure 5 (showing the 75 known record gaps between
+primes p < 4×1018), this would conﬁrm the Cram´ er and Shanks conjectures: maximal prime
+gaps are smaller than log 2 p — but smaller only by O(a log a). We also easily see that the
+Cram´ er and Shanks conjectures are compatible with our estimate of record gaps. Indeed,
+for a = log p and any ﬁxed b ≥ 0, we have log 2 p ∼ a(log(p/a) − b) < log2 p as p → ∞.
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+0 200 400 600 800 1000 1200 1400 1600 1800
+(log p)^2
+Maximal gap size
+E3
+E1
+E2
+a
+Figure 5: Maximal gaps between consecutive primes (A005250). Plo tted (bottom to top):
+expected average gap a = log p, estimators E1 = a log(p/a) − ba, E2 = a log(p/a) (dotted),
+E3 = a log p = log 2 p, where p is the end-of-gap prime; b = 3.
+Notes: Maier’s theorem (1985) [19] states that there are (relatively sho rt) intervals where
+typical gaps between primes are greater than the average (log p) expected from the prime
+number theorem. Based in part on Maier’s theorem, Granville [12] adj usted the Cram´ er
+conjecture and proposed that, as p → ∞ , lim sup( G(p)/ log2 p) ≥ 2e−γ = 1 .1229 . . . This
+would mean that an inﬁnite subsequence of maximal gaps must lie abov e the Cram´ er-Shanks
+upper limit log 2 p, i. e., above the E3 line in Figure 5 — and this hypothetical subsequence (or
+an inﬁnite subset thereof) must approach a line whose slope is about 1.1229 times steeper!
+However, for now, there are no known maximal prime gaps above log 2 p. Interestingly, Maier
+himself did not voice serious concerns that the Cram´ er or Shanks c onjecture might be in
+danger because of his theorem; thus, Maier and Pomerance [20] sim ply remarked in 1990:
+Cram´ er conjectured that lim supG(x)/ log2x = 1, while Shanks made the stronger con-
+jecture that G(x) ∼ log2 x, but we are still a long way from proving these statements.
+15
+
+--- page 16 ---
+7 Corollaries: Legendre-type conjectures
+Assuming the conjectures of Section 4, one can state (and verify with the aid of a computer) a
+number of interesting corollaries. The following conjectures gener alize Legendre’s conjecture
+about primes between squares.
+• For each integer n > 0, there is always a prime between n2 and ( n + 1)2. ( Legendre)
+• For each integer n > 122, there are twin primes between n2 and ( n + 1)2. (A091592)
+• For each integer n > 3113, there is a prime triplet between n2 and ( n + 1)2.
+• For each integer n > 719377, there is a prime quadruplet between n2 and ( n + 1)2.
+• For each integer n > 15467683, there is a prime quintuplet between n2 and ( n + 1)2.
+• There exists a sequence {sk} such that, for each integer n > s k, there is a prime k-tuplet
+between n2 and ( n + 1)2. (This {sk} is OEIS A192870: 0 , 122, 3113, 719377, . . .)
+Another family of Legendre-type conjectures for prime k-tuplets can be obtained by replacing
+squares with cubes, 4th, 5th, and higher powers of n:
+• For each integer n > 0, there are twin primes between n3 and ( n + 1)3.
+• For each integer n > 0, there is a prime triplet between n4 and ( n + 1)4.
+• For each integer n > 0, there is a prime quadruplet between n5 and ( n + 1)5.
+• For each integer n > 0, there is a prime quintuplet between n6 and ( n + 1)6.
+• For each integer n > 6, there is a prime sextuplet between n7 and ( n + 1)7.
+A further generalization is also possible:
+• There is a prime k-tuplet between nr and ( n + 1)r for each integer n > n 0(k, r), where
+n0(k, r) is a function of k ≥ 1 and r > 1.
+To justify the above Legendre-type conjectures, we can assum e the k-tuple conjecture plus
+statement (B) (sect. 4.2) bounding the size of gaps between k-tuples: gk(p) < M k logk+1 p.
+We can now use the following elementary argument: Consider a ﬁxed r > 1, and let x
+be a number in the interval between nr and ( n + 1) r. Then, for large n, the interval size
+dr = ( n + 1)r − nr ∼ rnr−1 will be asymptotic to rx(r−1)/r: because x ∼ nr and dr ∼ rnr−1
+when n → ∞, we have n ∼ x1/r and dr ∼ rx(r−1)/r when x → ∞. But any positive power of
+x grows faster than any positive power of log x when x → ∞ . So x(r−1)/r must grow faster
+than log k+1 x. Therefore, the intervals [ nr, (n + 1) r] — whose sizes are about rx(r−1)/r —
+will eventually become much larger than the largest gaps between pr ime k-tuples containing
+primes p ≈ x. For smaller n, a computer check ﬁnishes the job.
+However, this is not a proof : we have relied on unproven assumptions. As Hardy and
+Wright pointed out in 1938 (referring to the inﬁnitude of twin primes a nd prime triplets),
+Such conjectures, with larger sets of primes, can be multipl ied, but their proof or
+disproof is at present beyond the resources of mathematics. [15, p. 6]
+Many years have passed, yet conjectures like these remain excee dingly diﬃcult to prove.
+16
+
+--- page 17 ---
+8 Appendix: a note on statistics of extremes
+In this appendix we use extreme value statistics to derive a simple for mula expressing the
+expected maximal interval between rare random events in terms o f the average interval:
+E(max interval) = a log(T /a) + O(a) (1 ≪ a ≪ T ),
+where a is the average interval between the rare events, T is the total observation time
+or length, as applicable, and E(max interval) stands for the mathematical expectation of
+the maximal interval. The formula holds for random events occurrin g at exponentially
+distributed (real-valued) intervals, as well as for events occurrin g at geometrically distributed
+discrete (integer-valued) intervals. (For more information on ext reme value distributions of
+random sequences see Gumbel’s classical book [13] or more recent b ooks [1], [9]. For extreme
+value distributions of discrete random sequences, such as head ru ns in coin toss sequences,
+see also the papers of Schilling [27] or Gordon, Schilling, and Waterman [11] and further
+references therein.)
+8.1 Two problems about random events
+For illustration purposes, we will use two problems:
+Problem A. Consider a non-stop toll bridge with very light traﬃc. Let P > 1/2 be the
+probability that no car crosses the toll line during a one-second inte rval, and q = 1 − P the
+probability to see a car at the toll line during any given second. Suppo se we observe the
+bridge for a total of T seconds, where T is large, while P is constant.
+Problem B. Consider a biased coin with a probability of heads P > 1/2 (and the probability
+of tails q = 1 − P ). We toss the coin a total of T times, where T is large.
+In both problems, answer the following questions about the rare ev ents (cars or tails):
+(1) What is the expected total number of rare events in the observation series of length T ?
+(2) What is the expected average interval a between events (i. e., between cars/tails)?
+(3) What is the expected maximal interval between events, as a function of a?
+Notice that the ﬁrst two questions are much easier than the third. Here are the easy answers:
+(1) Because the probability of the event is q at any given second/toss, we expect a total of
+nq events after n seconds/tosses, and a total of T q events at the end of the entire observation
+series of length T .
+(2) To estimate the expected average interval a between events, we divide the total length
+T of our observation series by the expected total number of event s T q. So a reasonable
+estimate6 of the expected average interval between events is a ≈ T /(T q) = 1 /q.
+6 For a small q, the estimate a ≈ 1/q is quite accurate: its error is only O(1). To prove this, we can
+use speciﬁc distributions of intervals between events. Thus, if in Pr oblem A the intervals between cars are
+distributed exponentially (CDF 1 − P t = 1 − e−t/a), then the mean interval is a = 1/ log(1/P ) = 1 /q + O(1).
+If in Problem B the observed runs of heads are distributed geometr ically (CDF 1 − P r+1), then the mean
+run of heads is P/q = 1/q + O(1).
+17
+
+--- page 18 ---
+(3) Quite obviously, we can predict that the expected maximal inter val is less than T , but
+not less than a:
+a ≤ E(max interval) < T.
+The expected maximal interval will likely depend on both a and T :
+E(max interval) = f (a, T ).
+It is also reasonable to expect that f (a, T ) should be an increasing function of both argu-
+ments, a and T . Can we say anything more speciﬁc about the expected maximal inte rval?
+8.2 An estimate of the most probable maximal interval
+In both problems A and B we will assume that 1 ≪ a ≪ T — or, in plain English:
+• the events are rare (1 ≪ a), and
+• our observations continue for long enough to see many events ( a ≪ T ).
+In Problem A, to estimate the most probable maximal interval betwe en cars we proceed as
+follows: After n seconds of observations, we would have seen about nq cars, hence about
+nq intervals between cars. The intervals are independent of each oth er and real-valued. A
+known good model for the distribution of these intervals is the exponential distribution that
+has the cumulative distribution function (CDF) 1 − P t:
+with probability P , any given interval between cars is at least 1 second;
+with probability P 2, any given interval is at least 2 seconds;
+with probability P 3, any given interval is at least 3 seconds; . . .
+with probability P t, any given interval is at least t seconds.
+Thus, after n seconds of observations and about nq carless intervals, we would reasonably
+expect that at least one interval is no shorter than t seconds if we choose t such that
+P t × (nq) ≥ 1.
+Now it is easy to estimate the most probable maximal interval tmax:
+P tmax ≈ 1/(nq)
+(1/P )tmax ≈ nq
+tmax ≈ log1/P (nq).
+In Problem B we can estimate the longest run of heads Rn after n coin tosses reasoning
+very similarly. One notable diﬀerence is that now the head runs are dis crete (have integer
+lengths). Accordingly, they are modeled using the geometric distribution . Schilling [27] has
+this estimate for the longest run of heads after n tosses, given the heads probability P :
+Rn ≈ log1/P (nq).
+In both problems, the estimates for the most probable maximal inte rval (as a function of P
+and n) have the same form log 1/P (nq). Therefore, it is reasonable to expect that the answers
+to our original question (3) in both problems A and B will also be the sam e or similar
+functions of the average interval a, even though the problems are modeled using diﬀerent
+distributions of intervals. We will soon see that this indeed is the case .
+18
+
+--- page 19 ---
+8.3 If random events are rare...
+If the events (cars in Problem A, or tails in Problem B) are rare, then P is close to 1, and q
+is close to 0. Using the Taylor series expansion of log(1 /(1 − q)), we can write:
+log(1/P ) = log
+( 1
+1 − q
+)
+= q + q2
+2 + q33 + . . . = q + O(q2)
+or, omitting the O(q2) terms,
+log(1/P ) ≈ q, and therefore
+1
+log(1/P ) ≈ 1q ≈ a (moreover, we have 1log(1/P ) = a in Problem A) .
+So we can transform the estimate of most probable maximal interva ls, log 1/P (nq), like this:
+log1/P (nq) = log( nq)/ log(1/P ) ≈ (1/q) log(nq) ≈ a log(n/a).
+For a long series of observations, with the total length or duration n = T (e. g. T tosses
+of a biased coin, or T seconds of observing the bridge), the estimate for the most prob able
+maximal interval becomes a log(T /a).
+8.4 Expected maximal intervals
+The speciﬁc formulas for expected maximal intervals between rare events depend on the
+nature of events in the problem (whether the initial distribution of in tervals is exponential
+or geometric). However, as T → ∞ , in the formulas for both cases the highest-order term
+turns out to be the same: a log(T /a), which was precisely our estimate for the most probable
+maximal interval.
+(A) Exponential initial distribution. Fisher and Tippett [7], Gnedenko [10], Gumbel
+[13] and other authors showed that, for initial distributions of exponential type (including, as
+a special case, the exponential distribution) the limiting distribution of maximal terms in a
+random sequence is the double exponential distribution — often called the Gumbel distribu-
+tion. In particular, if intervals between cars in Problem A have exponent ial distribution with
+CDF 1 −P t = 1 −e−t/a, then the distribution of maximal intervals has these characterist ics7:
+N-event CDF: (1 − e−t/a)N = (1 − 1N e−(t−µN )/a)N (distribution for N ≈ T q events),
+Limiting CDF: exp( −e−(t−µ)/a) (Gumbel distribution) [13, p. 157],
+Scale = a = 1 / log(1/P ) (equal to the expected average interval) ,
+Mode = µ = µN = a log N ≈ a log(T /a) ≈ log1/P (T q),
+Median = µ − a log log 2 ≈ a log(T /a) + 0.3665a,
+Mean = µ + γa ≈ a log(T /a) + 0.5772a,
+7Instead of the scale parameter a, Gumbel [13, p. 157] uses the parameter α = 1/a. The mode µN (most
+probable value, also called the location parameter) in the N -event extreme-value distribution resulting from
+an exponential initial distribution is equal to the characteristic extreme a log N [13, p. 114]. The shape of
+the N -event extreme-value distribution approaches that of the limiting d istribution as N → ∞.
+19
+
+--- page 20 ---
+where γ = 0.5772... is the Euler-Mascheroni constant. The mean value of observed ma ximal
+intervals in Problem A will converge almost surely to the mean µ + aγ of the Gumbel
+distribution, therefore:
+E(max interval) ≈ log1/P (T q) + γa ≈ a log(T /a) + γa = a log(T /a) + O(a).
+Historical notes: In 1928 Fisher and Tippett [7] described three types of limiting extre me-
+value distributions and showed that the double exponential (Gumbe l) distribution is the
+limiting extreme-value distribution for a certain wide class of random s equences. They also
+computed, among other parameters, the mean-to-mode distance in the double exponential
+distribution [7, p. 186]; it is this result that allows one to conclude that the mean is µ + aγ if
+the mode is µ. Gnedenko (1943) [10] rigorously proved the necessary and suﬃ cient conditions
+for an initial distribution to be in the domain of attraction of a given ty pe of limiting
+distribution.
+(B) Geometric initial distribution. Surprisingly, in this case the limiting extreme-value
+distribution does not exist [27, p. 203], [11, p. 280]. For the longest r un of heads Rn in a series
+of n tosses of a biased coin, with the probability of heads P , we have
+E(Rn) = log 1/P (nq) + γlog(1/P ) − 12 + smaller terms [27, p. 202] ,
+where the ﬁrst term is the same as in Problem A (up to a substitution n = T ). The sum of
+the other terms is O(a) when P is close to 1; so, again, we have
+E(Rn) = a log(n/a) + O(a).
+8.5 Standard deviation of extremes
+As above, the speciﬁc formula for standard deviation (SD) in distrib utions of maximal inter-
+vals between events depends on the nature of the problem (wheth er the initial distribution
+of intervals is exponential or geometric). Still, in both cases SD ≈ πa/
+√
+6 = O(a).
+(A) Exponential initial distribution. Here the limiting distribution of maximal intervals
+is the Gumbel distribution with the scale a = 1 / log(1/P ), therefore the SD of maximal
+intervals must be very close to the SD of the Gumbel distribution:
+SD(max interval) ≈ πa√6 = O(a) [13, p. 116, 174] .
+(B) Geometric initial distribution. For the longest run of heads Rn in a series of n
+tosses of a biased coin, the variance is
+VarRn = π2
+6 log2(1/P ) + 112 + smaller terms [27, p. 202] ,
+where the ﬁrst term is O(a2), while the sum of the other terms is much smaller than the ﬁrst
+term. (Again, recall that for average intervals a between rare events — in this case, between
+tails — we have a ≈ 1/ log(1/P ).) Therefore, the standard deviation is
+SD Rn =
+√
+VarRn = π√6 log(1/P ) + a small term ≈ πa√6 = O(a).
+20
+
+--- page 21 ---
+8.6 A shortcut to the answer
+There is a simple way to “guesstimate” the answer a log(T /a)+O(a). If a is the average inter-
+val between events, then the most probable maximal interval is ab out a log(T /a) (sect. 8.3).
+We can now simply use the fact that the width of the extreme value dis tribution is O(a).
+(Imagine what happens if the rare event’s probability q is reduced by 50%. This change in
+q would have about the same eﬀect as if every interval became twice a s large: then average
+and maximal intervals would also become twice as large, and the extre me value distribution
+would be twice as wide. This immediately implies that the extreme value dis tribution is O(a)
+wide.) But then the true value of the expected maximal interval can not be any farther than
+O(a) from our estimate a log(T /a); so the expected maximal interval is a log(T /a) + O(a).
+8.7 Summary
+We have considered maximal intervals between random events in two common situations:
+• rare events occurring at exponentially distributed intervals (Problem A);
+• discrete rare events at geometrically distributed intervals (Problem B).
+These two situations are somewhat diﬀerent: in the former case ma ximal intervals have a
+limiting distribution (the Gumbel distribution), while in the latter case n o limiting distribu-
+tion exists (here the Gumbel distribution is simply a decent approxima tion). Nevertheless,
+in both cases the expected maximal interval between events is
+E(max interval) = a log(T /a) + γa + lower-order terms = a log(T /a) + O(a),
+where a is the average interval between events, T is the total observation time or length, and
+the lower-order terms depend on the initial distribution.
+As we have seen in Sections 4–6, a remarkably similar heuristic formula a log(x/a) − ba, with
+an empirical term −ba replacing the “theoretical” γa, satisfactorily describes the following:
+• record gaps between primes below x (a = log x, b ≈ 3; A005250)
+• record gaps between twin primes below x (a = 0 .75739 log2 x, b ≈ 1; A113274) and,
+more generally,
+• record gaps between prime k-tuples ( a = Ck logk x, b ≈ 2/k, where Ck is reciprocal to
+the Hardy-Littlewood constant for the particular k-tuple).
+9 Acknowledgements
+The author is grateful to the anonymous referee and to all autho rs, contributors, and editors
+of the websites OEIS.org, PrimePuzzles.net and FermatQuotient.com. Many thanks also to
+Prof. Marek Wolf for his interest in the initial version of this paper, f ollowed by an email
+exchange that undoubtedly helped make this paper better.
+21
+
+--- page 22 ---
+References
+[1] J. Beirlant, Y. Goegebeur, J. Segers and J. Teugels, Statistics of Extremes: Theory and
+Applications, Wiley, 2004.
+[2] S. M. Berman, Limiting distributions of the maximum term in sequenc es of dependent
+random variables. Annals of Mathematical Statistics , 33 (1962), 894–908.
+[3] H. Cohen, High precision computation of Hardy-Littlewood const ants, preprint.
+http://www.math.u-bordeaux1.fr/~cohen/hardylw.dvi (2012).
+[4] H. Cram´ er, On the order of magnitude of the diﬀerence betwee n consecutive prime
+numbers. Acta Arith. 2 (1937), 23–46.
+[5] R. Fischer, Maximale L¨ ucken (Intervallen) von Primzahlenzwillingen, web page (in Ger-
+man) http://www.fermatquotient.com/PrimLuecken/ZwillingsRekordLuecken (2008).
+[6] R. Fischer, Maximale Intervalle von Primzahlenpaaren, web page ( in German).
+Maximal gaps between twin primes are G2(p) ≈ (1.32032)−1(log p − (2/3) log log p)3.
+Maximal gaps between prime triplets are G3(p) ≈ (2.8582)−1(log p − (3/4) log log p)4.
+http://www.fermatquotient.com/PrimLuecken/Max Intervalle (2006).
+[7] R. A. Fisher and L. H. C. Tippett, Limiting forms of the frequency distribution of the
+largest and smallest member of a sample, Proc. Camb. Phil. Soc. , 24 (1928), 180–190.
+[8] A. D. Forbes, Prime k-tuplets. Section 21: List of all possible patterns of prime k-tuplets.
+The Hardy-Littlewood constants pertaining to the distribution of p rime k-tuplets.
+http://anthony.d.forbes.googlepages.com/ktuplets.htm (2012).
+[9] J. Galambos, The Asymptotic Theory of Extreme Order Statistics , Krieger, 1987.
+[10] B. V. Gnedenko, Sur la distribution limite du terme maximum d’une s´ erie al´ eatoire.
+Ann. Math., 44 (1943), 423–453. (English translation: On the limiting distributio n of the
+maximum term in a random series. Breakthroughs in Statistics , Volume 1: Foundations
+and Basic Theory. Springer, New York, 1993, pp. 185–225.)
+[11] L. Gordon, M. F. Schilling, and M. S. Waterman, An extreme value theory for long
+head runs. Probability Theory and Related Fields , 72 (1986), 279–297.
+[12] A. Granville. Harald Cram´ er and the distribution of prime number s. Scand. Act. J. , 1
+(1995), 12–28.
+[13] E. J. Gumbel, Statistics of Extremes , Columbia University Press, 1958. Dover, 2004.
+[14] G. H. Hardy and J. E. Littlewood, Some Problems of ‘Partitio Nume rorum.’ III. On the
+Expression of a Number as a Sum of Primes. Acta Math. 44 (1922), 1–70.
+[15] G. H. Hardy and E. M. Wright, An Introduction to the Theory of Numbers , 6th ed.
+Oxford University Press, 2008.
+22
+
+--- page 23 ---
+[16] W. L. Hays, Statistics, Harcourt Brace College Publishers, 1994.
+[17] P. F. Kelly and T. Pilling, Implications of a new characterisation of t he distribution of
+twin primes. http://arxiv.org/abs/math/0104205 (2001).
+[18] P. F. Kelly and T. Pilling, Physically inspired analysis of prime number c onstellations.
+http://arxiv.org/abs/hep-th/0108241 (2001).
+[19] H. Maier, Primes in short intervals, Michigan Math. J. , 32 (1985), 221–225.
+[20] H. Maier and C. Pomerance, Unusually large gaps between conse cutive primes. Trans-
+actions of the AMS , 322 (1990), 201–237.
+[21] MathWave Technologies, EasyFit — Distribution Fitting Software , the company web
+site at http://www.mathwave.com/easyfit-distribution-fitting.html (2012).
+[22] Microsoft Corporation, Excel: Add a Trendline to a Chart , the company web site at
+http://oﬃce.microsoft.com/en-us/excel-help/add-a-trendline-to-a-chart-HP005198462.aspx
+(2012).
+[23] T. R. Nicely, List of prime gaps. http://www.trnicely.net/gaps/gaplist.html (2012).
+[24] J. Pintz, Cram´ er vs Cram´ er: On Cram´ er’s probabilistic modelof primes. Functiones et
+Approximatio, XXXVII.2 (2007), 361–376.
+[25] H. Riesel, Prime Numbers and Computer Methods for Factorization , Birkh¨ auser, 1994.
+[26] L. Rodriguez and C. Rivera, Conjecture 66. Gaps between con secutive twin prime pairs.
+http://www.primepuzzles.net/conjectures/conj 066.htm (2009).
+[27] M. F. Schilling, The longest run of heads. The College Math. J. , 21 (1990), 196–207.
+[28] D. Shanks, On maximal gaps between successive primes. Math. Comput. 18 (1964),
+646–651.
+[29] N. J. A. Sloane, On-Line Encyclopedia of Integer Sequences , http://oeis.org (2012).
+[30] G. S. Watson, Extreme values in samples from m-dependent stationary stochastic pro-
+cesses. Annals of Mathematical Statistics , 25 (1954), 798–800.
+[31] M. Wolf, Some heuristics on the gaps between consecutive prime s, arXiv preprint.
+http://arxiv.org/abs/1102.0481 (2011)
+[32] M. Wolf, Maximal gaps between twin primes G2(x) can be expressed in terms of π2(x).
+E-mail communication (2013).
+2010 Mathematics Subject Classiﬁcation : Primary 11N05; Secondary 60G70.
+23
+
+--- page 24 ---
+Keywords: distribution of primes, prime k-tuple, Hardy-Littlewood conjecture, extreme
+value statistics, Gumbel distribution, prime gap, Cram´ er conject ure, prime constellation,
+twin prime conjecture, prime quadruplet, prime sextuplet.
+(Concerned with OEIS sequences A005250, A091592, A113274, A 113404, A192870, A200503,
+A201596, A201598, A201051, A201062, A201073, A201251, A20 2281, A202361.)
+24

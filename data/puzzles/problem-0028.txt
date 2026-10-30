@@ -1,0 +1,233 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_028.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 28.- K least consecutive numbers n such that are not squarefree
+Source: https://www.primepuzzles.net/problems/prob_028.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0028.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:ezcos@yahoo.com
+  http://www.research.att.com/projects/OEIS?Anum=A045882
+  http://www.marmet.ca/louis/math/sqfgap/index.html
+  http://www.marmet.org/louis/sqfgap/index.html
+  https://www.primepuzzles.net/problems/prob_027.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_029.htm
+  https://www.primepuzzles.net/problems/prob_028.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Problem 28.- K least consecutive numbers n such that are not squarefree
+
+Problems & Puzzles: Problems
+
+Problem 28.- K least consecutive numbers n such that are not squarefree
+
+The first (least) occurrence of K=3 consecutive numbers that are not squarefree starts with the number 48, because 48 = 2^4.3, 49 = 7^2 & 50 = 2.5^2.
+
+This kind of sequences may also be named as "gaps of square free consecutive numbers" and also as "sequences of consecutive numbers whose Möbius function is zero".
+
+Here is the list of the sequences found up to November 1999 for K=1 to 15.
+
+At least K
+
+Starting Number
+
+1
+
+4
+
+2
+
+8
+
+3
+
+48
+
+4
+
+242
+
+5
+
+844
+
+6
+
+22020
+
+7
+
+217070
+
+8
+
+1092747
+
+9
+
+8870024
+
+10
+
+221167422
+
+11
+
+221167422
+
+12
+
+47255689915
+
+13
+
+82462576220
+
+14
+
+1043460553364
+
+15
+
+79180770078548
+
+16
+3215226335143218 by Z. McGregor-Dorsey et al.
+
+17 | 23742453640900972 by E. Wong et al.
+
+This table corresponds to the sequence A051681 of the Sloane's On-Line Encyclopedia of Integer Sequences. The first eleven terms were sent by Erich Friedmann and Patrick De Geest, while the last four terms were found by Louis Marmet (louis at marmet.org) and David Bernier (ezcos@yahoo.com) very recently (November 1999).
+
+The entries for K=16 & 17 were reported to me by J. K. Andersen (October 2003) as the last terms of the sequence A045882
+
+Marmet and (independently) Bernier found also that "No gaps longer than 15 were found up to N = 96×10^12^ " and I would strongly recommend to consider an Algorithm developed by Marmet before going farther.
+
+This algorithm is " based on the sieve of Eratosthenes" and " is much faster" than the algorithm of "Mathematica", according to Marmet.
+
+Questions:
+
+Can you develop an argument stating that exist any quantity of K, as large as you want, consecutive numbers not squarefree?
+
+Can you extend this table for K=>16?
+
+SOLUTION
+
+Louis Marmet has sent a methodic way of finding one solution for a sequence 16 members of this type. As fas as I understood his answer for the question 2 of this puzzle, Marmet also solves the question 1. Do you agree? Here is his email:
+
+"You were asking if I could find a solution for K=16 using the method. I don't
+
+have the software to calculate numbers that are that big, so I cannot answer
+
+this. I see on your web page that you have the possibility to compute such
+
+large numbers. So you can try it if you have a program that solves congruences
+
+using the Chinese Remainder theorem...
+
+...For gaps with K=16, this set of 12 congruences would do it:
+
+N = 0 (mod 4)
+
+N = 8 (mod 9)
+
+N = 23 (mod 25)
+
+N = 46 (mod 49)
+
+N = 116 (mod 121)
+
+N = 163 (mod 169)
+
+N = 282 (mod 289)
+
+N = 352 (mod 361)
+
+N = 518 (mod 529)
+
+N = 828 (mod 841)
+
+N = 947 (mod 961)
+
+N = 1354 (mod 1369)
+
+You should get: N = a mod b, where b will be about 5.615341*10^25.
+
+However, this solution will certainly be much bigger than the first gap with
+
+K=16. I estimate that the first gap of length K=16 to start at about N=10^16...
+
+...
+
+The above equations are simply the following ones written in a different way:
+
+N = 0 (mod 2*2)
+
+N+1 = 0 (mod 3*3)
+
+N+2 = 0 (mod 5*5)
+
+N+3 = 0 (mod 7*7)
+
+N+5 = 0 (mod 11*11)
+
+N+6 = 0 (mod 13*13)
+
+N+7 = 0 (mod 17*17)
+
+N+9 = 0 (mod 19*19)
+
+N+11 = 0 (mod 23*23)
+
+N+13 = 0 (mod 29*29)
+
+N+14 = 0 (mod 31*31)
+
+N+15 = 0 (mod 37*37)
+
+It is easier to see here what is happening. Note that because N+16 = 0 (mod 4),
+
+you will actually get gaps with K=17.
+
+***
+
+What I (CR) have done is simply to program in Ubasic a code to solve this set of 12 modular equations sent by Marmet to get a set of 17 consecutive numbers that are not square free.
+
+My code pinted out the following result for the initial member of that set, N:
+
+N=316524040719565110079148
+
+***
+
+Louise Marmet wrote:
+
+By the way, the value of Qgap(18) is known, in case you want to add it to your page, see http://www.marmet.org/louis/sqfgap/index.html .
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

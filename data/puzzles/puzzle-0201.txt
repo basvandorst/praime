@@ -1,0 +1,381 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_201.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 201. The arithmetic function A(n)
+Source: https://www.primepuzzles.net/puzzles/puzz_201.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0201.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  http://www.shyamsundergupta.com/canyoufind.htm
+  https://www.primepuzzles.net/puzzles/puzz_200.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_202.htm
+  https://www.primepuzzles.net/puzzles/puzz_201.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 201. The arithmetic function A(n)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 201. The arithmetic function A(n)
+
+The following puzzle was sent by Luis Flavio Soares Nunes, from Brazil.
+
+Let n = p_1^a
+
+^1 ^. ...^. p_r^a^r be the canonical representation of n.
+We define A(n) = r ^. max(a_1, ..., a_r).
+
+This function has a geometrical propriety. In fact, if we represent the prime factors of n in a rectangle, with the distinct p_i‘s in its base, and each column with a_i primes p_i , then A(n) represents the minimum area of a rectangle that comports this representation of n.
+
+As example, let n = 2^3 ^. 5^2 ^. 7^6 ^. 11^4. Then, A(n) = 4 ^. max(3, 2, 6, 4) = 4 ^. 6 = 24.
+
+Or, we can draw this rectangle:
+
+.
+
+.
+
+7
+
+.
+
+.
+
+.
+
+7
+
+.
+
+.
+
+.
+
+7
+
+11
+
+2
+
+.
+
+7
+
+11
+
+2
+
+5
+
+7
+
+11
+
+2
+
+5
+
+7
+
+11
+
+And its area is A(n) = 4 ^. 6 = 24.
+
+We also define an ordered conjunct R_k = {n Є N : A(n)=k}. We can see, by the above example, that 2^3 ^. 5^2 ^. 7^6 ^. 11^4 is in R_24.
+
+Questions:
+
+For any k, what are the first elements of R_k ?
+
+If k=1, its easy to describe R_1, simply because it is the ordered set of all primes,
+
+R_1 = {2, 3, 5, 7, 11, ...}. However, if k>1, it is difficult to enumerate R_k. We can prove that if k is prime, R_k = {2^k, ...}. But, what is the next element ? Can we express it ?
+
+For example, by calculation, we discover that R_2 = {2^2, 2 ^. 3, 3^2, 2 ^. 5, 2 ^. 7, 3 ^. 5, ...}. But, is there a simpler manner of doing it ?
+
+Given k and M, how many elements smaller than M are in R_k?
+
+Is there, in every set R_k , 2 consecutive integers ?
+
+For example, in R_1 are 2 and 3. In R_2 are 14=2 ^. 7 and 15=3 ^. 5. R_3 contains 2197=13^3 and 2198=2 ^. 7 ^. 157, etc. Does it holds in every set R_k ?
+
+Solution:
+
+Phil Carmody and Joseph L. Pe sent interesting contributions to this puzzle:
+
+Phil wrote:
+
+1) If k is prime, the only elements of R_k are ones of the form p^k and k-almost-primes. The first element will always be 2^k. The second element will either be 3^k or nthprime(k)#
+
+e.g.
+
+k=2 either 9 or 6 => 6, i.e. nthprime(k)#
+
+k=3 either 27 or 30 => 27 i.e. 3^k
+
+k=4 either 81 or 210 => 81, and so on, 3^k
+
+If k is a composite, then it can be split many ways, and the smallest element for each split will be the only one that can possibly be 2nd place, rather than 3^k. This smallest element will be the almost empty rectangle consisting of a tower of twos, and a single instance of each of the next smallest primes. i.e. 2^d.nthprime(k/d)#/2 for d|k More than that, in this expression you tend to want the largest number of powers of two, and certainly you never want d<(k/d). So the number of values you want to look at is quite small, and it you should be able to do it exhaustively almost instantly.
+
+2) I can't see anything better than brute forcing it. It looks like it's non-P in k, but bounded above by something linear in M.
+
+3) Given Heath-Brown's results on who sigma and tau can behave, I'd have to guess that every set will contain 2 consecutive numbers. I reckon it can always be done with 1*k (flat) rectangles too (i.e. k-almost primes).
+
+Joseph wrote:
+
+Recall that if n = p_1^a_1 * ... * p_r^a_r is the canonical prime factorization of n, then A(n) is defined as A(n) = r * max{a_1, ..., a_r}. The set R_k is defined as the set of natural numbers n satisfying A(n) = k. Let R_k(1) < R_k(2) < .... be the elements of R_k in increasing order.
+
+Question 1. R_k(1), the first element of R_k, can be characterized as follows. As already noted in your article, R_k(1) = 2^k if k is prime. If k is not prime, then let d be a divisor of k and d' = k/d. Consider the product P(d) = 2^d' * 3 * 5 * ... * p(d), where p(d) is the d-th prime. Then R_k(1) is the smallest value taken by P(d), that is: R_k(1) = min_{d | k} 2^(k/d) * 3 * 5 * ... * p(d). More compactly, R_k(1) = min_{d | k} 2^(k/d - 1) * d#, where d# stands for d primorial, defined as the product of the first d primes.
+
+My characterization of R_k(2), the second element of R_k, is not as neat, and depends upon having previously computed R_k(1). If k = 2, then R_k(2) = 6; and if k is an odd prime, then R_k(2) = 3^k. Now, if k is not prime, then let d be a divisor of k and d' = k/d. Consider the product P(d) = 2^d' * q_2 * q_3 * ... * q_d, where q_2 < q_3 < ... < q_d is any sequence of d-1 primes for which R_k(1) < P(d) < 3^k. (3^k is probably not the tightest bound possible here.) Then R_k(2) is the smallest value taken by P(d), that is: R_k(2) = min_{d | k, R_k(1) < P(d) < 3^k} P(d).
+
+Here is a table of the first and second elements of R_k to illustrate the above expressions.
+
+k first element of R_k second element of R_k
+
+1 2 3^1
+
+2 2^2 2^1 * 3^1
+
+3 2^3 3^3
+
+4 2^2 * 3^1 2^4
+
+5 2^5 3^5
+
+6 2^3 * 3^1 2^3 * 5^1
+
+7 2^7 3^7
+
+8 2^4 * 3^1 2^4 * 5^1
+
+9 2^3 * 3^1 * 5^1 2^3 * 3^1 * 5^1
+
+10 2^4 * 3^1 2^5 * 5^1
+
+11 2^11 3^11
+
+12 2^6 * 3^1 2^4 * 3^1 * 5^1
+
+13 2^13 3^13
+
+14 2^7 * 3^1 2^7 * 5^1
+
+Ok, these "formulas" aren't really very practical. To enumerate R_k, it is much easier to use an inductive procedure, speeded up by a sieve method and other heuristics. The most obvious way to enumerate R_k:
+
+Base step. To compute R_k(1), compute A(2), A(3), .... until the first t is found such that such that A(t) = k. Then R_k(1) = t. Clearly, such t exists because A(2^k) = k, so that R_k(1) <= 2^k. To speed up the search, it is easily seen that R_k(1) must be a multiple of 4 for k > 1, so that only the 2^(k-2) multiples of 4 that are <= 2^k need to be considered.
+
+Inductive step. Suppose R_k(1) < R_k(2) < ... < R_k(s) have been found; then R_k(s+1) has to be determined. Compute A(R_k(s) + 1), A(R_k(s) + 2), .... until the first t among R_k(s) + 1, R_k(s) + 2, .... is found such that A(t) = k. Such t exists because if R_k(s) = p_1^a_1 * ... * p_r^a_r is the canonical prime factorization of R_k(s), then the number U = p_1^a_1 * ... * (p')^a_r, obtained by replacing p_r by the next prime p', is > R_k(s) and A(U) = k, so that R_k(s+1) <= U. Put R_k(s+1) = t.
+
+This simple enumeration can be improved by incorporating a sieve method (as in the sieve of Eratosthenes). Start with the list {2, 3, ....}. Proceed as above, computing A(2), A(3), .... If A(i) = k, encircle the integer i. If A(i) is not equal to k, then underline i. In addition, if A(i) > k, then A(I) >= A(i) > k for any multiple I of i; hence, underline every i-th number in the list (corresponding to a multiple of i). Compute A(i) only for i that has not yet been encircled or underlined. The (ordered) list of encircled numbers enumerates the elements of R_k.
+
+Here is a Mathematica program (implementing just the "obvious" method) to enumerate R_4 and print any pairs of
+
+consecutive elements:
+
+A[n_] := Module[{pf}, pf = Transpose[FactorInteger[n]];
+
+Length[pf[[1]]]*Max[pf[[2]]]];
+
+R[k_] := Module[{l, ub, i, lastval},
+
+l = {};
+
+ub = 10^4;
+
+lastval = 0;
+
+For[i = 2, i <= ub, i++,
+
+If[A[i] == k,
+
+l = Append[l, i];
+
+If[i == lastval + 1,
+
+Print[ToString[(i - 1)] <> " and " <> ToString[i] <>
+
+" are consecutive elements"]];
+
+lastval = i
+
+]];
+
+l];
+
+R[4]
+
+Question 3. I have verified (using the program above) that R_1, ..., R_6 have consecutive elements, but there are no consecutive elements < 10^8 in R_7. I suspect the answer to this question is "no", but I have only empirical evidence.
+
+I asked to Phil what was his opinion on the Pe's comment to question 3, a kind of divergent of his own comment based on the Heath-Brown's work. This is what he answered (are you ready for it?)
+
+The case R_p with p prime does seriously restrict the number of ways of finding values. R_k is contains 7th powers, and products of 7 primes, doesn't it?
+
+19203908986158 = 2*3*13*281*337*1289*2017 precedes 19203908986159 = 79^7
+
+The following are also consecutive powers/7-almost-primes
+
+prime [factorization of 7-almost-prime] prime^7
+
+power > 7-almost-prime:
+
+191 [2, 5, 19, 127, 197, 10627, 183569] 9273284218074431
+
+223 [2, 3, 29, 37, 491, 1709, 5076443] 27424204663190047
+
+359 [2, 179, 211, 449, 1303, 4019, 4327] 768530557342240919
+
+1283 [2, 29, 631, 641, 3739, 24781, 2632673] 5722510452670311609227
+
+(after these a long list of other solutions)
+
+power < 7-almost-prime:
+
+457 [2, 29, 43, 229, 421, 7309, 2368871] 4163067000501310393
+
+709 [2, 5, 29, 71, 6287, 534857, 1300727] 90058279596528053869
+
+761 [2, 3, 71, 113, 127, 105883, 228336109] 147806181513219494921
+
+821 [2, 3, 29, 137, 197, 631, 84847040587] 251421318647928806141
+
+(after these a long list of other solutions)
+
+These are just the ones <10^35. I have no reason to suspect that they thin out so much that they ever run out. I've not even thought of looking at consecutive 7-almost-primes, these would be _much much_ more common than ones that are adjacent to prime powers, such as those found above.
+
+The work of Heath-Brown _proves_ that you will find consecutive k-almost primes for every k. So my gut feel isn't required. Every set will have consecutive terms. Full stop.
+
+So restricting ourselves to the harder problem of prime-powers 'towers' next to flatter arrangements...
+
+R_8 is in some ways harder (a sparse form, and one that has a massively factorable neighbor to the power). However, there are several 'tower blocks' that work [1,1,1,1,1,1,1,1], [2,1,1,1], [2,2,1,1], [2,2,2,1], [2,2,2,2], [4,1], [4,2], [4,3], [4,4], which makes it easier.
+
+Here are the solutions up to 10^40:
+
+prime power < 8-almost-prime:
+
+131 [2, 17, 7841, 19136877329] 86730203469006241
+
+709 [2, 17, 3089, 35762192350095041] 63851320233938390193121
+
+1231 [2, 17, 72648689, 125576624052401] 5273080767529718372423041
+
+(after these a long list of other solutions)
+
+prime power > 8-almost-prime:None, too make algebraic factors of p^8-1
+
+R_9 has swings in its favor and almost nothing against its favor
+
+347 [2, 7, 13, 19, 73, 173, 1297, 1327, 970421527] 72939918399605131977467
+
+947 [2, 7, 11, 19, 43, 109, 277, 463, 348272974918243] 612561660047653251978446867
+
+(after these a long list of other solutions)
+
+R_10 also has some results, a few more that R_8, but looking similarly one-sided due to the algebraic factorization of p^10-1.
+
+17 [2, 5, 29, 21881, 63541] 2015993900449
+
+37 [2, 5, 61, 137, 11507920001] 4808584372417849
+
+R_11 refused to give me a result, but searching is harder as you're looking at 50+digit numbers. It would be a drag to try to optimize the code to early-abort if it can't find enough small factors quickly, as I'm using pari/gp, and I'm not a particularly good programmer in that language. (It's 2 lines of code to find the above results in pari/gp!). So I hope that's put the R_7 problem to bed. Alas it's awakened a R_11 problem instead :-)...
+
+No it hasn't - this just in:
+
+6343 [2, 3, 7, 23, 151, 1409, 1607, 311323, 405989, 502608943, 31871697617] 668716170795985943898848282166258251528407
+
+Uf!!!... Thanks Phil.
+
+***
+
+Frank Rubin sent the following comment (20/11/2002) regarding the same issue of the question 3:
+
+I think that every R_k contains not just 2 consecutive integers, but longer sequences of n consecutive integers as well. For example, R_5 contains 1042404, 1042405 and 1042406. Sudipta Das and I found similar sequences for other values of k and n.
+
+***
+
+Later Rubin added a more complete table of results and comments:
+
+I have now searched all of the integers through 2,100,000,000 for consecutive integers having the same number of prime factors. I made two separate runs, one for distinct prime factors, like the puzzle on my website, and total prime factors, like the puzzle on your website.
+
+The results are somewhat different from what I had expected. There do not seem to be any sequences longer than 8 consecutive numbers having 2 distinct prime factors. The reason for this is that, just as the primes thin out as you get larger, the numbers that can be expressed as the product of 2 primes thin out. I think this will eventually happen with 3 primes, 4 primes, and so forth. However, it will occur at points much greater than 2.1 billion.
+
+With total prime factors the length of the sequences is limited by the number of factors. With n factors there cannot be more than 2^n-1 consecutive integers. This is because any 2^n consecutive integers will contain a multiple of 2^n, which must have more than n factors. (The first multiple, namely 1x2^n cannot be part of a sequence of consecutive integers with n factors. 2^n is the first integer with n factors, so 2^n-1 has fewer than n factors. The next integer with n factors will be 3x2^(n-1) so 2^n+1 also must have fewer than n factors.)
+
+My belief is that for 4 total factors there will be sequences of 15 consecutive integers. It is less clear if this will hold true for larger numbers of factors, for example that there will actually be sequences of 31 consecutive integers having 5 total factors.
+
+I have attached two tables showing the smallest integer that begins a sequence of n consecutive integers with k factors.
+
+Frank Rubin Dec. 7, 2002
+
+* Distinct prime factors
+
+Run k Number of factors
+Len 2 3 4 5 6 6 7 8 9
+--- --- ------- -------- -------- -------- -------- ------- --------
+1: 6 30 210 2310 30030 510510 9699690 223092870
+2: 14 230 7314 254540 11243154 965009045 0 0
+3: 20 644 37960 1042404 323567034 0 0 0
+4: 33 1308 134043 21871365 0 0 0
+5: 54 2664 357642 129963314 0 0 0
+6: 91 6850 1217250 830692265 0 0 0 0
+7: 141 10280 1217250 0 0 0 0 0
+8: 141 39693 14273478 0 0 0 0 0
+9: 0 44360 44939642 0 0 0 0 0 0
+10: 0 48919 76067298 0 0 0 0 0
+11: 0 218972 163459742 0 0 0 0 0
+12: 0 526095 547163235 0 0 0 0 0
+13: 0 526095 2081479430 0 0 0 0 0
+14: 0 526095 0 0 0 0 0 0
+15: 0 17233173 0 0 0 0 0 0
+16: 0 127890362 0 0 0 0 0 0
+
+* Total prime factors
+
+Run k Number of factors
+Len 2 3 4 5 6 7 8 9 10
+--- --- ------- -------- -------- -------- -------- -------- -------- --------
+1: 4 8 16 32 64 128 256 512 1024
+2: 9 27 135 944 5264 29888 50624 203391 3290624
+3: 33 170 1274 15470 33614 3145310 40909374 668363967 0
+4: 0 602 4023 57967 8706123 296299374 0 0 0
+5: 0 602 12122 632148 101905622 0 0 0 0
+6: 0 2522 204323 14845324 0 0 0 0 0
+7: 0 211673 355923 69921004 0 0 0 0 0
+8: 0 0 3405122 888781058 0 0 0 0 0
+9: 0 0 3405122 0 0 0 0 0 0
+10: 0 0 49799889 0 0 0 0 0 0
+11: 0 0 202536181 0 0 0 0 0 0
+
+***
+
+Trial Brian sent a note (10/12/2002) reminding that he solved the CYF No. 8, of the Shyam Sunder Gupta's site, related to the Rubin's belief "My belief is that for 4 total factors there will be sequences of 15 consecutive integers"
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

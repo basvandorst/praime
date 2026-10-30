@@ -1,0 +1,406 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_087.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 87.  A partition of the first 2n+1 primes
+Source: https://www.primepuzzles.net/conjectures/conj_087.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0087.htm
+
+References (local copies):
+  ../../references/Conjecture87_pq.txt  (from https://www.primepuzzles.net/conjectures/Conjecture87_pq.txt)
+
+Links on the page:
+  https://mislandia.weebly.com/blog/category/inenglish
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/Conjecture87_pq.txt
+  https://www.primepuzzles.net/conjectures/conj_086.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_088.htm
+  https://www.primepuzzles.net/conjectures/conj_087.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 87. A partition of the first 2n+1 primes
+
+Problems & Puzzles: Conjectures
+
+Conjecture 87. A partition of the first 2n+1 primes
+
+Ivan N. Ianakiev stated the 12/19/2020, in his interesting blog site, the following nice conjecture:
+
+For every n > 0, it is possible to partition the set of the first 2n + 1 primes into two disjoint subsets with equal sums of the value of its elements.
+
+Q1. Can you prove it or find a counterexample?
+
+Q2. Can you discover a simple and efficient algorithm to get always at least one solution for each n value, n>0?
+
+During the week 22-28 Jan 2021, contributions came from Dmitry Kamenetsky, Giorgos Kalogeropoulos, Oscar Volpatti, Simon Cavegn.
+
+***
+
+Dmitry wrote:
+
+I have checked that the conjecture holds up to n=8300. As n grows, the number of ways to achieve the two equal subsets increases, so the problem of finding them becomes easier. I suspect the conjecture is true for all n, but it may be hard to prove.
+I used hill climbing with random restarts. In particular I construct a set of primes such that the sum of its numbers is half of the first 2n+1 primes. The second set will be composed of the primes that were not used in the first set. A move involves removing or adding a number to this set. Here are the first 10 solutions:
+
+n=1: (2 3) (5)
+n=2: (2 5 7) (3 11)
+n=3: (2 3 7 17) (5 11 13)
+
+n=4: (7 11 13 19) (2 3 5 17 23)
+
+n=5: (2 5 19 23 31) (3 7 11 13 17 29)
+
+n=6: (2 11 13 23 29 41) (3 5 7 17 19 31 37)
+
+n=7: (2 3 5 11 13 17 29 41 43) (7 19 23 31 37 47)
+
+n=8: (3 7 11 19 31 43 47 59) (2 5 13 17 23 29 37 41 53)
+
+n=9: (2 3 5 7 11 23 29 31 47 59 67) (13 17 19 37 41 43 53 61)
+
+n=10: (2 7 23 31 41 47 61 71 73) (3 5 11 13 17 19 29 37 43 53 59 67)
+
+***
+
+Giorgos wrote:
+
+Q2: Here is my algorithm.
+We shall use the fact that every integer in the interval [7,122] can be expressed
+
+as the sum of one or more of the first 10 primes: {2, 3, 5, 7, 11, 13, 17, 19, 23, 29}.
+
+Our target number T is the sum of all primes up to prime(2n+1) divided by 2.
+
+Then we successively subtract from T as many primes (from our list of 2n+1 primes) as we can
+
+following this procedure:
+
+We start with the biggest prime in the list P.
+
+If T-P>6 we append P to the final list1, also T becomes T=T-P and we check the next biggest prime.
+
+We repeat the same step until T is in the interval [7,122].
+
+Then T (which is the remainder) can be expressed as a sum of some of the first 10 primes.
+
+We add those primes to list1 and the first list is complete.
+
+The second list (list2) can be obtained as the complement of 2n+1 primes and list1.
+
+Here is the code in Mathematica:
+
+Choose any n>=5 in the first line. Takes about 6 min to split 1.000.001 primes (n=500.000)
+
+n=50; (* Select n>=5 *)
+
+P=Reverse@Prime@Range[11,2n+1];
+
+Print["Target T=",T=S=Total[A=Prime@Range[2n+1]]/2];
+
+i=1;list={};
+
+Monitor[While[T>122,If[T-P[[i]]>6,T=T-P[[i]];AppendTo[list,P[[i]]]];i++],{"Progress",Floor[100(1-T/S)],"of 100"}];
+
+Print["Remainder in the interval [7,122] is ",T];
+
+list1=Sort@Join[First@Select[IntegerPartitions[T,All,Prime@Range@10],Length@#==Length@Union@#&],list]
+
+list2=Complement[A,list1]
+
+Print["All primes in range[1,",2n+1 ,"]: ",A==Sort[Join[list1,list2]]]
+
+Print["Sum of 2 lists is the same: ",Total@list1==Total@list2]
+
+***
+
+Oscar wrote:
+
+Conjecture 87 is true.
+
+Let C(n) be the set of the first 2*n+1 primes, with sum(C(n)) = s(n).
+
+Define set D(n) as follows: a non-negative integer d belongs to D(n) if it's possible to partition C(n) into two disjoint subsets A and B with sum(A) - sum(B) = d.
+
+Conjecture 87 simply states that 0 belongs to D(n) for every n > 0.
+
+I'll prove that D(n) contains all even integers from 0 to s(n), with at most three exceptions:
+
+s(n)-2, for every n;
+
+s(n)-8, only for n > 0;
+
+s(n)-12, only for n > 1.
+
+Claimed exceptions are greater than 0 for n > 0, matching conjecture 87.
+
+All constraints on D(n) are necessary.
+
+The largest element of D(n) is s(n), obtained by choosing A = C(n), B = {}.
+
+Any other element of D(n) must have the same parity of s(n), which is even.
+
+The exceptions are due to the fact that no subset B of the primes can have sum 1, 4, or 6.
+
+Proof strategy:
+
+for 0 <= n <= 2, exaustive search and enumeration;
+
+for n > 2, induction on n.
+
+Preliminary lemma (lower bound on exceptions):
+
+s(n)-12 > p(2*n+2) for every n > 1.
+
+Inequality holds for n = 2, as s(2)-12 = 28-12 = 16 and p(6) = 13.
+
+Rewrite inequality as s(n) - p(2*n+2) > 12; the left side is a strictly increasing function of n:
+
+(s(n) - p(2*n+2)) - (s(n-1) - p(2*n)) =
+
+(s(n) - s(n-1)) - p(2*n+2) + p(2*n) =
+
+2*p(2*n) + p(2*n+1) - p(2*n+2) >
+
+p(2*n+1) + p(2*n+1) - p(2*n+2) > 0.
+
+Last two steps are applications of Bertrand's postulate: p(k+1) < 2*p(k) for every k.
+
+Proof of main theorem.
+
+Exaustive search and enumeration for 0 <= n <= 2.
+
+n = 0, s(0) = 2
+
+0: no 1-1 partition
+
+2: {2} {}
+
+D(0) = {2}
+
+n = 1, s(1) = 10
+
+0: {5} {3,2}
+
+2: no 6-4 partition
+
+4: {5,2} {3}
+
+6: {5,3} {2}
+
+8: no 9-1 partition
+
+10: {5,3,2} {}
+
+D(1) = {0,4,6,10}
+
+n = 2, s(2) = 28.
+
+0: {11,3} {7,5,2}
+
+2: {7,5,3} {11,2}
+
+4: {11,5} {7,3,2}
+
+6: {7,5,3,2} {11}
+
+8: {11,5,2} {7,3}
+
+10: {11,5,3} {7,2}
+
+12: {11,7,2} {5,3}
+
+14: {11,7,3} {5,2}
+
+16: no 22-6 partition
+
+18: {11,7,5} {3,2}
+
+20: no 24-4 partition
+
+22: {11,7,5,2} {3}
+
+24: {11,7,5,3} {2}
+
+26: no 27-1 partition
+
+28: {11,7,5,3,2} {}
+
+D(2) = {0,2,4,6,8,10,12,14,18,22,24,28}
+
+Induction on n for n > 2.
+
+If main theorem holds for set D(n-1), then it holds for set D(n) too: for every claimed element d of D(n), a suitable partition of C(n) can be explicitly found by modifying a well-chosen partition of C(n-1).
+
+Considering the even integers from 0 to s(n), we need to distinguish four cases.
+
+Case 1: 0 <= d <= p(2*n+1) - p(2*n)
+
+choose d' = p(2*n+1) - p(2*n) - d
+
+partition C(n-1) into sets A' and B' with sum(A') - sum(B') = d'
+
+assign A = {p(2*n+1)} U B'
+
+assign B = {p(2*n)} U A'
+
+Case 2: p(2*n+1) - p(2*n) < d < p(2*n+1)
+
+choose d' = d - p(2*n+1) + p(2*n)
+
+partition C(n-1) into sets A' and B' with sum(A') - sum(B') = d'
+
+assign A = {p(2*n+1)} U A'
+
+assign B = {p(2*n)} U B'
+
+Case 3: p(2*n+1) < d< p(2*n+1) + p(2*n)
+
+choose d' = p(2*n+1) + p(2*n) - d
+
+partition C(n-1) into sets A' and B' with sum(A') - sum(B') = d'
+
+assign A = {p(2*n), p(2*n+1)} U B'
+
+assign B = A'
+
+Case 4: p(2*n+1) + p(2*n) <= d <= s(n)
+
+choose d' = d - p(2*n+1) - p(2*n)
+
+partition C(n-1) into sets A' and B' with sum(A') - sum(B') = d'
+
+assign A = {p(2*n), p(2*n+1)} U A'
+
+assign B = B'
+
+I used the notation X U Y for the operation of set union.
+
+Let us check if the chosen parameter d' is always an element of D(n-1).
+
+Of course it's always even, and it satisfies the following inequalities:
+
+case 1: 0 <= d' <= p(2*n+1) - p(2*n)
+
+case 2: 0 < d' < p(2*n)
+
+case 3: 0 < d' < p(2*n)
+
+case 4: 0 <= d' <= s(n-1)
+
+We have three exceptions for case 4:
+
+d' = s(n-1)-2, d = s(n)-2;
+
+d' = s(n-1)-8, d = s(n)-8;
+
+d' = s(n-1)-12, d = s(n)-12.
+
+We have no exceptions for cases 1, 2, and 3:
+
+p(2*n+1) - p(2*n) < p(2*n) by Bertrand's postulate;
+
+p(2*n) < s(n-1)-12 by preliminary lemma.
+
+Therefore main theorem holds for D(n), as claimed.
+
+The proof is costructive: a partition of C(n) is explicitly listed for 0 <= n <= 2 and is built recursively for n > 2.
+
+This is an iterative implementation of the same algorithm
+
+Input: n and d
+
+Output: a partition of the first 2*n+1 primes into disjoint sets A and B with sum(A) - sum(B) = d
+
+(assuming that a solution exists for the pair n,d)
+
+Precomputation:
+
+the list of solutions for 0 <= n <= 2 given above
+
+Initialization:
+
+A = {}
+
+B = {}
+
+C = {2,3,5,...,p(2*n+1)}
+
+count = 0
+
+error = d
+
+Execution:
+
+if n > 2, repeat n-2 times the following steps:
+
+remove from C its two largest elements p1 and p2, with p1 < p2
+
+if p2 < error:
+
+insert both p1 and p2 in A
+
+subtract the quantity p2+p1 from error
+
+otherwise:
+
+insert p2 in A and p1 in B
+
+subtract the quantity p2-p1 from error
+
+if error becomes smaller than 0:
+
+swap the sets A and B
+
+change the sign of error
+
+add one unit to count
+
+find (within the precomputed list) a partition of C into two disjoint subsets A' and B' with sum(A') - sum(B') = error
+
+insert A' in A and B' in B
+
+if count is odd:
+
+swap the sets A and B once again
+
+return A and B
+
+***
+
+Simon wrote:
+
+Q2: An algorithm from few digit to 2400 digit primes:
+
+Construct unique primes p, q such that p + 2^m = q for every m >= 0 up to a certain m.
+
+Put all p_m in one subset and all q_m in the other subset. It is easy to distribute the rest of the primes such that the subset-difference d is smaller than largest q_m - p_m.
+
+We look at d in binary and then decide according to the bits which p_m and q_m we need to exchange to reach d = 0.
+
+The computer found such p, q, where p are primes, and q are probable-primes, up to p + 2^8064 = q. This means we could find solutions from a certain point up to primes of 2400 digits.
+
+See attached file for all 8064 p and q
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

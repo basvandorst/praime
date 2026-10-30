@@ -1,0 +1,310 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_205.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 205.  Primes is in CI
+Source: https://www.primepuzzles.net/puzzles/puzz_205.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0205.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/images/cr&ja.gif
+  http://mathworld.wolfram.com/ConsecutiveNumbers.html
+  http://www.cse.iitk.ac.in/news/primality.html
+  http://crypto.cs.mcgill.ca/~stiglic/PRIMES_P_FAQ.html
+  http://www.utm.edu/research/primes/prove/prove4_3.html
+  http://fatphil.org/maths/AKS/
+  http://groups.google.com/groups?selm=20020809091925.28695.00002715@mb-da.aol.com
+  mailto:crivera@primepuzzles.net
+  https://www.primepuzzles.net/puzzles/puzz_204.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_206.htm
+  https://www.primepuzzles.net/puzzles/puzz_205.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 205. Primes is in CI
+
+Problems & Puzzles: Puzzles
+
+Puzzle 205. Primes is in CI
+
+Do you like winter-stories? Here goes one:
+
+It was Friday and as usual my friend Jaime Ayala and me went to the bar Tío Juan, to our weekly Ramanujan-Seminar. When I arrived there, Jaime was already sited and reading a piece of paper. It was a printed copy of the entry for the issue "Consecutive numbers" from the Eric Weisstein's World of Mathematics. Jaime's face revealed that he was upset.
+
+I was still unseated when he told me - Have you seen this before?
+
+I read the very short entry and I said - I don't remember if I have seen this before, why?
+
+- It's a scandal!...
+
+- Why this is a scandal???
+
+- Suppose a young student read this. He might finish his reading thinking that this is the only interesting thing about consecutive integers, while there must be tons of other properties more interesting than the reported ones in this entry!
+
+- I guess that a smart young will smile after reading this. More than a scandal a smart young will take this like an involuntary joke... In a more serious manner, maybe the proper title for this entry must be "extremely basic properties of two consecutive integers", or something like that...
+
+- It's a scandal, a big scandal! -Jaime replied.
+
+...
+
+- Tons of other properties more interesting about consecutive integers... like what? - I asked to Jaime, after some two or three minutes.
+
+- Do you really want one very interesting property about consecutive integers?
+
+- I would prefer one beauty property about consecutive integers and prime numbers.
+
+- Wow! ...
+
+He started watching the basket ball game in the Bar's TV. Then I knew that I had made a good point to my score with my question, because Jaime is seldom interested in basket ball games. He was now really thinking.
+
+Two beers after and no one single word crossed between us, Jaime asked for one "caballito" of tequila "Hornitos" and I asked for another to me, because this was really getting better and better and in complete silence.
+
+Around the 3rd quarter of the basket ball game Jaime announced - This is it! It's done!
+
+- What is it done?
+
+- The property. This is the property. A little digression first: We know that every odd number N greater than one can always be expressed as a sum of consecutive integers at least in one way: as a sum of two consecutive numbers (N+1)/2 and (N-1)/2. Well, composite odd numbers can always be expressed as sum of consecutive integers in more than one way (using more than two consecutive numbers); but odd prime numbers can be expressed as a sum of consecutive integers in only one way", as a sum of two consecutive numbers. Just to fix ideas, let see the following example:
+
+47 = 24 + 23
+
+45 = 23 + 22
+
+45 = 16 + 15 + 14
+
+45 = 11 + 10 + 9 + 8 + 7
+
+45 = 10 + 9 + 8 + 7 + 6 + 5
+
+45 = 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1
+
+In short, I would state all this as two lemmas:
+
+Lemma 1: Composite odd integers can be expressed as sum of consecutive integers in two or more distinct ways, while odd prime numbers only in one way.
+
+Lemma 2: Composite odd integers can be expressed, at least in one way, as a sum of more than two consecutive integers, while odd prime numbers only as a sum of two consecutive integers.
+
+- That's beautiful, Jaime... and you are right, it's a scandal. To state in that entry only that the difference between two consecutive integers is the unit; that one must be odd and the other even, and that their product is an even number, more than a scandal, it's a shame!
+
+We started laughing, and we couldn't stop laughing for a while.
+
+- Do you see?.. I was right... It's a joke!
+
+- No....It's the tequila - Jaime said.
+
+...
+
+- Do you think that you can make a primality testing algorithm with this property? - asked now Jaime.
+
+- What for!?...Well... I guess I can... All we need is to perform an efficient search for a sum of consecutive numbers from a to b, a<b, such that ...
+
+After some quick algebraic work made in some bar's napkins, I came up with a the following algorithm, that I will call from now on the CI algorithm:
+
+The CI Algorithm
+
+Input N=odd number greater than 2.
+
+Z=1+8.N. If Z is a square then N is triangular number, sum of all the consecutive numbers from 1 to (isqrt(Z)-1)/2, and then composite. End.
+
+a=1, b_min=isqrt(2*N), b=b_min, S=b(b+1)/2, b_max=(N+1)/2
+
+b=b+1, S=S+b
+
+if b=b_max then N is prime. End
+
+S=S - a, a=a+1
+
+if S=N then N is composite because is the sum of consecutive numbers from a to b. End
+
+if S>N then goto 6, else goto 4
+
+-Well done!...you have gotten a beautiful because simple algorithm, my friend Carlos, without any complex mathematical operation in the main loops, just sums and rests...
+
+- It's beautiful only because it displays a beautiful and simple idea, your idea, my friend Jaime...
+
+- Let me ask you another question: in practice will it work at least faster than the nowadays implementations of the AKS algorithm (**)? - pushed a bit more, Jaime
+
+- I have heard that somebody reported that "...To prove n=10000019 prime (variant # Bernstein), it takes 6 and 1/2 hours...". Hopefully this algorithm can do it better...
+
+- Would you say about 'our' algorithm that '...one of the main features of this result is that the proof is neither too complex nor too long (the preprint pages is only 1 page long)...', eh, my friend Carlos?
+
+- I would say that you are being very 'sharp' tonight, my friend Jaime...
+
+- Yes you are right!... Now it's time to say ¡Salud!
+
+- I will say ¡Salud! for our algorithm ...
+
+- And I would say another ¡Salud!, for the Weisstein's entry, the very mother of them.
+
+(End of the story)
+
+Dear, friends & puzzlers: Please accept this little puzzle as a winter-story, no-offense intended, just constructed over two external documents well know to all of us - number-lovers - and a Jaime's arithmetical observation made in a bar.
+
+If through this story we encourage to some of you to think a bit more over the properties of consecutive integers and/or to get in touch with - and make your own version of - the AKS algorithm, we will be happy for that; but if we could make you smile a little bit, then much better!
+
+And of course, Happy New Year 2003!
+
+_______
+
+(**) See also: the Anton Stiglic FAQ's page; the Chris Caldwell's page; the Phil Carmody's page, and specially the Bob Silverman's one.
+
+Questions
+
+What is the law for predicting the quantity of ways for expanding a composite number as a sum of consecutive integers?
+
+Can you improve the algorithm developed to test the primality of a number N, using properties of consecutive integers?
+
+Could you make a fair comparison of the performance of both algorithms, the shown above and the AKS algorithm?
+
+In particular, is it possible to program the AKS algorithm in Ubasic?
+
+Solution:
+
+Mike Oakes, John Arioni, Jeff Heleen & Joseph L. Pe sent solutions, more or less the by same way, for the question 1 of this puzzle:
+
+Mike Oakes:
+
+Let N be any odd number.
+
+Let M be the quantity of divisors of (2*N) which are < sqrt(2*N).
+
+Then the quantity of ways of expressing N as the sum of consecutive integers is M.
+
+Proof:-
+
+Let d be any such divisor, so that 2*N = d*k.
+
+Then either d=2 and k is odd, or d is odd and k is even; either way, the following are integers:-
+
+n1 = (k-d+1)/2
+
+n2 = (k+d-1)/2
+
+So we can write:-
+
+N = d*k/2 = (n2-n1+1)*(n2+n1)/2 = n2*(n2+1)/2 - (n1-1)*n1/2 = sigma{n1 to n2}i,
+
+i.e. the sum of (n2-n1+1)=d consecutive integers starting at n1=(k-d+1)/2.
+
+QED
+
+Particular case:
+
+If N is prime, the only divisor of (2*N) which is < sqrt(2*N) is 2, so M = 1.
+
+***
+
+John Arioni
+
+Lemma :
+
+If a positive integer (say q ) has odd divisors - i.e. q is neither prime nor a power of 2 - then q can be expressed as sum of at least 3 consecutive integers in as many ways as the number of the odd divisors of q is.
+
+Odd prime numbers can be expressed only as sum of 2 consecutive integers.
+
+The powers of 2 can't be expressed as sum of consecutive integers.
+
+Proof: (In the following Tn will represent the n-th triangular number: 1+2+3+ ……… + n )
+
+The difference between two triangular numbers can be expressed as follows:
+
+(*) Tn-Tm = (n-m)*(n+m+1)/2 . Note that in (*) (n-m) and (n+m+1) have opposite parity.
+
+If n-m > 2 then (*) yields the product of two integers greater than 1, of which at least one is odd. So if q = Tn-Tm ; n-m > 2 ( i.e. the sum of at least 3 consecutive integers ), q is composite. If n-m = 2 , then (*) can be reduced to (2n-1), i.e. to an odd integer. (*) yields a power of 2 only if n-m =1, i.e. n=2a , m=2a-1, otherwise in (*) at least one factor is odd.
+
+If a positive integer can be expressed as a product : q = a* b , where b > 1 is odd, then it is a simple matter to verify that q = Tn-Tm , where n = a + (b-1)/2 and m = | a - b/2 | - 1/2 , yielding
+
+n-m = b > 2
+
+This proves that a composite integer q, either than the powers of 2, can be expressed as difference between triangular numbers Tn-Tm , with n-m >2, in as many ways as the number of the odd divisors of q is.
+
+Two examples ( obviously : T0= 0 ) :
+
+45 has 4 odd divisors : 3, 5, 9, 15 , then :
+
+45= 15*3 : 45 = T16 - T13 = 14+15+16
+
+45= 9*5 : 45 = T11 - T6 = 7+8+9+10+11
+
+45= 5*9 : 45 = T9 - T0 = 1+2+3+4+5+6+7+8+9
+
+45= 3*15 : 45 = T10 - T4=5+6+7+8+9+10
+
+90 has 5 odd divisors : 3, 5, 9, 15 , 45 , then :
+
+90=2*45 :90=T24 - T20 = 21+22+23+24
+
+90= 30*3 : 90 = T31 - T28 = 29+30+31
+
+90= 18*5 : 90 = T20 - T15 = 16+17+18+19+20
+
+90=10*9 : 90=T14-T5= 6+7+8+9+10+11+12+13+14
+
+90=6*15 :90=T13-T1= 2+3+4+5+6+7+8+9+10+11+12+13
+
+***
+
+Jeff Heleen:
+
+For Puzzle 205 question 1, to determine the number of ways, k, that a given number is the sum of consecutive numbers you must find the [prime] factors of the given number. Then increase the exponents of these [prime] factors by one, multiply them all together then subtract 1. This gives the number of ways.
+
+E.g.., for the number 4725 = 3^3 * 5^2 * 7. The exponents are 3, 2 and 1. Add one to each to get 4, 3 and 2, multiply to get 24, subtract 1 to get 23. Therefore, 4725 can be the sum of consecutive numbers in k=23 different ways.
+
+***
+
+Joseph L. Pe:
+
+Q1. Predict the number of ways for expanding a composite number as a sum of consecutive integers.
+
+Let n be a composite number. Suppose n is written as the sum of m > 1 consecutive positive integers x, x+1, x+2, ..., x+(m-1). Then
+
+mx + Sum_{i=1,...,m-1} = n, mx + m(m-1)/2 = n, x = (2n - m(m-1))/2m.
+
+Since x is a positive integer, the positive integer m > 1 must be chosen such that 2n - m(m-1) > 0 and is divisible by 2m. Solving the inequality yields m < (1+sqrt(1+8n))/2.
+
+That is, the maximum value of m is StrictFloor((1+sqrt(1+8n))/2), where StrictFloor(x) = greatest integer < x. Hence, m is an element of the set S(n) = {2, 3, ...., StrictFloor((1+sqrt(1+8n))/2)} satisfying 2n - m(m-1) = 0 mod 2m.
+
+Now, 2n = m(m-1) mod 2m is equivalent to n = m(m-1)/2 = T(m-1) mod m. But T(m-1) = 0 or m/2 mod m, according as m is odd or even. This means n = 0 or m/2 mod m, or equivalently, n or n - m/2 is a multiple of m according as m is odd or even. Note that the condition n - m/2 is a multiple of m is equivalent to n - m/2 = mk, for some integer k, or n = (m/2)(2k + 1), that is to say, 2n/m is an odd integer. Therefore, the required number of ways of expanding n as a sum of consecutive integers is:
+
+N(n) = #{m in S(n): m is odd and divides n} + #{m in S(n): m is even and 2n/m is an odd integer}, where #(A) denotes the cardinality of the set A.
+
+Finally,
+
+N(n) = number of odd factors of n in S(n) + number of even factors of 2n in S(n) that give an odd number when dividing 2n.
+
+For example, if n = 15, then S(15) = {2,3,4,5}. For m = 2, 2 is an even factor of 2n = 2(15) = 30 and gives an odd number when dividing 2n. For m = 3, 3 is an odd factor of n = 15. However, for m = 4, 4 is not an even factor of 2n = 30.
+
+For m = 5, 5 is an odd factor of n = 15. Therefore, N(15) = #({2,3,5}) = 3,so 15 can be written in three ways as the sum of consecutive integers: first, as a sum of two consecutive integers: 15 = 7 + 8; second, as a sum of three consecutive integers: 15 = 4 + 5 + 6; third, as a sum of five consecutive integers: 15 = 1 + 2 + 3 + 4 + 5.
+
+***
+
+As you can see, all of them where very close to obtain the simplest conclusion and answer for this puzzle related to N, composite or prime, but odd numbers:
+
+The number of ways of expressing N (odd) as a sum of consecutive integers is just the quantity of divisors minus one
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

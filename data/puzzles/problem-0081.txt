@@ -1,0 +1,101 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/problems/prob_081.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Problem 81.  Pythagorean triangles with triangular sides
+Source: https://www.primepuzzles.net/problems/prob_081.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/problem-0081.htm
+
+References (local copies):
+  ../../references/problem 81 Paul Cleary.txt  (from https://www.primepuzzles.net/problems/problem%2081%20Paul%20Cleary.txt)
+
+Links on the page:
+  https://oeis.org/A213188
+  https://oeis.org/wiki/User:Andrew_Howroyd
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/problems/problem%2081%20Paul%20Cleary.txt
+  https://www.primepuzzles.net/problems/prob_080.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/problems/prob_082.htm
+  https://www.primepuzzles.net/problems/prob_081.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Problem 81. Pythagorean triangles with triangular sides
+
+Problems & Puzzles: Puzzles
+
+Problem 81. Pythagorean triangles with triangular sides
+
+In the sequence A213188 we may read the following comment:
+
+"It is possible for both of the legs to be triangular numbers as well as the hypotenuse. The only known example is 8778^2 + 10296^2 = 13530^2. - Andrew Howroyd, Aug 17 2018"
+
+Q. Can you try to get one more solution?
+
+During the week 12-19 Feb 2021, contributions came from Simon Cavegn, Paul Cleary
+
+***
+
+Simon wrote:
+
+Found no more than the known solution.
+
+Checked range: Added first 470'000 squared triangle numbers to first 10'000'000 squared triangle numbers, and could not find another solution.
+
+Algorithm:
+
+First create an Array and a HashSet of the first 10'000'000 squared triangle numbers.
+
+Then multithreaded loops to sum up each two of them: c_square = a_square + b_square.
+
+Then check all the conditions c_square has to fulfill. The order of the checks matters to optimize speed.
+
+First check is a very fast way to rule out most of cases when c_square cannot be a square number:
+
+if ((0x202021202030213L & (1L << (int)(csquare & 63))) > 0)
+
+The constant encodes all possible ways of the last 6 bits of square numbers.
+
+Then do slower checks e.g. if c_square is in the HashSet of triangle numbers, and if c_square is a square number.
+
+***
+
+Paul wrote:
+
+I wasn't able to find another solution where all 3 sides of the triangle were triangular numbers, I searched for the short leg of the triangle <= 1354895857440.
+
+I did however find all solutions where the short leg and one of the two other sides were triangular. See attached text file.
+
+The format shows if its a leg or the hypotenuse that is triangular. The single number is the triangular short leg and the pairs of numbers are the other leg and hypotenuse.
+
+Example in the case of these numbers
+
+Hyp , 91 , {{312,325},{588,595}} shows the short leg and hypotenuse are triangular numbers of the triangles.
+
+{91, 312, 325} and
+
+{91, 588, 595}.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

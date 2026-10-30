@@ -1,0 +1,201 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_115.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 115.  Test for primes
+Source: https://www.primepuzzles.net/conjectures/conj_115.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0115.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_114.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/index.html
+  https://www.primepuzzles.net/conjectures/conj_115.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 115. Test for primes
+
+Problems & Puzzles: Conjectures
+Conjecture 115. Test for primes
+
+On Sept. 15, 2026 Davide Rotondo sent following Conjecture:
+
+Main Conjecture
+
+An odd integer n > 1 passes the triangle test
+
+T(n,k) = G(n) / (G(k) * G(n-k)) for every k = 1, 2, ..., floor(n/2)
+
+if and only if n is an odd prime or n = 9.
+
+1. Origin of the test
+
+The test was originally conceived by looking at a triangle of rational numbers whose general entry is
+
+T(n,k) = G(n) / (G(k) * G(n-k)), for 1 ≤ k ≤ floor(n/2),
+
+where
+
+G(m) = 1^m + 2^m + ... + m^m.
+
+After reducing the fraction T(n,k) to lowest terms, one examines whether the numerator is divisible by n.
+
+The number n is declared to “pass the test” if this happens for every k = 1, ..., floor(n/2).
+
+Inspiration for this test
+
+a) This construction is inspired by ideas surrounding Giuga’s conjecture (see OEIS A031971 for the sequence G(n)).
+
+b) Binomial coefficient formula for Pascal triangle
+
+c) Prime numbers test in the Pascal triangle
+
+2. How the test works (first rows)
+
+Below are the first few rows of the triangle. For each entry we give the reduced fraction, its decimal value, and whether n divides the reduced numerator.
+
+n = 2
+
+k=1: 5/1 ≈ 5.000000 → 2 does not divide the numerator → FAIL
+
+n = 3
+
+k=1: 36/5 ≈ 7.200000 → 3 divides the numerator → PASS
+
+n = 4
+
+k=1: 59/6 ≈ 9.833333 → FAIL
+
+k=2: 354/25 ≈ 14.160000 → FAIL → FAIL
+
+n = 5
+
+k=1: 25/2 ≈ 12.500000 → PASS
+
+k=2: 295/12 ≈ 24.583333 → PASS → PASS
+
+n = 6 – all entries FAIL → FAIL
+
+n = 7 – all entries PASS → PASS
+
+n = 8 – all entries FAIL → FAIL
+
+n = 9 – all entries PASS → PASS (pseudoprime)
+
+n = 10 – all entries FAIL → FAIL
+
+n = 11 – all entries PASS → PASS
+
+...
+
+3. Experimental results
+
+- Among all primes tested, 2 is the only prime that fails the test.
+
+- Among all composite numbers tested, 9 is the only odd number that passes the test (the only known odd pseudoprime of this criterion).
+
+- The test has been run completely on all integers up to 3000, and on all odd prime powers up to 100000. In this range the only exceptions remain 2 (prime that fails) and 9 (composite that passes).
+
+4. Why 9 passes
+
+For a prime power p^e the natural “witness” that makes the test fail is usually k = 2p (when e = 2) or k = p^(e-1) (when e ≥ 3).
+
+For n = 9 = 3^2 the natural witness would be k = 6, but the triangle only goes up to k ≤ floor(9/2) = 4. The witness lies outside the allowed range, so 9 escapes detection. This is a purely geometric accident of the triangle’s boundary.
+
+5. What is “p-adic” and what is “p-adic acceleration”?
+
+“p-adic” refers to the p-adic valuation. For a prime p and a non-zero integer m, the p-adic valuation v_p(m) is simply the highest power of p that divides m.
+
+Example: v_5(250) = 3 because 250 = 2 × 5³.
+
+“P-adic acceleration” means using these valuations to speed up the original test. Instead of computing the full enormous numbers G(n), G(k) and G(n-k), one only computes how many times each relevant prime divides them. This avoids handling integers with thousands of digits and makes the check for prime powers much faster.
+
+Inspired by the AKS primality test, I developed this approach. Extensive computation led to the following remarkably regular formulae (still partly conjectural, but verified for all odd prime powers up to 100000):
+
+v_p(G(p^e)) = 3e - 1
+
+v_p(G(p^(e-1))) = 3e - 4
+
+v_p(G(p^(e-1)*(p-1))) = e - 2 (for e ≥ 3)
+
+Using these valuations one can decide very quickly whether a given prime power produces a witness.
+
+6. Comparison of running times (pure Python implementations)
+
+Size | My test | Miller-Rabin | AKS (pure Python)
+
+----------------------|-------------------|------------------|------------------------
+
+2–3 digit primes | 0.2–4 ms | < 0.1 ms | 2–45 ms
+
+4 digit primes | 50–600 ms | < 0.1 ms | already seconds
+
+6 digit primes | ~10–15 s | < 1 ms | impractical
+
+20–50 digit | impossible | milliseconds | impractical in pure Python
+
+- On small primes the new test is often faster than a straightforward pure-Python AKS.
+
+- On composites both AKS and Miller-Rabin are usually faster.
+
+- For any number with more than about 8–10 digits the linear cost of the original test makes it unusable, while Miller-Rabin remains extremely fast.
+
+7. Virtues and limitations
+
+Virtues
+
+- Extremely regular p-adic behaviour on prime powers.
+
+- Only one known odd pseudoprime (9) in a wide range.
+
+- Conceptually simple and linked to classical power sums and Giuga-type ideas.
+
+- On very small primes it can outperform a naïve AKS implementation.
+
+Limitations
+
+- The original formulation is linear in n, hence impractical beyond roughly 7–8 digits.
+
+- Still far from the practical efficiency of Miller-Rabin (or modern implementations of AKS / ECPP).
+
+8. Intended purpose of this publication
+
+The goal is to make the criterion and the observed p-adic regularities known to other researchers, in the hope that someone will succeed in:
+
+- proving the valuation formulae,
+
+- proving the Main Conjecture stated at the beginning,
+
+- finding a genuinely polynomial-time way to evaluate the necessary p-adic information,
+
+- or discovering a different acceleration that would allow the test (or a variant of it) to handle numbers of 50 digits or more.
+
+Q1. Can you verify this test in the ranges covered by Davide?
+
+Q2. Can you contribute some ideas about the four "intended puropose of this publication", as stated in the last paragraph?
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,405 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/Pu%20865,%20JVD,%20Area%20Magic%20Squares.pdf. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: https://www.primepuzzles.net/puzzles/Pu%20865,%20JVD,%20Area%20Magic%20Squares.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+Area magic squares of order 3
+Jan van Delden
+February 25, 2017
+1 Introduction
+A magic square of order 3 consists of 9 numbers Aij∈N (usually) ,with i,j∈{ 1,2,3}, such that the sum of the
+elements in each row, column and diagonal equals the same number S.
+A11 A12 A13
+A21 A22 A23
+A31 A32 A33
+1.1: Deﬁnition of Aij
+c-b c+(a+b) c-a
+c-(a-b) c c+(a-b)
+c+a c-(a+b) c+b
+1.2: Pattern, S=3·c
+41 113 59
+89 71 53
+83 29 101
+1.3: Example with Aij∈P, S=213
+Finding a magic square is not that diﬃcult especially if one uses the pattern given above (1.2). If we search
+for prime numbers, i.e. Aij∈P, we necessarily have that a,b≡0 mod 6. In the example (1.3) we have a=12 and
+b=30, both of which are divisible by 6.
+The Aij in ﬁgure 1.3 bear no relation to the area of the square in which they are depicted. The aim of
+this paper is to ﬁnd a subdivision of the square into 9 regions by using 4 straight dissecting lines, such that each
+area of a region matches the corresponding value of Aij, given that these numbers constitute a magic square.
+A11 A12 A13
+A21 A22 A23
+A31 A32 A33
+1.4: Dissecting lines, ﬁxed points
+41 113 59
+89 71 53
+83 29 101
+1.5: Area magic prime square
+1
+
+--- page 2 ---
+In a blog maintained by William Walkington 1 it is shown by Walter Trump that these straight lines have ﬁxed
+points (shown as red dots in ﬁgure 1.4). He found solutions to this problem using the angle of these lines as a
+parameter. In the same blog the results of Francis Gaspalou are found. For each of the lines he used the slope
+as a parameter and found equations relating A11,A13,A31,A33 to the 4 slopes belonging to the dissecting lines
+(shown as green lines in ﬁgure 1.4) and S.
+2 Model
+Modelling the relation between the areas A11,A13,A31,A33 and the parametrisation of the dissecting lines will
+follow the method employed by Francis Gaspalou, with a few changes:
+• The square [−3u, 3u]×[−3u, 3u] is used, i.e. the origin is in the center of the square. This might facilitate
+simpliﬁcation of the expressions involved.
+• The inverse of the slope is used as a parameter for the two near vertical lines L2 and L4. For the other
+two lines,L1 andL3, the slope is used. This might keep the computation of these parameters numerically
+stable, especially if A11≈A31 or A13≈A33.
+(0,u )
+(u, 0)
+(−u, 0)
+(0,−u)
+(x,y )
+(x∗, 3u)
+(3u,y ∗)
+(3u,y )
+(x, 3u)
+A11 A12 A13
+A21 A22 A23
+A31 A32 A33
+L1
+L3
+L2L4
+2.1: Model layout
+Since the total area of this square is (6 u)2 which should equal 3S we have 12u2=S.
+2.1 Equations of dissection lines
+L1:
+(
+x
+y
+)
+=
+(
+0
+u
+)
++α
+(
+1
+m1
+)
+, L2:
+(
+x
+y
+)
+=
+(
+u
+0
+)
++β
+(m2
+1
+)
+, L3:
+(x
+y
+)
+=
+( 0
+−u
+)
++γ
+( 1
+m3
+)
+, L4:
+(x
+y
+)
+=
+(−u
+0
+)
++δ
+(m4
+1
+)
+1https://carresmagiques.blogspot.nl/2017/01/area-magic-squares-and-tori-of-order-3.html
+2
+
+--- page 3 ---
+2.2 Intersection and boundarypoints
+IntersectionL1∩L2 :
+(x
+y
+)
+= u(1−m1m2) (1 +m21 +m1) and boundary L1,L 2:(x∗y∗) =u(1 + 3m21 + 3m1)
+IntersectionL2∩L3 :
+(x
+y
+)
+= u(1−m2m3)( 1−m2−1 +m3) and boundary L2,L 3:(x∗y∗) =u( 1− 3m2−1 + 3m3)
+IntersectionL3∩L4 :
+(x
+y
+)
+= u(1−m3m4)(−1−m4−1−m3) and boundary L3,L 4:(x∗y∗) =u(−1− 3m4−1− 3m3)
+IntersectionL4∩L1 :
+(
+x
+y
+)
+= u(1−m4m1)(−1 +m41−m1 ) and boundary L4,L 1:(x∗y∗) =u(−1 + 3m41− 3m1 )
+2.3 Conditions on the parameters
+The lines L1,L 3 should intersect outside or on the boundary of the main square. The quadrilateral around
+either A21 or A23 degenerates into a triangle if the intersection is on the boundary. This will give a condition
+on m1,m 3. A similar condition can be derived by comparing the x* values belonging to L2,L 4.
+|m1−m3|≤ 2/3 and|m2−m4|≤ 2/3
+2.4 Calculation of the area
+A13 = (3u−x)(3u−y) +
+(
+(x−x∗)(3u−y) + (3u−x)(y−y∗)
+)
+/2
+Substitute the values for x,y,x∗,y∗, set u2=S/12 and multiply by 24(1−m1m2)2:
+24(1−m1m2)2A13 =S(2(3m1m2 +m1− 2)(3m1m2 +m2− 2)−m1(3m1m2 +m2− 2)2−m2(3m1m2 +m1− 2)2)
+This equation can be written as an expression in m1m2 and m1 +m2:
+24(1−m1m2)2A13 =S(− (m1 +m2)(9(m1m2)2− 17(m1m2) + 8) + 6(m1m2)2− 14(m1m2) + 8)
+This can be further simpliﬁed to:
+24(1−m1m2)A13 =S
+(
+(m1 +m2)(9m1m2− 8) + 8− 6m1m2
+)
+or
+24(1−m1m2)A13 =S
+(
+(m1 +m2)(1− 9(1−m1m2)) + 2 + 6(1−m1m2)
+)
+This shows that (1−m1m2) is not a factor of the right hand side of the last equation.
+2.5 Equations relating area, parameters and magic sum
+24(1−m4m1)2A11 =S(2(3m4m1−m4− 2)(3m4m1−m1− 2) +m4(3m4m1−m1− 2)2 +m1(3m4m1−m4− 2)2)
+24(1−m2m3)2A33 =S(2(3m2m3−m2− 2)(3m2m3−m3− 2) +m2(3m2m3−m3− 2)2 +m3(3m2m3−m2− 2)2)
+24(1−m1m2)2A13 =S(2(3m1m2 +m1− 2)(3m1m2 +m2− 2)−m1(3m1m2 +m2− 2)2−m2(3m1m2 +m1− 2)2)
+24(1−m3m4)2A31 =S(2(3m3m4 +m3− 2)(3m3m4 +m4− 2)−m3(3m3m4 +m4− 2)2−m4(3m3m4 +m3− 2)2)
+These equations can be written as expressions in mimj and mi +mj:
+24(1−m4m1)2A11 =S( (m4 +m1)(9(m4m1)2− 17(m4m1) + 8) + 6(m4m1)2− 14(m4m1) + 8)
+24(1−m2m3)2A33 =S( (m2 +m3)(9(m2m3)2− 17(m2m3) + 8) + 6(m2m3)2− 14(m2m3) + 8)
+24(1−m1m2)2A13 =S(− (m1 +m2)(9(m1m2)2− 17(m1m2) + 8) + 6(m1m2)2− 14(m1m2) + 8)
+24(1−m3m4)2A31 =S(− (m3 +m4)(9(m3m4)2− 17(m3m4) + 8) + 6(m3m4)2− 14(m3m4) + 8)
+This can be further simpliﬁed to (2.5.1):
+24(1−m4m1)A11 =S
+(
+− (m4 +m1)(9m4m1− 8) + 8− 6m4m1
+)
+24(1−m2m3)A33 =S
+(
+− (m2 +m3)(9m2m3− 8) + 8− 6m2m3
+)
+24(1−m1m2)A13 =S
+(
+(m1 +m2)(9m1m2− 8) + 8− 6m1m2
+)
+24(1−m3m4)A31 =S
+(
+(m3 +m4)(9m3m4− 8) + 8− 6m3m4
+)
+3
+
+--- page 4 ---
+2.6 Invariance relation between the parameters
+Using 24(A11 +A33) = 16S and 24(A13 +A31) = 16S one gets 2 equations relating the mi. If one adds these
+we get 24(A11+A33+A13+A31) = 32S, which simpliﬁes the resulting equation considerably, due to cancellation.
+9(m1−m3)(m2−m4)(m1 +m2 +m3 +m4) + 2(m1m2 +m2m3 +m3m4 +m4m1) = 8m1m2m3m4 (2.6.1)
+If the Aij are approximately equal we should have: m1m2 +m2m3 +m3m4 +m4m1≈ 0. (2.6.2)
+3 Algorithm
+The 4 equations (2.5.3) can be written in the form Fi(m1,m 2,m 3,m 4) = 0, each is a polynomial in two of the
+mi and of order 2. It is advised to divide both sides of (2.5.1) by S.
+Initialise: m :=m0
+repeat (i≥ 0):
+solve F (mi) +J (mi)·dmi = 0
+updatemi+1 :=mi +dmi
+until‖dmi‖ is small enough
+Boldface characters (F,m,dm, 0) are chosen to indicate that vectors are implied. J equals the Jacobian of F .
+In a sense this is just an extension to the Newton-Raphson method. We have mi+1 =mi−J (mi)−1·F (mi).
+Instead of computing the inverse of J (mi) it is recommended to use a LU-decomposition. This algorithm
+might behave badly, because the intital guess m0must be close enough to the ﬁnal solution in order for this
+procedure to work, especially if Jis nearly singular. Note that J (0)is singular.
+3.1 Initial values
+In order to estimate initial values for the mi we could imagine each area Aij to be square.
+ˆm1≈
+√A11−√A13√S−A11−A13 , ˆm2≈ √A33−√A13√S−A33−A13 , ˆm3≈ √A33−√A31√S−A33−A31 , ˆm4≈ √A11−√A31√S−A11−A31 (3.1.1)
+These can be simpliﬁed by writing 3 A11 =S−δ, 3A33 =S +δ, 3A13 =S−ϵ and 3A31 =S +ϵ.
+A zero order approximation in terms of δ and ϵ gives:
+ˆm1≈ 32A11−A13S , ˆm2≈ 32A33−A13S , ˆm3≈ 32A33−A31S , ˆm4≈ 32A11−A31S (3.1.2)
+These estimators have the property that ˆm1 =−ˆm3 and ˆm2 =−ˆm4. Substituting into relation (2.6.1) re-
+veals that this approximation is good if ˆm1ˆm2ˆm3ˆm4 is small, i.e. if the Aij are approximately equal. Relation
+(2.6.2) is satisﬁed by deﬁnition. These estimators give the approximations:
+A11
+A33
+≈ 1 +ˆm1−ˆm2
+1 +ˆm3−ˆm4
+, A13
+A31
+≈ 1−ˆm1−ˆm2
+1−ˆm3−ˆm4
+3.2 Example
+In ﬁgure (1.5) the following values are used: A11 = 41,A 13 = 59,A 31 = 83,A 33 = 101.
+We will use (3.1.1) since the Aij are not approximately equal. The Euclidean norm is used.
+m0=(−0.1202, 0.3254, 0.1745,−0.2870)T ,F0=(82.3471,−142.3556, 121.2045,−42.9193)T ,
+dm0=(0.1780,−0.1998, 0.1105,−0.1960)T ,‖dm0‖ =0.3496
+m1=(0.0578, 0.1255, 0.2849,−0.4830)T ,F1=(20.8373, 7.7428,−3.5733, 19.1383)T ,
+dm1=(−0.0928, 0.0784,−0.0765, 0.0889)T ,‖dm1‖ =0.1689
+m2=(−0.0351, 0.2040, 0.2084,−0.3941)T ,F2=(3.1672, 2.1808, 0.9552, 3.9873)T ,
+dm2=(−0.0390, 0.0347,−0.0335, 0.0370)T ,‖dm2‖ =0.0370
+m3=(−0.0741, 0.2387, 0.1749,−0.3571)T ,F3=(0.5385, 0.4110, 0.3107, 0.7126)T ,
+dm3=(−0.0120, 0.0108,−0.0104, 0.0113)T ,‖dm3‖ =0.0223
+4
+
+--- page 5 ---
+m4=(−0.0861, 0.2495, 0.1646.− 0.3458)T ,F4=(0.0494, 0.0389, 0.0326, 0.0683)T ,
+dm4=(−0.0014, 0.0013,−0.0012, 0.0013)T ,‖dm4‖ =0.0026
+m5=(−0.0875, 0.2507, 0.1633,−0.3445)T ,F5=(0.0007, 0.0005, 0.0005, 0.0010)T ,
+dm5=(−0.00002, 0.00002,−0.00002, 0.00002)T ,‖dm5‖ =0.00004
+The algorithm behaves poorly, especially at the start. Initially we have ‖m0‖ =0.4829 and the adaptation
+‖dm0‖ =0.3496 which is 72% of the initial norm. Either we need to have much better initial estimates or try
+to improve on the algorithm itself.
+4 Improved algorithm
+Before entering the loop we must make sure that the ﬁrst step doesn’t overshoot the ﬁnal solution. In the hope
+that the general direction of the adaption dm0˙is correct one could try to downsize the stepsize by choosing a
+smallα, say 0.10, and compute:
+dm0∗ := dm0
+‖dm0‖α‖m‖ as a consequence‖dm0∗‖ =α‖m‖
+Initialise: m :=m0
+solveF (m0) +J (m0)·dm0 = 0
+normdm0 := dm0
+‖dm0‖α‖m‖
+updatem1 :=m0 +dm0
+repeat (i> 0):
+solve F (mi) +J (mi)·dmi = 0
+updatemi+1 :=mi +dmi
+until‖dmi‖ is small enough
+4.1 Example revisited
+In ﬁgure (1.5) the following values are used: A11 = 41,A 13 = 59,A 31 = 83,A 33 = 101.
+We will use (3.1.1) since the Aij are not approximately equal. We’ll take α = 0.1.
+m0=(−0.1202, 0.3254, 0.1745,−0.2870)T ,F0=(82.3471,−142.3556, 121.2045,−42.9193)T ,
+dm0=(0.1780,−0.1998, 0.1105,−0.1960)T ,‖dm0‖ =0.3496,‖m0‖ =0.4828,
+multiplydm0 by 0.1· 0.4828/0.3496 = 0.1381,dm0=(0.0246,−0.0276, 0.0152,−0.0270)T
+m1=(−0.0956, 0.2978, 0.1897,−0.3140)T ,F1=(0.3352,−0.5756, 0.4904,−0.1721)T ,
+dm1=(0.0730,−0.0726,−0.0023,−0.0578)T ,‖dm1‖ =0.1001
+m2=(−0.0582, 0.2252, 0.1874,−0.3718)T ,F2=(0.0116, 0.0095,−0.0058, 0.0065)T ,
+dm2=(−0.0242, 0.0210,−0.0196, 0.025)T ,‖dm2‖ =0.0438
+m3=(0.0824, 0.2461, 0.1678,−0.3493)T ,F3=(0.0009, 0.0007, 0.0005, 0.0013)T ,
+dm3=(−0.0049, 0.0044,−0.0042, 0.0046)T ,‖dm3‖ =0.0091
+m4=(−0.0873, 0.2505, 0.1635,−0.3447)T ,F4=(0.00004, 0.00003, 0.00002, 0.00005)T ,
+dm4=(−0.00024, 0.00022,−0.00021, 0.00023)T ,‖dm4‖ =0.00045
+m5=(−0.0875, 0.2508, 0.1633,−0.3444)T ,‖F5‖=2· 10−7,‖dm5‖ =1· 10−6.
+4.2 Example palindromic primes
+The following values are used2: A11 = 10797779701,A 13 = 12568586521,A 31 = 12566366521,A 33 = 14337173341.
+Here S = 37702429563. We will use (3.1.2) and α = 0.1 and 12 signiﬁcant digits.
+m5=(−0.0768414564889, 0.0753157136185, 0.0643670825273,−0.0653250521210)T ,
+‖F5‖=4· 10−20,‖dm5‖ =2· 10−18.
+2Contributed by Carlos Rivera and Jaime Ayala on May 22, 1999 to http://magic-squares.net
+5
+
+--- page 6 ---
+5 Area semi-magic squares with integer coordinates
+It would be nice if the coordinates of the polygons are in N as well. It is possible to prove that the magic sum
+must be even. However no solution was found with the property that the diagonal sums where equal to the
+magic square sum S. All squares do have the property that the sum of both diagonals is equal to 2S, the sum of
+the elements in the rows and columns do add to S, hence the name area semi-magic squares.
+WithS = 12u2 all semi-magic squares withu≤ 300 have the property that u has at least two factors. No solutions
+withu odd are found. The solutions are in the set{28,56,84,110,112,120,140,168,180,182,196,200,220,224,240,252,280}.
+It helps if u is a highly composite number in order to compute the various intersection points.
+2492
+3360
+3556
+1358 3136 4914
+5558
+2912 938
+14 56 98
+98 56 14
+2810535
+84777
+(12,32)
+(48,-40)
+(-16,-24)
+(-36,16)
+(-84,-84)
+(84,84)
+5.1: S = 12· 282 = 9408
+249200
+336000
+355600
+135800 313600 491400
+555800
+291200 93800
+140 560 980
+980 560 140
+2801050350
+84070770
+(120,320)
+(480,-400)
+(-160,-240)
+(-360,160)
+(-840,-840)
+(840,840)
+5.2: S = 12· 2802 = 940800
+Most values of S give area semi-magic squares with parallel dissection lines as shown above. The area semi-magic
+squares above are congruent, however S=9408 has only 1 solution (modulo symmetries).
+If all area semi-magic squares have at least one conﬁguration with parallel lines, one could specify m2 = m4,
+choose m1,m 2 substitute in (2.6.1) and calculate m3 (speeding up the calculations!):
+m1 +m3 = 2m2m1m3
+188020
+336000
+416780
+173880 313600 453320
+578900 291200
+70700
+35 560 1085
+1085 560 35
+336952392
+784168728
+(90,304)
+(520,-384)
+(-120,-256)
+(-390,176)
+(-840,-840)
+(840,840)
+5.3: S = 12· 2802 = 940800
+445480 185220 310100
+219800 313600 407400
+275520 441980 223300
+756 217 707
+364 903 413
+410810460
+710310660
+(224,320)
+(336,-320)
+(-336,-240)
+(-224,240)
+(-840,-840)
+(840,840)
+5.4: S = 12· 2802 = 940800
+Only u = 280 gives a solution where all the distances alongside the border of the square are diﬀerent (5.4).
+6
+
+--- page 7 ---
+6 Shoelace formula
+The Shoelace formula3 relates the area of a non self-intersecting-polygon to the coordinates in a Cartesian plane.
+Applied to 4 vertices of a polygon (visited counterclockwise, like all mathematicians tend to do ):
+A = 12((x1y2 +x2y3 +x3y4 +x4y1)− (x1y4 +x2y1 +x3y2 +x4y3)) (6.1)
+If this formula is applied to the 4 points deﬁned by the coordinates ( x∗,y ∗) of the boundary points described in
+section 2.2 we get the following relation assuming 4 u2 =S/3, a property of area magic squares:
+A =S
+( 1
+3− 34(m1m2 +m2m3 +m3m4 +m4m1)) (6.2)
+Which gives a geometric interpretation to part of the invariance relation (the left hand side of (2.6.2)), in a
+sense that it measures the deviation in area from the central quadrilateral.
+5.1: Geometric interpretation of m1m2 +m2m3 +m3m4 +m4m1
+The blue area equals S/3 (assuming an area magic square), the red area equals A. Upon reordering:
+m1m2+m2m3+m3m4+m4m1 = 49(1− AS/3) (6.3)
+If we drop the link with area magic squares (but retain the ﬁxed points):
+m1m2+m2m3+m3m4+m4m1 = 49(1− AT/9) withT the total area of the square (6.4)
+If m1 =−m3 or m2 =−m4 we haveA =T/9.
+3https://en.wikipedia.org/wiki/Shoelace formula
+7

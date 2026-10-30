@@ -1,0 +1,271 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1008.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1008. Another curio by G.L. Honaker, Jr.
+Source: https://www.primepuzzles.net/puzzles/puzz_1008.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1008.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://primes.utm.edu/glossary/xpage/TwinPrime.html
+  https://primes.utm.edu/glossary/xpage/Integer.html
+  https://primes.utm.edu/glossary/xpage/Prime.html
+  https://primes.utm.edu/curios/ByOne.php?submitter=Honaker
+  https://primes.utm.edu/curios/page.php?number_id=20598
+  mailto:cbrfgm@gmail.com
+  https://en.wikipedia.org/wiki/Bateman-Horn_conjecture
+  https://www.primepuzzles.net/puzzles/puzz_1007.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1009.htm
+  https://www.primepuzzles.net/puzzles/puzz_1008.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1008. Another curio by G.L. Honaker, Jr.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1008. Another curio by G.L. Honaker, Jr.
+
+The product of the smaller in a set of twin primes (3), the next integer (4), and the larger twin (5), equals 60, which falls between another set of twin primes {59, 61}. In other words, {p, p+2} and {p*(p+1)*(p+2)-1, p*(p+1)*(p+2)+1} are two sets of
+
+twin primes, where p is prime (smallest case p=3), i.e., {3,5} and {59,61}. [Honaker]
+
+Q. Can you find the smallest prime p where this occurs recursively for 3 sets? 4 sets, etc.?
+
+During the week 11-17 July, 2020 contributions came from Adam Stinchcombe, Jan van Delden, Oscar Volpatti, Ray Opao, Simon Cavegn
+
+***
+
+Adam wrote:
+
+a) For 3 sets, the p I found:
+
+53137619, 117770039, 167438669, 762576209, 1319897399, 1522824599, 2107252919, 2160483929, 3683442209, 1835132188889, 540017642009, 3349806398399, 1990995492089, 68708906969, 128643898679, 2112086840159, 2250583308269, 2045588410469, 1113727568249, 3046875661829, 470648874299, 2404380675839, 3348163497359, 1701087487109, 2445720900479, 2255812324919, 3235422516479, 383694002009, 3313899297389, 592132302299, 2603631721679
+
+(1) p, p+2 are twins
+
+(2) q=p(p+1)(p+2)-1 and q+2 are twins
+
+(3) r=q(q+1)(q+2)-1 and r+2 are twins
+
+Example: for the entry 53137619 the twins are:
+
+p | 53137619 | p+2
+
+q | 150039737689461113590379 | q+2
+
+r | 3377683004689157984087647873949586284258308039366835664408380129281619 | r+2
+
+b) I found no four sets.
+
+***
+
+Jan wrote:
+
+The second smallest sequence of length 2: (569,571)->(185192429,185192431)
+
+The smallest sequence of length 3 starts with the pair: (53137619,53137621)
+
+There are no longer sequences starting with a prime less than or equal to 2.4*10^13.
+
+For this puzzle it is possible to exactly pinpoint the next numbers in the sequence, given a starting prime p (the smaller one). The twin (p,p+2) is mapped to (f(p),f(p)+2), with f(p)=p(p+1)(p+2)-1. If we investigate free residues modulo primes q, we find that necessarily p = 29 mod 30.
+
+If we up the ante and investigate free residues modulo other primes when we apply f multiple times we may find that the number of free residues decrease (loosely speaking). If we are to find a sequence of length 4, we will also need: p = {2,3,6} mod 7, p = 10 mod 11, p={3,7,10,14,18} mod 19. I didn’t implement this, but it would seriously save time, if you did. A few other primes q might further decrease unnecessary computations, at the cost of a larger wheel (or extra testing).
+
+***
+
+Oscar wrote:
+
+The prime p = 53137619 is the smallest one which gives rise to a sequence of length 3.
+
+Next few such primes are 117770039, 167438669, and 762576209.
+
+More generally, let F(k,x) be the number of primes p <= x which gives rise to a sequence of length at least k:
+
+F(3,10^8) = 1;
+
+F(3,10^9) = 4;
+
+F(3,10^10) = 14;
+
+F(3,10^11) = 54;
+
+F(3,10^12) = 282;
+
+F(3,10^13) = 1665.
+
+But, unfortunately:
+
+F(4,10^13) = 0.
+
+I computed these values in the most straightforward way: sieve, detect twin primes, find the length of resulting sequences.
+
+My laptop took about one day to check the 15834664872 candidates below 10^13 (but it didn't complain about working all Sunday).
+
+Before searching further, I tried to guess the size of primes which give rise to sequences of lengths 4 and 5.
+
+I computed the densities predicted by Bateman-Horn conjecture (https://en.wikipedia.org/wiki/Bateman-Horn_conjecture),
+
+as all the terms of a sequence are polynomial functions of p:
+
+{p, p + 2};
+
+{p^3 + 3*p^2 + 2*p - 1, p^3 + 3*p^2 + 2*p + 1};
+
+and so on.
+
+Checking the conjecture against the known densities for k = 3:
+
+C ~ 68.5
+
+D = (1*3*9)^2 = 3^6 = 729
+
+F(3,10^8) ~ 0.67
+
+F(3,10^9) ~ 2.02
+
+F(3,10^10) ~ 9.04
+
+F(3,10^11) ~ 47.83
+
+F(3,10^12) ~ 274.06
+
+F(3,10^13) ~ 1653.52
+
+Some predicted densities for k = 4:
+
+C ~ 598.5
+
+D = (1*3*9*27)^2 = 3^12 = 531441
+
+F(4,10^14) ~ 0.14
+
+F(4,10^15) ~ 0.74
+
+F(4,10^16) ~ 4.29
+
+F(4,10^17) ~ 25.92
+
+F(4,10^18) ~ 161.52
+
+Some predicted densities for k = 5:
+
+C ~ 5042
+
+D = (1*3*9*27*81)^2 = 3^20
+
+F(5,10^22) ~ 0.16
+
+F(5,10^23) ~ 1.03
+
+F(5,10^24) ~ 6.68
+
+F(5,10^25) ~ 44.01
+
+F(5,10^26) ~ 294.78
+
+In each case, I estimated the constant C by truncating the infinite product after the primes below 10^5.
+
+These computations suggested a simple way to speed up the sieve for sequences of length k:
+
+when considering a small prime q, cancel out not only its multiples d*q, but also all the numbers d*q+r such that q divides any of the 2*k needed terms of the sequence.
+
+The forbidden residues r can be pre-computed; on average, there are about 2*k forbidden residues per prime.
+
+For some small primes, the permitted residues are very few:
+
+for k = 4, the number p+1 must be a multiple of 2, 3, 5 and 11;
+
+for k = 5, the number p+1 must be a multiple of 19 too.
+
+I was able to sieve up to 3*10^15, finding the first two primes which give rise to sequences of proven length 4:
+
+p = 2856646544865959 and p = 2956667885147129.
+
+However, if the conjecture is correct about k = 5 too, the range 10^23-10^24 is still out of reach for me.
+Here are the eight primes for the first solution:
+
+p(1,1) =
+
+2856646544865959;
+
+p(1,2) = p(1,1)+2
+
+p(2,1) =
+
+23311462685219261550082039408052585710091870039;
+
+p(2,2) = P(2,1)+2
+
+p(3,1) =
+
+126680151174235283229280371041669407969469653616239486013299498187651021422364708316742261
+
+68829193534274082124574587104336721837358884193959
+
+p(3,2) = P(3,1)+2
+
+p(4,1) =
+
+203294541969252314760954741769789933712577230033797932367820621008468958032810353263429888
+
+846175193033506536824575196260163142566227914807329624819819556141533862660650045024000529
+
+221935070723727493473334462447296560609889022452916426542776267834293918727844231008186802
+
+966007479574453733142033192072139827607272516732753924103524658224691344063851891202288217
+
+3661284401808302610817510730001521461369887095112926942039;
+
+p(4,2) = P(4,1)+2
+
+***
+
+Ray wrote:
+
+Using WinPFGW, I only found the following values of p for 3 sets:
+
+53137619 (smallest)
+
+117770039
+
+167438669
+
+I've already searched up to 560000009, but have not found the 4th prime in the 3-set series. Neither have I found any primes for 4 sets. I noticed that the last digit is always 9.
+
+***
+
+Simon wrote:
+
+Smallest 3-set:
+
+{53137619,53137621}, {150039737689461113590379,150039737689461113590381}, {3377683004689157984087647873949586284258308039366835664408380129281619, 3377683004689157984087647873949586284258308039366835664408380129281621}
+
+Did not find a 4-set. Searched up to p = 2372746054499
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

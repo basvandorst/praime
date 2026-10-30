@@ -1,0 +1,245 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_164.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 164. Sequences of Fermatian primes
+Source: https://www.primepuzzles.net/puzzles/puzz_164.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0164.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_163.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_165.htm
+  https://www.primepuzzles.net/puzzles/puzz_164.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 164. Sequences of Fermatian primes
+
+Problems & Puzzles: Puzzles
+
+Puzzle 164. Sequences of Fermatian primes
+
+The following puzzle has been posted by Daniel Gronau. It's about the Fermat Numbers, usually described by the function: F_n = 2^(2^n)+1, for n=0, 1, 2, .... Gronau wrote:
+
+"There is an alternative description - a recursive one - of Fermat numbers:
+
+f(n+1) = 2 + f(0)*f(1)*f(2)*...*f(n).
+
+f(0) = 3
+
+Following this "rule" we get the five (known) Fermat successive numbers & primes:
+
+3, 5, 17, 257, 65537.
+
+So I asked myself if we can get again five successive primes if we substitute f(0) with a prime other than 3.
+
+The answer was: YES! As a matter of fact I found five successive primes solutions for the following f(0) values: 19379, 9443669, 11054759, 15992069, 22482329, 32557379, 51102509, ..."
+
+Daniel wondered if the quantity of successive primes obtained by this recursive procedure were limited or not.
+
+I (C.R.) found several f(0) values producing six successive primes. Here are the first 3 of them:
+
+1) 1288004999
+
+2) 1417870889
+
+3) 1619225519
+
+Question:
+
+1. Can you find 3 more f(0) solution for sequences of six successive Fermatian primes?
+
+2. Can you find f(0) solutions for sequences with seven and eight successive Fermatian primes
+
+Solution:
+
+Sudipta Das notices that the recursive expression of the Fermatian numbers, given by Gronau:
+
+f(n+1) = 2 + f(0)*f(1)*f(2)*...*f(n).
+
+f(0) = 3
+
+Can be transformed in a closed expression:
+
+f(n) = (f(0)+1)^(2^(n-1)) + 1, for n>0
+
+f(0) = 3
+
+Sudipta claims that this expression "is much easier to program and to test for primality, than the recursive form"
+
+***
+
+Shyam Sunder Gupta has found 3 more f(0) prime values producing sequences of six consecutive primes:
+
+3998094509
+
+4997719499
+
+7369307219
+
+***
+
+Both Shyam and Sudipta point out that f(0) must leave a remainder of 29 when divided by 30.
+
+***
+
+Jim Fougeron made an extensive search and here are his results:
+
+I have found no "order 7" or "order 8". I have search ALL ranges up to > 1.6767 trillion. Within this range, there were 217 numbers which satisfied 6 consecutive primes, and 13927 numbers which satisfied 5 consecutive primes (not counting the 217 order 6 numbers). I tested some of the 7th candidate numbers (factoring), and it appears that there is no "pattern" which would eliminate a 7th number being prime (i.e. all were not divisible by 3 or 13 > or 101, ...). It also appeared that the 7th number's behave as to be partly factored, similar to the Fermat numbers, the General Fermat numbers, or the Mersenne type numbers. The prime density would certainly be more than simply a "random" 300 to 400 digit number. At 200+ order 6's I did "expect" to see an order 7 result, but none were found :((((
+
+I did also observe a few "rules" for this sequence.
+
+1. The f(0) and f(1) must be a twin, since f(1) = f(0)+2
+
+2. f(0)%10 must be 9 : (except for f(0)=3)
+
+if f(0)%10 is even, then f(0) is not a prime
+
+if f(0)%10 is 1, then f(10)%10=3 and 3*1+2 is 5, so f(2) is divisible by 5
+
+if f(0)%10 is 3 then f(1)%10=5 so it is not prime (except if f(0)=3)
+
+if f(0)%10 is 5 then f(0) is not prime (except if f(0) is 5)
+
+if f(0)%10 is 7 then f(1)%10 is 9 and 7*9+2 is 65%10=5.
+
+if f(0)%10 is 9 then f(1)%10 is 1 and f(2)%10 is 9 and f(3,4,...)%10
+
+is 1
+3. f(n) as n grows it will end with many 0's followed by a single 1 digit, so MANY (most) of these primes, even when large, will be VERY easily provable (N-1 will be 10^many*something with 10^many often being larger than N^1/3 which allows easy N-1 proving)
+
+***
+
+I asked to Jim: "Can you also add the type of program (language), computer and time spent in your search? One more question: trillion is like in our system 10^18?". And his answer was:
+
+1 trillion is 2^12 (1,000,000,000,000). I am currently at 3.845*10^12 and
+
+have found 187 more order 6 values, but no order 7's yet.
+
+I have coded this in VC++ using my own 64 bit Erat primegenerator to find
+
+the twins, and then Miracl large integer library to prp test the "larger"
+
+numbers. Coding took a few hours, and runtime to 10^12 took 3 Athlon 750mhz
+
+PC about 16 hours each. I have optimized my code better, and now a single
+
+PC running for about 30 hours pushed from 1.2*10^12 to 3.8*10^12. Note that
+
+the size of the f(4+) is increasing now, so testing the numbers is slowing
+
+down. I do expect a series of length 7, but not sure how high I will have
+
+to push to find it. I will not be searching for a length 8 item ;) I will
+
+leave that to someone else. I currently have over 400 length 6 results found.
+
+Here is some new information. [higher modular requirements for f(0)]
+
+The f(0) numbers in the series (other than f(0)==3) MUST be of the form
+
+f(0)==509 mod(510) That is why 9 mod(10) and 29 mod(30) were both "valid".
+
+510 is 2*3*5*17 so any number which is made up exclusively of these factors
+
+(10=2*5, 30=3*2*5, 85=17*5, ...) would all "satisfy" the f(0) to be n-1 mod(n).
+
+However, 509 mod(510) is the optimal (maximal) case.
+
+***
+
+A few hours later Jim informed a beautiful result:
+
+Carlos, here is an update on puzzle 164
+
+I have processed from f(0)=3 to f(0)=4319420014079 and here are the results:
+
+There were 29777 length 5 finds
+
+There were 456 length 6 finds
+
+There is 1 length 7 find. That find is:
+
+f(0)=4109355036959
+
+f(1)=4109355036961
+
+f(2)=16886798819788522966041601
+
+f(3)=285163974380011052145033104437715842266772930560001
+
+f(4)=
+
+813184922842035997316061285984072393325394068447975735939012051758969
+
+56396923659519570581913600000001
+
+f(5)=
+
+661269718737608038306331633156409174030623576506013895765168627135044
+
+165565655941249372213421363090241527339594205302044863667773950048188
+
+0593852970658833909784236964257314836927437864960000000000000001
+
+f(6)=
+
+437277640919315243514787851517751082721195257036696929098144568407957
+
+920797032668040071454163950082962790256662644321871244216898947128310
+
+396937497654368156594418147998528995865975591284432223136928623664627
+
+293496717205649428628521123863684172634387233026153590991365834794438
+
+361887012729368899010291270461836799147284907986146416473268907016127
+
+38703984886086481563195801600000000000000000000000000000001
+
+Note f(6) is a 402 digit prime. Also note that f(0) is the smallest value
+
+which is prime for length 7. All primes are proven.
+
+Jim.
+
+What a splendid work!
+
+***
+
+The 24/3/2002 Phil Carmody came with an example for length 8: f(0)+1=7,190,597,297,273,100
+
+"... something like 3 weeks on my PPro200, and than a final burst on my Duron 900 for a week finally yielded >550 length 7 results before providing a single solitary length 8 result:
+
+f(0)+1 = 7,190,597,297,273,100
+
+...
+
+The filters required for this test are quite unusual, compared with the usual tasks I've thrown at GenSv, and so I've had to make some tweaks to the code to improve the efficiency in the sieve in these kinds of situations. The thing I'm most proud of is the fact that the largest term is titanic!
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

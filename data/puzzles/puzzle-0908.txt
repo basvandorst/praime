@@ -1,0 +1,175 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_908.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 908. Descending residues
+Source: https://www.primepuzzles.net/puzzles/puzz_908.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0908.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_907.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_909.htm
+  https://www.primepuzzles.net/puzzles/puzz_908.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 908. Descending residues
+
+Problems & Puzzles: Puzzles
+
+Puzzle 908. Descending residues
+
+Vic Bold sent the following nice puzzle.
+
+For two consecutive primes, (p, q) such that q>p. q=nextprime(p) we construct the following scheme of descending residues:
+Let pq = p*q
+
+pq mod (p+q)=r1
+
+pq mod r1=r2
+
+pq mod r2=r3
+
+...
+
+pq mod r_k-1= rk =1 (stop)
+
+or in a compact form:
+
+(p, q)-> {r1, r2, ...rk}, rk=1
+
+Example by Vic: (p, q) = (11, 13), steps = 5
+
+11*13 mod (11+13) = 23
+
+11*13 mod 23 = 5
+
+11*13 mod 5 = 3
+
+11*13 mod 3 = 2
+
+11*13 mod 2 = 1 (stop)
+
+or (11, 13) -> {23, 5, 3, 2, 1}
+
+In this example all the five residues are primes or 1.
+
+Carlos Rivera found a second example like the above such that steps = 6 and all the six residues are primes or 1: (53, 59) -> {103, 37, 19, 11, 3, 1}
+
+Rivera suggests that there are no larger scheme of pure primes or 1 residues, if p & q are consecutive primes.
+
+Q1. Can you find another pair of consecutive primes (p, q) with more that six residues prime or 1 and none composite?
+
+Q2. Can you find another pair of primes (p, q) not necessarily consecutive, with more than six residues prime or 1 and none composite?
+
+Rivera has gotten a pair of consecutive primes (p, q) with 20 primes or 1, in a sequence of 40 descending residues:
+
+(3810860329, 3810860351) -> { 7621720559, 1905433679, 49252203, 30653789, 30177730, 20955199, 15150616, 10199407, 3078304, 2126007, 1455269, 1295988, 1132283, 674812, 553703, 449111, 278067, 156221, 79518, 42239, 12303, 6737, 2309, 1777, 1631, 719, 607, 281, 189, 131, 59, 48, 23, 17, 6, 5, 4, 3, 2, 1}; primes & 1 in the set are in bold type.
+
+Q3. Send another example of consecutive primes (p, q) with more than 20 residues prime or 1 and some composites.
+
+Contributions came from Emmanuel Vantieghem and Fred Schneider
+
+***
+
+Emmanuel wrote on Jan 19, 2018:
+
+First of all, it should be observed that the sequence of descending residues not allways terminates in 1.
+
+Sometimes it end in zero, for instance :
+
+( 2, 7 ) -> {5, 4, 2, 0}
+
+( 3, 11 ) -> {5, 3, 0}
+
+( 7, 23 ) -> {11, 7, 0}
+
+I even think that for every prime p there exists a prime q > p such that ( p, q ) -> { ... , p , 0}. But of course, this will be difficult to settle.
+
+About the three questions you posed, this are my findings :
+
+_____________________________________________
+
+Q1. I think Carlos is right, though there exists probably infinitely many primes p such that
+
+( p, Nextprime(p) ) -> a set of primes or 1.
+
+The p < 100000 are : 2, 3, 5, 7, 11, 13, 53, 179, 1019, 5639, 11699, 25799, 44699, 48479, 74099, 74759, 79559, 83339, 91139, 93239.
+
+Q2. My best result is : 11 primes when p = 104827, q = 497411 :
+
+( p, q ) -> {336857, 7867, 4513, 2069, 773, 113, 103, 73, 11, 5, 2, 1}
+
+Q3. Take p = 10659800821 , q = nextprime(p). Then :
+
+( p, q ) -> {21319601159, 5329969721, 3219495912, 2717977367, 564129422, 332515275, 258257732, 56242951, 35248152, 18462431, 13353620, 9755147, 9361289, 1674781, 580379, 273898, 255253, 226329, 140099, 107897, 102061, 86171, 67964, 43063, 26489, 10477, 3396, 971, 505, 487, 314, 239, 196, 59, 37, 17, 11, 10, 7, 3, 2, 1}, which contains the 21 primes :
+
+21319601159, 56242951, 9755147, 580379, 255253, 107897, 102061, 86171, 43063, 26489, 10477, 971, 487, 239, 59, 37, 17, 11, 7, 3, 2
+
+***
+
+Fred wrote on Jan 19, 2018:
+
+Q2. This is the best solution (by far) that I have found:
+
+Length = 14
+
+788760464964743 = 3931787*200611189
+
+26759 mod 204542976
+
+353 mod 26759
+
+199 mod 353
+
+101 mod 199
+
+37 mod 101
+
+19 mod 37
+
+17 mod 19
+
+13 mod 17
+
+11 mod 13
+
+7 mod 11
+
+5 mod 7
+
+3 mod 5
+
+2 mod 3
+
+1 mod 2
+
+I did this by setting up likely candidates with the Chinese Remainder Theorem, checking if a figure is a semi-prime and then checking the residues.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

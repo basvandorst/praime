@@ -1,0 +1,214 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_106.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 106. Conjecture about gaps between consecutive primes.
+Source: https://www.primepuzzles.net/conjectures/conj_106.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0106.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_105.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_107.htm
+  https://www.primepuzzles.net/conjectures/conj_106.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 106. Conjecture about gaps between consecutive primes.
+
+Problems & Puzzles: Conjectures
+
+Conjecture 106. Conjecture about gaps between consecutive primes.
+
+On June 11, 2024 Alain Rocchelli sent the following conjecture:
+
+A001223 is related to the gaps between consecutive primes, i.e. :
+
+a(n) = prime(n+1) – prime(n) with the two first terms a(1)=3-2=1 and a(2)=5-3=2
+
+Let be {N(n)} and {D(n)} as the two mathematic series defined by:
+
+N(1)=1 ; D(1)=1
+
+For n>1 ; N(n)=a(n)= prime(n+1) – prime(n) if a(n)>a(n-1) and N(n)=0 if a(n)<=a(n-1)
+
+D(n)=a(n)= prime(n+1) – prime(n) if a(n)<a(n-1) and D(n)=0 if a(n)>=a(n-1)
+
+Also we get for the sums of first terms :
+
+Prime : 2 , 3 , 5 , 7 , 11 , 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59
+
+a(n) --> 1 , 2 , 2 , 4 , 2 , 4 , 2 , 4 , 6 , 2 , 6 , 4 , 2 , 4 , 6 , 6
+
+N(n) --> 1 + 2 + 0 + 4 + 0 + 4 + 0 + 4 + 6 + 0 + 6 + 0 + 0 + 4 + 6 + 0
+
+D(n) --> 1 + 0 + 0 + 0 + 2 + 0 + 2 + 0 + 0 + 2 + 0 + 4 + 2 + 0 + 0 + 0
+
+We conjecture that the ratio Sum_N(n) / Sum_D(n) is asymptotic to the value 3 for n to infinity.
+
+Q1. Send your own computations.
+
+Q2. Can you get an explanation ?
+
+Contribution came from Oscar Volpatti on June 21, 2024:
+
+Alain Rocchelli's conjecture 106 can be derived from a simple random model of prime numbers.
+
+Numerical computations involving primes up to 7*10^13 are consisted with it.
+
+Let's introduce one more mathematical sequence E(n) along with N(n) and D(n):
+
+E(1)=1;
+
+for n>1, E(n)=a(n)=prime(n+1)-prime(n) if a(n)==a(n-1) and E(n)=0 otherwise.
+
+For n=1, equality N(1)+D(1)+E(1)=3=prime(2) holds;
+
+for n>1, equality N(n)+D(n)+E(n)=a(n)=prime(n+1)-prime(n) holds;
+
+then equality Sum_N(n)+Sum_D(n)+Sum_E(n)=prime(n+1) holds for every n by induction on n.
+
+Set counting interpretation.
+
+Positive integers can be partitioned into three sets Set_N, Set_D, Set_E as follows.
+
+Arbitrarily assign 1 to Set_D, 2 to Set_E, 3 to Set_N.
+
+For n>1, consecutive primes prime(n) and prime(n+1) uniquely determine a "gap-interval" I(n) with even length:
+
+I(n)={prime(n)+1<=k<=prime(n+1)}.
+
+Assign all integers k from a given gap-interval I(n) to the same set:
+
+to Set_N if a(n)>a(n-1),
+
+to Set_D if a(n)<a(n-1),
+
+to Set_E if a(n)==a(n-1).
+
+From these definitions, cumulative sums Sum_N(n), Sum_D(n), Sum_E(n) can be viewed as counting functions.
+
+Considering integers k between 1 and prime(n+1) included, there are:
+
+Sum_N(n) integers belonging to Set_N,
+
+Sum_D(n) integers belonging to Set_D,
+
+Sum_E(n) integers belonging to Set_E.
+
+Asymptotic conjectured behaviour.
+
+As n diverges to infinity:
+
+ratio R_N(n)=Sum_N(n)/prime(n+1) converges to 0.75,
+
+ratio R_D(n)=Sum_D(n)/prime(n+1) converges to 0.25,
+
+ratio R_E(n)=Sum_E(n)/prime(n+1) converges to 0,
+
+ratio R_N(n)/R_D(n)=Sum_N(n)/Sum_D(n) converges to 0.75/0.25 = 3.
+
+Random model of prime numbers (modified Cramer's model).
+
+Integers from 1 to 7 are prime with probability either 0 or 1, according to their actual primality status.
+
+An integer k > 7 is prime with probability q(k)=0 if k is even and q(k)=2/log(k) if k is odd.
+
+Given any two positive integers, their primality probabilities are independent.
+
+For large x, the expected number of primes between 1 and x is asymptotic to x/log(x), consistently with Prime Number Theorem.
+
+Let P_N(k) be the probability of integer k belonging to Set_N.
+
+Its cumulative sum from k=1 to k=prime(n+1) will be an estimate of Sum_N(n).
+
+Its average value over the same interval will be an estimate of R_N(n).
+
+Similarly define P_D(k) and P_E(k).
+
+For large x, approximations to P_N(x), P_D(x) and P_E(x) will be computed as follows.
+
+If k is odd and close to x, then q(k) is close to constant Q = 2/log(x).
+
+Integer x belongs to a gap-interval with length 2*t, preceded by a gap-interval with length 2*u, with probability close to:
+
+t*Q*(1-Q)^(t-1)*Q*(1-Q)^(u-1)*Q.
+
+Taking suitable summations for t and u both growing from 1 to infinity, I obtained the following results:
+
+P_E(x) ~= Q/(2-Q)^2
+
+P_D(x) ~= (1-Q)/(2-Q)^2
+
+P_N(x) ~= (3-Q)*(1-Q)/(2-Q)^2
+
+As x diverges to infinity:
+
+Q converges to 0;
+
+P_E(x) converges to 0 too;
+
+P_D(x) converges to 1/4;
+
+P_N(x) converges to 3/4.
+
+Numerical computations.
+
+n = 2269432871305;
+
+prime(n) = 69999999999971;
+
+prime(n+1) = 70000000000009;
+
+Sum_N(n) = 50879234052519;
+
+Sum_D(n) = 18342798190645;
+
+Sum_E(n) = 777967756845;
+
+R_N(n) = 0.72684620075;
+
+R_D(n) = 0.26203997415;
+
+R_E(n) = 0.011113825098;
+
+Sum_N(n)/Sum_D(n) = 2.77379893317.
+
+Random model predictions.
+
+x = 70000000000009;
+
+Q = 0.062736208967;
+
+P_N(x) ~= 0.73354585688;
+
+P_D(x) ~= 0.24973782032;
+
+P_E(x) ~= 0.01671632280.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,225 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1103.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1103 successive primes p+10^n
+Source: https://www.primepuzzles.net/puzzles/puzz_1103.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1103.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1102.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1104.htm
+  https://www.primepuzzles.net/puzzles/puzz_1103.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1103 successive primes p+10^n
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1103 successive primes p+10^n
+
+Hope you like the following puzzle:
+
+Here we try to find prime p such that p+10, p+100, p+1000, ... are primes too.
+
+Here is a good starting point:
+
+163 produces the primes 173, 263, 1163, and 10163. 100163 is composite.
+
+Q. Find a better producing prime than 163.
+
+During the week 18-23 Set. 2002, contributions came from Giorgos Kalogeropoulos, Emmanuel Vantieghem, Oscar Volpatti, Ken Wilke, Gennady Gusev, Michael Branicky, Jan van Delden
+
+Giorgios wrote:
+
+Unfortunately we can only go one step further and then modular arithmetic forces us to stop.
+163 takes 4 steps
+
+1399 takes 5 steps producing the primes 1409, 1499, 2399, 11399, 101399.
+
+Other primes which take 5 steps are 1399, 3457, 25339, 33403, 41131, 75991, 76243, 78301, 97453...
+
+There is no prime that produces a chain of 6 steps.
+
+To prove this we must work modulo 7.
+
+The starting prime p can be congruent to any value mod 7 except 0.
+
+So, p==1,2,3,4,5,6 mod 7
+
+Let's take the first step and add 10
+
+p+10==p+3 mod 7 this means that the starting prime p==1,2,3,5,6 mod 7
+
+(All primes p==4 mod 7 where eliminated in the first step because p+10 would be divisible by 7)
+
+We continue in the same fashion for the next steps
+
+p+10^2 == p+2 mod 7 so p==1,2,3,6 mod 7 (one more value was eliminated, namely p==5 mod 7)
+
+p+10^3 == p+6 mod 7 so p==2,3,6 mod 7
+
+p+10^4 == p+4 mod 7 so p==2,6 mod 7
+
+p+10^5 == p+5 mod 7 so p==6 mod 7
+
+p+10^6 == p+1 mod 7 which means that p+1==0 mod 7
+
+So, in the 6th step p+10^6 will always be divisible by 7.
+
+***
+
+Emmanuel wrote:
+
+Apart of a small printing error in the announcement of puzzle 1103 this is what I found :
+
+1399 gives five primes : 1409,1499,2399,11399,101399.
+
+It is impossible to get 6 primes.
+
+Proof :
+
+If p is prime, == a mod 7, then
+
+p + 10, p + 100, p + 1000, p + 10000, p + 100000, p + 1000000 mod 7 gives the residues :
+
+a + 3, a + 2, a + 6, a + 4, a + 5, a + 1.
+
+So, if a is not 0 (which is the case when p differs from 7),
+
+at least one of these residues will be divisible by 7.
+
+If p = 7, then p + 1000 is not prime.
+
+QED.
+
+Here is a small list of the primes that give 5 other primes :
+
+1399,3457,25339,33403,41131,75991,76243,78301,97453,123493,124669,...
+
+***
+
+Oscar wrote:
+
+a prime seed p can produce at most five more primes p+10, p+10^2, ... , p+10^5;
+
+there are many such optimal seeds (maybe infinitely many):
+
+1399, 3457, 25339, 33403, 41131, 75991, 76243, 78301, 97453, 123493, ...
+
+Proof.
+
+The seven numbers p, p+10, p+10^2, ..., p+10^6 belong to different residue classes modulo 7.
+
+We can distinguish two cases.
+
+1) 7 divides p.
+
+The only such prime is p = 7 itself.
+
+This seed produces the primes 17 and 107, but 1007 = 19*53, composite.
+
+2) 7 is coprime with p.
+
+Hence 7 divides exactly one of the numbers p+10, p+10^2, ..., p+10^6, which is greater than 7 and must be composite.
+
+Optimal seeds p can produce five more primes p+10, p+10^2, ... , p+10^5, then 7 must divide p+10^6.
+
+As 10^6 == 1 mod 7, congruence p == 6 mod 7 must hold.
+
+***
+
+Ken wrote:
+
+Since gcd(2,10)=2.the initial prime cannot be 2. If the initial prime is 3, then 3+ 1000 is
+
+divisible by 17. All primes p &gt; 3 are of the form 6k+1 or 6k-1. If p = 6k-1 for some integer
+
+k, then (6k-1) =10 is divisible by 3. Hence p must have the form 6k + 1for some integer k.
+
+Next 10, 100, 1000, 10000, 100000, and 1000000 are = respectively to 3, 2, 6, 4, 5 and 1
+
+respectively (mod 7). If p = 7, then p + 100000 is divisible by 97. If p = 6k+1, then p +
+
+one of the powers of 10 must be divisible by 7. To obtain a longer string of primes, we must
+
+have p = 6k+1 = 6 (mod 7). [The case listed in the problem statement corresponds to p =
+
+6k+1 = 5 (mod 7)]. Then k = 2 (mod7) so that p has the form p= 42t + 13 for some
+
+integer t. Checking a table of primes and generating the possible sequences of primes
+
+generated, p = 1399 generates the following sequence of primes: 1399, 1409, 1499, 2399,
+
+11399, and 101399. The next term would be 1001399 =7*29*4933.
+
+***
+
+Gennady wrote:
+
+p=7 produces only 2 prime numbers (17 and 107).
+
+Since 10^n has only 6 different residues modulo 7 (r(n)= 3,2,6,4,5,1) then for p>7 one of the numbers p+10^n (n=1..6) will be divisible by 7, and namely: if (p mod 7) = r, then p+10^n is divisible by 7 for which r +r(n)=7.
+
+So the maximum possible number of primes is 5, and we need to take p of the form 7*k+6 (for r(6)=1).
+
+p must be odd (i.e. 2*m+1), as well as 3*s+1 (if p=3*s+2, then 3*s+2+10 is divisible by 3).
+
+Finally, p should be of the form 42*k+13.
+
+The smallest prime is 1399 that produces 5 primes: 1409, 1499, 2399, 11399, 101399.
+
+***
+
+Michael wrote:
+
+1399 produces primes 1409, 1499, 2399, 11399, and 101399.
+
+Others primes that produce 5 primes are common: 3457, 25339, 33403, 41131, 75991, 76243, 78301, 97453, ...
+
+It is easy to find odd composites a(n) such that a(n) + 10^k is prime for k=1..n for n = 6..11 and, presumably, for all n;
+
+but, there are no primes producing more than 5 primes, since a(n) == 0 (mod 7) for n > 5 [OEIS A124116].
+
+***
+
+Jan wrote:
+
+The residues of the numbers p+10^n modulo 7, with n in {1,2,3,4,5,6} and where p is not the prime 7 must contain a 0. In other words the maximum length that one is able to find is 6, including the starting prime p.
+
+For p=7 we find that p+10,p+100 are prime and p+1000 is not.
+
+In order to achieve this maximum length one must choose p mod 7=6, thereby making sure that we run into p+10^n mod 7=0 for n=6 (and not sooner). Furthermore one should have p mod 3=1 and p mod 2=1. Modulo these primes we find that we need p mod 42=13.
+
+For p=13 we find that p+10,p+100 and p+1000 is prime and p+10000 is not.
+
+And we find that p=33*42+13=1399 is the first prime that starts a sequence of 6.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

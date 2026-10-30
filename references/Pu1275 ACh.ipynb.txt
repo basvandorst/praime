@@ -1,0 +1,356 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/Pu1275%20ACh.ipynb.txt. These files are used for reasoning.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "AViPBBjjeAXZ"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "C9-x4OGle_tV"
+      },
+      "source": [
+        "#Python code that generated the magic square\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 38,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-OpnZcPFe2QO",
+        "outputId": "752caa61-af2f-438f-c770-2d3c059afa26"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "<class 'numpy.ndarray'>\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Create an N x N magic square. N must be odd.\n",
+        "import numpy as np\n",
+        "N = 5\n",
+        "\n",
+        "magic_square = np.zeros((N, N), dtype=int)\n",
+        "\n",
+        "n = 1\n",
+        "i, j = 0, N // 2\n",
+        "\n",
+        "while n <= N**2:\n",
+        "    magic_square[i, j] = n\n",
+        "    n += 1\n",
+        "    newi, newj = (i-1) % N, (j+1)% N\n",
+        "    if magic_square[newi, newj]:\n",
+        "        i += 1\n",
+        "    else:\n",
+        "        i, j = newi, newj\n",
+        "\n",
+        "print(type(magic_square))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 39,
+      "metadata": {
+        "id": "EqV7cqkarKqn"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 40,
+      "metadata": {
+        "id": "hmuwrLtjqCqf"
+      },
+      "outputs": [],
+      "source": [
+        "angelone_matrix = pd.read_excel(\"/content/drive/MyDrive/CaRLOS/PP_Ankit_17.xlsx\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 41,
+      "metadata": {
+        "id": "uMET18VTlOfa"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np\n",
+        "x = pd.DataFrame(angelone_matrix)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "gXdtL5Pwxp8E"
+      },
+      "source": [
+        "#Verify for distinct primes"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 42,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gPTRA5lIe3FQ",
+        "outputId": "088f61b5-ca1d-49eb-f6af-29db5d92149b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "             0            1            2              3              4    \\\n",
+            "0    10217828443  10216935853  10216043263  10216674733.0  10216163833.0   \n",
+            "1    10216041793  10217831383  10216934383  10215652273.0  10216676053.0   \n",
+            "2    10217710873  10217231083  10218158623  10216936153.0  10216024303.0   \n",
+            "3    10218147943  10217700193  10217252443  10217839123.0  10216933933.0   \n",
+            "4    10217241763  10218169303  10217689513  10216026523.0  10217843563.0   \n",
+            "..           ...          ...          ...            ...            ...   \n",
+            "723   9306028453   9305667673   9305306893   9305876023.0   9305564953.0   \n",
+            "724   9305123953   9306394333   9305484733   9304978993.0   9306425803.0   \n",
+            "725   9305484883   9304613293   9305690113   9306152413.0   9304351333.0   \n",
+            "726   9305467993   9305262763   9305057533   9307610293.0   9306066613.0   \n",
+            "727   9304835413   9305912233   9305040643   9304437133.0   9307781893.0   \n",
+            "\n",
+            "               5              6              7              8    \\\n",
+            "0    10215652933.0  10218446353.0  10217702113.0  10216957873.0   \n",
+            "1    10216163173.0  10216957783.0  10218446533.0  10217702023.0   \n",
+            "2    10217841343.0  10216168993.0  10216137793.0  10216196233.0   \n",
+            "3    10216028743.0  10216194913.0  10216167673.0  10216140433.0   \n",
+            "4    10216931713.0  10216139113.0  10216197553.0  10216166353.0   \n",
+            "..             ...            ...            ...            ...   \n",
+            "723   9305253883.0   9306393253.0   9305462233.0   9304531213.0   \n",
+            "724   9305290063.0   9304527313.0   9306401053.0   9305458333.0   \n",
+            "725   9307696093.0   9305371813.0   9304565113.0   9306159523.0   \n",
+            "726   9304522933.0   9306153193.0   9305365483.0   9304577773.0   \n",
+            "727   9305980813.0   9304571443.0   9306165853.0   9305359153.0   \n",
+            "\n",
+            "               9    ...            718            719            720  \\\n",
+            "0    10216375363.0  ...  10689803833.0  10689431083.0  10690410253.0   \n",
+            "1    10216191133.0  ...  10690195063.0  10689794593.0  10689842773.0   \n",
+            "2    10216949053.0  ...  10686848443.0  10690622083.0  10691103433.0   \n",
+            "3    10217680093.0  ...  10688782693.0  10687038163.0  10691216113.0   \n",
+            "4    10216215853.0  ...  10690716943.0  10688687833.0  10690959793.0   \n",
+            "..             ...  ...            ...            ...            ...   \n",
+            "723   9306491893.0  ...   9789563233.0   9789330553.0   9789110953.0   \n",
+            "724   9305718133.0  ...   9790600333.0   9789161023.0   9775699273.0   \n",
+            "725   9305605363.0  ...   9787894573.0   9790034983.0   9778732903.0   \n",
+            "726   9305842723.0  ...   9789270853.0   9789118873.0   9778961293.0   \n",
+            "727   9305169103.0  ...   9790647133.0   9788658703.0   9777540793.0   \n",
+            "\n",
+            "               721            722            723            724  \\\n",
+            "0    10690129033.0  10689847813.0  10689152653.0  10689128833.0   \n",
+            "1    10690420333.0  10690123993.0  10689076963.0  10689208753.0   \n",
+            "2    10690949473.0  10691226433.0  10690133143.0  10689290383.0   \n",
+            "3    10691093113.0  10690970113.0  10690923343.0  10690120003.0   \n",
+            "4    10691236753.0  10691082793.0  10689303523.0  10690949623.0   \n",
+            "..             ...            ...            ...            ...   \n",
+            "723   9782656693.0   9776202433.0   9793811173.0   9782417233.0   \n",
+            "724   9790117273.0   9782153533.0   9771010663.0   9793836433.0   \n",
+            "725   9777219553.0   9779282533.0   9791036503.0   9788440663.0   \n",
+            "726   9778411663.0   9777862033.0   9790241983.0   9790188913.0   \n",
+            "727   9779603773.0   9778090423.0   9789288253.0   9791937163.0   \n",
+            "\n",
+            "               725            726            727  \n",
+            "0    10689105013.0  10691315863.0  10691102143.0  \n",
+            "1    10689100783.0  10690876663.0  10691339383.0  \n",
+            "2    10690936483.0  10689150883.0  10688732083.0  \n",
+            "3    10689316663.0  10689553723.0  10689146893.0  \n",
+            "4    10690106863.0  10688736073.0  10689561703.0  \n",
+            "..             ...            ...            ...  \n",
+            "723   9771023293.0   9797698903.0   9782177773.0  \n",
+            "724   9782404603.0   9766611313.0   9797789563.0  \n",
+            "725   9791089573.0   9779560933.0   9774800593.0  \n",
+            "726   9790135843.0   9780682033.0   9778651123.0  \n",
+            "727   9789341323.0   9775710403.0   9782501653.0  \n",
+            "\n",
+            "[728 rows x 728 columns]\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "x = pd.DataFrame(angelone_matrix)\n",
+        "#arr_2d = np.array(magic_square)\n",
+        "arr_2d = np.array(angelone_matrix)\n",
+        "x = pd.DataFrame(arr_2d)\n",
+        "x = x.iloc[0:728, 0:728]\n",
+        "print(x)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 43,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NmQaH1bCPjWo",
+        "outputId": "570a372f-372b-40c4-a8b3-46a6bf9060d6"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "10217828443\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(x[0][0])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 44,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XZhmuq58PjSZ",
+        "outputId": "72a9a788-b233-4488-bdf3-6e8025d32686"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "This number is distinct prime, run full code for actual results\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "arr_2d = np.array(x)\n",
+        "max_prime =  0\n",
+        "min_prime = x[0][0]\n",
+        "for element in arr_2d.flat:\n",
+        "    if element % 2 == 0:\n",
+        "       print(\"This number is not distinct prime\")\n",
+        "    else:\n",
+        "      if element>max_prime:\n",
+        "        max_prime = element\n",
+        "      if element<min_prime:\n",
+        "        min_prime = element\n",
+        "      print(\"This number is distinct prime, run full code for actual results\")\n",
+        "      break\n",
+        "      #Remove break when running for actual results as the code runs and goes unresponsive\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "YJmJk99DxjvM"
+      },
+      "source": [
+        "#Print the smallest and largest prime"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 45,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "t6rxpM3OuyXQ",
+        "outputId": "97668ee1-40a4-457e-f55a-a4b69b390e5a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Smallest prime\n",
+            "10217828443\n",
+            "Large Prime\n",
+            "10217828443\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"Smallest prime\")\n",
+        "print(min_prime)\n",
+        "print(\"Large Prime\")\n",
+        "print(max_prime)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "E7yuHCYaxhZd"
+      },
+      "source": [
+        "#Central element"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 46,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "434O2PyZvns9",
+        "outputId": "f788ceab-06a8-4fca-b7bf-b17c0a4496f8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "10218158623\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(x[N//2][N//2])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "3oAXyj_GxfgD"
+      },
+      "outputs": [],
+      "source": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}

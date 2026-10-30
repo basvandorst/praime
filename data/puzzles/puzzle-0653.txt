@@ -1,0 +1,155 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_653.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 653 R(p) is n^n.
+Source: https://www.primepuzzles.net/puzzles/puzz_653.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0653.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://primes.utm.edu/curios/page.php?short=61277761
+  mailto:cbrfgm@gmail.com
+  http://oeis.org/A178329
+  https://www.primepuzzles.net/puzzles/puzz_652.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_654.htm
+  https://www.primepuzzles.net/puzzles/puzz_653.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 653 R(p) is n^n.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 653 R(p) is n^n.
+
+In one of the the Prime Curios! pages from Caldwell & Honaker, Jr. I found this question, by Kulsha:
+
+The reversal of 61277761 is 8^8. There should be infinitely many primes of this form?
+
+Q. Find the next cases to R(p)=n^n.
+
+_______
+
+R(n) means here "reverse of n"
+
+Contributions came from Giovanni Resta, Farideh Firoozbakht, Jeff Ellen, W. Edwin Clark, J. K. Andersen, Thomas Ritschel, Dan Dima & Emmanuel Vantieghem
+
+***
+
+Giovanni wrote:
+
+Tthe next prime of the form R(n^n) is R(5569^5569), a prime of 20861 digits. I obtained this result many years ago, so I do not remember the boundary of my search. [has it been published?] I did not.[Prime or PSP?] Just a probable prime (according to Mathematica implementation notes):
+
+"Mathematica first tests for divisibility using small primes, then uses the Miller-Rabin strong pseudoprime test base 2 and base 3, and then uses a Lucas test." The number has not a "form" that allows a fast certification, and I'm not up-to-date in the game of proving primality of large numbers.
+
+b.t.w. No other solutions up to 16800.
+
+***
+
+Farideh wrote:
+
+5569 is the smallest prime p such that reversal(p^p) is prime (probable prime).
+
+***
+
+Jeff wrote:
+
+For puzzle 653 I have checked up to n=412 with no prime found. When n=413 I get an overflow in UBasic.
+
+***
+
+W. E. Clark wrote:
+
+It turns out that the next value of n such that R(n^n) is (a probable) prime is 5569 and was found by Farideh Firoozbakht in June 2010 see http://oeis.org/A178329
+
+I checked all n up to 11100 and found only the two values n = 8 and n = 5569
+such that R(n^n) is prime.
+
+I used Maple 16's probabilistic primality test isprime to check the primality of R(5569^5569). This is a 20861 digit number and it took 31 minutes to return true.
+
+***
+
+J. K. Andersen wrote:
+
+The only other solution for n up to 25000 is a 20861-digit probable prime:
+
+R(9290666754...4901031171) = 5569^5569
+
+I found it with PrimeForm/GW but http://oeis.org/A178329 shows
+
+Farideh Firoozbakht already reported it in 2010.
+
+***
+
+Thomas wrote:
+
+I've tested all n<=6000 using a combination of a simple Pari script (for doing the reversal) and PFGW.
+
+The next case is found for p=9290666...1031171 = R(5569^5569), having 20861 decimal digits...
+Meanwhile I extended my search up to n=43200, e.g. numbers of about 200,000 decimal digits. Since doing the reversal in Pari was too demanding I modified the procedure to generating n^n in Pari, doing a simple string reversal in Perl and trial factoring and PRP testing with PFGW.
+
+n's which are multiples of 3 or 10 were already discarded in the "Pari" stage.
+
+And before the reversal the Perl script checked for numbers starting with an even digit (or "5"), for which the reverse would have trivial factors 2 (or 5).
+
+All remaining candidates were fed into PFGW.
+
+During this extended search I found another PRP which qualifies for the next member of the sequence:
+
+R(34351^34351) = 9290666...4681311 (having 155815 decimal digits). It's found to be Fermat and Lucas PRP, but is obviously too large for a genuine primality test. Yes, appart from the default PRP test I ran an additional "-tc" test in PFGW:
+
+9290666...4681311 is 3-PRP! (1819.1215s+57.2249s)
+
+9290666...4681311 is Fermat and Lucas PRP! (14745.1088s+10.0309s)
+
+***
+Dan wrote:
+
+There is no other such solution for n <= 5569
+
+5569^5569 has already 20,861 digits and it is a lot of time consuming
+
+to test primality for larger values with Pari code.
+
+***
+Emmanuel wrote:
+
+R(n^n) is composite for all n such that 8 < n < 5663. I aborted the computation because, for bigger n the eventual primality of R(n^n) will be too hard to prove.
+...
+
+One day later, he added:
+
+Afterwards, seeing the results of the other puzzlers, I went to reread my results, I realized that I did not noticed that the solution 5569 was an output of my search (done with Mathematica).
+
+Anyhow, there is no further solution up to 5663.
+
+About Thomas' result : Mathematica found R(34351^34351) prime after more than 28 hours
+
+***
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,124 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_182.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 182. Primes with zeros replaced
+Source: https://www.primepuzzles.net/puzzles/puzz_182.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0182.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_181.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_183.htm
+  https://www.primepuzzles.net/puzzles/puzz_182.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 182. Primes with zeros replaced
+
+Problems & Puzzles: Puzzles
+
+Puzzle 182. Primes with zeros replaced
+
+I received (30/12/2000) from Frank Rubin the following nice puzzle:
+
+Find the smallest prime containing the digit 0 such that replacing all occurrences of 0 by any other digit also produces a prime. For example, if 60301 were a candidate then 60301, 61311, 62321, 63331, ..., 69391 would all need to be prime.
+
+Questions:
+
+1.- Can you find the smallest and the following nine of them?
+
+2.- Can you find the least palprime of this type?
+
+Solution:
+
+Jim Fougeron wrote (11/6/02):
+
+The minimal prime for puzzle 182 is: 181030208131
+
+Up to here, there were 11 primes which the first 8 replacements were prime, 92 primes which the first 7 replacements were prime, 792 which the first 6 were prime, 10997 which the first 5 were prime, and 107687 which the first 4 were prime.
+
+Later (14/6/2002) he added:
+
+Here is the full set for problem 182 - question 1
+
+181030208131
+
+631359080503
+
+650285061401
+
+730177052701
+
+754280505091
+
+830907094663
+
+990104069743
+
+1080624874601
+
+2080982976707
+
+2090609914951
+
+Here is a property which makes searching for these quicker.
+
+Convert the 0's in the number to 1's and the other digits to 0's. So the number 181030208131 would convert to 101010000 (actually all that is needed
+
+is the 10101 part). Now this number MUST be divisible by 21 (if the trailing 0's are kept, then by 210). If not, you can skip the number, and here is why.
+
+(p will be original prime p and the converted number will be C) The 10 candidates are N+0 N+C N+2*C ... N+9*C. The only way that all 10 of these can generate primes is if C has no factor less than 11. If C is divisible by 7, then at least 1 of the additional 9 candidates will also
+
+be divisible by 7 (same goes for 3). The divisibility by 2 and 5 are taken care of, since the number C will always end with a 0, making the only
+
+divisibility check which is needed is 3*7. If neither 3 nor 7 divides C,
+
+then the original candidate can be checked for generation of 10 primes.
+
+Unfortunately, I ran primes up to 400000000000 without having this check in, and the time required for those first 400b was more than the time required to finish out the data (and I have pushed it past 3100000000000
+
+no additional perfect sets have yet been found). The rate the program is running at is about a range of 18000000 per second on a PIII 650.
+
+Regarding the question 2, Jim wrote:
+
+As for question 2, that is a whole different ball game. I doubt there will be any found under 64 bits, so most of my faster math routines will not help. Also, the only values which need to be tested will have a C (from
+
+above) which is a odd length palindrome. So C == 10101 (which is for
+
+*d0d0d0d* would work just fine (of course the 0's would be pushed into the
+
+"center nut". There are many other C's which would also work. I may
+
+give this a crack (but right now I don't have the time). I may do this by generating some fast 96 bit and 128 bit math routines (to complement my 64 bit versions). I have looked at doing this with GMP (for the 10101 case), and it is very slow. From my tests on the problem a data, and the size of those numbers, it was requiring about 8.5^9 numbers to be tested to find a 10-tuple-like full set. That would be higher with larger numbers (considerably higher). For 25 digit numbers, (using Mertens), I come up with about 16.5^9 which is much larger (300x larger). Also the tests would
+
+be 6 to 10 times slower. I also doubt that the correct result will be
+
+found before 25 digits, and it may well be up to 35 digits before it is found.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

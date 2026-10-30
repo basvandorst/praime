@@ -1,0 +1,165 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1267.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1267 How many emirps are there?
+Source: https://www.primepuzzles.net/puzzles/puzz_1267.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1267.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://oeis.org/A152014
+  https://www.primepuzzles.net/puzzles/puzz_1266.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/index.html
+  https://www.primepuzzles.net/puzzles/puzz_1267.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1267 How many emirps are there?
+
+Problems & Puzzles: Puzzles
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1267 How many emirps are there?
+
+On March 19, 2029, Simon Cavegn wrote:
+
+How many emirps are there?
+
+State whether you are excluding or including palindromes.
+
+Q1. Find the number of emirps up to the highest possible n.
+
+Q2. Find a formula that matches the data. Compare it to n/(ln(n)*ln(n)).
+
+Can a part of the formula be attributed to:
+
+- excluding or including palindromes
+
+- for p > 5 the first digit cannot be 5
+
+- other reverse digit correlations
+
+Q3. Can you create a possibly provable conjecture, or maybe even a proof, that there are infinitely many emirps?
+
+***
+
+From 8 to 15, May, 2026, contributions came from Emmanuel Vantieghem, Carlos Rivera
+
+Emmanuel wrote:
+
+The number of emirps with n digits can be found in https://oeis.org/A152014 :
+
+{0, 8, 28, 204, 1406, 9538, 70474, 535578, 4192024, 33619380, 274890230, 2294771254}
+
+(for n = 1 to 12).
+
+From this, we find the number of emirps < 10^n :
+
+{0, 8, 36, 240, 1646, 11184, 81658, 617236, 4809260, 38428640, 313318870, 2608090124}.
+
+The number of primes < 10^n is:
+
+{4, 25, 168, 1229, 9592, 78498, 664579, 5761455, 50847534, 455052511, 4118054813, 37607912018}.
+
+The quotient of these numbers is (we took n > 1) :
+
+{0.32, 0.16667, 0.16599, 0.14658, 0.12151, 0.10604, 0.092959, 0.082443, 0.073880, 0.066752, 0.061018}
+
+Here is a plot
+
+It is clear that we have too little data to formulate a decent conjecture.
+
+But if I was forced to make a guess, I would say that the curve could tend to a limit. And I would choose a limit value which depends on 10, our number base.
+
+A "good" one could be 1 / (10 ln 10).~ 0.043429448.
+
+That would lead me to the conjecture :
+
+Em[x] ~ x / (10 (ln 10) ( ln x)).
+
+This is widely far from n / (log(n)^2.
+
+But I would not bet on it !
+
+***
+
+Carlos wrote:
+
+Here are my counts asked in Q1 & my comparison to the formula proposed in Q2
+
+Note: By definition an emirp exclude the palprimes:
+
+"An emirp (pronounced /ˈiːmərp/ or /ˈɛmərp/, an anadrome of prime) is a prime number that results in a different prime when its decimal digits (digits in base 10) are reversed.[1] This definition excludes the related palindromic primes...." From https://en.wikipedia.org/wiki/Emirp
+
+I'm not sure if I'm making a correct interpretation of the Simon's phrase in Q2. "Compare it to n/(ln(n)*ln(n))". But here I go with my turn
+
+n | Emirps | Accum. Of Emirps | Palprimes | x=10^(n+1) | F=x/(ln(x)*ln(x)) | Acc. of emirps/F
+
+0 | 0 | 0 | 4 | 10 | 1.89 | -
+
+1 | 8 | 8 | 1 | 100 | 4.72 | 1.70
+
+2 | 28 | 36 | 15 | 1000 | 20.96 | 1.72
+
+3 | 204 | 240 | 0 | 10000 | 117.88 | 2.04
+
+4 | 1406 | 1646 | 93 | 100000 | 754.45 | 2.18
+
+5 | 9538 | 11184 | 0 | 1000000 | 5,239.21 | 2.13
+
+6 | 70474 | 81658 | 668 | 10000000 | 38,492.18 | 2.12
+
+7 | 535578 | 617236 | 0 | 100000000 | 294,705.78 | 2.09
+
+8 | 4192024 | 4809260 | 5172 | 1000000000 | 2,328,539.47 | 2.07
+
+9 | 33619380 | 38428640 | 0 | 1E+10 | 18,861,169.70 | 2.04
+
+n=x means the range [10^x , 10^(x+1)]
+
+Computed by my "Cuenta_de_emirps.py"
+
+***
+
+On June 18,2026, Simon Cavegn wrote:
+
+Q2 Extending Carlos Rivera's table:
+
+n Emirps Accum. Of Emirps Palprimes x=10^(n+1) F=x/(ln(x)*ln(x)) Acc. of emirps/F
+
+10 274890230 313318870 42042 1E+11 155877435.55 2.010033517
+
+11 2294771254 2608090124 0 1E+12 1309803451.47 1.9912072465
+
+12 19489532362 22097622486 353701 1E+13 11160455444.47 1.9799928951
+
+13 167630912672 189728535158 0 1E+14 96230457658.99 1.9716058696
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

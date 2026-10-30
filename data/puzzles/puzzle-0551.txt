@@ -1,0 +1,258 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_551.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 551.- Three nines & repunits
+Source: https://www.primepuzzles.net/puzzles/puzz_551.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0551.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_550.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_552.htm
+  https://www.primepuzzles.net/puzzles/puzz_551.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 551.- Three nines & repunits
+
+Problems & Puzzles: Puzzles
+
+Puzzle 551.- Three nines & repunits
+
+Anton Vrba sent the following puzzle.
+
+Define the function F(p,q) as the decimal concatenation of p and q, example F(727,53) = 72753
+
+Let r=F(p,q) and s=F(q,p),
+
+If q divides both r+1 and s+1, then q is an element of {1, 3, 9, 11, 33, 99, 111, 333, 999, 1111, 3333, ….}
+
+or
+
+If q divides both r-1 and s-1, then q is an element of {1, 3, 9,11, 33, 99, 111, 333, 999, 1111, 3333, ….}
+
+Examples:
+
+q=111, p= 15319, 111 divides both 15319111-1 and 11115319-1
+
+q=999, p=13985, 999 divides both 13985999+1 and 99913985+1
+
+Q1. Find a counter example
+
+Q2. Prove above
+
+Contributions came from Seiji Tomita, Jan van Delden, Emmanuel Vantieghem, W. Edwin Clark, Fred Schalekamp, Farideh Firoozbakht.
+
+***
+
+Seiji wrote:
+
+Q2:
+
+r=F(p,q)=p*10^m+q
+
+s=F(q,p)=q*10^n+p
+
+s+1=q*10^n+p+1=0 mod q......(1)
+
+r+1=p*10^m+q+1=0 mod q......(2)
+
+From (1),p=-1 mod q.........(3)
+
+Substitute (3) to (2),then 10^m=1 mod q.
+
+Then q is divisor of 10^m-1.
+
+Similarly,we can prove it for the case of s-1=0 mod q and r-1=0 mod q.
+
+***
+
+Jan wrote:
+
+Let p have k decimals and q l decimals. Thus r=p*10^l+q and s=q*10^k+p.
+
+If q|r+1 and q|s+1 we have q|p*10^l+1 and q|p+1, say p=m.q-1. Thus q|10^l-1.
+
+If q|r-1 and q|s-1 we have q|p*10^l-1 and q|p-1, say p=m.q+1. Thus q|10^l-1.
+
+In both situations q should be a divisor of 10^l-1={9}[l] with length l. To keep the length of the divisor equal to l we can only divide by integers smaller than 10. The only candidates are (1),3,7 or 9.
+
+(1),3 and 9 generate q = {1}[l], {3}[l] and {9}[l] as in the posed problem.
+
+However 7 is a divisor of {1}[l] (and thus of {9}[l]) iff l=0 mod 6.
+
+Q1:
+
+Giving q = {9}[6n]/7 as extra solutions, for n=1,2,...
+
+In the +1 situation p=m.q-1, in the -1 situation p=m.q+1, for every positive integer m.
+
+Smallest exception:
+
+q=142847, p=q-1: q is a divisor of 142857142857 and 142856142858 (+1)
+
+q=142847, p=q+1: q is a divisor of 142857142857 and 142858142856 (-1)
+
+So "one-seventh" could be added to the title of the puzzle.
+
+***
+
+Emmanuel wote:
+
+There is a counterexample : q = 142857.
+
+Indeed, if r = F(142856,142857) = 142856142857, then r+1 = 142857x999994
+
+and if s = F(142857,142856) = 142857142856, then s+1 = 142857x1000001.
+
+If r = F(142858,142857) = 142858142857, then r-1 = 142857x1000008
+
+and if s = F(142857,142858) = 142857142858, then s-1 = 142857x1000001.
+
+There are infinitely many counterexamples. Any q of the form (10^(6n) – 1)/7 will work. If q should divide r+1 and s+1, we can take p = v q - 1. If q has to divide r-1 and s-1, we can take p = w q + 1.
+
+To prove this, we use the fact that F(p,q) = p 10^n + q, where n is the number of digits of q and F(q,p) = q 10^m + p, where m is the number of digits of p. Then, q divides F(p,q)+1 implies that q divides p 10^n +1 ; q divides F(q,p)+1 implies that q divides p+1. Thus, p must be of the form v q – 1 which implies that q must divide 10^n – 1. Since n is the number of digits of q, the value of q should be (10^n – 1)/b, where b is a one-digit number. The possible values of b are obviously 1, 3, 9 and 7. The last one however is only possible when n is divisible by six.
+
+The case r-1/s-1 runs similarly.
+
+***
+
+Clark wrote:
+
+To handle both cases 1 and -1 at the same time let e = 1 or -1 in what follows.
+
+Q1. Counter examples:
+
+For any integers a >=0 and b >= 0 , let n = 6*a+5.
+
+Let q = (10^(n+1)-1)/7 and let p = b*q - e. Then
+
+F(p,q) + e and F(q,p) + e are both divisible by q.
+
+For example, for e = -1 we have these solution:
+
+p = 285715, q = 142857,
+
+p = 285714285715, q = 142857142857,
+
+p = 285714285714285715, q = 142857142857142857.
+
+Q2. Proof of altered conjecture.
+
+Lemma.The following are equivalent:
+
+1. (10^(n+1) - 1)/k is an integer and 1 <= k < 10 .
+
+2. Either
+
+(a) n is any positive integer and k is 1,3 or 9 or
+
+(b) n is congruent to 5 mod 6 and k = 7.
+
+Proof (omitted)
+
+Let A = { (10^(n+1)-1)/k : k = 1,3,9 and n any non-negative integer}.
+
+Let B = {(10^(n+1)-1)/7 : n positive integer congruent to 5 mod 6}.
+
+Theorem. If e is 1 or -1 then q divides both F(p,q) + e and F(q,p) + e for some integer p if and only if q is in A union B.
+
+Proof. If 10^n <= q < 10^(n+1) and 10^m <= p < 10^(m+1) then
+
+F(p,q) = p*10^(n+1) + q,
+
+F(q,p) = q*10^(m+1) + p.
+
+Suppose that q divides both F(p,q) + e and F(q,p) + e then we
+
+have the congruences:
+
+(**) p*10^(n+1) + q + e = 0 (mod q)
+
+q*10^(m+1) + p + e = 0 (mod q)
+
+This implies
+
+p*10^(n+1) + e = 0 (mod q)
+
+p = - e (mod q)
+
+and hence
+
+(-e)^10^(n+1) + e = 0 (mod q).
+
+and since e = 1 or -1 it follows that
+
+10^(n+1) - 1 = 0 (mod q)
+
+So 10^(n+1) - 1 = k*q for some integer k. Since q >=10^n we have k < 10.
+
+Thus q = (10^(n+1) - 1)/k. So we can apply the lemma above to get q in A union B.
+
+It remains to prove that any q in A union B has a p such that (**) holds . If q is in A union B then q = (10^(n+1)-1)/k where k < 10 and q is an integer. Now for any integer v let p = v*q - e. It is straightforward to show that (**) holds. QED.
+
+***
+
+Fred wrote:
+
+I have found counter examples for both problems.
+
+For the plus problem:
+
+Let k is number of digits of q and m=10**k
+
+Let l is number of digits of p and n=10**l
+
+Given: q divides r+1 so q divides p.m+q+1 so q divides p.m+1
+
+Given: q divides s+1 so q divides q.n+p+1 so q divides p+1 so q divides (p+1)*m
+
+Combine both results q divides (p+1)*m-(p.m+1) so q divides m-1
+
+q and m-1 have both k digits and m-1 contains only 9's so (m-1)/q is equal to 1, 3, 7 or 9.
+
+(m-1)/q can be an element of the given {1, 3, 9 ...} but for 7 we get 142857-repeated.
+
+Now it is easy to find a new (smallest) solution q=142857 and p=142858.
+
+For the minus problem we can do the same and get the (smallest) solutions q=142857 and p=1 and p=142858.
+
+***
+
+Farideh wrote:
+
+All the numbers {142857,142857142857, 14285714285714257, ... } are counterexamples.
+
+Example :
+
+q =142857, p=1, q divides both F(p,q) - 1 = 1142857 - 1 & F(q, p) - 1 = 1428571 - 1.
+
+q =142857, p=142856, q divides both F(p,q) + 1 = 142856142857 + 1 & F(q, p) + 1 = 142857142856 +1.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

@@ -1,0 +1,159 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1260.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1260 A sequence of integers always ending in a cycle with the 
+least interger being 7?
+Source: https://www.primepuzzles.net/puzzles/puzz_1260.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1260.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1259.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1261..htm
+  https://www.primepuzzles.net/puzzles/puzz_1260.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1260 A sequence of integers always ending in a cycle with the least interger being 7?
+
+Problems & Puzzles: Puzzles
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1260 A sequence of integers always ending in a cycle with the least interger being 7?
+
+On Feb 18, 2026, Alain Rochelli sent the following puzzle:
+
+We consider only odd numbers as a starting point, and we apply the following iteration procedure:
+
+Start with any N (odd) and consider the greatest prime divisor of N+30, denoted A(N) = GPD(N+30).Then, repeat the operation: A(A(N)), A(A(A(N))) … enough to enter into a cycle.
+
+For example :N=3 -> A(3)=GPD(3+30)=11 ; A(11)=GPD(11+30)=41 ; A(41)=GPD(71)=71 ; A(71)=101 ; A(101)=GPD(131)=131 ; A(131)=GPD(161)=23 ; A(23)=53 ; A(53)=83 ; A(83)=113 ; A(113)=GPD(143)=13 ; A(13)=43 ; A(43)=73 ; A(73)=103 ; A(103)=19 ; A(19)=7 ;Then : 7, 37, 67, 97, 127, 157, 17, 47, 11, 41, 71, 101, 131, 23, 53, 83, 113, 13, 43, 73, 103, 19, 7. This is the cycle-7 (with 22 distinct terms; the only known)
+
+Another example: N=1 -> : A(1)= 31 ; A(31)=61 ; A(61)=GPD(91)=13 then : 43, 73, 103, 19,7, then...
+
+After computations carried out with starting odd numbers up to 10^7, it is conjectured that always, for any N odd starting integer, one arrives at the cycle-7.
+
+Q. Do you devise a way to produce a formal proof that there is only this cycle including the integer 7 ?
+
+From Feb 28 to March 6, 2026, contributions came from Rahid Zaman, Gennady Gusev,
+
+***
+
+Rahid wrote:
+
+The answer is yes. Here's a proof:
+
+---
+
+If N is odd, then (N+30) is odd.
+
+The biggest prime factor of an odd number is an odd prime.
+
+So after one move, the sequence is now on odd primes.
+
+---
+
+Suppose the current value is an odd prime "p".
+
+a. If (p+30) is prime, then A(p) is just (p+30).
+
+b. If (p+30) is composite, then since it's odd, it must have a prime factor of at least 3. So A(p) is at most (p+30)/3.
+
+---
+
+Suppose you’re in case (a), so the terms are all prime and look like p, p+30, p+60, …, p+30k. First, let's say you have seven of these, so all the way from p to p+180.
+
+Now go mod 7.
+
+Since 30 ≡ 2 (mod 7), the residues are
+
+p (mod 7), p+2 (mod 7), p+4 (mod 7), ...
+
+Look at the first 7 of them (k = 0 to 6):
+
+p+2k (mod 7) gives p, p+2, p+4, p+6, p+8, p+10, p+12 (mod 7), i.e.
+
+p, p+2, p+4, p+6, p+1, p+3, p+5 (mod 7).
+
+That’s all 7 residue classes exactly once, so realistically, one of those terms is divisible by 7.
+
+But in this run every term is prime, and the only prime divisible by 7 is 7 itself. So that “divisible by 7” term must actually equal 7.
+
+So if p isn't 7, you can only go up to a maximum of 5 more terms (+150) before hitting a composite number (and the next drop).
+
+---
+
+Take the peak value P (right before a drop).
+
+After the drop, it's at most (P+30)/3
+
+Then you get at most +150 of climbing before the next drop
+
+If you set the inequality (P+30)/3 + 150 < P, you get P > 240
+
+So if P > 240, then (P+30)/3 + 150 is always less than P, so peaks strictly decrease.
+
+For example with P = 509:
+
+359 -> 389 -> 419 -> 449 -> 479 -> 509 -> 11
+
+Even if 509's largest factor was 3, it'd still push it below 359, so it inevitably gets lower and lower.
+
+That means every attempt eventually gets down to the zone <= 240.
+
+---
+
+Then you just run the code for all P < 240, which you already did (and I double-checked on my PC), and there's the proof.
+
+***
+
+Gennady wrote:
+
+I propose such a proof.
+
+Let N be the starting number.
+
+Then in Arithmetic Progression N + 30*k , k=0..6 will be at least one composite number,
+
+because according to the difference 30=2*3*5 there can be no more than 6 primes.
+
+Let the composite be the maximum possible N+180. If we take 3 as its smallest divisor,
+
+then its largest divisor (GPD) <= (N+180)/3.
+
+Find for which N GPD(N+180) < N. Solving the inequality (N+180)/3 < N, we get the answer: N>90.
+
+In any chain starting with N>90, we will sometime get GPD < 90.
+
+But all the odd ones < 90 are checked and give cycle-7.
+
+So we always come to the cycle including the integer 7.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

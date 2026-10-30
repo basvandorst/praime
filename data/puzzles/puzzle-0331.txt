@@ -1,0 +1,222 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_331.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 331. The prime Russian mountain.
+Source: https://www.primepuzzles.net/puzzles/puzz_331.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0331.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.research.att.com/projects/OEIS?Anum=A004648
+  http://www.research.att.com/~njas/sequences/a004648.gif
+  https://www.primepuzzles.net/images/50%20numbers.gif
+  https://www.primepuzzles.net/images/100%20numbers.gif
+  https://www.primepuzzles.net/images/200%20numbers.gif
+  https://www.primepuzzles.net/images/500%20numbers.gif
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/images/f(n)%20and%20g(n).gif
+  https://www.primepuzzles.net/images/Min[%20f(n)%20]-correct.gif
+  https://www.primepuzzles.net/puzzles/puzz_330.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_332.htm
+  https://www.primepuzzles.net/puzzles/puzz_331.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 331. The prime Russian mountain.
+
+Problems & Puzzles: Puzzles
+
+Puzzle 331. The prime Russian mountain.
+
+Patrick Capelle drove my attention to the following function:
+
+f(n) = p(n) mod n
+
+As a matter of fact this function has been studied as the sequence A004648. There you can appreciate the graph of f(n) provided by E. Labos for the first 50,000 values.
+
+This graph is a kind of tricky because moves to think -wrongly- that it's a 'continuous' function.
+
+I provide to you some graphs prepared by Capelle showing the real discontinuous behavior of f(n), for less numbers, the first: 50, 100, 200, 500, numbers n.
+
+Disregarding the real fact that we are facing a discontinuous function, it is not very bizarre 'to view' the whole behavior of this function as sets of points grouped by ranges inside which the general trend is to climb up to certain maximum point and then to fall up to 'almost zero' just to start again a new climbing up trend, in a series of crescendo mountain sides. This behavior suggested to me the name I have given to this puzzle.
+
+Trend # | n, range (n1, n2) | f(n), range (f(n1), f(n2))
+
+1 | 1-4 | 0-3
+
+2 | 5-11 | 1-9
+
+3 | 12-30 | 1-23
+
+4 | 31-72 | 3-71
+
+5 | 73-189 | 2-184
+
+6 | 190-442 | 11-437
+
+7 | and so on | and so on
+
+Questions:
+
+1. Can you explain this general behavior?
+
+2. Is this behavior a fractal-like one?
+
+3. In particular can you predict the starting point and the height of each new 'mountain'?
+
+4. Capelle thinks that f(n) cover all the natural numbers. He asks
+
+'Can you prove it or find a counterexample ?'
+
+Contributions came from Andrew Rupinski, Rudoph Knjzek, Joseph L. Pe, Anton Brba and Carlos Rivera
+
+Andrew wrote:
+
+I know this answer will be sent by several others, but since the n^th prime is approximately nlog(n), we have that nlog(n) mod n becomes 0 around when log(n) is an integer. Indeed the first few values of e^d for d an integer fall within the corresponding ranges shown (for example e^6 ~ 403.17 lies in the 6th range). By this crude calculation, we see that the height of the d^th mountain should also be about e^d since just before nlog(n) = d*e^d we have that (d*e^d
+
+- k) mod d = e^d - k ~ e^d. Since the n^th prime function is asymptotic to nlog(n), we see that the behavior of this function should be fractal-like, namely by zooming out any distance our graph should resemble the ones shown with the small values clustered and not as distinguishable but the larger ones spread out to resemble the patterns seen.
+
+Rudolph wrote:
+
+Question 1:
+
+To study the general behaviour of f(n) I use the simple approximation pi(x) = x/log(x)
+
+Now I set x=p(n) and get n=p(n)/log(p(n)) and p(n)=n*log(p(n))
+
+log(p) has an integer and a fractional part log(p)=int(log(p))+frac(log(p))
+
+f(n)=p(n) mod n f(n)=n*frac(log(p(n)))
+
+If p(n) doesn't grow too fast with n, f(n) starts again with low values until int(log(p(n))) is incremented.
+
+This happens every time, when log(p(n))=k with natural number k and I get
+
+p(n)=exp(k) and n=exp(k)/k for the top values and the starting points of the mountains.
+
+Question 2:
+
+The law is discribed within the answer of Question 1. Is this fractional-like?
+
+Question 3:
+
+The approximation pi(x)=x/log(x) is not good enough to predict these values.
+
+Using the proven unequality x/log(x)<pi(x)<1.25506*x/log(x) for x>=17 I can follow, that there must be one starting point between n=exp(k)/k and n=exp(1.25506*k)/k with natural number k. These are large intervals which can hardly be used for a prediction.
+
+Question 4:
+
+This seems to be unprovable.
+
+Joseph wrote:
+
+The behavior of f(n) = p(n) mod n is very similar to the behavior of
+
+F(n) = Round(n ln(n)) mod n since p(n) ~ n ln(n) by the Prime Number Theorem.
+
+The graphs of f and F follow the same ascending-descending pattern,
+
+and the points at which they do so are approximately the same, with the
+
+approximate equality becoming better as n gets large.
+
+To explain the ascending-descending behavior of f, it suffices to look
+
+at the corresponding behavior of F. F(n) = Round(n ln(n)) mod n takes a
+
+value = 0 when Round(n ln(n)) is a multiple of n, i.e., when ln(n) is very nearly an integer.
+
+For a fixed positive integer N, let M be such than ln(M) ~ N. Then F ~ 0 near M and F increases
+
+in value as n is gradually increased, until an integer M1 is reached with ln(M1) ~ N + 1,
+
+near which, again, F ~ 0.
+
+For example, ln(150) ~ 5, and we find F ~ 0 near n = 150. As n is gradually increased, the
+
+value of F increases until near n = 404, where ln(404) ~ 6 and F ~ 0 again.
+
+Therefore, the "large gaps" in f occur approximately at integers n for which ln(n) is very
+
+nearly an integer, with the approximation becoming better as n gets large. Indeed, we find
+
+a gap in f near n = 404, close to where a gap in F also occurs.
+
+The above behavior of F (and similarly, of f) can be seen as roughly fractal since the same regions of
+
+ascent-descent appear on different scales, although no uniform scaling factor applies to all.
+
+I could not resolve Question #4, although it seems to me very likely that f covers the entire set of
+
+natural numbers.
+
+Anton wrote:
+
+In studying the relation f(n) = p(n) mod n , one also needs to look at the relationship g(n) = p’(n) mod n where p’(n) = 1.13 n lin(n) which approximates the value of p(n). I attach the comparative plot of f(n) and g(n) and any further comment is superfluous.
+
+As for the specific questions :
+
+1. No, but behaviour is not specific to the prime function.
+
+2. No, referring to the comparative plot the function is very repetitive and predictive and has periodic or harmonic behaviour that can be modelled by simple mathematical formulas.
+
+3. Simple analysis reveals a constant logarithmic behaviour, thus a general formula can easily be derived
+4. Most probably true, i.e. fn(27’067’317)=105 is the first occurrence for f(n)=105, therefore a large n should be found for some small f(n). Interesting is the plot of min[fn(n)] vs. n which enforces Capelle’s believe
+Here are two of the plots by Anton: f(n) vs g(n); min[f(n)]
+
+C. Rivera wrote:
+
+Regarding the Q4. I have not found any n<203280221 (p(n)<4294967291), such that f(n) is equal to the following values: 330 354 364 378 392 400 420.
+
+***
+
+Giovanni Resta wrote (22-III-08):
+
+I have extended your search regarding Q4 to all the values f(n)= p(n) mod n, with f(n)<1000. I've searched up to about n = 1.00366*10^12, i.e., where p(n) became greater than 30*n.
+
+These f(n) were the last to appear:
+
+f(n) n p(n)
+
+-------------------------------
+
+392 1208198739 27788571389
+
+330 1208198749 27788571557
+
+660 1208199077 27788579431
+
+696 1208199097 27788579927
+
+400 55762149197 1505578028719
+
+364 55762149227 1505578029493
+
+-------------------------------
+
+Still missing f(n) values below 1000 are 354, 378, 420 and 612.
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

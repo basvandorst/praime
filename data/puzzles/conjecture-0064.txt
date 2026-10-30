@@ -1,0 +1,144 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_064.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 64. NUMBER OF PRIME TWINS
+Source: https://www.primepuzzles.net/conjectures/conj_064.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0064.htm
+
+References (local copies):
+  ../../references/2009_a-new-method.pdf  (from http://numberofprimenumbers.files.wordpress.com/2009/04/a-new-method1.pdf)
+  ../../references/2009_a-new-method.txt  (extracted text)
+
+Links on the page:
+  http://numberofprimenumbers.files.wordpress.com/2009/04/a-new-method1.pdf
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_063.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_065.htm
+  https://www.primepuzzles.net/conjectures/conj_064.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 64. NUMBER OF PRIME TWINS
+
+Problems & Puzzles: Conjectures
+
+Conjecture 64. NUMBER OF PRIME TWINS
+
+Werner Sand sent the following conjecture:
+
+Let p,q (p<q) be a prime twin.
+
+Let “the sum of prime twins” be the sum of the upper partners q.
+
+Let π2(x) be the number of prime twins below x.
+
+Conjecture:
+
+The number of prime twins below x is asymptotically equal to half the sum of prime twins below the square root of x:
+
+π2(x) ~ ½ sum q (q=5..sqrt x) or:
+
+The number of prime twins below x² is asymptotically equal to half the sum of prime twins below x:
+
+π2(x²) ~ ½ sum q (q=5..x)
+
+Generalization to triplets… k-tuples (constellations) see here.
+
+Q. Can you prove it?
+
+Enoch Haga wrote:
+
+In A093683 I have number of twin primes under 10^n
+
+In A139677 we have the approximate sums
+
+See below: last number is sqrt of ~sums
+
+4, 32, 5.66 Over
+
+25, 820, 28.64 Over
+
+174, 24676, 157.09 Under
+
+1270, 1761248, 1327.12 Over
+
+10250, 109650716, 10471.42 Over 86027, 7482340880, 86500.53 Over
+
+738597, 543121286660, 736967.63 Under
+
+6497407, 41216742789192, 6420026.70 Under (about 1.2%
+
+The computation supports the conjecture.
+
+***
+
+Dana Jacobsen wrote on December 2014.
+
+I found the comment by Enoch Haga to be confusing. He's using A093683 (number of pairs of twin primes <= 10^n-th prime) for the first number, then matching it to sqrt(A139677) = sqrt(4*Pi2(10^{2*n})). This doesn't seem to match the conjecture. The conjecture involves summing twin primes below the square root of x, not taking the square root of a sum. The range of the two sequences he's using is also different (10^n-th prime vs. 10^n).
+
+I used:
+
+perl -Mntheory=:all -E 'for my $e (2 .. 18) { my $n = int(10**$e); my $tpc = twin_prime_count($n); my $tpca = twin_prime_count_approx($n); my $sum = 0.5 * vecsum(map { $_+2 } @{twin_primes(int(sqrt($n)))}); printf "n 10^%2d: %16d %14.9f %14.9f\n", $e, $tpc, ($tpc-$tpca)/$tpc, ($tpc-$sum)/$tpc; }'
+
+which, for n=10^e for e=2 to 18, looks at the actual twin prime count, the standard approximation (conjecture B of Hardy and Littlewood 1922), and Sand's conjecture. We see:
+
+n 10^ 2: 8 0.000000000 0.250000000
+
+n 10^ 3: 35 0.000000000 -0.071428571
+
+n 10^ 4: 205 0.009756098 0.385365854
+
+n 10^ 5: 1224 0.001633987 -0.088235294
+
+n 10^ 6: 8169 -0.001468968 0.256151304
+
+n 10^ 7: 58980 0.003814852 0.106943032
+
+n 10^ 8: 440312 -0.000129454 0.019546367
+
+n 10^ 9: 3424506 -0.000234778 0.033362330
+
+n 10^10: 27412679 0.000046001 0.004867273
+
+n 10^11: 224376048 0.000032009 0.008664176
+
+n 10^12: 1870585220 0.000013553 0.007745957
+
+n 10^13: 15834664872 0.000004204 -0.004162089
+
+n 10^14: 135780321665 0.000000418 -0.004708760
+
+n 10^15: 1177209242304 0.000000637 0.000417552
+
+n 10^16: 10304195697298 0.000000305 0.000267058
+
+n 10^17: 90948839353159 0.000000067 0.000673782
+
+n 10^18: 808675888577436 -0.000000016 0.000066098
+
+showing (1) the percentage error is falling with Sand's conjecture, so it looks reasonable through 10^18, and (2) it is consistently worse than the Hardy/Littlewood approximation. This is shown more clearly by looking at the values at 2^e.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

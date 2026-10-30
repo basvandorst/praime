@@ -1,0 +1,171 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/conjectures/conj_091.htm. These files are used for reasoning.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Conjecture 91. A conjecture about strong primes
+Source: https://www.primepuzzles.net/conjectures/conj_091.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/conjecture-0091.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A051634
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/conjectures/conj_090.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/conjectures/conj_092.htm
+  https://www.primepuzzles.net/conjectures/conj_091.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Conjecture 91. A conjecture about strong primes
+
+Problems & Puzzles: Conjectures
+
+Conjecture 91. A conjecture about strong primes
+
+Alain Rochelli sent on October 18, 2021, the following conjecture:
+
+Today, I send you the following conjecture which I hope has not already been published elsewhere.
+
+Strong Primes, p(n) > [ p(n-1) + p(n+1) ] / 2, are explained in sequence OEIS A051634.
+
+Let DS(n) = nextprime[Sp(n)] - Sp(n) as the difference between consecutive primes Sp(n) and the next prime of Sp(n), with Sp(n) the nth Strong prime.
+
+For N to infinite, we conjecture that : SUM_{i=1..N} DS(i) ---> Sp(N) / 4
+
+In practice, we consider the set of N Strong primes between A and B with a sufficiently representative sample [A,B].
+
+For example, with A = 5 000 and B = 15 000 (B-A = 10 000) :
+
+Sp(304) = 5 009 ; DS(304) = 5 011 - 5 009 = 2
+
+Sp(305) = 5 021 ; DS(305) = 5 023 – 5 021 = 2
+
+Sp(306) = 5 039 ; DS(306) = 5 051 – 5 039 = 12
+
+------
+
+Sp(813) = 14 923 ; DS(813) = 14 929 – 14 923 = 6
+
+Sp(814) = 14 939 ; DS(814) = 14 947 – 14 939 = 8
+
+Sp(815) = 14 947 ; DS(815) = 14 951 – 14 947 = 4
+
+Sp(816) = 15 013
+
+and SUM_{i=304..815} DS(i) = 2 682 ---> 10 000 / 4 = 2 500
+
+For increasingly values of A with B-A = 10^8, using PARI application I computed :
+
+A = 10^10 ; SUM[DS] = 26 485 910
+
+A = 10^20 ; SUM[DS] = 25 890 234
+
+A = 10^40 ; SUM[DS] = 25 552 656
+
+A = 10^100 ; SUM[DS] = 25 397 510
+
+A = 10^140 ; SUM[DS] = 25 145 346
+
+A = 10^180 ; SUM[DS] = 24 994 648
+
+A 10^200 ; SUM[DS] = 25 225 928
+
+Q1. Can you prove this conjecture ?
+
+Q2. Send your own verifications.
+
+During the week that ended the Feb 4, 2022, contributions came from Alain Rochelli,
+
+***
+
+Alain wrote:
+
+I am sending you a heuristic proof based on Cramer 's model and the independence of gaps between consecutive primes.
+
+In mathematical literature, it is mentioned that :
+
+The distribution of gaps between prime around their average spacing is expected to be distributed in a Poisson distribution.
+
+In practice, at the large scale, we consider the random variable X defined by X(n) = Dp(n) / log p(n) = [p(n+1) - p(n)] / log p(n).
+
+According to the previous considerations, the mathematical notation is that the probability density for X is f(x) = e^(-x).
+
+Let Int{0..oo} f(x) be the integral from 0 to infinity of the function f(x), we get :
+
+Int{0..oo} f(x) = Int{0..oo} e^(-x) = 1 [ because f(x) : probability density of X ]
+
+Int{0..oo} x*f(x) = Int{0..oo} x*e^(-x) = 1 [ because Prime Number Theorem : average of Dp(n) ~ log p(n) ]
+
+Int{0..oo} x^2*f(x) = Int{0..oo} x^2*e^(-x) = 2 [ cf. Conjecture 89 corrected ]
+
+Int{0..oo} log(x)*f(x) = Int{0..oo} log(x)*e^(-x) = - G [ cf. Conjecture 82 corrected with G as Euler 's constant ]
+
+Using this mathematical model for Conjecture 91 about Strong primes [with Dp(n) < Dp(n-1)], we get :
+
+The probability that x=Dp(n)/logp < y=Dp(n-1)/logp is equal to Int{x..oo} e^(-x) = e^(-x) [because logp(n)~logp(n-1)~logp and the independence of x with y]
+
+Then, as e^(-x)*e^(-x) = e^(-2*x), Int{0..oo} x*e^(-2*x) = 1/4 (it 's OK)
+
+Now, if we consider the Weak primes [OEIS A051635 with Dp(n) > Dp(n-1)], we get :
+
+The probability that x=Dp(n)/logp) > y=Dp(n-1)/logp is equal to Int{0..x} e^(-x) = 1 - e^(-x)
+
+Then, Int{0..oo} x*e^(-x)*(1-e^(-x)) = 3/4 (it 's also OK)
+
+In summary, considering OEIS A001223 (gaps between consecutive primes) and denoting :
+
+b(n) = - a(n) = - Dp(n) if Dp(n) < Dp(n-1)
+
+b(n) = 0 if Dp(n) = Dp(n-1)
+
+b(n) = a(n) = Dp(n) if Dp(n) > Dp(n-1)
+
+we get the nice conjecture : Sum{n=2 .. N} b(n) ~ p(N) / 2 for N to infinite
+
+...
+
+At the beginning of the previous article “Distribution of Large Gaps Between Primes”, it is defined :
+
+N(x,H) = Sum{p(n+1)<=x and Dp(n)>=H} 1 as the number of gaps Dp(n) >= H with p(n+1) <= x
+
+and it is mentioned :
+
+Gallagher showed that a uniform version of the prime k-tuples conjecture of Hardy and Littlewood implies that the primes are distributed in a Poisson distribution around their average with :
+
+For fixed h > 0, N(x,h*logx) ~ e^(-h)*(x/logx)
+
+Let PI(x) as the number of primes p such that p <= x, it follows that the ratio R(h) = N(x,h*logx) / PI(x) is equal to e^(-h) because PI(x) ~ x/logx (Prime Number Theorem).
+
+This ratio is valid both on a large scale (when x tends to infinity) and locally (for a sufficiently representative sample of consecutive p(n) around x). This results from the logarithm function having the same behavior as a constant function for large values of x.
+
+Already noted f(x) for the probability density of the continuous random variable X defined by Dp(n) / log p(n) , we get :
+
+R(h) = 1 - Int{0..h} f(x) or else : Int{0..h} f(x) = 1 - e^(-h)
+
+It is easy to show that the function f(x) = e^(-x) is suitable for verifying the previous equality when h > o varies.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

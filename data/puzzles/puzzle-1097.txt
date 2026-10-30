@@ -1,0 +1,142 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1097.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1097 Modular non-polynomial prime generators
+Source: https://www.primepuzzles.net/puzzles/puzz_1097.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1097.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://www.primepuzzles.net/puzzles/puzz_782.htm
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1099.htm
+  https://www.primepuzzles.net/puzzles/puzz_1096.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1098.htm
+  https://www.primepuzzles.net/puzzles/puzz_1097.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1097 Modular non-polynomial prime generators
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1097 Modular non-polynomial prime generators
+
+This puzzle is a follow-up of our Puzzle 782, posted around the year 2012. But now we will be focused only in certain type of non-polynomials; we will ask to develop non-polynomials prime generators containing modular operators anywhere you need.
+
+In particular we will ask to beat the Davide Rotondo recent contribution to Puzzle 782, which produces 75 successive prime integers, only 65 of them distinct, while the variable goes from n=1 to 75.
+
+((40*(n) - 5 + 3*(mod(n,5)) + 3*(mod((n+1),5)) - 2*(mod((n+2),5)) + 3*(mod((n+3),5)) - 7*(mod((n+4),5)))/25)^2 - 79*(40*(n)- 5 + 3*(mod(n,5)) + 3*(mod((n+1),5)) - 2*(mod((n+2),5)) + 3*(mod((n+3),5)) - 7*(mod((n+4),5)))/25 + 1601
+
+Primes produced: 1447, 1373, 1231, 1163, 1097, 911, 853, 743, 691, 641, 503, 461, 383, 347, 313, 223, 197, 151, 131, 113, 71, 61, 47, 43, 41, 47, 53, 71, 83, 97, 151, 173, 223, 251, 281, 383, 421, 503, 547, 593, 743, 797, 911, 971, 1033, 1231, 1301, 1447, 1523, 1601, 1847, 1933, 2111, 2203, 2297, 2591, 2693, 2903, 3011, 3121, 3463, 3581, 3823, 3947, 4073, 4463, 4597, 4871, 5011, 5153, 5591, 5741, 6047, 6203, 6361, for n=1 to 75. Duplicated primes in bold letters.
+
+Q. Can you develop a better modular non-polynomial prime generator than the Rotondo's one?
+
+During the week ending on August 6, 2022, contributions came from Paolo Lava, Adam Stinchcombe
+
+***
+
+Paolo wrote:
+
+For sure we can produce a periodic sequence of whatever n integers.
+
+My formula is a(n) = Sum_{j=0..k-1} d_j*mod(n+j,k), where k is the period.
+
+Once the k integers are fixed, we need to find the d_j. This can be done by solving a linear system of k equations in k unknowns. Of course the drawback is to solve systems with a great number of unknowns for increasing k.
+
+Just an example for k = 4:
+
+Let us consider these four numbers: 1, 2, 0, 3.
+
+Now, I rewrite the formula for n from 1 to 4. The system is:
+
+d_0*mod(1,4) + d_1*mod(2,4) + d_2*mod(3,4) + d_3*mod(4,4) = 1
+
+d_0*mod(2,4) + d_1*mod(3,4) + d_2*mod(4,4) + d_3*mod(5,4) = 2
+
+d_0*mod(3,4) + d_1*mod(4,4) + d_2*mod(5,4) + d_3*mod(6,4) = 0
+
+d_0*mod(4,4) + d_1*mod(5,4) + d_2*mod(6,4) + d_3*mod(7,4) = 3
+
+that becomes
+
+d_0*1+ d_1*2 + d_2*3 + d_3*0 = 1
+
+d_0*2 + d_1*3 + d_2*0 + d_3*1 = 2
+
+d_0*3 + d_1*0 + d_2*1 + d_3*2 = 0
+
+d_0*0 + d_1*1 + d_2*2 + d_3*3 = 3
+
+or
+
+d_0+ 2*d_1 + 3*d_2 = 1
+
+2*d_0 + 3*d_1 + d_3 = 2
+
+3*d_0 + d_2 + 2*d_3 = 0
+
+d_1 + 2*d_2 + 3*d_3 = 3
+
+Solving, we get: d_0 = -1/2, d_1 = 3/4, d_2 = 0, d_3 = 3/4.
+
+The sequence is a(n) = (1/4)*(-2*mod(n,4) + 3*mod(n+1,4) + 3*mod(n+3,4))
+
+Coming back to the question, for instance we could consider the primes from 2 to 383 (that is the 76th prime) and solve a system with 76 unknowns. But I’m too lazy to do this.
+
+***
+
+Adam wrote:
+
+You need some rules about the non-polynomials you are forming. You can easily get infinitely many values of x.
+
+Using exponentials and modular operations, you have (for any primes p,q) {(p-1)^(2x) mod p}+{(q-1)^(2x) mod q} is prime for all non-negative x. Variations on this can make the formulas looks not symmetric: use terms where b is a k-th root of 1 mod p then take b^(k*f(x)) mod p. The constant prime in the range value can be arbitrarily large by just adding in more terms.
+
+Using polynomials, x^p-x is identically 0 mod p, so for instance (5+x^7-x) mod 7 is prime for all x. Like the example with the exponentials you can add a bunch of these together to make the value arbitrarily large and/or to "hide" the tricks.
+
+Prime generating polynomials are classically quadratic, but still you can play modular games to get "prime for all x." For instance 5 +6*(x^2 mod 7) is prime for all x and gives the primes {5,11,17,29}. I imagine you can get arbitrarily long list of range value primes, you just need the gap sizes to be proportional to an exhaustive list of squares (or some other formula) mod p. For instance 911+2310*(x^2 mod 23) is prime for all x and yields 12 distinct prime values 911, 3221, 5531, 7841, 10151, 14771, 19391, 21701, 28631, 30941, 37871, 42491. For cubic I found 910447 + (x^3 mod 13) is prime for all x and produces the 13 different primes 910447, 940477, 1090627, 1150687, 1210747, 1240777, 1330867, 1601137, 1691227, 1721257, 1781317, 1841377, 1991527
+
+You could also covert any list of primes in AP a*n+b into a prime-infinitely-often through a*(x mod k)+b where k is chosen based on the length of the AP (maybe .a*(x mod k)+b+b if the counter x goes from 1 to k).
+
+If you want these previous functions to have infinitely many range values (as a function of integral x), you can decide on the length you want, say 1 to m, and add the term (x-1)(x-2)(x-3)...(x-m) but this then moves it out of arena of the quadratic, and for long sequences, it produces a ridiculous polynomial.
+
+***
+
+On August 4, 2022 Simon Cavegn wrote:
+
+Using integer division (rounded down), f(n) is prime for n=0..102:
+
+f(n)=41619623+n*103123020+n/13*(-1237476240)+n/26*(-65763840)+n/39*(-37359180)+n/65*2663271128
+
+This interesting function produces 103 primes, in the range n=0 to 102. These are 4 primes unique, 15 primes that appears twice, and 23 primes that appears three times (4+15*2+23*3 = 4+30+69 = 103)
+
+***
+
+See more functions alike in Puzzle 782 and 1099
+
+**
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

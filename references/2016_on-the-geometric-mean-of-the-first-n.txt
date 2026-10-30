@@ -1,0 +1,154 @@
+Raw data extracted from a document referenced on primepuzzles.net. Original: http://www.javascripter.net/math/publications/AKourbatov_GeoMean_of_n_primes.pdf. These files are used for reasoning.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Source: http://www.javascripter.net/math/publications/AKourbatov_GeoMean_of_n_primes.pdf
+Retrieved: 2026-10-30
+
+--- page 1 ---
+arXiv:1603.00855v1  [math.NT]  2 Mar 2016
+On the geometric mean of the ﬁrst n primes
+Alexei Kourbatov
+www.JavaScripter.net/math
+akourbatov@gmail.com
+Abstract
+Let pn be the nth prime, and consider the sequence sn = (2 · 3 · · · pn)1/n = ( pn#)1/n,
+the geometric mean of the ﬁrst n primes. We give a short proof that pn/sn → e, a
+result conjectured by Vrba (2010) and proved by S´ andor & Ver roken (2011). We show
+that pn/sn = exp(1 + 1 / log pn + O(1/ log2 pn)) as n → ∞, and give explicit lower and
+upper bounds for the O(1/ log2 pn) term.
+1 Introduction
+In 2001 A. Murthy posted OEIS sequence A062049 : the integer part of the geometric mean
+of the ﬁrst n primes [8]. The sequence is non-decreasing, unbounded, and begins as follows:
+2, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19, 20, 21, 23 . . .
+Let pn be the nth prime, and let sn denote the geometric mean of the ﬁrst n primes,
+sn = (2 · 3 · · ·pn)1/n = (pn#)1/n, where pn# = 2 · 3 · · · pn =
+n∏
+k=1
+pk,
+then A062049(n) = ⌊sn⌋. (The product pn# is called the primorial of pn; see A002110 .)
+For many years, sequence A062049 has been lacking an asymptotic formula; nor did it
+have any lower or upper bounds for the sequence terms. In 2010 A . Vrba conjectured [5] that
+pn/sn → e as n → ∞.
+This was proved in 2011 by S´ andor and Verroken [7], and revisited in 2 013 by Hassani [3].
+In Section 2 we give a new short proof that pn/sn → e and, moreover, we show that
+pn/sn = exp(1 + 1 / log pn + O(1/ log2 pn)).
+We give explicit lower and upper bounds for the O(1/ log2 pn) term.
+1
+
+--- page 2 ---
+2 The main result
+Let π(x) denote the prime counting function and θ(x) denote Chebyshev’s θ function:
+π(x) =
+∑
+p≤x
+p prime
+1;
+θ(x) =
+∑
+p≤x
+p prime
+log p = log
+∏
+p≤x
+p prime
+p.
+Clearly π(pn) = n and θ(pn) = log( pn#), so log sn = log(pn#)/n = θ(pn)/π(pn).
+Lemma 1. For x ≥ 108 we have
+|θ(x) − x|
+π(x) < 1log2 x .
+Proof. Let x ≥ 108. From Dusart [2] we have the inequalities
+|θ(x) − x| < xlog3 x for x ≥ 89967803 [2, Theorem 5.2] ,
+π(x) > xlog x − 1 for x ≥ 5393 [2, Theorem 6.9] .
+Combining the above inequalities we get
+|θ(x) − x|
+π(x) < xlog3 x · log x − 1x < 1log2 x
+for all x ≥ 108, as desired.
+Theorem 2. If sn = (pn#)1/n, then pn/sn → e as n → ∞, and for pn ≥ 32059 we have
+exp
+(
+1 + 1log pn + 1.62log2 pn
+)
+< p n/sn < exp
+(
+1 + 1log pn + 4.83log2 pn
+)
+. (1)
+Proof. Let x ≥ 108. From Axler [1, Corollaries 3.5, 3.6] we have
+log x − 1 − 1log x − 3.83log2 x < xπ(x) < log x − 1 − 1log x − 2.62log2 x .
+Therefore,
+1 + 1log x + 2.62log2 x < log x − xπ(x) < 1 + 1log x + 3.83log2 x, (2)
+while
+log x − xπ(x) − |θ(x) − x|π(x) < log x − θ(x)π(x) < log x − xπ(x) + |θ(x) − x|π(x) . (3)
+2
+
+--- page 3 ---
+Combining (2) and (3) with the bound |θ(x)−x|π(x) < 1log2 x (Lemma 1), for x ≥ 108 we get
+1 + 1log x + 1.62log2 x < log x − θ(x)π(x) < 1 + 1log x + 4.83log2 x. (4)
+But log( pn/sn) = log pn − θ(pn)/π(pn), so setting in (4) x = pn > 108 we ﬁnd
+1 + 1log pn + 1.62log2 pn < log(pn/sn) < 1 + 1log pn + 4.83log2 pn . (5)
+Exponentiating (5) we prove the theorem for pn > 108. Separately, we verify by computation
+that (1) is true for 32059 ≤ pn < 108 as well.
+Remarks.
+(i) The convergence pn/sn → e is slow (see Table 1). The better approximation
+pn/sn ≈ exp
+(
+1 + 1log pn + 3log2 pn
+)
+(6)
+has a relative error well below 1% for pn > 106, even while pn/sn is still far from e.
+(ii) One can construct approximations with more 1 terms:
+pn/sn ≈ exp
+(
+1 + 1log pn + 3log2 pn + 13log3 pn + . . .) ,
+where the coeﬃcients 1, 3, 13, . . . are terms of OEIS sequence A233824 : a recurrent sequence
+in Panaitopol’s formula for π(x) [4]. A rigorous proof of such approximations, akin to
+Theorem 2, would depend on sharper bounds for xπ(x) and |θ(x)−x|π(x) , and these sharper bounds
+may in turn depend, e. g., on the truth of the Riemann Hypothesis.
+Table 1: Values of n, pn, sn = (pn#)1/n, pn/sn and approximation (6) for pn ≈ 10k
+n p n sn pn/sn exp(1 + 1log pn + 3log2 pn )
+5 11 4.706764 2.337062 6.950270
+26 101 29.899069 3.378032 3.886576
+169 1009 298.623420 3.378837 3.344393
+1230 10007 3143.242209 3.183655 3.139064
+9593 100003 32619.709536 3.065723 3.032817
+78499 1000003 334329.282286 2.991072 2.968628
+664580 10000019 3401979.209240 2.939471 2.925864
+5761456 100000007 34435454.560637 2.903984 2.895414
+50847535 1000000007 347413774.453987 2.878412 2.872666
+1 The number of terms is meant to be ﬁnite, while pn should be large enough; otherwise, such approx-
+imations would actually be worse than those with fewer terms. When pn is small, even approximation (6)
+itself is worse than pn/sn ≈ exp(1 + 1log pn ) or pn/sn ≈ e (see, e. g., the ﬁrst line in Table 1, pn = 11).
+3
+
+--- page 4 ---
+(iii) Bounds (1) strengthen the double inequality of S´ andor [6]
+e < p n/sn < pn
+pn−1
+· pπ(n)/nn+1 for n ≥ 10.
+3 Acknowledgments
+I am grateful to all contributors and editors of the websites OEIS.org and PrimePuzzles.net,
+particularly to Anton Vrba who conjectured the limit of pn/sn [5]. Thanks also to Christian
+Axler and Pierre Dusart for proving the π(x) and θ(x) bounds used in the main theorem.
+References
+[1] C. Axler, New bounds for the prime counting function π(x), preprint, 2014,
+http://arxiv.org/abs/1409.1780
+[2] P. Dusart, Estimates of some functions over primes witho ut R.H., preprint, 2010,
+http://arxiv.org/abs/1002.0442
+[3] M. Hassani, On the ratio of the arithmetic and geometric m eans of the prime numbers and
+the number e, Int. J. Number Theory 9 (2013), No. 6, 1593–1603.
+[4] L. Panaitopol, A formula for π(x) applied to a result of Koninck-Ivi´ c, Nieuw Arch. Wiskd. 5
+(2000), 55–56.
+[5] C. Rivera, ed., Conjecture 67. Primes and e, 2010. Available at
+http://www.primepuzzles.net/conjectures/conj_067.htm
+[6] J. S´ andor, On certain bounds and limits for prime number s, Notes Number Theory Discrete
+Math. 18 (2012), No. 1, 1–5. Available at
+http://nntdm.net/papers/nntdm-18/NNTDM-18-1-01-05.p df
+[7] J. S´ andor and A. Verroken, On a limit involving the produ ct of prime numbers, Notes Number
+Theory Discrete Math. 17 (2011), No. 2, 1–3. Available at
+http://nntdm.net/papers/nntdm-17/NNTDM-17-2-01-03.p df
+[8] N. J. A. Sloane, ed., The On-Line Encyclopedia of Integer Sequences , 2015. Published elec-
+tronically at http://oeis.org/A062049.
+2010 Mathematics Subject Classiﬁcation : 11A25, 11N05, 11N37.
+Keywords: asymptotic formulas, geometric mean, primes, primorial.
+(Concerned with sequences A002110 , A062049 , A233824 .)
+4

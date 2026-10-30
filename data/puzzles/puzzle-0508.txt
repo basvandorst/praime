@@ -1,0 +1,330 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_508.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 508. phi(n)=phi(n+1)
+Source: https://www.primepuzzles.net/puzzles/puzz_508.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0508.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  http://www.research.att.com/~njas/sequences/A001274
+  http://www.research.att.com/~njas/sequences/b001274.txt
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_507.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_509.htm
+  https://www.primepuzzles.net/puzzles/puzz_508.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 508. phi(n)=phi(n+1)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 508. phi(n)=phi(n+1)
+
+Carlos Rivera poses the following puzzle:
+
+There are 2567 n values such that phi(n)=phi(n+1) up to n 99973242285
+
+See:
+
+http://www.research.att.com/~njas/sequences/A001274
+
+And the T.D. Noe's solutions table:
+
+http://www.research.att.com/~njas/sequences/b001274.txt
+
+Observe that none of these 2567 n values has an ending digit 0 or 9
+
+Here is the statistic:
+
+Ending Digit of n, ED(n) | Qty of solutions for the ED below 10^11 | Smallest n solution for the ED
+
+0 | 0 | Not Known
+
+1 | 41 | 1 (or 7378371)
+
+2 | 65 | 524432
+
+3 | 61 | 3
+
+4 | 1116 | 104
+
+5 | 1119 | 15
+
+6 | 57 | 5186
+
+7 | 46 | 5187
+
+8 | 62 | 5710088
+
+9 | 0 | Not known
+
+Q1. Any idea why this happen (No one single ED = 0 or 9)?
+
+Q2. Can you get the smallest n value for these ending digits (0 & 9) or show that it is impossible?
+
+For sure you should have anticipated that my original interest was not the questions posed above.
+
+In fact my original interest was to find one more (the second) solution to this double equation: phi(n)=phi(n+1)=phi(n+2). As perhaps you know the only known solution is n=5186.
+
+With a lot of ingenuity I thought that making a statistic of the solutions for phi(n)=phi(n+1) we could get an idea where to look for solutions to phi(n)=phi(n+1)=phi(n+2).
+
+In this very moment statistic indicates(?) that we better seek for solutions using n ending in digit 3, 4 or 5, despite that the only know solution is for n ending in digit 6.
+
+Q3. Do you imagine another/better strategy in order to look for solutions to phi(n)=phi(n+1)=phi(n+2)?
+
+Contribution came & only from J. K. Andersen. 5 & 8 hours later, Fred Schneider & Farideh Firoozbakht sent more contributions totally different in nature to the Andersen one.
+
+***
+
+Andersen wrote:
+
+Q1. If n has prime factorization p1^a1*...*pk^ak then
+
+phi(n) = n * (1-1/p1)*...*(1-1/pk).
+
+When n ends in 0, n has prime factors 2 and 5 so
+
+phi(n) <= n * 1/2 * 4/5 = 0.4*n.
+
+Let m = n+1 or m = n-1 be next to an n ending in 0. m ends in 1 or 9 and
+
+is not divisible by 2 and 5, so m needs many other small factors to get
+
+phi(m) <= 0.4*n which is needed to have any chance of equality with
+
+phi(n) <= 0.4*n. The first m values ending in 1 or 9 with phi(m) <= 0.4n are:
+
+825443619 = 3*7*11*13*17*19*23*37, and 872002131 = 3*7*11*13*17*19*29*31.
+
+If a simple inequality phi(m) <= phi(n) is rare for n ending in 0 then it does
+
+not seem surprising that phi(m) = phi(n) is also rare.
+
+Similar arguments explain why solutions with one of the two numbers ending in 5 are the most common. One of two consecutive numbers must have prime factor 2 and therefore phi(n) <= 0.5*n. If the other number m is divisible by 5 then it has a better chance of having enough small factors to get phi(m) <= 0.5*n.
+
+Q2. A search of numbers ending in 1 or 9 and with many small factors gave
+
+phi(198928945043829) = phi(198928945043830) = 79460617420800.
+
+Here 198928945043829 = 3^3*7*11*13*17*19*23*43*23041.
+
+I don't know whether this is the smallest solution.
+
+***
+
+Five & 8 hours later Contributions came from Frederick Schneider & Farideh Firoozbakht:
+
+Fred wrote:
+
+Q3) I think the best approach is start with phi(n) = phi(n+2).
+
+Note that 5186 = 2*2593 and 5188 = 4*1297.
+
+Sophie Germain primes are primes such that if p is prime, so is 2p-1.
+
+From each such pair when can find an
+
+n such that phi(n) = phi(n+2)
+
+Let n+2 = 4p. Then n = 2*(2p-1) = 4p -2
+
+phi(n+2) = phi(4)*phi(p) = 2 * (p-1) = 2p -2
+
+phi(n) = phi(2)*phi(2p-1) = 2p -2
+
+After I realized this, I found that there's an OEIS page for
+
+phi(n)=phi(n+2). Most of the terms come from the above
+
+identity:http://www.research.att.com/~njas/sequences/A001494
+
+Let's go back to the sole solution for the problem, 5186:
+
+phi(5186) = phi(5187) = phi(5188) = 2592 = 2^5 * 3^4
+
+We already covered 5186 and 5188, let's look at 5187:
+
+5187 = 2*2592 + 3 = 2^6*3^4 + 3 = 3 * (2^6*3^3 + 1)
+
+Numbers of the form x^3 + y^3 = (x+y)*(x^2- xy + y^2)
+
+In this case, x = 2^2*3 and y = 1. So, x + y = 13, a prime which is 3-smooth.
+
+In general of course, if we use a Sophie Germain prime to construct
+
+phi(n) and phi(n+2),
+
+the middle number n+1 must have the same phi which allows means it has
+
+the same set of prime factors.
+
+So, if we construct a phi such that the middle number can be expressed
+
+as 3(x^a + 1) where a is an odd number > 1.
+
+This means that our phi must be of the form : 2^(ak-1)*3^(aj+1)*z^(am)
+
+where k > 0, j >= 0, m>=0 and gcd(z,6)=1 and x will be 2^k*3^j*z^m.
+
+This expression will always x+1 as a factor. To ensure, x+1 has no
+
+prime factors not in phi, pick x + 1 so that is prime. (Of course,
+
+x+1 could also be used so if its phi is a divisor of the phi but this
+
+would complicate the calculation)
+
+To be clear, in the 5186 solution, "a" = 3. Once you select a
+
+suitable x, you can plug it in for different a's potentially.
+
+Note: There are no such solutions for "a" =3 where x+1 is prime
+
+through x = 10^7 (except for x=12, which yields n=5186).
+
+====================================================
+
+Another relation:
+
+Let h = phi(n) = phi(n+1) = phi(n+2)
+
+n => phi( 2(2h+1) ) = 2h
+
+n+2 => phi( 4(h+1) ) = 2h
+
+From above, n + 1 must be a multiple of 3 (because every 3rd number is
+
+n and n+2 are not)
+
+So, n + 1 = 3Q and phi(3Q) = 2h and phi(Q) = h if Q is not a multiple of 3
+
+(Note: This is necessary if h is a multiple of 9)
+
+n + 1 can be written as 4h + 3.
+
+phi(n+1) / n + 1 = 2h /4h + 3
+
+Let h = 3k
+
+2phi(Q)/Q = 6k / 4k + 1
+
+phi(Q)/Q = 3k / 4k + 1
+
+So, if we have n+1 is not a multiple of 9 and we have a Q = 4k + 1
+
+where gcd(Q,6) = 1,
+
+such that phi(Q) = 3k. We could have a candidate for the solution. n
+
+and n + 2 must be
+
+of the form described at the top though.
+
+***
+
+Farideh wrote:
+
+Answer to Q1 and Q2 :
+
+a. If phi(n)=phi(n+1) and ED(n) = mod(n,10) = 0 then there exists two cases:
+
+a1. 3 divides n so n = 30*m for a positive integer m hence
+
+phi(n+1) = phi(n) = phi(30*m) < = phi(30)*m = (4/15)*n < (4/15)*(n+1).
+
+So for n+1, we have gcd(n+1, 30) = 1 & phi(n+1)/(n+1) < 4/15 .
+
+Now if p1, p2, ..., pk are all distinct prime factors of n+1 then
+
+phi(n+1)/(n+1) = (1-1/p1)*(1-1/p2)* ... *(1-1/pk) > = (1-1/7)*(1-1/11)*...*(1-1/prime(k+3)).
+
+So (1-1/7)*(1-1/11)*...*(1-1/prime(k+3)) < 4/15, but the smallest such number k is 382. Namely n+1 must have 382 distinct prime factors greater than 5, so n must have at
+
+least 1117 digits.
+
+a2 : 3 doesn't divide n, so n = 10*m for a positive integer m, that gcd(m, 3) =1 hence phi(n+1) = phi(n) = phi(10*m) < phi(10)*m = (2/5)*n < (2/5)*(n+1). So for n+1, we have gcd(n+1, 10) = 1 & phi(n+1)/(n+1) < 2/5 .
+
+Now if p1, p2, ..., pk are all distinct prime factors of n+1 then phi(n+1)/(n+1) = (1-1/p1)*(1-1/p2)* ... *(1-1/pk) > = (1-1/3)*(1-1/7)*(1-1/11)*...*(1-1/prime(k+2)).
+
+So in this case gcd (n+1, 10) = 1 and n+1 must have at least 8 distinct odd prime factors. Hence it is too large and I think we cannot find it. But I guess that there exists such n.
+
+b. If phi(n)=phi(n+1) and ED(n) = mod(n,10) = 9, then Ed(n+1) =0 and again we have two cases:
+
+b1. 3 divides n+1 by similar discussion we can easily show that n must have at least 1117 digits.
+
+b2 : 3 doesn't divide n+1, so n+1 = 10*m for a positive integer m, that gcd(m, 3) =1 hence phi(n) = phi(n+1) = phi(10*m) < phi(10)*m = (2/5)*(n+1).
+
+So for n+1, we have gcd(n+1, 10) = 1 & phi(n+1)/(n+1) < 2/5 .
+
+Now if p1, p2, ..., pk are all distinct prime factors of n+1 then phi(n+1)/(n+1) = (1-1/p1)*(1-1/p2)* ... *(1-1/pk) > = (1-1/3)*(1-1/7)*(1-1/11)*...*(1-1/prime(k+2)). Smallest number k such that (1-1/3)*(1-1/7)*(1-1/11)*...*(1-1/prime(k+2)) < 2/5 is 7.
+
+So in this case gcd (n+1, 10) = 1 and n+1 must have at least 8 distinct odd prime factors. Hence it is too large and we cannot find it.
+
+Answer to Q3:
+
+I think in order to look for solutions to phi(n) = phi(n+1) = phi(n+2) we should search between numbers n such that n+1 is odd and a multiple of 3. Also ED(n) and ED(n+1) aren't in the set {0, 9}. So I think it should be better to search between numbers of the form 30*k+2, 30k+8, 30k+14 & 30k+26.
+
+***
+
+Later the same Saturday, J. K. Andersen added this:
+
+I have confirmed the 2567 n values below 10^11 by T.D. Noe, and extended the
+
+statistics. There are 3599 n values below 3*10^11. The counts of ending digit:
+
+0 0
+
+1 58
+
+2 94
+
+3 80
+
+4 1547
+
+5 1574
+
+6 94
+
+7 65
+
+8 87
+
+9 0
+
+The longest run of the same ending digit is these nine:
+
+173690692095, 174008375805, 174217062915, 174516132375, 174687911415,
+
+175188640275, 175220208105, 175975133355, 175992215295.
+
+There is no new solution to phi(n)=phi(n+1)=phi(n+2) below 3*10^11.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

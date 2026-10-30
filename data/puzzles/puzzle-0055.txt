@@ -1,0 +1,146 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_055.htm. These files are used for reasoning.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 55.- Primes by Generation (Patrick De Geest)
+Source: https://www.primepuzzles.net/puzzles/puzz_055.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-0055.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://oeis.org/A048459
+  https://oeis.org/A048458
+  https://www.primepuzzles.net/puzzles/puzz_054.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  https://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_056.htm
+  https://www.primepuzzles.net/puzzles/puzz_055.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+  mailto:cbrfgm@gmail.com
+
+========================================================================
+
+Puzzle 55.- Primes by Generation (Patrick De Geest)
+
+Problems & Puzzles: Puzzles
+
+Puzzle 55.- Primes by Generation (Patrick De Geest)
+
+Define the sequence of primes 2, 3, 5, 7, 11, 13, 17, 19, ... as generation 1. Starting from this generation 1 add the previous and next term of
+
+each number thus creating generation 2. Apply the same procedure over and over again to make the next generations N. The following table summarizes everything for the first nine generations:
+
+PRIMES
+
+Gen1 | Gen2 | Gen3 | Gen4 | Gen5 | Gen6 | Gen7 | Gen8 | Gen9 | PLOT
+
+Nrs
+
+2 | 3 | 7 | 13 | 30 | 56 | 127 | 237 | 530 | prime cells
+
+3 | 7 | 13 | 30 | 56 | 127 | 237 | 530 | 994 | Odd composite
+
+5 | 10 | 23 | 43 | 97 | 181 | 403 | 757 | 1662
+
+7 | 16 | 30 | 67 | 125 | 276 | 520 | 1132 | 2156
+
+11 | 20 | 44 | 82 | 179 | 339 | 729 | 1399 | 2970
+
+13 | 28 | 52 | 112 | 214 | 453 | 879 | 1838 | 3598
+
+17 | 32 | 68 | 132 | 274 | 540 | 1109 | 2199 | 4491
+
+19 | 40 | 80 | 162 | 326 | 656 | 1320 | 2653 | 5335
+
+23 | 48 | 94 | 194 | 382 | 780 | 1544 | 3136 | 6231
+
+29 | 54 | 114 | 220 | 454 | 888 | 1816 | 3578 | 7278
+
+31 | 66 | 126 | 260 | 506 | 1036 | 2034 | 4142 | 8178
+
+37 | 72 | 146 | 286 | 582 | 1146 | 2326 | 4600 | 9308
+
+41 | 80 | 160 | 322 | 640 | 1290 | 2566 | 5166 | 10290
+
+43 | 88 | 176 | 354 | 708 | 1420 | 2840 | 5690 | 11382
+
+2 | 3 | 3 | 3 | 4 | 6 | 5 | 3 | Odd's
+
+With each generation the 'last odd term' moves down one place (see darkgreen background cells)! They form a very beautiful new sequence starting with primes but soon these become very rare:
+
+7, 23, 67, 179, 453, 1109, 2653, 6231, 14409, 32877, 74137, 165429, 365691, 801747,...
+
+Highlighting the primes versus the composites give the following Last Odd Term sequence (primes in blue, composites in orange):
+
+7, 23, 67, 179,453,1109, 2653, 6231, 14409, 32877, 74137, 165429, 365691, 801747, 1745331, 3776605, 8130401, 17427659, 37217597, 79224121, 168170537, 356107787, 752453861, 1586875049, 3340696135, 7021048691, 14731810645,...
+
+I was able to track down these entire Prime Last Odd Terms sequence- PLOT's - up to generation 50. They occur in the following generations: 2, 3, 4, 5, 7, 19, 25, 27 (next one >50).
+
+This yield the next appealing series of eight primes for now :
+
+7, 23, 67, 179, 1109, 17427659, 1586875049, 7021048691
+
+(See sequences A047844, A048448 up to A048466 at Neil's Sloane site)
+
+a) Try to extend this sequence (find more PLOT numbers)
+
+b) Three generations (2, 3 and 4) have only 'prime' odd terms in their ranks. Exist there a fourth or even a fifth generation where this fact occurs?
+
+Solution
+
+Yves Gallot wrote (5/6/99):
+
+"I extended the search of Puzzle No. 55.
+
+Each term of the sequence 7, 23, 67, 179, 453, 1109, ... [This is the 'Last Odd Term' sequence] are of the form
+
+S(n) = Sum(j = 0 to n - 1, C(n - 1, j) * P(2*j + 1))
+
+where C(n, p) = n! / (p! * (n-p)!)
+
+and P(1) = 2,... P(i) is the ith prime number.
+
+The first probable-primes of the sequence occur for n equal :
+
+1, 2, 3, 4, 5, 7, 19, 25, 27, 53, 59, 68, 148, 176, 241, 347,
+
+441, 444, 509, 844, 990 [found previously by Patrick, in red].
+
+The search was extended up to 1000"
+
+***
+
+On May 11, 2026, Ashaz Jameel wrote:
+
+Indices of probable primes:
+
+2, 3, 4, 5, 7, 19, 25, 27, 53, 59, 68, 148, 176, 241, 347, 441, 444, 509, 844, 990, 1607, 1823, 2745, 3244, 3517, 3695, 5879, 6600, 7386, 8013, 9493...
+
+https://oeis.org/A048459
+
+https://oeis.org/A048458
+
+Updates pending
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.

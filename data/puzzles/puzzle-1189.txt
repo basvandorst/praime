@@ -1,0 +1,252 @@
+Raw data extracted from primepuzzles.net. Original: https://www.primepuzzles.net/puzzles/puzz_1189.htm. These files are used for reasoning.
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Title: Puzzle 1189  All primes less than 2^32 as subsequences...
+Source: https://www.primepuzzles.net/puzzles/puzz_1189.htm
+Retrieved: 2026-10-30
+Encoding: windows-1252 (original), converted to UTF-8
+Raw HTML: html/puzzle-1189.htm
+
+References (local copies):
+  none
+
+Links on the page:
+  https://en.wikipedia.org/wiki/Subsequence
+  mailto:cbrfgm@gmail.com
+  https://www.primepuzzles.net/puzzles/puzz_1188.htm
+  https://www.primepuzzles.net/records/
+  https://www.primepuzzles.net/conjectures/
+  https://www.primepuzzles.net/problems/
+  http://www.primepuzzles.net/puzzles/
+  https://www.primepuzzles.net/puzzles/puzz_1190.htm
+  https://www.primepuzzles.net/puzzles/puzz_1189.htm#header
+  https://www.primepuzzles.net/index.shtml
+  https://www.primepuzzles.net/melancholia.htm
+  https://www.primepuzzles.net/ppp.htm
+  https://www.primepuzzles.net/references.htm
+  https://www.primepuzzles.net/new/index.html
+  https://www.primepuzzles.net/personal.htm
+  https://www.primepuzzles.net/puzzlers.htm
+  https://www.primepuzzles.net/search.html
+  https://www.primepuzzles.net/cgi-bin/UltraBoard/UltraBoard.cgi
+  https://www.primepuzzles.net/chat/index.html
+  https://www.primepuzzles.net/cgi-bin/random/rand_link.pl
+
+========================================================================
+
+Puzzle 1189 All primes less than 2^32 as subsequences...
+
+Problems & Puzzles: Puzzles
+
+Puzzle 1189 All primes less than 2^32 as subsequences...
+Suppose you concatenate all the natural integers from 1 to m, orderly: C=1234567891011...m
+
+Q1. What is the less m needed in order to locate inside that concatenation C, all the primes less than 2^32 as subsequences.
+
+Q2. Redo Q1 for all the primes less than 2^64
+
+From Set 14-20, 2024, contributions came from Michael Branicky, Jeff Heleen, Simon Cavegn, Oscar Volpatti.
+
+Note: Michael & Jeff worked out this puzzle following one interpretation; Simon & Oscar followed a second interpretation. I decided to post both contributions due to the coincidences of the results in each kind of interpretation.
+
+***
+
+Michael wrote:
+
+For Q1, m = 89.
+
+Ten primes < 2^32 require this, including 1000000009.
+
+For Q2, m = 183.
+
+A number of primes < 2^64 require this, including 10000000000766663333 (with 20 digits) and 9987777555555553333 (with 19 digits).
+
+Q1 was found by searching all primes < 2^32.
+
+Q2 was found using A* search, minimizing f(n) = - g(n) - h(n), where
+
+g(n) = {minimum m such that n is a subsequence of C(m)}
+
+h(n) = 10*(maxdigits - #digits(n))
+
+and using maxdigits = 19 and 20, and goal test #digits(n) = maxdigits and isprime(n).
+
+The function h is admissible for A* since each successive digit appears within at most 10 additional numbers.
+
+For 20-digit numbers, only numbers starting with 1 needed to be searched, since 2^64 = 18446744073709551616.
+
+Compare: non-prime 3331111111 < 2^32 requires m = 91 and
+
+non-prime 10000000000999999999 < 2^64 requires m = 189.
+
+***
+
+Jeff wrote:
+
+For Q1 of puzzle 1189 I believe the smallest m = 90.
+
+***
+
+Simon wrote:
+
+Q1:
+
+If I didn't program a major bug: m = 4099999889
+
+***
+
+Oscar wrote:
+
+I claim that puzzle 1189 has the following solutions:
+
+m = 4099999889 to locate all primes below 2^32;
+
+m = 18446744073709550873 to locate all primes below 2^64.
+
+Let C(x,y) be the concatenation of all natural integers from x to y included.
+
+Any natural integer n can be located inside concatenation C(1,n).
+
+Can n be located inside concatenation C(1,n-1) too?
+
+The following lemma provides a sufficient condition which ensures a negative answer.
+
+LEMMA
+
+Let n be some k-digit natural integer such that:
+
+1) its most significant digit is b, with 1<=b<=8;
+
+2) each of the remaining k-1 digits is either equal to 0 or greater than b+1.
+
+Let C(x,y) be some concatenation containing n as subsequence.
+
+Then inequality y >= n holds.
+
+PROOF.
+
+Without loss of generality, assume that the representation of n begins within the representation of x and ends within the representation of y.
+
+Otherwise, drop unused integers making x larger and/or y smaller.
+
+Number y can't be shorter than n itself.
+
+Assume the contrary: n has k digits, y has less than k digits.
+
+Then concatenation C(x,y) must involve at least two integers.
+
+Let's focus on the first two used numbers: x and x+1.
+
+Number x contains digit b (the most significant digit of n) at some position j.
+
+At the same position j, number x+1 contains digit c, with either c = b or c = b+1 depending on carry.
+
+The distance between b and c is the length of number x+1, which is smaller than k, so digit c should be located inside n too, violating constraint 2:
+
+c=0 or c>b+1.
+
+If y is longer than n, then inequality y>n clearly holds, so assume that y has k digits too.
+
+Its most significant digit d must be located at a non-zero position of n.
+
+If d = b, then y coincides with n itself.
+
+Otherwise inequality d>b+1>b holds, so that inequality y>n holds too.
+
+Solution
+
+Starting from upper bound 2^e, I checked all primes p in descending order, until I found some prime q satisfying the given sufficient condition.
+
+Therefore, it must be m >= q.
+
+Choice m = q clearly also works for all primes p with p < q.
+
+For all primes p with q < p < 2^e, I was able to locate p inside a suitable concatenation C(y-1,y) with y < m, showing that choice m = q works for them too.
+
+Case e = 32.
+
+2^32 = 4294967296;
+
+p = 42zzzzzzzz, y = 2zzzzzzzz5;
+
+p = 41zzzzzzzz, y = 1zzzzzzzz5;
+
+p = 4099999993, y = 3410000000;
+
+p = 4099999963, y = 3409999997;
+
+p = 4099999951, y = 1409999996;
+
+p = 4099999931, y = 1409999994;
+
+p = 4099999901, y = 1409999991;
+
+q = 4099999889, m = q.
+
+Case e=64.
+
+2^64 = 18446744073709551616;
+
+p = 18446744073709551557,
+
+y = 15571844674407370956;
+
+p = 18446744073709551533,
+
+y = 15331844674407370956;
+
+p = 18446744073709551521,
+
+y = 1521844674407370956;
+
+p = 18446744073709551437,
+
+y = 14371844674407370956;
+
+p = 18446744073709551427,
+
+y = 14271844674407370956;
+
+p = 18446744073709551359,
+
+y = 13591844674407370956;
+
+p = 18446744073709551337,
+
+y = 13371844674407370956;
+
+p = 18446744073709551293,
+
+y = 12931844674407370956;
+
+p = 18446744073709551263,
+
+y = 12631844674407370956;
+
+p = 18446744073709551253,
+
+y = 12531844674407370956;
+
+p = 18446744073709551191,
+
+y = 1191844674407370956;
+
+p = 18446744073709551163,
+
+y = 11631844674407370956;
+
+p = 18446744073709551113,
+
+y = 11131844674407370956;
+
+q = 18446744073709550873,
+
+m = q.
+
+***
+
+Records | Conjectures | Problems | Puzzles
+
+Home | Melancholia | Problems & Puzzles | References | News | Personal Page | Puzzlers | Search | Bulletin Board | Chat | Random Link
+
+Copyright © 1999-2012 primepuzzles.net. All rights reserved.
