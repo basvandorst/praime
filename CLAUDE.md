@@ -42,7 +42,7 @@ The first line of a page file is the site's HTML title, and on 14 puzzle pages (
 
 ## Write-up
 
-Copy the layout of `results/1230.md`: In short, Puzzle link, Status, The question, Record vs ours, How we found it, The math, Verify it yourself (a script that checks every claim). Add a row to `README.md` (conjectures go in its Conjectures table) and update the counts in its first lines. For a conjecture, start the Status line with proved, disproved, explained or answered: the index script reads those first words. An attempt that does not beat or answer the puzzle goes to `writeup/NNN.md` instead. After either, run `python3 writeup/make_index.py`. Make one commit per puzzle: `Add puzzle NNN: ...` (or `Add conjecture NNN: ...`).
+Copy the layout of `results/1230.md`: In short, Puzzle link, Status, The question, Record vs ours, How we found it, The math, Verify it yourself (a script that checks every claim). Add a row to `README.md` under its newest dated Results heading (`## Results DD-MM-YYYY`: the planned release date picked by the user, not the day of the work; conjectures go in a Conjectures table) and update the counts line under that heading. For a conjecture, start the Status line with proved, disproved, explained or answered: the index script reads those first words. An attempt that does not beat or answer the puzzle goes to `writeup/NNN.md` instead. After either, run `python3 writeup/make_index.py`. Make one commit per puzzle: `Add puzzle NNN: ...` (or `Add conjecture NNN: ...`).
 
 ## Environment
 

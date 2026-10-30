@@ -19,11 +19,17 @@ for line in open('data/INDEX.txt', encoding='utf-8'):
     elif last is not None and line.strip():
         last[0][last[1]] += ' ' + line.strip()   # title wrapped onto the next line
 
-# Status from the two README tables.
+# Status from the README tables. Each dated Results section has its own tables;
+# a table's header row says whether it lists beaten records or answers.
 readme = open('README.md', encoding='utf-8').read()
-beaten_part, answered_part = readme.split('### (First) answers to open questions', 1)
-ids = lambda text: {int(n) for n in re.findall(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', text)}
-beaten, answered = ids(beaten_part), ids(answered_part) - ids(beaten_part)
+beaten, answered, kind = set(), set(), None
+for row in readme.splitlines():
+    if row.lstrip().startswith('| # |'):
+        kind = {'Puzzle': beaten, 'Open question': answered}.get(row.split('|')[2].strip())
+    for n in re.findall(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', row):
+        if kind is not None:
+            kind.add(int(n))
+answered -= beaten
 # Where each README row links to (usually results/N.md; puzzle 900 points to its conjecture write-up).
 target = {}
 for row in readme.splitlines():
