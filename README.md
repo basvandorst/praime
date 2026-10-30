@@ -79,7 +79,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 
 
 ## Results 01-11-2026
-**1** beaten record and **3** more answers to open questions (two of them partial).
+**1** beaten record and **4** more answers to open questions (two of them partial).
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -92,6 +92,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [all solutions with q+1 = 2^a·3^b found (proof); family ends at p = 5; none new ≤ 10⁹](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸; Q2 needs n free of 2 and 3](results/542.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three: types R, L and LR, inner primes < 1000](results/870.md) |
+| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [works iff p \| 10^N + 10^J − 1; reverse lags = −forward lags (mod T); rules for 154 primes < 1000, none possible for 11 (proof)](results/1238.md) |
 
 ## Facts about primes
 [FACTS.md](FACTS.md) collects 200 facts about primes, each with its formula and how we know it: a theorem, our own computation (one pass over all primes below 1.4·10¹¹), or a source in this archive. A few of them:
