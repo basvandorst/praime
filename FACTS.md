@@ -301,7 +301,92 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 
 ## 9. Facts from this repository
 
-(In progress: the facts proved or used in our write-ups are being collected and checked.)
+Facts proved, used or found in our write-ups; each links to its write-up, which has the argument or the check. Facts from the conjecture pages will follow with the 01-12-2026 results.
+
+### 9A. Residues and digits
+
+105. **Decimal periods.** The period of 1/p is ord_p(10). If (10/p) = −1 it is even. Since (10/p) = (2/p)(5/p), every prime p ≡ 17 (mod 40) has an even period: `p ≡ 17 (mod 40) ⇒ (2/p) = +1, (5/p) = −1 ⇒ (10/p) = −1`. *([1230](results/1230.md))*
+106. A number ≡ 17 (mod 20) ends in two odd digits (…17, 37, 57, 77, 97), so its digits never alternate between odd and even. *([1135](results/1135.md))*
+107. **Lucky numbers.** Every number ≡ 5 (mod 6) is unlucky: the second step of the lucky sieve removes exactly the numbers 6k − 1. A value ≡ 5 (mod 6) that is negative becomes ≡ 1 (mod 6) under |·| and loses this protection. *([1209](results/1209.md))*
+108. Two odd primes add up to a square only if one is ≡ 1 and the other ≡ 3 (mod 4): `p + q = k² ⇒ k even ⇒ p + q ≡ 0 (mod 4)`. And 2 + q is a square only if q ≡ 7 (mod 8). *([677](results/677.md))*
+109. **2ⁿ − 7.** Small primes confine prime values to `n mod 60 ∈ {3, 15, 19, 31, 39, 43, 51, 55}`, so a prime exponent p > 61 must be ≡ 19, 31 or 43 (mod 60). No covering set rules out prime exponents: at modulus 55440, with all q < 30000, 1972 of the 11520 classes stay uncovered. *([writeup/1257](writeup/1257.md))*
+110. **Covering sets for k·2ⁿ + 1** with k = 3a²: a prime p can join only if (−6/p) = 1, and it then divides with period ord_p(4) in m, where n = 2m + 1. Wesolowski's set {5, 7, 11, 31, 73, 97, 151, 241, 631, 673, 1321, 23311} has period 360. There is no cover with the smaller periods we tried, and exactly 11 covering sets of period 360. *([1145](results/1145.md))*
+111. 10^k mod q depends only on k mod ord_q(10). For q = 7, 11, 13, 37, 41 the order divides 240, so one condition on A mod q removes a whole class of digit positions. *([398](results/398.md))*
+112. The pattern {0, 2, h, h + 2} is admissible only when 6 | h. *([639](results/639.md))*
+113. With d = 19# = 9699690 and a coprime to 19#, no term of a, a + d, …, a + 9d has a prime factor ≤ 19. That is why 10-term prime progressions with difference 19# are common: the first start at 35969, 231529, 417293, and there are 76 below 6·10⁷. *([1099](results/1099.md), [1097](results/1097.md))*
+114. Averages of numbers ≡ 1 (mod M) stay ≡ 1 (mod M): `T(h, j) = 2^(−h) Σ_i C(h, i) b_(j+i) = 1 + M·2^(9−h)·D(h, j)`. This is the basis of the first 10-row prime pine, where every entry is ≡ 1 (mod 1155). *([77](results/77.md))*
+115. If every value is a fixed integer combination of base values, choose the base residues mod q so that no combination is ≡ 0 (mod q). *([92](results/92.md))*
+116. An even-length palindrome in base b is divisible by b + 1, so in base 10 the only even-length palindromic prime is 11. For √(p/2) < b ≤ √(p − 1), p is the base-b palindrome [1, c, 1] exactly when b | p − 1. *([75](results/75.md), [808](results/808.md))*
+117. The prime 2 never fits in a 3×3 magic square of primes (parity). The least such square has centre 59, and there are 647 with entries below 2000. *([106](results/106.md))*
+118. a + b can be an odd prime only if a and b have opposite parity. Arranging 1 … n so that neighbours have prime sums and prime square sums is possible for every 58 ≤ n ≤ 200, and impossible for n = 57 and for n = 44, 45, 46, 47, 49, 51, 54. *([189](results/189.md))*
+119. Collatz backward step: q → p exactly when `3q + 1 = p·2ⁿ`. *([476](results/476.md))*
+
+### 9B. Divisibility
+
+120. Squarefree N with m prime factors: `d(N) = 2^m` and `σ(N) = ∏ (q_i + 1)`. *([419](results/419.md))*
+121. If P, P + 2, P + 6m, P + 6m + 2 are all prime, then n = P(P + 6m + 2) satisfies `σ(n + 12m) = σ(n) + 12m`, because `n + 12m = (P + 2)(P + 6m)`. Such a P exists for every m ≤ 3.3·10⁷; the hardest, m = 27978486, needs P = 135281. For all m it would follow from the k-tuple conjecture. *([639](results/639.md))*
+122. φ(m) + σ(m) = 5m: splitting off one prime p ∤ A from m = A·p fixes it, `p = (σ(A) − φ(A)) / (5A − σ(A) − φ(A))`. This gave m = 60493590969525342720. *([435](results/435.md))*
+123. `σ₃(p) = p³ + 1 = (p + 1)(p² − p + 1)`, and σ₃(291741) = σ₃(295301). *([1080](results/1080.md))*
+124. The anti-divisor sum of an odd prime is `SAD(P) = σ(2P − 1) + σ(2P + 1) − 4P`; it is odd only when 2P − 1 is a square. *([1001](results/1001.md))*
+125. Twin primes k·2ⁿ ± 1 are automatically consecutive, and their sum k·2^(n+1) has n + 1 + Ω(k) prime factors. *([450](results/450.md))*
+126. Prime cycles of p ↦ GPD(p + b) come from factorizations of M = b + 1: `p_i = 1 + s_i + s_i·s_(i+1) + …`, with `s_i·p_(i+1) = p_i + b`. *([1251](results/1251.md))*
+127. C(p, j) ≡ 0 (mod p) for 0 < j < p. From `(√x + i√y)^p = A√x + iB√y` it follows that p^p = x·a² + y·b² with gcd(a, b) = 1 is solvable for every odd prime p and every split x + y = p; e.g. 5⁵ = 41² + 4·19². *([493](results/493.md))*
+128. Smith numbers from primes: `S(P·Q·10^M) = S(P) + S(Q) + 7M`; 7·(2^136279841 − 1)·10^2192 is a Smith number with 41,026,513 digits. *([307](results/307.md))*
+
+### 9C. Primality tests
+
+129. **Pocklington.** If F | N − 1, F > √N, and some a has a^(N−1) ≡ 1 (mod N) and gcd(a^((N−1)/q) − 1, N) = 1 for every prime q | F, then N is prime. Numbers like A·10⁹⁰⁰ + 1 with A < 10⁹⁰⁰, and k·7723# + 1, are proved this way. *([325](results/325.md), [398](results/398.md))*
+130. No prime n is followed by a base-2 pseudoprime n + 1. The smallest even base-2 pseudoprime is 161038 = 2·73·1103. *([170](results/170.md))*
+
+### 9D. Polynomials and formulas
+
+131. **Rotondo's irregular polynomial.** |n² − 108n + 2518| is |N² − 398|, and 398 is a non-square mod every odd prime ≤ 31. Halving at even n interleaves the two forms x² − 398y² and 2x² − 199y² of discriminant 1592. The halving rule works exactly when a is odd, b is even and c ≡ 2 (mod 4). A run of 110 or more values would force D to be a non-square mod all 15 odd primes ≤ 53 (1 in 2¹⁵). Our searches found nothing beyond his 109. *(bounded search: [writeup/1139](writeup/1139.md))*
+132. For runs of N² − D, the chance that k values are all prime is about `(C_D / ln D)^k` with `C_D = ∏_p (1 − (D/p)/(p − 1))`. *(heuristic: [writeup/1139](writeup/1139.md))*
+133. The Dress–Landreau sextic `S(x) = x⁶/72 − 5x⁵/24 − 1493x⁴/72 + 1027x³/8 + 100471x²/18 − 11971x/6 − 57347` is prime in absolute value for all 58 integers x = −42 … 15. *(cited record: [1217](results/1217.md))*
+134. No prime below 41 divides x² + x + 247757. Moving the vertex to the middle, x² − 9999x + 25242757 gives 9743 primes or semiprimes for x = 0 … 10000. *([597](results/597.md))*
+135. `5n⁴ − 330n³ + 9395n² − 130510n + 709337 = 40·Q(n) + 17` gives 30 consecutive distinct primes for n = 0 … 29, all with even period and non-alternating digits. *([1230](results/1230.md), [1135](results/1135.md))*
+136. `−3x² + 2799x + 22433 ≡ 5 (mod 6)` gives 34 consecutive distinct unlucky primes. *([1209](results/1209.md))*
+137. Building blocks for prime formulas: `(A·n mod (A + 1)) = A + 1 − n` for 1 ≤ n ≤ A + 1 *([1028](results/1028.md))*; floor sums `H(n) = I₀ + d·n + Σ_j c_j·⌊n/(10j)⌋` chain blocks of 10-term prime progressions *([1099](results/1099.md))*; `P(x) = x + d + c·∏_i (x − a_i)` walks along a progression *([905](results/905.md))*.
+138. **Zeisel chains** p₂ = A·p₁ + B: any primes with (p₁ − 1) | (p₂ − 1) fix A = (p₂ − 1)/(p₁ − 1) − 1 and B = p₁ − A *([325](results/325.md))*. Choosing q = p² − p + r forces pq mod (p + q) = r *([908](results/908.md))*.
+139. Under p ↦ GPD(3p + 1) with p odd, the next prime is larger only when (3p + 1)/2 is prime. So an increasing run of 9 has the shape `p_k = m·3^k·2^(9−k) − 1`; the least start is 35014031359. *([299](results/299.md))*
+140. ⌊t^j⌋ prime for j = 1 … k: the valid t form nested intervals `p_j^(1/j) ≤ t < (p_j + 1)^(1/j)`. We found a t with k = 239. *([227](results/227.md))*
+141. For odd n, 2ⁿ − 2^k + 1 (k < n) is a square only for (n, k) = (5, 3), (7, 3), (15, 3). The proof uses Ramanujan–Nagell (x² + 7 = 2ⁿ only for n = 3, 4, 5, 7, 15) and Beukers (1981). *([490](results/490.md))*
+
+### 9E. Gaps, runs and counts
+
+142. Several consecutive gaps can be large at once. By Shiu's theorem there are consecutive primes p(n−1), …, p(n+2) all ≡ 1 (mod q), so three gaps in a row are ≥ q. The first four consecutive primes ≡ 1 (mod 30) are 4560121, 4560151, 4560181, 4560211; there are none ≡ 1 (mod 210) below 10⁸. *([631](results/631.md))*
+143. The first gap above 116 is 118, after 1349533. Euler's polynomial, fed with half the gap, first fails at the gap 210 after 20831323. *([1217](results/1217.md))*
+144. The largest 10-digit prime is 9999999967 = 10¹⁰ − 33. *([1190](results/1190.md))*
+145. Chebyshev's bias blocks arranging 2 … P in a row with square sums. The teams {2} ∪ {p ≡ 1 mod 4} and {p ≡ 3 mod 4} are within 1 of each other only on [615721, 634187] and from 12305677 on (checked to 1.3·10⁷). *([677](results/677.md))*
+146. A random N is prime with probability about 1/ln N. With no factor below Q it is prime with probability about `e^γ ln Q / ln N` (Mertens). *([957](results/957.md), [writeup/1257](writeup/1257.md))*
+147. **Goldbach counts** follow Hardy–Littlewood: `r(2n) ≈ 2C₂ ∏_(q | n, q > 2) (q − 1)/(q − 2) · ∫₂ⁿ dt / (ln t · ln(2n − t))`. This explains why 51.6 % of the primes p < 15015 have 30030 − p prime; no n in (15015, 2·10⁶] exceeds 50 %. *([1204](results/1204.md))*
+148. Two random runs of consecutive primes satisfy p_i | x_i + y_i for all i with probability ∏ 1/(p_i − 1). We found 7 pairs of 15-runs below 2·10¹⁰, the smallest starting at 3355845769 and 5130974053. *([522](results/522.md))*
+149. 2^p − 7: about 2.7 prime exponents were expected below 908731 and none was found (a 6 % chance). The expected count grows like 1.93·ln ln X. *(heuristic: [writeup/1257](writeup/1257.md))*
+150. A Sidon set of primes (all pairwise sums distinct) needs p_K ≳ K²/4. *([356](results/356.md))*
+151. Digit curiosities: exactly 101 of the first 202 primes contain the digit 1, and the 298th prime, 1973, shares a digit with every earlier prime except 2 and 5 *([359](results/359.md))*. The first 9 primes sum to 100 *([172](results/172.md))*. 59 = 5·9 + π(45) is the only n > 1 with n = P(n) + π(P(n)), where P is the digit product *([516](results/516.md))*.
+
+### 9F. Our records about runs, progressions and polynomials
+
+| Record | Previous best | Write-up |
+|---|---|---|
+| 12 consecutive primes from 19765897565467 split into two sixes with equal k-th power sums, k = 1 … 5 | degree 3, 8 primes | [65](results/65.md) |
+| two runs of 15 consecutive primes with p_i \| x_i + y_i | 14 | [522](results/522.md) |
+| consecutive p, q (1060 digits) with p + (p + 1) + … + q equal to a product of 333 consecutive primes | 319 | [553](results/553.md) |
+| increasing run of 9 primes under GPD(3p + 1), least start 35014031359 | 8 | [299](results/299.md) |
+| 30 consecutive odd Collatz terms, all prime | 19 | [476](results/476.md) |
+| ⌊t^j⌋ prime for j = 1 … 239 | 100 | [227](results/227.md) |
+| quartic with 30 consecutive distinct primes | 29 | [1230](results/1230.md) |
+| 34 consecutive distinct unlucky primes from a quadratic | 26 (a listed 45 was invalid) | [1209](results/1209.md) |
+| h² − 79h + 1601 prime for 1,319,943 successive n (h = half the prime gap) | 30,800 | [1217](results/1217.md) |
+| 9743 primes or semiprimes from one quadratic on 0 … 10000 | 9567 | [597](results/597.md) |
+| recursive degree-26 polynomial, 28 distinct primes in a row | 19 | [905](results/905.md) |
+| floor formula with 570 distinct primes; mod formula with 130 | 120; 65 | [1099](results/1099.md), [1097](results/1097.md) |
+| 34 remainders N mod r, all prime or 1 | 14 | [908](results/908.md) |
+| 201-digit prime decade 10B + 1, 3, 7, 9 with B using only digits 0, 2, 4, 5, 6, 8 | 50 digits | [134](results/134.md) |
+| first 10-row prime pine (55 primes) | none | [77](results/77.md) |
+| 477 prime cycles of p ↦ GPD(p + b) | 72 | [1251](results/1251.md) |
+
+Record objects we reused: PrimeGrid's AP-27 ([905](results/905.md)), the twin-prime record ([450](results/450.md)), and the largest known palindromic prime `10^1888529 − 10^944264 − 1` (Propper–Batalov 2021, [607](results/607.md)).
 
 ## 10. Facts from the site and its references
 
