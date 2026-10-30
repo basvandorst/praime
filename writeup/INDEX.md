@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 9 with a result of ours (proved, disproved, explained, answered, or a variant settled), 106 open. Status links go to our write-up.
+115 conjectures: 11 with a result of ours (proved, disproved, explained, answered, or a variant settled), 104 open. Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1364,8 +1364,8 @@
 | [67](https://www.primepuzzles.net/conjectures/conj_067.htm) | primes & e | open |
 | [68](https://www.primepuzzles.net/conjectures/conj_068.htm) | Based on an Euler's Conjecture | open |
 | [69](https://www.primepuzzles.net/conjectures/conj_069.htm) | A Conjecture & proposed Axiom | open |
-| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | n & n+1 primitive roots | open |
-| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | Twin primes and π. | open |
+| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | n & n+1 primitive roots | [proved](../results/conj-70.md) |
+| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | Twin primes and π. | [explained](../results/conj-71.md) |
 | [72](https://www.primepuzzles.net/conjectures/conj_072.htm) | Counting twin primes. | open |
 | [73](https://www.primepuzzles.net/conjectures/conj_073.htm) | Counting primes by the last significant digit. | open |
 | [74](https://www.primepuzzles.net/conjectures/conj_074.htm) | What is true assuming valid this... | open |

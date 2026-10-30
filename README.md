@@ -3,7 +3,7 @@
 This repository is an experiment in how far LLM can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected 1200+ prime challenges since 1999, many with records that stood for decades. 
 
 ## Results 30-10-2026
-**39** beaten records, **26** answers to open questions (a few of them partial or conditional), **9** results on the conjectures pages (2 disproved, 4 proved, 1 explained, 2 open questions answered) and **1** mistake found on the pages (puzzle 1209).
+**39** beaten records, **26** answers to open questions (a few of them partial or conditional), **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered) and **1** mistake found on the pages (puzzle 1209).
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -101,6 +101,8 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](results/conj-21.md) |
 | [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](results/conj-39.md) |
 | [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305, and infinitely many (mod 6)](results/conj-55.md) |
+| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | Consecutive primitive roots for every p > 7 | known for p > 10¹⁹ and by computation | [a theorem (Cohen–Oliveira e Silva–Trudgian 2015) + check of p < 170](results/conj-70.md) |
+| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | ∏ 1/(1 − 1/t) over twin primes = π? | no comments | [no: 3.1961782 via Brun's constant (heuristic)](results/conj-71.md) |
 | [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Six inequalities for p_n^(1/n) | only via Firoozbakht's conjecture (to 4·10¹⁸) | [all six proved unconditionally](results/conj-76.md) |
 | [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "certainly true for large n", checked to n = 500,000 | [proved for all n (explicit bound + sieve to 8·10⁹)](results/conj-80.md) |
 | [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved (prime number theorem); data explained](results/conj-99.md) |
