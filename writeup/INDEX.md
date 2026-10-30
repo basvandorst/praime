@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 23 answered, 1222 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 24 answered, 1221 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
