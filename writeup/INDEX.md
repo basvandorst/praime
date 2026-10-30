@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 40 beaten, 27 answered, 1217 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 40 beaten, 28 answered, 1216 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1038,7 +1038,7 @@
 | [1032](https://www.primepuzzles.net/puzzles/puzz_1032.htm) | Integers EOM | open |
 | [1033](https://www.primepuzzles.net/puzzles/puzz_1033.htm) | Primes p+2^q | open |
 | [1034](https://www.primepuzzles.net/puzzles/puzz_1034.htm) | P+6k=Q, etc | open |
-| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | tau(sigma(x)) * sigma(tau(x)) | open |
+| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | tau(sigma(x)) * sigma(tau(x)) | [answered](../results/1035.md) |
 | [1036](https://www.primepuzzles.net/puzzles/puzz_1036.htm) | P + R(p) such that... | open |
 | [1037](https://www.primepuzzles.net/puzzles/puzz_1037.htm) | (m,n) producing five twin primes. | open |
 | [1038](https://www.primepuzzles.net/puzzles/puzz_1038.htm) | Three puzzles about consecutive primes. | open |

@@ -79,7 +79,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 
 
 ## Results November 2026
-**1** beaten record, **5** answers to open questions (two of them partial) and **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered). Puzzle 900 is the same question as conjecture 80.
+**1** beaten record, **6** answers to open questions (two of them partial) and **11** results on the conjectures pages (2 disproved, 5 proved, 2 explained, 2 open questions answered). Puzzle 900 is the same question as conjecture 80.
 
 #### Beaten records
 | # | Puzzle | Current record | Our result |
@@ -92,6 +92,7 @@ This repository is an experiment in how far LLM can go with hard math: puzzles, 
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [all solutions with q+1 = 2^a·3^b found (proof); family ends at p = 5; none new ≤ 10⁹](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸; Q2 needs n free of 2 and 3](results/542.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three: types R, L and LR, inner primes < 1000](results/870.md) |
+| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others: proof (τ(m) ≤ 8.45·m^(1/4), σ(m) ≤ m(1 + ln m)) + check below 10⁶](results/1035.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [works iff p \| 10^N + 10^J − 1; reverse lags = −forward lags (mod T); rules for 154 primes < 1000, none possible for 11 (proof)](results/1238.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved; same question as conjecture 80](results/conj-80.md) |
 
