@@ -10,7 +10,7 @@ Goal: beat records and answer open questions on primepuzzles.net. Use reasoning,
 - `references/web/*.txt`: copies of external web pages. Line 1 gives the URL. To find one: `grep -l "^Source: <url>" references/web/*`.
 - `results/NNN.md`: our write-up per puzzle (no leading zeros); `results/conj-NNN.md` for a conjecture page. `results/code/` and `results/data/` hold large code and data.
 - `FACTS.md`: the reference list of facts about primes, each with its formula and how it is known: residue rules (section 1), counts (2), gaps (3), patterns and runs of consecutive primes (4), prime-producing formulas (5), record lengths (8), facts from our write-ups (9) and from the archive (10), open problems (11). Read the relevant section before you attack a puzzle.
-- `writeup/NNN.md` (or `writeup/conj-NNN.md`): attempts that are still open. `writeup/INDEX.md` lists all puzzles and conjectures with their status (open, beaten, answered; proved, disproved, explained).
+- `writeup/NNN.md` (or `writeup/conj-NNN.md`): attempts that are still open. `writeup/INDEX.md` lists all puzzles and conjectures with their status (open, beaten, answered; proved, disproved, explained, answered).
 
 Some titles do not match the file number (`puzzle-0355.txt` is "Puzzle 354"; `conjecture-0101.txt` carries the title of conjecture 100). Check the title.
 
@@ -42,7 +42,7 @@ Some titles do not match the file number (`puzzle-0355.txt` is "Puzzle 354"; `co
 
 ## Write-up
 
-Copy the layout of `results/1230.md`: In short, Puzzle link, Status, The question, Record vs ours, How we found it, The math, Verify it yourself (a script that checks every claim). Add a row to `README.md` (conjectures go in its Conjectures table) and update the counts in its first lines. For a conjecture, start the Status line with proved, disproved or explained: the index script reads that first word. An attempt that does not beat or answer the puzzle goes to `writeup/NNN.md` instead. After either, run `python3 writeup/make_index.py`. Make one commit per puzzle: `Add puzzle NNN: ...` (or `Add conjecture NNN: ...`).
+Copy the layout of `results/1230.md`: In short, Puzzle link, Status, The question, Record vs ours, How we found it, The math, Verify it yourself (a script that checks every claim). Add a row to `README.md` (conjectures go in its Conjectures table) and update the counts in its first lines. For a conjecture, start the Status line with proved, disproved, explained or answered: the index script reads those first words. An attempt that does not beat or answer the puzzle goes to `writeup/NNN.md` instead. After either, run `python3 writeup/make_index.py`. Make one commit per puzzle: `Add puzzle NNN: ...` (or `Add conjecture NNN: ...`).
 
 ## Environment
 

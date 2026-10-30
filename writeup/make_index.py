@@ -81,7 +81,7 @@ for n in sorted(ctitles):
 
 with open('writeup/INDEX.md', 'a', encoding='utf-8') as f:
     f.write('\n# All conjectures\n\n')
-    f.write('%d conjectures: %d with a result of ours (proved, disproved, explained, or a variant settled), %d open. '
+    f.write('%d conjectures: %d with a result of ours (proved, disproved, explained, answered, or a variant settled), %d open. '
             'Status links go to our write-up.\n\n' % (len(ctitles), settled, len(ctitles) - settled))
     f.write('| # | Conjecture | Status |\n|---|---|---|\n')
     f.write('\n'.join(crows) + '\n')
