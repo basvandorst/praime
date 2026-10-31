@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-01 00:24 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-01 00:37 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -19,7 +19,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](writeup/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](writeup/882.md) |
 
-#### Puzzles solved/answered (42)
+#### Puzzles solved/answered (43)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](writeup/prob-7.md) |
@@ -33,6 +33,7 @@ Submissions:
 | [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](writeup/93.md) |
 | [104](https://www.primepuzzles.net/puzzles/puzz_104.htm) | Explain De Geest's counts of numbers equal to the sum of the squares of their halves (0, 1, 1, 1, 3, 3, 7, 15 pairs) | Nash's guess 2^(F−1) − 1, "at most, equality if squarefree" | [proved: exactly d(10ᴸ + 1)/2 − 1 (Jacobi); Nash's bound is reversed](writeup/104.md) |
 | [115](https://www.primepuzzles.net/puzzles/puzz_115.htm) | Q2: are the primes whose square uses at most two digits finite? | searched to 10⁴⁸, no argument | [heuristically finite: 2·10⁻¹⁰ expected above 10⁴⁸; only 8 digit pairs possible](writeup/115.md) |
+| [120](https://www.primepuzzles.net/puzzles/puzz_120.htm) | Q4: a primal square with the full torus condition for n = 4, 6, 8, 10? | no 6×6 (complete search); nothing for 4, 8, 10 | [impossible for n = 4, 6, 8 (mod-3 obstruction, complete check); n = 10 open](writeup/120.md) |
 | [157](https://www.primepuzzles.net/puzzles/puzz_157.htm) | Q1: show that there are only finitely many perfect zip primes and find them all | Das's list of 20 (2002), no proof | [exactly 20 (proof: both halves of a perfect zip prime are perfect)](writeup/157.md) |
 | [319](https://www.primepuzzles.net/puzzles/puzz_319.htm) | How accurate are Morawetz's four approximations to π(n), and how were they derived? | accuracy at 10¹⁴; "I don't know how they were derived" | [three-term approximants of li's series (Catalan, geometric); errors to 10²²](writeup/319.md) |
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](writeup/336.md) |
