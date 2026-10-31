@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 16:20 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 16:28 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Puzzles solved/answered (39)
+#### Puzzles solved/answered (40)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -49,6 +49,7 @@ Submissions:
 | [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Q2: why does 2^n + 1 start such long runs of equal Collatz height? | Vantieghem doubts the form is special | [explained: exact reduction to plateaus of A + H(3^A + 1)](results/851.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
+| [937](https://www.primepuzzles.net/puzzles/puzz_937.htm) | Is Vantieghem's m(n) = X·p(n+1) − p(n)# always 1 or prime? | checked to n = 150000 | [explained: first rough term of a progression; a counterexample needs a Jacobsthal covering (chance ≈ e^−78000)](results/937.md) |
 | [938](https://www.primepuzzles.net/puzzles/puzz_938.htm) | Extend both soothsayer sequences (digits = number of prime factors of the next k integers) | II stops at 3624263478 | [II: five more terms (Resta 2019, OEIS A323084), verified; ~1 term per digit length](results/938.md) |
 | [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | Why do D = 15, 65 and 4, 24, …, 84 never occur in A121805, and why are 5, 55 most common? | Q3 answered; Q1, Q2 no replies | [explained: block orbits + a parity invariant](results/980.md) |
 | [997](https://www.primepuzzles.net/puzzles/puzz_997.htm) | Q3/Q4: prove p(n+2) − p(n+1) + p(n) − ⌊p(n+2)p(n)/p(n+1)⌋ = 1 for all n except 3 and 8 | reduced to g(n)·g(n+1) < p(n+1); checked n ≤ 30; conditional on Oppermann | [proved for p ≤ 4·10¹⁸; failures O(X^0.07) beyond](results/997.md) |
