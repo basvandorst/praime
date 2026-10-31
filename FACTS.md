@@ -515,7 +515,7 @@ A long list of facts about prime numbers, each with its formula. The emphasis is
 
 ## 9. Facts from this repository
 
-Facts proved, used or found in our write-ups; each links to its write-up, which has the argument or the check. Facts from the conjecture pages are in 9G.
+Facts proved, used or found in our write-ups; each links to its write-up, which has the argument or the check. Facts from the conjecture pages are in 9G, those from the later puzzle write-ups in 9H.
 
 ### 9A. Residues and digits
 
@@ -599,6 +599,15 @@ Facts proved, used or found in our write-ups; each links to its write-up, which 
 | 201-digit prime decade 10B + 1, 3, 7, 9 with B using only digits 0, 2, 4, 5, 6, 8 | 50 digits | [134](results/134.md) |
 | first 10-row prime pine (55 primes) | none | [77](results/77.md) |
 | 477 prime cycles of p ↦ GPD(p + b) | 72 | [1251](results/1251.md) |
+| p(0)ₙ7 prime for n = 0 … 9, least p + q = 95521311344 (p = 95521311337) | k = 8 | [848](results/848.md) |
+| A(Z)ᵢB prime for i = 0 … 10: 95773717(6)ᵢ1 | k = 9 | [882](results/882.md) |
+| 3×3 magic squares of 101-digit palindromic primes (proven) | 31 digits | [868](results/868.md) |
+| 4×4 prime magic squares nested in 4×4 prime magic squares (types R, L, LR) | none found | [870](results/870.md) |
+| 3925-digit prime p with p as a block of digits of p² | 1339 digits | [340](results/340.md) |
+| 3001-digit prime with p² = R(R(p)²) | 50 digits | [99](results/99.md) |
+| least triples of 3×3 prime magic squares p, 2p + 1, 4p + 3 (magic sum 145060413) and p, 2p − 1, 4p − 3 (143168367) | none | [81](results/81.md) |
+| die of six squares with prime corner sums, total 658 (minimal) | 1330 | [342](results/342.md) |
+| 2⁸²⁵⁸⁹⁹³³ − 1 is a self prime | 2²⁴⁰³⁶⁵⁸³ − 1 | [373](results/373.md) |
 
 Record objects we reused: PrimeGrid's AP-27 ([905](results/905.md)), the twin-prime record ([450](results/450.md)), and the palindromic prime `10^1888529 − 10^944264 − 1` (Propper–Batalov 2021, [607](results/607.md)), the largest known until a 2,718,281-digit one in 2024 (section 6B).
 
@@ -617,6 +626,33 @@ Record objects we reused: PrimeGrid's AP-27 ([905](results/905.md)), the twin-pr
 - **C11.** Strong semiprimes pq with p ≤ q < p³ are ln 3 times as common as primes: `Σ_(x^(1/4) < p ≤ x^(1/2)) π(x/p) = (ln 3 + o(1))·x/ln x`, from `∫_(1/4)^(1/2) du/(u(1 − u)) = ln 3`. *([conj-99](results/conj-99.md))*
 - **C12.** The product of 1/(1 − 1/t) over the smaller twin primes is 3.1961782…, not π: `ln P = (B₂ + D)/2 + E` with fast-converging D and E. P = π would need B₂ = 1.8677. The partial products pass π only near 10³³. *([conj-71](results/conj-71.md))*
 - **C13.** `p_(a+b) ≤ p_a · p_b` for all a, b ≥ 1 (Bertrand plus Rosser–Schoenfeld). Hence a_n = p_n^(1/n) satisfies a_(n+m) ≤ max(a_n, a_m) and a_(nm) ≤ min(a_n, a_m), and all six inequalities of conjecture 76 hold. *([conj-76](results/conj-76.md))*
+
+### 9H. From the puzzle write-ups, October–November 2026
+
+Only proofs and exhaustive computations; the heuristic forecasts of these write-ups are left out.
+
+9801. **Even non-square residues.** Every prime p other than 2, 3, 5 and 11 has an even quadratic residue 0 < r < p that is not a perfect square. Consequence: ⌊q²/p⌋ is prime only when q² mod p is such an r, apart from the progression case q = p + s, r = s². *(proof: [1181](results/1181.md); checked p < 10⁵)*
+9802. **Reversed periods.** The period of 1/p read backwards is the 10-adic expansion of −1/p (carries run forward). A lag rule a(n) = a(n − J) + a(n − N) generates the reversed period exactly when `p | 10^N + 10^J − 1`; the forward rules need `10^(−J) + 10^(−N) ≡ 1 (mod p)`. A rule of either kind exists iff some u ∈ ⟨10⟩ mod p has 1 − u ∈ ⟨10⟩. Below 1000 this fails exactly for p = 3, 11, 37, 41, 73, 101, 137, 239, 271, 281, 641, 859. These rules are Marsaglia–Zaman add-with-carry generators in base 10. *(proof: [1238](results/1238.md); checked p < 1000)*
+9803. `σ(n) < p_n` for every n > 4: σ(n) < n(1 + ln n), while Dusart's `p_n > n(ln n + ln ln n − 1)` is larger once n ≥ 1619; the cases 5 ≤ n ≤ 1618 are checked directly. *(proof: [336](results/336.md); checked n ≤ 10⁵)*
+9804. **Divisor bounds with exact constants.** `σ(x) < x(1 + ln x)` for x ≥ 2 (σ(x)/x ≤ H_x). `τ(x) ≤ c·x^(1/4)` with `c⁴ = 127401984/25025` (c = 8.44696…), the product over p < 16 of max_a (a + 1)⁴/p^a; equality holds at x = 21621600 = 2⁵·3³·5²·7·11·13. Together they show τ(σ(x))·σ(τ(x)) < x for x ≥ 10⁶; the only roots of equality are 1, 468 and 3240. *(proof: [1035](results/1035.md); checked x ≤ 10⁶)*
+9805. **A constant that encodes the primes.** `k = Σ_(m≥1) (p_m − 1)/p_(m−1)# = 2.920050977…` (p₀# = 1). With S_n = ⌊p_n#·k − 1⌋: `S_n − p_n·S_(n−1) = p_(n+1) − 1`, and the tail p_n#·k − S_n lies strictly between 1 and 2 by Bertrand's postulate, so `p_(n+1) = ⌊p_n#·k − p_n·S_(n−1)⌋`. k is a mixed-radix expansion in the primes, so the formula reads the primes back, it does not predict them. *(proof: [1142](results/1142.md); checked n < 60)*
+9806. **d(p − 1) prime.** If d(p − 1) is prime then p − 1 = 2^e with e + 1 prime, which forces p = 3 or p a Fermat prime F_(2^n) with F_n prime. Among known primes that is p = 3, 5, 17, 65537, with d(p − 1) = 2, 3, 5, 17 and σ(p − 1) = 3, 7, 31, 131071, all prime. In general σ(p − 1) is then the Mersenne number M_(F_n), so "d(p − 1) prime ⇒ σ(p − 1) prime" can fail only at p = F_(2^n) with n ≥ 33. *(proof: [1136](results/1136.md); checked for 2^e + 1, e < 64)*
+9807. **σ(n) a prime power.** The only n ≤ 10¹⁸ with σ(n) = q^k, q an odd prime and k > 1, are 81 (σ = 11²) and 400 (σ = 31²). The only prime power p^m ≤ 10¹⁸ with σ(p^m) = q^n (n > 1) is 3⁴. Any other p^m needs n free of the primes 2 and 3 (Ljunggren, Nagell). *(computed to 10¹⁸: [542](results/542.md); checked to 10⁶)*
+9808. With a, b, c, d ≥ 1, `2^a = 5^b + 3^c·7^d` and `3^a = 2^b + 5^c·7^d` have no solutions (congruences mod 3, 4, 5, 7, 8 and a difference of squares). The other ten equations p^a = q^b + r^c·s^d with {p, q, r, s} = {2, 3, 5, 7} are solvable. *(proof: [765](results/765.md); checked exponents ≤ 40)*
+9809. **Concatenations covered mod 7.** Whether 7 | P & f(q) & RP depends only on P mod 7, RP·10^(−L) mod 7 and the digit count of f(q) mod 6 (ord₇ 10 = 6). For f(q) = q² every one of the 42 cases is hit by some prime q ≤ 1009, so no prime P works once q = 1009 has been reached. That bounds the sequence of puzzle 788 at 168 terms. *(proof: [788](results/788.md))*
+9810. **Brier numbers with disjoint covers.** There is a 230-digit k such that k·2ⁿ + 1 and k·2ⁿ − 1 are composite for every n ≥ 0, with the covering sets A = {3, 5, 7, 13, 17, 241} (n mod 24) and B, 60 other primes (n mod 5040), disjoint. In base 4 (k·4^m ± 1, covers {5, 7, 13, 17, 241} and 28 other primes, m mod 720) there are 93-digit k with k·2ⁿ ± 1 composite for every even n, and others for every odd n. *(proofs: [prob-69](results/prob-69.md), [prob-36](results/prob-36.md))*
+9811. For every N ≥ 14 the numbers 1 … N can be put in a row so that every two neighbours have an odd composite sum. Blocks 30m + 1 … 30m + 30 in one fixed residue order make every sum odd and divisible by 3 or 5; a short tail closes the row. *(proof: [685](results/685.md))*
+9812. **Base reversals.** 10·16 = 160 ≡ 1 (mod 53), so 16 ≡ 10⁻¹ (mod 53). That is why the numbers whose hexadecimal form is their decimal form reversed (53, 371, 5141, 99481, 8520280) are all multiples of 53. The same rule, bc ≡ 1, explains the page's examples in other base pairs. *(proof: [93](results/93.md); the five numbers checked)*
+9813. If a prime N > 5 is both b² − b + 1 and a^p − a + 1 with p an odd prime, it ends in 1 or 7: the square side gives N mod 5 ∈ {1, 2, 3}, the odd side {0, 1, 2} (Fermat). It ends in 7 only when p ≡ 3 (mod 4), a ≡ 2 (mod 5) and b ≡ 3 (mod 5). The prime 7 = M(2, 3) = M(3, 2) is that case. *(proof: [61](results/61.md))*
+9814. **Parities of inverses.** For an odd prime p, let x run over 2 … p − 1 with x′ = x⁻¹ mod p. Then the number of odd-odd pairs (x, x′) is one less than the number of even-even pairs. The map x ↦ p − x swaps the two kinds, and the omitted pair (1, 1) is odd-odd. This holds for every odd modulus. The odd-even count is about p/2 (Zhang Wenpeng, via Weil's Kloosterman bound). *(proof: [prob-7](results/prob-7.md); checked p < 2000)*
+9815. **Runs of distinct gaps.** The first run of N consecutive gaps that are pairwise distinct starts at 69931991 (N = 21), 203674907, 1092101119, 1363592621, 1363592677, 2124140323, 23024158649, 30282104173 (N = 28 and 29), 196948778371, 263552821783, 691340780027 (N = 32), and 1625800359439 for N = 33 … 36. No run of 37 distinct gaps, 15 increasing gaps or 14 decreasing gaps starts below 1.01·10¹³. *(computed: [11](results/11.md); N = 21 checked)*
+9816. **p(0)ₙq chains.** p = 95521311337, q = 7 makes p7, p07, …, p0000000007 (ten numbers) all prime: the least p + q for k = 9. For k ≥ 5 one of the two must be 7, so each case is a sieve over one number. *(computed, minimal below 10¹¹: [848](results/848.md); BPSW checked)*
+9817. **1 + τ(n)σ(n) = n·rad(n)** has no solution with exactly two prime factors. Writing X = p^(a+1), Y = q^(b+1), it becomes (DX − A)(DY − A) = B², which bounds everything. The family n = p^(p−2) is the only kind of solution up to 10¹⁰. *(proof and search: [455](results/455.md))*
+9818. **σ(σ(φ(q + 1))) = q + 1 with q + 1 = 2^a·3^b:** besides the Mersenne primes q = 2^p − 1, only q = 0, 23 and 1535. Firoozbakht's family q = 3·2^(2p−1) − 1 stops at p = 5. *(proof: [489](results/489.md))*
+9819. The nine numbers of three primitive Pythagorean triples never fill a 3×3 magic square. Parity and residues mod 4 fix the positions, and the remaining three quadratic equations have only degenerate solutions. *(proof: [890](results/890.md))*
+9820. For a 9-digit anagram A of 1 … 9, `|A − Rev(A)| = 99·|1010101·d₀ + 101010·d₁ + 10100·d₂ + 1000·d₃|` with d_i = a_(8−i) − a_i. Only the patterns ±(1, −1, 1, −1) and ±(5, 5, −5, −5) give palindromes (90900909 and 544505445). A palindromic A/9 has 8 digits, so it is divisible by 11. *(proof: [41](results/41.md))*
+9821. **Self numbers.** j + sod(j) for j = 10q + r covers B_q + 2r, so about 90 % of the gaps between self numbers are 11 (877783 of 977786 below 10⁷). Every other gap is 2 + 13(t − 1), t the number of trailing nines of q. The Mersenne prime 2⁸²⁵⁸⁹⁹³³ − 1 is a self number, the largest known self prime. *(proofs: [374](results/374.md), [373](results/373.md))*
+9822. **Kaprekar primes.** A prime p is a Kaprekar number (p² splits into two parts adding up to p) exactly when p | 10ⁿ − 1 for some n and the cofactor (10ⁿ − 1)/p divides p − 1. Repunit primes R_n with n ≡ 1 (mod 9) qualify (cofactor 9), the least being R₁₉. No other example exists for even n, and for odd n, p must be a primitive prime factor of Φₙ(10). *(proof: [writeup/838](writeup/838.md); no Kaprekar prime below 10⁷ checked)*
 
 ## 10. Facts from the site and its references
 

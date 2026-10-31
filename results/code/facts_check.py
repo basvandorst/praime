@@ -1415,4 +1415,96 @@ del pro8
 assert [nextprime(10**n) - 10**n for n in range(20)] == [1, 1, 1, 9, 7, 3, 3, 19, 7, 7, 19, 3, 39, 37, 31, 37, 61, 3, 3, 51]
 assert [10**n - prevprime(10**n) for n in range(1, 20)] == [3, 3, 3, 27, 9, 17, 9, 11, 63, 33, 23, 11, 29, 27, 11, 63, 3, 11, 39]
 
+# --- section 9H: facts from the October-November 2026 write-ups ---------------------------------------
+from fractions import Fraction
+from math import isqrt, log
+from sympy import primerange as _pr, isprime as _isp, prime as _prime, divisor_sigma as _sig, divisor_count as _tau, perfect_power as _pp
+
+# 9801: every prime p other than 2, 3, 5, 11 has an even quadratic residue 0 < r < p that is not a square (p < 10^5)
+def _even_nonsq_qr(p):
+    return any(isqrt(r) ** 2 != r and pow(r, (p - 1) // 2, p) == 1 for r in range(2, p, 2))
+assert [p for p in _pr(2, 10**5) if not _even_nonsq_qr(p)] == [2, 3, 5, 11]
+
+# 9802: no u in <10> mod p with 1 - u in <10> exactly for these primes p < 1000 (p != 2, 5)
+def _lagless(p):
+    H, x = set(), 1
+    while x not in H: H.add(x); x = 10 * x % p
+    return not any((1 - u) % p in H for u in H)
+assert [p for p in _pr(3, 1000) if p != 5 and _lagless(p)] == [3, 11, 37, 41, 73, 101, 137, 239, 271, 281, 641, 859]
+
+# 9803: sigma(n) < p_n for 5 <= n <= 10^5 (proof above 1618 in results/336.md)
+NS = 10**5; sg = np.zeros(NS + 1, np.int64)
+for d in range(1, NS + 1): sg[d::d] += d
+assert all(sg[n] < P[n - 1] for n in range(5, NS + 1)) and [sg[n] >= P[n - 1] for n in range(1, 5)] == [False, True, False, True]
+
+# 9804: sigma(x) < x(1 + ln x) for 2 <= x <= 10^6; tau(x)^4 / x <= 127401984/25025, attained at x = 21621600 = 2^5 3^3 5^2 7 11 13
+NT = 10**6; tt = np.zeros(NT + 1, np.int64); ss = np.zeros(NT + 1, np.float64)
+for d in range(1, NT + 1): tt[d::d] += 1; ss[d::d] += d
+xs = np.arange(2, NT + 1)
+assert np.all(ss[2:] < xs * (1 + np.log(xs)))
+c4 = Fraction(127401984, 25025)
+assert all(Fraction(int(tt[x]) ** 4, x) < c4 for x in range(1, NT + 1) if tt[x] ** 4 > 5000 * x)   # the rest are below 5000 < c4 = 5090.97
+assert 21621600 == 2**5 * 3**3 * 5**2 * 7 * 11 * 13 and Fraction(int(_tau(21621600)) ** 4, 21621600) == c4
+assert all(Fraction(int(_tau(21621600 * q)) ** 4, 21621600 * q) < c4 and Fraction(int(_tau(21621600 // q)) ** 4, 21621600 // q) < c4 for q in (2, 3, 5, 7, 11, 13, 17))
+del tt, ss
+# 9805: k = sum_(m>=1) (p_m - 1)/p_(m-1)# = 2.920050977..., and p_(n+1) = floor(p_n# k - p_n S_(n-1)), S_n = floor(p_n# k - 1)
+PR = [int(q) for q in _pr(2, 2000)]; kk = Fraction(0); prim = 1
+for q in PR: kk += Fraction(q - 1, prim); prim *= q              # truncated at 2000: error < 2000/(product of primes < 2000)
+assert str(kk.numerator * 10**9 // kk.denominator) == "2920050977"
+prim, S_prev = 1, int(kk - 1)                                         # p_0# = 1, S_0 = floor(k - 1) = 1
+for n in range(1, 60):
+    prim *= PR[n - 1]
+    assert (prim * kk - PR[n - 1] * S_prev) // 1 == PR[n]
+    S_prev = int(prim * kk - 1)
+
+# 9806: d(p - 1) is prime only for p = 3, 5, 17, 65537 among the primes 2^e + 1 (e < 64), and p - 1 must be 2^e
+assert [2**e + 1 for e in range(1, 64) if _isp(2**e + 1) and _isp(e + 1)] == [3, 5, 17, 65537]
+assert [int(_sig(2**e)) for e in (1, 2, 4, 16)] == [3, 7, 31, 131071] and all(_isp(m) for m in (3, 7, 31, 131071))
+
+# 9807: sigma(n) = q^k (q odd prime, k > 1) only for n = 81, 400 below 10^6 (sigma(n) odd forces n = m^2 or 2m^2)
+hits = []
+for m in range(1, 1001):
+    for n in (m * m, 2 * m * m):
+        if n <= NS * 10:
+            v = int(_sig(n)); pp = _pp(v)
+            if pp and _isp(pp[0]) and pp[0] > 2: hits.append(n)
+assert sorted(hits) == [81, 400] and int(_sig(81)) == 11**2 and int(_sig(400)) == 31**2
+
+# 9808: 2^a = 5^b + 3^c 7^d and 3^a = 2^b + 5^c 7^d have no solutions with exponents 1..40 (proof in results/765.md)
+assert not any(2**a == 5**b + 3**c * 7**d for a in range(1, 41) for b in range(1, 41) for c in range(1, 41) for d in range(1, 41) if 5**b < 2**a)
+assert not any(3**a == 2**b + 5**c * 7**d for a in range(1, 41) for b in range(1, 41) for c in range(1, 41) for d in range(1, 41) if 2**b < 3**a)
+
+# 9812: 10 * 16 = 1 (mod 53), and the decimal/hex reversals are multiples of 53
+assert 10 * 16 % 53 == 1
+assert all(int(str(n)[::-1], 16) == n and n % 53 == 0 for n in (53, 371, 5141, 99481)) and int("0820258", 16) == 8520280 and 8520280 % 53 == 0
+
+# 9814: with x running over 2..p-1 and x' = x^-1 mod p, Np(oo) = Np(ee) - 1, every odd prime p < 2000
+for p in _pr(3, 2000):
+    par = [(x % 2, pow(x, -1, p) % 2) for x in range(2, p)]
+    assert par.count((1, 1)) == par.count((0, 0)) - 1 and len(par) == p - 2
+
+# 9815: the first run of 21 consecutive gaps that are pairwise distinct starts at 69931991 (two pointers over the primes below 2e8)
+G = np.diff(P[P < 80_000_000]).tolist(); seen = {}; lo = 0; first21 = None
+for i, g in enumerate(G):
+    if g in seen and seen[g] >= lo: lo = seen[g] + 1
+    seen[g] = i
+    if i - lo + 1 >= 21: first21 = int(P[i - 20]); break
+assert first21 == 69931991
+del G, seen
+
+# 9816: p = 95521311337: p 7, p 0 7, ..., p 0^9 7 are all prime (BPSW above 2^64; proofs in results/848.md)
+assert all(gmpy2.is_prime(int("95521311337" + "0" * i + "7")) for i in range(10)) and not gmpy2.is_prime(int("95521311337" + "0" * 10 + "7"))
+
+# 9822: no prime below 10^7 is a Kaprekar number (direct split of p^2); R_19 is one by the criterion (cofactor 9 | R_19 - 1)
+def _kap(n):
+    s = n * n; d = 10
+    while d <= s:
+        hi_, lo_ = divmod(s, d)
+        if lo_ and hi_ + lo_ == n: return True
+        d *= 10
+    return False
+assert not any(_kap(int(p)) for p in P[P < 10**7]) and _kap(45) and _kap(297)
+R19 = (10**19 - 1) // 9
+assert gmpy2.is_prime(R19) and (10**19 - 1) % R19 == 0 and (R19 - 1) % ((10**19 - 1) // R19) == 0 and _kap(R19)
+
 print("all FACTS.md checks passed")
