@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 32 answered, 1210 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 33 answered, 1209 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -983,7 +983,7 @@
 | [977](https://www.primepuzzles.net/puzzles/puzz_977.htm) | A special set of primes. | open |
 | [978](https://www.primepuzzles.net/puzzles/puzz_978.htm) | Improve this curio | open |
 | [979](https://www.primepuzzles.net/puzzles/puzz_979.htm) | Primes and sum of repunits | open |
-| [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | The "Commas" sequence. | open |
+| [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | The "Commas" sequence. | [answered](../results/980.md) |
 | [981](https://www.primepuzzles.net/puzzles/puzz_981.htm) | Redo Puzzle 957 for titanic prime solutions | open |
 | [982](https://www.primepuzzles.net/puzzles/puzz_982.htm) | Home primes second class | open |
 | [983](https://www.primepuzzles.net/puzzles/puzz_983.htm) | Happy New Year 2020 | open |
