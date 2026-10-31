@@ -13,143 +13,143 @@ Submissions:
 #### Puzzle records beaten (3)
 | # | Puzzle | Current record | Our result |
 |---|---|---|---|
-| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: p + q = 95521311344](results/848.md) |
-| [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
-| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
+| [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: p + q = 95521311344](writeup/848.md) |
+| [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](writeup/868.md) |
+| [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](writeup/882.md) |
 
 #### Puzzles solved/answered (41)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
-| [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
-| [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Extend the tables of first N distinct / increasing / decreasing consecutive gaps | distinct table stops at N = 20, then N = 36 | [N = 21–35 published (Gusev's unpublished 2001 values, recomputed, minimal); none of 37 / 15 / 14 below 1.01·10¹³](results/11.md) |
-| [24](https://www.primepuzzles.net/puzzles/puzz_024.htm) | How fortunate was Brennen to find 50006393431 (prime in bases 2..9 read as decimal)? Base 12? | no estimate | [about 20 % (calibrated sieve model); base 12 expected near 10¹⁸](results/24.md) |
-| [36](https://www.primepuzzles.net/problems/prob_036.htm) | Problem 36: k·2ⁿ ± 1 both composite for all even (or all odd) n? Why the parity bias? | no answer | [yes, 93-digit k (covering proof); bias explained](results/prob-36.md) |
-| [41](https://www.primepuzzles.net/puzzles/puzz_041.htm) | F1: why only two palindromes \|A − Rev(A)\| for anagrams of 1..9? I: why are all A/9 palindromes composite? | no answers | [proved: four digit differences; A/9 has 8 digits](results/41.md) |
-| [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | Q7: why do the two-way GMN primes end in 1? | only a pointer to A057896 | [proved: 1 or 7 forced, 7 only for 7](results/61.md) |
-| [69](https://www.primepuzzles.net/problems/prob_069.htm) | Problem 69: a Brier number whose covering sets A and B are disjoint? | none known; 3 always shared | [yes: a 230-digit k (covering proof)](results/prob-69.md) |
-| [92](https://www.primepuzzles.net/problems/prob_092.htm) | Problem 92 Q1: Sierpinski or Riesel integers with more than 4 covering sets? | 4 (Gurisatti) | [8 for each (253 digits); 5 with a 27-digit k](results/prob-92.md) |
-| [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](results/93.md) |
-| [115](https://www.primepuzzles.net/puzzles/puzz_115.htm) | Q2: are the primes whose square uses at most two digits finite? | searched to 10⁴⁸, no argument | [heuristically finite: 2·10⁻¹⁰ expected above 10⁴⁸; only 8 digit pairs possible](results/115.md) |
-| [221](https://www.primepuzzles.net/puzzles/puzz_221.htm) | Q2: next terms of 2, 7, 13, 43, 103, … (no sum of two or more terms prime) | a(9) = 7338823 | [a(10) = 42939980423 (OEIS), verified; a(11) ≈ 10¹⁵ (heuristic)](results/221.md) |
-| [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Q1: more terms of A059754 (first runs of n consecutive Smith numbers) | stops at a(7) = 164736913905 | [a(8) = 8090674745553 (Alekseyev 2010, OEIS), verified](results/247.md) |
-| [319](https://www.primepuzzles.net/puzzles/puzz_319.htm) | How accurate are Morawetz's four approximations to π(n), and how were they derived? | accuracy at 10¹⁴; "I don't know how they were derived" | [three-term approximants of li's series (Catalan, geometric); errors to 10²²](results/319.md) |
-| [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](results/336.md) |
-| [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Next N after 462 with d + N/d, \|d − N/d\| all 1 or prime | 462 \| N proved; "vicious cycle" sketched | [none below 10¹⁰⁷⁹: all primes ≡ 3 (mod 4) below 5000 divide N (proof)](results/360.md) |
-| [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [exact gap law (Volpatti's qualitative answer on 952)](results/374.md) |
-| [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Are the variations #1–#3 of 'add 2 to any digit' finite or infinite? Larger solutions? | largest 7134354660741 (#2), 92997492273 (#3) | [#2, #3 complete to 10¹³ (exhaustive); heuristically finite, 0.12 expected beyond](results/377.md) |
-| [418](https://www.primepuzzles.net/puzzles/puzz_418.htm) | Honaker's ratio: ever an integer? can it drop below 3 again, or equal 4? | → 3; not an odd integer; last two open | [3 < a(n) < 4 for n ≥ 10: never an integer (proof)](results/418.md) |
-| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |
-| [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
-| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](results/542.md) |
-| [685](https://www.primepuzzles.net/puzzles/puzz_685.htm) | Q3: can 1..N be ordered with odd composite neighbour sums for every N ≥ 14? | computed to N < 20000, no proof (Vantieghem) | [yes: periodic mod-30 construction (proof)](results/685.md) |
-| [691](https://www.primepuzzles.net/puzzles/puzz_691.htm) | Meisami's conjecture 2: for large k, the k-th differences of the primes have no two equal terms? | open | [false for every k (proof); e.g. 220 twice in D₉](results/691.md) |
-| [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | Which p^a = q^b + r^c·s^d over {2,3,5,7} have no solution? | a computer table, no proof (Vantieghem) | [exactly two (proof); lists complete to exponent 150](results/765.md) |
-| [788](https://www.primepuzzles.net/puzzles/puzz_788.htm) | Q2: is the sequence P&p(i)²&RP finite or infinite? | no answer | [finite: no P for k ≥ 169 (mod-7 covering)](results/788.md) |
-| [804](https://www.primepuzzles.net/puzzles/puzz_804.htm) | Q2: why do all P with (P+1)²+1 prime and Q² + Rev(Q²) palindromic end in 9? | 1, 7 ruled out (5 \| Q); 3 left open | [3 needs a rigid digit pattern (proof); no-carry observation proved](results/804.md) |
-| [819](https://www.primepuzzles.net/puzzles/puzz_819.htm) | Q2: is f with f(f(n)) = p(n) unique? Prove it | a second g exists (Vantieghem) | [all solutions = pairings of Pebody's rows with orientations: 2^ℵ₀ (proof)](results/819.md) |
-| [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Q2: why does 2^n + 1 start such long runs of equal Collatz height? | Vantieghem doubts the form is special | [explained: exact reduction to plateaus of A + H(3^A + 1)](results/851.md) |
-| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
-| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
-| [937](https://www.primepuzzles.net/puzzles/puzz_937.htm) | Is Vantieghem's m(n) = X·p(n+1) − p(n)# always 1 or prime? | checked to n = 150000 | [explained: first rough term of a progression; a counterexample needs a Jacobsthal covering (chance ≈ e^−78000)](results/937.md) |
-| [938](https://www.primepuzzles.net/puzzles/puzz_938.htm) | Extend both soothsayer sequences (digits = number of prime factors of the next k integers) | II stops at 3624263478 | [II: five more terms (Resta 2019, OEIS A323084), verified; ~1 term per digit length](results/938.md) |
-| [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | Why do D = 15, 65 and 4, 24, …, 84 never occur in A121805, and why are 5, 55 most common? | Q3 answered; Q1, Q2 no replies | [explained: block orbits + a parity invariant](results/980.md) |
-| [997](https://www.primepuzzles.net/puzzles/puzz_997.htm) | Q3/Q4: prove p(n+2) − p(n+1) + p(n) − ⌊p(n+2)p(n)/p(n+1)⌋ = 1 for all n except 3 and 8 | reduced to g(n)·g(n+1) < p(n+1); checked n ≤ 30; conditional on Oppermann | [proved for p ≤ 4·10¹⁸; failures O(X^0.07) beyond](results/997.md) |
-| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others (proof)](results/1035.md) |
-| [1064](https://www.primepuzzles.net/puzzles/puzz_1064.htm) | Q3/Q4: are all prime factors of gcd(2^p+1, 3^p+1) ≡ 1 (mod 6p)? Is the gcd always 1 or prime? | ≡ 1 (mod 2p) proved; mod 6p conjectured; 9 composites | [≡ 1 (mod 6p) proved; composites heuristically infinite](results/1064.md) |
-| [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Q1: d(p−1) prime ⇔ σ(p−1) prime? | one direction proved (Casini) | [converse reduced: true except possibly p = F_(2^n), n ≥ 33](results/1136.md) |
-| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | Why does the prime-representing constant 2.92005… give every prime? | no contributions | [proved: telescoping plus Bertrand, 1 < tail < 2](results/1142.md) |
-| [1157](https://www.primepuzzles.net/puzzles/puzz_1157.htm) | Prove ⌊(p²+q²)/(2p)⌋ = q (p ≠ 7), ⌊(p²+q²)/(2q)⌋ = p, ⌊(p²+q²)/(p+q)⌋ = (p+q)/2 | reduced to gap bounds; "no proof" | [all three proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](results/1157.md) |
-| [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | Q2: generalise the prime-F rule to F(p,q) = ⌊q²/p⌋; why is T(p) empty for p = 2, 3, 5, 11? | computed only | [proved: prime F needs an even non-square residue; none exists only for 2, 3, 5, 11](results/1181.md) |
-| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](results/1238.md) |
+| [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](writeup/prob-7.md) |
+| [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Extend the tables of first N distinct / increasing / decreasing consecutive gaps | distinct table stops at N = 20, then N = 36 | [N = 21–35 published (Gusev's unpublished 2001 values, recomputed, minimal); none of 37 / 15 / 14 below 1.01·10¹³](writeup/11.md) |
+| [24](https://www.primepuzzles.net/puzzles/puzz_024.htm) | How fortunate was Brennen to find 50006393431 (prime in bases 2..9 read as decimal)? Base 12? | no estimate | [about 20 % (calibrated sieve model); base 12 expected near 10¹⁸](writeup/24.md) |
+| [36](https://www.primepuzzles.net/problems/prob_036.htm) | Problem 36: k·2ⁿ ± 1 both composite for all even (or all odd) n? Why the parity bias? | no answer | [yes, 93-digit k (covering proof); bias explained](writeup/prob-36.md) |
+| [41](https://www.primepuzzles.net/puzzles/puzz_041.htm) | F1: why only two palindromes \|A − Rev(A)\| for anagrams of 1..9? I: why are all A/9 palindromes composite? | no answers | [proved: four digit differences; A/9 has 8 digits](writeup/41.md) |
+| [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | Q7: why do the two-way GMN primes end in 1? | only a pointer to A057896 | [proved: 1 or 7 forced, 7 only for 7](writeup/61.md) |
+| [69](https://www.primepuzzles.net/problems/prob_069.htm) | Problem 69: a Brier number whose covering sets A and B are disjoint? | none known; 3 always shared | [yes: a 230-digit k (covering proof)](writeup/prob-69.md) |
+| [92](https://www.primepuzzles.net/problems/prob_092.htm) | Problem 92 Q1: Sierpinski or Riesel integers with more than 4 covering sets? | 4 (Gurisatti) | [8 for each (253 digits); 5 with a 27-digit k](writeup/prob-92.md) |
+| [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](writeup/93.md) |
+| [115](https://www.primepuzzles.net/puzzles/puzz_115.htm) | Q2: are the primes whose square uses at most two digits finite? | searched to 10⁴⁸, no argument | [heuristically finite: 2·10⁻¹⁰ expected above 10⁴⁸; only 8 digit pairs possible](writeup/115.md) |
+| [221](https://www.primepuzzles.net/puzzles/puzz_221.htm) | Q2: next terms of 2, 7, 13, 43, 103, … (no sum of two or more terms prime) | a(9) = 7338823 | [a(10) = 42939980423 (OEIS), verified; a(11) ≈ 10¹⁵ (heuristic)](writeup/221.md) |
+| [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Q1: more terms of A059754 (first runs of n consecutive Smith numbers) | stops at a(7) = 164736913905 | [a(8) = 8090674745553 (Alekseyev 2010, OEIS), verified](writeup/247.md) |
+| [319](https://www.primepuzzles.net/puzzles/puzz_319.htm) | How accurate are Morawetz's four approximations to π(n), and how were they derived? | accuracy at 10¹⁴; "I don't know how they were derived" | [three-term approximants of li's series (Catalan, geometric); errors to 10²²](writeup/319.md) |
+| [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](writeup/336.md) |
+| [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Next N after 462 with d + N/d, \|d − N/d\| all 1 or prime | 462 \| N proved; "vicious cycle" sketched | [none below 10¹⁰⁷⁹: all primes ≡ 3 (mod 4) below 5000 divide N (proof)](writeup/360.md) |
+| [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [exact gap law (Volpatti's qualitative answer on 952)](writeup/374.md) |
+| [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Are the variations #1–#3 of 'add 2 to any digit' finite or infinite? Larger solutions? | largest 7134354660741 (#2), 92997492273 (#3) | [#2, #3 complete to 10¹³ (exhaustive); heuristically finite, 0.12 expected beyond](writeup/377.md) |
+| [418](https://www.primepuzzles.net/puzzles/puzz_418.htm) | Honaker's ratio: ever an integer? can it drop below 3 again, or equal 4? | → 3; not an odd integer; last two open | [3 < a(n) < 4 for n ≥ 10: never an integer (proof)](writeup/418.md) |
+| [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](writeup/455.md) |
+| [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](writeup/489.md) |
+| [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](writeup/542.md) |
+| [685](https://www.primepuzzles.net/puzzles/puzz_685.htm) | Q3: can 1..N be ordered with odd composite neighbour sums for every N ≥ 14? | computed to N < 20000, no proof (Vantieghem) | [yes: periodic mod-30 construction (proof)](writeup/685.md) |
+| [691](https://www.primepuzzles.net/puzzles/puzz_691.htm) | Meisami's conjecture 2: for large k, the k-th differences of the primes have no two equal terms? | open | [false for every k (proof); e.g. 220 twice in D₉](writeup/691.md) |
+| [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | Which p^a = q^b + r^c·s^d over {2,3,5,7} have no solution? | a computer table, no proof (Vantieghem) | [exactly two (proof); lists complete to exponent 150](writeup/765.md) |
+| [788](https://www.primepuzzles.net/puzzles/puzz_788.htm) | Q2: is the sequence P&p(i)²&RP finite or infinite? | no answer | [finite: no P for k ≥ 169 (mod-7 covering)](writeup/788.md) |
+| [804](https://www.primepuzzles.net/puzzles/puzz_804.htm) | Q2: why do all P with (P+1)²+1 prime and Q² + Rev(Q²) palindromic end in 9? | 1, 7 ruled out (5 \| Q); 3 left open | [3 needs a rigid digit pattern (proof); no-carry observation proved](writeup/804.md) |
+| [819](https://www.primepuzzles.net/puzzles/puzz_819.htm) | Q2: is f with f(f(n)) = p(n) unique? Prove it | a second g exists (Vantieghem) | [all solutions = pairings of Pebody's rows with orientations: 2^ℵ₀ (proof)](writeup/819.md) |
+| [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Q2: why does 2^n + 1 start such long runs of equal Collatz height? | Vantieghem doubts the form is special | [explained: exact reduction to plateaus of A + H(3^A + 1)](writeup/851.md) |
+| [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](writeup/870.md) |
+| [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](writeup/conj-80.md) |
+| [937](https://www.primepuzzles.net/puzzles/puzz_937.htm) | Is Vantieghem's m(n) = X·p(n+1) − p(n)# always 1 or prime? | checked to n = 150000 | [explained: first rough term of a progression; a counterexample needs a Jacobsthal covering (chance ≈ e^−78000)](writeup/937.md) |
+| [938](https://www.primepuzzles.net/puzzles/puzz_938.htm) | Extend both soothsayer sequences (digits = number of prime factors of the next k integers) | II stops at 3624263478 | [II: five more terms (Resta 2019, OEIS A323084), verified; ~1 term per digit length](writeup/938.md) |
+| [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | Why do D = 15, 65 and 4, 24, …, 84 never occur in A121805, and why are 5, 55 most common? | Q3 answered; Q1, Q2 no replies | [explained: block orbits + a parity invariant](writeup/980.md) |
+| [997](https://www.primepuzzles.net/puzzles/puzz_997.htm) | Q3/Q4: prove p(n+2) − p(n+1) + p(n) − ⌊p(n+2)p(n)/p(n+1)⌋ = 1 for all n except 3 and 8 | reduced to g(n)·g(n+1) < p(n+1); checked n ≤ 30; conditional on Oppermann | [proved for p ≤ 4·10¹⁸; failures O(X^0.07) beyond](writeup/997.md) |
+| [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others (proof)](writeup/1035.md) |
+| [1064](https://www.primepuzzles.net/puzzles/puzz_1064.htm) | Q3/Q4: are all prime factors of gcd(2^p+1, 3^p+1) ≡ 1 (mod 6p)? Is the gcd always 1 or prime? | ≡ 1 (mod 2p) proved; mod 6p conjectured; 9 composites | [≡ 1 (mod 6p) proved; composites heuristically infinite](writeup/1064.md) |
+| [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Q1: d(p−1) prime ⇔ σ(p−1) prime? | one direction proved (Casini) | [converse reduced: true except possibly p = F_(2^n), n ≥ 33](writeup/1136.md) |
+| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | Why does the prime-representing constant 2.92005… give every prime? | no contributions | [proved: telescoping plus Bertrand, 1 < tail < 2](writeup/1142.md) |
+| [1157](https://www.primepuzzles.net/puzzles/puzz_1157.htm) | Prove ⌊(p²+q²)/(2p)⌋ = q (p ≠ 7), ⌊(p²+q²)/(2q)⌋ = p, ⌊(p²+q²)/(p+q)⌋ = (p+q)/2 | reduced to gap bounds; "no proof" | [all three proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](writeup/1157.md) |
+| [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | Q2: generalise the prime-F rule to F(p,q) = ⌊q²/p⌋; why is T(p) empty for p = 2, 3, 5, 11? | computed only | [proved: prime F needs an even non-square residue; none exists only for 2, 3, 5, 11](writeup/1181.md) |
+| [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](writeup/1238.md) |
 
 #### Conjectures (14)
 | # | Conjecture | Status on the page | Our result |
 |---|---|---|---|
-| [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](results/conj-21.md) |
-| [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](results/conj-39.md) |
-| [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | √((p² + q²)/2 − 1) integer for consecutive primes iff twins | reduced to a gap bound; checked p ≤ 10⁹ (Oakes) | [proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](results/conj-44.md) |
-| [48](https://www.primepuzzles.net/conjectures/conj_048.htm) | Degiorgi: can \|2ⁿ − 3^m\| = 103? Sand's corrected P = A ± B conjecture | open ("I am not able to prove …") | [no (proof); corrected version: 433 has no representation for Q ≤ 31, A ≤ 10¹⁶](results/conj-48.md) |
-| [53](https://www.primepuzzles.net/conjectures/conj_053.htm) | Capelle: ⌊pq/r⌋ = p + q − r for consecutive r < q < p, r > 1327; 18 companion identities; a formula for ⌊pq/r − qr/p⌋? | conditional proof (Firoozbakht's conjecture); companions conjectured | [all 19 proved for r ≤ 4·10¹⁸; ⌊pq/r − qr/p⌋ = 2(p − r) − [p − q > q − r]](results/conj-53.md) |
-| [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305](results/conj-55.md) |
-| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | Consecutive primitive roots for every p > 7 | known for p > 10¹⁹ and by computation | [a theorem (2015)](results/conj-70.md) |
-| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | ∏ 1/(1 − 1/t) over twin primes = π? | no comments | [no: 3.19618 (heuristic)](results/conj-71.md) |
-| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Six inequalities for p_n^(1/n) | only via Firoozbakht's conjecture (to 4·10¹⁸) | [all six proved](results/conj-76.md) |
-| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "certainly true for large n", checked to n = 500,000 | [proved](results/conj-80.md) |
-| [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved](results/conj-99.md) |
-| [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained (Flory 1939)](results/conj-111.md) |
-| [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved](results/conj-112.md) |
-| [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Triangle test: passes iff prime or 9 | tested to 3000 | [false: the prime 3917 fails](results/conj-115.md) |
+| [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](writeup/conj-21.md) |
+| [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](writeup/conj-39.md) |
+| [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | √((p² + q²)/2 − 1) integer for consecutive primes iff twins | reduced to a gap bound; checked p ≤ 10⁹ (Oakes) | [proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](writeup/conj-44.md) |
+| [48](https://www.primepuzzles.net/conjectures/conj_048.htm) | Degiorgi: can \|2ⁿ − 3^m\| = 103? Sand's corrected P = A ± B conjecture | open ("I am not able to prove …") | [no (proof); corrected version: 433 has no representation for Q ≤ 31, A ≤ 10¹⁶](writeup/conj-48.md) |
+| [53](https://www.primepuzzles.net/conjectures/conj_053.htm) | Capelle: ⌊pq/r⌋ = p + q − r for consecutive r < q < p, r > 1327; 18 companion identities; a formula for ⌊pq/r − qr/p⌋? | conditional proof (Firoozbakht's conjecture); companions conjectured | [all 19 proved for r ≤ 4·10¹⁸; ⌊pq/r − qr/p⌋ = 2(p − r) − [p − q > q − r]](writeup/conj-53.md) |
+| [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305](writeup/conj-55.md) |
+| [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | Consecutive primitive roots for every p > 7 | known for p > 10¹⁹ and by computation | [a theorem (2015)](writeup/conj-70.md) |
+| [71](https://www.primepuzzles.net/conjectures/conj_071.htm) | ∏ 1/(1 − 1/t) over twin primes = π? | no comments | [no: 3.19618 (heuristic)](writeup/conj-71.md) |
+| [76](https://www.primepuzzles.net/conjectures/conj_076.htm) | Six inequalities for p_n^(1/n) | only via Firoozbakht's conjecture (to 4·10¹⁸) | [all six proved](writeup/conj-76.md) |
+| [80](https://www.primepuzzles.net/conjectures/conj_080.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "certainly true for large n", checked to n = 500,000 | [proved](writeup/conj-80.md) |
+| [99](https://www.primepuzzles.net/conjectures/conj_099.htm) | Strong semiprimes / primes → ln 3 | no contributions | [proved](writeup/conj-99.md) |
+| [111](https://www.primepuzzles.net/conjectures/conj_111.htm) | Shielded primes have density 1/e² | data only, no argument | [explained (Flory 1939)](writeup/conj-111.md) |
+| [112](https://www.primepuzzles.net/conjectures/conj_112.htm) | Lucas–Lehmer type test for 2^k + 3 | no contributions | [proved](writeup/conj-112.md) |
+| [115](https://www.primepuzzles.net/conjectures/conj_115.htm) | Triangle test: passes iff prime or 9 | tested to 3000 | [false: the prime 3917 fails](writeup/conj-115.md) |
 
 ## Results October 2026
 
 #### Puzzle records beaten (36)
 | # | Puzzle | Current record | Our result |
   |---|---|---|---|
-  | [65](https://www.primepuzzles.net/puzzles/puzz_065.htm) | Equal power sums from consecutive primes | degree 3 | [degree 5](results/65.md) |
-  | [87](https://www.primepuzzles.net/puzzles/puzz_087.htm) | Prime magic squares A+B+1 / A+B+C | 1263 / 3327 | [1041 / 789](results/87.md) |
-  | [92](https://www.primepuzzles.net/puzzles/puzz_092.htm) | Pile of prime spheres (n = 5) | total 2,675,763 | [total 16,561](results/92.md) |
-  | [99](https://www.primepuzzles.net/puzzles/puzz_099.htm) | Prime with p² = R(R(p)²) | 50 digits | [3001 digits](results/99.md) |
-  | [134](https://www.primepuzzles.net/puzzles/puzz_134.htm) | Carrousel prime, one active digit | 50 digits | [201 digits](results/134.md) |
-  | [227](https://www.primepuzzles.net/puzzles/puzz_227.htm) | floor(tʲ) prime for j = 1, 2, … | 100 | [239](results/227.md) |
-  | [249](https://www.primepuzzles.net/puzzles/puzz_249.htm) | Pandigital prime magic square, sum | 1530758629047 | [961547036829](results/249.md) |
-  | [307](https://www.primepuzzles.net/puzzles/puzz_307.htm) | Largest Smith number (Costello method) | 7.8M digits | [41M digits](results/307.md) |
-  | [340](https://www.primepuzzles.net/puzzles/puzz_340.htm) | Prime p contained in p² | 1339 digits | [3925 digits](results/340.md) |
-  | [342](https://www.primepuzzles.net/puzzles/puzz_342.htm) | Die of squares with prime corner sums | 1330 | [658](results/342.md) |
-  | [356](https://www.primepuzzles.net/puzzles/puzz_356.htm) | Prime sets with distinct pair sums | 751 / 1409 / 2273 | [661 / 1297 / 2213](results/356.md) |
-  | [359](https://www.primepuzzles.net/puzzles/puzz_359.htm) | First N primes in a circle, no shared digits | 108 | [202 (maximum)](results/359.md) |
-  | [398](https://www.primepuzzles.net/puzzles/puzz_398.htm) | Prime no digit insertion keeps prime | 1000 digits | [1057 digits](results/398.md) |
-  | [419](https://www.primepuzzles.net/puzzles/puzz_419.htm) | σ(N) as a power of its prime sum | P = 31 | [P = 47](results/419.md) |
-  | [438](https://www.primepuzzles.net/puzzles/puzz_438.htm) | Same as 398 | 200 digits | [1057 digits](results/438.md) |
-  | [450](https://www.primepuzzles.net/puzzles/puzz_450.htm) | Consecutive-prime sum with most prime factors | 195,005 | [1,290,006](results/450.md) |
-  | [476](https://www.primepuzzles.net/puzzles/puzz_476.htm) | Odd Collatz terms all prime | 19 | [30](results/476.md) |
-  | [522](https://www.primepuzzles.net/puzzles/puzz_522.htm) | Three runs of consecutive primes | k = 14 | [k = 15](results/522.md) |
-  | [553](https://www.primepuzzles.net/puzzles/puzz_553.htm) | Product of primes = sum p..q | 319 | [333](results/553.md) |
-  | [597](https://www.primepuzzles.net/puzzles/puzz_597.htm) | Prime/semiprime values of a quadratic | 9567 | [9743](results/597.md) |
-  | [607](https://www.primepuzzles.net/puzzles/puzz_607.htm) | Largest prime power missing a digit | 7022 digits | [13.2M digits](results/607.md) |
-  | [808](https://www.primepuzzles.net/puzzles/puzz_808.htm) | Palprime palindromic in many bases | 82 | [227](results/808.md) |
-  | [830](https://www.primepuzzles.net/puzzles/puzz_830.htm) | Minimal N (K = 2012 / 2013) | 4.86·10¹⁴ / 3.87·10¹¹ | [3.58·10¹³ / 1.74·10¹¹](results/830.md) |
-  | [905](https://www.primepuzzles.net/puzzles/puzz_905.htm) | Primes in a row from a recursion | 19 | [28](results/905.md) |
-  | [908](https://www.primepuzzles.net/puzzles/puzz_908.htm) | Descending prime remainders | 14 | [34](results/908.md) |
-  | [957](https://www.primepuzzles.net/puzzles/puzz_957.htm) | Pandigital expression primes | 489–753 digits (957); 1177–10930 (981) | [types b, d: 1685, 2023 digits](results/957.md) |
-  | [1001](https://www.primepuzzles.net/puzzles/puzz_1001.htm) | Anti-divisor ratio Q/P | 4.781 | [5.520](results/1001.md) |
-  | [1028](https://www.primepuzzles.net/puzzles/puzz_1028.htm) | Σ(A·n mod B) prime generator | 41 | [49](results/1028.md) |
-  | [1097](https://www.primepuzzles.net/puzzles/puzz_1097.htm) | Modular prime generator | 65 | [130](results/1097.md) |
-  | [1099](https://www.primepuzzles.net/puzzles/puzz_1099.htm) | Floor-function prime generator | 120 | [570](results/1099.md) |
-  | [1135](https://www.primepuzzles.net/puzzles/puzz_1135.htm) | Primes with no alternating digit parity | 23 | [30](results/1135.md) |
-  | [1190](https://www.primepuzzles.net/puzzles/puzz_1190.htm) | Largest 10-digit Friedman prime | 9999999001 | [9999999967](results/1190.md) |
-  | [1209](https://www.primepuzzles.net/puzzles/puzz_1209.htm) | Unlucky primes in a row | 45 (invalid, really 26) | [34](results/1209.md) |
-  | [1217](https://www.primepuzzles.net/puzzles/puzz_1217.htm) | f(p(n+1), p(n)) prime for successive n | 30,800 | [103,518](results/1217.md) |
-  | [1230](https://www.primepuzzles.net/puzzles/puzz_1230.htm) | Primes with even-length period of 1/p | 29 | [30](results/1230.md) |
-  | [1251](https://www.primepuzzles.net/puzzles/puzz_1251.htm) | Cycles of "add b, take largest prime factor" | 72 | [477](results/1251.md) |
+  | [65](https://www.primepuzzles.net/puzzles/puzz_065.htm) | Equal power sums from consecutive primes | degree 3 | [degree 5](writeup/65.md) |
+  | [87](https://www.primepuzzles.net/puzzles/puzz_087.htm) | Prime magic squares A+B+1 / A+B+C | 1263 / 3327 | [1041 / 789](writeup/87.md) |
+  | [92](https://www.primepuzzles.net/puzzles/puzz_092.htm) | Pile of prime spheres (n = 5) | total 2,675,763 | [total 16,561](writeup/92.md) |
+  | [99](https://www.primepuzzles.net/puzzles/puzz_099.htm) | Prime with p² = R(R(p)²) | 50 digits | [3001 digits](writeup/99.md) |
+  | [134](https://www.primepuzzles.net/puzzles/puzz_134.htm) | Carrousel prime, one active digit | 50 digits | [201 digits](writeup/134.md) |
+  | [227](https://www.primepuzzles.net/puzzles/puzz_227.htm) | floor(tʲ) prime for j = 1, 2, … | 100 | [239](writeup/227.md) |
+  | [249](https://www.primepuzzles.net/puzzles/puzz_249.htm) | Pandigital prime magic square, sum | 1530758629047 | [961547036829](writeup/249.md) |
+  | [307](https://www.primepuzzles.net/puzzles/puzz_307.htm) | Largest Smith number (Costello method) | 7.8M digits | [41M digits](writeup/307.md) |
+  | [340](https://www.primepuzzles.net/puzzles/puzz_340.htm) | Prime p contained in p² | 1339 digits | [3925 digits](writeup/340.md) |
+  | [342](https://www.primepuzzles.net/puzzles/puzz_342.htm) | Die of squares with prime corner sums | 1330 | [658](writeup/342.md) |
+  | [356](https://www.primepuzzles.net/puzzles/puzz_356.htm) | Prime sets with distinct pair sums | 751 / 1409 / 2273 | [661 / 1297 / 2213](writeup/356.md) |
+  | [359](https://www.primepuzzles.net/puzzles/puzz_359.htm) | First N primes in a circle, no shared digits | 108 | [202 (maximum)](writeup/359.md) |
+  | [398](https://www.primepuzzles.net/puzzles/puzz_398.htm) | Prime no digit insertion keeps prime | 1000 digits | [1057 digits](writeup/398.md) |
+  | [419](https://www.primepuzzles.net/puzzles/puzz_419.htm) | σ(N) as a power of its prime sum | P = 31 | [P = 47](writeup/419.md) |
+  | [438](https://www.primepuzzles.net/puzzles/puzz_438.htm) | Same as 398 | 200 digits | [1057 digits](writeup/438.md) |
+  | [450](https://www.primepuzzles.net/puzzles/puzz_450.htm) | Consecutive-prime sum with most prime factors | 195,005 | [1,290,006](writeup/450.md) |
+  | [476](https://www.primepuzzles.net/puzzles/puzz_476.htm) | Odd Collatz terms all prime | 19 | [30](writeup/476.md) |
+  | [522](https://www.primepuzzles.net/puzzles/puzz_522.htm) | Three runs of consecutive primes | k = 14 | [k = 15](writeup/522.md) |
+  | [553](https://www.primepuzzles.net/puzzles/puzz_553.htm) | Product of primes = sum p..q | 319 | [333](writeup/553.md) |
+  | [597](https://www.primepuzzles.net/puzzles/puzz_597.htm) | Prime/semiprime values of a quadratic | 9567 | [9743](writeup/597.md) |
+  | [607](https://www.primepuzzles.net/puzzles/puzz_607.htm) | Largest prime power missing a digit | 7022 digits | [13.2M digits](writeup/607.md) |
+  | [808](https://www.primepuzzles.net/puzzles/puzz_808.htm) | Palprime palindromic in many bases | 82 | [227](writeup/808.md) |
+  | [830](https://www.primepuzzles.net/puzzles/puzz_830.htm) | Minimal N (K = 2012 / 2013) | 4.86·10¹⁴ / 3.87·10¹¹ | [3.58·10¹³ / 1.74·10¹¹](writeup/830.md) |
+  | [905](https://www.primepuzzles.net/puzzles/puzz_905.htm) | Primes in a row from a recursion | 19 | [28](writeup/905.md) |
+  | [908](https://www.primepuzzles.net/puzzles/puzz_908.htm) | Descending prime remainders | 14 | [34](writeup/908.md) |
+  | [957](https://www.primepuzzles.net/puzzles/puzz_957.htm) | Pandigital expression primes | 489–753 digits (957); 1177–10930 (981) | [types b, d: 1685, 2023 digits](writeup/957.md) |
+  | [1001](https://www.primepuzzles.net/puzzles/puzz_1001.htm) | Anti-divisor ratio Q/P | 4.781 | [5.520](writeup/1001.md) |
+  | [1028](https://www.primepuzzles.net/puzzles/puzz_1028.htm) | Σ(A·n mod B) prime generator | 41 | [49](writeup/1028.md) |
+  | [1097](https://www.primepuzzles.net/puzzles/puzz_1097.htm) | Modular prime generator | 65 | [130](writeup/1097.md) |
+  | [1099](https://www.primepuzzles.net/puzzles/puzz_1099.htm) | Floor-function prime generator | 120 | [570](writeup/1099.md) |
+  | [1135](https://www.primepuzzles.net/puzzles/puzz_1135.htm) | Primes with no alternating digit parity | 23 | [30](writeup/1135.md) |
+  | [1190](https://www.primepuzzles.net/puzzles/puzz_1190.htm) | Largest 10-digit Friedman prime | 9999999001 | [9999999967](writeup/1190.md) |
+  | [1209](https://www.primepuzzles.net/puzzles/puzz_1209.htm) | Unlucky primes in a row | 45 (invalid, really 26) | [34](writeup/1209.md) |
+  | [1217](https://www.primepuzzles.net/puzzles/puzz_1217.htm) | f(p(n+1), p(n)) prime for successive n | 30,800 | [103,518](writeup/1217.md) |
+  | [1230](https://www.primepuzzles.net/puzzles/puzz_1230.htm) | Primes with even-length period of 1/p | 29 | [30](writeup/1230.md) |
+  | [1251](https://www.primepuzzles.net/puzzles/puzz_1251.htm) | Cycles of "add b, take largest prime factor" | 72 | [477](writeup/1251.md) |
 
 #### Puzzles solved/answered (25)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
-| [75 Q2](https://www.primepuzzles.net/puzzles/puzz_075.htm) | Smallest palprime with digit sum 2000 | unanswered | [223 digits (PRP)](results/75.md) |
-| [77](https://www.primepuzzles.net/puzzles/puzz_077.htm) | Prime pine with 10 rows | open since 2012 | [first one, 55 primes](results/77.md) |
-| [81 c)](https://www.primepuzzles.net/puzzles/puzz_081.htm) | Least Sophie-Germain magic squares | unanswered | [magic sums 145060413 / 143168367](results/81.md) |
-| [87 Q3](https://www.primepuzzles.net/puzzles/puzz_087.htm) | 4×4 versions | solutions never published | [constants 548 / 570](results/87.md) |
-| [92](https://www.primepuzzles.net/puzzles/puzz_092.htm) | Piles for n = 6, 7 | none listed | [first piles](results/92.md) |
-| [106](https://www.primepuzzles.net/puzzles/puzz_106.htm) | Prime magic squares summing to 2000 | no solutions | [least k = 4, most k = 26](results/106.md) |
-| [134 Q4](https://www.primepuzzles.net/puzzles/puzz_134.htm) | 100-digit carrousel prime, one inactive digit | unanswered | [first example](results/134.md) |
-| [170 Q10](https://www.primepuzzles.net/puzzles/puzz_170.htm) | Prime n with n+1 a base-2 pseudoprime | unanswered | [impossible (proof)](results/170.md) |
-| [172](https://www.primepuzzles.net/puzzles/puzz_172.htm) | Prime rules for K = 9, 10 | 113, 144 found (Kamenetsky, puzzle 914), not proved least | [113 and 144 proved least](results/172.md) |
-| [179 Q1](https://www.primepuzzles.net/puzzles/puzz_179.htm) | Prime alphametic | unanswered | [TROIS + ONZE = SEPT + SEPT](results/179.md) |
-| [189](https://www.primepuzzles.net/puzzles/puzz_189.htm) | Open path cases up to n = 120 | several open | [all settled, threshold 57](results/189.md) |
-| [299 Q2](https://www.primepuzzles.net/puzzles/puzz_299.htm) | Smallest increasing run of 9 | only "≥ 7·10⁸" | [35014031359](results/299.md) |
-| [325 Q4](https://www.primepuzzles.net/puzzles/puzz_325.htm) | Zeisel number with 10,000+ digits | no contribution | [10,008 digits](results/325.md) |
-| [435](https://www.primepuzzles.net/puzzles/puzz_435.htm) | Solve φ(m) + σ(m) = 5m | congruences only (López PDF) | [m = 60493590969525342720](results/435.md) |
-| [458](https://www.primepuzzles.net/puzzles/puzz_458.htm) | Nested prime sets of σ(n), n, φ(n) | unanswered | [explicit n](results/458.md) |
-| [490](https://www.primepuzzles.net/puzzles/puzz_490.htm) | Other odd n with 2ⁿ − 2ᵏ + 1 a square | unanswered | [none (proof)](results/490.md) |
-| [493](https://www.primepuzzles.net/puzzles/puzz_493.htm) | Is pᵖ = xa² + yb² always solvable? | unanswered | [yes (proof)](results/493.md) |
-| [516 Q1](https://www.primepuzzles.net/puzzles/puzz_516.htm) | Other n = P + π(P), P = digit product | no contributions | [59 is the only one (proof)](results/516.md) |
-| [631](https://www.primepuzzles.net/puzzles/puzz_631.htm) | Three prime gaps all arbitrarily large? | no answers | [yes (Shiu's theorem)](results/631.md) |
-| [639](https://www.primepuzzles.net/puzzles/puzz_639.htm) | Composite solutions for every m | no contributions | [yes, under the prime-quadruple conjecture](results/639.md) |
-| [677](https://www.primepuzzles.net/puzzles/puzz_677.htm) | Primes in a row with square sums | no solution | [tried values impossible, range narrowed](results/677.md) |
-| [890 Q1](https://www.primepuzzles.net/puzzles/puzz_890.htm) | Magic square from Pythagorean triples | no contributions | [impossible (proof)](results/890.md) |
-| [1080](https://www.primepuzzles.net/puzzles/puzz_1080.htm) | Third term a(3) | none known | [a(3) ≤ 1.9·10³² (exactly 3 solutions)](results/1080.md) |
-| [1145](https://www.primepuzzles.net/puzzles/puzz_1145.htm) | Covering set behind the listed k | no contributions | [found; listed k is its minimum (bounded search)](results/1145.md) |
-| [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](results/1204.md) |
+| [75 Q2](https://www.primepuzzles.net/puzzles/puzz_075.htm) | Smallest palprime with digit sum 2000 | unanswered | [223 digits (PRP)](writeup/75.md) |
+| [77](https://www.primepuzzles.net/puzzles/puzz_077.htm) | Prime pine with 10 rows | open since 2012 | [first one, 55 primes](writeup/77.md) |
+| [81 c)](https://www.primepuzzles.net/puzzles/puzz_081.htm) | Least Sophie-Germain magic squares | unanswered | [magic sums 145060413 / 143168367](writeup/81.md) |
+| [87 Q3](https://www.primepuzzles.net/puzzles/puzz_087.htm) | 4×4 versions | solutions never published | [constants 548 / 570](writeup/87.md) |
+| [92](https://www.primepuzzles.net/puzzles/puzz_092.htm) | Piles for n = 6, 7 | none listed | [first piles](writeup/92.md) |
+| [106](https://www.primepuzzles.net/puzzles/puzz_106.htm) | Prime magic squares summing to 2000 | no solutions | [least k = 4, most k = 26](writeup/106.md) |
+| [134 Q4](https://www.primepuzzles.net/puzzles/puzz_134.htm) | 100-digit carrousel prime, one inactive digit | unanswered | [first example](writeup/134.md) |
+| [170 Q10](https://www.primepuzzles.net/puzzles/puzz_170.htm) | Prime n with n+1 a base-2 pseudoprime | unanswered | [impossible (proof)](writeup/170.md) |
+| [172](https://www.primepuzzles.net/puzzles/puzz_172.htm) | Prime rules for K = 9, 10 | 113, 144 found (Kamenetsky, puzzle 914), not proved least | [113 and 144 proved least](writeup/172.md) |
+| [179 Q1](https://www.primepuzzles.net/puzzles/puzz_179.htm) | Prime alphametic | unanswered | [TROIS + ONZE = SEPT + SEPT](writeup/179.md) |
+| [189](https://www.primepuzzles.net/puzzles/puzz_189.htm) | Open path cases up to n = 120 | several open | [all settled, threshold 57](writeup/189.md) |
+| [299 Q2](https://www.primepuzzles.net/puzzles/puzz_299.htm) | Smallest increasing run of 9 | only "≥ 7·10⁸" | [35014031359](writeup/299.md) |
+| [325 Q4](https://www.primepuzzles.net/puzzles/puzz_325.htm) | Zeisel number with 10,000+ digits | no contribution | [10,008 digits](writeup/325.md) |
+| [435](https://www.primepuzzles.net/puzzles/puzz_435.htm) | Solve φ(m) + σ(m) = 5m | congruences only (López PDF) | [m = 60493590969525342720](writeup/435.md) |
+| [458](https://www.primepuzzles.net/puzzles/puzz_458.htm) | Nested prime sets of σ(n), n, φ(n) | unanswered | [explicit n](writeup/458.md) |
+| [490](https://www.primepuzzles.net/puzzles/puzz_490.htm) | Other odd n with 2ⁿ − 2ᵏ + 1 a square | unanswered | [none (proof)](writeup/490.md) |
+| [493](https://www.primepuzzles.net/puzzles/puzz_493.htm) | Is pᵖ = xa² + yb² always solvable? | unanswered | [yes (proof)](writeup/493.md) |
+| [516 Q1](https://www.primepuzzles.net/puzzles/puzz_516.htm) | Other n = P + π(P), P = digit product | no contributions | [59 is the only one (proof)](writeup/516.md) |
+| [631](https://www.primepuzzles.net/puzzles/puzz_631.htm) | Three prime gaps all arbitrarily large? | no answers | [yes (Shiu's theorem)](writeup/631.md) |
+| [639](https://www.primepuzzles.net/puzzles/puzz_639.htm) | Composite solutions for every m | no contributions | [yes, under the prime-quadruple conjecture](writeup/639.md) |
+| [677](https://www.primepuzzles.net/puzzles/puzz_677.htm) | Primes in a row with square sums | no solution | [tried values impossible, range narrowed](writeup/677.md) |
+| [890 Q1](https://www.primepuzzles.net/puzzles/puzz_890.htm) | Magic square from Pythagorean triples | no contributions | [impossible (proof)](writeup/890.md) |
+| [1080](https://www.primepuzzles.net/puzzles/puzz_1080.htm) | Third term a(3) | none known | [a(3) ≤ 1.9·10³² (exactly 3 solutions)](writeup/1080.md) |
+| [1145](https://www.primepuzzles.net/puzzles/puzz_1145.htm) | Covering set behind the listed k | no contributions | [found; listed k is its minimum (bounded search)](writeup/1145.md) |
+| [1204](https://www.primepuzzles.net/puzzles/puzz_1204.htm) | Explain the 51.6% | zero answers | [Hardy–Littlewood explanation](writeup/1204.md) |
 
 ## Facts about primes
 [FACTS.md](FACTS.md) collects 200 facts about primes, each with its formula and how we know it: a theorem, our own computation (one pass over all primes below 1.4·10¹¹), or a source in this archive. A few of them:
@@ -167,7 +167,7 @@ Submissions:
 - [IDEAS.txt](IDEAS.txt): contains tricks to try next and open puzzles that look reachable.
 - [FINDINGS.txt](FINDINGS.txt): contains the results that surprised us.
 - [FACTS.md](FACTS.md): a long list of facts about primes (residues, counts, gaps, runs of consecutive primes, formulas, open problems), each with its formula and how we checked it.
-- [writeup/](writeup/INDEX.md): contains our attempts on open puzzles, and an index of all puzzles and conjectures with their status.
+- [writeup/](writeup/INDEX.md): contains all our write-ups (records, answers and attempts on open puzzles), their code and data, and an index of all puzzles and conjectures with their status.
 
 ## Models
 

@@ -54,4 +54,4 @@ Question a) is open. By the Bateman–Horn conjecture the three polynomials p, p
 
 ## Verify it yourself
 
-[`results/code/conj19_verify.py`](../results/code/conj19_verify.py) (under a second) proves p, q and r with the theorems above and checks Korselt's criterion for pqr. With `--pari` it also proves all three with PARI's APR-CL, which takes longer.
+[`writeup/code/conj19_verify.py`](code/conj19_verify.py) (under a second) proves p, q and r with the theorems above and checks Korselt's criterion for pqr. With `--pari` it also proves all three with PARI's APR-CL, which takes longer.

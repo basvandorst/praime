@@ -30,11 +30,11 @@ for row in readme.splitlines():
         if kind is not None:
             kind.add(int(n))
 answered -= beaten
-# Where each README row links to (usually results/N.md; puzzle 900 points to its conjecture write-up).
+# Where each README row links to (usually writeup/N.md; puzzle 900 points to its conjecture write-up).
 target = {}
 for row in readme.splitlines():
     m = re.match(r'\| \[(\d+)[^\]]*\]\(https://www\.primepuzzles\.net/puzzles/', row)
-    t = re.findall(r'\]\((results/[^)]+\.md)\)', row)
+    t = re.findall(r'\]\(writeup/([^)]+\.md)\)', row)
     if m and t:
         target.setdefault(int(m.group(1)), t[-1])
 
@@ -55,7 +55,7 @@ rows = []
 for n in sorted(titles):
     page = 'https://www.primepuzzles.net/puzzles/puzz_%03d.htm' % n
     if n in beaten or n in answered:
-        status = '[%s](../%s)' % ('beaten' if n in beaten else 'answered', target.get(n, 'results/%d.md' % n))
+        status = '[%s](%s)' % ('beaten' if n in beaten else 'answered', target.get(n, '%d.md' % n))
     elif os.path.exists('writeup/%d.md' % n):
         status = '[open](%d.md)' % n
     else:
@@ -72,8 +72,8 @@ with open('writeup/INDEX.md', 'w', encoding='utf-8') as f:
     f.write('\n'.join(rows) + '\n')
 
 
-# Conjectures: status is the first word of the Status line of results/conj-N.md (proved, disproved, explained),
-# 'open' with a link when writeup/conj-N.md holds an attempt.
+# Conjectures: status is the Status line of writeup/conj-N.md up to the first '(' or '·'.
+# A Status line that starts with 'open' marks an attempt; any other status is a result.
 def cname(n):
     t = ctitles[n]
     m = re.match(r'^Conjecture\s*(\d+)', t)
@@ -84,22 +84,22 @@ def cname(n):
     t2 = re.sub(r'^Conjecture\s*\d+\s*[.:-]*\s*', '', t).strip()
     return (t2 or t).replace('|', '\\|')
 
-crows, settled = [], 0
+crows, settled, cattempts = [], 0, 0
 for n in sorted(ctitles):
     page = 'https://www.primepuzzles.net/conjectures/conj_%03d.htm' % n
-    res = 'results/conj-%d.md' % n
-    if os.path.exists(res):
-        m = re.search(r'^\*\*Status:\*\*\s*([a-z][a-z ]*?)\s*(?:\(|·|$)', open(res, encoding='utf-8').read(), re.M)
-        status, settled = '[%s](../%s)' % (m.group(1) if m else 'answered', res), settled + 1
-    elif os.path.exists('writeup/conj-%d.md' % n):
-        status = '[open](conj-%d.md)' % n
-    else:
-        status = 'open'
+    path = 'writeup/conj-%d.md' % n
+    status = 'open'
+    if os.path.exists(path):
+        m = re.search(r'^\*\*Status:\*\*\s*([a-z][a-z ]*?)\s*(?:\(|·|$)', open(path, encoding='utf-8').read(), re.M)
+        word = m.group(1) if m else 'answered'
+        if word.startswith('open'):
+            status, cattempts = '[open](conj-%d.md)' % n, cattempts + 1
+        else:
+            status, settled = '[%s](conj-%d.md)' % (word, n), settled + 1
     crows.append('| [%d](%s) | %s | %s |' % (n, page, cname(n), status))
 
 with open('writeup/INDEX.md', 'a', encoding='utf-8') as f:
     f.write('\n# All conjectures\n\n')
-    cattempts = sum(os.path.exists('writeup/conj-%d.md' % n) and not os.path.exists('results/conj-%d.md' % n) for n in ctitles)
     f.write('%d conjectures: %d with a result of ours (proved, disproved, explained, answered, or a variant settled), '
             '%d open (%d with a write-up of our attempt). Status links go to our write-up.\n\n'
             % (len(ctitles), settled, len(ctitles) - settled, cattempts))
