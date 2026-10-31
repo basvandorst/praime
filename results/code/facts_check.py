@@ -1507,4 +1507,12 @@ assert not any(_kap(int(p)) for p in P[P < 10**7]) and _kap(45) and _kap(297)
 R19 = (10**19 - 1) // 9
 assert gmpy2.is_prime(R19) and (10**19 - 1) % R19 == 0 and (R19 - 1) % ((10**19 - 1) // R19) == 0 and _kap(R19)
 
+# 9823: every prime factor q = 1 + d p of gcd(2^p + 1, 3^p + 1), odd prime p < 3000: 6 | d, q = 1, 19 (mod 24), d != 4 (mod 8), d = 2 (mod 4) => p = d/2 (mod 4)
+from sympy import factorint as _fi
+for p in _pr(3, 3000):
+    for q in _fi(int(gmpy2.gcd(gmpy2.mpz(2)**p + 1, gmpy2.mpz(3)**p + 1))):
+        d, r = divmod(q - 1, int(p))
+        assert r == 0 and d % 6 == 0 and q % 24 in (1, 19) and d % 8 != 4 and (d % 4 != 2 or p % 4 == (d // 2) % 4)
+assert gmpy2.gcd(gmpy2.mpz(2)**2243399 + 1, gmpy2.mpz(3)**2243399 + 1) == 53841577 * 174985123
+
 print("all FACTS.md checks passed")

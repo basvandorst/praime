@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 50 answered, 1192 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 51 answered, 1191 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1067,7 +1067,7 @@
 | [1061](https://www.primepuzzles.net/puzzles/puzz_1061.htm) | Consecutive numbers and the quantity of distinct prime factors | open |
 | [1062](https://www.primepuzzles.net/puzzles/puzz_1062.htm) | Consecutive numbers and the quantity of distinct prime factors-II | open |
 | [1063](https://www.primepuzzles.net/puzzles/puzz_1063.htm) | A subset of A289351 | open |
-| [1064](https://www.primepuzzles.net/puzzles/puzz_1064.htm) | GCD(2^p+1,3^p+1) | open |
+| [1064](https://www.primepuzzles.net/puzzles/puzz_1064.htm) | GCD(2^p+1,3^p+1) | [answered](../results/1064.md) |
 | [1065](https://www.primepuzzles.net/puzzles/puzz_1065.htm) | A larger integer than 45 such that... | open |
 | [1066](https://www.primepuzzles.net/puzzles/puzz_1066.htm) | 4 consectuive triangulatr and sphenic numbers | open |
 | [1067](https://www.primepuzzles.net/puzzles/puzz_1067.htm) | Primes in a square such that... | open |

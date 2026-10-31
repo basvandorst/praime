@@ -27,6 +27,9 @@ General tricks to try first
 - "True for n large enough" becomes a proof with an explicit theorem: Bennett-Martin-O'Bryant-Rechnitzer (2018) give |theta(x;q,a) - x/phi(q)| < x/(160 ln x) for 3 <= q <= 10^5, x >= 8e9. Add Brun-Titchmarsh (Montgomery-Vaughan) for prime-power moduli and sieve below 8e9 (conjecture 80).
 - A greedy process driven by random-looking weights is often a classic model. "Remove neighbours in order of gap" is Flory's dimer adsorption, density e^-2 (conjecture 111).
 
+Method (user tip, 31 Oct 2026): drill down. Write the problem as a chain of claims down to the lowest level; prove or check each link on exact data before using it; only then let a model predict, calibrated link by link (1064: q | G(p) -> 2p | q-1 -> -3 QR -> 6p | q-1 -> mod 8 rule -> p mod 4 rule -> pair model). No brute force.
+- 1064 pattern: q | gcd(a^p + 1, b^p + 1) iff q = 1 + dp with -a, -b both d-th power residues. Quadratic characters of -a, -b then force congruences on q (here mod 24) and tie d to p mod 4. The same works for gcd(a^n - 1, b^n - 1) and any pair of bases; pairs of factor types that need opposite p classes never co-occur, which shapes the composite counts.
+
 Open targets that look reachable
 - 1257 Q1: the next n with 2^n - 7 prime. Search only the 8 allowed classes mod 60, sieve deep, then PRP test. This needs days of PRP tests, not days of thinking.
 - 1139 variants: other "irregular" rules. Ask which divisor rules give odd values for all n, as we did for halving. Then reuse the two-forms picture.
