@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 12 with a result of ours (proved, disproved, explained, answered, or a variant settled), 103 open (3 with a write-up of our attempt). Status links go to our write-up.
+115 conjectures: 13 with a result of ours (proved, disproved, explained, answered, or a variant settled), 102 open (3 with a write-up of our attempt). Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1338,7 +1338,7 @@
 | [41](https://www.primepuzzles.net/conjectures/conj_041.htm) | Pe's Conjecture | open |
 | [42](https://www.primepuzzles.net/conjectures/conj_042.htm) | Severini's conjecture | open |
 | [43](https://www.primepuzzles.net/conjectures/conj_043.htm) | Three consecutive primes | open |
-| [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | A property of prime twins, only? | open |
+| [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | A property of prime twins, only? | [answered](../results/conj-44.md) |
 | [45](https://www.primepuzzles.net/conjectures/conj_045.htm) | Even numbers as sum of 4 twin primes. | open |
 | [46](https://www.primepuzzles.net/conjectures/conj_046.htm) | P-Q=R-S | open |
 | [47](https://www.primepuzzles.net/conjectures/conj_047.htm) | P=2P1 + 3P2 | open |
