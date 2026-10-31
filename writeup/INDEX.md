@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 36 answered, 1206 open (4 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 37 answered, 1205 open (4 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -807,7 +807,7 @@
 | [801](https://www.primepuzzles.net/puzzles/puzz_801.htm) | A nice stepladder of primes | open |
 | [802](https://www.primepuzzles.net/puzzles/puzz_802.htm) | A follow up to Puzzle 801 | open |
 | [803](https://www.primepuzzles.net/puzzles/puzz_803.htm) | Panprimmatics | open |
-| [804](https://www.primepuzzles.net/puzzles/puzz_804.htm) | Palindromes and primes | open |
+| [804](https://www.primepuzzles.net/puzzles/puzz_804.htm) | Palindromes and primes | [answered](../results/804.md) |
 | [805](https://www.primepuzzles.net/puzzles/puzz_805.htm) | Prime gaps containing... | open |
 | [806](https://www.primepuzzles.net/puzzles/puzz_806.htm) | Extended n-Parasitic numbers | open |
 | [807](https://www.primepuzzles.net/puzzles/puzz_807.htm) | Symmetrical compositions of twin primes | open |
