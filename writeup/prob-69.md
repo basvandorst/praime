@@ -35,4 +35,4 @@ The k found is not claimed to be the smallest such number.
 
 ## Verify it yourself
 
-`writeup/code/prob69_brier.py writeup/data/prob69_cover.json` rebuilds k from the covering. It checks that A and B are disjoint sets of primes, that the orders are right, and that every residue n mod 24 and every residue n mod 5040 is covered. `writeup/code/prob69_cover.py` finds the two coverings.
+[`writeup/code/prob69_brier.py`](code/prob69_brier.py) [`writeup/data/prob69_cover.json`](data/prob69_cover.json) rebuilds k from the covering. It checks that A and B are disjoint sets of primes, that the orders are right, and that every residue n mod 24 and every residue n mod 5040 is covered. [`writeup/code/prob69_cover.py`](code/prob69_cover.py) finds the two coverings.

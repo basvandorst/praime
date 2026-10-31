@@ -58,5 +58,5 @@ The Liskovets–Gallot numbers are the limit of this effect: they are the k for 
 
 | script | what it does |
 |---|---|
-| `writeup/code/prob36_q4.py` | builds both coverings and both k, and checks every class of m mod 12 and mod 720 |
-| `writeup/code/prob36_bias.py 55440` | computes the joint survival and the predictions |
+| [`writeup/code/prob36_q4.py`](code/prob36_q4.py) | builds both coverings and both k, and checks every class of m mod 12 and mod 720 |
+| [`writeup/code/prob36_bias.py`](code/prob36_bias.py) `55440` | computes the joint survival and the predictions |

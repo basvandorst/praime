@@ -43,7 +43,7 @@ Example p = 13: ee = 3, oo = 2, op = 6, and 3 + 2 + 6 = 11 = p − 2.
 
 ## Verify it yourself
 
-`writeup/code/prob7_verify.py` does the following:
+[`writeup/code/prob7_verify.py`](code/prob7_verify.py) does the following:
 
 - checks Np(all) = p − 2, Np(oo) = Np(ee) − 1 and that Np(op) is even, for every odd prime p < 5000;
 - checks the involution facts for each x;

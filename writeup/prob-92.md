@@ -45,7 +45,7 @@ Our tool reproduces Gurisatti's 4 sets for her number. Among primes below 2Â·10â
 7. {23, 67, 89, 353, 397, 683, 2113, 7393, 20857, 312709, 599479, 4327489};
 8. {53, 79, 157, 313, 937, 1249, 1613, 2731, 3121, 4993, 6553, 8191, 21841, 86113, 94849, 121369, 858001}.
 
-The numbers k are in `writeup/data/prob92_k_S.txt` and `prob92_k_R.txt`.
+The numbers k are in [`writeup/data/prob92_k_S.txt`](data/prob92_k_S.txt) and `prob92_k_R.txt`.
 
 **Five sets with 27 digits.** Keep Gurisatti's Sierpinski number modulo her 12 primes, add tail 4, and take the least odd k in the resulting class modulo the product of the 17 primes: k = 660664662814032650416080443. Its five minimal covering sets are her four plus {3, 5, 7, 13, 11, 31, 41, 151, 331}. This is not claimed to be the least such k (puzzle 1279, Q4), but it is far below the 253-digit construction.
 

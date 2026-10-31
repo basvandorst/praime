@@ -34,4 +34,4 @@ A lower bound for |n·ln ε_a − m·ln ε_b − c|, from Laurent's theorem on l
 
 ## Verify it yourself
 
-`writeup/code/prob88_pell.py` checks the fundamental solutions and scans n ≤ 10⁶. It takes about 20 minutes.
+[`writeup/code/prob88_pell.py`](code/prob88_pell.py) checks the fundamental solutions and scans n ≤ 10⁶. It takes about 20 minutes.

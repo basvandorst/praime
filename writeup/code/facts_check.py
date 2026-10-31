@@ -1542,4 +1542,31 @@ _T = _S[2 * _n - 1] - _S[_n - 1]
 assert np.all(_T[9:] > 3 * _S[_n - 1][9:]) and np.all(_T[9:] < 4 * _S[_n - 1][9:]) and _T[8] > 4 * _S[8]
 del _S, _n, _T
 
+# 9828: k = 660664662814032650416080443 has the 5 covering sets {3,5,7,13} + {17,241}, {97,241,257}, {19,37,73}, {19,37,109}, {11,31,41,151,331}
+_k5 = 660664662814032650416080443
+def _cls5(p):
+    e = n_order(2, p); t = (-pow(_k5, -1, p)) % p; x = 1
+    for r in range(e):
+        if x == t: return e, r
+        x = x * 2 % p
+def _cov5(ps):
+    m = np.zeros(720720, bool)
+    for p in ps:
+        c = _cls5(p)
+        if c is None: return False
+        m[c[1]::c[0]] = True
+    return m.all()
+for _S in [(3,5,7,13,17,241), (3,5,7,13,97,241,257), (3,5,7,13,19,37,73), (3,5,7,13,19,37,109), (3,5,7,13,11,31,41,151,331)]:
+    assert _cov5(_S) and all(not _cov5([q for q in _S if q != p]) for p in _S)
+
+# 9830: |2^n - 3^m| != 103 and 2^n + 3^m != 103, 2^n 3^m != 102, 104 (n < 300, m < 200)
+assert not any(abs(2**n - 3**m) == 103 or 2**n + 3**m == 103 or 2**n * 3**m in (102, 104) for n in range(300) for m in range(200))
+
+# 9831: |2 AS(p_n) - p_n| < 8 sqrt(p_n) for 1000 <= n <= 2e6 (AS(p_n) = p_n - AS(p_(n-1)))
+_a = np.empty(2_000_000, np.int64); _s = 0
+for _i, _p in enumerate(P[:2_000_000].tolist()):
+    _s = _p - _s; _a[_i] = _s
+assert np.all(np.abs(2 * _a[999:] - P[999:2_000_000]) < 8 * np.sqrt(P[999:2_000_000]))
+del _a
+
 print("all FACTS.md checks passed")
