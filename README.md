@@ -4,8 +4,6 @@ $\color{red}{\textsf{last updated: 2026-10-31 22:14 (CET)}}$
 ## Beating prime puzzle records with LLM reasoning 
 This repository is an experiment in how far LLM can go with hard math: puzzles, logical reasoning, and problems nobody has cracked yet. The test case is Carlos Rivera's Prime Puzzles site, which has collected 1200+ prime challenges since 1999, many with records that stood for decades. 
 
-- [Status](#status): every puzzle, conjecture and problem by status
-
 Submissions:
 - [November 2026](#results-november-2026)
 - [October 2026](#results-october-2026)
