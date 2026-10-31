@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 56 answered, 1189 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 57 answered, 1188 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -322,7 +322,7 @@
 | [316](https://www.primepuzzles.net/puzzles/puzz_316.htm) | Divide a square of primes. | open |
 | [317](https://www.primepuzzles.net/puzzles/puzz_317.htm) | Two dimensional constellation of primes | open |
 | [318](https://www.primepuzzles.net/puzzles/puzz_318.htm) | 31 = sigma(16) = sigma(25) | open |
-| [319](https://www.primepuzzles.net/puzzles/puzz_319.htm) | Approximations to π(n) | open |
+| [319](https://www.primepuzzles.net/puzzles/puzz_319.htm) | Approximations to π(n) | [answered](../results/319.md) |
 | [320](https://www.primepuzzles.net/puzzles/puzz_320.htm) | Dealing with primorials | open |
 | [321](https://www.primepuzzles.net/puzzles/puzz_321.htm) | Primes type n^4+4 | open |
 | [322](https://www.primepuzzles.net/puzzles/puzz_322.htm) | Primeval primes as sum of primeval primes | open |
