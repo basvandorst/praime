@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 47 answered, 1195 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 48 answered, 1194 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -27,7 +27,7 @@
 | [21](https://www.primepuzzles.net/puzzles/puzz_021.htm) | Happy primes | open |
 | [22](https://www.primepuzzles.net/puzzles/puzz_022.htm) | Primes & Persistence | open |
 | [23](https://www.primepuzzles.net/puzzles/puzz_023.htm) | Pal-primes adding consecutive primes | open |
-| [24](https://www.primepuzzles.net/puzzles/puzz_024.htm) | Primes in several bases | open |
+| [24](https://www.primepuzzles.net/puzzles/puzz_024.htm) | Primes in several bases | [answered](../results/24.md) |
 | [25](https://www.primepuzzles.net/puzzles/puzz_025.htm) | Composed primes (by G.L. Honaker, Jr. ) | open |
 | [26](https://www.primepuzzles.net/puzzles/puzz_026.htm) | Honaker & Jud. McCranie puzzle | open |
 | [27](https://www.primepuzzles.net/puzzles/puzz_027.htm) | Heinz Rectangles. | open |

@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 12:27 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 12:32 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,11 +17,12 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (28)
+#### Answers to open questions (29)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
 | [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Extend the tables of first N distinct / increasing / decreasing consecutive gaps | distinct table stops at N = 20, then N = 36 | [N = 21–35 new; none of 37 / 15 / 14 below 1.01·10¹³](results/11.md) |
+| [24](https://www.primepuzzles.net/puzzles/puzz_024.htm) | How fortunate was Brennen to find 50006393431 (prime in bases 2..9 read as decimal)? Base 12? | no estimate | [about 20 % (calibrated sieve model); base 12 expected near 10¹⁸](results/24.md) |
 | [36](https://www.primepuzzles.net/problems/prob_036.htm) | Problem 36: k·2ⁿ ± 1 both composite for all even (or all odd) n? Why the parity bias? | no answer | [yes, 93-digit k (covering proof); bias explained](results/prob-36.md) |
 | [41](https://www.primepuzzles.net/puzzles/puzz_041.htm) | F1: why only two palindromes \|A − Rev(A)\| for anagrams of 1..9? I: why are all A/9 palindromes composite? | no answers | [proved: four digit differences; A/9 has 8 digits](results/41.md) |
 | [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | Q7: why do the two-way GMN primes end in 1? | only a pointer to A057896 | [proved: 1 or 7 forced, 7 only for 7](results/61.md) |
