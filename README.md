@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 15:24 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 15:34 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Puzzles solved/answered (33)
+#### Puzzles solved/answered (34)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -32,6 +32,7 @@ Submissions:
 | [221](https://www.primepuzzles.net/puzzles/puzz_221.htm) | Q2: next terms of 2, 7, 13, 43, 103, … (no sum of two or more terms prime) | a(9) = 7338823 | [a(10) = 42939980423 (OEIS), verified; a(11) ≈ 10¹⁵ (heuristic)](results/221.md) |
 | [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Q1: more terms of A059754 (first runs of n consecutive Smith numbers) | stops at a(7) = 164736913905 | [a(8) = 8090674745553 (Alekseyev 2010, OEIS), verified](results/247.md) |
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](results/336.md) |
+| [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Next N after 462 with d + N/d, \|d − N/d\| all 1 or prime | 462 \| N proved; "vicious cycle" sketched | [none below 10¹⁰⁷⁹: all primes ≡ 3 (mod 4) below 5000 divide N (proof)](results/360.md) |
 | [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [explained: one self number per carry-free block](results/374.md) |
 | [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Are the variations #1–#3 of 'add 2 to any digit' finite or infinite? Larger solutions? | largest 7134354660741 (#2), 92997492273 (#3) | [#2, #3 complete to 10¹³ (exhaustive); heuristically finite, 0.12 expected beyond](results/377.md) |
 | [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |

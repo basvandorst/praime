@@ -1520,4 +1520,8 @@ _g = np.diff(P); _f = np.nonzero(_g[:-1] * _g[1:] >= P[1:-1])[0]
 assert [int(P[i]) for i in _f] == [5, 19] and int(_g.max()) <= 1476
 del _g, _f
 
+# 9825: the N <= 10^4 with d + N/d and |d - N/d| in {1} or prime for all d | N are 2, 6, 30, 42, 462
+from sympy import divisors as _dv
+assert [N for N in range(1, 10**4 + 1) if all(x == 1 or _isp(x) for d in _dv(N) for x in (d + N // d, abs(d - N // d)))] == [2, 6, 30, 42, 462]
+
 print("all FACTS.md checks passed")

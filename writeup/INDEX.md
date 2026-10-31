@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 52 answered, 1190 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 53 answered, 1189 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -363,7 +363,7 @@
 | [357](https://www.primepuzzles.net/puzzles/puzz_357.htm) | Consecutive reversible primes | open |
 | [358](https://www.primepuzzles.net/puzzles/puzz_358.htm) | Ruth-Aaron pairs revisited | open |
 | [359](https://www.primepuzzles.net/puzzles/puzz_359.htm) | First N primes in a circle | [beaten](../results/359.md) |
-| [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Complementary divisors to make a prime | open |
+| [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Complementary divisors to make a prime | [answered](../results/360.md) |
 | [361](https://www.primepuzzles.net/puzzles/puzz_361.htm) | Multiply, or delete zeros | open |
 | [362](https://www.primepuzzles.net/puzzles/puzz_362.htm) | A sequence of primes. | open |
 | [363](https://www.primepuzzles.net/puzzles/puzz_363.htm) | A magnanimous company | open |
