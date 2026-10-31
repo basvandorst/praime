@@ -1536,4 +1536,10 @@ for _k in range(1, 21):
         assert (_seen[_v], _n, _v) == {9: (2, 14, 220), 20: (279, 875, -468924)}[_k]
 del _cur
 
+# 9827: 3 < a(n) < 4 for 10 <= n <= 5e6 (a(n) = (p_(n+1)+...+p_(2n))/(p_1+...+p_n)), a(9) > 4
+_S = np.cumsum(P[:10_000_000]); _n = np.arange(1, 5_000_001)
+_T = _S[2 * _n - 1] - _S[_n - 1]
+assert np.all(_T[9:] > 3 * _S[_n - 1][9:]) and np.all(_T[9:] < 4 * _S[_n - 1][9:]) and _T[8] > 4 * _S[8]
+del _S, _n, _T
+
 print("all FACTS.md checks passed")

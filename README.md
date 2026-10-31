@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 16:11 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 16:18 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Puzzles solved/answered (37)
+#### Puzzles solved/answered (38)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -36,6 +36,7 @@ Submissions:
 | [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Next N after 462 with d + N/d, \|d − N/d\| all 1 or prime | 462 \| N proved; "vicious cycle" sketched | [none below 10¹⁰⁷⁹: all primes ≡ 3 (mod 4) below 5000 divide N (proof)](results/360.md) |
 | [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [exact gap law (Volpatti's qualitative answer on 952)](results/374.md) |
 | [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Are the variations #1–#3 of 'add 2 to any digit' finite or infinite? Larger solutions? | largest 7134354660741 (#2), 92997492273 (#3) | [#2, #3 complete to 10¹³ (exhaustive); heuristically finite, 0.12 expected beyond](results/377.md) |
+| [418](https://www.primepuzzles.net/puzzles/puzz_418.htm) | Honaker's ratio: ever an integer? can it drop below 3 again, or equal 4? | → 3; not an odd integer; last two open | [3 < a(n) < 4 for n ≥ 10: never an integer (proof)](results/418.md) |
 | [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](results/542.md) |

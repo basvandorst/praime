@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 55 answered, 1190 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 56 answered, 1189 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -421,7 +421,7 @@
 | [415](https://www.primepuzzles.net/puzzles/puzz_415.htm) | Sets of consecutive primes such that... | open |
 | [416](https://www.primepuzzles.net/puzzles/puzz_416.htm) | Prime numbers less than 2^18 | open |
 | [417](https://www.primepuzzles.net/puzzles/puzz_417.htm) | M(e) reversed primes. | open |
-| [418](https://www.primepuzzles.net/puzzles/puzz_418.htm) | Honaker's ratio | open |
+| [418](https://www.primepuzzles.net/puzzles/puzz_418.htm) | Honaker's ratio | [answered](../results/418.md) |
 | [419](https://www.primepuzzles.net/puzzles/puzz_419.htm) | Four SOPF questions | [beaten](../results/419.md) |
 | [420](https://www.primepuzzles.net/puzzles/puzz_420.htm) | Another sequence of primes | open |
 | [421](https://www.primepuzzles.net/puzzles/puzz_421.htm) | Staircase of consecutive primes | open |
