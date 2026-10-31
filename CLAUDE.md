@@ -8,6 +8,13 @@ Goal: beat records and answer open questions on primepuzzles.net. Use reasoning,
 - `data/puzzles/puzzle-NNNN.txt` (also `problem-`, `conjecture-`): full page text. The number has 4 digits. The page text starts after the `=====` line. Raw HTML is in `data/puzzles/html/`.
 - `references/*.pdf` and `references/*.txt`: documents linked from the pages, with extracted text.
 - `references/web/*.txt`: copies of external web pages. Line 1 gives the URL. To find one: `grep -l "^Source: <url>" references/web/*`.
+- `references/oeis/`: OEIS data (CC BY-SA 4.0, see its README.md).
+  - `puzzle-sequences.txt` holds name, terms and formulas of every sequence cited on the puzzle pages, and `puzzle-sequences-index.txt` says which pages cite it.
+  - `oeisdata/` is a sparse clone of github.com/oeis/oeisdata with the full `.seq` entries, made with `clone_oeisdata.sh`; add a sequence via `.git/info/sparse-checkout`.
+  - `names.gz` and `stripped.gz` hold the names and terms of all ~400k sequences; `lookup.py` searches them offline.
+  - The clone and the `.gz` files are git-ignored. Rebuild them before relying on them.
+  - Usage: `lookup.py 1,3,13,63` (terms), `lookup.py -w <words>` (names), `lookup.py A001850 --full` (entry with formulas).
+  - For every puzzle that involves a sequence, look it up first: OEIS often has more terms, a formula or a sibling.
 - `results/NNN.md`: our write-up per puzzle (no leading zeros); `results/conj-NNN.md` for a conjecture page. `results/code/` and `results/data/` hold large code and data.
 - `FACTS.md`: the reference list of facts about primes, each with its formula and how it is known: residue rules (section 1), counts (2), gaps (3), patterns and runs of consecutive primes (4), prime-producing formulas (5), record lengths (8), facts from our write-ups (9) and from the archive (10), open problems (11). Read the relevant section before you attack a puzzle.
 - `writeup/NNN.md` (or `writeup/conj-NNN.md`): attempts that are still open. `writeup/INDEX.md` lists all puzzles and conjectures with their status (open, beaten, answered; proved, disproved, explained, answered).
