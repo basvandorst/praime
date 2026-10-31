@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 54 answered, 1188 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 55 answered, 1187 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1160,7 +1160,7 @@
 | [1154](https://www.primepuzzles.net/puzzles/puzz_1154.htm) | Consecutive primes over a replacement system | open |
 | [1155](https://www.primepuzzles.net/puzzles/puzz_1155.htm) | Equilateral triangle with an interior point such that... | open |
 | [1156](https://www.primepuzzles.net/puzzles/puzz_1156.htm) | 1738967 | open |
-| [1157](https://www.primepuzzles.net/puzzles/puzz_1157.htm) | Interesting formulas? | open |
+| [1157](https://www.primepuzzles.net/puzzles/puzz_1157.htm) | Interesting formulas? | [answered](../results/1157.md) |
 | [1158](https://www.primepuzzles.net/puzzles/puzz_1158.htm) | A unique polydivisible integer | open |
 | [1159](https://www.primepuzzles.net/puzzles/puzz_1159.htm) | Similar to Puzzle 48 | open |
 | [1160](https://www.primepuzzles.net/puzzles/puzz_1160.htm) | A Puzzle related to 2024 | open |
