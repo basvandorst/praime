@@ -99,3 +99,9 @@ From the shared-component pass (30 October 2026; scratch code outside the repo, 
   - for three consecutive survivors, P(all prime)/rho^3 is 0.9995 at 1e9 and 1.0011 at 1e12.
   Theory gives the only correlation left: primes q in (y, sqrt x] cannot hit two survivors closer than q, a pair factor prod(1 - 1/(q-1)^2) ~ 1 - 1/(y ln y) = 1 - 3e-5 at 1e9. So all structure in the gaps sits in the sieve to x^0.405, and above it primality behaves as independent coins down to the 1e-3 level measured here.
   The same test at 1e18 (results/code/facts_coin405_1e18.py) used 8.0e5 survivors of the sieve to 1.95e7 in four windows of 6e6 and BPSW (PRP). The measured rho is 0.7227 against the predicted 0.7222. Lags 1-5 give 0.9995-1.0004 (sd 0.0011), and triples give 0.9991.
+- What is proved and what is not, for the gap rule "J-th survivor of the sieve to y = x^0.405, J geometric":
+  - The sieve layer is plain arithmetic (proved).
+  - The coin's mean rho is a theorem. Buchstab: Phi(x, y) ~ x*omega(u)/ln y. With pi(x) ~ x/ln x this makes primes/survivors equal to rho on average, and c = 0.405 is where e^gamma*omega(1/c) = 1 (FACTS 2014-2016 and the PNT).
+  - The independence of the coins is the Hardy-Littlewood conjecture. It gives Poisson statistics by Gallagher (FACTS 3016).
+  - That independence is exactly the information the parity problem (FACTS 2017) keeps out of reach of every sieve. The coin decides "prime" against "product of two primes above y", and a sieve cannot see that difference.
+  So the explanation splits cleanly: everything the sieve can see is proved and gives the whole structure of the gaps, while the unproved remainder is a fair coin, measured as independent to 1e-3 from 1e9 to 1e18. Proving it means breaking the parity barrier: Friedlander-Iwaniec and Maynard-Tao do that only in special settings (FACTS 5006, 3008).
