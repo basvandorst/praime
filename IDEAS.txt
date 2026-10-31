@@ -94,3 +94,10 @@ Leads from the gap-explanation night (31 October 2026; scripts in the session sc
 
 - Concatenation sequences "P & f(q) & RP for all q <= p(k)" (788): the digit count d of f(q) varies, so P*10^(L+d) runs through the residues mod 7 (ord 6). Reduce to (P mod 7, RP*10^-L mod 7) and the sets S_d of f(q) mod 7 per d mod 6; the block appears once each d-class has enough residues (788: q = 1009, the first 7-digit square). Check 13 (ord 6) and 37 (ord 3) too for siblings.
 - Rare-event questions about gaps (record gaps, "no prime in an interval of length G"): do not sample. Use importance sampling over n mod q for q < G, with the proposal tilted by exp(beta * positions killed), and an exact one-kill-per-prime DP for the larger primes (results/code/facts_maxgap_is.py). It costs 1-2 s per point and reaches tail probabilities of 1e-30 and below.
+
+OEIS as a lead source (31 Oct 2026; references/oeis/, results/code/oeis_scan_more_terms.py)
+- The scan matches every increasing list on an unsolved "more terms" page against all ~400k OEIS sequences, and flags pages whose list is a prefix of a sequence with more terms. It found 46 such pages. After removing those whose next OEIS term already appears on the page (read the whole page: later contributions often have it), about 25 were left.
+- Done: 247 (a(8) of A059754, Alekseyev) and 938 (A323084 a(13)-a(17), Resta).
+- False leads: 558, 334, 385 and 486. The OEIS sequence there is a side remark on the page, or the page is already up to date.
+- Still to check, by whether the page question is really about that sequence: 29, 84, 108 (prime repunit indices: just the known list), 137, 221 (A153136 a(10) = 42939980423), 376, 662, 920, 969 (phi-radical numbers), 1091, 1103/554 (A387703).
+- Rule: an OEIS term is literature. Credit the finder, verify the term ourselves, and say what was not rechecked (usually minimality).
