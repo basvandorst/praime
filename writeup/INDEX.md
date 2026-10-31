@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 40 answered, 1202 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 41 answered, 1201 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -377,7 +377,7 @@
 | [371](https://www.primepuzzles.net/puzzles/puzz_371.htm) | A052215 | open |
 | [372](https://www.primepuzzles.net/puzzles/puzz_372.htm) | Ask Dr. Matrix, prime version | open |
 | [373](https://www.primepuzzles.net/puzzles/puzz_373.htm) | Self primes | [beaten](../results/373.md) |
-| [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Self numbers | open |
+| [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Self numbers | [answered](../results/374.md) |
 | [375](https://www.primepuzzles.net/puzzles/puzz_375.htm) | Powers which are the sum of initial primes. | open |
 | [376](https://www.primepuzzles.net/puzzles/puzz_376.htm) | n=p*2^x | open |
 | [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Add 2 to any digit | open |
