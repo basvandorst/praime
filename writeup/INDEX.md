@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 34 answered, 1208 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 35 answered, 1207 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -14,7 +14,7 @@
 | [8](https://www.primepuzzles.net/puzzles/puzz_008.htm) | Primes by Listing | open |
 | [9](https://www.primepuzzles.net/puzzles/puzz_009.htm) | p1 + p2 + … pk = n m , m => 2 | open |
 | [10](https://www.primepuzzles.net/puzzles/puzz_010.htm) | Primes associated to Primorials and Factorials | open |
-| [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Distinct, Increasing & Decreasing Gaps | open |
+| [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Distinct, Increasing & Decreasing Gaps | [answered](../results/11.md) |
 | [12](https://www.primepuzzles.net/puzzles/puzz_012.htm) | Period Length of 1/p | open |
 | [13](https://www.primepuzzles.net/puzzles/puzz_013.htm) | The Prime-magical pentagram | open |
 | [14](https://www.primepuzzles.net/puzzles/puzz_014.htm) | Pal-Primes and sum of powers | open |
