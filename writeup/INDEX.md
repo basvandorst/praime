@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 38 answered, 1204 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 39 answered, 1203 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1145,7 +1145,7 @@
 | [1139](https://www.primepuzzles.net/puzzles/puzz_1139.htm) | prime producing IRREGULAR polynomials | [open](1139.md) |
 | [1140](https://www.primepuzzles.net/puzzles/puzz_1140.htm) | Test for Sophie Germain primes | open |
 | [1141](https://www.primepuzzles.net/puzzles/puzz_1141.htm) | Closed Magic Knight tours 12x12 | open |
-| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | p(n+1) = floor[p(n)#*k - p(n)*floor(p(n-1)#k-1)]; P(1)=2, k=2.920050977316134... | open |
+| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | p(n+1) = floor[p(n)#*k - p(n)*floor(p(n-1)#k-1)]; P(1)=2, k=2.920050977316134... | [answered](../results/1142.md) |
 | [1143](https://www.primepuzzles.net/puzzles/puzz_1143.htm) | Palindromic Prime Pyramid step 3 | open |
 | [1144](https://www.primepuzzles.net/puzzles/puzz_1144.htm) | Queen attacking primes over a Knight tour 8x8 Matrix. | open |
 | [1145](https://www.primepuzzles.net/puzzles/puzz_1145.htm) | Divisors of Fermat numbers. | [answered](../results/1145.md) |

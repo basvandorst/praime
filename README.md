@@ -15,7 +15,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (16)
+#### Answers to open questions (17)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Extend the tables of first N distinct / increasing / decreasing consecutive gaps | distinct table stops at N = 20, then N = 36 | [N = 21–35 new; none of 37 / 15 / 14 below 1.01·10¹³](results/11.md) |
@@ -33,6 +33,7 @@ Submissions:
 | [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | Why do D = 15, 65 and 4, 24, …, 84 never occur in A121805, and why are 5, 55 most common? | Q3 answered; Q1, Q2 no replies | [explained: block orbits + a parity invariant](results/980.md) |
 | [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others (proof)](results/1035.md) |
 | [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Q1: d(p−1) prime ⇔ σ(p−1) prime? | one direction proved (Casini) | [converse reduced: true except possibly p = F_(2^n), n ≥ 33](results/1136.md) |
+| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | Why does the prime-representing constant 2.92005… give every prime? | no contributions | [proved: telescoping plus Bertrand, 1 < tail < 2](results/1142.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](results/1238.md) |
 
 #### Conjectures (11)
