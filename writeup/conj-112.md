@@ -1,6 +1,6 @@
 # Conjecture 112: A Lucas–Lehmer type test for primes 2^k + 3
 
-> **In short:** Davide Rotondo noticed that when N = 2^(n−1) + 3 is prime, the Lucas–Lehmer number s(n−2) leaves a fixed remainder mod N: s(n−2)/2 ≡ 7 for odd n and ≡ −2 for even n. We prove it. The proof is Fermat's little theorem in the numbers a + b√3, combined with the quadratic characters of 2 and 3 modulo N; the parity of n only decides whether √3 exists mod N. The test is a Lucas probable-prime test. No composite N passes it for n ≤ 10,000. It costs as much as an ordinary Fermat test, so it gives no speed-up for record hunting.
+> **In short:** It was observed, not proved, that for prime N = 2^(n−1) + 3 the Lucas–Lehmer term s(n−2)/2 is ≡ 7 (mod N) for odd n and ≡ −2 for even n. The proof: (1) s(k) = ω^(2^k) + ω^(−2^k) with ω = 2 + √3; (2) 2ω = (1 + √3)²; (3) Frobenius and the characters of 2 and 3 mod N fix the value. This proves it for every n ≥ 3.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_112.htm)
 

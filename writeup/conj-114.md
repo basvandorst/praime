@@ -1,6 +1,6 @@
 # Conjecture 114: Rotondo's semiprime sequence, extended to 200 terms (attempt)
 
-> **In short:** Davide Rotondo starts from f(1) = 1 and repeatedly takes the smallest composite R with f + R prime, then multiplies f by R. He conjectured three things: every R is a semiprime; no prime factor is ever used twice (except inside a square p²); and every prime eventually appears. The second claim has a one-line proof: a composite sharing a factor with f can never make f + R prime. We extended the sequence from 48 to 200 terms (f now has 1139 digits). All 200 values are semiprimes, no prime repeats, and every prime below 2309 has appeared. The other two claims are true in a probabilistic model with overwhelming margin, but proving them would need control over primes in very thin sets.
+> **In short:** For f(n+1) = f(n)·R(n), with R(n) the least composite c making f(n) + c prime, it was conjectured from 48 terms that every R(n) is a semiprime, no prime repeats, and every prime appears. Proved here: a prime shared by c and f(n) divides f(n) + c, so no prime repeats. The other two claims stay open; 200 terms confirm them.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_114.htm)
 

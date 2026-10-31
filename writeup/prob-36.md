@@ -1,8 +1,6 @@
 # Problem 36 (Q4 and Liskovets' bias question): Liskovets–Gallot numbers
 
-> **In short:**
-> - **Q4: yes.** There are k with 3 | k such that k·2ⁿ + 1 and k·2ⁿ − 1 are both composite for every even n, and also k for every odd n. Write n = 2m, so the numbers are k·4^m ± 1, or 2k·4^m ± 1 for odd n. That makes it a Brier problem in base 4. Cover the + side with {5, 7, 17, 13, 241} (m mod 12) and the − side with 28 other primes (m mod 720). The Chinese remainder theorem then gives a 93-digit k in each case.
-> - **The bias.** Primes with orders 3, 4, 8, 12 and 24 of 2, namely 7, 5, 17, 13 and 241, act together on n mod 24. For k such as 87 or 93 they leave only about 10 % of the odd n free of small factors, against about 80 % of the even n, a near-covering of one parity class. Computing this survival jointly mod 55440 predicts the odd share of primes for all eight k on the page, close to what n ≤ 3000 shows.
+> **In short:** Q4 asked for k divisible by 3 with k·2ⁿ ± 1 composite for all even n (or all odd n); another question asked why primes k·2ⁿ + 1 favour one parity of n. The construction: (1) n = 2m gives a covering problem in base 4; (2) 33 primes cover both sides; (3) the Chinese remainder theorem gives k. This gives a 93-digit k for each parity; near-coverings explain the bias.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_036.htm)
 

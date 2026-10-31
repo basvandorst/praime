@@ -1,6 +1,6 @@
 # Conjecture 99: Why strong semiprimes outnumber primes by a factor ln 3
 
-> **In short:** Alain Rochelli counted semiprimes p·q with p ≤ q < p³ ("strong semiprimes", A362910) and conjectured that near any large number there are ln 3 = 1.0986 of them for every prime. It is a consequence of the prime number theorem: the condition q < p³ means p lies between n^(1/4) and n^(1/2), and ∫ du/(u(1−u)) over that range is exactly ln 3. The same calculation done with the actual primes predicts his measured ratios: 1.0826 at 10⁹ (he found 1.0833) and 1.0929 at 10¹² (he found 1.0937). The values sit slightly below ln 3 because of Mertens' remainder at p ≈ n^(1/4), and the gap closes as n grows.
+> **In short:** It was conjectured that strong semiprimes p·q with p ≤ q < p³ outnumber primes by a ratio tending to ln 3. The proof: (1) q < p³ means n^(1/4) < p ≤ n^(1/2); (2) the prime number theorem turns the sum over those p into ∫_{1/4}^{1/2} du/(u(1 − u)) = ln 3. This proves the ratio ln 3 for counts up to x and for intervals [A, cA]; fixed-length windows are explained, not proved.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_099.htm)
 

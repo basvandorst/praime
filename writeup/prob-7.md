@@ -1,10 +1,6 @@
 # Problem 7: Parity of x and its inverse mod p
 
-> **In short:** Anton Vrba's two "exact relationships" both follow from the map x ↦ p − x.
-> - **Np(all) = p − 2** just counts x = 2, …, p − 1. Vrba's lists leave out x = 1.
-> - **Np(oo) = Np(ee) − 1** holds because x ↦ p − x sends the inverse x′ to p − x′, and for odd p it flips both parities. So it swaps even-even pairs with odd-odd pairs. The one pair the count leaves out, (1, 1), is odd-odd, and its partner (p − 1, p − 1) is even-even. That accounts for the "− 1".
-> - **No counterexamples:** the proof works for every odd prime, and in fact for every odd modulus.
-> - **Np(op) ≈ p/2**, Lehmer's actual question, is a theorem of Zhang Wenpeng (1993–94) with error O(√p·log²p). It rests on Weil's bound for Kloosterman sums.
+> **In short:** Two counts for x and its inverse x′ mod p, Np(all) = p − 2 and Np(oo) = Np(ee) − 1, were found by computation, not proved. The proof: (1) x ↦ p − x sends x′ to p − x′ and flips both parities; (2) so even-even and odd-odd pairs are equally many; (3) the counts omit x = 1, an odd-odd pair. This proves both for every odd modulus, so no counterexamples exist.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_007.htm)
 

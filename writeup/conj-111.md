@@ -1,6 +1,6 @@
 # Conjecture 111: Why the shielded primes have density 1/e²
 
-> **In short:** Angelos Ormpelidis' "shielded primes" sieve removes neighbouring primes in order of increasing gap, and about 13.5% of the primes survive. He conjectured that the limit is 1/e². The reason is a classic: the sieve is exactly *random sequential adsorption* of dimers on a line, for which Paul Flory proved in 1939 that a fraction e⁻² of the sites stays empty. Prime gaps behave like random arrival times, so the sieve inherits Flory's constant. On windows of ten million consecutive primes, the excess over e⁻² falls from 6·10⁻⁴ near 10⁸ to 2·10⁻⁵ near 10¹⁵, which is within the statistical noise.
+> **In short:** It was conjectured that the density of shielded primes, survivors of a sieve that removes consecutive pairs in order of gap size, tends to 1/e². The explanation: (1) the sieve is Flory's random sequential adsorption of dimers; (2) for random gaps a site stays empty with probability exactly e⁻²; (3) the primes approach it up to 10¹⁵. This explains 1/e², without a proof for the primes.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_111.htm)
 

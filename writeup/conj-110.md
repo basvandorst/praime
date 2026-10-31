@@ -1,6 +1,6 @@
 # Conjecture 110: Why Underwood's cubic test has no known pseudoprimes (attempt)
 
-> **In short:** Paul Underwood conjectured that no composite n passes his cubic test for *any* choice of a and b. He checked every n up to 200,000, trying all (a, b) pairs. We show that for squarefree n the test splits into independent conditions, one per prime factor p of n. Each asks for a cubic mod p on whose three roots "raise to the power n" acts as a cyclic shift, with a^(n−1) ≡ 1 (mod p). Counting those cubics explains the empty search: for a random n, a prime factor p has a suitable cubic in only about 0.16/p of the cases or fewer, and the largest prime factor of n is constrained much more. So pseudoprimes should be extremely rare, and none is in reach. That supports the conjecture but does not prove it.
+> **In short:** It was conjectured that no composite n passes a cubic test with f = x³ − ax − b for any a, b; it was checked for n ≤ 200,000. Proved here: (1) for squarefree n the test splits by prime factor p; (2) each p needs y ↦ yⁿ to move every root of f mod p to another root; (3) such cubics are rare. The question stays open; pseudoprimes should be very rare.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_110.htm)
 

@@ -1,6 +1,6 @@
 # Conjecture 53: Floor function and consecutive primes
 
-> **In short:** For consecutive primes r < q < p, Capelle conjectured ⌊pq/r⌋ = p + q − r for every r except 15 small ones, and later listed 18 more such identities. All 19 follow from one inequality: **the two gaps after r sum to less than √r**, that is (p − r)² < r. That inequality fails only for r ≤ 1327 below 2·10⁸, and above 2·10⁸ it holds up to 4·10¹⁸ because no gap there exceeds 1476. So all 19 identities are **proved for 1327 < r with p ≤ 4·10¹⁸**, and beyond that at most O(X^(0.13+ε)) values of r ≤ X can fail. Capelle also asked for a simple equation for ⌊pq/r − qr/p⌋. The answer: **⌊pq/r − qr/p⌋ = 2(p − r) − [p − q > q − r]**, which subtracts 1 exactly when the second gap is the larger one. It holds for every r > 113.
+> **In short:** For consecutive primes r < q < p, ⌊pq/r⌋ = p + q − r and 18 related identities were conjectured for r > 1327, and ⌊pq/r − qr/p⌋ was asked about. The proof: (1) all 19 follow from (p − r)² < r; (2) that holds up to 4·10¹⁸, where gaps are at most 1476. This proves them for 1327 < r up to 4·10¹⁸, and gives ⌊pq/r − qr/p⌋ = 2(p − r) − [p − q > q − r].
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_053.htm)
 

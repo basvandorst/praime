@@ -1,6 +1,6 @@
 # Conjecture 55: Sand's "p² + q + d" strengthening is false (first counterexample 305)
 
-> **In short:** On the page of Conjecture 55, Werner Sand proposed a stronger form: every n > 5 is p² + q + d with p, q prime and d ∈ {0, 1, 2}, "checked until n = 10⁶". It fails already at **n = 305**, and 72,048 numbers below 10⁶ fail. The reason is a remainder mod 6. If n ≡ 5 (mod 6) and p ≥ 5, then n − p² − d is ≡ 4, 3 or 2 (mod 6), so it can only be prime if it equals 2 or 3. Such n can only be written using p = 2 or p = 3, which leaves just three chances to hit a prime. So almost every n ≡ 5 (mod 6) fails. Sand's original conjecture 55 (with any square m²) is not affected.
+> **In short:** A strengthening claimed that every n > 5 is p² + q + d with p, q prime and d ∈ {0, 1, 2}, checked to 10⁶. The proof: (1) for n ≡ 5 (mod 6) and p ≥ 5, n − p² − d is ≡ 4, 3 or 2 (mod 6); (2) so only p = 2 or 3 can work, leaving three chances. This disproves it; the first failure is 305.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_055.htm)
 

@@ -1,6 +1,6 @@
 # Conjecture 44: A property of prime twins, only?
 
-> **In short:** For consecutive primes p < q, z = √((p² + q²)/2 − 1) is an integer exactly when q = p + 2. Mike Oakes showed on the page that this is equivalent to q − p < 2(√(2p + 3) + 1) for every non-twin pair, and checked it to 10⁹. We prove it **for every p ≤ 4·10¹⁸**: a direct check below 2·10⁸, then the maximal gap 1476 is far below the bound. Beyond that, at most O(X^(0.07+ε)) primes p ≤ X can fail (Järviniemi's bound on large gaps). A full proof needs gaps below about 2√(2p), which nobody can prove, not even under the Riemann hypothesis.
+> **In short:** It was conjectured that for consecutive primes p < q, √((p² + q²)/2 − 1) is an integer only for twins; this reduces to a gap bound of about 2√(2p). The proof: (1) a direct check below 2·10⁸; (2) every gap below 4·10¹⁸ is at most 1476, far below the bound. This proves it for every p ≤ 4·10¹⁸; the general case stays open.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_044.htm)
 

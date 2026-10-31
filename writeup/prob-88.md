@@ -1,6 +1,6 @@
 # Problem 88, Q3: a magic square with 7 squares and two triangular numbers? (attempt)
 
-> **In short:** Scaling the square by K² makes both non-squares 222121 and 360721 triangular exactly when 8·222121·K² + 1 and 8·360721·K² + 1 are both squares. This is a pair of simultaneous Pell equations. The page's "no" (Jan van Delden) subtracts the two equations as if they shared the same x, which they need not. Every solution has K = k_n(a) = k_m(b), a common term of the two Pell sequences. That forces |n·ln ε_a − m·ln ε_b − ½·ln(a/b)| < 2·10⁻²⁷. A scan of every n ≤ 10⁶ finds the smallest value of that linear form to be 4.8·10⁻⁵. So there is **no K > 0 below about 10^(1.37·10⁷)**. A proof for all K needs a lower bound for linear forms in two logarithms (Laurent) plus a continued-fraction reduction, which we did not carry out.
+> **In short:** Q3 asked whether scaling a magic square by K² can make its entries 222121 and 360721 both triangular; the page's "no" had a flawed step. Proved here: (1) this needs 8·222121·K² + 1 and 8·360721·K² + 1 both square; (2) so K is a common term of two Pell sequences; (3) a scan of n ≤ 10⁶ bounds the resulting linear form. The question stays open; no K exists below about 10^(1.37·10⁷).
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_088.htm)
 

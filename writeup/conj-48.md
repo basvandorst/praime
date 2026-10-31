@@ -1,6 +1,6 @@
 # Conjecture 48: P = A ± B
 
-> **In short:** Daniele Degiorgi asked on the page whether one can prove that no exponents give |2ⁿ − 3^m| = 103. Yes, by congruences: 2ⁿ − 3^m = 103 forces n and m even (mod 3 and mod 4), and then 103 would factor as a difference of squares (2^(n/2) = 52 is impossible). And 3^m − 2ⁿ = 103 fails mod 8. So 103 is the least prime not representable with only the primes 2 and 3, as Degiorgi suspected. For Werner Sand's corrected conjecture (A·B made of exactly the primes up to Q, nothing else), 397 and 419 do have representations, with Q = 23 and Q = 29. But **433 and 26 more primes below 1000 have none for any admissible Q ≤ 31 with A ≤ 10¹⁶**, so the corrected conjecture is most likely false. A disproof would also need to rule out every larger Q.
+> **In short:** The page asked for a proof that |2ⁿ − 3^m| = 103 has no solution. The proof: (1) 2ⁿ − 3^m = 103 forces n and m even, and factoring then needs 2^(n/2) = 52; (2) 3^m − 2ⁿ = 103 fails mod 8. This proves it. For the corrected conjecture, 433 has no representation for Q ≤ 31 with A ≤ 10¹⁶.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_048.htm)
 

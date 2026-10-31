@@ -1,6 +1,6 @@
 # Conjecture 59: n! + p_n is never a square (attempt; odd powers stay open)
 
-> **In short:** Alexander Povolotsky conjectured that n! + p_n is never a perfect power m^k (k > 1), where p_n is the n-th prime. Two AI "proofs" on the page were shown to be wrong. We prove the case of even k: n! + p_n is never a perfect square. A square would force every number up to n to be a quadratic residue mod p_n, but the least non-residue of a prime p is always below √p + 1, and p_n is far smaller than n². Odd exponents (cubes, fifth powers, …) remain open. We also checked that no n ≤ 3000 gives any perfect power.
+> **In short:** It was conjectured that n! + p_n is never a perfect power m^k (k > 1); the proofs on the page were invalid. Proved here: (1) a square makes every number up to n a quadratic residue mod p_n; (2) the least non-residue n₀ has n₀(n₀ − 1) < p_n; (3) but p_n < n(n + 1). Odd k stays open; even k is impossible.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_059.htm)
 

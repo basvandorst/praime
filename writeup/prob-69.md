@@ -1,6 +1,6 @@
 # Problem 69: A Brier number with disjoint covering sets
 
-> **In short:** Yes, such a Brier number exists. Cover k·2ⁿ + 1 with the classic set A = {3, 5, 7, 13, 17, 241} (n mod 24). Cover k·2ⁿ − 1 with 60 other primes B (n mod 5040), using only orders of 2 that are at least 5. All conditions on k are then congruences modulo distinct primes, and the Chinese remainder theorem gives a 230-digit k. Every n is covered on both sides, so k·2ⁿ ± 1 is composite for every n ≥ 0, and A ∩ B = ∅.
+> **In short:** The page asked for a Brier number (k·2ⁿ ± 1 composite for every n) whose two covering sets are disjoint; all known ones shared a prime. The construction: (1) {3, 5, 7, 13, 17, 241} cover k·2ⁿ + 1; (2) 60 other primes cover k·2ⁿ − 1; (3) the Chinese remainder theorem combines all congruences on k. This gives a 230-digit Brier number with disjoint covering sets.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_069.htm)
 

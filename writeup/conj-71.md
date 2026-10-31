@@ -1,6 +1,6 @@
 # Conjecture 71: The twin-prime product is 3.19618…, not π
 
-> **In short:** Werner Sand conjectured that the product of 1/(1 − 1/t) over the smaller members t of all twin prime pairs equals π. The product is fixed by Brun's constant, the famous sum of reciprocals of twin primes, and with its known value the product comes out at **3.1961782**, about 1.7% above π. Sand's own figure, 3.02437 at t ≈ 2.4·10¹⁰, fits this value: the product climbs so slowly that it would only pass π near 10³³. So the conjecture is false, assuming the accepted value of Brun's constant (which rests on the Hardy–Littlewood heuristic).
+> **In short:** It was conjectured that the product of 1/(1 − 1/t) over the smaller twin primes t equals π. The method: (1) the logarithm of the product is (B₂ + D)/2 + E, with Brun's constant B₂ and two fast sums D, E; (2) B₂ = 1.902160583… gives 3.1961782; (3) the partial products pass π only near 10³³. This disproves the conjecture, assuming the accepted value of B₂.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_071.htm)
 

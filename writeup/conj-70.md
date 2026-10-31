@@ -1,6 +1,6 @@
 # Conjecture 70: Every prime p > 7 has two consecutive primitive roots (it is a theorem)
 
-> **In short:** Emmanuel Vantieghem conjectured that for every prime p > 7 there is an n with n and n + 1 both primitive roots mod p. The page knew it only for p > 10¹⁹ (Szalay) and up to the 20-millionth prime (computation). It is in fact a theorem. In 2015 Cohen, Oliveira e Silva and Trudgian proved that every finite field with q > 169 elements (q odd) has even *three* consecutive primitive elements. The primes 7 < p < 170 are checked directly. So the conjecture holds for every prime p > 7.
+> **In short:** It was conjectured that every prime p > 7 has two consecutive primitive roots; it was known only for p > 10¹⁹ and up to the 20-millionth prime. The proof: (1) a 2015 theorem gives three consecutive primitive elements in every F_q with odd q > 169; (2) the 35 primes 7 < p < 170 are checked directly. This proves the conjecture for every prime p > 7.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_070.htm)
 

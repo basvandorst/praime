@@ -1,6 +1,6 @@
 # Conjecture 39: Yes, d(n) = 9 occurs, first at n = 36465
 
-> **In short:** On the page of Ingala's conjecture, d(n) is the largest gap between consecutive integers coprime to n (Jacobsthal's function). Farideh Firoozbakht proposed a table in which d(n) depends only on how many primes divide n and whether 2 or 3 is among them. The table never produces 9, so she asked whether d(n) = 9 is possible. It is. The smallest n is **36465 = 3·5·11·13·17**: the integers 829 and 838 are coprime to it, and the eight numbers in between are not. Her table cannot be right in general, because d(n) depends on which primes divide n. For example, d(3·5·7·11) = 7 but d(3·7·11·13) = 6.
+> **In short:** A table of Jacobsthal's function d(n) by the shape of n never gave 9, and the page asked whether d(n) = 9 occurs. The method: (1) d(n) depends only on the primes dividing n; (2) scan one period of every squarefree n ≤ 40000. This gives d(n) = 9 first at n = 36465 = 3·5·11·13·17, and shows the table is false.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_039.htm)
 

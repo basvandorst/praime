@@ -1,6 +1,6 @@
 # Conjecture 76: All six inequalities for p_n^(1/n) are true
 
-> **In short:** Mahdi Meisami conjectured six inequalities for a_n = p_n^(1/n) (the n-th root of the n-th prime), such as a_n · a_m > a_(nm) and a_n + a_m > 1 + a_(n+m). On the page they were only known to follow from Firoozbakht's unproved conjecture, which has been checked up to 4·10¹⁸. We prove all six unconditionally. They all follow from one lemma, p_(a+b) ≤ p_a · p_b, which itself needs only Bertrand's postulate, a standard explicit bound on p_n, and a check of 148 small cases.
+> **In short:** Six inequalities for a_n = p_n^(1/n), such as a_n·a_m > a_(nm), were known only under an unproved conjecture that a_n decreases. The proof: (1) p_(a+b) ≤ p_a·p_b, from Bertrand's postulate, explicit bounds on p_n and 148 small checks; (2) so a_(n+m) ≤ max(a_n, a_m) and a_(nm) ≤ min(a_n, a_m); (3) every a_k exceeds 1. This proves all six for all n, m.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_076.htm)
 

@@ -1,6 +1,6 @@
 # Conjecture 21: The next two entries of the R(N) table
 
-> **In short:** Every N ≥ 5 can be written as a ± sum of consecutive primes (Chris Nash proved this). R(N) is the fewest primes such a sum needs. Rivera's table of the least N for each R stopped at R = 10 (N = 56924, Nash, who searched to 65,521). We extend it: **R = 11 first occurs at N = 113313, and R = 12 at N = 72,598,584**. Below 10⁸, only 9 numbers need 12 primes and none needs 13. A counting argument says R(N) has no constant bound, answering Q4.2, but it grows only like 2·log₂(ln N). R = 20 would first appear around 10¹²⁶, so Rivera's guess "at most 20" is true far beyond anything computable.
+> **In short:** R(N), the fewest primes in a signed sum of consecutive primes equal to N, had its table of first occurrences up to R = 10. The method: (1) walk all sign patterns of every block of up to 12 primes below 10⁸ in Gray-code order; (2) mark every sum; (3) confirm with a second program. This gives R = 11 first at N = 113313 and R = 12 at 72598584.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_021.htm)
 

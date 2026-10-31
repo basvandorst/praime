@@ -1,6 +1,6 @@
 # Conjecture 80: Why the numerator always ends in 25 (proof)
 
-> **In short:** Sebastián Martín Ruiz noticed that the product of (p² + 1)/(p − 1) over the first n primes, written in lowest terms, always has a numerator ending in 25 (n > 2). Emmanuel Vantieghem showed that the numerator is ≡ 1 (mod 4), so "ends in 25" just means "divisible by 25". He also showed it is true for large n, but could not say how large. We close the gap. The power of 5 in the numerator is a race between primes ending in 3 or 7 (which add factors 5) and primes ending in 1 (which remove them). An explicit theorem on primes in progressions mod 5 settles the race for all p_n ≥ 8·10⁹. A computer check of all 367,783,651 primes from 7 to 8·10⁹ settles the rest. So the claim is true for every n ≥ 3.
+> **In short:** It was claimed that the reduced numerator of ∏(p² + 1)/(p − 1) over the first n primes ends in 25 for n > 2, but shown only for large n. The proof: (1) the numerator is ≡ 1 (mod 4), so 25 must divide it; (2) primes ≡ ±2 (mod 5) add factors 5, primes ≡ 1 remove them; (3) explicit bounds settle p_n ≥ 8·10⁹, a sieve the rest. This proves it for every n ≥ 3.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_080.htm) (from [Puzzle 900](https://www.primepuzzles.net/puzzles/puzz_900.htm))
 

@@ -1,6 +1,6 @@
 # Conjecture 115: The prime 3917 fails Rotondo's triangle test
 
-> **In short:** Davide Rotondo conjectured that an odd number passes his "triangle test" exactly when it is a prime or 9. That is false: the prime **3917** fails. For a prime p the test only depends on a few numbers modulo p², which makes it cheap to scan, and 3917 is the smallest odd prime that fails. A probability argument says infinitely many primes fail, but they are rare: about eight more below 10¹⁰⁰. We also prove all three of Rotondo's valuation formulas, and with them that no odd prime power other than 9 passes.
+> **In short:** It was conjectured that an odd n > 1 passes a triangle test on G(m) = 1^m + … + m^m exactly when n is a prime or 9. The proof: (1) v_p(G(p)) = 2 for every odd prime p, so the test needs only G(m) mod p²; (2) at p = 3917, p² divides G(3417). This disproves it: the prime 3917 is the smallest that fails.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_115.htm)
 

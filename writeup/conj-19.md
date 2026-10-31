@@ -1,8 +1,6 @@
 # Conjecture 19: A bound to the largest prime factor of certain Carmichael numbers
 
-> **In short (attempt, not a record):** Problem 33, the follow-up page to this conjecture, already has far larger extreme triplets: Michael Bell's 3661-digit C3 (p = 5927222·1450# + 1, 2000) and Phil Carmody's C3s of up to 9534 digits (p = k·1996995²⁵⁰ + 1, 2004). The triplet below (1056 digits, all three primes proven) does **not** beat them. The rest of this note is kept for the method.
->
-> For a Carmichael number pqr with p < q < r, Richard Pinch and Chris Nash proved on the page that r ≤ (p³ + p² − p + 1)/2. The bound is reached exactly when q = p² + p − 1 and r = (p³ + p² − p + 1)/2 are both prime, an "extreme" triplet. Rivera's record extreme triplet gives a 764-digit Carmichael number. We found **p = 25971283·2⁵⁶⁰ + 1**, for which p, q and r are all **proven** prime, giving an extreme Carmichael number of **1056 digits**. The key is that q − 1 = (p − 1)(p + 2) and r − 1 = (p − 1)(p + 1)²/2 both contain p − 1 = k·2ⁿ, so Proth, Pocklington and Brillhart–Lehmer–Selfridge prove all three.
+> **In short:** A Carmichael number pqr has r ≤ (p³ + p² − p + 1)/2, with equality for extreme triplets; problem 33 has extreme ones of up to 9534 digits. The method: (1) q − 1 and r − 1 both contain p − 1; (2) with p = k·2ⁿ + 1, Proth, Pocklington and Brillhart–Lehmer–Selfridge prove all three primes. This gives a 1056-digit extreme Carmichael number, proven but not a record.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_019.htm)
 

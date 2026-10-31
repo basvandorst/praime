@@ -1,6 +1,6 @@
 # Problem 92: Multiple covering sets for Sierpinski and Riesel integers
 
-> **In short:** Emilia Gurisatti found a Sierpinski number and a Riesel number with 4 distinct covering sets each, and asked for more (Q1). We give **a Sierpinski number and a Riesel number with 8 distinct minimal covering sets each** (253 digits), and a much smaller **27-digit Sierpinski number with 5**: k = 660664662814032650416080443. The idea is to keep the core {3, 5, 7, 13} that all of Gurisatti's sets share, and add tails built from new primes that each cover what the core leaves open. Every prime imposes one congruence on k, and disjoint tails never conflict, so the Chinese remainder theorem glues any number of them into one k. The 27-digit number is also an explicit upper bound for Rivera's Q4 on [puzzle 1279](https://www.primepuzzles.net/puzzles/puzz_1279.htm) (the least S or R integer with five covering sets).
+> **In short:** The record was a Sierpinski and a Riesel number with 4 covering sets each; Q1 asked for more. The construction: (1) keep the shared core {3, 5, 7, 13}; (2) add disjoint tails of new primes that cover what the core leaves open; (3) glue them with the Chinese remainder theorem. This gives a Sierpinski and a Riesel number with 8 minimal covering sets each (253 digits), and a 27-digit Sierpinski number with 5.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_092.htm)
 
