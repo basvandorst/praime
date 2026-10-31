@@ -22,15 +22,15 @@ Earlier results on the page: 2775 terms (Nov 2020), then 2767 (Dec 2020).
 
 ## How we found it
 
-The page's method was a greedy loop that adds and removes terms until the sum is exactly 1, which "needs more luck than intelligence". We looked at the denominators instead. View each semiprime pq as an edge between the primes p and q. The prime p leaves the denominator of the sum exactly when the reciprocals of its partners cancel mod p. These are local conditions, one per prime, and they can be fixed one prime at a time. When all hold, the sum is an integer, and a sum near 1 is then exactly 1. This is the [puzzle 360](360.md) idea, that every prime factor imposes its own residue condition, applied to a sum.
+The page's method was a greedy loop that adds and removes terms until the sum is exactly 1, which "needs more luck than intelligence". We looked at the denominators instead. View each semiprime pq as an edge between the primes p and q. The prime p leaves the denominator of the sum exactly when the reciprocals of its partners cancel mod p. These are local conditions, one per prime, and they can be fixed one prime at a time. When all hold, the sum is an integer, and a sum near 1 is then exactly 1. The criterion and the fact that squares never occur are known from [puzzle 897](https://www.primepuzzles.net/puzzles/puzz_897.htm), where they are used for semiprimes of any parity (sum 1 with 47 terms, sums 2 and 3) and for numbers with three prime factors. What is new here is the odd case of problem 76 and the construction: top-down repair with upward gadgets and an exact closing step.
 
 ## The math
 
 Let S be a finite set of odd semiprimes and Σ = Σ_(s∈S) 1/s.
 
-**Step 1 (proved). No square p² can be used.** Write the terms that contain p as 1/p² (if p² ∈ S) and (1/p)·A with A = Σ_(pq∈S, q≠p) 1/q, whose denominator is coprime to p. Their sum is (p·A + 1)/p², and p·A + 1 ≢ 0 (mod p), so Σ would keep p² in its denominator. Hence every solution uses only squarefree semiprimes pq with p < q.
+**Step 1 (proved; also on puzzle 897). No square p² can be used.** Write the terms that contain p as 1/p² (if p² ∈ S) and (1/p)·A with A = Σ_(pq∈S, q≠p) 1/q, whose denominator is coprime to p. Their sum is (p·A + 1)/p², and p·A + 1 ≢ 0 (mod p), so Σ would keep p² in its denominator. Hence every solution uses only squarefree semiprimes pq with p < q.
 
-**Step 2 (proved). The local criterion.** For a prime p, call the q with pq ∈ S the partners of p. The terms containing p add up to (1/p)·Σ_q 1/q, and all other terms have no p in the denominator. So p divides no denominator of Σ iff
+**Step 2 (proved; also on puzzle 897). The local criterion.** For a prime p, call the q with pq ∈ S the partners of p. The terms containing p add up to (1/p)·Σ_q 1/q, and all other terms have no p in the denominator. So p divides no denominator of Σ iff
 
 ```
 Σ_(q partner of p) q⁻¹ ≡ 0 (mod p)        ("p is balanced")
