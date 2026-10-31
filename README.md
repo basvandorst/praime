@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 15:44 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 15:48 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -57,9 +57,10 @@ Submissions:
 | [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | Q2: generalise the prime-F rule to F(p,q) = ⌊q²/p⌋; why is T(p) empty for p = 2, 3, 5, 11? | computed only | [proved: prime F needs an even non-square residue; none exists only for 2, 3, 5, 11](results/1181.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](results/1238.md) |
 
-#### Conjectures (13)
+#### Conjectures (14)
 | # | Conjecture | Status on the page | Our result |
 |---|---|---|---|
+| [19](https://www.primepuzzles.net/conjectures/conj_019.htm) | Largest extreme Carmichael number p(p²+p−1)((p³+p²−p+1)/2) | 764 digits (Rivera) | [1056 digits, p = 25971283·2⁵⁶⁰ + 1, all proven](results/conj-19.md) |
 | [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](results/conj-21.md) |
 | [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](results/conj-39.md) |
 | [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | √((p² + q²)/2 − 1) integer for consecutive primes iff twins | reduced to a gap bound; checked p ≤ 10⁹ (Oakes) | [proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](results/conj-44.md) |

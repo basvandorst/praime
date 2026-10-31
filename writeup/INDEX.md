@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 13 with a result of ours (proved, disproved, explained, answered, or a variant settled), 102 open (3 with a write-up of our attempt). Status links go to our write-up.
+115 conjectures: 14 with a result of ours (proved, disproved, explained, answered, or a variant settled), 101 open (3 with a write-up of our attempt). Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1313,7 +1313,7 @@
 | [16](https://www.primepuzzles.net/conjectures/conj_016.htm) | n^n+1. | open |
 | [17](https://www.primepuzzles.net/conjectures/conj_017.htm) | The Ludovicus conjecture about the Euler trinomials | open |
 | [18](https://www.primepuzzles.net/conjectures/conj_018.htm) | Minimal primorial partitions (a conjecture by John Harvester) | open |
-| [19](https://www.primepuzzles.net/conjectures/conj_019.htm) | A bound to the largest prime factor of certain Carmichael numbers | open |
+| [19](https://www.primepuzzles.net/conjectures/conj_019.htm) | A bound to the largest prime factor of certain Carmichael numbers | [answered](../results/conj-19.md) |
 | [20](https://www.primepuzzles.net/conjectures/conj_020.htm) | The first N natural numbers listed in an order such that the sum of each two adjacent of them is a prime number. | open |
 | [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Rivera's Conjectures about the representation of every natural number as algebraic sum of distinct consecutive prime numbers. | [answered](../results/conj-21.md) |
 | [22](https://www.primepuzzles.net/conjectures/conj_022.htm) | A stronger version of the Goldbach Conjecture | open |
