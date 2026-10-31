@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 12:25 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 12:27 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (27)
+#### Answers to open questions (28)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -27,6 +27,7 @@ Submissions:
 | [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | Q7: why do the two-way GMN primes end in 1? | only a pointer to A057896 | [proved: 1 or 7 forced, 7 only for 7](results/61.md) |
 | [69](https://www.primepuzzles.net/problems/prob_069.htm) | Problem 69: a Brier number whose covering sets A and B are disjoint? | none known; 3 always shared | [yes: a 230-digit k (covering proof)](results/prob-69.md) |
 | [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](results/93.md) |
+| [221](https://www.primepuzzles.net/puzzles/puzz_221.htm) | Q2: next terms of 2, 7, 13, 43, 103, … (no sum of two or more terms prime) | a(9) = 7338823 | [a(10) = 42939980423 (OEIS), verified; a(11) ≈ 10¹⁵ (heuristic)](results/221.md) |
 | [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Q1: more terms of A059754 (first runs of n consecutive Smith numbers) | stops at a(7) = 164736913905 | [a(8) = 8090674745553 (Alekseyev 2010, OEIS), verified](results/247.md) |
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](results/336.md) |
 | [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [explained: one self number per carry-free block](results/374.md) |

@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 46 answered, 1196 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 47 answered, 1195 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -224,7 +224,7 @@
 | [218](https://www.primepuzzles.net/puzzles/puzz_218.htm) | Rupinski primes | open |
 | [219](https://www.primepuzzles.net/puzzles/puzz_219.htm) | Polignac numbers | open |
 | [220](https://www.primepuzzles.net/puzzles/puzz_220.htm) | p-k! primes. | open |
-| [221](https://www.primepuzzles.net/puzzles/puzz_221.htm) | What are the next? | open |
+| [221](https://www.primepuzzles.net/puzzles/puzz_221.htm) | What are the next? | [answered](../results/221.md) |
 | [222](https://www.primepuzzles.net/puzzles/puzz_222.htm) | Equations with consecutive primes | open |
 | [223](https://www.primepuzzles.net/puzzles/puzz_223.htm) | Consecutive primes and powers of 2 | open |
 | [224](https://www.primepuzzles.net/puzzles/puzz_224.htm) | Eccentric prime diagonals | open |
