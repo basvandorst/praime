@@ -1,4 +1,4 @@
-# Rebuild the "## Status" section of README.md: every puzzle, conjecture and problem by status.
+# Rebuild the "## Status" section of README.md, placed right after the last Results section: every puzzle, conjecture and problem by status.
 # Beaten, solved and partially solved numbers link to our write-up, unsolved ones to the page on primepuzzles.net.
 # Run from the repo root: python3 writeup/code/make_status.py
 import os, re
@@ -57,9 +57,10 @@ for kind, title in (('puzzle', 'Puzzles'), ('conjecture', 'Conjectures'), ('prob
             section += ['**%s:** %s' % (group, ', '.join(links)), '']
 block = '\n'.join(section) + '\n'
 
-if re.search(r'^## Status\n', readme, re.M):
-    readme = re.sub(r'^## Status\n.*?(?=^## )', lambda _: block, readme, count=1, flags=re.M | re.S)
-else:
-    readme = re.sub(r'^## Results ', lambda m: block + m.group(0), readme, count=1, flags=re.M)
+readme = re.sub(r'^## Status\n.*?(?=^## )', '', readme, count=1, flags=re.M | re.S)
+last_results = list(re.finditer(r'^## Results ', readme, re.M))[-1]
+after = re.search(r'^## ', readme[last_results.end():], re.M)
+cut = last_results.end() + after.start() if after else len(readme)
+readme = readme[:cut] + block + '\n' + readme[cut:]
 open('README.md', 'w', encoding='utf-8').write(readme)
 print('\n'.join(line for line in section if line.startswith('### ')))
