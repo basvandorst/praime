@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 43 answered, 1199 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 44 answered, 1198 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1184,7 +1184,7 @@
 | [1178](https://www.primepuzzles.net/puzzles/puzz_1178.htm) | F[n] = Floor[(Prime[n] + 1)^2/(Prime[n + 1] - 1)] | open |
 | [1179](https://www.primepuzzles.net/puzzles/puzz_1179.htm) | A sequence by Polo Lava | open |
 | [1180](https://www.primepuzzles.net/puzzles/puzz_1180.htm) | A puzzle by V. F. Izquierdo | open |
-| [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | A puzzle by S. M. Ruiz | open |
+| [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | A puzzle by S. M. Ruiz | [answered](../results/1181.md) |
 | [1182](https://www.primepuzzles.net/puzzles/puzz_1182.htm) | Another sequence by Paolo Lava | open |
 | [1183](https://www.primepuzzles.net/puzzles/puzz_1183.htm) | F(n)=(Floor(n!/E) + Mod(n, 2))/n | open |
 | [1184](https://www.primepuzzles.net/puzzles/puzz_1184.htm) | Floor[n GoldenRatio] =n+ Floor[n/GoldenRatio] for all n=>1. | open |
