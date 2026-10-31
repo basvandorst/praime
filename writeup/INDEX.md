@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 45 answered, 1197 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 46 answered, 1196 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -941,7 +941,7 @@
 | [935](https://www.primepuzzles.net/puzzles/puzz_935.htm) | pi+SOD(pi)=p(i+n) | open |
 | [936](https://www.primepuzzles.net/puzzles/puzz_936.htm) | Palprimes such that... | open |
 | [937](https://www.primepuzzles.net/puzzles/puzz_937.htm) | A non-composite sequence? | open |
-| [938](https://www.primepuzzles.net/puzzles/puzz_938.htm) | The Soothsayer sequence | open |
+| [938](https://www.primepuzzles.net/puzzles/puzz_938.htm) | The Soothsayer sequence | [answered](../results/938.md) |
 | [939](https://www.primepuzzles.net/puzzles/puzz_939.htm) | Numbers in Arithmetical progression whose sum of divisors is same (CYF 35) | open |
 | [940](https://www.primepuzzles.net/puzzles/puzz_940.htm) | Digits on p^k | open |
 | [941](https://www.primepuzzles.net/puzzles/puzz_941.htm) | nxtprime(p) inside p^2 | open |

@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 12:21 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 12:25 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (26)
+#### Answers to open questions (27)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -40,6 +40,7 @@ Submissions:
 | [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Q2: why does 2^n + 1 start such long runs of equal Collatz height? | Vantieghem doubts the form is special | [explained: exact reduction to plateaus of A + H(3^A + 1)](results/851.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
+| [938](https://www.primepuzzles.net/puzzles/puzz_938.htm) | Extend both soothsayer sequences (digits = number of prime factors of the next k integers) | II stops at 3624263478 | [II: five more terms (Resta 2019, OEIS A323084), verified; ~1 term per digit length](results/938.md) |
 | [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | Why do D = 15, 65 and 4, 24, …, 84 never occur in A121805, and why are 5, 55 most common? | Q3 answered; Q1, Q2 no replies | [explained: block orbits + a parity invariant](results/980.md) |
 | [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others (proof)](results/1035.md) |
 | [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Q1: d(p−1) prime ⇔ σ(p−1) prime? | one direction proved (Casini) | [converse reduced: true except possibly p = F_(2^n), n ≥ 33](results/1136.md) |
