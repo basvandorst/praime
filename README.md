@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 13:39 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 13:44 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -10,14 +10,14 @@ Submissions:
 
 ## Results November 2026
 
-#### Beaten records (3)
+#### Puzzle records beaten (3)
 | # | Puzzle | Current record | Our result |
 |---|---|---|---|
 | [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: p + q = 95521311344](results/848.md) |
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (31)
+#### Puzzles solved/answered (31)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -69,7 +69,7 @@ Submissions:
 
 ## Results October 2026
 
-#### Beaten records (39)
+#### Puzzle records beaten (39)
 | # | Puzzle | Current record | Our result |
   |---|---|---|---|
   | [65](https://www.primepuzzles.net/puzzles/puzz_065.htm) | Equal power sums from consecutive primes | degree 3 | [degree 5](results/65.md) |
@@ -112,7 +112,7 @@ Submissions:
   | [1230](https://www.primepuzzles.net/puzzles/puzz_1230.htm) | Primes with even-length period of 1/p | 29 | [30](results/1230.md) |
   | [1251](https://www.primepuzzles.net/puzzles/puzz_1251.htm) | Cycles of "add b, take largest prime factor" | 72 | [477](results/1251.md) |
 
-#### Answers to open questions (25)
+#### Puzzles solved/answered (25)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [75 Q2](https://www.primepuzzles.net/puzzles/puzz_075.htm) | Smallest palprime with digit sum 2000 | unanswered | [223 digits (PRP)](results/75.md) |
