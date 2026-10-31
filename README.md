@@ -15,7 +15,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (13)
+#### Answers to open questions (14)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Extend the tables of first N distinct / increasing / decreasing consecutive gaps | distinct table stops at N = 20, then N = 36 | [N = 21–35 new; none of 37 / 15 / 14 below 1.01·10¹³](results/11.md) |
@@ -26,6 +26,7 @@ Submissions:
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](results/542.md) |
 | [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | Which p^a = q^b + r^c·s^d over {2,3,5,7} have no solution? | a computer table, no proof (Vantieghem) | [exactly two (proof); lists complete to exponent 150](results/765.md) |
+| [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Q2: why does 2^n + 1 start such long runs of equal Collatz height? | Vantieghem doubts the form is special | [explained: exact reduction to plateaus of A + H(3^A + 1)](results/851.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
 | [980](https://www.primepuzzles.net/puzzles/puzz_980.htm) | Why do D = 15, 65 and 4, 24, …, 84 never occur in A121805, and why are 5, 55 most common? | Q3 answered; Q1, Q2 no replies | [explained: block orbits + a parity invariant](results/980.md) |

@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 35 answered, 1207 open (4 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 36 answered, 1206 open (4 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -854,7 +854,7 @@
 | [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | p(0)nq is prime for n=0,1,2,...k | [beaten](../results/848.md) |
 | [849](https://www.primepuzzles.net/puzzles/puzz_849.htm) | 9x9 Magical square and pandigitals. | open |
 | [850](https://www.primepuzzles.net/puzzles/puzz_850.htm) | The wagon prime. | open |
-| [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Puzzle 827 revisited | open |
+| [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Puzzle 827 revisited | [answered](../results/851.md) |
 | [852](https://www.primepuzzles.net/puzzles/puzz_852.htm) | Primes and convolution | open |
 | [853](https://www.primepuzzles.net/puzzles/puzz_853.htm) | The Euler polynomial again | open |
 | [854](https://www.primepuzzles.net/puzzles/puzz_854.htm) | Follow up to Puzzle 853 | open |
