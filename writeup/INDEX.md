@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 41 answered, 1201 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 42 answered, 1200 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -688,7 +688,7 @@
 | [682](https://www.primepuzzles.net/puzzles/puzz_682.htm) | Stanley Antimagic Squares-II | open |
 | [683](https://www.primepuzzles.net/puzzles/puzz_683.htm) | Rubin's puzzle | open |
 | [684](https://www.primepuzzles.net/puzzles/puzz_684.htm) | Primes in N dice | open |
-| [685](https://www.primepuzzles.net/puzzles/puzz_685.htm) | Follow up to puzzle 683 | open |
+| [685](https://www.primepuzzles.net/puzzles/puzz_685.htm) | Follow up to puzzle 683 | [answered](../results/685.md) |
 | [686](https://www.primepuzzles.net/puzzles/puzz_686.htm) | Filling the grid (Le Monde puzzle) | open |
 | [687](https://www.primepuzzles.net/puzzles/puzz_687.htm) | 17769643 | open |
 | [688](https://www.primepuzzles.net/puzzles/puzz_688.htm) | Follow up to Puzzle 687 | open |
