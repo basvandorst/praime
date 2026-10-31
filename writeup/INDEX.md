@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 49 answered, 1193 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 50 answered, 1192 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -380,7 +380,7 @@
 | [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Self numbers | [answered](../results/374.md) |
 | [375](https://www.primepuzzles.net/puzzles/puzz_375.htm) | Powers which are the sum of initial primes. | open |
 | [376](https://www.primepuzzles.net/puzzles/puzz_376.htm) | n=p*2^x | open |
-| [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Add 2 to any digit | open |
+| [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Add 2 to any digit | [answered](../results/377.md) |
 | [378](https://www.primepuzzles.net/puzzles/puzz_378.htm) | Sequences embedded in decimal periods of fractions | open |
 | [379](https://www.primepuzzles.net/puzzles/puzz_379.htm) | SG primes and its prime average. | open |
 | [380](https://www.primepuzzles.net/puzzles/puzz_380.htm) | A follow up to Puzzle 42 | open |
