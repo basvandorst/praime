@@ -15,7 +15,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (9)
+#### Answers to open questions (10)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](results/93.md) |
@@ -23,6 +23,7 @@ Submissions:
 | [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](results/542.md) |
+| [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | Which p^a = q^b + r^c·s^d over {2,3,5,7} have no solution? | a computer table, no proof (Vantieghem) | [exactly two (proof); lists complete to exponent 150](results/765.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
 | [1035](https://www.primepuzzles.net/puzzles/puzz_1035.htm) | More roots of x = τ(σ(x))·σ(τ(x))? | 1, 468, 3240 up to 10⁸; heuristic "no others" | [no others (proof)](results/1035.md) |

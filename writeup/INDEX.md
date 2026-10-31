@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 31 answered, 1211 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 32 answered, 1210 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -768,7 +768,7 @@
 | [762](https://www.primepuzzles.net/puzzles/puzz_762.htm) | Conjecture from Ribenboim's book | open |
 | [763](https://www.primepuzzles.net/puzzles/puzz_763.htm) | P(n) = P(n)^P(n+1) mod (P(n)+P(n+1)) | open |
 | [764](https://www.primepuzzles.net/puzzles/puzz_764.htm) | N integers in a row such that... | open |
-| [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | p^a = q^b + r^c.s^d | open |
+| [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | p^a = q^b + r^c.s^d | [answered](../results/765.md) |
 | [766](https://www.primepuzzles.net/puzzles/puzz_766.htm) | A Follow up to Puzzle 764. | open |
 | [767](https://www.primepuzzles.net/puzzles/puzz_767.htm) | A second Follow up to Puzzle 764. | open |
 | [768](https://www.primepuzzles.net/puzzles/puzz_768.htm) | Primes as m sums of triangular numbers. | open |
