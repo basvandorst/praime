@@ -26,4 +26,4 @@ print("A =", sorted(A)); print("|B| =", len(B), " B =", sorted(B))
 # k > max prime, so k*2^n +- 1 is a proper multiple, hence composite, for all n >= 0
 assert k > max(A | B)
 print("k =", k)
-open("brier69_k.txt", "w").write(str(k))
+
