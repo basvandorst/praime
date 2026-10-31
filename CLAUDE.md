@@ -43,6 +43,7 @@ The first line of a page file is the site's HTML title, and on 14 puzzle pages (
 ## Rules
 
 - Above 2^64, a prime without a primality proof is "PRP". (`sympy.isprime` is a proof only below 2^64.) Puzzles 419, 793 and 908 had to be relabelled for this.
+- Work out the math in every analysis, down to the smallest detail: formal definitions, every formula derived step by step, every constant explained, each step labelled proved, heuristic or empirical, and each formula checked numerically against real data. This holds for write-ups and for answers in chat alike.
 - Do not overclaim. Use "proved", "minimal" and "first" only with evidence. Say what you checked and what you assumed.
 - Keep a running log of checks. Put scratch files outside the repo.
 - Add what you learn to `IDEAS.txt` and `FINDINGS.txt`.
