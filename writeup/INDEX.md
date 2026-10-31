@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 11 with a result of ours (proved, disproved, explained, answered, or a variant settled), 104 open (3 with a write-up of our attempt). Status links go to our write-up.
+115 conjectures: 12 with a result of ours (proved, disproved, explained, answered, or a variant settled), 103 open (3 with a write-up of our attempt). Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1347,7 +1347,7 @@
 | [50](https://www.primepuzzles.net/conjectures/conj_050.htm) | n = pq - rs | open |
 | [51](https://www.primepuzzles.net/conjectures/conj_051.htm) | Two approximate relationships about prime numbers | open |
 | [52](https://www.primepuzzles.net/conjectures/conj_052.htm) | SMR Conjecture about consecutive primes | open |
-| [53](https://www.primepuzzles.net/conjectures/conj_053.htm) | Floor function & consecutive primes | open |
+| [53](https://www.primepuzzles.net/conjectures/conj_053.htm) | Floor function & consecutive primes | [answered](../results/conj-53.md) |
 | [54](https://www.primepuzzles.net/conjectures/conj_054.htm) | Reversible primes conjeture | open |
 | [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | n = m^2 + p + d | [variant disproved](../results/conj-55.md) |
 | [56](https://www.primepuzzles.net/conjectures/conj_056.htm) | One  more SMR conjecture. | open |
