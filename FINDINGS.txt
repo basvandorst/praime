@@ -93,3 +93,8 @@ From the shared-component pass (30 October 2026; scratch code outside the repo, 
   - gap counts and maximal gaps (above);
   - the Lemke Oliver-Soundararajan 4x4 last-digit table: all 16 cells within 0.7 % (one sd of noise) near 1e9 and 1e12, diagonal share 0.1821 vs real 0.1823 and 0.1966 vs 0.1961 (results/code/facts_digits405.py);
   - Maier's oscillation after r*M, M = 23#. This one holds identically, because the model's ratio to H/ln x is the old sieve prediction times 1/(e^gamma*omega(1/c)) = 1 at c = 0.405.
+- The coin is fair (results/code/facts_coin405.py; 2.7e6 survivors near 1e9 and 2.0e6 near 1e12, sieve to y = x^0.405). The prime indicators of survivors are uncorrelated to within one sd of 0.0006-0.0007:
+  - at lags 1, 2, 3, 5 and 10, the ratio P(both prime)/rho^2 is between 0.9996 and 1.0004;
+  - by the distance d = 2, 4, 6, 10, 12 or 30 to the next survivor, it is between 0.9992 and 1.0013;
+  - for three consecutive survivors, P(all prime)/rho^3 is 0.9995 at 1e9 and 1.0011 at 1e12.
+  Theory gives the only correlation left: primes q in (y, sqrt x] cannot hit two survivors closer than q, a pair factor prod(1 - 1/(q-1)^2) ~ 1 - 1/(y ln y) = 1 - 3e-5 at 1e9. So all structure in the gaps sits in the sieve to x^0.405, and above it primality behaves as independent coins down to the 1e-3 level measured here.
