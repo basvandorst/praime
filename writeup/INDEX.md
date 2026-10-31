@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 48 answered, 1194 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 49 answered, 1193 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -118,7 +118,7 @@
 | [112](https://www.primepuzzles.net/puzzles/puzz_112.htm) | Automorphic primes | open |
 | [113](https://www.primepuzzles.net/puzzles/puzz_113.htm) | Provable primes in Arithmetic progression | open |
 | [114](https://www.primepuzzles.net/puzzles/puzz_114.htm) | The Murad's generalization of the Collatz's sequences | open |
-| [115](https://www.primepuzzles.net/puzzles/puzz_115.htm) | Prime squares composed by no more than two digits | open |
+| [115](https://www.primepuzzles.net/puzzles/puzz_115.htm) | Prime squares composed by no more than two digits | [answered](../results/115.md) |
 | [116](https://www.primepuzzles.net/puzzles/puzz_116.htm) | A=B+C, A*B*C is a primorial... | open |
 | [117](https://www.primepuzzles.net/puzzles/puzz_117.htm) | Certain p# +1 values | open |
 | [118](https://www.primepuzzles.net/puzzles/puzz_118.htm) | Primorial product numbers | open |
