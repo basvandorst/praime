@@ -15,9 +15,10 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Answers to open questions (11)
+#### Answers to open questions (12)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
+| [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | Q7: why do the two-way GMN primes end in 1? | only a pointer to A057896 | [proved: 1 or 7 forced, 7 only for 7](results/61.md) |
 | [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](results/93.md) |
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](results/336.md) |
 | [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |

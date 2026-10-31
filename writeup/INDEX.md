@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 33 answered, 1209 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 34 answered, 1208 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -64,7 +64,7 @@
 | [58](https://www.primepuzzles.net/puzzles/puzz_058.htm) | A particular sequence of k consecutive primes (by Enoch Haga) | open |
 | [59](https://www.primepuzzles.net/puzzles/puzz_059.htm) | Six and the nine digits primes (by Jud McCranie) | open |
 | [60](https://www.primepuzzles.net/puzzles/puzz_060.htm) | Generalized Cunningham chain (By Felice Russo) | open |
-| [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | M(a, p)  = a^p - a + 1 ( by Jean Brette) | open |
+| [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | M(a, p)  = a^p - a + 1 ( by Jean Brette) | [answered](../results/61.md) |
 | [62](https://www.primepuzzles.net/puzzles/puzz_062.htm) | The qs-sequence, (by T.W.A. Baumann) | open |
 | [63](https://www.primepuzzles.net/puzzles/puzz_063.htm) | Another (3rd) Mike Keith's little puzzle. | open |
 | [64](https://www.primepuzzles.net/puzzles/puzz_064.htm) | The Strange Ruler (TWA Baumann) | open |
