@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 39 answered, 1203 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 40 answered, 1202 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -44,7 +44,7 @@
 | [38](https://www.primepuzzles.net/puzzles/puzz_038.htm) | “Sloane’s sequences” | open |
 | [39](https://www.primepuzzles.net/puzzles/puzz_039.htm) | The Mirrorable Numbers (By Mike Keith) | open |
 | [40](https://www.primepuzzles.net/puzzles/puzz_040.htm) | The Pi Prime Search Puzzle (by Patrick De Geest) | open |
-| [41](https://www.primepuzzles.net/puzzles/puzz_041.htm) | Palindromic Carnival (dedicated to Patrick De Geest) | open |
+| [41](https://www.primepuzzles.net/puzzles/puzz_041.htm) | Palindromic Carnival (dedicated to Patrick De Geest) | [answered](../results/41.md) |
 | [42](https://www.primepuzzles.net/puzzles/puzz_042.htm) | This week puzzle is to create a puzzle analog to other one. | open |
 | [43](https://www.primepuzzles.net/puzzles/puzz_043.htm) | Palprime1*Palprime2 = Palindrome | open |
 | [44](https://www.primepuzzles.net/puzzles/puzz_044.htm) | “Enoch Haga Puzzle about Consecutive Primes” | open |
