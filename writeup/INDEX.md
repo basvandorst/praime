@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 59 answered, 1186 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 59 answered, 1186 open (10 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -214,7 +214,7 @@
 | [208](https://www.primepuzzles.net/puzzles/puzz_208.htm) | Happy new Year 2003! | open |
 | [209](https://www.primepuzzles.net/puzzles/puzz_209.htm) | Triangles of primes | open |
 | [210](https://www.primepuzzles.net/puzzles/puzz_210.htm) | Jeff's numbers | open |
-| [211](https://www.primepuzzles.net/puzzles/puzz_211.htm) | A beauty limit on prime  numbers | open |
+| [211](https://www.primepuzzles.net/puzzles/puzz_211.htm) | A beauty limit on prime  numbers | [open](211.md) |
 | [212](https://www.primepuzzles.net/puzzles/puzz_212.htm) | Substring reversion | open |
 | [213](https://www.primepuzzles.net/puzzles/puzz_213.htm) | Hailstone champion sequences | open |
 | [214](https://www.primepuzzles.net/puzzles/puzz_214.htm) | Trotter's Curio | open |
