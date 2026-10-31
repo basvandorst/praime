@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 35 answered, 1207 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 35 answered, 1207 open (4 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -723,7 +723,7 @@
 | [717](https://www.primepuzzles.net/puzzles/puzz_717.htm) | Associative squares Stanley | open |
 | [718](https://www.primepuzzles.net/puzzles/puzz_718.htm) | A follow up to Puzzle 700 | open |
 | [719](https://www.primepuzzles.net/puzzles/puzz_719.htm) | Extension to Ruth Aaron pairs | open |
-| [720](https://www.primepuzzles.net/puzzles/puzz_720.htm) | x^2&y^2 or y^2&x^2 squares | open |
+| [720](https://www.primepuzzles.net/puzzles/puzz_720.htm) | x^2&y^2 or y^2&x^2 squares | [open](720.md) |
 | [721](https://www.primepuzzles.net/puzzles/puzz_721.htm) | p(i)= DR(p(i-1))&(p(i-1)\10) | open |
 | [722](https://www.primepuzzles.net/puzzles/puzz_722.htm) | 2^m-1 consecutive integers having m prime factors | open |
 | [723](https://www.primepuzzles.net/puzzles/puzz_723.htm) | Pandiagonal magic squares of consecutive primes | open |
@@ -756,7 +756,7 @@
 | [750](https://www.primepuzzles.net/puzzles/puzz_750.htm) | A special 5x5 prime magic square | open |
 | [751](https://www.primepuzzles.net/puzzles/puzz_751.htm) | Named primes producing primes. | open |
 | [752](https://www.primepuzzles.net/puzzles/puzz_752.htm) | Palindromes as sum of the first k primes | open |
-| [753](https://www.primepuzzles.net/puzzles/puzz_753.htm) | Prime lattices | open |
+| [753](https://www.primepuzzles.net/puzzles/puzz_753.htm) | Prime lattices | [open](753.md) |
 | [754](https://www.primepuzzles.net/puzzles/puzz_754.htm) | Quantity of primes in P+Q | open |
 | [755](https://www.primepuzzles.net/puzzles/puzz_755.htm) | Upside Down Magic Squares | open |
 | [756](https://www.primepuzzles.net/puzzles/puzz_756.htm) | Primonacci | open |
