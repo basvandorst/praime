@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 39 beaten, 58 answered, 1187 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 59 answered, 1186 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -822,7 +822,7 @@
 | [816](https://www.primepuzzles.net/puzzles/puzz_816.htm) | Primes between n*k and n*(k+1) | open |
 | [817](https://www.primepuzzles.net/puzzles/puzz_817.htm) | 2016  and prime numbers | open |
 | [818](https://www.primepuzzles.net/puzzles/puzz_818.htm) | A follow up to Puzzle 814 | open |
-| [819](https://www.primepuzzles.net/puzzles/puzz_819.htm) | A follow up to Puzzle 314 | open |
+| [819](https://www.primepuzzles.net/puzzles/puzz_819.htm) | A follow up to Puzzle 314 | [answered](../results/819.md) |
 | [820](https://www.primepuzzles.net/puzzles/puzz_820.htm) | The  Sunduram's sieve | open |
 | [821](https://www.primepuzzles.net/puzzles/puzz_821.htm) | Prime numbers and complementary sequences | open |
 | [822](https://www.primepuzzles.net/puzzles/puzz_822.htm) | About OEIS sequence A193890 | open |

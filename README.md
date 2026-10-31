@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 16:28 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 16:31 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Puzzles solved/answered (40)
+#### Puzzles solved/answered (41)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -46,6 +46,7 @@ Submissions:
 | [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | Which p^a = q^b + r^c·s^d over {2,3,5,7} have no solution? | a computer table, no proof (Vantieghem) | [exactly two (proof); lists complete to exponent 150](results/765.md) |
 | [788](https://www.primepuzzles.net/puzzles/puzz_788.htm) | Q2: is the sequence P&p(i)²&RP finite or infinite? | no answer | [finite: no P for k ≥ 169 (mod-7 covering)](results/788.md) |
 | [804](https://www.primepuzzles.net/puzzles/puzz_804.htm) | Q2: why do all P with (P+1)²+1 prime and Q² + Rev(Q²) palindromic end in 9? | 1, 7 ruled out (5 \| Q); 3 left open | [3 needs a rigid digit pattern (proof); no-carry observation proved](results/804.md) |
+| [819](https://www.primepuzzles.net/puzzles/puzz_819.htm) | Q2: is f with f(f(n)) = p(n) unique? Prove it | a second g exists (Vantieghem) | [all solutions = pairings of Pebody's rows with orientations: 2^ℵ₀ (proof)](results/819.md) |
 | [851](https://www.primepuzzles.net/puzzles/puzz_851.htm) | Q2: why does 2^n + 1 start such long runs of equal Collatz height? | Vantieghem doubts the form is special | [explained: exact reduction to plateaus of A + H(3^A + 1)](results/851.md) |
 | [870](https://www.primepuzzles.net/puzzles/puzz_870.htm) | A 4×4 prime nested magic square, grade 2 | "I couldn't find a single one" (Rivera) | [three (types R, L, LR)](results/870.md) |
 | [900](https://www.primepuzzles.net/puzzles/puzz_900.htm) | Why the numerator of ∏(p²+1)/(p−1) ends in 25 | "a conjecture" (Vantieghem) | [proved (= conjecture 80)](results/conj-80.md) |
