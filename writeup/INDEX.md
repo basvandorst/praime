@@ -1291,7 +1291,7 @@
 
 # All conjectures
 
-115 conjectures: 13 with a result of ours (proved, disproved, explained, answered, or a variant settled), 102 open (4 with a write-up of our attempt). Status links go to our write-up.
+115 conjectures: 14 with a result of ours (proved, disproved, explained, answered, or a variant settled), 101 open (4 with a write-up of our attempt). Status links go to our write-up.
 
 | # | Conjecture | Status |
 |---|---|---|
@@ -1342,7 +1342,7 @@
 | [45](https://www.primepuzzles.net/conjectures/conj_045.htm) | Even numbers as sum of 4 twin primes. | open |
 | [46](https://www.primepuzzles.net/conjectures/conj_046.htm) | P-Q=R-S | open |
 | [47](https://www.primepuzzles.net/conjectures/conj_047.htm) | P=2P1 + 3P2 | open |
-| [48](https://www.primepuzzles.net/conjectures/conj_048.htm) | P=A+/-B | open |
+| [48](https://www.primepuzzles.net/conjectures/conj_048.htm) | P=A+/-B | [answered](../results/conj-48.md) |
 | [49](https://www.primepuzzles.net/conjectures/conj_049.htm) | n = pq +rs | open |
 | [50](https://www.primepuzzles.net/conjectures/conj_050.htm) | n = pq - rs | open |
 | [51](https://www.primepuzzles.net/conjectures/conj_051.htm) | Two approximate relationships about prime numbers | open |

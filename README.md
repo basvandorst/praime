@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 16:36 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 17:10 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -62,12 +62,13 @@ Submissions:
 | [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | Q2: generalise the prime-F rule to F(p,q) = ⌊q²/p⌋; why is T(p) empty for p = 2, 3, 5, 11? | computed only | [proved: prime F needs an even non-square residue; none exists only for 2, 3, 5, 11](results/1181.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](results/1238.md) |
 
-#### Conjectures (13)
+#### Conjectures (14)
 | # | Conjecture | Status on the page | Our result |
 |---|---|---|---|
 | [21](https://www.primepuzzles.net/conjectures/conj_021.htm) | Least N needing R consecutive primes (± sums), R = 11, 12 | table stops at R = 10 (Nash, 2000) | [R = 11: 113313, R = 12: 72598584](results/conj-21.md) |
 | [39](https://www.primepuzzles.net/conjectures/conj_039.htm) | Is there n with d(n) = 9 (Jacobsthal gap)? | open (Firoozbakht) | [yes, first at 36465 = 3·5·11·13·17](results/conj-39.md) |
 | [44](https://www.primepuzzles.net/conjectures/conj_044.htm) | √((p² + q²)/2 − 1) integer for consecutive primes iff twins | reduced to a gap bound; checked p ≤ 10⁹ (Oakes) | [proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](results/conj-44.md) |
+| [48](https://www.primepuzzles.net/conjectures/conj_048.htm) | Degiorgi: can \|2ⁿ − 3^m\| = 103? Sand's corrected P = A ± B conjecture | open ("I am not able to prove …") | [no (proof); corrected version: 433 has no representation for Q ≤ 31, A ≤ 10¹⁶](results/conj-48.md) |
 | [53](https://www.primepuzzles.net/conjectures/conj_053.htm) | Capelle: ⌊pq/r⌋ = p + q − r for consecutive r < q < p, r > 1327; 18 companion identities; a formula for ⌊pq/r − qr/p⌋? | conditional proof (Firoozbakht's conjecture); companions conjectured | [all 19 proved for r ≤ 4·10¹⁸; ⌊pq/r − qr/p⌋ = 2(p − r) − [p − q > q − r]](results/conj-53.md) |
 | [55](https://www.primepuzzles.net/conjectures/conj_055.htm) | Sand's variant: every n > 5 is p² + q + d, d ≤ 2 | "checked until 10⁶" | [false: 305](results/conj-55.md) |
 | [70](https://www.primepuzzles.net/conjectures/conj_070.htm) | Consecutive primitive roots for every p > 7 | known for p > 10¹⁹ and by computation | [a theorem (2015)](results/conj-70.md) |
