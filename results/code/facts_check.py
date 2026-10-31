@@ -9,7 +9,7 @@ import numpy as np
 import gmpy2
 import mpmath
 from sympy import isprime, nextprime, primerange, factorint, legendre_symbol, fibonacci, lucas, primitive_root, n_order, mobius
-from sympy import cyclotomic_poly, primefactors, totient, jacobi_symbol, divisors
+from sympy import prevprime, cyclotomic_poly, primefactors, totient, jacobi_symbol, divisors
 
 def sieve(n):
     s = np.ones(n + 1, dtype=bool); s[:2] = False
@@ -1249,5 +1249,170 @@ for k in range(24): v_ = odd - 2**k; hitp |= at(np.maximum(v_, 0)) & (v_ > 1)
 pol_ = odd[~hitp]
 assert len(pol_) == 421862 and int(isp[pol_].sum()) == 102612 and int((~isp[pol_]).sum()) == 319250
 assert all(any((18814027 - pow(2, k, q)) % q == 0 for q in (3, 5, 7, 13, 17, 241)) for k in range(24)) and 346729110 == 62 * 5592405
+
+# --- facts added from the OEIS sweep (section numbers as in FACTS.md) ---------------------------------
+
+# 1612: least prime = 1 (mod n) for n <= 10^4, a(n) < n^2, and the records of a(n)/n
+lp1 = []
+for n in range(1, 10001):
+    p = n + 1
+    while not isp[p]: p += n
+    lp1.append(p)
+assert lp1[:20] == [2, 3, 7, 5, 11, 7, 29, 17, 19, 11, 23, 13, 53, 29, 31, 17, 103, 19, 191, 41]
+assert all(lp1[n - 1] < n * n for n in range(2, 10001)) and max(Fraction(lp1[n - 1], n * n) for n in range(2, 10001)) == Fraction(7, 9)
+rec1, m_ = [], 0
+for n in range(2, 10001):
+    if lp1[n - 1] / n > m_: m_ = lp1[n - 1] / n; rec1.append(n)
+assert rec1 == [2, 3, 7, 17, 19, 59, 159, 227, 317, 361, 521, 1637, 1691, 1997, 2053, 3833, 5207] and lp1[5206] == 437389 == 84 * 5207 + 1
+
+# 2039: pi(2^n), twins with lesser member below 2^n, the 10^n-th and 2^n-th primes
+pi2 = [int(np.searchsorted(P, 2**n, side='right')) for n in range(28)]
+assert pi2 == [0, 1, 2, 4, 6, 11, 18, 31, 54, 97, 172, 309, 564, 1028, 1900, 3512, 6542, 12251, 23000, 43390, 82025, 155611, 295947, 564163, 1077871, 2063689, 3957809, 7603553]
+tw2 = [int(np.sum(g[:np.searchsorted(P, 2**n)] == 2)) for n in range(5, 28)]
+assert tw2 == [5, 7, 10, 17, 24, 36, 62, 107, 177, 290, 505, 860, 1526, 2679, 4750, 8535, 15500, 27995, 50638, 92246, 168617, 309561, 571313]
+assert [int(P[10**n - 1]) for n in range(8)] == [2, 29, 541, 7919, 104729, 1299709, 15485863, 179424673]
+assert [int(P[2**n - 1]) for n in (10, 20, 23)] == [8161, 16290047, 148948139]
+
+# 2040: sums of the primes below 10^n and of the first 10^n primes
+assert [int(P[P < 10**n].sum()) for n in range(1, 9)] == [17, 1060, 76127, 5736396, 454396537, 37550402023, 3203324994356, 279209790387276]
+assert [int(P[:10**n].sum()) for n in range(8)] == [2, 129, 24133, 3682913, 496165411, 62260698721, 7472966967499, 870530414842019]
+
+# 2041: the mod 4 and mod 6 races at 10^n, and the first leader changes of the mod 4 race
+r41 = [int(np.sum(P[P < 10**n] % 4 == 1)) for n in range(1, 9)]; r43 = [int(np.sum(P[P < 10**n] % 4 == 3)) for n in range(1, 9)]
+assert r41 == [1, 11, 80, 609, 4783, 39175, 332180, 2880504] and [b - a for a, b in zip(r41, r43)] == [1, 2, 7, 10, 25, 147, 218, 446]
+r61 = [int(np.sum(P[P < 10**n] % 6 == 1)) for n in range(1, 9)]; r65 = [int(np.sum(P[P < 10**n] % 6 == 5)) for n in range(1, 9)]
+assert r61 == [1, 11, 80, 611, 4784, 39231, 332194, 2880517] and [b - a for a, b in zip(r61, r65)] == [0, 1, 6, 5, 22, 34, 189, 419]
+lead4 = np.sign(np.where(P % 4 == 3, 1, np.where(P % 4 == 1, -1, 0)).cumsum()); nz4 = np.nonzero(lead4)[0]
+chg4 = [int(P[nz4[0]])] + [int(P[i]) for i in nz4[1:][lead4[nz4][1:] != lead4[nz4][:-1]]]
+assert chg4[:33] == [3, 26861, 26879, 616841, 617039, 617269, 617471, 617521, 617587, 617689, 617723, 622813, 623387, 623401, 623851, 623933, 624031, 624097, 624191, 624241, 624259, 626929, 626963, 627353, 627391, 627449, 627511, 627733, 627919, 628013, 628427, 628937, 629371]
+assert len(chg4) == 125
+
+# 2042: Goldbach partitions of 10^n, and the least even number with exactly k partitions into two odd primes
+assert [int(isp[10**n - P[P <= 10**n // 2]].sum()) for n in range(1, 9)] == [2, 6, 28, 127, 810, 5402, 38807, 291400]
+ind_ = np.zeros(20001, np.int64); ind_[P[(P > 2) & (P <= 20000)]] = 1
+rg = (np.convolve(ind_, ind_)[:20001] + ind_[np.arange(20001) // 2] * (np.arange(20001) % 2 == 0)) // 2
+fk = {}
+for x in range(6, 20001, 2): fk.setdefault(int(rg[x]), x)
+assert [fk[k] for k in range(1, 54)] == [6, 10, 22, 34, 48, 60, 78, 84, 90, 114, 144, 120, 168, 180, 234, 246, 288, 240, 210, 324, 300, 360, 474, 330, 528, 576, 390, 462, 480, 420, 570, 510, 672, 792, 756, 876, 714, 798, 690, 1038, 630, 1008, 930, 780, 960, 870, 924, 900, 1134, 1434, 840, 990, 1302]
+
+# 2043: Lemoine, records of the least q in {1, odd primes} with n = 2p + q, odd 9 <= n < 10^7
+nL = np.arange(9, 10**7, 2); qL = np.zeros(len(nL), np.int64); openL = np.ones(len(nL), bool)
+for q_ in [1] + [int(x) for x in P[1:2000]]:
+    okL = openL & (nL - q_ >= 4) & at(np.maximum((nL - q_) // 2, 0)); qL[okL] = q_; openL &= ~okL
+    if not openL.any(): break
+assert not openL.any()
+recL = [(int(nL[i]), int(qL[i])) for i in np.nonzero(qL > np.maximum.accumulate(np.concatenate(([0], qL[:-1]))))[0]]
+assert recL == [(9, 3), (19, 5), (21, 7), (55, 17), (115, 29), (193, 47), (323, 61), (611, 73), (1081, 83), (1571, 277), (10771, 317), (13067, 349), (16321, 419), (44881, 503), (57887, 601), (93167, 709), (189947, 829), (404939, 877), (442307, 1129), (1746551, 1237), (3383593, 1367), (3544391, 1429), (5056787, 1669), (7480667, 1801)]
+del nL, qL, openL
+
+# 2044: Ramanujan primes below 10^n, n <= 7: R_n = 1 + max{x : pi(x) - pi(x/2) < n}, and R_n <= p_(3n) < 2e7 for n <= 316066 (Laishram 2010)
+XR = 2 * 10**7; piR = np.zeros(XR + 1, np.int32); piR[P[P <= XR]] = 1; piR = np.cumsum(piR, dtype=np.int32)
+cR = piR - piR[np.arange(XR + 1) // 2]; sufR = np.minimum.accumulate(cR[::-1])[::-1]
+assert int(P[3 * 316066 - 1]) < XR and [int(sufR[10**k - 1]) for k in range(1, 8)] == [1, 10, 72, 559, 4459, 36960, 316066]
+del piR, cR, sufR
+
+# 2045: safe primes below 10^n
+Q8 = P[P < 10**8]; safe8 = Q8[(Q8 > 4) & isp[(Q8 - 1) // 2]]
+assert [int(np.sum(safe8 < 10**n)) for n in range(1, 9)] == [2, 7, 25, 115, 670, 4324, 30657, 229568]
+
+# 3024: indices of the primes before the maximal gaps, and the largest gap starting below 10^n
+mi, m_ = [], 0
+for i in np.nonzero(g > np.maximum.accumulate(np.concatenate(([0], g[:-1]))))[0]:
+    if g[i] > m_: m_ = int(g[i]); mi.append(int(i) + 1)
+assert mi == [1, 2, 4, 9, 24, 30, 99, 154, 189, 217, 1183, 1831, 2225, 3385, 14357, 30802, 31545, 40933, 103520, 104071, 149689, 325852, 1094421, 1319945, 2850174, 6957876, 10539432, 10655462]
+assert [int(g[:np.searchsorted(P, 10**n)].max()) for n in range(1, 9)] == [4, 8, 20, 36, 72, 114, 154, 220]
+
+# 3025: record merits g/ln p, and record g/ln^2 p for p >= 23; a record merit is always a maximal gap
+lnP = np.log(P[:-1].astype(float)); mer = g / lnP
+rm = [int(i) for i in np.nonzero(mer > np.maximum.accumulate(np.concatenate(([0], mer[:-1]))))[0]]
+assert [int(P[i]) for i in rm] == [2, 3, 7, 113, 1129, 1327, 19609, 31397, 155921, 360653, 370261, 1357201, 2010733, 17051707, 20831323, 191912783]
+assert [int(g[i]) for i in rm] == [1, 2, 4, 14, 22, 34, 52, 72, 86, 96, 112, 132, 148, 180, 210, 248] and set(int(i) + 1 for i in rm) <= set(mi)
+i23 = int(np.searchsorted(P, 23)); csg = g[i23:] / lnP[i23:]**2
+rc = np.nonzero(csg > np.maximum.accumulate(np.concatenate(([0], csg[:-1]))))[0]
+assert [int(P[i23 + i]) for i in rc] == [23, 113, 1327, 31397, 370261, 2010733, 20831323]
+del lnP, mer, csg
+
+# 3026, 3027: maximal gaps between twin primes, triplets, quadruplets, quintuplets and sextuplets (start to start)
+def tuple_starts(pat):
+    d_ = np.diff(pat); m_ = np.ones(len(P) - len(d_), bool)
+    for j, x in enumerate(d_): m_ &= (g[j:len(g) - len(d_) + 1 + j] == x)
+    return P[:len(m_)][m_]
+def max_gaps(st):
+    gg, out, m_ = np.diff(st), [], 0
+    for i in np.nonzero(gg > np.maximum.accumulate(np.concatenate(([0], gg[:-1]))))[0]:
+        if gg[i] > m_: m_ = int(gg[i]); out.append((m_, int(st[i]), int(st[i + 1])))
+    return out
+mg = max_gaps(tuple_starts([0, 2]))
+assert [x[0] for x in mg] == [2, 6, 12, 18, 30, 36, 72, 150, 168, 210, 282, 372, 498, 630, 924, 930, 1008, 1452, 1512, 1530, 1722, 1902, 2190, 2256, 2832, 2868, 3012]
+assert [x[1] for x in mg] == [3, 5, 17, 41, 71, 311, 347, 659, 2381, 5879, 13397, 18539, 24419, 62297, 187907, 687521, 688451, 850349, 2868959, 4869911, 9923987, 14656517, 17382479, 30752231, 32822369, 96894041, 136283429]
+mg = max_gaps(tuple_starts([0, 2, 6]))
+assert [x[0] for x in mg][:15] == [6, 24, 60, 84, 114, 180, 210, 264, 390, 564, 630, 1050, 1200, 1530, 2016] and len(mg) == 36 and mg[-1][:2] == (25746, 156377861)
+assert [x[0] for x in max_gaps(tuple_starts([0, 4, 6]))][:15] == [6, 24, 30, 90, 150, 156, 210, 240, 306, 366, 384, 444, 810, 834, 1086]
+mg = max_gaps(tuple_starts([0, 2, 6, 8]))
+assert [x[0] for x in mg][:12] == [6, 90, 630, 660, 1170, 2190, 3780, 6420, 8940, 9030, 13260, 16470] and len(mg) == 29 and mg[-1][0] == 268050 and mg[-1][2] == 132842111
+assert [x[0] for x in max_gaps(tuple_starts([0, 2, 6, 8, 12]))][:10] == [6, 90, 1380, 14580, 21510, 88830, 97020, 107100, 112140, 301890]
+assert [x[0] for x in max_gaps(tuple_starts([0, 4, 6, 10, 12]))][:10] == [90, 1770, 2190, 10080, 24360, 35910, 156750, 208620, 304920, 306390]
+mg = max_gaps(tuple_starts([0, 4, 6, 10, 12, 16]))
+assert [x[0] for x in mg] == [90, 15960, 24360, 1047480, 2605680, 2856000, 3605070, 4438560, 5268900, 17958150]
+assert [x[1] for x in mg] == [7, 97, 19417, 43777, 3400207, 11664547, 37055647, 82984537, 89483827, 94752727]
+
+# 4023: least last term of a k-term progression of primes; exhaustive for k <= 10, and for k = 11..13 over the allowed differences
+apb = {}
+for L in [int(x) for x in P[P < 2200]]:
+    for d in range(1, L):
+        k, x = 1, L - d
+        while x >= 2 and isp[x]: k += 1; x -= d
+        for kk in range(1, k + 1): apb.setdefault(kk, L)
+assert [apb[k] for k in range(1, 11)] == [2, 3, 7, 23, 29, 157, 907, 1669, 1879, 2089]
+assert all(isp[199 + 210 * i] for i in range(10)) and 199 + 210 * 9 == 2089 and all(isp[110437 + 13860 * i] for i in range(11))
+def least_last(k, lim):
+    M = math.prod(int(q) for q in P[P <= k]); A = P[P < lim]; c = []
+    for d in range(M, lim // (k - 1) + 1, M):            # start above k: every prime <= k divides d (fact 4007)
+        ok = np.ones(len(A), bool)
+        for i in range(1, k): ok &= at(A + i * d) & (A + i * d < lim)
+        if ok.any(): c.append(int(A[ok].min()) + (k - 1) * d)
+    for q in [int(x) for x in P[P <= k]]:                # start at a prime q <= k: q need not divide d
+        c += [q + (k - 1) * d for d in range(M // q, lim // (k - 1) + 1, M // q) if all(isp[q + i * d] for i in range(k))]
+    return min(c)
+assert [least_last(k, 10**6) for k in (11, 12, 13)] == [249037, 262897, 725663]
+
+# 4024: first prime starting exactly n consecutive primes = 1 (mod 6) and = 5 (mod 6); runs = 1 (mod q) of length q - 1
+def exact_runs(mask):
+    z = np.concatenate(([0], mask.astype(np.int8), [0])); s_, e_ = np.nonzero(np.diff(z) == 1)[0], np.nonzero(np.diff(z) == -1)[0]; out = {}
+    for a, b in zip(s_, e_): out.setdefault(int(b - a), int(P[a]))
+    return out
+er1, er5 = exact_runs(P % 6 == 1), exact_runs(P % 6 == 5)
+assert [er1[n] for n in range(1, 17)] == [7, 31, 151, 3049, 7351, 1741, 19471, 118801, 498259, 148531, 406951, 2513803, 2339041, 89089369, 51662593, 73451737]
+assert [er5[n] for n in range(1, 17)] == [5, 23, 47, 251, 1889, 7793, 43451, 243161, 726893, 759821, 2280857, 1820111, 10141499, 40727657, 19725473, 136209239]
+assert [min(p_ for L_, p_ in exact_runs(P % q == 1).items() if L_ >= q - 1) for q in (2, 3, 5, 7)] == [3, 31, 22501, 9984437]
+
+# 5014: Euler's n^2 + n + 41, number of prime values for n < 10^k and the first composite values
+nE = np.arange(10**4, dtype=np.int64); vE = nE * nE + nE + 41
+assert [int(isp[vE[:10**k]].sum()) for k in range(1, 5)] == [10, 86, 581, 4149]
+assert [int(x) for x in nE[~isp[vE]][:10]] == [40, 41, 44, 49, 56, 65, 76, 81, 82, 84] and 40 * 40 + 40 + 41 == 41**2 and 41 * 41 + 41 + 41 == 41 * 43
+
+# 6223: primorial primes, the k-th prime for the indices k of OEIS A014545 and A057704
+assert [int(P[k - 1]) for k in [384, 457, 616, 643, 1391, 1613, 2122, 2647, 2673, 4413, 13494, 31260, 33237, 304723, 365071, 436504, 498865, 637491]] == [2657, 3229, 4547, 4787, 11549, 13649, 18523, 23801, 24029, 42209, 145823, 366439, 392113, 4328927, 5256037, 6369619, 7351117, 9562633]
+assert [int(P[k - 1]) for k in [310, 352, 564, 590, 620, 849, 1552, 1849, 67132, 85586, 234725, 334023, 435582, 446895]] == [2053, 2377, 4093, 4297, 4583, 6569, 13033, 15877, 843301, 1098133, 3267113, 4778027, 6354977, 6533299]
+
+# 6224: the largest Woodall prime in both notations
+assert 17016602 == 2 * 8508301 and 17016602 * 2**17 == 8508301 * 2**18
+
+# 6225: least b with b^(2^n) + 1 prime, n <= 9
+assert all(gmpy2.is_prime(b**(2**n) + 1) and not any(gmpy2.is_prime(c**(2**n) + 1) for c in range(2, b)) for n, b in enumerate([2, 2, 2, 2, 2, 30, 102, 120, 278, 46]))
+
+# 6226: Proth primes k*2^m + 1 (k odd, k < 2^m) below 10^n and below 2^n
+pro8 = np.zeros(10**8, bool)
+for m in range(1, 27):
+    kP = np.arange(1, 2**m, 2, dtype=np.int64); NP = kP * 2**m + 1; pro8[NP[NP < 10**8]] = True
+pro8 &= isp[:10**8]
+assert [int(x) for x in np.nonzero(pro8)[0][:20]] == [3, 5, 13, 17, 41, 97, 113, 193, 241, 257, 353, 449, 577, 641, 673, 769, 929, 1153, 1217, 1409]
+assert [int(pro8[:10**n].sum()) for n in range(1, 9)] == [2, 6, 17, 36, 99, 249, 651, 1774]
+assert [int(pro8[:2**n].sum()) for n in range(1, 13)] == [0, 1, 2, 3, 4, 5, 7, 9, 12, 17, 21, 27]
+del pro8
+
+# 6227: the primes nearest to 10^n, n <= 19 (all below 2^64, so sympy's answer is exact)
+assert [nextprime(10**n) - 10**n for n in range(20)] == [1, 1, 1, 9, 7, 3, 3, 19, 7, 7, 19, 3, 39, 37, 31, 37, 61, 3, 3, 51]
+assert [10**n - prevprime(10**n) for n in range(1, 20)] == [3, 3, 3, 27, 9, 17, 9, 11, 63, 33, 23, 11, 29, 27, 11, 63, 3, 11, 39]
 
 print("all FACTS.md checks passed")
