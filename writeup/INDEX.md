@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 55 answered, 1187 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 39 beaten, 55 answered, 1190 open (9 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -327,7 +327,7 @@
 | [321](https://www.primepuzzles.net/puzzles/puzz_321.htm) | Primes type n^4+4 | open |
 | [322](https://www.primepuzzles.net/puzzles/puzz_322.htm) | Primeval primes as sum of primeval primes | open |
 | [323](https://www.primepuzzles.net/puzzles/puzz_323.htm) | Primes in a Sudoku solution | open |
-| [324](https://www.primepuzzles.net/puzzles/puzz_324.htm) | Self-descriptive numbers | [beaten](../results/324.md) |
+| [324](https://www.primepuzzles.net/puzzles/puzz_324.htm) | Self-descriptive numbers | [open](324.md) |
 | [325](https://www.primepuzzles.net/puzzles/puzz_325.htm) | Zeisel numbers | [answered](../results/325.md) |
 | [326](https://www.primepuzzles.net/puzzles/puzz_326.htm) | One more Firoozbakht curio sequence | open |
 | [327](https://www.primepuzzles.net/puzzles/puzz_327.htm) | Giuga numbers | open |
@@ -376,7 +376,7 @@
 | [370](https://www.primepuzzles.net/puzzles/puzz_370.htm) | The first 13 numbers | open |
 | [371](https://www.primepuzzles.net/puzzles/puzz_371.htm) | A052215 | open |
 | [372](https://www.primepuzzles.net/puzzles/puzz_372.htm) | Ask Dr. Matrix, prime version | open |
-| [373](https://www.primepuzzles.net/puzzles/puzz_373.htm) | Self primes | [beaten](../results/373.md) |
+| [373](https://www.primepuzzles.net/puzzles/puzz_373.htm) | Self primes | [open](373.md) |
 | [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Self numbers | [answered](../results/374.md) |
 | [375](https://www.primepuzzles.net/puzzles/puzz_375.htm) | Powers which are the sum of initial primes. | open |
 | [376](https://www.primepuzzles.net/puzzles/puzz_376.htm) | n=p*2^x | open |
@@ -796,7 +796,7 @@
 | [790](https://www.primepuzzles.net/puzzles/puzz_790.htm) | Prime Langford pairing | open |
 | [791](https://www.primepuzzles.net/puzzles/puzz_791.htm) | Inserting consecutive primes | open |
 | [792](https://www.primepuzzles.net/puzzles/puzz_792.htm) | Prime numbers equal quantity of digits... | open |
-| [793](https://www.primepuzzles.net/puzzles/puzz_793.htm) | Entry 1399 from Claudio Meller's site | [beaten](../results/793.md) |
+| [793](https://www.primepuzzles.net/puzzles/puzz_793.htm) | Entry 1399 from Claudio Meller's site | [open](793.md) |
 | [794](https://www.primepuzzles.net/puzzles/puzz_794.htm) | Prime Generalized Palindromes | open |
 | [795](https://www.primepuzzles.net/puzzles/puzz_795.htm) | Primes reversing substrings | open |
 | [796](https://www.primepuzzles.net/puzzles/puzz_796.htm) | Looking for certain palprimes | open |

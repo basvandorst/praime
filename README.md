@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 15:50 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 15:54 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -33,7 +33,7 @@ Submissions:
 | [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Q1: more terms of A059754 (first runs of n consecutive Smith numbers) | stops at a(7) = 164736913905 | [a(8) = 8090674745553 (Alekseyev 2010, OEIS), verified](results/247.md) |
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](results/336.md) |
 | [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Next N after 462 with d + N/d, \|d − N/d\| all 1 or prime | 462 \| N proved; "vicious cycle" sketched | [none below 10¹⁰⁷⁹: all primes ≡ 3 (mod 4) below 5000 divide N (proof)](results/360.md) |
-| [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [explained: one self number per carry-free block](results/374.md) |
+| [374](https://www.primepuzzles.net/puzzles/puzz_374.htm) | Q1.3: why is the gap 11 between self numbers so frequent? | gap 1 ruled out; Tramu's law refuted near 10^k | [exact gap law (Volpatti's qualitative answer on 952)](results/374.md) |
 | [377](https://www.primepuzzles.net/puzzles/puzz_377.htm) | Are the variations #1–#3 of 'add 2 to any digit' finite or infinite? Larger solutions? | largest 7134354660741 (#2), 92997492273 (#3) | [#2, #3 complete to 10¹³ (exhaustive); heuristically finite, 0.12 expected beyond](results/377.md) |
 | [455](https://www.primepuzzles.net/puzzles/puzz_455.htm) | Solutions of 1 + τ(n)σ(n) = n·rad(n) beyond p^(p−2)? | only prime powers below 6.3·10⁸ (Pebody) | [none with 2 prime factors (proof)](results/455.md) |
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
@@ -76,7 +76,7 @@ Submissions:
 
 ## Results October 2026
 
-#### Puzzle records beaten (39)
+#### Puzzle records beaten (36)
 | # | Puzzle | Current record | Our result |
   |---|---|---|---|
   | [65](https://www.primepuzzles.net/puzzles/puzz_065.htm) | Equal power sums from consecutive primes | degree 3 | [degree 5](results/65.md) |
@@ -87,12 +87,10 @@ Submissions:
   | [227](https://www.primepuzzles.net/puzzles/puzz_227.htm) | floor(tʲ) prime for j = 1, 2, … | 100 | [239](results/227.md) |
   | [249](https://www.primepuzzles.net/puzzles/puzz_249.htm) | Pandigital prime magic square, sum | 1530758629047 | [961547036829](results/249.md) |
   | [307](https://www.primepuzzles.net/puzzles/puzz_307.htm) | Largest Smith number (Costello method) | 7.8M digits | [41M digits](results/307.md) |
-  | [324](https://www.primepuzzles.net/puzzles/puzz_324.htm) | Largest self-descriptive prime | 70 digits | [74 digits](results/324.md) |
   | [340](https://www.primepuzzles.net/puzzles/puzz_340.htm) | Prime p contained in p² | 1339 digits | [3925 digits](results/340.md) |
   | [342](https://www.primepuzzles.net/puzzles/puzz_342.htm) | Die of squares with prime corner sums | 1330 | [658](results/342.md) |
   | [356](https://www.primepuzzles.net/puzzles/puzz_356.htm) | Prime sets with distinct pair sums | 751 / 1409 / 2273 | [661 / 1297 / 2213](results/356.md) |
   | [359](https://www.primepuzzles.net/puzzles/puzz_359.htm) | First N primes in a circle, no shared digits | 108 | [202 (maximum)](results/359.md) |
-  | [373](https://www.primepuzzles.net/puzzles/puzz_373.htm) | Largest self prime | 2²⁴⁰³⁶⁵⁸³ − 1 | [2⁸²⁵⁸⁹⁹³³ − 1](results/373.md) |
   | [398](https://www.primepuzzles.net/puzzles/puzz_398.htm) | Prime no digit insertion keeps prime | 1000 digits | [1057 digits](results/398.md) |
   | [419](https://www.primepuzzles.net/puzzles/puzz_419.htm) | σ(N) as a power of its prime sum | P = 31 | [P = 47](results/419.md) |
   | [438](https://www.primepuzzles.net/puzzles/puzz_438.htm) | Same as 398 | 200 digits | [1057 digits](results/438.md) |
@@ -102,12 +100,11 @@ Submissions:
   | [553](https://www.primepuzzles.net/puzzles/puzz_553.htm) | Product of primes = sum p..q | 319 | [333](results/553.md) |
   | [597](https://www.primepuzzles.net/puzzles/puzz_597.htm) | Prime/semiprime values of a quadratic | 9567 | [9743](results/597.md) |
   | [607](https://www.primepuzzles.net/puzzles/puzz_607.htm) | Largest prime power missing a digit | 7022 digits | [13.2M digits](results/607.md) |
-  | [793](https://www.primepuzzles.net/puzzles/puzz_793.htm) | Every digit pair adjacent (K = 6, 8, 10) | Vantieghem's values | [smaller for all three](results/793.md) |
   | [808](https://www.primepuzzles.net/puzzles/puzz_808.htm) | Palprime palindromic in many bases | 82 | [227](results/808.md) |
   | [830](https://www.primepuzzles.net/puzzles/puzz_830.htm) | Minimal N (K = 2012 / 2013) | 4.86·10¹⁴ / 3.87·10¹¹ | [3.58·10¹³ / 1.74·10¹¹](results/830.md) |
   | [905](https://www.primepuzzles.net/puzzles/puzz_905.htm) | Primes in a row from a recursion | 19 | [28](results/905.md) |
   | [908](https://www.primepuzzles.net/puzzles/puzz_908.htm) | Descending prime remainders | 14 | [34](results/908.md) |
-  | [957](https://www.primepuzzles.net/puzzles/puzz_957.htm) | Pandigital expression primes | 489–753 digits | [1685–2989 digits](results/957.md) |
+  | [957](https://www.primepuzzles.net/puzzles/puzz_957.htm) | Pandigital expression primes | 489–753 digits (957); 1177–10930 (981) | [types b, d: 1685, 2023 digits](results/957.md) |
   | [1001](https://www.primepuzzles.net/puzzles/puzz_1001.htm) | Anti-divisor ratio Q/P | 4.781 | [5.520](results/1001.md) |
   | [1028](https://www.primepuzzles.net/puzzles/puzz_1028.htm) | Σ(A·n mod B) prime generator | 41 | [49](results/1028.md) |
   | [1097](https://www.primepuzzles.net/puzzles/puzz_1097.htm) | Modular prime generator | 65 | [130](results/1097.md) |
@@ -130,7 +127,7 @@ Submissions:
 | [106](https://www.primepuzzles.net/puzzles/puzz_106.htm) | Prime magic squares summing to 2000 | no solutions | [least k = 4, most k = 26](results/106.md) |
 | [134 Q4](https://www.primepuzzles.net/puzzles/puzz_134.htm) | 100-digit carrousel prime, one inactive digit | unanswered | [first example](results/134.md) |
 | [170 Q10](https://www.primepuzzles.net/puzzles/puzz_170.htm) | Prime n with n+1 a base-2 pseudoprime | unanswered | [impossible (proof)](results/170.md) |
-| [172](https://www.primepuzzles.net/puzzles/puzz_172.htm) | Prime rules for K = 9, 10 | table stops at K = 8 | [L = 113 and L = 144](results/172.md) |
+| [172](https://www.primepuzzles.net/puzzles/puzz_172.htm) | Prime rules for K = 9, 10 | 113, 144 found (Kamenetsky, puzzle 914), not proved least | [113 and 144 proved least](results/172.md) |
 | [179 Q1](https://www.primepuzzles.net/puzzles/puzz_179.htm) | Prime alphametic | unanswered | [TROIS + ONZE = SEPT + SEPT](results/179.md) |
 | [189](https://www.primepuzzles.net/puzzles/puzz_189.htm) | Open path cases up to n = 120 | several open | [all settled, threshold 57](results/189.md) |
 | [299 Q2](https://www.primepuzzles.net/puzzles/puzz_299.htm) | Smallest increasing run of 9 | only "≥ 7·10⁸" | [35014031359](results/299.md) |
