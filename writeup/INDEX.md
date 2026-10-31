@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 44 answered, 1198 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 45 answered, 1197 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -250,7 +250,7 @@
 | [244](https://www.primepuzzles.net/puzzles/puzz_244.htm) | Null Conjunction | open |
 | [245](https://www.primepuzzles.net/puzzles/puzz_245.htm) | As 13 | open |
 | [246](https://www.primepuzzles.net/puzzles/puzz_246.htm) | Certain kind of primes | open |
-| [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Consecutive Smith numbres | open |
+| [247](https://www.primepuzzles.net/puzzles/puzz_247.htm) | Consecutive Smith numbres | [answered](../results/247.md) |
 | [248](https://www.primepuzzles.net/puzzles/puzz_248.htm) | Find one composite solution | open |
 | [249](https://www.primepuzzles.net/puzzles/puzz_249.htm) | From Rudolf  to Rodolfo (magic squares and pandigital numbers) | [beaten](../results/249.md) |
 | [250](https://www.primepuzzles.net/puzzles/puzz_250.htm) | Euler, one more time. | open |
