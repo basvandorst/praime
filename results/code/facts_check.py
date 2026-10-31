@@ -9,7 +9,7 @@ import numpy as np
 import gmpy2
 import mpmath
 from sympy import isprime, nextprime, primerange, factorint, legendre_symbol, fibonacci, lucas, primitive_root, n_order, mobius
-from sympy import cyclotomic_poly, primefactors, totient
+from sympy import cyclotomic_poly, primefactors, totient, jacobi_symbol, divisors
 
 def sieve(n):
     s = np.ones(n + 1, dtype=bool); s[:2] = False
@@ -583,6 +583,116 @@ mr = [2047, 1373653, 25326001, 3215031751, 2152302898747, 3474749660383, 3415500
 for n, x in enumerate(mr, 1):
     assert not isprime(x) and all(gmpy2.is_strong_prp(x, b) for b in list(primerange(2, 50))[:n])
     assert n == 13 or not all(gmpy2.is_strong_prp(x, b) for b in list(primerange(2, 50))[:n + 1]) or mr[n] == x
+
+# 6109: Pocklington (every prime factor of n is 1 mod q^k) for n < 2*10^4, a < 30; theorem 3 for h*q^k + 1 < 10^5, q = 3, 5, 7
+for n in range(3, 20000):
+    pf = factorint(n)
+    for q, k in factorint(n - 1).items():
+        if any(pow(a, n - 1, n) == 1 and math.gcd(pow(a, (n - 1) // q, n) - 1, n) == 1 for a in range(2, min(n, 30))):
+            assert all(p % q**k == 1 for p in pf)
+for q in (3, 5, 7):
+    for k in range(1, 12):
+        for h in range(1, q**k):
+            N = h * q**k + 1
+            if N >= 10**5: break
+            if N % 2 == 0 or isprime(N): continue
+            av = np.arange(2, N - 1, dtype=np.int64); Nv = np.full_like(av, N)
+            ok = (powmod_v(av, Nv - 1, Nv) == 1) & (np.gcd(powmod_v(av, (Nv - 1) // q, Nv) - 1, Nv) == 1)
+            assert not ok.any()
+
+# 6111: Lucas sequences, U(n+1) = 0 (mod n) for primes n with (D/n) = -1, and theorem 4 rejects every odd composite n < 2000
+def lucas_uv(P_, Q_, m, n):                        # (U_m, V_m) mod n by the doubling formulas, left to right
+    U, V, Qk = 0, 2 % n, 1
+    for bit in bin(m)[2:]:
+        U, V, Qk = U * V % n, (V * V - 2 * Qk) % n, Qk * Qk % n
+        if bit == '1':
+            U, V = (P_ * U + V) * pow(2, -1, n) % n, ((P_ * P_ - 4 * Q_) * U + P_ * V) * pow(2, -1, n) % n
+            Qk = Qk * Q_ % n
+    return U, V
+assert [lucas_uv(1, -1, m, 10**9 + 7)[0] for m in range(12)] == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+assert [lucas_uv(1, -1, m, 10**9 + 7)[1] for m in range(8)] == [2, 1, 3, 4, 7, 11, 18, 29]
+pairs = [(P_, Q_) for P_ in range(1, 9) for Q_ in range(-8, 9) if Q_ != 0 and math.gcd(P_, Q_) == 1 and P_ * P_ - 4 * Q_ != 0]
+for n in primerange(3, 5000):
+    for P_, Q_ in pairs:
+        D = P_ * P_ - 4 * Q_
+        if Q_ % n and jacobi_symbol(D % n, n) == -1: assert lucas_uv(P_, Q_, n + 1, n)[0] == 0
+for n in range(9, 2000, 2):
+    if isprime(n): continue
+    rs = primefactors(n + 1)
+    for D in {P_ * P_ - 4 * Q_ for P_, Q_ in pairs}:
+        if math.gcd(D, n) == 1 and jacobi_symbol(D % n, n) == -1:
+            good = [(P_, Q_) for P_, Q_ in pairs if P_ * P_ - 4 * Q_ == D and math.gcd(Q_, n) == 1 and lucas_uv(P_, Q_, n + 1, n)[0] == 0]
+            assert not all(any(lucas_uv(P_, Q_, (n + 1) // r, n)[0] != 0 for P_, Q_ in good) for r in rs)
+
+# 6113: least odd composite a-PRP and a-SPRP for a = 2, 3, 5, 7 (the even 4 and 6 are 5- and 7-PRPs); the 16 Carmichael numbers below 10^5
+assert [next(n for n in range(9, 10**4, 2) if not isprime(n) and pow(a, n - 1, n) == 1) for a in (2, 3, 5, 7)] == [341, 91, 217, 25]
+assert pow(5, 3, 4) == 1 and pow(7, 5, 6) == 1
+assert [next(n for n in range(9, 10**4, 2) if not isprime(n) and n % a and gmpy2.is_strong_prp(n, a)) for a in (2, 3, 5, 7)] == [2047, 121, 781, 25]
+assert car[:16] == [561, 1105, 1729, 2465, 2821, 6601, 8911, 10585, 15841, 29341, 41041, 46657, 52633, 62745, 63973, 75361] and car[16] > 10**5
+
+# 6114: Cipolla, m = (a^(2p) - 1)/(a^2 - 1) is a composite a-PRP for p not dividing a(a^2 - 1)
+for a in range(2, 8):
+    for p in primerange(3, 60):
+        if (a * (a * a - 1)) % p:
+            m = (a**(2 * p) - 1) // (a * a - 1)
+            assert (a**p - 1) // (a - 1) > 1 and m % ((a**p - 1) // (a - 1)) == 0 and (m - 1) % (2 * p) == 0 and pow(a, m - 1, m) == 1
+
+# 6115: other base sets; {31, 73} is exact below 9080191, each bound is a composite strong pseudoprime to its bases; the sqrt(-1) trick
+def sprp_v(a, n):                                  # vectorised strong probable-prime test base a
+    d = n - 1; s = np.zeros_like(n)
+    while ((d & 1) == 0).any(): ev = (d & 1) == 0; d = np.where(ev, d >> 1, d); s += ev
+    x = powmod_v(np.full_like(n, a), d, n); ok = (x == 1) | (x == n - 1)
+    for _ in range(int(s.max()) - 1):
+        x = x * x % n; ok |= (x == n - 1) & (s > 1); s -= 1
+    return ok
+c9 = oc[oc < 9080191]
+assert not (sprp_v(31, c9) & sprp_v(73, c9)).any()
+for n, bs in ((9080191, (31, 73)), (4759123141, (2, 7, 61)), (118670087467, (2, 3, 5, 7)), (170584961, (350, 3958281543)),
+              (75792980677, (2, 379215, 457083754)), (21652684502221, (2, 1215, 34862, 574237825))):
+    assert not isprime(n) and all(gmpy2.is_strong_prp(n, b % n) for b in bs)
+n = 46856248255981; x, y = pow(2, (n - 1) // 4, n), pow(7, (n - 1) // 4, n)
+assert (x, y) == (34456063004337, 21307242304265) and x * x % n == n - 1 == y * y % n and math.gcd(n, x - y) == 4840261
+assert gmpy2.is_strong_prp(n, 2) and gmpy2.is_strong_prp(n, 7) and not isprime(n)
+
+# 6118: (x - a)^n = x^n - a (mod n) iff n is prime (n < 400, a = 1, 2); Agrawal's conjecture for odd composite n < 1000, r <= 30
+def polypow(e, r, n):                              # (x - 1)^e mod (x^r - 1, n) as a coefficient list
+    res = [1] + [0] * (r - 1); b = [n - 1, 1] + [0] * (r - 2) if r > 1 else [0]
+    while e:
+        if e & 1: res = [sum(res[i] * b[(k - i) % r] for i in range(r)) % n for k in range(r)]
+        b = [sum(b[i] * b[(k - i) % r] for i in range(r)) % n for k in range(r)]; e >>= 1
+    return res
+for n in range(2, 400):
+    for a in (1, 2):
+        if math.gcd(a, n) > 1: continue
+        lhs = [math.comb(n, j) * (-a)**(n - j) % n for j in range(n + 1)]
+        rhs = [0] * (n + 1); rhs[n] = 1; rhs[0] = -a % n
+        assert (lhs == rhs) == isprime(n)
+for n in range(9, 1000, 2):
+    if isprime(n): continue
+    for r in range(2, 31):
+        if n % r == 0: continue
+        tgt = [0] * r; tgt[n % r] = 1; tgt[0] = (tgt[0] - 1) % n
+        if polypow(n, r, n) == tgt: assert n * n % r == 1
+
+# 6119: APR with t = 5040, e(t) = 2 prod q^(v_q(t)+1) > 10^52 over the 27 primes q with q - 1 | t; Hasse's bound for p < 100
+qs = [d + 1 for d in divisors(5040) if isprime(d + 1)]
+assert len(qs) == 27 and qs[-1] == 2521 and 10**48 < math.prod(qs) < 10**49
+assert 10**52 < 2 * math.prod(q**(factorint(5040).get(q, 0) + 1) for q in qs) < 2 * 10**52
+for p in primerange(5, 100):
+    sq = np.bincount([x * x % p for x in range(p)], minlength=p); xs = np.arange(p)
+    for a in range(p):
+        for b in range(p):
+            if (4 * a**3 + 27 * b * b) % p == 0: continue
+            N = 1 + int(sq[(xs**3 + a * xs + b) % p].sum())
+            assert (N - p - 1)**2 < 4 * p
+
+# 6120: Bruce's form of the Lucas-Lehmer sequence, S_k = w^(2^(k-1)) + w'^(2^(k-1)) with w = 2 + sqrt 3, S_1 = 4
+def zmul(u, v): return (u[0] * v[0] + 3 * u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+S, w = 4, (2, 1)
+for k in range(1, 9):
+    wp = w
+    for _ in range(k - 1): wp = zmul(wp, wp)
+    assert 2 * wp[0] == S; S = S * S - 2
 
 # 6104: Chernick's (6k+1)(12k+1)(18k+1) is a Carmichael number when the factors are prime
 for k in range(1, 100):
