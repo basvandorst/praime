@@ -1524,4 +1524,16 @@ del _g, _f
 from sympy import divisors as _dv
 assert [N for N in range(1, 10**4 + 1) if all(x == 1 or _isp(x) for d in _dv(N) for x in (d + N // d, abs(d - N // d)))] == [2, 6, 30, 42, 462]
 
+# 9826: first equal pair in the 9th and 20th difference rows of the primes
+_cur = [int(x) for x in P[:200000]]
+for _k in range(1, 21):
+    _cur = [b - a for a, b in zip(_cur, _cur[1:])]
+    if _k in (9, 20):
+        _seen = {}
+        for _n, _v in enumerate(_cur, 1):
+            if _v in _seen: break
+            _seen[_v] = _n
+        assert (_seen[_v], _n, _v) == {9: (2, 14, 220), 20: (279, 875, -468924)}[_k]
+del _cur
+
 print("all FACTS.md checks passed")

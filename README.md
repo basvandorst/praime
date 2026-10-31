@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-10-31 15:34 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-10-31 15:41 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -17,7 +17,7 @@ Submissions:
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](results/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](results/882.md) |
 
-#### Puzzles solved/answered (34)
+#### Puzzles solved/answered (35)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](results/prob-7.md) |
@@ -39,6 +39,7 @@ Submissions:
 | [489](https://www.primepuzzles.net/puzzles/puzz_489.htm) | Other q with σ(σ(φ(q+1))) = q+1 | searched to 10⁶; Firoozbakht's family open beyond p = 1278 | [complete for q+1 = 2^a·3^b (proof)](results/489.md) |
 | [542](https://www.primepuzzles.net/puzzles/puzz_542.htm) | Other n with σ(n) = q^k (q odd prime, k > 1); primes p with σ(p^m) = q^n | no contributions | [only 81 and 400 up to 10¹⁸](results/542.md) |
 | [685](https://www.primepuzzles.net/puzzles/puzz_685.htm) | Q3: can 1..N be ordered with odd composite neighbour sums for every N ≥ 14? | computed to N < 20000, no proof (Vantieghem) | [yes: periodic mod-30 construction (proof)](results/685.md) |
+| [691](https://www.primepuzzles.net/puzzles/puzz_691.htm) | Meisami's conjecture 2: for large k, the k-th differences of the primes have no two equal terms? | open | [false for every k (proof); e.g. 220 twice in D₉](results/691.md) |
 | [765](https://www.primepuzzles.net/puzzles/puzz_765.htm) | Which p^a = q^b + r^c·s^d over {2,3,5,7} have no solution? | a computer table, no proof (Vantieghem) | [exactly two (proof); lists complete to exponent 150](results/765.md) |
 | [788](https://www.primepuzzles.net/puzzles/puzz_788.htm) | Q2: is the sequence P&p(i)²&RP finite or infinite? | no answer | [finite: no P for k ≥ 169 (mod-7 covering)](results/788.md) |
 | [804](https://www.primepuzzles.net/puzzles/puzz_804.htm) | Q2: why do all P with (P+1)²+1 prime and Q² + Rev(Q²) palindromic end in 9? | 1, 7 ruled out (5 \| Q); 3 left open | [3 needs a rigid digit pattern (proof); no-carry observation proved](results/804.md) |
