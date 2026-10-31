@@ -25,7 +25,8 @@ answered -= beaten
 
 
 def status_word(path):
-    # The Status line of a write-up, up to the first '(' or '·'. 'open' marks an attempt.
+    # The Status line of a write-up, up to the first '(' or '·'. 'open' marks an attempt, 'closed' a puzzle
+    # whose answer on the page is already proved final (optimal, unique or complete), so it cannot be improved.
     m = re.search(r'^\*\*Status:\*\*\s*([a-z][a-z ]*?)\s*(?:\(|·|$)', open(path, encoding='utf-8').read(), re.M)
     return m.group(1) if m else 'answered'
 
@@ -41,12 +42,15 @@ def classify(kind, n):
         path = 'writeup/%s-%d.md' % ({'conjecture': 'conj', 'problem': 'prob'}[kind], n)
     if not os.path.exists(path):
         return 'Unsolved', None
-    return ('Partially solved' if status_word(path).startswith('open') else 'Solved'), path
+    word = status_word(path)
+    if word.startswith('closed'):
+        return 'Solved, no improvement possible', path
+    return ('Partially solved' if word.startswith('open') else 'Solved'), path
 
 
 section = ['## Status', '']
 for kind, title in (('puzzle', 'Puzzles'), ('conjecture', 'Conjectures'), ('problem', 'Problems')):
-    groups = {'Beaten': [], 'Solved': [], 'Partially solved': [], 'Unsolved': []}
+    groups = {'Beaten': [], 'Solved': [], 'Solved, no improvement possible': [], 'Partially solved': [], 'Unsolved': []}
     for n, url in sorted(pages[kind]):
         group, link = classify(kind, n)
         groups[group].append('[%d](%s)' % (n, link or url))
