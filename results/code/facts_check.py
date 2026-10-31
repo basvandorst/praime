@@ -1515,4 +1515,9 @@ for p in _pr(3, 3000):
         assert r == 0 and d % 6 == 0 and q % 24 in (1, 19) and d % 8 != 4 and (d % 4 != 2 or p % 4 == (d // 2) % 4)
 assert gmpy2.gcd(gmpy2.mpz(2)**2243399 + 1, gmpy2.mpz(3)**2243399 + 1) == 53841577 * 174985123
 
+# 9824: g_n g_(n+1) < p_(n+1) for all primes below 2e8 except p_n = 5, 19
+_g = np.diff(P); _f = np.nonzero(_g[:-1] * _g[1:] >= P[1:-1])[0]
+assert [int(P[i]) for i in _f] == [5, 19] and int(_g.max()) <= 1476
+del _g, _f
+
 print("all FACTS.md checks passed")

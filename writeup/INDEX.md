@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 51 answered, 1191 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 52 answered, 1190 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1000,7 +1000,7 @@
 | [994](https://www.primepuzzles.net/puzzles/puzz_994.htm) | A puzzle for quarantine days. | open |
 | [995](https://www.primepuzzles.net/puzzles/puzz_995.htm) | Another sequence of primes | open |
 | [996](https://www.primepuzzles.net/puzzles/puzz_996.htm) | A variation of Puzzle 986 | open |
-| [997](https://www.primepuzzles.net/puzzles/puzz_997.htm) | m - n + s - Floor[m*s/n]=1 | open |
+| [997](https://www.primepuzzles.net/puzzles/puzz_997.htm) | m - n + s - Floor[m*s/n]=1 | [answered](../results/997.md) |
 | [998](https://www.primepuzzles.net/puzzles/puzz_998.htm) | A306431 | open |
 | [999](https://www.primepuzzles.net/puzzles/puzz_999.htm) | In Memoriam to John Horton Conway * | open |
 | [1000](https://www.primepuzzles.net/puzzles/puzz_1000.htm) | Prove that math is fun | open |
