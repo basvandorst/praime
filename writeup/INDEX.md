@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 30 answered, 1212 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 31 answered, 1211 open (2 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -96,7 +96,7 @@
 | [90](https://www.primepuzzles.net/puzzles/puzz_090.htm) | The prime version of the taxicab problem (the smallest number expressible as the sum of two [prime] cubes in two different ways). | open |
 | [91](https://www.primepuzzles.net/puzzles/puzz_091.htm) | Primes with the Smoothest Increasing Digits (SID primes) | open |
 | [92](https://www.primepuzzles.net/puzzles/puzz_092.htm) | A pile of prime-spheres | [beaten](../results/92.md) |
-| [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Numbers such that the decimal and hexadecimal representation are the reverse of each other | open |
+| [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Numbers such that the decimal and hexadecimal representation are the reverse of each other | [answered](../results/93.md) |
 | [94](https://www.primepuzzles.net/puzzles/puzz_094.htm) | The Domino & the primes | open |
 | [95](https://www.primepuzzles.net/puzzles/puzz_095.htm) | K consecutive primes p whose decimal expansion has a (p-1) period | open |
 | [96](https://www.primepuzzles.net/puzzles/puzz_096.htm) | The least K consecutive primes such that the sum of every two of them produces a distinct number | open |
