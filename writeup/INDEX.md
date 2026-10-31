@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 42 answered, 1200 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 43 answered, 1199 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -791,7 +791,7 @@
 | [785](https://www.primepuzzles.net/puzzles/puzz_785.htm) | Extend this table | open |
 | [786](https://www.primepuzzles.net/puzzles/puzz_786.htm) | Looking for certain set of integers. | open |
 | [787](https://www.primepuzzles.net/puzzles/puzz_787.htm) | Fibonacci as sum of two consecutive primes. | open |
-| [788](https://www.primepuzzles.net/puzzles/puzz_788.htm) | P&p(i)^2&RP | open |
+| [788](https://www.primepuzzles.net/puzzles/puzz_788.htm) | P&p(i)^2&RP | [answered](../results/788.md) |
 | [789](https://www.primepuzzles.net/puzzles/puzz_789.htm) | Almost primes Fibonacci numbers. | open |
 | [790](https://www.primepuzzles.net/puzzles/puzz_790.htm) | Prime Langford pairing | open |
 | [791](https://www.primepuzzles.net/puzzles/puzz_791.htm) | Inserting consecutive primes | open |
