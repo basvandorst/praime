@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 44 answered, 1198 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 44 answered, 1198 open (6 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -841,7 +841,7 @@
 | [835](https://www.primepuzzles.net/puzzles/puzz_835.htm) | Goldbach squares. | open |
 | [836](https://www.primepuzzles.net/puzzles/puzz_836.htm) | Bills serial numbers. | open |
 | [837](https://www.primepuzzles.net/puzzles/puzz_837.htm) | Kaprekar prime numbers | open |
-| [838](https://www.primepuzzles.net/puzzles/puzz_838.htm) | Follow up to Puzzle 837. | open |
+| [838](https://www.primepuzzles.net/puzzles/puzz_838.htm) | Follow up to Puzzle 837. | [open](838.md) |
 | [839](https://www.primepuzzles.net/puzzles/puzz_839.htm) | Follow up to Puzzle 835. | open |
 | [840](https://www.primepuzzles.net/puzzles/puzz_840.htm) | Second follow up to Puzzle 835. | open |
 | [841](https://www.primepuzzles.net/puzzles/puzz_841.htm) | Symmetrical compositions of consecutive pairs of cousin primes | open |
