@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 37 answered, 1205 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 38 answered, 1204 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -1139,7 +1139,7 @@
 | [1133](https://www.primepuzzles.net/puzzles/puzz_1133.htm) | Get another proof | open |
 | [1134](https://www.primepuzzles.net/puzzles/puzz_1134.htm) | F(n)=\|(2^n-1)/(2n+1)\| | open |
 | [1135](https://www.primepuzzles.net/puzzles/puzz_1135.htm) | Polynomial with consecutive primes such that... | [beaten](../results/1135.md) |
-| [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Divisors functions and Fermat primes | open |
+| [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Divisors functions and Fermat primes | [answered](../results/1136.md) |
 | [1137](https://www.primepuzzles.net/puzzles/puzz_1137.htm) | Consecutive primes & n# | open |
 | [1138](https://www.primepuzzles.net/puzzles/puzz_1138.htm) | A068192 | open |
 | [1139](https://www.primepuzzles.net/puzzles/puzz_1139.htm) | prime producing IRREGULAR polynomials | [open](1139.md) |
