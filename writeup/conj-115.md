@@ -115,7 +115,7 @@ This is exactly Rotondo's "geometric accident", now proved for all prime powers.
 
 **7. On the other ideas in Q2.** For a prime p the test costs about p²/4 multiplications mod p², which is exponential in the number of digits of p. Nothing here suggests a way to make it polynomial, and the counterexample shows it cannot be a primality test anyway. The composite half of the conjecture ("only 9 among odd composites") is still open beyond prime powers. For composites with two or more distinct prime factors, Lemma C plus the same random model gives a convergent sum, so we expect no other composite to pass.
 
-## Verify it yourself
+## Validation
 
 This script checks every claim: the definition on small n, the exact counterexample with full integers, that every odd prime below 3917 passes (mod p² arithmetic with numpy), the lemmas on sample cases, and the prime powers. It runs in about 15 seconds. The C scanner for larger ranges is in [code/conj-115.c](code/conj-115.c).
 

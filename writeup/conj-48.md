@@ -43,6 +43,6 @@ On the page:
 
 For fixed P and Q, the equation is a two-term S-unit equation, which has only finitely many solutions (Evertse). A representation of 433 beyond our range would need two Q-smooth numbers above 10¹⁶ that differ by exactly 433. Below 10¹⁶ there are only about 10⁷ 19-smooth numbers, so such coincidences are extremely rare. Larger Q make A·B ≥ Q# grow quickly while the number of usable smooth pairs does not keep up. So we expect 433 to be a genuine counterexample, but the claim is limited to the ranges above.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/conj48_verify.py`](code/conj48_verify.py) (about 20 seconds) checks every step of the proof for 103 and confirms it by brute force for small exponents. It verifies the representations of 397 and 419, and reruns the search for 433 with Q ∈ {19, 23, 29, 31}: up to A ≤ 10¹³ by default, and up to 10¹⁶ with `--full`.

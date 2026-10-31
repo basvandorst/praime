@@ -75,7 +75,7 @@ Steps 3 and 4 together give W(n) ≥ 2 for every n ≥ 3, so the numerator alway
 
 **Why it was hard to see.** The step +5/16 per prime is an average. Locally, primes ending in 1 can run ahead of those ending in 3 or 7 for a while. Before the explicit bound one could only say "for n large enough". With the bound, "large enough" becomes 8·10⁹, which a sieve covers in 12 seconds.
 
-## Verify it yourself
+## Validation
 
 This script checks Steps 1–2 directly on the reduced fractions for n ≤ 400 (numerator ≡ 1 mod 4, ends in 25, v₅ equals W). It computes W for all primes below 10⁷ (minimum 2, at n = 3), and evaluates the Step 4 bound and its monotonicity. It runs in about 15 seconds. The computation to 8·10⁹ is [code/conj-80.c](code/conj-80.c) (`./conj80 7 8000000001`, 12 seconds; it prints `minprefix=0`).
 

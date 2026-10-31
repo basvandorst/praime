@@ -32,6 +32,6 @@ For each n ≤ 10⁶, take the nearest m and evaluate the left side at 80-digit 
 
 A lower bound for |n·ln ε_a − m·ln ε_b − c|, from Laurent's theorem on linear forms in two logarithms, caps n at some explicit value, probably around 10²⁵. A Baker–Davenport reduction with the continued fraction of ln ε_a / ln ε_b then lowers the cap below 10⁶, and the scan above covers the rest. Results of Bennett and of Bennett, Cipu, Mignotte and Okazaki also limit such systems to at most two solutions.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/prob88_pell.py`](code/prob88_pell.py) checks the fundamental solutions and scans n ≤ 10⁶. It takes about 20 minutes.

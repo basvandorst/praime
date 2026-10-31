@@ -40,6 +40,6 @@ Claims 1–4 prove the conjecture for all consecutive primes with p ≤ 4·10¹�
 
 **Beyond 4·10¹⁸ (conditional).** The published list of 85 maximal gaps (OEIS A005250; the 85th is 1854 after 101412319996363309069, found in 2026) comes from distributed searches with no refereed statement of completeness (FACTS 3023). If that list is complete, every gap below 1.01·10²⁰ is at most 1854, and the same argument extends the result to p < 1.01·10²⁰, since 1854² ≈ 3.4·10⁶ and (2·1854)² ≈ 1.4·10⁷ are both far below 2·10⁸.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/conj44_verify.py`](code/conj44_verify.py) (about 2 seconds) runs the exact square test on every pair of consecutive odd primes below 2·10⁸. It checks that z is an integer exactly for the twin pairs, and that Oakes' bound holds for every non-twin pair. Claim 4 uses the published maximal gap 1476 below 4·10¹⁸.

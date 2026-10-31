@@ -35,7 +35,7 @@ Two remarks:
 - Szalay's bound (1975) needed p > 10¹⁹. Later work brought the bound down far enough for a direct check of the remaining cases to be trivial.
 - The same 2015 paper conjectures how large q must be to guarantee four, five, … consecutive primitive roots. Those remain open.
 
-## Verify it yourself
+## Validation
 
 This script checks the 35 primes below 170 (and that 7 fails). As a sanity check it also confirms three consecutive primitive roots for every prime 170 < p < 20000, consistent with the theorem. It runs in a few seconds.
 

@@ -77,7 +77,7 @@ From 10¹² on, the excess is below the noise level. A random-prime model (n ≡
 
 **What remains open.** A proof for the actual primes would need the fine statistics of consecutive prime gaps (a uniform version of the Hardy–Littlewood conjectures), which is far beyond current methods. What we give is the exact theorem behind the constant, and evidence that the primes follow it.
 
-## Verify it yourself
+## Validation
 
 This script reproduces the counts for k = 10² … 10⁶, checks Flory's integral, and simulates the random model on 4·10⁶ sites. It runs in a few seconds. The C program for the windows near 10⁸ … 10¹⁵ is [code/conj-111.c](code/conj-111.c).
 

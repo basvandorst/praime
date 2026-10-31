@@ -66,7 +66,7 @@ The product does pass π eventually, but only near 10³³, so every computation 
 
 **Can it be proved?** P = π would need B₂ = 1.8677 instead of 1.9022. Ruling that out needs a proven *lower* bound for B₂ (or for the product), and the only ones available are partial sums. They stay below the needed value until about 10³³. So an unconditional disproof is not possible today; the disproof is as solid as the Hardy–Littlewood estimate of B₂.
 
-## Verify it yourself
+## Validation
 
 This script computes D and E from the twin primes below 10⁷, combines them with B₂, and checks the partial product against the tail estimate. It runs in a few seconds.
 

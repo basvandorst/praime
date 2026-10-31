@@ -67,6 +67,6 @@ The largest failure of any identity is r = 1327, where the gap 34 after 1327 is 
 
 **Beyond 4·10¹⁸ (conditional).** The published list of 85 maximal gaps (OEIS A005250; the 85th is 1854 after 101412319996363309069, found in 2026) comes from distributed searches with no refereed statement of completeness (FACTS 3023). If that list is complete, every gap below 1.01·10²⁰ is at most 1854, and the same argument extends the result to p < 1.01·10²⁰, since 1854² ≈ 3.4·10⁶ and (2·1854)² ≈ 1.4·10⁷ are both far below 2·10⁸.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/conj53_verify.py`](code/conj53_verify.py) (a few seconds) checks claim 6 on all prime triples below 2·10⁸. It evaluates all 19 identities and the new one from their definitions with exact rationals for every r < 10⁶, and asserts the failure lists above and that nothing fails above 1327. Claims 7 and 8 rest on the published maximal gap 1476 below 4·10¹⁸ and on Järviniemi's theorem (arXiv:2212.10965).

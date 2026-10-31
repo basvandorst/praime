@@ -70,7 +70,7 @@ All inequalities are strict. ∎
 
 The proof gives more than was asked: a_(nm) ≤ min(a_n, a_m) and a_(n+m) ≤ max(a_n, a_m) for all n, m. Firoozbakht's conjecture would put a_(n+m) below the minimum too; that stronger statement remains open.
 
-## Verify it yourself
+## Validation
 
 This script checks the finite part of the proof (p_(2b) < 3p_b for 2 ≤ b < 150) and that f is positive from b = 150 on. As sanity checks it also tests the lemma for a, b < 600, the explicit bounds on the whole range used, and all six inequalities for n, m < 400. It runs in about ten seconds.
 

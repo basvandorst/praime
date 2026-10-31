@@ -54,7 +54,7 @@ The prediction gets the direction right in every case and the size roughly right
 
 The Liskovets–Gallot numbers are the limit of this effect: they are the k for which these small primes cover a parity class completely.
 
-## Verify it yourself
+## Validation
 
 | script | what it does |
 |---|---|

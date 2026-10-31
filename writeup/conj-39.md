@@ -58,7 +58,7 @@ Two smaller slips on the same page, both read off the page's own table of d(p#),
 - Dan Lima's "d(p#(k)) < 2p(k−1) for k = 9, 12" is reversed. From the page's own table, d(23#) = 40 > 38 = 2·19 and d(37#) = 66 > 62 = 2·31. So his stronger conjecture d(p#(k)) ≤ 2p(k−1) already fails at 23#.
 - n = 36465 also violates the table's claimed value 11 for the shape 3·p·q·r·s.
 
-## Verify it yourself
+## Validation
 
 This script computes d(n) by scanning one period, finds the first n with each value up to 22 among n ≤ 40000 (squarefree n suffice, since d(n) only depends on the primes dividing n), and checks the claims above. It runs in a few seconds.
 

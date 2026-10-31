@@ -84,7 +84,7 @@ prime (PRP above 2^64) N found for n = 3, 4, 5, 7, 8, 13, 16, 17, 19, 29, 31, 56
 
 **Speed (Q3, Q4).** One test is n − 2 modular squarings, the same work as a Fermat test, so it cannot find large primes 2^n + 3 faster than the usual sieve-plus-Fermat search. As a screening test it is as strong as a Fermat test (no false positives known). Numbers 2^n + 3 can only be proved prime with general methods such as ECPP, because N ± 1 does not factor.
 
-## Verify it yourself
+## Validation
 
 This script checks the proof's ingredients for many n (the characters of 2 and 3, and the values of ω^((N±1)/2) for prime N). It then runs the test on every N with 3 ≤ n ≤ 1500: prime N must give the predicted remainder, and composite N must not. It runs in a few seconds. We ran the same loop with gmpy2 up to n = 10,000 (about 10 minutes).
 

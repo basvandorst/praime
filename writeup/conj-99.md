@@ -67,7 +67,7 @@ A        measured R   exact prime sum R(A)   ln 3      noise (1 s.d.)
 
 At 10⁹ the measured deficit of 0.015 is 3 noise widths below ln 3, but it matches the exact sum to 0.0006. At 10¹⁸ and 10³⁰ the cutoff is so large that the sum equals ln 3. There the measured values are about one noise width below, which is ordinary scatter for counts of 30,000–50,000.
 
-## Verify it yourself
+## Validation
 
 This script recounts the window at 10⁹ exactly, checks the integral, and evaluates the exact prime sum at 10⁹ and 10¹². It needs sympy and gmpy2, and runs in a few seconds.
 

@@ -48,7 +48,7 @@ The other residue classes are fine for large n. For example, for n ≡ 1 (mod 6)
 
 Sand's count of 47 representations of 10⁶ is exactly what we get with this reading of his rule, so the failures are not due to a different interpretation. His "checked until 10⁶" must have contained an error.
 
-## Verify it yourself
+## Validation
 
 This script finds all failures below 10⁶, confirms that 305 is the first, recounts the 47 representations of 10⁶, and checks the mod-6 criterion on every n ≡ 5 (mod 6) up to 10⁶. It runs in a few seconds.
 

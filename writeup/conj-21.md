@@ -68,7 +68,7 @@ R      1        2        3        4         5         6         7         8     
 count  5761455  3001132  6395506  11613020  16907897  23472989  18494661  11611888  2437649  300957  2835  9
 ```
 
-## Verify it yourself
+## Validation
 
 This script checks the two new expressions, confirms with a targeted search that neither number has a shorter one, and rebuilds the table for R = 1 … 11 up to 2·10⁵ with numpy (about 20 seconds). Minimality of 72598584 needs the full search to 10⁸: [code/conj-21.c](code/conj-21.c) (`./conj21 100000000 12`, about a minute).
 

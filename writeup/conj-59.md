@@ -36,7 +36,7 @@ If n! + p_n = s², then reducing mod a small prime q ≤ n kills n!, so p_n must
 
 **What is left: odd k.** If n! + p_n = m^k, every prime q ≤ n has n! + p_n ≡ p_n ≢ 0 (mod q), so every prime factor of m exceeds n. Then m^k ≥ (n + 1)^k, while n! + p_n < n^n, so k < n. For odd k the same idea gives "p_n is a k-th power residue mod every prime q ≤ n with q ≡ 1 (mod k)". Primes q ≢ 1 (mod k) give no information. There is no reciprocity law strong enough to turn this into a contradiction, so cubes and higher odd powers remain open.
 
-## Verify it yourself
+## Validation
 
 This script checks every n ≤ 3000 for perfect powers of any exponent. It also checks the two numerical facts in the proof: p_n < n(n + 1) for n ≤ 10⁵, and n₀(n₀ − 1) < p for all primes below 2·10⁵. It runs in a few seconds.
 

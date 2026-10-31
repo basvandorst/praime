@@ -52,7 +52,7 @@ Primes p ≡ 2 (mod 3) are much harder. There a 3-cycle in F_p* needs an element
 
 **What would settle it.** A counterexample needs every prime factor of n to pass at once. The numbers above make that very unlikely for any n a computer can reach, so the empty search up to 200,000 is expected. A proof is out of reach: it would make this a deterministic primality test of the same strength as Baillie–PSW, for which no proof is known either.
 
-## Verify it yourself
+## Validation
 
 This script checks the local criterion against Underwood's congruence, computed literally in F_p[x]/(f), on random cases and on forced positive cases. It then recomputes the fractions in the table. It runs in a few seconds.
 

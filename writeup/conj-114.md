@@ -47,7 +47,7 @@ all 200 terms semiprime, no prime factor repeated
 smallest primes not yet used after 200 terms: 2309, 2333, 2477, 2503, …
 ```
 
-## Verify it yourself
+## Validation
 
 This script recomputes the first 80 terms with PRP tests. It checks that they start as on the page, are all semiprimes, and never reuse a prime. It also checks claim 2 directly: whenever c shares a factor with f, f + c is composite. It runs in a few seconds. The 200-term run uses the same loop.
 

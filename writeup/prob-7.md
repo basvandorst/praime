@@ -41,7 +41,7 @@ The pair (p − 1, p − 1) stays in the count, and it is σ's image of (1, 1). 
 
 Example p = 13: ee = 3, oo = 2, op = 6, and 3 + 2 + 6 = 11 = p − 2.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/prob7_verify.py`](code/prob7_verify.py) does the following:
 

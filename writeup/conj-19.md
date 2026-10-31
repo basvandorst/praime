@@ -52,6 +52,6 @@ PARI/GP's isprime (APR-CL) proves all three independently.
 
 Question a) is open. By the Bateman–Horn conjecture the three polynomials p, p² + p − 1 and (p³ + p² − p + 1)/2 take prime values together infinitely often, since they have no fixed prime divisor. The number of extreme triplets with p ≤ x should be about C·x/(ln x)³. The search above confirms the density: about one triplet per 27,000 sieved candidates at 176 digits.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/conj19_verify.py`](code/conj19_verify.py) (under a second) proves p, q and r with the theorems above and checks Korselt's criterion for pqr. With `--pari` it also proves all three with PARI's APR-CL, which takes longer.

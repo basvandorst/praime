@@ -51,6 +51,6 @@ The numbers k are in [`writeup/data/prob92_k_S.txt`](data/prob92_k_S.txt) and `p
 
 **Q3 (significance).** Multiple covering sets cost almost nothing once the core leaves a small remainder. Any number of tails can be glued, so the number of covering sets of a Sierpinski number is unbounded. The interesting questions are the least k with m sets, and how many sets the known small Sierpinski and Riesel numbers have. The verification tool here answers the second question for any given k.
 
-## Verify it yourself
+## Validation
 
 [`writeup/code/prob92_verify.py`](code/prob92_verify.py) (under a second) recomputes, from each k alone, the class of every prime used. It checks that each of the 8 (Sierpinski), 8 (Riesel) and 5 (27-digit) sets covers all n mod 720720 and is minimal, and that k·2ⁿ ± 1 has a covering factor below itself for n < 3000. [`writeup/code/prob92_build.py`](code/prob92_build.py) rebuilds the 253-digit numbers.
