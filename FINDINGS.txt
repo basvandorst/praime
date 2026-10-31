@@ -89,3 +89,7 @@ From the shared-component pass (30 October 2026; scratch code outside the repo, 
   - The gap 1676 after 2.07e19 sits at model quantile 0.88 below 2.1e19.
   So the record gaps are explained by the sieve layer alone: no extra randomness is needed. At G = 1476 below 4e18, Cramer's tail is 70 times too fat (56.1 against the model's 0.79).
   The prediction depends on the sieve horizon y = x^c, and c is not free. c = 0.405 is the first point where e^gamma*omega(1/c) = 1, so the coin rho exactly undoes the Buchstab bias. Other c (same code, P(max < 1476) below 4e18 / calibration ratio at G = 240): c = 0.36: 0.27 / 1.29; c = 0.405: 0.45 / 1.07; c = 0.45: 0.86 / 0.57; c = 0.50: 1.00 / 0.14. The calibration and the out-of-sample test pick the same c, which is the one fixed by theory.
+- One rule with no free parameters (next prime = J-th survivor of the sieve to y = x^0.405, J geometric with rho) covers everything tested so far:
+  - gap counts and maximal gaps (above);
+  - the Lemke Oliver-Soundararajan 4x4 last-digit table: all 16 cells within 0.7 % (one sd of noise) near 1e9 and 1e12, diagonal share 0.1821 vs real 0.1823 and 0.1966 vs 0.1961 (results/code/facts_digits405.py);
+  - Maier's oscillation after r*M, M = 23#. This one holds identically, because the model's ratio to H/ln x is the old sieve prediction times 1/(e^gamma*omega(1/c)) = 1 at c = 0.405.
