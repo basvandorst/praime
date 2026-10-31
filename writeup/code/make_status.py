@@ -55,9 +55,7 @@ for kind, title in (('puzzle', 'Puzzles'), ('conjecture', 'Conjectures'), ('prob
     for group, links in groups.items():
         if links:
             section += ['**%s:** %s' % (group, ', '.join(links)), '']
-section.append('Unsolved numbers link to the page on primepuzzles.net, all others to our write-up. '
-               'Rebuild with `python3 writeup/code/make_status.py`.')
-block = '\n'.join(section) + '\n\n'
+block = '\n'.join(section) + '\n'
 
 if re.search(r'^## Status\n', readme, re.M):
     readme = re.sub(r'^## Status\n.*?(?=^## )', lambda _: block, readme, count=1, flags=re.M | re.S)
