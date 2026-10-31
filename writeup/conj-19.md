@@ -1,10 +1,12 @@
 # Conjecture 19: A bound to the largest prime factor of certain Carmichael numbers
 
-> **In short:** For a Carmichael number pqr with p < q < r, Richard Pinch and Chris Nash proved on the page that r ≤ (p³ + p² − p + 1)/2. The bound is reached exactly when q = p² + p − 1 and r = (p³ + p² − p + 1)/2 are both prime, an "extreme" triplet. Rivera's record extreme triplet gives a 764-digit Carmichael number. We found **p = 25971283·2⁵⁶⁰ + 1**, for which p, q and r are all **proven** prime, giving an extreme Carmichael number of **1056 digits**. The key is that q − 1 = (p − 1)(p + 2) and r − 1 = (p − 1)(p + 1)²/2 both contain p − 1 = k·2ⁿ, so Proth, Pocklington and Brillhart–Lehmer–Selfridge prove all three.
+> **In short (attempt, not a record):** Problem 33, the follow-up page to this conjecture, already has far larger extreme triplets: Michael Bell's 3661-digit C3 (p = 5927222·1450# + 1, 2000) and Phil Carmody's C3s of up to 9534 digits (p = k·1996995²⁵⁰ + 1, 2004). The triplet below (1056 digits, all three primes proven) does **not** beat them. The rest of this note is kept for the method.
+>
+> For a Carmichael number pqr with p < q < r, Richard Pinch and Chris Nash proved on the page that r ≤ (p³ + p² − p + 1)/2. The bound is reached exactly when q = p² + p − 1 and r = (p³ + p² − p + 1)/2 are both prime, an "extreme" triplet. Rivera's record extreme triplet gives a 764-digit Carmichael number. We found **p = 25971283·2⁵⁶⁰ + 1**, for which p, q and r are all **proven** prime, giving an extreme Carmichael number of **1056 digits**. The key is that q − 1 = (p − 1)(p + 2) and r − 1 = (p − 1)(p + 1)²/2 both contain p − 1 = k·2ⁿ, so Proth, Pocklington and Brillhart–Lehmer–Selfridge prove all three.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_019.htm)
 
-**Status:** answered (question b: a larger extreme triplet) · 1056-digit extreme Carmichael number, all three primes proven (Proth, Pocklington, BLS; re-proved with PARI)
+**Status:** open · not a record: problem 33 has extreme C3s up to 9534 digits (Carmody 2004); ours has 1056 digits, all three primes proven
 
 ## The question
 
@@ -13,14 +15,16 @@ A Carmichael number with three prime factors is C3 = pqr, p < q < r. Pinch and N
 - a) are there infinitely many extreme triplets p, p² + p − 1, (p³ + p² − p + 1)/2, all prime?
 - b) find larger and larger such triplets.
 
-He started with p = 7352265·2⁴⁰⁰ + 1, which gives an extreme C3 of 764 digits. The page has no later record.
+He started with p = 7352265·2⁴⁰⁰ + 1, which gives an extreme C3 of 764 digits. The search continued on [problem 33](https://www.primepuzzles.net/problems/prob_033.htm), where the records are far larger.
 
 ## Record vs ours
 
 | | p | digits of C3 |
 |---|---|---|
-| Rivera (2000) | 7352265·2⁴⁰⁰ + 1 | 764 |
-| **Ours** | **25971283·2⁵⁶⁰ + 1** | **1056** (p: 176, q: 352, r: 528 digits) |
+| Rivera (2000, this page) | 7352265·2⁴⁰⁰ + 1 | 764 |
+| Bell (2000, problem 33) | 5927222·1450# + 1 | 3661 |
+| Carmody (2004, problem 33) | 65506387867086·1996995²⁵⁰ + 1 | 9534 |
+| Ours | 25971283·2⁵⁶⁰ + 1 | 1056 (all three proven) |
 
 ## How we found it
 
@@ -50,4 +54,4 @@ Question a) is open. By the Bateman–Horn conjecture the three polynomials p, p
 
 ## Verify it yourself
 
-[`results/code/conj19_verify.py`](code/conj19_verify.py) (under a second) proves p, q and r with the theorems above and checks Korselt's criterion for pqr. With `--pari` it also proves all three with PARI's APR-CL, which takes longer.
+[`results/code/conj19_verify.py`](../results/code/conj19_verify.py) (under a second) proves p, q and r with the theorems above and checks Korselt's criterion for pqr. With `--pari` it also proves all three with PARI's APR-CL, which takes longer.
