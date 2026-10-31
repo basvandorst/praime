@@ -1,6 +1,6 @@
 # All puzzles
 
-1284 puzzles: 42 beaten, 37 answered, 1205 open (4 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
+1284 puzzles: 42 beaten, 37 answered, 1205 open (5 with a write-up of our attempt). Status links go to our write-up. Rebuild with `python3 writeup/make_index.py`.
 
 | # | Puzzle | Status |
 |---|---|---|
@@ -697,7 +697,7 @@
 | [691](https://www.primepuzzles.net/puzzles/puzz_691.htm) | Conjectures related to Gilbreath's scheme | open |
 | [692](https://www.primepuzzles.net/puzzles/puzz_692.htm) | Consecutive prime gaps biprimes | open |
 | [693](https://www.primepuzzles.net/puzzles/puzz_693.htm) | Prime Chemical Compounds | open |
-| [694](https://www.primepuzzles.net/puzzles/puzz_694.htm) | S(p,q)=p&q | open |
+| [694](https://www.primepuzzles.net/puzzles/puzz_694.htm) | S(p,q)=p&q | [open](694.md) |
 | [695](https://www.primepuzzles.net/puzzles/puzz_695.htm) | Pandiagonal & twin primes | open |
 | [696](https://www.primepuzzles.net/puzzles/puzz_696.htm) | 1801 | open |
 | [697](https://www.primepuzzles.net/puzzles/puzz_697.htm) | Puzzle 105, revisited | open |
