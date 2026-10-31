@@ -790,7 +790,7 @@ Each line gives the open claim, its formula, and the best known result.
 - **Euler–Rodríguez chains.** No chain of 15 is known (fact 4009).
 - **A formula for p_n.** No formula that is not circular (fact 5012). No algorithm for π(x) polynomial in ln x (fact 2020). No deterministic polynomial-time way to *construct* a prime of d digits is known (the Polymath4 project did not find one).
 - **Bias questions.** The explanations for Chebyshev's bias (fact 1602) and the last-digit bias (fact 1604) are conditional on GRH or on Hardy–Littlewood.
-- **Our own open attempts:** odd powers in [conjecture 59](writeup/conj-59.md), [conjecture 110](writeup/conj-110.md), [conjecture 114](writeup/conj-114.md), and the puzzles listed in [writeup/INDEX.md](writeup/INDEX.md).
+- **Our own open attempts:** odd powers in [conjecture 59](writeup/conj-59.md), [conjecture 110](writeup/conj-110.md), [conjecture 114](writeup/conj-114.md), and the partially solved puzzles in the [Status](README.md#status) section of the README.
 
 ---
 
