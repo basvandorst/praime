@@ -38,6 +38,10 @@ The first line of a page file is the site's HTML title, and on 14 puzzle pages (
 - Vectorise exhaustive checks with `numpy`. If Python is still too slow, write the check in C.
 - Limit every job with `timeout` and `nice`. Do not start long background jobs.
 - Verify with a second, separate script. Recompute the result from scratch with `sympy.isprime` and plain integers before you call it a record. Several "records" did not survive this.
+- Solver results (ILP, SAT, CP-SAT): a solution is checked by the verify script; an optimality or impossibility claim counts as "computed" until a second, independent solver or a certificate agrees (an LP dual in exact fractions, a separate branch-and-bound, a second program). Give the solver, the time limit and the status in the write-up. Results of annealing or other heuristics are "best found", never "optimal".
+- Before you claim "first" or "new", also search the archived catalogues and tables in `references/` (for example Keller's `Catalogue.txt` for Brier numbers), not only the linked pages.
+- Every number in a write-up (counts, bounds, "about X") must come out of the validation script, or be derived step by step in The math.
+- Wait for background jobs with a check that cannot match itself: `pgrep -f "x"` inside `until` also finds the loop's own command line.
 
 ## Rules
 
