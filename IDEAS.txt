@@ -51,6 +51,8 @@ Method (user tip, 31 Oct 2026): drill down. Write the problem as a chain of clai
 
 - Covering/packing puzzles (963, 896): reduce to the maximal objects (a set can always be replaced by a superset), then exact set cover with HiGHS. For an independent optimality proof, use branch-and-bound with LP dual bounds rounded to fractions and scaled to be exactly feasible; SAT with a cardinality bound was far slower on set cover. SAT (pysat, CaDiCaL) is good for subsequence questions instead: 'string of length L containing all words' proves 896's sets B (11) and C (21) optimal in minutes.
 
+- Grid arrangements with a local cost (1277): first place the 'expensive' items by hand (no friends: border; few friends: exactly their friends around them), freeze them, then anneal the rest. Plain annealing cannot build multi-cell motifs like a prime with its four multiples.
+
 - Parity-of-index questions about gaps (211, OEIS A008347): the sum of every other gap is open, but sieve upper bounds for prime pairs (Halberstam-Richert Thm 3.11, factor 4) force a positive share in each parity class (1/64). Any 'even vs odd position' gap question gets this bound for free.
 
 Open targets that look reachable
