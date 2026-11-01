@@ -8,14 +8,6 @@ Key files:
 - `FINDINGS.txt`: surprising results. Add new ones.
 - `FACTS.md`: facts about primes, each with a formula and a status tag (theorem, checked, computed, literature, conjecture). Add a fact only with a source or a check in `writeup/code/facts_check.py`.
 
-## Language
-
-Write in simple English. This holds for this file, for write-ups, for code comments and for answers in chat.
-- Use short sentences and common words. Put one idea in each sentence.
-- Use plain words, not jargon. If you need a technical term, explain it the first time you use it.
-- Prefer lists and tables to long paragraphs.
-- Write facts, not stories. Leave out praise, filler and remarks about yourself.
-
 ## Where to find things
 
 - `data/INDEX.txt`: one line per page: `puzzle-NNNN <url> <title>`. Lines with `->` list the attached documents.
