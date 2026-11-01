@@ -45,6 +45,10 @@ Method (user tip, 31 Oct 2026): drill down. Write the problem as a chain of clai
 
 - Many covering sets (problem 92): fix a core of covering primes, then glue disjoint 'tails' that each cover the core's remainder; CRT makes them compatible, so the number of covering sets is unbounded. For a given k, every prime p with ord_p(2) | L covers a determined class (2^r = -s/k mod p): enumerate minimal covers to count a number's covering sets.
 
+- Brier numbers and covering sets (problem 68): a prime in both covering sets has even order m and covers n = a (+1) and a + m/2 (-1); with 3 shared, the others need m = 2 (mod 4) (11, 19, 331, 43, 5419, 281, 211, ...). Split n by parity: both sides become covering problems in t with these primes 'paired' (c and c + 1/2 mod m/2). Minimum-product questions are then an exact 0/1 program over residue classes (scipy.optimize.milp = HiGHS; minimal cover = every member has a private point). T = 360 solves in minutes; T = 1260 only gives good incumbents.
+
+- 'Most objects from a digit budget' (1276, 49): an ILP over digit-count classes is only optimal for the primes it sees. LP duality closes the gap: weights y_d >= 0 give count <= k*sum(y) + sum_{short p} max(0, 1 - y.c(p)); if every long prime has y.c >= 1 (last digit 1/3/7/9, first nonzero, the rest >= min y) the bound covers all primes. ILP = floor(bound) is then a proof of optimality.
+
 - Parity-of-index questions about gaps (211, OEIS A008347): the sum of every other gap is open, but sieve upper bounds for prime pairs (Halberstam-Richert Thm 3.11, factor 4) force a positive share in each parity class (1/64). Any 'even vs odd position' gap question gets this bound for free.
 
 Open targets that look reachable
