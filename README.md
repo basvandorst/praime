@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-01 01:41 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-01 01:46 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -19,7 +19,7 @@ Submissions:
 | [857](https://www.primepuzzles.net/puzzles/puzz_857.htm) | Longest cascade of primes 4k+1 under f(p) = 2ab + 1 (p = a² + b²) | 23 primes (Vantieghem; Hürter) | [24 primes (86-digit start, proven)](writeup/857.md) |
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](writeup/868.md) |
 | [882](https://www.primepuzzles.net/puzzles/puzz_882.htm) | A(Z)ᵢB prime for i = 0..k | k = 9 (Taneja) | [k = 10: 95773717(6)ᵢ1](writeup/882.md) |
-| [897](https://www.primepuzzles.net/puzzles/puzz_897.htm) | Q2: fewest semiprimes whose reciprocals sum to 2 | 2250 terms (Watanabe, 2026) | [1638 terms (exact; at least 1234 needed)](writeup/897.md) |
+| [897](https://www.primepuzzles.net/puzzles/puzz_897.htm) | Q2: fewest semiprimes whose reciprocals sum to 2 and to 3 | 2250 and 708443 terms (Watanabe, 2026) | [1638 and 120962 terms (exact)](writeup/897.md) |
 | [977](https://www.primepuzzles.net/puzzles/puzz_977.htm) | Q1: largest primes q, r, s with 4q, 3r, 2s consecutive | q of 552 digits (Cavegn, 2019) | [q of 566 digits: 3·152439497·2¹⁸⁵⁰ − 1 (proven)](writeup/977.md) |
 | [1020](https://www.primepuzzles.net/puzzles/puzz_1020.htm) | Fewest squarefree 3-prime numbers whose reciprocals sum to 1 (also 899 Q2, 897 Q3) | 4922 terms (Watanabe on puzzle 897, 2026); 54280 on this page | [4786 terms (exact; at least 4402 needed)](writeup/1020.md) |
 
