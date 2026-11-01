@@ -31,6 +31,16 @@ The first line of a page file is the site's HTML title, and on 14 puzzle pages (
 - Try at least three approaches. Write down why each one failed.
 - Split work only within limits: 2 or 3 agents at most, for example one per page range for scouting or one per hard puzzle. Re-check everything they report. One agent invented an explanation.
 
+## Insights that keep paying off
+
+- Many "best found" records are exact optimisation problems in disguise (covers, digit budgets, covering systems, Egyptian fractions). Shrink the space by reasoning first, then solve exactly: `scipy.optimize.milp` (HiGHS), `pysat` (CaDiCaL, Glucose), OR-Tools CP-SAT. Puzzles 1276, 963 and 68, and problems 76 and 79, fell this way.
+- Shrink before solving. Use maximal objects only (963: maximal progressions), group by invariants (1276: digit-count vectors; 207: digit counts plus order of first appearance), split by parity or residue (68: Brier coverings become two covering problems in t), and share prefixes (896: subsequence SAT over a trie).
+- LP duality gives optimality certificates a script can check: weights in exact fractions, plus one argument for the infinite tail (1276: every prime of 8+ digits weighs at least 1). With few constraints the integer optimum is often ⌊LP⌋.
+- SAT is strong on word, subsequence and grid-reading constraints (771, 896) and weak on set cover with a cardinality bound. For set cover use branch-and-bound with LP bounds.
+- For arrangements with a local cost, place the expensive items by reasoning and freeze them, then let a local search fill in the rest. Plain annealing cannot build motifs of several cells (1277: lonely numbers on the border, each prime surrounded by its multiples).
+- Recheck every object on the page against the stated rules with a script. Two of the grids in 771 broke the straight-line rule, and five entries of Keller's catalogue give the wrong P.
+- Covering sets: a prime in both sets has even order m and covers n ≡ a and n ≡ a + m/2; with 3 shared, the others need m ≡ 2 (mod 4).
+
 ## Code
 
 - No open-ended hunts. A bounded exhaustive search is fine once reasoning has made the space small (81, 106, 75 rest on one). State every range in the write-up.
