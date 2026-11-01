@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-01 08:05 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-01 09:37 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -35,7 +35,7 @@ Submissions:
 | [36](https://www.primepuzzles.net/problems/prob_036.htm) | Problem 36: k·2ⁿ ± 1 both composite for all even (or all odd) n? Why the parity bias? | no answer | [yes, 93-digit k (covering proof); bias explained](writeup/prob-36.md) |
 | [41](https://www.primepuzzles.net/puzzles/puzz_041.htm) | F1: why only two palindromes \|A − Rev(A)\| for anagrams of 1..9? I: why are all A/9 palindromes composite? | no answers | [proved: four digit differences; A/9 has 8 digits](writeup/41.md) |
 | [61](https://www.primepuzzles.net/puzzles/puzz_061.htm) | Q7: why do the two-way GMN primes end in 1? | only a pointer to A057896 | [proved: 1 or 7 forced, 7 only for 7](writeup/61.md) |
-| [68](https://www.primepuzzles.net/problems/prob_068.htm) | Problem 68: smallest P for Brier numbers whose two covering sets share s primes (s = 4, 5, …) | none known for s = 4 | [first examples for s = 4 (P of 37 digits) to s = 8; the page's s = 1, 2 values proved minimal for periods dividing 720](writeup/prob-68.md) |
+| [68](https://www.primepuzzles.net/problems/prob_068.htm) | Problem 68: smallest P for Brier numbers whose two covering sets share s primes (s = 4, 5, …) | none known for s = 4 | [first examples for s = 4 (P of 37 digits) to s = 8; the page's s = 1, 2 values computed minimal for periods dividing 720](writeup/prob-68.md) |
 | [69](https://www.primepuzzles.net/problems/prob_069.htm) | Problem 69: a Brier number whose covering sets A and B are disjoint? | none known; 3 always shared | [yes: a 230-digit k (covering proof)](writeup/prob-69.md) |
 | [92](https://www.primepuzzles.net/problems/prob_092.htm) | Problem 92 Q1: Sierpinski or Riesel integers with more than 4 covering sets? | 4 (Gurisatti) | [8 for each (253 digits); 5 with a 27-digit k](writeup/prob-92.md) |
 | [93](https://www.primepuzzles.net/puzzles/puzz_093.htm) | Why are all decimal/hex reversals divisible by 53? | an informal "sum of powers" remark (Haga) | [proved: 10·16 ≡ 1 (mod 53)](writeup/93.md) |

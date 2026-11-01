@@ -24,7 +24,7 @@ def missing(G, P):
     return [p for p in primerange(2, P + 1) if str(p) not in R]
 
 def sat(N, P):
-    from pysat.solvers import Cadical153
+    from pysat.solvers import Cadical153, Glucose4
     top = [0]
     def new():
         top[0] += 1; return top[0]
@@ -45,7 +45,9 @@ def sat(N, P):
             y = new(); ys.append(y)
             cls += [[-y, x[(rc, int(ch))]] for rc, ch in zip(pts, w)]
         cls.append(ys)
-    return Cadical153(bootstrap_with=cls).solve()
+    r1 = Cadical153(bootstrap_with=cls).solve(); r2 = Glucose4(bootstrap_with=cls).solve()
+    assert r1 == r2                                          # two independent solvers must agree
+    return r1
 
 PAGE = [('Kamenetsky N=4', ['6101', '4701', '3923', '1851'], 131), ('Vantieghem N=4', ['1921', '0347', '7159', '6138'], 157),
         ('Kamenetsky N=5', ['19311', '26101', '12791', '78359', '94131'], 223),
@@ -64,5 +66,5 @@ for N, (P, G) in sorted(GRIDS.items()):
     if '--sat' in sys.argv and N <= 4:
         q = nextprime(P)
         assert not sat(N, q)
-        print('   SAT: no %d x %d grid holds every prime up to %d, so %d is the maximum' % (N, N, q, P))
+        print('   SAT (CaDiCaL and Glucose agree): no %d x %d grid holds every prime up to %d, so %d is the maximum' % (N, N, q, P))
 print('all checks passed')

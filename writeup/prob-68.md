@@ -1,10 +1,10 @@
 # Problem 68: Brier numbers whose two covering sets share 4 or more primes
 
-> **In short:** The page asked for the smallest product P of the primes in the covering sets A (for k·2ⁿ + 1) and B (for k·2ⁿ − 1) of a Brier number when A and B share s primes; values were known for s = 1, 2, 3 and none for s = 4. The proof: (1) a shared prime has even order m and covers n ≡ a on one side and n ≡ a + m/2 on the other; with 3 shared, the others need m ≡ 2 (mod 4), which for periods dividing 720 leaves only 11, 19, 331 and 18837001; (2) splitting n by parity turns both sides into covering problems linked only through these primes; (3) an exact integer program over all residue classes finds the cheapest coverings. This gives the first Brier numbers with s = 4 (P of 37 digits) up to s = 8, and proves the page's P for s = 1 and 2 minimal for periods dividing 720 with 3 shared.
+> **In short:** The page asked for the smallest product P of the primes in the covering sets A (for k·2ⁿ + 1) and B (for k·2ⁿ − 1) of a Brier number when A and B share s primes; values were known for s = 1, 2, 3 and none for s = 4. The proof: (1) a shared prime has even order m and covers n ≡ a on one side and n ≡ a + m/2 on the other; with 3 shared, the others need m ≡ 2 (mod 4), which for periods dividing 720 leaves only 11, 19, 331 and 18837001; (2) splitting n by parity turns both sides into covering problems linked only through these primes; (3) an exact integer program over all residue classes finds the cheapest coverings. This gives the first Brier numbers with s = 4 (P of 37 digits) up to s = 8, and computes (one exact solver, HiGHS) that the page's P for s = 1 and 2 are minimal for periods dividing 720 with 3 shared.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_068.htm)
 
-**Status:** answered (s = 4 to 8: first examples; s = 1 and 2 proved minimal for periods dividing 720) · proof (covering checked for every n mod the period)
+**Status:** answered (s = 4 to 8: first examples; s = 1 and 2 computed minimal for periods dividing 720) · proof (covering checked for every n mod the period)
 
 ## The question
 
@@ -16,8 +16,8 @@ A Brier number k makes k·2ⁿ + 1 and k·2ⁿ − 1 composite for every n. Let 
 
 | shared primes s | on the page | ours |
 |---|---|---|
-| 1 | P = 33241542480794255062005345795 (29 digits) | **the smallest possible** when 3 is shared and the period divides 720 |
-| 2 | P = 14393587894183912441848314729235 (32 digits) | **the smallest possible**, same conditions |
+| 1 | P = 33241542480794255062005345795 (29 digits) | the smallest when 3 is shared and the period divides 720 (computed, one solver) |
+| 2 | P = 14393587894183912441848314729235 (32 digits) | the smallest, same conditions (computed, one solver) |
 | 3 | P = 2708540859502146859799487840589422795 (37 digits) | the best the integer program finds is this same P (not proved minimal) |
 | 4 | ? | **P = 8515242199115959558869800655081023415 (37 digits)**, A ∩ B = {3, 11, 19, 331} |
 | 5 | — | **P = 71515612535007008102463292424534086157745 (41 digits)**, A ∩ B = {3, 11, 19, 331, 18837001}; s = 5 is the most possible when 3 is shared and the period divides 720 |
@@ -59,8 +59,8 @@ So 11, 19 and 331 cover t ≡ c (mod 5, 9, 15) on one side and the same classes 
 
 | s at least | T | result |
 |---|---|---|
-| 1 | 360 | optimum P = 33241542480794255062005345795, the page's set: minimal |
-| 2 | 360 | optimum P = 14393587894183912441848314729235, the page's set: minimal |
+| 1 | 360 | optimum P = 33241542480794255062005345795, the page's set (HiGHS, zero gap; CP-SAT finds the same P in 20 minutes but does not close the bound: computed, not independently confirmed) |
+| 2 | 360 | optimum P = 14393587894183912441848314729235, the page's set (HiGHS, zero gap; computed) |
 | 3 | 360 | best found in 25 minutes: the page's P (not proved minimal) |
 | 4 | 360 | best found in 25 minutes: P = 8515242199115959558869800655081023415 (not proved minimal; the solver's lower bound reached 33.8 digits) |
 | 5 | 360 | best found in 25 minutes: P = 71515612535007008102463292424534086157745 (not proved minimal; lower bound 32.6 digits) |
@@ -68,6 +68,8 @@ So 11, 19 and 331 cover t ≡ c (mod 5, 9, 15) on one side and the same classes 
 With T = 1260 the factor 7 brings in more primes of order ≡ 2 (mod 4): 43 (m = 14), 5419 (42), 281 and 86171 (70), 211, 664441 and 1564921 (210), 1765891 (630). The program at T = 1260 is too large to solve to the end (primes below 10⁷ only), but its best solutions give the examples for s = 6, 7 and 8. They are far from optimal: the s = 8 example is cheaper than the s = 6 one.
 
 **Step 6 (checked). Composite, not just divisible.** Each k is odd and larger than every prime it uses, so each k·2ⁿ ± 1 is a proper multiple of a prime of A or B, hence composite.
+
+Keller's catalogue of 290 Brier numbers ([../references/Catalogue.txt](../references/Catalogue.txt)) has none with more than 3 shared primes, so s = 4 is new.
 
 **What this does not settle.** Whether 37 digits is the least P for s = 4 (the solver's lower bound reached 33.8 digits for periods dividing 720), the least P for s ≥ 5, and Brier numbers in which 3 is not shared.
 
