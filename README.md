@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-02 21:39 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-02 21:53 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -15,7 +15,7 @@ Submissions:
 |---|---|---|---|
 | [76](https://www.primepuzzles.net/problems/prob_076.htm) | Problem 76: fewest distinct odd semiprimes whose reciprocals sum to 1 | 2587 terms (Vantieghem, 2021) | [711 terms (exact; at least 551 needed)](writeup/prob-76.md) |
 | [79](https://www.primepuzzles.net/problems/prob_079.htm) | Problem 79: fewest numbers with three prime factors (squares allowed) whose reciprocals sum to 1 | 688 terms (Vantieghem, 2020) | [223 terms (exact; at least 189 needed)](writeup/prob-79.md) |
-| [764](https://www.primepuzzles.net/puzzles/puzz_764.htm) | Least sum of N distinct integers in a row whose neighbour gcds are 1 … N−1 (N = 50, 100); also N = 10, 20 proved minimal and exact minima for N = 11 … 19 | 4036 and 22062 (Hürter, 2016); 102 and 508 "almost sure" | [3994 and 21400 (best found); 102 and 508 proved minimal](writeup/764.md) |
+| [764](https://www.primepuzzles.net/puzzles/puzz_764.htm) | Least sum of N distinct integers in a row whose neighbour gcds are 1 … N−1 (N = 50, 100); also N = 10, 20 proved minimal and exact minima for N = 11 … 19 | 4036 and 22062 (Hürter, 2016); 102 and 508 "almost sure" | [3994 and 21226 (best found); 102 and 508 proved minimal](writeup/764.md) |
 | [848](https://www.primepuzzles.net/puzzles/puzz_848.htm) | Least p + q with p(0)ₙq prime for n = 0..k | k = 8: 313292834 (Vantieghem) | [k = 9: p + q = 95521311344](writeup/848.md) |
 | [857](https://www.primepuzzles.net/puzzles/puzz_857.htm) | Longest cascade of primes 4k+1 under f(p) = 2ab + 1 (p = a² + b²) | 23 primes (Vantieghem; Hürter) | [24 primes (86-digit start, proven)](writeup/857.md) |
 | [868](https://www.primepuzzles.net/puzzles/puzz_868.htm) | 3×3 magic square of palprimes, most digits | 31 digits (Rivera) | [101 digits](writeup/868.md) |
