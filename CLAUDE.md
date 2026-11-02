@@ -4,8 +4,8 @@ Goal: beat records and answer open questions on primepuzzles.net. Use reasoning,
 
 Key files:
 - `README.md`: the results tables and the status of every page.
-- `IDEAS.txt`: tricks and open targets. Read it before you pick a puzzle. Add what you learn.
-- `FINDINGS.txt`: surprising results. Add new ones.
+- `IDEAS.txt`: tricks and open targets, stated generally. Read it before you pick a puzzle. Add what you learn.
+- `FINDINGS.txt`: general findings only: facts about primes that are new to us, and lessons about method. Puzzle-specific notes belong in the write-up, not here.
 - `FACTS.md`: facts about primes, each with a formula and a status tag (theorem, checked, computed, literature, conjecture). Add a fact only with a source or a check in `writeup/code/facts_check.py`.
 
 ## Where to find things
