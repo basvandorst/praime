@@ -1569,4 +1569,23 @@ for _i, _p in enumerate(P[:2_000_000].tolist()):
 assert np.all(np.abs(2 * _a[999:] - P[999:2_000_000]) < 8 * np.sqrt(P[999:2_000_000]))
 del _a
 
+# 4026: the primes in (q, q'^2) are the first survivors of the wheel of the primes up to q; recurrences of the opening stretch
+P4026 = sieve(200_000_000); g4026 = np.diff(P4026)
+for q4026, k4026 in [(3, 7), (5, 12), (7, 26), (11, 34), (13, 55), (17, 65), (19, 91), (23, 137), (29, 152), (31, 208), (37, 251)]:
+    qn = int(nextprime(q4026)); small = list(primerange(2, q4026 + 1))
+    surv = [n for n in range(q4026 + 1, qn * qn + 1) if all(n % r for r in small)]
+    pr = [int(p) for p in P4026[np.searchsorted(P4026, q4026 + 1):np.searchsorted(P4026, qn * qn) + 1]]
+    assert surv[:k4026] == pr[:k4026] and surv[k4026] == qn * qn
+    assert k4026 == int(np.searchsorted(P4026, qn * qn)) - int(np.searchsorted(P4026, q4026, side='right'))
+i11 = int(np.searchsorted(P4026, 11)); run4026 = g4026[i11:i11 + 9].tolist()
+assert run4026 == [2, 4, 2, 4, 6, 2, 6, 4, 2]
+def starts4026(L):
+    m = np.ones(len(g4026) - L + 1, dtype=bool)
+    for jj in range(L): m &= g4026[jj:len(g4026) - L + 1 + jj] == run4026[jj]
+    return P4026[np.nonzero(m)[0]].tolist()
+assert starts4026(7) == [11, 15760091, 25658441, 93625991, 182403491] and starts4026(8) == [11, 182403491] and starts4026(9) == [11]
+pr11 = [int(p) for p in P4026[i11:i11 + 20]]
+def admissible4026(tup): return all(len({(p - tup[0]) % r for p in tup}) < r for r in primerange(2, len(tup) + 1))
+assert admissible4026(pr11[:15]) and not admissible4026(pr11[:16]) and pr11[14] == 67 and pr11[15] == 71
+
 print("all FACTS.md checks passed")
