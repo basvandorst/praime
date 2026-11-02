@@ -26,7 +26,7 @@ Submissions:
 | [1276](https://www.primepuzzles.net/puzzles/puzz_1276.htm) | Most distinct primes from k copies of each digit 0–9 (also puzzle 49) | k = 20000, 30000, 40000: 35168, 51515, 67251 (Kalogeropoulos, 2026) | [35169, 51519, 67254; all 41 values on the page proved optimal](writeup/1276.md) |
 | [1277](https://www.primepuzzles.net/puzzles/puzz_1277.htm) | Q3: fewest coprime neighbour pairs with 1..10000 in a 100 × 100 grid | 2075 (Hürter, 2026) | [1452](writeup/1277.md) |
 
-#### Puzzles solved/answered (49)
+#### Puzzles solved/answered (50)
 | # | Open question | Status on the page | Our answer |
 |---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](writeup/prob-7.md) |
@@ -78,6 +78,7 @@ Submissions:
 | [1157](https://www.primepuzzles.net/puzzles/puzz_1157.htm) | Prove ⌊(p²+q²)/(2p)⌋ = q (p ≠ 7), ⌊(p²+q²)/(2q)⌋ = p, ⌊(p²+q²)/(p+q)⌋ = (p+q)/2 | reduced to gap bounds; "no proof" | [all three proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](writeup/1157.md) |
 | [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | Q2: generalise the prime-F rule to F(p,q) = ⌊q²/p⌋; why is T(p) empty for p = 2, 3, 5, 11? | computed only | [proved: prime F needs an even non-square residue; none exists only for 2, 3, 5, 11](writeup/1181.md) |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](writeup/1238.md) |
+| [1281](https://www.primepuzzles.net/puzzles/puzz_1281.htm) | Largest prime whose k-digit blocks are pairwise coprime (k = 2, 3; also with no prime block) | 8997941735371319, 94951, 97377998951 and a 44-digit prime, none proved largest | [the first three proved largest (exhaustive search; at most 4 or 11 composite blocks); the 44-digit case open](writeup/1281.md) |
 
 #### Conjectures (14)
 | # | Conjecture | Status on the page | Our result |
