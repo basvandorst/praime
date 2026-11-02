@@ -7,7 +7,7 @@
 # Run: python3 p896_verify.py   (about 3 minutes; needs sympy, python-sat)
 import itertools
 from sympy import primerange
-from pysat.solvers import Cadical153
+from pysat.solvers import Cadical153, Glucose4
 
 def subseq(w, s):
     it = iter(s); return all(c in it for c in w)
@@ -32,7 +32,9 @@ def exists(words, L):
         memo[pre] = cur; return cur
     for w in words: cls.append([m(tuple(map(int, w)))[L]])
     s = Cadical153(bootstrap_with=cls)
-    if not s.solve(): return None
+    r1 = s.solve()
+    assert r1 == Glucose4(bootstrap_with=cls).solve()     # two independent solvers must agree
+    if not r1: return None
     mod = set(v for v in s.get_model() if v > 0)
     return ''.join(str(next(d for d in range(10) if x[i][d] in mod)) for i in range(L))
 
@@ -47,5 +49,5 @@ for name, P, L in [('B: primes < 100', 100, 11), ('C: primes < 1000', 1000, 21)]
     s = exists(words, L)
     assert s and all(subseq(w, s) for w in words)
     assert exists(words, L - 1) is None
-    print('%-17s length %d works (%s), length %d is impossible: %d is the minimum' % (name, L, s, L - 1, L))
+    print('%-17s length %d works (%s), length %d is impossible (CaDiCaL and Glucose agree): %d is the minimum' % (name, L, s, L - 1, L))
 print('all checks passed')
