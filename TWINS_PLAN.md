@@ -4,6 +4,8 @@ Status: plan (3 November 2026). Done so far:
 
 - Angles 1, 2, 3 at 10⁹, 10¹², 10¹⁵ (fact 4027, writeup/code/twins_coin.py): twin-survivor density = V₂ · B₁²; the naive two-dimensional Buchstab equation is refuted (1.186 vs 1.000); the twin coin is ρ² times the C₂ tail over q > y; the two coins are independent at y = x^0.4 to 10⁻³; the parity census follows independent coins.
 - Conjecture 72 (Ghaffor's twin-count formula) proved for all n: the 4n progressions are the proper multiples of 6k ± 1 in 6m ± 1, Perry's 6xy ± x ± y (writeup/conj-72.md).
+- Angles 5 and 7, the zeros (facts 2047, 4028; writeup/code/zeros_*.py): the explicit formula with 1e5 zeros returns every prime below 1e4; the twin spectrum dips at the zeta zeros 1.85 ± 0.20 times as deep as the prime spectrum, the circle-method value 2 under Hardy-Littlewood, excluding "prime times independent coin" (1) at 4σ; the Dirichlet L-zeros mod 3 and 5 expected in the twin spectrum are not resolved with 20 zeros each; reading 2C₂ off the pair correlation (Bogomolny-Keating) not attempted.
+- Conjectures 7 and 30 (Cramér, Firoozbakht) written up from the gap model extended to 1e40 (writeup/conj-7.md, conj-30.md).
 - Conjecture 66 (maximal twin gaps ~ 0.45 ln³ p): answered in the literature, Kourbatov 2013 (references/2013_maximal-gaps-between-prime-k-tuples), G₂ ≈ a(ln(p/a) − b), a = ln² p/(2C₂); the constant drifts to 1/(2C₂) = 0.757. Not written up yet.
 
 ## The frame
