@@ -91,6 +91,12 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-04 | Selberg's central limit theorem for ln\|ζ(1/2 + it)\| at T = 10⁴ (2000 samples) | mean 0.008, variance 1.67 against (1/2) ln ln T = 1.11, skew −1.0, kurtosis 6.3: far from Gaussian at this height, the near-zeros give a heavy left tail | writeup/code/zeros_rh_signchanges_selberg.py |
 | 2026-11-04 | Predictability and compressibility of the zero spacings | regression of s_(n+1) on the two previous spacings: R² 0.173 for the zeros against 0.108 for a GUE sample (coefficients −0.44, −0.23 vs −0.34, −0.12); entropy 4.12 bits per spacing at 32 levels, conditional on the previous spacing 4.01, xz compresses nothing (42 KB vs 40 KB entropy) | writeup/code/zeros_rh_signchanges_selberg.py |
 | 2026-11-04 | χ₄-twisted pairs at the 165 zeros of L(s, χ₄): do the two members' L-waves add or cancel? | twisted primes dip −0.978 ± 0.010 (−1); twisted twins 0.27 ± 0.25 and sexy pairs −0.05 ± 0.15 (predicted 0, since χ₄(p+2) = χ₄(p+6) = −χ₄(p)); twisted cousins 1.91 ± 0.21 and (p, p+8) 1.66 ± 0.21 (predicted 2, since χ₄(p+4) = χ₄(p+8) = χ₄(p)). The sign rule of the circle method holds member by member | writeup/code/lzeros_twisted_pairs_chi4.py |
+| 2026-11-04 | Blind recovery of the zeros of L(s, χ₄) and L(s, χ₃) from the twisted primes below 10⁷ | χ₄: all 25 zeros in (5, 60) found, rms 0.0116, 2 spurious dips; χ₃: all 22 found, rms 0.0080, none spurious (8.0367 vs 8.0397, 15.7047 vs 15.7046) | writeup/code/lzeros_twisted_pairs_chi4.py |
+| 2026-11-04 | Triplets and quadruplets at 1000 zeros, p ≥ 10⁴ | triplets (0,2,6): 3.38 ± 0.49, (0,4,6): 2.16 ± 0.44 (predicted 3); quadruplets 2.2 ± 1.6 (predicted 4, too few to tell) | writeup/code/zeros_tuples_1000_chi3_twisted.py |
+| 2026-11-04 | χ₃-twisted pairs at the χ₃-zeros | sexy pairs 2.04 ± 0.20 and (p, p+12) 2.20 ± 0.19 (predicted 2, χ₃(p+6) = χ₃(p)); cousins and (p, p+10), on which χ₃ is constant, show large baselines and ratios 2.2 ± 1.2, 2.7 ± 1.2: not resolvable, the constant twist makes them the plain pair spectra | writeup/code/zeros_tuples_1000_chi3_twisted.py |
+| 2026-11-04 | Primes in [x, x + √x] to 10⁹ (sampled every 1000) | minimum count 4, at x = 100; never empty | writeup/code/primes_sqrt_intervals_mertens_twinbits.py |
+| 2026-11-04 | Mertens' constants from the primes to 10⁹ | Σ 1/p − ln ln x = 0.2614987 at 10⁹ (M = 0.2614972, error 1.5·10⁻⁶ falling like 1/√x); ln ∏(1 − 1/p) + ln ln x + γ = −1.5·10⁻⁶ | writeup/code/primes_sqrt_intervals_mertens_twinbits.py |
+| 2026-11-04 | Bits per twin gap against scale | H(gap) = 5.31, 5.89, 6.38, 6.65 bits at x = 10⁵, 10⁶, 10⁷, 5·10⁷ (log₂ of the mean gap 6.74, 7.22, 7.69, 7.96); p mod 5 removes 0.65 bits at every scale | writeup/code/primes_sqrt_intervals_mertens_twinbits.py |
 
 ## Lessons (self-improvement)
 
@@ -114,3 +120,4 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - Budget mpmath: Z(t) at t ~ 10⁴ costs milliseconds; 2·10⁵ evaluations is not a two-minute job.
 - Give mp.quad breakpoints where the integrand changes character; a single interval cost 3·10⁻³ on an identity that holds to 10⁻¹¹.
 - Never kill a background job with a pattern that appears in your own command line: the shell matched itself.
+- numpy integers do not go into pow(a, b, m); cast to int before modular arithmetic (this bit three scripts).
