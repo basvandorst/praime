@@ -33,6 +33,12 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Distribution of M(x)/√x and Chowla correlations to 10⁸ | M/√x: mean 0.012, sd 0.171, max 0.46, kurtosis 2.34; ⟨λ(n)λ(n+h)⟩ and ⟨μ(n)μ(n+h)⟩ within 10⁻⁴ of 0 for h = 1, 2, 3, 4, 6; squarefree pairs 0.32263 (∏(1 − 2/p²) = 0.3226) | writeup/code/rh_primeside_1e8.py |
 | 2026-11-03 | Information in the gaps per scale | H(gap) = 1.06 log₂(ln x) + 0.05 bits (3.45 at 10⁴, 4.46 at 5·10⁷); p mod 30 removes 1.0 bit, p mod 210 1.3 bits, the previous gap 0.33 bits, at every scale | writeup/code/primes_information.py |
 | 2026-11-03 | Leading digits and digit sums of primes | leading digit nearly flat (0.119 to 0.107), chi-square 41369 against Benford; digit-sum parity P(even) = 0.4950 ± 0.0007 in [10⁷, 10⁸) (checked below as a mod-3 artefact) | writeup/code/primes_information.py |
+| 2026-11-03 | Forward de Bruijn-Newman flow on zeros 500 to 3500 | unfolded spacing variance 0.152 → 0.109, 0.071, 0.037, 0.012 at t = 0.02, 0.05, 0.1, 0.2: the heat flow drives the zeros toward a lattice, as Polymath 15 used | writeup/code/zeros_heatflow_forward.py |
+| 2026-11-03 | Schoenfeld's π − li bound inside its range x ≥ 2657 | max ratio 0.9075 at x = 2658 (the theorem is sharp at its threshold), 0.25 at 10⁵, 0.17 at 10⁷ | writeup/code/zeros_heatflow_forward.py |
+| 2026-11-03 | Digit-sum parity of primes, full counts and mechanism | P(even) = 0.4869, 0.4991, 0.4942 (±0.0002) in the decades 10⁵…10⁸ against 0.5000 for integers coprime to 30. Cause: 10 ≡ −1 (mod 11), so the alternating digit sum is n mod 11 and has the digit sum's parity; P(even \| n mod 11 = r) runs from 0.44 to 0.56 and primes avoid r = 0 (0.558). Integers coprime to 2310 give 0.4892, 0.5000, 0.4947: the primes' values within 1 to 2σ. Mauduit-Rivat's equidistribution is approached only as the sieve effect fades | writeup/code/primes_digitsum_mod11.py |
+| 2026-11-03 | Pairs (p, p+h) for h = 2 … 1000 at the zeros | ratios 2.00, 1.83, 1.79, 1.81, 1.93, 1.84, 1.77, 1.56, 1.54, 1.86, 1.13 (±0.17) for h = 2, 4, 6, 10, 14, 20, 30, 50, 100, 200, 1000 | writeup/code/zeros_pairs_2k.py |
+| 2026-11-03 | Decoherence law for the partner's wave | the partner at p + h carries the zero wave with phase shift γ ln(1 + h/p); the parameter-free prediction 1 + ⟨cos(γ ln(1 + h/p))⟩ averaged over p ≥ 10³ and 300 zeros gives 1.99, 1.96, 1.93, 1.87, 1.84, 1.81, 1.77, 1.73, 1.67, 1.61, 1.47: the measured fall with h, within noise except h = 1000 (2σ) | writeup/code/zeros_pairs_decoherence.py |
+| 2026-11-03 | Pairs at two scales, (p, 2p±1) and (p, 3p±2), with the right singular series | fits 0.86 + 0.84 cos(γ ln 2), 1.03 + 0.89 cos(γ ln 2), 1.08 + 0.61 cos(γ ln 3), 1.09 + 0.50 cos(γ ln 3) against the predicted 1 + 0.707 cos(γ ln 2) and 1 + 0.577 cos(γ ln 3); correlations 0.23 to 0.29 over 300 zeros | writeup/code/zeros_pairs_decoherence.py |
 
 ## Lessons (self-improvement)
 
@@ -43,3 +49,5 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - Check a theorem's stated range before calling a ratio above 1 a violation (Schoenfeld's π − li bound starts at 2657).
 - Sanity-check magnitudes against the theory before interpreting (a Nicolas margin of −15 was a missing logarithm, not a counterexample).
 - Digit statistics of primes inherit mod-3 structure through the digit sum; compare against all integers coprime to 6 before claiming a bias.
+- The singular series of a pair at two scales is not the twin constant: (p, 3p+2) has twice it. Compute every constant from its root counts, never by analogy.
+- The partner of a pair feels the zero wave with a phase shift γ ln(1 + h/p); a coefficient below 2 for distant partners is decoherence, not a missing law.
