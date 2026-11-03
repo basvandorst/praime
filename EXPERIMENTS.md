@@ -42,6 +42,9 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Where do the zeros live, sieve layer or coin? (sieve to 100 over [10⁵, 10⁷], 200 zeros) | primes dip −1.013; the coin (1_prime − ρ over survivors) −0.848 ± 0.023; the sieve layer (ρ over survivors) −0.165 ± 0.016. The sieve layer's share is exact arithmetic: Σ_{(n,P)=1} n^(−s) = ζ(s) ∏_{q\|P}(1 − q^(−s)), so a divisibility-built indicator inherits ζ's zeros; the rest, 84 %, is the coin | writeup/code/zeros_coin_blind.py |
 | 2026-11-03 | Twin coin spectrum (1_twin − ρ₂ over twin survivors of the sieve to 100) | −1.835 ± 0.190 at the zeros, +0.11 between: 2.2 ± 0.2 times the prime coin, the factor 2 again | writeup/code/zeros_coin_blind.py |
 | 2026-11-03 | Blind zero finding from the primes alone (primes in [10³, 10⁷], scan step 0.02, parabolic refinement) | 13 dips in (10, 60) for 13 zeros, no spurious dip; rms distance 0.0085, max 0.019 (14.1289 vs 14.1347, 21.0221 vs 21.0220, 25.0118 vs 25.0109) | writeup/code/zeros_coin_blind.py |
+| 2026-11-03 | Variance of ψ(x+H) − ψ(x) − H over x in [10⁶, 2·10⁶] | 772, 6447, 38940 for H = 10², 10³, 10⁴ against Montgomery-Soundararajan's H(ln(x/H) − γ − ln 2π) = 715, 4848, 25450 (ratios 1.08, 1.33, 1.53 at this small x); the same windows rebuilt from the 10⁵ zeros reproduce the real counts with corr 0.991 and 0.9985, rms difference 11 | writeup/code/zeros_variance_speiser_gram.py |
+| 2026-11-03 | RH, Speiser's criterion (no zero of ζ′ with 0 < Re s < 1/2) | 19 zeros of ζ′ with Im s < 100, all with Re s between 0.78 and 2.46; none left of the line | writeup/code/zeros_variance_speiser_gram.py |
+| 2026-11-03 | Gram's law on the first 10000 Gram intervals | exactly one zero in 83.9 %, none in 8.1 %, two in 8.0 %, three in 0.06 %; the first failures at Gram indices 125, 126 (the classical first exception near t = 282.45) | writeup/code/zeros_variance_speiser_gram.py |
 
 ## Lessons (self-improvement)
 
