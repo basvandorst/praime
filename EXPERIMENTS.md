@@ -55,6 +55,7 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Digit-sum parity in bases 2, 3, 4, 6, 10 for primes in [10⁷, 10⁸) | base 3: 0 for everyone (3 ≡ 1 mod 2); base 4: primes 0.4948, coprime to 2310 0.4951 (the sieve by 5, since 4 ≡ −1 mod 5); base 10: 0.4941 vs 0.4947; base 6: 0.4946 vs 0.4918 (7 caught, 31 and 37 not); base 2: primes 0.4951 vs 0.4809 for every control, open (checked per bit length below) | writeup/code/primes_bases_lehmer_twinblind.py |
 | 2026-11-03 | Lehmer pairs per 20000 zeros | spacings below 0.05: 3, 1, 1, 3, 3 (GUE 2.7); below 0.1: 13, 13, 13, 19, 21 (GUE 21.9), fewer at low height as the repulsion deficit showed | writeup/code/primes_bases_lehmer_twinblind.py |
 | 2026-11-03 | Blind zero finding from the twins alone (440,000 twins to 10⁸) | 58 dips below −1 for 6 zeros in (10, 40), 4 of them within 0.1 of a zero, 54 spurious: the twin shot noise (±1.2) is as large as the signal (2); the primes find the zeros, the twins cannot | writeup/code/primes_bases_lehmer_twinblind.py |
+| 2026-11-03 | Base-2 digit-sum parity per bit length | 21, 23, 25, 27 bits: primes 0.4989, 0.4974, 0.5006, 0.4998 against integers coprime to 2310: 0.5000, 0.4988, 0.5003, 0.4998, all within 2σ. The earlier 0.4951 vs 0.4809 over [10⁷, 10⁸) was a range artefact: a decimal window cuts bit lengths in half and partial bit ranges are not parity-balanced. The sieve law holds in every base tested | writeup/code/primes_base2_bitlength.py |
 
 ## Lessons (self-improvement)
 
@@ -71,3 +72,4 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - An indicator built from divisibility (a wheel's survivors) is not zero-free: its Dirichlet series is ζ(s) times an Euler factor, so it dips at the zeros too; only the coin's share is what the sieve cannot see.
 - Before twisting a set by a character, check the character is not constant on the set (χ₃ = −1 on every twin lesser member).
 - A Perron residue carries x^ρ, not x^(ρ/2): write the generating Dirichlet series first and read the exponents off it (Liouville: ζ(2s)/ζ(s)).
+- Compare digit statistics inside complete digit-length ranges of the base in question; a window that is round in another base is not parity-balanced.
