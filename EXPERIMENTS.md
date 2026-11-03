@@ -64,6 +64,10 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Twin races mod 5 (lesser members in classes 1, 2, 4) and mod 4 to 10⁸ | final deviations within 1.1σ of equal shares (146841, 146953, 146516 and 220418, 219892); no bias detected at this sensitivity, as the coin model predicts | writeup/code/zeros_races_quadruplets_brun.py |
 | 2026-11-03 | Prime quadruplets (p, p+2, p+6, p+8) to 10⁸ | 4768 against the Hardy-Littlewood integral 4751 with the exact constant 4.15118 (ratio 1.0035) | writeup/code/zeros_races_quadruplets_brun.py |
 | 2026-11-03 | Brun's constant from the twins to 10⁸ plus the Hardy-Littlewood tail | 1.758816 + 0.143352 = 1.902168 against Nicely's 1.902160583 | writeup/code/zeros_races_quadruplets_brun.py |
+| 2026-11-03 | Riemann's 1859 formula π(x) = R(x) − Σ_ρ li(x^ρ) with 300 zeros, x in [10³, 10⁶] | mean \|π − li\| = 36.8, \|π − R\| = 4.4, \|π − (R − Σ li(x^ρ))\| = 1.08; corr(π − R, zeros term) 0.974, slope 1.05; π(10⁶) = 78498 against 78503.2 (R alone 78527.4) | writeup/code/zeros_riemann_formula.py |
+| 2026-11-03 | Twin coin at 10¹⁸ (sieve to 1.6·10⁷, four windows of 2·10⁶, BPSW) | 12,151 twin survivors; prime share 0.7077 (model 0.7115); independence ratio P(both)/(P(n)P(n+2)) = 0.9971 ± 0.0091 | writeup/code/twins_coin_1e18_digits_windows.py |
+| 2026-11-03 | Last digits of consecutive twin pairs to 10⁸ (the twin Lemke Oliver-Soundararajan bias) | repeats depleted by 8 % (1→1 0.924, 7→7 0.919, 9→9 0.922), cyclic preference 1→7, 7→9, 9→1 at +8 %: the smallest allowed gaps on the wheel (6 from 1, 12 from 7 and 9, since gaps 6 and 18 from 7 or 9 land on a last digit 3 or 5) | writeup/code/twins_coin_1e18_digits_windows.py |
+| 2026-11-03 | Twin counts in windows near 10⁸ | var/mean 0.85, 0.82, 0.95 for H = 10³, 10⁴, 10⁵ against 0.53, 0.47, 0.88 for primes: twins are nearer Poisson, the sieve rigidity matters less for a rarer set | writeup/code/twins_coin_1e18_digits_windows.py |
 
 ## Lessons (self-improvement)
 
@@ -81,3 +85,4 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - Before twisting a set by a character, check the character is not constant on the set (χ₃ = −1 on every twin lesser member).
 - A Perron residue carries x^ρ, not x^(ρ/2): write the generating Dirichlet series first and read the exponents off it (Liouville: ζ(2s)/ζ(s)).
 - Compare digit statistics inside complete digit-length ranges of the base in question; a window that is round in another base is not parity-balanced.
+- Riemann's formula needs the prime-square term: π − li is mostly −½ li(√x); compare the zeros against π − R(x), not π − li(x).
