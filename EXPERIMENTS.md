@@ -68,6 +68,20 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Twin coin at 10¹⁸ (sieve to 1.6·10⁷, four windows of 2·10⁶, BPSW) | 12,151 twin survivors; prime share 0.7077 (model 0.7115); independence ratio P(both)/(P(n)P(n+2)) = 0.9971 ± 0.0091 | writeup/code/twins_coin_1e18_digits_windows.py |
 | 2026-11-03 | Last digits of consecutive twin pairs to 10⁸ (the twin Lemke Oliver-Soundararajan bias) | repeats depleted by 8 % (1→1 0.924, 7→7 0.919, 9→9 0.922), cyclic preference 1→7, 7→9, 9→1 at +8 %: the smallest allowed gaps on the wheel (6 from 1, 12 from 7 and 9, since gaps 6 and 18 from 7 or 9 land on a last digit 3 or 5) | writeup/code/twins_coin_1e18_digits_windows.py |
 | 2026-11-03 | Twin counts in windows near 10⁸ | var/mean 0.85, 0.82, 0.95 for H = 10³, 10⁴, 10⁵ against 0.53, 0.47, 0.88 for primes: twins are nearer Poisson, the sieve rigidity matters less for a rarer set | writeup/code/twins_coin_1e18_digits_windows.py |
+| 2026-11-03 | Andrica and Legendre to 10⁹ | max √p_(n+1) − √p_n = 0.6709 at p = 7; least number of primes in (n², (n+1)²) for n < 31622 is 2 (at n = 2, 5, 9) | writeup/code/primes_gaps_misc_1e9.py |
+| 2026-11-03 | Gap return map near 10⁸ | corr(g_n, g_(n+1)) = −0.035, lag 2 −0.016, lag 3 −0.011; equal consecutive gaps 0.0285 against 0.0625 for shuffled gaps (the sieve halves them) | writeup/code/primes_gaps_misc_1e9.py |
+| 2026-11-03 | Gilbreath's conjecture on the first 100,000 primes | leading entry 1 in every row 1 … 5000; from row 97 on every other entry is 0 or 2, after which the leading 1 persists mechanically (Odlyzko's argument) | writeup/code/primes_gaps_misc_1e9.py |
+| 2026-11-03 | Linnik: least prime P(a, q) in every class, 3 ≤ q ≤ 5000 | no case with P(a, q) ≥ q²; max P(a,q)/(φ(q) ln² q) = 2.90, at q = 3 | writeup/code/primes_gaps_misc_1e9.py |
+| 2026-11-03 | Blind zero finding against the size of the prime set | primes to 10⁵: all 13 zeros in (10, 60) within 0.1, rms 0.0154, 24 spurious dips; to 10⁶: rms 0.0100, 7 spurious; to 10⁷: rms 0.0085, none spurious | writeup/code/primes_gaps_misc_1e9.py |
+| 2026-11-03 | Hardy-Littlewood counts to 10⁸ for seven tuple types, constants from root counts | twins 0.9998, cousins 0.9997, sexy 0.9990, triplets (0,2,6) 1.0018, (0,4,6) 1.0010, quadruplets 1.0067, Sophie Germain 0.9996 (count over HL integral) | writeup/code/primes_hl_tuples_artin_goldbach.py |
+| 2026-11-03 | Twin Skewes point and the twin constant from data | first x above 10⁵ with π₂(x) > 2C₂ ∫dt/ln²t: 1,370,111 (Wolf: 1,369,391, the difference is the integral's lower limit); the count is above the integral for 53 % of x in [10⁵, 3·10⁶]; 2C₂ fitted from the counts: 1.307, 1.324, 1.318 at 10⁶, 10⁷, 10⁸ (1.3203) | writeup/code/primes_hl_tuples_artin_goldbach.py |
+| 2026-11-03 | Gaussian primes: angles of a² + b² for the 39,175 primes ≡ 1 mod 4 below 10⁶ | octile counts 4874 … 4937 around 4897, max deviation 0.57σ (Hecke's equidistribution) | writeup/code/primes_hl_tuples_artin_goldbach.py |
+| 2026-11-03 | Artin's conjecture for 2 below 10⁶ and Wieferich primes below 10⁷ | 29341/78497 = 0.37378 against Artin's 0.37396; Wieferich: only 1093 and 3511 | writeup/code/primes_hl_tuples_artin_goldbach.py |
+| 2026-11-03 | Goldbach comet classes, N in [10⁶, 2·10⁶] | mean r(N) for 3 \| N over 3 ∤ N: 1.9999 (singular series 2); 5 \| N: 1.3333 (4/3) | writeup/code/primes_hl_tuples_artin_goldbach.py |
+| 2026-11-03 | Hardy-Littlewood's second conjecture π(x+y) ≤ π(x) + π(y), x ≥ 2, x ≤ 10⁸ | holds for y = 100, 300, 1000, 3000 with margins 0, 1, 1, 0 (tight at y = 100 and 3000; the first admissible counterexample needs y = 3159) | writeup/code/primes_hl_second_conjecture.py |
+| 2026-11-03 | Prime spikes in the unfolded form factor K(τ) at τ_p = ln p/(2πd) | none: K(τ_p)/K(nearby) between 0.2 and 1.8, pure fluctuation. The prime resonances live in the raw variable (mean cos(γ ln m)); unfolding smears them across τ | writeup/code/zeros_formfactor_plateau.py |
+| 2026-11-03 | Number-variance plateau against height | Σ²(L = 5, 10, 20) = 0.39, 0.33, 0.32 at T ≈ 1.8·10⁴ and 0.41, 0.35, 0.42 at 6.8·10⁴: a plateau near 0.35 to 0.4 growing only slowly with T | writeup/code/zeros_formfactor_plateau.py |
+| 2026-11-03 | Weil's explicit formula as a numerical identity (Gaussian test function) | not completed: with width 3 the zero side is 3·10⁻⁵ and the archimedean side −3·10⁻³, a convention mismatch I did not resolve in the time box | writeup/code/zeros_formfactor_plateau.py |
 
 ## Lessons (self-improvement)
 
@@ -86,3 +100,6 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - A Perron residue carries x^ρ, not x^(ρ/2): write the generating Dirichlet series first and read the exponents off it (Liouville: ζ(2s)/ζ(s)).
 - Compare digit statistics inside complete digit-length ranges of the base in question; a window that is round in another base is not parity-balanced.
 - Riemann's formula needs the prime-square term: π − li is mostly −½ li(√x); compare the zeros against π − R(x), not π − li(x).
+- A conjecture's hypotheses matter: π(x+y) ≤ π(x) + π(y) fails trivially at x = 1 (π(101) = 26 > 25); start at x = 2 as Hardy and Littlewood did.
+- Resonances of the zeros with the primes are sharp only in the raw variable γ; after unfolding they are smeared, so look for them with cos(γ ln m), not in the form factor grid.
+- Budget mpmath: Z(t) at t ~ 10⁴ costs milliseconds; 2·10⁵ evaluations is not a two-minute job.
