@@ -565,7 +565,7 @@ Facts proved, used or found in our write-ups; each links to its write-up, which 
 9408. **Zeisel chains** p₂ = A·p₁ + B: any primes with (p₁ − 1) | (p₂ − 1) fix A = (p₂ − 1)/(p₁ − 1) − 1 and B = p₁ − A *([325](writeup/325.md))*. Choosing q = p² − p + r forces pq mod (p + q) = r *([908](writeup/908.md))*.
 9409. Under p ↦ GPD(3p + 1) with p odd, the next prime is larger only when (3p + 1)/2 is prime. So an increasing run of 9 has the shape `p_k = m·3^k·2^(9−k) − 1`; the least start is 35014031359. *([299](writeup/299.md))*
 9410. ⌊t^j⌋ prime for j = 1 … k: the valid t form nested intervals `p_j^(1/j) ≤ t < (p_j + 1)^(1/j)`. We found a t with k = 239. *([227](writeup/227.md))*
-9411. For odd n, 2ⁿ − 2^k + 1 (k < n) is a square only for (n, k) = (5, 3), (7, 3), (15, 3). The proof uses Ramanujan–Nagell (x² + 7 = 2ⁿ only for n = 3, 4, 5, 7, 15) and Beukers (1981). *([490](writeup/490.md))*
+9411. For odd n, 2ⁿ − 2^k + 1 (k < n) is a square only for (n, k) = (5, 3), (7, 3), (15, 3). The proof uses Ramanujan–Nagell (x² + 7 = 2ⁿ only for n = 3, 4, 5, 7, 15) and Apéry (1960: x² + D = 2ⁿ has at most two solutions for D > 0, D ≠ 7). *([490](writeup/490.md))*
 
 ### 9E. Gaps, runs and counts
 
