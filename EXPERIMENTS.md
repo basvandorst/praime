@@ -39,6 +39,9 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Pairs (p, p+h) for h = 2 … 1000 at the zeros | ratios 2.00, 1.83, 1.79, 1.81, 1.93, 1.84, 1.77, 1.56, 1.54, 1.86, 1.13 (±0.17) for h = 2, 4, 6, 10, 14, 20, 30, 50, 100, 200, 1000 | writeup/code/zeros_pairs_2k.py |
 | 2026-11-03 | Decoherence law for the partner's wave | the partner at p + h carries the zero wave with phase shift γ ln(1 + h/p); the parameter-free prediction 1 + ⟨cos(γ ln(1 + h/p))⟩ averaged over p ≥ 10³ and 300 zeros gives 1.99, 1.96, 1.93, 1.87, 1.84, 1.81, 1.77, 1.73, 1.67, 1.61, 1.47: the measured fall with h, within noise except h = 1000 (2σ) | writeup/code/zeros_pairs_decoherence.py |
 | 2026-11-03 | Pairs at two scales, (p, 2p±1) and (p, 3p±2), with the right singular series | fits 0.86 + 0.84 cos(γ ln 2), 1.03 + 0.89 cos(γ ln 2), 1.08 + 0.61 cos(γ ln 3), 1.09 + 0.50 cos(γ ln 3) against the predicted 1 + 0.707 cos(γ ln 2) and 1 + 0.577 cos(γ ln 3); correlations 0.23 to 0.29 over 300 zeros | writeup/code/zeros_pairs_decoherence.py |
+| 2026-11-03 | Where do the zeros live, sieve layer or coin? (sieve to 100 over [10⁵, 10⁷], 200 zeros) | primes dip −1.013; the coin (1_prime − ρ over survivors) −0.848 ± 0.023; the sieve layer (ρ over survivors) −0.165 ± 0.016. The sieve layer's share is exact arithmetic: Σ_{(n,P)=1} n^(−s) = ζ(s) ∏_{q\|P}(1 − q^(−s)), so a divisibility-built indicator inherits ζ's zeros; the rest, 84 %, is the coin | writeup/code/zeros_coin_blind.py |
+| 2026-11-03 | Twin coin spectrum (1_twin − ρ₂ over twin survivors of the sieve to 100) | −1.835 ± 0.190 at the zeros, +0.11 between: 2.2 ± 0.2 times the prime coin, the factor 2 again | writeup/code/zeros_coin_blind.py |
+| 2026-11-03 | Blind zero finding from the primes alone (primes in [10³, 10⁷], scan step 0.02, parabolic refinement) | 13 dips in (10, 60) for 13 zeros, no spurious dip; rms distance 0.0085, max 0.019 (14.1289 vs 14.1347, 21.0221 vs 21.0220, 25.0118 vs 25.0109) | writeup/code/zeros_coin_blind.py |
 
 ## Lessons (self-improvement)
 
@@ -51,3 +54,5 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - Digit statistics of primes inherit mod-3 structure through the digit sum; compare against all integers coprime to 6 before claiming a bias.
 - The singular series of a pair at two scales is not the twin constant: (p, 3p+2) has twice it. Compute every constant from its root counts, never by analogy.
 - The partner of a pair feels the zero wave with a phase shift γ ln(1 + h/p); a coefficient below 2 for distant partners is decoherence, not a missing law.
+- Size a spectrum run before launching it: survivors × frequencies × 30 ns; 12 million survivors against 400 frequencies is five minutes, not two.
+- An indicator built from divisibility (a wheel's survivors) is not zero-free: its Dirichlet series is ζ(s) times an Euler factor, so it dips at the zeros too; only the coin's share is what the sieve cannot see.
