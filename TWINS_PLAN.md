@@ -1,6 +1,10 @@
 # Twin primes: where the hidden part sits, and how to look at it
 
-Status: plan (3 November 2026). Nothing below is computed yet.
+Status: plan (3 November 2026). Done so far:
+
+- Angles 1, 2, 3 at 10⁹, 10¹², 10¹⁵ (fact 4027, writeup/code/twins_coin.py): twin-survivor density = V₂ · B₁²; the naive two-dimensional Buchstab equation is refuted (1.186 vs 1.000); the twin coin is ρ² times the C₂ tail over q > y; the two coins are independent at y = x^0.4 to 10⁻³; the parity census follows independent coins.
+- Conjecture 72 (Ghaffor's twin-count formula) proved for all n: the 4n progressions are the proper multiples of 6k ± 1 in 6m ± 1, Perry's 6xy ± x ± y (writeup/conj-72.md).
+- Conjecture 66 (maximal twin gaps ~ 0.45 ln³ p): answered in the literature, Kourbatov 2013 (references/2013_maximal-gaps-between-prime-k-tuples), G₂ ≈ a(ln(p/a) − b), a = ln² p/(2C₂); the constant drifts to 1/(2C₂) = 0.757. Not written up yet.
 
 ## The frame
 
