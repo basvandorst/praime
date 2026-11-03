@@ -82,6 +82,11 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-03 | Prime spikes in the unfolded form factor K(τ) at τ_p = ln p/(2πd) | none: K(τ_p)/K(nearby) between 0.2 and 1.8, pure fluctuation. The prime resonances live in the raw variable (mean cos(γ ln m)); unfolding smears them across τ | writeup/code/zeros_formfactor_plateau.py |
 | 2026-11-03 | Number-variance plateau against height | Σ²(L = 5, 10, 20) = 0.39, 0.33, 0.32 at T ≈ 1.8·10⁴ and 0.41, 0.35, 0.42 at 6.8·10⁴: a plateau near 0.35 to 0.4 growing only slowly with T | writeup/code/zeros_formfactor_plateau.py |
 | 2026-11-03 | Weil's explicit formula as a numerical identity (Gaussian test function) | not completed: with width 3 the zero side is 3·10⁻⁵ and the archimedean side −3·10⁻³, a convention mismatch I did not resolve in the time box | writeup/code/zeros_formfactor_plateau.py |
+| 2026-11-04 | Weil's explicit formula as a numerical identity (Gaussian test functions, widths 3, 8, 20; 10⁵ zeros, primes to 10⁶) | both sides agree to 10⁻¹¹: 0.000030, 0.500228, 5.921868. The earlier mismatch was the archimedean quadrature without breakpoints (3·10⁻³ error) | writeup/code/zeros_weil_lagarias_F_moments.py |
+| 2026-11-04 | RH, Lagarias' criterion σ(n) ≤ H_n + e^(H_n) ln H_n on the colossally abundant numbers to ln N = 2·10⁵ | holds on every one; the smallest scaled margin (ln rhs − ln σ) √(ln N) ln ln N is 0.695, at ln N = 52 | writeup/code/zeros_weil_lagarias_F_moments.py |
+| 2026-11-04 | Twin and Sophie Germain count fluctuations against the zeros in x-space, x ≤ 10⁶ | corr 0.016 and −0.037: the shot noise (ln²x √count ≈ 17,000) buries the zeros term (≈ 1,000), which is why the spectral method at the zeros was needed | writeup/code/zeros_weil_lagarias_F_moments.py |
+| 2026-11-04 | Montgomery's F(α) from zeros 20,000 to 100,000 | 0.32, 0.51, 0.79, 1.04, 1.02, 1.00, 1.00, 1.01 for α = 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 2.5 against α (α ≤ 1) and 1 beyond, within 0.07 | writeup/code/zeros_weil_lagarias_F_moments.py |
+| 2026-11-04 | Keating-Snaith moments of \|ζ(1/2 + it)\| over 500 units at T = 10⁴ and 5·10⁴ | second moment 8.56 and 10.31 against the leading term ln(T/2π) + 2γ − 1 = 7.53 and 9.14 (ratio 1.13 at both heights, window fluctuation and lower-order terms); fourth moment 601 and 1055 against (1/2π²) ln⁴ T = 365 and 694, ratio falling 1.65 → 1.52 | writeup/code/zeros_weil_lagarias_F_moments.py |
 
 ## Lessons (self-improvement)
 
@@ -103,3 +108,5 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - A conjecture's hypotheses matter: π(x+y) ≤ π(x) + π(y) fails trivially at x = 1 (π(101) = 26 > 25); start at x = 2 as Hardy and Littlewood did.
 - Resonances of the zeros with the primes are sharp only in the raw variable γ; after unfolding they are smeared, so look for them with cos(γ ln m), not in the form factor grid.
 - Budget mpmath: Z(t) at t ~ 10⁴ costs milliseconds; 2·10⁵ evaluations is not a two-minute job.
+- Give mp.quad breakpoints where the integrand changes character; a single interval cost 3·10⁻³ on an identity that holds to 10⁻¹¹.
+- Never kill a background job with a pattern that appears in your own command line: the shell matched itself.
