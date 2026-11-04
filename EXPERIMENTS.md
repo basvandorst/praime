@@ -97,6 +97,9 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 | 2026-11-04 | Primes in [x, x + √x] to 10⁹ (sampled every 1000) | minimum count 4, at x = 100; never empty | writeup/code/primes_sqrt_intervals_mertens_twinbits.py |
 | 2026-11-04 | Mertens' constants from the primes to 10⁹ | Σ 1/p − ln ln x = 0.2614987 at 10⁹ (M = 0.2614972, error 1.5·10⁻⁶ falling like 1/√x); ln ∏(1 − 1/p) + ln ln x + γ = −1.5·10⁻⁶ | writeup/code/primes_sqrt_intervals_mertens_twinbits.py |
 | 2026-11-04 | Bits per twin gap against scale | H(gap) = 5.31, 5.89, 6.38, 6.65 bits at x = 10⁵, 10⁶, 10⁷, 5·10⁷ (log₂ of the mean gap 6.74, 7.22, 7.69, 7.96); p mod 5 removes 0.65 bits at every scale | writeup/code/primes_sqrt_intervals_mertens_twinbits.py |
+| 2026-11-04 | Primes n² + 1 for n ≤ 3·10⁷ against Hardy-Littlewood's C ∫ dn/ln(n² + 1), C = 1.3728134628 | 1,275,230 against 1,275,490 (ratio 0.9998; the script's printed ratio 2.00 used C/2 against the wrong integrand) | writeup/code/primes_n2plus1_fingerprint_height_moebius.py |
+| 2026-11-04 | The fingerprint law by height, five bins of 20,000 zeros | mean cos(γ ln 2) = −0.0704, −0.0590, −0.0560, −0.0541, −0.0526 at T ≈ 9.7·10³ … 6.8·10⁴. The local law is −Λ(m)/(√m ln(T/2π)): −0.0668, −0.0589, −0.0559, −0.0540, −0.0527 (the cumulative version carries ln(T/2πe) instead, which the whole-range test matched to four digits) | writeup/code/primes_n2plus1_fingerprint_height_moebius.py |
+| 2026-11-04 | Blind zeros from the Möbius function alone (n ≤ 10⁶) | 10 peaks above the threshold, all within 0.1 of a zero (10 of the 13 zeros in (10, 60)), rms 0.014, none spurious: 1/ζ has poles where ζ has zeros | writeup/code/primes_n2plus1_fingerprint_height_moebius.py |
 
 ## Lessons (self-improvement)
 
@@ -121,3 +124,4 @@ Branch `experiments`. Puzzle results live on `main`; this branch holds the resea
 - Give mp.quad breakpoints where the integrand changes character; a single interval cost 3·10⁻³ on an identity that holds to 10⁻¹¹.
 - Never kill a background job with a pattern that appears in your own command line: the shell matched itself.
 - numpy integers do not go into pow(a, b, m); cast to int before modular arithmetic (this bit three scripts).
+- A law fitted on a cumulative sum differs from its local form by a constant inside the logarithm (ln(T/2πe) cumulative, ln(T/2π) local); test both before quoting the constant.
