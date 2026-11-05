@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is n + 1 priem? Zonder zeef</title>
+<style>
+  :root { --bg: #fafaf9; --surface: #fff; --text: #1c1917; --muted: #78716c; --border: #e7e5e4; --rood: #dc2626; --groen: #16a34a; --row-priem: #f5f5f4; --code: #f5f5f4; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e; --border: #292524; --rood: #ef4444; --groen: #22c55e; --row-priem: #23201e; --code: #292524; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 1500px; margin: 0 auto; padding: 32px 16px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 15px; margin: 24px 0 8px; }
+  .sub { color: var(--muted); margin: 0 0 16px; max-width: 1000px; }
+  code, textarea { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+  code { background: var(--code); padding: 1px 5px; border-radius: 4px; }
+  .wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 5px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: left; vertical-align: top; }
+  th { font-weight: 600; color: var(--muted); font-size: 12px; position: sticky; top: 0; background: var(--surface); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr[data-priem="ja"] { background: var(--row-priem); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ja { color: var(--rood); font-weight: 600; }
+  .goed { color: var(--groen); }
+  .fout { color: var(--rood); }
+  .score { font-variant-numeric: tabular-nums; }
+  textarea { width: 100%; max-width: 900px; height: 70px; padding: 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+  button { font: inherit; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); cursor: pointer; }
+  .fouttekst { color: var(--rood); font-size: 12px; }
+  details { margin: 8px 0; }
+  summary { cursor: pointer; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Is n + 1 priem? Zonder zeef</h1>
+  <p class="sub">Spelregel: geen zeef. Een formule mag niet kijken of n + 1 deelbaar is door iets, geen wiel, geen Fermat, geen Wilson. Ze krijgt alleen n en de historie <code>h</code>: de rij priemen tot n en wat daaruit volgt. Elke rij is een n van 1 tot 255; de formule zegt ja of nee (wordt n + 1 priem?), ernaast staat het echte antwoord, groen = goed, rood = fout. In <code>h</code> zit: <code>h.priemen</code> (de priemen ≤ n), <code>h.pi</code> (aantal), <code>h.laatste</code> (laatste priem ≤ n), <code>h.sinds</code> (n − laatste), <code>h.gaten</code> (alle gaten tot nu), <code>h.g1</code>, <code>h.g2</code>, <code>h.g3</code> (de laatste drie gaten), <code>h.gem</code> (gemiddeld gat), <code>h.kampioen</code> (het vaakste gat tot nu), <code>h.record</code> (het grootste gat tot nu), <code>h.hazard(s)</code> (hoe vaak tot nu een priem volgde op wachttijd s, of −1 als dat minder dan 3 keer is gezien). Een formule die op "laatste + k" mikt, zegt ja precies als n + 1 = h.laatste + k.</p>
+
+  <h2>Scores</h2>
+  <div class="wrap"><table id="scores"><thead><tr><th>formule</th><th>code</th><th class="num">goed</th><th class="num">fout</th><th class="num">nauwkeurigheid</th><th class="num">precisie</th><th class="num">vangst</th><th>wat ze mist</th></tr></thead><tbody></tbody></table></div>
+  <p class="sub">De binaire regels die naar de laatste bits van n + 1 kijken, zijn eigenlijk resten mod 2, 4 of 8 in vermomming; ze staan erbij om te zien hoeveel zo'n rest oplevert. Nauwkeurigheid = goed / 255. Precisie = van de keren dat de formule "ja" zei, hoe vaak dat klopte. Vangst = van de 54 priemen 2 … 256, hoeveel de formule vooraf aanwees. "Altijd nee" scoort al 78,8 %, want de meeste getallen zijn geen priem. Ter vergelijking: een zeef tot 7 (verboden hier) haalt 96,9 % met vangst 100 %. FINDINGS van dit project: zonder zeef leren de vorige gaten bijna niets over het volgende gat; het beste wat ze verraden is een stukje van de rest van n mod 6.</p>
+
+  <h2>Patronen in de uitkomst</h2>
+  <p class="sub">Wat ligt er vast aan de bits van de priemen tot 256, en wat niet? Per staart (de laatste k bits) staat hoeveel priemen die staart hebben, tegenover alle getallen tot 256 met die staart. Als een staart nooit voorkomt, kan een formule dat leren; als alle oneven staarten ongeveer even vaak voorkomen, valt er niets meer te leren dan de laatste bit.</p>
+  <div class="wrap"><table id="patronen"><thead><tr><th>staart</th><th class="num">priemen</th><th class="num">alle getallen</th><th class="num">aandeel</th><th>oordeel</th></tr></thead><tbody></tbody></table></div>
+  <p class="sub" id="patroonconclusie"></p>
+
+  <h2>Eigen formule</h2>
+  <p class="sub">Schrijf een JavaScript-uitdrukking in n en h die waar is als je denkt dat n + 1 priem wordt. Bijvoorbeeld <code>n + 1 === h.laatste + h.g1</code>, of <code>h.sinds >= h.gem && h.sinds % 2 === 0</code>. Alleen <code>Math</code> en <code>h</code>; geen deeltests op n + 1.</p>
+  <textarea id="eigen">n + 1 === h.laatste + h.kampioen</textarea>
+  <div style="margin: 8px 0 4px"><button id="test">Test deze formule</button> <span id="eigenfout" class="fouttekst"></span></div>
+
+  <h2>Per rij</h2>
+  <p class="sub">Vink in de scoretabel aan welke formules je hier als kolom wilt zien.</p>
+  <div class="wrap"><table id="rijen"><thead><tr id="kop"></tr></thead><tbody id="rows"></tbody></table></div>
+</main>
+<script>
+  const N = 256;
+  const ggd = (a, b) => b ? ggd(b, a % b) : a;
+  const powmod = (a, e, m) => { let r = 1; a %= m; for (; e; e >>= 1, a = a * a % m) if (e & 1) r = r * a % m; return r; };
+  const isPriem = x => { if (x < 2) return false; for (let d = 2; d * d <= x; d++) if (x % d === 0) return false; return true; };
+
+  // De historie per rij: alleen de priemen tot en met n en wat daaruit volgt (geen zeef)
+  const HIST = [];
+  { const priemen = [], gaten = [], hazardTel = [], hazardRaak = []; let laatste = 0, record = 0;
+    for (let n = 1; n <= N; n++) {
+      if (isPriem(n)) { if (laatste) { gaten.push(n - laatste); record = Math.max(record, n - laatste); } laatste = n; priemen.push(n); }
+      const tel = new Map(); for (const g of gaten) tel.set(g, (tel.get(g) || 0) + 1);
+      const max = Math.max(0, ...tel.values()), kampioen = max ? Math.min(...[...tel.entries()].filter(([, c]) => c === max).map(([g]) => g)) : 0;
+      HIST[n] = { priemen: priemen.slice(), pi: priemen.length, laatste, sinds: laatste ? n - laatste : n, gaten: gaten.slice(), g1: gaten.at(-1) || 0, g2: gaten.at(-2) || 0, g3: gaten.at(-3) || 0, gem: gaten.length ? gaten.reduce((a, b) => a + b, 0) / gaten.length : 0, kampioen, record, hazardTel: hazardTel.slice(), hazardRaak: hazardRaak.slice() };
+      // de hazard-tabel leert pas ná deze rij: hoe vaak kwam na wachttijd s een priem?
+      const sN = HIST[n].sinds; hazardTel[sN] = (hazardTel[sN] || 0) + 1; if (isPriem(n + 1)) hazardRaak[sN] = (hazardRaak[sN] || 0) + 1;
+    } }
+  for (const h of HIST) if (h) h.hazard = s => (h.hazardTel[s] || 0) >= 3 ? (h.hazardRaak[s] || 0) / h.hazardTel[s] : -1;  // −1 = te weinig gezien
+
+  // Hulpjes zonder zeef: alleen bits en de historie
+  const pop = x => { let c = 0; for (; x; x >>= 1) c += x & 1; return c; };
+  const bitlen = x => x.toString(2).length;
+  const binPal = x => { const b = x.toString(2); return b === [...b].reverse().join(""); };
+  const liVan = x => { const l = Math.log(x); let li = 0.5772156649 + Math.log(l), t = 1; for (let k = 1; k < 60; k++) { t *= l / k; li += t / k; } return li; };
+  const mediaan = a => { if (!a.length) return 0; const b = a.slice().sort((x, y) => x - y); return b[Math.floor(b.length / 2)]; };
+  const naEven = x => 2 * Math.round(x / 2);
+  const volgde = (gaten, patroon) => { for (let i = gaten.length - 1 - patroon.length; i >= 0; i--) if (patroon.every((g, j) => gaten[i + j] === g)) return gaten[i + patroon.length]; return 0; };  // wat volgde de laatste keer op dit patroon
+
+  // De formules: (n, h) → waar als n + 1 volgens de formule priem is. Per groep.
+  const G = {};
+  G["Basis en gatregels"] = [
+    ["Altijd nee", (n, h) => false, "de basislijn"],
+    ["Laatste gat herhalen", (n, h) => n + 1 === h.laatste + h.g1, "n + 1 = laatste + g₁"],
+    ["Voorlaatste gat", (n, h) => n + 1 === h.laatste + h.g2, "n + 1 = laatste + g₂"],
+    ["Derde gat terug", (n, h) => n + 1 === h.laatste + h.g3, "n + 1 = laatste + g₃"],
+    ["Lineair doortrekken", (n, h) => n + 1 === h.laatste + Math.max(1, 2 * h.g1 - h.g2), "n + 1 = laatste + (2g₁ − g₂)"],
+    ["Andersom doortrekken", (n, h) => n + 1 === h.laatste + Math.max(1, 2 * h.g2 - h.g1), "n + 1 = laatste + (2g₂ − g₁), de beste gatregel uit FINDINGS"],
+    ["Fibonacci van gaten", (n, h) => n + 1 === h.laatste + h.g1 + h.g2, "n + 1 = laatste + g₁ + g₂"],
+    ["Verschil van gaten", (n, h) => n + 1 === h.laatste + Math.max(2, Math.abs(h.g1 - h.g2)), "n + 1 = laatste + |g₁ − g₂|"],
+    ["Dubbel gat", (n, h) => n + 1 === h.laatste + 2 * h.g1, "n + 1 = laatste + 2g₁"],
+    ["Half gat", (n, h) => n + 1 === h.laatste + Math.max(2, naEven(h.g1 / 2)), "n + 1 = laatste + g₁/2 (naar even)"],
+    ["Grootste van drie", (n, h) => n + 1 === h.laatste + Math.max(h.g1, h.g2, h.g3), "n + 1 = laatste + max(g₁, g₂, g₃)"],
+    ["Kleinste van drie", (n, h) => h.g3 > 0 && n + 1 === h.laatste + Math.min(h.g1, h.g2, h.g3), "n + 1 = laatste + min(g₁, g₂, g₃)"],
+    ["Gemiddeld gat", (n, h) => n + 1 === h.laatste + Math.round(h.gem), "n + 1 = laatste + ⌊gemiddeld gat⌉"],
+    ["Gemiddeld gat, even", (n, h) => n + 1 === h.laatste + Math.max(2, naEven(h.gem)), "zelfde, maar afgerond naar een even gat"],
+    ["Mediaan gat", (n, h) => n + 1 === h.laatste + mediaan(h.gaten), "n + 1 = laatste + mediaan van alle gaten"],
+    ["Gemiddelde van laatste 5", (n, h) => h.gaten.length >= 5 && n + 1 === h.laatste + naEven(h.gaten.slice(-5).reduce((a, b) => a + b) / 5), "n + 1 = laatste + ⌊gemiddelde van g₁ … g₅⌉ naar even"],
+    ["Springkampioen", (n, h) => n + 1 === h.laatste + h.kampioen, "n + 1 = laatste + het vaakste gat tot nu"],
+    ["Tweede kampioen", (n, h) => { const tel = new Map(); for (const g of h.gaten) tel.set(g, (tel.get(g) || 0) + 1); const r = [...tel.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]); return r.length > 1 && n + 1 === h.laatste + r[1][0]; }, "n + 1 = laatste + het op één na vaakste gat"],
+    ["Altijd 2", (n, h) => n + 1 === h.laatste + 2, "tweelingen"],
+    ["Altijd 4", (n, h) => n + 1 === h.laatste + 4, "neven"],
+    ["Altijd 6", (n, h) => n + 1 === h.laatste + 6, "sexy"],
+    ["Altijd 8", (n, h) => n + 1 === h.laatste + 8, ""],
+    ["Altijd 10", (n, h) => n + 1 === h.laatste + 10, ""],
+    ["Altijd 12", (n, h) => n + 1 === h.laatste + 12, ""],
+    ["6 − (g₁ mod 6)", (n, h) => n + 1 === h.laatste + (h.g1 ? (6 - h.g1 % 6) % 6 || 6 : 0), "de enige gatregel die iets van n mod 6 opvangt (FINDINGS)"],
+    ["Na tweeling 4, anders 2", (n, h) => n + 1 === h.laatste + (h.g1 === 2 ? 4 : 2), "na een tweeling kan het gat geen 2 zijn (3, 5, 7 uitgezonderd)"],
+    ["Stijgen en dalen om de beurt", (n, h) => n + 1 === h.laatste + Math.max(2, h.g1 > h.g2 ? h.g1 - 2 : h.g1 + 2), "na een groter gat een kleiner, en andersom (Erdős–Turán in het klein)"],
+  ];
+  G["Geheugen"] = [
+    ["Markov 1", (n, h) => { const v = volgde(h.gaten, [h.g1]); return v > 0 && n + 1 === h.laatste + v; }, "wat volgde de vorige keer op een gat g₁?"],
+    ["Markov 2", (n, h) => { const v = volgde(h.gaten, [h.g2, h.g1]); return v > 0 && n + 1 === h.laatste + v; }, "wat volgde de vorige keer op het paar (g₂, g₁)?"],
+    ["Markov 3", (n, h) => { const v = volgde(h.gaten, [h.g3, h.g2, h.g1]); return v > 0 && n + 1 === h.laatste + v; }, "wat volgde de vorige keer op het drietal?"],
+    ["Vaakste opvolger van g₁", (n, h) => { const tel = new Map(); for (let i = 0; i + 1 < h.gaten.length; i++) if (h.gaten[i] === h.g1) tel.set(h.gaten[i + 1], (tel.get(h.gaten[i + 1]) || 0) + 1); const r = [...tel.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]); return r.length > 0 && n + 1 === h.laatste + r[0][0]; }, "het gat dat het vaakst op g₁ volgde"],
+    ["Zelfde gat als bij π/2", (n, h) => { const k = Math.floor(h.gaten.length / 2); return h.gaten.length > 1 && n + 1 === h.laatste + h.gaten[k]; }, "het gat halverwege de historie"],
+    ["Rij van gaten herhaalt", (n, h) => { const L = h.gaten.length; for (let w = 2; w <= 6 && 2 * w <= L; w++) if (h.gaten.slice(L - w).every((g, i) => g === h.gaten[L - 2 * w + i])) return n + 1 === h.laatste + h.gaten[L - w]; return false; }, "als de laatste w gaten de w ervoor herhalen, herhaal verder (w ≤ 6)"],
+    ["Som van gaten = laatste", (n, h) => n + 1 === h.laatste + Math.max(2, naEven(h.gaten.reduce((a, b) => a + b, 0) / Math.max(1, h.pi))), "gemiddeld gat sinds 2, anders gemeten: (laatste − 2)/π"],
+    ["Priemen op priemplekken", (n, h) => h.pi > 0 && h.priemen.includes(h.pi + 1) && n + 1 === h.laatste + h.g1, "als π(n) + 1 priem is, herhaal het gat (super-priem-gevoel)"],
+  ];
+  G["Tellingen en wachttijd"] = [
+    ["Wachttijd ≥ ln n", (n, h) => h.sinds >= Math.log(n + 1), "ja zodra we minstens ln n zonder priem zijn"],
+    ["Wachttijd ≥ 2 ln n", (n, h) => h.sinds >= 2 * Math.log(n + 1), "ja zodra het gat twee keer het gemiddelde is"],
+    ["Wachttijd ≥ gemiddeld", (n, h) => h.sinds >= h.gem, "ja zodra de afstand het gemiddelde gat haalt"],
+    ["Wachttijd ≥ gemiddeld, oneven", (n, h) => h.sinds >= h.gem && h.sinds % 2 === 1, "zelfde, maar alleen als n + 1 − laatste even wordt (sinds oneven)"],
+    ["Wachttijd = kampioen − 1", (n, h) => h.sinds === h.kampioen - 1, "n + 1 = laatste + kampioen, anders geschreven"],
+    ["Record wordt bedreigd", (n, h) => h.sinds >= h.record, "ja zodra de afstand het record haalt"],
+    ["Record wordt gebroken", (n, h) => h.sinds >= h.record && h.sinds % 2 === 1, "zelfde, met de juiste pariteit"],
+    ["Achterstand op li > 1,5", (n, h) => n > 1 && liVan(n + 1) - h.pi > 1.5, "de telling loopt achter op Gauss"],
+    ["Achterstand op li > 3", (n, h) => n > 1 && liVan(n + 1) - h.pi > 3, "ruimer"],
+    ["Achterstand op n/ln n", (n, h) => n > 2 && (n + 1) / Math.log(n + 1) - h.pi > 0, "π(n) < (n + 1)/ln(n + 1): bijna nooit, want n/ln n schat te laag"],
+    ["Achterstand op θ", (n, h) => n + 1 - h.priemen.reduce((a, p) => a + Math.log(p), 0) > 2 * Math.log(n + 1), "Chebyshev: Σ ln p loopt meer dan 2 ln n achter op n"],
+    ["Mertens achter", (n, h) => n > 2 && Math.log(Math.log(n + 1)) + 0.2614972 - h.priemen.reduce((a, p) => a + 1 / p, 0) > 0.05, "Σ 1/p loopt achter op ln ln n + M"],
+    ["n-de priem geschat", (n, h) => { const k = h.pi + 1; return k > 5 && n + 1 === Math.round(k * (Math.log(k) + Math.log(Math.log(k)) - 1)); }, "p_k ≈ k(ln k + ln ln k − 1) voor k = π(n) + 1"],
+    ["Priemrijkdom even", (n, h) => h.pi % 2 === 0 && h.sinds % 2 === 1, "π(n) even en de afstand oneven: een muntworp met de juiste pariteit"],
+  ];
+  G["Binair"] = [
+    ["Laatste bit van n is 0", (n, h) => (n & 1) === 0, "dan is n + 1 oneven (dit is de zeef mod 2 in vermomming)"],
+    ["n + 1 oneven aantal enen", (n, h) => (n & 1) === 0 && pop(n + 1) % 2 === 1, "oneven popcount (Gelfond: priemen hebben iets vaker een oneven aantal enen)"],
+    ["n + 1 even aantal enen", (n, h) => (n & 1) === 0 && pop(n + 1) % 2 === 0, "het omgekeerde"],
+    ["Bits …11 (3 mod 4)", (n, h) => (n & 3) === 2, "n + 1 eindigt binair op 11"],
+    ["Bits …01 (1 mod 4)", (n, h) => (n & 3) === 0 && n > 0, "n + 1 eindigt binair op 01"],
+    ["Bits …111 (7 mod 8)", (n, h) => (n & 7) === 6, "n + 1 eindigt op 111"],
+    ["Bits …001 (1 mod 8)", (n, h) => (n & 7) === 0 && n > 0, "n + 1 eindigt op 001"],
+    ["Binair palindroom", (n, h) => (n & 1) === 0 && binPal(n + 1), "n + 1 is binair een palindroom (3, 5, 7, 17, 31, 73, 107, 127, 257 …)"],
+    ["Meer enen dan nullen", (n, h) => (n & 1) === 0 && 2 * pop(n + 1) > bitlen(n + 1), "n + 1 heeft meer enen dan nullen"],
+    ["Geen twee enen naast elkaar", (n, h) => (n & 1) === 0 && !/11/.test((n + 1).toString(2)), "n + 1 is binair 'dun' (Fibonacci-achtig)"],
+    ["2ᵏ ± 1", (n, h) => (n & 1) === 0 && (pop(n + 1) === 1 || pop(n + 1) === bitlen(n + 1) || pop(n) === 1), "n + 1 is 2ᵏ + 1 of 2ᵏ − 1 (Fermat- en Mersenne-vorm)"],
+    ["Eén bit anders dan laatste", (n, h) => h.laatste > 0 && pop((n + 1) ^ h.laatste) === 1, "n + 1 verschilt één bit van de laatste priem"],
+    ["Twee bits anders dan laatste", (n, h) => h.laatste > 0 && pop((n + 1) ^ h.laatste) === 2, "n + 1 verschilt precies twee bits van de laatste priem"],
+    ["Zelfde staart als laatste", (n, h) => h.laatste > 0 && ((n + 1) & 7) === (h.laatste & 7) && n + 1 !== h.laatste, "n + 1 ≡ laatste (mod 8), in bits: dezelfde laatste drie bits"],
+    ["Andere staart dan laatste", (n, h) => h.laatste > 0 && (n & 1) === 0 && ((n + 1) & 7) !== (h.laatste & 7), "n + 1 oneven en een andere laatste drie bits dan de laatste priem (Lemke Oliver: priemen herhalen hun klasse liever niet)"],
+    ["Bits van laatste bevat", (n, h) => h.laatste > 0 && n + 1 !== h.laatste && ((n + 1) & h.laatste) === h.laatste, "alle enen van de laatste priem staan ook in n + 1"],
+    ["XOR-gat", (n, h) => h.g1 > 0 && n + 1 === (h.laatste ^ h.g1), "n + 1 = laatste ⊕ g₁ (optellen zonder overdracht)"],
+    ["Gat = aantal enen", (n, h) => n + 1 === h.laatste + naEven(pop(h.laatste)), "n + 1 = laatste + popcount(laatste), naar even"],
+    ["Gat = aantal nullen", (n, h) => n + 1 === h.laatste + Math.max(2, naEven(bitlen(h.laatste) - pop(h.laatste))), "n + 1 = laatste + aantal nullen in laatste, naar even"],
+    ["Gat = 2 × bitlengte − 10", (n, h) => n + 1 === h.laatste + Math.max(2, 2 * bitlen(n) - 10), "het gat groeit met de bitlengte, zoals ln n"],
+    ["Gray-code oneven", (n, h) => (n & 1) === 0 && pop((n + 1) ^ ((n + 1) >> 1)) % 2 === 1, "de Gray-code van n + 1 heeft een oneven aantal enen"],
+  ];
+  const staartKans = (n, h, k) => { const m = 1 << k, r = (n + 1) % m; let alle = 0; for (let x = 1; x <= n; x++) if (x % m === r) alle++; const pr = h.priemen.filter(p => p % m === r).length; return alle ? pr / alle : 0; };
+  G["Geleerd uit de historie"] = [
+    ["Geleerd: laatste bit", (n, h) => n > 2 && staartKans(n, h, 1) >= 1.5 * h.pi / n, "ja als getallen met dezelfde laatste bit als n + 1 tot nu minstens 1,5× zo vaak priem waren als gemiddeld"],
+    ["Geleerd: laatste 2 bits", (n, h) => n > 4 && staartKans(n, h, 2) >= 1.5 * h.pi / n, "zelfde, met de laatste twee bits"],
+    ["Geleerd: laatste 3 bits", (n, h) => n > 8 && staartKans(n, h, 3) >= 1.5 * h.pi / n, "zelfde, met de laatste drie bits"],
+    ["Geleerd: laatste 4 bits", (n, h) => n > 16 && staartKans(n, h, 4) >= 1.5 * h.pi / n, "zelfde, met de laatste vier bits"],
+    ["Geleerd: laatste 3 bits, streng", (n, h) => n > 8 && staartKans(n, h, 3) >= 2.5 * h.pi / n, "alleen staarten die 2,5× zo vaak priem waren"],
+    ["Geleerd: aantal enen", (n, h) => { const par = pop(n + 1) % 2; let alle = 0; for (let x = 1; x <= n; x++) if (pop(x) % 2 === par) alle++; return n > 4 && alle > 0 && h.priemen.filter(p => pop(p) % 2 === par).length / alle >= 1.25 * h.pi / n; }, "leert of een even of oneven aantal enen tot nu vaker priem was (drempel 1,25× het gemiddelde)"],
+    ["Geleerde hazard ≥ 0,4", (n, h) => h.hazard(h.sinds) >= 0.4, "hoe vaak volgde tot nu een priem na precies deze wachttijd? ja als dat in minstens 40 % van de gevallen zo was (en minstens 3 keer gezien)"],
+    ["Geleerde hazard ≥ 0,3", (n, h) => h.hazard(h.sinds) >= 0.3, "zelfde, drempel 30 %"],
+    ["Geleerde hazard, hoogste", (n, h) => { let best = -1, bs = -1; h.hazardTel.forEach((c, s) => { if (c >= 3 && h.hazardRaak[s] / c > best) { best = h.hazardRaak[s] / c; bs = s; } }); return bs >= 0 && h.sinds === bs; }, "ja precies bij de wachttijd die tot nu de hoogste kans gaf"],
+    ["Gat al eens gezien", (n, h) => h.gaten.includes(n + 1 - h.laatste), "ja als het gat n + 1 − laatste al in de historie voorkomt"],
+    ["Gat nog nooit gezien", (n, h) => h.laatste > 0 && h.sinds % 2 === 1 && !h.gaten.includes(n + 1 - h.laatste), "het omgekeerde: alleen nieuwe gaten (met de juiste pariteit)"],
+    ["Gat zo vaak gezien als 2", (n, h) => { const g = n + 1 - h.laatste, c = h.gaten.filter(x => x === g).length; return c > 0 && c >= h.gaten.filter(x => x === 2).length; }, "ja als dit gat tot nu minstens zo vaak voorkwam als het gat 2"],
+  ];
+  const FORMULES = Object.entries(G).flatMap(([groep, lijst]) => lijst.map(([naam, f, uitleg]) => [naam, f, uitleg, groep]));
+
+  function scoor(f) {
+    let goed = 0, fout = 0, tp = 0, fp = 0, fn = 0, mist = [];
+    for (let n = 1; n < N; n++) {
+      let v; try { v = !!f(n, HIST[n]); } catch (e) { v = false; }
+      const echt = isPriem(n + 1);
+      if (v === echt) goed++; else fout++;
+      if (v && echt) tp++; if (v && !echt) fp++; if (!v && echt) { fn++; mist.push(n + 1); }
+    }
+    return { goed, fout, tp, fp, fn, nauw: goed / (N - 1), prec: tp + fp ? tp / (tp + fp) : 0, vangst: tp / (tp + fn), mist };
+  }
+  const pct = x => (100 * x).toFixed(1) + " %";
+  let GEKOZEN = new Set(["Altijd nee", "Laatste gat herhalen", "6 − (g₁ mod 6)", "Markov 1", "Wachttijd ≥ gemiddeld, oneven", "n + 1 oneven aantal enen", "Binair palindroom"]);
+  function toon(formules) {
+    const sb = document.querySelector("#scores tbody"); sb.innerHTML = "";
+    let vorigeGroep = "";
+    formules.forEach(([naam, f, uitleg, groep]) => { const s = scoor(f); if (groep !== vorigeGroep) { sb.innerHTML += `<tr><td colspan="8" style="color:var(--muted);font-weight:600;padding-top:12px">${groep}</td></tr>`; vorigeGroep = groep; } sb.innerHTML += `<tr><td><label><input type="checkbox" data-naam="${naam}" ${GEKOZEN.has(naam) ? "checked" : ""}> <b>${naam}</b></label><br><span style="color:var(--muted)">${uitleg}</span></td><td><code>${f.toString().replace(/^\(n, h\) => /, "").slice(0, 140)}</code></td><td class="num score">${s.goed}</td><td class="num score">${s.fout}</td><td class="num score">${pct(s.nauw)}</td><td class="num score">${pct(s.prec)}</td><td class="num score">${pct(s.vangst)}</td><td>${s.mist.length ? s.mist.slice(0, 10).join(", ") + (s.mist.length > 10 ? " …" : "") : "–"}</td></tr>`; });
+    sb.querySelectorAll("input[type=checkbox]").forEach(cb => cb.addEventListener("change", () => { if (cb.checked) GEKOZEN.add(cb.dataset.naam); else GEKOZEN.delete(cb.dataset.naam); toonRijen(formules); }));
+    toonRijen(formules);
+  }
+  function toonRijen(formules) {
+    const kolommen = formules.filter(([naam]) => GEKOZEN.has(naam));
+    const kop = document.getElementById("kop"); kop.innerHTML = `<th class="num">n</th><th class="num">n + 1</th><th>priem?</th>` + kolommen.map(([naam]) => `<th>${naam}</th>`).join("");
+    const tb = document.getElementById("rows"); tb.innerHTML = "";
+    for (let n = 1; n < N; n++) {
+      const echt = isPriem(n + 1), tr = document.createElement("tr"); tr.dataset.priem = echt ? "ja" : "nee";
+      tr.innerHTML = `<td class="num">${n}</td><td class="num">${n + 1}</td><td class="${echt ? "ja" : ""}">${echt ? "ja" : "nee"}</td>` + kolommen.map(([, f]) => { let v; try { v = !!f(n, HIST[n]); } catch (e) { v = false; } return `<td class="${v === echt ? "goed" : "fout"}">${v ? "ja" : "nee"} ${v === echt ? "✓" : "✗"}</td>`; }).join("");
+      tb.appendChild(tr);
+    }
+  }
+  toon(FORMULES);
+  // Patronen in de uitkomst: staarten van 1, 2, 3 en 4 bits, plus het aantal enen
+  { const tb = document.querySelector("#patronen tbody"), PR = HIST[N].priemen, gem = PR.length / N; let html = "", vast = [];
+    for (let k = 1; k <= 4; k++) { const m = 1 << k; for (let r = 0; r < m; r++) { const pr = PR.filter(p => p % m === r).length; const tel = [...Array(N).keys()].filter(x => (x + 1) % m === r).length; const aandeel = pr / tel; const oordeel = pr === 0 ? "komt nooit voor" : pr === 1 && r === 2 % m ? "alleen 2" : aandeel >= 1.5 * gem ? "priemrijk" : aandeel < 0.5 * gem ? "priemarm" : "gewoon"; if (pr <= 1 && r % 2 === 0) vast.push(r.toString(2).padStart(k, "0")); html += `<tr><td><code>…${r.toString(2).padStart(k, "0")}</code> (${k} bit${k > 1 ? "s" : ""})</td><td class="num">${pr}</td><td class="num">${tel}</td><td class="num">${(100 * aandeel).toFixed(0)} %</td><td>${oordeel}</td></tr>`; } }
+    [0, 1].forEach(par => { const pr = PR.filter(p => pop(p) % 2 === par).length, tel = [...Array(N).keys()].filter(x => pop(x + 1) % 2 === par).length; html += `<tr><td>${par ? "oneven" : "even"} aantal enen</td><td class="num">${pr}</td><td class="num">${tel}</td><td class="num">${(100 * pr / tel).toFixed(0)} %</td><td>${pr / tel >= 1.5 * gem ? "priemrijk" : pr / tel < 0.5 * gem ? "priemarm" : "gewoon"}</td></tr>`; });
+    tb.innerHTML = html;
+    const oneven = [1, 3].map(r => PR.filter(p => p % 4 === r).length), acht = [1, 3, 5, 7].map(r => PR.filter(p => p % 8 === r).length);
+    document.getElementById("patroonconclusie").textContent = `Conclusie: alleen de laatste bit ligt vast (altijd 1, op 2 na). De oneven staarten komen bijna even vaak voor: mod 4 is het ${oneven.join(" tegen ")}, mod 8 is het ${acht.join(", ")}. Even staarten (…0, …00, …10 enzovoort) komen boven 2 nooit voor: dat is het enige wat een lerende formule uit de bits kan halen, en dat is de zeef mod 2. Het aantal enen helpt een beetje: een oneven aantal komt vaker voor (Gelfond), ${PR.filter(p => pop(p) % 2).length} tegen ${PR.filter(p => pop(p) % 2 === 0).length}, maar dat verschil slinkt bij grotere getallen.`; }
+  document.getElementById("test").addEventListener("click", () => {
+    const tekst = document.getElementById("eigen").value, fout = document.getElementById("eigenfout");
+    try { const f = new Function("n", "h", `return (${tekst});`); const g = (n, h) => f(n, h); g.toString = () => tekst; g(10, HIST[10]); fout.textContent = ""; GEKOZEN.add("Eigen formule"); toon([...FORMULES, ["Eigen formule", g, "jouw invoer", "Eigen"]]); }
+    catch (e) { fout.textContent = "Fout in de formule: " + e.message; }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getallen 1–256 · v3</title>
+<style>
+  :root {
+    --bg: #fafaf9; --surface: #ffffff; --text: #1c1917; --muted: #78716c;
+    --border: #e7e5e4; --dot-off: #ffffff; --dot-off-border: #d6d3d1;
+    --dot-on: #dc2626; --accent: #1c1917; --accent-text: #ffffff; --row-hover: #f5f5f4;
+    --row-priem: #f5f5f4; --row-priem-hover: #e7e5e4; --soft: #a8a29e; --grid: #e7e5e4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e;
+      --border: #292524; --dot-off: #292524; --dot-off-border: #44403c;
+      --dot-on: #ef4444; --accent: #f5f5f4; --accent-text: #0c0a09; --row-hover: #262220;
+      --row-priem: #23201e; --row-priem-hover: #2e2a27; --soft: #78716c; --grid: #2e2a27;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e;
+    --border: #292524; --dot-off: #292524; --dot-off-border: #44403c;
+    --dot-on: #ef4444; --accent: #f5f5f4; --accent-text: #0c0a09; --row-hover: #262220;
+    --row-priem: #23201e; --row-priem-hover: #2e2a27; --soft: #78716c; --grid: #2e2a27;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 1500px; margin: 0 auto; padding: 32px 16px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h1 span { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+  .sub { color: var(--muted); margin: 0 0 20px; max-width: 1100px; }
+  .filter { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .filter button { border: 0; background: var(--surface); color: var(--text); padding: 8px 14px; font: inherit; cursor: pointer; border-right: 1px solid var(--border); }
+  .filter button:last-child { border-right: 0; }
+  .filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+  .count { color: var(--muted); margin-left: 12px; }
+  .wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 6px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: middle; }
+  th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12px; position: sticky; top: 0; background: var(--surface); z-index: 1; }
+  tbody tr:hover { background: var(--row-hover); }
+  tbody tr[data-priem="ja"] { background: var(--row-priem); }
+  tbody tr[data-priem="ja"]:hover { background: var(--row-priem-hover); }
+  tbody tr[data-priem="ja"] td:first-child { box-shadow: inset 2px 0 0 var(--muted); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .ja { color: var(--dot-on); font-weight: 600; }
+  .dots { position: relative; height: 11px; background: radial-gradient(circle, var(--dot-off) 0 3.5px, var(--dot-off-border) 3.5px 4.5px, transparent 4.5px) 0 0 / 11px 11px repeat-x; }
+  .dot { position: absolute; top: 1px; width: 9px; height: 9px; border-radius: 50%; background: var(--dot-on); }
+  .dot.zacht { background: var(--muted); }
+  .dot.as { background: transparent; box-shadow: inset 0 0 0 2px var(--muted); }
+  .fill { position: absolute; top: 0; right: 0; height: 11px; background: radial-gradient(circle, var(--dot-on) 0 4.5px, transparent 4.5px) right 0 top 0 / 11px 11px repeat-x; }
+  .ind { display: flex; align-items: center; gap: 10px; }
+  .ind .meer { color: var(--dot-on); font-size: 12px; min-width: 2.5em; text-align: right; }
+  .ind .val { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 2.5em; text-align: right; }
+  .ind svg { display: block; overflow: visible; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-bottom: 16px; }
+  .label { color: var(--muted); font-size: 12px; margin-right: 6px; }
+  .legenda { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Getallen 1–256 <span>v3 · elk getal een figuur</span></h1>
+  <p class="sub" id="uitleg"></p>
+  <div class="controls">
+    <div>
+      <span class="label">Priem</span>
+      <div class="filter" id="filter" role="group" aria-label="Filter op priem">
+        <button data-f="alle" aria-pressed="true">Alle</button>
+        <button data-f="ja" aria-pressed="false">Ja</button>
+        <button data-f="nee" aria-pressed="false">Nee</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Figuren</span>
+      <div class="filter" id="g1" role="group" aria-label="Figuren">
+        <button data-m="rechthoeken" aria-pressed="true">Rechthoeken</button>
+        <button data-m="kwadraten" aria-pressed="false">Vier kwadraten</button>
+        <button data-m="zonnebloem" aria-pressed="false">Zonnebloem</button>
+        <button data-m="bitwandeling" aria-pressed="false">Bitwandeling</button>
+        <button data-m="tafelcirkel" aria-pressed="false">Tafel van n op een cirkel</button>
+        <button data-m="machtenring" aria-pressed="false">Machten van n op een ring</button>
+        <button data-m="delerrooster" aria-pressed="false">Delerrooster</button>
+        <button data-m="permutatie" aria-pressed="false">De n-de permutatie</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Wandelingen &amp; tests</span>
+      <div class="filter" id="g2" role="group" aria-label="Wandelingen en tests">
+        <button data-m="legendre" aria-pressed="false">Legendre-wandeling</button>
+        <button data-m="collatz" aria-pressed="false">Collatz-profiel</button>
+        <button data-m="decimalen" aria-pressed="false">Cijfers van 1/n</button>
+        <button data-m="wilson" aria-pressed="false">Wilson: k! mod n</button>
+        <button data-m="fermatgolf" aria-pressed="false">Fermat-golf 2ᵏ mod n</button>
+        <button data-m="aliquot" aria-pressed="false">Aliquot-rij</button>
+        <button data-m="faculteit" aria-pressed="false">Cijfers van n!</button>
+        <button data-m="pascal" aria-pressed="false">Pascal-test</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Schrijfwijzen</span>
+      <div class="filter" id="g3" role="group" aria-label="Schrijfwijzen">
+        <button data-m="maya" aria-pressed="false">Maya</button>
+        <button data-m="babylon" aria-pressed="false">Babylonisch</button>
+        <button data-m="soroban" aria-pressed="false">Soroban</button>
+        <button data-m="braille" aria-pressed="false">Braille</button>
+        <button data-m="dobbelstenen" aria-pressed="false">Dobbelstenen</button>
+        <button data-m="drietallig" aria-pressed="false">Gebalanceerd drietallig</button>
+        <button data-m="letters" aria-pressed="false">In letters</button>
+        <button data-m="utf8" aria-pressed="false">UTF-8</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Wereld</span>
+      <div class="filter" id="g4" role="group" aria-label="Wereld">
+        <button data-m="element" aria-pressed="false">Element n</button>
+        <button data-m="kleur" aria-pressed="false">Byte als kleur</button>
+        <button data-m="klok" aria-pressed="false">Klok</button>
+        <button data-m="kaprekar" aria-pressed="false">Kaprekar 495</button>
+        <button data-m="munten" aria-pressed="false">Munten</button>
+      </div>
+    </div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="wrap">
+    <table>
+      <thead>
+        <tr><th class="num">n</th><th>priem</th><th>priemfactoren</th><th>binair</th><th id="ind-kop"></th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</main>
+<script>
+  // ---------- basis ----------
+  const N = 256;
+  function factors(n) { const f = []; for (let d = 2; d * d <= n; d++) while (n % d === 0) { f.push(d); n /= d; } if (n > 1) f.push(n); return f; }
+  const isPriem = n => n >= 2 && factors(n).length === 1;
+  const ggd = (a, b) => b ? ggd(b, a % b) : a;
+  const PRIEMEN = []; for (let p = 2; p <= N; p++) if (isPriem(p)) PRIEMEN.push(p);
+  const getallen = [];
+  for (let n = 1; n <= N; n++) {
+    const f = factors(n), delers = []; for (let d = 1; d <= n; d++) if (n % d === 0) delers.push(d);
+    getallen.push({ n, f, delers, uniek: [...new Set(f)], sigma: delers.reduce((a, b) => a + b, 0) });
+  }
+  const n_ = n => getallen[n - 1];
+  const sigmaVan = x => { let s = 1; for (const p of new Set(factors(x))) { let t = 1, q = 1; while (x % (q * p) === 0) { q *= p; t += q; } s *= t; } return x < 1 ? 0 : s; };
+  const jacobi = (a, n) => {  // n oneven positief
+    a %= n; let r = 1;
+    while (a) { while (a % 2 === 0) { a /= 2; if (n % 8 === 3 || n % 8 === 5) r = -r; } [a, n] = [n, a]; if (a % 4 === 3 && n % 4 === 3) r = -r; a %= n; }
+    return n === 1 ? r : 0;
+  };
+  const ordMod = (a, m) => { if (m === 1) return 1; if (ggd(a, m) !== 1) return 0; let x = a % m, k = 1; while (x !== 1) { x = x * a % m; k++; } return k; };
+  const cijfersom = x => [...String(x)].reduce((s, c) => s + +c, 0);
+
+  // ---------- tekenhulpjes ----------
+  const R = "var(--dot-on)", Z = "var(--soft)", G = "var(--grid)";
+  const svg = (w, h, inner) => `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+  const cirkel = (x, y, r, kleur, titel = "") => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${kleur}">${titel ? `<title>${titel}</title>` : ""}</circle>`;
+  const open = (x, y, r) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="none" stroke="${Z}" stroke-width="1.5"/>`;
+  const lijn = (x1, y1, x2, y2, kleur, dikte = 1, extra = "") => `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${kleur}" stroke-width="${dikte}" ${extra}/>`;
+  const pad = (punten, kleur, dikte = 1.5) => `<polyline points="${punten.map(([x, y]) => x.toFixed(1) + "," + y.toFixed(1)).join(" ")}" fill="none" stroke="${kleur}" stroke-width="${dikte}" stroke-linejoin="round"/>`;
+  const rect = (x, y, w, h, kleur, titel = "", vul = "none") => `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(w, 0.5).toFixed(1)}" height="${Math.max(h, 0.5).toFixed(1)}" fill="${vul}" stroke="${kleur}" stroke-width="1">${titel ? `<title>${titel}</title>` : ""}</rect>`;
+  const H = 40, C = H / 2;  // standaardhoogte van een figuur en het middelpunt van ringen
+  const ring = (inner, titel = "") => svg(H, H, open(C, C, C - 1) + inner + (titel ? `<title>${titel}</title>` : ""));
+  const hoek = (k, m) => 2 * Math.PI * k / m - Math.PI / 2;
+  const opRing = (k, m, r = C - 1) => [C + r * Math.cos(hoek(k, m)), C + r * Math.sin(hoek(k, m))];
+  // Rij van links naar rechts in bolletjes: cellen [soort, titel] met soort "r" (rood), "z" (grijs), "o" (open) of "" (leeg)
+  function vanLinks(cellen, plekken, waarde) {
+    const r = { posities: [], titels: [], zacht: [], as: [], waarde };
+    cellen.forEach(([soort, titel], i) => { const pos = plekken - 1 - i; if (soort === "r") { r.posities.push(pos); r.titels.push(titel ?? ""); } else if (soort === "z") r.zacht.push(pos); else if (soort === "o") r.as.push(pos); });
+    return r;
+  }
+
+  // ---------- gegevens voor de figuren ----------
+  // Lagrange: kleinste aantal kwadraten, bij gelijk aantal het grootste eerste kwadraat
+  const BEST = [0]; for (let n = 1; n <= N; n++) { let b = 9; for (let s = 1; s * s <= n; s++) b = Math.min(b, BEST[n - s * s] + 1); BEST[n] = b; }
+  const kwadraten = n => { const r = []; while (n) { let s = Math.floor(Math.sqrt(n)); while (BEST[n - s * s] + 1 !== BEST[n]) s--; r.push(s); n -= s * s; } return r; };
+  // Lehmer: n in faculteitsbasis geeft de n-de permutatie van 0 … 5 (720 permutaties, n < 720)
+  const permutatie = n => { const d = []; for (let i = 1; i <= 6; i++) { d.unshift(n % i); n = Math.floor(n / i); } const rest = [0, 1, 2, 3, 4, 5], p = []; for (const k of d) p.push(rest.splice(k, 1)[0]); return p; };
+  const GOUD = Math.PI * (3 - Math.sqrt(5));  // gouden hoek, 137,5°
+  const collatzBaan = n => { const b = [n]; while (n !== 1) { n = n % 2 ? 3 * n + 1 : n / 2; b.push(n); } return b; };
+  const COLLATZ_TOP = Math.log2(Math.max(...getallen.map(g => Math.max(...collatzBaan(g.n)))));
+  function aliquot(n) {  // rij n, s(n), s(s(n)) … tot 0, een herhaling of een ontsnapping boven 10⁷
+    const r = [n]; const gezien = new Set([n]);
+    for (let i = 0; i < 24; i++) { const x = r.at(-1); if (x === 0) break; const s = sigmaVan(x) - x; r.push(s); if (s > 1e7) { r.pop(); return { r, soort: "ontsnapt" }; } if (gezien.has(s)) return { r, soort: s === x ? "perfect" : "cyclus" }; gezien.add(s); }
+    return { r, soort: r.at(-1) === 0 ? "einde" : "lang" };
+  }
+  const faculteit = n => { let f = 1n; for (let k = 2n; k <= BigInt(n); k++) f *= k; return f; };
+  const binomDeelbaar = n => { let c = 1n, slecht = []; const nn = BigInt(n); for (let k = 1; k < n; k++) { c = c * (nn - BigInt(k) + 1n) / BigInt(k); if (c % nn) slecht.push(k); } return slecht; };
+  const EENH = ["", "een", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "tien", "elf", "twaalf", "dertien", "veertien", "vijftien", "zestien", "zeventien", "achttien", "negentien"];
+  const TIEN = ["", "", "twintig", "dertig", "veertig", "vijftig", "zestig", "zeventig", "tachtig", "negentig"];
+  const woord = n => n < 20 ? EENH[n] : n < 100 ? (n % 10 ? EENH[n % 10] + (n % 10 === 2 || n % 10 === 3 ? "ën" : "en") : "") + TIEN[Math.floor(n / 10)] : (n < 200 ? "honderd" : EENH[Math.floor(n / 100)] + "honderd") + (n % 100 ? woord(n % 100) : "");
+  const STUUR = "NUL SOH STX ETX EOT ENQ ACK BEL BS TAB LF VT FF CR SO SI DLE DC1 DC2 DC3 DC4 NAK SYN ETB CAN EM SUB ESC FS GS RS US".split(" ");
+  const SYMBOOL = "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og".split(" ");
+  const NAAM = "waterstof helium lithium beryllium boor koolstof stikstof zuurstof fluor neon natrium magnesium aluminium silicium fosfor zwavel chloor argon kalium calcium scandium titanium vanadium chroom mangaan ijzer kobalt nikkel koper zink gallium germanium arseen seleen broom krypton rubidium strontium yttrium zirkonium niobium molybdeen technetium ruthenium rodium palladium zilver cadmium indium tin antimoon telluur jood xenon cesium barium lanthaan cerium praseodymium neodymium promethium samarium europium gadolinium terbium dysprosium holmium erbium thulium ytterbium lutetium hafnium tantaal wolfraam renium osmium iridium platina goud kwik thallium lood bismut polonium astaat radon francium radium actinium thorium protactinium uranium neptunium plutonium americium curium berkelium californium einsteinium fermium mendelevium nobelium lawrencium rutherfordium dubnium seaborgium bohrium hassium meitnerium darmstadtium roentgenium copernicium nihonium flerovium moscovium livermorium tennessine oganesson".split(" ");
+  const SCHILLEN = [];  // elektronen per schil volgens de Madelung-volgorde (zonder de uitzonderingen zoals Cr en Cu)
+  { const volgorde = [[1, 2], [2, 2], [2, 6], [3, 2], [3, 6], [4, 2], [3, 10], [4, 6], [5, 2], [4, 10], [5, 6], [6, 2], [4, 14], [5, 10], [6, 6], [7, 2], [5, 14], [6, 10], [7, 6]];
+    for (let z = 1; z <= 118; z++) { const s = [0, 0, 0, 0, 0, 0, 0, 0]; let rest = z; for (const [n, cap] of volgorde) { const e = Math.min(cap, rest); s[n] += e; rest -= e; if (!rest) break; } SCHILLEN[z] = s; } }
+  const kaprekar = n => { const r = [n]; for (let i = 0; i < 12; i++) { const c = [...String(r.at(-1)).padStart(3, "0")].sort(); const v = +c.slice().reverse().join("") - +c.join(""); if (r.includes(v)) break; r.push(v); if (v === 495 || v === 0) break; } return r; };
+
+  // ---------- de indicatoren ----------
+  // Elke modus geeft óf bolletjes ({posities, titels, zacht, as, waarde} of {vul, waarde}) óf een figuur ({svg, waarde})
+  const MODI = {
+    rechthoeken: {
+      kop: "Alle rechthoeken van n stippen, over elkaar gelegd (hoogte ≤ breedte)",
+      uitleg: "Leg n stippen in een rechthoek: dat kan op precies zoveel manieren als n delers heeft tot aan zijn wortel. Elke rechthoek is hier getekend met dezelfde oppervlakte (dus op schaal 1/√n), met de linkerbenedenhoek op dezelfde plek. Een priemgetal kan maar op één manier: een lange dunne streep van 1 bij n. Een kwadraat heeft als binnenste een vierkant. Hoe meer rechthoeken in elkaar passen, hoe 'ronder' het getal (12, 24, 36, 60, 120, 180, 240). Rechts het aantal rechthoeken.",
+      figuur: g => {
+        const k = 20 / Math.sqrt(g.n), paren = g.delers.filter(a => a * a <= g.n), w = 20 * Math.sqrt(g.n) + 2;
+        return { svg: svg(w, 22, paren.map(a => rect(1, 21 - a * k, (g.n / a) * k, a * k, R, `${a} × ${g.n / a}`)).join("")), waarde: paren.length };
+      },
+    },
+    kwadraten: {
+      kop: "Lagrange: n als som van zo min mogelijk kwadraten",
+      uitleg: "Lagrange bewees dat elk getal de som van vier kwadraten is. Hier staat de kortste schrijfwijze als vierkanten naast elkaar, allemaal op schaal 1/√n, met het grootste kwadraat eerst (bij gelijke lengte). Eén vierkant = een kwadraat, twee = som van twee kwadraten (priemen 4k + 1!), drie, of vier. Vier zijn er alleen nodig voor de getallen 4ᵃ(8b + 7): 7, 15, 23, 28, 31, 39, … (Legendre). Rechts de som.",
+      figuur: g => {
+        const k = 20 / Math.sqrt(g.n), delen = kwadraten(g.n); let x = 1; const stukken = [];
+        for (const s of delen) { stukken.push(rect(x, 21 - s * k, s * k, s * k, R, `${s}² = ${s * s}`, delen.length === 1 ? R : "none")); x += s * k + 4; }
+        return { svg: svg(x, 22, stukken.join("")), waarde: delen.map(s => `${s}²`).join(" + ") };
+      },
+    },
+    zonnebloem: {
+      kop: "Zonnebloem met n zaden (gouden hoek 137,5°); rood = zaad nummer priem",
+      uitleg: "Een zonnebloem zet elk nieuw zaadje 137,5° verder (de gouden hoek) en iets verder van het midden. Rij n is een zonnebloem met n zaden; de spiralen die je ziet zijn Fibonacci-getallen (5, 8, 13, 21, 34). Rood = zaadnummer k is priem, grijs = niet. Omdat de gouden hoek 'zo irrationaal mogelijk' is, vullen de zaden de schijf zo gelijkmatig als maar kan. Rechts n.",
+      figuur: g => {
+        const zaden = []; for (let k = 1; k <= g.n; k++) { const r = (C - 1.5) * Math.sqrt(k / g.n), a = k * GOUD; zaden.push(cirkel(C + r * Math.cos(a), C + r * Math.sin(a), g.n > 120 ? 0.9 : 1.3, isPriem(k) ? R : Z, `zaad ${k}`)); }
+        return { svg: svg(H, H, zaden.join("")), waarde: g.n };
+      },
+    },
+    bitwandeling: {
+      kop: "Bitwandeling: lees de bits van links naar rechts, 1 = linksaf, 0 = rechtsaf, en stap",
+      uitleg: "Een schildpad begint in het open rondje en kijkt naar rechts. Voor elke bit van n (van voren naar achteren) draait hij een kwartslag, linksom bij een 1 en rechtsom bij een 0, en zet dan een stap. Zo wordt elk getal een figuurtje; de eerste bit is altijd 1, dus elke wandeling begint omhoog. Een rij enen draait steeds linksom: 15 = 1111 sluit zich tot een vierkantje; een 1 met alleen nullen erachter (de machten van 2) draait na de eerste stap steeds rechtsom. Rechts het aantal stappen (het aantal bits).",
+      figuur: g => {
+        const bits = g.n.toString(2); let x = 0, y = 0, r = 0; const pts = [[0, 0]];
+        for (const b of bits) { r += b === "1" ? -1 : 1; x += [1, 0, -1, 0][(r % 4 + 4) % 4]; y += [0, 1, 0, -1][(r % 4 + 4) % 4]; pts.push([x, y]); }
+        const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]), w = Math.max(...xs) - Math.min(...xs), h = Math.max(...ys) - Math.min(...ys), s = Math.min(4, 26 / Math.max(w, h, 1));
+        const px = pts.map(([a, b]) => [2 + (a - Math.min(...xs)) * s, 2 + (b - Math.min(...ys)) * s]);
+        return { svg: svg(w * s + 4, Math.max(h * s + 4, 8), pad(px, R) + open(px[0][0], px[0][1], 2) + cirkel(px.at(-1)[0], px.at(-1)[1], 2, R)), waarde: bits.length };
+      },
+    },
+    tafelcirkel: {
+      kop: "Tafel van n op een cirkel van 61 punten: lijn van x naar n·x mod 61",
+      uitleg: "Zet 61 punten op een cirkel (61 is priem) en trek van elk punt x een lijn naar n·x mod 61. De tafel van 2 tekent een cardioïde (hartkromme), de tafel van 3 een nefroïde met twee lussen, 4 geeft er drie, … en hoe groter n mod 61, hoe fijner het web. Bij n ≡ 1 (mod 61), dus 1, 62, 123, 184 en 245, blijft elk punt op zijn plaats: geen enkele lijn. Bij n ≡ 60 (mod 61) zijn het alleen spiegelingen: evenwijdige lijnen. Rechts n mod 61.",
+      figuur: g => {
+        const m = 61, lijnen = []; for (let x = 0; x < m; x++) { const y = g.n * x % m; if (y > x) { const [a, b] = opRing(x, m), [c, d] = opRing(y, m); lijnen.push(lijn(a, b, c, d, R, 0.6)); } }
+        return { svg: ring(lijnen.join(""), `×${g.n} mod 61`), waarde: g.n % m };
+      },
+    },
+    machtenring: {
+      kop: "Machten van n modulo 97, in volgorde verbonden: 1 → n → n² → n³ → …",
+      uitleg: "Zet de resten 0 … 96 op een ring (97 is priem) en volg n, n², n³, … tot je weer bij 1 bent. Dat spoor is een veelhoek met zoveel hoeken als de orde van n: altijd een deler van 96. Een primitieve wortel (zoals 5) bezoekt alle 96 resten en tekent een dicht web; 96 heeft orde 2 (96 ≡ −1) en geeft één lijn; 1 staat stil. Kwadraten (4, 9, 16, 25 …) hebben hoogstens orde 48. Rechts de orde; 97 en 194 zijn ≡ 0 en hebben geen orde.",
+      figuur: g => {
+        const m = 97; if (g.n % m === 0) return { svg: ring(""), waarde: "–" };
+        const o = ordMod(g.n % m, m), pts = []; let x = 1; for (let k = 0; k <= o; k++) { pts.push(opRing(x, m)); x = x * g.n % m; }
+        return { svg: ring(pad(pts, R, o > 24 ? 0.5 : 1) + cirkel(...opRing(1, m), 1.6, R), `orde ${o}`), waarde: o };
+      },
+    },
+    delerrooster: {
+      kop: "Delerrooster (Hasse-diagram): delers op hoogte 'aantal priemfactoren', lijnen = maal een priem",
+      uitleg: "Elke deler d van n is een punt: van links naar rechts op ln d, van onder naar boven op het aantal priemfactoren van d. Een lijn verbindt d met d·p voor elke priem p die er nog bij kan. Een priemgetal is één lijntje (1 → p), een priemmacht een trap, een product van twee priemen een ruit, en 2·3·5·7 = 210 een vierdimensionale kubus. Rood = priemdeler. Rechts het aantal delers.",
+      figuur: g => {
+        if (g.n === 1) return { svg: svg(8, 8, open(4, 4, 2)), waarde: 1 };
+        const hoogte = d => factors(d).length, x = d => 4 + 200 * Math.log(d) / Math.log(g.n), y = d => 4 + 11 * (g.f.length - hoogte(d)), delen = [];
+        for (const d of g.delers) for (const p of g.uniek) if ((g.n / d) % p === 0) delen.push(lijn(x(d), y(d), x(d * p), y(d * p), G, 1));
+        for (const d of g.delers) delen.push(d === 1 || d === g.n ? open(x(d), y(d), 2) : cirkel(x(d), y(d), 2.2, isPriem(d) ? R : Z, `${d}`));
+        return { svg: svg(210, 8 + 11 * g.f.length, delen.join("")), waarde: g.delers.length };
+      },
+    },
+    permutatie: {
+      kop: "De n-de permutatie van 1 … 6 (faculteitsbasis): punt op (plaats, waarde)",
+      uitleg: "Schrijf n in de faculteitsbasis: n = d₅·5! + d₄·4! + d₃·3! + d₂·2! + d₁·1! met dᵢ ≤ i. Die cijfers (de Lehmer-code) kiezen de n-de permutatie van 1 … 6 in woordenboekvolgorde: 0 is 123456, 1 is 123465, 719 is 654321. Het roostertje toont de permutatie als punten (plaats, waarde): de identiteit is een diagonaal, een omkering de andere diagonaal. Rechts de permutatie. Er zijn 720 permutaties, dus deze tabel haalt er ruim een derde.",
+      figuur: g => {
+        const p = permutatie(g.n), s = 4.5, w = 6 * s + 1, cellen = [];
+        for (let i = 0; i <= 6; i++) cellen.push(lijn(0.5 + i * s, 0.5, 0.5 + i * s, w - 0.5, G, 0.5), lijn(0.5, 0.5 + i * s, w - 0.5, 0.5 + i * s, G, 0.5));
+        p.forEach((v, i) => cellen.push(cirkel(0.5 + (i + 0.5) * s, w - 0.5 - (v + 0.5) * s, 1.7, R, `plaats ${i + 1} → ${v + 1}`)));
+        return { svg: svg(w, w, cellen.join("")), waarde: p.map(v => v + 1).join("") };
+      },
+    },
+    legendre: {
+      kop: "Legendre-wandeling: +1 bij een kwadraat mod n, −1 bij een niet-kwadraat (k = 1 … n−1)",
+      uitleg: "Loop over k = 1, 2, …, n − 1 en stap omhoog als k een kwadraat modulo n is (Jacobi-symbool +1), omlaag als niet. Voor een priem p ≡ 1 (mod 4) is de wandeling symmetrisch en eindigt op 0 bij p/2. Voor p ≡ 3 (mod 4) liggen de kwadraten vooral in de eerste helft, dus de wandeling blijft boven de as. Hoeveel hoger ze halverwege staat, is Dirichlets klassengetalformule: de stand bij (p − 1)/2 is h(−p) als p ≡ 7 (mod 8) en 3·h(−p) als p ≡ 3 (mod 8). Rechts die stand halverwege, en daaruit h(−p). Even n hebben geen wandeling.",
+      figuur: g => {
+        const n = g.n; if (n % 2 === 0 || n < 3) return { svg: svg(4, H, ""), waarde: "–" };
+        let s = 0; const pts = [[0, C]]; let half = 0, top = 1;
+        for (let k = 1; k < n; k++) { s += jacobi(k, n); if (k === (n - 1) / 2) half = s; top = Math.max(top, Math.abs(s)); pts.push([k, s]); }
+        const sch = (C - 2) / top, dx = Math.max(1, Math.min(4, 200 / n)), px = pts.map(([x, v]) => [x * dx, C - v * sch]);
+        const h = isPriem(n) && n % 4 === 3 && n > 3 ? ` · h(−${n}) = ${half / (n % 8 === 3 ? 3 : 1)}` : "";
+        return { svg: svg(n * dx, H, lijn(0, C, (n - 1) * dx, C, G) + pad(px, R, 1)), waarde: `${half}${h}` };
+      },
+    },
+    collatz: {
+      kop: "Collatz-profiel: hoogte = log₂ van de baan, één stap per 2 px",
+      uitleg: "Even: halveren, oneven: ×3 + 1. Het profiel tekent de hele baan van n naar 1 als bergketen, met de logaritme als hoogte, zodat alle rijen dezelfde schaal hebben (de top van de tabel is 13120, bereikt door 255; het beroemde 27 komt tot 9232). Een halvering is een stapje omlaag, ×3 + 1 een sprong omhoog; de staart 16 → 8 → 4 → 2 → 1 is bij iedereen dezelfde trap. Machten van 2 zijn een rechte lijn omlaag. Rechts het hoogste punt van de baan.",
+      figuur: g => {
+        const b = collatzBaan(g.n), px = b.map((v, i) => [i * 2, H - 1 - (H - 2) * Math.log2(v) / COLLATZ_TOP]);
+        return { svg: svg(Math.max(b.length * 2, 4), H, pad(px, R, 1)), waarde: Math.max(...b) };
+      },
+    },
+    decimalen: {
+      kop: "De eerste 50 cijfers van 1/n als hoogtes (0 onder, 9 boven)",
+      uitleg: "Deel 1 door n met een staartdeling en zet elk cijfer als hoogte uit. Bij 2, 4, 5, 8, 10, … stopt het (daarna alleen nullen). Anders ontstaat een golf die zich herhaalt met de periode van 1/n: 1/7 = 0,142857… golft om de 6 cijfers, 1/81 = 0,012345679… klimt als een trap, 1/97 heeft een periode van 96 en past niet in het venster. Rechts de periode (de orde van 10 modulo n zonder zijn factoren 2 en 5) en de aanloop.",
+      figuur: g => {
+        let r = 1; const d = []; for (let i = 0; i < 50; i++) { r *= 10; d.push(Math.floor(r / g.n)); r %= g.n; }
+        let m = g.n, aanloop = 0; while (m % 2 === 0) { m /= 2; aanloop++; } let a5 = 0; while (m % 5 === 0) { m /= 5; a5++; } aanloop = Math.max(aanloop, a5);
+        const periode = m > 1 ? ordMod(10, m) : 0;
+        const staven = d.map((c, i) => rect(i * 4, H - 1 - c * 3, 3, c * 3 + 0.5, R, `cijfer ${i + 1}: ${c}`, R));
+        return { svg: svg(200, H, staven.join("")), waarde: periode ? `periode ${periode}${aanloop ? `, na ${aanloop}` : ""}` : "eindig" };
+      },
+    },
+    wilson: {
+      kop: "Wilson: k! mod n voor k = 1 … n − 1, als hoogte (schaal n)",
+      uitleg: "Stelling van Wilson: n is priem precies als (n − 1)! ≡ −1 (mod n). Hier staat de hele weg erheen: k! mod n voor k = 1, 2, …, n − 1, als hoogte tussen 0 en n. Bij een priem springt de rest onvoorspelbaar rond en eindigt precies bovenin, op n − 1. Bij een samengesteld getal komt de rest op 0 zodra k! alle priemfactoren van n bevat, en blijft dan 0: een vlakke lijn (de enige uitzondering is 4: 3! = 6 ≡ 2). Rechts (n − 1)! mod n.",
+      figuur: g => {
+        const n = g.n; if (n < 3) return { svg: svg(4, H, ""), waarde: n === 2 ? "1 ✓" : "–" };
+        let f = 1; const px = []; for (let k = 1; k < n; k++) { f = f * k % n; px.push([k - 1, H - 1 - (H - 2) * f / n]); }
+        return { svg: svg(n - 1, H, lijn(0, H - 1 - (H - 2) * (n - 1) / n, n - 2, H - 1 - (H - 2) * (n - 1) / n, G) + pad(px, R, 1)), waarde: `${f}${f === n - 1 ? " ✓" : ""}` };
+      },
+    },
+    fermatgolf: {
+      kop: "Fermat-golf: 2ᵏ mod n voor k = 0 … 49, als hoogte (schaal n)",
+      uitleg: "De resten van 1, 2, 4, 8, 16, … bij delen door n vormen een golf die zich herhaalt met de orde van 2 modulo n (bij oneven n). Bij een priem p is die orde een deler van p − 1, en de golf raakt vlak voor elke herhaling de hoogte 1 (kleine stelling van Fermat: 2^(p−1) ≡ 1). Bij even n valt de golf eerst naar 0 (machten van 2) of naar een kleinere baan. 3, 5, 11, 13, 19, 29, 37, 53, 59, 61, 67, 83 … hebben de langst mogelijke golf (2 is primitieve wortel). Rechts de orde, of – bij even n.",
+      figuur: g => {
+        const n = g.n; let x = 1 % n; const px = []; for (let k = 0; k < 50; k++) { px.push([k * 4, H - 1 - (H - 2) * x / n]); x = x * 2 % n; }
+        const o = n % 2 ? ordMod(2, n) : 0;
+        return { svg: svg(200, H, pad(px, R, 1)), waarde: o || "–" };
+      },
+    },
+    aliquot: {
+      kop: "Aliquot-rij: n → som van de echte delers → … (hoogte op schaal van het hoogste punt)",
+      uitleg: "Tel de echte delers van n op (alles behalve n zelf) en herhaal. Priemen vallen in één stap naar 1 en dan naar 0. Perfecte getallen (6, 28) blijven staan; 220 en 284 wisselen elkaar af (bevriende getallen, al bij Pythagoras bekend). De meeste rijen zakken naar 1, soms na een korte klim; 138 is in 24 stappen nog lang niet klaar: zijn rij stijgt tot boven 10¹¹ en komt pas na 177 stappen op 1 uit. Of élke rij ooit stopt of in een lus komt, is onbekend (Catalan-Dickson); 276 is het kleinste open geval. Rechts wat er gebeurt en hoeveel stappen het kost.",
+      figuur: g => {
+        const { r, soort } = aliquot(g.n), top = Math.max(...r, 1), px = r.map((v, i) => [i * 6, H - 1 - (H - 2) * v / top]);
+        const w = { perfect: "perfect", cyclus: `cyclus ${r.at(-2)} ↔ ${r.at(-1)}`, einde: `→ 1 in ${r.length - 2}`, ontsnapt: `ontsnapt (> 10⁷)`, lang: "> 24 stappen" }[soort];
+        return { svg: svg(Math.max(r.length * 6, 8), H, pad(px, R, 1) + cirkel(px.at(-1)[0], px.at(-1)[1], 1.8, R)), waarde: w };
+      },
+    },
+    faculteit: {
+      kop: "De cijfers van n! als hoogtes, 1 px per cijfer (de vlakke staart zijn de nullen)",
+      uitleg: "n! = 1 · 2 · 3 · … · n groeit razendsnel: 256! heeft 507 cijfers. Elk cijfer is hier 1 px breed en zo hoog als zijn waarde. De vlakke staart rechts zijn de nullen aan het eind: Legendre telt ze als ⌊n/5⌋ + ⌊n/25⌋ + ⌊n/125⌋ (elke 5 in de ontbinding, want tweeën zijn er altijd genoeg). Rechts het aantal cijfers en het aantal nullen; bij 25, 50, 75, 100, 125 … springt het aantal nullen met 2.",
+      figuur: g => {
+        const s = faculteit(g.n).toString(), nullen = s.length - s.replace(/0+$/, "").length, px = [...s].map((c, i) => [i, H - 1 - (H - 2) * +c / 9]);
+        return { svg: svg(s.length + 1, H, pad(px, R, 0.8)), waarde: `${s.length} cijfers, ${nullen} nullen` };
+      },
+    },
+    pascal: {
+      kop: "Pascal-test: k van 1 … 50; rood = n deelt (n boven k) níet",
+      uitleg: "Rij n van de driehoek van Pascal: n is priem precies als n elk getal 'n boven k' deelt voor 0 < k < n. Bolletje k is rood als dat níet zo is. Priemrijen zijn dus helemaal wit en samengestelde rijen hebben altijd rood (bij 4: 4 boven 2 = 6). Dit is de kern van de AKS-test uit 2002, waarmee priem testen voor het eerst bewijsbaar in polynomiale tijd kon: AKS test dezelfde eigenschap voor (x + a)ⁿ modulo n. Rechts hoeveel k van 1 … n − 1 falen; 0 betekent priem.",
+      plekken: 50,
+      rood: g => { if (g.n < 2) return { posities: [], titels: [], waarde: "–" }; const slecht = binomDeelbaar(g.n), posities = slecht.filter(k => k <= 50).map(k => k - 1); return { posities, titels: posities.map(k => `${g.n} deelt (${g.n} boven ${k + 1}) niet`), waarde: slecht.length ? slecht.length : "0 ✓" }; },
+    },
+    maya: {
+      kop: "Maya-cijfers (twintigtallig): stip = 1, streep (grijs) = 5, schelp (open) = 0; hoogste cijfer links",
+      uitleg: "De Maya telden in twintigtallen met stippen (1) en strepen (5): 13 is drie stippen en twee strepen. Elk twintigtal krijgt een eigen cijfer, hier naast elkaar met het hoogste links; de schelp (open rondje) is de nul, een van de oudste nullen ter wereld. 256 = 12 × 20 + 16 wordt dus [twee strepen, twee stippen] [drie strepen, één stip]. Rechts de cijfers.",
+      plekken: 24,
+      rood: g => { const c = []; let x = g.n; const d = []; while (x) { d.unshift(x % 20); x = Math.floor(x / 20); } d.forEach((v, i) => { if (i) c.push([""], [""]); if (!v) c.push(["o"]); for (let j = 0; j < v % 5; j++) c.push(["r", `${v}`]); for (let j = 0; j < Math.floor(v / 5); j++) c.push(["z"]); }); return vanLinks(c, 24, d.join("·")); },
+    },
+    babylon: {
+      kop: "Babylonisch (zestigtallig): grijs = 10, rood = 1; hoogste cijfer links",
+      uitleg: "De Babyloniërs schreven in basis 60 met twee tekens in klei: een brede wig voor 10 (grijs) en een smalle voor 1 (rood). 256 = 4 × 60 + 16 wordt 4 ; 16, geschreven als vier smalle wiggen, dan een brede en zes smalle. Onze uren, minuten en graden komen hier vandaan. Een echte nul hadden ze lang niet, alleen een lege plek (hier een open rondje). Rechts de cijfers.",
+      plekken: 24,
+      rood: g => { const c = []; let x = g.n; const d = []; while (x) { d.unshift(x % 60); x = Math.floor(x / 60); } d.forEach((v, i) => { if (i) c.push([""], [""]); if (!v) c.push(["o"]); for (let j = 0; j < Math.floor(v / 10); j++) c.push(["z"]); for (let j = 0; j < v % 10; j++) c.push(["r", `${v}`]); }); return vanLinks(c, 24, d.join(";")); },
+    },
+    soroban: {
+      kop: "Soroban: per cijfer één hemelkraal (grijs = 5) en vier aardkralen (rood = geteld)",
+      uitleg: "Het Japanse telraam heeft per kolom één kraal boven de balk, die 5 telt, en vier eronder, die elk 1 tellen. Een cijfer 7 is de hemelkraal (grijs) plus twee aardkralen (rood). Hier drie kolommen, honderdtallen links, met open rondjes voor kralen die niet meedoen. Zo zie je dat 5 ≈ 10/2 ook in een rekentuig een natuurlijke tussenstap is. Rechts de drie cijfers.",
+      plekken: 20,
+      rood: g => { const c = [], s = String(g.n).padStart(3, "0"); [...s].forEach((ch, i) => { const d = +ch; if (i) c.push([""]); c.push([d >= 5 ? "z" : "o"]); c.push([""]); for (let j = 0; j < 4; j++) c.push([j < d % 5 ? "r" : "o", `cijfer ${d}`]); }); return vanLinks(c, 20, s); },
+    },
+    braille: {
+      kop: "Braille: cijferteken ⠼ en dan per cijfer een cel van zes punten (1 2 3 · 4 5 6)",
+      uitleg: "In braille zijn cijfers de letters a–j met een cijferteken ervoor: 1 = a (punt 1), 2 = b (1, 2), 3 = c (1, 4), …, 0 = j (2, 4, 5). Elke cel heeft zes punten, hier plat naast elkaar gelegd: eerst de linkerkolom (1, 2, 3), dan de rechter (4, 5, 6). Rood = voelbaar, open = plat. Het cijferteken (3, 4, 5, 6) staat vooraan. Rechts de tekst in Unicode-braille.",
+      plekken: 28,
+      rood: g => { const LET = [26, 1, 3, 9, 25, 17, 11, 27, 19, 10], c = [], cellen = [60, ...[...String(g.n)].map(ch => LET[+ch])]; cellen.forEach((bits, i) => { if (i) c.push([""]); for (let p = 0; p < 6; p++) c.push([bits >> p & 1 ? "r" : "o", `punt ${p + 1}`]); }); return vanLinks(c, 28, cellen.map(b => String.fromCharCode(0x2800 + b)).join("")); },
+    },
+    dobbelstenen: {
+      kop: "Dobbelstenen: n in bijectieve basis 6 (cijfers 1 … 6), elke steen zijn ogen; hoogste steen links",
+      uitleg: "Een talstelsel zonder nul: elk getal is op precies één manier een rij dobbelstenen d₁d₂…dₖ met waarde Σ dᵢ·6^(k−i), ogen 1 tot en met 6. 6 is één steen met zes ogen, 7 is ⚀⚀, 42 = 6·6 + 6 is ⚅⚅ en 256 = 6·36 + 6·6 + 4 wordt ⚅⚅⚃. Elke steen staat hier als zijn aantal ogen in rode bolletjes. Rechts de stenen.",
+      plekken: 20,
+      rood: g => { let x = g.n; const d = []; while (x > 0) { let r = x % 6 || 6; d.unshift(r); x = (x - r) / 6; } const c = []; d.forEach((v, i) => { if (i) c.push([""]); for (let j = 0; j < v; j++) c.push(["r", `${v} ogen`]); }); return vanLinks(c, 20, d.map(v => "⚀⚁⚂⚃⚄⚅"[v - 1]).join("")); },
+    },
+    drietallig: {
+      kop: "Gebalanceerd drietallig: cijfers 1 (rood), 0 (wit) en −1 (grijs) bij 243 … 81 … 1",
+      uitleg: "Een talstelsel met basis 3 en cijfers −1, 0, 1 (geschreven T, 0, 1). Elk getal heeft precies één schrijfwijze, zonder minteken: 2 = 1T (3 − 1), 5 = 1TT (9 − 3 − 1), 256 = 100111 (243 + 9 + 3 + 1). Afronden is afkappen, en negatief maken is elk cijfer omklappen. De Russische computer Setun (1958) rekende hierin. Knuth noemde het 'misschien wel het mooiste talstelsel'. Rechts het getal in T, 0 en 1.",
+      plekken: 6,
+      rood: g => { let x = g.n; const d = []; while (x) { let r = x % 3; if (r === 2) { r = -1; x = (x + 1) / 3; } else x = (x - r) / 3; d.push(r); } const posities = [], zacht = []; d.forEach((v, i) => { if (v === 1) posities.push(i); if (v === -1) zacht.push(i); }); return { posities, titels: posities.map(i => `+${3 ** i}`), zacht, waarde: d.map(v => v === -1 ? "T" : v).reverse().join("") }; },
+    },
+    letters: {
+      kop: "n in letters: rood = klinker, grijs = medeklinker",
+      uitleg: "Het telwoord voluit, één bolletje per letter: rood voor klinkers (a, e, i, o, u, ë), grijs voor medeklinkers. 'Tweeëntwintig' en 'drieëntwintig' krijgen een trema; vanaf honderd plakken we gewoon aan elkaar (honderdeen, tweehonderdzesenvijftig). Het kortste woord is 'een' met 3 letters; het langste hier heeft er 25: 'tweehonderdzevenentwintig' (en ook 229, 247 en 249). Rechts het woord.",
+      plekken: 26,
+      rood: g => { const w = woord(g.n); return vanLinks([...w].map(ch => ["aeiouë".includes(ch) ? "r" : "z", ch]), 26, w); },
+    },
+    utf8: {
+      kop: "UTF-8: de bytes van teken nummer n; open = vaste markeerbit, rood = 1, wit = 0",
+      uitleg: "Teken nummer n (zijn codepunt) wordt in UTF-8 opgeslagen als 1 byte (0xxxxxxx) onder 128, en als 2 bytes (110xxxxx 10xxxxxx) tot 2047. De markeerbits (open rondjes, en grijs waar ze 1 zijn) vertellen een lezer waar een teken begint en hoe lang het is; de rode en witte bolletjes zijn de bits van n zelf. Onder 32 zijn het stuurcodes (TAB, LF, ESC …), 32 is de spatie, 48–57 de cijfers, 65–90 en 97–122 de letters, 127 is DEL en 128–159 zijn weer stuurcodes. Rechts het teken en de bytes in hex.",
+      plekken: 17,
+      rood: g => {
+        const n = g.n, c = [];
+        const bits = (v, breedte, vast) => { for (let i = breedte - 1; i >= 0; i--) c.push([i >= breedte - vast ? (v >> i & 1 ? "z" : "o") : (v >> i & 1 ? "r" : ""), `bit ${i}`]); };
+        let bytes;
+        if (n < 128) { bits(n, 8, 1); bytes = [n]; } else { bytes = [0xC0 | n >> 6, 0x80 | (n & 63)]; bits(bytes[0], 8, 3); c.push([""]); bits(bytes[1], 8, 2); }
+        const teken = n < 32 ? STUUR[n] : n === 32 ? "spatie" : n === 127 ? "DEL" : n > 127 && n < 160 ? "stuurcode" : n === 160 ? "harde spatie" : n === 173 ? "zacht koppelteken" : String.fromCharCode(n);
+        return vanLinks(c, 17, `${teken} · ${bytes.map(b => b.toString(16).toUpperCase().padStart(2, "0")).join(" ")}`);
+      },
+    },
+    element: {
+      kop: "Element met atoomnummer n: grijs = aantal schillen (periode), rood = elektronen in de buitenste schil",
+      uitleg: "Een atoom met n protonen is element n: 1 waterstof, 2 helium, 6 koolstof, 26 ijzer, 79 goud, 92 uranium, 118 oganesson (het laatste). Grijze bolletjes: het aantal elektronenschillen, dus de rij in het periodiek systeem. Rode bolletjes: de elektronen in de buitenste schil, die de scheikunde bepalen: 1 bij natrium en kalium (reactief), 8 bij neon en argon (edelgas, vol). Gevuld volgens de Madelung-volgorde, zonder uitzonderingen zoals chroom en koper. Boven 118 bestaat (nog) niets. Rechts symbool en naam.",
+      plekken: 16,
+      rood: g => { const z = g.n; if (z > 118) return { posities: [], titels: [], waarde: "–" }; const s = SCHILLEN[z], periode = s.length - 1 - [...s].reverse().findIndex(e => e), buiten = s[periode], c = []; for (let i = 0; i < periode; i++) c.push(["z", `schil ${i + 1}: ${s[i + 1]} elektronen`]); c.push([""]); for (let i = 0; i < buiten; i++) c.push(["r", `buitenste schil ${periode}: ${buiten}`]); return vanLinks(c, 16, `${SYMBOOL[z - 1]} ${NAAM[z - 1]}`); },
+    },
+    kleur: {
+      kop: "n als byte: grijswaarde n (links) en de tint n × gouden hoek (rechts)",
+      uitleg: "Een byte loopt van 0 tot 255, en zo ook een kleurkanaal: links het grijs met rood = groen = blauw = n (0 is zwart, 255 wit). Rechts dezelfde n als kleurtoon, elke stap de gouden hoek 137,5° verder op de kleurencirkel: twee opeenvolgende getallen krijgen zo altijd goed te onderscheiden kleuren, een truc die ook in grafieken en kaarten wordt gebruikt. 256 past niet meer in één byte: dat is precies waarom deze tabel bij 256 ophoudt. Rechts de hexcode van het grijs.",
+      figuur: g => {
+        const n = g.n; if (n > 255) return { svg: svg(62, 18, rect(0, 0, 28, 18, Z) + rect(34, 0, 28, 18, Z)), waarde: "0x100: past niet" };
+        const hex = n.toString(16).toUpperCase().padStart(2, "0");
+        return { svg: svg(62, 18, `<rect width="28" height="18" fill="rgb(${n},${n},${n})" stroke="${G}"/><rect x="34" width="28" height="18" fill="hsl(${(n * 137.508) % 360},70%,50%)" stroke="${G}"/>`), waarde: `#${hex}${hex}${hex}` };
+      },
+    },
+    klok: {
+      kop: "Klok: n minuten na middernacht",
+      uitleg: "De uurwijzer (dik) en de minuutwijzer (dun) staan op n minuten na twaalf uur. 60 is één uur, 256 minuten is 04:16. Omdat de uurwijzer per uur 30° draait en de minuutwijzer 360°, overlappen ze elkaar elke 65 5/11 minuut: hier alleen bij 0 en bij 65 (bijna). Rechts de tijd.",
+      figuur: g => {
+        const m = g.n, u = m / 60, [ax, ay] = opRing(u, 12, C - 8), [bx, by] = opRing(m % 60, 60, C - 4);
+        const streepjes = [...Array(12).keys()].map(k => { const [x, y] = opRing(k, 12, C - 2), [x2, y2] = opRing(k, 12, C - 4); return lijn(x, y, x2, y2, Z, 1); }).join("");
+        return { svg: ring(streepjes + lijn(C, C, ax, ay, R, 2.5) + lijn(C, C, bx, by, R, 1) + cirkel(C, C, 1.5, R)), waarde: `${String(Math.floor(u)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}` };
+      },
+    },
+    kaprekar: {
+      kop: "Kaprekar: schrijf n met 3 cijfers, trek de kleinste volgorde van de grootste af, herhaal",
+      uitleg: "Neem de drie cijfers (met nullen vooraan), zet ze van groot naar klein en van klein naar groot, en trek af: 256 → 652 − 256 = 396 → 963 − 369 = 594 → 954 − 459 = 495 → 954 − 459 = 495. Elk driecijferig getal met minstens twee verschillende cijfers belandt in hoogstens zes stappen op 495, Kaprekars constante; alleen 111, 222 (en 000) vallen naar 0. Voor vier cijfers is de constante 6174. Het aantal rode bolletjes is het aantal stappen; rechts de hele weg.",
+      plekken: 7,
+      rood: g => { const r = kaprekar(g.n); return { vul: r.length - 1, waarde: r.join(" → ") }; },
+    },
+    munten: {
+      kop: "n cent in zo min mogelijk euromunten (2 €, 1 €, 50, 20, 10, 5, 2, 1 cent); grijs = euro's, rood = centen",
+      uitleg: "Gepast betalen met zo weinig mogelijk munten: pak steeds de grootste munt die nog past. Voor de euromunten geeft dat gretige algoritme altijd het minimum (dat geldt niet voor elk muntstelsel: met munten van 1, 3 en 4 cent is 6 = 3 + 3 beter dan 4 + 1 + 1). Elke munt is hier één bolletje: grijs voor 2 € en 1 €, rood voor de centen; 256 cent = 2 € + 50 + 5 + 1. Meer dan 7 munten zijn er nooit nodig (188 heeft er 7). Rechts de munten.",
+      plekken: 8,
+      rood: g => { const M = [[200, "2 €"], [100, "1 €"], [50, "50c"], [20, "20c"], [10, "10c"], [5, "5c"], [2, "2c"], [1, "1c"]]; let x = g.n; const c = []; for (const [w, naam] of M) while (x >= w) { c.push([w >= 100 ? "z" : "r", naam]); x -= w; } return vanLinks(c, 8, c.map(([, naam]) => naam).join(" + ")); },
+    },
+  };
+
+  // ---------- tekenen ----------
+  const MAX = 50, S = 11;
+  function indicator(g, modus) {
+    const m = MODI[modus];
+    if (m.figuur) { const f = m.figuur(g); return `<div class="ind"><span class="val">${f.waarde ?? ""}</span><span class="meer"></span>${f.svg}</div>`; }
+    const plekken = Math.min(m.plekken, MAX), breedte = plekken * S, r = m.rood(g);
+    let binnen, waarde = "", buiten = 0;
+    if (r.vul !== undefined) {
+      const zichtbaar = Math.min(r.vul, plekken); buiten = r.vul - zichtbaar;
+      binnen = zichtbaar ? `<span class="fill" style="width:${zichtbaar * S}px"></span>` : "";
+      waarde = `<span class="val">${r.waarde ?? r.vul}</span>`;
+    } else {
+      const plek = pos => `left:${breedte - (pos + 1) * S + 1}px`;
+      buiten = r.posities.filter(pos => pos >= plekken).length;
+      binnen = (r.as || []).map(pos => `<span class="dot as" style="${plek(pos)}"></span>`).join("") + (r.zacht || []).filter(pos => pos >= 0 && pos < plekken).map(pos => `<span class="dot zacht" style="${plek(pos)}"></span>`).join("");
+      binnen += r.posities.map((pos, i) => pos >= plekken ? "" : `<span class="dot" title="${r.titels[i]}" style="${plek(pos)}"></span>`).join("");
+      if (r.waarde !== undefined) waarde = `<span class="val">${r.waarde}</span>`;
+    }
+    return `<div class="ind">${waarde}<span class="meer">${buiten ? "+" + buiten : ""}</span><div class="dots" style="width:${breedte}px">${binnen}</div></div>`;
+  }
+  const tbody = document.getElementById("rows");
+  for (const g of getallen) {
+    const priem = g.f.length === 1, tr = document.createElement("tr");
+    tr.dataset.priem = priem ? "ja" : "nee";
+    tr.innerHTML = `<td class="num">${g.n}</td><td class="${priem ? "ja" : ""}">${priem ? "ja" : "nee"}</td><td>${g.f.length ? g.f.join(" × ") : "–"}</td><td class="num mono">${g.n.toString(2)}</td><td class="ind-cel"></td>`;
+    tbody.appendChild(tr);
+  }
+  const filterKnoppen = document.querySelectorAll("#filter button"), modusKnoppen = document.querySelectorAll("[data-m]");
+  function toonFilter(filter) {
+    let shown = 0;
+    for (const tr of tbody.rows) { const zichtbaar = filter === "alle" || tr.dataset.priem === filter; tr.hidden = !zichtbaar; if (zichtbaar) shown++; }
+    filterKnoppen.forEach(b => b.setAttribute("aria-pressed", b.dataset.f === filter));
+    document.getElementById("count").textContent = `${shown} getallen`;
+  }
+  function toonModus(modus) {
+    getallen.forEach((g, i) => { tbody.rows[i].cells[4].innerHTML = indicator(g, modus); });
+    document.getElementById("ind-kop").textContent = MODI[modus].kop;
+    document.getElementById("uitleg").textContent = MODI[modus].uitleg + (MODI[modus].figuur ? "" : " Maximaal 50 bolletjes; wat erbuiten valt staat als +k links ervan.");
+    modusKnoppen.forEach(b => b.setAttribute("aria-pressed", b.dataset.m === modus));
+  }
+  filterKnoppen.forEach(b => b.addEventListener("click", () => toonFilter(b.dataset.f)));
+  modusKnoppen.forEach(b => b.addEventListener("click", () => toonModus(b.dataset.m)));
+  toonModus("rechthoeken");
+  toonFilter("alle");
+</script>
+</body>
+</html>

@@ -1,0 +1,2019 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getallen 1–256 · v2</title>
+<style>
+  :root {
+    --bg: #fafaf9; --surface: #ffffff; --text: #1c1917; --muted: #78716c;
+    --border: #e7e5e4; --dot-off: #ffffff; --dot-off-border: #d6d3d1;
+    --dot-on: #dc2626; --accent: #1c1917; --accent-text: #ffffff; --row-hover: #f5f5f4;
+    --row-priem: #f5f5f4; --row-priem-hover: #e7e5e4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e;
+      --border: #292524; --dot-off: #292524; --dot-off-border: #44403c;
+      --dot-on: #ef4444; --accent: #f5f5f4; --accent-text: #0c0a09; --row-hover: #262220;
+      --row-priem: #23201e; --row-priem-hover: #2e2a27;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e;
+    --border: #292524; --dot-off: #292524; --dot-off-border: #44403c;
+    --dot-on: #ef4444; --accent: #f5f5f4; --accent-text: #0c0a09; --row-hover: #262220;
+      --row-priem: #23201e; --row-priem-hover: #2e2a27;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 1500px; margin: 0 auto; padding: 32px 16px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .v2 { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+  .filter.praime button[aria-pressed="false"] { box-shadow: inset 0 -2px 0 var(--dot-on); }
+  .filter { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+  .filter button {
+    border: 0; background: var(--surface); color: var(--text); padding: 8px 14px;
+    font: inherit; cursor: pointer; border-right: 1px solid var(--border);
+  }
+  .filter button:last-child { border-right: 0; }
+  .filter button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+  .count { color: var(--muted); margin-left: 12px; }
+  .wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 6px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12px; position: sticky; top: 0; background: var(--surface); }
+  tbody tr:hover { background: var(--row-hover); }
+  tbody tr[data-priem="ja"] { background: var(--row-priem); }
+  tbody tr[data-priem="ja"]:hover { background: var(--row-priem-hover); }
+  tbody tr[data-priem="ja"] td:first-child { box-shadow: inset 2px 0 0 var(--muted); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .ja { color: var(--dot-on); font-weight: 600; }
+  /* Witte bolletjes als herhalende achtergrond, alleen de rode als element */
+  .dots {
+    position: relative; height: 11px;
+    background: radial-gradient(circle, var(--dot-off) 0 3.5px, var(--dot-off-border) 3.5px 4.5px, transparent 4.5px) 0 0 / 11px 11px repeat-x;
+  }
+  .dot { position: absolute; top: 1px; width: 9px; height: 9px; border-radius: 50%; background: var(--dot-on); }
+  .dot.zacht { background: var(--muted); }
+  .dot.as { background: transparent; box-shadow: inset 0 0 0 2px var(--muted); }
+  /* Aaneengesloten rode bolletjes vanaf rechts (som en aantal) */
+  .fill {
+    position: absolute; top: 0; right: 0; height: 11px;
+    background: radial-gradient(circle, var(--dot-on) 0 4.5px, transparent 4.5px) right 0 top 0 / 11px 11px repeat-x;
+  }
+  .ind { display: flex; align-items: center; gap: 10px; }
+  .ind .meer { color: var(--dot-on); font-size: 12px; min-width: 2.5em; text-align: right; }
+  .ind .val { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 2.5em; text-align: right; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-bottom: 16px; }
+  .controls .filter { margin-bottom: 0; }
+  .label { color: var(--muted); font-size: 12px; margin-right: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Getallen 1–256 <span class="v2">v2 · Praime</span></h1>
+  <p class="sub" id="uitleg"></p>
+  <div class="controls">
+    <div>
+      <span class="label">Priem</span>
+      <div class="filter" id="filter" role="group" aria-label="Filter op priem">
+        <button data-f="alle" aria-pressed="true">Alle</button>
+        <button data-f="ja" aria-pressed="false">Ja</button>
+        <button data-f="nee" aria-pressed="false">Nee</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Indicator</span>
+      <div class="filter" id="modus" role="group" aria-label="Soort indicator">
+        <button data-m="priem" aria-pressed="true">Per priem</button>
+        <button data-m="som" aria-pressed="false">Som</button>
+        <button data-m="positie" aria-pressed="false">Positie = getal</button>
+        <button data-m="aantal" aria-pressed="false">Aantal</button>
+        <button data-m="delers" aria-pressed="false">Delers</button>
+        <button data-m="aantalDelers" aria-pressed="false">Aantal delers</button>
+        <button data-m="grootste" aria-pressed="false">Grootste factor</button>
+        <button data-m="binair" aria-pressed="false">Binair</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Complex</span>
+      <div class="filter" id="modus2" role="group" aria-label="Complexe indicatoren">
+        <button data-m="venster" aria-pressed="false">Priemvenster</button>
+        <button data-m="pi" aria-pressed="false">Priemen t/m n</button>
+        <button data-m="gat" aria-pressed="false">Priemgat</button>
+        <button data-m="moving" aria-pressed="false">Moving sum (5)</button>
+        <button data-m="xor" aria-pressed="false">Bits n ⊕ n−1</button>
+        <button data-m="combi" aria-pressed="false">Priem ∧ binair</button>
+        <button data-m="goldbach" aria-pressed="false">Goldbach</button>
+        <button data-m="collatz" aria-pressed="false">Collatz</button>
+        <button data-m="phi" aria-pressed="false">Euler φ</button>
+        <button data-m="aliquot" aria-pressed="false">Som echte delers</button>
+        <button data-m="fermat" aria-pressed="false">Fermat-leugenaars</button>
+        <button data-m="dirichlet" aria-pressed="false">k·n + 1 priem</button>
+        <button data-m="legendre" aria-pressed="false">Priemen n² … (n+1)²</button>
+        <button data-m="euler" aria-pressed="false">Euler k² + k + n</button>
+        <button data-m="kwadraatmod" aria-pressed="false">Kwadraat mod p</button>
+        <button data-m="artin" aria-pressed="false">Artin (primitieve wortel)</button>
+        <button data-m="orde2" aria-pressed="false">n deelt 2ᵏ − 1</button>
+        <button data-m="tweelingrond" aria-pressed="false">Tweeling rond k·n</button>
+        <button data-m="proth" aria-pressed="false">n·2ᵏ + 1 priem</button>
+        <button data-m="opeenvolgend" aria-pressed="false">Som opeenvolgende priemen</button>
+        <button data-m="lemoine" aria-pressed="false">Lemoine p + 2q</button>
+        <button data-m="gilbreath" aria-pressed="false">Gilbreath-verschillen</button>
+        <button data-m="pythagoras" aria-pressed="false">Pythagoras-drietallen</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Creatief</span>
+      <div class="filter" id="modus3" role="group" aria-label="Creatieve indicatoren">
+        <button data-m="zeckendorf" aria-pressed="false">Zeckendorf</button>
+        <button data-m="fibdeel" aria-pressed="false">n deelt F(k)</button>
+        <button data-m="pisano" aria-pressed="false">Pisano-periode</button>
+        <button data-m="fibwoord" aria-pressed="false">Fibonacci-woord</button>
+        <button data-m="gulden" aria-pressed="false">Gulden snede</button>
+        <button data-m="sierpinski" aria-pressed="false">Sierpiński</button>
+        <button data-m="regel30" aria-pressed="false">Regel 30</button>
+        <button data-m="collatzbaan" aria-pressed="false">Collatz-baan</button>
+        <button data-m="kwadraten" aria-pressed="false">a² + b²</button>
+        <button data-m="regel110" aria-pressed="false">Regel 110</button>
+        <button data-m="pascal3" aria-pressed="false">Pascal mod 3</button>
+        <button data-m="hofstadter" aria-pressed="false">Hofstadter Q</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Riemann</span>
+      <div class="filter" id="modus4" role="group" aria-label="Riemann-indicatoren">
+        <button data-m="zetaZ" aria-pressed="false">Z(t) kritieke lijn</button>
+        <button data-m="stemmen" aria-pressed="false">Stemmen van nullen</button>
+        <button data-m="detector" aria-pressed="false">Priemen uit nullen</button>
+        <button data-m="gaussRiemann" aria-pressed="false">Gauss vs Riemann</button>
+        <button data-m="chebyshev" aria-pressed="false">ψ(n) − n</button>
+        <button data-m="mertens" aria-pressed="false">Mertens-wandeling</button>
+        <button data-m="mobius" aria-pressed="false">Möbius-venster</button>
+        <button data-m="copriem" aria-pressed="false">Copriem (ζ(2))</button>
+        <button data-m="liouville" aria-pressed="false">Liouville (Pólya)</button>
+        <button data-m="race4" aria-pressed="false">Priemrace mod 4</button>
+        <button data-m="nulspectrum" aria-pressed="false">Nulpunten-spectrum</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Millennium</span>
+      <div class="filter" id="modus5" role="group" aria-label="Millennium-indicatoren">
+        <button data-m="bsd" aria-pressed="false">BSD: congruente getallen</button>
+        <button data-m="fermatmod" aria-pressed="false">Fermat mod n</button>
+        <button data-m="pratt" aria-pressed="false">P vs NP: priembewijs</button>
+        <button data-m="burgers" aria-pressed="false">Navier–Stokes: priemen stromen</button>
+        <button data-m="massagat" aria-pressed="false">Yang–Mills: massagat</button>
+        <button data-m="elastiek" aria-pressed="false">Poincaré: elastiekjes</button>
+        <button data-m="hodge" aria-pressed="false">Hodge: genus X₀(n)</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Binair</span>
+      <div class="filter" id="modus6" role="group" aria-label="Binaire indicatoren">
+        <button data-m="flipswap" aria-pressed="false">Flip &amp; swap</button>
+        <button data-m="roteer" aria-pressed="false">Roteren &amp; spiegelen</button>
+        <button data-m="afpoppen" aria-pressed="false">Bits afpoppen</button>
+        <button data-m="xorpriem" aria-pressed="false">XOR-priemen</button>
+        <button data-m="xorgoldbach" aria-pressed="false">XOR-Goldbach</button>
+        <button data-m="popwandeling" aria-pressed="false">Popcount-wandeling</button>
+        <button data-m="stelsels" aria-pressed="false">Vier talstelsels</button>
+        <button data-m="stern" aria-pressed="false">Hyperbinair tellen</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Spelletjes</span>
+      <div class="filter" id="modus7" role="group" aria-label="Spelletjes en simulaties">
+        <button data-m="hanoi" aria-pressed="false">Toren van Hanoi</button>
+        <button data-m="josephus" aria-pressed="false">Josephus-kring</button>
+        <button data-m="wythoff" aria-pressed="false">Wythoff-stapels</button>
+        <button data-m="priemnim" aria-pressed="false">Priem-Nim</button>
+        <button data-m="zandhoop" aria-pressed="false">Zandhoop</button>
+        <button data-m="priemfile" aria-pressed="false">Priemfile</button>
+        <button data-m="zeef" aria-pressed="false">Zeef in actie</button>
+        <button data-m="recaman" aria-pressed="false">Recamán-sprongen</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Codes &amp; tijd</span>
+      <div class="filter" id="modus8" role="group" aria-label="Codes en tijd">
+        <button data-m="streepjescode" aria-pressed="false">Streepjescode</button>
+        <button data-m="morse" aria-pressed="false">Morse</button>
+        <button data-m="romeins" aria-pressed="false">Romeins</button>
+        <button data-m="segment7" aria-pressed="false">7-segment</button>
+        <button data-m="binbreuk" aria-pressed="false">1/n binair</button>
+        <button data-m="kalender" aria-pressed="false">Kalender 2026</button>
+        <button data-m="maan" aria-pressed="false">Maanstand</button>
+        <button data-m="piano" aria-pressed="false">Boventonen</button>
+        <button data-m="ritme" aria-pressed="false">Wereldritmes</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Patronen</span>
+      <div class="filter" id="modus9" role="group" aria-label="Patronen">
+        <button data-m="priemraster" aria-pressed="false">Priemraster ×30</button>
+        <button data-m="kwadraatresten" aria-pressed="false">Kwadraten mod n</button>
+        <button data-m="primwortels" aria-pressed="false">Primitieve wortels</button>
+        <button data-m="rsa" aria-pressed="false">RSA-sleutels</button>
+        <button data-m="kettingbreuk" aria-pressed="false">Kettingbreuk √n</button>
+        <button data-m="vrolijk" aria-pressed="false">Vrolijke getallen</button>
+        <button data-m="kolakoski" aria-pressed="false">Kolakoski</button>
+        <button data-m="vandercorput" aria-pressed="false">Van der Corput</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Praime · resten</span>
+      <div class="filter praime" id="modus10" role="group" aria-label="Praime: resten doen het werk">
+        <button data-m="periode10" aria-pressed="false">Periode 1/n</button>
+        <button data-m="discriminant" aria-pressed="false">Discriminant-filter</button>
+        <button data-m="cunningham" aria-pressed="false">Cunningham-ketens</button>
+        <button data-m="race8" aria-pressed="false">Race mod 8</button>
+        <button data-m="eindcijfer" aria-pressed="false">Race laatste cijfer</button>
+        <button data-m="zsigmondy" aria-pressed="false">Zsigmondy</button>
+        <button data-m="inverse" aria-pressed="false">x en 1/x</button>
+        <button data-m="wiel" aria-pressed="false">Wiel van 210</button>
+        <button data-m="tellers" aria-pressed="false">Dynamisch wiel</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Praime · zeef &amp; munt</span>
+      <div class="filter praime" id="modus11" role="group" aria-label="Praime: zeef en munt">
+        <button data-m="overlevenden" aria-pressed="false">Overlevenden</button>
+        <button data-m="jde" aria-pressed="false">J-de overlevende</button>
+        <button data-m="raders" aria-pressed="false">Wie raadt de volgende?</button>
+        <button data-m="cramer" aria-pressed="false">Cramér &amp; Firoozbakht</button>
+        <button data-m="gatenreeksen" aria-pressed="false">Gatenreeksen</button>
+        <button data-m="jacobsthal" aria-pressed="false">Jacobsthal</button>
+        <button data-m="goldbachmin" aria-pressed="false">Goldbach-pogingen</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Praime · vormen &amp; ketens</span>
+      <div class="filter praime" id="modus12" role="group" aria-label="Praime: vormen en ketens">
+        <button data-m="tweemacht" aria-pressed="false">2ⁿ − c</button>
+        <button data-m="zelfverwijzend" aria-pressed="false">(n−1)ⁿ + n</button>
+        <button data-m="ggd23" aria-pressed="false">ggd(2ⁿ+1, 3ⁿ+1)</button>
+        <button data-m="brier" aria-pressed="false">Sierpiński / Brier</button>
+        <button data-m="cijferketen" aria-pressed="false">Cijferketen n(6)ᵢ1</button>
+        <button data-m="eulerrodriguez" aria-pressed="false">Euler–Rodriguez</button>
+        <button data-m="cascade" aria-pressed="false">Cascade 2ab + 1</button>
+        <button data-m="twaalf" aria-pressed="false">12n(n+2) + 1</button>
+        <button data-m="rekenkundig" aria-pressed="false">n + 30k</button>
+        <button data-m="sommen" aria-pressed="false">Sommen van priemen</button>
+      </div>
+    </div>
+    <div>
+      <span class="label">Praime · namen</span>
+      <div class="filter praime" id="modus13" role="group" aria-label="Praime: getallen met een naam">
+        <button data-m="zelfgetallen" aria-pressed="false">Zelfgetallen</button>
+        <button data-m="gelukkig" aria-pressed="false">Gelukkige getallen</button>
+        <button data-m="smith" aria-pressed="false">Smith</button>
+        <button data-m="omkering" aria-pressed="false">Omkering φ</button>
+        <button data-m="brennen" aria-pressed="false">Basis b als decimaal</button>
+        <button data-m="kwadraatcijfers" aria-pressed="false">Cijfers van n²</button>
+        <button data-m="robin" aria-pressed="false">Robin</button>
+        <button data-m="terugwaarts" aria-pressed="false">Carry-regel 1/n</button>
+        <button data-m="halfgat" aria-pressed="false">Half gat in Euler</button>
+      </div>
+    </div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="wrap">
+    <table>
+      <thead><tr>
+        <th class="num">Getal</th><th>Priem</th><th>Priemfactoren</th><th class="num">Binair</th><th id="ind-kop"></th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</main>
+<script>
+  function factors(n) {
+    const f = [];
+    for (let d = 2; d * d <= n; d++) while (n % d === 0) { f.push(d); n /= d; }
+    if (n > 1) f.push(n);
+    return f;
+  }
+  const N = 256;
+  const PRIEMEN = [];
+  for (let p = 2; p <= N; p++) if (factors(p).length === 1) PRIEMEN.push(p);
+
+  const getallen = [];
+  for (let n = 1; n <= N; n++) {
+    const f = factors(n);
+    const delers = [];
+    for (let d = 1; d <= n; d++) if (n % d === 0) delers.push(d);
+    getallen.push({ n, f, delers, uniek: [...new Set(f)], som: f.reduce((a, b) => a + b, 0) });
+  }
+  const maxSom = Math.max(...getallen.map(g => g.som));
+
+  // Hulpgrootheden voor de complexe varianten
+  const isPriem = n => n >= 2 && factors(n).length === 1;
+  const n_ = n => getallen[n - 1];
+  for (const g of getallen) {
+    const n = g.n;
+    g.pi = PRIEMEN.filter(p => p <= n).length;
+    let q = n + 1; while (!isPriem(q)) q++;
+    g.gat = q - n;
+    g.moving = [0, 1, 2, 3, 4].filter(k => n - k >= 1).reduce((a, k) => a + n_(n - k).f.length, 0);
+    g.goldbach = PRIEMEN.filter(p => p <= n - p && isPriem(n - p)).length;
+    let c = n, stappen = 0; while (c !== 1) { c = c % 2 ? 3 * c + 1 : c / 2; stappen++; }
+    g.collatz = stappen;
+    g.phi = g.n === 1 ? 1 : g.uniek.reduce((a, p) => a / p * (p - 1), n);
+    g.aliquot = g.delers.reduce((a, d) => a + d, 0) - n;
+  }
+  // Creatief: Fibonacci, cellulaire automaat, gulden snede
+  const FIB = [1, 2]; while (FIB.at(-1) + FIB.at(-2) <= N) FIB.push(FIB.at(-1) + FIB.at(-2));
+  const PHI = (1 + Math.sqrt(5)) / 2;
+  let fibWoord = "0";  // morfisme 0 → 01, 1 → 0
+  while (fibWoord.length < N) fibWoord = [...fibWoord].map(c => c === "0" ? "01" : "0").join("");
+  const BREED = 2 * N + 60, MIDDEN = N + 30;
+  const generaties = [new Uint8Array(BREED)]; generaties[0][MIDDEN] = 1;
+  for (let i = 1; i < N; i++) {
+    const vorige = generaties[i - 1], rij = new Uint8Array(BREED);
+    for (let x = 1; x < BREED - 1; x++) rij[x] = vorige[x - 1] ^ (vorige[x] | vorige[x + 1]);
+    generaties.push(rij);
+  }
+  for (const g of getallen) {
+    const n = g.n;
+    let rest = n; g.zeck = [];
+    for (let i = FIB.length - 1; i >= 0; i--) if (FIB[i] <= rest) { g.zeck.push(i); rest -= FIB[i]; }
+    g.fibdeel = []; let a = 0, b = 1 % n;
+    for (let k = 1; k <= 50; k++) { [a, b] = [b, (a + b) % n]; if (a === 0) g.fibdeel.push(k); }
+    let x = 0, y = 1 % n, periode = 0;
+    do { [x, y] = [y, (x + y) % n]; periode++; } while (!(x === 0 && y === 1 % n));
+    g.pisano = periode;
+    g.gulden = Math.floor((n * PHI % 1) * 50);
+    let c = n; g.baan = new Set([n]); while (c !== 1) { c = c % 2 ? 3 * c + 1 : c / 2; g.baan.add(c); }
+    g.kwadraten = 0;
+    for (let i = 0; 2 * i * i <= n; i++) { const j = Math.round(Math.sqrt(n - i * i)); if (j * j === n - i * i) g.kwadraten++; }
+  }
+  // Riemann: Z(t) via de Riemann–Siegel-formule, nulpunten ½ + iγ van ζ, en het expliciete formule-spoor
+  const theta = t => t / 2 * Math.log(t / (2 * Math.PI)) - t / 2 - Math.PI / 8 + 1 / (48 * t) + 7 / (5760 * t ** 3);
+  function zetaZ(t) {
+    const a = Math.sqrt(t / (2 * Math.PI)), M = Math.floor(a), p = a - M, th = theta(t);
+    let som = 0;
+    for (let k = 1; k <= M; k++) som += Math.cos(th - t * Math.log(k)) / Math.sqrt(k);
+    const c = Math.cos(2 * Math.PI * p) || 1e-9;
+    return 2 * som + (M % 2 ? 1 : -1) * (t / (2 * Math.PI)) ** -0.25 * Math.cos(2 * Math.PI * (p * p - p - 1 / 16)) / c;
+  }
+  const NULLEN = [];  // γ van de eerste ~500 nulpunten, gevonden als tekenwisseling van Z
+  for (let t = 10, z = zetaZ(t); t < 830; ) {
+    const t2 = t + 0.02, z2 = zetaZ(t2);
+    if (Math.sign(z2) !== Math.sign(z)) {
+      let a = t, b = t2, za = z;
+      for (let i = 0; i < 40; i++) { const m = (a + b) / 2, zm = zetaZ(m); if (Math.sign(zm) === Math.sign(za)) { a = m; za = zm; } else b = m; }
+      NULLEN.push((a + b) / 2);
+    }
+    t = t2; z = z2;
+  }
+  // Sprong van ψ(x) rond n volgens de expliciete formule met de eerste K nulpunten
+  function sprong(n, K) {
+    const golf = (x, g) => { const f = g * Math.log(x); return 2 * Math.sqrt(x) * (0.5 * Math.cos(f) + g * Math.sin(f)) / (0.25 + g * g); };
+    let s = 1;
+    for (let k = 0; k < K; k++) s -= golf(n + 0.5, NULLEN[k]) - golf(n - 0.5, NULLEN[k]);
+    return s;
+  }
+  const zeta = s => s === 2 ? Math.PI ** 2 / 6 : [...Array(2000).keys()].reduce((a, k) => a + (k + 1) ** -s, 0) + 2000 ** (1 - s) / (s - 1);
+  const ZETA = [0, ...Array.from({ length: 80 }, (_, k) => zeta(k + 2))];  // ZETA[k] = ζ(k + 1)
+  function li(x) { const l = Math.log(x); let s = 0.5772156649 + Math.log(l), t = 1; for (let k = 1; k < 80; k++) { t *= l / k; s += t / k; } return s; }
+  function riemannR(x) { const l = Math.log(x); let s = 1, t = 1; for (let k = 1; k < 80; k++) { t *= l / k; s += t / (k * ZETA[k]); } return s; }
+  const ggd = (a, b) => b ? ggd(b, a % b) : a;
+  const MID = 25;  // positie (van rechts) van de nul-as bij staafjes naar links/rechts
+  function staaf(v, titel, extra = {}) {
+    const k = Math.max(-24, Math.min(24, Math.round(v))), posities = [];
+    for (let i = 1; i <= Math.abs(k); i++) posities.push(k > 0 ? MID - i : MID + i);
+    return { posities, titels: posities.map(() => titel), as: [MID], ...extra };
+  }
+  let mertens = 0, psi = 0;
+  for (const g of getallen) {
+    const n = g.n;
+    g.mu = n === 1 ? 1 : g.uniek.length < g.f.length ? 0 : (g.f.length % 2 ? -1 : 1);
+    mertens += g.mu; g.mertens = mertens;
+    if (n > 1 && g.uniek.length === 1) psi += Math.log(g.uniek[0]);
+    g.psi = psi;
+    g.t = 10 + (n - 1) / 2; g.Z = zetaZ(g.t);
+    g.stemmen = NULLEN.slice(0, 50).map(γ => Math.cos(γ * Math.log(n)) < 0);
+    g.detector = n === 1 ? Array(50).fill(-1) : Array.from({ length: 50 }, (_, j) => sprong(n, 10 * (j + 1)));
+    g.li = n > 1 ? li(n) - g.pi : null;
+    g.R = n > 1 ? riemannR(n) - g.pi : null;
+  }
+  // Binair: flips, swaps, rotaties en rekenen zonder overdracht (XOR)
+  const telBits = x => { let c = 0; for (; x; x >>= 1) c += x & 1; return c; };
+  const graad = x => 31 - Math.clz32(x);
+  const clRest = (a, b) => { while (a && graad(a) >= graad(b)) a ^= b << (graad(a) - graad(b)); return a; };
+  const clMaal = (a, b) => { let r = 0; for (; b; b >>= 1, a <<= 1) if (b & 1) r ^= a; return r; };
+  const BIT_PAREN = [];
+  for (let j = 1; j < 9; j++) for (let i = 0; i < j; i++) BIT_PAREN.push([i, j]);
+  const stern = [0, 1];
+  for (let k = 2; k <= N + 1; k++) stern[k] = k % 2 ? stern[(k - 1) / 2] + stern[(k + 1) / 2] : stern[k / 2];
+  let popSom = 0;
+  for (const g of getallen) {
+    const n = g.n, L = graad(n) + 1;
+    g.flips = [...Array(9).keys()].map(k => isPriem(n ^ 1 << k));
+    g.swaps = BIT_PAREN.map(([i, j]) => (n >> i & 1) === (n >> j & 1) ? null : isPriem(n ^ 1 << i ^ 1 << j));
+    const draai = x => [...Array(L).keys()].map(k => ((x >> k) | (x << (L - k))) & ((1 << L) - 1));
+    const spiegel = parseInt([...n.toString(2)].reverse().join(""), 2);
+    g.rotaties = draai(n); g.spiegelRotaties = draai(spiegel);
+    g.rechts = [...Array(L).keys()].map(k => n >> k).filter(x => x >= 2);
+    g.links = [...Array(L).keys()].slice(1).map(k => n & ((1 << k) - 1)).reverse();
+    g.clDelers = [];
+    for (let k = 2; k <= 51; k++) if (k <= n && clRest(n, k) === 0) g.clDelers.push(k);
+    const echte = g.clDelers.filter(k => k < n);
+    g.clPriem = n >= 2 && !echte.length;
+    g.clFactor = echte.length ? `${echte[0]} ⊗ ${[...Array(n + 1).keys()].find(q => clMaal(echte[0], q) === n)}` : "";
+    g.xorParen = PRIEMEN.slice(0, 50).map(p => isPriem(n ^ p));
+    if (isPriem(n)) popSom += telBits(n) % 2 ? 1 : -1;
+    g.popSom = popSom;
+    let x = n; g.nega = [];
+    while (x) { let r = x % -2; x = Math.trunc(x / -2); if (r < 0) { r += 2; x += 1; } g.nega.push(r); }
+  }
+
+  // Extra's: Fermat-test, regel 110, Pascal mod 3, Hofstadter, Liouville en de priemrace mod 4
+  const powmod = (a, e, m) => { let r = 1; a %= m; for (; e; e >>= 1, a = a * a % m) if (e & 1) r = r * a % m; return r; };
+  const binom3 = (n, k) => {  // Lucas: n boven k mod 3, cijfer voor cijfer in het 3-tallig stelsel
+    let r = 1;
+    for (; n || k; n = Math.floor(n / 3), k = Math.floor(k / 3)) { if (k % 3 > n % 3) return 0; if (n % 3 === 2 && k % 3 === 1) r = r * 2 % 3; }
+    return r;
+  };
+  const R110 = [new Uint8Array(N + 60)]; R110[0][0] = 1;  // cel 0 = helemaal rechts, groeit naar links
+  for (let i = 1; i < N; i++) {
+    const v = R110[i - 1], rij = new Uint8Array(N + 60);
+    for (let x = 0; x < N + 59; x++) rij[x] = 110 >> (v[x + 1] * 4 + v[x] * 2 + (x ? v[x - 1] : 0)) & 1;
+    R110.push(rij);
+  }
+  const HQ = [0, 1, 1], HC = [0, 1, 1];
+  for (let n = 3; n <= N; n++) { HQ[n] = HQ[n - HQ[n - 1]] + HQ[n - HQ[n - 2]]; HC[n] = HC[HC[n - 1]] + HC[n - HC[n - 1]]; }
+  let liouville = 0, race4 = 0;
+  for (const g of getallen) {
+    const n = g.n;
+    liouville += g.f.length % 2 ? -1 : 1; g.liouville = liouville;
+    if (isPriem(n) && n > 2) race4 += n % 4 === 3 ? 1 : -1;
+    g.race4 = race4;
+    g.legendre = 0;
+    for (let x = n * n + 1; x < (n + 1) ** 2; x++) if (isPriem(x)) g.legendre++;
+  }
+  // Nog meer complexe indicatoren: Gilbreath-verschillen, Proth-getallen n·2ᵏ + 1 (BigInt) en orde modulo p
+  const orde = (a, m) => { if (a % m === 0) return 0; let x = a % m, k = 1; while (x !== 1) { x = x * a % m; k++; } return k; };
+  const isKwadraat = x => Number.isInteger(Math.sqrt(x));
+  const VEEL_PRIEMEN = []; for (let p = 2; VEEL_PRIEMEN.length < N + 60; p++) if (isPriem(p)) VEEL_PRIEMEN.push(p);
+  const GILBREATH = [VEEL_PRIEMEN];
+  for (let i = 1; i <= N; i++) { const v = GILBREATH[i - 1]; GILBREATH.push(v.slice(1).map((x, j) => Math.abs(x - v[j]))); }
+  const BASES = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n, 29n, 31n, 37n];
+  const bigMacht = (a, e, m) => { let r = 1n; a %= m; for (; e; e >>= 1n, a = a * a % m) if (e & 1n) r = r * a % m; return r; };
+  function bigPriem(n) {  // Miller–Rabin met deze bases is exact voor n < 3·10²⁴
+    for (const p of BASES) { if (n === p) return true; if (n % p === 0n) return false; }
+    let d = n - 1n, s = 0; while (!(d & 1n)) { d >>= 1n; s++; }
+    return BASES.every(a => {
+      let x = bigMacht(a, d, n);
+      if (x === 1n || x === n - 1n) return true;
+      for (let i = 1; i < s; i++) { x = x * x % n; if (x === n - 1n) return true; }
+      return false;
+    });
+  }
+  for (const g of getallen) g.proth = [...Array(50).keys()].filter(k => bigPriem(BigInt(g.n) * 2n ** BigInt(k + 1) + 1n));
+  // Spelletjes, codes en patronen: kleine simulaties die per rij één stap verder gaan
+  const HANOI = [];  // zetten [schijf, van, naar], schijf 0 is de kleinste
+  const speelHanoi = (k, van, naar, via) => { if (!k) return; speelHanoi(k - 1, van, via, naar); HANOI.push([k - 1, van, naar]); speelHanoi(k - 1, via, naar, van); };
+  speelHanoi(8, 0, 2, 1);
+  const NIM_VERLIES = [];  // priem-Nim: verlies als elke priemzet de ander een winstpositie geeft
+  for (let n = 0; n <= N; n++) NIM_VERLIES[n] = !PRIEMEN.some(p => p <= n && NIM_VERLIES[n - p]);
+  const WYTHOFF = new Map();  // koude posities (⌊jφ⌋, ⌊jφ⌋ + j) in beide volgordes
+  for (let j = 0; Math.floor(j * PHI) <= N; j++) { const a = Math.floor(j * PHI); WYTHOFF.set(a, a + j); WYTHOFF.set(a + j, a); }
+  const RECAMAN = [0], recamanGezien = new Set([0]);
+  for (let m = 1; m <= N; m++) { const a = RECAMAN[m - 1] - m; RECAMAN.push(a > 0 && !recamanGezien.has(a) ? a : RECAMAN[m - 1] + m); recamanGezien.add(RECAMAN[m]); }
+  const KOLAKOSKI = [1, 2, 2];
+  for (let i = 2; KOLAKOSKI.length < N + 60; i++) for (let j = 0; j < KOLAKOSKI[i]; j++) KOLAKOSKI.push(i % 2 ? 2 : 1);
+  const ZEEF = [];  // gesegmenteerde zeef in vensters van 50: elke stap streept één veelvoud weg
+  for (let start = 1; ZEEF.length < N; start += 50) {
+    const weg = new Set(start === 1 ? [1] : []);
+    for (const p of PRIEMEN) {
+      if (p * p > start + 49) break;
+      for (let m = Math.max(p * p, Math.ceil(start / p) * p); m < start + 50; m += p) { ZEEF.push({ start, p, m, weg: [...weg] }); weg.add(m); }
+    }
+    ZEEF.push({ start, weg: [...weg] });
+  }
+  const UPC_L = ["0001101", "0011001", "0010011", "0111101", "0100011", "0110001", "0101111", "0111011", "0110111", "0001011"];
+  const MORSE = ["-----", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----."];
+  const SEGMENT = ["1111110", "0110000", "1101101", "1111001", "0110011", "1011011", "1011111", "1110000", "1111111", "1111011"];
+  const NOTEN = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
+  const MAANDEN = "jan feb mrt apr mei jun jul aug sep okt nov dec".split(" "), WEEKDAGEN = "zo ma di wo do vr za".split(" ");
+  const romeins = n => [[100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]]
+    .reduce((s, [w, r]) => { while (n >= w) { s += r; n -= w; } return s; }, "");
+  // Rij van links naar rechts lezen: cellen [soort, titel] met soort "r" (rood), "z" (grijs), "o" (open) of "" (leeg)
+  function vanLinks(cellen, plekken, waarde) {
+    const r = { posities: [], titels: [], zacht: [], as: [], waarde };
+    cellen.forEach(([soort, titel], i) => {
+      const pos = plekken - 1 - i;
+      if (soort === "r") { r.posities.push(pos); r.titels.push(titel ?? ""); }
+      else if (soort === "z") r.zacht.push(pos);
+      else if (soort === "o") r.as.push(pos);
+    });
+    return r;
+  }
+  let hanoiStand = Array(8).fill(0), zand = Array(50).fill(0), file = Array.from({ length: 50 }, (_, k) => isPriem(k + 1)), jos3 = 0;
+  for (const g of getallen) {
+    const n = g.n;
+    if (n > 1) { const [schijf, , naar] = HANOI[n - 2]; hanoiStand[schijf] = naar; }
+    g.hanoi = hanoiStand.slice();
+    g.jos2 = 2 * (n - 2 ** graad(n)) + 1;
+    jos3 = n === 1 ? 0 : (jos3 + 3) % n; g.jos3 = jos3 + 1;
+    zand[MID]++;
+    for (let stabiel = false; !stabiel; ) {
+      stabiel = true;
+      for (let i = 0; i < 50; i++) if (zand[i] >= 4) {
+        stabiel = false; zand[i] -= 4;
+        for (const d of [-2, -1, 1, 2]) if (zand[i + d] !== undefined) zand[i + d]++;
+      }
+    }
+    g.zand = zand.slice();
+    g.file = file.slice();
+    const verder = file.slice();
+    for (let i = 1; i < 50; i++) if (file[i] && !file[i - 1]) { verder[i] = false; verder[i - 1] = true; }
+    file = verder;
+  }
+
+  // Millennium: zwaardere berekeningen pas bij eerste gebruik
+  let millenniumCache = null;
+  const millennium = () => millenniumCache ??= berekenMillennium();
+  function berekenMillennium() {
+    const kwadraatvrij = n => [...new Set(factors(n))].filter(p => factors(n).filter(q => q === p).length % 2).reduce((a, p) => a * p, 1);
+    // BSD-experiment: Π N_p/p voor y² = x³ − m²x, p < 2000
+    const groot = []; for (let p = 3; p < 2000; p += 2) if (isPriem(p)) groot.push(p);
+    const ms = [...new Set(getallen.map(g => kwadraatvrij(g.n)))], bsd = new Map(ms.map(m => [m, 0]));
+    for (const p of groot) {
+      const chi = new Int8Array(p).fill(-1); chi[0] = 0;
+      for (let y = 1; y < p; y++) chi[y * y % p] = 1;
+      for (const m of ms) {
+        if (m % p === 0) continue;
+        const m2 = m * m % p; let s = 0;
+        for (let x = 0; x < p; x++) s += chi[(x * x % p - m2 + p) % p * x % p];
+        bsd.set(m, bsd.get(m) + Math.log((p + 1 + s) / p));
+      }
+    }
+    // Tunnell: telt oplossingen van twee kwadratische vormen
+    const tel = (n, a, b, c) => {
+      let k = 0; const r = Math.ceil(Math.sqrt(n));
+      for (let x = -r; x <= r; x++) for (let y = -r; y <= r; y++) {
+        const z2 = (n - a * x * x - b * y * y) / c, z = Math.round(Math.sqrt(Math.max(z2, 0)));
+        if (z2 >= 0 && z * z === z2) k += z ? 2 : 1;
+      }
+      return k;
+    };
+    const tunnell = m => m % 2 ? tel(m, 1, 2, 8) === 2 * tel(m, 1, 2, 32) : tel(m / 2, 1, 4, 8) === 2 * tel(m / 2, 1, 4, 32);
+    // Fermat mod n: x^k + y^k ≡ z^k met x, y, z eenheden, k = 3 … 52
+    const fermatCache = new Map();
+    // Navier–Stokes als 1D Burgers-vergelijking, beginstand = priemen 1 … 50
+    let u = Array.from({ length: 50 }, (_, i) => isPriem(i + 1) ? 1 : 0);
+    const flux = (a, b) => (a * a + b * b) / 4 - Math.max(Math.abs(a), Math.abs(b)) * (b - a) / 2;
+    const stroom = [];
+    for (let r = 0; r < N; r++) {
+      stroom.push(u);
+      for (let stap = 0; stap < 4; stap++) u = u.map((m, i) => {
+        const l = u[(i + 49) % 50], rr = u[(i + 1) % 50];
+        return m - 0.05 * (flux(m, rr) - flux(l, m)) + 0.002 * (l - 2 * m + rr);
+      });
+    }
+    const kron = (a, p) => p === 2 ? (a % 8 === 1 || a % 8 === -7 ? 1 : a % 2 ? -1 : 0) : (a % p + p) % p === 0 ? 0 : [...Array((p - 1) / 2)].reduce(r => r * ((a % p + p) % p) % p, 1) === 1 ? 1 : -1;
+    for (const g of getallen) {
+      const n = g.n, m = kwadraatvrij(n);
+      g.bsd = bsd.get(m); g.congruent = tunnell(m);
+      const eenheden = [...Array(n).keys()].filter(x => ggd(x, n) === 1);
+      g.fermat = [];
+      for (let k = 3; k <= 52; k++) {
+        const machten = new Set(eenheden.map(x => { let r = 1; for (let i = 0; i < k; i++) r = r * x % n; return r; }));
+        const sleutel = n + ":" + [...machten].sort((a, b) => a - b);
+        if (!fermatCache.has(sleutel)) fermatCache.set(sleutel, [...machten].some(a => [...machten].some(b => machten.has((a + b) % n))));
+        g.fermat.push(fermatCache.get(sleutel));
+      }
+      const pratt = (p, set) => { for (const q of new Set(factors(p - 1))) { set.add(q); if (q > 2) pratt(q, set); } return set; };
+      g.pratt = n >= 3 && isPriem(n) ? [...pratt(n, new Set())].sort((a, b) => a - b) : [];
+      g.stroom = stroom[n - 1];
+      g.spectrum = Array.from({ length: n }, (_, k) => 2 - 2 * Math.cos(2 * Math.PI * k / n));
+      const opCyclus = new Uint8Array(n); let cycli = 0;
+      for (let x = 0; x < n; x++) {
+        let y = x; for (let i = 0; i < 9; i++) y = y * y % n;  // na 9 keer kwadrateren zit je op de cyclus (n ≤ 256)
+        if (!opCyclus[y]) { cycli++; let z = y; do { opCyclus[z] = 1; z = z * z % n; } while (z !== y); }
+      }
+      g.cyclus = opCyclus; g.cycli = cycli;
+      const u = g.uniek;
+      const nu2 = n % 4 === 0 ? 0 : u.reduce((a, p) => a * (1 + kron(-4, p)), 1);
+      const nu3 = n % 9 === 0 ? 0 : u.reduce((a, p) => a * (1 + kron(-3, p)), 1);
+      const ninf = g.delers.reduce((a, d) => a + n_(ggd(d, n / d)).phi, 0);
+      g.genus = Math.round(1 + u.reduce((a, p) => a * (1 + 1 / p), n) / 12 - nu2 / 4 - nu3 / 3 - ninf / 2);
+    }
+    return true;
+  }
+  const bitsVan = x => [...x.toString(2)].reverse().flatMap((b, i) => b === "1" ? [i] : []);
+  const bits = N.toString(2).length;
+
+  // Per modus: aantal bolletjes, en per getal óf losse rode posities (0 = rechts) óf een aantal rood vanaf rechts
+  const MODI = {
+    priem: {
+      kop: `Indicator (${PRIEMEN.at(-1)} … 2)`,
+      uitleg: `Elk bolletje is een priemgetal, van 2 (rechts) tot ${PRIEMEN.at(-1)} (links). Rood = die priem is een factor.`,
+      plekken: PRIEMEN.length,
+      rood: g => ({ posities: g.uniek.map(p => PRIEMEN.indexOf(p)), titels: g.uniek }),
+    },
+    som: {
+      kop: "Som van priemfactoren",
+      uitleg: "Aantal rode bolletjes (vanaf rechts) = de priemfactoren opgeteld. Bijvoorbeeld 12 = 2 + 2 + 3 = 7.",
+      plekken: maxSom,
+      rood: g => ({ vul: g.som }),
+    },
+    positie: {
+      kop: `Positie = factor (${N} … 1)`,
+      uitleg: `Bolletje nummer k (van rechts) is rood als k een priemfactor is. Bijvoorbeeld 12: bolletje 2 en 3.`,
+      plekken: N,
+      rood: g => ({ posities: g.uniek.map(p => p - 1), titels: g.uniek }),
+    },
+    delers: {
+      kop: "Delers (positie = deler)",
+      uitleg: "Bolletje nummer k (van rechts) is rood als k een deler is, niet alleen priem. Bijvoorbeeld 12: bolletje 1, 2, 3, 4, 6 en 12.",
+      plekken: N,
+      rood: g => ({ posities: g.delers.map(d => d - 1), titels: g.delers }),
+    },
+    aantalDelers: {
+      kop: "Aantal delers",
+      uitleg: "Aantal rode bolletjes (vanaf rechts) = hoeveel delers het getal heeft. Priemgetallen hebben er altijd 2. Bijvoorbeeld 12 → 6.",
+      plekken: Math.max(...getallen.map(g => g.delers.length)),
+      rood: g => ({ vul: g.delers.length }),
+    },
+    binair: {
+      kop: "Binair (rood = 1)",
+      uitleg: "De bits van het binaire getal: bolletje k (van rechts) is rood als bit k een 1 is. Bijvoorbeeld 12 = 1100.",
+      plekken: N.toString(2).length,
+      rood: g => {
+        const posities = [...g.n.toString(2)].reverse().flatMap((b, i) => b === "1" ? [i] : []);
+        return { posities, titels: posities.map(i => 2 ** i) };
+      },
+    },
+    grootste: {
+      kop: "Grootste priemfactor",
+      uitleg: "Aantal rode bolletjes (vanaf rechts) = de grootste priemfactor. Bijvoorbeeld 12 → 3.",
+      plekken: N,
+      rood: g => ({ vul: g.f.length ? g.f.at(-1) : 0 }),
+    },
+    venster: {
+      kop: "Priemvenster (n … n−49)",
+      uitleg: "Schuivend venster: bolletje k (van rechts) is rood als n−k+1 priem is. Rechts staat n zelf, links n−49. Elke rij schuift één plek op, zodat je schuine strepen ziet.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => isPriem(g.n - k));
+        return { posities, titels: posities.map(k => g.n - k) };
+      },
+    },
+    pi: {
+      kop: "Priemen t/m n (π(n))",
+      uitleg: "Cumulatief: aantal rode bolletjes = hoeveel priemgetallen er zijn van 2 tot en met n. Bijvoorbeeld 12 → 5 (2, 3, 5, 7, 11).",
+      plekken: PRIEMEN.length,
+      rood: g => ({ vul: g.pi }),
+    },
+    gat: {
+      kop: "Afstand tot volgende priem",
+      uitleg: "Aantal rode bolletjes = hoeveel stappen tot het volgende priemgetal. Bijvoorbeeld 12 → 1 (13), 24 → 5 (29).",
+      plekken: Math.max(...getallen.map(g => g.gat)),
+      rood: g => ({ vul: g.gat }),
+    },
+    moving: {
+      kop: "Moving sum aantal factoren (5)",
+      uitleg: "Moving sum: het aantal priemfactoren van n, n−1, n−2, n−3 en n−4 opgeteld. Bijvoorbeeld 12: 3 + 1 + 2 + 2 + 3 = 11 (voor 12, 11, 10, 9, 8).",
+      plekken: Math.max(...getallen.map(g => g.moving)),
+      rood: g => ({ vul: g.moving }),
+    },
+    xor: {
+      kop: "Bits die veranderen (n ⊕ n−1)",
+      uitleg: "Combinatie: binair n XOR binair n−1, dus welke bits omklappen bij +1. Altijd een blok vanaf rechts; hoe lang het is hangt af van het aantal nullen achteraan n. Bijvoorbeeld 12 = 1100 → 0111.",
+      plekken: bits,
+      rood: g => {
+        const posities = bitsVan(g.n ^ (g.n - 1));
+        return { posities, titels: posities.map(i => 2 ** i) };
+      },
+    },
+    combi: {
+      kop: "Priemfactor én bit = 1",
+      uitleg: "Combinatie van 'Positie = getal' en 'Binair': bolletje k is rood als k een priemfactor van n is én bit k−1 van n een 1 is. Bijvoorbeeld 12 = 1100: factor 3 en bit 2 = 1 → bolletje 3.",
+      plekken: N,
+      rood: g => {
+        const posities = g.uniek.filter(p => (g.n >> (p - 1)) & 1).map(p => p - 1);
+        return { posities, titels: posities.map(k => k + 1) };
+      },
+    },
+    goldbach: {
+      kop: "Goldbach-paren",
+      uitleg: "Op hoeveel manieren is n de som van twee priemgetallen? Bijvoorbeeld 12 = 5 + 7 → 1, 10 = 3 + 7 = 5 + 5 → 2. Volgens het vermoeden van Goldbach is dit bij elk even getal vanaf 4 minstens 1.",
+      plekken: Math.max(...getallen.map(g => g.goldbach)),
+      rood: g => ({ vul: g.goldbach }),
+    },
+    collatz: {
+      kop: "Collatz-stappen",
+      uitleg: "Even: halveren, oneven: ×3 + 1. Aantal rode bolletjes = hoeveel stappen tot je bij 1 bent. Bijvoorbeeld 6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1 = 8 stappen.",
+      plekken: Math.max(...getallen.map(g => g.collatz)),
+      rood: g => ({ vul: g.collatz }),
+    },
+    phi: {
+      kop: "Euler φ(n)",
+      uitleg: "Hoeveel getallen van 1 t/m n hebben geen factor gemeen met n? Bij een priemgetal is dat n − 1. Bijvoorbeeld 12 → 4 (1, 5, 7, 11).",
+      plekken: N,
+      rood: g => ({ vul: g.phi }),
+    },
+    aliquot: {
+      kop: "Som echte delers",
+      uitleg: "Alle delers behalve n zelf opgeteld. Is die som gelijk aan n, dan is het een perfect getal (6 en 28). Bij een priemgetal is de som altijd 1. Bijvoorbeeld 12 → 1+2+3+4+6 = 16.",
+      plekken: N,
+      rood: g => ({ vul: g.aliquot }),
+    },
+    zeckendorf: {
+      kop: `Zeckendorf (${FIB.at(-1)} … 1)`,
+      uitleg: "Elk getal is op precies één manier de som van Fibonacci-getallen die niet naast elkaar liggen. Een soort binair, maar dan met 1, 2, 3, 5, 8, 13 … als plekken. Er staan nooit twee rode bolletjes naast elkaar. Bijvoorbeeld 12 = 8 + 3 + 1.",
+      plekken: FIB.length,
+      rood: g => ({ posities: g.zeck, titels: g.zeck.map(i => FIB[i]) }),
+    },
+    fibdeel: {
+      kop: "n deelt F(k) (k = 50 … 1)",
+      uitleg: "Bolletje k (van rechts) is rood als n een deler is van het k-de Fibonacci-getal. De rode bolletjes staan altijd op gelijke afstand. Bij een priemgetal p ligt het eerste rode bolletje op p−1, p+1 of een deler daarvan. Bijvoorbeeld 12: F(12) = 144, dus elk 12e bolletje.",
+      plekken: 50,
+      rood: g => ({ posities: g.fibdeel.map(k => k - 1), titels: g.fibdeel.map(k => "F(" + k + ")") }),
+    },
+    pisano: {
+      kop: "Pisano-periode",
+      uitleg: "Neem de Fibonacci-reeks modulo n (alleen de rest na delen door n). Die reeks herhaalt zich altijd. Het aantal rode bolletjes is de lengte van die herhaling. Bijvoorbeeld mod 2: 0 1 1 0 1 1 … → 3. Bij 10 is het 60 (de laatste cijfers van Fibonacci herhalen na 60).",
+      plekken: 50,
+      rood: g => ({ vul: g.pisano }),
+    },
+    fibwoord: {
+      kop: "Fibonacci-woord (n … n−49)",
+      uitleg: "Het Fibonacci-woord 0100101001001… ontstaat door steeds 0 → 01 en 1 → 0 te vervangen. Dit is een schuivend venster eroverheen: rood = 1. Het patroon herhaalt zich nooit precies, maar ziet er wel regelmatig uit (een quasikristal).",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => g.n - k >= 1 && fibWoord[g.n - k - 1] === "1");
+        return { posities, titels: posities.map(k => g.n - k) };
+      },
+    },
+    gulden: {
+      kop: "Gulden snede (n·φ, deel na de komma)",
+      uitleg: "n × 1,618… (de gulden snede φ). Het aantal rode bolletjes is het deel achter de komma, geschaald naar 50. Omdat φ zo 'irrationeel' mogelijk is, vullen de waarden de balk gelijkmatig op zonder zich te herhalen. Zo staan ook zonnebloempitten gerangschikt.",
+      plekken: 50,
+      rood: g => ({ vul: g.gulden }),
+    },
+    sierpinski: {
+      kop: "Sierpiński (Pascal mod 2)",
+      uitleg: "Rij n van de driehoek van Pascal, oneven = rood. Bolletje k is rood als 'n boven k' oneven is. Dat is zo als alle 1-bits van k ook in n zitten, dus binair speelt mee. Over de hele tabel vormt dit de Sierpiński-driehoek, een fractal.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => k <= g.n && (g.n & k) === k);
+        return { posities, titels: posities.map(k => `${g.n} boven ${k}`) };
+      },
+    },
+    regel30: {
+      kop: "Regel 30 (cellulaire automaat)",
+      uitleg: "Elke rij is de volgende generatie van Regel 30 (Wolfram). Een cel wordt rood als links XOR (midden OF rechts) rood was. Rij 1 begint met één rood bolletje in het midden. Uit die simpele regel komt chaos voort.",
+      plekken: 50,
+      rood: g => {
+        const rij = generaties[g.n - 1];
+        const posities = [...Array(50).keys()].filter(k => rij[MIDDEN + 25 - k]);
+        return { posities, titels: posities.map(k => 25 - k) };
+      },
+    },
+    collatzbaan: {
+      kop: "Collatz-baan (50 … 1)",
+      uitleg: "Bolletje k is rood als de Collatz-reeks van n (even: halveren, oneven: ×3 + 1) langs k komt. Zo zie je welke 'snelweg' elk getal naar 1 neemt: bijna alles eindigt via 16 → 8 → 4 → 2 → 1.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...g.baan].filter(k => k <= 50).map(k => k - 1);
+        return { posities, titels: posities.map(k => k + 1) };
+      },
+    },
+    kwadraten: {
+      kop: "Som van twee kwadraten",
+      uitleg: "Op hoeveel manieren is n = a² + b²? Fermat: een oneven priemgetal lukt alleen als het bij delen door 4 rest 1 geeft (5 = 1 + 4, 13 = 4 + 9). Priemgetallen met rest 3 (zoals 7 en 11) blijven leeg.",
+      plekken: Math.max(...getallen.map(g => g.kwadraten)),
+      rood: g => ({ vul: g.kwadraten }),
+    },
+    zetaZ: {
+      kop: "Z(t) op de kritieke lijn (t = 10 + (n−1)/2)",
+      uitleg: "De tabel als grafiek: rij n hoort bij t = 10 + (n−1)/2 en het staafje is de Riemann–Siegel-functie Z(t), dus ζ(½ + it) gedraaid naar een reëel getal (3 bolletjes per eenheid, rechts = positief). Elke keer dat het staafje door de as (open rondje) gaat, is er een nulpunt van ζ. Riemann vermoedde dat álle niet-triviale nulpunten op deze lijn liggen. De eerste zit bij t ≈ 14,13 (rij 9–10).",
+      plekken: 50,
+      rood: g => staaf(3 * g.Z, `Z(${g.t}) = ${g.Z.toFixed(2)}`, { waarde: g.Z.toFixed(1) }),
+    },
+    stemmen: {
+      kop: "Stemmen van de eerste 50 nulpunten",
+      uitleg: "Elk nulpunt ½ + iγ van ζ is een golf cos(γ·ln n). Bolletje k is rood als golf k bij n negatief is: dat nulpunt 'stemt' dat n een priemmacht is. Bij priemen stemt de meerderheid mee (2 → 29 van 50, 7 → 35), bij 12 of 100 maar 22. Hoe groter n, hoe meer nulpunten je nodig hebt om het verschil te horen.",
+      plekken: 50,
+      rood: g => {
+        const posities = g.stemmen.flatMap((ja, k) => ja ? [k] : []);
+        return { posities, titels: posities.map(k => `γ${k + 1} ≈ ${NULLEN[k].toFixed(2)}`), waarde: posities.length };
+      },
+    },
+    detector: {
+      kop: "Priemen uit nulpunten (10 … 500 nullen)",
+      uitleg: `Riemanns expliciete formule bouwt de priemen op uit de nulpunten van ζ. De pagina berekent zelf ${NULLEN.length} nulpunten. Bolletje j (van rechts) gebruikt de eerste 10·j nulpunten en wordt rood als de berekende sprong van ψ bij n groter is dan ½. Dat betekent: de nullen zien dat n een priem(macht) is. Bij priemen kleurt de rij van rechts naar links steeds vaster rood, andere getallen worden wit. Rechts staat de sprong met 500 nullen; de echte waarde is ln p (7 → 1,95).`,
+      plekken: 50,
+      rood: g => {
+        const posities = g.detector.flatMap((v, j) => v > 0.5 ? [j] : []);
+        return { posities, titels: posities.map(j => `${10 * (j + 1)} nullen: ${g.detector[j].toFixed(2)}`), waarde: g.n > 1 ? g.detector[49].toFixed(2) : "" };
+      },
+    },
+    gaussRiemann: {
+      kop: "Gauss li(n) vs Riemann R(n), min π(n)",
+      uitleg: "Hoeveel priemen zijn er t/m n? Gauss schatte li(n) (grijs bolletje), Riemann verbeterde dat tot R(n) = Σ μ(k)/k · li(n^(1/k)) (rood bolletje). De as is de echte telling π(n), 2 bolletjes per priem verschil, rechts = te veel. Gauss loopt steeds verder rechts weg, Riemann blijft dicht bij de as. Rechts staat R(n) − π(n).",
+      plekken: 50,
+      rood: g => {
+        if (g.n === 1) return { posities: [], titels: [], as: [MID] };
+        const pos = v => MID - Math.max(-24, Math.min(24, Math.round(2 * v)));
+        return { posities: [pos(g.R)], titels: [`R − π = ${g.R.toFixed(2)}`], zacht: [pos(g.li)], as: [MID], waarde: (g.R > 0 ? "+" : "") + g.R.toFixed(1) };
+      },
+    },
+    chebyshev: {
+      kop: "ψ(n) − n (Chebyshev)",
+      uitleg: "ψ(n) telt priemmachten gewogen met ln p; volgens de priemgetalstelling is ψ(n) ≈ n. Het staafje is de fout ψ(n) − n. Grijze bolletjes markeren ±√n: de Riemann-hypothese is gelijk aan 'de fout blijft ongeveer binnen √n (maal logs)'. Elke sprong naar rechts is een priem(macht).",
+      plekken: 50,
+      rood: g => {
+        const w = Math.round(Math.sqrt(g.n));
+        return staaf(g.psi - g.n, `ψ(${g.n}) − ${g.n} = ${(g.psi - g.n).toFixed(2)}`, { zacht: [MID - w, MID + w], waarde: (g.psi - g.n).toFixed(1) });
+      },
+    },
+    mertens: {
+      kop: "Mertens M(n) = Σ μ(k)",
+      uitleg: "Een toevalswandeling uit de Möbius-functie: +1 bij een even aantal verschillende priemfactoren, −1 bij oneven, 0 als er een kwadraat in zit. M(n) is de stand. Grijs = ±√n. Riemann-hypothese ⇔ M(n) groeit niet sneller dan √n (plus een beetje). Mertens dacht dat het altijd binnen √n blijft; dat werd in 1985 weerlegd.",
+      plekken: 50,
+      rood: g => {
+        const w = Math.round(Math.sqrt(g.n));
+        return staaf(g.mertens, `M(${g.n}) = ${g.mertens}`, { zacht: [MID - w, MID + w], waarde: g.mertens });
+      },
+    },
+    mobius: {
+      kop: "Möbius μ(n … n−49)",
+      uitleg: "Schuivend venster over de Möbius-functie, het getal waarmee 1/ζ(s) = Σ μ(n)/nˢ. Rood = +1, grijs = −1, wit = 0 (deelbaar door een kwadraat). De witte schuine strepen zijn de veelvouden van 4, 9, 25 … Rechts staat Mertens M(n), de som tot nu toe.",
+      plekken: 50,
+      rood: g => {
+        const k = [...Array(50).keys()].filter(k => g.n - k >= 1);
+        const plus = k.filter(k => n_(g.n - k).mu === 1), min = k.filter(k => n_(g.n - k).mu === -1);
+        return { posities: plus, titels: plus.map(k => `μ(${g.n - k}) = +1`), zacht: min, waarde: g.mertens };
+      },
+    },
+    copriem: {
+      kop: "Copriem met 50 … 1 (ζ(2) = π²/6)",
+      uitleg: "Bolletje k is rood als n en k geen gemeenschappelijke deler hebben. Twee willekeurige getallen zijn met kans 1/ζ(2) = 6/π² ≈ 61% copriem, dus over de hele tabel is ongeveer 61% rood. Rechts staat het percentage in deze rij. Priemen boven de 50 zijn 100%; de tabel als geheel vormt een rooster van schuine lijnen.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => ggd(g.n, k + 1) === 1);
+        return { posities, titels: posities.map(k => `ggd(${g.n}, ${k + 1}) = 1`), waarde: Math.round(posities.length * 2) + "%" };
+      },
+    },
+    bsd: {
+      kop: "Birch & Swinnerton-Dyer: is n congruent?",
+      uitleg: "Een getal is congruent als het de oppervlakte is van een rechthoekige driehoek met breuken als zijden (6 = 3·4/2; 5 met zijden 3/2, 20/3, 41/6). Dat hangt af van de elliptische kromme y² = x³ − n²x. Birch en Swinnerton-Dyer telden in de jaren 60 punten van zo'n kromme modulo elke priem p < 2000 en vermenigvuldigden N_p/p. Groeit dat product, dan zijn er oneindig veel oplossingen. De lengte hier is de logaritme van dat product. Rood = congruent volgens de stelling van Tunnell (die geldt áls BSD waar is), grijs = niet. Rood is gemiddeld langer, maar met ruis: zo zag het originele bewijsmateriaal eruit.",
+      plekken: 50,
+      rood: g => {
+        millennium();
+        const k = Math.max(0, Math.round(8 * (g.bsd + 1.5))), alle = [...Array(k).keys()];
+        return g.congruent
+          ? { posities: alle, titels: alle.map(() => "congruent"), waarde: g.bsd.toFixed(1) }
+          : { posities: alle.filter(i => i >= MAX), titels: [], zacht: alle, waarde: g.bsd.toFixed(1) };
+      },
+    },
+    fermatmod: {
+      kop: "Fermat modulo n (k = 52 … 3)",
+      uitleg: "Fermats laatste stelling (Wiles, 1995) zegt dat xᵏ + yᵏ = zᵏ geen oplossingen heeft voor k ≥ 3. Bolletje k is rood als het modulo n wél kan, met x, y, z niet deelbaar door n. Bij grote priemen is bijna alles rood (stelling van Schur). Daarom kun je Fermat niet bewijzen met 'rekenen met resten', en daarom was Wiles' bewijs via elliptische krommen nodig. Witte gaten zitten waar alle k-de machten mod n gelijk worden, bijvoorbeeld k een veelvoud van p − 1.",
+      plekken: 50,
+      rood: g => {
+        millennium();
+        const posities = g.fermat.flatMap((ok, i) => ok ? [i] : []);
+        return { posities, titels: posities.map(i => `x^${i + 3} + y^${i + 3} ≡ z^${i + 3} (mod ${g.n})`) };
+      },
+    },
+    pratt: {
+      kop: "P vs NP: kort bewijs (bolletje = priem 2, 3, 5 …)",
+      uitleg: "P vs NP: is controleren net zo makkelijk als vinden? Voor 'n is samengesteld' is het bewijs één deler (grijs bolletje): controleren kost één deling. Pratt liet in 1975 zien dat ook 'n is priem' een kort bewijs heeft. Je factoriseert n − 1 en bewijst daarna van elke factor weer dat die priem is. De rode bolletjes zijn alle priemen in die bewijsboom. Rechts staat hoeveel priemen het bewijs nodig heeft. In 2002 bleek priem testen zelfs in P te zitten (AKS).",
+      plekken: 50,
+      rood: g => {
+        millennium();
+        if (g.n < 2) return { posities: [], titels: [] };
+        if (g.f.length > 1) return { posities: [], titels: [], zacht: [PRIEMEN.indexOf(g.f[0])], waarde: "÷" + g.f[0] };
+        const posities = g.pratt.map(q => PRIEMEN.indexOf(q));
+        return { posities, titels: g.pratt.map(q => `${q} deelt ${g.n} − 1 of een stap dieper`), waarde: g.pratt.length };
+      },
+    },
+    burgers: {
+      kop: "Navier–Stokes: priemen 1 … 50 stromen (tijd ↓)",
+      uitleg: "De Burgers-vergelijking is het 1D-speelgoedmodel van Navier–Stokes. Rij 1 is een 'vloeistof' met een golfje op elk priemgetal t/m 50 (rechts = 1). Elke volgende rij is een stukje tijd later. Snelle delen stromen naar links en halen trage in, er ontstaan schokgolven en stroperigheid smeert alles uit. Rood = veel, grijs = beetje. Het Millenniumprobleem vraagt of in 3D zo'n stroming ooit oneindig scherp kan worden.",
+      plekken: 50,
+      rood: g => {
+        millennium();
+        const posities = [...Array(50).keys()].filter(i => g.stroom[i] > 0.5), zacht = [...Array(50).keys()].filter(i => g.stroom[i] > 0.25 && g.stroom[i] <= 0.5);
+        return { posities, titels: posities.map(i => `cel ${i + 1}: ${g.stroom[i].toFixed(2)}`), zacht, waarde: Math.max(...g.stroom).toFixed(2) };
+      },
+    },
+    massagat: {
+      kop: "Yang–Mills: energieniveaus van een ring van n (0 … 4)",
+      uitleg: "Speelgoedmodel: n deeltjes in een ring, verbonden met veertjes. Hun trillingsenergieën 2 − 2cos(2πk/n) staan als rode bolletjes op een schaal van 0 (rechts, open rondje = vacuüm) tot 4. Het gat tussen vacuüm en eerste rode bolletje is het 'massagat'. Rechts staat de grootte. Hier krimpt het naar 0 als n groeit. Het Millenniumprobleem: bewijs dat in Yang–Mills-theorie dat gat er wél altijd blijft.",
+      plekken: 50,
+      rood: g => {
+        millennium();
+        const posities = [...new Set(g.spectrum.slice(1).map(l => Math.max(1, Math.round(l / 4 * 49))))];
+        return { posities, titels: posities.map(p => `energie ≈ ${(p / 49 * 4).toFixed(2)}`), as: [0], waarde: g.n > 1 ? g.spectrum[1].toFixed(3) : "–" };
+      },
+    },
+    elastiek: {
+      kop: "Poincaré: x → x² mod n (x = 49 … 0)",
+      uitleg: "Pijlen van elke rest x naar x² mod n vormen een netwerk van bomen die uitkomen op lussen. Rood = x ligt op een lus: daar kun je een elastiekje omheen leggen dat niet tot een punt krimpt (het 'gat in de donut'). Grijs = x zit in een boom en kan wel weggekrompen worden. Rechts staat het aantal lussen. Poincaré vroeg wanneer een 3D-ruimte geen enkel onkrimpbaar elastiekje heeft; Perelman bewees in 2003 dat het dan een bol is.",
+      plekken: 50,
+      rood: g => {
+        millennium();
+        const xs = [...Array(Math.min(g.n, 50)).keys()];
+        const posities = xs.filter(x => g.cyclus[x]);
+        return { posities, titels: posities.map(x => `${x} → ${x * x % g.n}`), zacht: xs.filter(x => !g.cyclus[x]), waarde: g.cycli };
+      },
+    },
+    hodge: {
+      kop: "Hodge: genus van de modulaire kromme X₀(n)",
+      uitleg: "Elke n heeft een modulaire kromme X₀(n), een oppervlak met g gaten; g is het Hodge-getal h¹·⁰. Bij n = 11 is g voor het eerst 1: X₀(11) is de eerste elliptische kromme. Via precies dit soort krommen bewees Wiles de stelling van Fermat, en ze vormen ook de basis van BSD. Het Hodgevermoeden zelf gaat over hogere dimensies; voor krommen is het bekend.",
+      plekken: 50,
+      rood: g => (millennium(), { vul: g.genus }),
+    },
+    flipswap: {
+      kop: "Swap twee bits (36) │ flip één bit (9)",
+      uitleg: "Rechts: flip bit 0 … 8 van n. Links: verwissel twee bits (eerst 0↔1, dan 0↔2, 1↔2, 0↔3 …). Rood = de uitkomst is priem, grijs = de swap verandert niets omdat beide bits gelijk zijn. Rechts staat hoeveel priemen je met één ingreep bereikt. 173, 191, 233, 239 en 251 zijn 'binair kwetsbaar': geen enkele flip levert nog een priem op.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [], zacht = [];
+        g.flips.forEach((ok, k) => { if (ok) { posities.push(k); titels.push(`flip bit ${k} → ${g.n ^ 1 << k}`); } });
+        g.swaps.forEach((ok, i) => {
+          const [a, b] = BIT_PAREN[i], pos = 10 + i;
+          if (ok === null) zacht.push(pos);
+          else if (ok) { posities.push(pos); titels.push(`swap bit ${a}↔${b} → ${g.n ^ 1 << a ^ 1 << b}`); }
+        });
+        return { posities, titels, zacht, as: [9], waarde: posities.length };
+      },
+    },
+    roteer: {
+      kop: "Rotaties van gespiegeld n │ rotaties van n",
+      uitleg: "Schuif de bits van n rond als een ketting (1101 → 1110 → 0111 → 1011). Rechts de rotaties van n, links die van n in spiegelbeeld. Rood = priem. Is elke rotatie priem, dan is n een 'circulaire priem' in binair (✓), zoals 3, 7, 31 en 127. Grijs = rotatie met een 0 vooraan, die dus korter wordt.",
+      plekken: 50,
+      rood: g => {
+        const L = g.rotaties.length, posities = [], titels = [], zacht = [];
+        [g.rotaties, g.spiegelRotaties].forEach((rij, deel) => rij.forEach((x, k) => {
+          const pos = deel * (L + 1) + k;
+          if (isPriem(x)) { posities.push(pos); titels.push(`${x.toString(2).padStart(L, "0")} = ${x}`); }
+          else if (x < 1 << L - 1) zacht.push(pos);
+        }));
+        const rond = g.rotaties.every(isPriem);
+        return { posities, titels, zacht, as: [L], waarde: rond ? "✓" : "" };
+      },
+    },
+    afpoppen: {
+      kop: "Pop bits van links │ pop bits van rechts",
+      uitleg: "Haal steeds één bit van n af, als een stapel. Rechts: van achteren afpoppen (n, n ≫ 1, n ≫ 2 …), dat is delen door 2 naar beneden. Links: van voren afpoppen, dan blijft het staartje over. Rood = wat overblijft is priem. Getallen die rechts helemaal rood blijven tot het einde zijn 'afknipbare priemen' in binair; dat zijn er maar zeven: 2, 3, 5, 7, 11, 23, 47 (✓).",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [];
+        g.rechts.forEach((x, k) => { if (isPriem(x)) { posities.push(k); titels.push(`${x.toString(2)} = ${x}`); } });
+        const start = g.rechts.length + 1;
+        g.links.forEach((x, k) => { if (isPriem(x)) { posities.push(start + k); titels.push(`${x.toString(2)} = ${x}`); } });
+        const ok = g.rechts.length > 0 && g.rechts.every(isPriem);
+        return { posities, titels, as: g.rechts.length ? [g.rechts.length] : [], waarde: ok ? "✓" : "" };
+      },
+    },
+    xorpriem: {
+      kop: "Delers zonder overdracht (k = 51 … 2)",
+      uitleg: "Vermenigvuldig in binair, maar tel op zonder 'onthouden' (XOR): 11 ⊗ 11 = 101, dus 3 ⊗ 3 = 5. Rood = k deelt n in deze wereld. Grijs = k is een gewone deler, maar geen XOR-deler. De XOR-priemen (geen rode deler behalve n zelf, ✓) zijn de onontbindbare veeltermen uit de codetheorie (CRC, AES): 2, 3, 7, 11, 13, 19, 25 … 5 is hier géén priem, maar 25 wel.",
+      plekken: 50,
+      rood: g => {
+        const zacht = g.delers.filter(d => d >= 2 && d <= 51 && !g.clDelers.includes(d)).map(d => d - 2);
+        return { posities: g.clDelers.map(k => k - 2), titels: g.clDelers.map(k => `${k} ⊗ ? = ${g.n}`), zacht, waarde: g.clPriem ? "✓" : g.clFactor };
+      },
+    },
+    xorgoldbach: {
+      kop: `XOR-Goldbach: n ⊕ p priem? (p = ${PRIEMEN[49]} … 2)`,
+      uitleg: "Goldbach: is elk even getal p + q met p en q priem? Hier dezelfde vraag met XOR in plaats van plus: n = p ⊕ q. Bolletje i staat voor de i-de priem p; rood als n ⊕ p ook priem is. Grijs = n − p is priem (gewone Goldbach), maar n ⊕ p niet. Elk even getal t/m 256 lukt; rechts het aantal manieren.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [], zacht = [];
+        g.xorParen.forEach((ok, i) => {
+          const p = PRIEMEN[i];
+          if (ok) { posities.push(i); titels.push(`${g.n} ⊕ ${p} = ${g.n ^ p}`); }
+          else if (isPriem(g.n - p)) zacht.push(i);
+        });
+        return { posities, titels, zacht, waarde: posities.length };
+      },
+    },
+    popwandeling: {
+      kop: "Popcount-wandeling: priemen met oneven ← → even aantal enen",
+      uitleg: "Tel de enen in elke priem (popcount). Oneven aantal = stap naar rechts, even = stap naar links. Gelfond vroeg in 1968 of dat op den duur in balans komt; Mauduit en Rivat bewezen het in 2010. Hier, t/m 256, wint oneven nog ruim: kleine priemen zoals 7 = 111 en 11 = 1011 hebben veel enen. Het open rondje is het nulpunt.",
+      plekken: 50,
+      rood: g => staaf(g.popSom, `Σ (−1)^popcount = ${g.popSom}`, { waarde: (g.popSom > 0 ? "+" : "") + g.popSom }),
+    },
+    stelsels: {
+      kop: "Zeckendorf │ negabinair │ Gray-code │ binair",
+      uitleg: "Hetzelfde getal in vier talstelsels, gescheiden door open rondjes. Binair met plekken 1, 2, 4, 8 … Gray-code: bij doortellen verandert er steeds precies één bit (n ⊕ n≫1). Negabinair is basis −2 (plekken 1, −2, 4, −8 …), zonder minteken. Zeckendorf: plekken 1, 2, 3, 5, 8 … Bijvoorbeeld 6 = 110 = Gray 101 = nega 11010 = Zeck 1001.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [];
+        const blok = (bits, start, naam) => bits.forEach((b, k) => { if (b) { posities.push(start + k); titels.push(`${naam}, plek ${k}`); } });
+        const bin = x => [...Array(9).keys()].map(k => x >> k & 1);
+        blok(bin(g.n), 0, "binair");
+        blok(bin(g.n ^ g.n >> 1), 10, "Gray");
+        blok(g.nega, 20, "negabinair");
+        g.zeck.forEach(i => { posities.push(30 + i); titels.push(`Zeckendorf ${FIB[i]}`); });
+        return { posities, titels, as: [9, 19, 29] };
+      },
+    },
+    stern: {
+      kop: "Hyperbinair: op hoeveel manieren met machten van 2 (elk ≤ 2×)?",
+      uitleg: "Tellen in een binair stelsel waarin elk cijfer 0, 1 óf 2 mag zijn: op hoeveel manieren kan dat? 10 kan op 5 manieren: 8+2, 8+1+1, 4+4+2, 4+4+1+1 en 4+2+2+1+1. Dat aantal is de rij van Stern, met een fractaal patroon: steeds 1 bij 2ᵏ − 1 en pieken net ervoor. Rechts staat de breuk aantal(n−1) / aantal(n). Die breuken (Calkin–Wilf) leveren elke positieve breuk precies één keer op.",
+      plekken: 50,
+      rood: g => ({ vul: stern[g.n + 1], waarde: `${stern[g.n]}/${stern[g.n + 1]}` }),
+    },
+    hanoi: {
+      kop: "Toren van Hanoi: pin A │ pin B │ pin C",
+      uitleg: "Acht schijven van pin A naar pin C, nooit een grote op een kleine. Elke rij is één zet verder: dat kost precies 255 zetten, dus rij 256 is klaar. Elk bolletje is een schijf (in elk blok staat de grootste links). Rood = de schijf die net verplaatst is, grijs = de rest. Welke schijf beweegt, zie je aan de nullen achteraan in binair: zet 12 = 1100 → twee nullen → schijf 3.",
+      plekken: 26,
+      rood: g => {
+        const pin = "ABC", zet = HANOI[g.n - 2], posities = [], titels = [], zacht = [];
+        g.hanoi.forEach((p, s) => {
+          const pos = (2 - p) * 9 + s;
+          if (zet && zet[0] === s) { posities.push(pos); titels.push(`schijf ${s + 1}: ${pin[zet[1]]} → ${pin[zet[2]]}`); } else zacht.push(pos);
+        });
+        return { posities, titels, zacht, as: [8, 17], waarde: zet ? `${zet[0] + 1}: ${pin[zet[1]]}→${pin[zet[2]]}` : "start" };
+      },
+    },
+    josephus: {
+      kop: "Josephus: wie blijft over in een kring van n? (plek 1 rechts)",
+      uitleg: "n mensen in een kring; tel rond en elke tweede valt af. Rood = wie als laatste overblijft. Truc: schrijf n binair en zet de voorste 1 achteraan: 41 = 101001 → 010011 = 19. Grijs = de overlevende als elke derde afvalt (41 → 31, het oorspronkelijke verhaal van Josephus). Het open rondje is de laatste plek in de kring.",
+      plekken: 50,
+      rood: g => ({ posities: [g.jos2 - 1], titels: [`elke 2e valt af: plek ${g.jos2} blijft`], zacht: [g.jos3 - 1], as: g.n <= 50 ? [g.n - 1] : [], waarde: `${g.jos2} · ${g.jos3}` }),
+    },
+    wythoff: {
+      kop: "Twee stapels (n, k), k = 49 … 0: koude posities",
+      uitleg: "Twee stapels munten, n en k. Om de beurt pak je van één stapel wat je wilt, of van allebei evenveel. Wie de laatste munt pakt, wint. Rood = koude positie: wie hier aan zet is, verliest. Ze liggen op twee rechte lijnen met de gulden snede als helling: (1, 2), (3, 5), (4, 7), (6, 10), (8, 13) … Grijs = de koude positie bij gewone Nim (zonder 'van allebei'): gewoon k = n.",
+      plekken: 50,
+      rood: g => { const k = WYTHOFF.get(g.n); return { posities: [k], titels: [`(${g.n}, ${k}) is koud`], zacht: [g.n], waarde: `(${g.n}, ${k})` }; },
+    },
+    priemnim: {
+      kop: `Priem-Nim: pak een priem aantal stenen (p = ${PRIEMEN[49]} … 2)`,
+      uitleg: "Een stapel van n stenen; om de beurt pak je er 2, 3, 5, 7 … (een priem aantal). Wie niet meer kan, verliest. Elk bolletje is een zet. Rood = winnende zet: daarna staat de ander op verlies. Grijs = mag wel, maar dan verlies je. Rijen zonder rood zijn verliesposities: 1, 9, 10, 25, 34, 35, 49 … Bij 9 kun je 2, 3, 5 of 7 pakken, maar bij 7, 6, 4 en 2 kan de ander steeds winnen.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [], zacht = [];
+        PRIEMEN.slice(0, 50).forEach((p, i) => {
+          if (p > g.n) return;
+          if (NIM_VERLIES[g.n - p]) { posities.push(i); titels.push(`pak ${p}, laat ${g.n - p} over`); } else zacht.push(i);
+        });
+        return { posities, titels, zacht, waarde: NIM_VERLIES[g.n] ? "verlies" : posities.length };
+      },
+    },
+    zandhoop: {
+      kop: "Zandhoop: elke rij valt er één korrel in het midden",
+      uitleg: "Vijftig vakjes. Elke rij valt er één korrel in het middelste vakje (open rondje). Liggen er 4 in een vakje, dan stort het in: één korrel naar elk van de twee vakjes links en rechts. Dat kan een lawine geven. Korrels over de rand zijn weg. Rood = 3 korrels (op het randje van instorten), grijs = 2. Zonder dat iemand het ontwerpt ontstaat een fractaalachtig patroon. Rechts het totaal aantal korrels.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [], zacht = [];
+        g.zand.forEach((z, i) => { if (z === 3) { posities.push(i); titels.push("3 korrels"); } else if (z === 2) zacht.push(i); });
+        return { posities, titels, zacht, as: [MID], waarde: g.zand.reduce((a, b) => a + b, 0) };
+      },
+    },
+    priemfile: {
+      kop: "Priemfile: auto's op plek 2, 3, 5, 7 … rijden naar rechts",
+      uitleg: "Op elke priemplek t/m 50 staat een auto (plek 1 helemaal rechts). Elke rij rijdt elke auto één plek naar rechts, als die plek vrij is (verkeersregel 184). Rechts is een muur. Rood = rijdt, grijs = staat stil. De gaten tussen priemen lossen langzaam op: de file groeit van rechts naar links tot alle 15 auto's stilstaan.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], titels = [], zacht = [];
+        g.file.forEach((auto, i) => { if (!auto) return; if (i > 0 && !g.file[i - 1]) { posities.push(i); titels.push("rijdt"); } else zacht.push(i); });
+        return { posities, titels, zacht, waarde: posities.length ? `${posities.length} rijden` : "file" };
+      },
+    },
+    zeef: {
+      kop: "Zeef van Eratosthenes, 50 getallen per venster (kleinste rechts)",
+      uitleg: "Elke rij streept één getal weg: eerst de veelvouden van 2 (vanaf 4), dan van 3 (vanaf 9), dan 5 en 7. Rood = net weggestreept, grijs = al weg. Is het venster klaar, dan blijven alleen de priemen over (rood, ✓). Daarna volgt het volgende venster, 51–100, met dezelfde aanpak. Rechts wat er weggestreept wordt.",
+      plekken: 50,
+      rood: g => {
+        const stap = ZEEF[g.n - 1], zacht = stap.weg.map(m => m - stap.start);
+        if (!stap.m) {
+          const priemen = [...Array(50).keys()].filter(i => !stap.weg.includes(stap.start + i));
+          return { posities: priemen, titels: priemen.map(i => `${stap.start + i} is priem`), zacht, waarde: `${stap.start}–${stap.start + 49} ✓` };
+        }
+        return { posities: [stap.m - stap.start], titels: [`${stap.m} = ${stap.p} × ${stap.m / stap.p}`], zacht, waarde: `${stap.m} = ${stap.p}×${stap.m / stap.p}` };
+      },
+    },
+    recaman: {
+      kop: "Recamán: spring n terug als het kan, anders n vooruit (0 rechts)",
+      uitleg: "Begin op 0. Bij stap n spring je n terug, als je dan niet onder nul komt en daar nog niet was; anders spring je n vooruit. 0 → 1 → 3 → 6 → 2 → 7 → 13 → 20 → 12 … Rood = waar je nu bent, grijs = waar je al was (0 t/m 49). Niemand weet of elk getal ooit aan de beurt komt.",
+      plekken: 50,
+      rood: g => ({ posities: [RECAMAN[g.n]], titels: [`a(${g.n}) = ${RECAMAN[g.n]}`], zacht: RECAMAN.slice(0, g.n).filter(a => a < 50), waarde: RECAMAN[g.n] }),
+    },
+    streepjescode: {
+      kop: "Streepjescode (UPC-stijl), lees van links naar rechts",
+      uitleg: "n als streepjescode, zoals op een pak melk. Grijs = de vaste wachtstrepen aan begin, midden en eind (101 · 01010 · 101). Elk cijfer is 7 streepjes breed; rechts van het midden zijn enen en nullen omgewisseld, zodat een scanner ziet in welke richting hij leest. Het laatste blok is een controlecijfer: 3 × (1e + 3e cijfer) + 2e + controle moet op een tiental uitkomen. 123 → controle 6.",
+      plekken: 39,
+      rood: g => {
+        const c = String(g.n).padStart(3, "0"), d = [...c].map(Number), check = (10 - (3 * (d[0] + d[2]) + d[1]) % 10) % 10;
+        const cellen = [], wacht = bits => [...bits].forEach(b => cellen.push([b === "1" ? "z" : ""]));
+        const data = (bits, titel) => [...bits].forEach(b => cellen.push([b === "1" ? "r" : "", titel]));
+        wacht("101"); d.forEach(x => data(UPC_L[x], `cijfer ${x}`));
+        wacht("01010"); data([...UPC_L[check]].map(b => b === "1" ? "0" : "1").join(""), `controle ${check}`); wacht("101");
+        return vanLinks(cellen, 39, `${c}·${check}`);
+      },
+    },
+    morse: {
+      kop: "Morse: punt = één bolletje, streep = twee",
+      uitleg: "Elk cijfer heeft in morse vijf tekens: 1 = ·––––, 5 = ·····, 0 = –––––. Een punt is één rood bolletje, een streep twee. Open rondjes scheiden de cijfers. Lees van links naar rechts: 5 is het kortst, 0 het langst, en de rij stijgt en daalt als een golf.",
+      plekken: 48,
+      rood: g => {
+        const cellen = [];
+        [...String(g.n)].forEach((c, k) => {
+          if (k) cellen.push([""], ["o"], [""]);
+          [...MORSE[c]].forEach((s, j) => { if (j) cellen.push([""]); cellen.push(["r", `${c}: ${MORSE[c]}`]); if (s === "-") cellen.push(["r", `${c}: ${MORSE[c]}`]); });
+        });
+        return vanLinks(cellen, 48, [...String(g.n)].map(c => MORSE[c].replaceAll(".", "·").replaceAll("-", "–")).join(" "));
+      },
+    },
+    romeins: {
+      kop: "Romeinse cijfers: I = ● · V = grijs · X = ●● · L = 2 grijs · C = ●●●",
+      uitleg: "n in Romeinse cijfers, van links naar rechts. I = één rood bolletje, V = één grijs, X = twee rood, L = twee grijs, C = drie rood. 4 = IV (één vóór vijf), 9 = IX, 256 = CCLVI. Het langst t/m 256 zijn 188 = CLXXXVIII en 238 = CCXXXVIII, elk 9 tekens.",
+      plekken: 26,
+      rood: g => {
+        const vorm = { I: ["r"], V: ["z"], X: ["r", "r"], L: ["z", "z"], C: ["r", "r", "r"] }, cellen = [], r = romeins(g.n);
+        [...r].forEach((t, k) => { if (k) cellen.push([""]); vorm[t].forEach(s => cellen.push([s, t])); });
+        return vanLinks(cellen, 26, r);
+      },
+    },
+    segment7: {
+      kop: "7-segment-display: staafjes a–g per cijfer",
+      uitleg: "Zoals op een wekkerradio: elk cijfer bestaat uit 7 staafjes (a boven, b en c rechts, d onder, e en f links, g midden). Rood = staafje brandt, grijs = uit, open rondje = tussen twee cijfers. Rechts het totaal aantal brandende staafjes, de 'stroomrekening'. 8 is het duurst (7 staafjes), 1 het zuinigst (2).",
+      plekken: 23,
+      rood: g => {
+        const cellen = [], cijfers = [...String(g.n)];
+        cijfers.forEach((c, k) => { if (k) cellen.push(["o"]); [...SEGMENT[c]].forEach((b, j) => cellen.push([b === "1" ? "r" : "z", `${c}: staafje ${"abcdefg"[j]}`])); });
+        return vanLinks(cellen, 23, cijfers.reduce((a, c) => a + [...SEGMENT[c]].filter(b => b === "1").length, 0));
+      },
+    },
+    binbreuk: {
+      kop: "1/n in binair: 0,b₁b₂b₃ … (50 cijfers, van links naar rechts)",
+      uitleg: "Deel 1 door n in het tweetallig stelsel. Rood = cijfer 1. Bij machten van 2 stopt het (1/8 = 0,001). Anders herhaalt het zich: 1/3 = 0,0101 …, 1/5 = 0,00110011 …, 1/7 = 0,001001 … Rechts de lengte van het stuk dat zich herhaalt. Bij een priem p deelt die lengte p − 1; is het precies p − 1 (3, 5, 11, 13, 19 …), dan is 2 een primitieve wortel mod p.",
+      plekken: 50,
+      rood: g => {
+        const cellen = [];
+        for (let i = 0, r = 1; i < 50; i++) { r *= 2; cellen.push([r >= g.n ? "r" : "", `cijfer ${i + 1}`]); r %= g.n; }
+        let m = g.n; while (m % 2 === 0) m /= 2;
+        let periode = 0;
+        if (m > 1) for (let x = 2 % m, k = 1; ; x = x * 2 % m, k++) if (x === 1) { periode = k; break; }
+        return vanLinks(cellen, 50, periode ? `periode ${periode}` : "eindig");
+      },
+    },
+    kalender: {
+      kop: "Dag n van 2026: de maand, dag 1 links",
+      uitleg: "Rij n is de n-de dag van 2026 (1 januari was een donderdag). De bolletjes zijn de dagen van die maand, van links naar rechts. Rood = deze dag, grijs = weekend, open = doordeweeks. Zo zie je de weekenden als schuine strepen door de tabel lopen. Dag 256 is 13 september: Dag van de Programmeur (2⁸ = 256). Vandaag, 5 november, is dag 309.",
+      plekken: 31,
+      rood: g => {
+        const dag = new Date(2026, 0, g.n), jaar = dag.getFullYear(), maand = dag.getMonth(), lengte = new Date(jaar, maand + 1, 0).getDate(), cellen = [];
+        for (let d = 1; d <= lengte; d++) {
+          const wd = new Date(jaar, maand, d).getDay();
+          cellen.push([d === dag.getDate() ? "r" : wd === 0 || wd === 6 ? "z" : "o", `${WEEKDAGEN[wd]} ${d} ${MAANDEN[maand]}`]);
+        }
+        return vanLinks(cellen, 31, `${WEEKDAGEN[dag.getDay()]} ${dag.getDate()} ${MAANDEN[maand]}${g.n === 256 ? " 💻" : ""}`);
+      },
+    },
+    maan: {
+      kop: "Maanstand, n dagen na nieuwe maan",
+      uitleg: "Een maanmaand duurt 29,53 dagen. Rij n is de maan n dagen na nieuwe maan: rood = verlicht, grijs = donker. Bij wassende maan groeit het licht van rechts (zoals je hem in Nederland ziet), daarna krimpt het weer naar links. Rechts het verlichte deel. Omdat 29,53 geen geheel getal is, schuift het ritme elke maand een stukje op.",
+      plekken: 30,
+      rood: g => {
+        const fase = g.n % 29.530588 / 29.530588, licht = (1 - Math.cos(2 * Math.PI * fase)) / 2, aan = Math.round(licht * 30);
+        const posities = [], zacht = [];
+        for (let i = 0; i < 30; i++) {
+          if (fase < 0.5 ? i < aan : i >= 30 - aan) posities.push(i); else zacht.push(i);
+        }
+        const icoon = [..."🌑🌒🌓🌔🌕🌖🌗🌘"][Math.round(fase * 8) % 8];
+        return { posities, titels: posities.map(() => `${Math.round(licht * 100)}% verlicht`), zacht, waarde: `${icoon} ${Math.round(licht * 100)}%` };
+      },
+    },
+    piano: {
+      kop: "Boventoon n op de piano: C links … B rechts",
+      uitleg: "Een snaar trilt ook op 2×, 3×, 4× … zijn grondtoon: de boventonen. Rood = de pianotoets die boventoon n het dichtst benadert (grondtoon C). Open rondjes = de zwarte toetsen. Grijs = de tonen van de priemfactoren: samen maken ze de toon (6 = 2 × 3 = octaaf + kwint = G). Rechts hoeveel cent de piano ernaast zit: 3 → G +2, 5 → E −14, 7 → B♭ −31 (te vals voor een piano).",
+      plekken: 12,
+      rood: g => {
+        const toon = x => { const h = 12 * Math.log2(x), k = Math.round(h); return { pc: k % 12, cent: Math.round(100 * (h - k)) }; };
+        const { pc, cent } = toon(g.n), naam = `${NOTEN[pc]} ${cent < 0 ? "−" : "+"}${Math.abs(cent)}`;
+        return { posities: [11 - pc], titels: [`${naam} cent`], zacht: g.uniek.map(p => 11 - toon(p).pc), as: [1, 3, 6, 8, 10].map(k => 11 - k), waarde: naam };
+      },
+    },
+    ritme: {
+      kop: "Euclidische ritmes: k slagen over 16 tellen │ over 12 tellen",
+      uitleg: "Verdeel k slagen zo eerlijk mogelijk over 16 tellen (links) of 12 tellen (rechts), met het algoritme van Euclides. Rood = slag, grijs = rust. Veel wereldmuziek komt er zo uit: 5 over 16 is bossa nova, 7 over 16 samba, 7 over 12 de Afrikaanse bembé-bel, 5 over 12 een Venda-klappatroon. Elke rij komt er een slag bij; daarna begint het opnieuw.",
+      plekken: 29,
+      rood: g => {
+        const k16 = (g.n - 1) % 17, k12 = (g.n - 1) % 13, cellen = [];
+        const ritme = (k, m) => { for (let i = 0; i < m; i++) cellen.push([i * k % m < k ? "r" : "z", `${k} over ${m}, tel ${i + 1}`]); };
+        ritme(k16, 16); cellen.push(["o"]); ritme(k12, 12);
+        const namen = { "4/16": "four-on-the-floor", "5/16": "bossa nova", "7/16": "samba", "5/12": "Venda", "7/12": "bembé" };
+        const naam = [namen[`${k16}/16`], namen[`${k12}/12`]].filter(Boolean).join(" + ");
+        return vanLinks(cellen, 29, naam || `${k16} · ${k12}`);
+      },
+    },
+    priemraster: {
+      kop: "Priemraster: getallen 30(n − 1) + 1 … 30n, van links naar rechts",
+      uitleg: "Zet alle getallen in rijen van 30 onder elkaar: rij 1 = 1 t/m 30, rij 2 = 31 t/m 60, … Rood = priem. Omdat 30 = 2 × 3 × 5 vallen alle priemen behalve 2, 3 en 5 in maar 8 kolommen (rest 1, 7, 11, 13, 17, 19, 23, 29): je ziet verticale strepen. Grijs = in zo'n kolom maar geen priem (49 = 7 × 7). Rechts het aantal; naar onder wordt het dunner.",
+      plekken: 30,
+      rood: g => {
+        const posities = [], titels = [], zacht = [];
+        for (let j = 1; j <= 30; j++) {
+          const x = 30 * (g.n - 1) + j;
+          if (isPriem(x)) { posities.push(30 - j); titels.push(`${x}`); } else if (x > 1 && ggd(x, 30) === 1) zacht.push(30 - j);
+        }
+        return { posities, titels, zacht, waarde: posities.length };
+      },
+    },
+    kwadraatresten: {
+      kop: "Kwadraten modulo n (k = 50 … 1)",
+      uitleg: "Welke k zijn een kwadraat als je alleen naar de rest bij delen door n kijkt? Mod 7: 1² = 1, 2² = 4, 3² = 9 → 2, dus 1, 2 en 4. Rood = k is zo'n kwadraatrest, grijs = k heeft een deler gemeen met n. Open rondje = k = n. Bij een priem is precies de helft van 1 … p − 1 rood. Bij 7, 11, 19, 23 … (rest 3 bij delen door 4) is k rood precies als p − k het níet is.",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, kwadraten = new Set([...Array(n).keys()].map(x => x * x % n)), posities = [], titels = [], zacht = [];
+        for (let k = 1; k < Math.min(n, 51); k++) {
+          if (kwadraten.has(k)) { posities.push(k - 1); titels.push(`${k} ≡ ${[...Array(n).keys()].find(x => x * x % n === k)}² mod ${n}`); }
+          else if (ggd(k, n) > 1) zacht.push(k - 1);
+        }
+        return { posities, titels, zacht, as: n <= 50 ? [n - 1] : [], waarde: [...kwadraten].filter(k => k).length };
+      },
+    },
+    primwortels: {
+      kop: "Primitieve wortels mod n (g = 50 … 1)",
+      uitleg: "g is een primitieve wortel mod n als g, g², g³ … alle resten langsgaan die geen deler met n delen. Mod 7 lukt dat met 3: 3, 2, 6, 4, 5, 1. Rood = primitieve wortel, grijs = g heeft een deler gemeen met n. Ze bestaan alleen bij 2, 4, pᵏ en 2pᵏ; bij 8, 12, 15 … blijft de rij leeg ('geen'). Rechts hoeveel er zijn: altijd φ(φ(n)).",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, posities = [], titels = [], zacht = [];
+        let aantal = 0;
+        for (let a = 1; a < Math.max(n, 2); a++) {
+          if (ggd(a, n) > 1) { if (a <= 50) zacht.push(a - 1); continue; }
+          let x = a % n, orde = 1;
+          while (x !== 1 % n) { x = x * a % n; orde++; }
+          if (orde === g.phi) { aantal++; if (a <= 50) { posities.push(a - 1); titels.push(`${a} is primitieve wortel mod ${n}`); } }
+        }
+        return { posities, titels, zacht, waarde: aantal || "geen" };
+      },
+    },
+    rsa: {
+      kop: "RSA-sleutels voor n = p × q: welke e (51 … 2) mag?",
+      uitleg: "RSA, het slot onder https: neem twee priemen, n = p × q, en reken φ = (p − 1)(q − 1). Een openbare sleutel e mag als e geen deler gemeen heeft met φ; de geheime sleutel d is dan het omgekeerde van e mod φ. Rood = geldige e. Grijs = geldig maar zwak: e is zijn eigen omgekeerde, dus geheim = openbaar. Rechts de kleinste e met zijn d. Bij 15 (φ = 8) is elke geldige e zwak!",
+      plekken: 50,
+      rood: g => {
+        if (g.f.length !== 2 || g.f[0] === g.f[1]) return { posities: [], titels: [] };
+        const fi = (g.f[0] - 1) * (g.f[1] - 1), posities = [], titels = [], zacht = [];
+        let sleutel = "";
+        for (let e = 2; e <= 51; e++) {
+          if (ggd(e, fi) !== 1) continue;
+          const d = [...Array(fi).keys()].find(d => e * d % fi === 1 % fi);
+          sleutel ||= `e ${e}, d ${d}`;
+          if (e * e % fi === 1 % fi) zacht.push(e - 2); else { posities.push(e - 2); titels.push(`e = ${e}, d = ${d} (φ = ${fi})`); }
+        }
+        return { posities, titels, zacht, waarde: sleutel };
+      },
+    },
+    kettingbreuk: {
+      kop: "Kettingbreuk van √n: termen als stroken rood │ grijs │ rood …",
+      uitleg: "Elke wortel is te schrijven als a₀ + 1/(a₁ + 1/(a₂ + …)), en de termen herhalen zich altijd. √7 = 2; 1, 1, 1, 4, 1, 1, 1, 4 … Hier één periode als stroken vanaf rechts: a₀ rood, a₁ grijs, a₂ rood … De periode eindigt altijd op 2a₀ (de brede strook). Rechts de periodelengte; □ = kwadraat, dan stopt het meteen. √61 heeft periode 11, en daarom is x² − 61y² = 1 berucht lastig.",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, a0 = Math.floor(Math.sqrt(n)), termen = [a0];
+        if (a0 * a0 !== n) for (let m = 0, d = 1, a = a0; a !== 2 * a0; ) { m = d * a - m; d = (n - m * m) / d; a = Math.floor((a0 + m) / d); termen.push(a); }
+        const posities = [], titels = [], zacht = [];
+        let pos = 0;
+        termen.forEach((t, i) => { for (let j = 0; j < t; j++, pos++) { if (i % 2) zacht.push(pos); else { posities.push(pos); titels.push(`a${i} = ${t}`); } } });
+        return { posities, titels, zacht, waarde: termen.length > 1 ? termen.length - 1 : "□" };
+      },
+    },
+    vrolijk: {
+      kop: "Vrolijke getallen: kwadrateer de cijfers en tel op (1 … 50)",
+      uitleg: "Neem de cijfers van n, kwadrateer ze en tel op; herhaal. 19 → 1 + 81 = 82 → 68 → 100 → 1: 19 is vrolijk (✓). Alle andere getallen belanden in de kringloop 4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4. Rood = waar je langskomt (t/m 50), grijs = de kringloop ter vergelijking. Vrolijke priemen: 7, 13, 19, 23, 31, 79, 97 …",
+      plekken: 50,
+      rood: g => {
+        const baan = [g.n];
+        for (let x = g.n; x !== 1; ) {
+          x = [...String(x)].reduce((s, c) => s + c * c, 0);
+          if (baan.includes(x)) break;
+          baan.push(x);
+        }
+        const binnen = baan.filter(v => v <= 50), blij = baan.includes(1);
+        return { posities: binnen.map(v => v - 1), titels: binnen.map(v => `${v}`), zacht: [4, 16, 37, 42, 20].filter(v => !baan.includes(v)).map(v => v - 1), waarde: blij ? `✓ ${baan.length - 1}` : "" };
+      },
+    },
+    kolakoski: {
+      kop: "Kolakoski-rij: het venster schuift elke rij één plek op",
+      uitleg: "1 2 2 1 1 2 1 2 2 1 2 2 … Deze rij beschrijft zichzelf: knip hem in blokjes van gelijke cijfers, (1)(22)(11)(2)(1)(22), en tel de lengtes: 1, 2, 2, 1, 1, 2 … weer dezelfde rij! Rood = 2, leeg = 1. Elke rij schuift het venster één plek, dus het patroon loopt schuin door de tabel. Rechts het aantal tweeën. Of het op den duur precies de helft is, weet niemand.",
+      plekken: 50,
+      rood: g => {
+        const venster = KOLAKOSKI.slice(g.n - 1, g.n + 49);
+        return vanLinks(venster.map((k, i) => [k === 2 ? "r" : "", `plek ${g.n + i}: ${k}`]), 50, venster.filter(k => k === 2).length);
+      },
+    },
+    vandercorput: {
+      kop: "Van der Corput: spiegel n binair achter de komma (0 links, 1 rechts)",
+      uitleg: "Schrijf n binair en spiegel het achter de komma: 6 = 110 → 0,011 = 0,375. Zo valt elk nieuw punt in het grootste gat van [0, 1]: ½, ¼, ¾, ⅛, ⅝, ⅜, ⅞ … Rood = het nieuwe punt, grijs = de punten sinds de laatste macht van 2, open = de punten daarvoor. Simulaties gebruiken dit omdat het gelijkmatiger vult dan toeval.",
+      plekken: 50,
+      rood: g => {
+        const vdc = x => { let v = 0; for (let f = 0.5; x; x >>= 1, f /= 2) if (x & 1) v += f; return v; };
+        const pos = m => 49 - Math.min(49, Math.floor(vdc(m) * 50)), macht = 2 ** graad(g.n), zacht = [], as = [];
+        for (let m = 1; m < g.n; m++) (m >= macht ? zacht : as).push(pos(m));
+        return { posities: [pos(g.n)], titels: [`${g.n} → ${vdc(g.n)}`], zacht, as, waarde: "0," + [...g.n.toString(2)].reverse().join("") };
+      },
+    },
+    fermat: {
+      kop: "Fermat-test met a = 2 … 51",
+      uitleg: "Fermat: als n priem is, geeft a^(n−1) bij delen door n altijd rest 1. Bolletje k (van rechts) test a = k + 1 en wordt rood als de test 'priem' zegt. Bij priemen is dus elk bolletje met a < n rood. Bij samengestelde getallen zijn de rode bolletjes 'leugenaars': 15 wordt voor de gek gehouden door 4, 11 en 14, en 91 = 7 · 13 zelfs door 19 van de 50. Rechts staat het aantal rode.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => k + 2 < g.n && powmod(k + 2, g.n - 1, g.n) === 1);
+        return { posities, titels: posities.map(k => `${k + 2}^${g.n - 1} mod ${g.n} = 1`), waarde: posities.length };
+      },
+    },
+    dirichlet: {
+      kop: "Priemen in de rij k·n + 1",
+      uitleg: "Bolletje k (van rechts) is rood als k·n + 1 priem is. Dirichlet bewees dat zo'n rij altijd oneindig veel priemen bevat. Bij oneven n is k·n + 1 even voor oneven k, dus kan alleen elk tweede bolletje rood worden. Voor 7: 29 (k = 4), 43 (k = 6), 71 (k = 10) … Rechts staat de eerste k.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => isPriem((k + 1) * g.n + 1));
+        return { posities, titels: posities.map(k => `${k + 1}·${g.n} + 1 = ${(k + 1) * g.n + 1}`), waarde: posities.length ? posities[0] + 1 : "–" };
+      },
+    },
+    legendre: {
+      kop: "Priemen tussen n² en (n+1)²",
+      uitleg: "Legendre vermoedde in 1798 dat er tussen twee opeenvolgende kwadraten altijd minstens één priem ligt. Dat is nog steeds niet bewezen. Elk rood bolletje is één priem tussen n² en (n+1)². Het aantal groeit langzaam (10 → 5, 100 → 23, 256 → 53); het minimum in de hele tabel is 2.",
+      plekken: 50,
+      rood: g => ({ vul: g.legendre }),
+    },
+    euler: {
+      kop: "Euler-polynoom k² + k + n (k = 0 … 49)",
+      uitleg: "Euler ontdekte dat k² + k + 41 voor k = 0 t/m 39 steeds een priemgetal geeft: 41, 43, 47, 53, 61 … Bolletje k (van rechts, vanaf 0) is rood als k² + k + n priem is. Rij 41 is daardoor bijna helemaal rood. Alleen 2, 3, 5, 11, 17 en 41 zijn zulke 'gelukkige getallen' (alle k tot n − 2 geven een priem); dat hangt samen met 4·41 − 1 = 163, het getal achter de bijna-gehele e^(π√163). Even n (behalve 2) geven altijd even uitkomsten en blijven wit.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => isPriem(k * k + k + g.n));
+        return { posities, titels: posities.map(k => `${k}² + ${k} + ${g.n} = ${k * k + k + g.n}`), waarde: posities.length };
+      },
+    },
+    kwadraatmod: {
+      kop: "Is n een kwadraat modulo p? (p = 2 … 229)",
+      uitleg: "Bolletje k hoort bij het k-de priemgetal p. Rood = n is bij delen door p dezelfde rest als een kwadraat (n is een 'kwadraatrest'), grijs = p deelt n, wit = nee. Echte kwadraten (4, 9, 16 …) zijn overal rood of grijs. Voor 2 hangt het alleen af van p mod 8: dat volgt uit de kwadratische reciprociteit van Gauss, die hij zelf 'de gouden stelling' noemde.",
+      plekken: 50,
+      rood: g => {
+        const k = [...Array(50).keys()], p = k => PRIEMEN[k];
+        const ja = k.filter(k => g.n % p(k) && [...Array(p(k)).keys()].some(x => x * x % p(k) === g.n % p(k)));
+        return { posities: ja, titels: ja.map(k => `${g.n} is een kwadraat mod ${p(k)}`), zacht: k.filter(k => g.n % p(k) === 0) };
+      },
+    },
+    artin: {
+      kop: "Artin: n als primitieve wortel mod p",
+      uitleg: "Bolletje k hoort bij het k-de priemgetal p en is rood als de machten n, n², n³ … bij delen door p álle resten 1 … p−1 langskomen. Artin vermoedde dat elk getal dat geen kwadraat is (en niet −1) dat voor oneindig veel p doet, voor ongeveer 37% van de priemen. Bij 2 is dat hier 24 van de 50. Kwadraten (4, 9, 16 …) halen het nooit en blijven wit. Het vermoeden is nog niet bewezen, maar volgt uit een uitgebreide Riemann-hypothese.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => orde(g.n, PRIEMEN[k]) === PRIEMEN[k] - 1);
+        return { posities, titels: posities.map(k => `${g.n} is primitieve wortel mod ${PRIEMEN[k]}`), waarde: posities.length };
+      },
+    },
+    orde2: {
+      kop: "n deelt 2ᵏ − 1 (k = 1 … 50)",
+      uitleg: "Bolletje k is rood als 2ᵏ − 1 deelbaar is door n. Bij oneven n gebeurt dat met een vaste periode: de orde van 2 modulo n (rechts). Zo krijg je regelmatige stippellijnen: 7 deelt 7, 63, 511 … (elke 3e), 31 elke 5e. Is n een priem met periode n − 1 (zoals 11 of 13), dan heeft 1/n in het tweetallig stelsel de langst mogelijke herhaling. Even n delen 2ᵏ − 1 nooit.",
+      plekken: 50,
+      rood: g => {
+        const o = g.n === 1 ? 1 : g.n % 2 ? orde(2, g.n) : 0;
+        const posities = o ? [...Array(50).keys()].filter(k => (k + 1) % o === 0) : [];
+        return { posities, titels: posities.map(k => `2^${k + 1} − 1 is deelbaar door ${g.n}`), waarde: o || "–" };
+      },
+    },
+    tweelingrond: {
+      kop: "Tweelingpriemen rond k·n",
+      uitleg: "Bolletje k kijkt naar k·n − 1 en k·n + 1. Rood = allebei priem (een tweeling, zoals 11 en 13 rond 12), grijs = één van de twee. Alle tweelingen boven (3, 5) liggen rond een veelvoud van 6, dus rij 6 is extra rood: 5|7, 11|13, 17|19, 29|31 … Bij oneven n zijn k·n ± 1 voor oneven k even, dus is daar elk tweede bolletje wit. Of er oneindig veel tweelingen zijn, weet niemand.",
+      plekken: 50,
+      rood: g => {
+        const k = [...Array(50).keys()], m = k => (k + 1) * g.n, tel = k => isPriem(m(k) - 1) + isPriem(m(k) + 1);
+        const twee = k.filter(k => tel(k) === 2);
+        return { posities: twee, titels: twee.map(k => `${m(k) - 1} en ${m(k) + 1}`), zacht: k.filter(k => tel(k) === 1), waarde: twee.length };
+      },
+    },
+    proth: {
+      kop: "n·2ᵏ + 1 priem (k = 1 … 50)",
+      uitleg: "Bolletje k is rood als n·2ᵏ + 1 priem is; de pagina test getallen tot 3·10¹⁷ met Miller–Rabin. Rij 1 geeft 3, 5, 17, 257, 65537: de Fermat-priemen. Rij 2n is rij n één plek opgeschoven, dus je ziet schuine strepen. Sierpiński bewees dat er oneven n bestaan waarvoor het nóóit priem is; de kleinste bekende is 78 557. Hier blijven 47, 143 en 217 de hele rij wit.",
+      plekken: 50,
+      rood: g => ({ posities: g.proth, titels: g.proth.map(k => `${g.n}·2^${k + 1} + 1`), waarde: g.proth.length }),
+    },
+    opeenvolgend: {
+      kop: "n als som van k opeenvolgende priemen",
+      uitleg: "Bolletje k is rood als n de som is van k priemgetallen op een rij. Priemen hebben altijd k = 1. 41 lukt op drie manieren: 41, 11 + 13 + 17 en 2 + 3 + 5 + 7 + 11 + 13. Langer dan 13 kan niet, want 2 + 3 + … + 43 is al 281.",
+      plekken: 13,
+      rood: g => {
+        const posities = [], van = [];
+        for (let k = 1; k <= 13; k++) for (let i = 0; i + k <= PRIEMEN.length; i++) {
+          const som = PRIEMEN.slice(i, i + k).reduce((a, b) => a + b);
+          if (som === g.n) { posities.push(k - 1); van.push(PRIEMEN.slice(i, i + k).join(" + ")); }
+          if (som >= g.n) break;
+        }
+        return { posities, titels: van, waarde: posities.length };
+      },
+    },
+    lemoine: {
+      kop: "Lemoine: n = p + 2q",
+      uitleg: "Bolletje k hoort bij het k-de priemgetal q en is rood als n − 2q ook priem is. Lemoine vermoedde dat elk oneven getal vanaf 7 zo te schrijven is (13 = 7 + 2·3 = 3 + 2·5). In de tabel klopt dat: geen enkele oneven rij vanaf 7 is leeg. Even rijen lukken alleen met p = 2. Net als Goldbach is het niet bewezen.",
+      plekken: 31,
+      rood: g => {
+        const posities = [...Array(31).keys()].filter(k => isPriem(g.n - 2 * PRIEMEN[k]));
+        return { posities, titels: posities.map(k => `${g.n - 2 * PRIEMEN[k]} + 2·${PRIEMEN[k]}`), waarde: posities.length };
+      },
+    },
+    gilbreath: {
+      kop: "Gilbreath: verschillen van verschillen",
+      uitleg: "Zet de priemen op een rij (2, 3, 5, 7, 11 …) en neem steeds het verschil tussen buren, zonder minteken. Rij n is de n-de keer: 1, 2, 2, 4, 2 … daarna 1, 0, 2, 2 … Grijs = 2, open rondje = 4 of meer, wit = 0. Rood is een 1, en die staat elke rij helemaal rechts. Gilbreath zag dat in 1958 op een servetje; het is gecontroleerd tot ver voorbij een biljoen, maar nooit bewezen.",
+      plekken: 50,
+      rood: g => {
+        const rij = GILBREATH[g.n].slice(0, 50), k = [...Array(50).keys()];
+        const een = k.filter(k => rij[k] === 1);
+        return { posities: een, titels: een.map(() => "1"), zacht: k.filter(k => rij[k] === 2), as: k.filter(k => rij[k] >= 4) };
+      },
+    },
+    pythagoras: {
+      kop: "Pythagoras: n² ± k² is een kwadraat",
+      uitleg: "Bolletje k is rood als n² + k² een kwadraat is: dan zijn n en k de rechthoekszijden van een driehoek met hele zijden (5, 12, 13). Grijs: n² − k² is een kwadraat, dus n is de schuine zijde (5 = schuin bij 3 en 4). Priemen van de vorm 4m + 1 (5, 13, 17 …) zijn altijd een schuine zijde, priemen 4m + 3 nooit (bij grote n kan de korte zijde wel buiten de 50 bolletjes vallen).",
+      plekken: 50,
+      rood: g => {
+        const k = [...Array(50).keys()], n2 = g.n * g.n;
+        const plus = k.filter(k => isKwadraat(n2 + (k + 1) ** 2));
+        return {
+          posities: plus, titels: plus.map(k => `${g.n}² + ${k + 1}² = ${Math.sqrt(n2 + (k + 1) ** 2)}²`),
+          zacht: k.filter(k => k + 1 < g.n && isKwadraat(n2 - (k + 1) ** 2)), waarde: plus.length || "",
+        };
+      },
+    },
+    regel110: {
+      kop: "Regel 110 (een computer van bolletjes)",
+      uitleg: "Nog een cellulaire automaat, nu Regel 110. Een cel wordt rood, behalve als hij en beide buren rood zijn, als alleen de linkerbuur rood is, of als alle drie wit zijn. Rij 1 begint met één rood bolletje helemaal rechts. Het patroon groeit naar links, met driehoekjes die als deeltjes over een vast achtergrondpatroon botsen. Matthew Cook bewees dat Regel 110 Turing-volledig is: je kunt er in principe elke computer mee nabouwen.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => R110[g.n - 1][k]);
+        return { posities, titels: posities.map(k => `cel ${k}`) };
+      },
+    },
+    pascal3: {
+      kop: "Pascal mod 3",
+      uitleg: "Rij n van de driehoek van Pascal, maar nu de rest bij delen door 3: rood = 1, grijs = 2, wit = 0. Net als bij Sierpiński (mod 2) ontstaat een fractal, alleen splitst elke driehoek nu in negen stukjes. Rij 8 en 26 zijn helemaal rood/grijs gekleurd, de rij erna (9, 27) is leeg op de randen na.",
+      plekken: 50,
+      rood: g => {
+        const k = [...Array(50).keys()].filter(k => k <= g.n);
+        const een = k.filter(k => binom3(g.n, k) === 1), twee = k.filter(k => binom3(g.n, k) === 2);
+        return { posities: een, titels: een.map(k => `${g.n} boven ${k} ≡ 1`), zacht: twee };
+      },
+    },
+    hofstadter: {
+      kop: "Hofstadter Q (chaos uit Fibonacci)",
+      uitleg: "Een Fibonacci-achtige reeks die naar zichzelf verwijst: Q(n) = Q(n − Q(n−1)) + Q(n − Q(n−2)). Hij schommelt rond n/2, maar onvoorspelbaar. Het staafje is Q(n) − n/2 (rechts = boven n/2, afgekapt op ±24). Het grijze bolletje is de rustige broer van Conway, a(n) = a(a(n−1)) + a(n − a(n−1)), die in steeds bredere bulten boven n/2 uitkomt. Rechts staat Q(n).",
+      plekken: 50,
+      rood: g => staaf(HQ[g.n] - g.n / 2, `Q(${g.n}) = ${HQ[g.n]}`, { zacht: [MID - Math.round(HC[g.n] - g.n / 2)], waarde: HQ[g.n] }),
+    },
+    liouville: {
+      kop: "Liouville L(n) = Σ λ(k)",
+      uitleg: "λ(k) = +1 als k een even aantal priemfactoren heeft (met herhaling), anders −1. L(n) is de som: een wandeling zoals Mertens, maar zonder nullen. Pólya vermoedde dat L(n) na 1 nooit boven 0 komt, en in deze tabel klopt dat (het minimum is −16). Pas bij n = 906 150 257 gaat het mis. Ook hier geldt: L(n) groeit niet veel sneller dan √n ⇔ de Riemann-hypothese. Grijs = ±√n.",
+      plekken: 50,
+      rood: g => {
+        const w = Math.round(Math.sqrt(g.n));
+        return staaf(g.liouville, `L(${g.n}) = ${g.liouville}`, { zacht: [MID - w, MID + w], waarde: g.liouville });
+      },
+    },
+    race4: {
+      kop: "Priemrace: 4k+3 tegen 4k+1",
+      uitleg: "Priemen boven 2 geven bij delen door 4 rest 1 (5, 13, 17 …) of rest 3 (3, 7, 11 …). Op lange termijn zijn beide even vaak, maar Chebyshev zag dat team 3 bijna altijd voorstaat. Het staafje is die voorsprong (3 bolletjes per priem, rechts = team 3). Gelijk staat het alleen rond 5, 17 en 41; team 1 staat pas bij 26 861 voor het eerst voor. Die voorkeur komt van de nulpunten van een L-functie, een broertje van ζ.",
+      plekken: 50,
+      rood: g => staaf(3 * g.race4, `team 3 − team 1 = ${g.race4}`, { waarde: (g.race4 > 0 ? "+" : "") + g.race4 }),
+    },
+    nulspectrum: {
+      kop: "Nulpunten als spectraallijnen",
+      uitleg: "Elke rij is een stukje van de kritieke lijn: rij n bekijkt hoogte t van 3(n−1) tot 3n, verdeeld over 50 bolletjes (0,06 per bolletje, laag rechts). Rood = daar ligt een nulpunt van ζ. Bovenin is het leeg (het eerste nulpunt is 14,13, rij 5), daarna liggen de lijnen steeds dichter op elkaar. Ze stoten elkaar af: twee nulpunten liggen zelden vlak naast elkaar, net als energieniveaus in zware atoomkernen (Montgomery en Dyson). Rechts staat het aantal in de rij.",
+      plekken: 50,
+      rood: g => {
+        const binnen = NULLEN.filter(γ => γ >= 3 * (g.n - 1) && γ < 3 * g.n);
+        const posities = [...new Set(binnen.map(γ => Math.floor((γ - 3 * (g.n - 1)) / 0.06)))];
+        return { posities, titels: posities.map(k => binnen.filter(γ => Math.floor((γ - 3 * (g.n - 1)) / 0.06) === k).map(γ => `γ ≈ ${γ.toFixed(3)}`).join(", ")), waarde: binnen.length };
+      },
+    },
+    aantal: {
+      kop: "Aantal priemfactoren",
+      uitleg: "Aantal rode bolletjes (vanaf rechts) = hoeveel priemfactoren, dubbele meegeteld. Bijvoorbeeld 12 = 2 × 2 × 3 → 3.",
+      plekken: 10,
+      rood: g => ({ vul: g.f.length }),
+    },
+  };
+
+  // ===== v2: indicatoren uit het Praime-project (writeup/, IDEAS.txt, FINDINGS.txt, FACTS.md) =====
+  const volgendePriem = x => { let q = x + 1; while (!isPriem(q)) q++; return q; };
+  const vorigePriem = x => { let q = x - 1; while (q > 1 && !isPriem(q)) q--; return q; };
+  const legendre = (a, p) => { a = ((a % p) + p) % p; return a === 0 ? 0 : powmod(a, (p - 1) / 2, p) === 1 ? 1 : -1; };  // p oneven priem
+  const P50 = PRIEMEN.slice(0, 50);  // 2 … 229
+  const EG = Math.exp(0.5772156649);
+  const cijfersom = x => [...String(x)].reduce((s, c) => s + +c, 0);
+  const sigma = g => g.delers.reduce((a, d) => a + d, 0);
+  const ordMod = (a, m) => { if (m === 1) return 1; if (ggd(a, m) !== 1) return 0; let x = a % m, k = 1; while (x !== 1) { x = x * a % m; k++; } return k; };
+  const omkeer = x => +[...String(x)].reverse().join("");
+  const phiVan = x => [...new Set(factors(x))].reduce((a, p) => a / p * (p - 1), x);
+  // Overlevende van de zeef tot y: geen priemfactor q <= y met q < x (zo blijven 2, 3, 5, 7 zelf over)
+  const overleeft = (x, y) => x > 1 && PRIEMEN.every(q => q > y || q >= x || x % q);
+  const eersteOverlevende = (p, y) => { let x = p + 1; while (!overleeft(x, y)) x++; return x; };
+  function klassengetal(D) {  // D < 0, D ≡ 0 of 1 (mod 4): aantal primitieve gereduceerde vormen ax² + bxy + cy²
+    let h = 0;
+    for (let a = 1; 3 * a * a <= -D; a++) for (let b = -a + 1; b <= a; b++) {
+      if ((b * b - D) % (4 * a)) continue;
+      const c = (b * b - D) / (4 * a);
+      if (c < a || (c === a && b < 0)) continue;
+      if (ggd(ggd(Math.abs(b), a), c) !== 1) continue;
+      h++;
+    }
+    return h;
+  }
+  function jacobsthal(n) {  // grootste gat tussen opeenvolgende getallen copriem met n
+    if (n === 1) return 1;
+    let best = 0, laatste = 0;
+    for (let x = 1; x <= 2 * n + 1; x++) if (ggd(x, n) === 1) { if (laatste) best = Math.max(best, x - laatste); laatste = x; }
+    return best;
+  }
+  const GELUKKIG = (() => {  // gelukkige getallen (Ulam) t/m N + 50
+    let L = []; for (let i = 1; i <= N + 50; i += 2) L.push(i);
+    for (let k = 1; k < L.length && L[k] <= L.length; k++) { const s = L[k]; L = L.filter((_, i) => (i + 1) % s); }
+    return new Set(L);
+  })();
+  const ZELF = new Set([...Array(N + 1).keys()].slice(1)); for (let m = 1; m <= N; m++) ZELF.delete(m + cijfersom(m));
+  const tweeKwadraten = p => { for (let a = 1; 2 * a * a <= p; a++) { const b = Math.round(Math.sqrt(p - a * a)); if (b * b === p - a * a) return [a, b]; } return null; };
+  const DEKKING = [3, 5, 7, 13, 17, 241];  // klassieke dekkende verzameling voor n·2ᵏ ± 1 (periode 24)
+  const kleineFactor = (v, grens) => { for (const q of PRIEMEN) { if (q > grens) break; if (v % BigInt(q) === 0n && v !== BigInt(q)) return q; } return 0; };
+  const bigIsPriem = v => v >= 2n && !kleineFactor(v, 50) && (v < 2500n ? isPriem(Number(v)) : bigPriem(v));
+  let race8 = [0, 0, 0, 0], eind19 = 0, eind37 = 0;
+  for (const g of getallen) {
+    const n = g.n;
+    if (isPriem(n) && n > 2) { race8[(n % 8 - 1) / 2]++; if (n % 10 === 1 || n % 10 === 9) eind19++; else if (n > 5) eind37++; }
+    g.race8 = race8.slice(); g.eind = eind19 - eind37;
+    g.ord10 = ggd(n, 10) === 1 ? ordMod(10, n) : 0;
+    g.h = klassengetal(1 - 4 * n);
+    g.jac = jacobsthal(n);
+    g.sigma = sigma(g);
+    // Cunningham-ketens vanaf n (eerste soort 2x + 1, tweede soort 2x − 1)
+    const keten = s => { const r = []; for (let x = n; r.length < 24 && isPriem(x); x = 2 * x + s) r.push(x); return r; };
+    g.cc1 = keten(1); g.cc2 = keten(-1);
+    // Euler–Rodriguez-ketens n ± x(x+1)
+    g.er = []; for (let x = 0; x < 25 && isPriem(n + x * (x + 1)); x++) g.er.push(n + x * (x + 1));
+    g.erSpiegel = []; for (let x = 0; x < 25 && n - x * (x + 1) >= 2 && isPriem(n - x * (x + 1)); x++) g.erSpiegel.push(n - x * (x + 1));
+    // Cascade (857): p = a² + b² → 2ab + 1
+    g.cascade = [];
+    if (isPriem(n) && n % 4 === 1) for (let p = n; ; ) { g.cascade.push(p); const [a, b] = tweeKwadraten(p), q = 2 * a * b + 1; if (!isPriem(q) || q % 4 !== 1 || g.cascade.includes(q)) break; p = q; }
+    if (isPriem(n)) {
+      const q = volgendePriem(n); g.volgende = q;
+      g.J7 = 0; g.J3 = 0;
+      for (let x = n + 1; x <= q; x++) { if (overleeft(x, 7)) g.J7++; if (overleeft(x, 3)) g.J3++; }
+      // Gatenreeksen vanaf n (puzzel 11): paarsgewijs verschillend, strikt stijgend, strikt dalend
+      const i0 = VEEL_PRIEMEN.indexOf(n), gaten = []; for (let i = i0; i + 1 < VEEL_PRIEMEN.length && gaten.length < 20; i++) gaten.push(VEEL_PRIEMEN[i + 1] - VEEL_PRIEMEN[i]);
+      let v = 1; while (v < gaten.length && !gaten.slice(0, v).includes(gaten[v])) v++;
+      let s = 1; while (s < gaten.length && gaten[s] > gaten[s - 1]) s++;
+      let d = 1; while (d < gaten.length && gaten[d] < gaten[d - 1]) d++;
+      g.runs = [v, s, d];
+    }
+    if (n % 2 === 0 && n >= 4) { let T = 0; for (const p of PRIEMEN) { if (p === 2) continue; T++; if (isPriem(n - p)) { g.goldT = T; g.goldP = p; break; } } }
+    // Carry-regel (1238): n deelt 10ᴺ + 10ᴶ − 1 met J < N
+    g.lag = null;
+    if (g.ord10) { const M = Math.max(50, g.ord10), m10 = []; let x = 1 % n; for (let k = 0; k <= M; k++) { m10.push(x); x = x * 10 % n; }
+      g.lags = new Map();
+      for (let Nn = 2; Nn <= M; Nn++) for (let J = 1; J < Nn; J++) if ((m10[Nn] + m10[J] - 1) % n === 0) { if (!g.lags.has(Nn)) g.lags.set(Nn, J); if (!g.lag) g.lag = [Nn, J]; } }
+  }
+  // Zware BigInt-berekeningen pas bij eerste gebruik
+  let praimeCache = null;
+  const praime = () => praimeCache ??= (() => {
+    for (const g of getallen) {
+      const n = BigInt(g.n);
+      g.tweemacht = [...Array(50).keys()].map(k => { const v = (1n << n) - BigInt(2 * k + 1); return v < 2n ? 0 : kleineFactor(v, 47) ? -1 : (v < 2500n ? isPriem(Number(v)) : bigPriem(v)) ? 1 : 0; });
+      g.brier = [1n, -1n].map(s => [...Array(25).keys()].map(k => { const v = n * (1n << BigInt(k + 1)) + s; const d = DEKKING.find(q => v % BigInt(q) === 0n && v !== BigInt(q)); return d ? -1 : bigIsPriem(v) ? 1 : 0; }));
+      g.keten6 = [...Array(50).keys()].map(i => { const t = 10n ** BigInt(i + 1), v = n * t + 6n * (t - 10n) / 9n + 1n; const d = [3, 7, 11, 13, 37].find(q => v % BigInt(q) === 0n && v !== BigInt(q)); return d ? -1 : bigIsPriem(v) ? 1 : 0; });
+    }
+    return true;
+  })();
+  const PRAIME_MODI = {
+    periode10: {
+      kop: "Periode van 1/n: n deelt 10ᵏ − 1 (k = 1 … 50)",
+      uitleg: "Puzzel 1230 vroeg om zo veel mogelijk priemen op een rij waarvan 1/p een éven periode heeft. Bolletje k is rood als 10ᵏ − 1 deelbaar is door n, dus als de decimalen van 1/n zich na k cijfers herhalen; de rode bolletjes staan op afstand van de periode. Onze truc: voor p ≡ 17 (mod 40) is 10 geen kwadraat mod p, en dan is de periode altijd even. Een formule die altijd rest 17 geeft (40·Q(n) + 17) gaf 30 priemen op rij, één meer dan het record. Rechts de periode, ✓ = even, ★ = n ≡ 17 (mod 40). Getallen met factor 2 of 5 blijven leeg.",
+      plekken: 50,
+      rood: g => {
+        const o = g.ord10, posities = o ? [...Array(50).keys()].filter(k => (k + 1) % o === 0) : [];
+        return { posities, titels: posities.map(k => `10^${k + 1} − 1 is deelbaar door ${g.n}`), waarde: o ? `${o}${o % 2 ? "" : " ✓"}${g.n % 40 === 17 ? " ★" : ""}` : "–" };
+      },
+    },
+    discriminant: {
+      kop: "Discriminant-filter: priemen die k² + k + n nooit delen (p = 229 … 2)",
+      uitleg: "Puzzels 597 en 1139 en vermoeden 17: k² + k + n geeft veel priemen als kleine priemen het nooit kunnen delen, en dat hangt alleen af van de discriminant D = 1 − 4n. Een oneven priem p deelt een waarde alleen als D een kwadraat mod p is. Bolletje k hoort bij de k-de priem: rood = D is geen kwadraat mod p, dus p valt voorgoed af; grijs = p deelt D. Bij n = 41 (D = −163) vallen 2 tot en met 37 allemaal af. Hoe meer rood links, hoe priemrijker de formule; dat is in vermomming de klassengetalformule: rechts h(D), en een kleine h bij grote |D| betekent veel priemen (h(−163) = 1).",
+      plekken: 50,
+      rood: g => {
+        const D = 1 - 4 * g.n, posities = [], zacht = [];
+        P50.forEach((p, k) => { if (p === 2) { if (g.n % 2) posities.push(k); return; } const l = legendre(D, p); if (l === -1) posities.push(k); else if (l === 0) zacht.push(k); });
+        return { posities, titels: posities.map(k => `${P50[k]} deelt k² + k + ${g.n} nooit`), zacht, waarde: `h = ${g.h}` };
+      },
+    },
+    cunningham: {
+      kop: "Cunningham-ketens: n, 2n − 1, 4n − 3 … (links) │ n, 2n + 1, 4n + 3 … (rechts)",
+      uitleg: "Rechts van het open rondje staan n, 2n + 1, 4n + 3, … zolang ze priem zijn (keten van de eerste soort); links n, 2n − 1, 4n − 3, … (tweede soort). Feit 6201: x → 2x + 1 laat mod 3 en mod 5 maar één klasse met rust (−1), elke andere klasse komt op 0 uit. Daarom begint een keten van 4 of meer priemen boven 5 altijd bij n ≡ 29 (mod 30), en een keten van de tweede soort bij n ≡ 1 (mod 30). Zo hoef je maar in één klasse te zoeken. Rechts de twee lengtes. Vanaf 2 gaat het tot 47 (5 priemen), 89 begint de eerste keten van 6, en 1122659 de eerste van 7.",
+      plekken: 50,
+      rood: g => {
+        const posities = g.cc1.map((_, k) => k).concat(g.cc2.map((_, k) => 25 + k));
+        return { posities, titels: g.cc1.map(x => `${x}`).concat(g.cc2.map(x => `${x}`)), as: [24], waarde: `${g.cc2.length} · ${g.cc1.length}` };
+      },
+    },
+    race8: {
+      kop: "Priemrace mod 8: hoe ver klasse 1 (de kwadraten) achterligt op de koploper",
+      uitleg: "Oneven priemen hebben rest 1, 3, 5 of 7 bij delen door 8. Het staafje naar links is de achterstand van klasse 1 op de klasse die voorstaat (open rondje = gelijk). Elk kwadraat van een oneven priem valt in klasse 1, en dat zet die klasse op achterstand: tot 1,4·10¹¹ loopt klasse 1 nooit voorop (FINDINGS), en pas bij 588 067 889 haalt ze voor het eerst klasse 5 in. Grijs = de achterstand op klasse 5 alleen. Rechts de stand 1 · 3 · 5 · 7. Die voorkeur komt van de nulpunten van L-functies, net als bij de race mod 4.",
+      plekken: 50,
+      rood: g => {
+        const [c1, c3, c5, c7] = g.race8, v = c1 - Math.max(c3, c5, c7);
+        return staaf(v, `klasse 1 staat ${-v} achter`, { zacht: [MID - (c1 - c5)], waarde: `${c1} · ${c3} · ${c5} · ${c7}` });
+      },
+    },
+    eindcijfer: {
+      kop: "Priemrace op het laatste cijfer: 1 en 9 (rechts) tegen 3 en 7 (links)",
+      uitleg: "Tel de priemen t/m n die op 1 of 9 eindigen en trek die op 3 of 7 af (3 bolletjes per priem). 1 en 9 zijn de kwadraten mod 10 (1² = 1, 3² = 9), en net als klasse 1 mod 8 lopen de kwadraten achter: tot 2·10⁸ staan 1 en 9 maar 1 tot 3 % van de tijd voor (FINDINGS). In deze tabel staan ze nooit voor; gelijk staat het alleen bij 11, 31 en 41. Rechts de stand.",
+      plekken: 50,
+      rood: g => staaf(3 * g.eind, `1 en 9 min 3 en 7 = ${g.eind}`, { waarde: (g.eind > 0 ? "+" : "") + g.eind }),
+    },
+    zsigmondy: {
+      kop: "Zsigmondy: priemen q = k·n + 1 (k = 1 … 50) met orde van 2 precies n",
+      uitleg: "Stelling van Zsigmondy (feit 1509): 2ⁿ − 1 heeft voor elke n > 1 behalve 6 een priemdeler die geen eerdere 2ᵏ − 1 deelt. De orde van 2 modulo zo'n priem is precies n, dus de priem is 1 (mod n). Bolletje k: rood = k·n + 1 is priem en 2 heeft daar orde n, grijs = k·n + 1 is priem maar de orde is kleiner (of hij deelt 2ⁿ − 1 niet). Rij 6 blijft wit: 63 = 3²·7 en 3 en 7 delen al 2² − 1 en 2³ − 1. Rechts de kleinste zo'n priem; staat er >, dan ligt hij voorbij 2000·n (voor n = 256 is het 59649589127497217, een factor van 2¹²⁸ + 1).",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, posities = [], zacht = [];
+        let kleinste = 0;
+        for (let k = 1; k <= 2000 && !(kleinste && k > 50); k++) {
+          const q = k * n + 1;
+          if (!isPriem(q)) continue;
+          if (powmod(2, n, q) === 1 && g.uniek.every(r => powmod(2, n / r, q) !== 1)) { kleinste ||= q; if (k <= 50) posities.push(k - 1); } else if (k <= 50) zacht.push(k - 1);
+        }
+        return { posities, titels: posities.map(k => `${(k + 1) * n + 1} = ${k + 1}·${n} + 1 deelt 2^${n} − 1 als eerste`), zacht, waarde: n === 1 ? "–" : n === 6 ? "geen" : kleinste || `> ${2000 * n}` };
+      },
+    },
+    inverse: {
+      kop: "x en 1/x mod n: beide oneven (rood), beide even (grijs); x = 50 … 1",
+      uitleg: "Probleem 7: neem voor elke x van 1 tot n − 1 de inverse x′ met x·x′ ≡ 1 (mod n). Rood = x en x′ allebei oneven, grijs = allebei even, wit = verschillende pariteit of geen inverse. Op de pagina was over x = 2 … p − 1 geteld dat oneven-oneven er altijd één minder is dan even-even; wij bewezen het voor élke oneven n: x → n − x spiegelt de rij en wisselt beide pariteiten, dus over alle x zijn oneven-oneven en even-even even talrijk, en het weglaten van x = 1 (oneven-oneven) geeft het verschil 1. Rechts oneven-oneven · even-even over alle x: bij oneven n altijd gelijk. Bij even n bestaan alleen oneven inversen.",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, posities = [], zacht = [];
+        let oo = 0, ee = 0;
+        for (let x = 1; x < n; x++) {
+          if (ggd(x, n) !== 1) continue;
+          const y = [...Array(n).keys()].find(y => x * y % n === 1);
+          if (x % 2 && y % 2) { oo++; if (x <= 50) posities.push(x - 1); } else if (!(x % 2) && !(y % 2)) { ee++; if (x <= 50) zacht.push(x - 1); }
+        }
+        return { posities, titels: posities.map(x => `${x + 1} · ${[...Array(n).keys()].find(y => (x + 1) * y % n === 1)} ≡ 1 (mod ${n})`), zacht, waarde: n < 3 ? "–" : `${oo} · ${ee}` };
+      },
+    },
+    wiel: {
+      kop: "Welke gaten laat het wiel van 210 toe na priem n? (g = 100 … 2, even)",
+      uitleg: "Na een priem p kan de volgende priem alleen op p + g liggen als p + g geen factor 2, 3, 5 of 7 heeft, en dat hangt alleen af van p mod 210. Bolletje k staat voor g = 2k: rood = door het wiel toegestaan, open rondje = het echte volgende gat. FINDINGS: alles wat de vorige gaten over het volgende gat 'weten' is precies deze positie op het wiel. Bij 10⁹ raadt p mod 210 het gat in 20 % van de gevallen, en de laatste drie gaten erbij nemen voegt niets toe. Rechts het gat en hoeveel van de 50 kandidaten het wiel overlaat.",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const posities = [...Array(50).keys()].filter(k => overleeft(g.n + 2 * k + 2, 7)), gat = g.volgende - g.n;
+        return { posities, titels: posities.map(k => `g = ${2 * k + 2}: ${g.n + 2 * k + 2} heeft geen factor 2, 3, 5, 7`), as: gat <= 100 ? [gat / 2 - 1] : [], waarde: `${gat} (${posities.length} van 50)` };
+      },
+    },
+    tellers: {
+      kop: "Dynamisch wiel: één teller per priem (p = 229 … 2), actief vanaf p²",
+      uitleg: "Een zeef zonder delingen (FINDINGS): elke priem p heeft een teller die bij elke stap n → n + 1 één omlaag gaat en bij 0 weer op p springt; de teller van p doet pas mee vanaf n = p². Rood = een actieve teller staat op 0 (p deelt n), grijs = teller nog niet actief (p² > n). n is priem precies als er geen rood is: een samengesteld getal heeft altijd een priemfactor onder zijn wortel. Met alleen de tellers tot y is 'het eerste getal zonder rood' de volgende priem met kans 1/(v·ω(v)), v = ln x / ln y (Buchstab); bij 10⁹ en y = 1000 is dat 59 %.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], zacht = [];
+        P50.forEach((p, k) => { if (p * p > g.n) zacht.push(k); else if (g.n % p === 0) posities.push(k); });
+        return { posities, titels: posities.map(k => `teller van ${P50[k]} staat op 0`), zacht, waarde: g.n < 2 ? "–" : posities.length ? `÷${P50[posities[0]]}` : "priem" };
+      },
+    },
+    overlevenden: {
+      kop: "Zeef tot 7, venster n … n−49: overlevenden (grijs) en priemen (rood)",
+      uitleg: "Streep alle veelvouden van 2, 3, 5 en 7 weg; wat overblijft is een overlevende. Rood = priem, grijs = overlevende die geen priem is (de eerste is 121 = 11²). FINDINGS: de volgende priem na p is de J-de overlevende, met J geometrisch verdeeld: elke overlevende is met dezelfde kans ρ priem, onafhankelijk van de vorige, gemeten tot op 0,1 % bij 10⁹ … 10¹⁸ met de zeef tot x^0,405. Alle structuur in de priemgaten zit in de zeef; daarboven gedraagt priem-zijn zich als een eerlijke munt. Rechts het aandeel priemen onder de overlevenden boven 10 in dit venster.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], zacht = [];
+        let o = 0, p = 0;
+        for (let k = 0; k < 50; k++) { const x = g.n - k; if (x < 2) break; if (isPriem(x)) { posities.push(k); if (x > 10) { o++; p++; } } else if (overleeft(x, 7)) { zacht.push(k); o++; } }
+        return { posities, titels: posities.map(k => `${g.n - k}`), zacht, waarde: o ? Math.round(100 * p / o) + "%" : "" };
+      },
+    },
+    jde: {
+      kop: "De volgende priem is de J-de overlevende van de zeef tot 7 (rood) en tot 3 (grijs)",
+      uitleg: "Voor een priem n: tel de overlevenden van de zeef (geen factor 2, 3, 5, 7) na n tot en met de volgende priem. Dat aantal J is het aantal rode bolletjes; het grijze bolletje is J voor de zeef tot 3. Onder 121 is J altijd 1; daarna is J geometrisch verdeeld, P(J = j) = ρ(1 − ρ)^(j−1), bij 10⁹ … 10¹⁵ gemeten tot op 0,3 % (FINDINGS). Met een geheugen van K vorige gaten doe je het even goed als met de zeef tot y, waarbij y·ln y ≈ K: de vorige gaten zijn de zeef. Rechts J.",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const posities = [...Array(g.J7).keys()];
+        return { posities, titels: posities.map(() => `volgende priem ${g.volgende} is overlevende ${g.J7}`), zacht: [g.J3 - 1], waarde: g.J7 };
+      },
+    },
+    raders: {
+      kop: "Wie raadt de volgende priem? Voorspellingen (rood), de echte (open rondje); n+1 … n+50",
+      uitleg: "Voor een priem n raden zes regels de volgende priem: het laatste gat herhalen, het gemiddelde gat tot nu toe, ln n, het kleinste gat dat het wiel van 6 toelaat, de eerste overlevende van de zeef tot 7 en die van de zeef tot 13. Rood = een voorspelling (hover voor de regel), open rondje = de echte volgende priem. FINDINGS (backtest van 100 regels bij 10⁶, 10⁹ en 10¹²): de zeef wint altijd (bij 10⁹ raakt 'eerste getal zonder factor tot 1000' 59 %), regels op basis van vorige gaten verliezen 30 tot 60 % van de treffers, en zelfs de drie laatste gaten samen voegen aan p mod 210 niets toe. Rechts welke regels hier raak zijn.",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const n = g.n, regels = [];
+        if (n > 2) regels.push(["laatste gat", 2 * n - vorigePriem(n)]);
+        if (n > 2) regels.push(["gemiddeld gat", n + Math.round((n - 2) / (g.pi - 1))]);
+        regels.push(["ln n", n + Math.round(Math.log(n))]);
+        regels.push(["wiel van 6", n === 2 ? 3 : n === 3 ? 5 : n % 6 === 5 ? n + 2 : n + 4]);
+        regels.push(["zeef tot 7", eersteOverlevende(n, 7)]);
+        regels.push(["zeef tot 13", eersteOverlevende(n, 13)]);
+        const perPlek = new Map();
+        for (const [naam, v] of regels) { const k = v - n - 1; if (k >= 0 && k < 50) perPlek.set(k, (perPlek.get(k) || []).concat(naam)); }
+        const posities = [...perPlek.keys()], raak = regels.filter(([, v]) => v === g.volgende).map(([naam]) => naam);
+        return { posities, titels: posities.map(k => `${n + k + 1}: ${perPlek.get(k).join(", ")}`), as: [g.volgende - n - 1], waarde: raak.join(", ") || "niemand" };
+      },
+    },
+    cramer: {
+      kop: "Gat na priem n (rood) tegen ln² n (grijs, Cramér) en ln² n − ln n − 1 (open, Firoozbakht)",
+      uitleg: "Voor een priem n is het aantal rode bolletjes het gat tot de volgende priem. Grijs = ln² n, de grootte die Cramérs model voor het grootst mogelijke gat voorspelt; open rondje = ln² n − ln n − 1, de grens die uit Firoozbakhts vermoeden volgt (voor n ≥ 29). Vermoedens 7 en 30: in ons zeefmodel ligt het recordgat onder x rond ln² x · (1 − 2,2 ln ln x / ln x), het record 1132 na 1693182318746371 zit op het 93e percentiel, en Firoozbakht is in elk rekenbaar bereik veilig (0,001 verwachte schendingen onder 10²⁰). Rechts g / ln² n; boven 1 komt dat alleen bij 2, 3 en 7 (2,08, 1,66 en 1,06).",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const gat = g.volgende - g.n, l = Math.log(g.n), posities = [...Array(Math.min(gat, 50)).keys()];
+        return { posities, titels: posities.map(() => `gat ${gat} tot ${g.volgende}`), zacht: [Math.round(l * l) - 1], as: g.n >= 29 ? [Math.round(l * l - l - 1) - 1] : [], waarde: (gat / (l * l)).toFixed(2) };
+      },
+    },
+    gatenreeksen: {
+      kop: "Gaten vanaf priem n: hoeveel op rij verschillend │ stijgend │ dalend",
+      uitleg: "Puzzel 11 vraagt naar de eerste N opeenvolgende priemgaten die allemaal verschillend zijn, of allemaal stijgen, of dalen. Vanaf priem n: links het aantal gaten op rij dat paarsgewijs verschilt, midden het aantal dat strikt stijgt, rechts het aantal dat strikt daalt (één gat telt als 1). Hier is het meeste 5 verschillende vanaf 113 (gaten 14, 4, 6, 2, 10) en 3 stijgende vanaf 17, 41 en 79. Wij publiceerden N = 21 … 35 voor 'verschillend' (Gusevs onuitgegeven waarden uit 2001, herberekend en minimaal bewezen; N = 33 … 36 beginnen alle bij 1625800359439) en vonden geen 37-run onder 1,01·10¹³. Rechts de drie lengtes.",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const [v, s, d] = g.runs, posities = [], titels = [];
+        [[d, 0, "dalend"], [s, 17, "stijgend"], [v, 34, "verschillend"]].forEach(([len, start, naam]) => { for (let i = 0; i < Math.min(len, 16); i++) { posities.push(start + i); titels.push(`${len} gaten ${naam}`); } });
+        return { posities, titels, as: [16, 33], waarde: `${v} · ${s} · ${d}` };
+      },
+    },
+    jacobsthal: {
+      kop: "Jacobsthal j(n): het grootste gat tussen getallen zonder factor gemeen met n",
+      uitleg: "Streep alle getallen weg die een factor met n delen; j(n) is het grootste gat tussen twee overblijvers. Het aantal rode bolletjes is j(n). Voor een priem is dat 2, en voor de primorialen groeit het langzaam: j(6) = 4, j(30) = 6, j(210) = 10, j(2310) = 14. Dat is de 'wiel-laag' van de priemgaten: na de zeef tot 7 zijn gaten tot 10 toegestaan en geen enkel getal ontsnapt langer dan dat. FINDINGS: de eerste 7, 12, 26, 34, 55, … priemen na 3, 5, 7, 11, 13, … zijn precies de eerste overlevenden van zo'n wiel, dus de priemgaten beginnen als stukken periodieke rijen. Rechts j(n).",
+      plekken: 50,
+      rood: g => ({ vul: g.jac }),
+    },
+    goldbachmin: {
+      kop: "Goldbach: hoeveel oneven priemen proberen tot n − p priem is? (even n)",
+      uitleg: "Voor even n: trek 3, 5, 7, … af tot n − p priem is. Het aantal rode bolletjes is het aantal pogingen T(n), rechts de priem die het doet. Vermoeden 36 vraagt of T(n)/ln² n begrensd blijft. Onze afleiding: elke poging slaagt met kans ongeveer 2C₂·S(n)/ln n (C₂ = 0,66 de tweelingpriemconstante), dus T is geometrisch verdeeld en de records groeien als ln X · ln X/(2C₂); de index T/ln² n van de recordhouders gaat naar 1/(2C₂) = 0,757, en de 69 bekende records tot 4·10¹⁸ zitten op 82 tot 94 % daarvan. Onder 2·10⁸ is de kleinste Goldbach-priem nooit groter dan 1321. Hier is het hoogste T = 8 bij n = 220 (p = 23).",
+      plekken: 50,
+      rood: g => g.goldT ? { vul: g.goldT, waarde: `${g.goldT} → ${g.goldP}` } : { posities: [], titels: [] },
+    },
+    tweemacht: {
+      kop: "2ⁿ − c priem? (c = 99 … 1, oneven)",
+      uitleg: "Puzzel 1257 vraagt naar de volgende n met 2ⁿ − 7 priem (bekend: n = 39, 715, 1983, 2319, 2499, 3775, 12819, …). Bolletje k hoort bij c = 2k − 1 (c = 1 rechts: de Mersenne-getallen). Rood = 2ⁿ − c is priem (boven 3·10²⁴ een Miller–Rabin-test met 12 grondtallen, dus PRP), grijs = deelbaar door een priem onder 50. De grijze diagonalen zijn vaste klassen: 3 deelt 2ⁿ − 7 voor even n, 5 voor n ≡ 1 (mod 4), 11 voor n ≡ 7 (mod 10), 13 voor n ≡ 11 (mod 12), zodat voor 2ⁿ − 7 maar 8 klassen mod 60 overblijven (IDEAS); een volledige dekking bestaat niet, anders was 39 niet gelukt. Rechts het aantal rode.",
+      plekken: 50,
+      rood: g => {
+        praime();
+        const posities = g.tweemacht.flatMap((v, k) => v === 1 ? [k] : []), zacht = g.tweemacht.flatMap((v, k) => v === -1 ? [k] : []);
+        return { posities, titels: posities.map(k => `2^${g.n} − ${2 * k + 1}`), zacht, waarde: posities.length };
+      },
+    },
+    zelfverwijzend: {
+      kop: "Welke priemen q ≤ 229 delen (n − 1)ⁿ + n? (q = 229 … 2)",
+      uitleg: "Puzzel 1022: voor welke n is (n − 1)ⁿ + n priem? Bolletje k hoort bij de k-de priem q; rood = q deelt (n − 1)ⁿ + n. Open rondje = q = n + 1 of q = 2n − 1 als dat priem is. Onze stelling: q = n + 1 deelt altijd (Fermat met grondtal −2), q = 2n − 1 deelt precies als −2 een kwadraat mod q is (q ≡ 1 of 3 mod 8, Euler), en dat zijn de enige vaste delersfamilies. Een dekkende verzameling is onmogelijk: n ≡ 1 (mod q) geeft rest 1. Daarom is de vraag een geijkte telling, geen bewijs. Rechts het aantal kleine priemdelers.",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, posities = [], as = [];
+        P50.forEach((q, k) => { if ((powmod(((n - 1) % q + q) % q, n, q) + n) % q === 0) posities.push(k); if (q === n + 1 || q === 2 * n - 1) as.push(k); });
+        return { posities, titels: posities.map(k => `${P50[k]} deelt ${n - 1}^${n} + ${n}`), as, waarde: posities.length };
+      },
+    },
+    ggd23: {
+      kop: "ggd(2ⁿ + 1, 3ⁿ + 1): priemen q = 6kn + 1 (k = 50 … 1) die beide delen (rood) of priem zijn (grijs)",
+      uitleg: "Puzzel 1064: G(p) = ggd(2ᵖ + 1, 3ᵖ + 1) is voor de eerste 60 000 priemen 1 of een priem, en de eerste samengestelde G(p) zit pas bij p = 2243399. Onze stelling: elke priemfactor q van G(p) is 1 (mod 6p), want (−3)ᵖ ≡ 1 maakt −3 een kwadraat mod q. Daarom staat hier bolletje k voor q = 6kn + 1: rood = q is priem en deelt allebei, grijs = q is priem. De vaakste factor 6p + 1 komt alleen voor als p ≡ 3 (mod 4): in deze tabel is G(p) > 1 alleen bij 83 (G = 499 = 6·83 + 1) en 107 (G = 643 = 6·107 + 1), beide ≡ 3 (mod 4). Een model met Hardy–Littlewood en onafhankelijke machtsresten verwacht oneindig veel samengestelde G(p), 14,5 tot 7052113 tegen 9 gevonden. Rechts G(n) zelf (BigInt).",
+      plekken: 50,
+      rood: g => {
+        const n = g.n, posities = [], zacht = [];
+        const a = (1n << BigInt(n)) + 1n, b = 3n ** BigInt(n) + 1n;
+        let x = a, y = b; while (y) [x, y] = [y, x % y];
+        for (let k = 1; k <= 50; k++) { const q = 6 * k * n + 1; if (!isPriem(q)) continue; if (x % BigInt(q) === 0n) posities.push(k - 1); else zacht.push(k - 1); }
+        const G = x.toString();
+        return { posities, titels: posities.map(k => `${6 * (k + 1) * n + 1} deelt 2^${n} + 1 en 3^${n} + 1`), zacht, waarde: G.length > 14 ? G.slice(0, 11) + "…" : G };
+      },
+    },
+    brier: {
+      kop: "n·2ᵏ − 1 (k = 25 … 1) │ n·2ᵏ + 1 (k = 1 … 25): priem (rood) of gedekt (grijs)",
+      uitleg: "Een Sierpiński-getal n maakt n·2ᵏ + 1 voor élke k samengesteld, een Riesel-getal doet dat met n·2ᵏ − 1, en een Brier-getal allebei (problemen 36, 68, 69 en 92). Dat lukt met een dekkende verzameling: een vaste lijst priemen die samen elke k afdekt. Rechts van het open rondje n·2ᵏ + 1, links n·2ᵏ − 1; rood = priem, grijs = deelbaar door 3, 5, 7, 13, 17 of 241, de klassieke dekking met periode 24. Rijen die aan één kant leeg blijven (47, 143 en 217 rechts, zoals bij Proth) missen geen dekking maar een kleine k: 47·2ᵏ + 1 wordt pas bij k = 583 priem. Het kleinste bekende Sierpiński-getal is 78557. Wij vonden Brier-getallen waarvan beide dekkingen geen enkele priem delen (230 cijfers) en Sierpiński-getallen met 8 verschillende dekkingen. Rechts het aantal rode links · rechts.",
+      plekken: 50,
+      rood: g => {
+        praime();
+        const posities = [], titels = [], zacht = [];
+        g.brier.forEach((rij, deel) => rij.forEach((v, k) => { const pos = deel * 25 + k; if (v === 1) { posities.push(pos); titels.push(`${g.n}·2^${k + 1} ${deel ? "−" : "+"} 1`); } else if (v === -1) zacht.push(pos); }));
+        return { posities, titels, zacht, as: [24], waarde: `${g.brier[1].filter(v => v === 1).length} · ${g.brier[0].filter(v => v === 1).length}` };
+      },
+    },
+    cijferketen: {
+      kop: "Cijferketen n(6)ᵢ1: n, dan i zessen, dan een 1 (i = 49 … 0): priem?",
+      uitleg: "Puzzel 882: A(Z)ᵢB priem voor i = 0 … k, zo lang mogelijk. Het record stond op k = 9; wij vonden 95773717(6)ᵢ1 met k = 10, de enige run van 11 onder 2⁶⁴ met een eencijferige Z en B van hoogstens 4 cijfers. Hier A = n, Z = 6, B = 1: rood = priem (PRP boven 3·10²⁴), grijs = deelbaar door 3, 7, 11, 13 of 37. Die priemen hebben een korte periode van 1/q en dekken zulke ketens in vaste stappen af (11 om de 2, 37 om de 3, 7 en 13 om de 6); daardoor zijn zulke ketens juist priemrijker dan losse getallen van die grootte. Rechts hoe lang de keten vanaf i = 0 priem blijft; het meeste hier is 4, bij 21 (211, 2161, 21661, 216661) en 235.",
+      plekken: 50,
+      rood: g => {
+        praime();
+        const posities = g.keten6.flatMap((v, i) => v === 1 ? [i] : []), zacht = g.keten6.flatMap((v, i) => v === -1 ? [i] : []);
+        let run = 0; while (run < 50 && g.keten6[run] === 1) run++;
+        return { posities, titels: posities.map(i => `${g.n}${"6".repeat(i)}1`), zacht, waarde: run };
+      },
+    },
+    eulerrodriguez: {
+      kop: "n − x(x+1), x = 24 … 1 (gespiegeld) │ n + x(x+1), x = 0 … 24",
+      uitleg: "Een Euler–Rodriguez-keten is een rij priemen met gaten 2, 4, 6, 8, …: de getallen p + x(x+1). Rechts van het open rondje (x = 0) is bolletje x rood als n + x(x+1) priem is, zolang de keten doorloopt; links de gespiegelde keten n − x(x+1) (gaten …, 6, 4, 2). Puzzel 151 vraagt naar een keten van 15: die is er niet onder 10¹⁷, en ons model verwacht de eerste tussen 10¹⁷ en 10¹⁸ (kans 95 %). Gespiegelde ketens zijn even talrijk (feit 4010), al komt de eerste gespiegelde 12-keten 170 keer eerder dan de voorwaartse. Rechts de lengtes gespiegeld · voorwaarts: 41 haalt rechts de volle 25 (Eulers 41, 43, 47, 53, …; de hele keten is 40 lang), 17 haalt 16 en 11 haalt 10.",
+      plekken: 50,
+      rood: g => {
+        const posities = g.er.map((_, x) => x).concat(g.erSpiegel.slice(1).map((_, x) => 25 + x));
+        return { posities, titels: g.er.map(v => `${v}`).concat(g.erSpiegel.slice(1).map(v => `${v}`)), as: [24], waarde: `${g.erSpiegel.length} · ${g.er.length}` };
+      },
+    },
+    cascade: {
+      kop: "Cascade (puzzel 857): p = a² + b² → 2ab + 1 → …",
+      uitleg: "Een priem p ≡ 1 (mod 4) is op één manier a² + b² (a < b); stuur hem naar f(p) = 2ab + 1 en herhaal zolang dat een nieuwe priem is. Het aantal rode bolletjes is de lengte van de cascade vanaf n, rechts de keten. Omdat 2ab ≤ a² + b² krimpt alles; de vaste punten zijn de priemen a² + (a + 1)²: 5, 13, 41, 61, 113, 181. Het record was 23 priemen; wij maakten er 24 door f achterstevoren te lopen: f(p) = T betekent ab = (T − 1)/2 met a en b copriem en van verschillende pariteit, dus de top van de recordketen ontbinden levert alle voorgangers (één van de 32 splitsingen gaf een priem van 86 cijfers, en die heeft zelf geen voorganger). Hier is het langst 3: 173 → 53 → 29.",
+      plekken: 50,
+      rood: g => ({ vul: g.cascade.length, waarde: g.cascade.length ? g.cascade.join(" → ") : "" }),
+    },
+    twaalf: {
+      kop: "12n(n+2) + 1 (puzzel 596): welke priemen q ≤ 229 delen het (rood), welke nooit (grijs)",
+      uitleg: "Op de pagina viel op dat 12n(n+2) + 1 bijna altijd priem of semipriem is. Onze verklaring: met m = n + 1 is het 12m² − 11, en een priem q kan dat alleen delen als 33 een kwadraat mod q is. Zo vallen 2, 3, 5, 7, 13, 19, 23 voorgoed af (grijs; daarna 43, 47, 53, …), en de kans op priem wordt 4,8 keer zo groot; het model met die factor klopt met alle tellingen en voorspelt dat de uitzonderingen pas rond n ≈ 4·10⁶ de meerderheid worden. Rood = q deelt de waarde (hover voor de ontbinding). Rechts de ontbinding.",
+      plekken: 50,
+      rood: g => {
+        const v = 12 * g.n * (g.n + 2) + 1, f = factors(v), posities = [], zacht = [];
+        P50.forEach((q, k) => { if (v % q === 0) posities.push(k); else if (q === 2 || q === 3 || legendre(33, q) === -1) zacht.push(k); });
+        return { posities, titels: posities.map(() => `${v} = ${f.join(" × ")}`), zacht, waarde: f.length === 1 ? "priem" : f.join("×") };
+      },
+    },
+    rekenkundig: {
+      kop: "Rekenkundige rij n + 30k (k = 0 … 49): priem?",
+      uitleg: "Puzzels 1097 en 1099: formules die lange lijsten priemen aan elkaar lijmen, gebruiken rekenkundige rijen met een primoriaal als verschil (30 = 2·3·5, 210, 19#), want daarin heeft elke term dezelfde rest mod de kleine priemen. Rood = n + 30k is priem. Alleen de 8 rijen met n copriem met 30 (rest 1, 7, 11, 13, 17, 19, 23, 29) hebben kans, en volgens Dirichlet zijn die op den duur even dicht. Rechts het aantal priemen en de langste run vanaf k = 0; de langste runs zijn 6, bij 7 (7, 37, 67, 97, 127, 157) en bij 107.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => isPriem(g.n + 30 * k));
+        let run = 0; while (run < 50 && isPriem(g.n + 30 * run)) run++;
+        return { posities, titels: posities.map(k => `${g.n + 30 * k}`), waarde: `${posities.length} · run ${run}` };
+      },
+    },
+    sommen: {
+      kop: "Som van k opeenvolgende priemen vanaf priem n (k = 50 … 1): priem?",
+      uitleg: "Voor een priem n: bolletje k is rood als n + (volgende) + … (k termen) priem is. Sommen van een even aantal opeenvolgende oneven priemen zijn even, dus boven 2 kan alleen oneven k rood zijn; vanaf 2 kan juist alleen even k (2 + 3 = 5, 2 + 3 + 5 + 7 = 17). Puzzel 9 draait om zulke sommen tot ver voorbij 10²²; records daar controleer je niet met een zeef maar met Lucy's recursie voor π(x) en de som van de priemen tot x in O(x^¾) (IDEAS). Rechts het aantal rode.",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const i0 = VEEL_PRIEMEN.indexOf(g.n), posities = [];
+        for (let k = 1, s = 0; k <= 50 && i0 + k - 1 < VEEL_PRIEMEN.length; k++) { s += VEEL_PRIEMEN[i0 + k - 1]; if (isPriem(s)) posities.push(k - 1); }
+        return { posities, titels: posities.map(k => `${k + 1} termen vanaf ${g.n}`), waarde: posities.length };
+      },
+    },
+    zelfgetallen: {
+      kop: "Zelfgetallen (venster n … n−49): niet te schrijven als m + cijfersom(m)",
+      uitleg: "Rood = zelfgetal (Kaprekar): 1, 3, 5, 7, 9, 20, 31, 42, 53, …, geen enkel m geeft m + cijfersom(m) = n. Puzzel 374 vroeg waarom het gat 11 tussen zelfgetallen zo vaak voorkomt. Ons bewijs: schrijf m = 10q + r, dan is m + cijfersom(m) = B_q + 2r met B_q = 11q + cijfersom(q); de blokken B_q, B_q + 2, …, B_q + 18 beginnen 11 uit elkaar, en alleen als q op 9 eindigt verspringt het blok. Zo is het gat 11 voor 9 van de 10 blokken. Rechts het gat tot het vorige zelfgetal.",
+      plekken: 50,
+      rood: g => {
+        const posities = [...Array(50).keys()].filter(k => ZELF.has(g.n - k));
+        let gat = ""; if (ZELF.has(g.n)) { let m = g.n - 1; while (m > 0 && !ZELF.has(m)) m--; gat = m ? `gat ${g.n - m}` : "eerste"; }
+        return { posities, titels: posities.map(k => `${g.n - k} is een zelfgetal`), waarde: gat };
+      },
+    },
+    gelukkig: {
+      kop: "Gelukkige getallen (venster n … n−49): priem én gelukkig (rood), gelukkig (grijs), priem maar ongelukkig (open)",
+      uitleg: "De gelukkige zeef (Ulam): neem de oneven getallen, schrap elk derde, dan elk zevende van wat overblijft, dan elk negende, … Grijs = gelukkig, rood = gelukkig én priem, open rondje = priem maar ongelukkig. Puzzel 1209 vroeg naar de langste reeks opeenvolgende verschillende ongelukkige priemen; de geclaimde 45 bevatte vijf gelukkige getallen (de echte run was 30), en wij maakten er 34 met een formule die altijd ≡ 5 (mod 6) is: de tweede zeefstap verwijdert precies alle getallen 5 mod 6, dus die zijn nooit gelukkig. Rechts het aantal gelukkige in het venster.",
+      plekken: 50,
+      rood: g => {
+        const posities = [], zacht = [], as = [];
+        for (let k = 0; k < 50; k++) { const x = g.n - k; if (x < 1) break; if (GELUKKIG.has(x)) (isPriem(x) ? posities : zacht).push(k); else if (isPriem(x)) as.push(k); }
+        return { posities, titels: posities.map(k => `${g.n - k} is gelukkig en priem`), zacht, as, waarde: posities.length + zacht.length };
+      },
+    },
+    smith: {
+      kop: "Smith-getallen: cijfersom van n (rood) tegen de cijfersom van de priemfactoren (grijs)",
+      uitleg: "Rood = de cijfersom van n; het grijze bolletje staat op de cijfersommen van de priemfactoren bij elkaar (22 = 2 × 11 → 2 + 1 + 1 = 4 = 2 + 2). Vallen ze samen en is n samengesteld, dan is n een Smith-getal (✓): 4, 22, 27, 58, 85, 94, 121, 166, 202 … Puzzel 307: het record-Smith-getal met 7 820 865 cijfers werd er een met 41 026 513 door de grootste Mersenne-priem 2¹³⁶²⁷⁹⁸⁴¹ − 1 te gebruiken; een factor 10^M voegt alleen 7M toe aan de factorencijfersom en niets aan die van het getal, en daarmee balanceer je. Rechts cijfersom n · factoren.",
+      plekken: 50,
+      rood: g => {
+        const s = cijfersom(g.n), t = g.f.reduce((a, p) => a + cijfersom(p), 0), posities = [...Array(s).keys()];
+        return { posities, titels: posities.map(() => `cijfersom ${s}`), zacht: [t - 1], waarde: `${s} · ${t}${s === t && g.f.length > 1 ? " ✓" : ""}` };
+      },
+    },
+    omkering: {
+      kop: "φ(n) (rood) tegen φ van n achterstevoren (grijs)",
+      uitleg: "Puzzel 282 vroeg naar niet-palindromische priemen p met φ(p) = φ(p′) of σ(p) = σ(p′), met p′ het getal achterstevoren; er was er één bekend (σ: 98639) en tot 10¹⁰ niets anders. Wij vonden de eerste φ-oplossingen (67, 85 en 91 cijfers) en drie nieuwe σ-oplossingen met een automaat die het getal van beide kanten tegelijk leest, want p′ = m·b met b priem maakt de voorwaarde lineair. Hier t/m 256: rood = φ(n), grijs = φ(n′); ✓ als ze gelijk zijn en n geen palindroom is; t/m 256 lukt dat alleen bij 190: φ(190) = φ(91) = 72. Rechts φ(n) · φ(n′).",
+      plekken: 50,
+      rood: g => {
+        const r = omkeer(g.n), fr = phiVan(r), posities = [...Array(g.phi).keys()];
+        return { posities, titels: posities.map(() => `φ(${g.n}) = ${g.phi}`), zacht: [fr - 1], waarde: `${g.phi} · ${fr}${g.phi === fr && r !== g.n ? " ✓" : ""}` };
+      },
+    },
+    brennen: {
+      kop: "Lees de cijfers van n in basis b als decimaal getal (b = 10 … 2): priem?",
+      uitleg: "Puzzel 24: 50006393431 is de kleinste priem die priem blijft als je zijn cijfers in basis 2 tot en met 9 als decimaal getal leest (Brennen). Bolletje b (van rechts: b = 2 … 10) is rood als dat voor n lukt: 5 = 101 in basis 2, en 101 is priem. Basis 10 is n zelf. De pagina vroeg hoe gelukkig die vondst was: ons model (per basis een priemgetalstelling-kans, gecorrigeerd voor kleine priemen, de bases gekoppeld door n) geeft ongeveer 20 % kans op een treffer onder 5·10¹⁰. Rechts het aantal bases: 2 en 3 halen alle 8 (in elke basis boven n is de uitkomst n zelf), 5 haalt 7 en 157 haalt 6.",
+      plekken: 9,
+      rood: g => {
+        const posities = [], titels = [];
+        for (let b = 2; b <= 10; b++) { const v = +g.n.toString(b); if (isPriem(v)) { posities.push(b - 2); titels.push(`basis ${b}: ${v}`); } }
+        return { posities, titels, waarde: posities.length };
+      },
+    },
+    kwadraatcijfers: {
+      kop: "Welke cijfers komen in n² voor? (9 links … 0 rechts)",
+      uitleg: "Puzzel 115: priemen waarvan het kwadraat maar twee verschillende cijfers gebruikt: 11² = 121, 101² = 10201, 81619² = 6661661161, acht in totaal tot 10⁴⁸. Rood = het cijfer komt in n² voor. Rechts het aantal verschillende cijfers, ✓ als n priem is met hoogstens twee. Ons model telt met een cijfer-DP de tweecijferige kwadraten per klasse mod 83160 en verwacht boven 10⁴⁸ nog 1,8·10⁻¹⁰ oplossingen: heuristisch eindig, niet bewezen.",
+      plekken: 10,
+      rood: g => {
+        const s = String(g.n * g.n), cijfers = [...new Set(s)].map(Number).sort((a, b) => a - b);
+        return { posities: cijfers, titels: cijfers.map(c => `${s} bevat ${c}`), waarde: `${cijfers.length}${isPriem(g.n) && cijfers.length <= 2 ? " ✓" : ""}` };
+      },
+    },
+    robin: {
+      kop: "Robin: 10·σ(n)/n (rood) tegen 10·e^γ·ln ln n (grijs)",
+      uitleg: "Robins ongelijkheid σ(n) < e^γ·n·ln ln n voor alle n > 5040 is gelijkwaardig met de Riemann-hypothese. Rood = 10·σ(n)/n, grijs = 10·e^γ·ln ln n. Reikt rood tot of voorbij grijs, dan faalt de ongelijkheid (✓): dat gebeurt voor precies 26 waarden n ≥ 3, waarvan 21 in deze tabel (3, 4, 5, 6, 8, 9, 10, 12, 16, 18, 20, 24, 30, 36, 48, 60, 72, 84, 120, 180, 240) en daarna alleen 360, 720, 840, 2520 en 5040 (FINDINGS: gecontroleerd tot 10⁶). Rechts σ(n)/n.",
+      plekken: 50,
+      rood: g => {
+        const r = g.sigma / g.n, b = g.n > 2 ? EG * Math.log(Math.log(g.n)) : 0, posities = [...Array(Math.round(10 * r)).keys()];
+        return { posities, titels: posities.map(() => `σ(${g.n})/${g.n} = ${r.toFixed(3)}`), zacht: b > 0 ? [Math.round(10 * b) - 1] : [], waarde: r.toFixed(2) + (g.n >= 3 && g.sigma >= b * g.n ? " ✓" : "") };
+      },
+    },
+    terugwaarts: {
+      kop: "Carry-regel voor 1/n achterstevoren: n deelt 10ᴺ + 10ᴶ − 1 (N = 50 … 1)",
+      uitleg: "Puzzel 1238: de periode van 1/p achterstevoren ontstaat uit een optel-met-overdracht-regel a(k) = a(k − J) + a(k − N) + carry, precies wanneer p een deler is van 10ᴺ + 10ᴶ − 1 (J < N); dat is de 10-adische ontwikkeling van −1/p. Bolletje N is rood als er zo'n J bestaat (hover). Onder 1000 hebben maar 11 priemen geen enkele regel, hier 11, 37, 41, 73, 101, 137 en 239; voorwaartse regels (puzzel 1236) zijn dezelfde met de lags negatief. Rechts de kleinste (N, J); 'geen' betekent geen regel tot aan de periode.",
+      plekken: 50,
+      rood: g => {
+        if (!g.ord10) return { posities: [], titels: [], waarde: "–" };
+        const posities = [...g.lags.keys()].filter(Nn => Nn <= 50).map(Nn => Nn - 1);
+        return { posities, titels: posities.map(k => `N = ${k + 1}, J = ${g.lags.get(k + 1)}: ${g.n} deelt 10^${k + 1} + 10^${g.lags.get(k + 1)} − 1`), waarde: g.lag ? `(${g.lag[0]}, ${g.lag[1]})` : "geen" };
+      },
+    },
+    halfgat: {
+      kop: "Half het gat na priem n in Eulers polynoom: k = g/2, k² + k + 41 priem?",
+      uitleg: "Puzzel 1217: een functie van het gat tussen opeenvolgende priemen die zo lang mogelijk priem blijft; het record was 30 800 priemen op rij. Gaten blijven heel lang klein (tot k = 40 heb je een gat van 80 nodig, en dat komt pas voor na 155 921 een gat van 86), en k² + k + 41 is priem voor k = 0 … 39. Met k = half het gat blijft het 1 319 943 priemen op rij priem; met de Dress–Landreau-sextiek 103 518. Rood = k = g/2 bolletjes, ✓ als k² + k + 41 priem is: in deze tabel altijd. Rechts k² + k + 41.",
+      plekken: 50,
+      rood: g => {
+        if (!isPriem(g.n)) return { posities: [], titels: [] };
+        const k = (g.volgende - g.n) / 2, v = k * k + k + 41;
+        return { vul: k, waarde: `${v}${isPriem(v) ? " ✓" : ""}` };
+      },
+    },
+  };
+  Object.assign(MODI, PRAIME_MODI);
+
+  // Maximaal 50 bolletjes; rode bolletjes daarbuiten worden als "+k" getoond
+  const MAX = 50, S = 11;
+  function indicator(g, modus) {
+    const m = MODI[modus], plekken = Math.min(m.plekken, MAX), breedte = plekken * S, r = m.rood(g);
+    let binnen, waarde = "", buiten = 0;
+    if (r.vul !== undefined) {
+      const zichtbaar = Math.min(r.vul, plekken);
+      buiten = r.vul - zichtbaar;
+      binnen = zichtbaar ? `<span class="fill" style="width:${zichtbaar * S}px"></span>` : "";
+      waarde = `<span class="val">${r.waarde ?? r.vul}</span>`;
+    } else {
+      const plek = pos => `left:${breedte - (pos + 1) * S + 1}px`;
+      buiten = r.posities.filter(pos => pos >= plekken).length;
+      binnen = (r.as || []).map(pos => `<span class="dot as" style="${plek(pos)}"></span>`).join("")
+        + (r.zacht || []).filter(pos => pos >= 0 && pos < plekken).map(pos => `<span class="dot zacht" style="${plek(pos)}"></span>`).join("");
+      binnen += r.posities.map((pos, i) => pos >= plekken ? "" :
+        `<span class="dot" title="${r.titels[i]}" style="${plek(pos)}"></span>`).join("");
+      if (r.waarde !== undefined) waarde = `<span class="val">${r.waarde}</span>`;
+    }
+    const meer = `<span class="meer">${buiten ? "+" + buiten : ""}</span>`;
+    return `<div class="ind">${waarde}${meer}<div class="dots" style="width:${breedte}px">${binnen}</div></div>`;
+  }
+
+  const tbody = document.getElementById("rows");
+  for (const g of getallen) {
+    const priem = g.f.length === 1;
+    const tr = document.createElement("tr");
+    tr.dataset.priem = priem ? "ja" : "nee";
+    tr.innerHTML = `
+      <td class="num">${g.n}</td>
+      <td class="${priem ? "ja" : ""}">${priem ? "ja" : "nee"}</td>
+      <td>${g.f.length ? g.f.join(" × ") : "–"}</td>
+      <td class="num mono">${g.n.toString(2)}</td>
+      <td class="ind-cel"></td>`;
+    tbody.appendChild(tr);
+  }
+
+  const filterKnoppen = document.querySelectorAll("#filter button");
+  const modusKnoppen = document.querySelectorAll("[data-m]");
+
+  function toonFilter(filter) {
+    let shown = 0;
+    for (const tr of tbody.rows) {
+      const visible = filter === "alle" || tr.dataset.priem === filter;
+      tr.hidden = !visible;
+      if (visible) shown++;
+    }
+    filterKnoppen.forEach(b => b.setAttribute("aria-pressed", b.dataset.f === filter));
+    document.getElementById("count").textContent = `${shown} getallen`;
+  }
+
+  function toonModus(modus) {
+    getallen.forEach((g, i) => { tbody.rows[i].cells[4].innerHTML = indicator(g, modus); });
+    document.getElementById("ind-kop").textContent = MODI[modus].kop;
+    document.getElementById("uitleg").textContent = MODI[modus].uitleg + " Maximaal 50 bolletjes; wat erbuiten valt staat als +k links ervan.";
+    modusKnoppen.forEach(b => b.setAttribute("aria-pressed", b.dataset.m === modus));
+  }
+
+  filterKnoppen.forEach(b => b.addEventListener("click", () => toonFilter(b.dataset.f)));
+  modusKnoppen.forEach(b => b.addEventListener("click", () => toonModus(b.dataset.m)));
+  toonModus("priem");
+  toonFilter("alle");
+</script>
+</body>
+</html>
