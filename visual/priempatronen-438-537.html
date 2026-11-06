@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Priempatronen 438–537</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: one sticky toolbar, then a dense responsive grid of equal square cards; each card = one SVG + a number + a one-line reading. */
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --fg: #15181d; --muted: #5d6572; --border: #dfe3e9;
+    --prime: #d95926; --comp: #9aa3b0; --unit: #c9ced6; --seq: #2a78d6;
+    --c2: #2a78d6; --c3: #1baf7a; --c5: #6250d6; --c7: #eda100; --cx: #e87ba4;
+    --grid: #e6e9ee; --hl: #15181d;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1216; --surface: #171b21; --fg: #eceff3; --muted: #9aa3b0; --border: #2a303a;
+      --prime: #f0713a; --comp: #5d6572; --unit: #3a414c; --seq: #3987e5;
+      --c2: #3987e5; --c3: #199e70; --c5: #9085e9; --c7: #c98500; --cx: #d55181;
+      --grid: #232932; --hl: #ffffff; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1216; --surface: #171b21; --fg: #eceff3; --muted: #9aa3b0; --border: #2a303a;
+    --prime: #f0713a; --comp: #5d6572; --unit: #3a414c; --seq: #3987e5;
+    --c2: #3987e5; --c3: #199e70; --c5: #9085e9; --c7: #c98500; --cx: #d55181;
+    --grid: #232932; --hl: #ffffff; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--sans); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  .wrap { max-width: 1480px; margin: 0 auto; padding-block: 28px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  header { display: grid; gap: 10px; margin-bottom: 18px; max-width: 72ch; }
+  h1 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .lead { margin: 0; color: var(--muted); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding: 10px 0; margin-bottom: 14px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip { border: 1px solid var(--border); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 5px 12px; font: 500 12.5px var(--sans); cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .chip:focus-visible, .card:focus-visible { outline: 2px solid var(--seq); outline-offset: 2px; }
+  .status { margin-left: auto; font: 12.5px var(--mono); color: var(--muted); min-height: 1.5em; font-variant-numeric: tabular-nums; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px 12px; display: grid; gap: 6px; min-width: 0; }
+  .card[hidden] { display: none; }
+  .card h2 { font-size: 13.5px; font-weight: 600; margin: 0; display: flex; gap: 8px; align-items: baseline; }
+  .card h2 b { font: 500 11px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; min-width: 2.6ch; }
+  .card h2 small { font: 400 10.5px var(--sans); color: var(--muted); margin-left: auto; letter-spacing: 0.04em; text-transform: uppercase; }
+  .card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+  svg { width: 100%; height: auto; display: block; aspect-ratio: 1; max-width: 100%; background: var(--surface); }
+  svg text { font: 9px var(--mono); fill: var(--muted); pointer-events: none; }
+  svg text.n { pointer-events: auto; }
+  svg .t { fill: var(--muted); }
+  svg .tf { fill: var(--fg); }
+  svg .ax { stroke: var(--grid); stroke-width: 1; fill: none; }
+  svg .ax2 { stroke: var(--border); stroke-width: 1; fill: none; }
+  svg .ref { stroke: var(--seq); stroke-width: 1.2; stroke-dasharray: 3 3; fill: none; }
+  svg .ref2 { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+  .n.p { --k: var(--prime); } .n.c { --k: var(--comp); } .n.u { --k: var(--unit); }
+  .n.q { --k: var(--seq); }
+  .n.k2 { --k: var(--c2); } .n.k3 { --k: var(--c3); } .n.k5 { --k: var(--c5); } .n.k7 { --k: var(--c7); } .n.kx { --k: var(--cx); }
+  .f { fill: var(--k); stroke: none; }
+  .s { stroke: var(--k); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .fs { fill: var(--k); stroke: var(--surface); stroke-width: 0.8; }
+  .n { transition: opacity 120ms; }
+  .n.hl.f, .n.hl.fs { stroke: var(--hl); stroke-width: 2.5px; paint-order: stroke; fill-opacity: 1 !important; }
+  .n.hl.s { stroke: var(--hl); stroke-width: 3.5px; opacity: 1 !important; }
+  .n.hl text, text.n.hl { fill: var(--hl); font-weight: 600; }
+  body.dim .n:not(.hl):not(.keep) { opacity: 0.28; }
+  @media (prefers-reduced-motion: reduce) { .n { transition: none; } }
+  .nav { margin: 0; font-size: 13px; } .nav a { color: var(--seq); }
+  footer { margin-top: 28px; color: var(--muted); font-size: 12px; max-width: 72ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Priempatronen 438–537</h1>
+  <p class="lead">Honderd wandelingen waarin de stap zelf een feit over priemgetallen draagt, uit FACTS.md van deze repository: Gaussische stappen (a, b) met p = a² + b², Legendre-symbolen als ±1, de races modulo 3, 8 en 12, de vermeden herhaling van het laatste cijfer, Artins constante als helling, merit en Cramér, de verhoudingen 2 : 4 : 6 van de gaten, Andrica en Firoozbakht als kleine positieve stappen, de fout van li, R en θ, Mertens en Liouville, Brun en de tweelingconstante, Capelle, Chen, Ramanujan, Sophie Germain, Wieferich, Wilson en Mersenne. Elke tekening noemt het feitnummer en de formule; een blauwe stippellijn is de voorspelde helling. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a> · <b>Deel 8 (438–537)</b></p>
+  <div class="legend">
+    <span><i style="background:var(--prime)"></i>priemgetal</span>
+    <span><i style="background:var(--comp)"></i>composiet</span>
+    <span><i style="background:var(--unit)"></i>1 (geen van beide)</span>
+    <span><i style="background:var(--seq)"></i>vergelijkingslijn / grootte</span>
+    <span><i style="background:var(--c2)"></i>factor 2</span>
+    <span><i style="background:var(--c3)"></i>factor 3</span>
+    <span><i style="background:var(--c5)"></i>factor 5</span>
+    <span><i style="background:var(--c7)"></i>factor 7</span>
+    <span><i style="background:var(--cx)"></i>factor &gt; 7</span>
+  </div>
+</header>
+<div class="toolbar" id="toolbar" role="group" aria-label="Filter op familie"></div>
+<div class="grid" id="grid"></div>
+<footer id="foot"></footer>
+</div>
+<script>
+const OFFSET = 437;
+'use strict';
+// ---------- getaltheorie voor 1..100 ----------
+const N = 100, W = 300, H = 300, C = 150;
+const LIM = 10100;
+const isP = new Uint8Array(LIM + 1);
+for (let i = 2; i <= LIM; i++) isP[i] = 1;
+for (let i = 2; i * i <= LIM; i++) if (isP[i]) for (let j = i * i; j <= LIM; j += i) isP[j] = 0;
+const primes = []; for (let i = 2; i <= N; i++) if (isP[i]) primes.push(i);
+const spf = new Array(N + 1).fill(0), gpf = new Array(N + 1).fill(0);
+const divs = [[]]; for (let n = 1; n <= N; n++) { const d = []; for (let k = 1; k <= n; k++) if (n % k === 0) d.push(k); divs.push(d); }
+const nd = divs.map(d => d.length), sig = divs.map(d => d.reduce((a, b) => a + b, 0));
+const fac = [[], []]; // fac[n] = [[p,e],...]
+for (let n = 2; n <= N; n++) { let m = n; const f = []; for (let p = 2; p <= m; p++) { let e = 0; while (m % p === 0) { m /= p; e++; } if (e) f.push([p, e]); } fac.push(f); spf[n] = f[0][0]; gpf[n] = f[f.length - 1][0]; }
+const omg = fac.map(f => f.length), Omg = fac.map(f => f.reduce((a, pe) => a + pe[1], 0));
+const mu = fac.map((f, n) => n === 0 ? 0 : f.some(pe => pe[1] > 1) ? 0 : (f.length % 2 ? -1 : 1));
+const lam = Omg.map(k => (k % 2 ? -1 : 1));
+const phi = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let r = n; for (const [p] of fac[n]) r = r / p * (p - 1); phi[n] = r; }
+const pi = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) pi[n] = pi[n - 1] + (isP[n] ? 1 : 0);
+function nextP(n) { let m = n + 1; while (!isP[m]) m++; return m; }
+function prevP(n) { let m = n - 1; while (m > 1 && !isP[m]) m--; return m; }
+const gapAfter = {}; for (const p of primes) gapAfter[p] = nextP(p) - p;
+const gaps = primes.map(p => gapAfter[p]);
+const distP = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let d = 0; while (!isP[n - d] && !isP[n + d]) d++; distP[n] = d; }
+const collatz = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let m = n, s = 0; while (m !== 1) { m = m % 2 ? 3 * m + 1 : m / 2; s++; } collatz[n] = s; }
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+function facStr(n) { if (n === 1) return '1'; return fac[n].map(([p, e]) => p + (e > 1 ? SUP[e] : '')).join('·'); }
+function kind(n) { return n === 1 ? 'u' : isP[n] ? 'p' : 'c'; }
+function label(n) { return n === 1 ? '1 · eenheid' : isP[n] ? n + ' · priem' : n + ' = ' + facStr(n); }
+function modpow(b, e, m) { let r = 1n, x = BigInt(b) % BigInt(m), k = BigInt(e), M = BigInt(m); while (k > 0n) { if (k & 1n) r = r * x % M; x = x * x % M; k >>= 1n; } return Number(r); }
+function legendre(a, p) { if (a % p === 0) return 0; const r = modpow(a, (p - 1) / 2, p); return r === 1 ? 1 : -1; }
+function binomRowMod(n) { const row = []; let c = 1n; const M = BigInt(n); for (let k = 0; k <= n; k++) { row.push(Number(c % M)); c = c * BigInt(n - k) / BigInt(k + 1); } return row; }
+const digsum = n => String(n).split('').reduce((a, b) => a + +b, 0);
+const ln = Math.log;
+
+// ---------- svg ----------
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) if (attrs[k] !== undefined) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function mark(parent, tag, attrs, n, mode, extra) {
+  const e = el(tag, attrs, parent);
+  e.setAttribute('class', 'n ' + kind(n) + ' ' + (mode || 'f') + (extra ? ' ' + extra : ''));
+  e.dataset.n = n; if (tag === 'text' && attrs['font-size']) e.style.fontSize = attrs['font-size'] + 'px'; const t = el('title', {}, e); t.textContent = label(n); return e;
+}
+function markK(parent, tag, attrs, n, cls, mode, text) {
+  const e = el(tag, attrs, parent); e.setAttribute('class', 'n ' + cls + ' ' + (mode || 'f')); e.dataset.n = n; const t = el('title', {}, e); t.textContent = text || label(n); return e;
+}
+function txt(parent, x, y, s, attrs) { const t = el('text', Object.assign({ x, y, class: 't' }, attrs || {}), parent); t.textContent = s; return t; }
+function path(parent, d, cls, attrs) { return el('path', Object.assign({ d, class: cls }, attrs || {}), parent); }
+const X = n => 8 + (n - 1) * (284 / 99);
+function axisX(s, y, step) { el('line', { x1: 8, y1: y, x2: 292, y2: y, class: 'ax2' }, s); for (let k = step || 10; k <= 100; k += step || 10) txt(s, X(k), y + 11, k, { 'text-anchor': 'middle' }); }
+function pol(cx, cy, r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+function wedge(cx, cy, r0, r1, a0, a1) { const [x0, y0] = pol(cx, cy, r0, a0), [x1, y1] = pol(cx, cy, r0, a1), [x2, y2] = pol(cx, cy, r1, a1), [x3, y3] = pol(cx, cy, r1, a0); const L = a1 - a0 > Math.PI ? 1 : 0; return `M${x0} ${y0} A${r0} ${r0} 0 ${L} 1 ${x1} ${y1} L${x2} ${y2} A${r1} ${r1} 0 ${L} 0 ${x3} ${y3} Z`; }
+function grid(cols, rows, pad, square) { pad = pad == null ? 10 : pad; const w = (W - 2 * pad) / cols, h = (H - 2 * pad) / rows; const c = square === false ? [w, h] : [Math.min(w, h), Math.min(w, h)]; const ox = (W - c[0] * cols) / 2, oy = (H - c[1] * rows) / 2; return { w: c[0], h: c[1], at(n) { const i = (n - 1) % cols, j = Math.floor((n - 1) / cols); return { x: ox + i * c[0], y: oy + j * c[1], i, j }; } }; }
+function cellGrid(s, cols, opts) { // standaard roostertekening 1..100
+  opts = opts || {}; const rows = Math.ceil(N / cols); const g = grid(cols, rows, opts.pad, opts.square);
+  for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const r = mark(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, 'f'); if (!isP[n]) r.setAttribute('fill-opacity', n === 1 ? 0.5 : 0.22); if (opts.num && g.w >= 16) txt(s, x + g.w / 2, y + g.h / 2 + 3, n, { 'text-anchor': 'middle', 'font-size': Math.min(9, g.w / 2.6), class: isP[n] ? 'tf' : 't' }); }
+  return g;
+}
+function walk(s, pts, opts) { // pts: [{x,y,n}], schaal naar het vlak
+  opts = opts || {}; let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); }
+  const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0;
+  const P = pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n }));
+  if (!opts.noLine) el('polyline', { points: P.map(p => p.x + ',' + p.y).join(' '), class: 'ax2', 'stroke-width': 1 }, s);
+  if (!opts.noLine) for (let i = 1; i < P.length; i++) if (isP[P[i].n]) mark(s, 'line', { x1: P[i - 1].x, y1: P[i - 1].y, x2: P[i].x, y2: P[i].y, 'stroke-width': 2 }, P[i].n, 's');
+  for (const p of P) { if (p.n < 1) continue; const r = isP[p.n] ? (opts.r || 3) : 1.6; mark(s, 'circle', { cx: p.x, cy: p.y, r }, p.n, 'f'); }
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 2.2, class: 'ax', fill: 'var(--fg)', stroke: 'none' }, s);
+  return P;
+}
+function turtle(stepFn, turnFn, start) { // levert punten; n = 1..100
+  let x = 0, y = 0, a = start == null ? 0 : start; const pts = [{ x, y, n: 0 }];
+  for (let n = 1; n <= N; n++) { a += turnFn(n); const L = stepFn(n); x += L * Math.cos(a); y += L * Math.sin(a); pts.push({ x, y, n }); }
+  return pts;
+}
+function isoGrid(s, hfun, hz, extra) { // 10x10 isometrische blokken
+  const cw = 12.5, ch = 6.25, cx = 150, cy = 58; const order = [];
+  for (let n = 1; n <= N; n++) order.push(n);
+  order.sort((a, b) => ((a - 1) % 10 + Math.floor((a - 1) / 10)) - ((b - 1) % 10 + Math.floor((b - 1) / 10)));
+  for (const n of order) { const i = (n - 1) % 10, j = Math.floor((n - 1) / 10); const bx = cx + (i - j) * cw, by = cy + (i + j) * ch; const h = hfun(n) * hz;
+    const g = el('g', {}, s);
+    const d = `M${bx} ${by - h} l${cw} ${ch} l${-cw} ${ch} l${-cw} ${-ch} Z M${bx - cw} ${by + ch - h} l${cw} ${ch} v${h} l${-cw} ${-ch} Z M${bx + cw} ${by + ch - h} l${-cw} ${ch} v${h} l${cw} ${-ch} Z`;
+    const top = mark(g, 'path', { d: `M${bx} ${by - h} l${cw} ${ch} l${-cw} ${ch} l${-cw} ${-ch} Z` }, n, extra ? extra(n) : 'fs');
+    if (h > 0) { const l = mark(g, 'path', { d: `M${bx - cw} ${by + ch - h} l${cw} ${ch} v${h} l${-cw} ${-ch} Z`, 'fill-opacity': 0.65 }, n, 'fs'); const r = mark(g, 'path', { d: `M${bx + cw} ${by + ch - h} l${-cw} ${ch} v${h} l${cw} ${-ch} Z`, 'fill-opacity': 0.45 }, n, 'fs'); }
+    if (h === 0) top.setAttribute('fill-opacity', 0.35);
+  }
+}
+function circleNodes(s, r, which, rad) { const pos = {}; for (let n = 1; n <= N; n++) { const a = 2 * Math.PI * n / N - Math.PI / 2; const [x, y] = pol(C, C, r, a); pos[n] = [x, y]; } if (which !== false) for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? (rad || 3) : 1.3 }, n, 'f'); return pos; }
+function clock(s, m) { const rows = Math.floor((N - 1) / m); const R0 = 34, R1 = 136; for (let k = 0; k < m; k++) { const a = 2 * Math.PI * k / m - Math.PI / 2; const [x1, y1] = pol(C, C, R0 - 8, a), [x2, y2] = pol(C, C, R1 + 6, a); el('line', { x1, y1, x2, y2, class: 'ax' }, s); if (m <= 30) { const [tx, ty] = pol(C, C, R1 + 13, a); txt(s, tx, ty + 3, k, { 'text-anchor': 'middle', 'font-size': 8 }); } }
+  for (let n = 1; n <= N; n++) { const a = 2 * Math.PI * (n % m) / m - Math.PI / 2; const r = R0 + (R1 - R0) * Math.floor(n / m) / rows; const [x, y] = pol(C, C, r, a); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 3.6 : 1.8 }, n, 'f'); } }
+function stair(s, vals, ymap, cls) { // vals[n] for n=1..N, staircase
+  let d = ''; for (let n = 1; n <= N; n++) { const y = ymap(vals[n]); d += (n === 1 ? 'M' : 'L') + X(n) + ' ' + y + ' L' + X(Math.min(n + 1, N)) + ' ' + y + ' '; } return path(s, d, cls || 's', { stroke: 'var(--prime)', 'stroke-width': 1.5, fill: 'none' }); }
+function curve(s, f, x0, x1, ymap, cls, steps) { let d = ''; steps = steps || 120; for (let i = 0; i <= steps; i++) { const xv = x0 + (x1 - x0) * i / steps; d += (i ? 'L' : 'M') + X(xv) + ' ' + ymap(f(xv)) + ' '; } return path(s, d, cls || 'ref'); }
+function hexSpiral() { // axiale coördinaten voor 1..100
+  const dirs = [[1, 0], [0, 1], [-1, 1], [-1, 0], [0, -1], [1, -1]]; const out = [[0, 0]]; let k = 1;
+  while (out.length < N) { let q = 0, r = -k; // start op ring k, hoekpunt richting 4
+    for (let d = 0; d < 6 && out.length < N; d++) for (let i = 0; i < k && out.length < N; i++) { out.push([q, r]); q += dirs[d][0]; r += dirs[d][1]; } k++; }
+  return out;
+}
+function ulam() { const pos = [null, [0, 0]]; let x = 0, y = 0, dx = 1, dy = 0, len = 1, n = 1; while (n < N) { for (let rep = 0; rep < 2 && n < N; rep++) { for (let i = 0; i < len && n < N; i++) { x += dx; y += dy; n++; pos[n] = [x, y]; } [dx, dy] = [-dy, dx]; } len++; } return pos; }
+
+// ---------- extra hulpfuncties voor deel 2 ----------
+function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
+function Li(x) { let s = 0; const a = 2, m = 400; for (let i = 0; i < m; i++) { const t = a + (x - a) * (i + 0.5) / m; s += 1 / ln(t); } return 1.045 + s * (x - a) / m; } // li(2) ≈ 1.045
+function periodLen(n) { while (n % 2 === 0) n /= 2; while (n % 5 === 0) n /= 5; if (n === 1) return 0; let r = 10 % n, k = 1; while (r !== 1) { r = r * 10 % n; k++; } return k; }
+function ord2(n) { if (n % 2 === 0) return 0; let r = 2 % n, k = 1; if (n === 1) return 1; while (r !== 1) { r = r * 2 % n; k++; } return k; }
+function r2(n) { let c = 0; for (let a = -10; a <= 10; a++) for (let b = -10; b <= 10; b++) if (a * a + b * b === n) c++; return c; }
+function rev(n) { return +String(n).split('').reverse().join(''); }
+function roman(n) { const t = [[100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]; let s = ''; for (const [v, c] of t) while (n >= v) { s += c; n -= v; } return s; }
+function lcm(a, b) { return a / gcd(a, b) * b; }
+function carm(n) { if (n === 1) return 1; let L = 1; for (const [p, e] of fac[n]) { const q = Math.pow(p, e); const l = (p === 2 && e >= 3) ? q / 4 : (p === 2 ? q / 2 : q / p * (p - 1)); L = lcm(L, l); } return L; }
+const sopfr = n => fac[n].reduce((a, [p, e]) => a + p * e, 0);
+const rad = n => fac[n].reduce((a, [p]) => a * p, 1);
+const popc = n => n.toString(2).split('1').length - 1;
+const v2 = n => { let k = 0; while (n % 2 === 0) { n /= 2; k++; } return k; };
+function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : pad); } // kleine veelvouden
+function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
+function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
+
+// ---------- deel 3: richting uit de priem, grootte uit het gat ----------
+const G = p => gapAfter[p]; // gat na p (97 → 101: 4)
+const deg = d => d * Math.PI / 180;
+function gapWalk(s, headingFn, opts) { // over de 25 priemen: koers uit p, staplengte = gat
+  opts = opts || {}; let x = 0, y = 0, h = 0; const segs = []; const pts = [{ x, y, n: 0 }];
+  primes.forEach((p, i) => { h = opts.relative ? h + headingFn(p, i) : headingFn(p, i); const L = G(p); const nx = x + L * Math.cos(h), ny = y + L * Math.sin(h); segs.push({ x1: x, y1: y, x2: nx, y2: ny, p }); x = nx; y = ny; pts.push({ x, y, n: p }); });
+  const F = fitLine(s, pts);
+  segs.forEach((g, i) => { const a = F[i], b = F[i + 1]; mark(s, 'line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': 0.6 + G(g.p) * 0.55 }, g.p, 's').querySelector('title').textContent = g.p + ' · gat ' + G(g.p) + ' · ' + (opts.label ? opts.label(g.p) : ''); });
+  F.forEach((q, i) => { if (i === 0) { el('circle', { cx: q.x, cy: q.y, r: 2.5, fill: 'var(--fg)' }, s); return; } mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.2 + G(primes[i - 1]) * 0.35 }, primes[i - 1], 'f'); });
+  return F;
+}
+const lastd = p => p % 10;
+
+// ---------- deel 5: grote wandelingen ----------
+const bigCache = {};
+function primesUpTo(M) { if (bigCache[M]) return bigCache[M]; const sv = new Uint8Array(M + 1); const out = []; for (let i = 2; i <= M; i++) { if (sv[i]) continue; out.push(i); if (i * i <= M) for (let j = i * i; j <= M; j += i) sv[j] = 1; } let q = M + 1; while (true) { let ok = true; for (let d = 2; d * d <= q; d++) if (q % d === 0) { ok = false; break; } if (ok) break; q++; } out.push(q); return bigCache[M] = out; } // laatste element: eerste priem boven M, voor het laatste gat
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+function bigWalk(s, M, headingFn, opts) { // headingFn(p, gap, i) -> koers (absoluut) of draai (relatief)
+  opts = opts || {}; const ps = primesUpTo(M); const filt = opts.filter || (() => true); const pts = []; let x = 0, y = 0, h = 0, len = 0, cnt = 0; pts.push([0, 0]);
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i]; const gap = (opts.gapTo ? opts.gapTo(ps, i) : ps[i + 1] - p); if (!filt(p, gap)) continue; const st = opts.step ? opts.step(p, gap) : gap; h = opts.relative ? h + headingFn(p, gap, i) : headingFn(p, gap, i); x += st * Math.cos(h); y += st * Math.sin(h); len += st; cnt++; pts.push([x, y]); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const [a, b] of pts) { x0 = Math.min(x0, a); x1 = Math.max(x1, a); y0 = Math.min(y0, b); y1 = Math.max(y1, b); }
+  const pad = 12, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 46 - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - 46 - sc * (y1 - y0)) / 2 - sc * y0 + 6;
+  const P = []; let lx = -1e9, ly = -1e9; for (const [a, b] of pts) { const X_ = ox + sc * a, Y_ = oy + sc * b; if (Math.abs(X_ - lx) + Math.abs(Y_ - ly) < 0.3) continue; P.push([X_, Y_]); lx = X_; ly = Y_; } if (P.length < 2) P.push([ox + sc * x, oy + sc * y]);
+  const K = 24, per = Math.ceil(P.length / K); for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)); const e = path(s, d, 'keep', { stroke: opts.color || 'var(--prime)', 'stroke-width': P.length > 5000 ? 0.5 : P.length > 800 ? 0.8 : 1.3, fill: 'none', opacity: 0.25 + 0.75 * (k + 1) / K, 'stroke-linejoin': 'round' }); el('title', {}, e).textContent = 'stuk ' + (k + 1) + ' van ' + K; }
+  el('circle', { cx: P[0][0], cy: P[0][1], r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1][0], cy: P[P.length - 1][1], r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const dist = Math.hypot(x, y); txt(s, 150, 270, fmt(cnt) + ' priemen tot ' + fmt(M), { 'text-anchor': 'middle', 'font-size': 8, class: 'tf' }); txt(s, 150, 281, 'weg ' + fmt(Math.round(len)) + ' · eindafstand ' + fmt(Math.round(dist)) + ' · verhouding ' + (dist / len * 100).toFixed(1) + '%', { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); if (opts.sub) txt(s, 150, 293, opts.sub, { 'text-anchor': 'middle', 'font-size': 7 }); return { cnt, len, dist };
+}
+const GA = Math.PI * (3 - Math.sqrt(5));
+const digs = n => String(n).split('').reduce((a, b) => a + +b, 0);
+
+// ---------- deel 6: varianten met kwadraten, positie en geschiedenis ----------
+const TAU = 2 * Math.PI;
+const frac = v => v - Math.floor(v);
+const popcnt = n => n.toString(2).split('1').length - 1;
+const dsum = n => String(n).split('').reduce((a, b) => a + +b, 0);
+function collatzSteps(n) { let s = 0; while (n !== 1) { n = n % 2 ? 3 * n + 1 : n / 2; s++; } return s; }
+function walk6(s, M, hFn, sFn, opts) { // hFn(p, g, st) -> koers (rad, absoluut tenzij opts.relative); sFn(p, g, st) -> stap (mag negatief)
+  opts = opts || {}; const ps = primesUpTo(M); const st = { x: 0, y: 0, h: 0, i: 0, g0: 2, g00: 2, gmax: 0, sum: 0, freq: new Map(), hist: [] }; const pts = [{ x: 0, y: 0, n: 0 }]; let len = 0;
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; st.p = p; st.g = g; st.freq.set(g, (st.freq.get(g) || 0) + 1);
+    let h = hFn(p, g, st); if (opts.relative) h = st.h + h; const L = sFn ? sFn(p, g, st) : g; let nx = st.x + L * Math.cos(h), ny = st.y + L * Math.sin(h);
+    if (opts.R && Math.hypot(nx, ny) > opts.R) { h = Math.atan2(-st.y, -st.x); nx = st.x + Math.abs(L) * Math.cos(h); ny = st.y + Math.abs(L) * Math.sin(h); }
+    st.x = nx; st.y = ny; st.h = h; st.g00 = st.g0; st.g0 = g; st.gmax = Math.max(st.gmax, g); st.sum += g; st.hist.push(g); len += Math.abs(L); pts.push({ x: nx, y: ny, n: p }); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const q of pts) { x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); }
+  const pad = 12, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 46 - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - 46 - sc * (y1 - y0)) / 2 - sc * y0 + 6;
+  const P = pts.map(q => ({ x: ox + sc * q.x, y: oy + sc * q.y, n: q.n })); const K = 24, per = Math.ceil(P.length / K);
+  for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)); path(s, d, 'keep', { stroke: 'var(--prime)', 'stroke-width': P.length > 800 ? 0.7 : 1.1, fill: 'none', opacity: 0.3 + 0.7 * (k + 1) / K, 'stroke-linejoin': 'round' }); }
+  if (P.length <= 400) for (const q of P) if (q.n) mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.6 }, q.n, 'f');
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1].x, cy: P[P.length - 1].y, r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const dist = Math.hypot(st.x, st.y); txt(s, 150, 270, fmt(pts.length - 1) + ' priemen tot ' + fmt(M) + ' · weg ' + fmt(Math.round(len)) + ' · eindafstand ' + fmt(Math.round(dist)), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 283, opts.f || '', { 'text-anchor': 'middle', 'font-size': 7.5 }); if (opts.f2) txt(s, 150, 294, opts.f2, { 'text-anchor': 'middle', 'font-size': 7 });
+}
+const W6 = (cat, title, note, M, hFn, sFn, opts) => add(cat, title, note, s => walk6(s, M, hFn, sFn, opts));
+
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
+// ---------- deel 8: stappen uit de feiten ----------
+const CTX = {};
+function ctx(M) { if (CTX[M]) return CTX[M]; const L = 2 * M + 3; const sv = new Uint8Array(L + 1); sv[0] = sv[1] = 1; for (let i = 2; i * i <= L; i++) if (!sv[i]) for (let j = i * i; j <= L; j += i) sv[j] = 1; const ps = []; for (let i = 2; i <= M; i++) if (!sv[i]) ps.push(i); let q = M + 1; while (sv[q]) q++; ps.push(q); return CTX[M] = { ps, pr: n => n >= 2 && n <= L && !sv[n], L }; }
+function vw(s, M, vfn, opts) { // vfn(p, g, st) -> [dx, dy] of null
+  opts = opts || {}; const cx = ctx(M); const ps = cx.ps; const st = { x: 0, y: 0, i: 0, g0: 1, p0: 2, pr: cx.pr, ps, n: {}, acc: 0 }; const pts = [{ x: 0, y: 0, n: 0 }]; let len = 0;
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; st.p = p; st.g = g; st.q = ps[i + 1]; st.pprev = i ? ps[i - 1] : 0; let v = vfn(p, g, st); if (v && opts.logx) v = [Math.log(p + g) - Math.log(p), v[1]]; if (v) { st.x += v[0]; st.y += v[1]; len += Math.hypot(v[0], v[1]); } st.g0 = g; st.p0 = p; pts.push({ x: st.x, y: st.y, n: p }); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const q of pts) { x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); }
+  if (opts.ref != null) { const yr = opts.ref * x1; y0 = Math.min(y0, yr); y1 = Math.max(y1, yr); }
+  if (y1 - y0 < 1e-9) { y1 = y0 + 1; } if (x1 - x0 < 1e-9) { x1 = x0 + 1; } const pad = 12, HH = H - 46; const scu = Math.min((W - 2 * pad) / (x1 - x0), (HH - 2 * pad) / (y1 - y0)); const scx = opts.free ? (W - 2 * pad) / (x1 - x0) : scu, scy = opts.free ? (HH - 2 * pad) / (y1 - y0) : scu; const ox = (W - scx * (x1 - x0)) / 2 - scx * x0, oy = (HH - scy * (y1 - y0)) / 2 - scy * y0 + 6;   const Tx = x => ox + scx * x, Ty = y => oy + scy * (y1 + y0 - y); // spiegel: y omhoog
+  if (opts.axes) { el('line', { x1: Tx(x0), y1: Ty(0), x2: Tx(x1), y2: Ty(0), class: 'ax2' }, s); el('line', { x1: Tx(0), y1: Ty(y0), x2: Tx(0), y2: Ty(y1), class: 'ax2' }, s); }
+  if (opts.ref != null) { el('line', { x1: Tx(0), y1: Ty(0), x2: Tx(x1), y2: Ty(opts.ref * x1), class: 'ref' }, s); txt(s, Tx(x1) - 2, Ty(opts.ref * x1) - 4, 'helling ' + opts.ref, { 'text-anchor': 'end', fill: 'var(--seq)', 'font-size': 7 }); }
+  const P = []; let lx = -1e9, ly = -1e9; for (const q of pts) { const X_ = Tx(q.x), Y_ = Ty(q.y); if (Math.abs(X_ - lx) + Math.abs(Y_ - ly) < 0.3 && pts.length > 400) continue; P.push({ x: X_, y: Y_, n: q.n }); lx = X_; ly = Y_; }
+  const K = 24, per = Math.ceil(P.length / K); for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)); path(s, d, 'keep', { stroke: opts.color || 'var(--prime)', 'stroke-width': P.length > 5000 ? 0.6 : P.length > 800 ? 0.8 : 1.1, fill: 'none', opacity: 0.3 + 0.7 * (k + 1) / K, 'stroke-linejoin': 'round' }); }
+  if (pts.length <= 400) for (const q of P) if (q.n) mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.6 }, q.n, 'f');
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1].x, cy: P[P.length - 1].y, r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const fx = v => Math.abs(v) >= 100 ? fmt(Math.round(v)) : (+v.toFixed(3)).toString(); txt(s, 150, 267, fmt(pts.length - 1) + ' priemen tot ' + fmt(M), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 278, 'eind (' + fx(st.x) + ', ' + fx(st.y) + ')' + (opts.stat ? ' · ' + opts.stat(st) : ''), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 290, opts.f || '', { 'text-anchor': 'middle', 'font-size': 7.5 }); return st;
+}
+const W8 = (cat, title, note, M, vfn, opts) => add(cat, title, note, s => vw(s, M, vfn, opts));
+// hulpfuncties
+const leg = (a, p) => { a = ((a % p) + p) % p; if (a === 0) return 0; return modpow(a, (p - 1) / 2, p) === 1 ? 1 : -1; };
+function twoSq(p) { for (let b = 1; 2 * b * b <= p; b++) { const a2 = p - b * b, a = Math.round(Math.sqrt(a2)); if (a * a === a2) return [a, b]; } return null; } // a >= b
+function formXY(p, n) { for (let y = 1; n * y * y < p; y++) { const x2 = p - n * y * y, x = Math.round(Math.sqrt(x2)); if (x * x === x2) return [x, y]; } return null; }
+function factorize(n) { const f = []; for (let d = 2; d * d <= n; d++) if (n % d === 0) { let e = 0; while (n % d === 0) { n /= d; e++; } f.push([d, e]); } if (n > 1) f.push([n, 1]); return f; }
+function phiOf(n) { let r = n; for (const [q] of factorize(n)) r = r / q * (q - 1); return r; }
+function ordMod(a, p) { const n = p - 1; let o = n; for (const [q] of factorize(n)) while (o % q === 0 && modpow(a, o / q, p) === 1) o /= q; return o; }
+function isPrimRoot(a, p) { if (a % p === 0) return false; const n = p - 1; for (const [q] of factorize(n)) if (modpow(a, n / q, p) === 1) return false; return true; }
+function leastNonRes(p) { for (let a = 2; ; a++) if (leg(a, p) === -1) return a; }
+function leastPrimRoot(p) { if (p === 2) return 1; for (let a = 2; ; a++) if (isPrimRoot(a, p)) return a; }
+function liOf(x) { if (x < 2) return 0; let s = 1.0451637801; const n = Math.max(20, Math.ceil(x / 25)); const h = (x - 2) / n; for (let k = 0; k < n; k++) { const t = 2 + (k + 0.5) * h; s += h / Math.log(t); } return s; }
+const ZETA = []; for (let k = 2; k <= 80; k++) { let z = 0; for (let n = 1; n <= 2000; n++) z += Math.pow(n, -k); z += Math.pow(2000, 1 - k) / (k - 1); ZETA[k] = z; }
+function Rof(x) { const L = Math.log(x); let s = 1, term = 1; for (let k = 1; k <= 60; k++) { term *= L / k; s += term / (k * ZETA[k + 1]); } return s; }
+function mobiusUpTo(N) { const mu = new Int8Array(N + 1).fill(1); const pr = new Uint8Array(N + 1); for (let i = 2; i <= N; i++) { if (pr[i]) continue; for (let j = i; j <= N; j += i) { pr[j] = 1; mu[j] *= -1; } const ii = i * i; for (let j = ii; j <= N; j += ii) mu[j] = 0; } mu[1] = 1; return mu; }
+function omegaUpTo(N) { const o = new Uint8Array(N + 1); for (let i = 2; i <= N; i++) if (!o[i]) for (let j = i; j <= N; j += i) { let m = j; while (m % i === 0) { m /= i; o[j]++; } } return o; }
+function fibMod(n, m) { // [F_n, F_(n+1)] mod m
+  let a = 0n, b = 1n; const M = BigInt(m); const bits = n.toString(2); for (const bit of bits) { const c = (a * ((2n * b - a + M) % M)) % M, d = (a * a + b * b) % M; if (bit === '1') { a = d; b = (c + d) % M; } else { a = c; b = d; } } return Number(a); }
+function hlWeight(g) { let w = 1; for (const [q] of factorize(g)) if (q > 2) w *= (q - 1) / (q - 2); return w; }
+const MERS = new Set([2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279]);
+const MAXG = new Set([2, 3, 7, 23, 89, 113, 523, 887, 1129, 1327, 9551, 15683, 19609, 31397, 155921, 360653, 370261, 492113, 1349533]);
+const MERITREC = new Set([2, 3, 7, 113, 1129, 1327, 19609, 31397, 155921, 360653, 370261, 1357201]);
+const isPalin = n => { const s = String(n); return s === s.split('').reverse().join(''); };
+const isPalin2 = n => { const s = n.toString(2); return s === s.split('').reverse().join(''); };
+const revd = n => +String(n).split('').reverse().join('');
+const C2 = 0.6601618158;
+function twinExpected(x) { let s = 0; const n = Math.max(20, Math.ceil(x / 50)); const h = (x - 2) / n; for (let k = 0; k < n; k++) { const t = 2 + (k + 0.5) * h; s += h / (Math.log(t) ** 2); } return 2 * C2 * s; }
+function wieferich(p) { const P2 = BigInt(p) * BigInt(p); let r = 1n, b = 2n, e = p - 1; while (e) { if (e & 1) r = r * b % P2; b = b * b % P2; e >>= 1; } return r === 1n; }
+function wilsonSq(p) { const P2 = BigInt(p) * BigInt(p); let f = 1n; for (let k = 2n; k < BigInt(p); k++) f = f * k % P2; return (f + 1n) % P2 === 0n; }
+function halfFact(p) { let f = 1n; const P = BigInt(p); for (let k = 2n; k <= BigInt((p - 1) / 2); k++) f = f * k % P; return Number(f); }
+function ramanujanSet(M) { const cx = ctx(M); const pi = new Int32Array(M + 1); let c = 0; for (let n = 0; n <= M; n++) { if (cx.pr(n)) c++; pi[n] = c; } const f = n => pi[n] - pi[Math.floor(n / 2)]; const R = new Set(); let mn = Infinity; for (let n = M; n >= 2; n--) { const v = f(n); if (v < mn) { mn = v; } } // tweede pas: p is Ramanujan als min_{y>=p} f(y) > min_{y>=p-1} f(y)
+  const minFrom = new Int32Array(M + 2); minFrom[M + 1] = 1e9; for (let n = M; n >= 1; n--) minFrom[n] = Math.min(minFrom[n + 1], f(n)); for (let n = 2; n <= M; n++) if (cx.pr(n) && minFrom[n] > minFrom[n - 1]) R.add(n); return R; }
+function goodSet(ps, lim) { const G = new Set(); for (let n = 1; n < ps.length - 1 && ps[n] <= lim; n++) { let ok = true; for (let i = 1; i <= n && n + i < ps.length; i++) if (ps[n] * ps[n] <= ps[n - i] * ps[n + i]) { ok = false; break; } if (ok) G.add(ps[n]); } return G; }
+const isSemi = (n, pr) => { for (let d = 2; d * d <= n; d++) if (n % d === 0) return pr(d) && pr(n / d); return false; };
+const sqrtInt = n => { const r = Math.round(Math.sqrt(n)); return r * r === n ? r : -1; };
+
+// ===== RESTEN EN LEGENDRE (438–452) =====
+W8('Resten', 'Het gat mod 6 als koers', 'Feit 1108: voor p > 3 is het gat ≡ 0, 2 of 4 (mod 6), en 2 komt alleen na p ≡ 5, 4 alleen na p ≡ 1 (mod 6). Koers: 0 → omhoog, 2 → rechts, 4 → links; stap = gat. De x-richting meet dus p mod 6, de y-richting de zesvouden.', 1000, (p, g) => { const r = g % 6; const a = r === 0 ? -Math.PI / 2 : r === 2 ? 0 : Math.PI; return [g * Math.cos(a), -g * Math.sin(a)]; }, { f: 'gat ≡ 0 → ↑, 2 → →, 4 → ← (mod 6) · stap = gat', axes: true });
+W8('Resten', 'p mod 6 en gat mod 6 samen', 'Vijf mogelijke combinaties (p ≡ 1: gat 0 of 4; p ≡ 5: gat 0 of 2; plus 2 en 3). Elke combinatie een eigen koers op 72° van elkaar, stap = gat.', 1000, (p, g) => { const k = p <= 3 ? 4 : (p % 6 === 1 ? (g % 6 === 0 ? 0 : 1) : (g % 6 === 0 ? 2 : 3)); const a = TAU * k / 5 - Math.PI / 2; return [g * Math.cos(a), -g * Math.sin(a)]; }, { f: 'koers = 72° × klasse(p mod 6, gat mod 6) · stap = gat' });
+W8('Resten', 'Race mod 3', 'Feit 1603: π(x; 3, 2) − π(x; 3, 1) ≥ 2 voor alle x tussen 10⁵ en 1,4·10¹¹; de eerste leiding van rest 1 ligt pas bij 6·10¹¹. Rest 1 → rechts, rest 2 → omhoog. De weg blijft boven de diagonaal.', 1000000, p => p % 3 === 1 ? [1, 0] : p % 3 === 2 ? [0, 1] : null, { f: 'rest 1 (mod 3) → (1, 0) · rest 2 → (0, 1)', ref: 1, stat: st => 'voorsprong rest 2: ' + (st.y - st.x) });
+W8('Resten', 'Klasse 1 is altijd de laatste (mod 8)', 'Feit 1605: π(x; 8, 1) < π(x; 8, a) voor a = 3, 5, 7 en alle x in [23, 2·10⁸], omdat de kwadraten van priemen ≡ 1 (mod 8) zijn. x = aantal priemen ≡ 1, y = het gemiddelde van de andere drie klassen.', 1000000, p => p % 8 === 1 ? [1, 0] : p > 2 ? [0, 1 / 3] : null, { f: 'rest 1 (mod 8) → (1, 0) · rest 3, 5, 7 → (0, ⅓)', ref: 1, stat: st => 'achterstand van 1: ' + (st.y - st.x).toFixed(0) });
+W8('Resten', 'Klasse 1 is altijd de laatste (mod 12)', 'Hetzelfde modulo 12: klasse 1 blijft achter op 5, 7 en 11 voor alle x in [463, 2·10⁸] (feit 1605).', 1000000, p => p % 12 === 1 ? [1, 0] : p > 3 ? [0, 1 / 3] : null, { f: 'rest 1 (mod 12) → (1, 0) · rest 5, 7, 11 → (0, ⅓)', ref: 1, stat: st => 'achterstand van 1: ' + (st.y - st.x).toFixed(0) });
+W8('Resten', 'Race van de laatste cijfers', 'Feit 1601: de laatste cijfers 1, 3, 7, 9 komen tot 1,4·10¹¹ gelijk voor tot op 10⁻⁵. Vier koersen (1 → 0°, 3 → 90°, 7 → 180°, 9 → 270°), stap 1. Zonder voorkeur blijft de weg dicht bij huis.', 1000000, p => { const k = { 1: 0, 3: 1, 7: 2, 9: 3 }[p % 10]; if (k == null) return null; const a = k * Math.PI / 2; return [Math.cos(a), Math.sin(a)]; }, { f: 'koers 90° × rang(laatste cijfer) · stap 1', axes: true });
+W8('Resten', 'Is 2 een kwadraat modulo p?', 'Feit 1303 en 1606: (2/p) = 1 precies als p ≡ ±1 (mod 8). x telt +1 of −1 naar (2/p), y telt de priemen. De niet-resten leiden tot 11.100.143, dus hier de hele tijd.', 1000000, p => p > 2 ? [leg(2, p), 1] : null, { free: true, f: 'stap = ((2/p), 1)', axes: true, stat: st => 'som (2/p) = ' + st.x });
+W8('Resten', '(3/p) tegen (5/p)', 'x telt (3/p), y telt (5/p). Feit 1606: 3 wordt pas bij 61.981 voor het eerst een kwadraat vaker dan niet; 5 pas bij 2.082.927.221. Beide blijven hier dus meestal negatief.', 1000000, p => p > 5 ? [leg(3, p), leg(5, p)] : null, { f: 'stap = ((3/p), (5/p))', axes: true });
+W8('Resten', '(−1/p) tegen (2/p)', 'x telt (−1/p) = +1 als p ≡ 1 (mod 4), y telt (2/p). Twee Chebyshev-races in één beeld; −1 krijgt zijn eerste voorsprong bij 26.861, 2 pas bij 11.100.143.', 1000000, p => p > 2 ? [leg(-1, p), leg(2, p)] : null, { f: 'stap = ((−1/p), (2/p))', axes: true });
+W8('Resten', 'Kleinste niet-rest als stap', 'Feit 1304–1305: de kleinste kwadratische niet-rest n₀(p) is altijd priem en de records zijn 2, 3, 5, 7, 11, 13, 17, 19, 23 bij p = 3, 7, 23, 71, 311, 479, 1559, 5711, 10559. Koers p radialen, stap n₀(p).', 10000, p => { if (p === 2) return [1, 0]; const n0 = leastNonRes(p); return [n0 * Math.cos(p), n0 * Math.sin(p)]; }, { f: 'koers = p rad · stap = n₀(p)' });
+W8('Resten', 'Kleinste primitieve wortel als stap', 'Feit 1404: de kleinste primitieve wortel g(p) heeft records 2, 3, 5, 6, 7, 19, 21, 23 bij 3, 7, 23, 41, 71, 191, 409, 2161. Koers p radialen, stap g(p). De sprong van 23 bij 2161 valt op.', 10000, p => { const g = leastPrimRoot(p); return [g * Math.cos(p), g * Math.sin(p)]; }, { f: 'koers = p rad · stap = g(p)' });
+W8('Resten', 'Artins constante als helling', 'Feit 1402: 2 is een primitieve wortel modulo een deel A = 0,3739… van de priemen (Artin, bewezen onder GRH). x telt alle priemen, y de priemen waarvoor 2 een primitieve wortel is. De helling nadert A.', 100000, p => p > 2 ? [1, isPrimRoot(2, p) ? 1 : 0] : null, { free: true, f: 'stap = (1, [2 is primitieve wortel mod p])', ref: 0.374, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Resten', 'Volledige periode van 1/p', 'Feit 1111: de periode van 1/p is de orde van 10 modulo p. Hij is p − 1 (volledig) precies als 10 een primitieve wortel is: 7, 17, 19, 23, 29, 47, … Ook hier nadert de helling Artins constante.', 100000, p => p > 5 ? [1, isPrimRoot(10, p) ? 1 : 0] : null, { free: true, f: 'stap = (1, [periode van 1/p is p − 1])', ref: 0.374, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Resten', 'Orde van 2 als koers', 'De orde van 2 modulo p, gedeeld door p − 1, maal 2π. Koers 2π (= 0) betekent primitieve wortel; koers π betekent orde (p − 1)/2; kleine koersen zijn priemen die 2^k − 1 delen voor kleine k.', 10000, (p, g) => { if (p === 2) return [g, 0]; const a = TAU * ordMod(2, p) / (p - 1); return [g * Math.cos(a), g * Math.sin(a)]; }, { f: 'koers = 2π · ord_p(2)/(p − 1) · stap = gat' });
+W8('Resten', 'Aandeel primitieve wortels', 'Feit 1401: er zijn φ(p − 1) primitieve wortels modulo p. x telt priemen, y telt φ(p − 1)/(p − 1) op. De helling nadert opnieuw Artins constante: het gemiddelde aandeel primitieve wortels.', 100000, p => [1, phiOf(p - 1) / (p - 1)], { free: true, f: 'stap = (1, φ(p − 1)/(p − 1))', ref: 0.374, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+
+// ===== KWADRATEN EN VORMEN (453–462) =====
+W8('Vormen', 'De Gaussische stap', 'Feit 1306: elke priem p ≡ 1 (mod 4) is op één manier a² + b². Stap (a, b) met a > b voor die priemen; 2 = 1² + 1²; priemen ≡ 3 (mod 4) staan stil. De weg klimt met de gemiddelde helling b/a.', 10000, p => { if (p === 2) return [1, 1]; if (p % 4 !== 1) return null; const [a, b] = twoSq(p); return [a, b]; }, { f: 'stap = (a, b) met p = a² + b², a > b', stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Vormen', 'Gaussisch, gespiegeld naar p mod 8', 'Dezelfde stap (a, b), maar gespiegeld voor p ≡ 5 (mod 8): dan (−a, −b). Zo wordt het een wandeling zonder drift; de resten 1 en 5 modulo 8 zijn even talrijk.', 10000, p => { if (p === 2) return [1, 1]; if (p % 4 !== 1) return null; const [a, b] = twoSq(p); return p % 8 === 1 ? [a, b] : [-a, -b]; }, { f: 'stap = ±(a, b) naar p mod 8', axes: true });
+W8('Vormen', 'Gaussisch, a en b gewisseld naar pariteit van a', 'Stap (a, b) als a oneven, (b, a) als a even (a is de grootste). Een andere spiegeling, nu om de diagonaal: de weg loopt op de lijn y = x.', 10000, p => { if (p === 2) return [1, 1]; if (p % 4 !== 1) return null; const [a, b] = twoSq(p); return a % 2 ? [a, b] : [b, a]; }, { f: 'stap = (a, b) of (b, a) naar pariteit van a', ref: 1 });
+W8('Vormen', 'Gaussische priemen als draai', 'Vermenigvuldigen van Gaussische priemen a + bi telt hun hoeken op. Relatief: draai arctan(b/a) per priem ≡ 1 (mod 4), stap = gat; andere priemen gaan rechtdoor.', 10000, (p, g, st) => { if (p % 4 === 1) { const [a, b] = twoSq(p); st.acc += Math.atan2(b, a); } return [g * Math.cos(st.acc), g * Math.sin(st.acc)]; }, { f: 'draai = arg(a + bi) · stap = gat' });
+W8('Vormen', 'Hoek van het Gaussische priem', 'Koers = arctan(b/a), tussen 0° en 45°, voor p ≡ 1 (mod 4); koers recht omlaag voor p ≡ 3 (mod 4). Stap = gat.', 10000, (p, g) => { if (p % 4 === 1) { const [a, b] = twoSq(p); const t = Math.atan2(b, a); return [g * Math.cos(t), g * Math.sin(t)]; } return [0, -g]; }, { f: 'koers = arctan(b/a) of −90° · stap = gat' });
+W8('Vormen', 'Eisenstein: x² + 3y²', 'Feit 1307: p = x² + 3y² precies als p ≡ 1 (mod 3) (of p = 3). Stap (x, y√3): het Eisenstein-rooster. Priemen ≡ 2 (mod 3) staan stil.', 10000, p => { if (p === 3) return [0, Math.sqrt(3)]; if (p % 3 !== 1) return null; const [x, y] = formXY(p, 3); return [x, y * Math.sqrt(3)]; }, { f: 'stap = (x, y√3) met p = x² + 3y²', stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Vormen', 'x² + 2y²', 'Feit 1307: p = x² + 2y² precies als p ≡ 1 of 3 (mod 8). Stap (x, y√2); priemen ≡ 5, 7 (mod 8) staan stil. Vergelijk de helling met de Gaussische en de Eisenstein-wandeling.', 10000, p => { if (p === 2) return [0, Math.SQRT2]; if (p % 8 !== 1 && p % 8 !== 3) return null; const [x, y] = formXY(p, 2); return [x, y * Math.SQRT2]; }, { f: 'stap = (x, y√2) met p = x² + 2y²', stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Vormen', 'Het verschil a − b', 'Koers p radialen, stap a − b (met p = a² + b², a > b) voor p ≡ 1 (mod 4). Het verschil is altijd oneven.', 10000, p => { if (p % 4 !== 1) return null; const [a, b] = twoSq(p); return [(a - b) * Math.cos(p), (a - b) * Math.sin(p)]; }, { f: 'koers = p rad · stap = a − b' });
+W8('Vormen', 'De wortel van −1 modulo p', 'Feit 1203: voor p ≡ 1 (mod 4) is x = ((p − 1)/2)! een wortel van −1 modulo p. Koers 2π · x/p, stap = gat. Voor p ≡ 3 (mod 4) is x = ±1 en wijst de koers naar 0° of 360°.', 2000, (p, g) => { if (p === 2) return [g, 0]; const x = halfFact(p); const a = TAU * x / p; return [g * Math.cos(a), g * Math.sin(a)]; }, { f: 'koers = 2π · (((p−1)/2)! mod p)/p · stap = gat' });
+W8('Vormen', 'Fibonacci modulo p', 'Feit 1206: F_p ≡ (p/5) (mod p): +1 als p ≡ ±1 (mod 5), −1 als p ≡ ±2. x telt (p/5) op, y telt de priemen. Een race tussen de twee klassen modulo 5, berekend via Fibonacci.', 100000, p => p === 5 ? null : [fibMod(p, p) === 1 ? 1 : -1, 1], { free: true, f: 'stap = (F_p mod p als ±1, 1)', axes: true });
+// ===== GATEN EN CRAMÉR (463–482) =====
+W8('Gaten', 'Merit als stap', 'Feit 3012: de merit g/ln p is het gat gedeeld door het verwachte gat. Koers p radialen, stap = merit. Gemiddeld 1; de record-merit tot 10⁵ is 10,3 (gat 72 na 31.397).', 100000, (p, g) => { const m = g / Math.log(p); return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'koers = p rad · stap = g / ln p' });
+W8('Gaten', 'Cramér-verhouding als stap', 'Feit 3007: Cramér vermoedt g = O(ln² p). Stap = 100 · g/ln² p, koers p radialen. De grootste verhouding tot 10⁵ is 0,67 (gat 72 na 31.397); tot 10¹⁸ blijft hij onder 0,93.', 100000, (p, g) => { const m = 100 * g / Math.log(p) ** 2; return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'koers = p rad · stap = 100 g / ln² p' });
+W8('Gaten', 'Cramérs kans als stap', 'Feit 3018: in Cramérs model is de kans op een gat groter dan t·ln p ongeveer e^(−t). Stap = e^(−g/ln p): dicht bij 1 voor kleine gaten, bijna 0 voor grote. Het gemiddelde is ongeveer ½.', 100000, (p, g, st) => { const m = Math.exp(-g / Math.log(p)); st.acc += m; return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'koers = p rad · stap = e^(−g/ln p)', stat: st => 'gemiddelde stap ' + (st.acc / st.i).toFixed(3) });
+W8('Gaten', 'Hardy–Littlewood-gewicht', 'Feit 3014: een gat 2k komt ∏_(q|k, q>2) (q−1)/(q−2) keer vaker voor dan verwacht; een factor 3 verdubbelt. Stap = gat / gewicht: zesvouden tellen half, dertigvouden voor 3/8. Koers p radialen.', 100000, (p, g) => { const m = g / hlWeight(g); return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'koers = p rad · stap = g / ∏(q−1)/(q−2)' });
+W8('Gaten', 'Gat 2 tegen gat 4', 'Feit 3013: de gaten 2 en 4 zijn bijna even talrijk (305.560.420 tegen 305.552.719 onder 1,4·10¹¹). x telt gaten van 2, y gaten van 4: de weg volgt de diagonaal.', 1000000, (p, g) => g === 2 ? [1, 0] : g === 4 ? [0, 1] : null, { f: 'gat 2 → (1, 0) · gat 4 → (0, 1)', ref: 1 });
+W8('Gaten', 'Gat 2 tegen gat 6', 'Feit 3013–3014: 6 is de kampioen; de factor 3 verdubbelt het aantal. x telt gaten van 2, y gaten van 6: helling 2 (iets minder voor kleine p).', 1000000, (p, g) => g === 2 ? [1, 0] : g === 6 ? [0, 1] : null, { f: 'gat 2 → (1, 0) · gat 6 → (0, 1)', ref: 2, stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Gaten', 'Gat 6 tegen gat 30', 'Feit 3015: 30 wordt pas rond 1,7·10³⁵ de kampioen. Gewicht 8/3 tegen 2, maar 30 is onder 10⁶ nog groot ten opzichte van ln p, dus de helling (30 per 6) groeit langzaam vanaf 0.', 1000000, (p, g) => g === 6 ? [1, 0] : g === 30 ? [0, 1] : null, { f: 'gat 6 → (1, 0) · gat 30 → (0, 1)', stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Gaten', 'Gat 12 tegen gat 10', 'Zelfde gewicht als 6 tegen 2? Nee: 12 = 2²·3 heeft gewicht 2, 10 = 2·5 gewicht 4/3. Verhouding 3/2.', 1000000, (p, g) => g === 10 ? [1, 0] : g === 12 ? [0, 1] : null, { f: 'gat 10 → (1, 0) · gat 12 → (0, 1)', ref: 1.5, stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Gaten', 'Andrica als stap', 'Feit 3006: Andrica vermoedt √q − √p < 1 voor opeenvolgende priemen. Stap = 10 · (√q − √p), koers p radialen. De grootste waarde is 0,67 (7 → 11); verder worden de stappen steeds kleiner.', 100000, (p, g) => { const m = 10 * (Math.sqrt(p + g) - Math.sqrt(p)); return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'koers = p rad · stap = 10 (√q − √p)' });
+W8('Gaten', 'Firoozbakht als stap', 'Feit 3006: Firoozbakht vermoedt p_n^(1/n) > p_(n+1)^(1/(n+1)); gecontroleerd tot 2⁶⁴. Stap = 10⁴ · (p_n^(1/n) − p_(n+1)^(1/(n+1))), altijd positief, koers p radialen.', 100000, (p, g, st) => { const n = st.i; const m = 1e4 * (Math.pow(p, 1 / n) - Math.pow(p + g, 1 / (n + 1))); return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'koers = p rad · stap = 10⁴ (p_n^(1/n) − p_(n+1)^(1/(n+1)))', stat: st => 'alle stappen positief' });
+W8('Gaten', 'Trap van de kwadraten', 'Feit 3020: tussen n² en (n + 1)² liggen voor n ≤ 14141 altijd minstens 2 priemen (Legendre). y stijgt per priem, x per kwadraat dat gepasseerd wordt. De trap wordt steeds hoger per trede.', 100000, (p, g, st) => { const k = Math.floor(Math.sqrt(p + g)) - Math.floor(Math.sqrt(p)); return [k, 1]; }, { f: 'stap = (aantal kwadraten tussen p en q, 1)' });
+W8('Gaten', 'Stijgen en dalen', 'Feit 3010 (Erdős–Turán): de gaten stijgen en dalen oneindig vaak. Omhoog als het volgende gat groter is, omlaag als kleiner, naar rechts als gelijk.', 100000, (p, g, st) => st.i === 1 ? null : g > st.g0 ? [0, 1] : g < st.g0 ? [0, -1] : [1, 0], { free: true, f: 'gat stijgt → ↑, daalt → ↓, gelijk → →', axes: true });
+W8('Gaten', 'Recordgaten als sprongen', 'Feit 3011: de maximale gaten tot 10⁶ beginnen bij 2, 3, 7, 23, 89, 113, 523, 887, 1129, 1327, 9551, 15683, 19609, 31397, 155921, 360653, 370261, 492113. Alleen daar een stap (het gat), koers p radialen.', 1000000, (p, g) => MAXG.has(p) ? [g * Math.cos(p), g * Math.sin(p)] : null, { f: 'stap = gat alleen bij een recordgat' });
+W8('Gaten', 'Record-merits als sprongen', 'Feit 3025: de gaten met een record-merit g/ln p tot 10⁶ volgen op 2, 3, 7, 113, 1129, 1327, 19609, 31397, 155921, 360653, 370261. Stap = merit bij elk record.', 1000000, (p, g) => MERITREC.has(p) ? [g / Math.log(p) * Math.cos(p), g / Math.log(p) * Math.sin(p)] : null, { f: 'stap = merit alleen bij een record-merit' });
+W8('Gaten', 'Verhouding van opeenvolgende gaten', 'Feit 3021: g_(n+1)/g_n wordt willekeurig groot en klein (Pintz). Koers = ln(g_(n+1)/g_n) radialen, stap 1. Gelijke gaten gaan naar rechts.', 10000, (p, g, st) => { if (st.i === 1) return null; const a = Math.log(g / st.g0); return [Math.cos(a), Math.sin(a)]; }, { f: 'koers = ln(gat / vorig gat) rad · stap 1' });
+W8('Gaten', 'Eerste keer dat een gat voorkomt', 'Feit 3019: elke even gatgrootte komt ergens voor het eerst voor (2 bij 3, 4 bij 7, 6 bij 23, 8 bij 89, 14 bij 113, 10 bij 139, …). Alleen bij zo’n eerste keer een stap van die grootte, koers p radialen.', 1000000, (p, g, st) => { if (st.n[g]) return null; st.n[g] = 1; return [g * Math.cos(p), g * Math.sin(p)]; }, { f: 'stap = gat bij de eerste keer dat dit gat voorkomt', stat: st => Object.keys(st.n).length + ' verschillende gaten' });
+W8('Gaten', 'Capelles identiteit', 'Feit 3017: voor opeenvolgende priemen r < q < p geldt ⌊pq/r⌋ = p + q − r, behalve voor r in {2, 3, 5, 7, 11, 13, 19, 23, 31, 47, 83, 89, 113, 199, 1327}. Naar rechts als het klopt, omhoog als niet.', 100000, (p, g, st) => { const r = p, q = p + g, pp = st.ps[st.i + 1]; if (!pp) return null; return Math.floor(pp * q / r) === pp + q - r ? [1, 0] : [0, 1]; }, { free: true, f: '⌊pq/r⌋ = p + q − r → (1, 0), anders (0, 1)', stat: st => st.y + ' uitzonderingen' });
+W8('Gaten', 'Poisson-venster', 'Feit 3016: het aantal priemen in (p, p + ln p] is bij benadering Poisson met gemiddelde 1. Stap = (1, aantal − 1): de weg schommelt rond de x-as.', 100000, (p, g, st) => { let c = 0; const lim = p + Math.log(p); for (let j = st.i; j < st.ps.length && st.ps[j] <= lim; j++) c++; return [1, c - 1]; }, { free: true, f: 'stap = (1, #priemen in (p, p + ln p] − 1)', axes: true });
+W8('Gaten', 'Gaten groter dan 2 ln p', 'Cramér: kans e^(−2) = 13,5 % op een gat boven 2 ln p. x telt priemen, y telt zulke gaten. De helling ligt iets onder 0,135.', 1000000, (p, g) => [1, g > 2 * Math.log(p) ? 1 : 0], { free: true, f: 'stap = (1, [gat > 2 ln p])', ref: 0.135, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Gaten', 'Zesvouden tegen de rest', 'x telt de gaten op die zesvouden zijn, y de andere. Omdat de zesvouden ook de grotere gaten zijn, ligt x voor.', 1000000, (p, g) => g % 6 === 0 ? [g, 0] : [0, g], { f: 'gat ≡ 0 (mod 6) → (gat, 0), anders (0, gat)', ref: 1, stat: st => 'aandeel zesvouden ' + (st.x / (st.x + st.y)).toFixed(3) });
+
+// ===== BIAS EN TELLINGEN (483–497) =====
+W8('Tellingen', 'Herhaald laatste cijfer', 'Feit 1604 (Lemke Oliver–Soundararajan): opeenvolgende priemen vermijden hetzelfde laatste cijfer: 1 → 1 in 18,5 % van de gevallen in plaats van 25 %. x telt de priemen, y de herhalingen; de helling ligt duidelijk onder 0,25.', 1000000, (p, g) => p > 5 ? [1, p % 10 === (p + g) % 10 ? 1 : 0] : null, { f: 'stap = (1, [q eindigt als p])', ref: 0.25, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Tellingen', 'Herhaalde rest modulo 3', 'Hetzelfde modulo 3: p en de volgende priem hebben minder vaak dezelfde rest dan de helft van de tijd.', 1000000, (p, g) => p > 3 ? [1, p % 3 === (p + g) % 3 ? 1 : 0] : null, { f: 'stap = (1, [q ≡ p (mod 3)])', ref: 0.5, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Tellingen', 'Herhaalde rest modulo 4', 'Modulo 4: ook hier wordt herhaling vermeden, maar minder sterk dan modulo 3 (een gat van 2 wisselt de rest modulo 4 altijd).', 1000000, (p, g) => p > 2 ? [1, p % 4 === (p + g) % 4 ? 1 : 0] : null, { f: 'stap = (1, [q ≡ p (mod 4)])', ref: 0.5, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Tellingen', 'Overgang van laatste cijfers als zestien koersen', 'Het paar (laatste cijfer van p, laatste cijfer van q) bepaalt een van zestien koersen, stap 1. Omdat de vier herhalingen ondervertegenwoordigd zijn, drijft de weg weg van hun vier richtingen.', 100000, (p, g) => { const R = { 1: 0, 3: 1, 7: 2, 9: 3 }; const a = R[p % 10], b = R[(p + g) % 10]; if (a == null || b == null) return null; const t = TAU * (4 * a + b) / 16; return [Math.cos(t), Math.sin(t)]; }, { f: 'koers = 2π · (4·rang(p) + rang(q))/16 · stap 1', axes: true });
+W8('Tellingen', 'li(x) − π(x)', 'Feit 2013: li(x) − π(x) > 0 voor alle x tot 10¹⁹, maar wisselt oneindig vaak van teken (Littlewood). x = π(p), y = li(p) − π(p). Een langzaam groeiende, altijd positieve kromme.', 100000, (p, g, st) => { const v = liOf(p) - st.i; const d = v - (st.lastv || 0); st.lastv = v; return [1, d]; }, { free: true, f: 'stap = (1, Δ(li(p) − π(p)))', axes: true, stat: st => 'li − π = ' + st.y.toFixed(1) });
+W8('Tellingen', 'R(x) − π(x)', 'Feit 2011: Riemanns R(x) benadert π(x) veel beter dan li; het verschil wisselt van teken. x = π(p), y = R(p) − π(p).', 100000, (p, g, st) => { const v = Rof(p) - st.i; const d = v - (st.lastv || 0); st.lastv = v; return [1, d]; }, { free: true, f: 'stap = (1, Δ(R(p) − π(p)))', axes: true, stat: st => 'R − π = ' + st.y.toFixed(1) });
+W8('Tellingen', 'x/ln x − π(x)', 'Feit 2012: π(x) > x/ln x voor x ≥ 17. y = p/ln p − π(p): negatief en steeds negatiever.', 100000, (p, g, st) => { const v = p / Math.log(p) - st.i; const d = v - (st.lastv || 0); st.lastv = v; return [1, d]; }, { free: true, f: 'stap = (1, Δ(p/ln p − π(p)))', axes: true });
+W8('Tellingen', 'θ(x) − x', 'Feit 2034: θ(x) = Σ ln p < x voor alle x tot 1,39·10¹⁷, en de eerste x met θ(x) > x is onbekend. y = θ(p) − p blijft negatief.', 100000, (p, g, st) => { st.th = (st.th || 0) + Math.log(p); const v = st.th - p; const d = v - (st.lastv || 0); st.lastv = v; return [1, d]; }, { free: true, f: 'stap = (1, Δ(θ(p) − p))', axes: true, stat: st => 'θ − p = ' + st.y.toFixed(0) });
+W8('Tellingen', 'p_n − n ln n', 'Feit 2012 (Rosser): p_n > n ln n voor alle n. y = p_n − n ln n: positief en groeiend als n ln ln n.', 100000, (p, g, st) => { const n = st.i; const v = p - n * Math.log(n); const d = v - (st.lastv || 0); st.lastv = v; return [1, d]; }, { free: true, f: 'stap = (1, Δ(p_n − n ln n))', axes: true });
+W8('Tellingen', 'p_n − n(ln n + ln ln n − 1)', 'Feit 2012 (Dusart): p_n > n(ln n + ln ln n − 1) voor n ≥ 2. Het verschil is veel kleiner dan bij n ln n en blijft positief.', 100000, (p, g, st) => { const n = st.i; if (n < 2) return null; const v = p - n * (Math.log(n) + Math.log(Math.log(n)) - 1); const d = v - (st.lastv || 0); st.lastv = v; return [1, d]; }, { free: true, f: 'stap = (1, Δ(p_n − n(ln n + ln ln n − 1)))', axes: true });
+W8('Tellingen', 'Mertens-functie bij de priemen', 'Feit 2006: M(x) = Σ μ(n) blijft onder √x tot ver voorbij 10¹⁶, maar Mertens’ vermoeden is vals. y = M(p), x = π(p). Elke priem trekt 1 af.', 100000, (p, g, st) => { st.mu = st.mu || mobiusUpTo(100001); let v = 0; for (let n = st.p0 + (st.i === 1 ? -1 : 1); n <= p; n++) v += st.mu[n]; return [1, v]; }, { free: true, f: 'stap = (1, M(p) − M(vorige p))', axes: true, stat: st => 'M(p) = ' + st.y });
+W8('Tellingen', 'Liouville-som bij de priemen', 'Feit 2008: L(x) = Σ λ(n) is negatief voor alle x tussen 2 en 10⁸ (Pólya), maar wordt ooit positief (bij 906.150.257). y = L(p).', 100000, (p, g, st) => { st.om = st.om || omegaUpTo(100001); let v = 0; for (let n = st.p0 + (st.i === 1 ? -1 : 1); n <= p; n++) v += st.om[n] % 2 ? -1 : 1; return [1, v]; }, { free: true, f: 'stap = (1, L(p) − L(vorige p))', axes: true, stat: st => 'L(p) = ' + st.y });
+W8('Tellingen', 'Σ 1/p − ln ln p', 'Feit 2002 (Mertens): Σ_(p≤x) 1/p − ln ln x → M = 0,2615. y is dat verschil; de kromme vlakt af naar M.', 1000000, (p, g, st) => { st.s = (st.s || 0) + 1 / p; const v = st.s - Math.log(Math.log(p)); const d = v - (st.lastv == null ? v : st.lastv); st.lastv = v; return st.i === 1 ? [1, 0] : [1, d]; }, { free: true, logx: true, f: 'stap = (1, Δ(Σ1/p − ln ln p))', stat: st => 'waarde ' + st.lastv.toFixed(4) + ' (M = 0,2615)' });
+W8('Tellingen', 'ln p · ∏(1 − 1/p)', 'Feit 2002 (Mertens): ∏_(p≤x)(1 − 1/p) · ln x → e^(−γ) = 0,5615. y is dat product maal ln p.', 1000000, (p, g, st) => { st.pr2 = (st.pr2 || 1) * (1 - 1 / p); const v = st.pr2 * Math.log(p); const d = v - (st.lastv == null ? v : st.lastv); st.lastv = v; return st.i === 1 ? [1, 0] : [1, d]; }, { free: true, logx: true, f: 'stap = (1, Δ(ln p · ∏(1 − 1/p)))', stat: st => 'waarde ' + st.lastv.toFixed(4) + ' (e^−γ = 0,5615)' });
+W8('Tellingen', 'Σ ln p / p − ln p', 'Feit 2002: Σ_(p≤x) ln p / p = ln x + O(1). y = het verschil, dat begrensd blijft (rond −1,33).', 1000000, (p, g, st) => { st.s = (st.s || 0) + Math.log(p) / p; const v = st.s - Math.log(p); const d = v - (st.lastv == null ? v : st.lastv); st.lastv = v; return st.i === 1 ? [1, 0] : [1, d]; }, { free: true, logx: true, f: 'stap = (1, Δ(Σ ln p/p − ln p))', stat: st => 'waarde ' + st.lastv.toFixed(4) });
+
+// ===== PATRONEN (498–512) =====
+W8('Patronen', 'Tweelingen tegen sexy priemen', 'Feit 4006: sexy paren (p, p + 6) zijn ongeveer twee keer zo talrijk als tweelingen (de factor (3 − 1)/(3 − 2) = 2). x telt tweelingen, y telt sexy paren.', 1000000, (p, g, st) => { const t = st.pr(p + 2) ? 1 : 0, s = st.pr(p + 6) ? 1 : 0; return t || s ? [t, s] : null; }, { f: 'stap = ([p+2 priem], [p+6 priem])', ref: 2, stat: st => 'helling ' + (st.y / st.x).toFixed(3) });
+W8('Patronen', 'Tweelingen tegen neven', 'Feit 4006: neven (p, p + 4) zijn precies zo talrijk als tweelingen (4 heeft geen oneven priemfactor). Helling 1.', 1000000, (p, g, st) => { const t = st.pr(p + 2) ? 1 : 0, c = st.pr(p + 4) ? 1 : 0; return t || c ? [t, c] : null; }, { f: 'stap = ([p+2 priem], [p+4 priem])', ref: 1, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Patronen', 'Sophie Germain tegen tweelingen', 'Feit 4006: Sophie Germain-priemen (2p + 1 priem) zijn ongeveer even talrijk als tweelingen: 7746 tegen 8169 onder 10⁶. x telt tweelingen, y Sophie Germain.', 1000000, (p, g, st) => { const t = st.pr(p + 2) ? 1 : 0, s = st.pr(2 * p + 1) ? 1 : 0; return t || s ? [t, s] : null; }, { f: 'stap = ([p+2 priem], [2p+1 priem])', ref: 1, stat: st => 'helling ' + (st.y / st.x).toFixed(4) });
+W8('Patronen', 'Drielingen (0, 2, 6) tegen (0, 4, 6)', 'Feit 4006: de twee drielingpatronen zijn even waarschijnlijk. x telt (p, p+2, p+6), y telt (p, p+4, p+6).', 1000000, (p, g, st) => { const a = st.pr(p + 2) && st.pr(p + 6) ? 1 : 0, b = st.pr(p + 4) && st.pr(p + 6) ? 1 : 0; return a || b ? [a, b] : null; }, { f: 'stap = ([0,2,6], [0,4,6])', ref: 1, stat: st => st.x + ' en ' + st.y });
+W8('Patronen', 'Bruns constante', 'Feit 4005: Σ (1/p + 1/(p+2)) over de tweelingen convergeert naar B₂ ≈ 1,9022. x = die som, y telt de tweelingen. De weg wordt steeds steiler: de som stokt.', 1000000, (p, g, st) => st.pr(p + 2) ? [1 / p + 1 / (p + 2), 1] : null, { free: true, f: 'stap = (1/p + 1/(p+2), 1) bij een tweeling', stat: st => 'som ' + st.x.toFixed(4) + ' (B₂ = 1,9022)' });
+W8('Patronen', 'De tweelingconstante', 'Feit 3014: het aantal tweelingen tot x is ongeveer 2C₂ ∫ dt/ln² t met C₂ = 0,6602. x = die verwachting, y = het echte aantal: de weg volgt de diagonaal (10⁶: 8169 tegen 8248).', 1000000, (p, g, st) => { const e = 2 * C2 * g / Math.log(p + g / 2) ** 2; return [e, st.pr(p + 2) ? 1 : 0]; }, { f: 'stap = (2C₂ ∫ dt/ln² t over (p, q], [tweeling])', ref: 1, stat: st => 'echt / verwacht = ' + (st.y / st.x).toFixed(4) });
+W8('Patronen', 'Sterk, zwak, gebalanceerd', 'Feit 4014: een priem is sterk als hij boven het gemiddelde van zijn buren ligt, zwak eronder, gebalanceerd erop (5, 53, 157, 173, 211, …). Sterk → omhoog, zwak → omlaag, gebalanceerd → rechts.', 100000, (p, g, st) => { if (st.i === 1) return null; const m = (st.pprev + p + g) / 2; return p > m ? [0, 1] : p < m ? [0, -1] : [1, 0]; }, { free: true, f: 'sterk → ↑, zwak → ↓, gebalanceerd → →', axes: true, stat: st => st.x + ' gebalanceerd' });
+W8('Patronen', 'Tweede verschil', 'y telt de tweede verschillen p_(n+1) − 2p_n + p_(n−1) op (dat is het gat min het vorige gat), x telt de priemen. Alles telescopeert: y = gat − 1.', 100000, (p, g, st) => st.i === 1 ? null : [1, g - st.g0], { free: true, f: 'stap = (1, gat − vorig gat)', axes: true });
+W8('Patronen', 'Goede priemen', 'Feit 4014: p_n is goed als p_n² > p_(n−i) p_(n+i) voor alle i < n: 5, 11, 17, 29, 37, 41, 53, 59, 67, 71, … x telt priemen, y telt goede priemen.', 10000, (p, g, st) => { st.good = st.good || goodSet(st.ps, 10000); return [1, st.good.has(p) ? 1 : 0]; }, { free: true, f: 'stap = (1, [p is goed])', stat: st => st.y + ' goede priemen' });
+W8('Patronen', 'Chen-priemen', 'Feit 4015: p is een Chen-priem als p + 2 priem of een product van twee priemen is. De eerste die het niet zijn: 43, 61, 73, 79, 97. x telt priemen, y telt Chen-priemen.', 100000, (p, g, st) => [1, st.pr(p + 2) || isSemi(p + 2, st.pr) ? 1 : 0], { free: true, f: 'stap = (1, [p is Chen])', stat: st => 'aandeel ' + (st.y / st.x).toFixed(3) });
+W8('Patronen', 'Super-priemen', 'Feit 4016: super-priemen zijn de priemen met een priem volgnummer: p₂ = 3, p₃ = 5, p₅ = 11, p₇ = 17, … Koers p radialen, stap = gat, maar alleen als het volgnummer priem is.', 100000, (p, g, st) => st.pr(st.i) ? [g * Math.cos(p), g * Math.sin(p)] : null, { f: 'stap = gat alleen als π(p) priem is' });
+W8('Patronen', 'Som van de eerste n priemen', 'Feit 4017: S(n) = 2 + 3 + … + p_n is priem voor n = 1, 2, 4, 6, 12, 14, 60, 64, 96, 100, … x telt n, y telt de n waarvoor S(n) priem is.', 10000, (p, g, st) => { st.S = (st.S || 0) + p; return [1, st.pr(st.S) ? 1 : 0]; }, { free: true, f: 'stap = (1, [S(n) is priem])', stat: st => st.y + ' keer priem' });
+W8('Patronen', 'Euler–Rodríguez-ketens', 'Feit 4009: ketens van priemen met gaten 2, 4, 6, 8, … (A + x(x + 1)). Omhoog zolang het gat precies 2 groter is dan het vorige, anders naar rechts. De langste keten onder 10⁶ heeft 8 priemen (vanaf 128.981).', 1000000, (p, g, st) => g === st.g0 + 2 ? [0, 1] : [1, 0], { free: true, f: 'gat = vorig gat + 2 → ↑, anders →' });
+W8('Patronen', 'Stroken modulo 4', 'Feit 4012: er zijn willekeurig lange reeksen opeenvolgende priemen in één restklasse (Shiu). Rechtdoor zolang de rest modulo 4 gelijk blijft, 90° linksom bij een wissel. Lange rechte stukken zijn lange stroken.', 100000, (p, g, st) => { if ((p + g) % 4 !== p % 4) st.acc += Math.PI / 2; return [Math.cos(st.acc), Math.sin(st.acc)]; }, { f: 'draai 90° als q ≢ p (mod 4) · stap 1' });
+W8('Patronen', 'Stroken van het laatste cijfer', 'Hetzelfde met het laatste cijfer: rechtdoor zolang het gelijk blijft, draai als het wisselt. Omdat herhaling vermeden wordt (feit 1604), zijn de rechte stukken kort.', 100000, (p, g, st) => { if ((p + g) % 10 !== p % 10) st.acc += Math.PI / 2; return [Math.cos(st.acc), Math.sin(st.acc)]; }, { f: 'draai 90° als laatste cijfer wisselt · stap 1' });
+
+// ===== SPECIALE PRIEMEN (513–527) =====
+W8('Speciaal', 'Mersenne-exponenten als sprongen', 'Feit 1507: 2^p − 1 is priem voor p = 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279. Koers p radialen, stap = gat, maar 15 keer zo lang bij een Mersenne-exponent.', 2000, (p, g) => { const m = MERS.has(p) ? 15 * g : g; return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'stap = gat, ×15 bij een Mersenne-exponent' });
+W8('Speciaal', 'Sophie Germain-priemen', 'Feit 4006: 2p + 1 is priem voor 1171 van de 9592 priemen onder 10⁵. x telt priemen, y telt Sophie Germain-priemen; de helling zakt als 1/ln p.', 100000, (p, g, st) => [1, st.pr(2 * p + 1) ? 1 : 0], { free: true, f: 'stap = (1, [2p + 1 priem])', stat: st => st.y + ' Sophie Germain' });
+W8('Speciaal', 'Veilige priemen', 'De spiegel: p is veilig als (p − 1)/2 priem is (feit 1110: veilige priemen zijn ≡ 11 mod 12, of 5 en 7). y telt ze.', 100000, (p, g, st) => [1, p > 4 && st.pr((p - 1) / 2) ? 1 : 0], { free: true, f: 'stap = (1, [(p − 1)/2 priem])', stat: st => st.y + ' veilige priemen' });
+W8('Speciaal', 'Wieferich-sprongen', 'Feit 1207: 2^(p−1) ≡ 1 (mod p²) alleen voor 1093 en 3511 onder 10⁷. Koers p radialen, stap = gat, maar een sprong van 300 bij een Wieferich-priem.', 10000, (p, g) => { const m = wieferich(p) ? 300 : g; return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'stap = gat, 300 bij 1093 en 3511' });
+W8('Speciaal', 'Wilson-sprongen', 'Feit 1208: (p − 1)! ≡ −1 (mod p²) alleen voor 5, 13 en 563 onder 2·10¹³. Koers p radialen, stap = gat, een sprong van 100 bij een Wilson-priem.', 1000, (p, g) => { const m = wilsonSq(p) ? 100 : g; return [m * Math.cos(p), m * Math.sin(p)]; }, { f: 'stap = gat, 100 bij 5, 13 en 563' });
+W8('Speciaal', 'Fermat- en Mersenne-priemen', 'Feit 1502 en 1507: de priemen 2^k + 1 zijn 3, 5, 17, 257, 65537; de priemen 2^k − 1 zijn 3, 7, 31, 127, 8191, … Een sprong (stap 20·ln p) bij elk van beide, koers p radialen.', 100000, (p, g) => { const q = p - 1, r = p + 1; const f = (q & (q - 1)) === 0, m = (r & (r - 1)) === 0; const s = f || m ? 20 * Math.log(p) : g; return [s * Math.cos(p), s * Math.sin(p)]; }, { f: 'stap = gat, 20 ln p bij 2^k ± 1' });
+W8('Speciaal', 'Palindromische priemen', 'Feit 1113: een palindroom met een even aantal cijfers is deelbaar door 11, dus 11 is de enige palindromische priem met even lengte. y telt palindromen: vlak tussen 1.000 en 10.000, en weer vlak boven 100.000.', 1000000, (p, g) => [1, isPalin(p) ? 1 : 0], { free: true, f: 'stap = (1, [p is een palindroom])', stat: st => st.y + ' palindromen' });
+W8('Speciaal', 'Emirps', 'Omkeerbare priemen (13 ↔ 31, 17 ↔ 71, …), de omkering is een andere priem. y telt ze; het aandeel zakt langzaam.', 100000, (p, g, st) => { const r = revd(p); return [1, r !== p && st.pr(r) ? 1 : 0]; }, { free: true, f: 'stap = (1, [omkering is een andere priem])', stat: st => st.y + ' emirps' });
+W8('Speciaal', 'Binaire palindromen', 'Priemen die achterstevoren gelezen in het binaire stelsel hetzelfde zijn (3, 5, 7, 17, 31, 73, 107, 127, …). Een binair palindroom met even lengte is deelbaar door 3, dus na 3 alleen oneven lengtes: de kromme is om en om vlak.', 1000000, (p, g) => [1, isPalin2(p) ? 1 : 0], { free: true, f: 'stap = (1, [p is een binair palindroom])', stat: st => st.y + ' binaire palindromen' });
+W8('Speciaal', 'Priemen zonder cijfer 7', 'Feit 2026 (Maynard): er zijn oneindig veel priemen zonder een gegeven cijfer. y telt priemen zonder 7; de helling zakt als (9/10)^(aantal cijfers).', 1000000, (p, g) => [1, String(p).includes('7') ? 0 : 1], { free: true, f: 'stap = (1, [geen cijfer 7 in p])', stat: st => 'aandeel ' + (st.y / st.x).toFixed(3) });
+W8('Speciaal', 'Priemen n² + 1', 'Landaus vierde probleem (sectie 11): zijn er oneindig veel priemen n² + 1? y telt ze (2, 5, 17, 37, 101, 197, 257, 401, …); er zijn er 112 onder 10⁶.', 1000000, (p, g) => [1, sqrtInt(p - 1) >= 0 ? 1 : 0], { free: true, f: 'stap = (1, [p − 1 is een kwadraat])', stat: st => st.y + ' priemen n² + 1' });
+W8('Speciaal', 'Priemen n² + n + 41', 'Feit 5 (Euler): x² + x + 41 is priem voor x = 0 … 39 en vaak daarna. y telt de priemen van die vorm onder 10⁶ (n tot 999).', 1000000, (p, g) => { const d = 4 * p - 163; const r = sqrtInt(d); return [1, r >= 0 && (r - 1) % 2 === 0 ? 1 : 0]; }, { free: true, f: 'stap = (1, [p = n² + n + 41])', stat: st => st.y + ' priemen van die vorm' });
+W8('Speciaal', 'Ramanujan-priemen', 'Feit 2044: R_n is het kleinste getal waarboven π(x) − π(x/2) ≥ n blijft; 2, 11, 17, 29, 41, 47, … Iets minder dan de helft van de priemen is een Ramanujan-priem. y telt ze.', 100000, (p, g, st) => { st.ram = st.ram || ramanujanSet(100000); return [1, st.ram.has(p) ? 1 : 0]; }, { free: true, f: 'stap = (1, [p is Ramanujan-priem])', ref: 0.5, stat: st => 'aandeel ' + (st.y / st.x).toFixed(3) });
+W8('Speciaal', 'Priemen die 2^k − 1 delen voor kleine k', 'Feit 1503: een priemdeler van 2^k − 1 heeft orde k modulo 2. y telt de priemen waarvoor de orde van 2 hoogstens √p is: de delers van kleine Mersenne-getallen.', 100000, (p, g) => [1, p > 2 && ordMod(2, p) <= Math.sqrt(p) ? 1 : 0], { free: true, f: 'stap = (1, [ord_p(2) ≤ √p])', stat: st => st.y + ' priemen' });
+W8('Speciaal', 'Cijfersom priem', 'Feit 2026 (Mauduit–Rivat): de cijfersommen van priemen zijn gelijkverdeeld over restklassen. y telt de priemen waarvan de cijfersom zelf priem is.', 100000, (p, g) => [1, ctx(100000).pr(digs(p)) ? 1 : 0], { free: true, f: 'stap = (1, [cijfersom(p) is priem])', stat: st => 'aandeel ' + (st.y / st.x).toFixed(3) });
+
+// ===== CONSTANTEN (528–537) =====
+W8('Constanten', 'Σ (−1/p)/p', 'Een gewogen Chebyshev-race: Σ (−1)^((p−1)/2)/p over de oneven priemen convergeert, want de klassen 1 en 3 modulo 4 wegen tegen elkaar op. y is de lopende som; de x-as is ln p, zodat de convergentie zichtbaar wordt.', 1000000, (p, g, st) => { if (p === 2) return [1, 0]; const v = leg(-1, p) / p; return [1, v]; }, { free: true, logx: true, f: 'stap = (1, (−1/p)/p)', axes: true, stat: st => 'som ' + st.y.toFixed(5) });
+W8('Constanten', 'Σ (2/p)/p', 'Hetzelfde met (2/p): +1/p als p ≡ ±1 (mod 8), −1/p anders. Ook deze som convergeert.', 1000000, (p, g, st) => { if (p === 2) return [1, 0]; return [1, leg(2, p) / p]; }, { free: true, logx: true, f: 'stap = (1, (2/p)/p)', axes: true, stat: st => 'som ' + st.y.toFixed(5) });
+W8('Constanten', 'Brun voor neven', 'Σ (1/p + 1/(p+4)) over de neefparen convergeert ook (naar ongeveer 1,197). y is de som, x telt de paren.', 1000000, (p, g, st) => st.pr(p + 4) ? [1, 1 / p + 1 / (p + 4)] : null, { free: true, logx: true, f: 'stap = (1, 1/p + 1/(p+4)) bij een neef', stat: st => 'som ' + st.y.toFixed(4) });
+W8('Constanten', 'Σ 1/p over Sophie Germain', 'De som van 1/p over de Sophie Germain-priemen convergeert (hun aantal groeit als x/ln² x). y is de som.', 1000000, (p, g, st) => st.pr(2 * p + 1) ? [1, 1 / p] : null, { free: true, logx: true, f: 'stap = (1, 1/p) bij 2p + 1 priem', stat: st => 'som ' + st.y.toFixed(4) });
+W8('Constanten', 'Σ 1/(p ln p)', 'Feit 2025 (Lichtman 2022): Σ 1/(p ln p) = 1,6366… is het maximum over alle primitieve verzamelingen. y is de lopende som.', 1000000, (p, g) => [1, 1 / (p * Math.log(p))], { free: true, logx: true, f: 'stap = (1, 1/(p ln p))', stat: st => 'som ' + st.y.toFixed(4) + ' (limiet 1,6366)' });
+W8('Constanten', 'Σ 1/p²', 'De priem-zeta P(2) = Σ 1/p² = 0,4522… y is de lopende som; na 2, 3 en 5 is er al 0,4111 van binnen.', 1000000, (p, g) => [1, 1 / (p * p)], { free: true, logx: true, f: 'stap = (1, 1/p²)', stat: st => 'som ' + st.y.toFixed(5) + ' (P(2) = 0,45225)' });
+W8('Constanten', 'Gemiddelde hoek van de Gaussische priemen', 'Voor p ≡ 1 (mod 4) ligt de hoek arctan(b/a) tussen 0° en 45°. y is de lopende som van die hoeken, x telt de priemen: de helling is de gemiddelde hoek, ongeveer 22,5°.', 100000, (p, g) => { if (p % 4 !== 1) return null; const [a, b] = twoSq(p); return [1, Math.atan2(b, a) * 180 / Math.PI]; }, { f: 'stap = (1, arctan(b/a) in graden)', ref: 22.5, stat: st => 'gemiddeld ' + (st.y / st.x).toFixed(2) + '°' });
+W8('Constanten', 'Tweelingen gedeeld door de verwachting', 'Feit 3014 en 4025: het aantal tweelingen gedeeld door 2C₂ ∫ dt/ln² t nadert 1 en komt er pas bij 1.369.391 voor het eerst boven. y is die verhouding, x telt de priemen.', 1000000, (p, g, st) => { st.tw = (st.tw || 0) + (st.pr(p + 2) ? 1 : 0); st.ex = (st.ex || 0) + 2 * C2 * g / Math.log(p + g / 2) ** 2; const v = st.tw / st.ex; const d = v - (st.lastv == null ? v : st.lastv); st.lastv = v; return st.i < 20 ? [1, 0] : [1, d]; }, { free: true, logx: true, f: 'stap = (1, Δ(tweelingen / verwachting))', stat: st => 'verhouding ' + st.lastv.toFixed(4) });
+W8('Constanten', 'Skewes voor tweelingen', 'y = aantal tweelingen − verwachting. Onder 10⁶ blijft het verschil negatief (feit 3014: −79 bij 10⁶ in de tabel, hier per priem gevolgd); de eerste overschrijding ligt bij 1.369.391.', 1000000, (p, g, st) => { const e = 2 * C2 * g / Math.log(p + g / 2) ** 2; return [1, (st.pr(p + 2) ? 1 : 0) - e]; }, { free: true, logx: true, f: 'stap = (1, [tweeling] − verwachte toename)', axes: true, stat: st => 'verschil ' + st.y.toFixed(1) });
+W8('Constanten', 'Alles tegelijk', 'Een slotwandeling: koers uit het Gaussische priem (arctan(b/a)) als p ≡ 1 (mod 4), anders p radialen; stap = merit g/ln p; ×5 bij een recordgat. Feiten 1306, 3012 en 3011 in één weg.', 100000, (p, g) => { let a; if (p % 4 === 1) { const [x, y] = twoSq(p); a = Math.atan2(y, x); } else a = p; let m = g / Math.log(p); if (MAXG.has(p)) m *= 5; return [m * Math.cos(a), m * Math.sin(a)]; }, { f: 'koers = arg(a + bi) of p rad · stap = merit (×5 bij record)' });
+// ================= RENDER & INTERACTIE =================
+const CATS = [...new Set(panels.map(p => p.cat))];
+const gridEl = document.getElementById('grid'), tb = document.getElementById('toolbar'), status = document.createElement('span'); status.className = 'status'; status.id = 'status';
+function chip(label, cat) { const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', cat === null ? 'true' : 'false'); b.addEventListener('click', () => { for (const c of tb.querySelectorAll('.chip')) c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); for (const card of gridEl.children) card.hidden = !(cat === null || card.dataset.cat === cat); try { localStorage.setItem('ppf' + OFFSET, cat || ''); } catch (e) { } }); tb.appendChild(b); return b; }
+chip('Alles (' + panels.length + ')', null); CATS.forEach(c => chip(c + ' (' + panels.filter(p => p.cat === c).length + ')', c)); tb.appendChild(status);
+panels.forEach((p, i) => {
+  const card = document.createElement('article'); card.className = 'card'; card.dataset.cat = p.cat; card.tabIndex = 0;
+  const h = document.createElement('h2'); const b = document.createElement('b'); b.textContent = String(i + 1 + OFFSET).padStart(2, '0'); h.appendChild(b); h.appendChild(document.createTextNode(p.title)); const sm = document.createElement('small'); sm.textContent = p.cat; h.appendChild(sm);
+  const svg = el('svg', { viewBox: '0 0 300 300', role: 'img', 'aria-label': p.title }); try { p.draw(svg); } catch (err) { txt(svg, 150, 150, 'fout: ' + err.message, { 'text-anchor': 'middle' }); console.error(i + 1, p.title, err); }
+  const note = document.createElement('p'); note.textContent = p.note; card.append(h, svg, note); gridEl.appendChild(card);
+});
+let pinned = null;
+function highlight(n) { for (const e of document.querySelectorAll('.n.hl')) e.classList.remove('hl'); if (n == null) { document.body.classList.remove('dim'); status.textContent = ''; return; } for (const e of document.querySelectorAll('[data-n="' + n + '"]')) e.classList.add('hl'); document.body.classList.add('dim');
+  let info = label(n); if (isP[n]) info += ' · gat naar volgende ' + gapAfter[n] + ' · π(' + n + ') = ' + pi[n]; else if (n > 1) info += ' · ' + nd[n] + ' delers · φ = ' + phi[n]; status.textContent = info; }
+gridEl.addEventListener('mouseover', e => { if (pinned != null) return; const t = e.target.closest('[data-n]'); if (t) highlight(+t.dataset.n); });
+gridEl.addEventListener('mouseout', e => { if (pinned != null) return; const t = e.target.closest('[data-n]'); if (t && !gridEl.contains(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-n]'))) highlight(null); });
+gridEl.addEventListener('click', e => { const t = e.target.closest('[data-n]'); if (!t) { if (pinned != null) { pinned = null; highlight(null); } return; } const n = +t.dataset.n; if (pinned === n) { pinned = null; highlight(null); } else { pinned = n; highlight(n); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { pinned = null; highlight(null); } });
+document.getElementById('foot').textContent = 'Priemgetallen tot 100: ' + primes.join(', ') + '. Elke tekening is live uit dezelfde gegevens berekend; de tekst onder een tekening zegt wat erin te zien is. Composieten zijn grijs, priemen oranje; blauw is een vergelijkingslijn of een grootte.';
+try { const f = localStorage.getItem('ppf' + OFFSET); if (f) { const idx = CATS.indexOf(f); if (idx >= 0) tb.querySelectorAll('.chip')[idx + 1].click(); } } catch (e) { }
+</script>
+</body>
+</html>
