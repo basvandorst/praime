@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Priempatronen 538–637</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: one sticky toolbar, then a dense responsive grid of equal square cards; each card = one SVG + a number + a one-line reading. */
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --fg: #15181d; --muted: #5d6572; --border: #dfe3e9;
+    --prime: #d95926; --comp: #9aa3b0; --unit: #c9ced6; --seq: #2a78d6;
+    --c2: #2a78d6; --c3: #1baf7a; --c5: #6250d6; --c7: #eda100; --cx: #e87ba4;
+    --grid: #e6e9ee; --hl: #15181d;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1216; --surface: #171b21; --fg: #eceff3; --muted: #9aa3b0; --border: #2a303a;
+      --prime: #f0713a; --comp: #5d6572; --unit: #3a414c; --seq: #3987e5;
+      --c2: #3987e5; --c3: #199e70; --c5: #9085e9; --c7: #c98500; --cx: #d55181;
+      --grid: #232932; --hl: #ffffff; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1216; --surface: #171b21; --fg: #eceff3; --muted: #9aa3b0; --border: #2a303a;
+    --prime: #f0713a; --comp: #5d6572; --unit: #3a414c; --seq: #3987e5;
+    --c2: #3987e5; --c3: #199e70; --c5: #9085e9; --c7: #c98500; --cx: #d55181;
+    --grid: #232932; --hl: #ffffff; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--sans); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  .wrap { max-width: 1480px; margin: 0 auto; padding-block: 28px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  header { display: grid; gap: 10px; margin-bottom: 18px; max-width: 72ch; }
+  h1 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .lead { margin: 0; color: var(--muted); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding: 10px 0; margin-bottom: 14px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip { border: 1px solid var(--border); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 5px 12px; font: 500 12.5px var(--sans); cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .chip:focus-visible, .card:focus-visible { outline: 2px solid var(--seq); outline-offset: 2px; }
+  .status { margin-left: auto; font: 12.5px var(--mono); color: var(--muted); min-height: 1.5em; font-variant-numeric: tabular-nums; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px 12px; display: grid; gap: 6px; min-width: 0; }
+  .card[hidden] { display: none; }
+  .card h2 { font-size: 13.5px; font-weight: 600; margin: 0; display: flex; gap: 8px; align-items: baseline; }
+  .card h2 b { font: 500 11px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; min-width: 2.6ch; }
+  .card h2 small { font: 400 10.5px var(--sans); color: var(--muted); margin-left: auto; letter-spacing: 0.04em; text-transform: uppercase; }
+  .card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+  svg { width: 100%; height: auto; display: block; aspect-ratio: 1; max-width: 100%; background: var(--surface); }
+  svg text { font: 9px var(--mono); fill: var(--muted); pointer-events: none; }
+  svg text.n { pointer-events: auto; }
+  svg .t { fill: var(--muted); }
+  svg .tf { fill: var(--fg); }
+  svg .ax { stroke: var(--grid); stroke-width: 1; fill: none; }
+  svg .ax2 { stroke: var(--border); stroke-width: 1; fill: none; }
+  svg .ref { stroke: var(--seq); stroke-width: 1.2; stroke-dasharray: 3 3; fill: none; }
+  svg .ref2 { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+  .n.p { --k: var(--prime); } .n.c { --k: var(--comp); } .n.u { --k: var(--unit); }
+  .n.q { --k: var(--seq); }
+  .n.k2 { --k: var(--c2); } .n.k3 { --k: var(--c3); } .n.k5 { --k: var(--c5); } .n.k7 { --k: var(--c7); } .n.kx { --k: var(--cx); }
+  .f { fill: var(--k); stroke: none; }
+  .s { stroke: var(--k); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .fs { fill: var(--k); stroke: var(--surface); stroke-width: 0.8; }
+  .n { transition: opacity 120ms; }
+  .n.hl.f, .n.hl.fs { stroke: var(--hl); stroke-width: 2.5px; paint-order: stroke; fill-opacity: 1 !important; }
+  .n.hl.s { stroke: var(--hl); stroke-width: 3.5px; opacity: 1 !important; }
+  .n.hl text, text.n.hl { fill: var(--hl); font-weight: 600; }
+  body.dim .n:not(.hl):not(.keep) { opacity: 0.28; }
+  @media (prefers-reduced-motion: reduce) { .n { transition: none; } }
+  .nav { margin: 0; font-size: 13px; } .nav a { color: var(--seq); }
+  footer { margin-top: 28px; color: var(--muted); font-size: 12px; max-width: 72ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Priempatronen 538–637</h1>
+  <p class="lead">Honderd ronde tekeningen van de feiten uit deel 8: klokken met spaken en stralen, de fouten van li, θ en Mertens als gesloten ringen rond een nulring, rozen en zonnebloemen, de Gaussische en Eisenstein-priemen als schijven, koordendiagrammen van overgangen (laatste cijfer, resten, gaten), schillen per decade en bitlengte, gesloten draaifiguren met stap 1, epicykels waarin elke cirkel een priem is, en taarten van resten, gaten en merits. Onder elke tekening de formule. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a> · <a href="priempatronen-438-537.html">Deel 8 (438–537)</a> · <b>Deel 9 (538–637)</b></p>
+  <div class="legend">
+    <span><i style="background:var(--prime)"></i>priemgetal</span>
+    <span><i style="background:var(--comp)"></i>composiet</span>
+    <span><i style="background:var(--unit)"></i>1 (geen van beide)</span>
+    <span><i style="background:var(--seq)"></i>vergelijkingslijn / grootte</span>
+    <span><i style="background:var(--c2)"></i>factor 2</span>
+    <span><i style="background:var(--c3)"></i>factor 3</span>
+    <span><i style="background:var(--c5)"></i>factor 5</span>
+    <span><i style="background:var(--c7)"></i>factor 7</span>
+    <span><i style="background:var(--cx)"></i>factor &gt; 7</span>
+  </div>
+</header>
+<div class="toolbar" id="toolbar" role="group" aria-label="Filter op familie"></div>
+<div class="grid" id="grid"></div>
+<footer id="foot"></footer>
+</div>
+<script>
+const OFFSET = 537;
+'use strict';
+// ---------- getaltheorie voor 1..100 ----------
+const N = 100, W = 300, H = 300, C = 150;
+const LIM = 10100;
+const isP = new Uint8Array(LIM + 1);
+for (let i = 2; i <= LIM; i++) isP[i] = 1;
+for (let i = 2; i * i <= LIM; i++) if (isP[i]) for (let j = i * i; j <= LIM; j += i) isP[j] = 0;
+const primes = []; for (let i = 2; i <= N; i++) if (isP[i]) primes.push(i);
+const spf = new Array(N + 1).fill(0), gpf = new Array(N + 1).fill(0);
+const divs = [[]]; for (let n = 1; n <= N; n++) { const d = []; for (let k = 1; k <= n; k++) if (n % k === 0) d.push(k); divs.push(d); }
+const nd = divs.map(d => d.length), sig = divs.map(d => d.reduce((a, b) => a + b, 0));
+const fac = [[], []]; // fac[n] = [[p,e],...]
+for (let n = 2; n <= N; n++) { let m = n; const f = []; for (let p = 2; p <= m; p++) { let e = 0; while (m % p === 0) { m /= p; e++; } if (e) f.push([p, e]); } fac.push(f); spf[n] = f[0][0]; gpf[n] = f[f.length - 1][0]; }
+const omg = fac.map(f => f.length), Omg = fac.map(f => f.reduce((a, pe) => a + pe[1], 0));
+const mu = fac.map((f, n) => n === 0 ? 0 : f.some(pe => pe[1] > 1) ? 0 : (f.length % 2 ? -1 : 1));
+const lam = Omg.map(k => (k % 2 ? -1 : 1));
+const phi = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let r = n; for (const [p] of fac[n]) r = r / p * (p - 1); phi[n] = r; }
+const pi = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) pi[n] = pi[n - 1] + (isP[n] ? 1 : 0);
+function nextP(n) { let m = n + 1; while (!isP[m]) m++; return m; }
+function prevP(n) { let m = n - 1; while (m > 1 && !isP[m]) m--; return m; }
+const gapAfter = {}; for (const p of primes) gapAfter[p] = nextP(p) - p;
+const gaps = primes.map(p => gapAfter[p]);
+const distP = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let d = 0; while (!isP[n - d] && !isP[n + d]) d++; distP[n] = d; }
+const collatz = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let m = n, s = 0; while (m !== 1) { m = m % 2 ? 3 * m + 1 : m / 2; s++; } collatz[n] = s; }
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+function facStr(n) { if (n === 1) return '1'; return fac[n].map(([p, e]) => p + (e > 1 ? SUP[e] : '')).join('·'); }
+function kind(n) { return n === 1 ? 'u' : isP[n] ? 'p' : 'c'; }
+function label(n) { return n === 1 ? '1 · eenheid' : isP[n] ? n + ' · priem' : n + ' = ' + facStr(n); }
+function modpow(b, e, m) { let r = 1n, x = BigInt(b) % BigInt(m), k = BigInt(e), M = BigInt(m); while (k > 0n) { if (k & 1n) r = r * x % M; x = x * x % M; k >>= 1n; } return Number(r); }
+function legendre(a, p) { if (a % p === 0) return 0; const r = modpow(a, (p - 1) / 2, p); return r === 1 ? 1 : -1; }
+function binomRowMod(n) { const row = []; let c = 1n; const M = BigInt(n); for (let k = 0; k <= n; k++) { row.push(Number(c % M)); c = c * BigInt(n - k) / BigInt(k + 1); } return row; }
+const digsum = n => String(n).split('').reduce((a, b) => a + +b, 0);
+const ln = Math.log;
+
+// ---------- svg ----------
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) if (attrs[k] !== undefined) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function mark(parent, tag, attrs, n, mode, extra) {
+  const e = el(tag, attrs, parent);
+  e.setAttribute('class', 'n ' + kind(n) + ' ' + (mode || 'f') + (extra ? ' ' + extra : ''));
+  e.dataset.n = n; if (tag === 'text' && attrs['font-size']) e.style.fontSize = attrs['font-size'] + 'px'; const t = el('title', {}, e); t.textContent = label(n); return e;
+}
+function markK(parent, tag, attrs, n, cls, mode, text) {
+  const e = el(tag, attrs, parent); e.setAttribute('class', 'n ' + cls + ' ' + (mode || 'f')); e.dataset.n = n; const t = el('title', {}, e); t.textContent = text || label(n); return e;
+}
+function txt(parent, x, y, s, attrs) { const t = el('text', Object.assign({ x, y, class: 't' }, attrs || {}), parent); t.textContent = s; return t; }
+function path(parent, d, cls, attrs) { return el('path', Object.assign({ d, class: cls }, attrs || {}), parent); }
+const X = n => 8 + (n - 1) * (284 / 99);
+function axisX(s, y, step) { el('line', { x1: 8, y1: y, x2: 292, y2: y, class: 'ax2' }, s); for (let k = step || 10; k <= 100; k += step || 10) txt(s, X(k), y + 11, k, { 'text-anchor': 'middle' }); }
+function pol(cx, cy, r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+function wedge(cx, cy, r0, r1, a0, a1) { const [x0, y0] = pol(cx, cy, r0, a0), [x1, y1] = pol(cx, cy, r0, a1), [x2, y2] = pol(cx, cy, r1, a1), [x3, y3] = pol(cx, cy, r1, a0); const L = a1 - a0 > Math.PI ? 1 : 0; return `M${x0} ${y0} A${r0} ${r0} 0 ${L} 1 ${x1} ${y1} L${x2} ${y2} A${r1} ${r1} 0 ${L} 0 ${x3} ${y3} Z`; }
+function grid(cols, rows, pad, square) { pad = pad == null ? 10 : pad; const w = (W - 2 * pad) / cols, h = (H - 2 * pad) / rows; const c = square === false ? [w, h] : [Math.min(w, h), Math.min(w, h)]; const ox = (W - c[0] * cols) / 2, oy = (H - c[1] * rows) / 2; return { w: c[0], h: c[1], at(n) { const i = (n - 1) % cols, j = Math.floor((n - 1) / cols); return { x: ox + i * c[0], y: oy + j * c[1], i, j }; } }; }
+function cellGrid(s, cols, opts) { // standaard roostertekening 1..100
+  opts = opts || {}; const rows = Math.ceil(N / cols); const g = grid(cols, rows, opts.pad, opts.square);
+  for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const r = mark(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, 'f'); if (!isP[n]) r.setAttribute('fill-opacity', n === 1 ? 0.5 : 0.22); if (opts.num && g.w >= 16) txt(s, x + g.w / 2, y + g.h / 2 + 3, n, { 'text-anchor': 'middle', 'font-size': Math.min(9, g.w / 2.6), class: isP[n] ? 'tf' : 't' }); }
+  return g;
+}
+function walk(s, pts, opts) { // pts: [{x,y,n}], schaal naar het vlak
+  opts = opts || {}; let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); }
+  const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0;
+  const P = pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n }));
+  if (!opts.noLine) el('polyline', { points: P.map(p => p.x + ',' + p.y).join(' '), class: 'ax2', 'stroke-width': 1 }, s);
+  if (!opts.noLine) for (let i = 1; i < P.length; i++) if (isP[P[i].n]) mark(s, 'line', { x1: P[i - 1].x, y1: P[i - 1].y, x2: P[i].x, y2: P[i].y, 'stroke-width': 2 }, P[i].n, 's');
+  for (const p of P) { if (p.n < 1) continue; const r = isP[p.n] ? (opts.r || 3) : 1.6; mark(s, 'circle', { cx: p.x, cy: p.y, r }, p.n, 'f'); }
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 2.2, class: 'ax', fill: 'var(--fg)', stroke: 'none' }, s);
+  return P;
+}
+function turtle(stepFn, turnFn, start) { // levert punten; n = 1..100
+  let x = 0, y = 0, a = start == null ? 0 : start; const pts = [{ x, y, n: 0 }];
+  for (let n = 1; n <= N; n++) { a += turnFn(n); const L = stepFn(n); x += L * Math.cos(a); y += L * Math.sin(a); pts.push({ x, y, n }); }
+  return pts;
+}
+function isoGrid(s, hfun, hz, extra) { // 10x10 isometrische blokken
+  const cw = 12.5, ch = 6.25, cx = 150, cy = 58; const order = [];
+  for (let n = 1; n <= N; n++) order.push(n);
+  order.sort((a, b) => ((a - 1) % 10 + Math.floor((a - 1) / 10)) - ((b - 1) % 10 + Math.floor((b - 1) / 10)));
+  for (const n of order) { const i = (n - 1) % 10, j = Math.floor((n - 1) / 10); const bx = cx + (i - j) * cw, by = cy + (i + j) * ch; const h = hfun(n) * hz;
+    const g = el('g', {}, s);
+    const d = `M${bx} ${by - h} l${cw} ${ch} l${-cw} ${ch} l${-cw} ${-ch} Z M${bx - cw} ${by + ch - h} l${cw} ${ch} v${h} l${-cw} ${-ch} Z M${bx + cw} ${by + ch - h} l${-cw} ${ch} v${h} l${cw} ${-ch} Z`;
+    const top = mark(g, 'path', { d: `M${bx} ${by - h} l${cw} ${ch} l${-cw} ${ch} l${-cw} ${-ch} Z` }, n, extra ? extra(n) : 'fs');
+    if (h > 0) { const l = mark(g, 'path', { d: `M${bx - cw} ${by + ch - h} l${cw} ${ch} v${h} l${-cw} ${-ch} Z`, 'fill-opacity': 0.65 }, n, 'fs'); const r = mark(g, 'path', { d: `M${bx + cw} ${by + ch - h} l${-cw} ${ch} v${h} l${cw} ${-ch} Z`, 'fill-opacity': 0.45 }, n, 'fs'); }
+    if (h === 0) top.setAttribute('fill-opacity', 0.35);
+  }
+}
+function circleNodes(s, r, which, rad) { const pos = {}; for (let n = 1; n <= N; n++) { const a = 2 * Math.PI * n / N - Math.PI / 2; const [x, y] = pol(C, C, r, a); pos[n] = [x, y]; } if (which !== false) for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? (rad || 3) : 1.3 }, n, 'f'); return pos; }
+function clock(s, m) { const rows = Math.floor((N - 1) / m); const R0 = 34, R1 = 136; for (let k = 0; k < m; k++) { const a = 2 * Math.PI * k / m - Math.PI / 2; const [x1, y1] = pol(C, C, R0 - 8, a), [x2, y2] = pol(C, C, R1 + 6, a); el('line', { x1, y1, x2, y2, class: 'ax' }, s); if (m <= 30) { const [tx, ty] = pol(C, C, R1 + 13, a); txt(s, tx, ty + 3, k, { 'text-anchor': 'middle', 'font-size': 8 }); } }
+  for (let n = 1; n <= N; n++) { const a = 2 * Math.PI * (n % m) / m - Math.PI / 2; const r = R0 + (R1 - R0) * Math.floor(n / m) / rows; const [x, y] = pol(C, C, r, a); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 3.6 : 1.8 }, n, 'f'); } }
+function stair(s, vals, ymap, cls) { // vals[n] for n=1..N, staircase
+  let d = ''; for (let n = 1; n <= N; n++) { const y = ymap(vals[n]); d += (n === 1 ? 'M' : 'L') + X(n) + ' ' + y + ' L' + X(Math.min(n + 1, N)) + ' ' + y + ' '; } return path(s, d, cls || 's', { stroke: 'var(--prime)', 'stroke-width': 1.5, fill: 'none' }); }
+function curve(s, f, x0, x1, ymap, cls, steps) { let d = ''; steps = steps || 120; for (let i = 0; i <= steps; i++) { const xv = x0 + (x1 - x0) * i / steps; d += (i ? 'L' : 'M') + X(xv) + ' ' + ymap(f(xv)) + ' '; } return path(s, d, cls || 'ref'); }
+function hexSpiral() { // axiale coördinaten voor 1..100
+  const dirs = [[1, 0], [0, 1], [-1, 1], [-1, 0], [0, -1], [1, -1]]; const out = [[0, 0]]; let k = 1;
+  while (out.length < N) { let q = 0, r = -k; // start op ring k, hoekpunt richting 4
+    for (let d = 0; d < 6 && out.length < N; d++) for (let i = 0; i < k && out.length < N; i++) { out.push([q, r]); q += dirs[d][0]; r += dirs[d][1]; } k++; }
+  return out;
+}
+function ulam() { const pos = [null, [0, 0]]; let x = 0, y = 0, dx = 1, dy = 0, len = 1, n = 1; while (n < N) { for (let rep = 0; rep < 2 && n < N; rep++) { for (let i = 0; i < len && n < N; i++) { x += dx; y += dy; n++; pos[n] = [x, y]; } [dx, dy] = [-dy, dx]; } len++; } return pos; }
+
+// ---------- extra hulpfuncties voor deel 2 ----------
+function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
+function Li(x) { let s = 0; const a = 2, m = 400; for (let i = 0; i < m; i++) { const t = a + (x - a) * (i + 0.5) / m; s += 1 / ln(t); } return 1.045 + s * (x - a) / m; } // li(2) ≈ 1.045
+function periodLen(n) { while (n % 2 === 0) n /= 2; while (n % 5 === 0) n /= 5; if (n === 1) return 0; let r = 10 % n, k = 1; while (r !== 1) { r = r * 10 % n; k++; } return k; }
+function ord2(n) { if (n % 2 === 0) return 0; let r = 2 % n, k = 1; if (n === 1) return 1; while (r !== 1) { r = r * 2 % n; k++; } return k; }
+function r2(n) { let c = 0; for (let a = -10; a <= 10; a++) for (let b = -10; b <= 10; b++) if (a * a + b * b === n) c++; return c; }
+function rev(n) { return +String(n).split('').reverse().join(''); }
+function roman(n) { const t = [[100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]; let s = ''; for (const [v, c] of t) while (n >= v) { s += c; n -= v; } return s; }
+function lcm(a, b) { return a / gcd(a, b) * b; }
+function carm(n) { if (n === 1) return 1; let L = 1; for (const [p, e] of fac[n]) { const q = Math.pow(p, e); const l = (p === 2 && e >= 3) ? q / 4 : (p === 2 ? q / 2 : q / p * (p - 1)); L = lcm(L, l); } return L; }
+const sopfr = n => fac[n].reduce((a, [p, e]) => a + p * e, 0);
+const rad = n => fac[n].reduce((a, [p]) => a * p, 1);
+const popc = n => n.toString(2).split('1').length - 1;
+const v2 = n => { let k = 0; while (n % 2 === 0) { n /= 2; k++; } return k; };
+function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : pad); } // kleine veelvouden
+function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
+function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
+
+// ---------- deel 3: richting uit de priem, grootte uit het gat ----------
+const G = p => gapAfter[p]; // gat na p (97 → 101: 4)
+const deg = d => d * Math.PI / 180;
+function gapWalk(s, headingFn, opts) { // over de 25 priemen: koers uit p, staplengte = gat
+  opts = opts || {}; let x = 0, y = 0, h = 0; const segs = []; const pts = [{ x, y, n: 0 }];
+  primes.forEach((p, i) => { h = opts.relative ? h + headingFn(p, i) : headingFn(p, i); const L = G(p); const nx = x + L * Math.cos(h), ny = y + L * Math.sin(h); segs.push({ x1: x, y1: y, x2: nx, y2: ny, p }); x = nx; y = ny; pts.push({ x, y, n: p }); });
+  const F = fitLine(s, pts);
+  segs.forEach((g, i) => { const a = F[i], b = F[i + 1]; mark(s, 'line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': 0.6 + G(g.p) * 0.55 }, g.p, 's').querySelector('title').textContent = g.p + ' · gat ' + G(g.p) + ' · ' + (opts.label ? opts.label(g.p) : ''); });
+  F.forEach((q, i) => { if (i === 0) { el('circle', { cx: q.x, cy: q.y, r: 2.5, fill: 'var(--fg)' }, s); return; } mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.2 + G(primes[i - 1]) * 0.35 }, primes[i - 1], 'f'); });
+  return F;
+}
+const lastd = p => p % 10;
+
+// ---------- deel 5: grote wandelingen ----------
+const bigCache = {};
+function primesUpTo(M) { if (bigCache[M]) return bigCache[M]; const sv = new Uint8Array(M + 1); const out = []; for (let i = 2; i <= M; i++) { if (sv[i]) continue; out.push(i); if (i * i <= M) for (let j = i * i; j <= M; j += i) sv[j] = 1; } let q = M + 1; while (true) { let ok = true; for (let d = 2; d * d <= q; d++) if (q % d === 0) { ok = false; break; } if (ok) break; q++; } out.push(q); return bigCache[M] = out; } // laatste element: eerste priem boven M, voor het laatste gat
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+function bigWalk(s, M, headingFn, opts) { // headingFn(p, gap, i) -> koers (absoluut) of draai (relatief)
+  opts = opts || {}; const ps = primesUpTo(M); const filt = opts.filter || (() => true); const pts = []; let x = 0, y = 0, h = 0, len = 0, cnt = 0; pts.push([0, 0]);
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i]; const gap = (opts.gapTo ? opts.gapTo(ps, i) : ps[i + 1] - p); if (!filt(p, gap)) continue; const st = opts.step ? opts.step(p, gap) : gap; h = opts.relative ? h + headingFn(p, gap, i) : headingFn(p, gap, i); x += st * Math.cos(h); y += st * Math.sin(h); len += st; cnt++; pts.push([x, y]); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const [a, b] of pts) { x0 = Math.min(x0, a); x1 = Math.max(x1, a); y0 = Math.min(y0, b); y1 = Math.max(y1, b); }
+  const pad = 12, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 46 - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - 46 - sc * (y1 - y0)) / 2 - sc * y0 + 6;
+  const P = []; let lx = -1e9, ly = -1e9; for (const [a, b] of pts) { const X_ = ox + sc * a, Y_ = oy + sc * b; if (Math.abs(X_ - lx) + Math.abs(Y_ - ly) < 0.3) continue; P.push([X_, Y_]); lx = X_; ly = Y_; } if (P.length < 2) P.push([ox + sc * x, oy + sc * y]);
+  const K = 24, per = Math.ceil(P.length / K); for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)); const e = path(s, d, 'keep', { stroke: opts.color || 'var(--prime)', 'stroke-width': P.length > 5000 ? 0.5 : P.length > 800 ? 0.8 : 1.3, fill: 'none', opacity: 0.25 + 0.75 * (k + 1) / K, 'stroke-linejoin': 'round' }); el('title', {}, e).textContent = 'stuk ' + (k + 1) + ' van ' + K; }
+  el('circle', { cx: P[0][0], cy: P[0][1], r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1][0], cy: P[P.length - 1][1], r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const dist = Math.hypot(x, y); txt(s, 150, 270, fmt(cnt) + ' priemen tot ' + fmt(M), { 'text-anchor': 'middle', 'font-size': 8, class: 'tf' }); txt(s, 150, 281, 'weg ' + fmt(Math.round(len)) + ' · eindafstand ' + fmt(Math.round(dist)) + ' · verhouding ' + (dist / len * 100).toFixed(1) + '%', { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); if (opts.sub) txt(s, 150, 293, opts.sub, { 'text-anchor': 'middle', 'font-size': 7 }); return { cnt, len, dist };
+}
+const GA = Math.PI * (3 - Math.sqrt(5));
+const digs = n => String(n).split('').reduce((a, b) => a + +b, 0);
+
+// ---------- deel 6: varianten met kwadraten, positie en geschiedenis ----------
+const TAU = 2 * Math.PI;
+const frac = v => v - Math.floor(v);
+const popcnt = n => n.toString(2).split('1').length - 1;
+const dsum = n => String(n).split('').reduce((a, b) => a + +b, 0);
+function collatzSteps(n) { let s = 0; while (n !== 1) { n = n % 2 ? 3 * n + 1 : n / 2; s++; } return s; }
+function walk6(s, M, hFn, sFn, opts) { // hFn(p, g, st) -> koers (rad, absoluut tenzij opts.relative); sFn(p, g, st) -> stap (mag negatief)
+  opts = opts || {}; const ps = primesUpTo(M); const st = { x: 0, y: 0, h: 0, i: 0, g0: 2, g00: 2, gmax: 0, sum: 0, freq: new Map(), hist: [] }; const pts = [{ x: 0, y: 0, n: 0 }]; let len = 0;
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; st.p = p; st.g = g; st.freq.set(g, (st.freq.get(g) || 0) + 1);
+    let h = hFn(p, g, st); if (opts.relative) h = st.h + h; const L = sFn ? sFn(p, g, st) : g; let nx = st.x + L * Math.cos(h), ny = st.y + L * Math.sin(h);
+    if (opts.R && Math.hypot(nx, ny) > opts.R) { h = Math.atan2(-st.y, -st.x); nx = st.x + Math.abs(L) * Math.cos(h); ny = st.y + Math.abs(L) * Math.sin(h); }
+    st.x = nx; st.y = ny; st.h = h; st.g00 = st.g0; st.g0 = g; st.gmax = Math.max(st.gmax, g); st.sum += g; st.hist.push(g); len += Math.abs(L); pts.push({ x: nx, y: ny, n: p }); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const q of pts) { x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); }
+  const pad = 12, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 46 - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - 46 - sc * (y1 - y0)) / 2 - sc * y0 + 6;
+  const P = pts.map(q => ({ x: ox + sc * q.x, y: oy + sc * q.y, n: q.n })); const K = 24, per = Math.ceil(P.length / K);
+  for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)); path(s, d, 'keep', { stroke: 'var(--prime)', 'stroke-width': P.length > 800 ? 0.7 : 1.1, fill: 'none', opacity: 0.3 + 0.7 * (k + 1) / K, 'stroke-linejoin': 'round' }); }
+  if (P.length <= 400) for (const q of P) if (q.n) mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.6 }, q.n, 'f');
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1].x, cy: P[P.length - 1].y, r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const dist = Math.hypot(st.x, st.y); txt(s, 150, 270, fmt(pts.length - 1) + ' priemen tot ' + fmt(M) + ' · weg ' + fmt(Math.round(len)) + ' · eindafstand ' + fmt(Math.round(dist)), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 283, opts.f || '', { 'text-anchor': 'middle', 'font-size': 7.5 }); if (opts.f2) txt(s, 150, 294, opts.f2, { 'text-anchor': 'middle', 'font-size': 7 });
+}
+const W6 = (cat, title, note, M, hFn, sFn, opts) => add(cat, title, note, s => walk6(s, M, hFn, sFn, opts));
+
+const CTX = {};
+function ctx(M) { if (CTX[M]) return CTX[M]; const L = 2 * M + 3; const sv = new Uint8Array(L + 1); sv[0] = sv[1] = 1; for (let i = 2; i * i <= L; i++) if (!sv[i]) for (let j = i * i; j <= L; j += i) sv[j] = 1; const ps = []; for (let i = 2; i <= M; i++) if (!sv[i]) ps.push(i); let q = M + 1; while (sv[q]) q++; ps.push(q); return CTX[M] = { ps, pr: n => n >= 2 && n <= L && !sv[n], L }; }
+function vw(s, M, vfn, opts) { // vfn(p, g, st) -> [dx, dy] of null
+  opts = opts || {}; const cx = ctx(M); const ps = cx.ps; const st = { x: 0, y: 0, i: 0, g0: 1, p0: 2, pr: cx.pr, ps, n: {}, acc: 0 }; const pts = [{ x: 0, y: 0, n: 0 }]; let len = 0;
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; st.p = p; st.g = g; st.q = ps[i + 1]; st.pprev = i ? ps[i - 1] : 0; let v = vfn(p, g, st); if (v && opts.logx) v = [Math.log(p + g) - Math.log(p), v[1]]; if (v) { st.x += v[0]; st.y += v[1]; len += Math.hypot(v[0], v[1]); } st.g0 = g; st.p0 = p; pts.push({ x: st.x, y: st.y, n: p }); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const q of pts) { x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); }
+  if (opts.ref != null) { const yr = opts.ref * x1; y0 = Math.min(y0, yr); y1 = Math.max(y1, yr); }
+  if (y1 - y0 < 1e-9) { y1 = y0 + 1; } if (x1 - x0 < 1e-9) { x1 = x0 + 1; } const pad = 12, HH = H - 46; const scu = Math.min((W - 2 * pad) / (x1 - x0), (HH - 2 * pad) / (y1 - y0)); const scx = opts.free ? (W - 2 * pad) / (x1 - x0) : scu, scy = opts.free ? (HH - 2 * pad) / (y1 - y0) : scu; const ox = (W - scx * (x1 - x0)) / 2 - scx * x0, oy = (HH - scy * (y1 - y0)) / 2 - scy * y0 + 6;   const Tx = x => ox + scx * x, Ty = y => oy + scy * (y1 + y0 - y); // spiegel: y omhoog
+  if (opts.axes) { el('line', { x1: Tx(x0), y1: Ty(0), x2: Tx(x1), y2: Ty(0), class: 'ax2' }, s); el('line', { x1: Tx(0), y1: Ty(y0), x2: Tx(0), y2: Ty(y1), class: 'ax2' }, s); }
+  if (opts.ref != null) { el('line', { x1: Tx(0), y1: Ty(0), x2: Tx(x1), y2: Ty(opts.ref * x1), class: 'ref' }, s); txt(s, Tx(x1) - 2, Ty(opts.ref * x1) - 4, 'helling ' + opts.ref, { 'text-anchor': 'end', fill: 'var(--seq)', 'font-size': 7 }); }
+  const P = []; let lx = -1e9, ly = -1e9; for (const q of pts) { const X_ = Tx(q.x), Y_ = Ty(q.y); if (Math.abs(X_ - lx) + Math.abs(Y_ - ly) < 0.3 && pts.length > 400) continue; P.push({ x: X_, y: Y_, n: q.n }); lx = X_; ly = Y_; }
+  const K = 24, per = Math.ceil(P.length / K); for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)); path(s, d, 'keep', { stroke: opts.color || 'var(--prime)', 'stroke-width': P.length > 5000 ? 0.6 : P.length > 800 ? 0.8 : 1.1, fill: 'none', opacity: 0.3 + 0.7 * (k + 1) / K, 'stroke-linejoin': 'round' }); }
+  if (pts.length <= 400) for (const q of P) if (q.n) mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.6 }, q.n, 'f');
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1].x, cy: P[P.length - 1].y, r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const fx = v => Math.abs(v) >= 100 ? fmt(Math.round(v)) : (+v.toFixed(3)).toString(); txt(s, 150, 267, fmt(pts.length - 1) + ' priemen tot ' + fmt(M), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 278, 'eind (' + fx(st.x) + ', ' + fx(st.y) + ')' + (opts.stat ? ' · ' + opts.stat(st) : ''), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 290, opts.f || '', { 'text-anchor': 'middle', 'font-size': 7.5 }); return st;
+}
+const W8 = (cat, title, note, M, vfn, opts) => add(cat, title, note, s => vw(s, M, vfn, opts));
+// hulpfuncties
+const leg = (a, p) => { a = ((a % p) + p) % p; if (a === 0) return 0; return modpow(a, (p - 1) / 2, p) === 1 ? 1 : -1; };
+function twoSq(p) { for (let b = 1; 2 * b * b <= p; b++) { const a2 = p - b * b, a = Math.round(Math.sqrt(a2)); if (a * a === a2) return [a, b]; } return null; } // a >= b
+function formXY(p, n) { for (let y = 1; n * y * y < p; y++) { const x2 = p - n * y * y, x = Math.round(Math.sqrt(x2)); if (x * x === x2) return [x, y]; } return null; }
+function factorize(n) { const f = []; for (let d = 2; d * d <= n; d++) if (n % d === 0) { let e = 0; while (n % d === 0) { n /= d; e++; } f.push([d, e]); } if (n > 1) f.push([n, 1]); return f; }
+function phiOf(n) { let r = n; for (const [q] of factorize(n)) r = r / q * (q - 1); return r; }
+function ordMod(a, p) { const n = p - 1; let o = n; for (const [q] of factorize(n)) while (o % q === 0 && modpow(a, o / q, p) === 1) o /= q; return o; }
+function isPrimRoot(a, p) { if (a % p === 0) return false; const n = p - 1; for (const [q] of factorize(n)) if (modpow(a, n / q, p) === 1) return false; return true; }
+function leastNonRes(p) { for (let a = 2; ; a++) if (leg(a, p) === -1) return a; }
+function leastPrimRoot(p) { if (p === 2) return 1; for (let a = 2; ; a++) if (isPrimRoot(a, p)) return a; }
+function liOf(x) { if (x < 2) return 0; let s = 1.0451637801; const n = Math.max(20, Math.ceil(x / 25)); const h = (x - 2) / n; for (let k = 0; k < n; k++) { const t = 2 + (k + 0.5) * h; s += h / Math.log(t); } return s; }
+const ZETA = []; for (let k = 2; k <= 80; k++) { let z = 0; for (let n = 1; n <= 2000; n++) z += Math.pow(n, -k); z += Math.pow(2000, 1 - k) / (k - 1); ZETA[k] = z; }
+function Rof(x) { const L = Math.log(x); let s = 1, term = 1; for (let k = 1; k <= 60; k++) { term *= L / k; s += term / (k * ZETA[k + 1]); } return s; }
+function mobiusUpTo(N) { const mu = new Int8Array(N + 1).fill(1); const pr = new Uint8Array(N + 1); for (let i = 2; i <= N; i++) { if (pr[i]) continue; for (let j = i; j <= N; j += i) { pr[j] = 1; mu[j] *= -1; } const ii = i * i; for (let j = ii; j <= N; j += ii) mu[j] = 0; } mu[1] = 1; return mu; }
+function omegaUpTo(N) { const o = new Uint8Array(N + 1); for (let i = 2; i <= N; i++) if (!o[i]) for (let j = i; j <= N; j += i) { let m = j; while (m % i === 0) { m /= i; o[j]++; } } return o; }
+function fibMod(n, m) { // [F_n, F_(n+1)] mod m
+  let a = 0n, b = 1n; const M = BigInt(m); const bits = n.toString(2); for (const bit of bits) { const c = (a * ((2n * b - a + M) % M)) % M, d = (a * a + b * b) % M; if (bit === '1') { a = d; b = (c + d) % M; } else { a = c; b = d; } } return Number(a); }
+function hlWeight(g) { let w = 1; for (const [q] of factorize(g)) if (q > 2) w *= (q - 1) / (q - 2); return w; }
+const MERS = new Set([2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279]);
+const MAXG = new Set([2, 3, 7, 23, 89, 113, 523, 887, 1129, 1327, 9551, 15683, 19609, 31397, 155921, 360653, 370261, 492113, 1349533]);
+const MERITREC = new Set([2, 3, 7, 113, 1129, 1327, 19609, 31397, 155921, 360653, 370261, 1357201]);
+const isPalin = n => { const s = String(n); return s === s.split('').reverse().join(''); };
+const isPalin2 = n => { const s = n.toString(2); return s === s.split('').reverse().join(''); };
+const revd = n => +String(n).split('').reverse().join('');
+const C2 = 0.6601618158;
+function twinExpected(x) { let s = 0; const n = Math.max(20, Math.ceil(x / 50)); const h = (x - 2) / n; for (let k = 0; k < n; k++) { const t = 2 + (k + 0.5) * h; s += h / (Math.log(t) ** 2); } return 2 * C2 * s; }
+function wieferich(p) { const P2 = BigInt(p) * BigInt(p); let r = 1n, b = 2n, e = p - 1; while (e) { if (e & 1) r = r * b % P2; b = b * b % P2; e >>= 1; } return r === 1n; }
+function wilsonSq(p) { const P2 = BigInt(p) * BigInt(p); let f = 1n; for (let k = 2n; k < BigInt(p); k++) f = f * k % P2; return (f + 1n) % P2 === 0n; }
+function halfFact(p) { let f = 1n; const P = BigInt(p); for (let k = 2n; k <= BigInt((p - 1) / 2); k++) f = f * k % P; return Number(f); }
+function ramanujanSet(M) { const cx = ctx(M); const pi = new Int32Array(M + 1); let c = 0; for (let n = 0; n <= M; n++) { if (cx.pr(n)) c++; pi[n] = c; } const f = n => pi[n] - pi[Math.floor(n / 2)]; const R = new Set(); let mn = Infinity; for (let n = M; n >= 2; n--) { const v = f(n); if (v < mn) { mn = v; } } // tweede pas: p is Ramanujan als min_{y>=p} f(y) > min_{y>=p-1} f(y)
+  const minFrom = new Int32Array(M + 2); minFrom[M + 1] = 1e9; for (let n = M; n >= 1; n--) minFrom[n] = Math.min(minFrom[n + 1], f(n)); for (let n = 2; n <= M; n++) if (cx.pr(n) && minFrom[n] > minFrom[n - 1]) R.add(n); return R; }
+function goodSet(ps, lim) { const G = new Set(); for (let n = 1; n < ps.length - 1 && ps[n] <= lim; n++) { let ok = true; for (let i = 1; i <= n && n + i < ps.length; i++) if (ps[n] * ps[n] <= ps[n - i] * ps[n + i]) { ok = false; break; } if (ok) G.add(ps[n]); } return G; }
+const isSemi = (n, pr) => { for (let d = 2; d * d <= n; d++) if (n % d === 0) return pr(d) && pr(n / d); return false; };
+const sqrtInt = n => { const r = Math.round(Math.sqrt(n)); return r * r === n ? r : -1; };
+
+const BL = n => n.toString(2).length;                          // bitlengte
+const POP = n => n.toString(2).split('1').length - 1;         // aantal enen
+const MASK = n => (1 << BL(n)) - 1;
+const REV = n => parseInt(n.toString(2).split('').reverse().join(''), 2); // bits omgekeerd (binnen de lengte)
+const ROTL = (n, k) => { const L = BL(n); k = ((k % L) + L) % L; return ((n << k) | (n >> (L - k))) & MASK(n); };
+const ROTR = (n, k) => ROTL(n, -k);
+const SWAPH = n => { const L = BL(n), h = Math.floor(L / 2); const lo = n & ((1 << h) - 1), hi = n >> h; return (lo << (L - h)) | hi; };
+const GRAY = n => n ^ (n >> 1);
+const UNGRAY = n => { let r = 0; for (let m = n; m; m >>= 1) r ^= m; return r; };
+const NOT = n => MASK(n) ^ n;
+const CTZ = n => { if (!n) return 0; let k = 0; while (!(n & 1)) { n >>= 1; k++; } return k; };
+const RUN1 = n => Math.max(...n.toString(2).split('0').map(s => s.length));
+const RUN0 = n => Math.max(0, ...n.toString(2).split('1').map(s => s.length));
+const RUNS = n => n.toString(2).replace(/(.)\1*/g, '$1').length; // aantal blokken
+const BITPOS = n => { let s = 0; for (let k = 0; n; k++, n >>= 1) if (n & 1) s += k; return s; }; // som van de posities van de enen
+const SWAPEO = n => (((n & 0x5555) << 1) | ((n >> 1) & 0x5555)) & MASK(n); // even en oneven bits wisselen
+const NIBSWAP = n => ((n & 15) << 4) | ((n >> 4) & 15) | (n & ~255);
+const DSUM = (n, b) => { let s = 0; while (n) { s += n % b; n = Math.floor(n / b); } return s; };
+const LOW = (n, k) => n & ((1 << k) - 1), HIGH = (n, k) => n >> Math.max(0, BL(n) - k), MID = (n, a, k) => (n >> a) & ((1 << k) - 1);
+const LOWZERO = n => { let k = 0; while (n & 1) { n >>= 1; k++; } return k; }; // positie van de laagste 0
+const HALF = n => Math.floor(BL(n) / 2);
+const nextPr = (ps, i) => ps[i + 1];
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
+// ---------- deel 9: rond ----------
+const RING = (s, r, cls) => el('circle', { cx: C, cy: C, r, class: cls || 'ax' }, s);
+function caption(s, l1, l2) { txt(s, 150, 282, l1, { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); if (l2) txt(s, 150, 293, l2, { 'text-anchor': 'middle', 'font-size': 7 }); }
+function scaler(vals, r0, r1) { let lo = Infinity, hi = -Infinity; for (const v of vals) { if (v < lo) lo = v; if (v > hi) hi = v; } if (hi - lo < 1e-12) hi = lo + 1; return { lo, hi, f: v => r0 + (r1 - r0) * (v - lo) / (hi - lo) }; }
+// polaire punten: fn(p, g, st) -> [hoek, waarde] (waarde -> straal) of null
+function polar9(s, M, fn, opts) { opts = opts || {}; const cx = ctx(M), ps = cx.ps; const st = { i: 0, pr: cx.pr, ps, acc: 0, n: {} }; const items = [];
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; st.q = p + g; const v = fn(p, g, st); if (v) items.push({ a: v[0], val: v[1], p, k: v[2], w: v[3] }); }
+  const r0 = opts.r0 == null ? 22 : opts.r0, r1 = opts.r1 == null ? 128 : opts.r1; const sc = opts.fixed ? { f: v => r0 + (r1 - r0) * v } : scaler(items.map(q => q.val), r0, r1);
+  for (const rr of [r0, (r0 + r1) / 2, r1]) RING(s, rr); if (opts.zero != null && !opts.fixed) { const rz = sc.f(opts.zero); if (rz >= r0 && rz <= r1) RING(s, rz, 'ref'); }
+  const P = items.map(q => { const r = sc.f(q.val); const [x, y] = pol(C, C, r, q.a - Math.PI / 2); return { x, y, p: q.p, k: q.k, w: q.w, r }; });
+  if (opts.mode === 'line' || opts.mode === 'closed') { let d = ''; P.forEach((q, i) => d += (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)); if (opts.mode === 'closed') d += 'Z'; path(s, d, 'keep', { stroke: 'var(--prime)', 'stroke-width': P.length > 2000 ? 0.5 : 0.9, fill: opts.fill ? 'var(--prime)' : 'none', 'fill-opacity': 0.12, opacity: 0.9, 'stroke-linejoin': 'round' }); }
+  if (opts.mode === 'spokes') for (const q of P) { const [x0, y0] = pol(C, C, r0, Math.atan2(q.y - C, q.x - C)); el('line', { x1: x0, y1: y0, x2: q.x, y2: q.y, stroke: q.k === 1 ? 'var(--seq)' : 'var(--prime)', 'stroke-width': 0.5, opacity: 0.5, class: 'keep' }, s); }
+  if ((opts.dots !== false && opts.mode !== 'line' && opts.mode !== 'closed' && opts.mode !== 'spokes') || opts.dots) { const big = P.length <= 1500; for (const q of P) { const rr = opts.size ? opts.size(q) : (big ? 1.6 : 0.9); const e = el('circle', { cx: q.x, cy: q.y, r: rr, fill: q.k === 1 ? 'var(--seq)' : q.k === 2 ? 'var(--c3)' : 'var(--prime)', 'fill-opacity': big ? 0.8 : 0.55, class: 'keep' }, s); if (P.length <= 400) { e.dataset.n = q.p; e.classList.add('n'); el('title', {}, e).textContent = q.p; } } }
+  caption(s, fmt(items.length) + ' priemen tot ' + fmt(M) + (opts.stat ? ' · ' + opts.stat(sc) : ''), opts.f); return sc;
+}
+// polaire tijdreeks: val(p, g, st) -> waarde; hoek = 2π i / N (één ronde over alle priemen)
+function pseries(s, M, val, opts) { opts = opts || {}; const N = ctx(M).ps.length - 1; return polar9(s, M, (p, g, st) => { const v = val(p, g, st); return v == null ? null : [TAU * st.i / N, v]; }, Object.assign({ mode: 'closed', zero: 0, r0: 30 }, opts)); }
+// taart: bin(p, g, st) -> index 0..n-1 of null; wedges met straal ∝ aantal
+function pie9(s, M, n, bin, opts) { opts = opts || {}; const cx = ctx(M), ps = cx.ps; const st = { i: 0, pr: cx.pr, ps }; const cnt = new Float64Array(n); let tot = 0; for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; const b = bin(p, g, st); if (b == null || b < 0 || b >= n) continue; cnt[b] += opts.weight ? opts.weight(p, g, st) : 1; tot++; }
+  const mx = Math.max(...cnt); const r0 = 18, r1 = 128; for (let b = 0; b < n; b++) { if (!cnt[b]) continue; const a0 = TAU * b / n - Math.PI / 2, a1 = TAU * (b + 1) / n - Math.PI / 2; const r = r0 + (r1 - r0) * (opts.sqrt ? Math.sqrt(cnt[b] / mx) : cnt[b] / mx); const e = el('path', { d: wedge(C, C, r0, r, a0 + (n > 40 ? 0 : 0.01), a1 - (n > 40 ? 0 : 0.01)), fill: opts.color ? opts.color(b) : 'var(--prime)', 'fill-opacity': 0.75, stroke: 'var(--surface)', 'stroke-width': n > 60 ? 0 : 0.6, class: 'keep' }, s); el('title', {}, e).textContent = (opts.label ? opts.label(b) : b) + ': ' + Math.round(cnt[b]); if (n <= 36 && opts.label) { const [tx, ty] = pol(C, C, 136, (a0 + a1) / 2); txt(s, tx, ty + 2.5, opts.label(b), { 'text-anchor': 'middle', 'font-size': n > 24 ? 5.5 : 6.5 }); } }
+  for (const rr of [r0, (r0 + r1) / 2, r1]) RING(s, rr); caption(s, fmt(tot) + ' priemen tot ' + fmt(M) + ' · grootste wig ' + fmt(Math.round(mx)), opts.f); }
+// koorden: nodes n op een cirkel; pair(p, g, st) -> [a, b] indexen; dikte ∝ aantal
+function chord9(s, M, n, pair, opts) { opts = opts || {}; const cx = ctx(M), ps = cx.ps; const st = { i: 0, pr: cx.pr, ps }; const cnt = {}; let mx = 0, selfc = new Float64Array(n), tot = 0; for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; const v = pair(p, g, st); if (!v) continue; tot++; if (v[0] === v[1]) { selfc[v[0]]++; continue; } const k = Math.min(v[0], v[1]) + '-' + Math.max(v[0], v[1]); cnt[k] = (cnt[k] || 0) + 1; mx = Math.max(mx, cnt[k]); }
+  const R = 118; const pos = []; for (let k = 0; k < n; k++) pos.push(pol(C, C, R, TAU * k / n - Math.PI / 2)); const smax = Math.max(1, ...selfc);
+  for (const k in cnt) { const [a, b] = k.split('-').map(Number); const w = cnt[k] / mx; const [x1, y1] = pos[a], [x2, y2] = pos[b]; const e = el('path', { d: `M${x1} ${y1} Q${C} ${C} ${x2} ${y2}`, stroke: 'var(--prime)', 'stroke-width': 0.3 + 7 * w, fill: 'none', opacity: 0.25 + 0.7 * w, class: 'keep' }, s); el('title', {}, e).textContent = (opts.label ? opts.label(a) + ' ↔ ' + opts.label(b) : a + ' ↔ ' + b) + ': ' + cnt[k]; }
+  for (let k = 0; k < n; k++) { if (opts.used && !opts.used(k)) continue; const [x, y] = pos[k]; el('circle', { cx: x, cy: y, r: 2 + 6 * Math.sqrt(selfc[k] / smax), fill: 'var(--seq)', 'fill-opacity': 0.8, class: 'keep' }, s).appendChild(document.createElementNS(NS, 'title')).textContent = (opts.label ? opts.label(k) : k) + ' → zelf: ' + selfc[k]; if (n <= 40) { const [tx, ty] = pol(C, C, R + 12, TAU * k / n - Math.PI / 2); txt(s, tx, ty + 2.5, opts.label ? opts.label(k) : k, { 'text-anchor': 'middle', 'font-size': n > 24 ? 5.5 : 7 }); } }
+  caption(s, fmt(tot) + ' overgangen tot ' + fmt(M) + ' · dikste koorde ' + fmt(mx), opts.f); }
+// epicykel: terms [{k, r}] -> z(t) = Σ r e^{i k t}
+function epi9(s, terms, opts) { opts = opts || {}; const N = opts.N || 3000; const pts = []; for (let j = 0; j <= N; j++) { const t = TAU * j / N; let x = 0, y = 0; for (const { k, r } of terms) { x += r * Math.cos(k * t); y += r * Math.sin(k * t); } pts.push([x, y]); } let m = 0; for (const [x, y] of pts) m = Math.max(m, Math.hypot(x, y)); const sc = 128 / m; let d = ''; pts.forEach(([x, y], j) => d += (j ? 'L' : 'M') + (C + sc * x).toFixed(1) + ' ' + (C - sc * y).toFixed(1)); path(s, d, 'keep', { stroke: 'var(--prime)', 'stroke-width': 0.8, fill: 'none', opacity: 0.9 }); RING(s, 128); caption(s, terms.length + ' termen', opts.f); }
+// schillen: ring(p) -> ringindex (0..), ang(p) -> hoek
+function rings9(s, M, ring, ang, opts) { opts = opts || {}; const cx = ctx(M), ps = cx.ps; const st = { i: 0, pr: cx.pr, ps }; const items = []; let kmax = 0; for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; const k = ring(p, g, st); if (k == null) continue; kmax = Math.max(kmax, k); items.push({ k, a: ang(p, g, st), p, g, c: opts.color ? opts.color(p, g, st) : 0 }); } const r0 = 18, r1 = 132; const rs = k => kmax ? r0 + (r1 - r0) * k / kmax : (r0 + r1) / 2; for (let k = 0; k <= kmax; k++) RING(s, rs(k)); for (const q of items) { const [x, y] = pol(C, C, rs(q.k), q.a - Math.PI / 2); el('circle', { cx: x, cy: y, r: opts.size ? opts.size(q) : (items.length > 2000 ? 0.7 : 1.4), fill: q.c === 1 ? 'var(--seq)' : q.c === 2 ? 'var(--c3)' : 'var(--prime)', 'fill-opacity': 0.7, class: 'keep' }, s); } caption(s, fmt(items.length) + ' priemen tot ' + fmt(M) + ' · ' + (kmax + 1) + ' ringen', opts.f); }
+const amod = m => p => TAU * (p % m) / m;
+const nextq = (st) => st.q;
+
+// ===== KLOKKEN (538–552) =====
+add('Klokken', 'Klok van 30, straal p', 'Hoek = 2π·(p mod 30)/30, straal = p. Priemen boven 5 op de acht spaken 1, 7, 11, 13, 17, 19, 23, 29 (feit 1102); de stipgrootte is de merit g/ln p.', s => polar9(s, 10000, (p, g) => [amod(30)(p), p, 0, g / Math.log(p)], { f: 'hoek = p mod 30 · straal = p · grootte = merit', size: q => 0.4 + 0.9 * q.w }));
+add('Klokken', 'Klok van 360, straal p', 'Hoek = (p mod 360) graden. Alleen de 96 resten die copriem zijn met 360 = 2³·3²·5 dragen priemen: een wiel met 96 spaken en gaten erin.', s => polar9(s, 20000, (p, g) => [deg(p % 360), p], { f: 'hoek = (p mod 360)° · straal = p' }));
+add('Klokken', 'Klok van 7, straal merit', 'Hoek = 2π·(p mod 7)/7, straal = merit g/ln p. Zes spaken (0 alleen voor 7 zelf); de merits verdelen zich over de spaken gelijk, zoals Dirichlet voorspelt.', s => polar9(s, 10000, (p, g) => [amod(7)(p), g / Math.log(p)], { f: 'hoek = p mod 7 · straal = merit' }));
+add('Klokken', 'Klok van 11, straal merit', 'Tien spaken, straal = merit. Vergelijk de uiterste merits per spaak: de grootste (10,3 bij 31.397) zit op spaak 31397 mod 11 = 1.', s => polar9(s, 100000, (p, g) => [amod(11)(p), g / Math.log(p)], { f: 'hoek = p mod 11 · straal = merit' }));
+add('Klokken', 'Klok van 101, straal p', 'Honderd spaken (p mod 101, zonder 0). Een priemmodulus verdeelt de priemen gelijkmatig over alle spaken; vergelijk met 360.', s => polar9(s, 20000, (p, g) => [amod(101)(p), p], { f: 'hoek = p mod 101 · straal = p' }));
+add('Klokken', 'Klok van 1000, straal p', 'Hoek = de laatste drie cijfers (p mod 1000). Alleen de 400 resten met laatste cijfer 1, 3, 7 of 9 zijn bezet: vierhonderd dunne spaken in groepjes van vier.', s => polar9(s, 100000, (p, g) => [amod(1000)(p), p], { f: 'hoek = p mod 1000 · straal = p' }));
+add('Klokken', 'Klok van 24, straal gat', 'Hoek = 2π·(p mod 24)/24, straal = het gat. Acht spaken (1, 5, 7, 11, 13, 17, 19, 23); de grote gaten steken uit.', s => polar9(s, 10000, (p, g) => [amod(24)(p), g], { f: 'hoek = p mod 24 · straal = gat' }));
+add('Klokken', 'Klok van 12, straal = telling', 'Hoek = p mod 12, straal = hoeveel priemen al op die spaak staan. Vier spaken die even snel groeien (Dirichlet, feit 1601), met klasse 1 net iets korter (feit 1605).', s => polar9(s, 100000, (p, g, st) => { const r = p % 12; st.n[r] = (st.n[r] || 0) + 1; return [amod(12)(p), st.n[r]]; }, { f: 'hoek = p mod 12 · straal = telling per spaak', mode: 'spokes', dots: false, stat: sc => 'langste spaak ' + fmt(Math.round(sc.hi)) }));
+add('Klokken', 'Klok van 8, straal = telling', 'Hoek = p mod 8, straal = telling per spaak. Spaak 1 is de kortste, voor elke x in [23, 2·10⁸] (feit 1605).', s => polar9(s, 100000, (p, g, st) => { const r = p % 8; st.n[r] = (st.n[r] || 0) + 1; return [amod(8)(p), st.n[r], r === 1 ? 1 : 0]; }, { f: 'hoek = p mod 8 · straal = telling · blauw = klasse 1', mode: 'spokes', dots: false }));
+add('Klokken', 'Klok van 4: Chebyshev', 'Twee spaken: p ≡ 1 (mod 4) omhoog, p ≡ 3 omlaag, straal = telling. De onderste spaak is bijna altijd langer (feit 1602).', s => polar9(s, 1000000, (p, g, st) => { if (p === 2) return null; const r = p % 4; st.n[r] = (st.n[r] || 0) + 1; return [r === 1 ? 0 : Math.PI, st.n[r], r === 1 ? 1 : 0]; }, { f: 'hoek = 0 (rest 1) of π (rest 3) · straal = telling', mode: 'spokes', dots: false, stat: sc => 'verschil ' + Math.round(sc.hi - sc.lo) }));
+add('Klokken', 'Klok van 3', 'Rest 1 (mod 3) omhoog, rest 2 omlaag, straal = telling. Feit 1603: rest 2 leidt met minstens 2 voor alle x tussen 10⁵ en 1,4·10¹¹.', s => polar9(s, 1000000, (p, g, st) => { if (p === 3) return null; const r = p % 3; st.n[r] = (st.n[r] || 0) + 1; return [r === 1 ? 0 : Math.PI, st.n[r], r === 1 ? 1 : 0]; }, { f: 'hoek = 0 (rest 1) of π (rest 2) · straal = telling', mode: 'spokes', dots: false }));
+add('Klokken', 'Klok van de laatste cijfers', 'Vier spaken (1, 3, 7, 9), straal = telling. Gelijk tot op een fractie: feit 1601.', s => polar9(s, 1000000, (p, g, st) => { const r = p % 10; if (![1, 3, 7, 9].includes(r)) return null; st.n[r] = (st.n[r] || 0) + 1; return [amod(10)(p), st.n[r]]; }, { f: 'hoek = laatste cijfer · straal = telling', mode: 'spokes', dots: false }));
+add('Klokken', 'Klok van 30, straal gat', 'Hoek = p mod 30, straal = gat. Per spaak zie je welke gaten voorkomen: op spaak 1 nooit een gat van 2 (dan zou p + 2 ≡ 3), op spaak 29 nooit een gat van 4.', s => polar9(s, 10000, (p, g) => [amod(30)(p), g], { f: 'hoek = p mod 30 · straal = gat' }));
+add('Klokken', 'Klok van het gat mod 6', 'Hoek = 2π·(gat mod 6)/6: drie spaken (0, 2, 4), straal = p. Feit 1108: rest 2 alleen na p ≡ 5 (mod 6), rest 4 alleen na p ≡ 1. Blauw = p ≡ 1 (mod 6).', s => polar9(s, 10000, (p, g) => p > 3 ? [amod(6)(g), p, p % 6 === 1 ? 1 : 0] : null, { f: 'hoek = gat mod 6 · straal = p · blauw = p ≡ 1 (mod 6)' }));
+add('Klokken', 'Klok van het gat mod 30', 'Hoek = gat mod 30, straal = p. De gaten 6, 12, 18, 24 en 0 (= 30, 60, …) zijn dicht bezet: de zesvouden (feit 3013).', s => polar9(s, 100000, (p, g) => [amod(30)(g), p], { f: 'hoek = gat mod 30 · straal = p' }));
+
+// ===== POLAIRE TIJDREEKSEN (553–567) =====
+add('Tijdringen', 'li(x) − π(x) als ring', 'Eén ronde = alle priemen tot 10⁵; de straal is li(p) − π(p). De gestippelde ring is nul: de kromme blijft erbuiten (feit 2013).', s => pseries(s, 100000, (p, g, st) => liOf(p) - st.i, { f: 'hoek = 2π·i/N · straal = li(p) − π(p)' }));
+add('Tijdringen', 'R(x) − π(x) als ring', 'Riemanns R(x) min π(x): de kromme slingert om de nulring heen (feit 2011).', s => pseries(s, 100000, (p, g, st) => Rof(p) - st.i, { f: 'hoek = 2π·i/N · straal = R(p) − π(p)' }));
+add('Tijdringen', 'θ(x) − x als ring', 'θ(p) − p blijft binnen de nulring (feit 2034).', s => pseries(s, 100000, (p, g, st) => { st.th = (st.th || 0) + Math.log(p); return st.th - p; }, { f: 'hoek = 2π·i/N · straal = θ(p) − p' }));
+add('Tijdringen', 'Mertens M(p) als ring', 'De Mertens-functie op de priemen, als gesloten kromme rond de nulring (feit 2006).', s => pseries(s, 100000, (p, g, st) => { st.mu = st.mu || mobiusUpTo(100001); st.m = st.m == null ? 0 : st.m; const from = st.last == null ? 1 : st.last + 1; for (let n = from; n <= p; n++) st.m += st.mu[n]; st.last = p; return st.m; }, { f: 'hoek = 2π·i/N · straal = M(p)' }));
+add('Tijdringen', 'Liouville L(p) als ring', 'L(p) = Σ λ(n), negatief tot 9·10⁸ (feit 2008): de kromme ligt helemaal binnen de nulring.', s => pseries(s, 100000, (p, g, st) => { st.om = st.om || omegaUpTo(100001); st.l = st.l == null ? 0 : st.l; const from = st.last == null ? 1 : st.last + 1; for (let n = from; n <= p; n++) st.l += st.om[n] % 2 ? -1 : 1; st.last = p; return st.l; }, { f: 'hoek = 2π·i/N · straal = L(p)' }));
+add('Tijdringen', 'Σ (2/p) als ring', 'De lopende som van het Legendre-symbool (2/p): de niet-resten leiden, dus de kromme ligt binnen de nulring (feit 1606).', s => pseries(s, 1000000, (p, g, st) => { if (p > 2) st.acc += leg(2, p); return st.acc; }, { f: 'hoek = 2π·i/N · straal = Σ (2/p)' }));
+add('Tijdringen', 'π(x; 4, 3) − π(x; 4, 1) als ring', 'Chebyshevs bias als ring: de voorsprong van rest 3 op rest 1. De kromme raakt de nulring bij 26.861 (feit 1602).', s => pseries(s, 1000000, (p, g, st) => { if (p % 4 === 3) st.acc++; else if (p % 4 === 1) st.acc--; return st.acc; }, { f: 'hoek = 2π·i/N · straal = π(p; 4, 3) − π(p; 4, 1)' }));
+add('Tijdringen', 'π(x; 3, 2) − π(x; 3, 1) als ring', 'De sterkere bias modulo 3: de voorsprong van rest 2 (feit 1603).', s => pseries(s, 1000000, (p, g, st) => { if (p % 3 === 2) st.acc++; else if (p % 3 === 1) st.acc--; return st.acc; }, { f: 'hoek = 2π·i/N · straal = π(p; 3, 2) − π(p; 3, 1)' }));
+add('Tijdringen', 'Herhaald laatste cijfer', 'Straal = het aandeel opeenvolgende priemen met hetzelfde laatste cijfer tot nu toe; de nulring staat op 0,25. De kromme blijft erbinnen (feit 1604).', s => pseries(s, 1000000, (p, g, st) => { if (p <= 5) return null; st.c = (st.c || 0) + 1; st.h = (st.h || 0) + (p % 10 === (p + g) % 10 ? 1 : 0); return st.h / st.c; }, { f: 'straal = aandeel herhaald laatste cijfer', zero: 0.25 }));
+add('Tijdringen', 'Artin als ring', 'Straal = het aandeel priemen tot nu toe waarvoor 2 een primitieve wortel is; de ring staat op 0,374 (feit 1402).', s => pseries(s, 100000, (p, g, st) => { if (p === 2) return null; st.c = (st.c || 0) + 1; st.h = (st.h || 0) + (isPrimRoot(2, p) ? 1 : 0); return st.h / st.c; }, { f: 'straal = aandeel met 2 als primitieve wortel', zero: 0.374 }));
+add('Tijdringen', 'Tweelingen gedeeld door de verwachting', 'Straal = aantal tweelingen / 2C₂ ∫dt/ln² t; de ring staat op 1 (feit 3014).', s => pseries(s, 1000000, (p, g, st) => { st.tw = (st.tw || 0) + (st.pr(p + 2) ? 1 : 0); st.ex = (st.ex || 0) + 2 * C2 * g / Math.log(p + g / 2) ** 2; return st.i < 30 ? null : st.tw / st.ex; }, { f: 'straal = tweelingen / verwachting', zero: 1 }));
+add('Tijdringen', 'Σ 1/p − ln ln p', 'Straal = Σ1/p − ln ln p; de ring staat op Mertens’ constante 0,2615 (feit 2002).', s => pseries(s, 1000000, (p, g, st) => { st.s = (st.s || 0) + 1 / p; return st.s - Math.log(Math.log(p)); }, { f: 'straal = Σ 1/p − ln ln p', zero: 0.2615 }));
+add('Tijdringen', 'Merit als stekelring', 'Straal = de merit g/ln p van elke priem, één ronde over alle priemen tot 10⁴. Een stekelige ring; de ring staat op merit 1 (het gemiddelde).', s => pseries(s, 10000, (p, g) => g / Math.log(p), { f: 'straal = merit', zero: 1, r0: 25 }));
+add('Tijdringen', 'Gaten als stekelring', 'Straal = het gat, één ronde over de priemen tot 10⁴. De stekels worden naar buiten toe (later in de ronde) langer.', s => pseries(s, 10000, (p, g) => g, { f: 'straal = gat', r0: 25, zero: null }));
+add('Tijdringen', 'Cramér-verhouding als ring', 'Straal = g/ln² p, één ronde tot 10⁵. De grootste stekel is 0,67 bij 31.397 (feit 3007).', s => pseries(s, 100000, (p, g) => g / Math.log(p) ** 2, { f: 'straal = g / ln² p', r0: 25, zero: null }));
+
+// ===== ROZEN EN BLOEMEN (568–582) =====
+add('Bloemen', 'Hoek p radialen, straal merit', 'Hoek = p radialen, straal = merit. Omdat p mod 2π willekeurig is, vult het een schijf; de buitenrand zijn de grote merits.', s => polar9(s, 10000, (p, g) => [p, g / Math.log(p)], { f: 'hoek = p rad · straal = merit' }));
+add('Bloemen', 'Wol: hoek p radialen, straal gat', 'Zelfde hoek, straal = gat, en de punten in volgorde verbonden: een kluwen.', s => polar9(s, 2000, (p, g) => [p, g], { f: 'hoek = p rad · straal = gat', mode: 'line', dots: true }));
+add('Bloemen', 'Zonnebloem van gaten', 'Vogel-spiraal (hoek p × 137,5°, straal √p) met stipgrootte = gat. De grote zaadjes zijn de grote gaten.', s => polar9(s, 3000, (p, g) => [p * GA, Math.sqrt(p), 0, g], { f: 'hoek = p × 137,5° · straal = √p · grootte = gat', size: q => 0.5 + 0.3 * q.w }));
+add('Bloemen', 'Zonnebloem van Chebyshev', 'Vogel-spiraal, blauw voor p ≡ 1 (mod 4), oranje voor p ≡ 3. Twee kleuren die zich gelijk mengen, met een lichte oranje overhand.', s => polar9(s, 5000, (p, g) => [p * GA, Math.sqrt(p), p % 4 === 1 ? 1 : 0], { f: 'hoek = p × 137,5° · straal = √p · blauw = rest 1 (mod 4)' }));
+add('Bloemen', 'Zonnebloem van (2/p)', 'Vogel-spiraal, blauw als 2 een kwadraat is modulo p (p ≡ ±1 mod 8).', s => polar9(s, 5000, (p, g) => [p * GA, Math.sqrt(p), p > 2 && leg(2, p) === 1 ? 1 : 0], { f: 'hoek = p × 137,5° · straal = √p · blauw = (2/p) = 1' }));
+add('Bloemen', 'Zonnebloem van tweelingen', 'Vogel-spiraal; groen = de kleinste van een tweelingpaar, blauw = Sophie Germain (2p + 1 priem).', s => polar9(s, 5000, (p, g, st) => [p * GA, Math.sqrt(p), st.pr(p + 2) ? 2 : st.pr(2 * p + 1) ? 1 : 0], { f: 'groen = tweeling · blauw = Sophie Germain' }));
+add('Bloemen', 'Roos met drie lussen: merit', 'Hoek = 3 × 2π·i/N (drie ronden), straal = merit. Een roos met drie bladen waarvan de stekels de grote merits zijn.', s => polar9(s, 10000, (p, g, st) => [3 * TAU * st.i / 1229, g / Math.log(p)], { f: 'hoek = 3 · 2π·i/N · straal = merit', mode: 'closed', r0: 20 }));
+add('Bloemen', 'Roos met vijf lussen: gaten', 'Vijf ronden, straal = gat.', s => polar9(s, 10000, (p, g, st) => [5 * TAU * st.i / 1229, g], { f: 'hoek = 5 · 2π·i/N · straal = gat', mode: 'closed', r0: 20 }));
+add('Bloemen', 'Roos met zeven lussen: li − π', 'Zeven ronden, straal = li(p) − π(p): zeven keer dezelfde langzaam groeiende kromme, in elkaar gevlochten.', s => polar9(s, 100000, (p, g, st) => [7 * TAU * st.i / 9592, liOf(p) - st.i], { f: 'hoek = 7 · 2π·i/N · straal = li − π', mode: 'closed', r0: 30 }));
+add('Bloemen', 'Gaussische priemen', 'Alle a + bi met a² + b² = p priem tot 10⁴, in alle acht spiegelbeelden: de Gaussische priemen (feit 1306). Op de assen staan ook de priemen ≡ 3 (mod 4) zelf (blauw, op eigen schaal tot 10⁴).', s => { const cx = ctx(10000); let n = 0; for (const p of cx.ps) { if (p > 10000) break; if (p % 4 === 3) { for (const [x, y] of [[p, 0], [-p, 0], [0, p], [0, -p]]) if (Math.abs(x) <= 10000) el('circle', { cx: C + x * 0.0128, cy: C - y * 0.0128, r: 1, fill: 'var(--seq)', class: 'keep' }, s); continue; } const [a, b] = p === 2 ? [1, 1] : twoSq(p); n++; for (const [x, y] of [[a, b], [b, a], [-a, b], [-b, a], [a, -b], [b, -a], [-a, -b], [-b, -a]]) el('circle', { cx: C + x * 1.28, cy: C - y * 1.28, r: 0.9, fill: 'var(--prime)', 'fill-opacity': 0.7, class: 'keep' }, s); } RING(s, 128); caption(s, n + ' priemen ≡ 1 (mod 4) tot 10.000, elk 8 keer', 'punten (±a, ±b) met a² + b² = p'); });
+add('Bloemen', 'Eisenstein-priemen', 'Alle x + y√−3 met x² + 3y² = p priem (p ≡ 1 mod 3), in alle twaalf spiegelbeelden van het zeshoekige rooster (feit 1307).', s => { const cx = ctx(10000); let n = 0; const s3 = Math.sqrt(3); for (const p of cx.ps) { if (p > 10000) break; if (p % 3 !== 1) continue; const [x, y] = formXY(p, 3); n++; const pts = []; for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3; for (const [u, v] of [[x, y * s3], [x, -y * s3]]) pts.push([u * Math.cos(a) - v * Math.sin(a), u * Math.sin(a) + v * Math.cos(a)]); } for (const [u, v] of pts) el('circle', { cx: C + u * 1.28, cy: C - v * 1.28, r: 0.9, fill: 'var(--prime)', 'fill-opacity': 0.7, class: 'keep' }, s); } RING(s, 128); caption(s, n + ' priemen ≡ 1 (mod 3) tot 10.000, elk 12 keer', 'punten x + y√−3 met x² + 3y² = p'); });
+add('Bloemen', 'x² + 2y²', 'Alle (x, y√2) met x² + 2y² = p priem (p ≡ 1, 3 mod 8), in vier spiegelbeelden: een schijf die alleen bij √2-verhoudingen vol is.', s => { const cx = ctx(10000); let n = 0; for (const p of cx.ps) { if (p > 10000) break; if (p % 8 !== 1 && p % 8 !== 3) continue; const [x, y] = formXY(p, 2); n++; for (const [u, v] of [[x, y], [-x, y], [x, -y], [-x, -y]]) el('circle', { cx: C + u * 1.28, cy: C - v * Math.SQRT2 * 1.28, r: 0.9, fill: 'var(--prime)', 'fill-opacity': 0.7, class: 'keep' }, s); } RING(s, 128); caption(s, n + ' priemen ≡ 1, 3 (mod 8) tot 10.000', 'punten (±x, ±y√2) met x² + 2y² = p'); });
+add('Bloemen', 'Kwadraatresten modulo 101', 'Hoek = 2π·(p² mod 101)/101, straal = √p. Vijftig spaken: de kwadraatresten modulo 101 (feit 1301).', s => polar9(s, 20000, (p, g) => [TAU * (p * p % 101) / 101, Math.sqrt(p)], { f: 'hoek = p² mod 101 · straal = √p' }));
+add('Bloemen', 'Orde van 2 als hoek', 'Hoek = 2π · ord_p(2)/(p − 1), straal = √p. Hoek 0 (= 2π) zijn de priemen met 2 als primitieve wortel (Artin), hoek π de orde (p − 1)/2, en de overige spaken zijn kleine delers van p − 1.', s => polar9(s, 20000, (p, g) => p > 2 ? [TAU * ordMod(2, p) / (p - 1), Math.sqrt(p)] : null, { f: 'hoek = 2π · ord_p(2)/(p−1) · straal = √p' }));
+add('Bloemen', 'Aandeel primitieve wortels als hoek', 'Hoek = 2π · φ(p − 1)/(p − 1), straal = √p. De hoek ligt tussen 0 en π: hoogstens de helft van de resten is primitief. De veelvoorkomende waarden 1/3, 2/5, 4/15 … vormen spaken.', s => polar9(s, 20000, (p, g) => [TAU * phiOf(p - 1) / (p - 1), Math.sqrt(p)], { f: 'hoek = 2π · φ(p−1)/(p−1) · straal = √p' }));
+
+// ===== KOORDEN (583–597) =====
+add('Koorden', 'Laatste cijfer van p naar q', 'Tien knopen (de cijfers), een koorde van het laatste cijfer van p naar dat van de volgende priem, dikte = aantal. De blauwe stippen zijn de herhalingen (1 → 1 enz.): klein, zoals feit 1604 zegt.', s => chord9(s, 1000000, 10, (p, g) => p > 5 ? [p % 10, (p + g) % 10] : null, { label: k => k, used: k => [1, 3, 7, 9].includes(k), f: 'knoop = laatste cijfer · koorde p → q' }));
+add('Koorden', 'Rest mod 3 van p naar q', 'Twee knopen (rest 1 en 2) en één koorde: de wissel. De blauwe stippen (geen wissel) zijn kleiner dan de koorde dik is: herhaling wordt vermeden.', s => chord9(s, 1000000, 3, (p, g) => p > 3 ? [p % 3, (p + g) % 3] : null, { label: k => 'rest ' + k, used: k => k > 0, f: 'knoop = p mod 3 · koorde p → q' }));
+add('Koorden', 'Rest mod 4 van p naar q', 'Knopen 1 en 3 (mod 4). Een gat van 2 wisselt altijd van rest; de herhalingen (blauw) komen van gaten die viervouden zijn.', s => chord9(s, 1000000, 4, (p, g) => p > 2 ? [p % 4, (p + g) % 4] : null, { label: k => 'rest ' + k, used: k => k % 2 === 1, f: 'knoop = p mod 4 · koorde p → q' }));
+add('Koorden', 'Rest mod 8 van p naar q', 'Vier knopen (1, 3, 5, 7). Alle zes koorden ongeveer even dik, en de vier herhalingen klein.', s => chord9(s, 1000000, 8, (p, g) => p > 2 ? [p % 8, (p + g) % 8] : null, { label: k => k, used: k => k % 2 === 1, f: 'knoop = p mod 8 · koorde p → q' }));
+add('Koorden', 'Rest mod 30 van p naar q', 'Acht knopen (de resten copriem met 30). De koorde tussen buren (bijv. 11 → 13) is dik: dat zijn de tweelingen; herhaling (p → p + 30k) is zeldzaam.', s => chord9(s, 1000000, 30, (p, g) => p > 5 ? [p % 30, (p + g) % 30] : null, { label: k => k, used: k => [1, 7, 11, 13, 17, 19, 23, 29].includes(k), f: 'knoop = p mod 30 · koorde p → q' }));
+add('Koorden', 'Rest mod 12 van p naar q', 'Vier knopen (1, 5, 7, 11). De koorden 5 ↔ 7 en 11 ↔ 1 (verschil 2: tweelingen) zijn dik.', s => chord9(s, 1000000, 12, (p, g) => p > 3 ? [p % 12, (p + g) % 12] : null, { label: k => k, used: k => [1, 5, 7, 11].includes(k), f: 'knoop = p mod 12 · koorde p → q' }));
+add('Koorden', 'Rest mod 7 van p naar q', 'Zes knopen (1 t/m 6). Een priemmodulus zonder structuur: alle koorden ongeveer even dik, en de herhalingen (blauw) iets kleiner dan evenredig.', s => chord9(s, 1000000, 7, (p, g) => p > 7 ? [p % 7, (p + g) % 7] : null, { label: k => k, used: k => k > 0, f: 'knoop = p mod 7 · koorde p → q' }));
+add('Koorden', 'p mod 6 naar gat mod 6', 'Knopen: links de rest van p (1, 5), rechts de rest van het gat (0, 2, 4), op één zeshoek. Feit 1108 als koorden: 1 → 0 of 4, 5 → 0 of 2, en nooit 1 → 2 of 5 → 4.', s => chord9(s, 1000000, 9, (p, g) => p > 3 ? [p % 6, 6 + (g % 6) / 2] : null, { label: k => k < 6 ? 'p≡' + k : 'gat≡' + (2 * (k - 6)), used: k => k === 1 || k === 5 || k >= 6, f: 'koorde p mod 6 → gat mod 6' }));
+add('Koorden', 'Gat naar volgend gat', 'Knopen = gatgrootten 2, 4, …, 40 op een cirkel; een koorde van elk gat naar het volgende gat. 6 → 6 en 2 → 4 zijn dik (feit 3013).', s => chord9(s, 1000000, 20, (p, g, st) => { const q = st.ps[st.i + 1]; if (!q) return null; const g2 = q - (p + g); return g <= 40 && g2 <= 40 && p > 2 ? [g / 2 - 1, g2 / 2 - 1] : null; }, { label: k => 2 * k + 2, f: 'knoop = gat · koorde g_n → g_(n+1)' }));
+add('Koorden', 'Gat mod 6 naar volgend gat mod 6', 'Drie knopen (gat ≡ 0, 2, 4 mod 6). Na een gat ≡ 2 komt nooit een gat ≡ 2 (dat zou p ≡ 5 en p + g ≡ 5 geven, maar p + g ≡ 1); na 4 nooit 4.', s => chord9(s, 1000000, 3, (p, g, st) => { const q = st.ps[st.i + 1]; if (!q || p <= 3) return null; const g2 = q - (p + g); return [(g % 6) / 2, (g2 % 6) / 2]; }, { label: k => 'gat ≡ ' + 2 * k, f: 'koorde gat mod 6 → volgend gat mod 6' }));
+add('Koorden', 'Popcount van p naar q', 'Knopen = aantal enen (1 t/m 20). Koorde van pop(p) naar pop(q); opeenvolgende priemen verschillen meestal maar een paar enen, dus de koorden zijn kort.', s => chord9(s, 1000000, 20, (p, g) => [POP(p) - 1, POP(p + g) - 1], { label: k => k + 1, f: 'knoop = pop · koorde p → q' }));
+add('Koorden', 'Sophie Germain-koorden', 'De priemen tot 2.000 op een cirkel (hoek 2πp/2000); een koorde van p naar 2p + 1 als dat ook priem is (feit 1110). Alle koorden gaan van hoek θ naar 2θ.', s => { const cx = ctx(2000); let n = 0; for (const p of cx.ps) { if (p > 1000) break; const q = 2 * p + 1; if (!cx.pr(q)) continue; n++; const [x1, y1] = pol(C, C, 128, TAU * p / 2000 - Math.PI / 2), [x2, y2] = pol(C, C, 128, TAU * q / 2000 - Math.PI / 2); el('path', { d: `M${x1} ${y1} Q${C} ${C} ${x2} ${y2}`, stroke: 'var(--prime)', 'stroke-width': 0.7, fill: 'none', opacity: 0.6, class: 'keep' }, s); } for (const p of cx.ps) { if (p > 2000) break; const [x, y] = pol(C, C, 128, TAU * p / 2000 - Math.PI / 2); el('circle', { cx: x, cy: y, r: 1, fill: 'var(--prime)', class: 'keep' }, s); } caption(s, n + ' koorden p → 2p + 1 tot 2.000', 'hoek = 2π·p/2000'); });
+add('Koorden', 'Emirp-koorden', 'De priemen tot 1.000 op een cirkel; een koorde van p naar zijn omkering als die ook priem is (13 ↔ 31, 17 ↔ 71, 37 ↔ 73, 79 ↔ 97, 107 ↔ 701, …).', s => { const cx = ctx(1000); let n = 0; for (const p of cx.ps) { if (p > 1000) break; const r = revd(p); if (r <= p || r > 1000 || !cx.pr(r)) continue; n++; const [x1, y1] = pol(C, C, 128, TAU * p / 1000 - Math.PI / 2), [x2, y2] = pol(C, C, 128, TAU * r / 1000 - Math.PI / 2); el('path', { d: `M${x1} ${y1} Q${C} ${C} ${x2} ${y2}`, stroke: 'var(--prime)', 'stroke-width': 1, fill: 'none', opacity: 0.7, class: 'keep' }, s); } for (const p of cx.ps) { if (p > 1000) break; const [x, y] = pol(C, C, 128, TAU * p / 1000 - Math.PI / 2); el('circle', { cx: x, cy: y, r: 1.2, fill: isPalin(p) ? 'var(--seq)' : 'var(--prime)', class: 'keep' }, s); } caption(s, n + ' emirp-paren tot 1.000 · blauw = palindroom', 'hoek = 2π·p/1000'); });
+add('Koorden', 'Sexy koorden', 'De priemen tot 1.000 op een cirkel; een koorde van p naar p + 6 als beide priem zijn: 74 korte koorden, twee keer zo veel als tweelingen (feit 4006).', s => { const cx = ctx(1000); let n = 0; for (const p of cx.ps) { if (p + 6 > 1000) break; if (!cx.pr(p + 6)) continue; n++; const [x1, y1] = pol(C, C, 128, TAU * p / 1000 - Math.PI / 2), [x2, y2] = pol(C, C, 128, TAU * (p + 6) / 1000 - Math.PI / 2); el('path', { d: `M${x1} ${y1} Q${C + (x1 + x2 - 2 * C) * 0.6} ${C + (y1 + y2 - 2 * C) * 0.6} ${x2} ${y2}`, stroke: 'var(--c3)', 'stroke-width': 1.2, fill: 'none', opacity: 0.8, class: 'keep' }, s); } for (const p of cx.ps) { if (p > 1000) break; const [x, y] = pol(C, C, 128, TAU * p / 1000 - Math.PI / 2); el('circle', { cx: x, cy: y, r: 1.2, fill: 'var(--prime)', class: 'keep' }, s); } caption(s, n + ' sexy paren tot 1.000', 'koorde p → p + 6'); });
+add('Koorden', 'Goldbach-waaier voor 1.000', 'De priemen tot 1.000 op een cirkel; een koorde van p naar 1000 − p als beide priem zijn. Alle koorden zijn evenwijdig (ze spiegelen in de as door 500): 28 stuks.', s => { const cx = ctx(1000); let n = 0; for (const p of cx.ps) { if (p > 500) break; if (!cx.pr(1000 - p)) continue; n++; const [x1, y1] = pol(C, C, 128, TAU * p / 1000 - Math.PI / 2), [x2, y2] = pol(C, C, 128, TAU * (1000 - p) / 1000 - Math.PI / 2); el('line', { x1, y1, x2, y2, stroke: 'var(--prime)', 'stroke-width': 1, opacity: 0.7, class: 'keep' }, s); } for (const p of cx.ps) { if (p > 1000) break; const [x, y] = pol(C, C, 128, TAU * p / 1000 - Math.PI / 2); el('circle', { cx: x, cy: y, r: 1.2, fill: 'var(--prime)', class: 'keep' }, s); } caption(s, n + ' paren p + q = 1000', 'koorde p → 1000 − p'); });
+
+// ===== SCHILLEN (598–607) =====
+add('Schillen', 'Decaden', 'Ring k = de priemen met k cijfers (tot 10⁵: vijf ringen), hoek = de positie binnen de decade op een logaritmische schaal. Blauw = p ≡ 1 (mod 4).', s => rings9(s, 100000, p => Math.floor(Math.log10(p)), p => TAU * (Math.log10(p) % 1), { color: p => p % 4 === 1 ? 1 : 0, f: 'ring = aantal cijfers · hoek = {log₁₀ p}' }));
+add('Schillen', 'Bitlengten', 'Ring = bitlengte (2 t/m 14), hoek = (p − 2^(L−1))/2^(L−1): de positie binnen de bitlengte. Blauw = oneven aantal enen.', s => rings9(s, 10000, p => BL(p) - 2, p => TAU * (p - (1 << (BL(p) - 1))) / (1 << (BL(p) - 1)), { color: p => POP(p) % 2 ? 1 : 0, f: 'ring = bitlengte · hoek = positie in de bitlengte' }));
+add('Schillen', 'Resten mod 30 als ringen', 'Acht ringen, één per rest copriem met 30, hoek = 2π·p/M. Elke ring is even dicht bezet (Dirichlet).', s => rings9(s, 10000, p => { const k = [1, 7, 11, 13, 17, 19, 23, 29].indexOf(p % 30); return k < 0 ? null : k; }, p => TAU * p / 10000, { f: 'ring = p mod 30 · hoek = 2π·p/10.000' }));
+add('Schillen', 'Popcount als ringen', 'Ring = aantal enen (1 t/m 13), hoek = 2π·p/M. De middelste ringen zijn het drukst; de binnenste (1 een) heeft alleen 2.', s => rings9(s, 10000, p => POP(p) - 1, p => TAU * p / 10000, { f: 'ring = pop(p) · hoek = 2π·p/10.000' }));
+add('Schillen', 'Gaten als ringen', 'Ring = gatgrootte (2, 4, 6, …), hoek = 2π·p/M. De ringen 2, 4 en 6 zijn vol; naar buiten toe worden de ringen leger en pas later bezet (feit 3019).', s => rings9(s, 10000, (p, g) => g / 2 - 1, p => TAU * p / 10000, { f: 'ring = gat/2 · hoek = 2π·p/10.000' }));
+add('Schillen', 'Legendre-patronen als ringen', 'Vier ringen naar ((−1/p), (2/p)): (+,+) binnen, dan (+,−), (−,+), (−,−) buiten. Hoek = 2π·p/M. Even dicht, want de vier klassen modulo 8 zijn even groot.', s => rings9(s, 10000, p => p > 2 ? (leg(-1, p) === 1 ? 0 : 2) + (leg(2, p) === 1 ? 0 : 1) : null, p => TAU * p / 10000, { f: 'ring = ((−1/p), (2/p)) · hoek = 2π·p/10.000' }));
+add('Schillen', 'Merit als ringen', 'Ring = ⌊merit⌋ (0 t/m 10), hoek = 2π·p/M. De binnenste ringen zijn vol; merit 5 en hoger is zeldzaam (feit 3012).', s => rings9(s, 100000, (p, g) => Math.min(10, Math.floor(g / Math.log(p))), p => TAU * p / 100000, { f: 'ring = ⌊g/ln p⌋ · hoek = 2π·p/100.000' }));
+add('Schillen', 'Tweelingen, neven en sexy', 'Ring 0 (binnen) = alle priemen, ring 1 = tweelingen (p + 2 priem), ring 2 = neven (p + 4), ring 3 = sexy (p + 6). Hoek = 2π·p/M. De sexy ring is twee keer zo dicht als de tweelingring (feit 4006).', s => { const cx = ctx(10000); const rs = [40, 70, 100, 130]; const cnt = [0, 0, 0, 0]; for (const r of rs) RING(s, r); for (const p of cx.ps) { if (p > 10000) break; const a = TAU * p / 10000 - Math.PI / 2; const sets = [true, cx.pr(p + 2), cx.pr(p + 4), cx.pr(p + 6)]; sets.forEach((ok, k) => { if (!ok) return; cnt[k]++; const [x, y] = pol(C, C, rs[k], a); el('circle', { cx: x, cy: y, r: k ? 1.4 : 0.7, fill: k === 1 ? 'var(--seq)' : k === 2 ? 'var(--c5)' : k === 3 ? 'var(--c3)' : 'var(--prime)', 'fill-opacity': 0.75, class: 'keep' }, s); }); } caption(s, cnt[0] + ' priemen · ' + cnt[1] + ' tweelingen · ' + cnt[2] + ' neven · ' + cnt[3] + ' sexy', 'ringen: alle, p+2, p+4, p+6 priem'); });
+add('Schillen', 'Decaden met gaten', 'Ring = aantal cijfers, hoek = {log₁₀ p}, stipgrootte = merit. De grote stippen zijn de record-merits: 113 (gat 14), 1327 (gat 34), 31397 (gat 72).', s => rings9(s, 100000, p => Math.floor(Math.log10(p)), p => TAU * (Math.log10(p) % 1), { size: q => 0.5 + 0.9 * q.g / Math.log(q.p), f: 'ring = cijfers · hoek = {log₁₀ p} · grootte = merit' }));
+add('Schillen', 'Kwadraten als ringen', 'Ring k = de priemen tussen k² en (k + 1)² (k = 1 … 31), hoek = de positie in dat interval. Legendre: geen ring is leeg (feit 3020).', s => rings9(s, 1000, p => Math.floor(Math.sqrt(p)) - 1, p => { const k = Math.floor(Math.sqrt(p)); return TAU * (p - k * k) / (2 * k + 1); }, { f: 'ring = ⌊√p⌋ · hoek = positie tussen k² en (k+1)²' }));
+
+// ===== GESLOTEN FIGUREN (608–617) =====
+const fig = (title, note, M, turn, f) => add('Figuren', title, note, s => walk6(s, M, turn, () => 1, { relative: true, f }));
+fig('Zeshoekige figuur uit p mod 6', 'Stap 1; draai 60° links bij p ≡ 1 (mod 6), 60° rechts bij p ≡ 5. Een figuur op het zeshoekige rooster die dicht bij huis blijft, want de twee klassen zijn even groot.', 2000, p => p % 6 === 1 ? Math.PI / 3 : p % 6 === 5 ? -Math.PI / 3 : 0, 'draai ±60° naar p mod 6 · stap 1');
+fig('Vierkante figuur uit het gat', 'Stap 1; draai 90° × (gat/2 mod 4). Gaten 2 en 10 draaien een kwart, 4 en 12 een halve, 6 en 14 driekwart, 8 en 16 niets.', 2000, (p, g) => Math.PI / 2 * ((g / 2) % 4), 'draai 90° × (gat/2 mod 4) · stap 1');
+fig('Draai 360°/gat', 'Stap 1; draai 360°/gat: een gat van 2 draait een halve slag, 4 een kwart, 6 een zesde. Kleine gaten maken de figuur dicht, grote gaten strekken hem.', 2000, (p, g) => TAU / g, 'draai 2π/gat · stap 1');
+fig('Draai ±45° naar (2/p)', 'Stap 1; draai 45° links als 2 een kwadraat is modulo p, 45° rechts als niet. De niet-resten hebben de overhand (feit 1606), dus de figuur draait langzaam rechtsom.', 2000, p => p > 2 ? leg(2, p) * Math.PI / 4 : 0, 'draai ±45° naar (2/p) · stap 1');
+fig('Draai 360°/(p mod 7 + 1)', 'Stap 1; draai 360° gedeeld door (p mod 7) + 1: 180°, 120°, 90°, 72°, 60° of 51°. Zes vaste draaihoeken in willekeurige volgorde.', 2000, p => TAU / (p % 7 + 1), 'draai 2π/((p mod 7) + 1) · stap 1');
+fig('Draai 36° × laatste cijfer', 'Stap 1; draai 36° × het laatste cijfer: 36°, 108°, 252° of 324°. Omdat 252° = −108° en 324° = −36°, heffen de cijfers 3 en 7, en 1 en 9 elkaar op.', 2000, p => deg(36 * (p % 10)), 'draai 36° × laatste cijfer · stap 1');
+fig('Zesvouden draaien', 'Stap 1; draai 120° als het gat een zesvoud is, anders rechtdoor. De zesvouden (de helft van de gaten) vouwen de weg steeds om in een driehoekig patroon.', 2000, (p, g) => g % 6 === 0 ? 2 * Math.PI / 3 : 0, 'draai 120° als 6 | gat · stap 1');
+fig('Draai merit radialen', 'Stap 1; draai g/ln p radialen: gemiddeld 1 radiaal per priem, dus ongeveer zes stappen per ronde, met uitschieters.', 2000, (p, g) => g / Math.log(p), 'draai merit rad · stap 1');
+fig('Draai 90° bij een tweeling', 'Stap 1; draai 90° links bij elke tweeling (gat 2), anders rechtdoor. Lange rechte stukken waar tweelingen ontbreken.', 2000, (p, g) => g === 2 ? Math.PI / 2 : 0, 'draai 90° als gat = 2 · stap 1');
+fig('Draai 2π · pop/bitlengte', 'Stap 1; draai 2π maal het aandeel enen in p. Priemen met bijna alleen enen draaien bijna een hele slag (dus bijna niets), de helft enen een halve slag.', 2000, p => TAU * POP(p) / BL(p), 'draai 2π · pop(p)/L · stap 1');
+
+// ===== EPICYKELS (618–627) =====
+const EP = (title, note, terms, f) => add('Epicykels', title, note, s => epi9(s, terms, { f }));
+const pr100 = primesUpTo(100).filter(p => p <= 100);
+EP('Σ e^(ipt)/p over de priemen tot 100', 'Een punt draait met snelheid p en straal 1/p voor elke priem p ≤ 100, alle opgeteld: een epicykel waarin elke cirkel een priem is. De figuur sluit na één ronde.', pr100.map(p => ({ k: p, r: 1 / p })), 'z(t) = Σ_(p≤100) e^(ipt)/p');
+EP('Σ e^(ipt)/√p tot 50', 'Straal 1/√p: de grote priemen wegen zwaarder mee en de figuur wordt grilliger.', primesUpTo(50).filter(p => p <= 50).map(p => ({ k: p, r: 1 / Math.sqrt(p) })), 'z(t) = Σ_(p≤50) e^(ipt)/√p');
+EP('Σ e^(ipt)/p² tot 200', 'Straal 1/p²: bijna alleen 2, 3 en 5 doen mee (Σ1/p² = 0,4522, feit over P(2)). Een glad, bijna driehoekig figuur.', primesUpTo(200).filter(p => p <= 200).map(p => ({ k: p, r: 1 / (p * p) })), 'z(t) = Σ_(p≤200) e^(ipt)/p²');
+EP('Σ e^(ipt) · gat/p tot 100', 'Straal = gat/p: de priemen met een groot gat erachter (89, gat 8) krijgen een grote cirkel.', pr100.map((p, i) => ({ k: p, r: (i + 1 < pr100.length ? pr100[i + 1] - p : 4) / p })), 'z(t) = Σ e^(ipt) · gat/p');
+EP('Alleen p ≡ 1 (mod 4)', 'Dezelfde som, maar alleen over de priemen ≡ 1 (mod 4) tot 200: de Gaussische helft.', primesUpTo(200).filter(p => p <= 200 && p % 4 === 1).map(p => ({ k: p, r: 1 / p })), 'z(t) = Σ_(p≡1 mod 4) e^(ipt)/p');
+EP('Alleen p ≡ 3 (mod 4)', 'En de andere helft: de priemen ≡ 3 (mod 4) tot 200.', primesUpTo(200).filter(p => p <= 200 && p % 4 === 3).map(p => ({ k: p, r: 1 / p })), 'z(t) = Σ_(p≡3 mod 4) e^(ipt)/p');
+EP('Alleen tweelingen', 'Alleen de kleinste van elk tweelingpaar tot 500 (3, 5, 11, 17, 29, …), straal 1/p.', (() => { const ps = primesUpTo(500); const t = []; for (let i = 0; i + 1 < ps.length; i++) if (ps[i + 1] - ps[i] === 2 && ps[i] <= 500) t.push({ k: ps[i], r: 1 / ps[i] }); return t; })(), 'z(t) = Σ_(tweelingen) e^(ipt)/p');
+EP('Snelheid = volgnummer, straal 1/p', 'Het k-de punt draait met snelheid k (niet p) en straal 1/p_k. Zo verdwijnen de gaten uit de snelheden en blijft alleen de grootte van de priemen over.', pr100.map((p, i) => ({ k: i + 1, r: 1 / p })), 'z(t) = Σ_k e^(ikt)/p_k');
+EP('Snelheid p mod 30', 'Snelheid = p mod 30 (acht verschillende), straal 1/p. Priemen met dezelfde rest draaien samen; de figuur heeft een vaste symmetrie.', primesUpTo(300).filter(p => p > 5 && p <= 300).map(p => ({ k: p % 30, r: 1 / p })), 'z(t) = Σ e^(i (p mod 30) t)/p');
+EP('Snelheid p, straal 1/ln p tot 30', 'Straal 1/ln p: trager dalend dan 1/p, dus meer gelijke cirkels en een ruiger figuur.', primesUpTo(30).filter(p => p <= 30).map(p => ({ k: p, r: 1 / Math.log(p) })), 'z(t) = Σ_(p≤30) e^(ipt)/ln p');
+
+// ===== TAARTEN (628–637) =====
+add('Taarten', 'Taart van resten mod 30', 'Dertig wiggen, straal = het aantal priemen met die rest. Acht volle wiggen (feit 1102), even groot.', s => pie9(s, 1000000, 30, p => p % 30, { label: k => k, f: 'wig = p mod 30' }));
+add('Taarten', 'Taart van resten mod 360', '360 wiggen; de 96 resten copriem met 360 zijn even vol, de rest leeg.', s => pie9(s, 1000000, 360, p => p % 360, { f: 'wig = p mod 360' }));
+add('Taarten', 'Taart van de laatste drie cijfers', '1000 wiggen: de 400 toegestane laatste drie cijfers, elk even vol.', s => pie9(s, 1000000, 1000, p => p % 1000, { f: 'wig = p mod 1000' }));
+add('Taarten', 'Taart van gaten', 'Wig k = het aantal gaten van grootte 2k (tot 60). De wig van 6 is de grootste, 30 is al groter dan 24 en 28 (feit 3013).', s => pie9(s, 1000000, 30, (p, g) => g <= 60 ? g / 2 - 1 : null, { label: k => 2 * k + 2, f: 'wig = gatgrootte' }));
+add('Taarten', 'Taart van merits', 'Wig = ⌊10 · merit⌋ (0,0 t/m 5,9): de verdeling van g/ln p. Een exponentiële staart (feit 3018).', s => pie9(s, 1000000, 60, (p, g) => Math.min(59, Math.floor(10 * g / Math.log(p))), { f: 'wig = merit in stappen van 0,1' }));
+add('Taarten', 'Taart van popcount', 'Wig = aantal enen in p (1 t/m 20). Een klokvorm rond 10 voor priemen tot 10⁶ (20 bits).', s => pie9(s, 1000000, 20, p => POP(p) - 1, { label: k => k + 1, f: 'wig = pop(p)' }));
+add('Taarten', 'Taart van p mod 101', 'Honderd wiggen, allemaal even groot: een priemmodulus heeft geen voorkeuren.', s => pie9(s, 1000000, 101, p => p % 101, { f: 'wig = p mod 101' }));
+add('Taarten', 'Taart van de Gaussische hoek', 'Wig = arctan(b/a) in stappen van 1° (0° t/m 44°) voor p ≡ 1 (mod 4): de hoeken zijn gelijkverdeeld (Hecke).', s => pie9(s, 100000, 45, p => { if (p % 4 !== 1) return null; const [a, b] = twoSq(p); return Math.min(44, Math.floor(Math.atan2(b, a) * 180 / Math.PI)); }, { label: k => k % 5 ? '' : k + '°', f: 'wig = arctan(b/a) per graad' }));
+add('Taarten', 'Taart van ord_p(2)/(p − 1)', 'Wig = de orde van 2 modulo p gedeeld door p − 1, in 20 stappen. De wig bij 1 (primitieve wortel) heeft Artins aandeel 0,374; de wig bij ½ is de op één na grootste.', s => pie9(s, 100000, 20, p => p > 2 ? Math.min(19, Math.floor(20 * ordMod(2, p) / (p - 1))) : null, { label: k => (k / 20).toFixed(2), f: 'wig = ord_p(2)/(p−1)' }));
+add('Taarten', 'Taart van de tweede verschillen', 'Wig = gat − vorig gat, van −30 t/m +30. Symmetrisch rond 0; de piek bij 0 zijn gelijke gaten.', s => pie9(s, 1000000, 61, (p, g, st) => { const d = st.g0 == null ? null : g - st.g0; st.g0 = g; if (d == null) return null; return Math.abs(d) <= 30 ? d + 30 : null; }, { label: k => (k - 30) % 10 ? '' : k - 30, f: 'wig = gat − vorig gat' }));
+// ================= RENDER & INTERACTIE =================
+const CATS = [...new Set(panels.map(p => p.cat))];
+const gridEl = document.getElementById('grid'), tb = document.getElementById('toolbar'), status = document.createElement('span'); status.className = 'status'; status.id = 'status';
+function chip(label, cat) { const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', cat === null ? 'true' : 'false'); b.addEventListener('click', () => { for (const c of tb.querySelectorAll('.chip')) c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); for (const card of gridEl.children) card.hidden = !(cat === null || card.dataset.cat === cat); try { localStorage.setItem('ppf' + OFFSET, cat || ''); } catch (e) { } }); tb.appendChild(b); return b; }
+chip('Alles (' + panels.length + ')', null); CATS.forEach(c => chip(c + ' (' + panels.filter(p => p.cat === c).length + ')', c)); tb.appendChild(status);
+panels.forEach((p, i) => {
+  const card = document.createElement('article'); card.className = 'card'; card.dataset.cat = p.cat; card.tabIndex = 0;
+  const h = document.createElement('h2'); const b = document.createElement('b'); b.textContent = String(i + 1 + OFFSET).padStart(2, '0'); h.appendChild(b); h.appendChild(document.createTextNode(p.title)); const sm = document.createElement('small'); sm.textContent = p.cat; h.appendChild(sm);
+  const svg = el('svg', { viewBox: '0 0 300 300', role: 'img', 'aria-label': p.title }); try { p.draw(svg); } catch (err) { txt(svg, 150, 150, 'fout: ' + err.message, { 'text-anchor': 'middle' }); console.error(i + 1, p.title, err); }
+  const note = document.createElement('p'); note.textContent = p.note; card.append(h, svg, note); gridEl.appendChild(card);
+});
+let pinned = null;
+function highlight(n) { for (const e of document.querySelectorAll('.n.hl')) e.classList.remove('hl'); if (n == null) { document.body.classList.remove('dim'); status.textContent = ''; return; } for (const e of document.querySelectorAll('[data-n="' + n + '"]')) e.classList.add('hl'); document.body.classList.add('dim');
+  let info = label(n); if (isP[n]) info += ' · gat naar volgende ' + gapAfter[n] + ' · π(' + n + ') = ' + pi[n]; else if (n > 1) info += ' · ' + nd[n] + ' delers · φ = ' + phi[n]; status.textContent = info; }
+gridEl.addEventListener('mouseover', e => { if (pinned != null) return; const t = e.target.closest('[data-n]'); if (t) highlight(+t.dataset.n); });
+gridEl.addEventListener('mouseout', e => { if (pinned != null) return; const t = e.target.closest('[data-n]'); if (t && !gridEl.contains(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-n]'))) highlight(null); });
+gridEl.addEventListener('click', e => { const t = e.target.closest('[data-n]'); if (!t) { if (pinned != null) { pinned = null; highlight(null); } return; } const n = +t.dataset.n; if (pinned === n) { pinned = null; highlight(null); } else { pinned = n; highlight(n); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { pinned = null; highlight(null); } });
+document.getElementById('foot').textContent = 'Priemgetallen tot 100: ' + primes.join(', ') + '. Elke tekening is live uit dezelfde gegevens berekend; de tekst onder een tekening zegt wat erin te zien is. Composieten zijn grijs, priemen oranje; blauw is een vergelijkingslijn of een grootte.';
+try { const f = localStorage.getItem('ppf' + OFFSET); if (f) { const idx = CATS.indexOf(f); if (idx >= 0) tb.querySelectorAll('.chip')[idx + 1].click(); } } catch (e) { }
+</script>
+</body>
+</html>

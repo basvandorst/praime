@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 438–537</h1>
   <p class="lead">Honderd wandelingen waarin de stap zelf een feit over priemgetallen draagt, uit FACTS.md van deze repository: Gaussische stappen (a, b) met p = a² + b², Legendre-symbolen als ±1, de races modulo 3, 8 en 12, de vermeden herhaling van het laatste cijfer, Artins constante als helling, merit en Cramér, de verhoudingen 2 : 4 : 6 van de gaten, Andrica en Firoozbakht als kleine positieve stappen, de fout van li, R en θ, Mertens en Liouville, Brun en de tweelingconstante, Capelle, Chen, Ramanujan, Sophie Germain, Wieferich, Wilson en Mersenne. Elke tekening noemt het feitnummer en de formule; een blauwe stippellijn is de voorspelde helling. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a> · <b>Deel 8 (438–537)</b></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a> · <b>Deel 8 (438–537)</b> · <a href="priempatronen-538-637.html">Deel 9 (538–637)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -270,9 +270,6 @@ function walk6(s, M, hFn, sFn, opts) { // hFn(p, g, st) -> koers (rad, absoluut 
 }
 const W6 = (cat, title, note, M, hFn, sFn, opts) => add(cat, title, note, s => walk6(s, M, hFn, sFn, opts));
 
-const panels = [];
-function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
-// ---------- deel 8: stappen uit de feiten ----------
 const CTX = {};
 function ctx(M) { if (CTX[M]) return CTX[M]; const L = 2 * M + 3; const sv = new Uint8Array(L + 1); sv[0] = sv[1] = 1; for (let i = 2; i * i <= L; i++) if (!sv[i]) for (let j = i * i; j <= L; j += i) sv[j] = 1; const ps = []; for (let i = 2; i <= M; i++) if (!sv[i]) ps.push(i); let q = M + 1; while (sv[q]) q++; ps.push(q); return CTX[M] = { ps, pr: n => n >= 2 && n <= L && !sv[n], L }; }
 function vw(s, M, vfn, opts) { // vfn(p, g, st) -> [dx, dy] of null
@@ -325,6 +322,31 @@ function goodSet(ps, lim) { const G = new Set(); for (let n = 1; n < ps.length -
 const isSemi = (n, pr) => { for (let d = 2; d * d <= n; d++) if (n % d === 0) return pr(d) && pr(n / d); return false; };
 const sqrtInt = n => { const r = Math.round(Math.sqrt(n)); return r * r === n ? r : -1; };
 
+const BL = n => n.toString(2).length;                          // bitlengte
+const POP = n => n.toString(2).split('1').length - 1;         // aantal enen
+const MASK = n => (1 << BL(n)) - 1;
+const REV = n => parseInt(n.toString(2).split('').reverse().join(''), 2); // bits omgekeerd (binnen de lengte)
+const ROTL = (n, k) => { const L = BL(n); k = ((k % L) + L) % L; return ((n << k) | (n >> (L - k))) & MASK(n); };
+const ROTR = (n, k) => ROTL(n, -k);
+const SWAPH = n => { const L = BL(n), h = Math.floor(L / 2); const lo = n & ((1 << h) - 1), hi = n >> h; return (lo << (L - h)) | hi; };
+const GRAY = n => n ^ (n >> 1);
+const UNGRAY = n => { let r = 0; for (let m = n; m; m >>= 1) r ^= m; return r; };
+const NOT = n => MASK(n) ^ n;
+const CTZ = n => { if (!n) return 0; let k = 0; while (!(n & 1)) { n >>= 1; k++; } return k; };
+const RUN1 = n => Math.max(...n.toString(2).split('0').map(s => s.length));
+const RUN0 = n => Math.max(0, ...n.toString(2).split('1').map(s => s.length));
+const RUNS = n => n.toString(2).replace(/(.)\1*/g, '$1').length; // aantal blokken
+const BITPOS = n => { let s = 0; for (let k = 0; n; k++, n >>= 1) if (n & 1) s += k; return s; }; // som van de posities van de enen
+const SWAPEO = n => (((n & 0x5555) << 1) | ((n >> 1) & 0x5555)) & MASK(n); // even en oneven bits wisselen
+const NIBSWAP = n => ((n & 15) << 4) | ((n >> 4) & 15) | (n & ~255);
+const DSUM = (n, b) => { let s = 0; while (n) { s += n % b; n = Math.floor(n / b); } return s; };
+const LOW = (n, k) => n & ((1 << k) - 1), HIGH = (n, k) => n >> Math.max(0, BL(n) - k), MID = (n, a, k) => (n >> a) & ((1 << k) - 1);
+const LOWZERO = n => { let k = 0; while (n & 1) { n >>= 1; k++; } return k; }; // positie van de laagste 0
+const HALF = n => Math.floor(BL(n) / 2);
+const nextPr = (ps, i) => ps[i + 1];
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
+// ---------- deel 8: stappen uit de feiten ----------
 // ===== RESTEN EN LEGENDRE (438–452) =====
 W8('Resten', 'Het gat mod 6 als koers', 'Feit 1108: voor p > 3 is het gat ≡ 0, 2 of 4 (mod 6), en 2 komt alleen na p ≡ 5, 4 alleen na p ≡ 1 (mod 6). Koers: 0 → omhoog, 2 → rechts, 4 → links; stap = gat. De x-richting meet dus p mod 6, de y-richting de zesvouden.', 1000, (p, g) => { const r = g % 6; const a = r === 0 ? -Math.PI / 2 : r === 2 ? 0 : Math.PI; return [g * Math.cos(a), -g * Math.sin(a)]; }, { f: 'gat ≡ 0 → ↑, 2 → →, 4 → ← (mod 6) · stap = gat', axes: true });
 W8('Resten', 'p mod 6 en gat mod 6 samen', 'Vijf mogelijke combinaties (p ≡ 1: gat 0 of 4; p ≡ 5: gat 0 of 2; plus 2 en 3). Elke combinatie een eigen koers op 72° van elkaar, stap = gat.', 1000, (p, g) => { const k = p <= 3 ? 4 : (p % 6 === 1 ? (g % 6 === 0 ? 0 : 1) : (g % 6 === 0 ? 2 : 3)); const a = TAU * k / 5 - Math.PI / 2; return [g * Math.cos(a), -g * Math.sin(a)]; }, { f: 'koers = 72° × klasse(p mod 6, gat mod 6) · stap = gat' });
