@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 101–200</h1>
   <p class="lead">Nog eens honderd tekeningen van de getallen 1 tot 100, als vervolg op deel 1. Waar een vorm op zichzelf niets over priem zijn zegt, staan nu priemen en composieten naast elkaar. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav">Dit is deel 2 (tekeningen 101–200). <a href="priempatronen-1-100.html">Terug naar deel 1 (1–100)</a>.</p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <b>Deel 2 (101–200)</b> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -142,7 +142,7 @@ function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); f
 function mark(parent, tag, attrs, n, mode, extra) {
   const e = el(tag, attrs, parent);
   e.setAttribute('class', 'n ' + kind(n) + ' ' + (mode || 'f') + (extra ? ' ' + extra : ''));
-  e.dataset.n = n; const t = el('title', {}, e); t.textContent = label(n); return e;
+  e.dataset.n = n; if (tag === 'text' && attrs['font-size']) e.style.fontSize = attrs['font-size'] + 'px'; const t = el('title', {}, e); t.textContent = label(n); return e;
 }
 function markK(parent, tag, attrs, n, cls, mode, text) {
   const e = el(tag, attrs, parent); e.setAttribute('class', 'n ' + cls + ' ' + (mode || 'f')); e.dataset.n = n; const t = el('title', {}, e); t.textContent = text || label(n); return e;
@@ -200,8 +200,6 @@ function hexSpiral() { // axiale coördinaten voor 1..100
 }
 function ulam() { const pos = [null, [0, 0]]; let x = 0, y = 0, dx = 1, dy = 0, len = 1, n = 1; while (n < N) { for (let rep = 0; rep < 2 && n < N; rep++) { for (let i = 0; i < len && n < N; i++) { x += dx; y += dy; n++; pos[n] = [x, y]; } [dx, dy] = [-dy, dx]; } len++; } return pos; }
 
-const panels = [];
-function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // ---------- extra hulpfuncties voor deel 2 ----------
 function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
 function Li(x) { let s = 0; const a = 2, m = 400; for (let i = 0; i < m; i++) { const t = a + (x - a) * (i + 0.5) / m; s += 1 / ln(t); } return 1.045 + s * (x - a) / m; } // li(2) ≈ 1.045
@@ -220,6 +218,8 @@ function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : p
 function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
 function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
 
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // ================= LIJN (101–110) =================
 add('Lijn', 'Priemen tussen kwadraten', 'Tussen k² en (k+1)² ligt altijd minstens één priem (het vermoeden van Legendre, onbewezen in het algemeen). Hier: 2, 2, 2, 3, 2, 4, 3, 4, 3.', s => {
   for (let k = 1; k <= 10; k++) { el('line', { x1: X(k * k), y1: 120, x2: X(k * k), y2: 200, stroke: 'var(--seq)', 'stroke-width': 1.5 }, s); txt(s, X(k * k), 112, k * k, { 'text-anchor': 'middle', 'font-size': 7, fill: 'var(--seq)' }); if (k < 10) { const c = primes.filter(p => p > k * k && p < (k + 1) * (k + 1)).length; txt(s, (X(k * k) + X((k + 1) * (k + 1))) / 2, 216, c, { 'text-anchor': 'middle', class: 'tf' }); } }

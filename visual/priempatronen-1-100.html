@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 1–100</h1>
   <p class="lead">Honderd manieren om dezelfde honderd getallen te tekenen. De 25 priemgetallen krijgen steeds een eigen kleur, lijn, hoek of hoogte. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav">Dit is deel 1 (tekeningen 1–100). <a href="priempatronen-101-200.html">Naar deel 2 (101–200)</a>.</p>
+  <p class="nav"><b>Deel 1 (1–100)</b> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -142,7 +142,7 @@ function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); f
 function mark(parent, tag, attrs, n, mode, extra) {
   const e = el(tag, attrs, parent);
   e.setAttribute('class', 'n ' + kind(n) + ' ' + (mode || 'f') + (extra ? ' ' + extra : ''));
-  e.dataset.n = n; const t = el('title', {}, e); t.textContent = label(n); return e;
+  e.dataset.n = n; if (tag === 'text' && attrs['font-size']) e.style.fontSize = attrs['font-size'] + 'px'; const t = el('title', {}, e); t.textContent = label(n); return e;
 }
 function markK(parent, tag, attrs, n, cls, mode, text) {
   const e = el(tag, attrs, parent); e.setAttribute('class', 'n ' + cls + ' ' + (mode || 'f')); e.dataset.n = n; const t = el('title', {}, e); t.textContent = text || label(n); return e;
@@ -199,6 +199,24 @@ function hexSpiral() { // axiale coördinaten voor 1..100
   return out;
 }
 function ulam() { const pos = [null, [0, 0]]; let x = 0, y = 0, dx = 1, dy = 0, len = 1, n = 1; while (n < N) { for (let rep = 0; rep < 2 && n < N; rep++) { for (let i = 0; i < len && n < N; i++) { x += dx; y += dy; n++; pos[n] = [x, y]; } [dx, dy] = [-dy, dx]; } len++; } return pos; }
+
+// ---------- extra hulpfuncties voor deel 2 ----------
+function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
+function Li(x) { let s = 0; const a = 2, m = 400; for (let i = 0; i < m; i++) { const t = a + (x - a) * (i + 0.5) / m; s += 1 / ln(t); } return 1.045 + s * (x - a) / m; } // li(2) ≈ 1.045
+function periodLen(n) { while (n % 2 === 0) n /= 2; while (n % 5 === 0) n /= 5; if (n === 1) return 0; let r = 10 % n, k = 1; while (r !== 1) { r = r * 10 % n; k++; } return k; }
+function ord2(n) { if (n % 2 === 0) return 0; let r = 2 % n, k = 1; if (n === 1) return 1; while (r !== 1) { r = r * 2 % n; k++; } return k; }
+function r2(n) { let c = 0; for (let a = -10; a <= 10; a++) for (let b = -10; b <= 10; b++) if (a * a + b * b === n) c++; return c; }
+function rev(n) { return +String(n).split('').reverse().join(''); }
+function roman(n) { const t = [[100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]; let s = ''; for (const [v, c] of t) while (n >= v) { s += c; n -= v; } return s; }
+function lcm(a, b) { return a / gcd(a, b) * b; }
+function carm(n) { if (n === 1) return 1; let L = 1; for (const [p, e] of fac[n]) { const q = Math.pow(p, e); const l = (p === 2 && e >= 3) ? q / 4 : (p === 2 ? q / 2 : q / p * (p - 1)); L = lcm(L, l); } return L; }
+const sopfr = n => fac[n].reduce((a, [p, e]) => a + p * e, 0);
+const rad = n => fac[n].reduce((a, [p]) => a * p, 1);
+const popc = n => n.toString(2).split('1').length - 1;
+const v2 = n => { let k = 0; while (n % 2 === 0) { n /= 2; k++; } return k; };
+function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : pad); } // kleine veelvouden
+function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
+function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
 
 const panels = [];
 function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
