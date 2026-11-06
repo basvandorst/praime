@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-06 11:37 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-06 11:50 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -27,7 +27,7 @@ Submissions:
 | [1276](https://www.primepuzzles.net/puzzles/puzz_1276.htm) | Most distinct primes from k copies of each digit 0–9 (also puzzle 49) | k = 20000, 30000, 40000: 35168, 51515, 67251 (Kalogeropoulos, 2026) | [35169, 51519, 67254; all 41 values on the page proved optimal](writeup/1276.md) | n/a |
 | [1277](https://www.primepuzzles.net/puzzles/puzz_1277.htm) | Q3: fewest coprime neighbour pairs with 1..10000 in a 100 × 100 grid | 2075 (Hürter, 2026) | [1452](writeup/1277.md) | n/a |
 
-#### Puzzles solved/answered (66)
+#### Puzzles solved/answered (67)
 | # | Open question | Status on the page | Our answer | Status |
 |---|---|---|---|---|
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](writeup/prob-7.md) | n/a |
@@ -52,6 +52,7 @@ Submissions:
 | [285](https://www.primepuzzles.net/puzzles/puzz_285.htm) | General law for K(2ⁿ − 1) mod n (Kempner function): 1 except n/2 + 1 at n = 28, 52, 68, 92, … | no law found; empirical p mod 4 rule | [explained: residue = 1 + d·((p−1)/d mod n/d) for the largest prime factor p, d = ord_p(2); parity from p mod 8; the p mod 4 rule proved for n ≡ 4 (mod 8); table to 200](writeup/285.md) | n/a |
 | [312](https://www.primepuzzles.net/puzzles/puzz_312.htm) | Q2: does Rubin's greedy rule give primes with prime three-term sums using every odd prime once? Q1: does such a sequence exist? | open | [Q2 no: the 29th term repeats the sum 463; Q1: repaired rule is bijective below 857897](writeup/312.md) | n/a |
 | [319](https://www.primepuzzles.net/puzzles/puzz_319.htm) | How accurate are Morawetz's four approximations to π(n), and how were they derived? | accuracy at 10¹⁴; "I don't know how they were derived" | [three-term approximants of li's series (Catalan, geometric); errors to 10²²](writeup/319.md) | n/a |
+| [326](https://www.primepuzzles.net/puzzles/puzz_326.htm) | Next term of 0, 3, 34, 52, 2800414 (n = π of the product of the factorials of its digits) | no answer | [no term with 8 to 11 digits (exhaustive over the digit multisets in the window); expected number of further terms 0.06, so the sequence is almost surely complete](writeup/326.md) | n/a |
 | [336](https://www.primepuzzles.net/puzzles/puzz_336.htm) | Prove σ(n) < prime(n) for n > 4 | a sketch with a gap (Dima, 2005) | [proved](writeup/336.md) | n/a |
 | [360](https://www.primepuzzles.net/puzzles/puzz_360.htm) | Next N after 462 with d + N/d, \|d − N/d\| all 1 or prime | 462 \| N proved; "vicious cycle" sketched | [none below 10¹⁰⁷⁹: all primes ≡ 3 (mod 4) below 5000 divide N (proof)](writeup/360.md) | n/a |
 | [362](https://www.primepuzzles.net/puzzles/puzz_362.htm) | What property defines 3, 5, 17, 257, 65537, 4294967311, …, and what are the next three primes? | no answer | [greedy primes with ∏(1 − 1/p) → 1/2 (A339344); a(10..12) of 136, 270, 536 digits, proved prime](writeup/362.md) | n/a |
