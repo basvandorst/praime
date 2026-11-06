@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 101–200</h1>
   <p class="lead">Nog eens honderd tekeningen van de getallen 1 tot 100, als vervolg op deel 1. Waar een vorm op zichzelf niets over priem zijn zegt, staan nu priemen en composieten naast elkaar. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <b>Deel 2 (101–200)</b> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <b>Deel 2 (101–200)</b> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -217,6 +217,19 @@ const v2 = n => { let k = 0; while (n % 2 === 0) { n /= 2; k++; } return k; };
 function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : pad); } // kleine veelvouden
 function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
 function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
+
+// ---------- deel 3: richting uit de priem, grootte uit het gat ----------
+const G = p => gapAfter[p]; // gat na p (97 → 101: 4)
+const deg = d => d * Math.PI / 180;
+function gapWalk(s, headingFn, opts) { // over de 25 priemen: koers uit p, staplengte = gat
+  opts = opts || {}; let x = 0, y = 0, h = 0; const segs = []; const pts = [{ x, y, n: 0 }];
+  primes.forEach((p, i) => { h = opts.relative ? h + headingFn(p, i) : headingFn(p, i); const L = G(p); const nx = x + L * Math.cos(h), ny = y + L * Math.sin(h); segs.push({ x1: x, y1: y, x2: nx, y2: ny, p }); x = nx; y = ny; pts.push({ x, y, n: p }); });
+  const F = fitLine(s, pts);
+  segs.forEach((g, i) => { const a = F[i], b = F[i + 1]; mark(s, 'line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': 0.6 + G(g.p) * 0.55 }, g.p, 's').querySelector('title').textContent = g.p + ' · gat ' + G(g.p) + ' · ' + (opts.label ? opts.label(g.p) : ''); });
+  F.forEach((q, i) => { if (i === 0) { el('circle', { cx: q.x, cy: q.y, r: 2.5, fill: 'var(--fg)' }, s); return; } mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.2 + G(primes[i - 1]) * 0.35 }, primes[i - 1], 'f'); });
+  return F;
+}
+const lastd = p => p % 10;
 
 const panels = [];
 function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }

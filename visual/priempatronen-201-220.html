@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 201–220</h1>
   <p class="lead">Twintig tekeningen met één regel: de priem bepaalt de richting (graden, radialen, rest, laatste cijfer, cijfersom) en het gat naar de volgende priem bepaalt de grootte (staplengte, straal, dikte, lettergrootte). 97 krijgt gat 4, naar 101. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <b>Deel 3 (201–220)</b></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <b>Deel 3 (201–220)</b> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -218,8 +218,6 @@ function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : p
 function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
 function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
 
-const panels = [];
-function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // ---------- deel 3: richting uit de priem, grootte uit het gat ----------
 const G = p => gapAfter[p]; // gat na p (97 → 101: 4)
 const deg = d => d * Math.PI / 180;
@@ -233,6 +231,8 @@ function gapWalk(s, headingFn, opts) { // over de 25 priemen: koers uit p, stapl
 }
 const lastd = p => p % 10;
 
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 add('Richting', 'Kompas: hoek p°, lengte gat', 'Vanuit één punt een pijl per priem: de richting is p graden, de lengte het gat naar de volgende priem. Alle 25 pijlen passen in één kwadrant (2° tot 97°); de langste wijst naar 89° (gat 8).', s => {
   const ox = 30, oy = 270, sc = 28; path(s, 'M' + ox + ' ' + (oy - 100) + ' A100 100 0 0 1 ' + (ox + 100) + ' ' + oy, 'ax2'); for (const a of [0, 30, 60, 90]) { const [x, y] = pol(ox, oy, 248, -deg(a)); el('line', { x1: ox, y1: oy, x2: x, y2: y, class: 'ax' }, s); txt(s, x + (a === 90 ? 8 : 4), y + 3, a + '°', { 'font-size': 7 }); }
   for (const p of primes) { const [x, y] = pol(ox, oy, G(p) * sc, -deg(p)); const e = mark(s, 'line', { x1: ox, y1: oy, x2: x, y2: y, 'stroke-width': 1 + G(p) * 0.3 }, p, 's'); e.querySelector('title').textContent = p + '° · gat ' + G(p); mark(s, 'circle', { cx: x, cy: y, r: 1.5 + G(p) * 0.4 }, p, 'f'); if (G(p) >= 6) txt(s, x + 6, y + 3, p, { 'font-size': 7, class: 'tf' }); }
