@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 246–279</h1>
   <p class="lead">Vierendertig grote wandelingen, varianten van paneel 203: bij elke priem een stap in een richting die uit de priem volgt, zo lang als het gat naar de volgende priem. Nu over alle priemen tot 1.000, 10.000, 100.000 en 1.000.000. De weg wordt donkerder naarmate hij vordert; de stip is het begin, de ring het einde. Onder elke tekening: het aantal priemen, de afgelegde weg (de som van de gaten) en de afstand tussen begin en eind. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <b>Deel 5 (246–279)</b></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <b>Deel 5 (246–279)</b> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -231,8 +231,6 @@ function gapWalk(s, headingFn, opts) { // over de 25 priemen: koers uit p, stapl
 }
 const lastd = p => p % 10;
 
-const panels = [];
-function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // ---------- deel 5: grote wandelingen ----------
 const bigCache = {};
 function primesUpTo(M) { if (bigCache[M]) return bigCache[M]; const sv = new Uint8Array(M + 1); const out = []; for (let i = 2; i <= M; i++) { if (sv[i]) continue; out.push(i); if (i * i <= M) for (let j = i * i; j <= M; j += i) sv[j] = 1; } let q = M + 1; while (true) { let ok = true; for (let d = 2; d * d <= q; d++) if (q % d === 0) { ok = false; break; } if (ok) break; q++; } out.push(q); return bigCache[M] = out; } // laatste element: eerste priem boven M, voor het laatste gat
@@ -250,6 +248,8 @@ function bigWalk(s, M, headingFn, opts) { // headingFn(p, gap, i) -> koers (abso
 const GA = Math.PI * (3 - Math.sqrt(5));
 const digs = n => String(n).split('').reduce((a, b) => a + +b, 0);
 
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // koers p radialen, stap gat: de reeks
 for (const M of [100, 1000, 10000, 100000, 1000000]) add('Radialen', 'Koers p radialen, stap gat, tot ' + fmt(M), M === 100 ? 'Paneel 203 opnieuw: bij elke priem p een stap in de richting p radialen, zo lang als het gat naar de volgende priem. De weg wordt donkerder naarmate hij vordert; stip = start, ring = einde.' : 'Dezelfde regel, nu over alle priemen tot ' + fmt(M) + '. Omdat p radialen modulo 2π bijna willekeurig is, lijkt het een toevalswandeling: de eindafstand groeit ongeveer als de wortel van de weglengte.', s => bigWalk(s, M, p => -p, { sub: 'richting p rad · stap = gat' }));
 // koers p graden
