@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Priempatronen 101–200</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: one sticky toolbar, then a dense responsive grid of equal square cards; each card = one SVG + a number + a one-line reading. */
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --fg: #15181d; --muted: #5d6572; --border: #dfe3e9;
+    --prime: #d95926; --comp: #9aa3b0; --unit: #c9ced6; --seq: #2a78d6;
+    --c2: #2a78d6; --c3: #1baf7a; --c5: #6250d6; --c7: #eda100; --cx: #e87ba4;
+    --grid: #e6e9ee; --hl: #15181d;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1216; --surface: #171b21; --fg: #eceff3; --muted: #9aa3b0; --border: #2a303a;
+      --prime: #f0713a; --comp: #5d6572; --unit: #3a414c; --seq: #3987e5;
+      --c2: #3987e5; --c3: #199e70; --c5: #9085e9; --c7: #c98500; --cx: #d55181;
+      --grid: #232932; --hl: #ffffff; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1216; --surface: #171b21; --fg: #eceff3; --muted: #9aa3b0; --border: #2a303a;
+    --prime: #f0713a; --comp: #5d6572; --unit: #3a414c; --seq: #3987e5;
+    --c2: #3987e5; --c3: #199e70; --c5: #9085e9; --c7: #c98500; --cx: #d55181;
+    --grid: #232932; --hl: #ffffff; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--sans); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  .wrap { max-width: 1480px; margin: 0 auto; padding-block: 28px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  header { display: grid; gap: 10px; margin-bottom: 18px; max-width: 72ch; }
+  h1 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .lead { margin: 0; color: var(--muted); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding: 10px 0; margin-bottom: 14px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip { border: 1px solid var(--border); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 5px 12px; font: 500 12.5px var(--sans); cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .chip:focus-visible, .card:focus-visible { outline: 2px solid var(--seq); outline-offset: 2px; }
+  .status { margin-left: auto; font: 12.5px var(--mono); color: var(--muted); min-height: 1.5em; font-variant-numeric: tabular-nums; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px 12px; display: grid; gap: 6px; min-width: 0; }
+  .card[hidden] { display: none; }
+  .card h2 { font-size: 13.5px; font-weight: 600; margin: 0; display: flex; gap: 8px; align-items: baseline; }
+  .card h2 b { font: 500 11px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; min-width: 2.6ch; }
+  .card h2 small { font: 400 10.5px var(--sans); color: var(--muted); margin-left: auto; letter-spacing: 0.04em; text-transform: uppercase; }
+  .card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+  svg { width: 100%; height: auto; display: block; aspect-ratio: 1; max-width: 100%; background: var(--surface); }
+  svg text { font: 9px var(--mono); fill: var(--muted); pointer-events: none; }
+  svg text.n { pointer-events: auto; }
+  svg .t { fill: var(--muted); }
+  svg .tf { fill: var(--fg); }
+  svg .ax { stroke: var(--grid); stroke-width: 1; fill: none; }
+  svg .ax2 { stroke: var(--border); stroke-width: 1; fill: none; }
+  svg .ref { stroke: var(--seq); stroke-width: 1.2; stroke-dasharray: 3 3; fill: none; }
+  svg .ref2 { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+  .n.p { --k: var(--prime); } .n.c { --k: var(--comp); } .n.u { --k: var(--unit); }
+  .n.q { --k: var(--seq); }
+  .n.k2 { --k: var(--c2); } .n.k3 { --k: var(--c3); } .n.k5 { --k: var(--c5); } .n.k7 { --k: var(--c7); } .n.kx { --k: var(--cx); }
+  .f { fill: var(--k); stroke: none; }
+  .s { stroke: var(--k); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .fs { fill: var(--k); stroke: var(--surface); stroke-width: 0.8; }
+  .n { transition: opacity 120ms; }
+  .n.hl.f, .n.hl.fs { stroke: var(--hl); stroke-width: 2.5px; paint-order: stroke; fill-opacity: 1 !important; }
+  .n.hl.s { stroke: var(--hl); stroke-width: 3.5px; opacity: 1 !important; }
+  .n.hl text, text.n.hl { fill: var(--hl); font-weight: 600; }
+  body.dim .n:not(.hl):not(.keep) { opacity: 0.28; }
+  @media (prefers-reduced-motion: reduce) { .n { transition: none; } }
+  .nav { margin: 0; font-size: 13px; } .nav a { color: var(--seq); }
+  footer { margin-top: 28px; color: var(--muted); font-size: 12px; max-width: 72ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Priempatronen 101–200</h1>
+  <p class="lead">Nog eens honderd tekeningen van de getallen 1 tot 100, als vervolg op deel 1. Waar een vorm op zichzelf niets over priem zijn zegt, staan nu priemen en composieten naast elkaar. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
+  <p class="nav">Dit is deel 2 (tekeningen 101–200). <a href="priempatronen-1-100.html">Terug naar deel 1 (1–100)</a>.</p>
+  <div class="legend">
+    <span><i style="background:var(--prime)"></i>priemgetal</span>
+    <span><i style="background:var(--comp)"></i>composiet</span>
+    <span><i style="background:var(--unit)"></i>1 (geen van beide)</span>
+    <span><i style="background:var(--seq)"></i>vergelijkingslijn / grootte</span>
+    <span><i style="background:var(--c2)"></i>factor 2</span>
+    <span><i style="background:var(--c3)"></i>factor 3</span>
+    <span><i style="background:var(--c5)"></i>factor 5</span>
+    <span><i style="background:var(--c7)"></i>factor 7</span>
+    <span><i style="background:var(--cx)"></i>factor &gt; 7</span>
+  </div>
+</header>
+<div class="toolbar" id="toolbar" role="group" aria-label="Filter op familie"></div>
+<div class="grid" id="grid"></div>
+<footer id="foot"></footer>
+</div>
+<script>
+const OFFSET = 100;
+'use strict';
+// ---------- getaltheorie voor 1..100 ----------
+const N = 100, W = 300, H = 300, C = 150;
+const LIM = 10100;
+const isP = new Uint8Array(LIM + 1);
+for (let i = 2; i <= LIM; i++) isP[i] = 1;
+for (let i = 2; i * i <= LIM; i++) if (isP[i]) for (let j = i * i; j <= LIM; j += i) isP[j] = 0;
+const primes = []; for (let i = 2; i <= N; i++) if (isP[i]) primes.push(i);
+const spf = new Array(N + 1).fill(0), gpf = new Array(N + 1).fill(0);
+const divs = [[]]; for (let n = 1; n <= N; n++) { const d = []; for (let k = 1; k <= n; k++) if (n % k === 0) d.push(k); divs.push(d); }
+const nd = divs.map(d => d.length), sig = divs.map(d => d.reduce((a, b) => a + b, 0));
+const fac = [[], []]; // fac[n] = [[p,e],...]
+for (let n = 2; n <= N; n++) { let m = n; const f = []; for (let p = 2; p <= m; p++) { let e = 0; while (m % p === 0) { m /= p; e++; } if (e) f.push([p, e]); } fac.push(f); spf[n] = f[0][0]; gpf[n] = f[f.length - 1][0]; }
+const omg = fac.map(f => f.length), Omg = fac.map(f => f.reduce((a, pe) => a + pe[1], 0));
+const mu = fac.map((f, n) => n === 0 ? 0 : f.some(pe => pe[1] > 1) ? 0 : (f.length % 2 ? -1 : 1));
+const lam = Omg.map(k => (k % 2 ? -1 : 1));
+const phi = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let r = n; for (const [p] of fac[n]) r = r / p * (p - 1); phi[n] = r; }
+const pi = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) pi[n] = pi[n - 1] + (isP[n] ? 1 : 0);
+function nextP(n) { let m = n + 1; while (!isP[m]) m++; return m; }
+function prevP(n) { let m = n - 1; while (m > 1 && !isP[m]) m--; return m; }
+const gapAfter = {}; for (const p of primes) gapAfter[p] = nextP(p) - p;
+const gaps = primes.map(p => gapAfter[p]);
+const distP = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let d = 0; while (!isP[n - d] && !isP[n + d]) d++; distP[n] = d; }
+const collatz = new Array(N + 1).fill(0); for (let n = 1; n <= N; n++) { let m = n, s = 0; while (m !== 1) { m = m % 2 ? 3 * m + 1 : m / 2; s++; } collatz[n] = s; }
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+function facStr(n) { if (n === 1) return '1'; return fac[n].map(([p, e]) => p + (e > 1 ? SUP[e] : '')).join('·'); }
+function kind(n) { return n === 1 ? 'u' : isP[n] ? 'p' : 'c'; }
+function label(n) { return n === 1 ? '1 · eenheid' : isP[n] ? n + ' · priem' : n + ' = ' + facStr(n); }
+function modpow(b, e, m) { let r = 1n, x = BigInt(b) % BigInt(m), k = BigInt(e), M = BigInt(m); while (k > 0n) { if (k & 1n) r = r * x % M; x = x * x % M; k >>= 1n; } return Number(r); }
+function legendre(a, p) { if (a % p === 0) return 0; const r = modpow(a, (p - 1) / 2, p); return r === 1 ? 1 : -1; }
+function binomRowMod(n) { const row = []; let c = 1n; const M = BigInt(n); for (let k = 0; k <= n; k++) { row.push(Number(c % M)); c = c * BigInt(n - k) / BigInt(k + 1); } return row; }
+const digsum = n => String(n).split('').reduce((a, b) => a + +b, 0);
+const ln = Math.log;
+
+// ---------- svg ----------
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) if (attrs[k] !== undefined) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function mark(parent, tag, attrs, n, mode, extra) {
+  const e = el(tag, attrs, parent);
+  e.setAttribute('class', 'n ' + kind(n) + ' ' + (mode || 'f') + (extra ? ' ' + extra : ''));
+  e.dataset.n = n; const t = el('title', {}, e); t.textContent = label(n); return e;
+}
+function markK(parent, tag, attrs, n, cls, mode, text) {
+  const e = el(tag, attrs, parent); e.setAttribute('class', 'n ' + cls + ' ' + (mode || 'f')); e.dataset.n = n; const t = el('title', {}, e); t.textContent = text || label(n); return e;
+}
+function txt(parent, x, y, s, attrs) { const t = el('text', Object.assign({ x, y, class: 't' }, attrs || {}), parent); t.textContent = s; return t; }
+function path(parent, d, cls, attrs) { return el('path', Object.assign({ d, class: cls }, attrs || {}), parent); }
+const X = n => 8 + (n - 1) * (284 / 99);
+function axisX(s, y, step) { el('line', { x1: 8, y1: y, x2: 292, y2: y, class: 'ax2' }, s); for (let k = step || 10; k <= 100; k += step || 10) txt(s, X(k), y + 11, k, { 'text-anchor': 'middle' }); }
+function pol(cx, cy, r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+function wedge(cx, cy, r0, r1, a0, a1) { const [x0, y0] = pol(cx, cy, r0, a0), [x1, y1] = pol(cx, cy, r0, a1), [x2, y2] = pol(cx, cy, r1, a1), [x3, y3] = pol(cx, cy, r1, a0); const L = a1 - a0 > Math.PI ? 1 : 0; return `M${x0} ${y0} A${r0} ${r0} 0 ${L} 1 ${x1} ${y1} L${x2} ${y2} A${r1} ${r1} 0 ${L} 0 ${x3} ${y3} Z`; }
+function grid(cols, rows, pad, square) { pad = pad == null ? 10 : pad; const w = (W - 2 * pad) / cols, h = (H - 2 * pad) / rows; const c = square === false ? [w, h] : [Math.min(w, h), Math.min(w, h)]; const ox = (W - c[0] * cols) / 2, oy = (H - c[1] * rows) / 2; return { w: c[0], h: c[1], at(n) { const i = (n - 1) % cols, j = Math.floor((n - 1) / cols); return { x: ox + i * c[0], y: oy + j * c[1], i, j }; } }; }
+function cellGrid(s, cols, opts) { // standaard roostertekening 1..100
+  opts = opts || {}; const rows = Math.ceil(N / cols); const g = grid(cols, rows, opts.pad, opts.square);
+  for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const r = mark(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, 'f'); if (!isP[n]) r.setAttribute('fill-opacity', n === 1 ? 0.5 : 0.22); if (opts.num && g.w >= 16) txt(s, x + g.w / 2, y + g.h / 2 + 3, n, { 'text-anchor': 'middle', 'font-size': Math.min(9, g.w / 2.6), class: isP[n] ? 'tf' : 't' }); }
+  return g;
+}
+function walk(s, pts, opts) { // pts: [{x,y,n}], schaal naar het vlak
+  opts = opts || {}; let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); }
+  const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0;
+  const P = pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n }));
+  if (!opts.noLine) el('polyline', { points: P.map(p => p.x + ',' + p.y).join(' '), class: 'ax2', 'stroke-width': 1 }, s);
+  if (!opts.noLine) for (let i = 1; i < P.length; i++) if (isP[P[i].n]) mark(s, 'line', { x1: P[i - 1].x, y1: P[i - 1].y, x2: P[i].x, y2: P[i].y, 'stroke-width': 2 }, P[i].n, 's');
+  for (const p of P) { if (p.n < 1) continue; const r = isP[p.n] ? (opts.r || 3) : 1.6; mark(s, 'circle', { cx: p.x, cy: p.y, r }, p.n, 'f'); }
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 2.2, class: 'ax', fill: 'var(--fg)', stroke: 'none' }, s);
+  return P;
+}
+function turtle(stepFn, turnFn, start) { // levert punten; n = 1..100
+  let x = 0, y = 0, a = start == null ? 0 : start; const pts = [{ x, y, n: 0 }];
+  for (let n = 1; n <= N; n++) { a += turnFn(n); const L = stepFn(n); x += L * Math.cos(a); y += L * Math.sin(a); pts.push({ x, y, n }); }
+  return pts;
+}
+function isoGrid(s, hfun, hz, extra) { // 10x10 isometrische blokken
+  const cw = 12.5, ch = 6.25, cx = 150, cy = 58; const order = [];
+  for (let n = 1; n <= N; n++) order.push(n);
+  order.sort((a, b) => ((a - 1) % 10 + Math.floor((a - 1) / 10)) - ((b - 1) % 10 + Math.floor((b - 1) / 10)));
+  for (const n of order) { const i = (n - 1) % 10, j = Math.floor((n - 1) / 10); const bx = cx + (i - j) * cw, by = cy + (i + j) * ch; const h = hfun(n) * hz;
+    const g = el('g', {}, s);
+    const d = `M${bx} ${by - h} l${cw} ${ch} l${-cw} ${ch} l${-cw} ${-ch} Z M${bx - cw} ${by + ch - h} l${cw} ${ch} v${h} l${-cw} ${-ch} Z M${bx + cw} ${by + ch - h} l${-cw} ${ch} v${h} l${cw} ${-ch} Z`;
+    const top = mark(g, 'path', { d: `M${bx} ${by - h} l${cw} ${ch} l${-cw} ${ch} l${-cw} ${-ch} Z` }, n, extra ? extra(n) : 'fs');
+    if (h > 0) { const l = mark(g, 'path', { d: `M${bx - cw} ${by + ch - h} l${cw} ${ch} v${h} l${-cw} ${-ch} Z`, 'fill-opacity': 0.65 }, n, 'fs'); const r = mark(g, 'path', { d: `M${bx + cw} ${by + ch - h} l${-cw} ${ch} v${h} l${cw} ${-ch} Z`, 'fill-opacity': 0.45 }, n, 'fs'); }
+    if (h === 0) top.setAttribute('fill-opacity', 0.35);
+  }
+}
+function circleNodes(s, r, which, rad) { const pos = {}; for (let n = 1; n <= N; n++) { const a = 2 * Math.PI * n / N - Math.PI / 2; const [x, y] = pol(C, C, r, a); pos[n] = [x, y]; } if (which !== false) for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? (rad || 3) : 1.3 }, n, 'f'); return pos; }
+function clock(s, m) { const rows = Math.floor((N - 1) / m); const R0 = 34, R1 = 136; for (let k = 0; k < m; k++) { const a = 2 * Math.PI * k / m - Math.PI / 2; const [x1, y1] = pol(C, C, R0 - 8, a), [x2, y2] = pol(C, C, R1 + 6, a); el('line', { x1, y1, x2, y2, class: 'ax' }, s); if (m <= 30) { const [tx, ty] = pol(C, C, R1 + 13, a); txt(s, tx, ty + 3, k, { 'text-anchor': 'middle', 'font-size': 8 }); } }
+  for (let n = 1; n <= N; n++) { const a = 2 * Math.PI * (n % m) / m - Math.PI / 2; const r = R0 + (R1 - R0) * Math.floor(n / m) / rows; const [x, y] = pol(C, C, r, a); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 3.6 : 1.8 }, n, 'f'); } }
+function stair(s, vals, ymap, cls) { // vals[n] for n=1..N, staircase
+  let d = ''; for (let n = 1; n <= N; n++) { const y = ymap(vals[n]); d += (n === 1 ? 'M' : 'L') + X(n) + ' ' + y + ' L' + X(Math.min(n + 1, N)) + ' ' + y + ' '; } return path(s, d, cls || 's', { stroke: 'var(--prime)', 'stroke-width': 1.5, fill: 'none' }); }
+function curve(s, f, x0, x1, ymap, cls, steps) { let d = ''; steps = steps || 120; for (let i = 0; i <= steps; i++) { const xv = x0 + (x1 - x0) * i / steps; d += (i ? 'L' : 'M') + X(xv) + ' ' + ymap(f(xv)) + ' '; } return path(s, d, cls || 'ref'); }
+function hexSpiral() { // axiale coördinaten voor 1..100
+  const dirs = [[1, 0], [0, 1], [-1, 1], [-1, 0], [0, -1], [1, -1]]; const out = [[0, 0]]; let k = 1;
+  while (out.length < N) { let q = 0, r = -k; // start op ring k, hoekpunt richting 4
+    for (let d = 0; d < 6 && out.length < N; d++) for (let i = 0; i < k && out.length < N; i++) { out.push([q, r]); q += dirs[d][0]; r += dirs[d][1]; } k++; }
+  return out;
+}
+function ulam() { const pos = [null, [0, 0]]; let x = 0, y = 0, dx = 1, dy = 0, len = 1, n = 1; while (n < N) { for (let rep = 0; rep < 2 && n < N; rep++) { for (let i = 0; i < len && n < N; i++) { x += dx; y += dy; n++; pos[n] = [x, y]; } [dx, dy] = [-dy, dx]; } len++; } return pos; }
+
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
+// ---------- extra hulpfuncties voor deel 2 ----------
+function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
+function Li(x) { let s = 0; const a = 2, m = 400; for (let i = 0; i < m; i++) { const t = a + (x - a) * (i + 0.5) / m; s += 1 / ln(t); } return 1.045 + s * (x - a) / m; } // li(2) ≈ 1.045
+function periodLen(n) { while (n % 2 === 0) n /= 2; while (n % 5 === 0) n /= 5; if (n === 1) return 0; let r = 10 % n, k = 1; while (r !== 1) { r = r * 10 % n; k++; } return k; }
+function ord2(n) { if (n % 2 === 0) return 0; let r = 2 % n, k = 1; if (n === 1) return 1; while (r !== 1) { r = r * 2 % n; k++; } return k; }
+function r2(n) { let c = 0; for (let a = -10; a <= 10; a++) for (let b = -10; b <= 10; b++) if (a * a + b * b === n) c++; return c; }
+function rev(n) { return +String(n).split('').reverse().join(''); }
+function roman(n) { const t = [[100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]; let s = ''; for (const [v, c] of t) while (n >= v) { s += c; n -= v; } return s; }
+function lcm(a, b) { return a / gcd(a, b) * b; }
+function carm(n) { if (n === 1) return 1; let L = 1; for (const [p, e] of fac[n]) { const q = Math.pow(p, e); const l = (p === 2 && e >= 3) ? q / 4 : (p === 2 ? q / 2 : q / p * (p - 1)); L = lcm(L, l); } return L; }
+const sopfr = n => fac[n].reduce((a, [p, e]) => a + p * e, 0);
+const rad = n => fac[n].reduce((a, [p]) => a * p, 1);
+const popc = n => n.toString(2).split('1').length - 1;
+const v2 = n => { let k = 0; while (n % 2 === 0) { n /= 2; k++; } return k; };
+function miniGrid(cols, rows, pad) { return grid(cols, rows, pad == null ? 8 : pad); } // kleine veelvouden
+function cellOf(g, i) { const { x, y } = g.at(i + 1); return { x, y, cx: x + g.w / 2, cy: y + g.h / 2, w: g.w, h: g.h }; }
+function fitLine(s, pts) { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts) { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } const pad = 18, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - sc * (y1 - y0)) / 2 - sc * y0; return pts.map(p => ({ x: ox + sc * p.x, y: oy + sc * p.y, n: p.n })); }
+
+// ================= LIJN (101–110) =================
+add('Lijn', 'Priemen tussen kwadraten', 'Tussen k² en (k+1)² ligt altijd minstens één priem (het vermoeden van Legendre, onbewezen in het algemeen). Hier: 2, 2, 2, 3, 2, 4, 3, 4, 3.', s => {
+  for (let k = 1; k <= 10; k++) { el('line', { x1: X(k * k), y1: 120, x2: X(k * k), y2: 200, stroke: 'var(--seq)', 'stroke-width': 1.5 }, s); txt(s, X(k * k), 112, k * k, { 'text-anchor': 'middle', 'font-size': 7, fill: 'var(--seq)' }); if (k < 10) { const c = primes.filter(p => p > k * k && p < (k + 1) * (k + 1)).length; txt(s, (X(k * k) + X((k + 1) * (k + 1))) / 2, 216, c, { 'text-anchor': 'middle', class: 'tf' }); } }
+  for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: X(n), cy: 160, r: isP[n] ? 3 : 1 }, n, 'f'); axisX(s, 230);
+});
+add('Lijn', 'Postulaat van Bertrand', 'Voor elke n ligt er een priem tussen n en 2n. Elke boog loopt van n naar de eerste priem erna; de blauwe streep is 2n. Geen boog komt verder dan zijn streep.', s => {
+  for (let n = 1; n <= 50; n++) { const q = nextP(n); const r = (X(q) - X(n)) / 2; if (q > n + 1) mark(s, 'path', { d: `M${X(n)} 190 A${r} ${r} 0 0 1 ${X(q)} 190`, 'stroke-width': 0.9, opacity: 0.6 }, q, 's'); }
+  for (let n = 1; n <= 50; n++) el('line', { x1: X(2 * n), y1: 196, x2: X(2 * n), y2: 206, stroke: 'var(--seq)', 'stroke-width': 0.6 }, s);
+  for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: X(n), cy: 190, r: isP[n] ? 2.6 : 1 }, n, 'f'); axisX(s, 210); txt(s, 150, 236, 'blauwe strepen: 2n voor n = 1 … 50', { 'text-anchor': 'middle' });
+});
+add('Lijn', 'Reeksen composieten', 'Elke aaneengesloten reeks composieten als balk, zo hoog als hij lang is. De langste onder 100 is 90–96 (zeven stuks).', s => {
+  let start = null; for (let n = 2; n <= N + 1; n++) { if (n <= N && !isP[n]) { if (start === null) start = n; } else if (start !== null) { const len = n - start; const x0 = X(start) - 1.4, x1 = X(n - 1) + 1.4; const g = el('g', {}, s); for (let m = start; m < n; m++) mark(g, 'rect', { x: X(m) - 1.4, y: 220 - len * 22, width: 2.8, height: len * 22, 'fill-opacity': 0.55 }, m, 'f'); if (len >= 5) txt(s, (x0 + x1) / 2, 214 - len * 22, len, { 'text-anchor': 'middle', class: 'tf' }); start = null; } }
+  for (const p of primes) mark(s, 'circle', { cx: X(p), cy: 220, r: 2.4 }, p, 'f'); for (let k = 1; k <= 7; k += 2) { el('line', { x1: 8, y1: 220 - k * 22, x2: 292, y2: 220 - k * 22, class: 'ax' }, s); txt(s, 4, 223 - k * 22, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 222);
+});
+add('Lijn', 'Aandeel priemen tot n', 'π(n)/n: welk deel van de getallen tot n is priem? Begint hoog en zakt richting 1/ln n (stippellijn).', s => {
+  const ym = v => 270 - v * 380; curve(s, x => 1 / ln(x), 3, 100, ym, 'ref'); let d = ''; for (let n = 2; n <= N; n++) d += (n === 2 ? 'M' : 'L') + X(n) + ' ' + ym(pi[n] / n); path(s, d, 's', { stroke: 'var(--prime)', 'stroke-width': 1.4, fill: 'none' }); for (let n = 2; n <= N; n++) mark(s, 'circle', { cx: X(n), cy: ym(pi[n] / n), r: isP[n] ? 2.4 : 1 }, n, 'f'); for (const k of [0.25, 0.5]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 200, 60, '1 / ln n', { fill: 'var(--seq)' }); axisX(s, 272);
+});
+add('Lijn', 'Drie schattingen van π(n)', 'De trap is π(n). Blauw gestippeld n / ln n (te laag), blauw doorgetrokken Li(n), de logaritmische integraal (iets te hoog, maar dichtbij).', s => {
+  const ym = v => 270 - v * 8; curve(s, x => x / ln(x), 2, 100, ym, 'ref'); curve(s, x => Li(x), 2, 100, ym, 's', 200).setAttribute('style', 'stroke: var(--seq); stroke-width: 1.4; fill: none'); stair(s, pi, ym); for (const p of primes) mark(s, 'circle', { cx: X(p), cy: ym(pi[p]), r: 2 }, p, 'f'); for (let k = 10; k <= 30; k += 10) txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); txt(s, 20, 40, 'Li(100) ≈ 30,1', { fill: 'var(--seq)' }); txt(s, 20, 52, 'π(100) = 25', { fill: 'var(--prime)' }); txt(s, 20, 64, '100 / ln 100 ≈ 21,7', { fill: 'var(--seq)' }); axisX(s, 272);
+});
+add('Lijn', 'Alleen de oneven getallen', 'De vijftig oneven getallen op een rij; 2 is weggelaten. Van de 50 zijn er 24 priem: bijna om en om, maar met steeds grotere stiltes.', s => {
+  const Xo = n => 8 + ((n - 1) / 2) * (284 / 49); for (let n = 1; n <= N; n += 2) { const h = isP[n] ? 90 : 24; mark(s, 'line', { x1: Xo(n), y1: 190, x2: Xo(n), y2: 190 - h, 'stroke-width': isP[n] ? 2.2 : 1.2 }, n, 's'); } for (let n = 1; n <= 99; n += 14) txt(s, Xo(n), 203, n, { 'text-anchor': 'middle', 'font-size': 7 }); el('line', { x1: 8, y1: 192, x2: 292, y2: 192, class: 'ax2' }, s);
+});
+add('Lijn', 'Kandidaten 6k ± 1', 'Elke priem boven 3 is 6k − 1 of 6k + 1. Hier alle 32 kandidaten van 5 tot 100; de negen composieten erin (25, 35, 49, 55, 65, 77, 85, 91, 95) zijn producten van priemen ≥ 5.', s => {
+  const cands = []; for (let n = 5; n <= N; n++) if (n % 6 === 1 || n % 6 === 5) cands.push(n); cands.forEach((n, i) => { const x = 10 + i * (280 / 32); const e = mark(s, 'rect', { x: x - 3.5, y: isP[n] ? 110 : 150, width: 7, height: isP[n] ? 80 : 40, rx: 1.5 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.6); txt(s, x, isP[n] ? 104 - (i % 2) * 8 : 204, n, { 'text-anchor': 'middle', 'font-size': 6, class: isP[n] ? 'tf' : 't' }); }); el('line', { x1: 8, y1: 190, x2: 292, y2: 190, class: 'ax2' }, s); txt(s, 150, 232, '23 priemen boven, 9 composieten onder', { 'text-anchor': 'middle' });
+});
+add('Lijn', 'Cijfers van de vijfentwintig', 'Elke priem als twee vakjes: tiental en eenheid, donkerder naarmate het cijfer groter is. De eenheden zijn alleen 1, 3, 7, 9 (en 2, 5).', s => {
+  primes.forEach((p, i) => { const y = 10 + i * 11.2; const t = Math.floor(p / 10), u = p % 10; [[t, 40], [u, 70]].forEach(([dgt, x]) => { const e = markK(s, 'rect', { x, y, width: 26, height: 9.6, rx: 1.5 }, p, 'q', 'f', p + ' · cijfer ' + dgt); e.setAttribute('fill-opacity', 0.08 + 0.92 * dgt / 9); txt(s, x + 13, y + 7.5, dgt, { 'text-anchor': 'middle', 'font-size': 7, fill: dgt > 5 ? 'var(--surface)' : undefined }); }); txt(s, 32, y + 7.5, p, { 'text-anchor': 'end', 'font-size': 7, class: 'tf' }); });
+  const cnt = {}; for (const p of primes) cnt[p % 10] = (cnt[p % 10] || 0) + 1; let yy = 20; txt(s, 140, yy, 'eenheden:', { class: 'tf' }); for (const d of [1, 2, 3, 5, 7, 9]) { yy += 14; txt(s, 140, yy, d + ' → ' + cnt[d] + ' keer'); }
+});
+add('Lijn', 'Gaten van gaten', 'Het verschil tussen opeenvolgende priemgaten: de tweede afgeleide van de priemrij. Rond nul met uitschieters van ±4 en ±6.', s => {
+  const dd = []; for (let i = 1; i < gaps.length; i++) dd.push(gaps[i] - gaps[i - 1]); const xs = i => 24 + i * 11.3, ys = v => 150 - v * 16; el('line', { x1: 14, y1: 150, x2: 290, y2: 150, class: 'ax2' }, s); for (const v of [-6, -4, -2, 2, 4, 6]) { el('line', { x1: 14, y1: ys(v), x2: 290, y2: ys(v), class: 'ax' }, s); txt(s, 10, ys(v) + 3, v, { 'text-anchor': 'end', 'font-size': 7 }); } dd.forEach((v, i) => { const p = primes[i + 1]; mark(s, 'rect', { x: xs(i) - 3, y: v >= 0 ? ys(v) : 150, width: 6, height: Math.abs(v) * 16 || 1, rx: 1 }, p, 'f'); if (i % 4 === 0) txt(s, xs(i), 262, p, { 'text-anchor': 'middle', 'font-size': 7 }); }); txt(s, 150, 282, 'priem p  →  gat na p min gat vóór p', { 'text-anchor': 'middle', 'font-size': 8 });
+});
+add('Lijn', 'Som van de priemen tot n', 'De som van alle priemen tot n (trap) tegen n² / (2 ln n) (stippellijn). De som van de 25 priemen is 1060.', s => {
+  const S = [0]; for (let n = 1; n <= N; n++) S[n] = S[n - 1] + (isP[n] ? n : 0); const ym = v => 275 - v * 0.21; curve(s, x => x * x / (2 * ln(x)), 3, 100, ym, 'ref'); stair(s, S, ym); for (const p of primes) mark(s, 'circle', { cx: X(p), cy: ym(S[p]), r: 2.2 }, p, 'f'); for (const k of [250, 500, 750, 1000]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 20, 40, 'som = 1060', { class: 'tf' }); axisX(s, 277);
+});
+
+// ================= ROOSTER (111–125) =================
+add('Rooster', 'Acht kolommen', 'Acht per rij. Oneven priemen staan in de kolommen 1, 3, 5, 7. Het kwadraat van elke oneven priem is 1 meer dan een achtvoud.', s => { const g = cellGrid(s, 8, { pad: 12 }); for (let k = 1; k <= 8; k++) txt(s, g.at(k).x + g.w / 2, 18, k, { 'text-anchor': 'middle', 'font-size': 7 }); });
+add('Rooster', 'Negen kolommen', 'Negen per rij. De kolommen 3, 6 en 9 bevatten drievouden en dus geen priem na 3. In de andere zes kolommen is geen regelmaat.', s => { const g = cellGrid(s, 9, { pad: 12 }); for (let k = 1; k <= 9; k++) txt(s, g.at(k).x + g.w / 2, 24, k, { 'text-anchor': 'middle', 'font-size': 7 }); });
+add('Rooster', 'Vijf kolommen', 'Vijf per rij. Kolom 5 bevat vijfvouden: alleen 5 zelf. De andere vier kolommen delen de priemen bijna eerlijk: 5, 7, 7 en 5 stuks.', s => { const g = cellGrid(s, 5, { pad: 14 }); for (let k = 1; k <= 5; k++) txt(s, g.at(k).x + g.w / 2, 8, k, { 'text-anchor': 'middle', 'font-size': 7 }); });
+add('Rooster', 'Elf kolommen', 'Elf per rij. Een priembreedte geeft geen lege kolommen; alleen kolom 11 blijft na 11 leeg. Vergelijk met 10 of 12 kolommen.', s => cellGrid(s, 11, { pad: 12 }));
+add('Rooster', 'Vijftien kolommen', 'Vijftien per rij. Kolommen 3, 5, 6, 9, 10, 12 en 15 zijn leeg (na 3 en 5): acht kolommen houden alle verdere priemen.', s => { const g = cellGrid(s, 15, { pad: 10 }); for (let k = 1; k <= 15; k += 2) txt(s, g.at(k).x + g.w / 2, 82, k, { 'text-anchor': 'middle', 'font-size': 6.5 }); });
+add('Rooster', 'Som van twee kwadraten', 'Gevuld als n = a² + b² (ook met b = 0). Priemen met rest 1 (mod 4) en 2 kunnen dat altijd; priemen met rest 3 nooit. Priemen met een rand.', s => {
+  const g = grid(10, 10, 10); for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const ok = r2(n) > 0; const e = markK(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, isP[n] ? 'p' : 'q', 'f', label(n) + (ok ? ' · som van twee kwadraten' : ' · geen som van twee kwadraten')); e.setAttribute('fill-opacity', ok ? (isP[n] ? 1 : 0.4) : 0.06); if (isP[n]) el('rect', { x: x + 2, y: y + 2, width: g.w - 4, height: g.h - 4, rx: 1, fill: 'none', stroke: 'var(--prime)', 'stroke-width': 1.5 }, s); }
+});
+add('Rooster', 'Paren die 102 maken', 'Vakje n en vakje 102 − n zijn verbonden als beide priem zijn. Acht paren: 5+97, 13+89, 19+83, 23+79, 29+73, 31+71, 41+61, 43+59.', s => {
+  const g = grid(10, 10, 10); const c = n => { const { x, y } = g.at(n); return [x + g.w / 2, y + g.h / 2]; }; for (const p of primes) if (p < 51 && isP[102 - p]) { const [x1, y1] = c(p), [x2, y2] = c(102 - p); mark(s, 'line', { x1, y1, x2, y2, 'stroke-width': 1.4, opacity: 0.8 }, p, 's'); } for (let n = 1; n <= N; n++) { const [cx, cy] = c(n); const hot = isP[n] && isP[102 - n]; const e = mark(s, 'circle', { cx, cy, r: hot ? 6 : isP[n] ? 3 : 1.5 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); if (hot) txt(s, cx, cy + 2.5, n, { 'text-anchor': 'middle', 'font-size': 6, fill: 'var(--surface)', 'font-weight': 600 }); }
+});
+add('Rooster', 'Pijlen naar de volgende priem', 'Elk composiet wijst naar de eerstvolgende priem. Lange pijlen zijn lange reeksen composieten; de pijl van 90 tot 96 reikt tot 97.', s => {
+  const g = grid(10, 10, 10); const c = n => { const { x, y } = g.at(n); return [x + g.w / 2, y + g.h / 2]; }; for (let n = 1; n <= N; n++) { const [cx, cy] = c(n); if (isP[n]) { mark(s, 'rect', { x: cx - 8, y: cy - 8, width: 16, height: 16, rx: 2 }, n, 'f'); txt(s, cx, cy + 3, n, { 'text-anchor': 'middle', 'font-size': 7, fill: 'var(--surface)' }); } else { const q = nextP(n); if (q <= N) { const [qx, qy] = c(q); const same = qy === cy; mark(s, 'path', { d: same ? `M${cx} ${cy} L${qx - 9} ${qy}` : `M${cx} ${cy} Q${cx + 14} ${cy + 14} ${qx} ${qy - 9}`, 'stroke-width': 1, opacity: 0.6 }, n, 's'); } mark(s, 'circle', { cx, cy, r: 2 }, n, 'f'); } }
+});
+add('Rooster', 'Doolhof', 'Priemen zijn muren, composieten zijn vloer. De vloer valt uiteen in aaneengesloten kamers (horizontaal en verticaal verbonden). Het zijn er maar twee: het vakje van 1, ingesloten door 2 en 11, en al het andere.', s => {
+  const g = grid(10, 10, 10); const comp = new Array(N + 1).fill(-1); let k = 0; const K = ['q', 'k3', 'k5', 'k7', 'kx', 'k2']; for (let n = 1; n <= N; n++) { if (isP[n] || comp[n] >= 0) continue; const st = [n]; comp[n] = k; while (st.length) { const m = st.pop(); const i = (m - 1) % 10, j = Math.floor((m - 1) / 10); for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const ii = i + di, jj = j + dj; if (ii < 0 || ii > 9 || jj < 0 || jj > 9) continue; const q = jj * 10 + ii + 1; if (!isP[q] && comp[q] < 0) { comp[q] = k; st.push(q); } } } k++; }
+  for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); if (isP[n]) mark(s, 'rect', { x, y, width: g.w, height: g.h }, n, 'f'); else { const e = markK(s, 'rect', { x: x + 0.5, y: y + 0.5, width: g.w - 1, height: g.h - 1 }, n, K[comp[n] % K.length], 'f', label(n) + ' · kamer ' + (comp[n] + 1)); e.setAttribute('fill-opacity', 0.35); } } txt(s, 150, 299, k + ' kamers', { 'text-anchor': 'middle', class: 'tf' });
+});
+add('Rooster', 'Romeinse cijfers', 'Elk getal in Romeinse cijfers; priemen in kleur. De lengte van de notatie zegt niets over priem zijn: II en LXXXIX zijn allebei priem.', s => {
+  const g = grid(5, 20, 8, false); for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const e = mark(s, 'rect', { x: x + 1, y: y + 0.5, width: g.w - 2, height: g.h - 1, rx: 1 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.1); txt(s, x + g.w / 2, y + g.h / 2 + 3, roman(n), { 'text-anchor': 'middle', 'font-size': 8, fill: isP[n] ? 'var(--surface)' : undefined, 'font-weight': isP[n] ? 600 : 400 }); }
+});
+add('Rooster', 'Digitale wortel', 'Kleur = n mod 9, de digitale wortel (0 staat voor 9). Een priem boven 3 heeft nooit wortel 3, 6 of 9: die zijn deelbaar door 3.', s => {
+  const g = grid(10, 10, 10); for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const r = n % 9 || 9; const bad = r % 3 === 0; const e = markK(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, bad ? 'c' : 'q', 'f', label(n) + ' · digitale wortel ' + r); e.setAttribute('fill-opacity', bad ? 0.35 : 0.1 + 0.9 * r / 9); txt(s, x + g.w / 2, y + g.h / 2 + 3, r, { 'text-anchor': 'middle', 'font-size': 7.5, fill: r > 5 && !bad ? 'var(--surface)' : undefined }); if (isP[n]) el('rect', { x: x + 2.2, y: y + 2.2, width: g.w - 4.4, height: g.h - 4.4, rx: 1, fill: 'none', stroke: 'var(--prime)', 'stroke-width': 2 }, s); }
+});
+add('Rooster', 'Euler: n² + n + 41', 'Vakje n (0 t/m 99) is gevuld als n² + n + 41 priem is. Voor n = 0 t/m 39 altijd; daarna vallen er gaten (40, 41, 44, 49, 56, 65, 76, 81, 82, 84, 87, 89, 91, 96).', s => {
+  const g = grid(10, 10, 10); for (let n = 0; n < N; n++) { const v = n * n + n + 41; const { x, y } = g.at(n + 1); const e = markK(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n === 0 ? 1 : n, isP[v] ? 'p' : 'c', 'f', 'n = ' + n + ': ' + v + (isP[v] ? ' is priem' : ' = ' + (v % 41 === 0 ? '41·' + v / 41 : 'composiet'))); if (!isP[v]) e.setAttribute('fill-opacity', 0.25); txt(s, x + g.w / 2, y + g.h / 2 + 3, n, { 'text-anchor': 'middle', 'font-size': 7.5, fill: isP[v] ? 'var(--surface)' : undefined }); }
+});
+add('Rooster', 'n² + 1', 'Vakje n is gevuld als n² + 1 priem is: 1, 2, 4, 6, 10, 14, 16, 20, … Alleen even n komen in aanmerking (na n = 1). Of dit oneindig vaak gebeurt is een open vraag.', s => {
+  const g = grid(10, 10, 10); for (let n = 1; n <= N; n++) { const v = n * n + 1; const { x, y } = g.at(n); const e = markK(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, isP[v] ? 'p' : 'c', 'f', n + '² + 1 = ' + v + (isP[v] ? ' is priem' : ' is composiet')); if (!isP[v]) e.setAttribute('fill-opacity', 0.25); txt(s, x + g.w / 2, y + g.h / 2 + 3, n, { 'text-anchor': 'middle', 'font-size': 7.5, fill: isP[v] ? 'var(--surface)' : undefined }); }
+});
+add('Rooster', 'Tussen tweelingen', 'Gekleurd: de getallen die precies tussen twee priemtweelingen liggen: 4, 6, 12, 18, 30, 42, 60, 72. Vanaf 6 zijn het allemaal zesvouden.', s => {
+  const g = grid(10, 10, 10); for (let n = 1; n <= N; n++) { const { x, y } = g.at(n); const mid = n > 2 && isP[n - 1] && isP[n + 1]; const e = markK(s, 'rect', { x: x + 0.6, y: y + 0.6, width: g.w - 1.2, height: g.h - 1.2, rx: 1.5 }, n, mid ? 'q' : kind(n), 'f'); e.setAttribute('fill-opacity', mid ? 1 : isP[n] ? 0.9 : 0.12); txt(s, x + g.w / 2, y + g.h / 2 + 3, n, { 'text-anchor': 'middle', 'font-size': 7.5, fill: mid || isP[n] ? 'var(--surface)' : undefined }); }
+});
+add('Rooster', 'Priemdrielingen', 'Drie priemen binnen een afstand van 6: (p, p+2, p+6) of (p, p+4, p+6). Gekleurd zijn de leden; de lijnen verbinden elke drieling. Acht drielingen onder 100.', s => {
+  const g = grid(10, 10, 10); const c = n => { const { x, y } = g.at(n); return [x + g.w / 2, y + g.h / 2]; }; const mem = new Set(); const trips = []; for (const p of primes) { if (isP[p + 2] && isP[p + 6]) trips.push([p, p + 2, p + 6]); if (isP[p + 4] && isP[p + 6]) trips.push([p, p + 4, p + 6]); } for (const t of trips) if (t[2] <= N) { t.forEach(q => mem.add(q)); const pts = t.map(c); mark(s, 'polyline', { points: pts.map(q => q.join(',')).join(' '), 'stroke-width': 1.3, opacity: 0.7 }, t[0], 's'); }
+  for (let n = 1; n <= N; n++) { const [cx, cy] = c(n); const e = mark(s, 'circle', { cx, cy, r: mem.has(n) ? 6 : isP[n] ? 3 : 1.5 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.45); if (mem.has(n)) txt(s, cx, cy + 2.5, n, { 'text-anchor': 'middle', 'font-size': 6, fill: 'var(--surface)', 'font-weight': 600 }); }
+});
+// ================= SPIRAAL & CIRKEL (126–140) =================
+add('Spiraal', 'Ulam met diagonalen', 'De Ulam-spiraal met elke diagonaal waarop drie of meer priemen liggen doorgetrokken. Diagonalen zijn kwadratische rijen zoals 4k² + bk + c.', s => {
+  const pos = ulam(), cs = 27; const P = n => [150 + pos[n][0] * cs, 150 - pos[n][1] * cs]; const lines = {}; for (const p of primes) { const [i, j] = pos[p]; (lines['a' + (i - j)] = lines['a' + (i - j)] || []).push(p); (lines['b' + (i + j)] = lines['b' + (i + j)] || []).push(p); }
+  for (const k in lines) { const ps = lines[k]; if (ps.length < 3) continue; const pts = ps.map(P); const xs = pts.map(q => q[0]), ys = pts.map(q => q[1]); const [i0, i1] = [xs.indexOf(Math.min(...xs)), xs.indexOf(Math.max(...xs))]; el('line', { x1: pts[i0][0], y1: pts[i0][1], x2: pts[i1][0], y2: pts[i1][1], stroke: 'var(--seq)', 'stroke-width': 1.2, opacity: 0.7 }, s); }
+  for (let n = 1; n <= N; n++) { const [x, y] = P(n); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 5 : 1.8 }, n, 'f'); }
+});
+add('Spiraal', 'Driehoekige spiraal', 'Dezelfde getallen op een driehoekig rooster: stukken van 1, 2, 3, … stappen met steeds een draai van 120°. De priemen liggen opnieuw op een paar schuine lijnen.', s => {
+  const dirs = [[1, 0], [-0.5, 0.866], [-0.5, -0.866]]; let x = 0, y = 0, n = 1, d = 0, len = 1; const pts = [{ x, y, n }]; while (n < N) { for (let i = 0; i < len && n < N; i++) { x += dirs[d][0]; y += dirs[d][1]; n++; pts.push({ x, y, n }); } d = (d + 1) % 3; len++; }
+  const F = fitLine(s, pts); el('polyline', { points: F.map(q => q.x + ',' + q.y).join(' '), class: 'ax' }, s); for (const q of F) mark(s, 'circle', { cx: q.x, cy: q.y, r: isP[q.n] ? 4 : 1.8 }, q.n, 'f');
+});
+add('Spiraal', 'Spiraal van Theodorus', 'Rechthoekige driehoeken met schuine zijden √2, √3, √4, … Elke spaak is √n lang. Spaken met priem-n in kleur; de wortels van priemen zijn alle irrationaal.', s => {
+  let x = 1, y = 0, pts = []; const sc = 25; for (let n = 1; n <= 40; n++) { pts.push({ x, y, n }); const r = Math.hypot(x, y); const nx = x - y / r, ny = y + x / r; x = nx; y = ny; } const cx = 150, cy = 150; for (let i = 0; i < pts.length; i++) { const p = pts[i]; const e = mark(s, 'line', { x1: cx, y1: cy, x2: cx + p.x * sc, y2: cy - p.y * sc, 'stroke-width': isP[p.n] ? 1.8 : 0.7, opacity: isP[p.n] ? 1 : 0.5 }, p.n, 's'); if (i + 1 < pts.length) el('line', { x1: cx + p.x * sc, y1: cy - p.y * sc, x2: cx + pts[i + 1].x * sc, y2: cy - pts[i + 1].y * sc, class: 'ax2' }, s); if (isP[p.n]) { const [tx, ty] = [cx + p.x * sc * 1.08, cy - p.y * sc * 1.08]; txt(s, tx, ty + 2.5, '√' + p.n, { 'text-anchor': 'middle', 'font-size': 6.5 }); } }
+});
+add('Spiraal', 'Octaafspiraal', 'Hoek = 2π · log₂ n: elke verdubbeling is één omwenteling. Straal groeit met log n. Per omwenteling (octaaf) komen er priemen bij: 2, 2, 2, 5, 7 en 7 (tot 100).', s => {
+  for (let k = 0; k <= 6; k++) { const [x, y] = pol(C, C, 20 + k * 19, -Math.PI / 2); txt(s, x + 3, y - 2, 1 << k, { 'font-size': 6.5 }); } el('line', { x1: C, y1: C, x2: C, y2: 10, class: 'ax' }, s);
+  for (let n = 1; n <= N; n++) { const L = Math.log2(n); const [x, y] = pol(C, C, 20 + L * 19, 2 * Math.PI * L - Math.PI / 2); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 3.6 : 1.6 }, n, 'f'); }
+});
+add('Cirkel', 'Klok van negen', 'Negen posities. Priemen boven 3 vermijden 0, 3 en 6 (drievouden) en verdelen zich over de andere zes.', s => clock(s, 9));
+add('Cirkel', 'Klok van acht', 'Acht posities. Oneven priemen staan op 1, 3, 5 en 7. Op 1 en 7 zijn het de priemen waarvoor 2 een kwadraatrest is.', s => clock(s, 8));
+add('Cirkel', 'Klok van zestig', 'Zestig spaken, ruim anderhalve ronde. Priemen boven 5 staan op de 16 spaken die geen factor 2, 3 of 5 hebben.', s => clock(s, 60));
+add('Cirkel', 'Klok van zeven', 'Zeven posities, een priem als modulus. Nu blijft geen enkele spaak leeg (op 0 na, waar alleen 7 zelf staat): de resten 1 t/m 6 komen 3, 4, 5, 3, 5 en 4 keer voor.', s => clock(s, 7));
+add('Cirkel', 'Families per laatste cijfer', 'De 25 priemen op een cirkel; koorden verbinden priemen met hetzelfde laatste cijfer. Vier families (1, 3, 7, 9) plus de eenlingen 2 en 5.', s => {
+  const pos = {}; primes.forEach((p, i) => pos[p] = pol(C, C, 124, 2 * Math.PI * i / 25 - Math.PI / 2)); const K = { 1: 'k2', 3: 'k3', 7: 'k5', 9: 'k7' }; for (let i = 0; i < 25; i++) for (let j = i + 1; j < 25; j++) { const p = primes[i], q = primes[j]; if (p % 10 === q % 10 && K[p % 10]) markK(s, 'line', { x1: pos[p][0], y1: pos[p][1], x2: pos[q][0], y2: pos[q][1], 'stroke-width': 0.9, opacity: 0.6 }, p, K[p % 10], 's', p + ' en ' + q + ' eindigen op ' + (p % 10)); }
+  for (const p of primes) { markK(s, 'circle', { cx: pos[p][0], cy: pos[p][1], r: 3.4 }, p, K[p % 10] || 'p', 'f'); const [tx, ty] = pol(C, C, 138, 2 * Math.PI * primes.indexOf(p) / 25 - Math.PI / 2); txt(s, tx, ty + 3, p, { 'text-anchor': 'middle', 'font-size': 7 }); }
+  [['1', 'k2'], ['3', 'k3'], ['7', 'k5'], ['9', 'k7']].forEach(([d, k], i) => { el('circle', { cx: 120 + i * 20, cy: 150, r: 4, class: 'n ' + k + ' f' }, s); txt(s, 120 + i * 20, 166, d, { 'text-anchor': 'middle' }); });
+});
+add('Cirkel', 'Hoeken in graden', 'Een straal onder een hoek van n graden voor elk getal. De 25 priemstralen liggen allemaal in het eerste kwadrant, tussen 2° en 97°.', s => {
+  for (let n = 1; n <= N; n++) { const a = -n * Math.PI / 180; const [x, y] = pol(40, 260, isP[n] ? 240 : 120, a); mark(s, 'line', { x1: 40, y1: 260, x2: x, y2: y, 'stroke-width': isP[n] ? 1.6 : 0.6, opacity: isP[n] ? 1 : 0.5 }, n, 's'); if (isP[n] && pi[n] % 2 === 0) { const [tx, ty] = pol(40, 260, 250, a); txt(s, tx, ty + 2.5, n + '°', { 'text-anchor': 'middle', 'font-size': 6 }); } } path(s, 'M' + 40 + ' ' + (260 - 100) + ' A100 100 0 0 1 140 260', 'ax2');
+});
+add('Cirkel', 'Hoeken in radialen', 'Elk getal n op hoek n radialen (modulo 2π). Omdat 2π irrationaal is, vallen geen twee punten samen; de priemen zijn even gelijkmatig verdeeld als de rest.', s => {
+  el('circle', { cx: C, cy: C, r: 110, class: 'ax2' }, s); for (let n = 1; n <= N; n++) { const [x, y] = pol(C, C, isP[n] ? 125 : 100, -n); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 3.6 : 1.8 }, n, 'f'); if (isP[n]) { const [tx, ty] = pol(C, C, 138, -n); txt(s, tx, ty + 2.5, n, { 'text-anchor': 'middle', 'font-size': 6.5 }); } }
+});
+add('Cirkel', 'Ford-cirkels', 'Voor elke breuk a/b (b ≤ 12) een cirkel rakend aan de as, met straal 1/(2b²). Cirkels met een priemnoemer in kleur. Ze raken elkaar en overlappen nooit.', s => {
+  const sc = 280, ox = 10, oy = 270; for (let b = 1; b <= 12; b++) for (let a = 0; a <= b; a++) { if (gcd(a, b) !== 1) continue; const r = sc / (2 * b * b); markK(s, 'circle', { cx: ox + sc * a / b, cy: oy - r, r, 'stroke-width': isP[b] ? 1.2 : 0.6, opacity: isP[b] ? 1 : 0.6 }, b, isP[b] ? 'p' : 'c', 's', a + '/' + b + ' · noemer ' + b); } el('line', { x1: ox, y1: oy, x2: ox + sc, y2: oy, class: 'ax2' }, s); txt(s, ox, 284, '0'); txt(s, ox + sc, 284, '1', { 'text-anchor': 'end' }); txt(s, ox + sc / 2, 284, '1/2', { 'text-anchor': 'middle' });
+});
+add('Cirkel', 'Rozen r = cos(kθ)', 'Kleine veelvouden voor k = 2 t/m 13. Een oneven k geeft k blaadjes, een even k geeft 2k. Priem-k in kleur: 2 en 3 zijn de enige priemen met een even of klein aantal blaadjes.', s => {
+  const g = miniGrid(4, 3, 6); for (let k = 2; k <= 13; k++) { const c = cellOf(g, k - 2); const R = c.w / 2 - 6; let d = ''; for (let i = 0; i <= 360; i++) { const t = i * Math.PI / 180; const r = R * Math.cos(k * t); d += (i ? 'L' : 'M') + (c.cx + r * Math.cos(t)) + ' ' + (c.cy + r * Math.sin(t)); } mark(s, 'path', { d, 'stroke-width': isP[k] ? 1.2 : 0.8, opacity: isP[k] ? 1 : 0.7 }, k, 's'); txt(s, c.cx, c.y + c.h - 2, 'k = ' + k, { 'text-anchor': 'middle', 'font-size': 7, class: isP[k] ? 'tf' : 't' }); }
+});
+add('Cirkel', 'Eenheidswortels', 'De n-de eenheidswortels op de cirkel voor n = 5 t/m 13. Een wortel is primitief (gekleurd) als zijn nummer k copriem is met n. Bij een priem zijn alle wortels behalve 1 primitief; bij 12 maar vier.', s => {
+  const g = miniGrid(3, 3, 6); for (let n = 5; n <= 13; n++) { const c = cellOf(g, n - 5); const R = c.w / 2 - 12; el('circle', { cx: c.cx, cy: c.cy, r: R, class: 'ax2' }, s); for (let k = 0; k < n; k++) { const [x, y] = pol(c.cx, c.cy, R, 2 * Math.PI * k / n - Math.PI / 2); const prim = gcd(k, n) === 1; markK(s, 'circle', { cx: x, cy: y, r: prim ? 3.2 : 1.8 }, n, prim ? (isP[n] ? 'p' : 'q') : 'c', 'f', 'n = ' + n + ', k = ' + k + (prim ? ' · primitief' : ' · niet primitief')); } txt(s, c.cx, c.y + c.h - 2, 'n = ' + n + ' · φ = ' + phi[n], { 'text-anchor': 'middle', 'font-size': 7, class: isP[n] ? 'tf' : 't' }); }
+});
+add('Cirkel', 'Inversen modulo 101', 'Elk getal n is verbonden met zijn inverse: het getal m waarvoor n·m ≡ 1 (mod 101). Alleen 1 en 100 zijn hun eigen inverse. Koorden vanuit priemen in kleur.', s => {
+  const pos = {}; for (let n = 1; n <= N; n++) pos[n] = pol(C, C, 134, 2 * Math.PI * n / 101 - Math.PI / 2); const done = new Set(); for (let n = 1; n <= N; n++) { if (done.has(n)) continue; const m = modpow(n, 99, 101); done.add(n); done.add(m); if (m === n) { el('circle', { cx: pos[n][0], cy: pos[n][1], r: 6, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1 }, s); continue; } const pr = isP[n] || isP[m]; const src = isP[n] ? n : m; mark(s, 'line', { x1: pos[n][0], y1: pos[n][1], x2: pos[m][0], y2: pos[m][1], 'stroke-width': pr ? 1 : 0.6, opacity: pr ? 0.9 : 0.35 }, src, 's'); } for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? 2.8 : 1.3 }, n, 'f');
+});
+
+// ================= WANDELING (141–150) =================
+add('Wandeling', 'Richting van het laatste cijfer', 'Stap 1 in de richting 36° × (laatste cijfer). Tien richtingen; de wandeling herhaalt zich per tiental, maar de priemen vallen steeds anders.', s => walk(s, turtle(() => 1, n => (n % 10) * Math.PI / 5 - ((n - 1) % 10) * Math.PI / 5), { r: 3.5 }));
+add('Wandeling', 'Stap = kleinste priemfactor', 'Elke stap is zo lang als de kleinste priemfactor van n: 2, 3, 5 of 7 bij composieten, p zelf bij een priem. Na elke priem een draai van 90°. De priemen zijn de lange sprongen.', s => walk(s, turtle(n => n === 1 ? 1 : spf[n], n => isP[n] ? Math.PI / 2 : 0), { r: 3 }));
+add('Wandeling', 'Möbius-wandeling', 'μ = +1: stap naar rechts, μ = −1: stap omhoog, μ = 0: blijf staan. Elke priem is een stap omhoog; de uitkomst is bijna een diagonaal.', s => {
+  let x = 0, y = 0; const pts = [{ x, y, n: 0 }]; for (let n = 1; n <= N; n++) { if (mu[n] > 0) x++; else if (mu[n] < 0) y--; pts.push({ x, y, n }); } walk(s, pts, { r: 3 });
+});
+add('Wandeling', 'Priemen mod 4 als rooster', 'Alleen over de priemen: rest 1 (mod 4) is een stap naar rechts, rest 3 een stap omhoog. Eindpunt (11, 13).', s => {
+  let x = 0, y = 0; const pts = [{ x, y, n: 0 }]; for (const p of primes) { if (p % 4 === 1) x++; else if (p % 4 === 3) y--; pts.push({ x, y, n: p }); } walk(s, pts, { r: 3.5 }); txt(s, 20, 20, '13 omhoog'); txt(s, 220, 290, '11 naar rechts');
+});
+add('Wandeling', 'Binaire wandeling', 'Richting = 90° × (aantal enen in de binaire schrijfwijze van n, modulo 4). Stap 1. De priemen hebben meestal een oneven aantal enen, maar niet altijd.', s => walk(s, turtle(() => 1, n => (popc(n) % 4) * Math.PI / 2 - (popc(n - 1) % 4) * Math.PI / 2), { r: 3.5 }));
+add('Wandeling', 'Stap = aantal delers', 'Stap d(n) vooruit en draai 90° linksom bij elke priem. Priemen zijn stappen van 2; de grote sprongen (12) zijn 60, 72, 84, 90 en 96.', s => walk(s, turtle(n => nd[n], n => isP[n] ? Math.PI / 2 : 0), { r: 3.2 }));
+add('Wandeling', 'Stap = afstand tot de volgende priem', 'Bij n stap je (volgende priem − n) vooruit en draait 45°. Priemen zijn de punten vlak voor een korte stap.', s => walk(s, turtle(n => nextP(n) - n, () => Math.PI / 4), { r: 3 }));
+add('Wandeling', 'Draai p graden bij een priem', 'Stap 1 per getal; bij een priem p draait de koers p graden naar links. Vroege priemen draaien weinig, late priemen bijna een halve slag.', s => walk(s, turtle(() => 1, n => isP[n] ? n * Math.PI / 180 : 0), { r: 3.2 }));
+add('Wandeling', 'Totiënt-wandeling', 'Stap φ(n) lang in richting 3,6° × n. Priemen zijn de langste stappen (p − 1), en ze vallen op als lange gekleurde segmenten.', s => walk(s, turtle(n => phi[n], n => 2 * Math.PI / 100), { r: 3 }));
+add('Wandeling', 'Heen en weer', 'Op een lijn: bij elke priem keert de richting om. De hoogte is n. Lange rechte stukken zijn lange reeksen composieten.', s => {
+  let x = 0, d = 1; const pts = []; for (let n = 1; n <= N; n++) { if (isP[n]) d = -d; x += d; pts.push({ x, y: n, n }); } const F = fitLine(s, pts); el('polyline', { points: F.map(q => q.x + ',' + q.y).join(' '), class: 'ax2' }, s); for (const q of F) mark(s, 'circle', { cx: q.x, cy: q.y, r: isP[q.n] ? 3 : 1.2 }, q.n, 'f');
+});
+// ================= KLEUR & HOOGTE (151–165) =================
+add('Kleur', 'Blokken: priemgaten', 'Isometrisch rooster; alleen priemen krijgen hoogte, namelijk het gat naar de volgende priem. De toren van 8 is 89.', s => isoGrid(s, n => isP[n] ? gapAfter[n] : 0, 6));
+add('Kleur', 'Blokken: cijfersom', 'Hoogte = som van de cijfers. Priemen in kleur. De hoogste torens (18) zijn 99 en 89; 89 is priem.', s => isoGrid(s, n => digsum(n), 3));
+add('Kleur', 'ggd-kaart 1–50', 'Vakje (a, b) is donker als ggd(a, b) > 1. Een priemrij heeft alleen vakjes bij zijn eigen veelvouden: de dunste rijen en kolommen.', s => {
+  const M = 50, cs = 5.4, ox = 14, oy = 14; for (let a = 1; a <= M; a++) for (let b = 1; b <= M; b++) { const g = gcd(a, b); if (g === 1) continue; const e = markK(s, 'rect', { x: ox + (a - 1) * cs, y: oy + (b - 1) * cs, width: cs - 0.4, height: cs - 0.4 }, a, isP[a] ? 'p' : 'q', 'f', 'ggd(' + a + ', ' + b + ') = ' + g); e.setAttribute('fill-opacity', 0.25 + 0.75 * Math.min(1, Math.log(g) / Math.log(25))); } for (const k of [1, 10, 20, 30, 40, 50]) { txt(s, ox + (k - 0.5) * cs, 292, k, { 'text-anchor': 'middle', 'font-size': 6.5 }); txt(s, 10, oy + (k - 0.5) * cs + 2.5, k, { 'text-anchor': 'end', 'font-size': 6.5 }); }
+});
+add('Kleur', 'Deelbaar door p', 'Rij p (de 25 priemen), kolom n. Een vakje is gevuld als p een deler is van n. Hoe groter p, hoe leger de rij; de kolom van een priem heeft precies één vakje.', s => {
+  const rh = 10.4, y0 = 8; primes.forEach((p, i) => { const y = y0 + i * rh; txt(s, 6, y + rh / 2 + 2.5, p, { 'text-anchor': 'end', 'font-size': 6.5 }); for (let n = p; n <= N; n += p) markK(s, 'rect', { x: X(n) - 1.43, y: y + 0.6, width: 2.9, height: rh - 1.2 }, n, isP[n] ? 'p' : 'q', 'f', label(n) + ' · deelbaar door ' + p); }); axisX(s, y0 + 25 * rh + 2);
+});
+add('Kleur', 'Periode van 1/n', 'Lengte van het repeterende deel van 1/n (0 als het decimaal afbreekt). Voor een priem p deelt de periode p − 1; bij 7, 17, 19, 23, 29, 47, 59, 61 en 97 is hij precies p − 1 (rand).', s => {
+  const ym = v => 270 - v * 2.3; for (let n = 2; n <= N; n++) { const L = periodLen(n); const e = mark(s, 'rect', { x: X(n) - 1.35, y: ym(L), width: 2.7, height: 270 - ym(L) }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · periode ' + L; if (isP[n] && L === n - 1) el('circle', { cx: X(n), cy: ym(L) - 4, r: 2.2, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1 }, s); } el('line', { x1: X(2), y1: ym(1), x2: X(100), y2: ym(99), class: 'ref' }, s); txt(s, 30, 40, 'p − 1', { fill: 'var(--seq)' }); for (const k of [25, 50, 75]) txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); axisX(s, 272);
+});
+add('Kleur', 'Orde van 2 modulo n', 'Voor oneven n: de kleinste k met 2ᵏ ≡ 1 (mod n). Voor een priem deelt k altijd p − 1 (stippellijn). Composieten liggen ver onder de lijn.', s => {
+  const ym = v => 270 - v * 2.3; el('line', { x1: X(1), y1: ym(0), x2: X(100), y2: ym(99), class: 'ref' }, s); for (let n = 3; n <= N; n += 2) { const k = ord2(n); const e = mark(s, 'circle', { cx: X(n), cy: ym(k), r: isP[n] ? 2.8 : 1.8 }, n, 'f'); e.querySelector('title').textContent = label(n) + ' · orde van 2 is ' + k; } for (const k of [25, 50, 75]) txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); txt(s, 30, 40, 'n − 1', { fill: 'var(--seq)' }); axisX(s, 272);
+});
+add('Kleur', 'Aantal manieren als som van twee kwadraten', 'r₂(n): het aantal paren (a, b) van gehele getallen met a² + b² = n, tekens en volgorde meegeteld. Priemen met rest 1 (mod 4) hebben er precies 8; priemen met rest 3 hebben er 0.', s => {
+  const ym = v => 270 - v * 13; for (let n = 1; n <= N; n++) { const v = r2(n); if (v === 0) { mark(s, 'circle', { cx: X(n), cy: 270, r: isP[n] ? 2.4 : 1 }, n, 'f'); continue; } const e = mark(s, 'rect', { x: X(n) - 1.35, y: ym(v), width: 2.7, height: v * 13 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · r₂ = ' + v; } for (const k of [4, 8, 12, 16]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 272);
+});
+add('Kleur', 'ggd(n, 30)', 'Hoogte = de grootste gemene deler van n en 30 = 2·3·5. Elke priem boven 5 staat op 1; de composieten vallen in de klassen 1, 2, 3, 5, 6, 10, 15, 30.', s => {
+  const ym = v => 270 - v * 7.5; for (let n = 1; n <= N; n++) { const v = gcd(n, 30); const e = mark(s, 'rect', { x: X(n) - 1.35, y: ym(v), width: 2.7, height: v * 7.5 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · ggd met 30 is ' + v; } for (const k of [1, 5, 10, 15, 30]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 272);
+});
+add('Kleur', 'Kleinste k met kn + 1 priem', 'Voor elk n de kleinste k ≥ 1 zodat k·n + 1 priem is. Dirichlet garandeert dat zo’n k bestaat. Meestal klein; het hoogst is 12, bij 59 en 85. Priemen in kleur.', s => {
+  const ym = v => 270 - v * 9; for (let n = 1; n <= N; n++) { let k = 1; while (!isP[k * n + 1]) k++; const e = mark(s, 'rect', { x: X(n) - 1.35, y: ym(k), width: 2.7, height: k * 9 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · k = ' + k + ' (' + (k * n + 1) + ' is priem)'; } for (const k of [5, 10, 15, 20]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 272);
+});
+add('Kleur', 'Pariteit van π(n)', 'Donker als het aantal priemen tot n even is, licht als het oneven is. Elke priem wisselt de kleur. Een barcode van de priemen zelf.', s => {
+  for (let n = 1; n <= N; n++) { const e = markK(s, 'rect', { x: X(n) - 1.43, y: 90, width: 2.9, height: 120 }, n, pi[n] % 2 ? 'q' : 'c', 'f', label(n) + ' · π(n) = ' + pi[n]); e.setAttribute('fill-opacity', pi[n] % 2 ? 0.9 : 0.25); } for (const p of primes) mark(s, 'circle', { cx: X(p), cy: 80, r: 2.4 }, p, 'f'); axisX(s, 216);
+});
+add('Kleur', 'Carmichael λ(n)', 'λ(n): de kleinste exponent waarvoor aᵏ ≡ 1 (mod n) voor alle a copriem met n. Voor priemen is λ = φ = p − 1 (op de lijn); voor veel composieten is λ veel kleiner dan φ (grijze stip erboven).', s => {
+  const ym = v => 278 - v * 2.6; el('line', { x1: X(1), y1: ym(0), x2: X(100), y2: ym(99), class: 'ref' }, s); for (let n = 2; n <= N; n++) { const L = carm(n); if (!isP[n]) el('line', { x1: X(n), y1: ym(L), x2: X(n), y2: ym(phi[n]), class: 'ax' }, s); if (!isP[n]) markK(s, 'circle', { cx: X(n), cy: ym(phi[n]), r: 1.3 }, n, 'c', 'f', label(n) + ' · φ = ' + phi[n]); const e = mark(s, 'circle', { cx: X(n), cy: ym(L), r: isP[n] ? 2.6 : 1.8 }, n, 'f'); e.querySelector('title').textContent = label(n) + ' · λ = ' + L + ', φ = ' + phi[n]; } axisX(s, 280);
+});
+add('Kleur', 'Priemen tussen n en 2n', 'Hoeveel priemen liggen er in (n, 2n]? Nooit nul (Bertrand), en het aantal groeit ongeveer als n / ln n.', s => {
+  const ym = v => 270 - v * 13; for (let n = 1; n <= 50; n++) { const c = pi[2 * n] - pi[n]; const e = mark(s, 'rect', { x: X(n) - 1.35, y: ym(c), width: 2.7, height: c * 13 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = n + ' · ' + c + ' priemen in (' + n + ', ' + 2 * n + ']'; } for (const k of [5, 10, 15]) { el('line', { x1: 8, y1: ym(k), x2: X(50) + 4, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } el('line', { x1: 8, y1: 272, x2: X(50) + 4, y2: 272, class: 'ax2' }, s); for (let k = 10; k <= 50; k += 10) txt(s, X(k), 283, k, { 'text-anchor': 'middle' }); txt(s, 220, 150, 'n van 1 tot 50', { 'text-anchor': 'middle' });
+});
+add('Kleur', 'Som van priemfactoren', 'sopfr(n): de som van de priemfactoren met herhaling. Priemen liggen op de diagonaal; 2ᵏ geeft 2k, dus 64 scoort maar 12.', s => {
+  el('line', { x1: X(1), y1: 270, x2: X(100), y2: 270 - 230, class: 'ref' }, s); for (let n = 2; n <= N; n++) { const v = sopfr(n); const e = mark(s, 'circle', { cx: X(n), cy: 270 - v * 2.3, r: isP[n] ? 2.6 : 1.7 }, n, 'f'); e.querySelector('title').textContent = label(n) + ' · som van factoren ' + v; } axisX(s, 272); txt(s, 40, 40, 'y = n', { fill: 'var(--seq)' });
+});
+add('Kleur', 'Radicaal', 'rad(n): het product van de verschillende priemfactoren. Kwadraatvrije getallen (ook alle priemen) liggen op de diagonaal; 64 en 32 en 16 zakken tot 2.', s => {
+  el('line', { x1: X(1), y1: 270, x2: X(100), y2: 270 - 230, class: 'ref' }, s); for (let n = 1; n <= N; n++) { const v = rad(n); const e = mark(s, 'circle', { cx: X(n), cy: 270 - v * 2.3, r: isP[n] ? 2.6 : 1.7 }, n, 'f'); e.querySelector('title').textContent = label(n) + ' · radicaal ' + v; } axisX(s, 272);
+});
+add('Kleur', 'Kwadraatresten modulo 7, 11 en 13', 'Drie rijen: is n een kwadraat modulo 7, 11, 13? Gekleurd = ja, licht = nee, leeg = deelbaar. Elke rij herhaalt zich met periode p en is in het midden gespiegeld.', s => {
+  [7, 11, 13].forEach((p, i) => { const y = 40 + i * 70; txt(s, 8, y - 4, 'modulo ' + p, { 'font-size': 7.5 }); for (let n = 1; n <= N; n++) { const v = legendre(n, p); if (v === 0) continue; const e = markK(s, 'rect', { x: X(n) - 1.43, y: y + 2, width: 2.9, height: 40 }, n, v > 0 ? 'q' : 'c', 'f', label(n) + ' · (' + n + '|' + p + ') = ' + v); e.setAttribute('fill-opacity', v > 0 ? 0.9 : 0.3); } for (const q of primes) mark(s, 'circle', { cx: X(q), cy: y + 50, r: 1.6 }, q, 'f'); }); axisX(s, 262);
+});
+
+// ================= FUNCTIES (166–180) =================
+add('Functie', 'Fout van de schatting', 'π(n) − n / ln n als balk per n. De schatting loopt steeds verder achter, maar het verschil groeit trager dan n zelf.', s => {
+  const ym = v => 240 - v * 30; el('line', { x1: 8, y1: ym(0), x2: 292, y2: ym(0), class: 'ax2' }, s); for (let n = 2; n <= N; n++) { const v = pi[n] - n / ln(n); const e = mark(s, 'rect', { x: X(n) - 1.35, y: v >= 0 ? ym(v) : ym(0), width: 2.7, height: Math.abs(v) * 30 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · verschil ' + v.toFixed(2); } for (const k of [1, 2, 3]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 272);
+});
+add('Functie', 'Product van (1 − 1/p)', 'Het product over de priemen tot x van (1 − 1/p): het aandeel getallen zonder kleine priemfactor. Mertens: het gedraagt zich als e^(−γ) / ln x (stippellijn).', s => {
+  const P = [1]; for (let n = 1; n <= N; n++) P[n] = P[n - 1] * (isP[n] ? 1 - 1 / n : 1); const ym = v => 270 - v * 420; curve(s, x => 0.5615 / ln(x), 3, 100, ym, 'ref'); stair(s, P, ym); for (const p of primes) mark(s, 'circle', { cx: X(p), cy: ym(P[p]), r: 2.2 }, p, 'f'); for (const k of [0.2, 0.4]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 150, 60, 'product bij 100: ' + P[100].toFixed(3), { 'text-anchor': 'middle', class: 'tf' }); axisX(s, 272);
+});
+add('Functie', 'Overvloed σ(n) − 2n', 'Positief = overvloedig, negatief = gebrekkig, nul = perfect (6 en 28, omcirkeld). Een priem p scoort 1 − p: de meest gebrekkige getallen.', s => {
+  const ym = v => 170 - v * 1.1; el('line', { x1: 8, y1: ym(0), x2: 292, y2: ym(0), class: 'ax2' }, s); for (let n = 1; n <= N; n++) { const v = sig[n] - 2 * n; const e = mark(s, 'rect', { x: X(n) - 1.35, y: v >= 0 ? ym(v) : ym(0), width: 2.7, height: Math.abs(v) * 1.1 || 0.8 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · σ − 2n = ' + v; if (v === 0) el('circle', { cx: X(n), cy: ym(0), r: 4, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.2 }, s); } for (const k of [-50, 50]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 285);
+});
+add('Functie', 'Delers opgeteld D(n)', 'D(n) = d(1) + … + d(n). Dirichlet: D(n) ≈ n ln n + (2γ − 1) n (stippellijn). Elke priem voegt maar 2 toe: de trap wordt daar even vlak.', s => {
+  const D = [0]; for (let n = 1; n <= N; n++) D[n] = D[n - 1] + nd[n]; const ym = v => 275 - v * 0.5; curve(s, x => x * ln(x) + (2 * 0.5772 - 1) * x, 2, 100, ym, 'ref'); stair(s, D, ym); for (const p of primes) mark(s, 'circle', { cx: X(p), cy: ym(D[p]), r: 2.2 }, p, 'f'); for (const k of [100, 200, 300, 400]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 20, 40, 'D(100) = ' + D[100], { class: 'tf' }); axisX(s, 277);
+});
+add('Functie', 'Totiënt opgeteld Φ(n)', 'Φ(n) = φ(1) + … + φ(n), het aantal breuken met noemer ≤ n. Groeit als 3n²/π² (stippellijn). Priemen maken de grootste sprongen.', s => {
+  const F = [0]; for (let n = 1; n <= N; n++) F[n] = F[n - 1] + phi[n]; const ym = v => 275 - v * 0.075; curve(s, x => 3 * x * x / (Math.PI * Math.PI), 1, 100, ym, 'ref'); stair(s, F, ym); for (const p of primes) mark(s, 'circle', { cx: X(p), cy: ym(F[p]), r: 2.2 }, p, 'f'); for (const k of [1000, 2000, 3000]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 20, 40, 'Φ(100) = ' + F[100], { class: 'tf' }); axisX(s, 277);
+});
+add('Functie', 'Euler-product voor π²/6', 'Het product van 1/(1 − 1/p²) over de priemen tot x nadert ζ(2) = π²/6 ≈ 1,645 (stippellijn). Elke nieuwe priem duwt het product een klein stukje omhoog.', s => {
+  const P = [1]; for (let n = 1; n <= N; n++) P[n] = P[n - 1] * (isP[n] ? 1 / (1 - 1 / (n * n)) : 1); const ym = v => 270 - (v - 1) * 300; el('line', { x1: 8, y1: ym(Math.PI * Math.PI / 6), x2: 292, y2: ym(Math.PI * Math.PI / 6), class: 'ref' }, s); stair(s, P, ym); for (const p of primes) mark(s, 'circle', { cx: X(p), cy: ym(P[p]), r: 2.4 }, p, 'f'); for (const k of [1.2, 1.4, 1.6]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 150, ym(1.645) - 6, 'π²/6 = 1,6449', { 'text-anchor': 'middle', fill: 'var(--seq)' }); txt(s, 150, 250, 'bij 100: ' + P[100].toFixed(4), { 'text-anchor': 'middle', class: 'tf' }); axisX(s, 272);
+});
+add('Functie', 'Fibonacci-priemen', 'De Fibonacci-getallen tot 100: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89. Priem zijn 2, 3, 5, 13 en 89. Hun index (3, 4, 5, 7, 11) is priem, op 4 na.', s => {
+  const F = [1, 1]; while (F[F.length - 1] + F[F.length - 2] <= N) F.push(F[F.length - 1] + F[F.length - 2]); for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: X(n), cy: 180, r: isP[n] ? 2 : 1 }, n, 'f'); F.forEach((f, i) => { const e = mark(s, 'rect', { x: X(f) - 3, y: 180 - 10 - i * 8, width: 6, height: 10 + i * 8, rx: 1.5 }, f, 'f'); if (!isP[f]) e.setAttribute('fill-opacity', 0.45); if (i >= 5) txt(s, X(f), 180 - 14 - i * 8, 'F' + (i + 1) + '=' + f, { 'text-anchor': 'middle', 'font-size': 6, class: isP[f] ? 'tf' : 't' }); }); axisX(s, 196);
+});
+add('Functie', 'Kwadratische rijen', 'Drie rijen op de getallenlijn: n² + 1, n² + n + 1 en 2n² − 1. Gekleurd waar de waarde priem is. Elke rij levert vroeg veel priemen, maar geen enkele rij levert alleen priemen.', s => {
+  const rows = [['n² + 1', n => n * n + 1], ['n² + n + 1', n => n * n + n + 1], ['2n² − 1', n => 2 * n * n - 1]]; rows.forEach(([name, f], i) => { const y = 70 + i * 70; el('line', { x1: 8, y1: y, x2: 292, y2: y, class: 'ax2' }, s); txt(s, 8, y - 14, name); for (let n = 1; f(n) <= N; n++) { const v = f(n); mark(s, 'circle', { cx: X(v), cy: y, r: isP[v] ? 4 : 2.2 }, v, 'f'); txt(s, X(v), y + 12, v, { 'text-anchor': 'middle', 'font-size': 6, class: isP[v] ? 'tf' : 't' }); } }); axisX(s, 240);
+});
+add('Functie', 'Verschiltafel van priemen', 'Vakje (p, q) gekleurd naar |p − q|: verschil 2 oranje, 4 paars, 6 groen, groter grijs en lichter. Langs de diagonaal zie je de tweelingen, neven en sexy priemen.', s => {
+  const cs = 11.2, x0 = 20, y0 = 20; primes.forEach((p, i) => { txt(s, x0 - 3, y0 + i * cs + cs / 2 + 2.5, p, { 'text-anchor': 'end', 'font-size': 6 }); txt(s, x0 + i * cs + cs / 2, y0 - 3 - (i % 2) * 7, p, { 'text-anchor': 'middle', 'font-size': 6 }); }); primes.forEach((p, i) => primes.forEach((q, j) => { if (p === q) return; const d = Math.abs(p - q); const k = d === 2 ? 'p' : d === 4 ? 'k5' : d === 6 ? 'k3' : 'c'; const e = markK(s, 'rect', { x: x0 + j * cs + 0.5, y: y0 + i * cs + 0.5, width: cs - 1, height: cs - 1 }, p, k, 'f', p + ' en ' + q + ' verschillen ' + d); if (d > 6) e.setAttribute('fill-opacity', 0.35 * Math.max(0.15, 1 - d / 60)); }));
+});
+add('Functie', 'Producttafel: halfpriemen', 'Vakje (p, q) is gevuld als p·q ≤ 100. Dat zijn de 34 halfpriemen tot 100 (kwadraten van priemen op de diagonaal). Priemen zelf staan er niet in: die zijn geen product.', s => {
+  const cs = 11.2, x0 = 20, y0 = 20; primes.forEach((p, i) => { txt(s, x0 - 3, y0 + i * cs + cs / 2 + 2.5, p, { 'text-anchor': 'end', 'font-size': 6 }); txt(s, x0 + i * cs + cs / 2, y0 - 3 - (i % 2) * 7, p, { 'text-anchor': 'middle', 'font-size': 6 }); }); let cnt = 0; primes.forEach((p, i) => primes.forEach((q, j) => { const v = p * q; if (v > N) return; if (i <= j) cnt++; const e = markK(s, 'rect', { x: x0 + j * cs + 0.5, y: y0 + i * cs + 0.5, width: cs - 1, height: cs - 1 }, v, 'q', 'f'); e.setAttribute('fill-opacity', 0.25 + 0.75 * (1 - v / 100)); txt(s, x0 + j * cs + cs / 2, y0 + i * cs + cs / 2 + 2.5, v, { 'text-anchor': 'middle', 'font-size': 5.5, fill: v < 50 ? 'var(--surface)' : undefined }); })); txt(s, 180, 200, cnt + ' halfpriemen ≤ 100', { class: 'tf' });
+});
+add('Functie', '100! in priemfactoren', 'De exponent van elke priem in 100! volgens Legendre: ⌊100/p⌋ + ⌊100/p²⌋ + … 2 komt 97 keer voor, 3 48 keer, 97 maar één keer.', s => {
+  const ym = v => 270 - v * 2.3; primes.forEach((p, i) => { let e = 0, q = p; while (q <= 100) { e += Math.floor(100 / q); q *= p; } const x = 14 + i * 11.4; const r = mark(s, 'rect', { x: x - 4, y: ym(e), width: 8, height: e * 2.3, rx: 1 }, p, 'f'); r.querySelector('title').textContent = p + '^' + e + ' deelt 100!'; if (i % 2 === 0) txt(s, x, 282, p, { 'text-anchor': 'middle', 'font-size': 6.5 }); if (e >= 16) txt(s, x, ym(e) - 3, e, { 'text-anchor': 'middle', 'font-size': 6.5, class: 'tf' }); }); el('line', { x1: 8, y1: 270, x2: 292, y2: 270, class: 'ax2' }, s);
+});
+add('Functie', 'Liniaalpatroon', 'Hoogte = hoe vaak 2 in n past (de 2-adische waardering). Het patroon van een liniaal. Alle oneven priemen staan op nul; alleen 2 steekt uit.', s => {
+  for (let n = 1; n <= N; n++) { const v = v2(n); if (v === 0) { mark(s, 'circle', { cx: X(n), cy: 230, r: isP[n] ? 2.4 : 1 }, n, 'f'); continue; } const e = mark(s, 'rect', { x: X(n) - 1.35, y: 230 - v * 28, width: 2.7, height: v * 28 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.5); e.querySelector('title').textContent = label(n) + ' · 2^' + v + ' deelt n'; } for (let k = 1; k <= 6; k++) txt(s, 4, 233 - k * 28, k, { 'text-anchor': 'end', 'font-size': 7 }); axisX(s, 232);
+});
+add('Functie', 'Gemiddeld gat', 'Het gemiddelde gat tussen de eerste k priemen, uitgezet tegen de k-de priem: (p_k − 2) / (k − 1). Het stijgt langzaam, ongeveer als ln p (stippellijn).', s => {
+  const ym = v => 270 - v * 40; curve(s, x => ln(x), 3, 100, ym, 'ref'); primes.forEach((p, i) => { if (i === 0) return; const v = (p - 2) / i; const e = mark(s, 'circle', { cx: X(p), cy: ym(v), r: 3 }, p, 'f'); e.querySelector('title').textContent = p + ' · gemiddeld gat ' + v.toFixed(2); }); for (const k of [1, 2, 3, 4]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 4, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } txt(s, 200, 60, 'ln p', { fill: 'var(--seq)' }); axisX(s, 272);
+});
+add('Functie', 'Lokale dichtheid', 'Het aandeel priemen in een venster van 21 getallen rond n (balken), tegen de verwachte kans 1/ln n (stippellijn). Pieken bij de drielingen rond 11–19 en 41–47.', s => {
+  const ym = v => 270 - v * 380; curve(s, x => 1 / ln(x), 3, 100, ym, 'ref'); for (let n = 1; n <= N; n++) { let c = 0, w = 0; for (let m = n - 10; m <= n + 10; m++) if (m >= 1 && m <= N) { w++; if (isP[m]) c++; } const e = mark(s, 'rect', { x: X(n) - 1.35, y: ym(c / w), width: 2.7, height: 270 - ym(c / w) }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.35); e.querySelector('title').textContent = label(n) + ' · ' + c + ' van ' + w + ' priem'; } for (const k of [0.25, 0.5]) { el('line', { x1: 8, y1: ym(k), x2: 292, y2: ym(k), class: 'ax' }, s); txt(s, 300, ym(k) + 3, k, { 'text-anchor': 'end', 'font-size': 7 }); } axisX(s, 272);
+});
+add('Functie', 'De zeef in stappen', 'Hoeveel getallen van 2 t/m 100 blijven over na het schrappen van de veelvouden van 2, dan 3, dan 5, dan 7 (de priemen zelf blijven staan)? 99 → 50 → 34 → 28 → 25.', s => {
+  const steps = [[], [2], [2, 3], [2, 3, 5], [2, 3, 5, 7]]; const labels = ['start', 'zonder 2·k', 'zonder 3·k', 'zonder 5·k', 'zonder 7·k']; steps.forEach((ps, i) => { const left = []; for (let n = 2; n <= N; n++) if (!ps.some(p => n % p === 0 && n !== p)) left.push(n); const y = 24 + i * 52; txt(s, 8, y - 4, labels[i] + ' → ' + left.length + ' over', { class: 'tf' }); for (let n = 2; n <= N; n++) { const stays = left.includes(n); if (!stays) continue; mark(s, 'rect', { x: X(n) - 1.43, y, width: 2.9, height: 34 }, n, 'f').setAttribute('fill-opacity', isP[n] ? 1 : 0.45); } }); axisX(s, 288);
+});
+// ================= NETWERK (181–190) =================
+add('Netwerk', 'Aliquot-graaf', 'Een pijl van n naar de som van zijn echte delers. Elke priem wijst naar 1. De perfecte getallen 6 en 28 wijzen naar zichzelf (ring).', s => {
+  const pos = circleNodes(s, 134, false); for (let n = 2; n <= N; n++) { const m = sig[n] - n; if (m === n) { el('circle', { cx: pos[n][0], cy: pos[n][1], r: 6, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.2 }, s); continue; } if (m > N || m < 1) continue; mark(s, 'line', { x1: pos[n][0], y1: pos[n][1], x2: pos[m][0], y2: pos[m][1], 'stroke-width': isP[n] ? 0.9 : 0.6, opacity: isP[n] ? 0.8 : 0.35 }, n, 's'); } for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? 2.8 : 1.4 }, n, 'f');
+});
+add('Netwerk', 'Totiënt-graaf', 'Een pijl van n naar φ(n). Een priem p wijst naar p − 1, dat altijd even is. Herhaald toepassen brengt alles bij 1; priemen hebben de langste wegen.', s => {
+  const pos = circleNodes(s, 134, false); for (let n = 2; n <= N; n++) { const m = phi[n]; mark(s, 'line', { x1: pos[n][0], y1: pos[n][1], x2: pos[m][0], y2: pos[m][1], 'stroke-width': isP[n] ? 0.9 : 0.6, opacity: isP[n] ? 0.8 : 0.35 }, n, 's'); } for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? 2.8 : 1.4 }, n, 'f');
+});
+add('Netwerk', 'Factorisatieboom', '1 in het midden. Elk getal hangt aan n gedeeld door zijn kleinste priemfactor; de ring is het aantal priemfactoren. De priemen vormen de binnenste ring.', s => {
+  const R = [0, 52, 84, 108, 124, 136, 146]; const byO = {}; for (let n = 2; n <= N; n++) (byO[Omg[n]] = byO[Omg[n]] || []).push(n); const ang = {}; for (const k in byO) byO[k].forEach((n, i) => ang[n] = 2 * Math.PI * i / byO[k].length - Math.PI / 2); const P = n => n === 1 ? [C, C] : pol(C, C, R[Omg[n]], ang[n]);
+  for (let n = 2; n <= N; n++) { const m = n / spf[n]; const [x1, y1] = P(n), [x2, y2] = P(m); mark(s, 'line', { x1, y1, x2, y2, 'stroke-width': isP[n] ? 0.9 : 0.5, opacity: isP[n] ? 0.8 : 0.45 }, n, 's'); } for (let n = 1; n <= N; n++) { const [x, y] = P(n); mark(s, 'circle', { cx: x, cy: y, r: isP[n] ? 3 : 1.6 }, n, 'f'); } el('circle', { cx: C, cy: C, r: 3, fill: 'var(--fg)' }, s);
+});
+add('Netwerk', 'Copriem-graaf 1–24', 'Een lijn tussen a en b als ggd(a, b) = 1. Een priem p is met alles verbonden behalve zijn veelvouden: de drukste knopen. 1 is met alles verbonden.', s => {
+  const M = 24; const pos = {}; for (let n = 1; n <= M; n++) pos[n] = pol(C, C, 124, 2 * Math.PI * n / M - Math.PI / 2); for (let a = 1; a <= M; a++) for (let b = a + 1; b <= M; b++) if (gcd(a, b) === 1) { const pr = isP[a] && a > 2; mark(s, 'line', { x1: pos[a][0], y1: pos[a][1], x2: pos[b][0], y2: pos[b][1], 'stroke-width': pr ? 0.8 : 0.4, opacity: pr ? 0.55 : 0.2 }, a, 's'); } for (let n = 1; n <= M; n++) { mark(s, 'circle', { cx: pos[n][0], cy: pos[n][1], r: isP[n] ? 4 : 2.4 }, n, 'f'); const [tx, ty] = pol(C, C, 138, 2 * Math.PI * n / M - Math.PI / 2); txt(s, tx, ty + 3, n, { 'text-anchor': 'middle', 'font-size': 7 }); }
+});
+add('Netwerk', 'Som is een kwadraat', 'De 25 priemen op een cirkel; een koorde tussen p en q als p + q een kwadraat is. 2 + 7 = 9, 3 + 13 = 16, 5 + 11 = 16, 7 + 29 = 36 …', s => {
+  const pos = {}; primes.forEach((p, i) => pos[p] = pol(C, C, 124, 2 * Math.PI * i / 25 - Math.PI / 2)); for (let i = 0; i < 25; i++) for (let j = i + 1; j < 25; j++) { const p = primes[i], q = primes[j], v = p + q, r = Math.round(Math.sqrt(v)); if (r * r === v) mark(s, 'line', { x1: pos[p][0], y1: pos[p][1], x2: pos[q][0], y2: pos[q][1], 'stroke-width': 1.1, opacity: 0.75 }, p, 's').querySelector('title').textContent = p + ' + ' + q + ' = ' + v + ' = ' + r + '²'; } for (const p of primes) { mark(s, 'circle', { cx: pos[p][0], cy: pos[p][1], r: 3 }, p, 'f'); const [tx, ty] = pol(C, C, 138, 2 * Math.PI * primes.indexOf(p) / 25 - Math.PI / 2); txt(s, tx, ty + 3, p, { 'text-anchor': 'middle', 'font-size': 7 }); }
+});
+add('Netwerk', 'Ketens 2p − 1', 'Een boog van p naar 2p − 1 als dat ook priem is (Cunningham-ketens van de tweede soort): 2 → 3 → 5, 7 → 13, 19 → 37 → 73, 31 → 61, 37 → 73.', s => {
+  for (const p of primes) { const q = 2 * p - 1; if (q <= N && isP[q] && q > p) { const r = (X(q) - X(p)) / 2; mark(s, 'path', { d: `M${X(p)} 190 A${r} ${r * 0.9} 0 0 1 ${X(q)} 190`, 'stroke-width': 1.6 }, p, 's'); } else if (q > N && isP[q]) { mark(s, 'path', { d: `M${X(p)} 190 Q${X(p) + 40} 110 ${X(p) + 70} 120`, 'stroke-width': 1.2, 'stroke-dasharray': '3 3' }, p, 's'); txt(s, X(p) + 60, 115, '→ ' + q, { 'font-size': 7 }); } }
+  for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: X(n), cy: 190, r: isP[n] ? 3 : 1.1 }, n, 'f'); for (const p of [13, 19, 31, 37, 61, 73]) txt(s, X(p), 204, p, { 'text-anchor': 'middle', 'font-size': 6.5 }); axisX(s, 220);
+});
+add('Netwerk', 'Cijfersom-families', 'Koorden tussen priemen met dezelfde cijfersom; de som is nooit een drievoud (behalve bij 3). Families van drie: som 5 (5, 23, 41), 7 (7, 43, 61), 8 (17, 53, 71), 10 (19, 37, 73) en 11 (29, 47, 83).', s => {
+  const pos = {}; primes.forEach((p, i) => pos[p] = pol(C, C, 124, 2 * Math.PI * i / 25 - Math.PI / 2)); const fam = {}; for (const p of primes) (fam[digsum(p)] = fam[digsum(p)] || []).push(p); const K = ['p', 'k2', 'k3', 'k5', 'k7', 'kx']; let ci = 0; for (const d in fam) { const ps = fam[d]; if (ps.length < 2) continue; const k = K[ci++ % K.length]; for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) markK(s, 'line', { x1: pos[ps[i]][0], y1: pos[ps[i]][1], x2: pos[ps[j]][0], y2: pos[ps[j]][1], 'stroke-width': 1, opacity: 0.7 }, ps[i], k, 's', ps[i] + ' en ' + ps[j] + ' hebben cijfersom ' + d); } for (const p of primes) { mark(s, 'circle', { cx: pos[p][0], cy: pos[p][1], r: 3 }, p, 'f'); const [tx, ty] = pol(C, C, 138, 2 * Math.PI * primes.indexOf(p) / 25 - Math.PI / 2); txt(s, tx, ty + 3, p + '·' + digsum(p), { 'text-anchor': 'middle', 'font-size': 5.5 }); }
+});
+add('Netwerk', 'Aaneengeplakte priemen', 'Rij p, kolom q: gevuld als het getal p‖q (de cijfers achter elkaar) priem is. 3‖7 = 37 en 7‖3 = 73 zijn er allebei; 2‖3 = 23 wel, 3‖2 = 32 niet. Het lukt bij 132 van de 625 paren.', s => {
+  const cs = 11.2, x0 = 20, y0 = 20; primes.forEach((p, i) => { txt(s, x0 - 3, y0 + i * cs + cs / 2 + 2.5, p, { 'text-anchor': 'end', 'font-size': 6 }); txt(s, x0 + i * cs + cs / 2, y0 - 3 - (i % 2) * 7, p, { 'text-anchor': 'middle', 'font-size': 6 }); }); let cnt = 0; primes.forEach((p, i) => primes.forEach((q, j) => { const v = +('' + p + q); if (!isP[v]) return; cnt++; markK(s, 'rect', { x: x0 + j * cs + 0.5, y: y0 + i * cs + 0.5, width: cs - 1, height: cs - 1 }, p, 'p', 'f', p + '‖' + q + ' = ' + v + ' is priem'); }));
+});
+add('Netwerk', 'Omkeringen', 'Een boog van n naar het getal met de cijfers omgekeerd. Priemen waarvan de omkering ook priem is (13↔31, 17↔71, 37↔73, 79↔97) heten emirps; 11 is zijn eigen omkering.', s => {
+  for (let n = 10; n <= 99; n++) { const m = rev(n); if (m <= n || m > N || m < 10) continue; const both = isP[n] && isP[m]; const r = (X(m) - X(n)) / 2; mark(s, 'path', { d: `M${X(n)} 190 A${r} ${r * 0.8} 0 0 1 ${X(m)} 190`, 'stroke-width': both ? 1.6 : 0.5, opacity: both ? 1 : 0.3 }, both ? n : m, 's'); } for (let n = 1; n <= N; n++) mark(s, 'circle', { cx: X(n), cy: 190, r: isP[n] ? 3 : 1.1 }, n, 'f'); el('circle', { cx: X(11), cy: 190, r: 6, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1 }, s); for (const p of [13, 31, 17, 71, 37, 73, 79, 97]) txt(s, X(p), 204, p, { 'text-anchor': 'middle', 'font-size': 6.5 }); axisX(s, 220);
+});
+add('Netwerk', 'Priemen en hun veelvouden', 'Links de 25 priemen, rechts de 74 composieten. Een lijn van p naar n als p een deler is van n. 2 heeft 49 lijnen, 47 heeft er één (94), de priemen boven 50 geen.', s => {
+  const comps = []; for (let n = 4; n <= N; n++) if (!isP[n]) comps.push(n); const yp = i => 12 + i * (276 / 24), yc = i => 8 + i * (284 / 73); primes.forEach((p, i) => comps.forEach((n, j) => { if (n % p === 0) mark(s, 'line', { x1: 60, y1: yp(i), x2: 240, y2: yc(j), 'stroke-width': 0.5, opacity: 0.3 }, p, 's'); })); primes.forEach((p, i) => { mark(s, 'circle', { cx: 60, cy: yp(i), r: 3 }, p, 'f'); txt(s, 52, yp(i) + 2.5, p, { 'text-anchor': 'end', 'font-size': 6.5 }); }); comps.forEach((n, j) => { mark(s, 'circle', { cx: 240, cy: yc(j), r: 1.5 }, n, 'f'); if (j % 6 === 0) txt(s, 248, yc(j) + 2.5, n, { 'font-size': 6 }); });
+});
+
+// ================= VORM (191–200) =================
+add('Vorm', 'Sterren {n/k} voor priem en composiet', 'Rijen n = 7, 8, 9, 10, 11, 12; kolommen stap k = 2, 3, 4, 5. Een ster valt uiteen in ggd(n, k) losse stukken (lichter getekend). Bij een priem n is dat altijd één stuk; bij 12 valt bijna alles uiteen.', s => {
+  const ns = [7, 8, 9, 10, 11, 12], ks = [2, 3, 4, 5]; const cw = 62, ch = 46, x0 = 40, y0 = 22; ks.forEach((k, j) => txt(s, x0 + j * cw + cw / 2, 10, 'k = ' + k, { 'text-anchor': 'middle', 'font-size': 7 })); ns.forEach((n, i) => { txt(s, 6, y0 + i * ch + ch / 2 + 3, 'n = ' + n, { 'font-size': 7, class: isP[n] ? 'tf' : 't' }); ks.forEach((k, j) => { const cx = x0 + j * cw + cw / 2, cy = y0 + i * ch + ch / 2, r = 19; const seen = new Set(); let pieces = 0; for (let st = 0; st < n; st++) { if (seen.has(st)) continue; pieces++; let d = ''; let m = st, c = 0; do { seen.add(m); const [x, y] = pol(cx, cy, r, 2 * Math.PI * m / n - Math.PI / 2); d += (c ? 'L' : 'M') + x + ' ' + y; m = (m + k) % n; c++; } while (m !== st); const e = mark(s, 'path', { d: d + 'Z', 'stroke-width': 1, opacity: pieces === 1 ? 1 : 0.4 }, n, 's'); e.querySelector('title').textContent = '{' + n + '/' + k + '}: ' + gcd(n, k) + (gcd(n, k) === 1 ? ' stuk' : ' stukken'); } }); });
+});
+add('Vorm', 'Volledige grafen K_n', 'Alle punten van een regelmatige n-hoek onderling verbonden, voor n = 5 t/m 13. Het aantal lijnen is n(n−1)/2; voor priem-n in kleur. De vorm verraadt niets over priem zijn.', s => {
+  const g = miniGrid(3, 3, 6); for (let n = 5; n <= 13; n++) { const c = cellOf(g, n - 5); const R = c.w / 2 - 12; const pts = []; for (let k = 0; k < n; k++) pts.push(pol(c.cx, c.cy, R, 2 * Math.PI * k / n - Math.PI / 2)); for (let a = 0; a < n; a++) for (let b = a + 1; b < n; b++) mark(s, 'line', { x1: pts[a][0], y1: pts[a][1], x2: pts[b][0], y2: pts[b][1], 'stroke-width': 0.5, opacity: 0.7 }, n, 's'); txt(s, c.cx, c.y + c.h - 2, 'n = ' + n + ' · ' + n * (n - 1) / 2 + ' lijnen', { 'text-anchor': 'middle', 'font-size': 6.5, class: isP[n] ? 'tf' : 't' }); }
+});
+add('Vorm', 'Spirograaf', 'Hypotrochoïden met n lobben voor n = 5 t/m 13: een kleine cirkel rolt binnen een grote met straalverhouding n. Priem-n in kleur. Ook hier is de vorm neutraal: priem zijn is geen eigenschap van een kromme.', s => {
+  const g = miniGrid(3, 3, 6); for (let n = 5; n <= 13; n++) { const c = cellOf(g, n - 5); const R = c.w / 2 - 10, r = R / n, d = r * 2.2; let p = ''; for (let i = 0; i <= 720; i++) { const t = i * Math.PI / 360; const x = (R - r) * Math.cos(t) + d * Math.cos((R - r) / r * t), y = (R - r) * Math.sin(t) - d * Math.sin((R - r) / r * t); p += (i ? 'L' : 'M') + (c.cx + x) + ' ' + (c.cy + y); } mark(s, 'path', { d: p, 'stroke-width': isP[n] ? 1 : 0.7, opacity: isP[n] ? 1 : 0.7 }, n, 's'); txt(s, c.cx, c.y + c.h - 2, 'n = ' + n, { 'text-anchor': 'middle', 'font-size': 7, class: isP[n] ? 'tf' : 't' }); }
+});
+add('Vorm', 'Tandwielen', 'Een tandwiel met 12 tanden tegen een wiel met 7, 8, 9 of 11 tanden. Gekleurd: de tanden van het grote wiel die ooit tand 0 van het kleine wiel raken. Bij ggd = 1 (7 en 11) zijn dat alle twaalf; bij 8 maar drie, bij 9 maar vier.', s => {
+  const pairs = [7, 8, 9, 11]; pairs.forEach((a, i) => { const cx = 75 + (i % 2) * 150, cy = 75 + Math.floor(i / 2) * 150; const b = 12, g = gcd(a, b); const Rb = 36, Ra = Rb * a / b; const bx = cx + 20, ax = bx - Rb - Ra - 4; el('circle', { cx: bx, cy, r: Rb, class: 'ax2' }, s); el('circle', { cx: ax, cy, r: Ra, class: 'ax2' }, s); for (let t = 0; t < b; t++) { const an = 2 * Math.PI * t / b + Math.PI; const [x1, y1] = pol(bx, cy, Rb - 2, an), [x2, y2] = pol(bx, cy, Rb + 7, an); const hit = t % g === 0; markK(s, 'line', { x1, y1, x2, y2, 'stroke-width': 3.5, opacity: hit ? 1 : 0.35 }, a, hit ? (isP[a] ? 'p' : 'q') : 'c', 's', 'tand ' + t + (hit ? ' wordt geraakt' : ' wordt nooit geraakt')); } for (let t = 0; t < a; t++) { const an = 2 * Math.PI * t / a; const [x1, y1] = pol(ax, cy, Ra - 2, an), [x2, y2] = pol(ax, cy, Ra + 7, an); markK(s, 'line', { x1, y1, x2, y2, 'stroke-width': 3.5, opacity: t === 0 ? 1 : 0.35 }, a, t === 0 ? 'p' : 'c', 's', 'tand ' + t + ' van het wiel met ' + a + ' tanden'); } txt(s, cx, cy + 62, a + ' & 12: ggd ' + g + ', ' + (b / g) + ' geraakt', { 'text-anchor': 'middle', 'font-size': 6, class: isP[a] ? 'tf' : 't' }); });
+});
+add('Vorm', 'Priemen als schuine zijde', 'Rechthoekige driehoeken met gehele zijden en een priem als schuine zijde: 5, 13, 17, 29, 37, 41, 53, 61, 73, 89, 97. Alleen priemen met rest 1 (mod 4) kunnen dat, elk op precies één manier.', s => {
+  const tri = []; for (const p of primes) for (let a = 1; a < p; a++) { const b2 = p * p - a * a, b = Math.round(Math.sqrt(b2)); if (b > a && b * b === b2) tri.push([a, b, p]); } const g = miniGrid(4, 3, 6); tri.forEach(([a, b, c], i) => { const cell = cellOf(g, i); const sc = (cell.w - 20) / Math.max(a, b); const x0 = cell.x + 8, y0 = cell.y + cell.h - 14; mark(s, 'path', { d: `M${x0} ${y0} h${b * sc} v${-a * sc} Z` }, c, 'f').setAttribute('fill-opacity', 0.25); mark(s, 'line', { x1: x0, y1: y0, x2: x0 + b * sc, y2: y0 - a * sc, 'stroke-width': 1.8 }, c, 's'); txt(s, cell.cx, cell.y + cell.h - 2, a + ', ' + b + ', ' + c, { 'text-anchor': 'middle', 'font-size': 7, class: 'tf' }); });
+});
+add('Vorm', 'Draadkunst', 'Een draad van (n, 0) naar (0, 100 − n) voor elk n. De omhullende is een parabool. Draden met priem-n in kleur: ze liggen verspreid, zonder regelmaat in de waaier.', s => {
+  const ox = 20, oy = 280, sc = 2.6; for (let n = 1; n <= 99; n++) mark(s, 'line', { x1: ox + n * sc, y1: oy, x2: ox, y2: oy - (100 - n) * sc, 'stroke-width': isP[n] ? 1 : 0.4, opacity: isP[n] ? 0.9 : 0.35 }, n, 's'); el('line', { x1: ox, y1: oy, x2: ox + 100 * sc, y2: oy, class: 'ax2' }, s); el('line', { x1: ox, y1: oy, x2: ox, y2: oy - 100 * sc, class: 'ax2' }, s); for (const k of [25, 50, 75, 100]) { txt(s, ox + k * sc, 292, k, { 'text-anchor': 'middle', 'font-size': 7 }); txt(s, ox - 4, oy - k * sc + 3, 100 - k, { 'text-anchor': 'end', 'font-size': 7 }); }
+});
+add('Vorm', 'Rechthoeken van n', 'Voor n = 1 t/m 12: alle rechthoeken van n eenheden (a × b met a ≤ b). Een priem heeft er maar één, de dunne strook 1 × p. 12 heeft er drie.', s => {
+  const g = grid(2, 6, 6, false); for (let n = 1; n <= 12; n++) { const { x, y } = g.at(n); const u = 6.3; const rects = divs[n].filter(a => a * a <= n).map(a => [a, n / a]); let yy = y + 4; rects.forEach(([a, b]) => { for (let i = 0; i < a; i++) for (let j = 0; j < b; j++) { const e = mark(s, 'rect', { x: x + 48 + j * u, y: yy + i * u, width: u - 0.7, height: u - 0.7 }, n, 'f'); if (!isP[n]) e.setAttribute('fill-opacity', 0.55); } yy += a * u + 3; }); txt(s, x + 42, y + g.h / 2 + 3, n + ' · ' + rects.length, { 'text-anchor': 'end', 'font-size': 8, class: isP[n] ? 'tf' : 't' }); }
+});
+add('Vorm', 'Pascal modulo m', 'De driehoek van Pascal, rijen 0 t/m 32, elk getal modulo m. Leeg = deelbaar door m. Voor priem-m (3 en 5) ontstaat een zuivere zelfgelijkende figuur; voor 4 en 6 raakt het patroon vertroebeld.', s => {
+  const ms = [3, 4, 5, 6]; const R = 32; ms.forEach((m, idx) => { const ox = 75 + (idx % 2) * 150, oy = 12 + Math.floor(idx / 2) * 150; const cw = 4, rh = 3.9; let row = [1n]; for (let n = 0; n <= R; n++) { const x0 = ox - (n + 1) * cw / 2; for (let k = 0; k <= n; k++) { const v = Number(row[k] % BigInt(m)); if (v === 0) continue; const e = markK(s, 'rect', { x: x0 + k * cw + 0.3, y: oy + n * rh + 0.3, width: cw - 0.6, height: rh - 0.6 }, m, isP[m] ? 'p' : 'q', 'f', 'rij ' + n + ', C(' + n + ',' + k + ') mod ' + m + ' = ' + v); e.setAttribute('fill-opacity', 0.35 + 0.65 * v / (m - 1)); } const nx = [1n]; for (let k = 1; k < row.length; k++) nx.push(row[k - 1] + row[k]); nx.push(1n); row = nx; } txt(s, ox, oy + R * rh + 12, 'mod ' + m, { 'text-anchor': 'middle', 'font-size': 7.5, class: isP[m] ? 'tf' : 't' }); });
+});
+add('Vorm', 'Tafel van vermenigvuldiging modulo m', 'Vakje (a, b) = a·b mod m, als kleur van licht naar donker, voor m = 5, 6, 7, 8. Bij een priem-m is elke rij en kolom (behalve 0) een permutatie: een Latijns vierkant. Bij 6 en 8 verschijnen lege banen: de nuldelers.', s => {
+  const ms = [5, 6, 7, 8]; ms.forEach((m, idx) => { const ox = 15 + (idx % 2) * 150, oy = 15 + Math.floor(idx / 2) * 150; const cs = 120 / m; for (let a = 0; a < m; a++) for (let b = 0; b < m; b++) { const v = a * b % m; const e = markK(s, 'rect', { x: ox + b * cs + 0.5, y: oy + a * cs + 0.5, width: cs - 1, height: cs - 1, rx: 1 }, m, isP[m] ? 'p' : 'q', 'f', a + ' · ' + b + ' mod ' + m + ' = ' + v); e.setAttribute('fill-opacity', v === 0 ? 0.04 : 0.15 + 0.85 * v / (m - 1)); txt(s, ox + b * cs + cs / 2, oy + a * cs + cs / 2 + 2.5, v, { 'text-anchor': 'middle', 'font-size': 7, fill: v > (m - 1) / 2 ? 'var(--surface)' : undefined }); } txt(s, ox + 60, oy + 132, 'mod ' + m, { 'text-anchor': 'middle', 'font-size': 7.5, class: isP[m] ? 'tf' : 't' }); });
+});
+add('Vorm', 'Sterrenbeeld', 'De 25 priemen als sterren op de Vogel-spiraal (hoek 137,5° × p, straal √p), in volgorde met een lijn verbonden. Hoe groter de ster, hoe groter het gat erna. De composieten zijn de zwakke achtergrondsterren.', s => {
+  const ga = Math.PI * (3 - Math.sqrt(5)); const P = n => pol(C, C, 13.3 * Math.sqrt(n), n * ga); for (let n = 1; n <= N; n++) if (!isP[n]) { const [x, y] = P(n); mark(s, 'circle', { cx: x, cy: y, r: 1.2, 'fill-opacity': 0.5 }, n, 'f'); } for (let i = 0; i + 1 < primes.length; i++) { const [x1, y1] = P(primes[i]), [x2, y2] = P(primes[i + 1]); mark(s, 'line', { x1, y1, x2, y2, 'stroke-width': 0.8, opacity: 0.6 }, primes[i], 's'); } for (const p of primes) { const [x, y] = P(p); mark(s, 'circle', { cx: x, cy: y, r: 1.5 + gapAfter[p] * 0.55 }, p, 'f'); }
+});
+// ================= RENDER & INTERACTIE =================
+const CATS = [...new Set(panels.map(p => p.cat))];
+const gridEl = document.getElementById('grid'), tb = document.getElementById('toolbar'), status = document.createElement('span'); status.className = 'status'; status.id = 'status';
+function chip(label, cat) { const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', cat === null ? 'true' : 'false'); b.addEventListener('click', () => { for (const c of tb.querySelectorAll('.chip')) c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); for (const card of gridEl.children) card.hidden = !(cat === null || card.dataset.cat === cat); try { localStorage.setItem('ppf' + OFFSET, cat || ''); } catch (e) { } }); tb.appendChild(b); return b; }
+chip('Alles (' + panels.length + ')', null); CATS.forEach(c => chip(c + ' (' + panels.filter(p => p.cat === c).length + ')', c)); tb.appendChild(status);
+panels.forEach((p, i) => {
+  const card = document.createElement('article'); card.className = 'card'; card.dataset.cat = p.cat; card.tabIndex = 0;
+  const h = document.createElement('h2'); const b = document.createElement('b'); b.textContent = String(i + 1 + OFFSET).padStart(2, '0'); h.appendChild(b); h.appendChild(document.createTextNode(p.title)); const sm = document.createElement('small'); sm.textContent = p.cat; h.appendChild(sm);
+  const svg = el('svg', { viewBox: '0 0 300 300', role: 'img', 'aria-label': p.title }); try { p.draw(svg); } catch (err) { txt(svg, 150, 150, 'fout: ' + err.message, { 'text-anchor': 'middle' }); console.error(i + 1, p.title, err); }
+  const note = document.createElement('p'); note.textContent = p.note; card.append(h, svg, note); gridEl.appendChild(card);
+});
+let pinned = null;
+function highlight(n) { for (const e of document.querySelectorAll('.n.hl')) e.classList.remove('hl'); if (n == null) { document.body.classList.remove('dim'); status.textContent = ''; return; } for (const e of document.querySelectorAll('[data-n="' + n + '"]')) e.classList.add('hl'); document.body.classList.add('dim');
+  let info = label(n); if (isP[n]) info += ' · gat naar volgende ' + gapAfter[n] + ' · π(' + n + ') = ' + pi[n]; else if (n > 1) info += ' · ' + nd[n] + ' delers · φ = ' + phi[n]; status.textContent = info; }
+gridEl.addEventListener('mouseover', e => { if (pinned != null) return; const t = e.target.closest('[data-n]'); if (t) highlight(+t.dataset.n); });
+gridEl.addEventListener('mouseout', e => { if (pinned != null) return; const t = e.target.closest('[data-n]'); if (t && !gridEl.contains(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-n]'))) highlight(null); });
+gridEl.addEventListener('click', e => { const t = e.target.closest('[data-n]'); if (!t) { if (pinned != null) { pinned = null; highlight(null); } return; } const n = +t.dataset.n; if (pinned === n) { pinned = null; highlight(null); } else { pinned = n; highlight(n); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { pinned = null; highlight(null); } });
+document.getElementById('foot').textContent = 'Priemgetallen tot 100: ' + primes.join(', ') + '. Elke tekening is live uit dezelfde gegevens berekend; de tekst onder een tekening zegt wat erin te zien is. Composieten zijn grijs, priemen oranje; blauw is een vergelijkingslijn of een grootte.';
+try { const f = localStorage.getItem('ppf' + OFFSET); if (f) { const idx = CATS.indexOf(f); if (idx >= 0) tb.querySelectorAll('.chip')[idx + 1].click(); } } catch (e) { }
+</script>
+</body>
+</html>

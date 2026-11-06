@@ -74,6 +74,7 @@
   .n.hl text, text.n.hl { fill: var(--hl); font-weight: 600; }
   body.dim .n:not(.hl):not(.keep) { opacity: 0.28; }
   @media (prefers-reduced-motion: reduce) { .n { transition: none; } }
+  .nav { margin: 0; font-size: 13px; } .nav a { color: var(--seq); }
   footer { margin-top: 28px; color: var(--muted); font-size: 12px; max-width: 72ch; }
 </style>
 </head>
@@ -82,6 +83,7 @@
 <header>
   <h1>Priempatronen 1–100</h1>
   <p class="lead">Honderd manieren om dezelfde honderd getallen te tekenen. De 25 priemgetallen krijgen steeds een eigen kleur, lijn, hoek of hoogte. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
+  <p class="nav">Dit is deel 1 (tekeningen 1–100). <a href="priempatronen-101-200.html">Naar deel 2 (101–200)</a>.</p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -99,10 +101,11 @@
 <footer id="foot"></footer>
 </div>
 <script>
+const OFFSET = 0;
 'use strict';
 // ---------- getaltheorie voor 1..100 ----------
 const N = 100, W = 300, H = 300, C = 150;
-const LIM = 260;
+const LIM = 10100;
 const isP = new Uint8Array(LIM + 1);
 for (let i = 2; i <= LIM; i++) isP[i] = 1;
 for (let i = 2; i * i <= LIM; i++) if (isP[i]) for (let j = i * i; j <= LIM; j += i) isP[j] = 0;
@@ -494,11 +497,11 @@ add('Netwerk', 'Machten van twee en hun buren', 'Blauwe strepen op 2, 4, 8, 16, 
 });
 
 // ================= VORM =================
-add('Vorm', 'Regelmatige priemhoeken', 'Een regelmatige p-hoek voor elke priem p van 3 tot 23, van binnen naar buiten. Alleen 3, 5 en 17 zijn met passer en liniaal te construeren.', s => {
-  const ps = primes.filter(p => p >= 3 && p <= 23); ps.forEach((p, i) => { const r = 16 + i * 14.5; let d = ''; for (let k = 0; k < p; k++) { const [x, y] = pol(C, C, r, 2 * Math.PI * k / p - Math.PI / 2); d += (k ? 'L' : 'M') + x + ' ' + y; } mark(s, 'path', { d: d + 'Z', 'stroke-width': 1.4, opacity: 0.5 + 0.5 * (i % 2) }, p, 's'); const [tx, ty] = pol(C, C, r + 1, -Math.PI / 2); txt(s, tx + 4, ty + 3, p, { 'font-size': 6.5 }); });
+add('Vorm', 'Regelmatige veelhoeken', 'Een regelmatige n-hoek voor n van 3 tot 13, van binnen naar buiten. Priemen in kleur, composieten grijs en gestippeld. Alleen 3, 4, 5, 6, 8, 10, 12 en 17 zijn met passer en liniaal te construeren; 7, 9, 11 en 13 niet.', s => {
+  for (let n = 3; n <= 13; n++) { const i = n - 3; const r = 16 + i * 12.2; let d = ''; for (let k = 0; k < n; k++) { const [x, y] = pol(C, C, r, 2 * Math.PI * k / n - Math.PI / 2); d += (k ? 'L' : 'M') + x + ' ' + y; } mark(s, 'path', { d: d + 'Z', 'stroke-width': isP[n] ? 1.6 : 1, 'stroke-dasharray': isP[n] ? undefined : '3 2' }, n, 's'); const [tx, ty] = pol(C, C, r + 1, -Math.PI / 2); txt(s, tx + 5, ty + 3, n, { 'font-size': 6.5, class: isP[n] ? 'tf' : 't' }); }
 });
-add('Vorm', 'Sterveelhoeken', 'Voor de priemen 5 tot 23 een ster {p/⌊p/2⌋}: verbind steeds het ⌊p/2⌋-de punt. Omdat p priem is, is elke ster één doorlopende lijn.', s => {
-  const ps = [5, 7, 11, 13, 17, 19, 23]; ps.forEach((p, i) => { const st = Math.floor(p / 2); const cx = i < 4 ? 40 + i * 73 : 76 + (i - 4) * 73, cy = i < 4 ? 70 : 200, r = 34; let d = ''; for (let k = 0; k <= p; k++) { const [x, y] = pol(cx, cy, r, 2 * Math.PI * (k * st % p) / p - Math.PI / 2); d += (k ? 'L' : 'M') + x + ' ' + y; } mark(s, 'path', { d, 'stroke-width': 1.1, opacity: 0.9 }, p, 's'); txt(s, cx, cy + r + 14, '{' + p + '/' + st + '}', { 'text-anchor': 'middle', 'font-size': 7.5 }); });
+add('Vorm', 'Sterveelhoeken', 'Ster {n/2}: verbind steeds het tweede punt. Boven vier priemen, onder vier composieten. Een ster valt uiteen in gcd(n, 2) stukken: bij 6, 8 en 10 twee losse veelhoeken, bij 9 één lijn (want 9 is oneven), bij een priem altijd één lijn.', s => {
+  const ns = [5, 7, 11, 13, 6, 8, 9, 10]; ns.forEach((n, i) => { const st = 2; const cx = 40 + (i % 4) * 73, cy = i < 4 ? 70 : 200, r = 32; const seen = new Set(); for (let start = 0; start < n; start++) { if (seen.has(start)) continue; let d = ''; let k = start, c = 0; do { seen.add(k); const [x, y] = pol(cx, cy, r, 2 * Math.PI * k / n - Math.PI / 2); d += (c ? 'L' : 'M') + x + ' ' + y; k = (k + st) % n; c++; } while (k !== start); mark(s, 'path', { d: d + 'Z', 'stroke-width': 1.3, opacity: start ? 0.45 : 1 }, n, 's'); } txt(s, cx, cy + r + 14, '{' + n + '/2}', { 'text-anchor': 'middle', 'font-size': 7.5, class: isP[n] ? 'tf' : 't' }); });
 });
 add('Vorm', 'Lissajous', 'De kromme (sin 3t, sin 5t) met t van 0 tot 2π, in honderd stappen. Priemen zijn de gekleurde kralen op de draad.', s => {
   let d = ''; for (let i = 0; i <= 400; i++) { const t = 2 * Math.PI * i / 400; d += (i ? 'L' : 'M') + (C + 125 * Math.sin(3 * t + Math.PI / 2)) + ' ' + (C + 125 * Math.sin(5 * t)); } path(s, d, 'ax2'); for (let n = 1; n <= N; n++) { const t = 2 * Math.PI * n / N; mark(s, 'circle', { cx: C + 125 * Math.sin(3 * t + Math.PI / 2), cy: C + 125 * Math.sin(5 * t), r: isP[n] ? 4 : 1.8 }, n, 'f'); }
@@ -534,11 +537,11 @@ add('Vorm', 'De vijfentwintig', 'Alle priemen onder 100 in leesvolgorde. De lett
 // ================= RENDER & INTERACTIE =================
 const CATS = [...new Set(panels.map(p => p.cat))];
 const gridEl = document.getElementById('grid'), tb = document.getElementById('toolbar'), status = document.createElement('span'); status.className = 'status'; status.id = 'status';
-function chip(label, cat) { const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', cat === null ? 'true' : 'false'); b.addEventListener('click', () => { for (const c of tb.querySelectorAll('.chip')) c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); for (const card of gridEl.children) card.hidden = !(cat === null || card.dataset.cat === cat); try { localStorage.setItem('ppf', cat || ''); } catch (e) { } }); tb.appendChild(b); return b; }
+function chip(label, cat) { const b = document.createElement('button'); b.className = 'chip'; b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', cat === null ? 'true' : 'false'); b.addEventListener('click', () => { for (const c of tb.querySelectorAll('.chip')) c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); for (const card of gridEl.children) card.hidden = !(cat === null || card.dataset.cat === cat); try { localStorage.setItem('ppf' + OFFSET, cat || ''); } catch (e) { } }); tb.appendChild(b); return b; }
 chip('Alles (' + panels.length + ')', null); CATS.forEach(c => chip(c + ' (' + panels.filter(p => p.cat === c).length + ')', c)); tb.appendChild(status);
 panels.forEach((p, i) => {
   const card = document.createElement('article'); card.className = 'card'; card.dataset.cat = p.cat; card.tabIndex = 0;
-  const h = document.createElement('h2'); const b = document.createElement('b'); b.textContent = String(i + 1).padStart(2, '0'); h.appendChild(b); h.appendChild(document.createTextNode(p.title)); const sm = document.createElement('small'); sm.textContent = p.cat; h.appendChild(sm);
+  const h = document.createElement('h2'); const b = document.createElement('b'); b.textContent = String(i + 1 + OFFSET).padStart(2, '0'); h.appendChild(b); h.appendChild(document.createTextNode(p.title)); const sm = document.createElement('small'); sm.textContent = p.cat; h.appendChild(sm);
   const svg = el('svg', { viewBox: '0 0 300 300', role: 'img', 'aria-label': p.title }); try { p.draw(svg); } catch (err) { txt(svg, 150, 150, 'fout: ' + err.message, { 'text-anchor': 'middle' }); console.error(i + 1, p.title, err); }
   const note = document.createElement('p'); note.textContent = p.note; card.append(h, svg, note); gridEl.appendChild(card);
 });
@@ -550,7 +553,7 @@ gridEl.addEventListener('mouseout', e => { if (pinned != null) return; const t =
 gridEl.addEventListener('click', e => { const t = e.target.closest('[data-n]'); if (!t) { if (pinned != null) { pinned = null; highlight(null); } return; } const n = +t.dataset.n; if (pinned === n) { pinned = null; highlight(null); } else { pinned = n; highlight(n); } });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { pinned = null; highlight(null); } });
 document.getElementById('foot').textContent = 'Priemgetallen tot 100: ' + primes.join(', ') + '. Elke tekening is live uit dezelfde gegevens berekend; de tekst onder een tekening zegt wat erin te zien is. Composieten zijn grijs, priemen oranje; blauw is een vergelijkingslijn of een grootte.';
-try { const f = localStorage.getItem('ppf'); if (f) { const idx = CATS.indexOf(f); if (idx >= 0) tb.querySelectorAll('.chip')[idx + 1].click(); } } catch (e) { }
+try { const f = localStorage.getItem('ppf' + OFFSET); if (f) { const idx = CATS.indexOf(f); if (idx >= 0) tb.querySelectorAll('.chip')[idx + 1].click(); } } catch (e) { }
 </script>
 </body>
 </html>
