@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 280–331</h1>
   <p class="lead">Tweeënvijftig varianten van wandeling 247 (koers p radialen, stap = gat, over de priemen tot 1.000). De koers of de stap komt nu uit kwadraten (p², p² − 1, p³, wortels), uit de positie (het volgnummer i van de priem, de plek op het vlak, de afstand tot huis) of uit de geschiedenis (het vorige gat, het gemiddelde gat, het recordgat, hoe vaak een gat al voorkwam). Onder elke tekening staat de formule. Radialen worden modulo 2π genomen; een negatieve stap is een stap achteruit. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <b>Deel 6 (280–331)</b></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <b>Deel 6 (280–331)</b> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -248,8 +248,6 @@ function bigWalk(s, M, headingFn, opts) { // headingFn(p, gap, i) -> koers (abso
 const GA = Math.PI * (3 - Math.sqrt(5));
 const digs = n => String(n).split('').reduce((a, b) => a + +b, 0);
 
-const panels = [];
-function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // ---------- deel 6: varianten met kwadraten, positie en geschiedenis ----------
 const TAU = 2 * Math.PI;
 const frac = v => v - Math.floor(v);
@@ -272,6 +270,8 @@ function walk6(s, M, hFn, sFn, opts) { // hFn(p, g, st) -> koers (rad, absoluut 
 }
 const W6 = (cat, title, note, M, hFn, sFn, opts) => add(cat, title, note, s => walk6(s, M, hFn, sFn, opts));
 
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
 // ===== KWADRATEN =====
 W6('Kwadraten', 'Koers p², stap gat', 'Het kwadraat van de priem als koers (in radialen, dus modulo 2π). Kwadraten liggen modulo 2π net zo willekeurig als p zelf.', 1000, p => p * p, null, { f: 'koers = p² rad · stap = gat' });
 W6('Kwadraten', 'Koers p² − 1, stap gat', 'p² − 1 = (p − 1)(p + 1) als koers. Voor elke priem boven 3 is dit deelbaar door 24, maar in radialen maakt dat niets uit: 24 is geen veelvoud van 2π.', 1000, p => p * p - 1, null, { f: 'koers = (p² − 1) rad · stap = gat' });

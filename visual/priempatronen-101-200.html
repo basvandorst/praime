@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 101–200</h1>
   <p class="lead">Nog eens honderd tekeningen van de getallen 1 tot 100, als vervolg op deel 1. Waar een vorm op zichzelf niets over priem zijn zegt, staan nu priemen en composieten naast elkaar. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <b>Deel 2 (101–200)</b> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <b>Deel 2 (101–200)</b> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -247,6 +247,28 @@ function bigWalk(s, M, headingFn, opts) { // headingFn(p, gap, i) -> koers (abso
 }
 const GA = Math.PI * (3 - Math.sqrt(5));
 const digs = n => String(n).split('').reduce((a, b) => a + +b, 0);
+
+// ---------- deel 6: varianten met kwadraten, positie en geschiedenis ----------
+const TAU = 2 * Math.PI;
+const frac = v => v - Math.floor(v);
+const popcnt = n => n.toString(2).split('1').length - 1;
+const dsum = n => String(n).split('').reduce((a, b) => a + +b, 0);
+function collatzSteps(n) { let s = 0; while (n !== 1) { n = n % 2 ? 3 * n + 1 : n / 2; s++; } return s; }
+function walk6(s, M, hFn, sFn, opts) { // hFn(p, g, st) -> koers (rad, absoluut tenzij opts.relative); sFn(p, g, st) -> stap (mag negatief)
+  opts = opts || {}; const ps = primesUpTo(M); const st = { x: 0, y: 0, h: 0, i: 0, g0: 2, g00: 2, gmax: 0, sum: 0, freq: new Map(), hist: [] }; const pts = [{ x: 0, y: 0, n: 0 }]; let len = 0;
+  for (let i = 0; i + 1 < ps.length; i++) { const p = ps[i], g = ps[i + 1] - p; st.i = i + 1; st.p = p; st.g = g; st.freq.set(g, (st.freq.get(g) || 0) + 1);
+    let h = hFn(p, g, st); if (opts.relative) h = st.h + h; const L = sFn ? sFn(p, g, st) : g; let nx = st.x + L * Math.cos(h), ny = st.y + L * Math.sin(h);
+    if (opts.R && Math.hypot(nx, ny) > opts.R) { h = Math.atan2(-st.y, -st.x); nx = st.x + Math.abs(L) * Math.cos(h); ny = st.y + Math.abs(L) * Math.sin(h); }
+    st.x = nx; st.y = ny; st.h = h; st.g00 = st.g0; st.g0 = g; st.gmax = Math.max(st.gmax, g); st.sum += g; st.hist.push(g); len += Math.abs(L); pts.push({ x: nx, y: ny, n: p }); }
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const q of pts) { x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); }
+  const pad = 12, sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-9), (H - 46 - 2 * pad) / Math.max(y1 - y0, 1e-9)); const ox = (W - sc * (x1 - x0)) / 2 - sc * x0, oy = (H - 46 - sc * (y1 - y0)) / 2 - sc * y0 + 6;
+  const P = pts.map(q => ({ x: ox + sc * q.x, y: oy + sc * q.y, n: q.n })); const K = 24, per = Math.ceil(P.length / K);
+  for (let k = 0; k < K; k++) { const seg = P.slice(k * per, Math.min(P.length, (k + 1) * per + 1)); if (seg.length < 2) continue; let d = ''; seg.forEach((q, i) => d += (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)); path(s, d, 'keep', { stroke: 'var(--prime)', 'stroke-width': P.length > 800 ? 0.7 : 1.1, fill: 'none', opacity: 0.3 + 0.7 * (k + 1) / K, 'stroke-linejoin': 'round' }); }
+  if (P.length <= 400) for (const q of P) if (q.n) mark(s, 'circle', { cx: q.x, cy: q.y, r: 1.6 }, q.n, 'f');
+  el('circle', { cx: P[0].x, cy: P[0].y, r: 3, fill: 'var(--fg)' }, s); el('circle', { cx: P[P.length - 1].x, cy: P[P.length - 1].y, r: 3.5, fill: 'none', stroke: 'var(--fg)', 'stroke-width': 1.5 }, s);
+  const dist = Math.hypot(st.x, st.y); txt(s, 150, 270, fmt(pts.length - 1) + ' priemen tot ' + fmt(M) + ' · weg ' + fmt(Math.round(len)) + ' · eindafstand ' + fmt(Math.round(dist)), { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); txt(s, 150, 283, opts.f || '', { 'text-anchor': 'middle', 'font-size': 7.5 }); if (opts.f2) txt(s, 150, 294, opts.f2, { 'text-anchor': 'middle', 'font-size': 7 });
+}
+const W6 = (cat, title, note, M, hFn, sFn, opts) => add(cat, title, note, s => walk6(s, M, hFn, sFn, opts));
 
 const panels = [];
 function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
