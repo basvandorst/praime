@@ -83,7 +83,7 @@
 <header>
   <h1>Priempatronen 538–637</h1>
   <p class="lead">Honderd ronde tekeningen van de feiten uit deel 8: klokken met spaken en stralen, de fouten van li, θ en Mertens als gesloten ringen rond een nulring, rozen en zonnebloemen, de Gaussische en Eisenstein-priemen als schijven, koordendiagrammen van overgangen (laatste cijfer, resten, gaten), schillen per decade en bitlengte, gesloten draaifiguren met stap 1, epicykels waarin elke cirkel een priem is, en taarten van resten, gaten en merits. Onder elke tekening de formule. Ga met de muis over een getal: het licht dan in alle tekeningen tegelijk op. Klik om het vast te zetten.</p>
-  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a> · <a href="priempatronen-438-537.html">Deel 8 (438–537)</a> · <b>Deel 9 (538–637)</b></p>
+  <p class="nav"><a href="priempatronen-1-100.html">Deel 1 (1–100)</a> · <a href="priempatronen-101-200.html">Deel 2 (101–200)</a> · <a href="priempatronen-201-220.html">Deel 3 (201–220)</a> · <a href="priempatronen-221-245.html">Deel 4 (221–245)</a> · <a href="priempatronen-246-279.html">Deel 5 (246–279)</a> · <a href="priempatronen-280-331.html">Deel 6 (280–331)</a> · <a href="priempatronen-332-437.html">Deel 7 (332–437)</a> · <a href="priempatronen-438-537.html">Deel 8 (438–537)</a> · <b>Deel 9 (538–637)</b> · <a href="priempatronen-638-737.html">Deel 10 (638–737)</a></p>
   <div class="legend">
     <span><i style="background:var(--prime)"></i>priemgetal</span>
     <span><i style="background:var(--comp)"></i>composiet</span>
@@ -344,9 +344,6 @@ const LOW = (n, k) => n & ((1 << k) - 1), HIGH = (n, k) => n >> Math.max(0, BL(n
 const LOWZERO = n => { let k = 0; while (n & 1) { n >>= 1; k++; } return k; }; // positie van de laagste 0
 const HALF = n => Math.floor(BL(n) / 2);
 const nextPr = (ps, i) => ps[i + 1];
-const panels = [];
-function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
-// ---------- deel 9: rond ----------
 const RING = (s, r, cls) => el('circle', { cx: C, cy: C, r, class: cls || 'ax' }, s);
 function caption(s, l1, l2) { txt(s, 150, 282, l1, { 'text-anchor': 'middle', 'font-size': 7.5, class: 'tf' }); if (l2) txt(s, 150, 293, l2, { 'text-anchor': 'middle', 'font-size': 7 }); }
 function scaler(vals, r0, r1) { let lo = Infinity, hi = -Infinity; for (const v of vals) { if (v < lo) lo = v; if (v > hi) hi = v; } if (hi - lo < 1e-12) hi = lo + 1; return { lo, hi, f: v => r0 + (r1 - r0) * (v - lo) / (hi - lo) }; }
@@ -380,6 +377,10 @@ function rings9(s, M, ring, ang, opts) { opts = opts || {}; const cx = ctx(M), p
 const amod = m => p => TAU * (p % m) / m;
 const nextq = (st) => st.q;
 
+function cap(s, x, y, text, n) { txt(s, x, y, text, { 'text-anchor': 'middle', 'font-size': 7, class: n != null && isP[n] ? 'tf' : 't' }); }
+const panels = [];
+function add(cat, title, note, draw) { panels.push({ cat, title, note, draw }); }
+// ---------- deel 9: rond ----------
 // ===== KLOKKEN (538–552) =====
 add('Klokken', 'Klok van 30, straal p', 'Hoek = 2π·(p mod 30)/30, straal = p. Priemen boven 5 op de acht spaken 1, 7, 11, 13, 17, 19, 23, 29 (feit 1102); de stipgrootte is de merit g/ln p.', s => polar9(s, 10000, (p, g) => [amod(30)(p), p, 0, g / Math.log(p)], { f: 'hoek = p mod 30 · straal = p · grootte = merit', size: q => 0.4 + 0.9 * q.w }));
 add('Klokken', 'Klok van 360, straal p', 'Hoek = (p mod 360) graden. Alleen de 96 resten die copriem zijn met 360 = 2³·3²·5 dragen priemen: een wiel met 96 spaken en gaten erin.', s => polar9(s, 20000, (p, g) => [deg(p % 360), p], { f: 'hoek = (p mod 360)° · straal = p' }));
