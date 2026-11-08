@@ -145,3 +145,13 @@ Leads from the short-pages pass (5 November 2026)
 - Puzzle 990: a search "by divisor sum" and a search "by first term" give different minima; check which ordering the source used before confirming a record. The least sigma for 4 terms is 41057280 (odd squarefree terms 17*43*191*269, ...). For K = 5 (record 1.67e15, Wroblewski's (un-1)(vn-1) family with M = uv having 5 factor pairs with sums in AP): odd 3-prime terms or many M at once could beat it; a sieve over n for all M < 1e6 with a 5-term AP of divisor-pair sums is the natural search (not done).
 - Puzzle 517 (phi(x) + sigma(x+1) = 3x): a prime solution x = p means sigma(p+1) = 2(p+1) - 1, so Q1 is exactly the open "almost perfect numbers are powers of 2" question for n = p + 1 (same as puzzle 440). No solution but the Mersenne primes below 1e8 (writeup/code/p517_search.c).
 - Puzzle 312 (Rubin): the rule as stated on the page fails (a sum repeats); the repaired greedy rule (new term and new sum both unused) looks like a bijection. Existence of such a sequence needs "infinitely many primes q with q + c prime" for each even c, so Q1 is de Polignac-hard; only evidence.
+
+Triage notes (8 November 2026; pages looked at and left, with the reason)
+- 533 (phi(sigma(n^2)) = n(n+1) => n prime): sigma(n^2) is odd and >= n^2+n+1 (equality iff n prime). For n = 1, 2 (mod 4), v_2(phi(m)) >= omega(m) forces m = sigma(n^2) = q^e; e = 1 gives n prime, e >= 2 forces sigma(n^2) = (n+1)^2, impossible for composite n. Open for n = 0, 3 (mod 4); no counterexample below 6e4.
+- 739 (Carmichael (6m+1)(12m+1)(18m+1) with three composite factors): prime factors satisfy Korselt for free, composite ones do not; no construction found, page searched to 1e10.
+- 427 Q1 (9 consecutive omega = 2): reduces to six numbers 2^x 3^y +- 1 being prime powers at once; heuristically finite, searched to 1e700 on the page.
+- 911 (largest prime q with (p,q) -> {...,1} is the largest prime <= p^3-p-1): an exception needs a gap >= p+1 at p^3 - p; the gap table proves it only to p = 1.6e6, while the page computed p < 1e9.
+- 78 (Farhadian): confirmed on the page to index 1e17 (p ~ 4e18); beyond is conditional on the unrefereed gap list.
+- 1078 (p + (q-p)2^(p-2)): written up as open/explained; first prime expected near p = 1e8.
+- Already settled on the page: 1260 (Rochelli cycle), 1248 (Volpatti), 952 Q2 (Volpatti), 1131 (Casini/Fiorentini), 892 (digit sums mod 3), 106 (Volpatti's model), 1183, 1184, 1241, 1176.
+- Gap template (proved to 4e18 with max gap 1476, O(X^0.07) beyond) now used for 997, 1157, conj 44, conj 52, conj 60, 1014, 1073.
