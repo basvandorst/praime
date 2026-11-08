@@ -1,10 +1,10 @@
 # Problem 92: Multiple covering sets for Sierpinski and Riesel integers
 
-> **In short:** The record was a Sierpinski and a Riesel number with 4 covering sets each; Q1 asked for more. The construction: (1) keep the shared core {3, 5, 7, 13}; (2) add disjoint tails of new primes that cover what the core leaves open; (3) glue them with the Chinese remainder theorem. This gives a Sierpinski and a Riesel number with 8 minimal covering sets each (253 digits), and a 27-digit Sierpinski number with 5.
+> **In short:** The record was a Sierpinski and a Riesel number with 4 covering sets each; Q1 asked for more. The construction: (1) keep the shared core {3, 5, 7, 13}; (2) add disjoint tails of new primes that cover what the core leaves open; (3) glue them with the Chinese remainder theorem. This gives a Sierpinski and a Riesel number with 8 minimal covering sets each (253 digits), and a 27-digit Sierpinski number with 5. (4) A complete search of k < 2.283·10¹¹ (puzzle 1279) then found far smaller ones: the Sierpinski number 3278650021 and the Riesel number 141719191807 have 6 minimal covering sets each, and no smaller k has five or more.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_092.htm)
 
-**Status:** answered (Q1) · 8 covering sets for a Sierpinski and a Riesel number, 5 for a 27-digit Sierpinski number; all verified from k alone
+**Status:** answered (Q1) · 8 covering sets for a Sierpinski and a Riesel number, 5 for a 27-digit Sierpinski number; 6 for the 10-digit Sierpinski number 3278650021 and the 12-digit Riesel number 141719191807 (least with five or more, for covering primes with ord_p(2) | 10080); all verified from k alone
 
 ## The question
 
@@ -20,7 +20,7 @@ Q1: "Can you find Sierpinski or Riesel integers with more than 4 covering sets?"
 | | Sierpinski | Riesel |
 |---|---|---|
 | Gurisatti (2026) | 4 sets (15 digits) | 4 sets (17 digits) |
-| **Ours** | **8 sets** (253 digits); **5 sets with 27 digits** | **8 sets** (253 digits) |
+| **Ours** | **8 sets** (253 digits); **5 sets with 27 digits**; **6 sets: 3278650021** | **8 sets** (253 digits); **6 sets: 141719191807** |
 
 ## The math
 
@@ -47,10 +47,14 @@ Our tool reproduces Gurisatti's 4 sets for her number. Among primes below 2·10�
 
 The numbers k are in [`writeup/data/prob92_k_S.txt`](data/prob92_k_S.txt) and `prob92_k_R.txt`.
 
-**Five sets with 27 digits.** Keep Gurisatti's Sierpinski number modulo her 12 primes, add tail 4, and take the least odd k in the resulting class modulo the product of the 17 primes: k = 660664662814032650416080443. Its five minimal covering sets are her four plus {3, 5, 7, 13, 11, 31, 41, 151, 331}. This is not claimed to be the least such k (puzzle 1279, Q4), but it is far below the 253-digit construction.
+**Five sets with 27 digits.** Keep Gurisatti's Sierpinski number modulo her 12 primes, add tail 4, and take the least odd k in the resulting class modulo the product of the 17 primes: k = 660664662814032650416080443. Its five minimal covering sets are her four plus {3, 5, 7, 13, 11, 31, 41, 151, 331}. This is not claimed to be the least such k, and it is not: see the next paragraph.
+
+**Six sets with 10 digits (search, puzzle 1279).** A sieve over all odd k < 2.283·10¹¹ lists every minimal covering set drawn from the 97 primes p < 2³² with ord_p(2) | 10080 ([puzzle 1279](1279.md)). The Sierpinski number 3278650021 has six: {3, 5, 7, 13, 19, 37, 73}, {3, 5, 7, 13, 19, 37, 109}, {3, 5, 7, 13, 17, 19, 37, 433}, {3, 5, 7, 17, 19, 37, 73, 241}, {3, 5, 7, 17, 19, 37, 109, 241}, {3, 5, 7, 17, 19, 37, 241, 433}. It is the least Sierpinski number with three or more sets. The Riesel number 141719191807 also has six and is the least Riesel number with five or more. Gurisatti's 4-set numbers are therefore far from the least: below 2.283·10¹¹ there are 46 Sierpinski and 53 Riesel numbers with exactly four sets, the least being 5925639767 and 5293035749.
 
 **Q3 (significance).** Multiple covering sets cost almost nothing once the core leaves a small remainder. Any number of tails can be glued, so the number of covering sets of a Sierpinski number is unbounded. The interesting questions are the least k with m sets, and how many sets the known small Sierpinski and Riesel numbers have. The verification tool here answers the second question for any given k.
 
 ## Validation
 
 [`writeup/code/prob92_verify.py`](code/prob92_verify.py) (under a second) recomputes, from each k alone, the class of every prime used. It checks that each of the 8 (Sierpinski), 8 (Riesel) and 5 (27-digit) sets covers all n mod 720720 and is minimal, and that k·2ⁿ ± 1 has a covering factor below itself for n < 3000. [`writeup/code/prob92_build.py`](code/prob92_build.py) rebuilds the 253-digit numbers.
+
+The six-set numbers 3278650021 and 141719191807, and all 197 numbers with three or more sets below 2.283·10¹¹, are checked by [`writeup/code/p1279_validate.py`](code/p1279_validate.py): every set is rechecked on all n mod its period, it must be minimal, and the list of minimal sets is complete for the prime list.
