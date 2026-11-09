@@ -1,6 +1,6 @@
 # Conjecture 72: Ghaffor's twin-count formula is the sieve of Eratosthenes on 6m ± 1 (proved for all n)
 
-> **In short:** A formula G_n = 6n² + 10n + 4 − |U_n|, with U_n the union of 4n arithmetic progressions, was claimed to count the twin pairs up to 36n² + 60n + 21 without a primality test; it was verified to n = 10000 and nobody could say why it works. The proof: (1) index the pair (6m − 1, 6m + 1) by v = m − 2, so v runs over 1 … 6n² + 10n + 1 and the three pairs (3, 5), (5, 7), (11, 13) below the range give the "+3" in 6n² + 10n + 4; (2) the four progressions for k are exactly the m with 6m − 1 or 6m + 1 a proper multiple of 6k − 1 or 6k + 1; (3) since (6n + 5)² > 36n² + 60n + 21, the moduli 6k ± 1 with k ≤ n catch every composite 6m ± 1 in range. So G_n is the twin count for every n, the progressions are Perry's forms 6xy ± x ± y (OEIS A002822), and the limit question is the twin prime conjecture itself.
+> **In short:** A formula G_n = 6n² + 10n + 4 − |U_n|, with U_n a union of 4n arithmetic progressions, was claimed to count the twin pairs up to 36n² + 60n + 21; it was verified to n = 10000 without explanation. (1) The progressions for k are exactly the m with 6m ± 1 a proper multiple of 6k ± 1. (2) Since (6n + 5)² > 36n² + 60n + 21, the moduli with k ≤ n catch every composite 6m ± 1 in range. So G_n is the twin count for every n; the limit question is the twin prime conjecture itself.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_072.htm)
 

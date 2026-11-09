@@ -1,6 +1,6 @@
 # Conjecture 36: How many primes must be subtracted from an even number before the difference is prime
 
-> **In short:** For an even N, subtract the odd primes 3, 5, 7, … in turn until N − p is prime; T(N) is the number of trials. The conjecture says T(N)/ln²N stays below a constant, with 0.7006 the largest value found (N = 1047610575836828), and asks what the constant is and for the next records. The analysis: (1) each trial succeeds with probability about 2C₂·S(N)/ln N, where C₂ = 0.6602 is the twin-prime constant and S(N) = ∏_{q | N, q > 2} (q−1)/(q−2); (2) so T(N) is geometric, and the largest T among the even numbers up to X is about ln X · ln X/(2C₂); (3) the index T/ln²N of the record-holders therefore tends to 1/(2C₂) = 0.757, and the 69 known records to 4·10¹⁸ sit at 82–94 % of that. The records of the Goldbach verification to 4·10¹⁸ answer the other questions: the next even number needing more than 982 trials is 121005022304007026 (1055 trials), and no index above 0.7006 occurs below 4·10¹⁸.
+> **In short:** T(N) counts the odd primes p = 3, 5, 7, … tried until N − p is prime. The conjecture says T(N)/ln²N stays below a constant (largest found 0.7006) and asks for the constant and the next records. (1) Each trial succeeds with probability about 2C₂·S(N)/ln N, so the record index tends to 1/(2C₂) = 0.757. (2) The Goldbach verification to 4·10¹⁸ gives the next records: 121005022304007026 needs 1055 trials, and no index above 0.7006 occurs below 4·10¹⁸.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_036.htm)
 

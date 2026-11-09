@@ -1,6 +1,6 @@
 # Conjecture 66: the maximal gap between twin pairs is not 0.45 ln³ p but (1/(2C₂)) ln³ p times a slowly rising factor (Kourbatov 2013)
 
-> **In short:** Rodríguez proposed that the record gap between consecutive twin pairs grows like 0.45 (ln p₁)³ and asked for a justification or a better formula; the page holds only Rivera's table of champions below 2³², whose ratios gap/ln³ p₁ wander between 0.32 and 0.57. The answer is in the literature: Kourbatov (2013) derives from the Hardy-Littlewood count that the record gap near p is a(ln(p/a) − b) with a = ln² p/(2C₂) the mean twin gap and b ≈ 1, which makes gap/ln³ p = (1/(2C₂))(1 − (2 ln ln p + c)/ln p + …). The constant is therefore 1/(2C₂) = 0.757, approached very slowly; 0.45 is only its value in the computed range. The 22 OEIS records above 1000 follow Kourbatov's formula with mean ratio 1.036 and spread 0.15, and the formula puts the ratio at 0.51 near 10⁹, 0.59 near 10¹⁵ and 0.66 near 10³⁰.
+> **In short:** The conjecture says the record gap between consecutive twin pairs grows like 0.45 (ln p₁)³ and asks for a justification or a better formula. (1) The Hardy–Littlewood twin count gives the record gap near p as a(ln(p/a) − b), with a = ln² p/(2C₂) the mean twin gap (literature). (2) So gap/ln³ p tends to 1/(2C₂) = 0.757, very slowly; 0.45 is only its value in the computed range. (3) The 22 OEIS records above 1000 follow this formula with mean ratio 1.036.
 
 **Conjecture:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_066.htm)
 

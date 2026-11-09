@@ -1,6 +1,6 @@
 # Problem 68: Brier numbers whose two covering sets share 4 or more primes
 
-> **In short:** The page asked for the smallest product P of the primes in the covering sets A (for k·2ⁿ + 1) and B (for k·2ⁿ − 1) of a Brier number when A and B share s primes; values were known for s = 1, 2, 3 and none for s = 4. The proof: (1) a shared prime has even order m and covers n ≡ a on one side and n ≡ a + m/2 on the other; with 3 shared, the others need m ≡ 2 (mod 4), which for periods dividing 720 leaves only 11, 19, 331 and 18837001; (2) splitting n by parity turns both sides into covering problems linked only through these primes; (3) an exact integer program over all residue classes finds the cheapest coverings. This gives the first Brier numbers with s = 4 (P of 37 digits) up to s = 8, and computes (one exact solver, HiGHS) that the page's P for s = 1 and 2 are minimal for periods dividing 720 with 3 shared.
+> **In short:** The page asked for the smallest product P of the covering-set primes of a Brier number whose sets A (k·2ⁿ + 1) and B (k·2ⁿ − 1) share s primes; no example was known for s = 4. (1) A shared prime covers n ≡ a on one side and a + m/2 on the other, so with 3 shared the others need order ≡ 2 (mod 4). (2) Splitting n by parity gives two covering problems, solved by an integer program over the residues. This gives the first Brier numbers for s = 4 to 8, and computes the page's P for s = 1 and 2 as minimal for periods dividing 720.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/problems/prob_068.htm)
 
