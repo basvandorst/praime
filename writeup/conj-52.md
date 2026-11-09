@@ -1,6 +1,6 @@
 # Conjecture 52: ⌊(p² + q²)/(2q)⌋ = p for consecutive primes
 
-> **In short:** The conjecture states that ⌊(p² + q²)/(2q)⌋ = p for consecutive primes p < q, and asks whether it follows from another conjecture or theorem. On the page it is derived from Cramér's conjecture and from Eismann's conjecture; two attempted unconditional proofs contain invalid steps, as the page itself notes. (1) (p² + q²)/(2q) = p + g²/(2q) with g = q − p, so the statement is equivalent to g² < 2q. (2) This holds for every pair below 2·10⁸ (direct check). Above that every gap below 4·10¹⁸ is at most 1476, and 1476² < 4·10⁸. So the conjecture holds for every p ≤ 4·10¹⁸, with no exception. (3) A failure needs a gap ≥ √(2q), and at most O(X^(0.07+ε)) such gaps lie below X; the general case stays open. This is formula 2 of puzzle 1157 and uses the same proof.
+> **In short:** The conjecture says ⌊(p² + q²)/(2q)⌋ = p for consecutive primes p < q. (1) (p² + q²)/(2q) = p + g²/(2q) with g = q − p, so the claim is g² < 2q. (2) This holds below 2·10⁸ (direct check). Above that every gap below 4·10¹⁸ is at most 1476, and 1476² < 4·10⁸. So the conjecture holds for every p ≤ 4·10¹⁸; the general case is open. The proof is that of formula 2 in puzzle 1157.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_052.htm)
 

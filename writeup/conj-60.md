@@ -1,6 +1,6 @@
 # Conjecture 60: A prime between n^k and (n+1)^k
 
-> **In short:** The conjecture states that for n ≥ 1 and k ≥ K = log 127/log 16 = 1.74717… there is always a prime strictly between n^k and (n+1)^k; it generalises Legendre's conjecture (k = 2). (1) At k = K exactly the statement fails: 16^K = 127 and 15^K = 113.45, and no prime lies strictly between them. So the right form is k > K, as the author also noted on the page. (2) A failure at (n, k) needs consecutive primes p < p′ with p ≤ n^k and (n+1)^k ≤ p′. Then p′ − p ≥ k·n^(k−1) ≥ k·p^(1−1/k) ≥ K·p^(1−1/K), so a gap of at least 1.747·p^0.4276. (3) Below 4·10¹⁸ no gap exceeds 1476, which leaves only p < 6.98·10⁶. Among those primes only the gap 113 → 127 is that large, and its failing exponents end exactly at K. So the conjecture holds for every k > K and every n with n^k ≤ 4·10¹⁸. Beyond, it needs gaps below 1.747·p^0.4276, which is stronger than Legendre's conjecture and open.
+> **In short:** The conjecture says there is a prime strictly between n^k and (n+1)^k for all n ≥ 1 and k ≥ K = log 127/log 16. (1) At k = K it fails: 16^K = 127 and 15^K = 113.45, with no prime between. So it must read k > K. (2) A failure needs a prime gap of at least 1.747·p^0.4276. (3) Below 4·10¹⁸ the only such gap is 113 → 127. So the conjecture holds for k > K whenever n^k ≤ 4·10¹⁸; the general case is stronger than Legendre's conjecture and open.
 
 **Puzzle:** [primepuzzles.net](https://www.primepuzzles.net/conjectures/conj_060.htm)
 
