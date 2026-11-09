@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-09 19:40 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-09 19:45 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -32,9 +32,10 @@ Submissions:
 | [1276](https://www.primepuzzles.net/puzzles/puzz_1276.htm) | Most distinct primes from k copies of each digit 0–9 (also puzzle 49) | k = 20000, 30000, 40000: 35168, 51515, 67251 (Kalogeropoulos, 2026) | [35169, 51519, 67254; all 41 values on the page proved optimal](writeup/1276.md) | n/a |
 | [1277](https://www.primepuzzles.net/puzzles/puzz_1277.htm) | Q3: fewest coprime neighbour pairs with 1..10000 in a 100 × 100 grid | 2075 (Hürter, 2026) | [1452](writeup/1277.md) | n/a |
 
-#### Puzzles solved/answered (80)
+#### Puzzles solved/answered (81)
 | # | Open question | Status on the page | Our answer | Status |
 |---|---|---|---|---|
+| [1049](https://www.primepuzzles.net/puzzles/puzz_1049.htm) | Least zero-free prime p producing n further primes under p → Σ dᵢ^dᵢ, for n > 3 | n = 4: 112222268681, minimality doubted; a 341-digit 6-chain, not minimal | [n = 4 proved minimal (one qualifying digit multiset among 293929); n = 5: least term found and proved minimal, 321 digits (311 under the loose rule) by a coin-change over the nine values d^d; n = 6 needs more than 10³¹¹ digits](writeup/1049.md) | n/a |
 | [845](https://www.primepuzzles.net/puzzles/puzz_845.htm) | First run of exactly 31, 32, 36, 39, 40, 42, 43 consecutive integers with an even number of prime factors | unknown (A275508 known to n = 30; records to 44) | [exactly 31 starts at 15576298827, exactly 32 at 9021905758 (Liouville-parity sieve to 10¹¹, exhaustive); none of 36 to 43 below 10¹¹](writeup/845.md) | n/a |
 | [7](https://www.primepuzzles.net/problems/prob_007.htm) | Problem 7: prove Np(all) = p − 2 and Np(oo) = Np(ee) − 1 for the parity of x and x⁻¹ mod p | computed only | [proved: the involution x ↦ p − x](writeup/prob-7.md) | n/a |
 | [11](https://www.primepuzzles.net/puzzles/puzz_011.htm) | Extend the tables of first N distinct / increasing / decreasing consecutive gaps | distinct table stops at N = 20, then N = 36 | [N = 21–35 published (Gusev's unpublished 2001 values, recomputed, minimal); none of 37 / 15 / 14 below 1.01·10¹³](writeup/11.md) | n/a |
