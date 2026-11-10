@@ -54,6 +54,7 @@ Key files:
 - Remove candidates with small factors first (a `numpy` sieve). Test only the survivors with `gmpy2.is_prime`.
 - Vectorise with `numpy`. If Python is too slow, write the check in C. Check the machine first (cores, memory, compiler).
 - Run every job with `timeout` and `nice`. Do not start long background jobs.
+- The machine has 2 cores and 3.8 GB of memory, and `/tmp` is in memory too. Run every job under a memory cap: `(ulimit -v 1500000; timeout 600 nice python3 x.py)`. Before a run, add up the big arrays (`np.arange(n)` takes 8n bytes); above 500 MB, work in segments. Never hold a sieve of the whole range. Delete large scratch files when a puzzle is done.
 - When you wait for a job, use a check that cannot match itself. `pgrep -f "x"` inside a loop also finds the loop.
 - Keep scratch files outside the repo.
 
