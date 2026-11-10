@@ -1,8 +1,8 @@
 # Puzzle 550: independent check (sympy, plain integers; no modulo-12 filter).
 # (1) Direct: every run of >= 3 semiprimes S_i = p_i p_(i+1) + p_(i+2) p_(i+3) with p_i < 3*10^7, semiprime tested
 #     by sympy.factorint; compared with the output of p550_search.py on the same range.
-# (2) The runs of 5: the eight primes are consecutive, the five sums are 2 * prime (proved: below 2^64 after halving
-#     is not needed, S/2 < 2^76 is tested with PARI isprime), the sums before and after are not semiprimes.
+# (2) The runs of 5: the eight primes are consecutive, the five sums are 2 * prime (S/2 proved prime with PARI
+#     isprime), the sums before and after are not semiprimes.
 # Run from the repo root: (ulimit -v 1500000; .venv/bin/python3 writeup/code/p550_verify.py)   about 3 minutes
 import subprocess, sys, os
 from sympy import primerange, nextprime, prevprime, isprime, factorint
