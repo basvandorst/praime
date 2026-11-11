@@ -2,9 +2,9 @@
 
 > **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. A decoder that subtracts the echo of decided numbers, models every undecided number as a coin with the known prime density, fades out the top seventh of the zeros and searches the next 20 candidates exactly needs 0.075·πn on odd numbers and 0.045·πn on numbers coprime to 210. Below 10⁶ that is 3.6 and 2.6 zeros per prime instead of 74. Backwards, the prime powers up to 1.6·√(T/2π) fix every zero up to height T to 10⁻³; the 25 primes below 100 give all 10,142 zeros below 10,000, and those give back all 6,935 primes below 70,000.
 
-**Page:** [novovibe.com/prime.html](https://novovibe.com/prime.html) (transformations 125–140, section "Riemann's explicit formula")
+**Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–140, section "Riemann's explicit formula")
 
-**Code:** [code/riemann/](writeup/code/riemann/): the page itself ([prime.html](writeup/code/riemann/prime.html), the version of commit `ad5160d6`) and the scripts that check every number below ([zeros.js](writeup/code/riemann/zeros.js), [zeros_check.py](writeup/code/riemann/zeros_check.py), [validate.js](writeup/code/riemann/validate.js), [primes_to_zeros.py](writeup/code/riemann/primes_to_zeros.py), [zeros_to_primes.js](writeup/code/riemann/zeros_to_primes.js)).
+**Code:** [code/riemann/](writeup/code/riemann/): the page itself ([prime.html](writeup/code/riemann/prime.html), the version of 11 November 2026) and the scripts that check every number below ([zeros.js](writeup/code/riemann/zeros.js), [zeros_check.py](writeup/code/riemann/zeros_check.py), [validate.js](writeup/code/riemann/validate.js), [primes_to_zeros.py](writeup/code/riemann/primes_to_zeros.py), [zeros_to_primes.js](writeup/code/riemann/zeros_to_primes.js)).
 
 **Status:** computed. Nothing here is proved; every claim is a measurement with the test that produced it. The decoders assume nothing about RH; the zero finder and the backwards fit assume the zeros are simple and on the critical line, which holds at these heights.
 
@@ -136,7 +136,7 @@ The page computes its own zeros: 2,000,000 of them, up to height 1,131,944, in a
 - a sign scan in steps of 0.06, with a close-pair check: under RH there is exactly one extremum between consecutive zeros, so three same-sign samples whose middle one is smallest in size prove a missed pair;
 - each zero located by a Taylor step from the scan state, with Illinois false position as a fallback.
 
-Until `ad5160d6` the remainder had only the C0 term, and zeros at heights 100–1500 were off by up to 4·10⁻⁴. With C1 and C2, the worst of the zeros checked against `mpmath.zetazero` (indices 31 to 2,000,000) is 6.5·10⁻⁷. The coefficients are the Taylor series in z = 2p − 1, fitted with mpmath to 10⁻¹⁹; the C1 coefficients agree with the published ones.
+Until the last change in section 7 the remainder had only the C0 term, and zeros at heights 100–1500 were off by up to 4·10⁻⁴. With C1 and C2, the worst of the zeros checked against `mpmath.zetazero` (indices 31 to 2,000,000) is 6.5·10⁻⁷. The coefficients are the Taylor series in z = 2p − 1, fitted with mpmath to 10⁻¹⁹; the C1 coefficients agree with the published ones.
 
 ```js
 // prime.html, rsRem: Riemann–Siegel remainder with C0, C1, C2 (a = sqrt(t/2π), m = floor(a))
@@ -177,33 +177,33 @@ def fit(ts, Ns, p0, U):
 
 ## 7. Change log: every change, what works, how it was tested
 
-All changes are on [novovibe.com/prime.html](https://novovibe.com/prime.html) (repository novovibe, file apps/website/public/prime.html). "Circles" are stretches of 100–1000 numbers starting at a random S, with the true primes below S known, decoded with just enough zeros for the stated height. All checks are against trial division.
+All changes are to [prime.html](writeup/code/riemann/prime.html). "Circles" are stretches of 100–1000 numbers starting at a random S, with the true primes below S known, decoded with just enough zeros for the stated height. All checks are against trial division.
 
-| Date | Commit | Change | Works | How it was tested |
-|---|---|---|---|---|
-| 6 Nov | `3224c394`…`b191bef2` | Explicit-formula page: ψ rebuilt from zeros, strip of real against predicted primes, method selector (zeros, bootstrap sieve, Fermat, Miller–Rabin, Wilson, sieve), ranking formula, recursive bootstrap sieve | yes (display) | visual; no error counts claimed |
-| 10 Nov | `30d56219`, `82adb30a` | Prime Connection Laboratory; ψ ring with zeros slider; 125 step of ψ | yes, about 2πn | first misread integer at n ≈ 0.19–0.22·T for 100–2000 zeros |
-| 10 Nov | `50ab2975`, `62c7100c` | 126 pointwise at odd n; 127 on 6k ± 1 | yes, 0.5 and 0.333·πn | runs over all odd n / 6k ± 1 in range |
-| 10 Nov | `456877f1` | 128 joint on/off fit of the next 12 odd numbers | yes, 0.2·πn | 0 errors on all odd n ≤ 15,600 from 10,000 zeros; first error near n = 2γ_K |
-| 10 Nov | `05cab262` | 129 least witness of 1 + 8k·p! | yes, but it is Wilson's theorem in disguise | theorem; no zeros |
-| 10 Nov | `bb8b4edf`, `8dcc4303` | decoder against 24 decided positions; 130 on sieve survivors | yes, 0.6·π·ρ·n | runs on survivors of the first k primes |
-| 10 Nov | `b9e38978` | 131 recursion (126 minus its own echo) | yes, 0.4·πn | runs over odd n |
-| 10 Nov | `ad546365` | 132 Golomb's ζ limit made exact with s = p + 16 | yes, but no zeros (needs the primes so far) | exact big-integer arithmetic |
-| 11 Nov | `8514cdcb` | 133 two-point formula; 134 linear left-sample fit | yes, 0.25 and 0.2·πn | 133: 0 errors on odd n 500–12,400; 134: 0 on all odd n ≤ 15,600 from 10,000 zeros |
-| 11 Nov | `b23aeae6`, `f3967660`, `5fa1d883` | 135 with L(s, χ₋₄); 136 with the 8 real characters mod 24; packed tables to height 2198 | yes, 0.1 and 0.02·πn | 136: every prime to 34,800 in one chain |
-| 11 Nov | `5624b0c1`, `c8182d5e` | mod-4 prime race ring; Liouville λ(n) ring | yes, λ at 0.25·πn | 0 wrong on 675 odd n (300–1050, 1500–2100); fails at 0.2 |
-| 11 Nov | `7de883e9` | 134 self-correction at close calls | yes, 0.167·πn | every prime to 18,700 from 10,000 zeros, to 49,000 from 30,000 |
-| 11 Nov | `62cc24fe`, `16723867` | 137 with the 192 characters mod 840; 138 automatic; self-correction for 136 and 137 | yes | 137 every prime 4000–31,700 from zeros below height 80; 136 0.0167·πn to 41,500 |
-| 11 Nov | `bc3578e5`, `279186c2`, `f1722965` | zero finder 5× faster; block-moment sums (about 80× faster); 1,000,000 zeros with the close-pair check | yes | count equals N(T); a plain scan at 0.02 missed 5 pairs in the first 500,000 |
-| 11 Nov | `670d0ed3`, `a50b239a` | 134 at 0.15·πn above 50,000; block sums sized to the height in use | yes | 58 stretches from 50,000 to 1,269,000, about 4,400 primes, 0 wrong |
-| 11 Nov | `e6e1c957` | 139 on numbers coprime to 210 | yes, 0.13·πn | 150 random stretches, 7,141 primes, 0 wrong |
-| 11 Nov | `2bd87108` | 2,000,000 zeros, each by a Taylor step | yes | agrees with false position within 2.6·10⁻⁷; count equals N(T); 32 s |
-| 11 Nov | `57fa5b8e` | 139 with the top tenth of the zeros faded, 8 unknowns, two-level look-ahead | yes, 0.1·πn | 150 stretches clean at 0.095 |
-| 11 Nov | `080ddfd2`, `8eecfea4`, `1821c849` | full model of the unknown future (every candidate a coin), top seventh faded | yes: 139 0.065, 134 0.1 (0.3 below 600); above 200,000 0.055 and 0.085 | 400 random circles to 232,000 (17,725 primes) and 40 to 5.5 million, 0 wrong |
-| 11 Nov | `392b59a0` | class formulas 135–137 with the full model | yes: 0.06, 0.01; 137 to 80,000 | 137: 200 circles, 0 wrong |
-| 11 Nov | `6b9efe19` | exact window decoder (sphere decoder over 20 candidates) for 134 and 139 | yes: 0.075 / 0.06 and 0.045 | 100 random circles to 300,000 clean at 0.04; page uses 0.045 for margin |
-| 11 Nov | `0c6696ca` | 140 divisibility facts | yes: 0.23·π·ρ·n | k = 2 … 25: 0 wrong from 1 to 3000 and on 30 circles each to 300,000 |
-| 11 Nov | `ad5160d6` | Riemann–Siegel C1 and C2; exact window decoder in 135–137; note on primes → zeros | yes: zeros to 6.5·10⁻⁷; 135 0.045, 136 0.008, 137 0.0004 | see section 9: validate.js, zeros_check.py; 135 1–8,100 and 136 4,000–85,000 in one run each |
+| Date | Change | Works | How it was tested |
+|---|---|---|---|
+| 6 Nov | Explicit-formula page: ψ rebuilt from zeros, strip of real against predicted primes, method selector (zeros, bootstrap sieve, Fermat, Miller–Rabin, Wilson, sieve), ranking formula, recursive bootstrap sieve | yes (display) | visual; no error counts claimed |
+| 10 Nov | Prime Connection Laboratory; ψ ring with zeros slider; 125 step of ψ | yes, about 2πn | first misread integer at n ≈ 0.19–0.22·T for 100–2000 zeros |
+| 10 Nov | 126 pointwise at odd n; 127 on 6k ± 1 | yes, 0.5 and 0.333·πn | runs over all odd n / 6k ± 1 in range |
+| 10 Nov | 128 joint on/off fit of the next 12 odd numbers | yes, 0.2·πn | 0 errors on all odd n ≤ 15,600 from 10,000 zeros; first error near n = 2γ_K |
+| 10 Nov | 129 least witness of 1 + 8k·p! | yes, but it is Wilson's theorem in disguise | theorem; no zeros |
+| 10 Nov | decoder against 24 decided positions; 130 on sieve survivors | yes, 0.6·π·ρ·n | runs on survivors of the first k primes |
+| 10 Nov | 131 recursion (126 minus its own echo) | yes, 0.4·πn | runs over odd n |
+| 10 Nov | 132 Golomb's ζ limit made exact with s = p + 16 | yes, but no zeros (needs the primes so far) | exact big-integer arithmetic |
+| 11 Nov | 133 two-point formula; 134 linear left-sample fit | yes, 0.25 and 0.2·πn | 133: 0 errors on odd n 500–12,400; 134: 0 on all odd n ≤ 15,600 from 10,000 zeros |
+| 11 Nov | 135 with L(s, χ₋₄); 136 with the 8 real characters mod 24; packed tables to height 2198 | yes, 0.1 and 0.02·πn | 136: every prime to 34,800 in one chain |
+| 11 Nov | mod-4 prime race ring; Liouville λ(n) ring | yes, λ at 0.25·πn | 0 wrong on 675 odd n (300–1050, 1500–2100); fails at 0.2 |
+| 11 Nov | 134 self-correction at close calls | yes, 0.167·πn | every prime to 18,700 from 10,000 zeros, to 49,000 from 30,000 |
+| 11 Nov | 137 with the 192 characters mod 840; 138 automatic; self-correction for 136 and 137 | yes | 137 every prime 4000–31,700 from zeros below height 80; 136 0.0167·πn to 41,500 |
+| 11 Nov | zero finder 5× faster; block-moment sums (about 80× faster); 1,000,000 zeros with the close-pair check | yes | count equals N(T); a plain scan at 0.02 missed 5 pairs in the first 500,000 |
+| 11 Nov | 134 at 0.15·πn above 50,000; block sums sized to the height in use | yes | 58 stretches from 50,000 to 1,269,000, about 4,400 primes, 0 wrong |
+| 11 Nov | 139 on numbers coprime to 210 | yes, 0.13·πn | 150 random stretches, 7,141 primes, 0 wrong |
+| 11 Nov | 2,000,000 zeros, each by a Taylor step | yes | agrees with false position within 2.6·10⁻⁷; count equals N(T); 32 s |
+| 11 Nov | 139 with the top tenth of the zeros faded, 8 unknowns, two-level look-ahead | yes, 0.1·πn | 150 stretches clean at 0.095 |
+| 11 Nov | full model of the unknown future (every candidate a coin), top seventh faded | yes: 139 0.065, 134 0.1 (0.3 below 600); above 200,000 0.055 and 0.085 | 400 random circles to 232,000 (17,725 primes) and 40 to 5.5 million, 0 wrong |
+| 11 Nov | class formulas 135–137 with the full model | yes: 0.06, 0.01; 137 to 80,000 | 137: 200 circles, 0 wrong |
+| 11 Nov | exact window decoder (sphere decoder over 20 candidates) for 134 and 139 | yes: 0.075 / 0.06 and 0.045 | 100 random circles to 300,000 clean at 0.04; page uses 0.045 for margin |
+| 11 Nov | 140 divisibility facts | yes: 0.23·π·ρ·n | k = 2 … 25: 0 wrong from 1 to 3000 and on 30 circles each to 300,000 |
+| 11 Nov | Riemann–Siegel C1 and C2; exact window decoder in 135–137; note on primes → zeros | yes: zeros to 6.5·10⁻⁷; 135 0.045, 136 0.008, 137 0.0004 | see section 9: validate.js, zeros_check.py; 135 1–8,100 and 136 4,000–85,000 in one run each |
 
 ## 8. What was tried and did not work
 
