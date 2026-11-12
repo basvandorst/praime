@@ -19,6 +19,20 @@ S, K = 2, 12
 fracs = []
 
 for line in open(sys.argv[1]):
+    mm = re.match(r'([2-9]) band\(s\) at centre (.+?), total width (\d+).*wheel \(2,\):.*first wrong \[(\d+)', line)
+    if mm:   # several bands: where is the reach relative to each band's bad points?
+        cs, W, n = [float(x) for x in mm.group(2).split(', ')], int(mm.group(3)), int(mm.group(4))
+        parts = []
+        for c in cs:
+            if c == 0:
+                parts.append("lowpass"); continue
+            if c * (K * S) ** 2 / (2 * n * n) >= 100:
+                parts.append(f"centre {c:.6g}: random phases"); continue
+            j = S * c / (math.pi * n)
+            jb = min((math.floor(j), math.ceil(j)), key=lambda q: abs(n - S * c / (math.pi * q)))
+            parts.append(f"centre {c:.6g}: step {j:.2f} pi, {abs(n - S * c / (math.pi * jb)):.0f} from the nearest bad point (j = {jb})")
+        print(f"{len(cs)} bands, width {W}: reach {n} = {n / W:.2f} W; " + '; '.join(parts))
+        continue
     m = re.match(r'1 band\(s\) at centre ([\d.e+]+), total width (\d+).*wheel \(2,\):.*first wrong \[(\d+)', line)
     if not m or float(m.group(1)) == 0:
         continue
@@ -27,7 +41,7 @@ for line in open(sys.argv[1]):
     head = f"centre {c:.6g}, width {W}: reach {n} = {n / W:.2f} W; "
     if chirp < 100:
         j = S * c / (math.pi * n)
-        jn = round(j)
+        jn = min((math.floor(j), math.ceil(j)), key=lambda q: abs(n - S * c / (math.pi * q)))
         bad = S * c / (math.pi * jn)
         fracs.append(abs(n - bad) / (math.pi * n * n / (S * c) / 2))
         print(head + f"step {j:.2f} pi; nearest bad point (j = {jn}) {bad:.0f}, reach {n - bad:+.0f} from it; "
