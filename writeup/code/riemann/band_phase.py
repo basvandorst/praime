@@ -19,7 +19,7 @@ S, K = 2, 12
 fracs = []
 
 for line in open(sys.argv[1]):
-    mm = re.match(r'([2-9]) band\(s\) at centre (.+?), total width (\d+).*wheel \(2,\):.*first wrong \[(\d+)', line)
+    mm = re.match(r'([2-9]) band\(s\) at centre (.+?), total width (\d+).*wheel \(2,\)(?:, M = \d+)?:.*first wrong \[(\d+)', line)
     if mm:   # several bands: where is the reach relative to each band's bad points?
         cs, W, n = [float(x) for x in mm.group(2).split(', ')], int(mm.group(3)), int(mm.group(4))
         parts = []
@@ -33,7 +33,7 @@ for line in open(sys.argv[1]):
             parts.append(f"centre {c:.6g}: step {j:.2f} pi, {abs(n - S * c / (math.pi * jb)):.0f} from the nearest bad point (j = {jb})")
         print(f"{len(cs)} bands, width {W}: reach {n} = {n / W:.2f} W; " + '; '.join(parts))
         continue
-    m = re.match(r'1 band\(s\) at centre ([\d.e+]+), total width (\d+).*wheel \(2,\):.*first wrong \[(\d+)', line)
+    m = re.match(r'1 band\(s\) at centre ([\d.e+]+), total width (\d+).*wheel \(2,\)(?:, M = \d+)?:.*first wrong \[(\d+)', line)
     if not m or float(m.group(1)) == 0:
         continue
     c, W, n = float(m.group(1)), int(m.group(2)), int(m.group(3))

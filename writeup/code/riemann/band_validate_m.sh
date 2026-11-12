@@ -1,5 +1,5 @@
 #!/bin/sh
-# The numbers with 8 decision histories (M-algorithm) and the two-band test in RIEMANN.md section 12 (about 45 minutes).
+# The numbers with 8 decision histories (M-algorithm) and the two-band test in RIEMANN.md section 12 (about 40 minutes).
 # Run from the repository root with the virtualenv active; can run next to band_validate.sh.
 set -e
 T=$(mktemp -d)
@@ -14,6 +14,8 @@ $BD $ALL 40000 --M 8 --out $T/m345.txt
 $BD $ALL 70000 --M 8 --wheel 2,3,5,7 --out $T/m345w210.txt
 $BD low:1342:$T/z1m.f64 12000 --M 8
 $BD band:500000:1342:$T/z1m.f64 12000 --M 8
+$BD low:10000:$T/z1m.f64 90000 --M 8
+$BD band:500000:10000:$T/z1m.f64 70000 --M 8 | tee -a $T/log2.txt
 echo "== cold start with 8 decision histories"
 for s in 3300 4000 4600 5200; do $BD $D/odlyzko_zeros5.txt $((s + 600)) --cold $s --M 8 --stop 1 --out $T/mc5_$s.txt; done
 for s in 9500 10000 11000; do $BD $ALL $((s + 1000)) --cold $s --M 8 --stop 1 --out $T/mc345_$s.txt; done

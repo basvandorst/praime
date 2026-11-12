@@ -274,7 +274,7 @@ $ node writeup/code/riemann/zeros_to_primes.js /tmp/z_from100.f64 70000
 10142 zeros (the last at 9998.85): read 6935 primes up to 69997, 0 wrong; primes up to 70000: 6935 [80 s]
 ```
 
-For sections 12 and 13 (12 November 2026; about 45 and 30 minutes on this machine, side by side). The decoders print the centre of each band, the first wrong decisions and the reach; band_check.py then checks every list against sympy.isprime:
+For sections 12 and 13 (12 November 2026; about 45 and 40 minutes on this machine, side by side). The decoders print the centre of each band, the first wrong decisions and the reach; band_check.py then checks every list against sympy.isprime:
 
 ```
 sh writeup/code/riemann/band_validate.sh
@@ -436,28 +436,32 @@ nearest gap 1.0-9 spacings: 48 zeros, median error 2.1e-03, max 1.6e-02
 Output of band_validate_m.sh:
 
 ```
-2000000 zeros, the last at 1131944.471825 [33.8 s]
+2000000 zeros, the last at 1131944.471825 [35.2 s]
 == with 8 decision histories
-1 band(s) at centre 2.67653e+11, total width 2567, 10000 zeros, wheel (2,), M = 8: 1688 primes decided; first wrong [14399, 14401, 14409]; reach 14399 = 5.61 x width [30 s]
-1 band(s) at centre 1.44177e+20, total width 1409, 10000 zeros, wheel (2,), M = 8: 969 primes decided; first wrong [7633, 7635, 7639]; reach 7633 = 5.42 x width [18 s]
-1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), M = 8: 968 primes decided; first wrong [7615, 7617, 7621]; reach 7615 = 5.68 x width [19 s]
-3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), M = 8: 3325 primes decided; first wrong [30831, 30833, 30841]; reach 30831 = 5.80 x width [190 s]
-3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2, 3, 5, 7), M = 8: 6478 primes decided; first wrong [64853, 64859, 64867]; reach 64853 = 12.19 x width [244 s]
+1 band(s) at centre 2.67653e+11, total width 2567, 10000 zeros, wheel (2,), M = 8: 1688 primes decided; first wrong [14399, 14401, 14409]; reach 14399 = 5.61 x width [31 s]
+1 band(s) at centre 1.44177e+20, total width 1409, 10000 zeros, wheel (2,), M = 8: 969 primes decided; first wrong [7633, 7635, 7639]; reach 7633 = 5.42 x width [19 s]
+1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), M = 8: 968 primes decided; first wrong [7615, 7617, 7621]; reach 7615 = 5.68 x width [18 s]
+3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), M = 8: 3325 primes decided; first wrong [30831, 30833, 30841]; reach 30831 = 5.80 x width [193 s]
+3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2, 3, 5, 7), M = 8: 6478 primes decided; first wrong [64853, 64859, 64867]; reach 64853 = 12.19 x width [242 s]
 1 band(s) at centre 0, total width 1341, 933 zeros, wheel (2,), M = 8: 1084 primes decided; first wrong [8699, 8701, 8703]; reach 8699 = 6.49 x width [12 s]
 1 band(s) at centre 500671, total width 1341, 2410 zeros, wheel (2,), M = 8: 954 primes decided; first wrong [7527, 7529, 7531]; reach 7527 = 5.61 x width [13 s]
+1 band(s) at centre 0, total width 9999, 10142 zeros, wheel (2,), M = 8: 5724 primes decided; first wrong [56467, 56469, 56471]; reach 56467 = 5.65 x width [109 s]
+1 band(s) at centre 505000, total width 9999, 17975 zeros, wheel (2,), M = 8: 4743 primes decided; first wrong [45775, 45777, 45779]; reach 45775 = 4.58 x width [197 s]
 == cold start with 8 decision histories
-1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 3300, M = 8: 76 primes decided; first wrong []; clean to 3900 = 2.91 x width [3 s]
-1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 4000, M = 8: 72 primes decided; first wrong []; clean to 4600 = 3.43 x width [4 s]
-1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 4600, M = 8: 0 primes decided; first wrong [4603]; reach 4603 = 3.43 x width [3 s]
-1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 5200, M = 8: 1 primes decided; first wrong [5201]; reach 5201 = 3.88 x width [3 s]
-3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), cold start at 9500, M = 8: 1 primes decided; first wrong [9501]; reach 9501 = 1.79 x width [14 s]
-3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), cold start at 10000, M = 8: 106 primes decided; first wrong []; clean to 11000 = 2.07 x width [20 s]
-3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), cold start at 11000, M = 8: 0 primes decided; first wrong [11003]; reach 11003 = 2.07 x width [17 s]
+1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 3300, M = 8: 76 primes decided; first wrong []; clean to 3900 = 2.91 x width [5 s]
+1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 4000, M = 8: 72 primes decided; first wrong []; clean to 4600 = 3.43 x width [6 s]
+1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 4600, M = 8: 0 primes decided; first wrong [4603]; reach 4603 = 3.43 x width [4 s]
+1 band(s) at centre 1.37092e+21, total width 1342, 10000 zeros, wheel (2,), cold start at 5200, M = 8: 1 primes decided; first wrong [5201]; reach 5201 = 3.88 x width [4 s]
+3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), cold start at 9500, M = 8: 1 primes decided; first wrong [9501]; reach 9501 = 1.79 x width [20 s]
+3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), cold start at 10000, M = 8: 106 primes decided; first wrong []; clean to 11000 = 2.07 x width [29 s]
+3 band(s) at centre 2.67653e+11, 1.44177e+20, 1.37092e+21, total width 5318, 30000 zeros, wheel (2,), cold start at 11000, M = 8: 0 primes decided; first wrong [11003]; reach 11003 = 2.07 x width [23 s]
 == two bands of width 5,000 whose bad points coincide (c2 = 2 c1) or not
-2 band(s) at centre 502500, 1.0025e+06, total width 9998, 18516 zeros, wheel (2,): 4192 primes decided; first wrong [39869, 39871, 39873]; reach 39869 = 3.99 x width [105 s]
-2 band(s) at centre 502500, 702500, total width 9998, 18233 zeros, wheel (2,): 4462 primes decided; first wrong [42675, 42679, 42681]; reach 42675 = 4.27 x width [115 s]
+2 band(s) at centre 502500, 1.0025e+06, total width 9998, 18516 zeros, wheel (2,): 4192 primes decided; first wrong [39869, 39871, 39873]; reach 39869 = 3.99 x width [139 s]
+2 band(s) at centre 502500, 702500, total width 9998, 18233 zeros, wheel (2,): 4462 primes decided; first wrong [42675, 42679, 42681]; reach 42675 = 4.27 x width [162 s]
+centre 505000, width 9999: reach 45775 = 4.58 W; step 7.02 pi; nearest bad point (j = 7) 45928, reach -153 from it; bad points 6518 apart; chirp over the window 0.07 rad
 2 bands, width 9998: reach 39869 = 3.99 W; centre 502500: step 8.02 pi, 119 from the nearest bad point (j = 8); centre 1.0025e+06: step 16.01 pi, 19 from the nearest bad point (j = 16)
 2 bands, width 9998: reach 42675 = 4.27 W; centre 502500: step 7.50 pi, 2687 from the nearest bad point (j = 8); centre 702500: step 10.48 pi, 2018 from the nearest bad point (j = 11)
+1 bands with a small chirp; distance to the nearest bad point in half spacings: 0.047. If the failures did not care about bad points these would be uniform on [0, 1]; Fisher's combined test: chi2 = 6.1 with 2 degrees of freedom, p = 4.7e-02
 == independent checks of the lists (sympy.isprime)
 m3.txt: 1685 primes in [3, 14399), all prime: True; primes in range other than the wheel primes: 1685; complete: True
 m4.txt: 967 primes in [3, 7633), all prime: True; primes in range other than the wheel primes: 967; complete: True
@@ -527,23 +531,23 @@ Every prime below the first wrong decision is read, and each list is checked aga
 | band near 10²², coprime to 210 | 1.37·10²¹ | 10,000 | 1,342 | 12,107 | 9.02 | | |
 | lowpass, own zeros up to 1,342 | 0 | 933 | 1,341 | 8,699 | 6.49 | 8,699 | 6.49 |
 | lowpass, own zeros up to 3,000 | 0 | 2,469 | 2,999 | 19,853 | 6.62 | | |
-| lowpass, own zeros up to 10,000 | 0 | 10,142 | 9,999 | 56,467 | 5.65 | | |
+| lowpass, own zeros up to 10,000 | 0 | 10,142 | 9,999 | 56,467 | 5.65 | 56,467 | 5.65 |
 | own zeros in (500,000, 501,342] | 500,671 | 2,410 | 1,341 | 6,129 | 4.57 | 7,527 | 5.61 |
 | own zeros in (1,000,000, 1,001,342] | 1,000,671 | 2,558 | 1,341 | 6,569 | 4.90 | | |
 | own zeros in (500,000, 503,000] | 501,500 | 5,389 | 2,999 | 14,531 | 4.85 | | |
 | own zeros in (1,000,000, 1,003,000] | 1,001,500 | 5,719 | 2,999 | 15,193 | 5.07 | | |
-| own zeros in (500,000, 510,000] | 505,000 | 17,975 | 9,999 | 40,153 | 4.02 | | |
+| own zeros in (500,000, 510,000] | 505,000 | 17,975 | 9,999 | 40,153 | 4.02 | 45,775 | 4.58 |
 | own zeros in (1,000,000, 1,010,000] | 1,005,000 | 19,070 | 9,999 | 37,615 | 3.76 | | |
 | lowpass up to 1,342 and the band near 10²² | | 10,933 | 2,683 | 14,921 | 5.56 | | |
 
 **Laws (computed):**
 - **The height itself does not count.** The three Odlyzko bands, at heights 2.7·10¹¹ to 1.4·10²¹, read odd candidates to 4.2–4.6·W (5.4–5.8·W with 8 histories), although near the 10²²-th zero a band of width 1,342 holds 10,000 zeros against 933 at the bottom.
-- **The phase rule.** Around n the phase of m is c ln(m/n) ≈ c(m − n)/n − c(m − n)²/(2n²). The step between odd neighbours is 2c/n (mod 2π), and over the window of 12 candidates the chirp is c·24²/(2n²). Where the chirp is small and the step is a multiple of π, the phases of a window are real up to one common factor: the real and the imaginary part carry the same signal, and the band gives only half its information there. The bad points are n_j = 2c/(πj). Every band of our own zeros (c = 5·10⁵ – 10⁶, chirp 0.1–6.7 rad) fails at a bad point: at −1, +2, +19, +13, −34 and −20 from it, with bad points 68 to 5,015 apart ([band_phase.py](writeup/code/riemann/band_phase.py)). If the failures did not care about bad points, the distances in half spacings would be uniform on [0, 1]; Fisher's combined test gives p = 2·10⁻⁵. The rule was stated after the first runs. One run was predicted before it was made, with an earlier version of the decoder (far coins counted at the end of the run): the band (1,000,000, 1,010,000] failed 5 before the bad point j = 19 (33,674), after passing j = 20 and 21. The final decoder passes j = 19 and fails at j = 17. Which bad point stops the decoder is not predicted. Odlyzko's bands have chirps of 10⁵–10¹⁶ rad: random phases, no bad points. With 8 histories the band at c = 500,671 passes its bad point (7,527 instead of 6,129): the loss at a bad point is local.
-- **A band against the lowpass of the same width.** Width 1,341: lowpass 8,699, bands 6,031–6,569 (0.69–0.76); width 3,000: 19,853 against 14,531–15,193 (0.73–0.77); width 10⁴: 56,467 against 37,615–40,153 (0.67–0.71, both at a bad point). With 8 histories the random bands reach 5.4–5.8·W against 6.49 for the lowpass (0.84–0.89); the lowpass of width 1,341 does not gain from more histories. So most of the gap is search, not information: both give W/π real numbers per unit of ln x (section 4).
+- **The phase rule.** Around n the phase of m is c ln(m/n) ≈ c(m − n)/n − c(m − n)²/(2n²). The step between odd neighbours is 2c/n (mod 2π), and over the window of 12 candidates the chirp is c·24²/(2n²). Where the chirp is small and the step is a multiple of π, the phases of a window are real up to one common factor: the real and the imaginary part carry the same signal, and the band gives only half its information there. The bad points are n_j = 2c/(πj). Every band of our own zeros (c = 5·10⁵ – 10⁶, chirp 0.1–6.7 rad) fails at a bad point: at −1, +2, +19, +13, −34 and −20 from it, with bad points 68 to 5,015 apart ([band_phase.py](writeup/code/riemann/band_phase.py)). If the failures did not care about bad points, the distances in half spacings would be uniform on [0, 1]; Fisher's combined test gives p = 2·10⁻⁵. The rule was stated after the first runs. One run was predicted before it was made, with an earlier version of the decoder (far coins counted at the end of the run): the band (1,000,000, 1,010,000] failed 5 before the bad point j = 19 (33,674), after passing j = 20 and 21. The final decoder passes j = 19 and fails at j = 17. Which bad point stops the decoder is not predicted. Odlyzko's bands have chirps of 10⁵–10¹⁶ rad: random phases, no bad points. With 8 histories the band at c = 500,671 passes its bad point (7,527 instead of 6,129), and the band at c = 505,000 passes j = 8 and fails 153 before j = 7 (45,775 instead of 40,153): the histories carry the decoder past some bad points, not past the rule.
+- **A band against the lowpass of the same width.** Width 1,341: lowpass 8,699, bands 6,031–6,569 (0.69–0.76); width 3,000: 19,853 against 14,531–15,193 (0.73–0.77); width 10⁴: 56,467 against 37,615–40,153 (0.67–0.71, both at a bad point). With 8 histories the random bands reach 5.4–5.8·W against 6.49 for the lowpass (0.84–0.89), and the band of width 10⁴ 45,775 against 56,467 (0.81); the lowpass gains nothing from more histories (widths 1,341 and 10⁴). So most of the gap is search, not information: both give W/π real numbers per unit of ln x (section 4).
 - **Bands add.** The three Odlyzko bands together read to 22,875, against 23,723 for the sum of their separate reaches; the lowpass and the band near 10²² together to 14,921, against 14,730.
 - **Bands whose bad points differ avoid them.** Two bands of width 5,000 with c₂ ≈ 2c₁, (500,000, 505,000] and (1,000,000, 1,005,000], share every bad point of the first (j and 2j) and fail at one: 39,869 = 3.99·W, 119 and 19 from the bad points j = 8 and j = 16. With c₂/c₁ ≈ 1.4, (500,000, 505,000] and (700,000, 705,000], they read to 42,675 = 4.27·W and fail away from every bad point (steps 7.50π and 10.48π, 2,687 and 2,018 from the nearest), as the random bands far up do. One band of width 10⁴ at the same heights: 37,615–40,153.
 - **Divisibility facts work as on the page:** coprime to 6 gives ×1.66, coprime to 210 ×2.01 (134 → 139 gave ×1.67).
-- **The reach per width falls with the width,** for the lowpass too: 6.49, 6.62, 5.65 at widths 1,341, 3,000, 10⁴.
+- **The reach per width falls with the width,** for the lowpass too: 6.49, 6.62, 5.65 at widths 1,341, 3,000, 10⁴, with one history or eight.
 - **Random access.** With `--cold S` nothing is known below S − 6 envelope scales; the numbers there are coins too.
   - One band (near 10²²): clean from S = 1,300, 2,000 and 2,700 (each to S + 600), fails from 3,300 = 2.5·W. With 8 histories clean from 3,300 and 4,000 (3.0·W), fails from 4,600 and 5,200.
   - The three bands: clean from S = 5,000 and 8,000 (each to S + 1,000), fail from 11,000 = 2.1·W. With 8 histories clean from 10,000, fail from 9,500 and 11,000.
