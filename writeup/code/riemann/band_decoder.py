@@ -28,7 +28,8 @@ usage:
   SPEC: '+'-joined list of
         Odlyzko table (writeup/data/riemann/odlyzko_zeros3.txt, ...),
         low:T:zeros.f64        zeros up to T (lowpass),
-        band:T1:W:zeros.f64    zeros in (T1, T1 + W].
+        band:T1:W:zeros.f64    zeros in (T1, T1 + W],
+        zeros:I:C:zeros.f64    zeros number I + 1 ... I + C (I = 0: the lowpass).
 Prints the first wrong decisions (checked against a sieve) and writes the decided primes.
 """
 import argparse
@@ -134,6 +135,10 @@ def parse_spec(spec):
             G = cache.setdefault(f[3], np.fromfile(f[3]))
             T1, W = float(f[1]), float(f[2])
             bands.append(Band(G[(G > T1) & (G <= T1 + W)]))
+        elif f[0] == 'zeros':
+            G = cache.setdefault(f[3], np.fromfile(f[3]))
+            i0, cnt = int(f[1]), int(f[2])
+            bands.append(Band(G[i0:i0 + cnt], low=(i0 == 0)))
         else:
             bands.append(read_odlyzko(part))
     return bands

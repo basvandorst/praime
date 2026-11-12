@@ -1,10 +1,10 @@
 # Primes from the zeros of zeta, and zeros from the primes
 
-> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸.
+> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does.
 
-**Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–140, section "Riemann's explicit formula")
+**Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–141, section "Riemann's explicit formula"; the band slider of 141 loads Odlyzko's tables from the files beside the page)
 
-**Code:** [code/riemann/](writeup/code/riemann/): the page itself ([prime.html](writeup/code/riemann/prime.html), the version of 11 November 2026) and the scripts that check every number below ([zeros.js](writeup/code/riemann/zeros.js), [zeros_check.py](writeup/code/riemann/zeros_check.py), [validate.js](writeup/code/riemann/validate.js), [primes_to_zeros.py](writeup/code/riemann/primes_to_zeros.py), [zeros_to_primes.js](writeup/code/riemann/zeros_to_primes.js); for sections 12 and 13 [band_decoder.py](writeup/code/riemann/band_decoder.py), [band_check.py](writeup/code/riemann/band_check.py), [zeros_vs_primes.py](writeup/code/riemann/zeros_vs_primes.py), [zeros_high.py](writeup/code/riemann/zeros_high.py), [band_phase.py](writeup/code/riemann/band_phase.py), [band_validate.sh](writeup/code/riemann/band_validate.sh), [band_validate_m.sh](writeup/code/riemann/band_validate_m.sh)). Odlyzko's tables of zeros near the 10¹²-, 10²¹- and 10²²-th zero are in [data/riemann/](writeup/data/riemann/).
+**Code:** [code/riemann/](writeup/code/riemann/): the page itself ([prime.html](writeup/code/riemann/prime.html), the version of 12 November 2026, with Odlyzko's tables beside it as links to data/riemann) and the scripts that check every number below ([zeros.js](writeup/code/riemann/zeros.js), [zeros_check.py](writeup/code/riemann/zeros_check.py), [validate.js](writeup/code/riemann/validate.js), [primes_to_zeros.py](writeup/code/riemann/primes_to_zeros.py), [zeros_to_primes.js](writeup/code/riemann/zeros_to_primes.js); for sections 12 and 13 [band_decoder.py](writeup/code/riemann/band_decoder.py), [band_check.py](writeup/code/riemann/band_check.py), [zeros_vs_primes.py](writeup/code/riemann/zeros_vs_primes.py), [zeros_high.py](writeup/code/riemann/zeros_high.py), [band_phase.py](writeup/code/riemann/band_phase.py), [band_validate.sh](writeup/code/riemann/band_validate.sh), [band_validate_m.sh](writeup/code/riemann/band_validate_m.sh); for transformation 141 [band_page_check.js](writeup/code/riemann/band_page_check.js), [band_page_cross.sh](writeup/code/riemann/band_page_cross.sh)). Odlyzko's tables of zeros near the 10¹²-, 10²¹- and 10²²-th zero are in [data/riemann/](writeup/data/riemann/).
 
 **Status:** computed. Nothing here is proved; every claim is a measurement with the test that produced it. The decoders assume nothing about RH; the zero finder and the backwards fit assume the zeros are simple and on the critical line, which holds at these heights.
 
@@ -204,6 +204,7 @@ All changes are to [prime.html](writeup/code/riemann/prime.html). "Circles" are 
 | 11 Nov | exact window decoder (sphere decoder over 20 candidates) for 134 and 139 | yes: 0.075 / 0.06 and 0.045 | 100 random circles to 300,000 clean at 0.04; page uses 0.045 for margin |
 | 11 Nov | 140 divisibility facts | yes: 0.23·π·ρ·n | k = 2 … 25: 0 wrong from 1 to 3000 and on 30 circles each to 300,000 |
 | 11 Nov | Riemann–Siegel C1 and C2; exact window decoder in 135–137; note on primes → zeros | yes: zeros to 6.5·10⁻⁷; 135 0.045, 136 0.008, 137 0.0004 | see section 9: validate.js, zeros_check.py; 135 1–8,100 and 136 4,000–85,000 in one run each |
+| 12 Nov | 141: the band decoder of section 12 with 8 histories and exact phases (192-bit integers) on a band slider: four bands of 10,000 own zeros, Odlyzko's three tables alone or together; the first k ≤ 4 primes as divisibility facts | yes: the same primes as band_decoder.py | band_page_check.js: 32 runs from 3 equal the page's table, 128 circles below the reach clean; band_page_cross.sh: the same primes as band_decoder.py for k = 1 and 4 on all 8 bands; headless Chrome |
 
 ## 8. What was tried and did not work
 
@@ -227,7 +228,7 @@ All changes are to [prime.html](writeup/code/riemann/prime.html). "Circles" are 
 | band decoder: far coins counted at the end of the run | the reach moved with the end (lowpass 1,342: 8,267 at N = 16,000, 8,699 at 24,000); now 12 local envelope scales | lowpass of our own zeros |
 | band decoder: 16 histories instead of 8, commit delay 48 instead of 24 | no gain (7,615), slightly worse (7,557) | band near the 10²²-th zero, scratch version of the decoder |
 
-**Works but not on the page yet:** the M-algorithm keeps the 4 best decision histories. It compares them by the summed whitened window cost, and branches when the other answer costs less than 50 more. At 0.035·πn it takes 19 wrong to 0; at 0.03 it takes 228 to 61 (60 stretches); 8 histories are no better. In 9 of 10 failing stretches the truth fits the data 4–10 times better than the decoder's answer. So the gap between 0.045 and about 0.025 is a search problem, not missing information. On the page it would need decisions delayed until the histories agree, and 3–4 times the time. Expected gain: 139 from 0.045 to about 0.04.
+**Works but not on the page yet:** the M-algorithm keeps the 4 best decision histories. It compares them by the summed whitened window cost, and branches when the other answer costs less than 50 more. At 0.035·πn it takes 19 wrong to 0; at 0.03 it takes 228 to 61 (60 stretches); 8 histories are no better. In 9 of 10 failing stretches the truth fits the data 4–10 times better than the decoder's answer. So the gap between 0.045 and about 0.025 is a search problem, not missing information. On the page it would need decisions delayed until the histories agree, and 3–4 times the time. Expected gain: 139 from 0.045 to about 0.04. Since 12 November the band decoder of 141 keeps 8 histories on the page (section 12); 134 and 139 still keep one.
 
 ## 9. Validation
 
@@ -473,6 +474,112 @@ mc5_4000.txt: 72 primes in [4000, 4601), all prime: True; primes in range other 
 mc345_10000.txt: 106 primes in [10000, 11001), all prime: True; primes in range other than the wheel primes: 106; complete: True
 ```
 
+Transformation 141 on the page (section 12, "On the page"): the band table, circles in the page's own mode, and the comparison with band_decoder.py, prime by prime (about 2 hours; the reach runs here were split over two processes, `reach 0,1,2,3` and `reach 4,5,6,7`):
+
+```
+mkdir /tmp/band141
+OUT=/tmp/band141 node writeup/code/riemann/band_page_check.js reach
+node writeup/code/riemann/band_page_check.js circles
+sh writeup/code/riemann/band_page_cross.sh /tmp/band141
+```
+
+Output of `band_page_check.js reach`:
+
+```
+band 4 (zeros 10¹² + 1 to 10¹² + 10⁴ (Odlyzko)), width 2567, k = 1: 1688 primes decided; first wrong [14399, 14401, 14409]; reach 14399 = 5.61 x width ; page says 14399: ok
+band 4 (zeros 10¹² + 1 to 10¹² + 10⁴ (Odlyzko)), width 2567, k = 2: 2298 primes decided; first wrong [20353, 20359, 20363]; reach 20353 = 7.93 x width ; page says 20353: ok
+band 4 (zeros 10¹² + 1 to 10¹² + 10⁴ (Odlyzko)), width 2567, k = 3: 2297 primes decided; first wrong [20353, 20359, 20363]; reach 20353 = 7.93 x width ; page says 20353: ok
+band 4 (zeros 10¹² + 1 to 10¹² + 10⁴ (Odlyzko)), width 2567, k = 4: 2977 primes decided; first wrong [27199, 27203, 27211]; reach 27199 = 10.59 x width ; page says 27199: ok
+band 5 (zeros 10²¹ + 1 to 10²¹ + 10⁴ (Odlyzko)), width 1409, k = 1: 969 primes decided; first wrong [7633, 7635, 7639]; reach 7633 = 5.42 x width ; page says 7633: ok
+band 5 (zeros 10²¹ + 1 to 10²¹ + 10⁴ (Odlyzko)), width 1409, k = 2: 1496 primes decided; first wrong [12515, 12521, 12523]; reach 12515 = 8.88 x width ; page says 12515: ok
+band 5 (zeros 10²¹ + 1 to 10²¹ + 10⁴ (Odlyzko)), width 1409, k = 3: 1752 primes decided; first wrong [14969, 14971, 14993]; reach 14969 = 10.62 x width ; page says 14969: ok
+band 5 (zeros 10²¹ + 1 to 10²¹ + 10⁴ (Odlyzko)), width 1409, k = 4: 1952 primes decided; first wrong [16937, 16939, 16949]; reach 16937 = 12.02 x width ; page says 16937: ok
+band 6 (zeros 10²² + 1 to 10²² + 10⁴ (Odlyzko)), width 1342, k = 1: 968 primes decided; first wrong [7615, 7617, 7621]; reach 7615 = 5.68 x width ; page says 7615: ok
+band 6 (zeros 10²² + 1 to 10²² + 10⁴ (Odlyzko)), width 1342, k = 2: 1273 primes decided; first wrong [10399, 10403, 10405]; reach 10399 = 7.75 x width ; page says 10399: ok
+band 6 (zeros 10²² + 1 to 10²² + 10⁴ (Odlyzko)), width 1342, k = 3: 1604 primes decided; first wrong [13567, 13571, 13579]; reach 13567 = 10.11 x width ; page says 13567: ok
+band 6 (zeros 10²² + 1 to 10²² + 10⁴ (Odlyzko)), width 1342, k = 4: 1851 primes decided; first wrong [15919, 15923, 15937]; reach 15919 = 11.87 x width ; page says 15919: ok
+band 7 (Odlyzko’s three tables together), width 5318, k = 1: 3325 primes decided; first wrong [30831, 30833, 30841]; reach 30831 = 5.80 x width ; page says 30831: ok
+band 7 (Odlyzko’s three tables together), width 5318, k = 2: 4154 primes decided; first wrong [39433, 39445, 39455]; reach 39433 = 7.41 x width ; page says 39433: ok
+band 7 (Odlyzko’s three tables together), width 5318, k = 3: 5203 primes decided; first wrong [50783, 50791, 50821]; reach 50783 = 9.55 x width ; page says 50783: ok
+band 7 (Odlyzko’s three tables together), width 5318, k = 4: 6478 primes decided; first wrong [64853, 64859, 64867]; reach 64853 = 12.19 x width ; page says 64853: ok
+band 0 (zeros 1 to 10,000), width 9878, k = 1: 5725 primes decided; first wrong [56475, 56477, 56479]; reach 56475 = 5.72 x width ; page says 56475: ok
+band 0 (zeros 1 to 10,000), width 9878, k = 2: 8121 primes decided; first wrong [83207, 83209, 83213]; reach 83207 = 8.42 x width ; page says 83207: ok
+band 0 (zeros 1 to 10,000), width 9878, k = 3: 9675 primes decided; first wrong [101051, 101053, 101059]; reach 101051 = 10.23 x width ; page says 101051: ok
+band 0 (zeros 1 to 10,000), width 9878, k = 4: 11419 primes decided; first wrong [121357, 121361, 121363]; reach 121357 = 12.29 x width ; page says 121357: ok
+band 1 (zeros 10,001 to 20,000), width 8168, k = 1: 4950 primes decided; first wrong [48047, 48049, 48053]; reach 48047 = 5.88 x width ; page says 48047: ok
+band 1 (zeros 10,001 to 20,000), width 8168, k = 2: 6453 primes decided; first wrong [64511, 64513, 64517]; reach 64511 = 7.90 x width ; page says 64511: ok
+band 1 (zeros 10,001 to 20,000), width 8168, k = 3: 7508 primes decided; first wrong [76301, 76303, 76313]; reach 76301 = 9.34 x width ; page says 76301: ok
+band 1 (zeros 10,001 to 20,000), width 8168, k = 4: 8426 primes decided; first wrong [86717, 86719, 86731]; reach 86717 = 10.62 x width ; page says 86717: ok
+band 2 (zeros 100,001 to 110,000), width 6662, k = 1: 4019 primes decided; first wrong [38005, 38007, 38009]; reach 38005 = 5.70 x width ; page says 38005: ok
+band 2 (zeros 100,001 to 110,000), width 6662, k = 2: 5044 primes decided; first wrong [49073, 49075, 49081]; reach 49073 = 7.37 x width ; page says 49073: ok
+band 2 (zeros 100,001 to 110,000), width 6662, k = 3: 5074 primes decided; first wrong [49409, 49411, 49421]; reach 49409 = 7.42 x width ; page says 49409: ok
+band 2 (zeros 100,001 to 110,000), width 6662, k = 4: 5073 primes decided; first wrong [49409, 49411, 49421]; reach 49409 = 7.42 x width ; page says 49409: ok
+band 3 (zeros 1,000,001 to 1,010,000), width 5476, k = 1: 2814 primes decided; first wrong [25557, 25559, 25561]; reach 25557 = 4.67 x width ; page says 25557: ok
+band 3 (zeros 1,000,001 to 1,010,000), width 5476, k = 2: 4456 primes decided; first wrong [42617, 42619, 42623]; reach 42617 = 7.78 x width ; page says 42617: ok
+band 3 (zeros 1,000,001 to 1,010,000), width 5476, k = 3: 4934 primes decided; first wrong [47909, 47911, 47917]; reach 47909 = 8.75 x width ; page says 47909: ok
+band 3 (zeros 1,000,001 to 1,010,000), width 5476, k = 4: 4933 primes decided; first wrong [47909, 47911, 47917]; reach 47909 = 8.75 x width ; page says 47909: ok
+all checks passed
+```
+
+Output of `band_page_check.js circles`:
+
+```
+band 0, k = 1, circles of 1,000 below the reach 56475: S = 1: 0 wrong of 168 [1.8 s]; S = 13709: 0 wrong of 100 [1.8 s]; S = 27749: 0 wrong of 104 [2.1 s]; S = 41895: 0 wrong of 104 [2.7 s]
+band 0, k = 2, circles of 1,000 below the reach 83207: S = 1: 0 wrong of 168 [1.4 s]; S = 20354: 0 wrong of 98 [1.9 s]; S = 41221: 0 wrong of 99 [1.9 s]; S = 62091: 0 wrong of 85 [2.7 s]
+band 0, k = 3, circles of 1,000 below the reach 101051: S = 1: 0 wrong of 168 [1.2 s]; S = 24867: 0 wrong of 96 [2.1 s]; S = 50137: 0 wrong of 83 [2.1 s]; S = 75310: 0 wrong of 90 [2.7 s]
+band 0, k = 4, circles of 1,000 below the reach 121357: S = 1: 0 wrong of 168 [1.2 s]; S = 30010: 0 wrong of 95 [1.8 s]; S = 60179: 0 wrong of 84 [2.1 s]; S = 90572: 0 wrong of 85 [2.7 s]
+band 1, k = 1, circles of 1,000 below the reach 48047: S = 1: 0 wrong of 168 [1.7 s]; S = 11657: 0 wrong of 113 [2.4 s]; S = 23628: 0 wrong of 99 [2.4 s]; S = 35715: 0 wrong of 98 [3.4 s]
+band 1, k = 2, circles of 1,000 below the reach 64511: S = 1: 0 wrong of 168 [1.8 s]; S = 15652: 0 wrong of 100 [2.3 s]; S = 31822: 0 wrong of 99 [2.0 s]; S = 47982: 0 wrong of 87 [3.1 s]
+band 1, k = 3, circles of 1,000 below the reach 76301: S = 1: 0 wrong of 168 [1.7 s]; S = 18752: 0 wrong of 95 [1.9 s]; S = 37705: 0 wrong of 84 [1.9 s]; S = 56847: 0 wrong of 96 [3.3 s]
+band 1, k = 4, circles of 1,000 below the reach 86717: S = 1: 0 wrong of 168 [1.8 s]; S = 21272: 0 wrong of 104 [2.1 s]; S = 42873: 0 wrong of 83 [2.5 s]; S = 64545: 0 wrong of 91 [2.6 s]
+band 2, k = 1, circles of 1,000 below the reach 38005: S = 1: 0 wrong of 168 [2.0 s]; S = 9180: 0 wrong of 113 [2.4 s]; S = 18619: 0 wrong of 96 [2.4 s]; S = 28151: 0 wrong of 99 [3.1 s]
+band 2, k = 2, circles of 1,000 below the reach 49073: S = 1: 0 wrong of 168 [1.9 s]; S = 11829: 0 wrong of 111 [1.9 s]; S = 24043: 0 wrong of 93 [2.1 s]; S = 36343: 0 wrong of 98 [2.9 s]
+band 2, k = 3, circles of 1,000 below the reach 49409: S = 1: 0 wrong of 168 [1.7 s]; S = 12037: 0 wrong of 112 [1.9 s]; S = 24259: 0 wrong of 88 [1.8 s]; S = 36642: 0 wrong of 102 [2.4 s]
+band 2, k = 4, circles of 1,000 below the reach 49409: S = 1: 0 wrong of 168 [2.0 s]; S = 11856: 0 wrong of 111 [1.8 s]; S = 24399: 0 wrong of 92 [2.1 s]; S = 36698: 0 wrong of 101 [2.2 s]
+band 3, k = 1, circles of 1,000 below the reach 25557: S = 1: 0 wrong of 168 [2.2 s]; S = 5923: 0 wrong of 113 [2.3 s]; S = 12306: 0 wrong of 108 [2.3 s]; S = 18706: 0 wrong of 95 [2.5 s]
+band 3, k = 2, circles of 1,000 below the reach 42617: S = 1: 0 wrong of 168 [1.7 s]; S = 10293: 0 wrong of 103 [1.6 s]; S = 20843: 0 wrong of 106 [1.4 s]; S = 31623: 0 wrong of 101 [3.0 s]
+band 3, k = 3, circles of 1,000 below the reach 47909: S = 1: 0 wrong of 168 [2.4 s]; S = 11591: 0 wrong of 110 [2.0 s]; S = 23645: 0 wrong of 98 [2.1 s]; S = 35614: 0 wrong of 90 [2.4 s]
+band 3, k = 4, circles of 1,000 below the reach 47909: S = 1: 0 wrong of 168 [2.2 s]; S = 11596: 0 wrong of 109 [1.6 s]; S = 23514: 0 wrong of 105 [1.8 s]; S = 35456: 0 wrong of 87 [2.4 s]
+band 4, k = 1, circles of 1,000 below the reach 14399: S = 1: 0 wrong of 168 [2.2 s]; S = 3209: 0 wrong of 122 [2.2 s]; S = 6818: 0 wrong of 112 [2.4 s]; S = 10480: 0 wrong of 101 [2.4 s]
+band 4, k = 2, circles of 1,000 below the reach 20353: S = 1: 0 wrong of 168 [2.5 s]; S = 4742: 0 wrong of 116 [1.8 s]; S = 9859: 0 wrong of 103 [2.2 s]; S = 14928: 0 wrong of 110 [2.1 s]
+band 4, k = 3, circles of 1,000 below the reach 20353: S = 1: 0 wrong of 168 [1.6 s]; S = 4745: 0 wrong of 117 [1.8 s]; S = 9758: 0 wrong of 108 [1.4 s]; S = 14835: 0 wrong of 109 [2.0 s]
+band 4, k = 4, circles of 1,000 below the reach 27199: S = 1: 0 wrong of 168 [2.3 s]; S = 6378: 0 wrong of 107 [1.8 s]; S = 13109: 0 wrong of 104 [1.7 s]; S = 20098: 0 wrong of 100 [2.0 s]
+band 5, k = 1, circles of 1,000 below the reach 7633: S = 1: 0 wrong of 168 [2.4 s]; S = 1543: 0 wrong of 129 [1.9 s]; S = 3384: 0 wrong of 121 [2.3 s]; S = 5326: 0 wrong of 118 [2.2 s]
+band 5, k = 2, circles of 1,000 below the reach 12515: S = 1: 0 wrong of 168 [2.3 s]; S = 2693: 0 wrong of 124 [1.6 s]; S = 5763: 0 wrong of 113 [2.1 s]; S = 9058: 0 wrong of 108 [2.1 s]
+band 5, k = 3, circles of 1,000 below the reach 14969: S = 1: 0 wrong of 168 [2.7 s]; S = 3409: 0 wrong of 120 [1.4 s]; S = 7131: 0 wrong of 108 [1.5 s]; S = 10820: 0 wrong of 101 [1.8 s]
+band 5, k = 4, circles of 1,000 below the reach 16937: S = 1: 0 wrong of 168 [2.1 s]; S = 3738: 0 wrong of 118 [1.4 s]; S = 8131: 0 wrong of 109 [1.5 s]; S = 12238: 0 wrong of 112 [1.8 s]
+band 6, k = 1, circles of 1,000 below the reach 7615: S = 1: 0 wrong of 168 [2.5 s]; S = 1462: 0 wrong of 132 [2.5 s]; S = 3433: 0 wrong of 122 [2.4 s]; S = 5314: 0 wrong of 117 [1.9 s]
+band 6, k = 2, circles of 1,000 below the reach 10399: S = 1: 0 wrong of 168 [2.7 s]; S = 2270: 0 wrong of 124 [1.8 s]; S = 4816: 0 wrong of 115 [1.6 s]; S = 7464: 0 wrong of 113 [1.9 s]
+band 6, k = 3, circles of 1,000 below the reach 13567: S = 1: 0 wrong of 168 [2.1 s]; S = 2959: 0 wrong of 122 [1.6 s]; S = 6397: 0 wrong of 106 [1.3 s]; S = 9805: 0 wrong of 106 [1.8 s]
+band 6, k = 4, circles of 1,000 below the reach 15919: S = 1: 0 wrong of 168 [2.6 s]; S = 3679: 0 wrong of 118 [1.6 s]; S = 7573: 0 wrong of 107 [1.5 s]; S = 11559: 0 wrong of 108 [2.1 s]
+band 7, k = 1, circles of 1,000 below the reach 30831: S = 1: 0 wrong of 168 [10.4 s]; S = 7406: 0 wrong of 112 [8.8 s]; S = 15012: 0 wrong of 110 [13.2 s]; S = 22635: 0 wrong of 104 [14.9 s]
+band 7, k = 2, circles of 1,000 below the reach 39433: S = 1: 0 wrong of 168 [11.1 s]; S = 9446: 0 wrong of 107 [6.3 s]; S = 19326: 0 wrong of 104 [8.1 s]; S = 29234: 0 wrong of 91 [12.3 s]
+band 7, k = 3, circles of 1,000 below the reach 50783: S = 1: 0 wrong of 168 [11.2 s]; S = 12325: 0 wrong of 109 [6.5 s]; S = 24983: 0 wrong of 97 [9.9 s]; S = 37669: 0 wrong of 82 [13.1 s]
+band 7, k = 4, circles of 1,000 below the reach 64853: S = 1: 0 wrong of 168 [14.8 s]; S = 15777: 0 wrong of 98 [7.5 s]; S = 32113: 0 wrong of 104 [10.9 s]; S = 48168: 0 wrong of 93 [15.2 s]
+all checks passed
+```
+
+Output of `band_page_cross.sh`:
+
+```
+band 0, k = 1: 5725 primes decided; first wrong [56475, 56477, 56479]; page and band_decoder.py decide the same 5725 primes
+band 0, k = 4: 11419 primes decided; first wrong [121357, 121361, 121363]; page and band_decoder.py decide the same 11419 primes
+band 1, k = 1: 4950 primes decided; first wrong [48047, 48049, 48053]; page and band_decoder.py decide the same 4950 primes
+band 1, k = 4: 8426 primes decided; first wrong [86717, 86719, 86731]; page and band_decoder.py decide the same 8426 primes
+band 2, k = 1: 4019 primes decided; first wrong [38005, 38007, 38009]; page and band_decoder.py decide the same 4019 primes
+band 2, k = 4: 5073 primes decided; first wrong [49409, 49411, 49421]; page and band_decoder.py decide the same 5073 primes
+band 3, k = 1: 2814 primes decided; first wrong [25557, 25559, 25561]; page and band_decoder.py decide the same 2814 primes
+band 3, k = 4: 4933 primes decided; first wrong [47909, 47911, 47917]; page and band_decoder.py decide the same 4933 primes
+band 4, k = 1: 1688 primes decided; first wrong [14399, 14401, 14409]; page and band_decoder.py decide the same 1688 primes
+band 4, k = 4: 2977 primes decided; first wrong [27199, 27203, 27211]; page and band_decoder.py decide the same 2977 primes
+band 5, k = 1: 969 primes decided; first wrong [7633, 7635, 7639]; page and band_decoder.py decide the same 969 primes
+band 5, k = 4: 1952 primes decided; first wrong [16937, 16939, 16949]; page and band_decoder.py decide the same 1952 primes
+band 6, k = 1: 968 primes decided; first wrong [7615, 7617, 7621]; page and band_decoder.py decide the same 968 primes
+band 6, k = 4: 1851 primes decided; first wrong [15919, 15923, 15937]; page and band_decoder.py decide the same 1851 primes
+band 7, k = 1: 3325 primes decided; first wrong [30831, 30833, 30841]; page and band_decoder.py decide the same 3325 primes
+band 7, k = 4: 6478 primes decided; first wrong [64853, 64859, 64867]; page and band_decoder.py decide the same 6478 primes
+```
+
 ## 10. Hypotheses and what would settle them
 
 | Hypothesis | Evidence so far | Confirms it | Refutes it | What is needed |
@@ -482,17 +589,16 @@ mc345_10000.txt: 106 primes in [10000, 11001), all prime: True; primes in range 
 | **H3** The zeros carry the primes down to about 0.02–0.025·πn; the gap from 0.045 is a search problem | oracle tests; truth fits better in 9 of 10 failures; M-algorithm 19 → 0 errors at 0.035 | a decoder that is clean at 0.035 or lower on 100 random circles to 300,000 | many failures where the wrong pattern has the lower whitened cost (then the information is missing), or any decoder clean below 0.02 (then the limit is lower) | the M-algorithm on the page decoder with delayed decisions; the oracle test on more stretches |
 | **H4** Backwards: the prime powers up to c·√(T/2π), c ≈ 1.6–2, fix every zero near height T; the threshold is a count | X = 30, 100, 300, heights to 5.7·10⁵; near the 10¹²-th zero (2.68·10¹¹, Odlyzko's table) c = 2.0 fixes 5 of 5 windows of 60 zeros to < 6·10⁻⁴, c = 1.6 3 of 5, c ≤ 1.3 none (section 13) | many windows per (X, c); the threshold moves with the fade as the count predicts (fading from 0.9 instead of 6/7 should lower c) | success well below c = 1 (better than the count), or c growing without bound with T | the zeros near 10²¹ need the primes to 7.7·10⁹: a segmented prime sum in C; or a test of the oversampling law 2 ln X / ln(T/2π) against fixed c |
 | **H5** Close pairs of zeros and twin positions are the same obstacle seen from both sides | the only zeros above 10⁻³ in the chain are two close pairs; near the 10¹²-th zero the median error is 1.7·10⁻⁴ for a neighbour within 0.3 spacings against 4.4·10⁻⁵ beyond 0.6 (section 13) | the forward errors at spacing 2 and the backward errors follow one curve in the normalised gap | close pairs recovered as well as the rest | the forward error against the gap to the next candidate, on the same scale |
-| **H6** Bandwidth and phase law: a band of width W reads the primes up to about 4–4.6·W (5.4–5.8·W with 8 histories) when its phases are random (c ≫ n²); just above the bottom it fails at the bad points 2c/(πj); bands add | Odlyzko's 3 bands at 2.7·10¹¹–1.4·10²¹; 6 own bands at 5·10⁵–10⁶ all failing at a bad point (Fisher p = 2·10⁻⁵); sums of bands within 4 % of the sum of reaches (section 12) | more pairs of bands with non-aligned bad points (one pair so far: 42,675 against 39,869 aligned); longer random bands (10⁵ zeros) on the same factor | a failure far from every bad point in a band with a small chirp, or a reach that depends on the height in the random regime | a long band far up, e.g. from the LMFDB; a test of combined bands whose bad points differ |
+| **H6** Bandwidth and phase law: a band of width W reads the primes up to about 4–4.6·W (5.4–5.8·W with 8 histories) when its phases are random (c ≫ n²); just above the bottom it fails at the bad points 2c/(πj); bands add | Odlyzko's 3 bands at 2.7·10¹¹–1.4·10²¹; 6 own bands at 5·10⁵–10⁶ all failing at a bad point (Fisher p = 2·10⁻⁵); on the page's bands of 10,000 zeros (8 histories) the band at c = 603,009 stops 35–77 below a bad point for k = 1–4, the one at c = 78,253 408–744 below j = 1 for k = 2–4 but at step 1.31π for k = 1; sums of bands within 4 % of the sum of reaches (section 12) | more pairs of bands with non-aligned bad points (one pair so far: 42,675 against 39,869 aligned); longer random bands (10⁵ zeros) on the same factor | a failure far from every bad point in a band with a small chirp, or a reach that depends on the height in the random regime | a long band far up, e.g. from the LMFDB; a test of combined bands whose bad points differ |
 | **H7** Random access stops at 2–3·W mainly because the cold start avalanches | cold starts clean at S ≤ 2.0·W (one band) and 1.5·W (three bands), total failure beyond (section 12). Oracle: with the true values of the 6 scales before S given (nothing below), the band near 10²² is clean from 4,000 to 4,600 (3.4·W) and fails at 3,853 (from 3,300) and 5,213 (from 5,000); from 3 upwards it is clean to 6,031. With 8 histories the cold start is clean from 3,300 and 4,000 (3.0·W) | a joint start (the first 30–40 candidates decided together) that is clean near 3.4·W | the oracle start no better than the cold one | the joint start; more oracle stretches |
 
 **The Riemann Hypothesis itself** is not tested by any of this. The zero finder assumes the zeros are on the line, and checks it in the usual way: it counts sign changes of Z(t) and compares with N(T). Both agree up to height 1.13·10⁶; RH is known by others to hold much higher. Computation can only refute RH, by a height where the sign changes fall short of N(T), and that would have to be far above anything a page can reach. A confirmation needs a proof, not a computation.
 
 ## 11. Open
 
-- The M-algorithm on the page (section 8).
+- The M-algorithm in 134 and 139 on the page (section 8); 141 has it.
 - A prior for clusters from the Hardy–Littlewood singular series. The admissible tuples of the bounded-gaps work (Zhang, Annals 179, 2014) are exactly the clusters where the decoders fail; this is untested.
 - A second round of the chain: the primes below 70,000 would fix the zeros up to about 2π(70000/1.6)² ≈ 1.2·10¹⁰, beyond what can be computed here.
-- Bands on the page: a slider for the height of the band, with Odlyzko's three tables (section 12).
 - Bands of L-function zeros: with the class formulas 135–137 a band of each L(s, χ) mod q should give the same factor q.
 - A better cold start (H7). The M-algorithm (8 histories) is in the band decoder; on the page it would lift 134 and 139 the same way.
 - Bands that avoid each other's bad points: one pair tested (section 12); a band split in two with a chosen ratio of centres.
@@ -555,6 +661,24 @@ Every prime below the first wrong decision is read, and each list is checked aga
   - A failure is total: the first decisions go wrong and the echo of the errors spoils the rest. Oracle: with the true values of the 6 scales before S given (nothing below), the band near 10²² is clean from 4,000 to 4,600 (3.4·W) and fails at 3,853 (from 3,300) and 5,213 (from 5,000).
 
 **What it means.** The explicit formula stores the primes in every part of the spectrum. A band of zeros at any height gives the primes up to about 4–4.6·W, 5.4–5.8·W with a better search, and 9–12·W with the wheel mod 210; only the width and the phase pattern count. Just above the bottom (c below about n²/3, a chirp below 100 rad over the window) the phases form a slow carrier, and the band loses half its information wherever the carrier steps by a multiple of π; far up the phases are random. For zeros per prime the bottom stays cheapest, because the zeros get denser with height (ln(T/2π)/2π per unit). The chain of section 6 does not close at height: the band near T is fixed by the prime powers up to about 2√(T/2π) (section 13) and gives back the primes up to about 4.4·W, so it returns more than it needs only for W > 0.45√(T/2π), near the 10¹²-th zero a band of width 94,000 (366,000 zeros).
+
+**On the page: transformation 141 (12 November 2026).** The decoder above, with 8 histories, runs on the page as transformation 141, in JavaScript. A band slider picks one of eight bands of 10,000 zeros: the page's own zeros 1–10,000 (the lowpass), 10,001–20,000, 100,001–110,000 and 1,000,001–1,010,000; Odlyzko's three tables, which the page loads from the files beside it ([odlyzko_zeros3.txt](writeup/code/riemann/odlyzko_zeros3.txt), [odlyzko_zeros4.txt](writeup/code/riemann/odlyzko_zeros4.txt), [odlyzko_zeros5.txt](writeup/code/riemann/odlyzko_zeros5.txt), links to the copies in data/riemann); and the three tables together. Parameter k gives the first k primes as divisibility facts (k ≤ 4). The phases e^{−ic ln m} are exact: ln p is a 192-bit integer from ln 2 = 2 artanh(1/3) and ln p = ln(p − 1) + 2 artanh(1/(2p − 1)), c ln p is reduced mod 2π in integers (π to 75 digits), and a composite m adds the phases of its prime factors. On a circle the page knows the primes below it, as 134 does (at start 1 none), and from 15 band widths on it draws no arrows. Decoding from 3 upwards with only the first k primes given, the page's own code reads every prime below the numbers in the table ([band_page_check.js](writeup/code/riemann/band_page_check.js); the page shows them under the slider):
+
+| Band of 10,000 zeros | Heights | Width W | k = 1 | k = 2 | k = 3 | k = 4 | k = 1 ÷ W | k = 4 ÷ W |
+|---|---|---|---|---|---|---|---|---|
+| own, 1–10,000 (lowpass) | 14.1 – 9,877.8 | 9,878 | 56,475 | 83,207 | 101,051 | 121,357 | 5.72 | 12.29 |
+| own, 10,001–20,000 | 9,878.7 – 18,046.5 | 8,168 | 48,047 | 64,511 | 76,301 | 86,717 | 5.88 | 10.62 |
+| own, 100,001–110,000 | 74,921.9 – 81,584.0 | 6,662 | 38,005 | 49,073 | 49,409 | 49,409 | 5.70 | 7.42 |
+| own, 1,000,001–1,010,000 | 600,270.3 – 605,746.8 | 5,476 | 25,557 | 42,617 | 47,909 | 47,909 | 4.67 | 8.75 |
+| Odlyzko, near the 10¹²-th zero | 2.68·10¹¹ | 2,567 | 14,399 | 20,353 | 20,353 | 27,199 | 5.61 | 10.59 |
+| Odlyzko, near the 10²¹-th zero | 1.44·10²⁰ | 1,409 | 7,633 | 12,515 | 14,969 | 16,937 | 5.42 | 12.02 |
+| Odlyzko, near the 10²²-th zero | 1.37·10²¹ | 1,342 | 7,615 | 10,399 | 13,567 | 15,919 | 5.68 | 11.87 |
+| Odlyzko's three tables | 2.68·10¹¹ – 1.37·10²¹ | 5,318 | 30,831 | 39,433 | 50,783 | 64,853 | 5.80 | 12.19 |
+
+For k = 1 and k = 4 on every band, band_decoder.py (numpy, phases from mpmath) decides exactly the same primes as the page, one by one ([band_page_cross.sh](writeup/code/riemann/band_page_cross.sh)). What the table adds (computed):
+- **The phase rule holds on the page's bands, with one exception.** The band at c = 603,008.6 stops 35, 37, 77 and 77 below a bad point 2c/(πj) for k = 1, 2, 3, 4 (j = 15, 9, 8, 8). The band at c = 78,253.0 stops 744, 408 and 408 below its bad point j = 1 (49,817) for k = 2, 3, 4, but for k = 1 at the step 1.31π, 11,812 below it. Wheels keep the bad points: all candidates are odd, so their distances are even and the phases of a window are again real at n = 2c/(πj). The band at c = 13,962.6 has its last bad point at 8,889 and reads on to 5.9–10.6·W, while the step 2c/n falls to 0.19π–0.10π.
+- **Divisibility facts with 8 histories:** k = 4 gives ×1.30 (the band stopped by its bad point j = 1) to ×2.22. Where k = 3 equals k = 2 or k = 4 (20,353; 49,409; 47,909) the decoder stops at the same spot.
+- **Bands just above the bottom are not worse than random ones:** 5.7–5.9·W at c = 13,963 and 78,253 against 5.4–5.7·W for Odlyzko's bands; the band at c = 603,009 (4.67·W) is the one that meets a bad point first.
 
 ## 13. The primes check the zeros, at heights the page cannot reach
 

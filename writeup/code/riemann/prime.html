@@ -184,8 +184,10 @@ svg.dragging { cursor:grabbing; }
         <div class="ctl" style="margin-top:8px"><label for="spikeSource">Green spikes show</label><select id="spikeSource" autocomplete="off"><option value="126" selected>126: one sum per odd number</option><option value="134">134: left-sample formula</option><option value="136">136: eight zero sets</option><option value="lam">λ(n): even or odd number of prime factors</option></select></div>
         <div class="ctl" style="margin-top:8px"><label for="zeros">Zeros of ζ in the sum: <strong id="zerosLabel">200</strong></label><input id="zeros" type="range" min="0" max="1576" step="1" value="575" autocomplete="off"></div>
         <p class="win-hint">Up to 2,000,000 zeros. The first time the slider goes above about 200,000 the page needs a few seconds to compute the extra zeros, up to about half a minute at the top.</p>
+        <div class="ctl" style="margin-top:8px"><label for="band">Band of zeros for 141: <strong id="bandLabel">zeros 10²² + 1 to 10²² + 10⁴ (Odlyzko)</strong></label><input id="band" type="range" min="0" max="7" step="1" value="6" autocomplete="off"></div>
+        <p class="win-hint" id="bandInfo"></p>
         <p class="win-hint">ψ(x) = Σ ln p over the prime powers pᵏ ≤ x equals x − Σ<sub>ρ</sub> x<sup>ρ</sup>/ρ − ln 2π − ½ ln(1 − x⁻²), summed over the zeros ρ = ½ + iγ of the zeta function. <span class="key-psi">Blue</span>: ψ from the primes. <span class="key-formula">Orange</span>: the formula with the zeros you choose. <span class="key-res">Grey</span>: the residual, ×4. <span class="key-point">Green spikes</span>: the value of transformation 126, 134 or 136 at each candidate n, height 1 = prime; or the factor parity λ(n) of each odd n. Outward is above x, inward below.</p>
-        <details class="zero-notes"><summary>Thirteen ways to read primes off the zeros</summary>
+        <details class="zero-notes"><summary>Fourteen ways to read primes off the zeros</summary>
         <table><thead><tr><th>Nr</th><th>Method</th><th>Zeros up to</th></tr></thead><tbody>
         <tr><td>125</td><td>Step of the formula between n − ½ and n + ½</td><td>about 2πn</td></tr>
         <tr><td>126</td><td>Λ̂(n) = 2 − (4/√n) · Σ cos(γ ln n) at odd n: near ln n at a prime, near 0 otherwise</td><td>0.5·πn</td></tr>
@@ -198,9 +200,11 @@ svg.dragging { cursor:grabbing; }
         <tr><td>137</td><td>The same with all 192 characters mod 840: only numbers ending in 1, 3, 7, 9 and not divisible by 3 or 7 are candidates, 840 apart in each class. Zeros below height 80 read every prime up to 80,000. 138 picks 137, 136 or 139 automatically</td><td>0.0004·πn (0.00032 at 80,000), all sets</td></tr>
         <tr><td>139</td><td>134 with only the numbers not divisible by 2, 3, 5 or 7 as candidates; the zeta zeros alone, no other sets</td><td>0.045·πn</td></tr>
         <tr><td>140</td><td>139 with the first k primes as divisibility facts (Parameter k). Height needed ≈ 0.23·πn × the share of numbers that survive: 0.05 for k = 4, 0.035 for k = 11 (primes to 31), 0.028 for k = 25 (primes to 97)</td><td>0.23·π·ρ·n</td></tr>
+        <tr><td>141</td><td>134 on a band of 10,000 zeros at any height, chosen with the band slider, up to Odlyzko’s tables near the 10²²-th zero. With c the centre of the band, the sum over the band of e<sup>i(γ − c) ln x</sup> is the view of the primes that the lowest zeros give, except that each prime power m carries the known phase e<sup>−ic ln m</sup>; so the samples are complex. The next 12 candidates are searched exactly and the 8 best decision histories kept; the first k primes (k ≤ 4) are divisibility facts</td><td>a band of width about n/5.5 at any height; n/12 with k = 4</td></tr>
         <tr><td>128</td><td>Every step is ln n or 0, so try all on/off patterns of the next 12 odd numbers and keep the best fit</td><td>0.2·πn</td></tr>
         <tr><td>130</td><td>128 on the survivors of a sieve by the first k primes (Parameter k)</td><td>0.6·π·ρ·n</td></tr>
         </tbody></table>
+        <p>Every band of zeros carries all the primes (Landau, 1911): 141 reads them from zeros far above them. Odlyzko’s 10,000 zeros near the 10²²-th zero, at height 1.37·10²¹, give every prime below 7,615; his three tables together (near the 10¹²-, 10²¹- and 10²²-th zero, 30,000 zeros, none below height 2.6·10¹¹) every prime below 30,831, and below 64,853 with k = 4. Just above the bottom the phases e<sup>−ic ln m</sup> turn slowly, and the band loses half its information where the step 2c/n between odd neighbours is a multiple of π: at the bad points n = 2c/(πj). The decoder tends to stop at one of them.</p>
         <p>With too few zeros each method stops at the last chosen zero and starts to fail. With no usable zero at all, 128 falls back on “keep Σ ln p close to x”, which alone gives the primes up to 31. The zeros beyond the first thirty are computed here with the Riemann–Siegel formula and its first three correction terms, from the integers alone; checked against mpmath they are good to 10⁻⁶.</p>
         <p>The other way round works too: the 25 primes below 100 fix all 10,142 zeros below height 10,000 (on average to 7·10⁻⁵). The count θ(t)/π + 1 + S(t), with S(t) summed over the prime powers up to 100, is a sum of smoothed unit steps at the zeros, and a least-squares fit finds the steps. Fed back into 139, these zeros give every prime up to 70,000. In general the prime powers up to 1.6·√(T/2π) fix every zero up to height T, the same length as in the Riemann–Siegel formula.</p>
         <p>Measured off this page with the same formula: all 32 characters mod 120 need zeros only up to 0.004·πn, and all 192 characters mod 840 up to 0.0008·πn (every prime in 30,000–30,500 from zeros below height 77). In each case that is about one unit 2π of height per prime and per class: about two real numbers per prime at these safe settings, and between one and one and a third at the point where the first error appears.</p>
@@ -410,7 +414,8 @@ const experiments = [
 ["Left-sample formula with 192 zero sets","as 136 with all 192 Dirichlet characters mod 840: only numbers ending in 1, 3, 7 or 9 and not divisible by 3 or 7 are candidates, in 192 classes with candidates 840 apart; zeros with γ ≤ 0.0004·πx suffice above 20000 (0.0006 above 12000, 0.001 above 5000, 0.002 below), and with the decoder of 134 on each class (exact search over the next 20 class members, 60 more modelled) the tables, built in up to height 80, read every prime up to 80,000, where the height is 0.00032·πx; it starts from the primes below 4000","riemann-mod840",""],
 ["Zero formula, automatic","the left-sample formula with whichever zero sets need the least height at this n and are covered by the chosen zeros: 192 sets from 4000 to 80000, eight sets below 4000, the zeta zeros alone on numbers coprime to 210 (139) otherwise","riemann-auto",""],
 ["Left-sample zero formula on numbers coprime to 210","the decoder of 134 with only the numbers not divisible by 2, 3, 5 or 7 as candidates (48 of every 210); the same zeta zeros, γ ≤ 0.045·πx (0.3·πx below 600), the top seventh faded out; the window is the next 20 candidates within n + 80, searched exactly, with the candidates up to 300 beyond as unknowns with a coin's spread","riemann-wheel210",""],
-["Zero decoder with k divisibility facts","the decoder of 134 on the numbers with no prime factor among the first k primes (Parameter k, up to 25, i.e. the primes up to 97). A share ρ of all numbers survives, and zeros with γ ≤ 0.23·π·ρ·x suffice: a sieve removes what a sieve can, and the zeros decide what no sieve can see, prime or product of two large primes","riemann-facts",""]
+["Zero decoder with k divisibility facts","the decoder of 134 on the numbers with no prime factor among the first k primes (Parameter k, up to 25, i.e. the primes up to 97). A share ρ of all numbers survives, and zeros with γ ≤ 0.23·π·ρ·x suffice: a sieve removes what a sieve can, and the zeros decide what no sieve can see, prime or product of two large primes","riemann-facts",""],
+["Zero decoder on a band of zeros at any height","next n > p that the decoder calls prime, read from one band of 10,000 zeta zeros chosen with the band slider, from the lowest zeros up to Odlyzko’s tables near the 10²²-th zero (height 1.37·10²¹). With c the centre of the band and w a cosine fade over the outer sevenths of the band, r(x) = −(2π√x/Ŵ(0)) · Σ w(γ) · e^(i(γ − c) ln x) = Σ Λ(m) · √(x/m) · e^(−ic ln m) · Ŵ(ln(x/m))/Ŵ(0): every prime power m carries the known phase e^(−ic ln m), computed exactly from c and ln m. The decoder of 134 on these complex samples: the next 12 candidates searched exactly, the candidates over the next 12 envelope widths 2πn/W as unknowns with a coin’s spread, the 8 best decision histories kept; candidates are the numbers with no factor among the first k primes (Parameter k, up to 4); the primes below the circle are known, at start 1 nothing is","riemann-band",""]
 ];
 const $ = id => document.getElementById(id);
 const svg = $("graph"), NS = "http://www.w3.org/2000/svg";
@@ -1036,6 +1041,132 @@ function riemannDecode(p,S,K,depth=1,linear=false){
  }
  return null;
 }
+const BAND_SL=4.4,BAND_SR=3,BAND_OV=3,BAND_SIG=0.01,BAND_FAR=12,BAND_K=12,BAND_D=24,BAND_FADE=1/7;
+const BAND_F=192n,BAND_ONE=1n<<BAND_F,BAND_PI=(BigInt("3141592653589793238462643383279502884197169399375105820974944592307816406286")<<BAND_F)/10n**75n,BAND_2PI=2n*BAND_PI,BAND_LN=new Map();
+let bandSpf=new Int32Array(0);
+function bandSieve(N){if(bandSpf.length>N)return bandSpf;const s=new Int32Array(N+1);for(let i=2;i<=N;i++)if(!s[i])for(let j=i;j<=N;j+=i)if(!s[j])s[j]=i;bandSpf=s;return s;}
+function bandAtanh(q){const Q=BigInt(q),Q2=Q*Q;let t=BAND_ONE/Q,s=t,k=3n;while(t>0n){t/=Q2;s+=t/k;k+=2n;}return s;}
+function bandLn(p){let v=BAND_LN.get(p);if(v!==undefined)return v;if(p===2)v=2n*bandAtanh(3);else{v=2n*bandAtanh(2*p-1);let m=p-1;while(m>1){const q=bandSpf[m];v+=bandLn(q);m/=q;}}BAND_LN.set(p,v);return v;}
+function bandFixed(x){let e=0n;while(!Number.isInteger(x)){x*=2;e++;}return BigInt(x)<<(BAND_F-e);}
+function bandMake(d,base,low){
+ const n=d.length,g=new Float64Array(n),w=new Float64Array(n);let A,L,dc=0;
+ if(low){const T=d[n-1];A=2*T;L=T*BAND_FADE;for(let i=0;i<n;i++){g[i]=d[i];w[i]=d[i]>T-L?0.5*(1+Math.cos(Math.PI*(d[i]-(T-L))/L)):1;}}
+ else{const lo=d[0],hi=d[n-1];A=hi-lo;L=(hi-lo)*BAND_FADE;dc=(lo+hi)/2;for(let i=0;i<n;i++){const x=d[i];w[i]=x>hi-L?0.5*(1+Math.cos(Math.PI*(x-(hi-L))/L)):x<lo+L?0.5*(1-Math.cos(Math.PI*(x-lo)/L)):1;g[i]=x-dc;}}
+ return {low,g,w,A,L,a:A-L,W0:A-L,width:low?A/2:A,count:n,c:low?0n:(BigInt(base)<<BAND_F)+bandFixed(dc),dc,ph:null};
+}
+function bandPhases(b,N){
+ if(b.ph&&b.ph.n>=N)return b.ph;const spf=bandSieve(N),re=new Float64Array(N+1),im=new Float64Array(N+1),th=new Float64Array(N+1),TP=2*Math.PI;
+ for(let m=2;m<=N;m++){const p=spf[m];let t=0;if(b.c!==0n){if(p===m)t=Number((b.c*bandLn(p)>>BAND_F)%BAND_2PI)/2**192;else{t=th[m/p]+th[p];if(t>=TP)t-=TP;}}th[m]=t;re[m]=Math.cos(t);im[m]=-Math.sin(t);}
+ b.ph={n:N,re,im};return b.ph;
+}
+function bandKern(b,x,m){const q=x/m,v=Math.log(q),z=b.a*v/2,s=Math.abs(z)<1e-12?1:Math.sin(z)/z,e=v*b.L/Math.PI,den=1-e*e,h=Math.abs(den)<1e-9?Math.PI/4:Math.cos(v*b.L/2)/den;return Math.sqrt(q)*(b.a*s*h)/b.W0;}
+function bandScale(b,n){return b.low?Math.PI*n/b.width:2*Math.PI*n/b.width;}
+function bandRaw(b,x,R,I){
+ const u=Math.log(x),g=b.g,w=b.w,n=g.length;let sr=0,si=0;
+ if(b.low){for(let i=0;i<n;i++)sr+=w[i]*Math.cos(g[i]*u);const rx=Math.sqrt(x);R[x]=(rx-2*sr)*2*Math.PI*rx/b.W0;I[x]=0;return;}
+ for(let i=0;i<n;i++){const a=g[i]*u;sr+=w[i]*Math.cos(a);si+=w[i]*Math.sin(a);}const f=Math.sqrt(x)/b.W0;R[x]=-2*Math.PI*sr*f;I[x]=-2*Math.PI*si*f;
+}
+function bandState(bs,lo,wheel,M,Xmax){
+ const rho=wheel.reduce((r,q)=>r*(1-1/q),1),spf=bandSieve(Xmax),lam=new Float64Array(Xmax+1),root=new Int32Array(Xmax+1),perf=new Uint8Array(Xmax+1),cand=new Uint8Array(Xmax+1);
+ for(let m=2;m<=Xmax;m++){const p=spf[m];let t=m;while(t%p===0)t/=p;if(t===1){lam[m]=Math.log(p);root[m]=p;}}
+ for(let e=2;e<20;e++)for(let r=2;r**e<=Xmax;r++)perf[r**e]=1;
+ const allc=[];for(let m=2;m<=Xmax;m++){let ok=!perf[m];for(const q of wheel)if(m%q===0)ok=false;cand[m]=ok?1:0;if(ok&&m>=lo)allc.push(m);}
+ const st={bs,lo,wheel,M,Xmax,rho,lam,root,cand,allc:Int32Array.from(allc),i:0,subs:[],later:new Map(),dec:new Map(),hist:[{u:[],met:0}],
+  res:bs.map(()=>({re:new Float64Array(Xmax+1),im:new Float64Array(Xmax+1),lo:-1,hi:-2,floor:2})),ph:bs.map(b=>bandPhases(b,Xmax))};
+ const inW=q=>wheel.includes(q);
+ for(let m=2;m<=Xmax;m++){if(lam[m]>0&&(inW(root[m])||root[m]<lo))st.subs.push([m,lam[m]]);}
+ for(let m=lo;m<=Xmax;m++){if(lam[m]>0&&perf[m]&&!inW(root[m])&&root[m]>=lo){let a=st.later.get(root[m]);if(!a)st.later.set(root[m],a=[]);a.push(m);}}
+ return st;
+}
+function bandSub(st,m,v){
+ st.subs.push([m,v]);
+ for(let bi=0;bi<st.bs.length;bi++){const b=st.bs[bi],r=st.res[bi],pr=st.ph[bi].re[m]*v,pi=st.ph[bi].im[m]*v;for(let x=Math.max(r.lo,r.floor);x<=r.hi;x++){const k=bandKern(b,x,m);r.re[x]-=pr*k;r.im[x]-=pi*k;}}
+}
+function bandEnsure(st,bi,x0,x1){
+ const b=st.bs[bi],r=st.res[bi],ph=st.ph[bi];if(r.lo<0){r.lo=x0;r.hi=x0-1;}
+ for(let x=r.hi+1;x<=x1;x++){bandRaw(b,x,r.re,r.im);let sr=r.re[x],si=r.im[x];for(const [m,v] of st.subs){const k=bandKern(b,x,m)*v;sr-=ph.re[m]*k;si-=ph.im[m]*k;}r.re[x]=sr;r.im[x]=si;}
+ if(x1>r.hi)r.hi=x1;
+}
+function bandCommit(st,m,bit){
+ st.dec.set(m,bit);
+ if(bit){const v=Math.log(m);bandSub(st,m,v);for(const q of st.later.get(m)||[])bandSub(st,q,v);}
+}
+function bandStep(st){
+ const i=st.i,allc=st.allc,n=allc[i],k=Math.min(BAND_K,allc.length-i),bs=st.bs,nb=bs.length;st.i++;
+ const U=allc.subarray(i,i+k);let msc=0;for(const b of bs)msc=Math.max(msc,bandScale(b,n));
+ const nf=Math.trunc(Math.max(60,BAND_FAR*msc*st.rho)),F=allc.subarray(i+k,Math.min(allc.length,i+k+nf)),f=F.length,pF=new Float64Array(f),vF=new Float64Array(f),mF=new Float64Array(f);
+ for(let j=0;j<f;j++){const L=Math.log(F[j]),p=Math.min(0.95,(1/st.rho)/L);pF[j]=p;vF[j]=p*(1-p)*L*L;mF[j]=p*L;}
+ const rows=[];
+ for(let bi=0;bi<nb;bi++){const b=bs[bi],sc=bandScale(b,n),step=Math.max(1,Math.trunc(sc/BAND_OV)),x0=Math.max(2,n-Math.trunc(BAND_SL*sc)),x1=U[k-1]+Math.trunc(BAND_SR*sc)+5;
+  st.res[bi].floor=x0;const xs=[];for(let x=x0;x<x1;x+=step)xs.push(x);bandEnsure(st,bi,x0,xs[xs.length-1]);rows.push({bi,xs,sg:BAND_SIG/step});}
+ let R=0;for(const r of rows)R+=r.xs.length*(bs[r.bi].low?1:2);
+ const K=new Float64Array(R*f),A=new Float64Array(R*k),y=new Float64Array(R),sg=new Float64Array(R),SX=[];
+ let o=0;
+ for(const r of rows){const b=bs[r.bi],ph=st.ph[r.bi],res=st.res[r.bi],nx=r.xs.length,two=!b.low;
+  for(let t=0;t<nx;t++){const x=r.xs[t],oR=o+t,oI=o+nx+t;let yr=res.re[x],yi=res.im[x];
+   for(let j=0;j<f;j++){const m=F[j],kk=bandKern(b,x,m),cr=kk*ph.re[m],ci=kk*ph.im[m];yr-=cr*mF[j];yi-=ci*mF[j];K[oR*f+j]=cr;if(two)K[oI*f+j]=ci;}
+   for(let j=0;j<k;j++){const m=U[j],kk=bandKern(b,x,m)*Math.log(m);A[oR*k+j]=kk*ph.re[m];if(two)A[oI*k+j]=kk*ph.im[m];}
+   y[oR]=yr;sg[oR]=r.sg;if(two){y[oI]=yi;sg[oI]=r.sg;}}
+  SX.push({bi:r.bi,o,nx,two});o+=two?2*nx:nx;}
+ const C=new Float64Array(R*R),Kv=new Float64Array(f);
+ for(let a=0;a<R;a++){const ka=a*f;for(let j=0;j<f;j++)Kv[j]=K[ka+j]*vF[j];for(let c=0;c<=a;c++){const kc=c*f;let s=0;for(let j=0;j<f;j++)s+=Kv[j]*K[kc+j];C[a*R+c]=s;}C[a*R+a]+=sg[a];}
+ for(let a=0;a<R;a++){const ra=a*R;for(let c=0;c<=a;c++){const rc=c*R;let s=C[ra+c];for(let t=0;t<c;t++)s-=C[ra+t]*C[rc+t];C[ra+c]=c===a?Math.sqrt(Math.max(s,1e-300)):s/C[rc+c];}}
+ const white=v=>{const w=new Float64Array(R);for(let a=0;a<R;a++){const ra=a*R;let s=v[a];for(let t=0;t<a;t++)s-=C[ra+t]*w[t];w[a]=s/C[ra+a];}return w;};
+ const Q=[],Rm=new Float64Array(k*k);
+ for(let j=0;j<k;j++){const col=new Float64Array(R);for(let a=0;a<R;a++)col[a]=A[a*k+j];const v=white(col);
+  for(let pass=0;pass<2;pass++)for(let q=0;q<j;q++){const qq=Q[q];let d=0;for(let a=0;a<R;a++)d+=qq[a]*v[a];Rm[q*k+j]+=d;for(let a=0;a<R;a++)v[a]-=d*qq[a];}
+  let nn=0;for(let a=0;a<R;a++)nn+=v[a]*v[a];nn=Math.sqrt(nn)||1e-150;Rm[j*k+j]=nn;for(let a=0;a<R;a++)v[a]/=nn;Q.push(v);}
+ const proj=v=>{const w=white(v),z=new Float64Array(k);for(let j=0;j<k;j++){const qj=Q[j];let d=0;for(let a=0;a<R;a++)d+=qj[a]*w[a];z[j]=d;}return z;};
+ const search=z=>{const v=new Float64Array(k),best=[Infinity,Infinity];let bits=0,bestAll=Infinity,bestBit=0;
+  for(let g=0;g<(1<<k);g++){if(g){const j=31-Math.clz32(g&-g),on=((bits^=1<<j)>>j)&1;for(let q=0;q<=j;q++)v[q]+=on?Rm[q*k+j]:-Rm[q*k+j];}
+   let e=0;for(let q=0;q<k;q++){const d=z[q]-v[q];e+=d*d;}const b0=bits&1;if(e<best[b0])best[b0]=e;if(e<bestAll){bestAll=e;bestBit=b0;}}
+  return {best,bestBit};};
+ if(st.M===1){bandCommit(st,n,search(proj(y)).bestBit);return;}
+ const kids=[];
+ for(const h of st.hist){let yh=y;const ones=h.u.filter(e=>e[1]).map(e=>e[0]);
+  if(ones.length){yh=Float64Array.from(y);for(const s of SX){const b=bs[s.bi],ph=st.ph[s.bi],xs=rows.find(r=>r.bi===s.bi).xs;for(let t=0;t<s.nx;t++){let cr=0,ci=0;for(const m of ones){const kk=bandKern(b,xs[t],m)*Math.log(m);cr+=kk*ph.re[m];ci+=kk*ph.im[m];}yh[s.o+t]-=cr;if(s.two)yh[s.o+s.nx+t]-=ci;}}}
+  const r=search(proj(yh));kids.push({u:h.u.concat([[n,0]]),met:h.met+r.best[0]});kids.push({u:h.u.concat([[n,1]]),met:h.met+r.best[1]});}
+ kids.sort((p,q)=>p.met-q.met);st.hist=kids.slice(0,st.M);
+ if(st.hist[0].u.length>BAND_D){const [m0,b0]=st.hist[0].u[0];st.hist=st.hist.filter(h=>h.u[0][0]===m0&&h.u[0][1]===b0).map(h=>({u:h.u.slice(1),met:h.met}));bandCommit(st,m0,b0);}
+}
+function bandFlush(st){if(st.M>1){for(const [m,b] of st.hist[0].u)bandCommit(st,m,b);st.hist=[{u:[],met:0}];}}
+const BAND_M=8,BANDS=[{name:"zeros 1 to 10,000",i0:0,c:0,W:9877.782654005598,where:"heights 14.1 to 9,877.8: the lowest zeros, a lowpass of width 9,878",reach:[56475,83207,101051,121357]},{name:"zeros 10,001 to 20,000",i0:10000,c:13962.56,W:8167.8095238536935,where:"heights 9,878.7 to 18,046.5, centre c = 13,962.6, width 8,168",reach:[48047,64511,76301,86717]},{name:"zeros 100,001 to 110,000",i0:100000,c:78252.97,W:6662.082725450993,where:"heights 74,921.9 to 81,584.0, centre c = 78,253.0, width 6,662",reach:[38005,49073,49409,49409]},{name:"zeros 1,000,001 to 1,010,000",i0:1000000,c:603008.55,W:5476.4974973726785,where:"heights 600,270.3 to 605,746.8, centre c = 603,008.6, width 5,477",reach:[25557,42617,47909,47909]},{name:"zeros 10¹² + 1 to 10¹² + 10⁴ (Odlyzko)",files:["odlyzko_zeros3.txt"],W:2567.1987477717003,where:"heights 267,653,395,648.8 to 267,653,398,216.0 (2.68·10¹¹), width 2,567",reach:[14399,20353,20353,27199]},{name:"zeros 10²¹ + 1 to 10²¹ + 10⁴ (Odlyzko)",files:["odlyzko_zeros4.txt"],W:1409.24424147,where:"heights 144,176,897,509,546,973,538.5 to 144,176,897,509,546,974,947.7 (1.44·10²⁰), width 1,409",reach:[7633,12515,14969,16937]},{name:"zeros 10²² + 1 to 10²² + 10⁴ (Odlyzko)",files:["odlyzko_zeros5.txt"],W:1341.6552288000003,where:"heights 1,370,919,909,931,995,308,226.7 to 1,370,919,909,931,995,309,568.3 (1.37·10²¹), width 1,342",reach:[7615,10399,13567,15919]},{name:"Odlyzko’s three tables together",files:["odlyzko_zeros3.txt","odlyzko_zeros4.txt","odlyzko_zeros5.txt"],W:5318.0982180417,where:"30,000 zeros near heights 2.68·10¹¹, 1.44·10²⁰ and 1.37·10²¹, widths 2,567 + 1,409 + 1,342 = 5,318",reach:[30831,39433,50783,64853]}];
+const bandData=new Map(),bandObjs=new Map(),bandStates=new Map();
+function bandParse(t){const L=t.split("\n"),m=L.slice(0,6).join(" ").match(/gamma - (\d+)/);if(!m)return null;const d=L.filter(x=>/^\s*\d+\.\d+\s*$/.test(x)).map(Number);return d.length?{base:m[1],d:Float64Array.from(d)}:null;}
+function bandFile(f){const v=bandData.get(f);if(v!==undefined)return v==="loading"?undefined:v;if(typeof fetch!=="function"){bandData.set(f,null);return null;}bandData.set(f,"loading");fetch(f).then(r=>r.ok?r.text():Promise.reject(r.status)).then(t=>{bandData.set(f,bandParse(t));render();},()=>{bandData.set(f,null);render();});return undefined;}
+function bandSet(i){
+ const B=BANDS[i];let bs=bandObjs.get(i);if(bs)return bs;
+ if(B.files){const ds=B.files.map(bandFile);if(ds.includes(null))return null;if(ds.includes(undefined))return undefined;
+  bs=B.files.map(f=>{let o=bandObjs.get(f);if(!o){const r=bandFile(f);o=bandMake(r.d,r.base,false);bandObjs.set(f,o);}return o;});}
+ else{const G=zetaZeros(B.i0+10000);if(G.length<B.i0+10000)return null;bs=[bandMake(Float64Array.from(G.slice(B.i0,B.i0+10000)),"0",B.i0===0)];}
+ bandObjs.set(i,bs);return bs;
+}
+function riemannBand(p,S,k){
+ if(p<2)return 2;
+ const i=Number($("band").value),bs=bandSet(i);if(!bs)return null;
+ const q=Math.max(1,Math.min(4,k)),wheel=DEC_PRIMES.slice(0,q),cap=Math.floor(15*bs.reduce((s,b)=>s+b.width,0));if(p>=cap)return null;
+ const lo=Math.max(3,S),key=i+"|"+lo+"|"+q;let st=bandStates.get(key);
+ if(!st){if(bandStates.size>3)bandStates.clear();const top=Math.min(cap,lo+2600);let sc=0;for(const b of bs)sc=Math.max(sc,bandScale(b,top));st=bandState(bs,lo,wheel,BAND_M,top+Math.ceil(16*sc)+500);st.top=top;bandStates.set(key,st);}
+ for(let n=p+1;n<=p+400;n++){
+  if(n<st.lo){if(lamOf(n)===Math.log(n))return n;continue;}
+  if(wheel.includes(n))return n;
+  if(n>st.top)return null;
+  if(!st.cand[n])continue;
+  while(!st.dec.has(n)){if(st.i>=st.allc.length){bandFlush(st);break;}bandStep(st);}
+  if(st.dec.get(n))return n;
+ }
+ return null;
+}
+function bandNote(S,E,k){
+ const i=Number($("band").value),B=BANDS[i],q=Math.max(1,Math.min(4,k)),f=n=>n.toLocaleString("en-US");$("bandLabel").textContent=B.name;
+ const rr=B.reach.map((r,j)=>r<0?"clean to "+f(-r):f(r));
+ let t=`${B.where}. Decoding upward from 3 with only the first k primes given, 141 reads every prime below ${rr[0]} with k = 1, ${rr[1]} with k = 2, ${rr[2]} with k = 3 and ${rr[3]} with k = 4 (now k = ${q}). On the circle the primes below it are known, at start 1 none. It draws no arrows from n ≥ 15 band widths = ${f(Math.floor(15*B.W))}.`;
+ if(B.c>0&&q===1){const lo=Math.max(1,Math.ceil(2*B.c/(Math.PI*E))),hi=Math.floor(2*B.c/(Math.PI*Math.max(S,3))),pts=[];for(let j=lo;j<=hi&&pts.length<6;j++)pts.push(`${f(Math.round(2*B.c/(Math.PI*j)))} (j = ${j})`);
+  if(pts.length)t+=` Bad points 2c/(πj) of the phase rule on this circle: ${pts.join(", ")}.`;else{const j=Math.max(1,Math.round(4*B.c/(Math.PI*(S+E))));t+=` The nearest bad point 2c/(πj) of the phase rule: ${f(Math.round(2*B.c/(Math.PI*j)))} (j = ${j}).`;}}
+ if(B.files){const ds=B.files.map(x=>bandData.get(x));if(ds.includes("loading"))t+=" Loading Odlyzko’s table …";else if(ds.includes(null))t+=" Odlyzko’s table could not be loaded.";else if(B.files.length>1)t+=" Three bands take about ten seconds per circle of 1,000.";}
+ else if(B.i0>=100000)t+=" The first use computes the zeros up to this band, which takes some seconds.";
+ $("bandInfo").textContent=t;
+}
 let sieveCache=null;
 function primeSieve(L){if(sieveCache&&sieveCache.L>=L)return sieveCache.sv;const sv=new Uint8Array(L+1);sv[0]=1;if(L>=1)sv[1]=1;for(let i=2;i*i<=L;i++)if(!sv[i])for(let j=i*i;j<=L;j+=i)sv[j]=1;sieveCache={L,sv};return sv;}
 function psiData(S,E,race){
@@ -1238,6 +1369,7 @@ function transform(p,code,k,N,S,C){
  case "riemann-auto": y=riemannAuto(p,S,zeroCount());break;
  case "riemann-wheel210": y=riemannDecode(p,S,zeroCount(),4,true);break;
  case "riemann-facts": y=riemannDecode(p,S,zeroCount(),Math.max(1,Math.min(25,k)),true);break;
+ case "riemann-band": y=riemannBand(p,S,k);break;
  }
  if(y===null)return null;
  if(typeof y!=="bigint"){if(!Number.isFinite(y))return null;y=BigInt(Math.trunc(y));}
@@ -1253,7 +1385,7 @@ function render(){
  if($("sourceMode").value==="chain"&&$("doubleWheel").checked)$("doubleWheel").checked=false;
  const C=Number($("limit").value),k=Number($("parameter").value),code=$("experiment").value;
  const S=readStart(),N=S+C-1,dbl=$("doubleWheel").checked,W=dbl?2*C:C,E=S+W-1;state.range={S,N,primes:0};
- $("limitLabel").textContent=C;$("kLabel").textContent=k;$("rangeLabel").textContent="("+S+"–"+N+(dbl?", wheel to "+E:"")+")";
+ bandNote(S,E,k);$("limitLabel").textContent=C;$("kLabel").textContent=k;$("rangeLabel").textContent="("+S+"–"+N+(dbl?", wheel to "+E:"")+")";
  const exp=experiments.find(e=>e[2]===code);
  const srcMode=$("sourceMode").value;$("experiment").disabled=srcMode==="start-all";$("chainOpts").hidden=srcMode!=="chain";
  const chain=srcMode==="chain";$("doubleWheel").disabled=chain;$("lineFilter").disabled=chain;
@@ -1553,6 +1685,7 @@ function compareDetectors(){
  $("cmpOut").innerHTML=ps.length?`<table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left">Detector</th><th style="text-align:left">Zeros it needs up to</th><th style="text-align:left">Next prime right</th></tr></thead><tbody>${out}</tbody></table>${K} zeros${K?", up to γ = "+G[K-1].toFixed(0)+" = "+(G[K-1]/(Math.PI*N)).toFixed(3)+"·πn at n = "+N:""}.`:"No primes on this circle.";
 }
 $("cmpBtn").addEventListener("click",compareDetectors);
+$("band").addEventListener("input",()=>{if($("experiment").value==="riemann-band")render();else{const C=Number($("limit").value),S=readStart();bandNote(S,S+($("doubleWheel").checked?2*C:C)-1,Number($("parameter").value));}});
 $("zeros").addEventListener("input",()=>{$("zerosLabel").textContent=zeroCount();if($("psiRing").checked||$("experiment").value.startsWith("riemann-"))render();});
 $("indicator").addEventListener("change",render);
 $("sourceMode").addEventListener("change",render);
@@ -1589,7 +1722,7 @@ function computeAtlas(){
  }
  step();
 }
-const USES_NEXT_PRIME=new Set(["prime-gap","gap-merit","capelle","gap-diff","run-mod4","neighbour-mean","riemann-next","riemann-point","riemann-wheel6","riemann-decode","riemann-decode-sieve","riemann-recursion","riemann-two-point","riemann-left","riemann-class","riemann-mod24","riemann-mod840","riemann-auto","riemann-wheel210","riemann-facts","golomb","least-witness"]);
+const USES_NEXT_PRIME=new Set(["prime-gap","gap-merit","capelle","gap-diff","run-mod4","neighbour-mean","riemann-next","riemann-point","riemann-wheel6","riemann-decode","riemann-decode-sieve","riemann-recursion","riemann-two-point","riemann-left","riemann-class","riemann-mod24","riemann-mod840","riemann-auto","riemann-wheel210","riemann-facts","riemann-band","golomb","least-witness"]);
 let atlasLast=null;
 function drawAtlas(allRows,P){
  atlasLast={rows:allRows,P};
