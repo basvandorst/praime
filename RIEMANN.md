@@ -1,6 +1,6 @@
 # Primes from the zeros of zeta, and zeros from the primes
 
-> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top). A stretch near 9,000 is proved at 0.02·πn (section 14). Beyond ζ, the 811,854 zeros below height 13.21 of the 20,009 non-principal Dirichlet L-functions modulo 20,011 decide every integer below 10,000 one at a time, with proof and without any zero of ζ (section 15).
+> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top). A stretch near 9,000 is proved at 0.02·πn (section 14). Beyond ζ, the 811,854 zeros below height 13.21 of the 20,009 non-principal Dirichlet L-functions modulo 20,011 decide every integer below 10,000 one at a time, with proof and without any zero of ζ (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs (section 16, computed in floating point).
 
 **Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–141, section "Riemann's explicit formula"; the band slider of 141 loads Odlyzko's tables from the files beside the page)
 
@@ -886,6 +886,56 @@ python3 $C/fam_check.py lfam20011.npz famcrit20011.npy 1.09 12 4
 **Limit.** A larger family needs GRH to a useful height. Platt's verification reaches 10⁸/q, so it falls as q grows. At q = 2·10⁵ (for n up to 10⁵) the height is 500, and the bound for the zeros above it would exceed ¼ ln n. Larger n need either more integrations by parts (a smoother kernel) or GRH checked higher for these q.
 
 What the result shows is that the height needed to read a prime is not fixed by the prime: with all characters mod q, the zeros below a fixed height already decide every n < q/2. These low-lying zeros are the ones that one-level density studies (Iwaniec–Luo–Sarnak; Fiorilli–Miller for this family). We found the identity used there, but not as a test for a single n. That rests on one search, not a survey.
+
+## 16. No zeros, no sieve: primes from the logarithms of L-values
+
+Section 15 needs the zeros only to evaluate the prime side of each character. The Euler product evaluates it directly. For s > 1:
+
+```
+log L(s, χ) = Σ_m (Λ(m)/ln m) χ(m) m^(−s)
+```
+
+This is the principal branch, because the series is at most log ζ(s) < π in size. Orthogonality over the characters modulo a prime q then gives
+
+```
+C(n) = (1/(q−1)) Σ_χ χ̄(n) log L(s, χ) = Σ_{m ≡ n (mod q)} (Λ(m)/ln m) m^(−s)
+```
+
+For n < q the member m = n contributes n^(−s) if n is prime, n^(−s)/k if n = p^k with k ≥ 2, and 0 otherwise. The rest of the class adds
+
+```
+D(n) − Λ(n)/ln n ∈ [0, n^s ((n+q)^(−s) + (n+q)^(1−s)/(q(s−1)))],  D(n) = n^s C(n)
+```
+
+With s = 2 and q ≥ 3n this tail is at most 0.146, so n is prime iff D(n) > ¾.
+
+**Computation** ([charlog.py](writeup/code/riemann/certified/charlog.py)):
+1. Compute the Hurwitz values ζ(2, a/q) for every a.
+2. One FFT in discrete-log order turns them into L(2, χ) for every χ.
+3. Take one logarithm per character.
+4. One more FFT gives C for every residue class at once.
+
+Nothing is crossed off and nothing is divided, and no number is tested. The code also certifies that q is prime: the powers of g reach every nonzero residue, so every nonzero residue is invertible.
+
+| X | q | Primes found | Wrong | L-values, log, FFTs | Largest rounding (should be 0) | Smallest D of a prime | Largest D of the rest |
+|---|---|---|---|---|---|---|---|
+| 10⁴ | 30,011 | 1,229 | 0 | 0.01 s | 5.1·10⁻¹⁰ | 1.000000 | 0.521 |
+| 10⁶ | 3,000,017 | 78,498 | 0 | 1.4 s | 5.5·10⁻⁶ | 1.000000 | 0.511 |
+| 10⁷ | 30,000,001 | 664,579 | 0 | 10.9 s | 4.4·10⁻⁴ | 0.999978 | 0.506 |
+
+**Validation** ([charlog_check.py](writeup/code/riemann/certified/charlog_check.py)):
+- **Per-number test.** Every n is tested on its own with gmpy2 (BPSW, which is proved below 2⁶⁴). This is the reference only; the method does not use it.
+- **Identity.** D(n) − Λ(n)/ln n lies in [−3.3·10⁻⁴, tail bound] for every n ≤ 10⁷. The negative end is rounding.
+- **Exact class sums.** For 43 numbers the class sum is computed from its definition: the first 400 class members are factored with sympy and the rest is bounded. The run lies inside the exact interval to 4.7·10⁻¹⁶.
+
+**Status.** Computed in double precision without interval arithmetic, so this is not a proof. The rounding is at most 4.4·10⁻⁴, against a margin of 0.24.
+
+**Limits.**
+- **Cost.** The work is O(q log q): 11 s for 10⁷, against well under a second for a sieve. It does not beat the sieve. It computes the same set another way: through the Euler product, read by Fourier analysis on the characters.
+- **Memory.** q must be at least 2.5·X, so 10⁸ needs 4 GB per complex array.
+- **Rounding.** It grows like n²/√q.
+
+The relation to section 15: the orthogonality step is the same. The zeros were one way to evaluate the prime side of each character; the logarithm of L(2, χ) is another, and it needs no zeros.
 
 ## References
 
