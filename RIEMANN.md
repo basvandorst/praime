@@ -1119,8 +1119,27 @@ At s = 12 and n = 10⁴ this is 338,300. The measured counts are 338,828 (q = 10
 - **Primes are local in a time–frequency sense.** To read one integer without knowing any other, the "box" of the test (resolution in the arithmetic progression times height in the spectrum) must hold about s ≈ 5 degrees of freedom for a correct answer, and about 12 for a proof. One can trade arithmetic resolution (the size of the family) for spectral height one for one, but not reduce the total.
 - **Random access has a price.** Deciding every n < X alone costs about (s/π)·X·ln X zeros, whatever the family. The sequential chain of section 14 uses 359 zeros below 10⁴, about a thousand times fewer, because each decision reuses the earlier ones.
 
+**A failed prediction, and what it taught** ([optimal_kernel.py](writeup/code/riemann/certified/optimal_kernel.py), [famcrit_opt.py](writeup/code/riemann/certified/famcrit_opt.py)).
+- **The prediction.** Under the random-phase law the best kernel minimizes the leaked energy ∫_{|σ|>s}|f̂|² at fixed f(0). For that kernel the law predicted correct decisions down to s ≈ 2.
+- **It failed.** At s = 2.4 and 3.6 that kernel called every prime composite.
+- **The missing piece.** A prime is a spike, whose spectrum is flat. The part of the kernel's spectrum above s therefore carries a deterministic share of the signal, not only noise. The computed value is S(s)·Λ(n) + noise, where S(s) = ∫f(u) sin(su)/(πu) du / f(0) is the in-band fraction. For the Kaiser–Bessel windows of the table S is 0.56 at s = 2.4, 0.75 at 3.6 and 0.87 at 4.8. That bias, not the noise, is what stopped the decisions below c·T ≈ 4.8.
+- **Divided by S**, every kernel decides far lower. Every n < 10⁴ is decided correctly from:
+
+| family | s | height T | zeros | real error, rms (matched filter / Kaiser–Bessel) |
+|---|---|---|---|---|
+| q = 20,011 | 1.6 | **1.47** | 69,906 | 0.35 / 0.35 |
+| q = 10,007 | 1.6 | 2.33 | 53,680 | 0.39 / 0.39 |
+| q = 1,009 | 2.4 | 25.2 | 59,046 | 0.29 / 0.30 |
+| q = 101 | 3.0 | 301.5 | 71,134 | 0.18 / 0.23 |
+| q = 1,009, n < 10⁵ (3,000 random n) | 2.4 | 241.5 | 740,436 | 0.31 / 0.32 |
+
+  Below these s a few decisions fail: at s = 1.2 for q = 10,007, 5–7 of 9,997; at s = 1.6, 40 of 9,988 for q = 1009 and 60 of 9,898 for q = 101.
+- **The matched filter.** The right optimum maximizes S² against the leaked energy: f = M_s⁻¹a_s. It reduces the noise against Kaiser–Bessel by about 2× at s = 3.6 (0.060 against 0.111 rms at q = 10,007; 0.086 against 0.168 at n < 10⁵) and 3.8× at s = 4.8 (0.018 against 0.068).
+- **What the extension to n < 10⁵ shows.** At s = 2.4 the rms error is the same as below 10⁴ (0.31 against 0.29), as the law says it should be for q ≪ n.
+- **What the law gets wrong at low s.** It predicts the difference between families too small. The noise falls with q by 2× from q = 101 to 20,011 at s = 1.6–2.4, against 1.35× from the factor n·c/(q − 1). At heights of 1–3 the zeros used are the lowest ones, where the family's zeros are not yet spread like the asymptotic density.
+
 **Status.**
-- **Measured.** The two laws, the universal error curve, its parameter-free prediction (within a factor 0.66–1.29 at 23 points) and the two thresholds, on four families at X = 10⁴. The laws are derived above from the structure of the explicit formula (heuristic for the real error, exact in form for the bound), and every decision in the table is checked against gmpy2.
+- **Measured.** The two laws, the universal error curve, its parameter-free prediction (within a factor 0.66–1.29 at 23 points), the in-band correction (real decisions from s = 1.6–3.0 instead of 4.8), the matched filter, and the same error at n < 10⁵. The laws are derived above from the structure of the explicit formula (heuristic for the real error, exact in form for the bound), and every decision in the table is checked against gmpy2.
 - **Conjectured.** That no local test linear in the zeros can be correct for all n with c·T below a fixed constant. The Slepian–Pollak concentration of band-limited functions suggests it. A proof would turn Law 1 into a true uncertainty principle for primes.
 
 ## References
