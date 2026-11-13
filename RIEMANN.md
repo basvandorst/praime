@@ -1085,6 +1085,26 @@ The entries are the worst real error |Λ̂ − Λ| as a fraction of ¼ ln n. The
 - **The real error.** The zeros above T enter with nearly random phases. Their sum, divided by the (q − 1)K(0) of the orthogonality, is about F(cT)·√(n·c·ln(qT)/(π(q − 1))). For q ≪ n, c ≈ q/n, and q drops out.
 - **The proved bound.** It must assume aligned phases, so it is about √(number of zeros) larger. It, too, depends on q only through ln(qT).
 
+**Law 1 predicted, with no free parameter** ([predict_curve.py](writeup/code/riemann/certified/predict_curve.py)). Treat the zeros above T as terms with independent random phases. The family has (q − 1)·ln(qt/2π)/π zeros per unit of height, and each contributes c√n·C₀·Z_β(c|γ|)/((q − 1)K₀) in units of Λ. So
+
+```
+E_rms(n)² = (n·c/(q − 1)) · (C₀/K₀)² · (1/π) ∫_{cT}^∞ ln(q·s/(2πc)) Z_β(s)² ds,      worst of N numbers ≈ E_rms·√(2 ln N)
+```
+
+with C₀ = √(2π)·β^m and K₀ = I_m(β). Measured worst error divided by this prediction:
+
+| c·T | q = 101 | q = 1,009 | q = 10,007 | q = 20,011 |
+|---|---|---|---|---|
+| 3.6 | 0.91 | 0.88 | | 1.15 |
+| 4.8 | 0.88 | 0.98 | 0.92 | 1.07 |
+| 7.2 | 0.90 | 1.05 | 1.01 | 0.98 |
+| 9.6 | 0.91 | 1.29 | 0.79 | 0.83 |
+| 12.0 | 1.27 | 0.87 | 0.66 | 0.81 |
+| 14.4 | (floor) | 0.95 | 0.92 | 1.00 |
+| 16.8 | (floor) | | 1.03 | |
+
+So the formula holds over four orders of magnitude, from 1.3 down to 4·10⁻⁵, for every family. The two thresholds are where this curve crosses ¼ ln n: the real error does so between c·T = 3.6 and 4.8, the proved bound (all phases aligned) between 9.6 and 12. In words: to the primes, the unused zeros of a whole family behave like independent random phases, and the error of reading one integer is the size of their random walk through the kernel.
+
 **Law 2: the number of zeros is conserved.** The family has about (q − 1)·(T/π)·ln(qT/2πe) zeros below T. With T = s/c and c ≈ q/n for q ≪ n, q cancels:
 
 ```
@@ -1100,7 +1120,7 @@ At s = 12 and n = 10⁴ this is 338,300. The measured counts are 338,828 (q = 10
 - **Random access has a price.** Deciding every n < X alone costs about (s/π)·X·ln X zeros, whatever the family. The sequential chain of section 14 uses 359 zeros below 10⁴, about a thousand times fewer, because each decision reuses the earlier ones.
 
 **Status.**
-- **Measured.** The two laws, the universal error curve and the two thresholds, on four families at X = 10⁴. The laws are derived above from the structure of the explicit formula (heuristic for the real error, exact in form for the bound), and every decision in the table is checked against gmpy2.
+- **Measured.** The two laws, the universal error curve, its parameter-free prediction (within a factor 0.66–1.29 at 23 points) and the two thresholds, on four families at X = 10⁴. The laws are derived above from the structure of the explicit formula (heuristic for the real error, exact in form for the bound), and every decision in the table is checked against gmpy2.
 - **Conjectured.** That no local test linear in the zeros can be correct for all n with c·T below a fixed constant. The Slepian–Pollak concentration of band-limited functions suggests it. A proof would turn Law 1 into a true uncertainty principle for primes.
 
 ## References
