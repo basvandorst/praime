@@ -21,4 +21,11 @@ echo "== section 15 of RIEMANN.md: the family criterion mod 20011 (zeros of 20,0
 timeout 3000 nice $P $D/lfam.py 20011 13.211009174311924 0.005 lfam20011.npz | tail -5
 timeout 3000 nice $P $D/famcrit.py lfam20011.npz 10000 1.09 12 4 1.2 1e-9 famcrit20011.txt | tail -6
 timeout 5400 nice $P $D/fam_check.py lfam20011.npz famcrit20011.npy 1.09 12 4
+echo "== sections 15-17: family mod 395137 (n < 200,000), class peeling mod 30000001, hard decisions of the chain"
+timeout 10800 nice $P $D/lfam2.py 395137 15.412844036697248 0.005 lfam395137.npz | tail -3
+timeout 7200 nice $P $D/lfam_fix.py lfam395137.npz lfam395137f.npz | tail -9
+timeout 7200 nice $P $D/famcrit2.py lfam395137f.npz 200000 1.09 14 6 1.2 1e-9 famcrit395137 | grep -v "grid point"
+timeout 7200 nice $P $D/charlog_peel.py 30000001 3
+timeout 7200 nice $P $D/lpchain.py 10000 '[[20,1.4,6,2,1.2,1],[100,1.9,6,2,1.2,1],[300,6,10,3,1.2,3],[1000,24,14,3,1.2,12],[3000,84,18,3,1.2,42],[6000,221,24,3,1.2,110],[10000,429,28,3,1.2,214]]' '{"maxbits":40,"limit":1500,"out":"lpchain785b.json"}' | tail -2
+timeout 600 nice $P $D/miss_analysis.py lpchain785b_decisions.json
 echo done

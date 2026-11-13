@@ -1,6 +1,6 @@
 # Primes from the zeros of zeta, and zeros from the primes
 
-> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top), and so do the 359 zeros below 624.50 (0.0199·πn, section 14). Beyond ζ, the 811,854 zeros below height 13.21 of the 20,009 non-principal Dirichlet L-functions modulo 20,011 decide every integer below 10,000 one at a time, with proof and without any zero of ζ (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs (section 16, computed in floating point).
+> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top), and so do the 359 zeros below 624.50 (0.0199·πn, section 14). Beyond ζ, the low zeros of all Dirichlet L-functions modulo one prime q decide every integer one at a time, with proof: below 10,000 from the zeros below 13.21 mod 20,011 (no zero of ζ), and below 200,000 from the 24,783,484 zeros below 15.41 mod 395,137 (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs; peeling each residue class along its progression gives every prime below 9·10⁷ from the same two FFTs at q = 30,000,001 (section 16, computed in floating point). The hardest proofs sit at twin primes and pairs 6 apart (section 17).
 
 **Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–141, section "Riemann's explicit formula"; the band slider of 141 loads Odlyzko's tables from the files beside the page)
 
@@ -898,6 +898,27 @@ python3 $C/fam_check.py lfam20011.npz famcrit20011.npy 1.09 12 4
 
 **Limit.** A larger family needs GRH to a useful height. Platt's verification reaches 10⁸/q, so it falls as q grows. At q = 2·10⁵ (for n up to 10⁵) the height is 500, and the bound for the zeros above it would exceed ¼ ln n. Larger n need either more integrations by parts (a smoother kernel) or GRH checked higher for these q.
 
+**Twenty times further: every n < 200,000** ([lfam2.py](writeup/code/riemann/certified/lfam2.py), [lfam_fix.py](writeup/code/riemann/certified/lfam_fix.py), [famcrit2.py](writeup/code/riemann/certified/famcrit2.py), [kbderiv.py](writeup/code/riemann/certified/kbderiv.py)). Platt's verification covers q ≤ 400,000, and n·e^c < n + q with c = 1.09 then allows n up to about 2·10⁵. The run uses:
+- the modulus q = 395,137, with q − 1 = 2⁷·3²·7³ for fast FFTs;
+- Platt's height for this q, 294.9;
+- a kernel of order m = 6, so six integrations by parts handle the zeros above that height;
+- β = 14, so T = 15.413. This takes in one zero of ζ, 14.1347.
+
+Three changes make this size possible:
+1. **Streaming zeros.** lfam2.py keeps only 8 grid rows in memory. It finds 24,783,470 zeros of the 395,136 L-functions in 23 minutes. The argument principle disagreed for 14 characters (7 conjugate pairs), each short by 2. Each was a close pair of zeros inside one grid step of 0.005. Between two ordinary zeros |Z| has no interior minimum, so a minimum of |Z| without a sign change marks a hidden pair. lfam_fix.py found all 7 pairs (gaps 0.0018–0.0044, e.g. χ₃₁₁₄₅₀ at 13.24655 and 13.24994). After the repair the count agrees for every character: 24,783,484 zeros.
+2. **The zero sums by FFT.** 2·10⁵ numbers × 1.2·10⁷ zeros is too many terms to sum directly. Each F_k(u) = Σ w(γ)e^(iγu) has frequencies at most T. So F_k is sampled on a grid in u = ln n with step 0.02, one FFT over the characters per grid point gives every class at once, and degree-7 Lagrange interpolation reads off each n. Interpolation error: |F^(8)| ≤ Σ|w|γ⁸, so the error is at most 2Σ|w|γ⁸/8!·0.02⁸·max|∏(s−r)|, about 10⁻⁶ K(0). This is in δ. An independent direct sum over all zeros for 300 random n agrees to 2·10⁻⁹ K(0). That check caught an off-by-one in the stencil (one of the eight nodes was dropped), which gave errors of 2·10⁻² before the fix.
+3. **Exact derivative integrals.** ∫|K⁽ʲ⁾| now comes from the power series of the Kaiser–Bessel window in mpmath (kbderiv.py), not from numerical differentiation. At a kernel width of 10⁵, numerical differentiation was noise and overstated the bound for zeros above Platt's height about 700-fold. For q = 20,011 that part is 4.3·10⁻⁴, not 0.318, so the largest δ/K(0) there drops from 0.555 to 0.237. The old bound was larger than the true one, so the decisions above stand.
+
+**Result.** Every integer 3 ≤ n < 200,000 (199,997 numbers) is decided, and none is left undecided. The 17,983 primes equal the true list, with 0 wrong.
+- **Margin.** The largest δ/K(0) is 0.677 (n = 199,999) against ¼ ln n = 3.05. Its parts:
+  - zeros above T: 0.626;
+  - zeros above Platt's height: 0.051;
+  - precision: 8·10⁻⁵;
+  - interpolation: 10⁻⁶.
+- **Real error.** The largest |Λ̂ − Λ| is 4.4·10⁻⁴, and its rms grows like √n (3·10⁻⁶ below 10³, 4·10⁻⁵ above 10⁵).
+- **Time.** The criterion for all n takes 5 minutes.
+- **The leftover signal.** The residual shows no correlation with Λ(n ± 2) or Λ(n + 6), as orthogonality demands. It shows a weak correlation with the next members of its own class, beyond three standard deviations: partial correlation −0.011 with Λ(n + q) and −0.024 with Λ(n + 2q). The truncated zero sum leaks a little of the class's progression.
+
 What the result shows is that the height needed to read a prime is not fixed by the prime: with all characters mod q, the zeros below a fixed height already decide every n < q/2. These low-lying zeros are the ones that one-level density studies (Iwaniec–Luo–Sarnak; Fiorilli–Miller for this family). We found the identity used there, but not as a test for a single n. That rests on one search, not a survey.
 
 ## 16. No zeros, no sieve: primes from the logarithms of L-values
@@ -949,6 +970,56 @@ Nothing is crossed off and nothing is divided, and no number is tested. The code
 - **Rounding.** It grows like n²/√q.
 
 The relation to section 15: the orthogonality step is the same. The zeros were one way to evaluate the prime side of each character; the logarithm of L(2, χ) is another, and it needs no zeros.
+
+**Hidden in the rest: each class carries its whole progression** ([charlog_peel.py](writeup/code/riemann/certified/charlog_peel.py)). The tail of D(n) is not noise. It is exactly
+
+```
+n² Σ_{j≥1} a(n + jq)/(n + jq)²
+```
+
+the members of n's residue class further along. So the same class sums can be peeled, for all classes 1 ≤ n < q at once:
+1. Decide n.
+2. Subtract its term.
+3. Multiply the rest by (n + q)² and decide n + q.
+4. Subtract, and repeat with n + 2q.
+
+Two facts are used, and no primality test:
+- a perfect power is never prime, and its a is 1/k when its root (below √(n + jq) < q, so already decided) is prime;
+- an even number above 2 is not prime.
+
+| q | Band | Numbers | Primes | Wrong |
+|---|---|---|---|---|
+| 3,000,017 | 0, 1, 2 | 1 … 9,000,050 | 602,491 | 0 |
+| 3,000,017 | 3 | 9,000,052 … 12,000,067 | 185,570 | 2,347 false primes |
+| 30,000,001 | 0, 1, 2 | 1 … 90,000,002 | 5,216,953 | 0 |
+| 30,000,001 | 3 | 90,000,004 … 120,000,003 | 1,624,694 | 15,006 false primes |
+
+So the two FFTs of size 3·10⁷ (13 s) give every prime below 9·10⁷, three times the modulus. The one exception is q itself, which the run certifies. Checked number by number with gmpy2. This is not proved: beyond n < q/3 the rest of a class could in principle add up past the threshold.
+
+**Every miss explained.**
+- **Missing facts.** Without the two facts, band 1 failed only at prime squares (2357², 2393², 2417², 2437²). Band 2 failed mostly at even numbers whose odd neighbours n + 3q and n + 5q in the class were prime.
+- **Band 3 with the facts.** Every one of the 15,006 misses has a rest, computed from the true primes further along the class, of at least 0.715 (median 0.767). In 13,948 of them, n + 5q and n + 7q are prime: two primes of the same parity, two and four steps on. The misses are exactly the progressions n, n + 2q, n + 4q, … that hold a cluster of primes.
+
+## 17. Where the proofs are hard
+
+The chain of section 14 at height 785 was rerun with a log of every decision ([miss_analysis.py](writeup/code/riemann/certified/miss_analysis.py)). It records how many branch-and-bound nodes each proof took and whether the linear program's first guess was right.
+
+- **Below 6,000:** every decision closes in one node. The first guess is wrong only 34 times (3,000–6,000).
+- **6,000 to 10,000:** the median is still one node. The 99th percentile is 29, the maximum 95, and the first guess is wrong 253 times.
+
+A twin block is the four numbers p − 2, p, p + 2, p + 4 around a twin pair (p, p + 2). These blocks hold 13 % of the candidates there.
+
+| Nodes per proof | Decisions | In a twin block | Rest |
+|---|---|---|---|
+| ≥ 2 | 384 | 28 % | 9 % |
+| ≥ 11 | 108 | 52 % | 11 % |
+| ≥ 30 | 17 | 71 % | 12 % |
+
+Every one of the hardest 5 % has a neighbour 2 away of the opposite primality, against 55 % of the rest.
+- **Composites.** The hardest are numbers just below a twin pair: 7485 (7487, 7489), 6945, 6195, 7545, 8817, 6957, 6297, 9435, 8085, 9717, 6267.
+- **Primes.** The hard primes are twins themselves (9421, 6949), or primes with a partner 6 away (6679 with 6673, 7867 with 7873).
+
+The proofs are hard exactly at small prime constellations. There a pair of primes and the same pair shifted by one odd step differ only by a derivative-like signal. This is the same obstacle as the twin positions of section 4 and the close pairs of zeros of H5, now seen in proved decoding.
 
 ## References
 

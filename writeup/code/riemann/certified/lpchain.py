@@ -152,7 +152,7 @@ class LPChain:
                 if np.isnan(self.lam[n]) and not self.is_pp[n]:
                     self.commit(n, isprime(n))
         self.cache = {}; self.maxT = 0.0; self.log = []; self.stats = dict(nodes=0, lps=0, maxnodes=0)
-        self.record = (); self.proofs = {}; self.cur = None
+        self.record = (); self.proofs = {}; self.cur = None; self.dlog = []
 
     def commit(self, n, prime):
         self.lam[n] = math.log(n) if prime else 0.0
@@ -223,11 +223,12 @@ class LPChain:
                 if ok:
                     return got, 'data inconsistent'
                 guess = int(round(v[int(np.where(free == j)[0][0])]))
-            done = False; outcomes = []
+            done = False; outcomes = []; attempts = []
             for val in (guess, 1 - guess):
                 s2 = st.copy(); s2[j] = 1 - val
                 lg = None if logs is None else []
                 rr = refute(A, lo, hi, s2, limit, lg)
+                attempts.append((1 - val, rr[0], int(rr[1]) if rr[0] != 'feasible' else -1))
                 if rr[0] != 'feasible':
                     self.stats['nodes'] += rr[1]; self.stats['lps'] += rr[2]
                     self.stats['maxnodes'] = max(self.stats['maxnodes'], rr[1])
@@ -237,6 +238,7 @@ class LPChain:
                     got.append(val); st[j] = val; done = True
                     break
                 outcomes.append(rr[0])   # 'feasible': a pattern with b_j = 1 - val fits; try the other value
+            self.dlog.append(dict(u=int(U[j]), j=j, c=int(U[0]), k=k, guess=int(guess), value=(got[-1] if done else None), attempts=attempts, a=self.cur[0] if self.cur else None))
             if not done:
                 if logs is not None and got:
                     self.proofs[U[0]] = dict(U=U, xs=self.last_xs, params=self.cur, proofs=logs)
@@ -282,5 +284,6 @@ if __name__ == '__main__':
     print(f'{len(primes)} primes certified in [{lo}, {hi_dec}); wrong: {wrong[:10]}; zeros up to {C.maxT:.1f}')
     if out:
         json.dump(dict(X=X, stages=stages, wheel=wheel, start=start, result=r, log=C.log, primes=primes, opts=opts), open(out, 'w'))
+        json.dump(C.dlog, open(out.replace('.json', '_decisions.json'), 'w'))
         if C.proofs:
             json.dump({str(k): v for k, v in C.proofs.items()}, open(out.replace('.json', '_proofs.json'), 'w'))
