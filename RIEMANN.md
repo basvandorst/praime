@@ -1021,6 +1021,34 @@ Every one of the hardest 5 % has a neighbour 2 away of the opposite primality, a
 
 The proofs are hard exactly at small prime constellations. There a pair of primes and the same pair shifted by one odd step differ only by a derivative-like signal. This is the same obstacle as the twin positions of section 4 and the close pairs of zeros of H5, now seen in proved decoding.
 
+## 18. A discovery sweep: what the data says that was not computed before
+
+Each finding is labelled. *New data* means values we found no published source for. *Measured* means a known mechanism, quantified here at a scale we had not seen. No finding contradicts known theory. Scripts: [discovery/](writeup/code/riemann/discovery/).
+
+**1. Small primes set the low zeros (measured; [probeA.py](writeup/code/riemann/discovery/probeA.py)).** This uses all 395,136 L-functions mod 395,137 and their zeros below 15.41 (section 15).
+- **A smooth statistic is a linear readout of the primes.** Weil's explicit formula makes Σ exp(−(γ/2)²) linear in Re χ(p^k). Regressed on Re χ(p), Re χ(p²) and the parity, it gives R² = 0.823 (p = 2), 0.986 (p ≤ 3), 0.999 (p ≤ 5), 1.000 (p ≤ 7). The fitted coefficient of Re χ(p) equals the predicted −ln p·f̂(ln p)/(π√p) to 4–5 digits for every p ≤ 29.
+- **The lowest zero is only partly fixed by them.** R² is 0.06 (p = 2), 0.25 (p ≤ 29), 0.45 (p ≤ 199). Its weights hardly fall with p: +0.023, +0.028, +0.030, +0.030, +0.028, +0.028, +0.026, +0.025, +0.024, +0.023 for p = 2 … 29. The closer χ is to 1 on small primes, the higher the first zero. ζ, with χ ≡ 1, is the extreme: its first zero is at 14.13.
+
+**2. Central values (measured; [probeA3.py](writeup/code/riemann/discovery/probeA3.py)).** All 395,135 values L(½, χ) come from one FFT.
+- **Correlations.** log|L(½)| has correlation +0.86 with log(lowest zero) and +0.78 with Selberg's sum Σ_(p<1000) Re χ(p)/√p.
+- **Spread.** Its variance is 1.81, against ½ ln ln q = 1.28 from the leading term.
+- **The extremes.** The largest is |L(½, χ₁₇₅₈₅)| = 35.27 (lowest zero 0.834). Of the highest-first-zero character χ₂₅₂₅₆ (0.918, |L(½)| = 20.4), Re χ(p) is 0.92–1.00 at p = 2, 3, 5, 7, 13.
+
+**3. The near-central zero (new data; [probeA2.py](writeup/code/riemann/discovery/probeA2.py), [probeA_mp.py](writeup/code/riemann/discovery/probeA_mp.py)).** The smallest central value in the family is |L(½, χ₅₉₀)| = 1.280·10⁻⁵ (χ₅₉₀ is even, of order 197,568).
+- **Its zero.** It has a zero at s = ½ + 1.655759586864·10⁻⁶·i. Z changes sign symmetrically around it (Z(0) = +1.28·10⁻⁵, Z(2t₀) = −1.28·10⁻⁵), so this is a simple zero, not a zero at s = ½.
+- **Independent check.** mpmath's own Dirichlet L-function gives L(½, χ₅₉₀) = 1.10879036568·10⁻⁵ + 6.39481414089·10⁻⁶·i, the same digits. At s = ½ + 1.655759586864·10⁻⁶·i it gives |L| = 8·10⁻¹⁵, so the zero is placed to about 10⁻¹⁵.
+- **Chowla's conjecture.** It says L(½, χ) ≠ 0. Here it holds by a margin of 10⁻⁵.
+- **Is it unusual?** A flat density of lowest zeros near 0 predicts a few characters below 2·10⁻⁶ in a family this size, so it is a near miss, not an anomaly.
+
+**4. The least prime in every residue class mod 30,000,001 (new data; [probeB.py](writeup/code/riemann/discovery/probeB.py)).** All 30,000,000 classes take 108 s.
+- **The greatest least prime.** P(30,000,001) = 9,377,059,823, in class a = 17,059,511: it is the 313th member, a + 312q. A separate sympy check confirms it is prime and all earlier members composite. The runner-up is class 1,763,715 with 9,121,764,019. We found no published P(q) for a modulus this large.
+- **Wagstaff's heuristic** (Math. Comp. 33, 1979), φ(q) ln q ln φ(q) = 8,892,450,986, is off by only 5.4 %.
+- **Classes still without a prime after j members:** 28,142,141 (j = 1), 16,377,480 (10), 1,645,879 (50), 99,358 (100), 365 (200), 2 (300).
+
+**5. Two forces along a progression (measured; [probeB_models.py](writeup/code/riemann/discovery/probeB_models.py)).**
+- **Typical waits are shorter than chance.** Long prime-free stretches are much rarer than independent trials (odd members prime with probability 2/ln m) predict. Data/model is 0.97 at 10 members, 0.76 at 50, 0.52 at 100, 0.22 at 200. Along a, a + q, a + 2q, … the residues mod 3, 5, 7, … cycle exactly, so divisibility is periodic, not random. A model that keeps this periodicity up to z recovers the data: at 200 members, data/model is 0.50 (z = 13), 0.64 (31), 0.81 (101) and 0.90 (307).
+- **The extremes come from alignment.** Each class meets the small primes at its own phases (a mod 3, a mod 5, …). Among their first 313 members the 20 latest classes have on average 17.9 members free of every prime below 1000, against 25.4 ± 3.3 for random classes (z-scores −1.3 to −3.7). This is the Jacobsthal-type mechanism behind Pomerance's lower bound. Even so, the champion's 21 free members should have held about 12 primes and held none, odds of about 5·10⁻⁸ per class, which is about one class in 30 million.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).
