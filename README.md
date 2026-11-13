@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-13 19:57 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-13 20:19 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -110,7 +110,7 @@ Submissions:
 | [1165](https://www.primepuzzles.net/puzzles/puzz_1165.htm) | Disjoint distance sets d, k with ∏ P_n(d) = ∏ P_n(k) = (p_n#/2)^m | example n = 14; pairs listed for n = 7 … 19 | [the listed pairs have unequal exponents; for n ≤ 30 the page's example (n = 14, m = 6) is the only solution (CP-SAT, HiGHS to n = 22)](writeup/1165.md) | n/a |
 | [1166](https://www.primepuzzles.net/puzzles/puzz_1166.htm) | Can ∏ P_n(x) = (p_n#/2)⁴ hold for n > 15? | seven sets for n ≤ 15; open beyond | [no for 16 ≤ n ≤ 138 (exact 0/1 system, CP-SAT + HiGHS); the seven sets are the only ones for n ≤ 15](writeup/1166.md) | n/a |
 | [1136](https://www.primepuzzles.net/puzzles/puzz_1136.htm) | Q1: d(p−1) prime ⇔ σ(p−1) prime? | one direction proved (Casini) | [converse reduced: true except possibly p = F_(2^n), n ≥ 33](writeup/1136.md) | n/a |
-| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | Why does the prime-representing constant 2.92005… give every prime? | no contributions | [proved: telescoping plus Bertrand, 1 < tail < 2](writeup/1142.md) | n/a |
+| [1142](https://www.primepuzzles.net/puzzles/puzz_1142.htm) | Why does the prime-representing constant 2.92005… give every prime? | no contributions | [proved: telescoping plus Bertrand, 1 < tail < 2; a shorter constant with radix ⌊ln² p⌋ + 4 gives 72 primes from 100 digits instead of 53](writeup/1142.md) | n/a |
 | [1157](https://www.primepuzzles.net/puzzles/puzz_1157.htm) | Prove ⌊(p²+q²)/(2p)⌋ = q (p ≠ 7), ⌊(p²+q²)/(2q)⌋ = p, ⌊(p²+q²)/(p+q)⌋ = (p+q)/2 | reduced to gap bounds; "no proof" | [all three proved for p ≤ 4·10¹⁸; O(X^0.07) exceptions beyond](writeup/1157.md) | n/a |
 | [1181](https://www.primepuzzles.net/puzzles/puzz_1181.htm) | Q2: generalise the prime-F rule to F(p,q) = ⌊q²/p⌋; why is T(p) empty for p = 2, 3, 5, 11? | computed only | [proved: prime F needs an even non-square residue; none exists only for 2, 3, 5, 11](writeup/1181.md) | n/a |
 | [1238](https://www.primepuzzles.net/puzzles/puzz_1238.htm) | Rules for the reversed period of 1/p; relation to the forward rules | no contributions | [rule iff p \| 10^N + 10^J − 1 (proof)](writeup/1238.md) | n/a |
