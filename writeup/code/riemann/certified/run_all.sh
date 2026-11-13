@@ -15,4 +15,8 @@ timeout 7200 nice $P $D/lpchain.py 10000 '[[20,1.4,6,2,1.2,1],[100,1.9,6,2,1.2,1
 timeout 7200 nice $P $D/lp_check.py lpchain785.json 2
 for cfg in "357,28,3,1.2,178" "428,28,3,1.2,214" "611,32,3,1.2,305"; do
  timeout 3600 nice $P $D/lpchain.py 9201 "[[9201,$cfg]]" '{"truth_below":9001,"start":9001,"maxbits":40,"limit":1500}' | tail -2; done
+echo "== section 15 of RIEMANN.md: the family criterion mod 20011 (zeros of 20,009 L-functions below 13.211), independent check"
+timeout 3000 nice $P $D/lfam.py 20011 13.211009174311924 0.005 lfam20011.npz | tail -5
+timeout 3000 nice $P $D/famcrit.py lfam20011.npz 10000 1.09 12 4 1.2 1e-9 famcrit20011.txt | tail -6
+timeout 5400 nice $P $D/fam_check.py lfam20011.npz famcrit20011.npy 1.09 12 4
 echo done

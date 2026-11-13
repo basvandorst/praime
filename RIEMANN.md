@@ -1,6 +1,6 @@
 # Primes from the zeros of zeta, and zeros from the primes
 
-> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top). A stretch near 9,000 is proved at 0.02·πn (section 14).
+> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top). A stretch near 9,000 is proved at 0.02·πn (section 14). Beyond ζ, the 811,854 zeros below height 13.21 of the 20,009 non-principal Dirichlet L-functions modulo 20,011 decide every integer below 10,000 one at a time, with proof and without any zero of ζ (section 15).
 
 **Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–141, section "Riemann's explicit formula"; the band slider of 141 loads Odlyzko's tables from the files beside the page)
 
@@ -808,6 +808,85 @@ python3 $C/lpchain.py 9201 '[[9201,611,32,3,1.2,305]]' '{"truth_below":9001,"sta
 
 **Hypothesis used.** The listed zeros are all the zeros up to the height used, each within 2·10⁻¹⁶ of its string. They are mpmath's zeros 1 to 2,419, and Z(t) changes sign within 10⁻²⁰ of each. A and y are computed in double precision, and every certificate is checked with a margin of 10⁻¹² relative. The checker below recomputes everything in mpmath and replays the trees with exact comparisons.
 
+## 15. Beyond ζ: each number alone, from the low zeros of all L-functions mod q
+
+Section 14 reads the primes in order, each window leaning on the numbers below it. This section decides each n by itself, from the zeros of the Dirichlet L-functions modulo one prime q. No zero of ζ is used.
+
+**The identity.** For q prime and q ∤ n, orthogonality of the characters picks out one residue class:
+
+```
+Σ_{m ≡ n (mod q)} Λ(m) √(x/m) K(x ln(m/x)) = (1/(q−1)) Σ_χ χ̄(n) Σ_m Λ(m) χ(m) √(x/m) K(x ln(m/x))
+```
+
+On the right, every non-principal χ mod q is primitive, and its explicit formula has no pole term:
+
+```
+Σ_m Λ(m) χ(m) φ(m) = − Σ_ρ φ̃(ρ) − Σ_{k≥0} φ̃(−κ − 2k),  κ = 0 for even χ, 1 for odd χ
+```
+
+The principal character is ζ, which differs from it only at powers of q. Now take x = n and a = c·n with n·e^c < n + q. The support n·e^(−c) < m < n·e^c then holds no other number ≡ n (mod q), so the left side is exactly Λ(n)·K(0). There are no neighbours to subtract and no chain to follow.
+
+The height is T = 1.2·β/c, whatever n is. The trivial zeros add up to one integral, because the even characters other than χ₀ satisfy Σ χ̄(n) = −1 for n ≢ ±1 (mod q).
+
+**Decision.** Λ(n) = ln n if n is prime and at most ½ ln n otherwise (prime powers, even numbers, composites). So "n is prime iff Λ̂(n) > ¾ ln n" is proved whenever δ(n) < ¼ ln n. This decides every integer, even ones included.
+
+**The zeros** ([lfam.py](writeup/code/riemann/certified/lfam.py)):
+- **Computation.** All 20,009 non-principal L-functions mod q = 20,011 are evaluated on 0 ≤ t ≤ 13.211. One Euler–Maclaurin pass gives ζ(s, a/q) for every a, and one FFT over the discrete logarithm turns these into every L(s, χ). Then Z_χ(t) = Re(ε^(−1/2) e^(iθ(t)) L(½ + it, χ)) is real (|Im|/|W| ≤ 4·10⁻¹¹).
+- **Location.** Sign changes on a grid of step 0.005 locate the zeros; degree-7 interpolation refines them, and it agrees with degree 5 within 1.3·10⁻¹¹.
+- **Completeness.** For every χ, the argument principle at t = T (arg L tracked from σ = 2 down to ½) equals the number of zeros found. The largest distance from an integer is 2.6·10⁻¹¹.
+- **Total.** 811,854 zeros with |γ| ≤ 13.211, 39–42 per L-function, computed in 84 s.
+- **Test.** At q = 101 the zeros equal mpmath's to 2·10⁻¹⁵.
+
+**The bound** ([famcrit.py](writeup/code/riemann/certified/famcrit.py), [fambudget.py](writeup/code/riemann/certified/fambudget.py)):
+- **Tail.** The zeros above T are bounded with the counting bound of Bennett, Martin, O'Bryant and Rechnitzer (2021): |N(T, χ) − (T/π) ln(qT/2πe) + χ(−1)/4| ≤ 0.22737ℓ + 2 ln(1 + ℓ) − 0.5, where N counts |γ| ≤ T.
+- **Above Platt's height.** Platt (2016) verified GRH for this q up to height 4,997. Zeros above that are bounded by four integrations by parts (m = 4).
+- **Precision.** The zero precision is taken as ε = 10⁻⁹.
+- **Parameters.** c = 1.09, β = 12, m = 4, so T = 13.211, below the first zero of ζ (14.1347).
+
+**Result.** Every integer 3 ≤ n < 10,000 (9,997 numbers) is decided, and none is left undecided. The 1,228 primes equal sympy's list, with 0 wrong. The largest δ/K(0) is 0.555, at n = 9,999, against ¼ ln n = 2.30. There the parts are:
+- zeros above T: 0.237;
+- zeros above Platt's height: 0.318;
+- precision: 1.1·10⁻⁵.
+
+The largest real error |Λ̂ − Λ| is 2.7·10⁻⁴, or 0.55 % of δ. The zero sums for all 9,997 numbers take 166 s.
+
+| n = 10,000 | Proof | One n alone | Height | Zeros |
+|---|---|---|---|---|
+| plain explicit formula (125) | no | no | about 2πn = 62,832 | 82,104 |
+| local criterion, ζ (one number, 13 Nov) | yes | yes | 1.47·πn = 46,348 | 58,320 |
+| 137, 192 characters mod 840 | no | no | 0.0004·πn = 12.6, growing with n | |
+| proved chain, ζ (section 14) | yes | no | 782 | 476 |
+| **family mod 20,011 (this section)** | **yes** | **yes** | **13.2, the same for every n < q/2** | **811,854** |
+
+The price is the count: about 81 zeros per number, against 0.1 in section 14. The family trades height for the number of L-functions. Heights do not stay small for free.
+
+**Validation** ([fam_check.py](writeup/code/riemann/certified/fam_check.py), mpmath and sympy; it shares the zero list and the bound δ). It refines zeros again with mpmath's own Dirichlet L-function. It also recomputes Λ̂(n) in mpmath, with its own primitive root and discrete logarithms, its own Bessel functions and its own trivial-zero integrals:
+
+```
+1. chi_16024: zero 10.859378249185085 in the list, mpmath 10.859378249185083 (real part 0.5); difference 1.5e-15
+1. chi_9979: zero 9.209162431075919 in the list, mpmath 9.20916243107592239 (real part 0.5); difference 3.4e-15
+1. chi_2288: zero 0.448606008248956 in the list, mpmath 0.448606008248955693 (real part 0.5); difference 4.4e-16
+2. zeros with |gamma| <= T over the 20009 L-functions: 811854; main term of the counting formula 811733; difference per L-function +0.0060 (the bound allows 7.14)
+3. n = 3: Lambda_hat in mpmath 1.09863243152, in the run 1.098632431517, Lambda(n) = 1.098612, delta = 0.0042; inside: True; prime: True, decided prime: True
+3. n = 97: Lambda_hat in mpmath 4.5747937128, in the run 4.574793712798, Lambda(n) = 4.574711, delta = 0.0264; inside: True; prime: True, decided prime: True
+3. n = 1009: Lambda_hat in mpmath 6.91684472426, in the run 6.916844724260, Lambda(n) = 6.916715, delta = 0.1073; inside: True; prime: True, decided prime: True
+3. n = 4096: Lambda_hat in mpmath 0.693243254452, in the run 0.693243254452, Lambda(n) = 0.693147, delta = 0.2818; inside: True; prime: False, decided prime: False
+3. n = 9973: Lambda_hat in mpmath 9.2078904784, in the run 9.207890478403, Lambda(n) = 9.207637, delta = 0.5536; inside: True; prime: True, decided prime: True
+3. n = 9999: Lambda_hat in mpmath -4.52655420481e-5, in the run -0.000045265542, Lambda(n) = 0.000000, delta = 0.5548; inside: True; prime: False, decided prime: False
+```
+
+Run from an empty directory (C = writeup/code/riemann/certified):
+
+```
+python3 $C/lfam.py 20011 13.211009174311924 0.005 lfam20011.npz
+python3 $C/famcrit.py lfam20011.npz 10000 1.09 12 4 1.2 1e-9 famcrit20011.txt
+python3 $C/fam_check.py lfam20011.npz famcrit20011.npy 1.09 12 4
+```
+
+**Limit.** A larger family needs GRH to a useful height. Platt's verification reaches 10⁸/q, so it falls as q grows. At q = 2·10⁵ (for n up to 10⁵) the height is 500, and the bound for the zeros above it would exceed ¼ ln n. Larger n need either more integrations by parts (a smoother kernel) or GRH checked higher for these q.
+
+What the result shows is that the height needed to read a prime is not fixed by the prime: with all characters mod q, the zeros below a fixed height already decide every n < q/2. These low-lying zeros are the ones that one-level density studies (Iwaniec–Luo–Sarnak; Fiorilli–Miller for this family). We found the identity used there, but not as a test for a single n. That rests on one search, not a survey.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).
@@ -821,4 +900,7 @@ python3 $C/lpchain.py 9201 '[[9201,611,32,3,1.2,305]]' '{"truth_below":9001,"sta
 - D. J. Platt, T. S. Trudgian, The Riemann hypothesis is true up to 3·10¹², Bull. London Math. Soc. 53 (2021), 792–797 (section 14).
 - L. J. Landau, Bessel functions: monotonicity and bounds, J. London Math. Soc. 61 (2000), 197–215: |J_ν(y)| ≤ 0.7858·y^(−1/3), the majorant of K̂ (section 14).
 - R. M. Lewitt, Multidimensional digital image representations using generalized Kaiser–Bessel window functions, J. Opt. Soc. Am. A 7 (1990), 1834–1846: the window and its transform (section 14).
+- M. A. Bennett, G. Martin, K. O'Bryant, A. Rechnitzer, Counting zeros of Dirichlet L-functions, Math. Comp. 90 (2021), 1455–1482: Theorem 1.1, the bound on N(T, χ) (section 15).
+- D. J. Platt, Numerical computations concerning the GRH, Math. Comp. 85 (2016), 3009–3027: GRH for primitive characters with q ≤ 400,000 up to height max(10⁸/q, 3.75·10⁷/q + 200) for odd q (section 15).
+- H. Iwaniec, W. Luo, P. Sarnak, Low lying zeros of families of L-functions, Publ. Math. IHÉS 91 (2000), 55–131; D. Fiorilli, S. J. Miller, Surpassing the ratios conjecture in the 1-level density of Dirichlet L-functions, Algebra & Number Theory 9 (2015), 13–52: the explicit formula for the family of characters mod q (section 15).
 - Details and dates of each step are in [IDEAS.txt](IDEAS.txt) and [FINDINGS.txt](FINDINGS.txt) (entries of 10–12 November 2026).
