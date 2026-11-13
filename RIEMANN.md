@@ -1049,6 +1049,60 @@ Each finding is labelled. *New data* means values we found no published source f
 - **Typical waits are shorter than chance.** Long prime-free stretches are much rarer than independent trials (odd members prime with probability 2/ln m) predict. Data/model is 0.97 at 10 members, 0.76 at 50, 0.52 at 100, 0.22 at 200. Along a, a + q, a + 2q, … the residues mod 3, 5, 7, … cycle exactly, so divisibility is periodic, not random. A model that keeps this periodicity up to z recovers the data: at 200 members, data/model is 0.50 (z = 13), 0.64 (31), 0.81 (101) and 0.90 (307).
 - **The extremes come from alignment.** Each class meets the small primes at its own phases (a mod 3, a mod 5, …). Among their first 313 members the 20 latest classes have on average 17.9 members free of every prime below 1000, against 25.4 ± 3.3 for random classes (z-scores −1.3 to −3.7). This is the Jacobsthal-type mechanism behind Pomerance's lower bound. Even so, the champion's 21 free members should have held about 12 primes and held none, odds of about 5·10⁻⁸ per class, which is about one class in 30 million.
 
+## 19. A localization law for primes
+
+Every exact local prime test in sections 14–15 has the same three steps:
+1. The characters mod q isolate n's residue class.
+2. A kernel of logarithmic width c around n shuts out the other members of that class. This needs e^c ≤ 1 + q/n (and n·e^(−c) > max(n − q, 1)).
+3. That kernel needs the zeros up to a height T before its spectral leak is small.
+
+Riemann's own readout is the case q = 1, Theorem 4 of the certified note is q = 2, and section 15 is q > 2n. This section shows that they are one law, with one free number.
+
+**The test** ([lfam3.py](writeup/code/riemann/certified/lfam3.py), [famcrit3.py](writeup/code/riemann/certified/famcrit3.py), [uncertainty_table.py](writeup/code/riemann/certified/uncertainty_table.py)). For q = 101, 1009, 10,007 and 20,011 the zeros of every L-function mod q are computed up to the needed height:
+- 245,231, 262,547, 373,431 and 405,927 zeros with 0 < γ ≤ T;
+- T = 1690, 177, 24.5 and 13.2;
+- for every character the argument principle equals the zeros found, after 8 close pairs at q = 101 were repaired;
+- lfam3.py adapts the Euler–Maclaurin length to the height, and at q = 101 its zeros agree with mpmath to 2·10⁻¹⁴.
+
+Every n < 10,000 coprime to q is then decided alone with c = 0.99·ln(1 + q/9,999), the widest kernel allowed, and T = 1.2β/c for several β. The decision rule and the error bound are those of section 15. Also included: the powers of q inside the support, which χ₀ leaves out, and the trivial zeros with their exact sums S_even and S_odd over the characters.
+
+**Law 1: only the product c·T matters.**
+
+| c·T | q = 101 | q = 1,009 | q = 10,007 | q = 20,011 |
+|---|---|---|---|---|
+| 3.6 | 461 of 9,898 wrong (T = 362) | 445 of 9,988 wrong (T = 37.8) | | 489 of 9,997 wrong (T = 3.3) |
+| 4.8 | all correct, worst real error 0.72 (T = 482) | all correct, 0.78 (T = 50.4) | all correct, 0.63 (T = 7.0) | all correct, 0.66 (T = 4.4) |
+| 7.2 | 0.168 | 0.190 | 0.159 | 0.139 |
+| 9.6 | 0.025; 1,365 proved | 0.034; 821 proved | 0.018; 63 proved | 0.017; 8 proved |
+| 12.0 | 0.0029; all proved (T = 1,206) | 0.0019; all proved (T = 126) | 0.0013; all proved (T = 17.5) | 0.0014; all proved (T = 11.0) |
+| 14.4 | 0.0028 (levels off: precision of the zeros near 1,700) | 0.00014 | 0.00012 | 0.00012 |
+
+The entries are the worst real error |Λ̂ − Λ| as a fraction of ¼ ln n. The heights differ by a factor of up to 110 (482 against 4.4 at c·T = 4.8). Yet the real error, the error rate below the threshold (4.5–4.9 %) and the point where the proof takes over all line up on c·T alone. Two thresholds stand out:
+- **real decisions** fail below c·T ≈ 4–5;
+- **proofs** take over between 9.6 and 12.
+
+**Why.** In the normalized frequency s = cγ the family mod q has about (q/c)·ln(qT)/π zeros per unit of s.
+- **The real error.** The zeros above T enter with nearly random phases. Their sum, divided by the (q − 1)K(0) of the orthogonality, is about F(cT)·√(n·c·ln(qT)/(π(q − 1))). For q ≪ n, c ≈ q/n, and q drops out.
+- **The proved bound.** It must assume aligned phases, so it is about √(number of zeros) larger. It, too, depends on q only through ln(qT).
+
+**Law 2: the number of zeros is conserved.** The family has about (q − 1)·(T/π)·ln(qT/2πe) zeros below T. With T = s/c and c ≈ q/n for q ≪ n, q cancels:
+
+```
+Z(n) ≈ (s/π) · n · ln(s·n/(2πe)),   s = c·T
+```
+
+At s = 12 and n = 10⁴ this is 338,300. The measured counts are 338,828 (q = 101) and 360,438 (q = 1009; the factor (q/X)/ln(1 + q/X) = 1.06 predicts 359,000). Beyond q ≈ n the width c can no longer grow like q/n, and the count rises by that factor: 513,944 (q = 10,007, about ×1.46 predicted; 1.52 measured) and 663,686 (q = 20,011, about ×1.84 predicted; 1.96 measured). The same law covers the two ends:
+- **Riemann's readout** (q = 1, c ≈ 1/n) needs T ≈ s·n.
+- **Theorem 4** (q = 2) needed T = 1.474·πn = 4.63n at n ≈ 10⁴. There c = 1.9/n and β = 8, so c·T = 8.8, on the same line.
+
+**What this says.**
+- **Primes are local in a time–frequency sense.** To read one integer without knowing any other, the "box" of the test (resolution in the arithmetic progression times height in the spectrum) must hold about s ≈ 5 degrees of freedom for a correct answer, and about 12 for a proof. One can trade arithmetic resolution (the size of the family) for spectral height one for one, but not reduce the total.
+- **Random access has a price.** Deciding every n < X alone costs about (s/π)·X·ln X zeros, whatever the family. The sequential chain of section 14 uses 359 zeros below 10⁴, about a thousand times fewer, because each decision reuses the earlier ones.
+
+**Status.**
+- **Measured.** The two laws, the universal error curve and the two thresholds, on four families at X = 10⁴. The laws are derived above from the structure of the explicit formula (heuristic for the real error, exact in form for the bound), and every decision in the table is checked against gmpy2.
+- **Conjectured.** That no local test linear in the zeros can be correct for all n with c·T below a fixed constant. The Slepian–Pollak concentration of band-limited functions suggests it. A proof would turn Law 1 into a true uncertainty principle for primes.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).

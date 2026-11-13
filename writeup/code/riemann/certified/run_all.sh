@@ -28,4 +28,11 @@ timeout 7200 nice $P $D/famcrit2.py lfam395137f.npz 200000 1.09 14 6 1.2 1e-9 fa
 timeout 7200 nice $P $D/charlog_peel.py 30000001 3
 timeout 7200 nice $P $D/lpchain.py 10000 '[[20,1.4,6,2,1.2,1],[100,1.9,6,2,1.2,1],[300,6,10,3,1.2,3],[1000,24,14,3,1.2,12],[3000,84,18,3,1.2,42],[6000,221,24,3,1.2,110],[10000,429,28,3,1.2,214]]' '{"maxbits":40,"limit":1500,"out":"lpchain785b.json"}' | tail -2
 timeout 600 nice $P $D/miss_analysis.py lpchain785b_decisions.json
+echo "== section 19: the localization law (families mod 101, 1009, 10007, 20011; every n < 10,000 alone)"
+for spec in "101 1690 0.03" "1009 177 0.01" "10007 24.5 0.005" "20011 15.5 0.005"; do set -- $spec; timeout 5400 nice $P $D/lfam3.py $1 $2 $3 l3_$1.npz | tail -2; done
+timeout 7200 nice $P $D/famcrit3.py l3_101.npz 10000 0.009950164 4 1.2 4e-6 3,4,6,8,10,12,14 fc3_101.json
+timeout 7200 nice $P $D/famcrit3.py l3_1009.npz 10000 0.0951758 4 1.2 1e-8 3,4,6,8,10,12 fc3_1009.json
+timeout 7200 nice $P $D/famcrit3.py l3_10007.npz 10000 0.6866116 4 1.2 1e-10 4,6,8,10,12,14 fc3_10007.json
+timeout 7200 nice $P $D/famcrit3.py l3_20011.npz 10000 1.09 4 1.2 1e-9 3,4,6,8,10,12 fc3_20011.json
+$P $D/uncertainty_table.py fc3_101.json fc3_1009.json fc3_10007.json fc3_20011.json
 echo done
