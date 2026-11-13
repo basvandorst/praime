@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-10 21:17 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-13 18:44 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
