@@ -13,6 +13,8 @@ echo "== error budget"; timeout 600 nice $P $D/budget.py
 echo "== section 14 of RIEMANN.md: certified chain from 3 at height 782, independent check, stretch 9001-9200"
 timeout 7200 nice $P $D/lpchain.py 10000 '[[20,1.4,6,2,1.2,1],[100,1.9,6,2,1.2,1],[300,6,10,3,1.2,3],[1000,24,14,3,1.2,12],[3000,84,18,3,1.2,42],[6000,221,24,3,1.2,110],[10000,429,28,3,1.2,214]]' '{"maxbits":40,"limit":1500,"record":[9001,9201],"out":"lpchain785.json"}' | tail -2
 timeout 7200 nice $P $D/lp_check.py lpchain785.json 2
+timeout 14400 nice $P $D/lpchain.py 10000 '[[20,1.4,6,2,1.2,1],[100,1.9,6,2,1.2,1],[300,6,10,3,1.2,3],[1000,27,14,3,1.2,13],[3000,104,18,3,1.2,52],[6000,276,24,3,1.2,138],[8000,429,28,3,1.2,214],[10000,612,32,3,1.2,306]]' '{"maxbits":40,"limit":4000,"record":[9001,9061],"out":"lpchain628.json"}' | tail -2
+timeout 7200 nice $P $D/lp_check.py lpchain628.json 1
 for cfg in "357,28,3,1.2,178" "428,28,3,1.2,214" "611,32,3,1.2,305"; do
  timeout 3600 nice $P $D/lpchain.py 9201 "[[9201,$cfg]]" '{"truth_below":9001,"start":9001,"maxbits":40,"limit":1500}' | tail -2; done
 echo "== section 15 of RIEMANN.md: the family criterion mod 20011 (zeros of 20,009 L-functions below 13.211), independent check"
