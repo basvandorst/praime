@@ -11,6 +11,8 @@ Bits per sample: b = log2(ln x / (delta/K0)), delta the rigorous budget of cert.
   info_law.py bisect-digits d lo hi steps S  smallest Omega that proves the stretch (lo assumed to fail)
   info_law.py bisect-window S L frac lo hi steps
   info_law.py stages X c frac Tmin           stages of a chain from 3 with the height max(Tmin, c sqrt(x)) at each stage top
+  info_law.py cap-stages X0 X Tmax [Clo Chi] stages from X0 to X with the height Tmax at every stage top, smallest windows the law
+                                             allows with h b = C (C = Clo below 4,000, Chi above; default 1.1 and 0.85)
 
 The height at x is Omega * pi * x. A failed run ends either 'ambiguous' (two 0/1 patterns fit every sample: the information
 limit, checked by info_law_check.py) or 'search limit' (the branch and bound ran out of nodes).
@@ -106,6 +108,20 @@ if __name__ == '__main__':
     elif cmd == 'bisect-window':
         S, L, frac, lo, hi, steps = int(A[0]), int(A[1]), float(A[2]), float(A[3]), float(A[4]), int(A[5])
         bisect(lambda Om: window(Om, S, L, frac), lo, hi, steps)
+    elif cmd == 'cap-stages':   # cap-stages X0 X Tmax: stages from X0 to X with the height Tmax at every stage top;
+        # the window is the smallest that the information law allows with a margin: b = C/h bits with
+        # C = Clo below 4,000 and Chi above (default 1.1, 0.85), beta = (b + 9)/1.41 (tail e^(8.2 - 0.98 beta)), a = 1.2 beta e / Tmax
+        X0, X, Tmax = int(A[0]), int(A[1]), float(A[2])
+        Clo, Chi = (float(A[3]), float(A[4])) if len(A) > 4 else (1.1, 0.85)
+        b = [X0]
+        while b[-1] < X:
+            b.append(min(X, int(round(b[-1] * 1.1))))
+        st = []
+        for s, e in zip(b[:-1], b[1:]):
+            h = Tmax / (math.pi * e); C = Clo if e < 4000 else Chi
+            beta = (C / h + 9) / 1.41; a = 1.2 * beta * e / Tmax
+            st.append([e, round(a, 3), round(beta, 4), 3, 1.2, max(1, int(round(a / 2)))])
+        print(json.dumps(st))
     elif cmd == 'stages':
         X, c, frac, Tmin = int(A[0]), float(A[1]), float(A[2]), float(A[3])
         b = [3]

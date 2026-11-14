@@ -23,11 +23,15 @@ Zm = [mp.mpf(s) for s in ZS]
 Gld = np.array(ZS, dtype=np.longdouble)
 EPS = float(os.environ.get('EPS', '2e-16'))   # the listed zeros are within EPS of the true ones (rounded lists: half a unit of the last decimal)
 
+# a, beta and x arrive as Python floats: convert them before any arithmetic, or beta ** 2 and a / (2 x) are rounded
+# to double precision (up to about 4e-13 K0; found by hp_check.py, RIEMANN.md section 21)
 def Kmp(v, a, beta, m):
+    a = mp.mpf(a); beta = mp.mpf(beta)
     t = 1 - (v / a) ** 2
     return t ** (mp.mpf(m) / 2) * mp.besseli(m, beta * mp.sqrt(t)) if t > 0 else mp.mpf(0)
 
 def Khmp(w, a, beta, m):
+    a = mp.mpf(a); beta = mp.mpf(beta)
     nu = m + mp.mpf(1) / 2; s = abs(a * w)
     if s < beta:
         q = mp.sqrt(beta ** 2 - s ** 2); z = mp.besseli(nu, q) / q ** nu if q > 0 else 1 / (2 ** nu * mp.gamma(nu + 1))
@@ -36,6 +40,7 @@ def Khmp(w, a, beta, m):
     return a * mp.sqrt(2 * mp.pi) * beta ** m * z
 
 def Pmp(x, a, beta, m):
+    x = mp.mpf(x); a = mp.mpf(a); beta = mp.mpf(beta)
     nu = m + mp.mpf(1) / 2; r = a / (2 * x); q = mp.sqrt(beta ** 2 + r ** 2)
     return a * mp.sqrt(2 * mp.pi) * beta ** m * mp.besseli(nu, q) / q ** nu
 

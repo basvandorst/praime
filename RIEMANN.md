@@ -1,6 +1,6 @@
 # Primes from the zeros of zeta, and zeros from the primes
 
-> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top), and so do the 359 zeros below 624.50 (0.0199·πn, section 14). Beyond ζ, the low zeros of all Dirichlet L-functions modulo one prime q decide every integer one at a time, with proof: below 10,000 from the zeros below 13.21 mod 20,011 (no zero of ζ), and below 200,000 from the 24,783,484 zeros below 15.41 mod 395,137 (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs; peeling each residue class along its progression gives every prime below 9·10⁷ from the same two FFTs at q = 30,000,001 (section 16, computed in floating point). The hardest proofs sit at twin primes and pairs 6 apart (section 17). The height needed is not fixed: digits of the zeros buy height at a fixed rate, height × bits per sample ≈ 0.63·πn (b from 3 to 26 bits, predicted before the runs). With the full digits the height falls to about 2.8√x, so the six lowest zeros prove every odd prime below 300 and 21 zeros every odd prime below 905 (section 20).
+> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top), and so do the 359 zeros below 624.50 (0.0199·πn, section 14). Beyond ζ, the low zeros of all Dirichlet L-functions modulo one prime q decide every integer one at a time, with proof: below 10,000 from the zeros below 13.21 mod 20,011 (no zero of ζ), and below 200,000 from the 24,783,484 zeros below 15.41 mod 395,137 (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs; peeling each residue class along its progression gives every prime below 9·10⁷ from the same two FFTs at q = 30,000,001 (section 16, computed in floating point). The hardest proofs sit at twin primes and pairs 6 apart (section 17). The height needed is not fixed: digits of the zeros buy height at a fixed rate, height × bits per sample ≈ 0.63·πn (b from 3 to 26 bits, predicted before the runs). With the full digits the height falls to about 2.8√x, so the six lowest zeros prove every odd prime below 300 and 21 zeros every odd prime below 905 (section 20). With the zeros computed with proof (Arb, Turing's method) and the samples in ball arithmetic, 41 zeros prove every odd prime below 2,000, and the 311 zeros below 558.70 every odd prime below 10,000 (section 21).
 
 **Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–141, section "Riemann's explicit formula"; the band slider of 141 loads Odlyzko's tables from the files beside the page)
 
@@ -97,7 +97,7 @@ The zero height each method needs to read every prime up to n. Every row is 0 wr
 | 136 | per class mod 24, 8 real characters | 0.008·πn |
 | 137 | per class mod 840, 192 characters | 0.0004·πn (0.00032 at 80,000) |
 | 138 | picks 137, 136 or 139 | |
-| proved | compact kernel, certified windows, odd numbers, no sieve (section 14) | **0.0199·πn** below 10,000 from 3 (359 zeros) |
+| proved | compact kernel, certified windows, odd numbers, no sieve (sections 14, 21) | **0.0178·πn** below 10,000 from 3 (311 zeros, computed with proof, section 21); 0.0199·πn with 359 zeros (section 14) |
 
 Zeros needed for every prime below 10⁶ (π(10⁶) = 78,498):
 
@@ -587,7 +587,7 @@ band 7, k = 4: 6478 primes decided; first wrong [64853, 64859, 64867]; page and 
 |---|---|---|---|---|
 | **H1** Blur law: the height needed is about 0.2·πn ÷ candidate spacing (a blur of about 5 spacings) | spacings 2, 4, 4.4, 24 and 840 (section 4) | a new spacing on the predicted line, e.g. the 32 characters mod 120 (spacing 120 → about 0.0017·πn) | a spacing that needs clearly more or less | zeros of the 32 L-functions mod 120 (built off the page before), and the class decoder of 136 with 32 sets |
 | **H2** Divisibility law 0.23·π·ρ·n | k = 2 … 25 up to 300,000 | the same factor for k > 25 and for n of 10⁶–10⁷ | a drift of the factor with k or n | more zeros: n = 10⁷ at k = 25 needs height about 8.7·10⁵ (the page has 1.13·10⁶) |
-| **H3** The zeros carry the primes down to about 0.02–0.025·πn; the gap from 0.045 is a search problem | settled in section 20: there is no fixed limit; the smallest height is about 0.63·πn/b with b the bits per sample (proved down to 0.0238·πn at 26 bits, information limits checked in mpmath); oracle tests; truth fits better in 9 of 10 failures; M-algorithm 19 → 0 errors at 0.035; proved (section 14): every odd prime below 10,000 at 0.0199 (from 3, 359 zeros), 9,001 undecided at 0.015 (node limit) | a decoder that is clean at 0.035 or lower on 100 random circles to 300,000 | many failures where the wrong pattern has the lower whitened cost (then the information is missing), or any decoder clean below 0.02 (then the limit is lower) | the M-algorithm on the page decoder with delayed decisions; the oracle test on more stretches |
+| **H3** The zeros carry the primes down to about 0.02–0.025·πn; the gap from 0.045 is a search problem | settled in section 20: there is no fixed limit; the smallest height is about 0.63·πn/b with b the bits per sample (proved down to 0.0238·πn at 26 bits, information limits checked in mpmath); oracle tests; truth fits better in 9 of 10 failures; M-algorithm 19 → 0 errors at 0.035; proved (section 14): every odd prime below 10,000 at 0.0199 (from 3, 359 zeros), and at 0.0178 from 311 zeros computed with proof (section 21), 9,001 undecided at 0.015 (node limit) | a decoder that is clean at 0.035 or lower on 100 random circles to 300,000 | many failures where the wrong pattern has the lower whitened cost (then the information is missing), or any decoder clean below 0.02 (then the limit is lower) | the M-algorithm on the page decoder with delayed decisions; the oracle test on more stretches |
 | **H4** Backwards: the prime powers up to c·√(T/2π), c ≈ 1.6–2, fix every zero near height T; the threshold is a count | X = 30, 100, 300, heights to 5.7·10⁵; near the 10¹²-th zero (2.68·10¹¹, Odlyzko's table) c = 2.0 fixes 5 of 5 windows of 60 zeros to < 6·10⁻⁴, c = 1.6 3 of 5, c ≤ 1.3 none (section 13) | many windows per (X, c); the threshold moves with the fade as the count predicts (fading from 0.9 instead of 6/7 should lower c) | success well below c = 1 (better than the count), or c growing without bound with T | the zeros near 10²¹ need the primes to 7.7·10⁹: a segmented prime sum in C; or a test of the oversampling law 2 ln X / ln(T/2π) against fixed c |
 | **H5** Close pairs of zeros and twin positions are the same obstacle seen from both sides | the only zeros above 10⁻³ in the chain are two close pairs; near the 10¹²-th zero the median error is 1.7·10⁻⁴ for a neighbour within 0.3 spacings against 4.4·10⁻⁵ beyond 0.6 (section 13) | the forward errors at spacing 2 and the backward errors follow one curve in the normalised gap | close pairs recovered as well as the rest | the forward error against the gap to the next candidate, on the same scale |
 | **H6** Bandwidth and phase law: a band of width W reads the primes up to about 4–4.6·W (5.4–5.8·W with 8 histories) when its phases are random (c ≫ n²); just above the bottom it fails at the bad points 2c/(πj); bands add | Odlyzko's 3 bands at 2.7·10¹¹–1.4·10²¹; 6 own bands at 5·10⁵–10⁶ all failing at a bad point (Fisher p = 2·10⁻⁵); on the page's bands of 10,000 zeros (8 histories) the band at c = 603,009 stops 35–77 below a bad point for k = 1–4, the one at c = 78,253 408–744 below j = 1 for k = 2–4 but at step 1.31π for k = 1; sums of bands within 4 % of the sum of reaches (section 12) | more pairs of bands with non-aligned bad points (one pair so far: 42,675 against 39,869 aligned); longer random bands (10⁵ zeros) on the same factor | a failure far from every bad point in a band with a small chirp, or a reach that depends on the height in the random regime | a long band far up, e.g. from the LMFDB; a test of combined bands whose bad points differ |
@@ -1261,13 +1261,13 @@ So the six lowest zeros prove every odd prime below 300, and 21 zeros every odd 
 
 ```
 1. 153 certified primes in [3, 905); equal to sympy: True; stop: None; zeros up to 81.54
-2. x = 648 (a = 322.0, beta = 30.264, m = 3, T = 73.1): |zero side - prime side| / K0 = 3.35e-12, delta / K0 = 1.100e-10, inside: True
-2. x = 680 (a = 402.5, beta = 33.8404, m = 3, T = 68.6): |zero side - prime side| / K0 = 4.05e-13, delta / K0 = 5.166e-12, inside: True
-2. x = 956 (a = 503.0, beta = 38.721, m = 3, T = 88.3): |zero side - prime side| / K0 = 2.08e-13, delta / K0 = 2.037e-12, inside: True
+2. x = 648 (a = 322.0, beta = 30.264, m = 3, T = 73.1): |zero side - prime side| / K0 = 3.3e-12, delta / K0 = 1.100e-10, inside: True
+2. x = 680 (a = 402.5, beta = 33.8404, m = 3, T = 68.6): |zero side - prime side| / K0 = 1.76e-13, delta / K0 = 5.166e-12, inside: True
+2. x = 956 (a = 503.0, beta = 38.721, m = 3, T = 88.3): |zero side - prime side| / K0 = 1.99e-15, delta / K0 = 2.037e-12, inside: True
 3. window at 883 (a = 402.5, beta = 33.8404, m = 3, 282 samples, 201 unknowns): unknowns rebuilt equal: True; samples valid: True; 11 decisions replayed, 87 nodes, failures: 0; decisions equal sympy: True
 ```
 
-The 6-decimal stop at 9,173 (h = 0.0474) passes info_law_check.py as well: both patterns fit, at 0.996 and 0.986 of δ. lp_check.py now reads EPS from the environment, as lpchain.py does, so it can check runs with rounded zeros. Every run above is in [run_all.sh](writeup/code/riemann/certified/run_all.sh). The prediction was written at 09:54 UTC, and the first decoder run with rounded zeros started after it.
+(Output after the fix of section 21: the check formed β² in double precision before; the verdicts were the same.) The 6-decimal stop at 9,173 (h = 0.0474) passes info_law_check.py as well: both patterns fit, at 0.996 and 0.986 of δ. lp_check.py now reads EPS from the environment, as lpchain.py does, so it can check runs with rounded zeros. Every run above is in [run_all.sh](writeup/code/riemann/certified/run_all.sh). The prediction was written at 09:54 UTC, and the first decoder run with rounded zeros started after it.
 
 **Limits ahead (extrapolation, not computed).**
 - **Arithmetic.** Long double stops b at about 41 bits (δ/K₀ ≈ 3·10⁻¹²), so here the √x law ends near x ≈ 3,500.
@@ -1283,6 +1283,111 @@ The 6-decimal stop at 9,173 (h = 0.0474) passes info_law_check.py as well: both 
 - **Computed:** the table of digits (one prediction written down before the runs, all four of its levels run; the 4- and 10-decimal rows and the full strings are bounds), the window law at two points, the chain, and the information limit (info_law_check.py: both patterns fit, in mpmath).
 - **Heuristic:** the count 0.6·H and the derivation of √x.
 - **Theorem (Landau 1967):** the linear bound κ ≥ 1, as an interpolation statement. That a decision with error below ½ needs the same density is the standard reading, not proved here.
+
+## 21. A high-precision engine: rigorous zeros, ball arithmetic, and the search wall explained
+
+Section 20 ended at two walls:
+- **the arithmetic:** long double stopped b at about 41 bits;
+- **the search:** the chain at height 3.2√x stopped at 905, and the window near x ≈ 1,100 at 2.6√x, with neither value refuted within 3,000 or 12,000 nodes.
+
+This section builds an engine for both. The search wall turns out to be mostly numerical. With the engine, every odd prime below 10,000 is proved from the 311 zeros below 558.70, against 359 in section 14, and the zeros themselves are computed with proof.
+
+**The engine** ([hpwin.py](writeup/code/riemann/certified/hpwin.py), [hpchain.py](writeup/code/riemann/certified/hpchain.py); Arb through python-flint 0.9):
+1. **Zeros.** `acb.zeta_zeros` gives the n-th zero as a ball of radius about 10⁻³⁵. Arb isolates each zero by a sign change of Z(t) and checks the count with Turing's method. The zero list is therefore no longer a hypothesis: section 14's Z(T, ε) is no longer assumed. The 2,419 zeros of the 28-digit file agree with Arb's to 4.5·10⁻²⁵, the rounding of the strings.
+2. **Samples in balls (192 bits).** The kernel and its transform are written with ₀F₁, which makes them entire, with no square root and no branch:
+   - K(v) = β^m (1 − u²)^m F_m(β²(1 − u²));
+   - K̂(w) = a√(2π) β^m F_{m+½}(β² − (aw)²);
+   - F_s(z) = I_s(√z)/√z^s = ₀F₁(; s+1; z/4)/(2^s Γ(s+1)).
+
+   The trivial zeros are integrated rigorously with `acb.integral`, whose integrand is meromorphic with no pole on the path. Only the zeros above T remain as a bound: the same tail and integration-by-parts bounds as section 14 (cert.py). The precision and rounding terms of cert.py disappear, because the balls carry them.
+3. **Implied rows.** The search treats the samples as double-precision linear programs. Their rows are smooth in x, so they are nearly dependent, and the information below 10⁻⁷ sits in combinations that cancel. HiGHS works with a feasibility tolerance of 10⁻⁷, so it sees about 26 of the 38–41 bits per sample.
+
+   The fix: for each left singular vector u of the window (computed in double, then used as exact weights), add the implied row Σ_r u_r (A b)_r ∈ [u⁺·lo − u⁻·hi, u⁺·hi − u⁻·lo], computed in balls and scaled to coefficients of size 1. These rows follow from the samples, so they lose nothing. They put the fine information at a scale the LP can resolve. In the top window below 10,000, 18 of the 829 singular values lie above 10⁻¹⁵ of the largest, so 18 rows are added. Propagation still uses only the sample rows, whose coefficients are ≥ 0; the Farkas vectors use all rows.
+4. **Proof.** The search proposes; it does not prove. Every refutation tree (forcings, violated rows, Farkas vectors, splits) is replayed in ball arithmetic before its bit is committed:
+   - a forcing or a violation must hold for every point of every ball;
+   - a Farkas vector must satisfy lower(min over the box of (Aᵀw)·b) > upper(w⁺·hi − w⁻·lo).
+
+   No replay failed in any run.
+
+**The diagnosis.** In the window at 905 (a = 402.5, β = 33.84, 201 unknowns, double data), the following were tried:
+
+| Change | Result |
+|---|---|
+| HiGHS tolerances 10⁻⁷ (default) | stops at 905 |
+| tolerances 10⁻¹⁰ | passes 905, 907, 909; stops at 911 |
+| certificate margin 10⁻¹⁴ instead of 10⁻¹² | stops at 911 |
+| samples every 4th or 12th integer | slower: no answer within 900 s |
+| CP-SAT, rows scaled to 52-bit integers, 2 workers, 200 s per question | UNKNOWN for both values of 905, 907 and 909; it does not even find the true pattern |
+| easy first: certify any bit of the window with budgets of 10–2,560 nodes | no bit within 160 nodes; 1 bit at 640 |
+| **ball samples + implied rows** | **905–1,005 proved: 80 decisions in 281 s, 80 replays correct** |
+
+So the wall was the LP's tolerance, not the search order and not the information.
+
+**Results** (every run checked against sympy: 0 wrong; every committed bit replayed in balls: 0 failed):
+
+| Run | Stages | Height used | Zeros | Proved | Decisions; nodes; time |
+|---|---|---|---|---|---|
+| the wall of section 20 | one window a = 402.5, β = 33.84 over 905–1,005, primes below 905 given | 89.5 | 25 | all 14 primes in [905, 1,006) | 80; 15,273; 281 s |
+| window law at 1,001–1,200 (a = x/2, primes below given) | h = 0.028 | 88.5 (2.92√x at the middle) | 24 | all 28 primes | 128; 52,133; 1,428 s |
+| the same | h = 0.0255 and 0.0235 (2.66√x and 2.45√x) | | | stops at 1,013 and 1,007: search limit | |
+| chain from 3, nothing given | `stages 2000 3.2 0.5 40` (section 20) | 125.8 (2.81√x at 2,000) | **41** | all 302 odd primes below 2,000 | 982; 244,928; 3.1 h |
+| record segment | `cap-stages 2000 10000 560`, primes below 2,000 from the chain | 558.7 (5.59√x at 10,000) | **311** | all 926 primes in [2,000, 10,000) | 3,977; 131,191; 1.6 h |
+
+The run at 905 and the chain to 2,000 ran on an earlier revision of hpchain.py: the same implied rows, but formed entry by entry instead of with Arb matrices, and with no recorded trees. The window law near 1,100 and the record segment ran on the committed version.
+
+**Every odd prime below 10,000 from 311 zeros.** The chain from 3 to 2,000 and the segment from 2,000 to 10,000 together prove every odd prime below 10,000 with no prime given. They use the 311 zeros below 558.70: 0.0178·πn at the top, 0.25 zeros per prime. Section 14 used the 359 zeros below 624.50 (0.0199·πn, 0.29 per prime), taken from a zero list that had to be trusted.
+
+How the stages were chosen ([info_law.py](writeup/code/riemann/certified/info_law.py) `cap-stages`):
+- Each stage [s, e], with e ≈ 1.1·s, puts the height cap at its top, h = 560/(πe).
+- Its window is the smallest that the information law of section 20 allows with a margin: b = C/h bits, with C = 1.1 below 4,000 and 0.85 above.
+- Then β = (b + 9)/1.41, from the tail e^(8.2 − 0.98β), and a = 1.2βe/560.
+
+The top stage has a = 861, β = 40.2 and 431 unknowns, and its samples carry 48.3 bits: h·b = 0.86, the design value. Up to 9,218 no refutation needed more than 21 nodes. In the top stage some refutations reached the cap of 3,000 nodes, and each time the other value was refuted.
+
+**Against section 20's extrapolation.** Section 20 expected that more precision would carry the √x law to x ≈ 6,000–17,000 at 2.8√x.
+- **The chain to 2,000** runs at 2.81√x, with 59 bits per sample at the top, far past the 41 of long double.
+- **Above 2,000 the search is the limit.** A window at 2.8√x near 10,000 needs a ≈ x/2, about 2,500 unknowns. The cap of 560 = 5.6√x keeps the top window at 431 unknowns.
+- **Still open:** 2.8√x at 10,000 would be the 126 zeros below 280 (extrapolation).
+
+**Validation.**
+- **In the run:** every committed bit's tree is replayed in ball arithmetic, with the zeros as balls.
+- **After the run:** [hp_check.py](writeup/code/riemann/certified/hp_check.py) checks without Arb:
+  - it takes the zeros from `mpmath.zetazero`, uses mpmath's Bessel functions and `mp.quad` at 50 digits, and Λ from sympy;
+  - it compares the certified primes with sympy;
+  - it checks the identity at a random point of each of the last two stages;
+  - it rebuilds the two recorded windows (9,800–10,000), including the implied rows from the recorded weights and scale factors, and replays every recorded tree.
+
+```
+$ hp_check.py hpchain2000.json
+1. 302 certified primes in [3, 2000); equal to sympy: True; stop: None; replays in the run: {'ok': 982, 'failed': 0}
+2. x = 1642 (a = 786.0, beta = 47.2835, T = 118.5): |zero side - prime side| / K0 = 1.84e-19, delta / K0 = 1.219e-17, inside: True
+2. x = 1949 (a = 982.5, beta = 58.585, T = 139.5): |zero side - prime side| / K0 = 3.29e-24, delta / K0 = 3.933e-18, inside: True
+3. no recorded proofs (hpchain2000_proofs.json): window replay skipped
+$ hp_check.py B560.json 2
+1. 926 certified primes in [2000, 10000); equal to sympy: True; stop: None; replays in the run: {'ok': 3977, 'failed': 0}
+2. x = 8301 (a = 738.188, beta = 37.4728, T = 505.7): |zero side - prime side| / K0 = 1.05e-14, delta / K0 = 3.598e-13, inside: True
+2. x = 9585 (a = 861.472, beta = 40.202, T = 536.8): |zero side - prime side| / K0 = 1.33e-17, delta / K0 = 2.721e-14, inside: True
+3. window at 9865 (a = 861.472, beta = 40.202, 829 samples + 18 implied rows, 431 unknowns): 40 decisions replayed, 58 nodes, failures: 0; decisions equal sympy: True
+3. window at 9945 (a = 861.472, beta = 40.202, 829 samples + 18 implied rows, 431 unknowns): 40 decisions replayed, 42 nodes, failures: 0; decisions equal sympy: True
+```
+
+The runs, the recorded trees and these reports are in [writeup/data/riemann/hp/](writeup/data/riemann/hp/). Every run is in [run_all.sh](writeup/code/riemann/certified/run_all.sh).
+
+**A bug the check found, in the checkers.** The first run of hp_check.py put x = 9,585 outside δ: 7.9·10⁻¹⁴ K₀ against 2.7·10⁻¹⁴ K₀. The engine was right; the check was wrong:
+- **Arb:** with the zeros up to T, 1.5T, 2.5T, the difference is −1.33·10⁻¹⁷ K₀, −4.4·10⁻¹⁷ K₀ and 2.7·10⁻¹⁸ K₀, each inside its own δ.
+- **The cause:** the check formed β² and a/2x as Python floats before mpmath saw them, an error of about 10⁻¹³ K₀ in P(x) and in K̂.
+- **The fix:** after it, mpmath gives 1.33·10⁻¹⁷ K₀, Arb's value.
+- **The older checkers:** the same rounding was in [lp_check.py](writeup/code/riemann/certified/lp_check.py), [check_certified.py](writeup/code/riemann/certified/check_certified.py) and [info_law_check.py](writeup/code/riemann/certified/info_law_check.py), and is fixed there too. For the windows they checked it is at most 4.4·10⁻¹³ K₀, below their δ of 2·10⁻¹²–10⁻¹⁰ K₀, so their "inside" verdicts stand. lp_check.py rerun on the chain to 905 now gives 1.76·10⁻¹³ at x = 680 and 1.99·10⁻¹⁵ at x = 956. Before the fix it gave 4.05·10⁻¹³ and 2.08·10⁻¹³, mostly rounding; section 20 shows the new output.
+
+**What it means.**
+- **The proofs no longer rest on a trusted zero list.** Arb computes the zeros with proof, so every prime in this section is proved from the zeros of ζ with no hypothesis at all. RH is not assumed: the zeros above T are bounded with RH up to 3·10¹² (Platt and Trudgian) and by integration by parts above that.
+- **The search wall of section 20 was numerical.** A double-precision LP sees only what its tolerance lets through. Rows that move the fine information to the right scale recover it.
+- **The √x law holds where it can now be tested.** Near 1,100 the window is proved at 2.92√x and stopped by the search at 2.66√x. This is next to the thresholds of section 20: 2.76–2.85√x near 121 and 2.71–2.79√x near 331. The chain to 2,000 runs at 2.81√x. Above that the limit is the size of the windows, which the law makes grow like x.
+
+**Status.**
+- **Proved (computer-assisted, ball arithmetic):** every odd prime below 10,000 from the 311 zeros below 558.70, and every odd prime below 2,000 from the 41 zeros below 125.83. The proofs assume no zero list and not RH. They rest on Arb, on the analytic tail bounds of section 14, and on the replay code; hp_check.py replays the recorded windows independently.
+- **Computed:** the diagnosis table, and the window law near 1,100.
+- **Extrapolation:** 2.8√x at 10,000.
 
 ## References
 
@@ -1302,4 +1407,6 @@ The 6-decimal stop at 9,173 (h = 0.0474) passes info_law_check.py as well: both 
 - H. Iwaniec, W. Luo, P. Sarnak, Low lying zeros of families of L-functions, Publ. Math. IHÉS 91 (2000), 55–131; D. Fiorilli, S. J. Miller, Surpassing the ratios conjecture in the 1-level density of Dirichlet L-functions, Algebra & Number Theory 9 (2015), 13–52: the explicit formula for the family of characters mod q (section 15).
 - H. J. Landau, Necessary density conditions for sampling and interpolation of certain entire functions, Acta Math. 117 (1967), 37–52: an interpolating set for functions band-limited to [−T, T] has density at most T/π (section 20).
 - J. C. Lagarias, A. M. Odlyzko, Computing π(x): an analytic method, J. Algorithms 8 (1987), 173–191: π(x) from the zeros up to x^(1/2+ε) and a sieve near x (section 20).
+- F. Johansson, Arb: efficient arbitrary-precision midpoint-radius interval arithmetic, IEEE Trans. Comput. 66 (2017), 1281–1292; used through python-flint 0.9 (`acb.zeta_zeros`, `hypgeom_0f1`, `acb.integral`, `arb_mat`) (section 21).
+- A. M. Turing, Some calculations of the Riemann zeta-function, Proc. London Math. Soc. (3) 3 (1953), 99–117: the method that checks that no zero below T is missed (section 21).
 - Details and dates of each step are in [IDEAS.txt](IDEAS.txt) and [FINDINGS.txt](FINDINGS.txt) (entries of 10–12 November 2026).
