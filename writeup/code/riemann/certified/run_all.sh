@@ -35,4 +35,11 @@ timeout 7200 nice $P $D/famcrit3.py l3_1009.npz 10000 0.0951758 4 1.2 1e-8 3,4,6
 timeout 7200 nice $P $D/famcrit3.py l3_10007.npz 10000 0.6866116 4 1.2 1e-10 4,6,8,10,12,14 fc3_10007.json
 timeout 7200 nice $P $D/famcrit3.py l3_20011.npz 10000 1.09 4 1.2 1e-9 3,4,6,8,10,12 fc3_20011.json
 $P $D/uncertainty_table.py fc3_101.json fc3_1009.json fc3_10007.json fc3_20011.json
+echo "== section 20: the information law (digits sweep, window law, chain from 3 near 3.2 sqrt(x), information limits in mpmath)"
+for spec in "3 0.15 0.25 4 3001" "5 0.06 0.08 4 9001" "6 0.035 0.06 4 9001" "8 0.027 0.036 4 9001" "10 0.022 0.03 4 9001"; do timeout 9000 nice $P $D/info_law.py bisect-digits $spec | tail -1; done
+timeout 3600 nice $P $D/info_law.py bisect-window 101 40 0.5 0.06 0.1 4 | tail -1
+timeout 3600 nice $P $D/info_law.py bisect-window 301 60 0.5 0.033 0.05 4 | tail -1
+timeout 900 nice $P $D/info_law.py digits 5 0.07182 9001 1500 amb5.json > /dev/null; timeout 1800 nice $P $D/info_law.py check-ambiguous 5 amb5_ambiguous.json
+timeout 3600 nice $P $D/lpchain.py 905 "$($P $D/info_law.py stages 1200 3.2 0.5 40)" '{"maxbits":40,"limit":3000,"record":[860,905],"out":"chain905.json"}' | tail -2
+timeout 3600 nice $P $D/lp_check.py chain905.json 2
 echo done

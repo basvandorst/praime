@@ -1,6 +1,6 @@
 # Primes from the zeros of zeta, and zeros from the primes
 
-> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top), and so do the 359 zeros below 624.50 (0.0199·πn, section 14). Beyond ζ, the low zeros of all Dirichlet L-functions modulo one prime q decide every integer one at a time, with proof: below 10,000 from the zeros below 13.21 mod 20,011 (no zero of ζ), and below 200,000 from the 24,783,484 zeros below 15.41 mod 395,137 (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs; peeling each residue class along its progression gives every prime below 9·10⁷ from the same two FFTs at q = 30,000,001 (section 16, computed in floating point). The hardest proofs sit at twin primes and pairs 6 apart (section 17).
+> **In short:** Riemann's explicit formula reads Λ(n) from the zeros of ζ, but the plain step in ψ needs zeros up to about 2πn. An exact window decoder (echo of decided numbers subtracted, undecided numbers as coins, top seventh of the zeros faded) needs 0.075·πn on odd numbers and 0.045·πn coprime to 210: 3.6 and 2.6 zeros per prime below 10⁶ instead of 74. Any band of zeros works too; its width and the pattern of its phases count, not its height: the 30,000 zeros Odlyzko published near the 10¹²-, 10²¹- and 10²²-th zero give every prime below 30,831 (64,853 with the wheel mod 210). Backwards, the prime powers up to 1.6–2·√(T/2π) fix the zeros near height T to 10⁻³, tested up to T = 2.7·10¹¹; the 25 primes below 100 give all zeros below 10,000, and those all primes below 70,000. The primes confirm Odlyzko's zeros to 10⁻⁸ and our own to 3·10⁻⁸. On the page, transformation 141 reads the primes from any of eight bands of 10,000 zeros, Odlyzko's tables included, and decides prime by prime as the Python decoder does. With a compactly supported kernel every decision becomes a proof. The 476 zeros below 782.12 prove every odd prime below 10,000 with no prime given and RH not assumed (0.025·πn at the top), and so do the 359 zeros below 624.50 (0.0199·πn, section 14). Beyond ζ, the low zeros of all Dirichlet L-functions modulo one prime q decide every integer one at a time, with proof: below 10,000 from the zeros below 13.21 mod 20,011 (no zero of ζ), and below 200,000 from the 24,783,484 zeros below 15.41 mod 395,137 (section 15). Without zeros and without a sieve, the logarithms of L(2, χ) for all characters modulo a prime q ≈ 3X give every prime below 10⁷ from two FFTs; peeling each residue class along its progression gives every prime below 9·10⁷ from the same two FFTs at q = 30,000,001 (section 16, computed in floating point). The hardest proofs sit at twin primes and pairs 6 apart (section 17). The height needed is not fixed: digits of the zeros buy height at a fixed rate, height × bits per sample ≈ 0.63·πn (b from 3 to 26 bits, predicted before the runs). With the full digits the height falls to about 2.8√x, so the six lowest zeros prove every odd prime below 300 and 21 zeros every odd prime below 905 (section 20).
 
 **Page:** [prime.html](writeup/code/riemann/prime.html), an interactive page (transformations 125–141, section "Riemann's explicit formula"; the band slider of 141 loads Odlyzko's tables from the files beside the page)
 
@@ -587,7 +587,7 @@ band 7, k = 4: 6478 primes decided; first wrong [64853, 64859, 64867]; page and 
 |---|---|---|---|---|
 | **H1** Blur law: the height needed is about 0.2·πn ÷ candidate spacing (a blur of about 5 spacings) | spacings 2, 4, 4.4, 24 and 840 (section 4) | a new spacing on the predicted line, e.g. the 32 characters mod 120 (spacing 120 → about 0.0017·πn) | a spacing that needs clearly more or less | zeros of the 32 L-functions mod 120 (built off the page before), and the class decoder of 136 with 32 sets |
 | **H2** Divisibility law 0.23·π·ρ·n | k = 2 … 25 up to 300,000 | the same factor for k > 25 and for n of 10⁶–10⁷ | a drift of the factor with k or n | more zeros: n = 10⁷ at k = 25 needs height about 8.7·10⁵ (the page has 1.13·10⁶) |
-| **H3** The zeros carry the primes down to about 0.02–0.025·πn; the gap from 0.045 is a search problem | oracle tests; truth fits better in 9 of 10 failures; M-algorithm 19 → 0 errors at 0.035; proved (section 14): every odd prime below 10,000 at 0.0199 (from 3, 359 zeros), 9,001 undecided at 0.015 (node limit) | a decoder that is clean at 0.035 or lower on 100 random circles to 300,000 | many failures where the wrong pattern has the lower whitened cost (then the information is missing), or any decoder clean below 0.02 (then the limit is lower) | the M-algorithm on the page decoder with delayed decisions; the oracle test on more stretches |
+| **H3** The zeros carry the primes down to about 0.02–0.025·πn; the gap from 0.045 is a search problem | settled in section 20: there is no fixed limit; the smallest height is about 0.63·πn/b with b the bits per sample (proved down to 0.0238·πn at 26 bits, information limits checked in mpmath); oracle tests; truth fits better in 9 of 10 failures; M-algorithm 19 → 0 errors at 0.035; proved (section 14): every odd prime below 10,000 at 0.0199 (from 3, 359 zeros), 9,001 undecided at 0.015 (node limit) | a decoder that is clean at 0.035 or lower on 100 random circles to 300,000 | many failures where the wrong pattern has the lower whitened cost (then the information is missing), or any decoder clean below 0.02 (then the limit is lower) | the M-algorithm on the page decoder with delayed decisions; the oracle test on more stretches |
 | **H4** Backwards: the prime powers up to c·√(T/2π), c ≈ 1.6–2, fix every zero near height T; the threshold is a count | X = 30, 100, 300, heights to 5.7·10⁵; near the 10¹²-th zero (2.68·10¹¹, Odlyzko's table) c = 2.0 fixes 5 of 5 windows of 60 zeros to < 6·10⁻⁴, c = 1.6 3 of 5, c ≤ 1.3 none (section 13) | many windows per (X, c); the threshold moves with the fade as the count predicts (fading from 0.9 instead of 6/7 should lower c) | success well below c = 1 (better than the count), or c growing without bound with T | the zeros near 10²¹ need the primes to 7.7·10⁹: a segmented prime sum in C; or a test of the oversampling law 2 ln X / ln(T/2π) against fixed c |
 | **H5** Close pairs of zeros and twin positions are the same obstacle seen from both sides | the only zeros above 10⁻³ in the chain are two close pairs; near the 10¹²-th zero the median error is 1.7·10⁻⁴ for a neighbour within 0.3 spacings against 4.4·10⁻⁵ beyond 0.6 (section 13) | the forward errors at spacing 2 and the backward errors follow one curve in the normalised gap | close pairs recovered as well as the rest | the forward error against the gap to the next candidate, on the same scale |
 | **H6** Bandwidth and phase law: a band of width W reads the primes up to about 4–4.6·W (5.4–5.8·W with 8 histories) when its phases are random (c ≫ n²); just above the bottom it fails at the bad points 2c/(πj); bands add | Odlyzko's 3 bands at 2.7·10¹¹–1.4·10²¹; 6 own bands at 5·10⁵–10⁶ all failing at a bad point (Fisher p = 2·10⁻⁵); on the page's bands of 10,000 zeros (8 histories) the band at c = 603,009 stops 35–77 below a bad point for k = 1–4, the one at c = 78,253 408–744 below j = 1 for k = 2–4 but at step 1.31π for k = 1; sums of bands within 4 % of the sum of reaches (section 12) | more pairs of bands with non-aligned bad points (one pair so far: 42,675 against 39,869 aligned); longer random bands (10⁵ zeros) on the same factor | a failure far from every bad point in a band with a small chirp, or a reach that depends on the height in the random regime | a long band far up, e.g. from the LMFDB; a test of combined bands whose bad points differ |
@@ -1142,6 +1142,148 @@ At s = 12 and n = 10⁴ this is 338,300. The measured counts are 338,828 (q = 10
 - **Measured.** The two laws, the universal error curve, its parameter-free prediction (within a factor 0.66–1.29 at 23 points), the in-band correction (real decisions from s = 1.6–3.0 instead of 4.8), the matched filter, and the same error at n < 10⁵. The laws are derived above from the structure of the explicit formula (heuristic for the real error, exact in form for the bound), and every decision in the table is checked against gmpy2.
 - **Conjectured.** That no local test linear in the zeros can be correct for all n with c·T below a fixed constant. The Slepian–Pollak concentration of band-limited functions suggests it. A proof would turn Law 1 into a true uncertainty principle for primes.
 
+## 20. The information law: digits of the zeros buy height
+
+Section 4 found that more decimals per zero do not lower the height, and section 14 that with a compact kernel they do. This section measures the rate of exchange. One law covers every decoder in this note: Riemann's linear readout, the coin decoders and the proofs.
+
+**Bits per sample.** In the certified decoder of section 14 each sample is an interval equation y(x) = Σ_u b_u A(x, u) ± δ(x). The unknown b_u ∈ {0, 1} enters with weight about ln u, so a sample resolves about
+
+```
+b = log₂( ln x / (δ(x)/K₀) )     bits.
+```
+
+δ is the proved budget of cert.py. With zeros given to d decimals it is set by the rounding (the precision term). With the full 28-digit strings it is set by the kernel's tail beyond T, about e^(−0.98β) (from the budget at β = 24–42), or by the long-double arithmetic, which stops at about 41 bits.
+
+**The law (computed).** Let h·πx be the smallest height at which a stretch of 200 numbers is proved, with the primes below the stretch given. Then
+
+```
+h_min · b ≈ 0.6–0.67,      that is   height ≈ 0.63·πx / b
+```
+
+for b from 3 to 26 bits. Halving the height costs twice the bits per sample.
+
+**Written down before the runs.** The prediction ([info_law_prediction.txt](writeup/data/riemann/info_law_prediction.txt)) was written down at 09:54 UTC on 14 November, before any run with rounded zeros. Its claims:
+- h_min·b is the same for d = 5, 6, 8, 10 within ±25 %;
+- it lies between the count H/2 = 0.38 (below) and 0.82 (the proof of section 14 at 0.020 with b ≈ 41 from the budget, the bound above; that run's own δ gives b = 36.6, so the bound is in fact 0.73).
+
+It would have been refuted by a floor in h_min (for example the 0.02 of H3) or by a drift of more than 25 %.
+
+**The runs** ([info_law.py](writeup/code/riemann/certified/info_law.py); every run with its parameters and outcome in [info_law_points.jsonl](writeup/data/riemann/info_law_points.jsonl)):
+- zeros rounded to d decimals, eps = ½·10⁻ᵈ in the budget;
+- the smallest even β whose tail is below a tenth of the precision term, and a = 1.2β/(h·π);
+- bisection on h.
+
+A run below the threshold ends in one of two ways:
+- **ambiguous:** two 0/1 patterns that differ at the next number both fit every sample, so the data cannot decide it;
+- **search limit:** the branch and bound ran out of nodes.
+
+Every decision made is checked against sympy (0 wrong in every run).
+
+| Zeros | Stretch | b | Fails at h | Proved at h | h·b at the threshold | ÷ H |
+|---|---|---|---|---|---|---|
+| 3 decimals | 3,001–3,200 | 3.14 | 0.2064 (ambiguous) | 0.2131 | 0.651–0.669 | 0.80–0.83 |
+| 4 decimals | 9,001–9,200 | 5.61 | 0.1019 (ambiguous; no higher zero in the list) | | > 0.572 | > 0.75 |
+| 5 decimals | 9,001–9,200 | 9.06 | 0.0718 (ambiguous) | 0.0731 | 0.651–0.663 | 0.86–0.87 |
+| 5 decimals | 3,001–3,200 | 10.4 | | 0.0615 | ≤ 0.639 | ≤ 0.79 |
+| 6 decimals | 9,001–9,200 | 12.55 | 0.0474 (ambiguous) | 0.0490 | 0.595–0.615 | 0.78–0.81 |
+| 8 decimals | 9,001–9,200 | 19.5 | 0.0306 (ambiguous) | 0.0312 | 0.598–0.609 | 0.79–0.80 |
+| 10 decimals | 9,001–9,200 | 26.3 | 0.0229 (search limit) | 0.0238 | ≤ 0.625 | ≤ 0.82 |
+| 28 digits (section 14) | 9,001–9,200 | 36.6 | 0.015 (search limit) | 0.020 | ≤ 0.73 | ≤ 0.96 |
+
+H is the entropy of one odd number near x, h(2/ln x): 0.759 near 9,100 and 0.809 near 3,100.
+
+Over a factor 8.4 in b (3.14 to 26.3), h_min·b stays between 0.595 and 0.669, within ±6 % of 0.63. The prediction holds: at the four levels it named (5, 6, 8 and 10 decimals) h_min·b is 0.651–0.663, 0.595–0.615, 0.598–0.609 and at most 0.625.
+
+**Where information ends.** At 5 and 6 decimals the stretch stops at 9,173, a prime with primes at 9,161 and 9,181 around it. [info_law_check.py](writeup/code/riemann/certified/info_law_check.py) rebuilds that window in mpmath and checks both patterns (5 decimals, h = 0.0718: 86 samples, 43 unknowns):
+
+```
+window at 9173 (a = 85.1, beta = 16, m = 3, height at x: 0.2256 x, 86 samples, 43 unknowns), bit 0 = 9173 (prime: True)
+pattern with b = 0: fits every sample: True (largest |A b - y| / delta = 0.9646); equals the truth: False
+pattern with b = 1: fits every sample: True (largest |A b - y| / delta = 0.8381); equals the truth: False
+information limit confirmed
+```
+
+So at these heights the threshold is where the information ends, not where the search gives up. At 10 decimals and with the full strings the search gives up first, so those rows are bounds.
+
+**Why: a count (heuristic).** As a function of x, a sample is the prime measure seen through the kernel. The zeros fix it up to frequencies β/a = h·π/1.2 in units of the integers, and beyond that only δ remains. A band of width β/a gives (β/a)/π independent numbers per unit length, so 2h/1.2 per odd number. Each holds b bits, and an odd number near x carries H bits. So the decoder needs
+
+```
+(2h/1.2)·b ≥ H,   i.e.   h·b ≥ 0.6·H
+```
+
+The prediction used H/2. The factor 1.2 (the height is 1.2 times the kernel's band) was added after the runs. Measured: 0.78–0.87·H. So the decoder uses 69–77 % of the count, at every precision.
+
+**One law for every decoder.** Write each height as κ·π·ρ·n, with ρ the share of integers that are candidates (½ for odd numbers, ⅓ on 6k ± 1).
+
+| Decoder (section 3) | Height | κ | How it reads a sample |
+|---|---|---|---|
+| 126, linear, odd numbers | 0.5·πn | 1.00 | one threshold |
+| 127, linear, 6k ± 1 | 0.333·πn | 1.00 | one threshold |
+| 128, all patterns of 12 odd numbers | 0.2·πn | 0.40 | joint fit |
+| 134, exact window decoder with coins | 0.075·πn (0.06 above 200,000) | 0.15 (0.12) | noise 0.01: about 10 bits |
+| 139, coprime to 210 (ρ = 0.229) | 0.045·πn | 0.20 | same |
+| 140, divisibility facts | 0.23·πρn | 0.23 | same |
+| section 14, proved, 28 digits | 0.0199·πn | 0.040 | about 37 bits |
+| this section | 0.63·πn / b | 1.26/b | b bits |
+
+- **The linear end is a theorem.** Zeros up to T give T/π independent numbers per unit of ln x, and the candidates near n number ρn per unit of ln x. A readout linear in the samples needs at least one number per candidate. Landau's density theorem (1967) makes this exact: a set of points can carry independent values for functions band-limited to T only if its density is at most T/π. So κ ≥ 1, and 126 and 127 reach it. Rows 126 and 127 also show that the density counts, not the smallest gap. On 6k ± 1 the gaps are 2 and 4, yet the height is ⅓·πn, not the ½·πn that gaps of 2 would need.
+- **The nonlinear decoders sit on one hyperbola.** For them κ ≈ 1.26/b, about 1.6·H/b. It meets κ = 1 at b ≈ 1.3 bits, so in this sense a linear readout uses about one bit per sample. The coin decoder 134 has a model noise of 0.01 against ln n ≈ 9–12, about 10 bits, and the hyperbola gives κ ≈ 0.12. That is what 134 measures above 200,000.
+- **H3 (section 10) is settled.** The zeros do not carry the primes down to a fixed 0.02·πn. The limit is h ≈ 0.63/b, set by the bits per sample.
+
+**The √x law.** With the full strings the bits are bounded by the kernel's tail, b ≈ 1.41β − const, and β = h·π·a/1.2. The window cannot be much wider than x, so a ≤ x/2. Put into h·b ≈ C, this gives h² ≳ C/(1.85x), so the height T = h·π·x grows only like √x:
+
+```
+T_min ≈ c·√x
+```
+
+Measured with a = x/2 ([info_law.py](writeup/code/riemann/certified/info_law.py) `bisect-window`; predicted before the runs as 2.63√x and 2.34√x):
+
+| Stretch (primes below given) | Fails at h | Proved at h | T/√x at the middle | Zeros used by the proof |
+|---|---|---|---|---|
+| 101–140 | 0.0800 (ambiguous) | 0.0826 | 2.76–2.85 | 3 (below 29.05) |
+| 301–360 | 0.0475 (ambiguous) | 0.0487 | 2.71–2.79 | 8 (below 43.47) |
+| 1,001–1,200 | 0.025 (search limit) | | (2.6) | |
+
+So the primes near x come from the zeros below about 2.8√x. The three lowest zeros of ζ prove every prime between 101 and 140 once the primes below 101 are known. √x is the scale of the Riemann–Siegel formula, which needs √(t/2π) terms. It is also the scale of the analytic π(x) algorithm of Lagarias and Odlyzko, which uses the zeros up to x^(1/2+ε) together with a sieve near x. Here there is no sieve: the integrality of the unknowns does the sieve's work, and the price is digits. At the threshold b ≈ 1.1–1.3√x bits, about 0.33–0.38√x decimals.
+
+**The chain from 3 at height 3.2√x** ([info_law.py](writeup/code/riemann/certified/info_law.py) `stages 1200 3.2 0.5 40`). Each stage [s, e] uses a = s/2 and the height max(40, 3.2√e) at its top, with nothing given:
+
+| Chain from 3, no prime given | Height used | Zeros used | Proved | Stopped |
+|---|---|---|---|---|
+| section 14 (stages up to 1,000: height 2x, then 0.7x) | 600 below 300; 633 below 905 | 341; 365 | every odd prime below 10,000 | |
+| this section, to 300 | 40.8 | **6** | all 61 odd primes below 300, 0 wrong (3 s) | |
+| this section, to 905 | 81.5 (2.71√x at 905) | **21** | all 153 odd primes below 905, 0 wrong | at 905: search limit, neither value refuted within 3,000 nodes (nor 12,000) |
+| the same, height 3.6√x above 644 | 91.7 | 25 | all 154 odd primes below 911 | at 911: search limit |
+
+So the six lowest zeros prove every odd prime below 300, and 21 zeros every odd prime below 905. The proved chain of section 14 used 341 and 365 zeros for the same ranges, 17–57 times more. The chain stops on the search, not on information: near 905 a window holds about 200 unknowns, and around the primes 907 and 911 the branch and bound runs out of nodes for both values, at 3,000 nodes per refutation and again at 12,000.
+
+**Validation.** [lp_check.py](writeup/code/riemann/certified/lp_check.py) checks the chain to 905 independently: mpmath, sympy, and its own rebuild of a recorded window, sharing only the budget δ:
+
+```
+1. 153 certified primes in [3, 905); equal to sympy: True; stop: None; zeros up to 81.54
+2. x = 648 (a = 322.0, beta = 30.264, m = 3, T = 73.1): |zero side - prime side| / K0 = 3.35e-12, delta / K0 = 1.100e-10, inside: True
+2. x = 680 (a = 402.5, beta = 33.8404, m = 3, T = 68.6): |zero side - prime side| / K0 = 4.05e-13, delta / K0 = 5.166e-12, inside: True
+2. x = 956 (a = 503.0, beta = 38.721, m = 3, T = 88.3): |zero side - prime side| / K0 = 2.08e-13, delta / K0 = 2.037e-12, inside: True
+3. window at 883 (a = 402.5, beta = 33.8404, m = 3, 282 samples, 201 unknowns): unknowns rebuilt equal: True; samples valid: True; 11 decisions replayed, 87 nodes, failures: 0; decisions equal sympy: True
+```
+
+The 6-decimal stop at 9,173 (h = 0.0474) passes info_law_check.py as well: both patterns fit, at 0.996 and 0.986 of δ. lp_check.py now reads EPS from the environment, as lpchain.py does, so it can check runs with rounded zeros. Every run above is in [run_all.sh](writeup/code/riemann/certified/run_all.sh). The prediction was written at 09:54 UTC, and the first decoder run with rounded zeros started after it.
+
+**Limits ahead (extrapolation, not computed).**
+- **Arithmetic.** Long double stops b at about 41 bits (δ/K₀ ≈ 3·10⁻¹²), so here the √x law ends near x ≈ 3,500.
+- **The zeros.** The 28-digit strings carry about 93 bits. With the samples and certificates in higher precision they would reach x ≈ 6,000–17,000, at heights near 2.8√x ≈ 220–365, which holds 89–179 zeros.
+- **In general.** The primes near x need the zeros below about 2.8√x, each to about 0.33–0.38√x decimals. The total information used, zeros times bits, grows like x·ln x.
+
+**What it means.**
+- **Height and digits trade one for one.** The explicit formula behaves like a channel with (height/π)·(bits) per unit of ln x. Every decoder here uses a fixed share of it: 100 % in the linear limit, 69–77 % for the certified decoder.
+- **Riemann's readout is the one-bit end.** It needs zeros up to πρn because it reads each sample as one threshold. Everything below that comes from using the integrality of the unknowns, at the exchange rate of the hyperbola.
+- **The scale √x appears without a sieve.** For a decoder of this kind (a compact kernel no wider than x), the window bounds the bits, and at that bound the height falls to the Riemann–Siegel scale (heuristic, measured at two points).
+
+**Status.**
+- **Computed:** the table of digits (one prediction written down before the runs, all four of its levels run; the 4- and 10-decimal rows and the full strings are bounds), the window law at two points, the chain, and the information limit (info_law_check.py: both patterns fit, in mpmath).
+- **Heuristic:** the count 0.6·H and the derivation of √x.
+- **Theorem (Landau 1967):** the linear bound κ ≥ 1, as an interpolation statement. That a decision with error below ½ needs the same density is the standard reading, not proved here.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).
@@ -1158,4 +1300,6 @@ At s = 12 and n = 10⁴ this is 338,300. The measured counts are 338,828 (q = 10
 - M. A. Bennett, G. Martin, K. O'Bryant, A. Rechnitzer, Counting zeros of Dirichlet L-functions, Math. Comp. 90 (2021), 1455–1482: Theorem 1.1, the bound on N(T, χ) (section 15).
 - D. J. Platt, Numerical computations concerning the GRH, Math. Comp. 85 (2016), 3009–3027: GRH for primitive characters with q ≤ 400,000 up to height max(10⁸/q, 3.75·10⁷/q + 200) for odd q (section 15).
 - H. Iwaniec, W. Luo, P. Sarnak, Low lying zeros of families of L-functions, Publ. Math. IHÉS 91 (2000), 55–131; D. Fiorilli, S. J. Miller, Surpassing the ratios conjecture in the 1-level density of Dirichlet L-functions, Algebra & Number Theory 9 (2015), 13–52: the explicit formula for the family of characters mod q (section 15).
+- H. J. Landau, Necessary density conditions for sampling and interpolation of certain entire functions, Acta Math. 117 (1967), 37–52: an interpolating set for functions band-limited to [−T, T] has density at most T/π (section 20).
+- J. C. Lagarias, A. M. Odlyzko, Computing π(x): an analytic method, J. Algorithms 8 (1987), 173–191: π(x) from the zeros up to x^(1/2+ε) and a sieve near x (section 20).
 - Details and dates of each step are in [IDEAS.txt](IDEAS.txt) and [FINDINGS.txt](FINDINGS.txt) (entries of 10–12 November 2026).

@@ -21,7 +21,7 @@ import os
 ZS = [l.strip() for l in open(os.environ.get('ZFILE', os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../data/riemann/zeros_hp2419.txt'))) if l.strip()]
 Zm = [mp.mpf(s) for s in ZS]
 Gld = np.array(ZS, dtype=np.longdouble)
-EPS = 2e-16
+EPS = float(os.environ.get('EPS', '2e-16'))   # the listed zeros are within EPS of the true ones (rounded lists: half a unit of the last decimal)
 
 def Kmp(v, a, beta, m):
     t = 1 - (v / a) ** 2

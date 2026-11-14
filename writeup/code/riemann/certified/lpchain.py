@@ -223,12 +223,14 @@ class LPChain:
                 if ok:
                     return got, 'data inconsistent'
                 guess = int(round(v[int(np.where(free == j)[0][0])]))
-            done = False; outcomes = []; attempts = []
+            done = False; outcomes = []; attempts = []; fits = {}
             for val in (guess, 1 - guess):
                 s2 = st.copy(); s2[j] = 1 - val
                 lg = None if logs is None else []
                 rr = refute(A, lo, hi, s2, limit, lg)
                 attempts.append((1 - val, rr[0], int(rr[1]) if rr[0] != 'feasible' else -1))
+                if rr[0] == 'feasible':
+                    fits[1 - val] = [int(v) for v in rr[1]]      # a 0/1 pattern with b_j = 1 - val that fits every sample
                 if rr[0] != 'feasible':
                     self.stats['nodes'] += rr[1]; self.stats['lps'] += rr[2]
                     self.stats['maxnodes'] = max(self.stats['maxnodes'], rr[1])
@@ -242,6 +244,8 @@ class LPChain:
             if not done:
                 if logs is not None and got:
                     self.proofs[U[0]] = dict(U=U, xs=self.last_xs, params=self.cur, proofs=logs)
+                if len(fits) == 2:   # the information limit: two patterns that differ in b_j both fit (checked in info_law_check.py)
+                    self.ambiguous = dict(U=[int(u) for u in U], xs=self.last_xs, params=self.cur, bit=j, fits={str(v): p for v, p in fits.items()})
                 return got, ('ambiguous' if outcomes == ['feasible', 'feasible'] else 'search limit ' + str(outcomes))
         if logs is not None:
             self.proofs[U[0]] = dict(U=U, xs=self.last_xs, params=self.cur, proofs=logs)
@@ -285,5 +289,7 @@ if __name__ == '__main__':
     if out:
         json.dump(dict(X=X, stages=stages, wheel=wheel, start=start, result=r, log=C.log, primes=primes, opts=opts), open(out, 'w'))
         json.dump(C.dlog, open(out.replace('.json', '_decisions.json'), 'w'))
+        if getattr(C, 'ambiguous', None):
+            json.dump(C.ambiguous, open(out.replace('.json', '_ambiguous.json'), 'w'))
         if C.proofs:
             json.dump({str(k): v for k, v in C.proofs.items()}, open(out.replace('.json', '_proofs.json'), 'w'))

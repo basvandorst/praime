@@ -1,0 +1,26 @@
+Written before any decoder run with rounded zeros (time in prereg_time.txt).
+
+Law to test (information exchange rate of the explicit formula):
+  the smallest height Omega*x (Omega in units of pi) at which the certified LP decoder proves a stretch,
+  times the bits per sample b = log2(ln x / (delta/K0)), is a constant:   Omega_min * b = C.
+Naive count: the zeros up to Omega*x give 2*Omega/pi real numbers per odd number, each worth b bits;
+an odd number near 9,100 carries H = h(2/ln 9100) = 0.759 bits, so C >= H/2 = 0.38.
+Existing proofs (28-digit zeros, b about 41) bound C <= 0.82 (stretch 9,001-9,200 proved at 0.020).
+
+Prediction for the stretch 9,001-9,200 (primes below 9,001 given), zeros rounded to d decimals:
+  d     b (from the budget)   Omega_min predicted (C between 0.38 and 0.82)
+  5     9.6                   0.040 - 0.085
+  6     12.9                  0.029 - 0.064
+  8     19.6                  0.019 - 0.042
+  10    26.2                  0.015 - 0.031
+and, the real test, Omega_min * b equal for d = 5, 6, 8, 10 within +-25 %.
+Refuted if Omega_min stops falling with d (a floor, e.g. the 0.02 of H3) or Omega_min * b drifts by more than 25 %.
+Below Omega_min the decoder should report 'ambiguous' (a second 0/1 pattern fits every sample), not only 'search limit'.
+Time written (UTC): 2026-11-14T09:54:46Z
+
+Window law (a = x/2, 28-digit zeros), computed before its runs:
+S=101 x=121.0: H=0.980, predicted Omega_min=0.0762 (pi units), height T=29.0 = 2.63 sqrt(x), zeros below the top 5
+S=301 x=331.0: H=0.929, predicted Omega_min=0.0409 (pi units), height T=42.6 = 2.34 sqrt(x), zeros below the top 8
+S=1001 x=1101.0: H=0.863, predicted Omega_min=0.0203 (pi units), height T=70.1 = 2.11 sqrt(x), zeros below the top 19
+S=2001 x=2151.0: H=0.828, predicted Omega_min=0.0162 (pi units), height T=109.6 = 2.36 sqrt(x), zeros below the top 37
+2026-11-14T10:01:14Z
