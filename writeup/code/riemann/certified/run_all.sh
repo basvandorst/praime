@@ -44,7 +44,7 @@ timeout 3600 nice $P $D/lpchain.py 905 "$($P $D/info_law.py stages 1200 3.2 0.5 
 timeout 3600 nice $P $D/lp_check.py chain905.json 2
 echo "== section 21: high-precision engine (Arb zeros, ball samples, implied rows, every tree replayed in balls); needs python-flint"
 timeout 3600 nice $P $D/hpchain.py 1006 '[[1006, 402.5, 33.8404, 3, 1.2, 201]]' '{"truth_below":905,"start":905,"maxbits":40,"limit":3000,"out":"hp905.json"}' | tail -1
-timeout 30000 nice $P $D/hpchain.py 2000 "$($P $D/info_law.py stages 2000 3.2 0.5 40)" '{"maxbits":40,"limit":3000,"out":"hpchain2000.json"}' | tail -1
+timeout 30000 nice $P $D/hpchain.py 2000 "$($P $D/info_law.py stages 2000 3.2 0.5 40)" '{"maxbits":40,"limit":3000,"record":[1900,2000],"out":"hpchain2000.json"}' | tail -1
 timeout 30000 nice $P $D/hpchain.py 10000 "$($P $D/info_law.py cap-stages 2000 10000 560)" '{"truth_below":2000,"start":2000,"maxbits":40,"limit":3000,"record":[9800,10000],"out":"B560.json"}' | tail -1
 timeout 3600 nice $P $D/hp_check.py hpchain2000.json; timeout 14000 nice $P $D/hp_check.py B560.json 2
 echo done

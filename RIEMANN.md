@@ -1330,10 +1330,10 @@ So the wall was the LP's tolerance, not the search order and not the information
 | the wall of section 20 | one window a = 402.5, β = 33.84 over 905–1,005, primes below 905 given | 89.5 | 25 | all 14 primes in [905, 1,006) | 80; 15,273; 281 s |
 | window law at 1,001–1,200 (a = x/2, primes below given) | h = 0.028 | 88.5 (2.92√x at the middle) | 24 | all 28 primes | 128; 52,133; 1,428 s |
 | the same | h = 0.0255 and 0.0235 (2.66√x and 2.45√x) | | | stops at 1,013 and 1,007: search limit | |
-| chain from 3, nothing given | `stages 2000 3.2 0.5 40` (section 20) | 125.8 (2.81√x at 2,000) | **41** | all 302 odd primes below 2,000 | 982; 244,928; 3.1 h |
+| chain from 3, nothing given | `stages 2000 3.2 0.5 40` (section 20) | 125.8 (2.81√x at 2,000) | **41** | all 302 odd primes below 2,000 | 982; 244,928; 3.0 h |
 | record segment | `cap-stages 2000 10000 560`, primes below 2,000 from the chain | 558.7 (5.59√x at 10,000) | **311** | all 926 primes in [2,000, 10,000) | 3,977; 131,191; 1.6 h |
 
-The run at 905 and the chain to 2,000 ran on an earlier revision of hpchain.py: the same implied rows, but formed entry by entry instead of with Arb matrices, and with no recorded trees. The window law near 1,100 and the record segment ran on the committed version.
+The run at 905 ran on an earlier revision of hpchain.py: the same implied rows, but formed entry by entry instead of with Arb matrices, and with no recorded trees. The other runs are from the committed version. The chain to 2,000 first ran on the earlier revision too. Rerun on the committed version with its top window recorded, it repeats that run node for node: 244,928 nodes and 216,282 LPs.
 
 **Every odd prime below 10,000 from 311 zeros.** The chain from 3 to 2,000 and the segment from 2,000 to 10,000 together prove every odd prime below 10,000 with no prime given. They use the 311 zeros below 558.70: 0.0178·πn at the top, 0.25 zeros per prime. Section 14 used the 359 zeros below 624.50 (0.0199·πn, 0.29 per prime), taken from a zero list that had to be trusted.
 
@@ -1355,14 +1355,14 @@ The top stage has a = 861, β = 40.2 and 431 unknowns, and its samples carry 48.
   - it takes the zeros from `mpmath.zetazero`, uses mpmath's Bessel functions and `mp.quad` at 50 digits, and Λ from sympy;
   - it compares the certified primes with sympy;
   - it checks the identity at a random point of each of the last two stages;
-  - it rebuilds the two recorded windows (9,800–10,000), including the implied rows from the recorded weights and scale factors, and replays every recorded tree.
+  - it rebuilds the recorded windows, the top window of the chain (from 1,939) and the two at 9,800–10,000, including the implied rows from the recorded weights and scale factors, and replays every recorded tree.
 
 ```
 $ hp_check.py hpchain2000.json
 1. 302 certified primes in [3, 2000); equal to sympy: True; stop: None; replays in the run: {'ok': 982, 'failed': 0}
 2. x = 1642 (a = 786.0, beta = 47.2835, T = 118.5): |zero side - prime side| / K0 = 1.84e-19, delta / K0 = 1.219e-17, inside: True
 2. x = 1949 (a = 982.5, beta = 58.585, T = 139.5): |zero side - prime side| / K0 = 3.29e-24, delta / K0 = 3.933e-18, inside: True
-3. no recorded proofs (hpchain2000_proofs.json): window replay skipped
+3. window at 1939 (a = 786.0, beta = 47.2835, 592 samples + 12 implied rows, 393 unknowns): 40 decisions replayed, 426 nodes, failures: 0; decisions equal sympy: True
 $ hp_check.py B560.json 2
 1. 926 certified primes in [2000, 10000); equal to sympy: True; stop: None; replays in the run: {'ok': 3977, 'failed': 0}
 2. x = 8301 (a = 738.188, beta = 37.4728, T = 505.7): |zero side - prime side| / K0 = 1.05e-14, delta / K0 = 3.598e-13, inside: True
