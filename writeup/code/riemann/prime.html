@@ -280,6 +280,10 @@ svg.dragging { cursor:grabbing; }
     <p class="note" style="margin-top:6px">The rule of 142 without a circle: start at 1 and keep taking the next prime q for which 2^q − 1 is prime. Every factor of 2^q − 1 has the form 2kq + 1, so most primes drop out on a small factor (k up to 100,000·(q/7000)²); every prime left gets the Lucas–Lehmer test (s₀ = 4, s ← s² − 2 mod 2^q − 1; 2^q − 1 is prime exactly when s_(q−2) = 0). Above q = 4,200 the squarings use a floating-point FFT with the rounding checked at every step (it stays near 0.03; a step above 0.35 is redone at twice the length), and every exponent it finds is tested again in exact integer arithmetic. So every number in the list is a Mersenne exponent, by theorem, and none is skipped. The tests run in the background on the spare cores of this computer; each step takes longer than the one before.</p>
     <ol id="mgenList" class="mgen-list"></ol>
     <p class="note" id="mgenStat"></p>
+    <div class="table-head" style="margin-top:18px"><h3>Only the known exponents</h3><button id="mverBtn" type="button">Start</button></div>
+    <p class="note" style="margin-top:6px">The other way round: the Lucas–Lehmer test on the known exponents only, in order, and on nothing in between. This touches nothing but Mersenne exponents and proves each one, but it cannot find a new one: the list is the input. Finding one means testing the primes in between, as above, because no test is known that tells a Mersenne exponent from other primes more cheaply. One test on one core takes about half a minute at 132,049, a minute and a half at 216,091, 20 to 35 minutes at 756,839 and 859,433, about an hour and a half at 1,257,787 and 1,398,269, about six hours at 2,976,221 and 3,021,377, and two days at 6,972,593; the tests run side by side on the spare cores. The 14 larger known exponents, up to 136,279,841, would take months to years in a browser. Up to 50,000 every zero is checked again in exact integer arithmetic; above, it comes from the floating-point FFT, with every rounding checked. A paused test starts again from the beginning.</p>
+    <ol id="mverList" class="mgen-list"></ol>
+    <p class="note" id="mverStat"></p>
   </section>
 </main>
 <script>
@@ -1167,6 +1171,35 @@ function mgenToggle(){
  mgen.on=true;mgen.t0=performance.now();mgen.pool=mgenWorkers(Math.max(1,Math.min(8,(navigator.hardwareConcurrency||2)-1)));
  mgen.pool.forEach(w=>{w.job=null;w.onmessage=e=>mgenResult(w,e.data);});
  mgen.tick=setInterval(mgenStat,1000);$("mgenBtn").textContent="Pause";mgenFeed();mgenStat();}
+let mver=null;
+function mxIsZero(P,x){const n=P.n,d=Float64Array.from(x);let carry=0;
+ for(let pass=0;pass<12;pass++){for(let i=0;i<n;i++){const v=d[i]+carry,b=P.base[i],r=v-Math.floor(v/b)*b;carry=(v-r)/b;d[i]=r;}if(carry===0)break;}
+ if(carry!==0)return false;let z=true,m=true;for(let i=0;i<n;i++){if(d[i]!==0)z=false;if(d[i]!==P.base[i]-1)m=false;}return z||m;}
+function mxProve(q,tick){const t0=Date.now();
+ if(q<4200)return {prime:mxLlResidueBigInt(q)===0n,n:0,err:0,ms:Date.now()-t0,exact:true};
+ for(let n=mxFftLengthFor(q);;n*=2){const P=mxGetPlan(q,n),x=new Float64Array(n);x[0]=4;let err=0,ok=true,last=Date.now();
+  for(let it=0;it<q-2;it++){const e=mxSqrStep(P,x,2,1);if(!(e<=0.35)){ok=false;break;}if(e>err)err=e;if((it&63)===0&&Date.now()-last>700){last=Date.now();tick(it,q-2,n,err);}}
+  if(ok){let prime=mxIsZero(P,x),exact=false;if(mxGetPlan.c)mxGetPlan.c.clear();if(prime&&q<=50000){prime=mxLlResidueBigInt(q)===0n;exact=true;}return {prime,n,err,ms:Date.now()-t0,exact};}}}
+function mverTime(ms){const s=ms/1000;return s<60?s.toFixed(1)+" s":s<3600?(s/60).toFixed(1)+" min":(s/3600).toFixed(1)+" h";}
+function mverShow(q){const v=mver.st.get(q),li=mver.li.get(q),i=mver.list.indexOf(q)+1;let s;
+ if(!v)s="waiting";else if(v.done)s=v.prime?`proved, ${mverTime(v.ms)}`:"NOT prime?";else if(v.it!==undefined){const el=Date.now()-v.t0,pct=v.it/v.of;s=`${(pct*100).toFixed(pct<0.1?1:0)}%`+(pct>0.01?`, ${mverTime(el/pct-el)} left`:"");}else s="starting";
+ li.innerHTML=`${i}. <b>${q.toLocaleString("en-US")}</b><small>${s}</small>`;
+ if(v&&v.done)li.title=`2^${q} − 1 is prime: Lucas–Lehmer residue 0`+(v.n?`, FFT length ${v.n}, largest rounding error ${v.err.toFixed(4)}`:"")+(v.exact?", checked in exact integer arithmetic":"");}
+function mverStat(){const d=mver.list.filter(q=>mver.st.get(q)?.done).length,run=mver.pool.filter(w=>w.job!==null).map(w=>w.job.toLocaleString("en-US"));
+ $("mverStat").textContent=`${d} of ${mver.list.length} known exponents proved in ${mverTime(mver.ms+(mver.on?Date.now()-mver.t0:0))} on ${mver.pool.length||mver.cores} core${(mver.pool.length||mver.cores)===1?"":"s"}.`+(mver.on&&run.length?` Running: ${run.join(", ")}.`:mver.on?"":d<mver.list.length?" Paused.":"");}
+function mverFeed(){for(const w of mver.pool)if(w.job===null){const q=mver.list.find(p=>!mver.st.has(p));if(q===undefined)break;w.job=q;mver.st.set(q,{t0:Date.now()});mverShow(q);w.postMessage(q);}}
+function mverMsg(w,d){if(!mver.on||w.job!==d.q)return;const v=mver.st.get(d.q);
+ if(d.done){Object.assign(v,d);w.job=null;mverFeed();}else{v.it=d.it;v.of=d.of;}mverShow(d.q);mverStat();}
+function mverToggle(){
+ if(mver&&mver.on){mver.on=false;mver.ms+=Date.now()-mver.t0;mver.pool.forEach(w=>{if(w.job!==null){mver.st.delete(w.job);mverShow(w.job);}w.terminate();});mver.cores=mver.pool.length;mver.pool=[];
+  clearInterval(mver.tick);$("mverBtn").textContent="Continue";mverStat();return;}
+ if(!mver){mver={list:[...MEXP].filter(p=>p<=6972593).sort((a,b)=>a-b),st:new Map(),li:new Map(),ms:0,cores:1,pool:[]};
+  for(const q of mver.list){const li=document.createElement("li");mver.li.set(q,li);$("mverList").appendChild(li);mverShow(q);}}
+ const code=mxSource()+"\n"+mxIsZero.toString()+"\n"+mxProve.toString()+"\nonmessage=e=>{const q=e.data,r=mxProve(q,(it,of,n,err)=>postMessage({q,it,of,n,err}));postMessage(Object.assign({q,done:true},r));};";
+ try{const url=URL.createObjectURL(new Blob([code],{type:"text/javascript"}));mver.pool=Array.from({length:Math.max(1,Math.min(8,(navigator.hardwareConcurrency||2)-1))},()=>new Worker(url));}
+ catch(e){$("mverStat").textContent="This needs Web Workers, which this browser does not allow here.";return;}
+ mver.on=true;mver.t0=Date.now();mver.pool.forEach(w=>{w.job=null;w.onmessage=e=>mverMsg(w,e.data);});
+ mver.tick=setInterval(()=>{mver.pool.forEach(w=>{if(w.job!==null)mverShow(w.job);});mverStat();},1000);$("mverBtn").textContent="Pause";mverFeed();mverStat();}
 function nextMersenneExponent(p,lim){if(p<2)return 2;p=Math.floor(p);if(p>=MERS_TOP)return null;
  let y=mersNextCache.get(p);if(y!==undefined)return y<=lim?y:null;
  const top=Math.min(lim,MERS_TOP),need=[];
@@ -2052,6 +2085,7 @@ $("highlightNear").addEventListener("change",applyHighlight);
 ["nearMinus","nearPlus"].forEach(id=>$(id).addEventListener("change",()=>{if(!state.circle)return;if(state.srcMode==="chain"&&$("chainStop").value==="miss"){render();return;}computeNear();applyHighlight();if(state.selected!==null)selectNode(state.selected);}));
 $("csvBtn").addEventListener("click",downloadCSV);
 $("mgenBtn").addEventListener("click",mgenToggle);
+$("mverBtn").addEventListener("click",mverToggle);
 $("srcTable").addEventListener("click",ev=>{const tr=ev.target.closest("tr[data-p]");if(tr)selectNode(Number(tr.dataset.p));});
 $("reset").addEventListener("click",clearSelection);
 function computeAtlas(){
