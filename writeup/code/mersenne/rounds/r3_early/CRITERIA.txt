@@ -1,0 +1,35 @@
+Pre-registered success criterion (written before any LL/PRP data was computed)
+==========================================================================
+
+Population: primes k with no factor 2jk+1, j <= 10^5 ("survivors").
+  train: 100 <= k < 3000      (exponents 107 127 521 607 1279 2203 2281: 7)
+  test : 3000 < k < 12000     (exponents 3217 4253 4423 9689 9941 11213: 6)
+  fresh: 12000 < k < 20000    (exponent 19937: 1)   -- only for rechecking a positive
+
+Horizons j: 32, 64, 128, 256, k//16, k//8, k//4, k//2.
+A statistic at horizon j may use s_1..s_j (LL) and x_1..x_j (PRP base 3) only.
+
+Pipeline (fixed, applied identically to real and permuted labels):
+  1. single feature: choose the feature and orientation with the largest train AUC;
+     threshold = smallest oriented value among the train exponents (keeps all of them).
+  2. logistic regression (L2, lambda=1) on the 3 best train-AUC features;
+     threshold = smallest train-exponent score.
+  3. depth-2 tree (Gini) on the 10 best train-AUC features, leaf score = smoothed
+     positive share; threshold = smallest train-exponent leaf score.
+  Test statistics: test AUC; test recall at the train threshold; test rejection
+  (share of test non-exponents below the threshold).
+
+Null: >= 1000 label permutations (shuffle within train and within test, keeping
+7 and 6 positives), whole pipeline rerun. Also a k-local null (each exponent
+replaced by a random survivor among its 30 nearest in k), because the exponents
+are spread like log k and any feature that drifts with k would look significant
+under the global null.
+
+A horizon j "succeeds" only if ALL of:
+  (a) test recall = 6/6 at the train threshold;
+  (b) test rejection >= 25% of test non-exponents;
+  (c) permutation p-value of the test AUC < 0.01 under BOTH nulls, and
+      family-wise (min over the 8 horizons x 3 models) p < 0.05;
+  (d) confirmed by an independent script on 12000 < k < 20000 (19937 kept,
+      rejection >= 25%).
+Anything else is reported as "no quick test found at j".

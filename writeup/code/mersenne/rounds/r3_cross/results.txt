@@ -1,0 +1,338 @@
+Harness: discovery odd p<1e5 (9591 primes, 27 exponents, E=30.60); validation [1e5,1e7) (654987 primes, 10 exponents, E=12.896); final [1e7,B) untouched.
+Features: 329 generated, 325 usable (320 real + 5 planted); candidate classes 4324; null sets 1000
+Per domain (usable): automata: 31, constants: 105, dynamics: 16, geometry: 38, misc: 23, statistics: 28, zeta: 79
+Degenerate (skipped): Chebyshev race mod 3 lead > 0; Rule 90 raster bit, width 1009; Rule 90 raster bit, width 3001; Henon escape from (frac k pi, frac k e)
+
+Family-wise (best validation p over 320 real features, 1000 null sets): 1% 2.86e-04, 5% 9.81e-04, 10% 2.05e-03, median 1.94e-02
+Real best validation p = 4.728e-02; fraction of null sets with a smaller best p = 0.751
+Best bits gain: null median 3.21, 90% 4.67, 95% 5.06, 99% 6.32; real 3.64 (frac null >= real 0.365)
+Per-feature null calibration: share of null sets with p_v <= 0.05: mean 0.0324, max 0.0480 (should be <= ~0.05)
+
+Planted tests (same pipeline; family-wise bar from real features):
+  PLANT strong: exponents in bottom 5%                           PLANTED    <= 0.100384      disc 27/ 8.03  val 10/ 1.31  p_v 1.21e-06  bits +31.37  pcond 0.000  beats 5% bar: True
+  PLANT medium: half the exponents in bottom 10%                 PLANTED    <= 0.10157       disc 11/ 4.55  val  6/ 1.32  p_v 2.42e-03  bits  +9.01  pcond 0.000  beats 5% bar: False
+  PLANT weak: exponents in bottom 40%                            PLANTED    <= 0.392429      disc 27/15.14  val 10/ 5.07  p_v 3.46e-02  bits +13.61  pcond 0.000  beats 5% bar: False
+  PLANT discovery-only                                           PLANTED    <= 0.100384      disc 27/ 8.03  val  1/ 1.30  p_v 7.29e-01  bits -37.69  pcond 0.656  beats 5% bar: False
+  PLANT none (pure noise)                                        PLANTED    > 0.700194       disc 11/10.00  val  2/ 3.87  p_v 8.98e-01  bits  -0.34  pcond 0.851  beats 5% bar: False
+
+All real features by validation p (class chosen on discovery; O/E in each range):
+  1 frac(k*inv2pi)                                                 constants  <= 0.103074      disc  7/ 3.73  val  4/ 1.34  p_v 4.73e-02  bits  +3.64  pcond 0.015
+  2 Collatz glide                                                  dynamics   > 21             disc  4/ 2.73  val  3/ 1.12  p_v 1.03e-01  bits  +1.91  pcond 0.049
+  3 frac(k*feigalpha)                                              constants  > 0.799623       disc  7/ 4.76  val  5/ 2.59  p_v 1.21e-01  bits  +2.61  pcond 0.033
+  4 cos2pi(k*inv2pi)                                               constants  > 0.802795       disc 12/ 6.24  val  5/ 2.61  p_v 1.24e-01  bits  +3.56  pcond 0.034
+  5 x^2+2y^2 angle                                                 geometry   > 0.702199       disc  9/ 3.94  val  4/ 1.92  p_v 1.29e-01  bits  +3.07  pcond 0.049
+  6 zeta phase frac, x=M_k, N=2419                                 zeta       > 0.902074       disc  4/ 2.29  val  3/ 1.25  p_v 1.31e-01  bits  +2.09  pcond 0.065
+  7 local prime count in k+-10000, z-score                         statistics > 0.0825948      disc  1/ 0.44  val  8/ 5.07  p_v 1.41e-01  bits  +2.26  pcond 0.011
+  8 frac(k*twinprime)                                              constants  > 0.601095       disc 14/11.50  val  7/ 5.13  p_v 2.57e-01  bits  +2.36  pcond 0.053
+  9 frac(k*sqrt3)                                                  constants  > 0.801494       disc  6/ 5.37  val  4/ 2.57  p_v 2.57e-01  bits  +1.18  pcond 0.120
+ 10 cos2pi(k*inv_alphaEM)                                          constants  <= -0.310991     disc 11/10.17  val  7/ 5.14  p_v 2.59e-01  bits  +1.71  pcond 0.054
+ 11 frac(k*feigdelta)                                              constants  > 0.800561       disc  8/ 5.07  val  4/ 2.59  p_v 2.62e-01  bits  +1.80  pcond 0.122
+ 12 cos2pi(log_pi k)                                               constants  > 0.902987       disc  5/ 4.95  val  3/ 1.85  p_v 2.82e-01  bits  +0.77  pcond 0.163
+ 13 frac(log_pi k)                                                 constants  <= 0.0771059     disc  3/ 1.79  val  2/ 1.05  p_v 2.84e-01  bits  +1.21  pcond 0.194
+ 14 frac(log_1.5 k)                                                constants  > 0.582982       disc 16/14.05  val  7/ 5.40  p_v 2.99e-01  bits  +2.07  pcond 0.070
+ 15 frac(gamma_2 ln k/2pi)                                         zeta       > 0.786956       disc  7/ 4.69  val  4/ 2.79  p_v 3.06e-01  bits  +1.49  pcond 0.152
+ 16 min neighbour gap /ln k                                        statistics > 0.699004       disc 15/14.33  val  5/ 3.69  p_v 3.11e-01  bits  +1.36  pcond 0.128
+ 17 base-10 digit sum z-score                                      misc       <= -0.856349     disc 11/ 8.14  val  4/ 2.83  p_v 3.15e-01  bits  +1.61  pcond 0.157
+ 18 frac(gamma_3 k ln2/2pi) [phase at 2^k]                         zeta       > 0.500379       disc 15/14.81  val  8/ 6.45  p_v 3.20e-01  bits  +1.61  pcond 0.055
+ 19 cos2pi(k*e_pi)                                                 constants  <= -0.598472     disc 11/ 9.96  val  5/ 3.75  p_v 3.23e-01  bits  +1.35  pcond 0.135
+ 20 cos2pi(k*glaisher)                                             constants  > -0.00669059    disc 19/16.07  val  8/ 6.49  p_v 3.25e-01  bits  +2.73  pcond 0.057
+ 21 Copeland-Erdos digit at k                                      misc       > 8              disc  4/ 3.35  val  2/ 1.20  p_v 3.37e-01  bits  +0.88  pcond 0.237
+ 22 (psi(k)-k)/sqrt k                                              zeta       <= 0.0164268     disc 17/17.04  val  8/ 6.59  p_v 3.40e-01  bits  +1.45  pcond 0.063
+ 23 triangle row position j/(n+1)                                  geometry   > 0.698795       disc 10/ 6.72  val  5/ 3.88  p_v 3.49e-01  bits  +1.54  pcond 0.152
+ 24 cos2pi(k*semitone)                                             constants  > 0.584194       disc 12/ 7.66  val  5/ 3.89  p_v 3.50e-01  bits  +1.59  pcond 0.154
+ 25 frac(k*glaisher)                                               constants  <= 0.300171      disc 10/ 8.75  val  5/ 3.90  p_v 3.51e-01  bits  +1.33  pcond 0.154
+ 26 cos2pi(k*feigdelta)                                            constants  > 0.579032       disc  8/ 7.84  val  5/ 3.91  p_v 3.54e-01  bits  +0.92  pcond 0.156
+ 27 Mandelbrot escape at c(k)                                      dynamics   > 4              disc 13/12.00  val  7/ 5.77  p_v 3.57e-01  bits  +1.59  pcond 0.099
+ 28 frac(k*khinchin)                                               constants  <= 0.0981118     disc  7/ 3.90  val  2/ 1.26  p_v 3.60e-01  bits  +1.10  pcond 0.256
+ 29 zeta det (2/sqrt x)sum cos, x=k+1, N=2419                      zeta       <= -0.205769     disc 14/12.31  val  1/ 0.45  p_v 3.62e-01  bits  +0.87  pcond 0.299
+ 30 hex spiral side 0                                              geometry   F=1              disc  6/ 3.54  val  3/ 2.15  p_v 3.64e-01  bits  +1.13  pcond 0.225
+ 31 frac(k*ln3)                                                    constants  > 0.901478       disc  3/ 2.12  val  2/ 1.28  p_v 3.66e-01  bits  +0.92  pcond 0.261
+ 32 zeta det normalized -sum cos/sumK, x=M_k, N=2419               zeta       <= -0.0189239    disc  4/ 2.33  val  2/ 1.28  p_v 3.68e-01  bits  +1.03  pcond 0.262
+ 33 cos2pi(k*ln3)                                                  constants  > 0.951456       disc  4/ 2.69  val  2/ 1.29  p_v 3.69e-01  bits  +0.99  pcond 0.263
+ 34 frac(gamma_6 k ln2/2pi) [phase at 2^k]                         zeta       <= 0.100819      disc  4/ 3.37  val  2/ 1.30  p_v 3.72e-01  bits  +0.84  pcond 0.266
+ 35 frac(k*golomb_dickman)                                         constants  <= 0.0997881     disc  4/ 2.94  val  2/ 1.30  p_v 3.74e-01  bits  +0.93  pcond 0.268
+ 36 Stern s(k) = 0 mod 3                                           geometry   F=1              disc  8/ 7.26  val  4/ 3.15  p_v 3.86e-01  bits  +0.96  pcond 0.210
+ 37 frac(gamma_4 ln k/2pi)                                         zeta       <= 0.106121      disc  2/ 1.72  val  2/ 1.37  p_v 3.99e-01  bits  +0.70  pcond 0.289
+ 38 frac(k*pi)                                                     constants  > 0.891281       disc  6/ 3.14  val  2/ 1.39  p_v 4.03e-01  bits  +0.78  pcond 0.293
+ 39 base-12 digit sum z-score                                      misc       <= -0.842075     disc  9/ 8.03  val  4/ 3.23  p_v 4.05e-01  bits  +1.03  pcond 0.226
+ 40 cos2pi(k*zeta3)                                                constants  <= -0.320009     disc 15/13.73  val  6/ 5.12  p_v 4.05e-01  bits  +1.39  pcond 0.162
+ 41 zeta det normalized -sum cos/sumK, x=2k-1, N=50                zeta       > 0.0451872      disc 12/11.55  val  5/ 4.27  p_v 4.23e-01  bits  +0.95  pcond 0.208
+ 42 frac(k^2*phi)                                                  constants  <= 0.411588      disc 12/11.10  val  6/ 5.28  p_v 4.34e-01  bits  +1.14  pcond 0.183
+ 43 frac(log_7 k)                                                  constants  <= 0.343562      disc 12/10.34  val  6/ 5.29  p_v 4.35e-01  bits  +1.24  pcond 0.184
+ 44 zeta phase frac, x=2k+1, N=50                                  zeta       > 0.796386       disc  6/ 5.12  val  3/ 2.48  p_v 4.51e-01  bits  +0.81  pcond 0.299
+ 45 frac(k*inv_day_s)                                              constants  > 0.874502       disc  1/ 0.38  val  2/ 1.53  p_v 4.52e-01  bits  +0.58  pcond 0.336
+ 46 cos2pi(k*khinchin)                                             constants  > 0.815933       disc 10/ 7.00  val  3/ 2.53  p_v 4.64e-01  bits  +0.84  pcond 0.311
+ 47 cos2pi(log_3 k)                                                constants  <= -0.319977     disc 14/12.40  val  6/ 5.46  p_v 4.64e-01  bits  +1.22  pcond 0.208
+ 48 gap before = 0 mod 6                                           statistics F=0              disc 20/21.35  val  8/ 7.43  p_v 4.65e-01  bits  +0.97  pcond 0.132
+ 49 sha256(str k) low bit [noise control]                          misc       F=1              disc 18/16.52  val  7/ 6.45  p_v 4.66e-01  bits  +1.48  pcond 0.172
+ 50 zeta det (2/sqrt x)sum cos, x=k+1, N=300                       zeta       > 0.0176478      disc 14/13.59  val  3/ 2.55  p_v 4.68e-01  bits  +0.86  pcond 0.314
+ 51 zeta det normalized -sum cos/sumK, x=2k-1, N=300               zeta       <= -0.0354411    disc  7/ 5.22  val  3/ 2.58  p_v 4.77e-01  bits  +0.81  pcond 0.323
+ 52 rank of gap after among 41 neighbours                          statistics > 0.756098       disc  5/ 4.84  val  3/ 2.59  p_v 4.78e-01  bits  +0.64  pcond 0.324
+ 53 Morse dahs per digit                                           misc       > 3              disc 11/ 7.59  val  3/ 2.59  p_v 4.79e-01  bits  +0.80  pcond 0.325
+ 54 letters in the English name of k / log k                       misc       <= 3.39524       disc 16/15.48  val  3/ 2.62  p_v 4.87e-01  bits  +0.85  pcond 0.332
+ 55 frac(k*plastic)                                                constants  <= 0.203549      disc  8/ 5.60  val  3/ 2.62  p_v 4.88e-01  bits  +0.77  pcond 0.333
+ 56 Gaussian prime angle (a odd)                                   geometry   <= 0.697849      disc 12/ 9.96  val  5/ 4.65  p_v 4.97e-01  bits  +0.99  pcond 0.273
+ 57 cos2pi(k*pi)                                                   constants  > 0.794315       disc  7/ 5.59  val  3/ 2.67  p_v 5.00e-01  bits  +0.71  pcond 0.345
+ 58 zeta det (2/sqrt x)sum cos, x=k-1, N=2419                      zeta       > 0.0436574      disc 14/14.67  val  3/ 2.70  p_v 5.06e-01  bits  +0.67  pcond 0.350
+ 59 two gaps before /ln k                                          statistics > 2.75715        disc  7/ 4.59  val  3/ 2.73  p_v 5.13e-01  bits  +0.58  pcond 0.357
+ 60 cos2pi(log_6 k)                                                constants  <= -0.222652     disc 19/13.59  val  6/ 5.75  p_v 5.14e-01  bits  +0.53  pcond 0.253
+ 61 share of 'e' in the English name of k                          misc       <= 0.128205      disc  9/ 5.63  val  4/ 3.84  p_v 5.34e-01  bits  +0.33  pcond 0.344
+ 62 Kolakoski density of 2s in k+-500                              automata   > 0.502498       disc  9/ 7.97  val  1/ 0.79  p_v 5.45e-01  bits  +0.64  pcond 0.468
+ 63 cos2pi(k*feigalpha)                                            constants  > 0.584499       disc  9/ 6.56  val  4/ 3.90  p_v 5.46e-01  bits  +0.56  pcond 0.356
+ 64 zeta det normalized -sum cos/sumK, x=k-1, N=2419               zeta       > 0.0125663      disc 10/ 7.67  val  3/ 2.89  p_v 5.51e-01  bits  +0.53  pcond 0.395
+ 65 Tribonacci word letter 0                                       automata   F=1              disc 15/16.20  val  7/ 7.01  p_v 5.51e-01  bits  +0.57  pcond 0.252
+ 66 zeta det normalized -sum cos/sumK, x=k+1, N=2419               zeta       > 0.0170664      disc  7/ 5.59  val  2/ 1.86  p_v 5.53e-01  bits  +0.55  pcond 0.433
+ 67 frac(k*inv_alphaEM)                                            constants  > 0.292887       disc 17/17.29  val  9/ 9.11  p_v 5.59e-01  bits  +1.15  pcond 0.160
+ 68 frac(k*inv_year)                                               constants  <= 0.706529      disc 25/25.05  val  9/ 9.11  p_v 5.59e-01  bits  +1.93  pcond 0.160
+ 69 cos2pi(k*ln10)                                                 constants  <= -0.323938     disc 13/11.58  val  5/ 5.08  p_v 5.74e-01  bits  +0.72  pcond 0.353
+ 70 cos2pi(k*eulergamma)                                           constants  > -0.804192      disc 25/25.32  val 10/10.28  p_v 5.76e-01  bits  +2.15  pcond 0.103
+ 71 cos2pi(log_semitone k)                                         constants  > 0.317454       disc 14/12.11  val  5/ 5.11  p_v 5.78e-01  bits  +0.67  pcond 0.357
+ 72 frac(k*conway)                                                 constants  <= 0.803007      disc 23/23.56  val 10/10.35  p_v 5.85e-01  bits  +1.71  pcond 0.111
+ 73 k+6 prime                                                      statistics F=0              disc 16/16.33  val 10/10.41  p_v 5.93e-01  bits  +0.93  pcond 0.118
+ 74 cos(gamma_1 k ln2) [phase at 2^k]                              zeta       <= -0.301628     disc 11/11.64  val  5/ 5.20  p_v 5.94e-01  bits  +0.55  pcond 0.376
+ 75 (theta(k)-k)/sqrt k                                            zeta       <= -1.32776      disc  6/ 4.71  val  2/ 2.02  p_v 5.99e-01  bits  +0.49  pcond 0.480
+ 76 zeta det (2/sqrt x)sum cos, x=k, N=50                          zeta       > -0.00334401    disc  8/ 7.70  val  8/ 8.39  p_v 6.00e-01  bits  +0.60  pcond 0.263
+ 77 cos2pi(log_phi k)                                              constants  > 0.536656       disc 12/10.54  val  4/ 4.19  p_v 6.03e-01  bits  +0.57  pcond 0.418
+ 78 Chebyshev race mod 8: [7] - [1]                                zeta       <= 1.00624       disc 17/14.60  val  4/ 4.21  p_v 6.06e-01  bits  +0.49  pcond 0.421
+ 79 zeta |sum x^(i g)|/sumK, x=k, N=300                            zeta       <= 0.0548227     disc 12/ 9.16  val  7/ 7.39  p_v 6.07e-01  bits  +0.37  pcond 0.318
+ 80 cos2pi(log_10 k)                                               constants  > 0.877577       disc  6/ 4.45  val  2/ 2.05  p_v 6.07e-01  bits  +0.43  pcond 0.488
+ 81 frac(k^2*sqrt2)                                                constants  > 0.5014         disc 15/13.28  val  6/ 6.43  p_v 6.21e-01  bits  +0.62  pcond 0.373
+ 82 decimal digit k of pi odd                                      misc       F=0              disc 15/15.39  val  6/ 6.43  p_v 6.21e-01  bits  +0.66  pcond 0.374
+ 83 pitch class F (k Hz)                                           constants  F=1              disc  3/ 2.85  val  1/ 0.97  p_v 6.22e-01  bits  +0.47  pcond 0.544
+ 84 cos2pi(k*sqrt3)                                                constants  <= 0.00148761    disc 14/14.24  val  6/ 6.45  p_v 6.24e-01  bits  +0.63  pcond 0.378
+ 85 Zeckendorf terms odd                                           geometry   F=1              disc 16/16.79  val  6/ 6.46  p_v 6.25e-01  bits  +0.61  pcond 0.379
+ 86 sha256(str k) first byte [noise control]                       misc       > 126            disc 18/12.65  val  6/ 6.48  p_v 6.28e-01  bits  -0.45  pcond 0.383
+ 87 pitch class D# (k Hz)                                          constants  F=1              disc  7/ 3.33  val  1/ 1.00  p_v 6.31e-01  bits  -0.12  pcond 0.553
+ 88 frac(log_6 k)                                                  constants  > 0.414786       disc 19/17.59  val  8/ 8.73  p_v 6.44e-01  bits  +0.79  pcond 0.324
+ 89 zeta det (2/sqrt x)sum cos, x=k-1, N=300                       zeta       > -0.017133      disc 16/13.94  val  9/ 9.89  p_v 6.54e-01  bits  +0.61  pcond 0.284
+ 90 zeta phase frac, x=k, N=2419                                   zeta       <= 0.441034      disc  7/ 4.61  val  5/ 5.64  p_v 6.64e-01  bits  -0.49  pcond 0.462
+ 91 Kolakoski discrepancy #2-#1 up to k /sqrt k                    automata   > -0.00788429    disc 16/15.67  val  6/ 6.76  p_v 6.68e-01  bits  +0.57  pcond 0.438
+ 92 frac(log_phi k)                                                constants  <= 0.338573      disc 12/11.19  val  4/ 4.56  p_v 6.68e-01  bits  +0.42  pcond 0.497
+ 93 Zeckendorf number of terms /log k                              geometry   <= 0.456122      disc  5/ 3.37  val  1/ 1.10  p_v 6.69e-01  bits  +0.35  pcond 0.592
+ 94 zeta det (2/sqrt x)sum cos, x=k, N=300                         zeta       > -0.0185285     disc  8/ 5.80  val  9/10.04  p_v 6.72e-01  bits  -0.53  pcond 0.314
+ 95 zeta phase cos, x=2k+1, N=50                                   zeta       > 0.62406        disc 10/ 8.64  val  3/ 3.49  p_v 6.77e-01  bits  +0.31  pcond 0.535
+ 96 Stern s(k): log s(k)/bits                                      geometry   > 0.426997       disc  4/ 2.68  val  1/ 1.13  p_v 6.78e-01  bits  +0.32  pcond 0.601
+ 97 pitch class C (k Hz)                                           constants  F=1              disc  2/ 1.83  val  1/ 1.13  p_v 6.78e-01  bits  +0.41  pcond 0.601
+ 98 zeta phase cos, x=k, N=2419                                    zeta       > -0.932747      disc 11/ 9.15  val 10/11.22  p_v 6.83e-01  bits  +0.12  pcond 0.248
+ 99 Rule 105 raster bit, width 1009                                automata   F=1              disc  9/ 7.25  val  5/ 5.79  p_v 6.86e-01  bits  +0.08  pcond 0.492
+100 Tribonacci word letter 1                                       automata   F=0              disc 20/21.80  val  8/ 9.11  p_v 6.89e-01  bits  +0.53  pcond 0.400
+101 binary Copeland-Erdos bit at k                                 misc       F=1              disc 19/20.34  val  6/ 6.94  p_v 6.92e-01  bits  +0.52  pcond 0.475
+102 frac(log_10 k)                                                 constants  > 0.907997       disc  4/ 2.38  val  1/ 1.18  p_v 6.92e-01  bits  +0.17  pcond 0.616
+103 zeta |sum x^(i g)|/sumK, x=M_k, N=300                          zeta       > 0.0914493      disc  5/ 2.31  val  1/ 1.21  p_v 7.00e-01  bits  -0.21  pcond 0.625
+104 Champernowne digit odd                                         misc       F=1              disc 17/17.93  val  6/ 7.08  p_v 7.10e-01  bits  +0.47  pcond 0.502
+105 k-6 prime                                                      statistics F=0              disc 19/17.68  val  9/10.41  p_v 7.12e-01  bits  +0.43  pcond 0.399
+106 zeta det normalized -sum cos/sumK, x=k, N=2419                 zeta       <= 0.00648634    disc  6/ 4.36  val  7/ 8.22  p_v 7.12e-01  bits  -0.65  pcond 0.479
+107 frac(k*semitone)                                               constants  <= 0.0978387     disc  5/ 2.49  val  1/ 1.26  p_v 7.16e-01  bits  -0.17  pcond 0.641
+108 frac(k*sqrt5)                                                  constants  > 0.902127       disc  5/ 2.29  val  1/ 1.26  p_v 7.16e-01  bits  -0.32  pcond 0.642
+109 cos2pi(k*pi_e)                                                 constants  <= -0.952852     disc  3/ 2.23  val  1/ 1.26  p_v 7.17e-01  bits  +0.28  pcond 0.643
+110 frac(gamma_1 k ln2/2pi) [phase at 2^k]                         zeta       <= 0.197578      disc  6/ 5.50  val  2/ 2.54  p_v 7.21e-01  bits  +0.33  pcond 0.615
+111 cos2pi(k*sqrt2)                                                constants  <= -0.951758     disc  3/ 2.63  val  1/ 1.28  p_v 7.22e-01  bits  +0.35  pcond 0.648
+112 cos2pi(k*silver)                                               constants  <= -0.951758     disc  3/ 2.63  val  1/ 1.28  p_v 7.22e-01  bits  +0.35  pcond 0.648
+113 frac(k*omega)                                                  constants  <= 0.198132      disc  6/ 5.09  val  2/ 2.55  p_v 7.22e-01  bits  +0.24  pcond 0.617
+114 cos2pi(log_e k)                                                constants  > -0.639019      disc 20/20.45  val  8/ 9.41  p_v 7.22e-01  bits  +0.54  pcond 0.467
+115 cos2pi(k*inv_year)                                             constants  <= -0.810883     disc  6/ 4.46  val  2/ 2.56  p_v 7.25e-01  bits  +0.04  pcond 0.620
+116 frac(gamma_2 k ln2/2pi) [phase at 2^k]                         zeta       <= 0.19835       disc  7/ 6.10  val  2/ 2.57  p_v 7.26e-01  bits  +0.27  pcond 0.622
+117 zeta det normalized -sum cos/sumK, x=2k+1, N=300               zeta       <= -0.0117898    disc 12/11.00  val  4/ 4.95  p_v 7.27e-01  bits  +0.23  pcond 0.576
+118 cents off pitch (k Hz)                                         constants  > 0.399547       disc  6/ 3.56  val  1/ 1.30  p_v 7.28e-01  bits  -0.20  pcond 0.655
+119 frac(k^2*pi)                                                   constants  <= 0.100975      disc  7/ 3.37  val  1/ 1.31  p_v 7.30e-01  bits  -0.42  pcond 0.657
+120 zeta det normalized -sum cos/sumK, x=M_k, N=50                 zeta       > 0.131016       disc  6/ 3.15  val  1/ 1.31  p_v 7.30e-01  bits  -0.21  pcond 0.657
+121 frac(k*e_pi)                                                   constants  > 0.898147       disc  5/ 3.44  val  1/ 1.31  p_v 7.31e-01  bits  +0.06  pcond 0.658
+122 cos2pi(k*plastic)                                              constants  > 0.806099       disc  8/ 6.44  val  2/ 2.60  p_v 7.32e-01  bits  +0.09  pcond 0.629
+123 cos2pi(k*inv_synmonth)                                         constants  > 0.805451       disc  7/ 5.12  val  2/ 2.60  p_v 7.33e-01  bits  -0.02  pcond 0.629
+124 Eisenstein angle (x^2+3y^2)                                    geometry   <= 0.403702      disc  7/ 5.25  val  2/ 2.60  p_v 7.33e-01  bits  +0.02  pcond 0.630
+125 prime index pi(k) prime (super-prime)                          statistics F=0              disc 21/22.52  val 10/11.74  p_v 7.34e-01  bits  +0.66  pcond 0.391
+126 cos2pi(k*mertens)                                              constants  <= -0.947936     disc  4/ 2.58  val  1/ 1.33  p_v 7.34e-01  bits  +0.11  pcond 0.662
+127 pitch class D (k Hz)                                           constants  F=0              disc 27/28.36  val 10/11.76  p_v 7.36e-01  bits  +1.45  pcond 0.398
+128 zeta phase frac, x=M_k, N=50                                   zeta       > 0.796258       disc  7/ 6.64  val  2/ 2.62  p_v 7.36e-01  bits  +0.32  pcond 0.634
+129 pitch class A# (k Hz)                                          constants  F=0              disc 27/28.27  val 10/11.77  p_v 7.37e-01  bits  +1.45  pcond 0.399
+130 cos2pi(k*omega)                                                constants  <= -0.801772     disc  8/ 5.86  val  2/ 2.63  p_v 7.38e-01  bits  -0.06  pcond 0.636
+131 logistic r=4 steps to [0.4,0.6) from frac(k*sqrt2)             dynamics   <= 4             disc 21/18.45  val  7/ 8.46  p_v 7.40e-01  bits  -0.68  pcond 0.531
+132 frac(k^2*e)                                                    constants  <= 0.204614      disc  7/ 5.61  val  2/ 2.64  p_v 7.40e-01  bits  +0.05  pcond 0.638
+133 cos2pi(k*e)                                                    constants  <= -0.589572     disc 10/ 9.46  val  3/ 3.86  p_v 7.40e-01  bits  +0.28  pcond 0.615
+134 frac(pi(k)*phi)                                                statistics > 0.700007       disc 10/ 9.70  val  3/ 3.87  p_v 7.42e-01  bits  +0.31  pcond 0.617
+135 gap after /ln k                                                statistics > 1.19928        disc 13/12.52  val  3/ 3.87  p_v 7.43e-01  bits  +0.29  pcond 0.618
+136 logistic r=4 steps to [0.4,0.6) from frac(k*e)                 dynamics   > 1              disc 19/19.22  val  7/ 8.49  p_v 7.43e-01  bits  +0.39  pcond 0.537
+137 pitch class G (k Hz)                                           constants  F=0              disc 25/27.68  val 10/11.84  p_v 7.43e-01  bits  +0.77  pcond 0.424
+138 zeta phase cos, x=2k+1, N=2419                                 zeta       > -0.229185      disc 19/18.27  val  6/ 7.38  p_v 7.45e-01  bits  +0.15  pcond 0.562
+139 hex spiral side 2                                              geometry   F=0              disc 24/25.87  val  9/10.75  p_v 7.45e-01  bits  +0.60  pcond 0.486
+140 zeta det normalized -sum cos/sumK, x=2k-1, N=2419              zeta       > 0.0184048      disc 11/ 8.64  val  1/ 1.37  p_v 7.46e-01  bits  +0.12  pcond 0.675
+141 Chebyshev race mod 8: [5] - [1]                                zeta       <= 1.12931       disc 15/12.10  val  4/ 5.10  p_v 7.48e-01  bits  -0.47  pcond 0.605
+142 gap before /ln k                                               statistics > 2.02051        disc  2/ 1.81  val  1/ 1.38  p_v 7.49e-01  bits  +0.32  pcond 0.679
+143 frac(k*ln2)                                                    constants  <= 0.303863      disc 13/ 9.41  val  3/ 3.92  p_v 7.50e-01  bits  -0.67  pcond 0.628
+144 frac(k*mertens)                                                constants  <= 0.302856      disc  9/ 7.79  val  3/ 3.92  p_v 7.50e-01  bits  +0.10  pcond 0.628
+145 frac(gamma_6 ln k/2pi)                                         zeta       > 0.893695       disc  6/ 2.91  val  1/ 1.39  p_v 7.50e-01  bits  -0.48  pcond 0.679
+146 zeta |sum x^(i g)|/sumK, x=M_k, N=2419                         zeta       > 0.0227994      disc 10/ 9.77  val  3/ 3.92  p_v 7.50e-01  bits  +0.29  pcond 0.628
+147 cos(gamma_2 k ln2) [phase at 2^k]                              zeta       > 0.576898       disc 12/10.08  val  3/ 3.93  p_v 7.51e-01  bits  -0.05  pcond 0.629
+148 gap before = 6                                                 statistics F=0              disc 23/23.98  val  9/10.82  p_v 7.51e-01  bits  +0.55  pcond 0.503
+149 prime index = 0 mod 3                                          statistics F=0              disc 20/20.26  val  7/ 8.60  p_v 7.54e-01  bits  +0.34  pcond 0.559
+150 two gaps after /ln k                                           statistics > 2.76054        disc 11/ 8.14  val  2/ 2.72  p_v 7.55e-01  bits  -0.49  pcond 0.656
+151 frac(gamma_5 k ln2/2pi) [phase at 2^k]                         zeta       > 0.598654       disc 12/11.58  val  4/ 5.15  p_v 7.55e-01  bits  +0.24  pcond 0.615
+152 max neighbour gap /ln k                                        statistics > 2.51668        disc  3/ 1.69  val  1/ 1.41  p_v 7.57e-01  bits  -0.14  pcond 0.687
+153 Rudin-Shapiro partial sum /sqrt k                              automata   > 1.55408        disc 13/12.07  val  4/ 5.17  p_v 7.59e-01  bits  +0.13  pcond 0.621
+154 Rule 73 raster bit, width 1009                                 automata   F=1              disc  7/ 7.27  val  4/ 5.19  p_v 7.60e-01  bits  +0.33  pcond 0.623
+155 frac(k*zeta3)                                                  constants  > 0.596422       disc 15/13.30  val  4/ 5.19  p_v 7.61e-01  bits  -0.08  pcond 0.625
+156 frac(k*ln10)                                                   constants  > 0.597724       disc 13/12.03  val  4/ 5.20  p_v 7.61e-01  bits  +0.11  pcond 0.625
+157 Rule 150 raster bit, width 1009                                automata   F=0              disc 27/30.49  val  9/10.96  p_v 7.64e-01  bits  +0.46  pcond 0.544
+158 3x-1 map ends in cycle 1                                       dynamics   F=0              disc 19/20.10  val  7/ 8.72  p_v 7.66e-01  bits  +0.39  pcond 0.584
+159 Gauss map first CF digit of frac(k*pi)                         dynamics   <= 1             disc 17/15.56  val  5/ 6.42  p_v 7.67e-01  bits  -0.08  pcond 0.618
+160 cos2pi(k*catalan)                                              constants  <= -0.290072     disc 17/13.98  val  4/ 5.24  p_v 7.67e-01  bits  -0.62  pcond 0.634
+161 bit k of e                                                     misc       F=0              disc 15/14.14  val  5/ 6.45  p_v 7.71e-01  bits  +0.07  pcond 0.623
+162 bit k of phi                                                   misc       F=0              disc 15/15.23  val  5/ 6.45  p_v 7.71e-01  bits  +0.28  pcond 0.624
+163 Ulam ring parity                                               geometry   F=1              disc 15/15.58  val  5/ 6.45  p_v 7.71e-01  bits  +0.33  pcond 0.624
+164 Ulam x parity                                                  geometry   F=1              disc 15/15.58  val  5/ 6.45  p_v 7.71e-01  bits  +0.33  pcond 0.624
+165 Collatz odd-step fraction                                      dynamics   > 0.294118       disc 22/19.09  val  9/11.04  p_v 7.71e-01  bits  -0.37  pcond 0.566
+166 Rule 30 raster bit, width 1009                                 automata   F=1              disc  1/ 0.32  val  4/ 5.27  p_v 7.71e-01  bits  -2.62  pcond 0.640
+167 Hilbert x parity                                               geometry   F=0              disc 15/16.38  val  5/ 6.46  p_v 7.72e-01  bits  +0.39  pcond 0.625
+168 Hilbert y parity                                               geometry   F=1              disc 15/16.38  val  5/ 6.46  p_v 7.72e-01  bits  +0.39  pcond 0.625
+169 cos2pi(log_2 k)                                                constants  > 0.94181        disc  4/ 2.52  val  1/ 1.48  p_v 7.73e-01  bits  -0.07  pcond 0.705
+170 zeta det (2/sqrt x)sum cos, x=k-1, N=50                        zeta       <= 0.00666377    disc 18/17.82  val  8/ 9.98  p_v 7.78e-01  bits  +0.20  pcond 0.598
+171 cos(gamma_2 ln k)                                              zeta       > -0.0243216     disc 16/12.44  val  5/ 6.52  p_v 7.78e-01  bits  -1.04  pcond 0.637
+172 Rule 110 raster bit, width 3001                                automata   F=0              disc 27/30.58  val  9/11.12  p_v 7.79e-01  bits  +0.32  pcond 0.591
+173 Collatz total stopping time                                    dynamics   > 63             disc 16/13.51  val 10/12.26  p_v 7.80e-01  bits  -0.40  pcond 0.605
+174 safe prime (k-1)/2 prime                                       statistics F=0              disc 24/24.97  val 10/12.27  p_v 7.80e-01  bits  +0.70  pcond 0.606
+175 zeta det normalized -sum cos/sumK, x=k-1, N=300                zeta       <= -0.00677998   disc 12/10.68  val  4/ 5.35  p_v 7.80e-01  bits  -0.06  pcond 0.654
+176 zeta det normalized -sum cos/sumK, x=k+1, N=300                zeta       <= -0.00673951   disc 11/ 9.49  val  4/ 5.35  p_v 7.81e-01  bits  -0.15  pcond 0.655
+177 zeta sum -2Re(k^rho/rho)/sqrt k (N=all)                        zeta       <= -0.259511     disc  3/ 2.34  val  1/ 1.54  p_v 7.86e-01  bits  +0.15  pcond 0.720
+178 Rule 110 5x5 density, width 1009                               automata   > 0              disc  1/ 0.39  val  7/ 8.92  p_v 7.86e-01  bits  -3.35  pcond 0.628
+179 zeta det normalized -sum cos/sumK, x=k, N=300                  zeta       <= -0.0062869    disc  7/ 4.54  val  4/ 5.41  p_v 7.87e-01  bits  -1.31  pcond 0.665
+180 Rule 150 raster bit, width 3001                                automata   F=0              disc 27/30.58  val 10/12.42  p_v 7.92e-01  bits  +0.34  pcond 0.685
+181 balanced prime (equal gaps)                                    statistics F=0              disc 25/27.98  val 10/12.44  p_v 7.94e-01  bits  +0.49  pcond 0.696
+182 Ulam position along side                                       geometry   > 0.301282       disc 25/22.30  val  7/ 9.01  p_v 7.94e-01  bits  -1.91  pcond 0.646
+183 gap after = 0 mod 6                                            statistics F=1              disc 10/ 9.31  val  4/ 5.46  p_v 7.94e-01  bits  +0.04  pcond 0.675
+184 Sacks spiral cos(2pi sqrt k)                                   geometry   <= 0.58185       disc 23/22.95  val  7/ 9.01  p_v 7.94e-01  bits  -0.07  pcond 0.646
+185 cos2pi(k*inv_day_s)                                            constants  <= 0.767492      disc  7/ 6.09  val  8/10.22  p_v 7.99e-01  bits  -0.41  pcond 0.654
+186 zeta det normalized -sum cos/sumK, x=k, N=50                   zeta       <= 0.00698141    disc  8/ 7.91  val  5/ 6.71  p_v 7.99e-01  bits  +0.15  pcond 0.672
+187 local prime count in k+-1000, z-score                          statistics > 0.273024       disc  3/ 1.43  val  3/ 4.31  p_v 8.04e-01  bits  -2.25  pcond 0.703
+188 frac(k*e)                                                      constants  > 0.198216       disc 24/23.96  val  8/10.34  p_v 8.09e-01  bits  -0.95  pcond 0.684
+189 Rule 30 raster bit, width 3001                                 automata   F=0              disc 27/30.57  val  8/10.41  p_v 8.14e-01  bits  +0.37  pcond 0.699
+190 logistic r=4 steps to [0.4,0.6) from frac(k*pi)                dynamics   > 4              disc 11/ 9.82  val  3/ 4.43  p_v 8.19e-01  bits  -0.13  pcond 0.725
+191 k-4 prime                                                      statistics F=0              disc 23/23.14  val  9/11.66  p_v 8.21e-01  bits  -0.08  pcond 0.751
+192 gap before = 4                                                 statistics F=0              disc 24/24.14  val  9/11.66  p_v 8.21e-01  bits  -0.08  pcond 0.751
+193 psi(k)-k minus zero sum, /sqrt k                               zeta       <= 0.0457993     disc  7/ 5.59  val  9/11.67  p_v 8.22e-01  bits  -1.17  pcond 0.755
+194 zeta det (2/sqrt x)sum cos, x=k+1, N=50                        zeta       <= 0.065777      disc 20/20.39  val 10/12.87  p_v 8.25e-01  bits  +0.10  pcond 0.977
+195 seven-segment lit segments per digit                           misc       <= 4.2           disc 14/13.42  val  2/ 3.18  p_v 8.26e-01  bits  +0.08  pcond 0.747
+196 Chebyshev race mod 4 lead > 0                                  zeta       F=1              disc 25/28.50  val 10/12.88  p_v 8.26e-01  bits  +0.41  pcond 0.984
+197 Ulam ring index (monotone control)                             geometry   > 44             disc  8/ 7.28  val 10/12.90  p_v 8.27e-01  bits  -0.44  pcond 1.000
+198 Stern s(k) odd                                                 geometry   F=1              disc 26/29.60  val 10/12.90  p_v 8.27e-01  bits  +0.41  pcond 1.000
+199 Rule 30 5x5 density, width 1009                                automata   > 0.08           disc  2/ 0.67  val  8/10.58  p_v 8.28e-01  bits  -8.64  pcond 0.739
+200 pitch class A (k Hz)                                           constants  F=0              disc 25/27.70  val  9/11.76  p_v 8.29e-01  bits  +0.27  pcond 0.783
+201 cos2pi(log_12 k)                                               constants  > 0.523413       disc 10/ 9.50  val  3/ 4.52  p_v 8.29e-01  bits  +0.03  pcond 0.740
+202 Ulam side 1                                                    geometry   F=1              disc  8/ 7.84  val  2/ 3.22  p_v 8.31e-01  bits  +0.18  pcond 0.755
+203 Ulam side 3                                                    geometry   F=1              disc  5/ 5.46  val  2/ 3.22  p_v 8.31e-01  bits  +0.34  pcond 0.755
+204 hex spiral side 1                                              geometry   F=0              disc 23/23.68  val  8/10.72  p_v 8.38e-01  bits  -0.21  pcond 0.770
+205 hex spiral side 4                                              geometry   F=0              disc 25/26.89  val  8/10.77  p_v 8.41e-01  bits  +0.02  pcond 0.780
+206 Chebyshev race mod 8: [3] - [1]                                zeta       <= 0.925982      disc  7/ 6.70  val  1/ 1.86  p_v 8.44e-01  bits  +0.19  pcond 0.789
+207 Ulam side 2                                                    geometry   F=0              disc 21/22.61  val  7/ 9.66  p_v 8.47e-01  bits  +0.17  pcond 0.774
+208 Ulam side 0                                                    geometry   F=0              disc 19/21.28  val  7/ 9.67  p_v 8.48e-01  bits  +0.37  pcond 0.775
+209 frac(log_12 k)                                                 constants  <= 0.139662      disc  5/ 4.03  val  1/ 1.94  p_v 8.57e-01  bits  -0.06  pcond 0.805
+210 Rule 105 raster bit, width 3001                                automata   F=1              disc  8/ 5.69  val  4/ 6.13  p_v 8.60e-01  bits  -1.55  pcond 0.785
+211 Thue-Morse t(k)                                                automata   F=0              disc 13/13.29  val  4/ 6.19  p_v 8.65e-01  bits  +0.08  pcond 0.793
+212 Gaussian prime octant angle                                    geometry   > 0.700423       disc  7/ 4.87  val  1/ 2.00  p_v 8.65e-01  bits  -0.46  pcond 0.815
+213 Copeland-Erdos digit odd                                       misc       F=0              disc  8/ 8.06  val  4/ 6.20  p_v 8.66e-01  bits  +0.05  pcond 0.795
+214 Rule 22 raster bit, width 3001                                 automata   F=0              disc 27/30.59  val  9/12.38  p_v 8.69e-01  bits  +0.49  pcond 0.942
+215 zeta det normalized -sum cos/sumK, x=k+1, N=50                 zeta       > -0.0765164     disc 26/25.24  val  7/10.00  p_v 8.70e-01  bits  -2.94  pcond 0.831
+216 Rule 126 raster bit, width 3001                                automata   F=0              disc 27/30.57  val  9/12.45  p_v 8.72e-01  bits  +0.48  pcond 0.955
+217 Hilbert y/sqrt k                                               geometry   > 1.25381        disc  6/ 3.95  val  1/ 2.09  p_v 8.76e-01  bits  -0.91  pcond 0.829
+218 Tribonacci word letter 2                                       automata   F=1              disc  5/ 5.61  val  1/ 2.10  p_v 8.78e-01  bits  +0.37  pcond 0.831
+219 frac(log_silver k)                                             constants  <= 0.574293      disc 19/16.96  val  5/ 7.65  p_v 8.78e-01  bits  -1.35  pcond 0.822
+220 zeta phase frac, x=2k+1, N=2419                                zeta       <= 0.283873      disc 13/10.67  val  2/ 3.65  p_v 8.80e-01  bits  -0.80  pcond 0.823
+221 Chebyshev race mod 3: [2] - [1]                                zeta       <= 0.851785      disc  9/ 6.67  val  1/ 2.12  p_v 8.80e-01  bits  -0.70  pcond 0.834
+222 Rule 126 raster bit, width 1009                                automata   F=0              disc 27/30.39  val  8/11.42  p_v 8.82e-01  bits  +0.14  pcond 0.903
+223 hex spiral side 3                                              geometry   F=1              disc  6/ 5.82  val  1/ 2.15  p_v 8.83e-01  bits  +0.16  pcond 0.838
+224 bit k of ln2                                                   misc       F=1              disc 15/15.02  val  4/ 6.43  p_v 8.83e-01  bits  -0.16  pcond 0.826
+225 hex spiral side 5                                              geometry   F=1              disc  6/ 5.89  val  1/ 2.15  p_v 8.84e-01  bits  +0.18  pcond 0.839
+226 Rule 45 raster bit, width 1009                                 automata   F=1              disc  9/ 7.36  val  4/ 6.44  p_v 8.84e-01  bits  -1.02  pcond 0.827
+227 Collatz total steps odd                                        dynamics   F=1              disc 14/15.68  val  4/ 6.45  p_v 8.85e-01  bits  +0.38  pcond 0.829
+228 frac(k*catalan)                                                constants  > 0.603369       disc 13/11.15  val  3/ 5.12  p_v 8.85e-01  bits  -0.83  pcond 0.828
+229 bit k of pi                                                    misc       F=0              disc 19/15.72  val  4/ 6.46  p_v 8.86e-01  bits  -2.14  pcond 0.830
+230 bit k of sqrt2                                                 misc       F=1              disc 17/17.57  val  4/ 6.46  p_v 8.86e-01  bits  +0.01  pcond 0.830
+231 Rudin-Shapiro r(k)                                             automata   F=0              disc 15/15.52  val  4/ 6.46  p_v 8.86e-01  bits  +0.03  pcond 0.830
+232 zeta phase cos, x=M_k, N=50                                    zeta       <= 0.00554356    disc 16/15.23  val  4/ 6.47  p_v 8.86e-01  bits  -0.50  pcond 0.831
+233 md5(str k) low bit [noise control]                             misc       F=0              disc 15/14.47  val  4/ 6.47  p_v 8.86e-01  bits  -0.36  pcond 0.831
+234 frac(log_e k)                                                  constants  <= 0.429576      disc 13/12.83  val  3/ 5.14  p_v 8.87e-01  bits  -0.11  pcond 0.830
+235 cos2pi(k*twinprime)                                            constants  <= 0.00705765    disc 18/15.64  val  4/ 6.48  p_v 8.87e-01  bits  -1.45  pcond 0.832
+236 frac(k*eulergamma)                                             constants  > 0.598059       disc 15/13.27  val  3/ 5.17  p_v 8.89e-01  bits  -0.82  pcond 0.834
+237 frac(gamma_4 k ln2/2pi) [phase at 2^k]                         zeta       <= 0.403072      disc 12/12.10  val  3/ 5.20  p_v 8.91e-01  bits  -0.02  pcond 0.838
+238 Rule 54 raster bit, width 3001                                 automata   F=0              disc 27/30.58  val  8/11.63  p_v 8.93e-01  bits  +0.53  pcond 0.932
+239 Ulam angle                                                     geometry   <= 0.305509      disc 11/10.86  val  2/ 3.81  p_v 8.94e-01  bits  +0.00  pcond 0.844
+240 frac(k*pi_e)                                                   constants  <= 0.298209      disc 12/10.17  val  2/ 3.85  p_v 8.97e-01  bits  -0.74  pcond 0.849
+241 Sacks spiral angle frac(sqrt k)                                geometry   > 0.698182       disc 10/ 8.17  val  2/ 3.89  p_v 9.00e-01  bits  -0.81  pcond 0.853
+242 zeta det (2/sqrt x)sum cos, x=2k-1, N=300                      zeta       <= 0.0039809     disc 16/14.63  val  5/ 7.99  p_v 9.00e-01  bits  -0.99  pcond 0.865
+243 cos2pi(k*conway)                                               constants  <= -0.580582     disc 10/ 7.94  val  2/ 3.90  p_v 9.01e-01  bits  -0.97  pcond 0.854
+244 (pi(k)-R(k))/(sqrt k/ln k)                                     zeta       > 0.209932       disc 12/10.93  val  1/ 2.33  p_v 9.02e-01  bits  -0.14  pcond 0.863
+245 frac(log_2 k)                                                  constants  <= 0.296988      disc 11/ 8.27  val  2/ 3.95  p_v 9.05e-01  bits  -1.31  pcond 0.860
+246 Stern-Brocot BFS rational log ratio                            geometry   <= -0.822845     disc 11/ 8.15  val  2/ 3.95  p_v 9.05e-01  bits  -1.39  pcond 0.861
+247 zeta phase cos, x=k, N=50                                      zeta       <= -0.831191     disc 17/15.05  val  1/ 2.37  p_v 9.07e-01  bits  -0.58  pcond 0.869
+248 cos2pi(log_1.5 k)                                              constants  > 0.818528       disc  9/ 7.22  val  1/ 2.43  p_v 9.12e-01  bits  -0.54  pcond 0.876
+249 3x-1 map ends in cycle 17                                      dynamics   F=0              disc 22/20.67  val  5/ 8.38  p_v 9.20e-01  bits  -1.91  pcond 0.905
+250 cos2pi(k*sqrt5)                                                constants  > 0.812051       disc 11/ 6.30  val  1/ 2.55  p_v 9.22e-01  bits  -2.32  pcond 0.890
+251 3x-1 map ends in cycle 5                                       dynamics   F=1              disc 14/10.17  val  2/ 4.20  p_v 9.22e-01  bits  -2.33  pcond 0.887
+252 frac(log_semitone k)                                           constants  > 0.801389       disc 10/ 6.04  val  1/ 2.56  p_v 9.23e-01  bits  -2.13  pcond 0.891
+253 Gauss map first CF digit of frac(k*phi)                        dynamics   > 4              disc  9/ 6.80  val  1/ 2.58  p_v 9.24e-01  bits  -0.90  pcond 0.892
+254 frac(k*phi)                                                    constants  <= 0.205109      disc  9/ 6.88  val  1/ 2.64  p_v 9.29e-01  bits  -0.91  pcond 0.899
+255 Gauss map first CF digit of frac(k*e)                          dynamics   <= 2             disc 20/19.91  val  5/ 8.60  p_v 9.30e-01  bits  -1.24  pcond 0.924
+256 Rule 54 raster bit, width 1009                                 automata   F=1              disc  1/ 0.17  val  1/ 2.68  p_v 9.32e-01  bits  -3.56  pcond 0.903
+257 Rule 73 raster bit, width 3001                                 automata   F=1              disc  8/ 5.70  val  3/ 5.87  p_v 9.32e-01  bits  -2.20  pcond 0.906
+258 cos2pi(log_silver k)                                           constants  <= -0.774238     disc  7/ 4.89  val  1/ 2.70  p_v 9.33e-01  bits  -1.09  pcond 0.904
+259 frac(gamma_3 ln k/2pi)                                         zeta       <= 0.788989      disc 25/25.28  val  6/10.11  p_v 9.37e-01  bits  -2.51  pcond 0.955
+260 Rule 22 raster bit, width 1009                                 automata   F=0              disc 27/30.51  val  6/10.27  p_v 9.42e-01  bits  +0.35  pcond 0.964
+261 Chebyshev race mod 5: [2, 3] - [1, 4]                          zeta       <= 1.30743       disc 12/ 7.82  val  4/ 7.58  p_v 9.44e-01  bits  -4.77  pcond 0.935
+262 pitch class G# (k Hz)                                          constants  F=0              disc 26/27.76  val  7/11.76  p_v 9.48e-01  bits  -2.11  pcond 0.992
+263 frac(gamma_5 ln k/2pi)                                         zeta       <= 0.594203      disc 20/19.55  val  4/ 7.70  p_v 9.48e-01  bits  -1.45  pcond 0.943
+264 (pi(k)-li(k))/(sqrt k/ln k)                                    zeta       > -1.30812       disc  8/ 6.97  val  2/ 4.74  p_v 9.50e-01  bits  -1.18  pcond 0.930
+265 Rule 110 raster bit, width 1009                                automata   F=0              disc 27/30.42  val  4/ 7.78  p_v 9.51e-01  bits  -0.08  pcond 0.947
+266 pitch class F# (k Hz)                                          constants  F=0              disc 26/28.27  val  7/11.93  p_v 9.52e-01  bits  -1.50  pcond 0.995
+267 zeta det normalized -sum cos/sumK, x=k-1, N=50                 zeta       > 0.0321422      disc 15/13.92  val  2/ 4.81  p_v 9.53e-01  bits  -0.93  pcond 0.934
+268 Rule 45 raster bit, width 3001                                 automata   F=1              disc  8/ 5.71  val  3/ 6.45  p_v 9.55e-01  bits  -2.71  pcond 0.945
+269 prime index pi(k) odd                                          statistics F=0              disc 15/15.76  val  3/ 6.45  p_v 9.55e-01  bits  -0.13  pcond 0.945
+270 Kolakoski K(k)=2                                               automata   F=1              disc 12/11.99  val  3/ 6.47  p_v 9.56e-01  bits  -0.44  pcond 0.946
+271 Fibonacci word bit s(k)                                        automata   F=1              disc 11/12.43  val  2/ 4.93  p_v 9.57e-01  bits  +0.43  pcond 0.942
+272 Zeckendorf lowest index even                                   geometry   F=0              disc 11/12.43  val  2/ 4.93  p_v 9.57e-01  bits  +0.43  pcond 0.942
+273 Collatz log2(max/k)                                            dynamics   <= 2.16994       disc 13/11.26  val  3/ 6.60  p_v 9.60e-01  bits  -1.77  pcond 0.953
+274 good prime p^2 > prev*next                                     statistics F=1              disc 14/15.41  val  3/ 6.68  p_v 9.62e-01  bits  +0.16  pcond 0.957
+275 Chebyshev race mod 12: [5, 7, 11] - [1]                        zeta       <= 3.33009       disc 21/19.70  val  2/ 5.09  p_v 9.62e-01  bits  -1.98  pcond 0.950
+276 decimal digit k of pi                                          misc       > 5              disc 14/13.33  val  2/ 5.14  p_v 9.64e-01  bits  -0.80  pcond 0.953
+277 Chebyshev race mod 4: [3] - [1]                                zeta       <= 1.48215       disc 26/25.39  val  5/ 9.77  p_v 9.66e-01  bits  -6.49  pcond 0.983
+278 hex spiral position along side                                 geometry   > 0.704142       disc  9/ 7.09  val  1/ 3.81  p_v 9.78e-01  bits  -1.57  pcond 0.970
+279 Ulam distance to a diagonal / ring                             geometry   > 0.703125       disc 12/ 8.40  val  1/ 3.83  p_v 9.78e-01  bits  -2.87  pcond 0.970
+280 local prime count in k+-100, z-score                           statistics > -0.224523      disc 12/12.58  val  4/ 9.05  p_v 9.79e-01  bits  -0.48  pcond 0.990
+281 cos2pi(k*phi)                                                  constants  > 0.95022        disc  6/ 3.42  val  0/ 1.29  p_v 1.00e+00  bits  -1.20  pcond 1.000
+282 frac(gamma_1 ln k/2pi)                                         zeta       <= 0.117677      disc  4/ 2.78  val  0/ 1.60  p_v 1.00e+00  bits  -0.81  pcond 1.000
+283 pitch class B (k Hz)                                           constants  F=1              disc  3/ 2.16  val  0/ 1.13  p_v 1.00e+00  bits  -0.32  pcond 1.000
+284 frac(log_3 k)                                                  constants  <= 0.0971649     disc  6/ 3.64  val  0/ 1.20  p_v 1.00e+00  bits  -1.19  pcond 1.000
+285 pitch class C# (k Hz)                                          constants  F=1              disc  4/ 2.69  val  0/ 1.13  p_v 1.00e+00  bits  -0.49  pcond 1.000
+286 Calkin-Wilf rational log(s(k)/s(k+1))                          geometry   > 1.48427        disc  4/ 2.52  val  0/ 1.25  p_v 1.00e+00  bits  -0.74  pcond 1.000
+287 cos2pi(k*ln2)                                                  constants  > 0.953366       disc  6/ 3.24  val  0/ 1.26  p_v 1.00e+00  bits  -1.31  pcond 1.000
+288 gap after - gap before /ln k                                   statistics <= -1.37718      disc  3/ 1.91  val  0/ 1.30  p_v 1.00e+00  bits  -0.70  pcond 1.000
+289 Gauss map first CF digit of frac(k*sqrt2)                      dynamics   > 10             disc  4/ 3.76  val  0/ 1.17  p_v 1.00e+00  bits  +0.07  pcond 1.000
+290 zeta phase cos, x=M_k, N=2419                                  zeta       <= -0.94934      disc  5/ 4.15  val  0/ 1.32  p_v 1.00e+00  bits  -0.46  pcond 1.000
+291 frac(k*silver)                                                 constants  <= 0.0981517     disc  4/ 3.89  val  0/ 1.26  p_v 1.00e+00  bits  +0.11  pcond 1.000
+292 frac(k*sqrt2)                                                  constants  <= 0.0981517     disc  4/ 3.89  val  0/ 1.26  p_v 1.00e+00  bits  +0.11  pcond 1.000
+293 base-7 digit sum z-score                                       misc       > 1.42887        disc  3/ 1.47  val  0/ 0.89  p_v 1.00e+00  bits  -0.75  pcond 1.000
+294 cos(gamma_1 ln k)                                              zeta       > 0.747849       disc  7/ 5.55  val  0/ 3.14  p_v 1.00e+00  bits  -1.59  pcond 1.000
+295 gap after = 6                                                  statistics F=1              disc  6/ 6.67  val  0/ 2.08  p_v 1.00e+00  bits  +0.29  pcond 1.000
+296 pitch class E (k Hz)                                           constants  F=1              disc  2/ 2.20  val  0/ 0.97  p_v 1.00e+00  bits  +0.33  pcond 1.000
+297 frac(k*inv_synmonth)                                           constants  <= 0.100405      disc  4/ 2.75  val  0/ 1.29  p_v 1.00e+00  bits  -0.57  pcond 1.000
+298 zeta det normalized -sum cos/sumK, x=M_k, N=300                zeta       > 0.0531098      disc  6/ 4.10  val  0/ 1.32  p_v 1.00e+00  bits  -0.92  pcond 1.000
+299 Baum-Sweet b(k)                                                automata   F=1              disc  6/ 4.93  val  0/ 0.16  p_v 1.00e+00  bits  +0.38  pcond 1.000
+300 zeta det (2/sqrt x)sum cos, x=2k-1, N=50                       zeta       > 0.024837       disc 12/12.50  val  0/ 0.38  p_v 1.00e+00  bits  +0.41  pcond 1.000
+301 zeta det (2/sqrt x)sum cos, x=2k+1, N=50                       zeta       > 0.0248274      disc 13/12.17  val  0/ 0.38  p_v 1.00e+00  bits  +0.31  pcond 1.000
+302 zeta det normalized -sum cos/sumK, x=2k+1, N=2419              zeta       <= -0.0187464    disc  2/ 1.57  val  0/ 1.37  p_v 1.00e+00  bits  -0.26  pcond 1.000
+303 frac(log_5 k)                                                  constants  <= 0.0632086     disc  4/ 2.53  val  0/ 0.64  p_v 1.00e+00  bits  -0.34  pcond 1.000
+304 Ulam on a diagonal                                             geometry   F=1              disc  7/ 6.94  val  0/ 0.03  p_v 1.00e+00  bits  +0.44  pcond 1.000
+305 Hilbert angle                                                  geometry   > 1.30417        disc  8/ 6.15  val  0/ 2.44  p_v 1.00e+00  bits  -1.69  pcond 1.000
+306 Hilbert x/sqrt k                                               geometry   <= 0.322554      disc  7/ 6.11  val  0/ 2.56  p_v 1.00e+00  bits  -0.91  pcond 1.000
+307 cos2pi(log_5 k)                                                constants  > 0.979042       disc  4/ 2.45  val  0/ 0.80  p_v 1.00e+00  bits  -0.65  pcond 1.000
+308 cos2pi(k*golomb_dickman)                                       constants  <= -0.58868      disc 11/ 9.25  val  0/ 3.86  p_v 1.00e+00  bits  -2.13  pcond 1.000
+309 cos2pi(log_7 k)                                                constants  <= -0.953633     disc  4/ 3.32  val  0/ 1.06  p_v 1.00e+00  bits  -0.06  pcond 1.000
+310 base-3 digit sum z-score                                       misc       <= -0.816497     disc  5/ 3.80  val  0/ 1.64  p_v 1.00e+00  bits  -0.81  pcond 1.000
+311 zeta det (2/sqrt x)sum cos, x=2k+1, N=300                      zeta       > 0.123738       disc 14/11.40  val  0/ 0.01  p_v 1.00e+00  bits  +0.29  pcond 1.000
+312 zeta |sum x^(i g)|/sumK, x=k, N=2419                           zeta       <= 0.00719567    disc  3/ 1.00  val  0/ 1.49  p_v 1.00e+00  bits  -2.80  pcond 1.000
+313 Champernowne digit at k                                        misc       > 6              disc  9/ 6.90  val  0/ 3.73  p_v 1.00e+00  bits  -2.64  pcond 1.000
+314 zeta det (2/sqrt x)sum cos, x=2k+1, N=2419                     zeta       > 0.127781       disc 16/15.26  val  0/ 0.55  p_v 1.00e+00  bits  +0.12  pcond 1.000
+315 zeta phase frac, x=k, N=50                                     zeta       > 0.777738       disc  4/ 3.28  val  0/ 2.71  p_v 1.00e+00  bits  -0.94  pcond 1.000
+316 zeta det normalized -sum cos/sumK, x=2k+1, N=50                zeta       <= -0.115089     disc  4/ 3.27  val  0/ 1.77  p_v 1.00e+00  bits  -0.46  pcond 1.000
+317 gap after = 4                                                  statistics F=1              disc  8/ 7.05  val  0/ 1.24  p_v 1.00e+00  bits  -0.12  pcond 1.000
+318 k+4 prime                                                      statistics F=1              disc  9/ 8.05  val  0/ 1.24  p_v 1.00e+00  bits  -0.12  pcond 1.000
+319 zeta det (2/sqrt x)sum cos, x=2k-1, N=2419                     zeta       <= -0.313444     disc 13/10.19  val  0/ 0.02  p_v 1.00e+00  bits  +0.40  pcond 1.000
+320 zeta det (2/sqrt x)sum cos, x=k, N=2419                        zeta       > 0.24577        disc  2/ 0.90  val  0/ 0.16  p_v 1.00e+00  bits  +0.25  pcond 1.000

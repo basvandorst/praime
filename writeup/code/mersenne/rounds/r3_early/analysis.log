@@ -1,0 +1,55 @@
+survivors: train 167 pos 7 | test 460 pos 6
+features per horizon: 84
+
+controls (not in the selection pool): train/test AUC of k itself (exponents are denser at small k: Wagstaff)
+  k    train AUC 0.317  test AUC 0.453
+  -k   train AUC 0.683  test AUC 0.547
+
+null global: 1000 permutations done, 65 s
+null klocal: 1000 permutations done, 132 s
+
+columns: horizon model | chosen feature (train AUC) | test AUC | test recall at train thr | test rejection at train thr | oracle test rejection at full recall | p(test AUC) global, k-local | p(rejection with full recall) global, k-local
+j32   single | -LL:a_zero5_z (0.800) | 0.274 | 0/6 | 0.581 | 0.037 | 0.983 0.967 | 1.000 1.000
+j32   logreg | LR[LL:a_zero5_z,PRP:v_mod7,LL:v_mod31] (0.933) | 0.383 | 0/6 | 0.773 | 0.121 | 0.818 0.831 | 1.000 1.000
+j32   tree2  | tree2 (0.890) | 0.518 | 6/6 | 0.000 | 0.000 | 0.375 0.397 | 1.000 1.000
+j64   single | -LL:a_zero5_z (0.854) | 0.240 | 1/6 | 0.425 | 0.031 | 0.987 0.992 | 1.000 1.000
+j64   logreg | LR[LL:a_zero5_z,LL:a_chi2_z,LL:v_mod11] (0.963) | 0.179 | 0/6 | 0.872 | 0.011 | 0.999 1.000 | 1.000 1.000
+j64   tree2  | tree2 (0.976) | 0.376 | 0/6 | 0.863 | 0.000 | 0.924 0.930 | 1.000 1.000
+j128  single | -LL:a_hw_lag1z (0.871) | 0.656 | 4/6 | 0.546 | 0.286 | 0.097 0.099 | 1.000 1.000
+j128  logreg | LR[LL:a_hw_lag1z,LL:a_zero5_z,LL:a_chi2_z] (0.975) | 0.451 | 0/6 | 0.927 | 0.112 | 0.647 0.651 | 1.000 1.000
+j128  tree2  | tree2 (0.900) | 0.621 | 6/6 | 0.000 | 0.000 | 0.091 0.101 | 1.000 1.000
+j256  single | -PRP:a_hw_meanz (0.825) | 0.482 | 2/6 | 0.634 | 0.145 | 0.545 0.581 | 1.000 1.000
+j256  logreg | LR[PRP:a_hw_meanz,LL:a_zero5_z,PRP:v_hwz] (0.935) | 0.382 | 1/6 | 0.698 | 0.064 | 0.840 0.839 | 1.000 1.000
+j256  tree2  | tree2 (0.958) | 0.445 | 1/6 | 0.804 | 0.000 | 0.689 0.710 | 1.000 1.000
+k/16  single | -LL:a_hw_sd (0.740) | 0.477 | 5/6 | 0.229 | 0.033 | 0.609 0.590 | 1.000 1.000
+k/16  logreg | LR[LL:a_hw_sd,LL:a_hw_lag1z,LL:a_zero11_z] (0.887) | 0.470 | 4/6 | 0.372 | 0.086 | 0.586 0.597 | 1.000 1.000
+k/16  tree2  | tree2 (0.889) | 0.456 | 6/6 | 0.000 | 0.000 | 0.668 0.670 | 1.000 1.000
+k/8   single | +LL:v_mod17 (0.732) | 0.582 | 5/6 | 0.412 | 0.165 | 0.212 0.264 | 1.000 1.000
+k/8   logreg | LR[LL:v_mod17,LL:v_mod5,PRP:v_mod3] (0.840) | 0.555 | 5/6 | 0.264 | 0.205 | 0.298 0.330 | 1.000 1.000
+k/8   tree2  | tree2 (0.805) | 0.601 | 6/6 | 0.000 | 0.000 | 0.114 0.116 | 1.000 1.000
+k/4   single | +LL:a_chi2_z (0.751) | 0.612 | 6/6 | 0.258 | 0.372 | 0.177 0.192 | 0.033 0.040
+k/4   logreg | LR[LL:a_chi2_z,PRP:v_mod31,PRP:a_zero13_z] (0.820) | 0.540 | 3/6 | 0.526 | 0.214 | 0.379 0.374 | 1.000 1.000
+k/4   tree2  | tree2 (0.880) | 0.534 | 6/6 | 0.000 | 0.000 | 0.338 0.279 | 1.000 1.000
+k/2   single | -PRP:a_hw_meanz (0.773) | 0.502 | 4/6 | 0.330 | 0.088 | 0.511 0.515 | 1.000 1.000
+k/2   logreg | LR[PRP:a_hw_meanz,LL:a_zero5_z,LL:v_mod13] (0.922) | 0.603 | 3/6 | 0.747 | 0.225 | 0.194 0.206 | 1.000 1.000
+k/2   tree2  | tree2 (0.969) | 0.584 | 2/6 | 0.894 | 0.000 | 0.191 0.166 | 1.000 1.000
+
+family-wise (global null): smallest observed p(test AUC) = 0.091, family-wise p = 0.822
+family-wise (global null): smallest observed p(rejection at full recall) = 0.033, family-wise p = 0.365
+family-wise (klocal null): smallest observed p(test AUC) = 0.099, family-wise p = 0.848
+family-wise (klocal null): smallest observed p(rejection at full recall) = 0.040, family-wise p = 0.396
+
+post-hoc (cherry-picked on the test set): max |test AUC - 0.5| over all features, observed vs global null
+  j32   LL:v_absz                    test AUC 0.151  null 95% of max|AUC-0.5| = 0.366  p = 0.103
+  j64   PRP:a_zero31_z               test AUC 0.220  null 95% of max|AUC-0.5| = 0.371  p = 0.691
+  j128  PRP:a_zero31_z               test AUC 0.175  null 95% of max|AUC-0.5| = 0.365  p = 0.266
+  j256  PRP:a_zero31_z               test AUC 0.184  null 95% of max|AUC-0.5| = 0.370  p = 0.322
+  k/16  PRP:a_zero31_z               test AUC 0.177  null 95% of max|AUC-0.5| = 0.376  p = 0.284
+  k/8   PRP:a_hw_sd                  test AUC 0.224  null 95% of max|AUC-0.5| = 0.370  p = 0.731
+  k/4   PRP:v_diffprev_hwz           test AUC 0.147  null 95% of max|AUC-0.5| = 0.371  p = 0.103
+  k/2   PRP:a_zero13_z               test AUC 0.243  null 95% of max|AUC-0.5| = 0.370  p = 0.898
+time 133 s
+
+real	2m13.473s
+user	2m9.528s
+sys	0m0.409s

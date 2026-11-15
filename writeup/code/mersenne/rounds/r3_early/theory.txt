@@ -1,0 +1,95 @@
+runs: 627 survivors 100 <= k < 12000; exponents among them: [107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423, 9689, 9941, 11213]
+
+1. First reduction i0 (before it, s_i and x_i are the same integers for every k)
+   i0 recomputed with plain integers: 0 mismatches
+   LL  i0 range 6..13; formula ceil(log2(k/log2(2+sqrt3))) differs in 0 cases
+   PRP i0 range 6..13; formula ceil(log2(k/log2 3)) differs in 0 cases
+
+2. Late identities (streamed runs, all survivors)
+   s_{k-2} = 0 exactly for the exponents: True
+   s_{k-3} = +-2^((k+1)/2) exactly for the exponents: True  signs: {107: -1, 127: 1, 521: -1, 607: -1, 1279: -1, 2203: 1, 2281: -1, 3217: -1, 4253: 1, 4423: -1, 9689: -1, 9941: 1, 11213: -1}
+   x_{k-1} = -3 exactly for the exponents: True | x_k = 9 exactly for the exponents (no base-3 Fermat pseudoprime): True
+   late Hamming weights of s_i for the exponents (i = k-7 .. k-2), as z = (w - k/2)/(sqrt(k)/2):
+     k=  107 +0.1 -1.1 +0.7 +0.9 +10.2 -10.3
+     k=  127 -1.7 +0.8 +0.6 +2.0 -11.1 -11.3
+     k=  521 +0.9 +0.2 +1.7 +1.4 +22.7 -22.8
+     k=  607 -1.1 +0.4 +0.4 +1.0 +24.6 -24.6
+     k= 1279 +0.3 -1.3 +0.1 -1.9 +35.7 -35.8
+     k= 2203 +0.8 -0.6 -0.5 -2.6 -46.9 -46.9
+     k= 2281 +1.5 -0.4 -0.6 +0.6 +47.7 -47.8
+     k= 3217 +1.6 +0.5 -0.5 -0.3 +56.7 -56.7
+     k= 4253 -0.9 -0.6 +0.2 +0.5 -65.2 -65.2
+     k= 4423 -0.3 -0.3 +0.4 +1.3 +66.5 -66.5
+     k= 9689 +0.1 -0.3 -1.2 +0.2 +98.4 -98.4
+     k= 9941 +0.9 +2.5 +0.7 -0.5 -99.7 -99.7
+     k=11213 -0.1 -0.3 -1.1 -0.6 +105.9 -105.9
+   non-exponents, z of s_{k-3}: min -3.2 max 3.5 (an exponent has |z| = sqrt(k) - 2/sqrt(k))
+
+3. Jacobi symbols at the 8 checkpoints of every run
+   (s_i + 2 | M) values seen: {1}  (s_i - 2 | M) values seen: {-1}  (s_i | M) mean 0.020 over 4999
+   PRP (x_i | M) values seen: {1}
+
+4. Repeats and rho (Brent) signals over the whole runs
+   LL exact repeats: []
+   PRP exact repeats (k, i): [(107, 107), (127, 127), (521, 521), (607, 607), (1279, 1279), (2203, 2203), (2281, 2281), (3217, 3217), (4253, 4253), (4423, 4423), (9689, 9689), (9941, 9941), (11213, 11213)]
+   factors found by Brent gcd within the run: LL []  PRP []
+
+5. Calibration of the aggregate z-scores over all survivors (horizon k/2): mean, sd, KS p vs N(0,1)
+   LL  a_hw_meanz     mean +0.007 sd 1.009 KS p 0.639
+   LL  a_run_meanz    mean +0.005 sd 1.023 KS p 0.672
+   LL  a_hw_lag1z     mean -0.022 sd 0.991 KS p 0.630
+   LL  a_top_z        mean -0.052 sd 0.956 KS p 0.065
+   LL  a_bot_z        mean +0.006 sd 1.009 KS p 0.920
+   LL  a_r32_z        mean +0.025 sd 0.997 KS p 0.472
+   LL  a_zero3_z      mean +0.057 sd 0.996 KS p 0.440
+   LL  a_zero5_z      mean +0.027 sd 1.006 KS p 0.488
+   LL  a_zero7_z      mean -0.048 sd 0.990 KS p 0.472
+   LL  a_zero11_z     mean +0.002 sd 0.976 KS p 0.337
+   LL  a_zero13_z     mean -0.007 sd 0.952 KS p 0.308
+   LL  a_zero17_z     mean +0.009 sd 1.033 KS p 0.937
+   LL  a_zero19_z     mean +0.077 sd 0.989 KS p 0.046
+   LL  a_zero23_z     mean -0.027 sd 0.995 KS p 0.613
+   LL  a_zero29_z     mean +0.057 sd 1.027 KS p 0.413
+   LL  a_zero31_z     mean -0.021 sd 0.966 KS p 0.595
+   LL  a_chi2_z       mean -0.049 sd 0.978 KS p 0.021
+   LL  a_jac_z        mean -0.009 sd 0.990 KS p 0.255
+   PRP a_hw_meanz     mean -0.022 sd 1.020 KS p 0.386
+   PRP a_run_meanz    mean +0.003 sd 1.015 KS p 0.539
+   PRP a_hw_lag1z     mean -0.002 sd 1.031 KS p 0.823
+   PRP a_top_z        mean -0.004 sd 0.987 KS p 0.634
+   PRP a_bot_z        mean +0.021 sd 1.009 KS p 0.493
+   PRP a_r32_z        mean +0.052 sd 0.984 KS p 0.230
+   PRP a_zero3_z      mean -0.065 sd 1.013 KS p 0.373
+   PRP a_zero5_z      mean +0.038 sd 0.990 KS p 0.534
+   PRP a_zero7_z      mean +0.045 sd 0.995 KS p 0.072
+   PRP a_zero11_z     mean +0.015 sd 1.018 KS p 0.770
+   PRP a_zero13_z     mean +0.012 sd 0.959 KS p 0.536
+   PRP a_zero17_z     mean +0.022 sd 1.075 KS p 0.327
+   PRP a_zero19_z     mean -0.059 sd 0.975 KS p 0.563
+   PRP a_zero23_z     mean -0.013 sd 0.990 KS p 0.600
+   PRP a_zero29_z     mean +0.011 sd 1.009 KS p 0.210
+   PRP a_zero31_z     mean -0.021 sd 0.996 KS p 0.488
+   PRP a_chi2_z       mean -0.028 sd 1.003 KS p 0.328
+   PRP a_jac_z        mean +21.744 sd 2.439 KS p 0.000
+   smallest KS p over 36 tests: 0.000
+
+6. Independent recheck (plain Python ints): s_{k-3}, s_{k-2}, x_{k-1} for the exponents and 5 random survivors, and 19937
+   k=  107 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k=  127 s_{k-2}=0: True  s_{k-3}: +  x_{k-1}=-3: True
+   k=  521 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k=  607 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 1279 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 2203 s_{k-2}=0: True  s_{k-3}: +  x_{k-1}=-3: True
+   k= 2281 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 3217 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 4253 s_{k-2}=0: True  s_{k-3}: +  x_{k-1}=-3: True
+   k= 4423 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 9689 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 9941 s_{k-2}=0: True  s_{k-3}: +  x_{k-1}=-3: True
+   k=11213 s_{k-2}=0: True  s_{k-3}: -  x_{k-1}=-3: True
+   k= 2557 s_{k-2}=0: False s_{k-3}: no x_{k-1}=-3: False
+   k=11447 s_{k-2}=0: False s_{k-3}: no x_{k-1}=-3: False
+   k= 1277 s_{k-2}=0: False s_{k-3}: no x_{k-1}=-3: False
+   k= 4909 s_{k-2}=0: False s_{k-3}: no x_{k-1}=-3: False
+   k= 2287 s_{k-2}=0: False s_{k-3}: no x_{k-1}=-3: False
+   k=19937 s_{k-2}=0: True  s_{k-3}: +  x_{k-1}=-3: True
