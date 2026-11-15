@@ -168,7 +168,7 @@ svg.dragging { cursor:grabbing; }
       <div class="panel group">
         <h3>Transformation</h3>
         <div class="ctl"><label for="experiment">Transformation (<span class="expCount">48</span> experiments)</label><select id="experiment" autocomplete="off"></select></div>
-        <div class="ctl"><label for="sourceMode" style="margin-top:8px">Source</label><select id="sourceMode" autocomplete="off"><option value="primes" selected>Every prime on the circle</option><option value="mexps">Every Mersenne exponent on the circle (as plain numbers)</option><option value="start-one">Start number only (selected transformation)</option><option value="start-all">Start number only (all transformations)</option><option value="chain">Chain: follow the arrows from the start number</option></select>
+        <div class="ctl"><label for="sourceMode" style="margin-top:8px">Source</label><select id="sourceMode" autocomplete="off"><option value="primes" selected>Every prime on the circle</option><option value="mexps">Every Mersenne exponent on the circle (as plain numbers)</option><option value="ints">Every number on the circle</option><option value="start-one">Start number only (selected transformation)</option><option value="start-all">Start number only (all transformations)</option><option value="chain">Chain: follow the arrows from the start number</option></select>
         <div id="chainOpts" class="chain-opts" hidden><label for="chainMax">Max steps</label><input id="chainMax" type="number" min="1" max="1000" step="1" value="50" autocomplete="off"><label for="chainStop">Stop when</label><select id="chainStop" autocomplete="off"><option value="repeat" selected>a number repeats</option><option value="miss">the arrow is not a hit</option></select></div></div>
         <div class="ctl"><label for="parameter">Parameter k: <strong id="kLabel">2</strong></label><input id="parameter" type="range" min="1" max="20" value="2" autocomplete="off"></div>
       </div>
@@ -430,7 +430,8 @@ const experiments = [
 ["Left-sample zero formula on numbers coprime to 210","the decoder of 134 with only the numbers not divisible by 2, 3, 5 or 7 as candidates (48 of every 210); the same zeta zeros, γ ≤ 0.045·πx (0.3·πx below 600), the top seventh faded out; the window is the next 20 candidates within n + 80, searched exactly, with the candidates up to 300 beyond as unknowns with a coin's spread","riemann-wheel210",""],
 ["Zero decoder with k divisibility facts","the decoder of 134 on the numbers with no prime factor among the first k primes (Parameter k, up to 25, i.e. the primes up to 97). A share ρ of all numbers survives, and zeros with γ ≤ 0.23·π·ρ·x suffice: a sieve removes what a sieve can, and the zeros decide what no sieve can see, prime or product of two large primes","riemann-facts",""],
 ["Zero decoder on a band of zeros at any height","next n > p that the decoder calls prime, read from one band of 10,000 zeta zeros chosen with the band slider, from the lowest zeros up to Odlyzko’s tables near the 10²²-th zero (height 1.37·10²¹). With c the centre of the band and w a cosine fade over the outer sevenths of the band, r(x) = −(2π√x/Ŵ(0)) · Σ w(γ) · e^(i(γ − c) ln x) = Σ Λ(m) · √(x/m) · e^(−ic ln m) · Ŵ(ln(x/m))/Ŵ(0): every prime power m carries the known phase e^(−ic ln m), computed exactly from c and ln m. The decoder of 134 on these complex samples: the next 12 candidates searched exactly, the candidates over the next 12 envelope widths 2πn/W as unknowns with a coin’s spread, the 8 best decision histories kept; candidates are the numbers with no factor among the first k primes (Parameter k, up to 4); the primes below the circle are known, at start 1 nothing is","riemann-band",""],
-["Next Mersenne exponent","next prime q > p with 2^q − 1 prime. Every factor of 2^q − 1 has the form 2kq + 1 and is ≡ ±1 (mod 8); those with k up to 100,000·(q/7000)² (at least 1,000) are tried first and remove about half of the primes. Each prime left gets the Lucas–Lehmer test: s₀ = 4, s ← s² − 2 mod 2^q − 1, and 2^q − 1 is prime exactly when s_(q−2) = 0. Above q = 4,200 the squarings use a floating-point FFT (the irrational-base transform of GIMPS), with the rounding checked at every step, and every exponent it finds is tested again in exact integer arithmetic. So every arrow lands on a Mersenne exponent, by theorem: 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, … Destinations beyond the circle are left out, not wrapped. Set the indicator to Mersenne exponents to count them (destinations up to 150,000: also 19937, 21701, 23209, 44497, 86243, 110503 and 132049. Only the primes inside the circle are tested; above 3,000 the tests run in the background on the spare cores of this computer; one test takes about 4 seconds near 44,497 and about 15 near 100,000)","mersenne-next","6101"]
+["Next Mersenne exponent","next prime q > p with 2^q − 1 prime. Every factor of 2^q − 1 has the form 2kq + 1 and is ≡ ±1 (mod 8); those with k up to 100,000·(q/7000)² (at least 1,000) are tried first and remove about half of the primes. Each prime left gets the Lucas–Lehmer test: s₀ = 4, s ← s² − 2 mod 2^q − 1, and 2^q − 1 is prime exactly when s_(q−2) = 0. Above q = 4,200 the squarings use a floating-point FFT (the irrational-base transform of GIMPS), with the rounding checked at every step, and every exponent it finds is tested again in exact integer arithmetic. So every arrow lands on a Mersenne exponent, by theorem: 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, … Destinations beyond the circle are left out, not wrapped. Set the indicator to Mersenne exponents to count them (destinations up to 150,000: also 19937, 21701, 23209, 44497, 86243, 110503 and 132049. Only the primes inside the circle are tested; above 3,000 the tests run in the background on the spare cores of this computer; one test takes about 4 seconds near 44,497 and about 15 near 100,000)","mersenne-next","6101"],
+["Integer congruence (OEIS A366029)","next k > p with (k − 1)^(2^k − 2) ≡ 1 (mod (2^k − 1)·k²): a rule on the integer k alone, without primes. Every Mersenne exponent satisfies it: when 2^k − 1 is prime, Fermat gives the congruence mod 2^k − 1, and mod k² the power is 1 − (2^k − 2)·k, which is 1 because k divides 2^k − 2. So the congruence is two Fermat tests: 2^k ≡ 2 (mod k), and (k − 1)^(2^k − 2) ≡ 1 (mod 2^k − 1). It also holds for every k = 2^m + 1 with 2^k ≡ 2 (mod k), because then the base k − 1 is a power of 2 and 2 has order k mod 2^k − 1: 257, 65537 and all larger Fermat numbers. Up to 4,500 the only term that is not a Mersenne exponent is 257. Each k costs as much as the Lucas–Lehmer test of 142, so this is a primality test of 2^k − 1 under another name. A small factor f of 2^k − 1 decides most k at once (the congruence must hold mod f too); the rest run in the background like 142, and every term found is checked again in exact integer arithmetic (destinations up to 150,000). Destinations beyond the circle are left out, not wrapped","a366029",""]
 ];
 const $ = id => document.getElementById(id);
 const svg = $("graph"), NS = "http://www.w3.org/2000/svg";
@@ -1136,7 +1137,7 @@ function mxSource() { return MX_FNS.map(f => f.toString()).join("\n"); }
 function mersTest(q){return mxTest(q)[0];}
 const MERS_SYNC=3000,MERS_TOP=150000,mersWant=new Set(),mersBusy=new Set();let mersQueue=[],mersPool=null,mersBase="",mersTotal=0;
 function mersWorkers(){if(mersPool!==null)return mersPool;mersPool=[];
- try{const code=mxSource()+"\nonmessage=e=>postMessage([e.data,mxTest(e.data)[0]]);";
+ try{const code=mxSource()+"\n"+[mxIsZero,a366Pow2,a366A,a366PowN,a366Exact,a366Mul,a366Fft,a366Test].map(f=>f.toString()).join("\n")+"\nonmessage=e=>{const q=e.data;postMessage([q,q<0?a366Test(-q):mxTest(q)[0]]);};";
   const url=URL.createObjectURL(new Blob([code],{type:"text/javascript"})),n=Math.max(1,Math.min(8,(navigator.hardwareConcurrency||2)-1));
   for(let i=0;i<n;i++){const w=new Worker(url);w.job=null;w.onmessage=e=>mersResult(w,e.data);w.onerror=()=>{const q=w.job;w.job=null;if(q!==null){mersBusy.delete(q);mersCache.set(q,mersTest(q));}mersFeed();};mersPool.push(w);}}
  catch(e){mersPool=[];}
@@ -1144,10 +1145,10 @@ function mersWorkers(){if(mersPool!==null)return mersPool;mersPool=[];
 function mersFeed(){for(const w of mersPool)if(w.job===null&&mersQueue.length){const q=mersQueue.shift();w.job=q;mersBusy.add(q);w.postMessage(q);}}
 function mersPending(){return mersWant.size>0&&(mersQueue.length+mersBusy.size)>0;}
 function mersProgress(){if(!mersWant.size)return;const left=mersQueue.length+mersBusy.size,f=$("formula");
- if(f&&mersBase)f.textContent=mersBase+(left?` Testing 2^q − 1 in the background on ${mersPool.length} core${mersPool.length===1?"":"s"}: ${mersTotal-left} of ${mersTotal} primes done (now q = ${Math.min(...mersBusy)}); the arrows appear when the tests finish.`:"");}
+ if(f&&mersBase)f.textContent=mersBase+(left?` Testing 2^q − 1 in the background on ${mersPool.length} core${mersPool.length===1?"":"s"}: ${mersTotal-left} of ${mersTotal} primes done (now k = ${Math.min(...[...mersBusy].map(Math.abs))}); the arrows appear when the tests finish.`:"");}
 function mersResult(w,d){const [q,r]=d;mersCache.set(q,r);mersBusy.delete(q);w.job=null;mersFeed();mersProgress();if(!mersQueue.length&&!mersBusy.size&&mersWant.size)render();}
 function mersFlush(){if(!mersWant.size){mersQueue=[];return;}
- mersQueue=[...mersWant].filter(q=>!mersCache.has(q)&&!mersBusy.has(q)).sort((a,b)=>a-b);mersTotal=mersQueue.length+mersBusy.size;
+ mersQueue=[...mersWant].filter(q=>!mersCache.has(q)&&!mersBusy.has(q)).sort((a,b)=>Math.abs(a)-Math.abs(b));mersTotal=mersQueue.length+mersBusy.size;
  mersBase=$("formula").textContent;mersFeed();mersProgress();}
 let mgen=null;
 function mgenWorkers(n){const code=mxSource()+"\nonmessage=e=>{const r=mxTest(e.data);postMessage([e.data,r[0],r[1]]);};";
@@ -1200,6 +1201,34 @@ function mverToggle(){
  catch(e){$("mverStat").textContent="This needs Web Workers, which this browser does not allow here.";return;}
  mver.on=true;mver.t0=Date.now();mver.pool.forEach(w=>{w.job=null;w.onmessage=e=>mverMsg(w,e.data);});
  mver.tick=setInterval(()=>{mver.pool.forEach(w=>{if(w.job!==null)mverShow(w.job);});mverStat();},1000);$("mverBtn").textContent="Pause";mverFeed();mverStat();}
+const A366_TOP=150000,a366NextCache=new Map();
+function a366Pow2(k){let r=1%k,b=2%k,e=k;while(e>0){if(e&1)r=r*b%k;b=b*b%k;e=Math.floor(e/2);}return r;}
+function a366A(k){return k>=2&&a366Pow2(k)===2%k;}
+function a366PowN(b,k,m){let x=b%m;for(let i=0;i<k-2;i++){x=x*x%m;x=x*b%m;}return x*x%m;}
+function a366Exact(k){const K=BigInt(k),M=(1n<<K)-1n,b=BigInt(k-1),f=v=>{v=(v&M)+(v>>K);v=(v&M)+(v>>K);return v>=M?v-M:v;};
+ let x=b%M;for(let i=0;i<k-2;i++){x=f(x*x);x=f(x*b);}x=f(x*x);return x===1n%M;}
+function a366Mul(P,x,b){const n=P.n;let carry=0;
+ for(let i=0;i<n;i++){const v=x[i]*b+carry,hi=(v*P.ibase[i]+6755399441055744)-6755399441055744;x[i]=v-hi*P.base[i];carry=hi;}
+ for(let pass=0;carry!==0&&pass<4;pass++)for(let i=0;carry!==0&&i<n;i++){const v=x[i]+carry,hi=(v*P.ibase[i]+6755399441055744)-6755399441055744;x[i]=v-hi*P.base[i];carry=hi;}
+ return carry===0;}
+function a366Fft(k){const b=k-1;
+ for(let n=mxFftLengthFor(k);;n*=2){const P=mxGetPlan(k,n),x=new Float64Array(n);let ok=a366Mul(P,x,0);x[0]=0;x[0]=1;ok=a366Mul(P,x,b);
+  for(let i=0;ok&&i<k-2;i++){const e=mxSqrStep(P,x,0,1);if(!(e<=0.35)){ok=false;break;}ok=a366Mul(P,x,b);}
+  if(ok){const e=mxSqrStep(P,x,0,1);if(e<=0.35){x[0]-=1;const z=mxIsZero(P,x);if(mxGetPlan.c)mxGetPlan.c.clear();return z;}}}}
+function a366Test(k){if(!a366A(k))return false;if(k<=3)return true;
+ let d=2;while(d*d<=k&&k%d)d++;const B=BigInt(k-1);
+ if(d*d<=k){if(a366PowN(B,k,(1n<<BigInt(d))-1n)!==1n)return false;}
+ else{const f=mxTrialFactor(k,mxTfDepth(k));if(f&&a366PowN(B,k,BigInt(f))!==1n)return false;}
+ if(((k-1)&(k-2))===0)return true;
+ if(k<4200)return a366Exact(k);
+ return a366Fft(k)&&a366Exact(k);}
+function nextA366(p,lim){if(p<2)return 2;p=Math.floor(p);if(p>=A366_TOP)return null;
+ let y=a366NextCache.get(p);if(y!==undefined)return y<=lim?y:null;
+ const top=Math.min(lim,A366_TOP),need=[];
+ for(y=p+1;y<=top;y++){if(!a366A(y))continue;let r=mersCache.get(-y);
+  if(r===undefined){if(y<MERS_SYNC){r=a366Test(y);mersCache.set(-y,r);}else if(mersWorkers().length){need.push(-y);continue;}else if(y<=12000){r=a366Test(y);mersCache.set(-y,r);}else return null;}
+  if(r){if(need.length){need.forEach(q=>mersWant.add(q));return null;}a366NextCache.set(p,y);return y;}}
+ need.forEach(q=>mersWant.add(q));return null;}
 function nextMersenneExponent(p,lim){if(p<2)return 2;p=Math.floor(p);if(p>=MERS_TOP)return null;
  let y=mersNextCache.get(p);if(y!==undefined)return y<=lim?y:null;
  const top=Math.min(lim,MERS_TOP),need=[];
@@ -1755,12 +1784,13 @@ function transform(p,code,k,N,S,C){
  case "riemann-facts": y=riemannDecode(p,S,zeroCount(),Math.max(1,Math.min(25,k)),true);break;
  case "riemann-band": y=riemannBand(p,S,k);break;
  case "mersenne-next": y=nextMersenneExponent(p,N);break;
+ case "a366029": y=nextA366(p,N);break;
  }
  if(y===null)return null;
  if(typeof y!=="bigint"){if(!Number.isFinite(y))return null;y=BigInt(Math.trunc(y));}
  transform.lastRaw=y;
  const bS=BigInt(S),bC=BigInt(C),bE=bS+bC-1n;
- if($("overflow").value==="wrap"&&code!=="mersenne-next"){
+ if($("overflow").value==="wrap"&&code!=="mersenne-next"&&code!=="a366029"){
    y=((y-bS)%bC+bC)%bC+bS;
  } else if(y<bS||y>bE) return null;
  return Number(y);
@@ -1775,10 +1805,10 @@ function render(){
  const exp=experiments.find(e=>e[2]===code);
  const srcMode=$("sourceMode").value;$("experiment").disabled=srcMode==="start-all";$("chainOpts").hidden=srcMode!=="chain";
  const chain=srcMode==="chain";$("doubleWheel").disabled=chain;$("lineFilter").disabled=chain;
- const srcTxt=srcMode==="primes"?"Sources are primes from "+S+" to "+N:srcMode==="mexps"?"Sources are the Mersenne exponents from "+S+" to "+N:srcMode==="start-one"?"Source is the start number "+S:chain?"Chain from the start number "+S+", each destination is the next source":"Source is the start number "+S+", one arrow per transformation";
+ const srcTxt=srcMode==="primes"?"Sources are primes from "+S+" to "+N:srcMode==="mexps"?"Sources are the Mersenne exponents from "+S+" to "+N:srcMode==="ints"?"Every number from "+S+" to "+N+" is a source":srcMode==="start-one"?"Source is the start number "+S:chain?"Chain from the start number "+S+", each destination is the next source":"Source is the start number "+S+", one arrow per transformation";
  $("formula").textContent=(srcMode==="start-all"?"All "+experiments.length+" rules":"Rule: "+exp[1])+" · "+srcTxt+" · N = "+N+"."+(chain&&state.chain?" Stopped after "+state.chain.steps+" step"+(state.chain.steps===1?"":"s")+": "+state.chain.reason+".":"")+(dbl?" Double wheel: "+S+"–"+E+", destinations continue into the next lap.":"");
  svg.innerHTML="";state.edges=[];state.nodes={};state.positions={};state.selected=null;
- const cx=400,cy=400,r=345,ps=srcMode==="primes"?primesInRange(S,N):srcMode==="mexps"?[...MEXP].filter(x=>x>=S&&x<=N).sort((a,b)=>a-b):[S];state.range.primes=ps.length;
+ const cx=400,cy=400,r=345,ps=srcMode==="primes"?primesInRange(S,N):srcMode==="mexps"?[...MEXP].filter(x=>x>=S&&x<=N).sort((a,b)=>a-b):srcMode==="ints"?Array.from({length:N-S+1},(_,i)=>S+i):[S];state.range.primes=ps.length;
  const sp=2*Math.PI*r/W,nodeR=Math.min(14,Math.max(0.9,sp*0.425)),inside=nodeR>=9;
  const fontSize=Math.min(11,nodeR*(String(E).length>3?0.7:1));
  state.labels=[];state.dots=[];state.labelMeta={sp,inside,nodeR,r,cx,cy,baseDr:Math.min(Math.max(2.6,nodeR*0.3),Math.max(1.1,sp*0.45))};
@@ -1828,7 +1858,7 @@ function render(){
  state.edges.forEach(e=>{if(e.label)svg.appendChild(e.label);});
  {const ring=drawPsiRing(S,E,W,cx,cy,r,nodeR);if(ring)svg.appendChild(ring);}
  for(let n=S;n<=E;n++){
-   const p=state.positions[n],g=el("g",{class:"node"+(prime(n)?" prime":"")+(MERSENNE.has(n)&&mersMode()?" mersenne":"")+(MEXP.has(n)&&mersMode()?" mexp":"")+(srcMode!=="primes"&&srcMode!=="mexps"&&n===S?" source":"")+(n>N?" lap2":"")});
+   const p=state.positions[n],g=el("g",{class:"node"+(prime(n)?" prime":"")+(MERSENNE.has(n)&&mersMode()?" mersenne":"")+(MEXP.has(n)&&mersMode()?" mexp":"")+(srcMode!=="primes"&&srcMode!=="mexps"&&srcMode!=="ints"&&n===S?" source":"")+(n>N?" lap2":"")});
    g.appendChild(el("circle",{class:"hit",cx:p.x,cy:p.y,r:Math.max(nodeR,sp*0.5)}));
    g.appendChild(el("circle",{class:"body",cx:p.x,cy:p.y,r:nodeR}));
    if($("showLabels").checked){
@@ -1844,7 +1874,7 @@ function render(){
    g.addEventListener("click",()=>{if(!view.moved)selectNode(n);});
    svg.appendChild(g);state.nodes[n]=g;
  }
- $("stats").innerHTML=`<div class="stat"><b>${C}</b><span>Numbers on circle${dbl?" (+"+C+" next lap)":""}</span></div><div class="stat"><b>${chain&&state.chain?state.chain.visited.size:ps.length}</b><span>${srcMode==="primes"?"Prime sources":srcMode==="mexps"?"Mersenne exponent sources":chain?"Numbers visited in chain":"Source (start number)"}</span></div><div class="stat"><b>${state.edges.length}</b><span>Valid connections</span></div><div class="stat"><b>${new Set(state.edges.map(e=>e.to)).size}</b><span>Unique destinations</span></div><div class="stat"><b>${(()=>{let c=0;for(let n=S;n<=N;n++)if(isFib(n))c++;return c;})()}</b><span>Fibonacci numbers on circle</span></div><div class="stat"><b id="shownCount">${state.edges.length}</b><span>Lines after filter</span></div><div class="stat"><b id="nearCount">0</b><span>Land <span class="winPhrase">within ±2 of a prime</span></span></div><div class="stat"><b id="nearExp">0</b><span>Expected by chance</span></div><div class="stat"><b id="nearMatched">0</b><span>Expected, matched on residue mod 30</span></div>`;
+ $("stats").innerHTML=`<div class="stat"><b>${C}</b><span>Numbers on circle${dbl?" (+"+C+" next lap)":""}</span></div><div class="stat"><b>${chain&&state.chain?state.chain.visited.size:ps.length}</b><span>${srcMode==="primes"?"Prime sources":srcMode==="mexps"?"Mersenne exponent sources":srcMode==="ints"?"Number sources":chain?"Numbers visited in chain":"Source (start number)"}</span></div><div class="stat"><b>${state.edges.length}</b><span>Valid connections</span></div><div class="stat"><b>${new Set(state.edges.map(e=>e.to)).size}</b><span>Unique destinations</span></div><div class="stat"><b>${(()=>{let c=0;for(let n=S;n<=N;n++)if(isFib(n))c++;return c;})()}</b><span>Fibonacci numbers on circle</span></div><div class="stat"><b id="shownCount">${state.edges.length}</b><span>Lines after filter</span></div><div class="stat"><b id="nearCount">0</b><span>Land <span class="winPhrase">within ±2 of a prime</span></span></div><div class="stat"><b id="nearExp">0</b><span>Expected by chance</span></div><div class="stat"><b id="nearMatched">0</b><span>Expected, matched on residue mod 30</span></div>`;
  $("details").textContent="Click any number to see its lines.";
  applyView();
  mersFlush();
@@ -1856,7 +1886,7 @@ function selectNode(n){
  state.nodes[n].classList.add("selected");
  applyHighlight();
  const outgoing=state.edges.filter(e=>e.from===n),incoming=state.edges.filter(e=>e.to===n);
- const isSrc=state.srcMode==="primes"?prime(n):state.srcMode==="mexps"?MEXP.has(n):state.srcMode==="chain"?state.edges.some(e=>e.from===n):n===state.params.S;
+ const isSrc=state.srcMode==="primes"?prime(n):state.srcMode==="mexps"?MEXP.has(n):state.srcMode==="ints"?true:state.srcMode==="chain"?state.edges.some(e=>e.from===n):n===state.params.S;
  const dest=state.params.dbl&&n>state.params.N?"none (next lap, not a source)":!isSrc?(state.srcMode==="primes"?"none (not prime, so not a source)":state.srcMode==="mexps"?"none (not a Mersenne exponent, so not a source)":state.srcMode==="chain"?"none (the chain does not pass through it)":"none (only the start number is a source)"):outgoing.length?outgoing.map(e=>e.to).join(", "):"no valid destination (undefined, outside range, or self-loop)";
  const nearTxt=outgoing.length===1?(()=>{const a=state.near.primesAround(outgoing[0].to);return `<br><span class="key-near">Lands ${winPhrase()}</span>: <b>${a.length?"yes ("+a.join(", ")+")":"no"}</b>`;})():"";
  const beforeTxt=(state.params.code==="before"&&outgoing.length===1)?(()=>{const bi=beforeInfo(n);return bi?`<br><span class="muted">p − 1 = ${bi.f}; small primes in it: ${bi.small.length?bi.small.join(", "):"none"} → prime chance of p was ×${bi.boost.toFixed(2)}</span>`:"";})():"";
@@ -2112,7 +2142,7 @@ function computeAtlas(){
  }
  step();
 }
-const USES_NEXT_PRIME=new Set(["prime-gap","gap-merit","capelle","gap-diff","run-mod4","neighbour-mean","riemann-next","riemann-point","riemann-wheel6","riemann-decode","riemann-decode-sieve","riemann-recursion","riemann-two-point","riemann-left","riemann-class","riemann-mod24","riemann-mod840","riemann-auto","riemann-wheel210","riemann-facts","riemann-band","golomb","least-witness","mersenne-next"]);
+const USES_NEXT_PRIME=new Set(["prime-gap","gap-merit","capelle","gap-diff","run-mod4","neighbour-mean","riemann-next","riemann-point","riemann-wheel6","riemann-decode","riemann-decode-sieve","riemann-recursion","riemann-two-point","riemann-left","riemann-class","riemann-mod24","riemann-mod840","riemann-auto","riemann-wheel210","riemann-facts","riemann-band","golomb","least-witness","mersenne-next","a366029"]);
 let atlasLast=null;
 function drawAtlas(allRows,P){
  atlasLast={rows:allRows,P};

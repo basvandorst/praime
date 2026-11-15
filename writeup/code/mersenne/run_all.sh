@@ -41,3 +41,4 @@ $P rate.py 10000 100000 > rate.txt; $P rate.py 100000 10000 >> rate.txt
   && run $P angle1_linrec.py > angle1.log && run $P angle2_relations.py > angle2_relations.log && run $P angle2b_tail.py \
   && run $P angle3_bits.py > angle3_bits.log && run $P angle4_bases.py > angle4_bases.log && run $P angle5_growth.py > angle5_growth.log \
   && run $P combine.py && run $P oos_select.py > oos_select.out && run $P check_real.py > check_real.out && run $P check_base23.py > check_base23.out)
+(cd numbers && run node page143_check.js > page143_check.txt)
