@@ -1,4 +1,4 @@
-const LSN=["quadform","eisenstein","mersieve","gaptowers","polyspiral","digitrows","chebrace","totient","goldbach","dickman","primroot","pili","ord2"],LSW=["gaptowers"],LSP=["quadform","mersieve","polyspiral","digitrows","chebrace"];
+const LSN=["quadform","eisenstein","mersieve","gaptowers","polyspiral","digitrows","chebrace","totient","goldbach","dickman","primroot","pili","ord2","wieferich","cunningham"],LSW=["gaptowers"],LSP=["quadform","mersieve","polyspiral","digitrows","chebrace"];
 function lsClassNo(D){let h=0,am=0;for(let a=1;3*a*a<=-D;a++)for(let b=-a+1;b<=a;b++){if((b*b-D)%(4*a))continue;const c=(b*b-D)/(4*a);if(c<a||(b<0&&a===c))continue;if(gcd(gcd(a,Math.abs(b)),c)===1){h++;if(b===0||b===a||a===c)am++;}}return [h,am];}
 function lsLi(x){if(x<=2)return 0;const g=0.5772156649015329,L=Math.log(x);let s=g+Math.log(L),t=1;for(let k=1;k<200;k++){t*=L/k;const d=t/k;s+=d;if(d<1e-15*s)break;}return s-1.0451637801174928;}
 function lsLiF(x){const L=Math.log(x);let s=0.5772156649015329+Math.log(L),t=1;for(let k=1;k<300;k++){t*=L/k;const d=t/k;s+=d;if(Math.abs(d)<1e-15*Math.abs(s)+1e-300)break;}return s;}
@@ -67,6 +67,15 @@ function LS(name,N,w,P,pos,comp){const out={cols:0,rows:0,dw:1,fx:null,fy:null};
    ordOf[q]=o;ind[q]=(q-1)/o;tot++;if(ind[q]>mI)mI=ind[q];if(ind[q]===1)i1++;if(lsPrimeTD(o)){out.parity[q]=1;pf++;if(o>2&&(ind[q]%2||ind[q]%8===4))bad4++;}if(ind[q]%2===1&&(q%8===1||q%8===7))odd++;}
   out.dw=2;const L2=Math.log2(Math.max(2,mI));hid(1400,1400,n=>!isP(n)||n<3?null:[(n-1)/Math.max(1,N-1)*1396,Math.log2(ind[n])/L2*1396]);
   out.o2={tot,pf,odd,i1,mI,bad4};out.tip=n=>isP(n)&&n>2?` · 2 has order ${ordOf[n].toLocaleString("en-US")} mod ${n.toLocaleString("en-US")}, index ${ind[n].toLocaleString("en-US")}`+(out.parity[n]?`: a factor of 2^${ordOf[n]} − 1`:""):"";}
+ else if(name==="wieferich"){const q=new Float64Array(N+1),E=new Set(MEXP);let wf=[],half=0,tot=0,best=1,bestp=0,ks=0;const ys=[];
+  for(let p=3;p<=N;p++){if(!isP(p))continue;const P2=BigInt(p)*BigInt(p);let r=1n,x=2n,e=p-1;while(e>0){if(e&1)r=r*x%P2;x=x*x%P2;e=Math.floor(e/2);}const qq=Number((r-1n)/BigInt(p));q[p]=qq/p;tot++;ys.push(q[p]);if(qq===0)wf.push(p);else if(q[p]<best){best=q[p];bestp=p;}if(q[p]<0.5)half++;}
+  ys.sort((a,b)=>a-b);for(let i=0;i<ys.length;i++)ks=Math.max(ks,Math.abs(ys[i]-i/ys.length),Math.abs(ys[i]-(i+1)/ys.length));
+  out.dw=2;hid(1400,1400,n=>!isP(n)||n<3?null:[(n-1)/Math.max(1,N-1)*1396,q[n]*1396]);out.wf={wf,half,tot,best,bestp,ks};out.tip=n=>isP(n)&&n>2?` · 2^(p−1) ≡ 1 + ${Math.round(q[n]*n).toLocaleString("en-US")}·p (mod p²)`:"";}
+ else if(name==="cunningham"){const pt=n=>n<=1000002?n>1&&!comp[n]:lsPrimeTD(n),len=new Int32Array(N+1);let mx=1,mxp=0,sg=0,eu=0,pred=0;const cnt=new Int32Array(20),E=MEXP.filter(k=>k<=N);
+  for(let p=2;p<=N;p++){if(!isP(p))continue;let L=1,v=p;while(pt(2*v+1)){v=2*v+1;L++;}len[p]=L;cnt[L]++;if(L>1)sg++;if(L>mx){mx=L;mxp=p;}}
+  for(const k of E)if(k>3&&k%4===3&&len[k]>1)eu++;for(let n=3;n<=N;n++)pred+=1/(Math.log(n)*Math.log(2*n+1));pred*=1.3203236316937391;
+  const st=1396/mx;hid(1400,1400,n=>!isP(n)?null:[(n-1)/Math.max(1,N-1)*1396,(len[n]-1)*st+((n*0.6180339887498949)%1)*0.62*st]);
+  const sgE=E.filter(k=>k>3&&len[k]>1),mxs=[];for(let p=2;p<=N&&mxs.length<8;p++)if(isP(p)&&len[p]===mx)mxs.push(p);out.cu={mx,mxp,mxs,sg,pred,cnt:Array.from(cnt.slice(1,mx+1)),eu,sgE};out.tip=n=>isP(n)?` · chain of ${len[n]} from here: ${n.toLocaleString("en-US")}`+(len[n]>1?` → ${(2*n+1).toLocaleString("en-US")}`+(len[n]>2?" → …":""):""):"";}
  else if(name==="totient"){const s=spf(),ph=new Float64Array(N+1);ph[1]=1;for(let n=2;n<=N;n++){const p=s[n],q=n/p;ph[n]=q%p===0?ph[q]*p:ph[q]*(p-1);}
   hid(1400,1400,n=>[(n-1)/Math.max(1,N-1)*1396,(1-ph[n]/n)*1396]);out.tip=n=>` · φ(n)/n = ${(ph[n]/n).toFixed(4)}`;}
  return out;}

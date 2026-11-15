@@ -1,5 +1,5 @@
 {
- "_intro": "Thirteen layouts added in one night, each built on a theorem or a famous conjecture. Every note on the page computes its numbers live for the chosen parameter and checks its own rule (counts of exceptions are printed); every number below was recomputed by a separate script, in Python with numpy or sympy, independently of the page's JavaScript. The headline: each pattern is exactly what number theory predicts, including three Chebyshev biases (prime squares again), and the Mersenne exponents behave like random primes in all thirteen.",
+ "_intro": "Fifteen layouts added in one night, each built on a theorem or a famous conjecture. Every note on the page computes its numbers live for the chosen parameter and checks its own rule (counts of exceptions are printed); every number below was recomputed by a separate script, in Python with numpy or sympy, independently of the page's JavaScript. The headline: each pattern is exactly what number theory predicts, including three Chebyshev biases (prime squares again), and the Mersenne exponents behave like random primes in all fifteen.",
  "cards": [
   {
    "id": "quadform",
@@ -60,6 +60,35 @@
    "explained": "q divides 2^p − 1 exactly when the order d of 2 mod q divides p. For a prime d the factor q = 2kd + 1 has index 2k, and the mod-8 law of the factor sieve (2 is a square modulo every factor) forbids k ≡ 2 (mod 4). Row 1 holds the primes for which 2 is a primitive root (Artin), row 2 Euler's factors 2p + 1.",
    "checked": "With sympy's order function: 2,178 of the 41,537 odd primes up to 500,000 (5.24%) have a prime order of 2, so each divides a Mersenne number with a prime exponent; their indices are ≡ 0, 2 or 6 (mod 8) (346, 1,423 and 408, q = 3 aside) and never odd or ≡ 4; 15,528 (37.38%) have index 1; 8,191 has index 630 and 131,071 index 7,710.",
    "exponents": "Six of the 30 odd exponents up to 500,000 are light: 3, 7, 31 and 127 (Mersenne primes themselves), 89 (a factor of 2^11 − 1 = 2,047) and 23,209 (a factor of 2^967 − 1). Random sets of 30 primes drawn with the exponents' heuristic weights give 3.9 on average and 6 or more 16% of the time: small primes have small orders."
+  },
+  {
+   "id": "wieferich",
+   "name": "Fermat quotients (Wieferich primes)",
+   "q": "layout=wieferich&amp;links=none",
+   "imgs": [
+    "r_wieferich.jpg",
+    "r_wieferich_z.jpg"
+   ],
+   "short": "Each prime at its Fermat quotient q/p; the Wieferich primes 1,093 and 3,511 on the top edge",
+   "verdict": "uniform, as the heuristic says",
+   "seen": "An even scatter; two dots on the very top edge.",
+   "explained": "2^(p−1) = 1 + q·p (mod p²) defines the Fermat quotient q; a Wieferich prime has q = 0. If p² divides 2^r − 1 for a prime r, then p is a Wieferich prime whose order of 2 is r: so square factors of Mersenne numbers hinge on Wieferich primes.",
+   "checked": "Plain Python pow: the only Wieferich primes up to 500,000 are 1,093 and 3,511 (none other below 6.7·10^15, Dorais and Klyve 2011), with orders of 2 equal to 364 = 2²·7·13 and 1,755 = 3³·5·13, not prime: no Mersenne number with a prime exponent has a square factor p² with p below 6.7·10^15. The other quotients are uniform: 49.98% in the top half, Kolmogorov–Smirnov 0.0026 against a 5% critical value of 0.0067; the nearest miss is 397,289, at 9.3·10⁻⁵."
+  },
+  {
+   "id": "cunningham",
+   "name": "Cunningham chains p → 2p + 1",
+   "q": "layout=cunningham&amp;links=none",
+   "imgs": [
+    "r_cunningham.jpg",
+    "r_cunningham_z.jpg"
+   ],
+   "short": "Primes by the length of their chain p, 2p + 1, 4p + 3, …; Euler's rule keeps exponents ≡ 3 (mod 4) out",
+   "verdict": "Hardy–Littlewood; Euler's theorem",
+   "seen": "A dense top band, then rows thinning fast; 89 alone near the bottom.",
+   "explained": "Row L holds the primes from which the chain p → 2p + 1 stays prime L times; rows 2 and below are the Sophie Germain primes. Euler: for p ≡ 3 (mod 4) above 3, a prime 2p + 1 divides 2^p − 1, so no Mersenne exponent ≡ 3 (mod 4) can leave the top band.",
+   "checked": "With sympy: up to 500,000 the rows hold 37,214, 3,618, 606, 79, 17 and 4 primes; 4,324 Sophie Germain primes against 4,367 by Hardy–Littlewood (2C₂·Σ 1/(ln n·ln(2n + 1))); the chains of six start at 89, 63,419, 127,139 and 405,269.",
+   "exponents": "No exponent ≡ 3 (mod 4) above 3 leaves the top band (a theorem, 0 exceptions); those that do are 2, 3, 5, 89, 9,689 and 21,701, and 89 starts the first chain of six, 89, 179, 359, 719, 1,439, 2,879."
   },
   {
    "id": "gaptowers",
