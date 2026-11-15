@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mersenne Exponent Circles</title>
+<style>
+:root { --bg:#0b1220; --fg:#edf4ff; --muted:#9fb0c6; --ring:#38bdf8; --hot:#f59e0b; }
+body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.4 system-ui,sans-serif; }
+header { padding:16px; text-align:center; }
+h1 { margin:0 0 4px; font-size:22px; }
+p { margin:0; color:var(--muted); }
+.ctl { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; padding:8px 16px; }
+select { background:#1b2a40; color:var(--fg); border:1px solid #40536d; border-radius:6px; padding:5px 8px; }
+svg { display:block; margin:0 auto; width:min(96vw,900px); height:auto; }
+#info { text-align:center; min-height:22px; padding:6px 16px; color:var(--hot); font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Mersenne prime exponents as circles</h1>
+  <p>Each circle has radius proportional to its exponent p (2<sup>p</sup>−1 prime), relative to the largest.</p>
+</header>
+<div class="ctl">
+  <label>Layout
+    <select id="layout"><option value="rings">Concentric rings</option><option value="row">Side by side</option></select>
+  </label>
+  <label>Scale
+    <select id="scale">
+      <option value="linear">Linear (true size)</option>
+      <option value="sqrt">Area ∝ p</option>
+      <option value="log">Log p</option>
+    </select>
+  </label>
+</div>
+<div id="info">Hover a circle</div>
+<svg id="svg" viewBox="0 0 900 900"></svg>
+<script>
+const P = [2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,
+  9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,
+  1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,
+  30402457,32582657,37156667,42643801,43112609];
+const MAX = P[P.length-1];
+const svg = document.getElementById('svg'), info = document.getElementById('info');
+const NS = 'http://www.w3.org/2000/svg';
+
+function rel(p, scale) {           // 0..1 relative to the largest exponent
+  if (scale === 'linear') return p / MAX;
+  if (scale === 'sqrt')   return Math.sqrt(p / MAX);
+  return Math.log(p) / Math.log(MAX);
+}
+function color(i) { return `hsl(${200 + 160 * i / (P.length - 1)},80%,60%)`; }
+
+function draw() {
+  const layout = document.getElementById('layout').value;
+  const scale  = document.getElementById('scale').value;
+  svg.innerHTML = '';
+  const W = 900, R = 440;
+  let H = 900;
+  const items = P.map((p, i) => ({ p, i, r: Math.max(rel(p, scale) * R, 0.6) }));
+
+  if (layout === 'rings') {
+    // largest first so small ones sit on top and stay hoverable
+    for (const it of [...items].reverse()) add(it, W/2, H/2, true);
+  } else {
+    // left to right, smallest first, wrapping rows; radius still relative to the largest
+    const pad = 6; let x = pad, y = pad, rowH = 0; const rows = [];
+    const placed = items.map(it => {
+      const d = 2 * it.r * 0.5;          // half size so the largest fits a row
+      if (x + d > W - pad) { x = pad; y += rowH + pad; rowH = 0; }
+      const o = { it, cx: x + d/2, cy: y + d/2, d }; x += d + pad; rowH = Math.max(rowH, d);
+      return o;
+    });
+    H = y + rowH + pad;
+    for (const o of placed) add({ ...o.it, r: Math.max(o.d / 2, 0.6) }, o.cx, o.cy, false);
+  }
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+}
+
+function add(it, cx, cy, ring) {
+  const c = document.createElementNS(NS, 'circle');
+  c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', it.r);
+  c.setAttribute('fill', ring ? 'none' : color(it.i));
+  c.setAttribute('fill-opacity', ring ? 0 : 0.75);
+  c.setAttribute('stroke', color(it.i));
+  c.setAttribute('stroke-width', ring ? 1.2 : 0.8);
+  c.style.pointerEvents = ring ? 'stroke' : 'all';
+  c.style.cursor = 'pointer';
+  const msg = `M${it.i + 1}: p = ${it.p.toLocaleString()}  ·  ${(100 * it.p / MAX).toPrecision(3)}% of largest`;
+  c.addEventListener('mouseenter', () => { info.textContent = msg; c.setAttribute('stroke', '#f59e0b'); c.setAttribute('stroke-width', 3); });
+  c.addEventListener('mouseleave', () => { c.setAttribute('stroke', color(it.i)); c.setAttribute('stroke-width', ring ? 1.2 : 0.8); });
+  const t = document.createElementNS(NS, 'title'); t.textContent = msg; c.appendChild(t);
+  svg.appendChild(c);
+}
+
+document.getElementById('layout').onchange = draw;
+document.getElementById('scale').onchange = draw;
+draw();
+</script>
+</body>
+</html>
