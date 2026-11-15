@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mersenne Exponent Dots</title>
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --pink:#f472b6; --accent:#38bdf8; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header { padding:22px 16px 10px; text-align:center; }
+h1 { margin:0 0 6px; font-size:clamp(20px,4vw,28px); }
+header p { margin:0 auto; max-width:760px; color:var(--muted); }
+main { max-width:1100px; margin:auto; padding:10px 16px 28px; display:flex; flex-direction:column; gap:12px; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; }
+.controls { display:flex; flex-wrap:wrap; gap:12px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:140px; }
+.ctl.wide { flex:1 1 260px; }
+label, .lab { color:#b8c8dc; font-size:12px; }
+select, input[type=number] { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 8px; font:inherit; }
+input[type=range] { width:100%; accent-color:var(--accent); }
+button { background:#1b2a40; color:#f4f8ff; border:1px solid #40536d; border-radius:7px; padding:6px 12px; font:inherit; cursor:pointer; white-space:nowrap; }
+button:hover { border-color:var(--accent); }
+.row { display:flex; gap:8px; align-items:center; }
+.check { display:flex; gap:6px; align-items:center; color:#d6e2f2; font-size:13px; }
+.stage { position:relative; width:100%; background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; touch-action:none; cursor:grab; }
+.stage.drag { cursor:grabbing; }
+canvas { display:block; width:100%; height:100%; }
+.tip { position:absolute; left:10px; top:10px; background:rgba(18,30,48,.92); border:1px solid #40536d; border-radius:8px; padding:6px 10px; font-size:13px; pointer-events:none; }
+.zoom { position:absolute; right:10px; top:10px; display:flex; gap:6px; }
+.zoom button { padding:4px 10px; }
+.stats { color:#c9d8ec; }
+.stats b { color:#fff; }
+.key { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+.list { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.list span { background:#16243a; border:1px solid #2a3b55; border-radius:8px; padding:2px 8px; font-size:12px; color:#c9d8ec; }
+.list span b { color:var(--pink); font-weight:600; }
+.note { color:var(--muted); font-size:12.5px; margin:8px 0 0; }
+a { color:var(--accent); }
+@media (max-width:600px) { .ctl { min-width:120px; flex:1 1 40%; } .ctl.wide { flex-basis:100%; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Mersenne exponents among the numbers</h1>
+  <p>Every number from 1 to 500,000 is a dot: row by row in a square, wound into a spiral, stacked as a tree or a triangle, or along a space-filling curve. The pink dots are the Mersenne exponents among them (the k with 2<sup>k</sup> − 1 prime), and the lines link them. In the square a column is a remainder, k mod the width; in the tree the centre line holds the numbers m² + (m + 1)², and 5, 13, 61 and 9,941 sit on it (3.1 expected by chance).</p>
+</header>
+<main>
+  <section class="panel controls">
+    <div class="ctl"><label for="count">Numbers</label><select id="count"><option value="10000">1 to 10,000</option><option value="100000">1 to 100,000</option><option value="500000" selected>1 to 500,000</option><option value="1000000">1 to 1,000,000</option></select></div>
+    <div class="ctl"><label for="layout">Layout</label><select id="layout"><option value="rows" selected>Rows (a square)</option><option value="spiral">Ulam spiral</option><option value="tree">Tree (1, 2, 3, … per row)</option><option value="klauber">Klauber triangle (1, 3, 5, … per row)</option><option value="hex">Hexagonal spiral</option><option value="sacks">Sacks spiral</option><option value="hilbert">Hilbert curve</option><option value="snake">Snake rows</option><option value="diag">Diagonals (Cantor)</option><option value="shells">Square shells</option><option value="morton">Z-order (Morton)</option><option value="peano">Peano curve</option><option value="sunflower">Sunflower (golden angle)</option><option value="polar">Polar: angle n, distance n</option><option value="wheel">Wheel (spokes are remainders)</option><option value="binring">Binary rings</option><option value="doubling">Doubling spiral</option><option value="ulam41">Ulam spiral from 41</option><option value="floyd">Floyd's triangle</option><option value="legendre">Between squares (Legendre)</option><option value="crt">Chinese remainder grid</option><option value="zigzag">Zigzag diagonals</option><option value="moore">Moore curve</option><option value="gray">Gray-code order</option><option value="bitrev">Bit-reversed order</option><option value="btree">Binary tree (heap)</option><option value="decrings">Decimal rings</option><option value="ternrings">Ternary rings</option><option value="theodorus">Spiral of Theodorus</option><option value="omega">Rows by number of prime factors</option><option value="sieverows">Sieve of Eratosthenes (rows)</option><option value="honeycomb">Honeycomb rows</option><option value="diamond">Diamond spiral</option><option value="turtle">Prime turtle (turn at primes)</option><option value="mertens">Mertens walk</option><option value="race4">Prime race mod 4 (walk)</option><option value="liouville">Liouville walk</option></select></div>
+    <div class="ctl"><label for="links">Links</label><select id="links"><option value="all" selected>Every pair</option><option value="chain">In order (2 → 3 → 5 → …)</option><option value="none">None</option></select></div>
+    <div class="ctl"><label for="extra">Also link</label><select id="extra"><option value="none" selected>Nothing</option><option value="primes">The first primes, in order</option><option value="twins">The first twin primes, in order</option></select></div>
+    <div class="ctl" style="min-width:110px"><label for="extraN">How many</label><input id="extraN" type="number" min="2" max="2000" value="50"></div>
+    <div class="ctl wide"><span class="lab">Width: <b id="wLabel">708</b> dots per row</span><div class="row"><input id="width" type="range" min="2" max="2000" step="1" value="708" aria-label="Dots per row"><input id="widthNum" type="number" min="2" max="100000" value="708" style="width:90px" aria-label="Dots per row"><button id="square" type="button">Square</button></div></div>
+    <label class="check"><input id="primes" type="checkbox" checked> Show the primes</label>
+    <label class="check"><input id="twins" type="checkbox"> Twin primes in green</label>
+    <label class="check"><input id="labels" type="checkbox" checked> Numbers at the pink dots</label>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv"></canvas><div class="tip" id="tip" hidden></div><div class="zoom"><button id="testBtn" type="button">Test a line</button><button id="zin" type="button" aria-label="Zoom in">+</button><button id="zout" type="button" aria-label="Zoom out">−</button><button id="zreset" type="button">Reset</button></div></div>
+  <section class="panel">
+    <div class="stats" id="stats"></div>
+    <p class="note" id="forecast" style="color:#d6e2f2"></p>
+    <p class="note" id="lineTest" style="color:#fde68a"></p>
+    <p class="note" id="twinStat" style="color:#d6e2f2"></p>
+    <p class="note" id="why" style="color:#d6e2f2"></p>
+    <div class="list" id="list"></div>
+    <p class="note"><span class="key" style="background:var(--pink)"></span>Mersenne exponent · <span class="key" style="background:#6f8fb8"></span>prime · <span class="key" style="background:#34d399"></span>twin prime (when switched on) · <span class="key" style="background:#26364c"></span>other number. Scroll or pinch to zoom, drag to move; zoomed in far enough, every dot shows its number. The exponents are the known ones (all exponents below 83,880,077 are verified by GIMPS); the page <a href="prime.html">prime.html</a> computes and proves them one after another.</p>
+  </section>
+</main>
+<script>
+"use strict";
+const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841];
+const $=id=>document.getElementById(id);
+const cv=$("cv"),ctx=cv.getContext("2d"),stage=$("stage");
+const S={dw:1,N:500000,w:708,layout:"rows",links:"all",showPrimes:true,labels:true,twins:false,extra:"none",extraN:50,test:{on:false,a:0,b:0,res:null},sieve:null,cols:0,rows:0,pos:null,grid:null,bmp:null,exps:[],view:{s:1,x:0,y:0},dpr:1};
+function sieve(n){const s=new Uint8Array(n+1);s[0]=1;s[1]=1;for(let i=2;i*i<=n;i++)if(!s[i])for(let j=i*i;j<=n;j+=i)s[j]=1;return s;}
+function spiralXY(n){if(n===1)return [0,0];const k=Math.ceil((Math.sqrt(n)-1)/2);let t=2*k+1,m=t*t;t-=1;
+ if(n>=m-t)return [k-(m-n),-k];m-=t;if(n>=m-t)return [-k,-k+(m-n)];m-=t;if(n>=m-t)return [-k+(m-n),k];return [k,k-(m-n-t)];}
+function hilbertXY(side,d){let x=0,y=0,t=d;for(let s=1;s<side;s*=2){const rx=1&(t>>1),ry=1&(t^rx);if(ry===0){if(rx===1){x=s-1-x;y=s-1-y;}const z=x;x=y;y=z;}x+=s*rx;y+=s*ry;t=Math.floor(t/4);}return [x,y];}
+function isTwin(n){return n>2&&!S.sieve[n]&&(!S.sieve[n-2]||!S.sieve[n+2]);}
+function peanoXY(k,d){const t=[];for(let i=0;i<2*k;i++){t.push(d%3);d=Math.floor(d/3);}t.reverse();let x=0,y=0,se=0,so=0;
+ for(let j=0;j<k;j++){const a=t[2*j],b=t[2*j+1];so+=a;const xa=(se&1)?2-a:a,yb=(so&1)?2-b:b;se+=b;x=3*x+xa;y=3*y+yb;}return [x,y];}
+function mortonXY(d){let x=0,y=0;for(let b=0;b<16;b++){x|=((d>>(2*b))&1)<<b;y|=((d>>(2*b+1))&1)<<b;}return [x,y];}
+function polarLayout(pos,N,f){const R=700;S.cols=2*R+4;S.rows=2*R+4;S.fx=new Float64Array(N+1);S.fy=new Float64Array(N+1);const C=R+2;
+ for(let n=1;n<=N;n++){const [r,a]=f(n);S.fx[n]=C+r*Math.cos(a);S.fy[n]=C-r*Math.sin(a);pos[2*n]=Math.max(0,Math.min(S.cols-1,Math.floor(S.fx[n])));pos[2*n+1]=Math.max(0,Math.min(S.rows-1,Math.floor(S.fy[n])));}}
+function l20Moore(k,d){const s=2**(k-1),q=Math.floor(d/(s*s)),r=d%(s*s),[hx,hy]=hilbertXY(s,r),O=[[0,0],[0,1],[1,1],[1,0]];let x,y;if(q===0||q===3){x=s-1-hx;y=s-1-hy;}else{x=hx;y=hy;}return [x+O[q][0]*s,y+O[q][1]*s];}
+function l20Rev(d,B){let r=0;for(let i=0;i<B;i++){r=r*2+(d&1);d=Math.floor(d/2);}return r;}
+function L20(name,N,w,pos,comp){const out={cols:0,rows:0,dw:1,fx:null,fy:null};const put=(n,x,y)=>{pos[2*n]=x;pos[2*n+1]=y;};
+ const isP=n=>n>1&&!comp[n];
+ const flt=(W,H,f)=>{out.cols=W+4;out.rows=H+4;out.fx=new Float64Array(N+1);out.fy=new Float64Array(N+1);for(let n=1;n<=N;n++){const [x,y]=f(n);out.fx[n]=2+x;out.fy[n]=2+y;put(n,Math.max(0,Math.min(out.cols-1,Math.floor(out.fx[n]))),Math.max(0,Math.min(out.rows-1,Math.floor(out.fy[n]))));}};
+ const polar=f=>flt(1400,1400,n=>{const [r,a]=f(n);return [700+r*Math.cos(a),700-r*Math.sin(a)];});
+ const walk=Y=>{let lo=Infinity,hi=-Infinity;for(let n=1;n<=N;n++){lo=Math.min(lo,Y[n]);hi=Math.max(hi,Y[n]);}const sp=Math.max(1,hi-lo);flt(1400,700,n=>[(n-1)/Math.max(1,N-1)*1400,(hi-Y[n])/sp*700]);out.walk={lo,hi};};
+ const spf=()=>{const s=new Int32Array(N+1);for(let i=2;i<=N;i++)if(!s[i])for(let j=i;j<=N;j+=i)if(!s[j])s[j]=i;return s;};
+ const omega=s=>{const o=new Uint8Array(N+1);for(let n=2;n<=N;n++)o[n]=o[n/s[n]]+1;return o;};
+ if(name==="ulam41"){const side=2*Math.ceil((Math.sqrt(Math.max(1,N-40))-1)/2)+1,h=(side-1)/2;out.cols=side;out.rows=side;for(let n=1;n<=N;n++){if(n<41){put(n,-1,-1);continue;}const [x,y]=spiralXY(n-40);put(n,x+h,h-y);}}
+ else if(name==="floyd"){let R=1;while(R*(R+1)/2<N)R++;out.cols=R;out.rows=R;let n=1;for(let r=1;r<=R&&n<=N;r++)for(let j=0;j<r&&n<=N;j++,n++)put(n,j,r-1);}
+ else if(name==="legendre"){const K=Math.floor(Math.sqrt(N));out.cols=K;out.rows=2*K+1;for(let n=1;n<=N;n++){const k=Math.floor(Math.sqrt(n));put(n,k-1,2*K-(n-k*k));}}
+ else if(name==="crt"){const a=Math.max(30,30*Math.floor(Math.sqrt(N)/30));let b=Math.ceil(N/a);const g=(x,y)=>{while(y){[x,y]=[y,x%y];}return x;};while(g(a,b)!==1)b++;out.cols=a;out.rows=b;out.ab=[a,b];for(let n=1;n<=N;n++)put(n,n%a,n%b);}
+ else if(name==="zigzag"){let D=1;while(D*(D+1)/2<N)D++;out.cols=D;out.rows=D;let n=1;for(let d=1;d<=D&&n<=N;d++)for(let j=0;j<d&&n<=N;j++,n++){if(d%2)put(n,j,d-1-j);else put(n,d-1-j,j);}}
+ else if(name==="moore"){let k=1;while(4**k<N)k++;out.cols=2**k;out.rows=2**k;for(let n=1;n<=N;n++){const [x,y]=l20Moore(k,n-1);put(n,x,y);}}
+ else if(name==="gray"){let k=1;while(4**k<N)k++;const side=2**k;out.cols=side;out.rows=side;for(let n=1;n<=N;n++){const d=n-1,g=d^(d>>1);put(n,g%side,Math.floor(g/side));}}
+ else if(name==="bitrev"){let k=1;while(4**k<N)k++;const side=2**k;out.cols=side;out.rows=side;for(let n=1;n<=N;n++){const r=l20Rev(n-1,2*k);put(n,r%side,Math.floor(r/side));}}
+ else if(name==="btree"){const Bm=Math.floor(Math.log2(N))+1;flt(1400,1400,n=>{const b=Math.floor(Math.log2(n))+1,h=2**(b-1);return [(n-h+0.5)/h*1400,(b-1)*1400/Math.max(1,Bm-1)];});}
+ else if(name==="decrings"||name==="ternrings"){const B=name==="decrings"?10:3;let Dm=1;while(B**Dm<=N)Dm++;const c=676/Math.max(1,Dm-1);
+  polar(n=>{let d=1;while(B**d<=n)d++;const h=B**(d-1),cnt=(B-1)*h;return [20+c*(d-1),Math.PI/2-2*Math.PI*(n-h+0.5)/cnt];});}
+ else if(name==="theodorus"){const th=new Float64Array(N+1);for(let n=2;n<=N;n++)th[n]=th[n-1]+Math.atan(1/Math.sqrt(n-1));const c=696/Math.sqrt(N);polar(n=>[c*Math.sqrt(n),th[n]]);}
+ else if(name==="omega"){const s=spf(),o=omega(s);let K=0;const cnt=new Int32Array(40),rk=new Int32Array(N+1);for(let n=1;n<=N;n++){rk[n]=cnt[o[n]]++;if(o[n]>K)K=o[n];}out.rowsCount=Array.from(cnt.slice(0,K+1));
+  flt(1400,1400,n=>[(rk[n]+0.5)/cnt[o[n]]*1400,o[n]*1400/Math.max(1,K)]);}
+ else if(name==="sieverows"){const s=spf(),P=[2,3,5,7,11,13,17,19,23,29,31],row=new Uint8Array(N+1);for(let n=1;n<=N;n++){const i=P.indexOf(s[n]);row[n]=n===1?P.length:i>=0?i:s[n]===n?P.length+1:P.length;}
+  const cnt=new Int32Array(P.length+2),rk=new Int32Array(N+1);for(let n=1;n<=N;n++)rk[n]=cnt[row[n]]++;out.rowsCount=Array.from(cnt);flt(1400,1400,n=>[(rk[n]+0.5)/cnt[row[n]]*1400,row[n]*1400/(P.length+1)]);}
+ else if(name==="honeycomb"){out.dw=2;const R=Math.ceil(N/w);out.cols=2*w+1;out.rows=2*R;for(let n=1;n<=N;n++){const r=Math.floor((n-1)/w);put(n,2*((n-1)%w)+(r%2),2*r);}}
+ else if(name==="diamond"){let M=0;while(2*M*(M+1)+1<N)M++;out.cols=2*M+1;out.rows=2*M+1;put(1,M,M);let n=2;
+  for(let m=1;m<=M&&n<=N;m++){const seg=[[i=>m-i,i=>i],[i=>-i,i=>m-i],[i=>-m+i,i=>-i],[i=>i,i=>-m+i]];for(const [fx,fy] of seg)for(let i=0;i<m&&n<=N;i++,n++)put(n,fx(i)+M,M-fy(i));}}
+ else if(name==="turtle"){const X=new Float64Array(N+1),Y=new Float64Array(N+1),DX=[1,0,-1,0],DY=[0,-1,0,1];let x=0,y=0,dir=0;for(let n=2;n<=N;n++){x+=DX[dir];y+=DY[dir];X[n]=x;Y[n]=y;if(isP(n))dir=(dir+1)%4;}
+  let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;for(let n=1;n<=N;n++){x0=Math.min(x0,X[n]);x1=Math.max(x1,X[n]);y0=Math.min(y0,Y[n]);y1=Math.max(y1,Y[n]);}const sc=1400/Math.max(x1-x0,y1-y0,1);flt(Math.ceil((x1-x0)*sc),Math.ceil((y1-y0)*sc),n=>[(X[n]-x0)*sc,(Y[n]-y0)*sc]);}
+ else if(name==="mertens"){const s=spf(),mu=new Int8Array(N+1);mu[1]=1;for(let n=2;n<=N;n++){const p=s[n],q=n/p;mu[n]=q%p===0?0:-mu[q];}const M=new Float64Array(N+1);for(let n=1;n<=N;n++)M[n]=M[n-1]+mu[n];walk(M);out.series=M;}
+ else if(name==="race4"){const Y=new Float64Array(N+1);for(let n=1;n<=N;n++)Y[n]=Y[n-1]+(isP(n)&&n%4===3?1:isP(n)&&n%4===1?-1:0);walk(Y);out.series=Y;}
+ else if(name==="liouville"){const s=spf(),o=omega(s),Y=new Float64Array(N+1);for(let n=1;n<=N;n++)Y[n]=Y[n-1]+(o[n]%2?-1:1);walk(Y);out.series=Y;}
+ return out;}
+const L20N=["ulam41", "floyd", "legendre", "crt", "zigzag", "moore", "gray", "bitrev", "btree", "decrings", "ternrings", "theodorus", "omega", "sieverows", "honeycomb", "diamond", "turtle", "mertens", "race4", "liouville"];
+function phi(a){let r=a,x=a;for(let p=2;p*p<=x;p++)if(x%p===0){while(x%p===0)x/=p;r-=r/p;}if(x>1)r-=r/x;return r;}
+function build(){
+ const N=S.N;if(!S.sieve)S.sieve=sieve(1000002);
+ S.exps=MEXP.filter(k=>k<=N);
+ const pos=new Int32Array(2*(N+1));
+ S.dw=1;S.fx=null;S.fy=null;
+ if(S.layout==="rows"){S.cols=S.w;S.rows=Math.ceil(N/S.w);for(let n=1;n<=N;n++){pos[2*n]=(n-1)%S.w;pos[2*n+1]=Math.floor((n-1)/S.w);}}
+ else if(S.layout==="tree"){let R=1;while(R*(R+1)/2<N)R++;S.dw=2;S.cols=2*R;S.rows=2*R;let n=1;for(let r=1;r<=R&&n<=N;r++)for(let j=0;j<r&&n<=N;j++,n++){pos[2*n]=R-r+2*j;pos[2*n+1]=2*(r-1);}}
+ else if(S.layout==="klauber"){const R=Math.ceil(Math.sqrt(N));S.cols=2*R-1;S.rows=R;for(let n=1;n<=N;n++){const r=Math.ceil(Math.sqrt(n)),j=n-(r-1)*(r-1)-1;pos[2*n]=R-r+j;pos[2*n+1]=r-1;}}
+ else if(S.layout==="hex"){let M=0;while(1+3*M*(M+1)<N)M++;S.dw=2;S.cols=4*M+2;S.rows=4*M+2;const dir=[[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]];pos[2]=2*M;pos[3]=2*M;let n=2;
+  for(let m=1;m<=M&&n<=N;m++){let q=-m,r=m;for(let i=0;i<6&&n<=N;i++)for(let j=0;j<m&&n<=N;j++,n++){pos[2*n]=2*q+r+2*M;pos[2*n+1]=2*(r+M);q+=dir[i][0];r+=dir[i][1];}}}
+ else if(S.layout==="sacks"){const R=Math.ceil(Math.sqrt(N))+2;S.cols=2*R;S.rows=2*R;S.fx=new Float64Array(N+1);S.fy=new Float64Array(N+1);
+  for(let n=1;n<=N;n++){const rr=Math.sqrt(n),a=2*Math.PI*rr;S.fx[n]=R+rr*Math.cos(a);S.fy[n]=R-rr*Math.sin(a);pos[2*n]=Math.floor(S.fx[n]);pos[2*n+1]=Math.floor(S.fy[n]);}}
+ else if(S.layout==="snake"){S.cols=S.w;S.rows=Math.ceil(N/S.w);for(let n=1;n<=N;n++){const y=Math.floor((n-1)/S.w),x0=(n-1)%S.w;pos[2*n]=y%2?S.w-1-x0:x0;pos[2*n+1]=y;}}
+ else if(S.layout==="diag"){let D=1;while(D*(D+1)/2<N)D++;S.cols=D;S.rows=D;let n=1;for(let d=1;d<=D&&n<=N;d++)for(let j=0;j<d&&n<=N;j++,n++){pos[2*n]=j;pos[2*n+1]=d-1-j;}}
+ else if(S.layout==="shells"){const R=Math.ceil(Math.sqrt(N));S.cols=R;S.rows=R;for(let n=1;n<=N;n++){const r=Math.ceil(Math.sqrt(n)),i=n-(r-1)*(r-1);if(i<=r){pos[2*n]=r-1;pos[2*n+1]=i-1;}else{pos[2*n]=r-1-(i-r);pos[2*n+1]=r-1;}}}
+ else if(S.layout==="morton"){let side=1;while(side*side<N)side*=2;S.cols=side;S.rows=side;for(let n=1;n<=N;n++){const [x,y]=mortonXY(n-1);pos[2*n]=x;pos[2*n+1]=y;}}
+ else if(S.layout==="peano"){let k=1;while(9**k<N)k++;S.cols=3**k;S.rows=3**k;for(let n=1;n<=N;n++){const [x,y]=peanoXY(k,n-1);pos[2*n]=x;pos[2*n+1]=y;}}
+ else if(S.layout==="sunflower"){const ga=Math.PI*(3-Math.sqrt(5)),c=696/Math.sqrt(N);polarLayout(pos,N,n=>[c*Math.sqrt(n),n*ga]);}
+ else if(S.layout==="polar"){const c=696/N;polarLayout(pos,N,n=>[c*n,n]);}
+ else if(S.layout==="wheel"){const rings=Math.ceil(N/S.w),c=666/rings;polarLayout(pos,N,n=>[30+c*Math.floor((n-1)/S.w),Math.PI/2-2*Math.PI*((n-1)%S.w)/S.w]);}
+ else if(S.layout==="binring"){const B=Math.floor(Math.log2(N))+1,c=676/Math.max(1,B-1);polarLayout(pos,N,n=>{const b=Math.floor(Math.log2(n))+1,h=2**(b-1);return [20+c*(b-1),Math.PI/2-2*Math.PI*(n-h+0.5)/h];});}
+ else if(S.layout==="doubling"){const c=681/Math.log2(N);polarLayout(pos,N,n=>{const L=Math.log2(n);return [15+c*L,Math.PI/2-2*Math.PI*L];});}
+ else if(L20N.includes(S.layout)){const o=L20(S.layout,N,S.w,pos,S.sieve);S.cols=o.cols;S.rows=o.rows;S.dw=o.dw;S.fx=o.fx;S.fy=o.fy;S.l20=o;}
+ else if(S.layout==="hilbert"){let side=1;while(side*side<N)side*=2;S.cols=side;S.rows=side;for(let n=1;n<=N;n++){const [x,y]=hilbertXY(side,n-1);pos[2*n]=x;pos[2*n+1]=y;}}
+ else{const side=2*Math.ceil((Math.sqrt(N)-1)/2)+1,h=(side-1)/2;S.cols=side;S.rows=side;for(let n=1;n<=N;n++){const [x,y]=spiralXY(n);pos[2*n]=x+h;pos[2*n+1]=h-y;}}
+ S.pos=pos;S.vis=S.exps.filter(k=>pos[2*k]>=0);const grid=new Int32Array(S.cols*S.rows),D=S.dw;for(let n=1;n<=N;n++)if(pos[2*n]>=0)for(let a=0;a<D;a++)for(let b=0;b<D;b++)grid[(pos[2*n+1]+a)*S.cols+pos[2*n]+b]=n;S.grid=grid;
+ const off=document.createElement("canvas");off.width=S.cols;off.height=S.rows;const o=off.getContext("2d"),img=o.createImageData(S.cols,S.rows),d=img.data;
+ for(let i=0;i<S.cols*S.rows;i++){const n=grid[i],p=4*i;let c;if(!n)c=[14,24,40];else if(S.twins&&isTwin(n))c=[52,211,153];else if(S.showPrimes&&!S.sieve[n])c=[111,143,184];else c=[38,54,76];d[p]=c[0];d[p+1]=c[1];d[p+2]=c[2];d[p+3]=255;}
+ o.putImageData(img,0,0);S.bmp=off;
+}
+function fit(){const r=stage.getBoundingClientRect(),W=r.width,ar=S.rows/S.cols,H=Math.min(Math.max(260,W*ar),window.innerHeight*0.82);stage.style.height=H+"px";
+ S.dpr=window.devicePixelRatio||1;cv.width=Math.round(W*S.dpr);cv.height=Math.round(H*S.dpr);}
+function baseScale(){return Math.min(cv.width/S.cols,cv.height/S.rows);}
+function resetView(){const b=baseScale();S.view={s:b,x:(cv.width-S.cols*b)/2,y:(cv.height-S.rows*b)/2};}
+function toScreen(cx,cy){return [S.view.x+cx*S.view.s,S.view.y+cy*S.view.s];}
+function center(n){return S.fx?toScreen(S.fx[n],S.fy[n]):toScreen(S.pos[2*n]+S.dw/2,S.pos[2*n+1]+S.dw/2);}
+function draw(){
+ const {s,x,y}=S.view;ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle="#0e1828";ctx.fillRect(0,0,cv.width,cv.height);
+ const sd=s*S.dw;
+ if(sd<5){ctx.imageSmoothingEnabled=s<1;ctx.drawImage(S.bmp,x,y,S.cols*s,S.rows*s);}
+ else{const c0=Math.max(0,Math.floor(-x/s)),c1=Math.min(S.cols-1,Math.ceil((cv.width-x)/s)),r0=Math.max(0,Math.floor(-y/s)),r1=Math.min(S.rows-1,Math.ceil((cv.height-y)/s)),rad=sd*0.36;
+  ctx.textAlign="center";ctx.textBaseline="middle";let fd=0;const setFont=n=>{const d=String(n).length;if(d!==fd){fd=d;ctx.font=`${Math.min(13*S.dpr,sd*0.7/(0.58*d))}px system-ui,sans-serif`;}};
+  const dot=(n,px,py)=>{const tw=S.twins&&isTwin(n),pr=tw||(S.showPrimes&&!S.sieve[n]);ctx.fillStyle=tw?"#34d399":pr?"#6f8fb8":"#26364c";ctx.beginPath();ctx.arc(px,py,rad,0,6.2832);ctx.fill();if(sd>=34){setFont(n);ctx.fillStyle=pr?"#0b1220":"#9fb0c6";ctx.fillText(n,px,py);}};
+  if(S.fx){for(let n=1;n<=S.N;n++){const px=x+S.fx[n]*s,py=y+S.fy[n]*s;if(px>-rad&&py>-rad&&px<cv.width+rad&&py<cv.height+rad)dot(n,px,py);}}
+  else for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++){const n=S.grid[r*S.cols+c];if(!n||S.pos[2*n]!==c||S.pos[2*n+1]!==r)continue;const px=x+(c+S.dw/2)*s,py=y+(r+S.dw/2)*s,tw=S.twins&&isTwin(n),pr=tw||(S.showPrimes&&!S.sieve[n]);
+   ctx.fillStyle=tw?"#34d399":pr?"#6f8fb8":"#26364c";ctx.beginPath();ctx.arc(px,py,rad,0,6.2832);ctx.fill();
+   if(sd>=34){setFont(n);ctx.fillStyle=pr?"#0b1220":"#9fb0c6";ctx.fillText(n,px,py);}}}
+ const E=S.vis||S.exps,lw=Math.max(1,0.9*S.dpr);
+ if(S.links!=="none"&&E.length>1){ctx.lineWidth=lw;
+  if(S.links==="all"){ctx.strokeStyle="rgba(244,114,182,0.28)";ctx.beginPath();for(let i=0;i<E.length;i++){const [ax,ay]=center(E[i]);for(let j=i+1;j<E.length;j++){const [bx,by]=center(E[j]);ctx.moveTo(ax,ay);ctx.lineTo(bx,by);}}ctx.stroke();}
+  else{ctx.strokeStyle="rgba(244,114,182,0.85)";ctx.lineWidth=1.6*S.dpr;ctx.beginPath();for(let i=0;i<E.length;i++){const [ax,ay]=center(E[i]);if(i)ctx.lineTo(ax,ay);else ctx.moveTo(ax,ay);}ctx.stroke();}}
+ if(S.extra!=="none"){const L=[];for(let n=2;n<=S.N&&L.length<S.extraN;n++)if(!S.sieve[n]&&S.pos[2*n]>=0&&(S.extra==="primes"||isTwin(n)))L.push(n);
+  if(L.length>1){ctx.strokeStyle=S.extra==="twins"?"rgba(52,211,153,0.9)":"rgba(147,197,253,0.9)";ctx.lineWidth=1.5*S.dpr;ctx.beginPath();L.forEach((n,i)=>{const [px,py]=center(n);if(i)ctx.lineTo(px,py);else ctx.moveTo(px,py);});ctx.stroke();
+   ctx.fillStyle=ctx.strokeStyle;for(const n of L){const [px,py]=center(n);ctx.beginPath();ctx.arc(px,py,Math.max(1.8*S.dpr,sd*0.22),0,6.2832);ctx.fill();}}}
+ const T=S.test;if(T.res&&T.res.nums.length>1){const [ax,ay]=center(T.res.nums[0]),[bx,by]=center(T.res.nums[T.res.nums.length-1]);ctx.strokeStyle="rgba(250,204,21,0.9)";ctx.lineWidth=2*S.dpr;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();}
+ for(const n of [T.a,T.b])if(n){const [px,py]=center(n);ctx.strokeStyle="#facc15";ctx.lineWidth=2.4*S.dpr;ctx.beginPath();ctx.arc(px,py,Math.max(7*S.dpr,sd*0.6),0,6.2832);ctx.stroke();}
+ const R=Math.max(3.2*S.dpr,sd*0.42);ctx.font=`${Math.round(11*S.dpr)}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="bottom";
+ for(const k of E){const [px,py]=center(k);ctx.fillStyle="#f472b6";ctx.strokeStyle="#fde7f3";ctx.lineWidth=1.2*S.dpr;ctx.beginPath();ctx.arc(px,py,R,0,6.2832);ctx.fill();ctx.stroke();
+  if(sd>=34){const d=String(k).length;ctx.save();ctx.textAlign="center";ctx.textBaseline="middle";ctx.font=`600 ${Math.min(13*S.dpr,R*1.4/(0.58*d))}px system-ui,sans-serif`;ctx.fillStyle="#3b0a24";ctx.fillText(k,px,py);ctx.restore();}
+  else if(S.labels){ctx.fillStyle="#fbd5ea";ctx.fillText(k.toLocaleString("en-US"),px+R+2*S.dpr,py-2*S.dpr);}}
+}
+function stats(){const E=S.exps,m=E.length,pairs=m*(m-1)/2,lk=S.links==="all"?pairs:S.links==="chain"?Math.max(0,m-1):0;
+ let extra="";if(S.layout==="rows"){const cols=new Map();for(const k of E){const c=(k-1)%S.w;cols.set(c,(cols.get(c)||0)+1);}let best=0,bc=0;cols.forEach((v,c)=>{if(v>best){best=v;bc=c;}});
+  extra=` Width ${S.w.toLocaleString("en-US")} (${S.rows.toLocaleString("en-US")} rows): the ${m} exponents sit in <b>${cols.size}</b> different columns`+(best>1?`; the fullest column (k ≡ ${(bc+1)%S.w} mod ${S.w}) holds ${best}.`:".");}
+ else if(S.layout!=="spiral"&&S.layout!=="tree")extra="";
+ else if(S.layout==="tree")extra=` Tree: row r holds r numbers and ends at the triangular number r(r + 1)/2, so k sits in row ⌈(√(8k + 1) − 1)/2⌉; ${Math.round(S.rows/2).toLocaleString("en-US")} rows.`;
+ else extra=" Ulam spiral: 1 in the centre, the numbers wind outwards anticlockwise.";
+ $("stats").innerHTML=`<b>${m}</b> Mersenne exponents among the numbers 1 to ${S.N.toLocaleString("en-US")}, <b>${lk.toLocaleString("en-US")}</b> links`+(S.links==="all"?` (every pair: ${m}·${m-1}/2)`:S.links==="chain"?" (each to the next)":"")+`.`+extra;
+ const W={rows:"Why the stripes: a column holds the numbers c, c + w, c + 2w, … (c is its column, w the width). When c and w share a factor d > 1, all of them are multiples of d, so the column has no prime after its first dot. With an even width every second column is dark.",spiral:"Why the lines: the diagonals and the other straight lines of the Ulam spiral are quadratic polynomials in the ring number m, like 4m² + bm + c. Where the polynomial factors (the odd squares (2m + 1)² run down one diagonal) the line has no primes; others are rich in primes.",tree:"Why the last two dots of every row are never prime (from row 4 on): row r ends at r(r + 1)/2, and the dot before it is r(r + 1)/2 − 1 = (r − 1)(r + 2)/2. Both are products of two whole numbers larger than 1: for even r, (r/2)·(r + 1) and (r − 1)·((r + 2)/2); for odd r, r·((r + 1)/2) and ((r − 1)/2)·(r + 2). Only rows 2 and 3 escape (2, 3 and 5). The first dot of a row, (r² − r + 2)/2, has no such factors and is often prime. The centre line holds m² + (m + 1)²; the exponents 5, 13, 61 and 9,941 sit on it, about as many as chance gives (3.1).",klauber:"Why the right edge is dark: row r holds the 2r − 1 numbers after (r − 1)², so it ends at r², which is never prime, and the dot before it is r² − 1 = (r − 1)(r + 1), never prime from row 3 on. Each vertical line is a quadratic polynomial r² − r + c (the centre is r² − r + 1); Euler's r² − r + 41, prime for r = 1 to 41, is one of them, from row 41 down.",hex:"Ring m of the hexagonal spiral holds 6m numbers, so ring m ends at 3m(m + 1) + 1. The straight lines through it are quadratic polynomials in m; where the polynomial factors, the line has no primes.",sacks:"Each number n sits at radius √n and angle 2π√n, one turn per square: the squares m² all lie on the ray to the right of the centre (never prime), and the products m(m + 1) close to the ray to the left (never prime). The curves are quadratic polynomials m² + bm + c.",hilbert:"The numbers follow a space-filling curve that keeps neighbours close, so there are no straight lines of numbers here: the primes look like noise, and so do the exponents.",snake:"Like the rows, but every second row runs from right to left, so a column holds the remainders c and w + 1 − c in turn (c its column, w the width). Their sum w + 1 is odd for an even width, so one of the two is odd and no column is empty: the stripes of the plain rows disappear. For an odd width both have the same parity, and the stripes come back.",diag:"Cantor's diagonals: the d-th diagonal holds d numbers, so this is the tree tilted into a corner. The top row holds the triangular numbers d(d + 1)/2 and the row below it (d − 1)(d + 2)/2, never prime from the fourth diagonal on, for the same reason as in the tree.",shells:"Shell r holds the numbers from (r − 1)² + 1 to r² as an L: down column r, then left along row r. So the left column holds the squares r² (never prime), the column next to it r² − 1 = (r − 1)(r + 1) (never prime from shell 3), the diagonal r² − r + 1, and the top row the numbers m² + 1, of which nobody knows whether infinitely many are prime (one of Landau's four problems).",morton:"Z-order: the binary digits of n − 1 go alternately to the column and the row. Its last digit is the column's parity and the one before it the row's, so every odd number, and every prime but 2, sits in an even column; primes ≡ 1 (mod 4) in even rows and primes ≡ 3 (mod 4) in odd rows. Every 4 × 4 block holds 16 consecutive numbers.",peano:"Peano's curve of 1890, the first space-filling curve: the numbers wind through the square in base 3, so neighbours stay close and there are no straight lines; the primes look like noise, and so do the exponents.",sunflower:"Vogel's sunflower: n at radius √n and angle n times the golden angle (137.5°), like the seeds of a sunflower, so every number gets the same space. Neighbouring seeds differ by Fibonacci numbers (21, 34, 55, 89, …), so the arms you see are remainders modulo a Fibonacci number; for an even one like 34, the arms of the even remainders hold no primes but 2.",polar:"n at angle n radians and distance n. Since 44 radians is just short of 7 turns, numbers 44 apart lie on slowly turning arms: 44 arms, one per remainder mod 44, and only the 20 remainders that share no factor with 44 hold primes. Further out the same happens with 710 radians, very nearly 113 turns: 710 arms, 280 of them with primes.",wheel:"The rows wound into a wheel: spoke c holds the numbers ≡ c mod w (w the width) and each ring the next w numbers. Spokes whose remainder shares a factor with w hold no primes but that factor; try a width of 6, 30 or 210.",binring:"Ring b holds the 2^(b − 1) numbers with b binary digits, from 2^(b − 1) at the top round to 2^b − 1 just before it. So every Mersenne number 2^b − 1 sits at the end of its ring, and an exponent k in ring ⌊log₂ k⌋ + 1.",doubling:"n at radius and angle by log₂ n: one turn per doubling, so the powers of 2 line up on the ray to the top and the Mersenne numbers 2^b − 1 just before it. The angle of an exponent k is the fractional part of log₂ k; whether the exponents prefer some angle was tested, and they do not (p = 0.24).",ulam41:"The Ulam spiral started at 41 (the numbers below 41 are left out): Euler's m² + m + 41 runs down one diagonal and is prime for every m from 0 to 39, all 40 of them. Rabinowitsch (1913) tied this record to 163 = 4·41 − 1; further down, the same diagonal stays rich in primes.",
+floyd:"Floyd's triangle: row r holds r numbers, left-aligned, so the right edge is the triangular numbers r(r + 1)/2 and the dot before it (r − 1)(r + 2)/2, never prime from row 4 on, as in the tree.",
+legendre:"Column k holds the numbers from k² (at the bottom) up to k² + 2k, the stretch before the next square. The bottom row is the squares and the top of each column k(k + 2), never prime; the row above the bottom is k² + 1 (whether infinitely many of those are prime is one of Landau's four open problems). Legendre's conjecture says every column holds a prime; it is open, and true for every column here.",
+crt:`Number n sits in column n mod ${S.l20&&S.l20.ab?S.l20.ab[0]:"a"} and row n mod ${S.l20&&S.l20.ab?S.l20.ab[1]:"b"}; the two share no factor, so by the Chinese remainder theorem every cell holds exactly one number. A column whose remainder shares a factor with ${S.l20&&S.l20.ab?S.l20.ab[0]:"a"} holds no prime except that factor itself: only φ(${S.l20&&S.l20.ab?S.l20.ab[0]:"a"}) = ${S.l20&&S.l20.ab?phi(S.l20.ab[0]):""} of the columns can.`,
+zigzag:"Cantor's diagonals in zigzag, the order in which JPEG reads a block: every number sits next to the one before it, and the two edges hold the triangular numbers d(d + 1)/2 and the numbers right after them, in turn.",
+moore:"Moore's curve, the closed form of Hilbert's: four Hilbert curves joined so that the full curve is a loop. Neighbours stay close and there are no straight lines; the primes look like noise, and so do the exponents.",
+gray:"Number n sits at the cell numbered by the Gray code of n − 1 (d XOR ⌊d/2⌋, reading the square row by row), so consecutive numbers differ in one bit of their cell number. The last bit of the Gray code is the second-to-last bit of n − 1, so primes ≡ 1 (mod 4) fall in even columns and primes ≡ 3 (mod 4) in odd ones.",
+bitrev:"Number n sits at the cell whose number is n − 1 with its binary digits reversed. The last digit of n − 1 becomes the first, so every odd number, and so every prime but 2, sits in the top half; the next digit splits them by mod 4 into quarters, and so on: the picture is a map of the last binary digits.",
+btree:"The binary tree in heap order: row b holds the 2^(b − 1) numbers with b binary digits, and n has the children 2n and 2n + 1 in the row below. The left edge holds the powers of 2 and the right edge the Mersenne numbers 2^b − 1.",
+decrings:"Ring d holds the numbers with d decimal digits, from 10^(d − 1) at the top round to 99…9 just before it.",
+ternrings:"Ring d holds the numbers with d digits in base 3, from 3^(d − 1) at the top round to 3^d − 1 just before it.",
+theodorus:"Theodorus' spiral: right triangles with legs √n and 1 placed edge to edge, so n sits at distance √n and each step turns by arctan(1/√n). Unlike the Sacks spiral the squares do not line up, and the gap between the arms settles to π.",
+omega:`Row k holds the numbers with k prime factors counted with multiplicity (Ω(n) = k), in order. Row 1 is the primes, so every exponent sits in it. ${S.l20&&S.l20.rowsCount?"Here the rows hold "+S.l20.rowsCount.slice(1,7).map((c,i)=>(i+1)+": "+c.toLocaleString("en-US")).join(", ")+", …;":""} Landau's formula puts the fullest row near k = 1 + ln ln N.`,
+sieverows:"The sieve of Eratosthenes as rows: row p holds the numbers whose smallest prime factor is p (half of all numbers in row 2, a third of the rest in row 3, and so on up to 31), the next row 1 and the numbers whose smallest factor is 37 or more, and the last row the primes from 37 on, which the sieve leaves standing.",
+honeycomb:"Rows of width w with every second row shifted by half a dot, like a honeycomb. Each dot touches n ± 1 in its row and two dots in the rows above and below; going down to the right alternates steps of w and w + 1, and down to the left steps of w − 1 and w, so the slanted lines climb by 2w + 1 and 2w − 1 every two rows.",
+diamond:"A spiral of diamonds: ring m holds the 4m numbers with |x| + |y| = m, so ring m ends at 1 + 2m(m + 1) = m² + (m + 1)², and those ring ends line up on the row just below the centre.",
+turtle:"A turtle walks one step per number and turns left at every prime. Long straight runs are long prime gaps, and a pair of twin primes turns it twice within two steps; the path is a picture of the prime gaps, and the exponents are where the turtle stood at those numbers.",
+mertens:`Height is M(n), the running sum of the Möbius function: +1 for a squarefree n with an even number of prime factors, −1 for an odd number, 0 when a square divides n; every prime steps down by one. Mertens conjectured |M(n)| < √n; it holds here${S.l20&&S.l20.walk?" (M stays between "+S.l20.walk.lo+" and "+S.l20.walk.hi+")":""}, but Odlyzko and te Riele proved in 1985 that it fails somewhere far beyond.`,
+race4:"Height is the number of primes ≡ 3 (mod 4) up to n minus the number ≡ 1 (mod 4): Chebyshev's bias keeps the walk above zero almost always. It first dips below at 26,861 (Leech, 1957), and only briefly.",
+liouville:"Height is L(n), the running sum of λ(n) = (−1)^Ω(n). Pólya conjectured L(n) ≤ 0 from n = 2 on; the first exception is 906,150,257 (Tanaka, 1980), far beyond this page, so here the walk never rises above zero after n = 1."};
+ $("why").textContent=W[S.layout];
+ if(S.extra!=="none"){let c=0,last=0;for(let n=2;n<=S.N&&c<S.extraN;n++)if(!S.sieve[n]&&(S.extra==="primes"||isTwin(n))){c++;last=n;}$("stats").innerHTML+=` Also linked: the first ${c} ${S.extra==="twins"?"twin primes":"primes"} in order, up to ${last.toLocaleString("en-US")} (${S.extra==="twins"?"green":"light blue"}).`;}
+ let tw=0,ew=0;const g=Math.exp(0.5772156649015329);for(let n=3;n<=S.N;n++)if(isTwin(n)){tw++;ew+=n<=7?1:Math.min(1,g*Math.log2((n%4===1?6:2)*n)/n);}const te=E.filter(isTwin);
+ $("twinStat").innerHTML=S.twins?`<span class="key" style="background:#34d399"></span><b>${tw.toLocaleString("en-US")}</b> twin primes (p − 2 or p + 2 also prime) up to ${S.N.toLocaleString("en-US")}; ${te.length} of the ${m} exponents are among them (${te.join(", ")}); chance, by the Wagstaff heuristic, gives about ${ew.toFixed(1)}, so twin primes are no better a guess than other primes.`:"";
+ $("list").innerHTML=E.map((k,i)=>{const nx=MEXP[i+1],f=fcText(k),u=nx?1-Math.exp(-fcLam(k,nx)):0;return `<span title="Forecast for the next exponent after ${k.toLocaleString("en-US")}: around ${big(f[2])}; half the chance between ${big(f[1])} and ${big(f[3])}, 90% between ${big(f[0])} and ${big(f[4])}.`+(nx?` The next one, ${nx.toLocaleString("en-US")}, came at ${u.toFixed(2)} of the forecast.`:"")+`">${i+1}. <b>${k.toLocaleString("en-US")}</b></span>`;}).join("");
+ forecastPara();}
+function wHeur(p){return p<=7?1:Math.min(1,Math.exp(0.5772156649015329)*Math.log2((p%4===1?6:2)*p)/p);}
+function poisTail(o,e){if(o<=0)return 1;let term=Math.exp(-e),cdf=term;for(let i=1;i<o;i++){term*=e/i;cdf+=term;}return Math.max(0,1-cdf);}
+function gcd(a,b){while(b){[a,b]=[b,a%b];}return a;}
+function testLine(a,b){const T=S.test,out=$("lineTest");T.a=a;T.b=b;T.res=null;
+ if(S.fx){out.textContent="The line test works on the layouts with a grid (rows, spirals except Sacks, trees, triangles, curves); on the round layouts a line has no exact set of numbers.";draw();return;}
+ const x1=S.pos[2*a],y1=S.pos[2*a+1],x2=S.pos[2*b],y2=S.pos[2*b+1],g=gcd(Math.abs(x2-x1),Math.abs(y2-y1));
+ if(!g){out.textContent="Pick two different dots.";draw();return;}
+ const sx=(x2-x1)/g,sy=(y2-y1)/g,inb=(x,y)=>x>=0&&y>=0&&x<S.cols&&y<S.rows;let x=x1,y=y1;while(inb(x-sx,y-sy)){x-=sx;y-=sy;}
+ const nums=[];for(;inb(x,y);x+=sx,y+=sy){const n=S.grid[y*S.cols+x];if(n&&S.pos[2*n]===x&&S.pos[2*n+1]===y)nums.push(n);}
+ let pr=0,E=0;const ex=[];for(const n of nums){if(n>1&&!S.sieve[n]){pr++;E+=wHeur(n);}if(S.exps.includes(n))ex.push(n);}
+ const pv=poisTail(ex.length,E);T.res={nums,ex};
+ out.innerHTML=`<b>Line through ${a.toLocaleString("en-US")} and ${b.toLocaleString("en-US")}</b>: ${nums.length.toLocaleString("en-US")} numbers on it, ${pr.toLocaleString("en-US")} of them prime; `+
+  `<b>${ex.length}</b> Mersenne exponent${ex.length===1?"":"s"}${ex.length?" ("+ex.map(k=>k.toLocaleString("en-US")).join(", ")+")":""}. Chance, by the heuristic e^γ·log₂(a·p)/p for these primes (a = 6 for p ≡ 1, a = 2 for p ≡ 3 mod 4), gives <b>${E.toFixed(2)}</b>; `+
+  `the chance of ${ex.length} or more is <b>${pv<0.001?pv.toExponential(1):pv.toFixed(3)}</b>. That number is fair only for a line chosen before looking; a line picked because it looks striking is one of a great many, and all lines of all widths were tested at once: none stands out.`;
+ draw();}
+const FC={H:null,EG:Math.exp(0.5772156649015329),C:Math.log2(Math.sqrt(12)),X:1000000};
+function fcPrefix(){if(FC.H)return FC.H;const H=new Float64Array(FC.X+1);let s=0;for(let q=2;q<=FC.X;q++){if(!S.sieve[q])s+=FC.EG*Math.log2((q%4===1?6:2)*q)/q;H[q]=s;}FC.H=H;return H;}
+function fcClosed(p,y){return FC.EG*(Math.log2(y/p)+FC.C*Math.log(Math.log(y)/Math.log(p)));}
+function fcLam(p,y){const H=fcPrefix(),X=FC.X;if(p>=X)return fcClosed(p,y);if(y<=X)return H[Math.floor(y)]-H[Math.floor(p)];return H[X]-H[Math.floor(p)]+fcClosed(X,y);}
+function fcQuant(p,L){const H=fcPrefix(),X=FC.X,T=-Math.log1p(-L);
+ if(p<X&&H[X]-H[Math.floor(p)]>=T){let lo=Math.floor(p),hi=X;while(hi-lo>1){const m=(lo+hi)>>1;if(H[m]-H[Math.floor(p)]>=T)hi=m;else lo=m;}return hi;}
+ const p0=Math.max(p,X),R=T-(p<X?H[X]-H[Math.floor(p)]:0);let y=p0*Math.pow(2,R/FC.EG);
+ for(let i=0;i<60;i++){const f=fcClosed(p0,y)-R,d=FC.EG/Math.LN2*(1+FC.C*Math.LN2/Math.log(y))/y,dy=f/d;y-=dy;if(Math.abs(dy)<1e-12*y)break;}return Math.round(y);}
+function fcText(p){const q=[0.05,0.25,0.5,0.75,0.95].map(L=>fcQuant(p,L));return q;}
+function big(n){return n>=1e6?(n/1e6).toFixed(1)+" million":n.toLocaleString("en-US");}
+function forecastPara(){const a=82589933,b=136279841,T=142869329,f1=fcText(a),u=1-Math.exp(-fcLam(a,b)),f2=fcText(T-1);
+ $("forecast").innerHTML=`<b>Where the next one lies</b> (the heuristic as a forecast, treating the exponents as points on the number line): from no. 51, 82,589,933, the next exponent was expected around ${big(f1[2])} (half the chance between ${big(f1[1])} and ${big(f1[3])}); no. 52, 136,279,841, came at ${u.toFixed(2)} of that forecast, an ordinary step. `+
+ `GIMPS has tested every exponent below 142,869,329 at least once (milestones, 15 November 2026), so no. 53 is expected around <b>${big(f2[2])}</b>: half the chance between ${big(f2[1])} and ${big(f2[3])}, 90% between ${big(f2[0])} and ${big(f2[4])}. `+
+ `Of the 50 verified steps, 46 fell inside their 90% interval (45 expected), and the largest surprise, 127 → 521, is no larger than the largest of 50 random steps tends to be. Hover over an exponent below to see its forecast.`;}
+function full(){build();fit();resetView();if(S.test.a&&S.test.b)testLine(S.test.a,S.test.b);draw();stats();}
+function fromURL(){const q=new URLSearchParams(location.search),L=q.get("layout"),n=Number(q.get("n")),w=Number(q.get("width")),k=q.get("links");
+ if(L&&[...$("layout").options].some(o=>o.value===L)){$("layout").value=L;S.layout=L;}
+ if([10000,100000,500000,1000000].includes(n)){$("count").value=String(n);S.N=n;S.w=Math.ceil(Math.sqrt(n));}
+ if(w>=2&&w<=100000)S.w=Math.round(w);if(k&&["all","chain","none"].includes(k)){$("links").value=k;S.links=k;}
+ if(q.get("twins")==="1"){$("twins").checked=true;S.twins=true;}
+ const ex=q.get("extra"),en=Number(q.get("count"));if(ex&&["none","primes","twins"].includes(ex)){$("extra").value=ex;S.extra=ex;}if(en>=2&&en<=2000){S.extraN=Math.round(en);$("extraN").value=S.extraN;}
+ $("width").value=Math.min(2000,S.w);$("widthNum").value=S.w;$("wLabel").textContent=S.w.toLocaleString("en-US");
+ ["width","widthNum","square"].forEach(id=>$(id).disabled=!["rows","snake","wheel","honeycomb"].includes(S.layout));}
+fromURL();
+function setWidth(v){v=Math.max(2,Math.min(100000,Math.round(Number(v))||708));S.w=v;$("width").value=Math.min(2000,v);$("widthNum").value=v;$("wLabel").textContent=v.toLocaleString("en-US");full();}
+$("count").addEventListener("change",e=>{S.N=Number(e.target.value);setWidth(Math.ceil(Math.sqrt(S.N)));});
+$("layout").addEventListener("change",e=>{S.layout=e.target.value;["width","widthNum","square"].forEach(id=>$(id).disabled=!["rows","snake","wheel","honeycomb"].includes(S.layout));full();});
+$("links").addEventListener("change",e=>{S.links=e.target.value;draw();stats();});
+$("width").addEventListener("input",e=>setWidth(e.target.value));
+$("widthNum").addEventListener("change",e=>setWidth(e.target.value));
+$("square").addEventListener("click",()=>setWidth(Math.ceil(Math.sqrt(S.N))));
+$("primes").addEventListener("change",e=>{S.showPrimes=e.target.checked;build();draw();});
+$("labels").addEventListener("change",e=>{S.labels=e.target.checked;draw();});
+$("extra").addEventListener("change",e=>{S.extra=e.target.value;draw();stats();});
+$("extraN").addEventListener("change",e=>{let v=Math.round(Number(e.target.value))||50;v=Math.max(2,Math.min(2000,v));e.target.value=v;S.extraN=v;draw();stats();});
+$("twins").addEventListener("change",e=>{S.twins=e.target.checked;build();draw();stats();});
+function zoomAt(f,sx,sy){const v=S.view,b=baseScale(),ns=Math.max(b*0.5,Math.min(80*S.dpr,v.s*f));v.x=sx-(sx-v.x)*ns/v.s;v.y=sy-(sy-v.y)*ns/v.s;v.s=ns;draw();}
+$("zin").addEventListener("click",()=>zoomAt(1.6,cv.width/2,cv.height/2));
+$("zout").addEventListener("click",()=>zoomAt(1/1.6,cv.width/2,cv.height/2));
+$("zreset").addEventListener("click",()=>{resetView();draw();});
+$("testBtn").addEventListener("click",()=>{const T=S.test;T.on=!T.on;T.a=0;T.b=0;T.res=null;$("testBtn").textContent=T.on?"Click two dots…":"Test a line";$("lineTest").textContent=T.on?"Click two dots: the page counts the Mersenne exponents on the straight line through them.":"";draw();});
+stage.addEventListener("wheel",e=>{e.preventDefault();const r=cv.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*0.0015),(e.clientX-r.left)*S.dpr,(e.clientY-r.top)*S.dpr);},{passive:false});
+const pts=new Map();let last=null,pinch=null;
+let downAt=null;
+stage.addEventListener("pointerdown",e=>{downAt=[e.clientX,e.clientY];stage.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);stage.classList.add("drag");last=[e.clientX,e.clientY];if(pts.size===2){const [a,b]=[...pts.values()];pinch=Math.hypot(a[0]-b[0],a[1]-b[1]);}});
+stage.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();
+ if(pts.has(e.pointerId)){pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pts.size===2&&pinch){const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);zoomAt(d/pinch,((a[0]+b[0])/2-r.left)*S.dpr,((a[1]+b[1])/2-r.top)*S.dpr);pinch=d;}
+  else if(last){S.view.x+=(e.clientX-last[0])*S.dpr;S.view.y+=(e.clientY-last[1])*S.dpr;last=[e.clientX,e.clientY];draw();}}
+ const cx=Math.floor(((e.clientX-r.left)*S.dpr-S.view.x)/S.view.s),cy=Math.floor(((e.clientY-r.top)*S.dpr-S.view.y)/S.view.s),tip=$("tip");
+ const n=(cx>=0&&cy>=0&&cx<S.cols&&cy<S.rows)?S.grid[cy*S.cols+cx]:0;
+ if(n){const ex=S.exps.indexOf(n);tip.hidden=false;tip.innerHTML=`<b>${n.toLocaleString("en-US")}</b> · `+(ex>=0?`<span style="color:#f472b6">Mersenne exponent no. ${ex+1}</span>`+(isTwin(n)?" · twin prime":""):S.sieve[n]?"not prime":isTwin(n)?"twin prime":"prime")+(S.layout==="rows"?` · row ${cy+1}, column ${cx+1}`:S.layout==="tree"?` · row ${S.pos[2*n+1]/2+1}, number ${n-(S.pos[2*n+1]/2)*(S.pos[2*n+1]/2+1)/2} in its row`:"");}else tip.hidden=true;});
+const up=e=>{if(S.test.on&&downAt&&Math.hypot(e.clientX-downAt[0],e.clientY-downAt[1])<5&&pts.size===1){const r=cv.getBoundingClientRect(),cx=Math.floor(((e.clientX-r.left)*S.dpr-S.view.x)/S.view.s),cy=Math.floor(((e.clientY-r.top)*S.dpr-S.view.y)/S.view.s);
+  const n=(cx>=0&&cy>=0&&cx<S.cols&&cy<S.rows)?S.grid[cy*S.cols+cx]:0;if(n){if(!S.test.a||S.test.b){S.test.a=n;S.test.b=0;S.test.res=null;$("lineTest").textContent=`First dot: ${n.toLocaleString("en-US")}. Now click a second dot.`;draw();}else testLine(S.test.a,n);}}
+ downAt=null;pts.delete(e.pointerId);if(pts.size<2)pinch=null;if(!pts.size){last=null;stage.classList.remove("drag");}else last=[...pts.values()][0];};
+stage.addEventListener("pointerup",up);stage.addEventListener("pointercancel",up);stage.addEventListener("pointerleave",()=>{$("tip").hidden=true;});
+window.addEventListener("resize",()=>{fit();resetView();draw();});
+full();
+</script>
+</body>
+</html>
