@@ -1,4 +1,4 @@
-const LSN=["quadform","eisenstein","mersieve","gaptowers","polyspiral","digitrows","chebrace","totient","goldbach","dickman","primroot","pili","ord2","wieferich","cunningham"],LSW=["gaptowers"],LSP=["quadform","mersieve","polyspiral","digitrows","chebrace"];
+const LSN=["quadform","eisenstein","mersieve","gaptowers","polyspiral","digitrows","chebrace","totient","goldbach","dickman","primroot","pili","ord2","wieferich","cunningham","llres"],LSW=["gaptowers"],LSP=["quadform","mersieve","polyspiral","digitrows","chebrace","llres"];
 function lsClassNo(D){let h=0,am=0;for(let a=1;3*a*a<=-D;a++)for(let b=-a+1;b<=a;b++){if((b*b-D)%(4*a))continue;const c=(b*b-D)/(4*a);if(c<a||(b<0&&a===c))continue;if(gcd(gcd(a,Math.abs(b)),c)===1){h++;if(b===0||b===a||a===c)am++;}}return [h,am];}
 function lsLi(x){if(x<=2)return 0;const g=0.5772156649015329,L=Math.log(x);let s=g+Math.log(L),t=1;for(let k=1;k<200;k++){t*=L/k;const d=t/k;s+=d;if(d<1e-15*s)break;}return s-1.0451637801174928;}
 function lsLiF(x){const L=Math.log(x);let s=0.5772156649015329+Math.log(L),t=1;for(let k=1;k<300;k++){t*=L/k;const d=t/k;s+=d;if(Math.abs(d)<1e-15*Math.abs(s)+1e-300)break;}return s;}
@@ -76,6 +76,11 @@ function LS(name,N,w,P,pos,comp){const out={cols:0,rows:0,dw:1,fx:null,fy:null};
   for(const k of E)if(k>3&&k%4===3&&len[k]>1)eu++;for(let n=3;n<=N;n++)pred+=1/(Math.log(n)*Math.log(2*n+1));pred*=1.3203236316937391;
   const st=1396/mx;hid(1400,1400,n=>!isP(n)?null:[(n-1)/Math.max(1,N-1)*1396,(len[n]-1)*st+((n*0.6180339887498949)%1)*0.62*st]);
   const sgE=E.filter(k=>k>3&&len[k]>1),mxs=[];for(let p=2;p<=N&&mxs.length<8;p++)if(isP(p)&&len[p]===mx)mxs.push(p);out.cu={mx,mxp,mxs,sg,pred,cnt:Array.from(cnt.slice(1,mx+1)),eu,sgE};out.tip=n=>isP(n)?` · chain of ${len[n]} from here: ${n.toLocaleString("en-US")}`+(len[n]>1?` → ${(2*n+1).toLocaleString("en-US")}`+(len[n]>2?" → …":""):""):"";}
+ else if(name==="llres"){const lim=Math.min(N,3000,Math.max(100,100*Math.round(P))),y=new Float64Array(N+1).fill(NaN),zeros=[],signs=[];let tot=0,ks=0;const ys=[];
+  for(let p=3;p<=lim;p++){if(!isP(p))continue;const B=BigInt(p),M=(1n<<B)-1n;let s=4n,prev=4n;for(let i=0;i<p-2;i++){prev=s;s=s*s-2n;s=(s&M)+(s>>B);if(s>=M)s-=M;if(s<0n)s+=M;}
+   const top=p>60?Number(s>>(B-53n))/2**53:Number(s)/Number(M);y[p]=top;tot++;if(s===0n){zeros.push(p);const h=(1n<<BigInt((p+1)/2))%M;signs.push(prev===h?"+":prev===(M-h)%M?"−":"?");}else ys.push(top);}
+  ys.sort((a,b)=>a-b);for(let i=0;i<ys.length;i++)ks=Math.max(ks,Math.abs(ys[i]-i/ys.length),Math.abs(ys[i]-(i+1)/ys.length));
+  out.dw=2;hid(1400,1400,n=>Number.isNaN(y[n])?null:[(n-1)/Math.max(1,lim-1)*1396,(1-y[n])*1396]);out.ll={lim,tot,zeros,signs,ks,nz:ys.length};out.tip=n=>Number.isNaN(y[n])?"":(y[n]===0?` · Lucas–Lehmer residue 0: 2^${n} − 1 is prime`:` · residue / (2^${n} − 1) = ${y[n].toFixed(4)}`);}
  else if(name==="totient"){const s=spf(),ph=new Float64Array(N+1);ph[1]=1;for(let n=2;n<=N;n++){const p=s[n],q=n/p;ph[n]=q%p===0?ph[q]*p:ph[q]*(p-1);}
   hid(1400,1400,n=>[(n-1)/Math.max(1,N-1)*1396,(1-ph[n]/n)*1396]);out.tip=n=>` · φ(n)/n = ${(ph[n]/n).toFixed(4)}`;}
  return out;}

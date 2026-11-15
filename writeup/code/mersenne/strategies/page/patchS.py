@@ -12,7 +12,7 @@ def rep(old, new, count=1):
     t = t.replace(old, new)
 OPTS = [('quadform', 'Sums a² + P·b² (Fermat, Gauss)'), ('eisenstein', 'Sums a² + ab + b² (hexagonal)'), ('mersieve', 'Mersenne factor sieve (row k: 2kp + 1)'),
         ('gaptowers', 'Gap towers (a column per prime)'), ('polyspiral', 'Polygon spiral (P sides)'), ('digitrows', 'Rows by digit sum (base P)'),
-        ('chebrace', 'Race of squares mod P (walk)'), ('totient', 'Totient: height φ(n)/n'), ('goldbach', "Goldbach's comet"), ('dickman', 'Largest prime factor (Dickman)'), ('primroot', 'Least primitive root (Artin)'), ('pili', 'π(n) − li(n) (walk)'), ('ord2', 'Order of 2 mod q (Mersenne factors)'), ('wieferich', 'Fermat quotients (Wieferich primes)'), ('cunningham', 'Cunningham chains p → 2p + 1')]
+        ('chebrace', 'Race of squares mod P (walk)'), ('totient', 'Totient: height φ(n)/n'), ('goldbach', "Goldbach's comet"), ('dickman', 'Largest prime factor (Dickman)'), ('primroot', 'Least primitive root (Artin)'), ('pili', 'π(n) − li(n) (walk)'), ('ord2', 'Order of 2 mod q (Mersenne factors)'), ('wieferich', 'Fermat quotients (Wieferich primes)'), ('cunningham', 'Cunningham chains p → 2p + 1'), ('llres', 'Lucas–Lehmer residues (100·P primes)')]
 rep('<option value="twinwave">Wave that grows with the twin primes</option></select>',
     '<option value="twinwave">Wave that grows with the twin primes</option>' + ''.join(f'<option value="{v}">{l}</option>' for v, l in OPTS) + '</select>')
 rep('function sqW(){', ls + '\n' + notes + '\nfunction sqW(){')

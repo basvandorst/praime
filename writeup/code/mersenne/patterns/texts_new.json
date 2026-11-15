@@ -1,6 +1,21 @@
 {
- "_intro": "Fifteen layouts added in one night, each built on a theorem or a famous conjecture. Every note on the page computes its numbers live for the chosen parameter and checks its own rule (counts of exceptions are printed); every number below was recomputed by a separate script, in Python with numpy or sympy, independently of the page's JavaScript. The headline: each pattern is exactly what number theory predicts, including three Chebyshev biases (prime squares again), and the Mersenne exponents behave like random primes in all fifteen.",
+ "_intro": "Sixteen layouts added in one night, each built on a theorem or a famous conjecture. Every note on the page computes its numbers live for the chosen parameter and checks its own rule (counts of exceptions are printed); every number below was recomputed by a separate script, in Python with numpy or sympy, independently of the page's JavaScript. The headline: each pattern is exactly what number theory predicts, including three Chebyshev biases (prime squares again), and the Mersenne exponents behave like random primes in all sixteen.",
  "cards": [
+  {
+   "id": "llres",
+   "name": "Lucas–Lehmer residues",
+   "q": "layout=llres&amp;period=30&amp;links=none",
+   "imgs": [
+    "r_llres.jpg",
+    "r_llres_z.jpg"
+   ],
+   "short": "The only test that touches exactly the exponents: residue 0 there, uniform noise elsewhere",
+   "verdict": "theorem (Lucas–Lehmer)",
+   "seen": "A uniform scatter, and the exponents on the bottom edge.",
+   "explained": "s₀ = 4, s ← s² − 2 mod 2^p − 1; 2^p − 1 is prime exactly when s_(p−2) = 0. For the other primes the final residue, divided by 2^p − 1, behaves like a random number in [0, 1). At an exponent the step before is s_(p−3) = ±2^((p+1)/2), the Lehmer symbol.",
+   "checked": "With gmpy2, for the 429 odd primes up to 3,000: residue 0 exactly at the 16 exponents 3 to 2,281; the other 413 residues are uniform (Kolmogorov–Smirnov 0.033, 5% critical value 0.067); the signs + + − + − − + + − − + − − − + − agree with OEIS A123271.",
+   "exponents": "This is the answer to the question the night started from: an algorithm that touches only the exponents exists, and it is this one; every pattern in the other 68 layouts treats the exponents as random primes."
+  },
   {
    "id": "quadform",
    "name": "Sums a² + P·b² (Fermat, Gauss)",
