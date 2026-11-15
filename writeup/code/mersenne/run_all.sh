@@ -28,3 +28,16 @@ $P rate.py 10000 100000 > rate.txt; $P rate.py 100000 10000 >> rate.txt
 # 4. the page's engine, cut out of ../riemann/prime.html, against the list, BigInt and gmpy2; the readable engine's own test
 (cd engine && run node page_check.js > page_check.json 2> page_check.txt && run $P page_check.py < page_check.json >> page_check.txt \
   && run node test_best.js > test_best.txt)
+
+# 5. the exponents as plain numbers: successor maps, closed formulas, OEIS, the page's transformations (numbers/)
+(cd numbers && run $P seqs.py 250 250 > seqs.out \
+  && for s in d1 d2 d3 tt inv-d1 inv-d2 inv-d3; do run $P search.py $s > log_$s.txt; done \
+  && run $P report.py && run $P formulas.py && run $P formulas_params.py && run $P formulas_oos.py > formulas_oos.txt \
+  && run $P oeis.py && run node page142.js > page142.json && run $P page142_report.py && run $P verify.py > verify.txt \
+  && run $P a366029.py 4500 > a366029.txt)
+
+# 6. integer relations, bit strings, bases, growth (relations/)
+(cd relations && run $P gen_nulls.py 500 \
+  && run $P angle1_linrec.py > angle1.log && run $P angle2_relations.py > angle2_relations.log && run $P angle2b_tail.py \
+  && run $P angle3_bits.py > angle3_bits.log && run $P angle4_bases.py > angle4_bases.log && run $P angle5_growth.py > angle5_growth.log \
+  && run $P combine.py && run $P oos_select.py > oos_select.out && run $P check_real.py > check_real.out && run $P check_base23.py > check_base23.out)

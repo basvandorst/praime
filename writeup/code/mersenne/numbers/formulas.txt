@@ -1,0 +1,15 @@
+LSQ ln a_n = 0.9645 + 0.36801 n  ->  a_n ~ 2.6235 * 1.44485^n
+   Wagstaff ratio 2^(1/e^gamma) = 1.47576; empirical rate lambda = 51/ln(a52/a1) -> ratio e^(1/lambda) = 1.42428
+   exact hits round(A B^n): 0  within 1%: 0  median |ln error| = 0.483, max = 1.503
+   round(A B^n + C), C on a grid of 39 values: best exact hits 1 (C = 1.60)
+floor(c*r^n)         real: best 8 exact hits (c = 1.45717, r = 1.5087218); recomputed hits at n = [1, 2, 3, 4, 6, 10, 32, 39] | OOS (fit on a_1..a_25): best in-sample 6, max hits among a_26..a_52 over the tied fits 2 | nullA OOS max-over-ties mean 0.18, share >= real 0.004 | nullA: median 7, 95% 10, max 11, p = 0.311 | nullB OOS max-over-ties mean 0.36, share >= real 0.020 | nullB: median 7, 95% 8, max 9, p = 0.359
+floor(theta^(r^n))   real: best 5 exact hits (theta = 2.4305827, r = 1.2369935); recomputed hits at n = [1, 2, 3, 4, 5] | OOS (fit on a_1..a_25): best in-sample 5, max hits among a_26..a_52 over the tied fits 0 | nullA OOS max-over-ties mean 0.11, share >= real 1.000 | nullA: median 6, 95% 10, max 11, p = 0.869 | nullB OOS max-over-ties mean 0.01, share >= real 1.000 | nullB: median 5, 95% 6, max 8, p = 0.980
+floor(c*n^k)         real: best 4 exact hits (c = 1.0473, k = 1.9333278); recomputed hits at n = [2, 10, 11, 12] | OOS (fit on a_1..a_25): best in-sample 4, max hits among a_26..a_52 over the tied fits 0 | nullA OOS max-over-ties mean 0.00, share >= real 1.000 | nullA: median 5, 95% 10, max 13, p = 0.968 | nullB OOS max-over-ties mean 0.00, share >= real 1.000 | nullB: median 4, 95% 6, max 7, p = 0.996
+round(c*r^n)         real: best 7 exact hits (c = 1.44615, r = 1.5090799); recomputed hits at n = [1, 2, 3, 4, 6, 10, 32] | OOS (fit on a_1..a_25): best in-sample 7, max hits among a_26..a_52 over the tied fits 0 | nullA OOS max-over-ties mean 0.21, share >= real 1.000 | nullA: median 7, 95% 10, max 12, p = 0.526 | nullB OOS max-over-ties mean 0.38, share >= real 1.000 | nullB: median 7, 95% 8, max 9, p = 0.801
+
+raw description: sum log2 a_n = 804 bits (Elias-style + 2 log2 log2 per term ~ 1184)
+Newton interpolation a_n = sum_k D^k a_1 * C(n-1, k): 52 integer coefficients, 1607 bits (largest |D^k| ~ 2^65)
+monomial form of the same polynomial: degree 51, rational coefficients totalling 16761 bits
+Mills/Champernowne constant theta = 0.2 3 5 7 13 ... (each a_n written with a length prefix) encodes the list in >= 804 bits: it describes, it does not compress
+exponential model + Gaussian residuals in ln a (s = 0.624): 938 bits incl. 64 for the 2 constants, vs raw 804
+Poisson-in-ln model (rate 2.828, 1 constant): 801 bits
