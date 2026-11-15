@@ -277,7 +277,7 @@ svg.dragging { cursor:grabbing; }
   </section>
   <section class="panel table-panel" id="mgenPanel">
     <div class="table-head"><h3>Mersenne exponents, one after another</h3><button id="mgenBtn" type="button">Start</button></div>
-    <p class="note" style="margin-top:6px">The rule of 142 without a circle: start at 1 and keep taking the next prime q for which 2^q − 1 is prime. Every factor of 2^q − 1 has the form 2kq + 1, so most primes drop out on a small factor (k ≤ 100,000); every prime left gets the Lucas–Lehmer test (s₀ = 4, s ← s² − 2 mod 2^q − 1; 2^q − 1 is prime exactly when s_(q−2) = 0). So every number in the list is a Mersenne exponent, by theorem, and none is skipped. The tests run in the background on the spare cores of this computer; each step takes longer than the one before.</p>
+    <p class="note" style="margin-top:6px">The rule of 142 without a circle: start at 1 and keep taking the next prime q for which 2^q − 1 is prime. Every factor of 2^q − 1 has the form 2kq + 1, so most primes drop out on a small factor (k up to 100,000·(q/7000)²); every prime left gets the Lucas–Lehmer test (s₀ = 4, s ← s² − 2 mod 2^q − 1; 2^q − 1 is prime exactly when s_(q−2) = 0). Above q = 4,200 the squarings use a floating-point FFT with the rounding checked at every step (it stays near 0.03; a step above 0.35 is redone at twice the length), and every exponent it finds is tested again in exact integer arithmetic. So every number in the list is a Mersenne exponent, by theorem, and none is skipped. The tests run in the background on the spare cores of this computer; each step takes longer than the one before.</p>
     <ol id="mgenList" class="mgen-list"></ol>
     <p class="note" id="mgenStat"></p>
   </section>
@@ -426,7 +426,7 @@ const experiments = [
 ["Left-sample zero formula on numbers coprime to 210","the decoder of 134 with only the numbers not divisible by 2, 3, 5 or 7 as candidates (48 of every 210); the same zeta zeros, γ ≤ 0.045·πx (0.3·πx below 600), the top seventh faded out; the window is the next 20 candidates within n + 80, searched exactly, with the candidates up to 300 beyond as unknowns with a coin's spread","riemann-wheel210",""],
 ["Zero decoder with k divisibility facts","the decoder of 134 on the numbers with no prime factor among the first k primes (Parameter k, up to 25, i.e. the primes up to 97). A share ρ of all numbers survives, and zeros with γ ≤ 0.23·π·ρ·x suffice: a sieve removes what a sieve can, and the zeros decide what no sieve can see, prime or product of two large primes","riemann-facts",""],
 ["Zero decoder on a band of zeros at any height","next n > p that the decoder calls prime, read from one band of 10,000 zeta zeros chosen with the band slider, from the lowest zeros up to Odlyzko’s tables near the 10²²-th zero (height 1.37·10²¹). With c the centre of the band and w a cosine fade over the outer sevenths of the band, r(x) = −(2π√x/Ŵ(0)) · Σ w(γ) · e^(i(γ − c) ln x) = Σ Λ(m) · √(x/m) · e^(−ic ln m) · Ŵ(ln(x/m))/Ŵ(0): every prime power m carries the known phase e^(−ic ln m), computed exactly from c and ln m. The decoder of 134 on these complex samples: the next 12 candidates searched exactly, the candidates over the next 12 envelope widths 2πn/W as unknowns with a coin’s spread, the 8 best decision histories kept; candidates are the numbers with no factor among the first k primes (Parameter k, up to 4); the primes below the circle are known, at start 1 nothing is","riemann-band",""],
-["Next Mersenne exponent","next prime q > p with 2^q − 1 prime. Every factor of 2^q − 1 has the form 2kq + 1 and is ≡ ±1 (mod 8); those with k ≤ 100,000 are tried first and remove about half of the primes. Each prime left gets the Lucas–Lehmer test: s₀ = 4, s ← s² − 2 mod 2^q − 1, and 2^q − 1 is prime exactly when s_(q−2) = 0. So every arrow lands on a Mersenne exponent, by theorem: 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, … Destinations beyond the circle are left out, not wrapped. Set the indicator to Mersenne exponents to count them (destinations up to 50,000: 19937, 21701, 23209 and 44497 too. Only the primes inside the circle are tested; above 3,000 the tests run in the background on the spare cores of this computer, and near 44,497 one test takes about ten seconds)","mersenne-next","6101"]
+["Next Mersenne exponent","next prime q > p with 2^q − 1 prime. Every factor of 2^q − 1 has the form 2kq + 1 and is ≡ ±1 (mod 8); those with k up to 100,000·(q/7000)² (at least 1,000) are tried first and remove about half of the primes. Each prime left gets the Lucas–Lehmer test: s₀ = 4, s ← s² − 2 mod 2^q − 1, and 2^q − 1 is prime exactly when s_(q−2) = 0. Above q = 4,200 the squarings use a floating-point FFT (the irrational-base transform of GIMPS), with the rounding checked at every step, and every exponent it finds is tested again in exact integer arithmetic. So every arrow lands on a Mersenne exponent, by theorem: 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, … Destinations beyond the circle are left out, not wrapped. Set the indicator to Mersenne exponents to count them (destinations up to 150,000: also 19937, 21701, 23209, 44497, 86243, 110503 and 132049. Only the primes inside the circle are tested; above 3,000 the tests run in the background on the spare cores of this computer; one test takes about 4 seconds near 44,497 and about 15 near 100,000)","mersenne-next","6101"]
 ];
 const $ = id => document.getElementById(id);
 const svg = $("graph"), NS = "http://www.w3.org/2000/svg";
@@ -835,20 +835,304 @@ function golombNext(p){
  golombCache.set(p,y);return y;
 }
 const mersCache=new Map(),mersNextCache=new Map();
-function mersMulmod(a,b,q){return ((a*(b>>>16))%q*65536+a*(b&65535))%q;}
-function mersFactor(p){const step=2*p,kmax=Math.min(100000,Math.floor(4294967294/step)),small=p<32?2**p-1:Infinity;
- for(let k=1;k<=kmax;k++){const q=step*k+1,r8=q&7;if(r8!==1&&r8!==7)continue;if(q>=small)return 0;
-  if(q>23&&(q%3===0||q%5===0||q%7===0||q%11===0||q%13===0||q%17===0||q%19===0||q%23===0))continue;
-  let r=1;for(let b=31-Math.clz32(p);b>=0;b--){r=mersMulmod(r,r,q);if((p>>>b)&1){r*=2;if(r>=q)r-=q;}}
-  if(r===1)return q;}
- return 0;}
-function lucasLehmerPrime(p){if(p===2)return true;const Q=BigInt(p),M=(1n<<Q)-1n;let s=4n;
- for(let i=0;i<p-2;i++){s=s*s-2n;s=(s&M)+(s>>Q);if(s>=M)s-=M;}
- return s===0n;}
-function mersTest(q){return q===2||(mersFactor(q)===0&&lucasLehmerPrime(q));}
-const MERS_SYNC=3000,MERS_TOP=50000,mersWant=new Set(),mersBusy=new Set();let mersQueue=[],mersPool=null,mersBase="",mersTotal=0;
+function mxIsPrimeSmall(n) {
+  if (n < 2) return false;
+  if (n % 2 === 0) return n === 2;
+  if (n % 3 === 0) return n === 3;
+  for (let d = 5; d * d <= n; d += 6) if (n % d === 0 || n % (d + 2) === 0) return false;
+  return true;
+}
+function mxLlResidueBigInt(q) {
+  if (q === 2) return 0n;
+  const Q = BigInt(q), M = (1n << Q) - 1n;
+  let s = 4n;
+  for (let i = 0; i < q - 2; i++) {
+    s = s * s - 2n;
+    s = (s & M) + (s >> Q);
+    if (s >= M) s -= M;
+  }
+  return s;
+}
+function mxFftLengthFor(q) {
+  for (let n = 64; ; n *= 2) {
+    if (q / n <= (25 - 0.5 * Math.log2(n))) return n;
+    if (n >= 256 && q / (1.5 * n) <= (25 - 0.5 * Math.log2(1.5 * n))) return 1.5 * n;
+  }
+}
+function mxMakePlan(q, n) {
+  const N = n >> 1, R3 = N % 3 === 0, M = R3 ? N / 3 : N, LOG = Math.round(Math.log2(M));
+  const c = new Float64Array(n + 1);
+  for (let i = 0; i <= n; i++) c[i] = Math.floor((q * i + n - 1) / n);
+  const wt = new Float64Array(n), iwt = new Float64Array(n), base = new Float64Array(n), ibase = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const fr = (c[i] * n - q * i) / n;
+    wt[i] = Math.pow(2, fr);
+    iwt[i] = 1 / (wt[i] * N);
+    const b = c[i + 1] - c[i];
+    base[i] = Math.pow(2, b); ibase[i] = Math.pow(2, -b);
+  }
+  const cs = new Float64Array(N), sn = new Float64Array(N);
+  for (let t = 0; t < N; t++) { cs[t] = Math.cos(2 * Math.PI * t / N); sn[t] = Math.sin(2 * Math.PI * t / N); }
+  const br = new Int32Array(N);
+  for (let k = 0; k < N; k++) {
+    const k1 = R3 ? k % 3 : 0, k2 = R3 ? (k - k1) / 3 : k;
+    let r = 0; for (let b = 0; b < LOG; b++) if (k2 >> b & 1) r |= 1 << (LOG - 1 - b);
+    br[k] = k1 * M + r;
+  }
+  return { q, n, N, M, R3, c, wt, iwt, base, ibase, cs, sn, br, re: new Float64Array(N), im: new Float64Array(N) };
+}
+function mxFftDIF4(re, im, off, N, cs, sn, ts) {
+  let h = N >> 1, st = ts;
+  const end = off + N;
+  if ((31 - Math.clz32(N)) & 1) {
+    for (let j = 0; j < h; j++) {
+      const a = off + j, b = a + h, wr = cs[j * ts], wi = -sn[j * ts];
+      const xr = re[a] - re[b], xi = im[a] - im[b];
+      re[a] += re[b]; im[a] += im[b];
+      re[b] = xr * wr - xi * wi; im[b] = xr * wi + xi * wr;
+    }
+    h >>= 1; st <<= 1;
+  }
+  for (; h >= 4; h >>= 2, st <<= 2) {
+    const q4 = h >> 1;
+    for (let s = off; s < end; s += 2 * h) {
+      for (let j = 0, t = 0; j < q4; j++, t += st) {
+        const a0 = s + j, a1 = a0 + q4, a2 = a1 + q4, a3 = a2 + q4;
+        const x0r = re[a0], x0i = im[a0], x1r = re[a1], x1i = im[a1], x2r = re[a2], x2i = im[a2], x3r = re[a3], x3i = im[a3];
+        const sr = x0r + x2r, si = x0i + x2i, dr = x0r - x2r, di = x0i - x2i;
+        const tr = x1r + x3r, ti = x1i + x3i, er = x1r - x3r, ei = x1i - x3i;
+        re[a0] = sr + tr; im[a0] = si + ti;
+        const ur = sr - tr, ui = si - ti;
+        const w2r = cs[2 * t], w2i = -sn[2 * t];
+        re[a1] = ur * w2r - ui * w2i; im[a1] = ur * w2i + ui * w2r;
+        const vr = dr + ei, vi = di - er;
+        const w1r = cs[t], w1i = -sn[t];
+        re[a2] = vr * w1r - vi * w1i; im[a2] = vr * w1i + vi * w1r;
+        const zr = dr - ei, zi = di + er;
+        const w3r = cs[3 * t], w3i = -sn[3 * t];
+        re[a3] = zr * w3r - zi * w3i; im[a3] = zr * w3i + zi * w3r;
+      }
+    }
+  }
+  if (h === 2) {
+    for (let a0 = off; a0 < end; a0 += 4) {
+      const a1 = a0 + 1, a2 = a0 + 2, a3 = a0 + 3;
+      const x0r = re[a0], x0i = im[a0], x1r = re[a1], x1i = im[a1], x2r = re[a2], x2i = im[a2], x3r = re[a3], x3i = im[a3];
+      const sr = x0r + x2r, si = x0i + x2i, dr = x0r - x2r, di = x0i - x2i;
+      const tr = x1r + x3r, ti = x1i + x3i, er = x1r - x3r, ei = x1i - x3i;
+      re[a0] = sr + tr; im[a0] = si + ti; re[a1] = sr - tr; im[a1] = si - ti;
+      re[a2] = dr + ei; im[a2] = di - er; re[a3] = dr - ei; im[a3] = di + er;
+    }
+  }
+}
+function mxFftDIT4(re, im, off, N, cs, sn, ts) {
+  const LOG = 31 - Math.clz32(N), end = off + N;
+  for (let a0 = off; a0 < end; a0 += 4) {
+    const a1 = a0 + 1, a2 = a0 + 2, a3 = a0 + 3;
+    const x0r = re[a0], x0i = im[a0], x1r = re[a1], x1i = im[a1], x2r = re[a2], x2i = im[a2], x3r = re[a3], x3i = im[a3];
+    const b0r = x0r + x1r, b0i = x0i + x1i, b1r = x0r - x1r, b1i = x0i - x1i;
+    const c0r = x2r + x3r, c0i = x2i + x3i, c1r = x2r - x3r, c1i = x2i - x3i;
+    re[a0] = b0r + c0r; im[a0] = b0i + c0i; re[a2] = b0r - c0r; im[a2] = b0i - c0i;
+    re[a1] = b1r - c1i; im[a1] = b1i + c1r; re[a3] = b1r + c1i; im[a3] = b1i - c1r;
+  }
+  for (let h = 4, st = (N >> 4) * ts; 4 * h <= N; h <<= 2, st >>= 2) {
+    for (let s = off; s < end; s += 4 * h) {
+      for (let j = 0, t = 0; j < h; j++, t += st) {
+        const a0 = s + j, a1 = a0 + h, a2 = a1 + h, a3 = a2 + h;
+        const x0r = re[a0], x0i = im[a0];
+        const w2r = cs[2 * t], w2i = sn[2 * t], w1r = cs[t], w1i = sn[t], w3r = cs[3 * t], w3i = sn[3 * t];
+        const y1r = re[a1] * w2r - im[a1] * w2i, y1i = re[a1] * w2i + im[a1] * w2r;
+        const y2r = re[a2] * w1r - im[a2] * w1i, y2i = re[a2] * w1i + im[a2] * w1r;
+        const y3r = re[a3] * w3r - im[a3] * w3i, y3i = re[a3] * w3i + im[a3] * w3r;
+        const b0r = x0r + y1r, b0i = x0i + y1i, b1r = x0r - y1r, b1i = x0i - y1i;
+        const c0r = y2r + y3r, c0i = y2i + y3i, c1r = y2r - y3r, c1i = y2i - y3i;
+        re[a0] = b0r + c0r; im[a0] = b0i + c0i; re[a2] = b0r - c0r; im[a2] = b0i - c0i;
+        re[a1] = b1r - c1i; im[a1] = b1i + c1r; re[a3] = b1r + c1i; im[a3] = b1i - c1r;
+      }
+    }
+  }
+  if (LOG & 1) {
+    const H = N >> 1;
+    for (let j = 0; j < H; j++) {
+      const a = off + j, b = a + H, wr = cs[j * ts], wi = sn[j * ts];
+      const tr = re[b] * wr - im[b] * wi, ti = re[b] * wi + im[b] * wr;
+      re[b] = re[a] - tr; im[b] = im[a] - ti;
+      re[a] += tr; im[a] += ti;
+    }
+  }
+}
+function mxFwd(P) {
+  const { re, im, N, M, cs, sn } = P;
+  if (!P.R3) { mxFftDIF4(re, im, 0, N, cs, sn, 1); return; }
+  for (let j = 0; j < M; j++) {
+    const b = j + M, c = b + M;
+    const tr = re[b] + re[c], ti = im[b] + im[c], dr = re[b] - re[c], di = im[b] - im[c];
+    const mr = re[j] - 0.5 * tr, mi = im[j] - 0.5 * ti;
+    re[j] += tr; im[j] += ti;
+    const y1r = mr + 0.8660254037844386 * di, y1i = mi - 0.8660254037844386 * dr, y2r = mr - 0.8660254037844386 * di, y2i = mi + 0.8660254037844386 * dr;
+    const w1r = cs[j], w1i = -sn[j], w2r = cs[2 * j], w2i = -sn[2 * j];
+    re[b] = y1r * w1r - y1i * w1i; im[b] = y1r * w1i + y1i * w1r;
+    re[c] = y2r * w2r - y2i * w2i; im[c] = y2r * w2i + y2i * w2r;
+  }
+  mxFftDIF4(re, im, 0, M, cs, sn, 3); mxFftDIF4(re, im, M, M, cs, sn, 3); mxFftDIF4(re, im, 2 * M, M, cs, sn, 3);
+}
+function mxInv(P) {
+  const { re, im, N, M, cs, sn } = P;
+  if (!P.R3) { mxFftDIT4(re, im, 0, N, cs, sn, 1); return; }
+  mxFftDIT4(re, im, 0, M, cs, sn, 3); mxFftDIT4(re, im, M, M, cs, sn, 3); mxFftDIT4(re, im, 2 * M, M, cs, sn, 3);
+  for (let j = 0; j < M; j++) {
+    const b = j + M, c = b + M;
+    const w1r = cs[j], w1i = sn[j], w2r = cs[2 * j], w2i = sn[2 * j];
+    const v1r = re[b] * w1r - im[b] * w1i, v1i = re[b] * w1i + im[b] * w1r;
+    const v2r = re[c] * w2r - im[c] * w2i, v2i = re[c] * w2i + im[c] * w2r;
+    const tr = v1r + v2r, ti = v1i + v2i, dr = v1r - v2r, di = v1i - v2i;
+    const mr = re[j] - 0.5 * tr, mi = im[j] - 0.5 * ti;
+    re[j] += tr; im[j] += ti;
+    re[b] = mr - 0.8660254037844386 * di; im[b] = mi + 0.8660254037844386 * dr;
+    re[c] = mr + 0.8660254037844386 * di; im[c] = mi - 0.8660254037844386 * dr;
+  }
+}
+function mxSqrStep(P, x, sub, mul) {
+  const { n, N, wt, iwt, base, ibase, cs, sn, br, re, im } = P;
+  for (let j = 0; j < N; j++) { re[j] = x[2 * j] * wt[2 * j]; im[j] = x[2 * j + 1] * wt[2 * j + 1]; }
+  mxFwd(P);
+  const H = N >> 1;
+  for (let k = 0; k <= H; k++) {
+    const m = k === 0 ? 0 : N - k, pk = br[k], pm = br[m];
+    const ar = re[pk], ai = im[pk], b_r = re[pm], b_i = im[pm];
+    const er = 0.5 * (ar + b_r), ei = 0.5 * (ai - b_i);
+    const or = 0.5 * (ai + b_i), oi = 0.5 * (b_r - ar);
+    const wr = cs[k], wi = -sn[k];
+    const e2r = er * er - ei * ei, e2i = 2 * er * ei;
+    const o2r = or * or - oi * oi, o2i = 2 * or * oi;
+    const pr = e2r + wr * o2r - wi * o2i, pi = e2i + wr * o2i + wi * o2r;
+    const qr = er * or - ei * oi, qi = er * oi + ei * or;
+    re[pk] = pr - 2 * qi; im[pk] = pi + 2 * qr;
+    if (m !== k) { re[pm] = pr + 2 * qi; im[pm] = -pi + 2 * qr; }
+  }
+  mxInv(P);
+  let carry = -sub, err = 0;
+  for (let j = 0; j < N; j++) {
+    let i = 2 * j;
+    let v = re[j] * iwt[i], r = (v + 6755399441055744) - 6755399441055744, e = v - r;
+    if (e < 0) e = -e; if (e > err) err = e;
+    let t = r * mul + carry, hi = (t * ibase[i] + 6755399441055744) - 6755399441055744;
+    x[i] = t - hi * base[i]; carry = hi;
+    i++;
+    v = im[j] * iwt[i]; r = (v + 6755399441055744) - 6755399441055744; e = v - r;
+    if (e < 0) e = -e; if (e > err) err = e;
+    t = r * mul + carry; hi = (t * ibase[i] + 6755399441055744) - 6755399441055744;
+    x[i] = t - hi * base[i]; carry = hi;
+  }
+  for (let i = 0; carry !== 0 && i < n; i++) {
+    const t = x[i] + carry, hi = (t * ibase[i] + 6755399441055744) - 6755399441055744;
+    x[i] = t - hi * base[i]; carry = hi;
+  }
+  return carry === 0 ? err : Infinity;
+}
+function mxDigitsToBigInt(P, x) {
+  const M = (1n << BigInt(P.q)) - 1n;
+  let v = 0n;
+  for (let i = P.n - 1; i >= 0; i--) v += BigInt(x[i]) << BigInt(P.c[i]);
+  v %= M; if (v < 0n) v += M;
+  return v;
+}
+function mxGetPlan(q, n) { const C = mxGetPlan.c || (mxGetPlan.c = new Map()), key = q + ':' + n; let P = C.get(key); if (!P) { if (C.size > 8) C.clear(); P = mxMakePlan(q, n); C.set(key, P); } return P; }
+function mxLlResidueFFT(q, n) {
+  n = n || mxFftLengthFor(q);
+  for (;;) {
+    const P = mxGetPlan(q, n), x = new Float64Array(n);
+    x[0] = 4;
+    let maxErr = 0, ok = true;
+    for (let it = 0; it < q - 2; it++) {
+      const e = mxSqrStep(P, x, 2, 1);
+      if (!(e <= 0.35)) { ok = false; break; }
+      if (e > maxErr) maxErr = e;
+    }
+    if (ok) return { residue: mxDigitsToBigInt(P, x), n, maxErr };
+    n *= 2;
+  }
+}
+function mxPrimesUpTo(B) { const s = new Uint8Array(B + 1), out = []; for (let i = 2; i <= B; i++) if (!s[i]) { out.push(i); for (let j = i * i; j <= B; j += i) s[j] = 1; } return out; }
+function mxGcdBig(a, b) { while (b) { const t = a % b; a = b; b = t; } return a; }
+function mxPow2mod(q, f) {
+  const finv = 1 / f;
+  let bit = 31 - Math.clz32(q), v = 0;
+  while (bit >= 0 && 2 * v + ((q >>> bit) & 1) < 32) { v = 2 * v + ((q >>> bit) & 1); bit--; }
+  let r = Math.pow(2, v) % f;
+  if (f < 4294967296) {
+    for (; bit >= 0; bit--) {
+      const rh = Math.floor(r * 1.52587890625e-5), rl = r - rh * 65536;
+      let x = r * rh, t = Math.floor(x * finv); x -= t * f; if (x < 0) x += f; else if (x >= f) x -= f;
+      x = x * 65536 + r * rl; t = Math.floor(x * finv); x -= t * f; if (x < 0) x += f; else if (x >= f) x -= f;
+      r = x;
+      if ((q >>> bit) & 1) { r += r; if (r >= f) r -= f; }
+    }
+  } else {
+    for (; bit >= 0; bit--) {
+      const r2 = Math.floor(r * 1.4901161193847656e-8), rr = r - r2 * 67108864;
+      const r1 = Math.floor(rr * 1.220703125e-4), r0 = rr - r1 * 8192;
+      let x = r * r2, t = Math.floor(x * finv); x -= t * f; if (x < 0) x += f; else if (x >= f) x -= f;
+      x = x * 8192 + r * r1; t = Math.floor(x * finv); x -= t * f; if (x < 0) x += f; else if (x >= f) x -= f;
+      x = x * 8192 + r * r0; t = Math.floor(x * finv); x -= t * f; if (x < 0) x += f; else if (x >= f) x -= f;
+      r = x;
+      if ((q >>> bit) & 1) { r += r; if (r >= f) r -= f; }
+    }
+  }
+  return r;
+}
+function mxPow2modBig(q, f) { let r = 1n, b = 2n, e = q; const F = BigInt(f); while (e > 0) { if (e & 1) r = r * b % F; b = b * b % F; e >>>= 1; } return Number(r); }
+function mxSievePrimes() { return mxSievePrimes.p || (mxSievePrimes.p = mxPrimesUpTo(1 << 14).slice(1)); }
+function mxInvMod(a, m) { let t = 0, nt = 1, r = m, nr = a % m; while (nr) { const qq = Math.floor(r / nr); let x = t - qq * nt; t = nt; nt = x; x = r - qq * nr; r = nr; nr = x; } return t < 0 ? t + m : t; }
+function mxTrialFactor(q, K) {
+  if (K < 1) return 0;
+  const Mq = q < 53 ? Math.pow(2, q) - 1 : Infinity;
+  const classes = (q & 3) === 1 ? [0, 3] : [0, 1];
+  const SP = mxSievePrimes(), NS = SP.length, SEG = 8192, seg = new Uint8Array(SEG);
+  const tmax = Math.floor((K - Math.min(...classes)) / 4) + 1;
+  const roots = classes.map(() => new Int32Array(NS)), self = classes.map(() => new Float64Array(NS).fill(-1));
+  classes.forEach((c, ci) => {
+    for (let i = 0; i < NS; i++) {
+      const s = SP[i];
+      if (s === q) { roots[ci][i] = -1; continue; }
+      const ks = (s - mxInvMod((2 * q) % s, s)) % s;
+      roots[ci][i] = (((ks - c) % s + s) % s) * mxInvMod(4, s) % s;
+      if (s > 2 * q && (s - 1) % (2 * q) === 0) { const k = (s - 1) / (2 * q); if (k % 4 === c) self[ci][i] = (k - c) / 4; }
+    }
+  });
+  for (let T0 = 0; T0 < tmax; T0 += SEG) {
+    const len = Math.min(SEG, tmax - T0);
+    for (let ci = 0; ci < classes.length; ci++) {
+      const c = classes[ci], R = roots[ci], S = self[ci];
+      seg.fill(0);
+      for (let i = 0; i < NS; i++) {
+        const s = SP[i], r0 = R[i]; if (r0 < 0) continue;
+        let t = r0 - (T0 % s); if (t < 0) t += s;
+        for (; t < len; t += s) seg[t] = 1;
+        if (S[i] >= T0 && S[i] < T0 + len) seg[S[i] - T0] = 0;
+      }
+      for (let t = 0; t < len; t++) {
+        if (seg[t]) continue;
+        const k = 4 * (T0 + t) + c;
+        if (k < 1) continue;
+        if (k > K) break;
+        const f = 2 * k * q + 1;
+        if (f >= Mq) break;
+        const r = f < 274877906944 ? mxPow2mod(q, f) : mxPow2modBig(q, f);
+        if (r === 1) return f;
+      }
+    }
+  }
+  return 0;
+}
+function mxTfDepth(q) { return Math.max(1000, Math.min(Math.round(1e5 * (q / 7000) ** 2), Math.floor(2.7e11 / (2 * q)))); }
+function mxTest(q) { if (q === 2) return [true, 0]; const f = mxTrialFactor(q, mxTfDepth(q)); if (f) return [false, f]; if (q < 4200) return [mxLlResidueBigInt(q) === 0n, 0]; const r = mxLlResidueFFT(q); return [r.residue === 0n && mxLlResidueBigInt(q) === 0n, 0]; }
+const MX_FNS = [mxIsPrimeSmall,mxLlResidueBigInt,mxFftLengthFor,mxMakePlan,mxFftDIF4,mxFftDIT4,mxFwd,mxInv,mxSqrStep,mxDigitsToBigInt,mxGetPlan,mxLlResidueFFT,mxPrimesUpTo,mxGcdBig,mxPow2mod,mxPow2modBig,mxSievePrimes,mxInvMod,mxTrialFactor,mxTfDepth,mxTest];
+function mxSource() { return MX_FNS.map(f => f.toString()).join("\n"); }
+function mersTest(q){return mxTest(q)[0];}
+const MERS_SYNC=3000,MERS_TOP=150000,mersWant=new Set(),mersBusy=new Set();let mersQueue=[],mersPool=null,mersBase="",mersTotal=0;
 function mersWorkers(){if(mersPool!==null)return mersPool;mersPool=[];
- try{const code=[mersMulmod,mersFactor,lucasLehmerPrime,mersTest].map(f=>f.toString()).join("\n")+"\nonmessage=e=>postMessage([e.data,mersTest(e.data)]);";
+ try{const code=mxSource()+"\nonmessage=e=>postMessage([e.data,mxTest(e.data)[0]]);";
   const url=URL.createObjectURL(new Blob([code],{type:"text/javascript"})),n=Math.max(1,Math.min(8,(navigator.hardwareConcurrency||2)-1));
   for(let i=0;i<n;i++){const w=new Worker(url);w.job=null;w.onmessage=e=>mersResult(w,e.data);w.onerror=()=>{const q=w.job;w.job=null;if(q!==null){mersBusy.delete(q);mersCache.set(q,mersTest(q));}mersFeed();};mersPool.push(w);}}
  catch(e){mersPool=[];}
@@ -862,9 +1146,9 @@ function mersFlush(){if(!mersWant.size){mersQueue=[];return;}
  mersQueue=[...mersWant].filter(q=>!mersCache.has(q)&&!mersBusy.has(q)).sort((a,b)=>a-b);mersTotal=mersQueue.length+mersBusy.size;
  mersBase=$("formula").textContent;mersFeed();mersProgress();}
 let mgen=null;
-function mgenWorkers(n){const code=[mersMulmod,mersFactor,lucasLehmerPrime].map(f=>f.toString()).join("\n")+"\nonmessage=e=>{const q=e.data,f=q===2?0:mersFactor(q);postMessage([q,f===0&&lucasLehmerPrime(q),f]);};";
+function mgenWorkers(n){const code=mxSource()+"\nonmessage=e=>{const r=mxTest(e.data);postMessage([e.data,r[0],r[1]]);};";
  try{const url=URL.createObjectURL(new Blob([code],{type:"text/javascript"}));return Array.from({length:n},()=>new Worker(url));}
- catch(e){return [{postMessage(q){setTimeout(()=>{const f=q===2?0:mersFactor(q);this.onmessage({data:[q,f===0&&lucasLehmerPrime(q),f]});},0);},terminate(){}}];}}
+ catch(e){return [{postMessage(q){setTimeout(()=>{const r=mxTest(q);this.onmessage({data:[q,r[0],r[1]]});},0);},terminate(){}}];}}
 function mgenStat(){if(!mgen)return;const s=(mgen.ms+(mgen.on?performance.now()-mgen.t0:0))/1000,busy=mgen.pool.filter(w=>w.job!==null).map(w=>w.job);
  $("mgenStat").textContent=`${mgen.found.length} Mersenne exponents in ${s<100?s.toFixed(1):Math.round(s).toLocaleString("en-US")} s on ${mgen.pool.length||mgen.cores} core${(mgen.pool.length||mgen.cores)===1?"":"s"}. `+
   `Primes tested: ${mgen.tested.toLocaleString("en-US")}, of which ${mgen.factored.toLocaleString("en-US")} dropped out on a factor 2kq + 1 and ${(mgen.tested-mgen.factored).toLocaleString("en-US")} took the Lucas–Lehmer test.`+
