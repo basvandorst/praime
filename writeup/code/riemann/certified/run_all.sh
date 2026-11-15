@@ -46,5 +46,6 @@ echo "== section 21: high-precision engine (Arb zeros, ball samples, implied row
 timeout 3600 nice $P $D/hpchain.py 1006 '[[1006, 402.5, 33.8404, 3, 1.2, 201]]' '{"truth_below":905,"start":905,"maxbits":40,"limit":3000,"out":"hp905.json"}' | tail -1
 timeout 30000 nice $P $D/hpchain.py 2000 "$($P $D/info_law.py stages 2000 3.2 0.5 40)" '{"maxbits":40,"limit":3000,"record":[1900,2000],"out":"hpchain2000.json"}' | tail -1
 timeout 30000 nice $P $D/hpchain.py 10000 "$($P $D/info_law.py cap-stages 2000 10000 560)" '{"truth_below":2000,"start":2000,"maxbits":40,"limit":3000,"record":[9800,10000],"out":"B560.json"}' | tail -1
-timeout 3600 nice $P $D/hp_check.py hpchain2000.json; timeout 14000 nice $P $D/hp_check.py B560.json 2
+timeout 40000 nice $P $D/hpchain.py 10000 "$($P $D/info_law.py cap-stages 2000 10000 480 1.0 0.8)" '{"truth_below":2000,"start":2000,"maxbits":40,"limit":3000,"record":[9800,10000],"out":"B480.json"}' | tail -1
+timeout 7200 nice $P $D/hp_check.py hpchain2000.json 2; timeout 14000 nice $P $D/hp_check.py B560.json 2; timeout 20000 nice $P $D/hp_check.py B480.json 2
 echo done
