@@ -1,0 +1,121 @@
+primes: 41538  pairs (all k<=1000 factors): 17199
+exponents <= N: 31
+
+== Q1 row counts
+K=16: survivors 34372 = 0.8275; drawn in rows 7166 (0.1725); nonempty rows 12
+   all exponents <= N are survivors: True
+K=64: survivors 31733 = 0.7640; drawn in rows 9805 (0.2360); nonempty rows 48
+   all exponents <= N are survivors: True
+K=256: survivors 29401 = 0.7078; drawn in rows 12137 (0.2922); nonempty rows 192
+   all exponents <= N are survivors: True
+K=1000: survivors 27308 = 0.6574; drawn in rows 14230 (0.3426); nonempty rows 694
+   all exponents <= N are survivors: True
+row counts k=1..64: {1: 2189, 3: 1309, 4: 838, 5: 541, 7: 264, 8: 412, 9: 367, 11: 172, 12: 489, 13: 124, 15: 292, 16: 169, 17: 99, 19: 79, 20: 199, 21: 133, 23: 65, 24: 230, 25: 79, 27: 99, 28: 98, 29: 58, 31: 51, 32: 78, 33: 80, 35: 64, 36: 142, 37: 37, 39: 89, 40: 88, 41: 27, 43: 34, 44: 62, 45: 78, 47: 26, 48: 102, 49: 25, 51: 48, 52: 43, 53: 25, 55: 40, 56: 60, 57: 54, 59: 20, 60: 119, 61: 19, 63: 47, 64: 42}
+rows k=65..256 total: 2332  rows 257..1000 total: 2093
+largest rows (k, count): [(1, 2189), (3, 1309), (4, 838), (5, 541), (12, 489), (8, 412), (9, 367), (15, 292), (7, 264), (24, 230), (20, 199), (11, 172)]
+K=64: share of drawn primes in rows 1,3,4,5: {1: 0.2233, 3: 0.1335, 4: 0.0855, 5: 0.0552}
+
+== Q2 mod-4 law
+factors checked 17199: q not +-1 mod 8: 0; k=2 mod 4: 0; k=1 mod 4 with p!=3 mod 4: 0; k=3 mod 4 with p!=1 mod 4: 0
+factor counts by k mod 4: {0: 6847, 1: 5843, 2: 0, 3: 4509}
+factor counts by q mod 8: {0: 0, 1: 6847, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 10352}
+
+== Q3 Euler's rule
+row 1 size: 2189  rule set size: 2189  equal: True
+p=3: 2p+1 = 7 = M_3 (not proper), so 3 is excluded from row 1
+
+== Q4 survivor models
+C2 = 0.6601618605898407
+1/k test: admissible = q prime, q = +-1 mod 8, q < M_p
+  k 1-1: admissible 2189, divides 2189, expected sum 1/k = 2189.0 (sd 0.0)
+  k 3-3: admissible 4028, divides 1309, expected sum 1/k = 1342.7 (sd 29.9)
+  k 4-4: admissible 3911, divides 962, expected sum 1/k = 977.8 (sd 27.1)
+  k 5-5: admissible 2658, divides 541, expected sum 1/k = 531.6 (sd 20.6)
+  k 7-7: admissible 2239, divides 293, expected sum 1/k = 319.9 (sd 16.6)
+  k 8-8: admissible 3733, divides 446, expected sum 1/k = 466.6 (sd 20.2)
+  k 9-9: admissible 3736, divides 421, expected sum 1/k = 415.1 (sd 19.2)
+  k 11-12: admissible 9260, divides 750, expected sum 1/k = 786.8 (sd 26.8)
+  k 13-16: admissible 10345, divides 712, expected sum 1/k = 695.0 (sd 25.5)
+  k 17-32: admissible 38074, divides 1547, expected sum 1/k = 1596.3 (sd 39.1)
+  k 33-64: admissible 82809, divides 1748, expected sum 1/k = 1770.2 (sd 41.6)
+  k 65-256: admissible 450098, divides 3221, expected sum 1/k = 3238.5 (sd 56.7)
+  k 257-1000: admissible 1623173, divides 3060, expected sum 1/k = 2988.5 (sd 54.6)
+  all pairs dividing: 17199  of which admissible: 17199 (must be all)
+survivors observed vs models (exact-q, HL-averaged, crude ln(2p)/ln(2Kp))
+  K=  16 p in [2,10000): n= 1229 obs   946 (0.7697)  exact-q    931.5 (0.7579, z=+1.23)  HL    938.5 (0.7636)  crude    928.8 (0.7558)
+  K=  16 p in [10000,100000): n= 8363 obs  6708 (0.8021)  exact-q   6783.1 (0.8111, z=-2.65)  HL   6790.6 (0.8120)  crude   6727.3 (0.8044)
+  K=  16 p in [100000,500001): n=31946 obs 26718 (0.8363)  exact-q  26558.1 (0.8313, z=+3.02)  HL  26636.5 (0.8338)  crude  26397.4 (0.8263)
+  K=  16 p in [2,500001): n=41538 obs 34372 (0.8275)  exact-q  34272.7 (0.8251, z=+1.62)  HL  34365.7 (0.8273)  crude  34053.5 (0.8198)
+  K=  64 p in [2,10000): n= 1229 obs   838 (0.6819)  exact-q    837.1 (0.6811, z=+0.07)  HL    843.1 (0.6860)  crude    828.5 (0.6742)
+  K=  64 p in [10000,100000): n= 8363 obs  6149 (0.7353)  exact-q   6205.3 (0.7420, z=-1.63)  HL   6218.1 (0.7435)  crude   6128.4 (0.7328)
+  K=  64 p in [100000,500001): n=31946 obs 24746 (0.7746)  exact-q  24540.4 (0.7682, z=+3.16)  HL  24621.4 (0.7707)  crude  24288.5 (0.7603)
+  K=  64 p in [2,500001): n=41538 obs 31733 (0.7640)  exact-q  31582.8 (0.7603, z=+2.00)  HL  31682.6 (0.7627)  crude  31245.5 (0.7522)
+  K= 256 p in [2,10000): n= 1229 obs   757 (0.6159)  exact-q    757.0 (0.6160, z=-0.00)  HL    763.0 (0.6208)  crude    748.0 (0.6086)
+  K= 256 p in [10000,100000): n= 8363 obs  5641 (0.6745)  exact-q   5705.5 (0.6822, z=-1.68)  HL   5718.3 (0.6838)  crude   5627.5 (0.6729)
+  K= 256 p in [100000,500001): n=31946 obs 23003 (0.7201)  exact-q  22747.7 (0.7121, z=+3.51)  HL  22830.1 (0.7146)  crude  22491.9 (0.7041)
+  K= 256 p in [2,500001): n=41538 obs 29401 (0.7078)  exact-q  29210.2 (0.7032, z=+2.28)  HL  29311.3 (0.7056)  crude  28867.4 (0.6950)
+  K=1000 p in [2,10000): n= 1229 obs   686 (0.5582)  exact-q    691.7 (0.5628, z=-0.36)  HL    697.2 (0.5673)  crude    682.8 (0.5556)
+  K=1000 p in [10000,100000): n= 8363 obs  5203 (0.6221)  exact-q   5282.5 (0.6316, z=-1.96)  HL   5294.9 (0.6331)  crude   5209.2 (0.6229)
+  K=1000 p in [100000,500001): n=31946 obs 21419 (0.6705)  exact-q  21211.4 (0.6640, z=+2.67)  HL  21289.1 (0.6664)  crude  20967.6 (0.6563)
+  K=1000 p in [2,500001): n=41538 obs 27308 (0.6574)  exact-q  27185.5 (0.6545, z=+1.38)  HL  27281.2 (0.6568)  crude  26859.6 (0.6466)
+
+== Q5 classes
+  K=64 p==1 mod 4: n=20731 survivors 16392 frac 0.7907  exact-q model 0.7852
+  K=64 p==3 mod 4: n=20806 survivors 15340 frac 0.7373  exact-q model 0.7355
+  K=64 p==1 mod 8: n=10334 survivor frac 0.7898
+  K=64 p==3 mod 8: n=10418 survivor frac 0.7385
+  K=64 p==5 mod 8: n=10397 survivor frac 0.7916
+  K=64 p==7 mod 8: n=10388 survivor frac 0.7360
+  K=1000 p==1 mod 4: n=20731 survivors 14072 frac 0.6788  exact-q model 0.6764
+  K=1000 p==3 mod 4: n=20806 survivors 13235 frac 0.6361  exact-q model 0.6326
+  K=1000 p==1 mod 8: n=10334 survivor frac 0.6762
+  K=1000 p==3 mod 8: n=10418 survivor frac 0.6356
+  K=1000 p==5 mod 8: n=10397 survivor frac 0.6814
+  K=1000 p==7 mod 8: n=10388 survivor frac 0.6366
+odd exponents <= N: 30  =1 mod 4: 17  =3 mod 4: 13
+all 50 odd known exponents: =1 mod 4: 31  =3 mod 4: 19
+binomial P(X >= 17 | n=30, 1/2) = 0.2923;  P(X >= 31 | n=50, 1/2) = 0.0595
+odd exponents mod 8: {1: 19, 3: 9, 5: 12, 7: 10}
+exponents p=3 mod 4, p>3, with 2p+1 prime (must be none): []
+exponent: (prev prime, row), (next prime, row)  [K=64, row 0 = survivor]
+   (3, 2, 0, 5, 0)
+   (5, 3, 0, 7, 0)
+   (7, 5, 0, 11, 1)
+   (13, 11, 1, 17, 0)
+   (17, 13, 0, 19, 0)
+   (19, 17, 0, 23, 1)
+   (31, 29, 4, 37, 3)
+   (61, 59, 0, 67, 0)
+   (89, 83, 1, 97, 59)
+   (107, 103, 0, 109, 0)
+   (127, 113, 15, 131, 1)
+   (521, 509, 0, 523, 0)
+   (607, 601, 3, 613, 0)
+   (1279, 1277, 0, 1283, 0)
+   (2203, 2179, 57, 2207, 28)
+   (2281, 2273, 0, 2287, 0)
+   (3217, 3209, 0, 3221, 0)
+   (4253, 4243, 12, 4259, 0)
+   (4423, 4421, 0, 4441, 3)
+   (9689, 9679, 0, 9697, 0)
+   (9941, 9931, 0, 9949, 0)
+   (11213, 11197, 12, 11239, 0)
+   (19937, 19927, 0, 19949, 0)
+   (21701, 21683, 0, 21713, 0)
+   (23209, 23203, 0, 23227, 0)
+   (44497, 44491, 36, 44501, 0)
+   (86243, 86239, 0, 86249, 0)
+   (110503, 110501, 0, 110527, 0)
+   (132049, 132047, 0, 132059, 0)
+   (216091, 216071, 1, 216103, 0)
+neighbours survivor frac 43/60 vs all primes 0.7640
+exact-q survival prob (K=1000) of odd exponents vs mean over survivors in +-10% window:
+  mean ratio over 21 exponents >= 100: 1.029
+
+== Q6 operation counts
+  K=16: modpows straightforward 587028 (14.1 per prime); with mod-8 filter 294114
+  K=64: modpows straightforward 2162388 (52.1 per prime); with mod-8 filter 1081844
+  K=94: modpows straightforward 3104158 (74.7 per prime); with mod-8 filter 1536695
+  K=128: modpows straightforward 4150518 (99.9 per prime); with mod-8 filter 2075928
+  K=256: modpows straightforward 7975502 (192.0 per prime); with mod-8 filter 3988462
+  K=1000: modpows straightforward 28891764 (695.6 per prime); with mod-8 filter 14446944

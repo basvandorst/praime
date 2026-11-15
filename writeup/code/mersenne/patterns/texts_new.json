@@ -1,0 +1,194 @@
+{
+ "_intro": "Thirteen layouts added in one night, each built on a theorem or a famous conjecture. Every note on the page computes its numbers live for the chosen parameter and checks its own rule (counts of exceptions are printed); every number below was recomputed by a separate script, in Python with numpy or sympy, independently of the page's JavaScript. The headline: each pattern is exactly what number theory predicts, including three Chebyshev biases (prime squares again), and the Mersenne exponents behave like random primes in all thirteen.",
+ "cards": [
+  {
+   "id": "quadform",
+   "name": "Sums a² + P·b² (Fermat, Gauss)",
+   "q": "layout=quadform&amp;period=1&amp;links=none",
+   "imgs": [
+    "r_quadform1.jpg",
+    "r_quadform1_z.jpg"
+   ],
+   "short": "Which primes are a² + P·b²: Fermat (P = 1), Euler's convenient numbers, Gauss's cube rule (P = 27)",
+   "verdict": "theorems; Chebyshev bias found",
+   "seen": "With P = 1 a 45° wedge of lattice points: every number that is a sum of two squares, at distance √n from the corner; the bright dots are its primes. Other P give horizontal rows, one for each b.",
+   "explained": "Fermat: an odd prime is a² + b² exactly when it is ≡ 1 (mod 4). For any P, Chebotarev's theorem gives the share of primes of the form a² + P·b²: 1/(2h), h the number of reduced forms of discriminant −4P. A rule by remainders mod 4P decides it exactly when P is one of Euler's 65 convenient numbers (one form per genus); otherwise more is needed, as Gauss found: p = a² + 27b² exactly when p ≡ 1 (mod 3) and 2 is a cube mod p. A prime a² + b² is odd, so a − b is odd: every prime of P = 1 sits on an odd 45° diagonal.",
+   "checked": "P = 1: 20,731 of the 41,537 odd primes up to 500,000 (49.9%); P = 5: 24.9% (1/(2h) = 25%); P = 27: 16.6% (16.7%), with 18 of the 36 classes mod 108 mixed; P = 64: 12.4% (12.5%). For P = 1 to 100 the P with no mixed class are exactly Euler's 36 convenient numbers below 100. New here: the share is below 1/(2h) for every P from 1 to 100, up to 500,000 and up to 10 million, by about ½(h + a − 1)·Li(√N)/Li(N) (a = forms equal to their own inverse): every prime square p² = p² + P·0² is of the form, so the primes fall short, as in Chebyshev's race. Up to 10 million the mean shortfall over the 100 values of P is 0.00214 against 0.00212 predicted (correlation over P 0.76); for P = 1 the ratio is 0.9997, as predicted. Separately (direct search, rechecked with Cornacchia and PARI): h(−4P) agrees with PARI for all 100 P; Gauss's rules for P = 27 and 64, and the rules for P = 14, 11 (x³ − x² + x + 1 splits) and 23 (x³ − x − 1 splits), hold for every prime up to 500,000; the brightest line of P = 1 is the diagonal a − b = 5, 169 primes against 170.2 by Bateman–Horn, and over 64 lines of P = 1, 2, 3 and the hexagonal layout 5,905 primes against 5,991.5 predicted; Landau's row a² + 1 is hardly brighter than its surroundings (89 primes, 93.6 predicted). P = 58 is the densest picture (20.0% of its lattice points prime, h = 2); its second form 2a² + 29b² holds 2x² + 29, prime for x = 0 to 28.",
+   "exponents": "The exponents ≡ 1 (mod 4) appear for P = 1 (18 of the 31 up to 500,000, 2 included), as Fermat requires; no P singles them out."
+  },
+  {
+   "id": "eisenstein",
+   "name": "Sums a² + ab + b² (hexagonal)",
+   "q": "layout=eisenstein&amp;links=none",
+   "imgs": [
+    "r_eisenstein.jpg",
+    "r_eisenstein_z.jpg"
+   ],
+   "short": "The norms of Eisenstein integers: 3 and the primes ≡ 1 (mod 3)",
+   "verdict": "theorem",
+   "seen": "A 30° wedge of the hexagonal lattice, each dot at distance √n from the corner; half the primes light up.",
+   "explained": "a² + ab + b² is the norm of the Eisenstein integer a − bω (ω a cube root of 1), and a prime is such a norm exactly when it is 3 or ≡ 1 (mod 3): the cubic twin of Fermat's two squares.",
+   "checked": "All 20,733 primes ≡ 1 (mod 3) up to 500,000 appear and none of the 20,804 primes ≡ 2 (mod 3).",
+   "exponents": "18 of the 31 exponents up to 500,000 appear: those ≡ 1 (mod 3), and 3."
+  },
+  {
+   "id": "mersieve",
+   "name": "Mersenne factor sieve (row k: 2kp + 1)",
+   "q": "layout=mersieve&amp;period=64&amp;links=none",
+   "imgs": [
+    "r_mersieve.jpg",
+    "r_mersieve_z.jpg"
+   ],
+   "short": "Primes p by the smallest factor 2kp + 1 of 2^p − 1; empty rows k ≡ 2 (mod 4); Euler's row",
+   "verdict": "theorems; survivors as the heuristic says",
+   "seen": "Bands, one per k, thinning downwards, with every fourth band empty; at the bottom the bright band of survivors, with every exponent in it.",
+   "explained": "Every factor of 2^p − 1 is 2kp + 1 and ≡ ±1 (mod 8), because 2 is a square modulo it. So no factor has k ≡ 2 (mod 4), k ≡ 1 (mod 4) needs p ≡ 3 (mod 4) and k ≡ 3 (mod 4) needs p ≡ 1 (mod 4). Row 1 is Euler's rule: 2p + 1 divides 2^p − 1 exactly when p ≡ 3 (mod 4) and 2p + 1 is prime. The survivors are the candidates GIMPS sends on to a Lucas–Lehmer test.",
+   "checked": "Up to 500,000: survivors 34,372 (K = 16), 31,733 (K = 64), 29,401 (K = 256) of 41,538 primes; 0 exceptions to the mod-4 law; row 1 holds 2,189 primes and Euler's rule agrees for all 41,538. Rechecked independently, with K = 1,000 as well: 27,308 survivors (65.7%). Each prime q = 2kp + 1 ≡ ±1 (mod 8) divides 2^p − 1 with chance about 1/k: 17,318 factors with k ≤ 1,000 expected, 17,199 found. Primes ≡ 1 (mod 4) survive more often (79.1% against 73.7% at K = 64) because their first possible factor is 6p + 1, not 2p + 1.",
+   "exponents": "All 31 exponents up to 500,000 are survivors, as they must be: 2^p − 1 is then prime."
+  },
+  {
+   "id": "ord2",
+   "name": "Order of 2 mod q (Mersenne factors)",
+   "q": "layout=ord2&amp;links=none",
+   "imgs": [
+    "r_ord2.jpg",
+    "r_ord2_z.jpg"
+   ],
+   "short": "Every prime q by its index (q − 1)/ord_q(2); the Mersenne factors light up in rows 2k, k ≢ 2 (mod 4)",
+   "verdict": "theorems",
+   "seen": "Rows on a log scale, dense at the top; zoomed in, light dots only in some even rows: 2, 6, 8, 10, … but never 4 or 12.",
+   "explained": "q divides 2^p − 1 exactly when the order d of 2 mod q divides p. For a prime d the factor q = 2kd + 1 has index 2k, and the mod-8 law of the factor sieve (2 is a square modulo every factor) forbids k ≡ 2 (mod 4). Row 1 holds the primes for which 2 is a primitive root (Artin), row 2 Euler's factors 2p + 1.",
+   "checked": "With sympy's order function: 2,178 of the 41,537 odd primes up to 500,000 (5.24%) have a prime order of 2, so each divides a Mersenne number with a prime exponent; their indices are ≡ 0, 2 or 6 (mod 8) (346, 1,423 and 408, q = 3 aside) and never odd or ≡ 4; 15,528 (37.38%) have index 1; 8,191 has index 630 and 131,071 index 7,710.",
+   "exponents": "Six of the 30 odd exponents up to 500,000 are light: 3, 7, 31 and 127 (Mersenne primes themselves), 89 (a factor of 2^11 − 1 = 2,047) and 23,209 (a factor of 2^967 − 1). Random sets of 30 primes drawn with the exponents' heuristic weights give 3.9 on average and 6 or more 16% of the time: small primes have small orders."
+  },
+  {
+   "id": "gaptowers",
+   "name": "Gap towers (a column per prime)",
+   "q": "layout=gaptowers&amp;links=none",
+   "imgs": [
+    "r_gaptowers.jpg",
+    "r_gaptowers_z.jpg"
+   ],
+   "short": "Every gap as a tower on its prime; champion 6, twins of height 2, records",
+   "verdict": "Cramér and Hardy–Littlewood",
+   "seen": "A bar chart in bands: every prime on the floor, the composites after it stacked up to the next prime.",
+   "explained": "A column's height is the gap to the next prime. All gaps after 2 → 3 are even; 6 is the commonest because p and p + 6 avoid the factors 2 and 3 together more often than p and p + 2 (Hardy–Littlewood).",
+   "checked": "Up to 500,000: commonest height 6 (7,474 columns), 4,565 twin columns (height 2), no odd height after the first, tallest 114 after 492,113; gaps average ln n, 13.1 at 500,000. Rechecked independently; the record gaps start at 2, 3, 7, 23, 89, 113, 523, 887, 1,129, 1,327, 9,551, 15,683, 19,609, 31,397, 155,921, 360,653, 370,261 and 492,113. In windows of length ln n (100,000 to 500,000, 31,848 windows) the prime count is not yet Poisson with mean 1, as Gallagher's theorem gives in the limit: 29.8% of the windows hold none (Poisson: 36.8%); the Hardy–Littlewood constants for prime patterns predict the counts 9,474 / 14,172 / 6,878 / 1,249 / 74 / 1 for 0 to 5 primes, and the actual counts are 9,495 / 14,180 / 6,835 / 1,258 / 78 / 2 (the two windows with five primes are prime quintuplets, at 340,927 and 375,247).",
+   "exponents": "The gaps after the 31 exponents up to 500,000 are ordinary: measured in units of ln p they add up to 36.4, against 32.7 ± 3.8 for random primes of the same size."
+  },
+  {
+   "id": "polyspiral",
+   "name": "Polygon spiral (P sides)",
+   "q": "layout=polyspiral&amp;period=6&amp;links=none",
+   "imgs": [
+    "r_polyspiral10_z.jpg",
+    "r_polyspiral_z.jpg"
+   ],
+   "short": "Spirals of P-gons; the corner rays are quadratics, the brightest the centred polygonal numbers",
+   "verdict": "Bateman–Horn",
+   "seen": "Concentric P-gons; zoomed in, the corners line up on P rays and some rays are visibly rich in primes (left: P = 10, the ray straight up; right: P = 6 at ten times zoom).",
+   "explained": "Ring m holds P·m numbers and ends at 1 + P·m(m + 1)/2, so corner j of ring m is P·m(m − 1)/2 + j·m + 1, a quadratic; Bateman and Horn's conjecture predicts its prime count from how often small primes divide it. The ring ends themselves, the centred polygonal numbers, are the brightest rays for many P: 3m² + 3m + 1 (P = 6, the cuban primes, 3.3 times the count of random numbers of that size) and 5m² + 5m + 1 (P = 10, 4.4 times).",
+   "checked": "Separately (two independent scripts): over the 7,864 lines of P = 3 to 40 where Bateman–Horn applies, 191,999 primes above 1,000 against 192,781 predicted (0.996); the spread of the counts is 0.6 standard deviations instead of 1, steadier than coin flips, because the small primes hit a line in an exact rhythm. The brightest line is 19m² + 19m − 1 (P = 38, constant 5.9, never divisible by 2, 3, 5, 7, 11 or 13): 90 primes among its 161 numbers; the most primes on one line, 174 among 499, are on 2m² − 1 (P = 4). For odd P half of every line is even, so no line passes a constant of 2.9. The line one step before each corner is dark: its numbers factor as m·(P(m − 1) + 2j)/2. No line belongs to the families of m² + m + 41 or 2m² − 199.",
+   "exponents": "The cuban ray holds 7, 19, 61 and 127, where chance gives 2.6. Over all 817 corner rays of P = 3 to 40 the most striking is 19m² + 15m + 1 (P = 38), through 107, 19,937 and 44,497 where 0.17 are expected: p = 0.018 after allowing for all those rays, but it cannot be tested further, since none of the 20 larger exponents lies on it and chance would put only 0.002 more there up to 10^9. With 65 layouts tried, one such ray is no surprise."
+  },
+  {
+   "id": "digitrows",
+   "name": "Rows by digit sum (base P)",
+   "q": "layout=digitrows&amp;period=10&amp;links=none",
+   "imgs": [
+    "r_digitrows.jpg",
+    "r_digitrows_z.jpg"
+   ],
+   "short": "Casting out nines: rows whose digit sum shares a factor with B − 1 hold no prime",
+   "verdict": "theorem",
+   "seen": "Rows by digit sum; in base 10 every third row is dark.",
+   "explained": "n and its digit sum in base B leave the same remainder mod B − 1, so a row whose sum shares a factor with B − 1 holds only multiples of that factor.",
+   "checked": "Base 10: 16 of the 49 rows ruled out, the only prime in them 3; base 7: 26 of 39 ruled out, only 2 and 3 in them; base 2: nothing ruled out. Row 1 holds the powers of B."
+  },
+  {
+   "id": "chebrace",
+   "name": "Race of squares mod P (walk)",
+   "q": "layout=chebrace&amp;period=12&amp;links=none",
+   "imgs": [
+    "r_chebrace.jpg",
+    "r_chebrace_z.jpg"
+   ],
+   "short": "Chebyshev's bias for any modulus: the non-squares lead by ½·|N|·Li(√n)",
+   "verdict": "Rubinstein–Sarnak",
+   "seen": "A walk that climbs with wobbles.",
+   "explained": "The walk weighs the primes on the non-squares mod P against those on the squares. Every prime square lands on a square, so the primes there fall short by about half the number of prime squares: the walk rises like ½·|N|·Li(√n), |N| the number of non-squares.",
+   "checked": "Up to 10 million, for the 38 moduli 3 to 40: the walk averages 0.970 times ½·|N|·Li(√n) over ln n (0.82 at P = 38 to 1.12 at P = 29). Up to 500,000 it never drops below zero for 22 of the 38. P = 4: the only lead of the squares up to 500,000 is at 26,861 (Leech, 1957); P = 3: none up to 10^7. The divisors of 24 (where every unit squares to 1) are not the whole story: P = 24 is the most one-sided and 12 next, but P = 4 goes negative while 16 moduli that do not divide 24 never do up to 10^7. What decides it is the number of real characters mod P against the noise from the zeros of their L-functions (this ranks the moduli with correlation 0.87); P = 19 and 38 are below zero after a third of the primes because L(s, χ₋₁₉) has a low zero, at height 1.5161 (checked with mpmath: |L(½ + 1.5161i)| = 2·10⁻⁵)."
+  },
+  {
+   "id": "totient",
+   "name": "Totient: height φ(n)/n",
+   "q": "layout=totient&amp;links=none",
+   "imgs": [
+    "r_totient.jpg",
+    "r_totient_z.jpg"
+   ],
+   "short": "φ(n)/n depends only on the prime divisors: horizontal lines",
+   "verdict": "theorem",
+   "seen": "Horizontal lines, the primes along the top edge, the bottom fifth empty.",
+   "explained": "φ(n)/n = ∏(1 − 1/p) over the primes dividing n, so all numbers with the same prime divisors share a height: 1/2 for the powers of 2, 1/3 for the numbers made of 2s and 3s. Primes sit 1/p below the top.",
+   "checked": "The lowest heights belong to the products of the first primes: 2·3·5·7·11·13 = 30,030 is at 1 − φ/n = 0.81."
+  },
+  {
+   "id": "goldbach",
+   "name": "Goldbach's comet",
+   "q": "layout=goldbach&amp;links=none",
+   "imgs": [
+    "r_goldbach.jpg",
+    "r_goldbach_z.jpg"
+   ],
+   "short": "Even numbers by their number of Goldbach pairs; bands by 3, 5, 7",
+   "verdict": "Hardy–Littlewood",
+   "seen": "A comet whose tail splits into bands; the light upper band is the multiples of 6.",
+   "explained": "Hardy and Littlewood's formula multiplies the count for n by (p − 1)/(p − 2) for each odd prime p dividing n: 2 for 3, 4/3 for 5, 6/5 for 7.",
+   "checked": "Every even number from 4 to 500,000 has a pair; above 1,000 the fewest is 16 ways, at 1,112. Multiples of 3 have 1.999 times the ways of the rest and, among the others, multiples of 5 have 1.333 times: both by direct counting, without the page's fast Fourier transform."
+  },
+  {
+   "id": "dickman",
+   "name": "Largest prime factor (Dickman)",
+   "q": "layout=dickman&amp;links=none",
+   "imgs": [
+    "r_dickman.jpg",
+    "r_dickman_z.jpg"
+   ],
+   "short": "Height ln P(n)/ln n: curves k·p, smooth numbers at the bottom, Dickman's ρ",
+   "verdict": "theorem; slow convergence",
+   "seen": "A fan of curves falling from the upper left; the primes on the top edge.",
+   "explained": "Each curve holds the numbers k·p for one k. Dickman (1930): the share of numbers with no prime factor above n^(1/u) tends to ρ(u), ρ(2) = 1 − ln 2 = 30.7%, ρ(3) = 4.9%.",
+   "checked": "Share with no prime factor above √n: 26.8% (10^4 to 10^6), 27.2% at 10^7; above the cube root: 6.6% at 10^4, 4.7% at 500,000, 4.4% at 10^7. The approach to ρ is slow and not monotone."
+  },
+  {
+   "id": "primroot",
+   "name": "Least primitive root (Artin)",
+   "q": "layout=primroot&amp;links=none",
+   "imgs": [
+    "r_primroot.jpg",
+    "r_primroot_z.jpg"
+   ],
+   "short": "Primes by their least primitive root; 2 for 37.4% (Artin); no squares",
+   "verdict": "Artin, Hooley under GRH",
+   "seen": "Dense rows 2 and 3, an empty row 4, then thinning rows.",
+   "explained": "Artin conjectured that 2 is a primitive root for a share A ≈ 37.40% of primes (Hooley proved it assuming the generalised Riemann hypothesis). A square is never a primitive root, and 2 is not one for p ≡ ±1 (mod 8), where 2 is a square: the same fact that makes the factors of 2^p − 1 ≡ ±1 (mod 8).",
+   "checked": "With sympy: 15,528 of the 41,537 odd primes up to 500,000 (37.38%) have least primitive root 2, 22.66% have 3; the largest least primitive root is 69 (p = 110,881); 0 exceptions to either rule.",
+   "exponents": "15 of the 51 exponents from 3 to 136,279,841 have least primitive root 2; given their remainders mod 8, 15.7 are expected (p = 0.80)."
+  },
+  {
+   "id": "pili",
+   "name": "π(n) − li(n) (walk)",
+   "q": "layout=pili&amp;links=none",
+   "imgs": [
+    "r_pili.jpg",
+    "r_pili_z.jpg"
+   ],
+   "short": "Gauss's estimate overshoots; the walk follows Riemann's R(n) − li(n)",
+   "verdict": "Riemann; Littlewood",
+   "seen": "A walk below zero all the way, falling with wobbles.",
+   "explained": "Riemann's formula: π(n) ≈ R(n) − a sum over the zeta zeros, with R(n) = li(n) − ½li(√n) − ⅓li(∛n) − …; the −½li(√n) is the prime squares again.",
+   "checked": "π(n) < li(n) for every n from 3 to 10^7. Averaged over ln n from 1,000, the walk is 0.999 times R(n) − li(n) up to 500,000 and 0.997 up to 10^7 (against −½li(√n) alone: 1.22 and 1.18). Littlewood proved the sign changes infinitely often; none below 10^19 (Büthe, 2018), one below about 1.4·10^316 (Bays and Hudson, 2000)."
+  }
+ ]
+}

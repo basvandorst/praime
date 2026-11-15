@@ -64,6 +64,16 @@ BIG = f'''<section class="card" id="cos12big"><h2>The big picture: cosine rows, 
 <div class="chart">{open('cos12/rails.svg').read()}</div>
 <p class="ex"><b>The Mersenne exponents on the two lanes.</b> From 5 to 136,279,841, 16 are up and 34 down (16 of the 49 to no. 51); the heuristic expects about half. Hover over a dot for its value. As said above, after all the splits tested this is not significant; each new exponent is a fresh test.</p></section>'''
 
+NT = json.load(open('texts_new.json', encoding='utf-8')) if os.path.exists('texts_new.json') else {'_intro': '', 'cards': []}
+def new_card(c):
+    imgs = ''.join(f'<a href="prime2-patterns/{f}"><img src="prime2-patterns/{f}" alt="{html.escape(c["name"])}" loading="lazy"></a>' for f in c['imgs'])
+    return (f'<section class="card" id="new-{c["id"]}"><h2>{html.escape(c["name"])} <a class="open" href="prime2.html?{c["q"]}">open</a></h2>'
+            f'<div class="imgs">{imgs}</div><p><b>What you see.</b> {c["seen"]}</p><p><b>What it is.</b> {c["explained"]}</p><p class="num">{c["checked"]}</p>'
+            + (f'<p class="ex">{c["exponents"]}</p>' if c.get('exponents') else '') + '</section>')
+NEWS = ('' if not NT['cards'] else f'''<section class="panel" id="new"><h2 style="margin:0 0 8px;font-size:18px">New strategies ({len(NT['cards'])} layouts, 16 November)</h2><p style="margin:0;color:#d6e2f2">{NT['_intro']}</p>
+<div class="wrap"><table><thead><tr><th>Layout</th><th>The pattern</th><th>Checked</th></tr></thead><tbody>{''.join(f'<tr><td><a href="#new-{c["id"]}">{html.escape(c["name"])}</a></td><td>{c["short"]}</td><td>{c["verdict"]}</td></tr>' for c in NT['cards'])}</tbody></table></div></section>'''
+        + ''.join(new_card(c) for c in NT['cards']))
+
 page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,6 +111,7 @@ a {{ color:var(--accent); }}
 <h1>Patterns in the prime layouts</h1>
 <p>Every layout of <a href="prime2.html">prime2.html</a>, photographed whole and zoomed in four times, with the exponent links off so that the pattern of the primes shows; on the layouts with straight lines the brightest line found is drawn in yellow by the page itself.</p>
 <p>{T['_intro']['method']}</p>
+<p><a href="#new">New: {len(NT['cards'])} number-theory strategies (16 November)</a> · <a href="#cos12big">the cosine rows zoomed out</a></p>
 </header>
 <main>
 <section class="panel"><h2 style="margin:0 0 8px;font-size:18px">The answer in short</h2><p style="margin:0 0 10px;color:#d6e2f2">{T['_intro']['answer']}</p>
@@ -113,6 +124,7 @@ a {{ color:var(--accent); }}
 <p><b>Twin primes share a lane, always</b>: a pair (p, p + 2) has p ≡ 11 (both up, like 11 and 13) or p ≡ 5 (both down, like 5 and 7). Up and down pairs are equally common, as Hardy–Littlewood predicts: 2,318 against 2,246 up to 500,000, and 29,497 against 29,482 up to 10 million.</p>
 <p class="ex"><b>The exponents.</b> Of the 49 Mersenne exponents from 5 to 82,589,933 only 16 sit in the up lane, where the heuristic expects about 23 (P = 0.023 one-sided, 0.046 two-sided); both halves lean the same way (p = 0.06 below 100,000, 0.15 above), and no. 52, 136,279,841, is down too. This is one split of the classes mod 12 among the many tested since the first round (all classes mod 12 together: p = 0.095), so it is not significant, and no mechanism is known. A clean test lies ahead: if the lean were real, about two of every three future exponents would be ≡ ±5 (mod 12); the heuristic says about half.</p></section>
 {BIG}
+{NEWS}
 {''.join(cards)}
 </main>
 </body>
