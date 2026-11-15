@@ -1,0 +1,41 @@
+== 1. The pictures
+width 240 (= 0 mod 12), numbers 1..100,000: 64 of 240 columns can hold primes beyond the first row
+  every column keeps one lane; colours of the 64 columns left to right: UDUUDDUDDUDDUUDUUDUUDDUDDUDDUUDUUDUUDDUDDUDDUUDUUDUUDDUDDUDDUUDU
+  the pattern repeats every 60 columns (4 times across)
+  twin tracks (column pairs a, a + 2 that can both hold primes, a = 5 or 11 mod 12): 24, 12 up and 12 down; 1 of them wraps to the next row
+  primes 5..100,000 per column: min 137, max 164, mean 149.8; up 4771, down 4819
+  twin pairs (p, p + 2) with 5 <= p <= 99,998: 1223; on a twin track: 1222; the others: [(5, 7)] (first row, 5 divides 240)
+width 277 (= 1 mod 12), numbers 1..100,000: 276 of 277 columns can hold primes beyond the first row
+  row r + 1 starts 1 places later in the wave than row r, so a lane class moves +1 columns per row (mod 12)
+width 100 (= 4 mod 12), numbers 1..40,000: 40 of 100 columns can hold primes beyond the first row
+  row r + 1 starts 4 places later in the wave than row r, so a lane class moves +4 columns per row (mod 12)
+  column 0 over three rows: ['up', 'down', '-']; every column cycles with period 3 rows (100 = 4 mod 12, 3 * 4 = 12)
+
+== 2. The lane race to 10^7
+primes 5..10^7: 664,577; up 332,225, down 332,352; D(10^7) = 127
+the up lane leads (D < 0) after 1,476 of 664,577 primes (0.22%)
+stretches where the up lane leads: 102
+  from 68,147 to 69,857: 141 primes, deepest D = -12
+  from 70,381 to 70,891: 45 primes, deepest D = -9
+  from 340,801 to 341,347: 49 primes, deepest D = -5
+  from 341,507 to 343,601: 167 primes, deepest D = -10
+  from 1,172,807 to 1,179,403: 481 primes, deepest D = -24
+  from 1,179,419 to 1,180,159: 59 primes, deepest D = -6
+  from 2,229,119 to 2,230,469: 91 primes, deepest D = -14
+  from 2,231,819 to 2,232,511: 45 primes, deepest D = -10
+first lead at p = 61,463; last lead below 10^7 ends at p = 2,233,787
+  D(10,000) = 13; sqrt(x)/ln(x) = 10.9; Li(sqrt x)/2 = 14.5
+  D(100,000) = 48; sqrt(x)/ln(x) = 27.5; Li(sqrt x)/2 = 35.1
+  D(500,000) = 76; sqrt(x)/ln(x) = 53.9; Li(sqrt x)/2 = 66.6
+  D(1,000,000) = 60; sqrt(x)/ln(x) = 72.4; Li(sqrt x)/2 = 88.3
+  D(10,000,000) = 127; sqrt(x)/ln(x) = 196.2; Li(sqrt x)/2 = 231.0
+largest D below 10^7: 324 at p = 4,311,283
+D(x) / (sqrt(x)/ln x), averaged over ln x from 10^3 to 10^7: 1.260; range -0.51 .. 2.87
+D(x) / (Li(sqrt x)/2), averaged the same way: 0.986 (prediction: 1); range -0.40 .. 2.25
+  1e+03 .. 1e+05: mean 1.301 and 0.975
+  1e+05 .. 1e+07: mean 1.219 and 0.996
+
+== 3. The exponents by lane
+50 exponents from 5 to 136,279,841: up 16, down 34
+  up: 13, 61, 107, 2,281, 3,217, 23,209, 44,497, 86,243, 132,049, 756,839, 13,466,917, 25,964,951, 30,402,457, 37,156,667, 42,643,801, 74,207,281
+  to no. 51 (82,589,933): up 16 of 49

@@ -47,6 +47,23 @@ for lay in ORDER:
 <p><b>What you see.</b> {t.get('seen', '')}</p><p><b>What it is.</b> {t.get('explained', '')}</p><p class="num">{num}</p><p class="ex">{ex}</p></section>''')
     rows.append(f'<tr><td><a href="#{lay}">{html.escape(NAMES[lay])}</a></td><td>{t.get("short", "")}</td><td>{t.get("verdict", "explained")}</td></tr>')
 
+def big_img(f, alt, cls=''):
+    return f'<a href="prime2-patterns/{f}"><img class="{cls}" src="prime2-patterns/{f}" alt="{html.escape(alt)}" loading="lazy"></a>'
+BIG = f'''<section class="card" id="cos12big"><h2>The big picture: cosine rows, period 12, zoomed out <a class="open" href="prime2.html?layout=cosrows&amp;period=12&amp;n=100000&amp;width=240&amp;links=none">open</a></h2>
+<p><b>Zoomed out naively, there is nothing to see.</b> At 500,000 numbers in rows of 1,416 there is less than one pixel per number and the picture is an even speckle of blue and orange: the two lanes are equally full, and inside the places a prime may sit the primes look random. To see the structure, the row width has to fit the wave. Click any picture for full size.</p>
+<div class="imgs one">{big_img('cos12_big_zoom.png', 'Cosine rows, period 12, width 240, first 24 rows at full size')}</div>
+<p><b>Close up (the first 24 rows of width 240).</b> Each row holds 20 waves; the faint dots are the composites tracing the wave, the primes sit on the crest (blue, p ≡ ±1 mod 12) or in the trough (orange, p ≡ ±5). Because 240 is a multiple of 12, every column keeps its height from row to row.</p>
+<div class="imgs one">{big_img('cos12_big_stripes.png', 'Cosine rows, period 12, width 240, numbers 1 to 100,000, primes coloured by lane')}</div>
+<p><b>Zoomed out (1 to 100,000, 417 rows of 240).</b> The waves line up into stripes. Only 64 of the 240 columns can hold primes (the rest share a factor 2, 3 or 5 with 240), and each of them is a single colour: the pattern of blue and orange stripes repeats every 60 columns, four times across. All 64 stripes are equally full, 137 to 164 primes each, mean 149.8, as Dirichlet’s theorem says; inside a stripe the primes come at random.</p>
+<div class="imgs one">{big_img('cos12_big_twins.png', 'Cosine rows, period 12, width 240, twin primes')}</div>
+<p><b>Twin primes (same view; other primes dimmed).</b> Twins run on 24 double tracks, pairs of columns two apart that can both hold primes: 12 blue and 12 orange, because a twin pair never changes lane. All 1,222 twin pairs from (11, 13) to 100,000 sit on these tracks (the track in column 239 continues in column 1 of the next row); only (5, 7) in the first row is off them, since 5 divides 240.</p>
+<div class="imgs">{big_img('cos12_big_diag.png', 'Cosine rows, period 12, width 277, primes')}{big_img('cos12_big_braid.png', 'Cosine rows, period 12, width 100, primes')}</div>
+<p><b>Other widths.</b> Left, width 277 (≡ 1 mod 12): each row starts one step later in the wave, so the lanes slide one column per row and the stripes tilt into short diagonals. Right, width 100 (≡ 4 mod 12, 40,000 numbers): each row moves the wave by four places, so the 40 columns that can hold primes change lane in a cycle of three rows (column 1: 1 up, 101 down, 201 a multiple of 3) and the colours mix within each column.</p>
+<div class="chart">{open('cos12/race.svg').read()}</div>
+<p><b>Zoomed out to 10 million: the lane race.</b> The only difference between the lanes at large scale is a small lead for the down lane: 332,352 primes against 332,225. Its size is predicted. Every prime square p² (p ≥ 5) is ≡ 1 (mod 12), an up-lane remainder, and in the count of primes and prime powers the four classes are even on average; so the primes alone in class 1 fall short by about half the number of squares, ½ Li(√x) ≈ √x / ln x (Chebyshev’s bias, made precise by Rubinstein and Sarnak in 1994). Measured: averaged over ln x from 1,000 to 10 million the lead is 0.986 times ½ Li(√x) (dashed). The zeta zeros make the wobble around it: the up lane is ahead in 102 short stretches (blue), the first at 61,463, the longest from 1,172,807 to 1,179,403 (481 primes), the last ending at 2,233,787; in all after 1,476 of the 664,577 primes (0.22%).</p>
+<div class="chart">{open('cos12/rails.svg').read()}</div>
+<p class="ex"><b>The Mersenne exponents on the two lanes.</b> From 5 to 136,279,841, 16 are up and 34 down (16 of the 49 to no. 51); the heuristic expects about half. Hover over a dot for its value. As said above, after all the splits tested this is not significant; each new exponent is a fresh test.</p></section>'''
+
 page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +91,8 @@ a {{ color:var(--accent); }}
 .card p.num {{ color:#fde68a; }}
 .card p.ex {{ color:#fbcfe8; }}
 .wrap {{ overflow-x:auto; }}
+.imgs.one {{ grid-template-columns:1fr; margin-top:10px; }}
+.chart {{ margin-top:12px; background:#0e1828; border:1px solid var(--edge); border-radius:8px; padding:8px; }}
 @media (max-width:640px) {{ .imgs {{ grid-template-columns:1fr; }} }}
 </style>
 </head>
@@ -93,6 +112,7 @@ a {{ color:var(--accent); }}
 <p><b>Consecutive primes zigzag.</b> The gap to the next prime decides the lane exactly: a gap ≡ 2, 10 or 12 (mod 12) keeps it, 4, 6 or 8 switches it. Gaps ≡ 6 are the commonest (26.8%), so consecutive primes switch lanes 54.6% of the time up to 500,000 (53.7% up to 10 million), not 50%. Deeper down, consecutive primes repeat their remainder mod 12 only 57% as often as independence would give (1,464 times for remainder 1 against 2,569), the bias found by Lemke Oliver and Soundararajan in 2016; it fades slowly (66% up to 10 million), as their theory says.</p>
 <p><b>Twin primes share a lane, always</b>: a pair (p, p + 2) has p ≡ 11 (both up, like 11 and 13) or p ≡ 5 (both down, like 5 and 7). Up and down pairs are equally common, as Hardy–Littlewood predicts: 2,318 against 2,246 up to 500,000, and 29,497 against 29,482 up to 10 million.</p>
 <p class="ex"><b>The exponents.</b> Of the 49 Mersenne exponents from 5 to 82,589,933 only 16 sit in the up lane, where the heuristic expects about 23 (P = 0.023 one-sided, 0.046 two-sided); both halves lean the same way (p = 0.06 below 100,000, 0.15 above), and no. 52, 136,279,841, is down too. This is one split of the classes mod 12 among the many tested since the first round (all classes mod 12 together: p = 0.095), so it is not significant, and no mechanism is known. A clean test lies ahead: if the lean were real, about two of every three future exponents would be ≡ ±5 (mod 12); the heuristic says about half.</p></section>
+{BIG}
 {''.join(cards)}
 </main>
 </body>
