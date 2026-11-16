@@ -1,0 +1,72 @@
+sieve 0 s, primes below 170000000: 9503083
+
+== T1 lane factors (relative to the mean of the four lanes), averaged over p mod 5, 7, 11, 13 ==
+K convergence at p = 1e6:
+  K   1000: lane 1: 1.0488  lane 5: 1.0072  lane 7: 1.0647  lane 11: 0.8793
+  K   3000: lane 1: 1.0488  lane 5: 1.0073  lane 7: 1.0645  lane 11: 0.8794
+  K  10000: lane 1: 1.0488  lane 5: 1.0073  lane 7: 1.0645  lane 11: 0.8794
+p    1e+02: 1: 1.153  5: 1.038  7: 1.203  11: 0.606   mod-4 ratio 1.211 (Wagstaff log(6p)/log(2p) = 1.207)
+p    1e+03: 1: 1.100  5: 1.020  7: 1.132  11: 0.747   mod-4 ratio 1.128 (Wagstaff log(6p)/log(2p) = 1.145)
+p    1e+04: 1: 1.074  5: 1.013  7: 1.098  11: 0.815   mod-4 ratio 1.091 (Wagstaff log(6p)/log(2p) = 1.111)
+p    1e+05: 1: 1.059  5: 1.009  7: 1.078  11: 0.854   mod-4 ratio 1.071 (Wagstaff log(6p)/log(2p) = 1.090)
+p    1e+06: 1: 1.049  5: 1.007  7: 1.065  11: 0.879   mod-4 ratio 1.058 (Wagstaff log(6p)/log(2p) = 1.076)
+p    1e+07: 1: 1.042  5: 1.006  7: 1.055  11: 0.897   mod-4 ratio 1.049 (Wagstaff log(6p)/log(2p) = 1.065)
+p    1e+08: 1: 1.036  5: 1.005  7: 1.048  11: 0.911   mod-4 ratio 1.042 (Wagstaff log(6p)/log(2p) = 1.057)
+
+== T1 test (b): the 51 exponents below B by lane (p > 3) ==
+lane  observed  mod-4 null  T1 (normalised to the same total)
+   1        11       11.81     11.86
+   5        20       13.39     13.19
+   7        13       11.85     14.02
+  11         5       11.27      9.24
+split log-likelihood (bits): null -96.25, T1 -94.88, gain +1.37 bits
+if T1 were true, the gain would be +0.56 +- 1.27 bits; observed +1.37
+if the mod-4 null were true: -0.57 +- 1.28; P(gain <= observed) under T1 0.739, P(gain >= observed) under null 0.063
+
+(20 s)
+
+== T1/T2 test (a): actual survival of trial factoring ==
+primes in [10,000, 100,000), K = 800: 8363 primes, survivors 5284 (0.6318)
+  lane  primes  survival  T1 predicted (absolute)  ratio obs/pred
+     1    2074    0.6688       0.6800            0.984
+     5    2100    0.6476       0.6462            1.002
+     7    2099    0.6875       0.6930            0.992
+    11    2090    0.5234       0.5389            0.971
+  T2 per-prime prediction: mean 0.6397 vs survival 0.6318; correlation 0.220
+  deciles of the T2 prediction: predicted mean / observed survival / n
+    0.3851 / 0.3728 / 837
+    0.5411 / 0.5538 / 836
+    0.6223 / 0.6328 / 836
+    0.6415 / 0.6112 / 836
+    0.6566 / 0.6313 / 838
+    0.6708 / 0.6523 / 837
+    0.6890 / 0.6782 / 836
+    0.7104 / 0.7141 / 836
+    0.7286 / 0.7261 / 836
+    0.7518 / 0.7455 / 837
+  log-likelihood of who survives (bits): constant -7938.6, T1 lanes -7836.2, T2 per prime -7653.4
+primes in [100,000, 800,000), K = 100: 54359 primes, survivors 41195 (0.7578)
+  lane  primes  survival  T1 predicted (absolute)  ratio obs/pred
+     1   13517    0.7987       0.7950            1.005
+     5   13615    0.7656       0.7609            1.006
+     7   13617    0.8118       0.8094            1.003
+    11   13610    0.6555       0.6571            0.998
+  T2 per-prime prediction: mean 0.7554 vs survival 0.7578; correlation 0.245
+  deciles of the T2 prediction: predicted mean / observed survival / n
+    0.5061 / 0.5060 / 5439
+    0.6552 / 0.6506 / 5438
+    0.7371 / 0.7524 / 5440
+    0.7570 / 0.7579 / 5441
+    0.7721 / 0.7666 / 5438
+    0.7866 / 0.7881 / 5445
+    0.8044 / 0.8067 / 5441
+    0.8254 / 0.8300 / 5442
+    0.8434 / 0.8507 / 5437
+    0.8664 / 0.8692 / 5436
+  log-likelihood of who survives (bits): constant -43412.6, T1 lanes -42637.9, T2 per prime -41226.9
+
+== T2 test (b): the 51 exponents with the per-prime factor (within each p mod 4 class, normalised) ==
+expected total: null 48.32, T2 47.54; log-likelihood gain of T2 over the null: +2.54 bits
+T2 weight at the exponents: 5:0.68, 7:1.06, 13:0.93, 17:0.74, 19:1.22, 31:1.31, 61:0.88, 89:0.96, 107:1.25, 127:1.13, 521:1.03, 607:1.40, 1279:1.10, 2203:1.07, 2281:0.97, 3217:0.96, 4253:1.16, 4423:1.16, 9689:0.96, 9941:1.01, 11213:0.96, 19937:1.10, 21701:1.03, 23209:1.11, 44497:0.96, 86243:1.17, 110503:1.06, 132049:1.08, 216091:1.09, 756839:0.79, 859433:1.07, 1257787:1.05, 1398269:1.06, 2976221:0.93, 3021377:1.01, 6972593:0.95, 13466917:0.99, 20996011:1.07, 24036583:1.06, 25964951:0.76, 30402457:1.06, 32582657:0.94, 37156667:1.05, 42643801:0.98, 43112609:1.01, 57885161:1.01, 74207281:1.06, 77232917:0.95, 82589933:0.94
+sum of log2 weights at the exponents: +1.20; under the null -3.97 +- 2.69 (P >= obs 0.025); under T2 +0.98 +- 2.05 (P <= obs 0.503)
+(169 s)
