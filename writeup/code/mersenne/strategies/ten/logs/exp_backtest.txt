@@ -1,0 +1,19 @@
+exponents above 500: 40; train on the first 20 (up to 756839), test on the last 20
+== (a) mined rules: the classes r mod m (m = 3..500) that hold most training exponents
+ best  10 rules: training hits 22 where 0.5 expected by chance; test hits 0 where 0.5 expected
+ best  50 rules: training hits 108 where 3.5 expected by chance; test hits 4 where 3.5 expected
+ best 200 rules: training hits 438 where 23.9 expected by chance; test hits 33 where 23.9 expected
+ the 5 strongest: [(471, 50, 3), (491, 297, 2), (399, 208, 3), (463, 429, 2), (493, 309, 2)] (modulus, class, training exponents)
+== (b) the factor rule: weight of a class = share of primes p in it whose 2^p - 1 has no factor 2kp+1, k <= 3000 (from exp_class.txt, p < 2e5)
+ mod  4 train: log-likelihood gain +0.13; decoy primes: median -0.01, 95% point +0.27; share of decoys >= real 0.203
+ mod  4 test : log-likelihood gain +0.34; decoy primes: median -0.01, 95% point +0.20; share of decoys >= real 0.013
+ mod  4 all  : log-likelihood gain +0.46; decoy primes: median -0.02, 95% point +0.32; share of decoys >= real 0.013
+ mod 12 train: log-likelihood gain +0.55; decoy primes: median -0.12, 95% point +0.71; share of decoys >= real 0.087
+ mod 12 test : log-likelihood gain +0.31; decoy primes: median -0.09, 95% point +0.63; share of decoys >= real 0.183
+ mod 12 all  : log-likelihood gain +0.86; decoy primes: median -0.12, 95% point +0.94; share of decoys >= real 0.070
+ mod 24 train: log-likelihood gain +0.55; decoy primes: median -0.05, 95% point +0.59; share of decoys >= real 0.060
+ mod 24 test : log-likelihood gain +0.24; decoy primes: median -0.07, 95% point +0.66; share of decoys >= real 0.270
+ mod 24 all  : log-likelihood gain +0.78; decoy primes: median -0.16, 95% point +0.74; share of decoys >= real 0.047
+ mod 60 train: log-likelihood gain +0.57; decoy primes: median -0.22, 95% point +0.65; share of decoys >= real 0.080
+ mod 60 test : log-likelihood gain +0.31; decoy primes: median -0.25, 95% point +0.78; share of decoys >= real 0.200
+ mod 60 all  : log-likelihood gain +0.87; decoy primes: median -0.43, 95% point +0.99; share of decoys >= real 0.057
