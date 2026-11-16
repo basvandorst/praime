@@ -46,3 +46,5 @@ E=MEXP[1:]; assert len(S)==len(E)
 S=np.array(S); print(" plus %d, minus %d; runs %d (expected %.1f +- %.1f); longest run %d"%((S==1).sum(),(S==-1).sum(),1+int((np.diff(S)!=0).sum()),1+2*(S==1).sum()*(S==-1).sum()/len(S),math.sqrt(2*(S==1).sum()*(S==-1).sum()*(2*(S==1).sum()*(S==-1).sum()-len(S))/(len(S)**2*(len(S)-1))),max(len(list(g)) for _,g in __import__('itertools').groupby(S))))
 for m in (8,3,5,12):
     print("  by p mod %d:"%m, {int(r):(int(((np.array(E)%m==r)&(S==1)).sum()),int(((np.array(E)%m==r)&(S==-1)).sum())) for r in sorted(set(int(e%m) for e in E))})
+from scipy.stats import fisher_exact
+print("  split p = 1 (mod 8) against p = 5 (mod 8), Fisher exact two-sided: p = %.3f"%fisher_exact([[7,13],[9,3]])[1])
