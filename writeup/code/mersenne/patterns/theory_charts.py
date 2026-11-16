@@ -9,33 +9,28 @@ def frame(w, h, label):
 def txt(x, y, s, anchor='start', fill=MUTED, size=12):
     return f'<text x="{x:.1f}" y="{y:.1f}" fill="{fill}" font-size="{size}" text-anchor="{anchor}">{s}</text>'
 rows = []
-for line in open(f'{TH}/goldrace12.txt'):
-    m = re.match(r'\s+([\d,]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s*$', line)
-    if m: rows.append((float(m.group(1).replace(',', '')), float(m.group(2)), float(m.group(3)), float(m.group(4))))
+for line in open(f'{TH}/goldbig_1e9.txt'):
+    m = re.match(r'\s+([\d,]{9,})\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s*$', line)
+    if m: rows.append([float(m.group(1).replace(',', ''))] + [float(m.group(k)) for k in (2, 3, 4, 5)])
 rows = np.array(rows)
-zrows = []
-for line in open(f'{TH}/goldzeros.txt'):
-    m = re.match(r'\s+([\d,]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s*$', line)
-    if m: zrows.append(float(m.group(3)))
-zrows = np.array(zrows)
-W, H, L, R, T, B = 1000, 340, 60, 16, 16, 44
-x0, x1 = math.log(rows[0, 0]), math.log(4e6)
-ymin, ymax = -130, 10
+W, H, L, R, T, B = 1000, 360, 60, 16, 16, 44
+x0, x1 = math.log(1e6), math.log(1e9)
+ymin, ymax = -800, 40
 X = lambda v: L + (math.log(v) - x0) / (x1 - x0) * (W - L - R)
 Y = lambda v: T + (ymax - v) / (ymax - ymin) * (H - T - B)
-s = frame(W, H, "Goldbach's comet, n = 0 mod 12: class-1 deficit against the prime race")
-for v in range(-120, 11, 20):
+s = frame(W, H, "Goldbach's comet up to a billion, n = 0 mod 12: class-1 deficit against the prime race and the zeros")
+for v in range(-800, 1, 100):
     s.append(f'<line x1="{L}" x2="{W - R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="{AX if v == 0 else GRID}" stroke-width="1"/>' + txt(L - 6, Y(v) + 4, str(v), 'end'))
-for v in (2.5e5, 5e5, 1e6, 2e6, 4e6):
-    s.append(f'<line x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{T}" y2="{H - B}" stroke="{GRID}" stroke-width="1"/>' + txt(X(v), H - B + 18, f'{v:,.0f}', 'end' if v == 4e6 else 'middle'))
-mid = np.sqrt(rows[:, 0] * np.append(rows[1:, 0], 4e6))
-s.append('<polyline fill="none" stroke="' + MUTED + '" stroke-width="2" stroke-dasharray="6 5" points="' + ' '.join(f'{X(a):.1f},{Y(c):.1f}' for a, c in zip(mid, rows[:, 3])) + '"/>')
+for v, lab in ((1e6, '10⁶'), (1e7, '10⁷'), (1e8, '10⁸'), (1e9, '10⁹')):
+    s.append(f'<line x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{T}" y2="{H - B}" stroke="{GRID}" stroke-width="1"/>' + txt(X(v), H - B + 18, lab, 'end' if v == 1e9 else ('start' if v == 1e6 else 'middle')))
+mid = np.sqrt(rows[:, 0] * np.append(rows[1:, 0], 1e9))
+s.append('<polyline fill="none" stroke="' + MUTED + '" stroke-width="2" stroke-dasharray="6 5" points="' + ' '.join(f'{X(a):.1f},{Y(c):.1f}' for a, c in zip(mid, rows[:, 4])) + '"/>')
 s.append('<polyline fill="none" stroke="' + BLUE + '" stroke-width="2" points="' + ' '.join(f'{X(a):.1f},{Y(c):.1f}' for a, c in zip(mid, rows[:, 2])) + '"/>')
-s.append('<polyline fill="none" stroke="' + YEL + '" stroke-width="1.5" stroke-dasharray="2 3" points="' + ' '.join(f'{X(a):.1f},{Y(c):.1f}' for a, c in zip(mid, zrows)) + '"/>')
-for a, d in zip(mid, rows[:, 1]):
-    s.append(f'<circle cx="{X(a):.1f}" cy="{Y(d):.1f}" r="4" fill="{PINK}"><title>n near {a:,.0f}: mean gap {d:.1f}</title></circle>')
-lx, ly = L + 12, Y(-122) - 56
-s.append(txt(L + 8, H - 6, 'n (log scale)') + txt(lx, ly, '● measured: mean of (1,11)+(11,1) − (5,7)−(7,5) over a bin', 'start', PINK)
+s.append('<polyline fill="none" stroke="' + YEL + '" stroke-width="1.5" stroke-dasharray="2 3" points="' + ' '.join(f'{X(a):.1f},{Y(c):.1f}' for a, c in zip(mid, rows[:, 3])) + '"/>')
+for a, d, p, z in zip(mid, rows[:, 1], rows[:, 2], rows[:, 3]):
+    s.append(f'<circle cx="{X(a):.1f}" cy="{Y(d):.1f}" r="4" fill="{PINK}"><title>n near {a:,.0f}: mean gap {d:.1f}, race {p:.1f}, zeros {z:.1f}</title></circle>')
+lx, ly = L + 12, Y(-560)
+s.append(txt(L + 8, H - 6, 'n (log scale), 60 bins') + txt(lx, ly, '● measured: mean of (1,11)+(11,1) − (5,7)−(7,5) over a bin (exact counts)', 'start', PINK)
          + txt(lx, ly + 16, '— predicted from the prime race at n (no parameter)', 'start', BLUE) + txt(lx, ly + 32, '··· predicted from 359 zeros of L(s, χ₁₂), no prime count', 'start', YEL) + txt(lx, ly + 48, '- - prime squares alone: −S(n)', 'start', MUTED))
 s.append('</svg>')
 open(f'{OUT}/goldrace.svg', 'w').write('\n'.join(s))
