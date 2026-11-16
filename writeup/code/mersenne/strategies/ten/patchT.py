@@ -1,4 +1,4 @@
-"""Insert the ten layouts (lx.js, opts.txt) into the 70-layout page.
+"""Insert the layouts (lx.js, opts.txt) into the 70-layout page.
 Usage: put that page next to this file as base.html, then python3 patchT.py -> prime2.html.
 Test with ../page/test.js."""
 import re,sys
@@ -23,6 +23,6 @@ rep('setFont(n);','setFont(LB(n));',2)
 rep('tip.hidden=false;tip.innerHTML=','tip.hidden=false;tip.innerHTML=S.l20&&S.l20.tipFull?S.l20.tipFull(n):')
 rep('if(pp>=(L==="quadform"?1:2)','if(pp>=(L==="quadform"||L==="spectrum"?1:2)')
 rep('Math.max(S.layout==="quadform"?1:2,','Math.max(S.layout==="quadform"||S.layout==="spectrum"?1:2,')
-rep('sqW(){return Math.ceil(Math.sqrt(S.N*((LWR.includes(S.layout)||LSW.includes(S.layout))?4:1)));}','sqW(){return Math.ceil(Math.sqrt(S.N*((LWR.includes(S.layout)||LSW.includes(S.layout))?4:1)));}')
+rep('sqW(){return Math.ceil(Math.sqrt(S.N*((LWR.includes(S.layout)||LSW.includes(S.layout))?4:1)));}','sqW(){return Math.ceil(Math.sqrt(S.N*((LWR.includes(S.layout)||LSW.includes(S.layout)||S.layout==="parity")?4:1)));}')
 assert '//' not in lx.replace('https://','') and '/*' not in lx
 open('prime2.html','w').write(b); print('built',len(b))

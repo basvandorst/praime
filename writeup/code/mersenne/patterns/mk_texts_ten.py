@@ -2,19 +2,21 @@
 Every number comes from the logs in ../strategies/ten/logs/ (scripts in ../strategies/ten/check/)."""
 import json
 T = {}
-T['_title'] = "Ten layouts that leave the dots behind (16 November)"
+T['_title'] = "Twelve layouts that leave the dots behind (16 November)"
 T['_intro'] = ("The other 70 layouts place the number n and colour it prime or not. Such a picture can only show where primes are dense: lines, "
- "remainder classes, polynomials. These ten show what it cannot: the order of consecutive primes (words of gaps and of remainders), two primes at "
- "once (reversals, Goldbach pairs), how evenly the primes fill long windows, and the zeros. Each note on the page computes its numbers live; every "
+ "remainder classes, polynomials. These twelve show what it cannot: the order of consecutive primes (words of gaps and of remainders), two primes at "
+ "once (reversals, Goldbach pairs), how evenly the primes fill long windows, the zeros, and two things no sieve can see: the parity of the number of prime factors, and the class number. Each note on the page computes its numbers live; every "
  "number below was recomputed by a separate Python script.")
 T['_reveal'] = ("<b>Does this reveal anything?</b> No new mystery, and nothing about the Mersenne exponents: where they could be tested they behave like "
- "other primes (13 of the 52 have a prime reversal in base 10 where 14.1 are expected, 16 in base 2 where 20.4 are). What the ten pictures do show is "
+ "other primes (13 of the 52 have a prime reversal in base 10 where 14.1 are expected, 16 in base 2 where 20.4 are). What the first ten pictures show is "
  "where the open part of the primes sits. Seven are pure sieve: a rule of remainders, plus coin flips for whatever the rule allows, reproduces them "
  "in full (the dust of the gaps, the remainder words, the gap pairs, the opening that recurs, Goldbach's first partner, the reversals, the "
  "survivors). Two are not: the rows of the scales narrow in a way that no sieve with coin flips above it copies, and the spectrum shows the cause, "
  "the zeros. The atlas sits between: its columns are the sieve, but their counts scatter less than coin flips. So the border runs here: all local "
  "structure is the sieve; what remains is how evenly the primes fill long windows, and that is the zeros. Along the way three statements were "
- "derived first and tested after, and two numbers were measured; they are in the card below the table.")
+ "derived first and tested after, and two numbers were measured; they are in the card below the table. The last two layouts use no sieve. In the "
+ "first, the number after a prime leans towards an odd number of prime factors, and why is open. In the second the primes sort themselves by a count "
+ "of quadratic forms, half of them in each row, and from the fifth row on no rule is known for which prime goes where.")
 T['found'] = [
  ["Classes push each other away, by their conductors", "heuristic; derived first, tested after; literature not searched",
   "Count the primes of class a mod q, each with weight ln p, in a window of H numbers near x. Split into characters, with independent zeros for "
@@ -99,6 +101,17 @@ card(id="spectrum", name="Spectrum: the zeros in the primes", q="layout=spectrum
  seen="Sharp peaks on a flat floor, lower and lower to the right, a light line through each (left: zeta; middle: the lanes mod 12; right: mod 19, a million numbers).",
  explained="By Riemann's formula the walk ψ(x) − x, divided by √x, is a sum of waves cos(γ·ln x), one for each zero ½ + iγ, of strength 2/|ρ|. The picture measures the strength of every wave from the primes on the page alone; the light lines are the known zeros. With a character (P = 4, 8, 12 or a prime) the walk is the prime race of that character and the peaks are the zeros of its L-function.",
  checked="Zeta, primes up to 500,000: peaks at 14.13, 21.03, 25.02, 30.41, 32.95, 37.60, 40.92, 43.33, 48.03, 49.74, 52.96, 56.44, 59.40; zeros at 14.13, 21.02, 25.01, 30.42, 32.94, 37.59, 40.92, 43.33, 48.01, 49.77, 52.97, 56.45, 59.35. Heights as a share of the first: 1.00 0.66 0.57 0.47 0.42 0.38 0.36 0.33 0.29 0.29 0.28 0.26 0.23; Riemann's 1/|ρ|: 1.00 0.67 0.57 0.46 0.43 0.38 0.35 0.33 0.29 0.28 0.27 0.25 0.24. Mod 12: peaks 3.81, 6.68, 8.90, 11.21, 12.94, 15.26, 16.54 on the zeros 3.80, 6.69, 8.89, 11.19, 12.97, 15.18, 16.63 of L(s, χ₁₂). Mod 4: 6.02, 10.24, 12.99, 16.36, 18.28 on 6.02, 10.24, 12.99, 16.34, 18.29. Mod 19: the lowest peak at 1.50 (a million numbers), the zero 1.5161 that keeps the non-squares mod 19 behind a third of the time. A peak is 1.4 wide (1.3 for a million), so close zeros merge.")
+card(id="parity", name="Primes on a line: even above, odd below", q="layout=parity&amp;links=none", imgs=["t_parity.jpg", "t_parity_z.jpg"],
+ short="The numbers between two primes, sorted by the parity of their number of prime factors; p + 1 leans odd", verdict="identity (the balance); the lean of p + 1 is open",
+ seen="Lines of primes with ribs above and below, like a seismogram; the ribs above are a little longer (right: eight times enlarged).",
+ explained="Every prime stands on the line of its band. The numbers up to the next prime go above the line when they have an even number of prime factors, counted with repeats, and below when the number is odd. No sieve can tell the two apart (the parity problem). A prime has one factor, so the others must make up for it: above minus below is exactly π(N) + L(N) − 1, with L Liouville's sum, one extra number above for every prime. The first number after a prime goes the other way: p + 1 = k·m² with k square-free goes above or below with k alone, and the primes 2m² − 1, 3m² − 1 and 5m² − 1 all pull down, 6m² − 1 up.",
+ checked="Up to 5·10⁷, recounted: 24,996,195 composites with an even number of factors and 22,002,670 with an odd number; the difference 2,993,525 is π(N) + L(N) − 1 exactly (L = −7,608). The sum of ±1 over p + 1: −289 at 10⁶, −1,372 at 10⁷, −1,877 at 5·10⁷, and below zero for 97% of the way from 10⁵ to 5·10⁷ (on a logarithmic scale); in units of √x/ln x it averages −5.2, of which the square-free k up to 300 give −4.4. For p − 1 the sums are −159, −568 and −3,373 (negative 82% of the way), although its first term, the primes m² + 1, pulls up: there the first terms do not settle it. Coin flips would stray by about 1,700 at 5·10⁷, so neither lean is proved by these counts. Literature not searched.")
+card(id="classrows", name="Rows by the class number (no division)", q="layout=classrows&amp;links=none", imgs=["t_classrows.jpg", "t_classrows_z.jpg"],
+ short="Rows by the power of 2 in h(−4n): the primes float, half of them in each row", verdict="theorems (genera; mod 8; Barrucand and Cohn); the halving is measured",
+ seen="Bands that fade downwards: the top band is nearly all primes, each band below holds fewer.",
+ explained="Row k holds the numbers n whose class number h(−4n) is divisible by 2^k and no higher power of 2. The class number counts the reduced forms ax² + 2bxy + cy² with ac − b² = n; the page counts them one by one and never divides n. By Gauss's theory of genera a number with r odd prime factors lies in row r − 1 or deeper, so the primes float to the top and numbers with many factors sink. The top row is the primes ≡ 3 (mod 4), with only 1, 2, 4 and odd powers of such primes beside them; row 1 holds the primes ≡ 5 (mod 8); the primes ≡ 1 (mod 8) lie deeper, and those in row 3 or deeper are exactly the primes x² + 32y² (Barrucand and Cohn, 1969).",
+ checked="Against PARI's class numbers for the 78,497 odd primes up to a million: shares by row 50.1%, 25.0%, 12.5%, 6.2%, 3.1%, 1.7%, 0.8%, 0.4%, 0.2%, each half of the one before; the three rules by remainder hold without exception, and 9,766 of the 19,552 primes ≡ 1 (mod 8) are x² + 32y², exactly those in row 3 or deeper. Square-free odd numbers up to 20,000 with 1, 2, 3, 4 prime factors: the highest row reached is 0, 1, 2, 3. The largest power of 2 among these primes is 1,024 = h(−4·531,977). From row 4 on no rule by remainders or by one form is known; the halving goes on.",
+ exponents="<b>The exponents.</b> The 51 odd exponents lie in rows 0 to 6 as 19, 12, 9, 6, 2, 1, 2: the 19, 12 and 20 are their remainders 3 (mod 4), 5 (mod 8) and 1 (mod 8), and of the 20 deeper ones 11 lie in row 3 or deeper, where 10 are expected. Ordinary.")
 T['cards'] = C
 json.dump(T, open('texts_ten.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print(len(C), 'cards')
