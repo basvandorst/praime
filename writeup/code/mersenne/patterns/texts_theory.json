@@ -1,0 +1,126 @@
+{
+ "_intro": "Eleven statements we derived ourselves from what the layouts show. Each prediction was fixed before the numbers were counted, nothing was fitted to the data, and each one was then tested. Six use no sieve; they rest on prime squares, group orders or the zeros of L-functions. Five rest on the sieve, meaning the densities of the small primes in the Hardy–Littlewood style. Two independent checkers recomputed the numbers with their own code, and a literature search says what was already known (<i>not found</i> means not found, not new). Labels: <i>proved</i> means a proof; <i>heuristic</i> means a derivation that assumes the usual conjectures, tested on data.",
+ "cards": [
+  {
+   "id": "goldrace",
+   "name": "Goldbach's comet follows the prime race",
+   "label": "no sieve · identity proved, the rest heuristic",
+   "open": "layout=goldbach&amp;links=none",
+   "chart": "goldrace.svg",
+   "short": "The strands of the comet that use primes ≡ 1 (mod 12) lie lower, by the prime squares and the prime race",
+   "verdict": "40 bins, 2.5·10⁵ to 4·10⁶: correlation 0.99 in all 4 classes mod 12 and all 4 mod 8; from the L-function zeros alone 0.99 too",
+   "idea": "Every prime square s² (s ≥ 5) is ≡ 1 (mod 12), so the primes ≡ 1 lag the other classes (Chebyshev's bias). In Goldbach's comet, take an even n ≡ 0 (mod 12) and split its ways n = p + q by class: (1, 11) and (11, 1) use class 1, while (5, 7) and (7, 5) avoid it. An exact identity says the class-1 ways fall short by S(n) = the number of primes s with n − s² prime, plus a remainder. Our theory says the remainder is the prime race itself: the gap is the lead of the other classes among the primes up to n, scaled so that the squares part becomes exactly S(n). The prediction −S(n)·D(n)/(Q(n)/2) has no free parameter. D(n) is that lead and Q(n) the number of prime squares up to n.",
+   "test": "Up to 4·10⁶: the squares alone carry about 93% of the gap on average. With the race, binned over log n, the gap and the prediction correlate 0.993, 0.993, 0.989 and 0.990 for n ≡ 0, 2, 6, 10 (mod 12). The mean error falls from 10–19 to 2–4, and the sampling error of a bin is about 1–1.5. The class n ≡ 10, (5, 5) against (11, 11), contains no squares and is predicted just as well (its scale taken from n − 2). The same holds mod 8, where every odd square is ≡ 1: correlation 0.986 to 0.989 for all four classes. The race itself comes from the zeros: replacing the prime counts by 289 zeros of L(s, χ₋₄) and 359 of L(s, χ₁₂) below height 400 (explicit formula, squares exact) predicts the strands almost as well, with correlation 0.993, 0.993, 0.990 and 0.990 and mean error 2.3 to 4.3 (dotted yellow line).",
+   "known": "Goldbach counts in progressions with terms from L-function zeros: Rüppel 2012; Bhowmik, Halupczok, Matsumoto and Suzuki 2019. A prime-square or race term for the class strands was not found."
+  },
+  {
+   "id": "zrace",
+   "name": "The race of the zeros",
+   "label": "no sieve · heuristic (GRH and LI)",
+   "open": "layout=chebrace&amp;period=19&amp;links=none",
+   "chart": "zrace.svg",
+   "short": "How often the residues mod P lead, predicted from L(s, χ_P) alone",
+   "verdict": "14 primes P ≤ 47: correlation 0.97, mean error 0.011",
+   "idea": "Race the primes that are non-residues mod P against the residues. By the explicit formula, the scaled difference is a constant from the prime squares (all residues) plus a wave for every zero of L(s, χ_P). The total strength of all the waves follows from L′/L at s = 1, without finding a single zero. Our one-zero law: the lowest zero makes one big wave and the rest act as noise. The share of time the residues lead is then the chance that wave plus noise pull below the square term. The low zeros sit at P = 19 (1.5161), 29 (1.79) and 43 (0.836); Q(√−19) and Q(√−43) have class number 1, like Q(√−163) behind Euler's n² + n + 41.",
+   "test": "Odd primes up to 10⁸, measured in log-time from 10³: P = 43, 19 and 29 race below zero most often (0.204, 0.137, 0.120), as predicted. Our first version overestimated every share by 0.04, because at finite x the square term is 1 + 2/ln x + …, not 1. With that term (derived, but added after the first comparison) the mean error is 0.011. For P = 19 the law gives 0.195; the full computation over 3,184 zeros by Bays et al. gives 0.1958.",
+   "known": "The substance is known: Bays, Ford, Hudson and Rubinstein 2001, with the zero 1.51608 and the mod-19 bias 0.8042. The one-zero law with the variance from L′/L(1) is our shortcut."
+  },
+  {
+   "id": "ord2count",
+   "name": "How many primes divide a Mersenne number",
+   "label": "no sieve in the formula · heuristic",
+   "open": "layout=ord2&amp;links=none",
+   "short": "Primes q whose order of 2 is prime: a closed formula with no prime in it",
+   "verdict": "3,841.6 against 3,845 up to 10⁶; 26,690 against 26,560 up to 10⁷",
+   "idea": "These q are exactly the prime factors of 2^l − 1 with l prime, q = 2kl + 1. For each k we count the primes l with 2kl + 1 prime (Hardy–Littlewood). The mod-8 law keeps every l when 4 | k, half of them when k is odd and none when k ≡ 2 (mod 4). The order is then l with chance 1/k. Summed over k this gives A·x/ln²x with A = 0.5382, a twin-prime-like law.",
+   "test": "Ratio 1.001 at 10⁶ and 0.995 at 10⁷ (0.93 to 0.97 from 10³ to 10⁵).",
+   "known": "The sequence is OEIS A122094 and Pomerance gives bounds of order x/(log x)², but no formula was found."
+  },
+  {
+   "id": "fifth",
+   "name": "One Mersenne factor in five is ≡ 1 (mod 3)",
+   "label": "no sieve · rule proved, limit heuristic",
+   "open": "layout=mersieve&amp;period=64&amp;links=none",
+   "short": "q = 2kl + 1 is ≡ 1 (mod 3) exactly when 3 | k; the share tends to exactly 1/5",
+   "verdict": "0.2162 predicted and 0.2156 found up to 10⁷; 0 exceptions to the rule",
+   "idea": "If 3 does not divide k, then 2kl + 1 is ≡ 0 or 2 (mod 3); a prime factor q is ≡ 1 (mod 3) only when 3 | k. The weights of the previous card sum over the powers of 3 in k to 1 + 1/4, and 1/4 of that has 3 | k. So in the limit exactly one factor in five is ≡ 1 (mod 3), against one prime in two.",
+   "test": "Formula 0.2202 at 10⁶ and 0.2162 at 10⁷; counted 0.2216 and 0.2156. The rule holds for all 8,861 factors checked.",
+   "known": "Not found as a statement; it is implicit in the per-k densities of Shanks and Kravitz (1967)."
+  },
+  {
+   "id": "twinbias",
+   "name": "A Chebyshev bias for twin primes",
+   "label": "no sieve · heuristic, not decidable by counting",
+   "open": "layout=cosrows&amp;period=12&amp;n=10000&amp;width=60&amp;links=none",
+   "short": "Up twins (12i ± 1) should lag down twins (12i + 5, 12i + 7) by half the primes p with p² − 2 prime",
+   "verdict": "+326 predicted, +956 found at 10⁹, but the race swings by about 1,850",
+   "idea": "Suppose that, counting prime powers too, the twins of the two lanes are even, as single primes are. Then the pairs (p² − 2, p²) are missing from the up lane, where every p² lives, and the up lane falls short by half their number.",
+   "test": "Up to 10⁹: 651 such p, so +326 predicted; the down twins lead by 956. They are ahead only 48% of the time on a log scale, and the swings grow faster than the bias, so counting will never decide this.",
+   "known": "The race is tabulated to 10¹⁰ with lead changes and no explanation (Sahoo 2021); no theory was found."
+  },
+  {
+   "id": "row3",
+   "name": "Euler's rule, one row down",
+   "label": "no sieve · proved",
+   "open": "layout=quadform&amp;period=27&amp;links=none",
+   "short": "p ≡ 1 (mod 4), q = 6p + 1 prime: q divides 2^p − 1 exactly when q = x² + 27y²",
+   "verdict": "all 11,198 cases up to p = 1,666,666: 3,706 divide, exactly those of the form",
+   "idea": "q ≡ 7 (mod 8) makes 2 a square mod q, and by Gauss 2 is a cube mod q exactly when q = x² + 27y². Then 2 is a sixth power and 2^p ≡ 1. Row 3 of the Mersenne factor sieve is the P = 27 line of the a² + P·b² layout.",
+   "test": "x and y were found directly, with no exception either way; the share 0.331 matches Chebotarev's 1/3.",
+   "known": "Known: Latinne's conjecture, proved by Z.-W. Sun in 2008, and in probabilistic form in Shanks and Kravitz 1967 (OEIS A188130)."
+  },
+  {
+   "id": "lanes",
+   "name": "Lanes for Mersenne exponents",
+   "label": "sieve · heuristic",
+   "open": "layout=cosrows&amp;period=12&amp;n=10000&amp;width=60",
+   "short": "Which small factors 2kp + 1 are possible depends on p mod 12; Euler's k = 1 only for p ≡ 11",
+   "verdict": "survival per lane predicted within 1% for 54,359 primes; exponents 1.4 bits better than the mod-4 rule",
+   "idea": "The mod-8 law fixes k mod 4 by p mod 4, and 3 divides 2kp + 1 for one class of k mod 3 set by p mod 3. So the four lanes p ≡ 1, 5, 7, 11 (mod 12) get the weights 1.049, 1.007, 1.065 and 0.879 at p = 10⁶. Lane 11 is the only one where 2p + 1 can be a factor (Euler's rule).",
+   "test": "Share of primes in [10⁵, 8·10⁵) with no factor for k ≤ 100, predicted against measured: 0.795/0.799, 0.761/0.766, 0.809/0.812 and 0.657/0.656. The exponents per lane are 11, 20, 13 and 5, against 11.9, 13.2, 14.0 and 9.2 predicted. Most of the gain comes from the empty Euler lane; the 20 in lane 5 stay unexplained.",
+   "known": "Wagstaff 1983 has the mod-4 version and averages the rest away; no refinement by p mod 12 was found."
+  },
+  {
+   "id": "local",
+   "name": "A local factor for every exponent",
+   "label": "sieve · heuristic",
+   "short": "A prior for each prime p from its remainders mod 3, 5, 7, 11 and 13 alone",
+   "verdict": "calibrated in all 10 deciles; 2.5 bits better than Wagstaff's mod-4 rule on the 51 exponents",
+   "idea": "The same product as the lanes, but with p's own remainders, gives each prime a factor for its chance of having no small factor and so of being an exponent.",
+   "test": "The predicted survival matches the measured one within 0.015 in every decile. On the 51 exponents the summed log weight is +1.20, against −3.97 ± 2.69 for random sets drawn from the old rule (P = 0.025) and +0.98 ± 2.05 if the theory holds: a Bayes factor of about 6. Out of sample, no. 52 has the low factor 0.932. The effect is small and finds no exponent; it shifts the odds of a prime by a few per cent.",
+   "known": "The per-k densities are Shanks and Kravitz 1967; no per-exponent version was found."
+  },
+  {
+   "id": "bytes",
+   "name": "The bytes of the wheel 24",
+   "label": "sieve · heuristic (Hardy–Littlewood)",
+   "open": "layout=cosrows&amp;period=12&amp;n=10000&amp;width=60&amp;links=none",
+   "chart": "bytes.svg",
+   "short": "All 256 primality patterns of 24j − 1 … 24j + 19, predicted with nothing fitted",
+   "verdict": "χ² = 174 on 228 degrees of freedom up to 10⁹",
+   "idea": "The k-tuple constants with inclusion–exclusion give the expected count of every byte. The 27 bytes that would need a multiple of 5 or 7 to be prime get 0.",
+   "test": "Up to 10⁹ (41.7 million bytes) the 27 impossible bytes never occur, and the largest deviation of the other 229 is 2.6 standard deviations. The counts scatter even less than independent draws would (z = −2.5): primes are more regular than chance.",
+   "known": "The method is Brent's (1974); no such byte table was found."
+  },
+  {
+   "id": "septbytes",
+   "name": "The two rarest bytes",
+   "label": "sieve · heuristic",
+   "short": "Bytes 223 and 251 are the two prime septuplet patterns",
+   "verdict": "13.22 expected each up to 10⁹; 14 and 14 found",
+   "idea": "The two patterns are mirror images, so they share one constant (C₇ = 323.83).",
+   "test": "Up to 10⁷, 223 appeared 5 times and 251 never (together 5 against 2.2 expected). Up to 10⁹ both appeared 14 times. 251 first appears at 45,002,591.",
+   "known": "Septuplet counting is classical; the byte view is ours."
+  },
+  {
+   "id": "info",
+   "name": "What can be known about the lane words",
+   "label": "sieve · heuristic",
+   "short": "Why the learned models only learned the sieve",
+   "verdict": "a predictor with no training beats the best trained one (0.832 against 0.836 bits per word)",
+   "idea": "Hardy–Littlewood fixes the entropy of the bytes, the information neighbouring bytes share, and how much the past can tell about the next word.",
+   "test": "Entropy 4.9189 bits predicted against 4.9188 measured. Shared information 0.0321 predicted against 0.0322 measured. Composite if a factor ≤ 47, otherwise prime with Mertens' chance: that rule scores 0.832 and 0.826 bits per word near and far, against 0.836 and 0.839 for the best trained model. The previous 8 words hold only 0.048 bits about the next.",
+   "known": "Entropies of prime sequences have been studied (Lacasa et al. 2018), but none derived from Hardy–Littlewood was found."
+  }
+ ]
+}

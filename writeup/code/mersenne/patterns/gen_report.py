@@ -74,6 +74,16 @@ NEWS = ('' if not NT['cards'] else f'''<section class="panel" id="new"><h2 style
 <div class="wrap"><table><thead><tr><th>Layout</th><th>The pattern</th><th>Checked</th></tr></thead><tbody>{''.join(f'<tr><td><a href="#new-{c["id"]}">{html.escape(c["name"])}</a></td><td>{c["short"]}</td><td>{c["verdict"]}</td></tr>' for c in NT['cards'])}</tbody></table></div></section>'''
         + ''.join(new_card(c) for c in NT['cards']))
 
+TT = json.load(open('texts_theory.json', encoding='utf-8')) if os.path.exists('texts_theory.json') else {'_intro': '', 'cards': []}
+def th_card(c):
+    op = f' <a class="open" href="prime2.html?{c["open"]}">open</a>' if c.get('open') else ''
+    ch = f'<div class="chart">{open("theory/" + c["chart"]).read()}</div>' if c.get('chart') else ''
+    return (f'<section class="card" id="th-{c["id"]}"><h2>{html.escape(c["name"])}{op}</h2><p class="lab">{c["label"]}</p>{ch}'
+            f'<p><b>The idea.</b> {c["idea"]}</p><p class="num"><b>The test.</b> {c["test"]}</p><p class="ex"><b>Known?</b> {c["known"]}</p></section>')
+THEORY = ('' if not TT['cards'] else f'''<section class="panel" id="theories"><h2 style="margin:0 0 8px;font-size:18px">Theories of our own ({len(TT['cards'])}, 16 November)</h2><p style="margin:0;color:#d6e2f2">{TT['_intro']}</p>
+<div class="wrap"><table><thead><tr><th>Theory</th><th>The claim</th><th>The test</th></tr></thead><tbody>{''.join(f'<tr><td><a href="#th-{c["id"]}">{html.escape(c["name"])}</a><br><span class="lab">{c["label"]}</span></td><td>{c["short"]}</td><td>{c["verdict"]}</td></tr>' for c in TT['cards'])}</tbody></table></div></section>'''
+        + ''.join(th_card(c) for c in TT['cards']))
+
 page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,6 +112,8 @@ a {{ color:var(--accent); }}
 .card p.ex {{ color:#fbcfe8; }}
 .wrap {{ overflow-x:auto; }}
 .imgs.one {{ grid-template-columns:1fr; margin-top:10px; }}
+.lab {{ color:#a5b4fc; font-size:13px; }}
+.card p.lab {{ margin:0 0 6px; color:#a5b4fc; font-size:13px; }}
 .chart {{ margin-top:12px; background:#0e1828; border:1px solid var(--edge); border-radius:8px; padding:8px; }}
 @media (max-width:640px) {{ .imgs {{ grid-template-columns:1fr; }} }}
 </style>
@@ -111,7 +123,7 @@ a {{ color:var(--accent); }}
 <h1>Patterns in the prime layouts</h1>
 <p>Every layout of <a href="prime2.html">prime2.html</a>, photographed whole and zoomed in four times, with the exponent links off so that the pattern of the primes shows; on the layouts with straight lines the brightest line found is drawn in yellow by the page itself.</p>
 <p>{T['_intro']['method']}</p>
-<p><a href="#new">New: {len(NT['cards'])} number-theory strategies (16 November)</a> · <a href="#cos12big">the cosine rows zoomed out</a></p>
+<p><a href="#theories">Theories of our own ({len(TT['cards'])}, 16 November)</a> · <a href="#new">{len(NT['cards'])} number-theory strategies (16 November)</a> · <a href="#cos12big">the cosine rows zoomed out</a></p>
 </header>
 <main>
 <section class="panel"><h2 style="margin:0 0 8px;font-size:18px">The answer in short</h2><p style="margin:0 0 10px;color:#d6e2f2">{T['_intro']['answer']}</p>
@@ -123,6 +135,7 @@ a {{ color:var(--accent); }}
 <p><b>Consecutive primes zigzag.</b> The gap to the next prime decides the lane exactly: a gap ≡ 2, 10 or 12 (mod 12) keeps it, 4, 6 or 8 switches it. Gaps ≡ 6 are the commonest (26.8%), so consecutive primes switch lanes 54.6% of the time up to 500,000 (53.7% up to 10 million), not 50%. Deeper down, consecutive primes repeat their remainder mod 12 only 57% as often as independence would give (1,464 times for remainder 1 against 2,569), the bias found by Lemke Oliver and Soundararajan in 2016; it fades slowly (66% up to 10 million), as their theory says.</p>
 <p><b>Twin primes share a lane, always</b>: a pair (p, p + 2) has p ≡ 11 (both up, like 11 and 13) or p ≡ 5 (both down, like 5 and 7). Up and down pairs are equally common, as Hardy–Littlewood predicts: 2,318 against 2,246 up to 500,000, and 29,497 against 29,482 up to 10 million.</p>
 <p class="ex"><b>The exponents.</b> Of the 49 Mersenne exponents from 5 to 82,589,933 only 16 sit in the up lane, where the heuristic expects about 23 (P = 0.023 one-sided, 0.046 two-sided); both halves lean the same way (p = 0.06 below 100,000, 0.15 above), and no. 52, 136,279,841, is down too. This is one split of the classes mod 12 among the many tested since the first round (all classes mod 12 together: p = 0.095), so it is not significant, and no mechanism is known. A clean test lies ahead: if the lean were real, about two of every three future exponents would be ≡ ±5 (mod 12); the heuristic says about half.</p></section>
+{THEORY}
 {BIG}
 {NEWS}
 {''.join(cards)}
