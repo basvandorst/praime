@@ -17,3 +17,6 @@ $PY goldrace.py 4e6 8 > goldrace8.txt
 $PY -c "import cypari2; P = cypari2.Pari(); P.allocatemem(4*10**8); [open(f, 'w').write('\\n'.join('%.12f' % float(x) for x in P.lfunzeros(P.lfuncreate(d), 400))) for d, f in ((-4, 'zeros_m4.txt'), (12, 'zeros_12.txt'))]"
 $PY goldzeros.py 4e6 > goldzeros.txt
 $PY expo12.py > expo12.txt
+$PY goldbig.py 250000 4000000 40 zeros > goldbig_check.txt
+$PY goldbig.py 1000000 1000000000 60 zeros > goldbig_1e9.txt
+$PY goldex.py > goldex.txt

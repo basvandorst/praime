@@ -123,3 +123,54 @@ Method:
 | mod 8, n = 2 | 0.9871 (0.987) | 1.686 (1.69) | 8.354 (8.35) | AGREE |
 | mod 8, n = 4 | 0.9879 (0.988) | 2.333 (2.33) | 12.231 (12.23) | AGREE |
 | mod 8, n = 6 | 0.9890 (0.989) | 1.603 (1.60) | 7.019 (7.02) | AGREE |
+
+## G. Mod-12 Goldbach strands, 60 log bins from 10^6 to 10^9 (g_sieve.py, g_bins.py, g_check.py)
+
+Method:
+- **Sieve.** A segmented odd-only sieve below 10^9 gives the sorted prime arrays of the classes 1, 5, 7 and 11 mod 12 (50,847,532 primes in all, which is pi(10^9) - 2) and a packed bit array.
+- **Delta, exact.** For a class pair (a, b), the sum of #(a,b)(n) over a bin is G_ab(hi) - G_ab(lo), where G_ab(t) = #{(p, q): p = a, q = b mod 12, p + q < t} = sum over p of pi_b(t-1-p). This is one vectorised searchsorted per edge.
+- **Checks on G.** G matches brute force at t = 20,000. Its symmetry G_ab = G_ba holds. A window of 15 n near 5.01e8 for n = 0 and n = 6 mod 12 matches direct per-n pair counting: sums -12,978 and -15,686, equal both ways.
+- **Mean S(n), exact.** s^2 = 1 mod 12, so r = n - s^2 lies in class c - 1. For each prime s up to 31,622, the bin count is a count of class primes in [lo - s^2, hi - s^2). For n = 10 mod 12, S(n) = 0 identically (r = 9 mod 12), so S(n-2) uses the class 7.
+- **pred, sampled.** pred = S*SIG/Q, from uniform random n of the class in each bin (seed 12345). Two runs: 2,000 and 20,000 n per bin and class. S(n) comes from bit lookups, pi_a(n) from searchsorted, Q(n) = #{primes 5 <= s, s^2 <= n}.
+
+### Bin means of Delta (exact)
+
+| bin start | n = 0 | n = 2 | n = 6 | n = 10 | claims (0 / 2 / 6) | verdict |
+|---|---|---|---|---|---|---|
+| 1,000,000 | -13.4526 | -27.2979 | -41.8708 | -14.2088 | -13.45 / -27.3 / -41.9 | AGREE (n = 10: no claim given) |
+| 100,000,000 | -300.0555 | -260.4755 | -221.0979 | 39.5088 | -300.06 / -260.5 / -221.1 | AGREE |
+| 501,187,234 | -751.0252 | -604.8795 | **-458.8903** | 146.2968 | -751.03 / -604.9 / **-537.6** | n = 0, 2 AGREE; **n = 6 DISAGREE** |
+| 891,250,938 | -426.9025 | -275.1461 | -123.4930 | 151.7867 | -426.90 / -275.1 / -123.5 | AGREE |
+
+The claimed -537.6 is the n = 6 mean of the previous bin, [446,683,592, 501,187,234), where we get -537.6015. Most likely the value was copied from the wrong row; the correct value for the bin starting at 501,187,234 is -458.89. Our sampled pred, -470.1 +- 1.6, is also near -459, not near -538.
+
+### Mean of -S(n), n = 0 mod 12 (exact)
+
+| bin start | ours | claim | verdict |
+|---|---|---|---|
+| 1,000,000 | -38.6158 | -38.62 | AGREE |
+| 100,000,000 | -211.3965 | -211.40 | AGREE |
+| 501,187,234 | -395.5298 | -395.53 | AGREE |
+| 891,250,938 | -495.4729 | -495.47 | AGREE |
+
+### pred bin means, sampled with 20,000 n per bin (mean +- standard error)
+
+| bin start | n = 0 | n = 2 | n = 6 | n = 10 (S(n-2)) |
+|---|---|---|---|---|
+| 1,000,000 | -21.02 +- 0.08 | -32.66 +- 0.11 | -44.03 +- 0.15 | -11.58 +- 0.05 |
+| 100,000,000 | -285.70 +- 0.95 | -250.14 +- 0.79 | -214.26 +- 0.70 | 35.66 +- 0.24 |
+| 501,187,234 | -737.12 +- 2.39 | -601.88 +- 1.96 | -470.13 +- 1.62 | 132.97 +- 0.55 |
+| 891,250,938 | -438.44 +- 1.50 | -304.02 +- 0.97 | -171.99 +- 1.04 | 133.05 +- 0.85 |
+
+The 2,000-sample run, in the same order: -20.60 +- 0.25, -32.53 +- 0.34, -44.56 +- 0.49, -11.19 +- 0.17; -288.91 +- 3.07, -250.27 +- 2.55, -217.20 +- 2.26, 36.40 +- 0.77; -742.92 +- 7.55, -603.76 +- 6.11, -468.87 +- 5.14, 134.61 +- 1.78; -432.89 +- 4.71, -301.03 +- 3.03, -177.82 +- 3.40, 132.71 +- 2.64.
+
+### Correlation over 60 bins: exact mean Delta against sampled mean pred
+
+| class | 2,000 per bin | 20,000 per bin | claim | verdict |
+|---|---|---|---|---|
+| n = 0 | 0.9968 | 0.9972 | 0.997 | AGREE |
+| n = 2 | 0.9977 | 0.9975 | 0.997 | AGREE within sampling noise (0.9975 is at the rounding edge) |
+| n = 6 | 0.9966 | 0.9968 | 0.997 | AGREE |
+| n = 10 (S(n-2)) | 0.9953 | 0.9954 | 0.995 | AGREE |
+
+The large scratch arrays (G_bits.npy, G_p*.npy) were deleted after the run. The bin results are kept in G_results.npz (20,000-sample run) and G_results_2000.npz.
