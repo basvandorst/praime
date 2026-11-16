@@ -74,6 +74,11 @@ NEWS = ('' if not NT['cards'] else f'''<section class="panel" id="new"><h2 style
 <div class="wrap"><table><thead><tr><th>Layout</th><th>The pattern</th><th>Checked</th></tr></thead><tbody>{''.join(f'<tr><td><a href="#new-{c["id"]}">{html.escape(c["name"])}</a></td><td>{c["short"]}</td><td>{c["verdict"]}</td></tr>' for c in NT['cards'])}</tbody></table></div></section>'''
         + ''.join(new_card(c) for c in NT['cards']))
 
+TN = json.load(open('texts_ten.json', encoding='utf-8')) if os.path.exists('texts_ten.json') else None
+TEN = '' if not TN else (f'''<section class="panel" id="ten"><h2 style="margin:0 0 8px;font-size:18px">{TN['_title']}</h2><p style="margin:0 0 8px;color:#d6e2f2">{TN['_intro']}</p><p style="margin:0 0 10px;color:#d6e2f2">{TN['_reveal']}</p>
+<div class="wrap"><table><thead><tr><th>Layout</th><th>The pattern</th><th>Checked</th></tr></thead><tbody>{''.join(f'<tr><td><a href="#new-{c["id"]}">{html.escape(c["name"])}</a></td><td>{c["short"]}</td><td>{c["verdict"]}</td></tr>' for c in TN['cards'])}</tbody></table></div></section>
+<section class="card" id="ten-found"><h2>Found along the way</h2>''' + ''.join(f'<p><b>{f[0]}</b> ({f[1]}). {f[2]}</p>' + (f'<p class="num">{f[3]}</p>' if f[3] else '') for f in TN['found']) + '</section>'
+       + ''.join(new_card(c) for c in TN['cards']))
 TT = json.load(open('texts_theory.json', encoding='utf-8')) if os.path.exists('texts_theory.json') else {'_intro': '', 'cards': []}
 def th_card(c):
     op = f' <a class="open" href="prime2.html?{c["open"]}">open</a>' if c.get('open') else ''
@@ -137,6 +142,7 @@ a {{ color:var(--accent); }}
 <p class="ex"><b>The exponents.</b> Of the 49 Mersenne exponents from 5 to 82,589,933 only 16 sit in the up lane, where the heuristic expects about 23 (P = 0.023 one-sided, 0.046 two-sided); both halves lean the same way (p = 0.06 below 100,000, 0.15 above), and no. 52, 136,279,841, is down too. This is one split of the classes mod 12 among the many tested since the first round (all classes mod 12 together: p = 0.095), so it is not significant, and no mechanism is known. A clean test lies ahead: if the lean were real, about two of every three future exponents would be ≡ ±5 (mod 12); the heuristic says about half.</p></section>
 {THEORY}
 {BIG}
+{TEN}
 {NEWS}
 {''.join(cards)}
 </main>
