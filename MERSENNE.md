@@ -410,6 +410,8 @@ Each rule of motion of section 17 was run for 100,000 ticks with 30, 100 and 250
 
 The page shows this table in a panel under the machines ([gen_panel.py](writeup/code/mersenne/strategies/ten/gears/gen_panel.py) writes it from [machines.json](writeup/code/mersenne/strategies/ten/gears/machines.json)).
 
+**The exponent record with other gears allowed** ([exp_logic.py](writeup/code/mersenne/strategies/ten/gears/exp_logic.py) → [exp_logic.txt](writeup/code/mersenne/strategies/ten/gears/exp_logic.txt), 100,000 ticks; the page counts the same way and agrees). The box now counts the Mersenne-exponent gears that are home while only prime gears are home, and in a second line with any gears home. Allowing other primes changes the record only on the doubling wheels (2 → 3 with 100 and 250 gears) and on the accelerating wheels (3 → 4 with 250 gears); on the plain wheels it cannot change, because the smallest tick for a set of exponents is their own product. With any gears allowed the plain wheels reach 6 exponents at tick 46,410 = 2 · 3 · 5 · 7 · 13 · 17 (all 7 of 30 gears at 881,790), the doubling wheels 10 of 12 and the Fibonacci wheels 11 of 12 at tick 27,720, and the back-and-forth machine all 12 at tick 36.
+
 ## 19. A second backtest of the gear machines: what was new (computed; the Fibonacci bound and the cyclic numbers are known theorems, the trust curve is Buchstab's function)
 
 All machines were run again over every number of gears from 2 to 250 and over wheels up to 5,000 ([bt1.py](writeup/code/mersenne/strategies/ten/gears/bt1.py) → [bt1.txt](writeup/code/mersenne/strategies/ten/gears/bt1.txt), [bt2.py](writeup/code/mersenne/strategies/ten/gears/bt2.py) → [bt2.txt](writeup/code/mersenne/strategies/ten/gears/bt2.txt)). Kept:
