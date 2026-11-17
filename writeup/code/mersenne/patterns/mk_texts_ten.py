@@ -48,7 +48,7 @@ T['found'] = [
   "The bottom rows rebuilt from the first 160 zeta zeros alone, with no prime: correlation 0.940 (H = 16,384), 0.904 (8,192), 0.841 (4,096, where "
   "zeros up to height 770 would be needed and 334 were used).", ""],
  ["Every layout scored against decoys (17 November)", "backtest; computed",
-  "The page now has 171 layouts. The score of the layout on screen stands under the picture, and a panel at the bottom of the page lists all "
+  "The page now has 181 layouts. The score of the layout on screen stands under the picture, and a panel at the bottom of the page lists all "
   "scored layouts in a table that can be sorted. The score takes every pair of neighbouring dots, in the 24 nearest "
   "directions, and measures how much one dot being prime tells about the other. The same is done for decoys: numbers that pass the sieve up to "
   "N<sup>0.4027</sup>, thinned by a coin. For the layouts that place n by a formula the primes carry the same amount as the decoys (0.999 of it in the "
@@ -81,7 +81,25 @@ T['found'] = [
  ["The 0.39 above is the coin", "computed",
   "At the horizon of the gap model a number that passes the sieve is prime with chance 0.85 to 0.87. Coin flips with that chance scatter with "
   "√(1 − 0.85) = 0.39 of the spread of a free count, which is the 0.39 found along the polynomials. Measured against that coin the variance is 1.07 "
-  "to 1.11 times the coin's.", ""],]
+  "to 1.11 times the coin's.", ""],
+ ["A model with lots instead of a coin passes at every scale but two (17 November)", "computed; the model is Banks, Ford and Tao's",
+  "Replace the coin by a sieve: the primes up to 31 strike their own multiples, and every larger prime q strikes one remainder class mod q drawn "
+  "by lot, with n sieved by the primes up to about n<sup>0.56</sup>. Without any calibration this model has the density of the primes, and up to "
+  "20 million it matches them in pairs, triples and quadruples at fixed distances, at the distances tied to √n where the coin failed, in the "
+  "largest gap, in the memory between neighbouring primes and in how quiet the counts are in long windows, where a coin levels off. It differs in "
+  "two places: its race of the remainders mod 4 is fair, where the primes ≡ 3 lead 99.8% of the time, and Goldbach's counts are a little "
+  "quieter for the primes. Ten layouts on the page show the primes and the model together; one is a quiz (which half is real).",
+  "Distances 2⌊√n⌋ + 2k: 0.18% for the primes, 0.23 ± 0.05% for the model, 0.49% for the coin. Scatter of the count in windows of 8,192 "
+  "numbers, as a share of a random count: 0.35, 0.38 ± 0.02 and 0.56 (Montgomery and Soundararajan's formula: 0.37). Largest gap: 180 against "
+  "184 ± 17. Race mod 4, forty draws: ahead 49% ± 28% of the time, final lead −18 ± 321 (the primes: 265; a coin toss per member would give "
+  "swings of 1,127). Goldbach, n from one to two million: 0.27 of the variance of a random count for the primes, 0.30 to 0.33 for the model, "
+  "0.37 for the coin."],
+ ["The factor rule for Mersenne numbers, measured", "trial division; Wagstaff's heuristic is literature",
+  "For the 5,889 primes p from 1,000 to 60,000 the smallest factor 2kp + 1 of 2<sup>p</sup> − 1 below 2<sup>30</sup> was found by trial. The share "
+  "of p with no factor below B follows ln(a·p)/ln B, with a = 2 for p ≡ 3 and a = 6 for p ≡ 1 (mod 4), for every B from 2<sup>18</sup> to "
+  "2<sup>30</sup>. The layout that puts every prime at the height of its first factor shows the exponents in the band of primes that give up none.",
+  "Measured share divided by ln(a·p)/ln B: 0.947 to 0.972. No factor below 2<sup>30</sup>: 55.9%, 53.6%, 57.5% and 42.1% for p ≡ 1, 5, 7, 11 "
+  "(mod 12); the 13 exponents in the range are among 3,076 such primes."],]
 C = []
 def card(**k): C.append(k)
 card(id="chaosgap", name="Chaos game of the gaps (mod 6)", q="layout=chaosgap&amp;links=none", imgs=["t_chaosgap.jpg", "t_chaosgap_z.jpg"],
