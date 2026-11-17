@@ -213,7 +213,7 @@ The page [prime2.html](writeup/code/mersenne/prime2.html) now has 117 layouts. T
 
 ## 13. Backtest of the layouts and a search that improves itself (computed; the coin model's limit near squares is an exact count, its explanation is a heuristic)
 
-Every layout is now scored, and the scores steer the next layouts. The page has 166 layouts, and every note on it now ends with the layout's own score; the scripts are in [backtest/](writeup/code/mersenne/strategies/ten/backtest/).
+Every layout is now scored, and the scores steer the next layouts. The page has 171 layouts, and every note on it now ends with the layout's own score; the scripts are in [backtest/](writeup/code/mersenne/strategies/ten/backtest/).
 
 **The scorer** ([score.js](writeup/code/mersenne/strategies/ten/backtest/score.js), run in the page itself). For each of the 24 nearest neighbour directions in a picture it takes all pairs of numbers that sit one such step apart and measures how much "this one is prime" tells about "that one is prime" (mutual information). The sum, in thousandths of a bit, is the *structure* of the layout. The same is done for eight decoy sets: the sieve up to N^0.4027 with a coin above it (our gap model), with the coin's rate matched to the primes in blocks of 4,096 numbers. *Beyond* is the root mean square, over the directions, of the z-score between the pair ratio of the primes and that of the decoys; about 0.5 means the decoys explain the picture.
 
