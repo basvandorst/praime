@@ -285,6 +285,49 @@ The coin model of section 13 fails near squares. This section replaces the coin 
 
 **On the page.** Ten layouts: the primes and the model side by side in rows and in Ulam spirals, a quiz (which half is real), three walks of count minus expected, the scatter by window length, the race mod 4, Goldbach's comet for both, the gaps of both, the diffraction of both (peaks 1/φ(q)² at the fractions with square-free denominator q, the same for both), and every prime at the height of the first factor of 2^p − 1, with the exponents in the band of primes that give up no factor.
 
+## 15. Binary layers, and primes found by counting only (the floor is proved; the fold is an identity; the pair counts follow Hardy and Littlewood's conjecture; the rest is computed)
+
+No sieve and no known prime test is used in this section: the numbers are written in binary and taken apart layer by layer, and primes are picked out by adding and counting.
+
+**The fold (identity).** Cut the binary digits of n in pieces of w bits and add the pieces; repeat until one piece is left. Because 2^w ≡ 1 (mod 2^w − 1), the result is n mod (2^w − 1), found without dividing. A prime q shows in the fold (its multiples fill fixed columns) exactly when q divides 2^w − 1.
+
+**The floor (proved).** The depth of an odd prime q is the smallest w with q | 2^w − 1 (the order of 2 mod q, the period of 1/q in binary). From q | 2^w − 1 follows q ≤ 2^w − 1, so depth ≥ log₂(q + 1): a prime of b bits needs at least b layers. Equality holds exactly when q = 2^w − 1. The Mersenne primes are the primes on this floor, and the Mersenne exponents are their depths.
+
+- Checked ([check6.py](writeup/code/mersenne/strategies/ten/layers/check6.py) → [check6.txt](writeup/code/mersenne/strategies/ten/layers/check6.txt)) for the 13,009 odd primes up to 140,000: the depth is at least log₂(q + 1) for all, with equality for 3, 7, 31, 127, 8,191 and 131,071. The depth is q − 1 for 4,859 of them, 37.35 % (Artin's conjecture: 37.4 %).
+- The primes that first show at w layers, for every w up to 200 ([depth2.py](writeup/code/mersenne/strategies/ten/layers/depth2.py) → [depth200.txt](writeup/code/mersenne/strategies/ten/layers/depth200.txt), [depth_rows_200.json](writeup/code/mersenne/strategies/ten/layers/depth_rows_200.json); PARI): 420 primes; only the rows 1 and 6 are empty (Bang's theorem). The rows that hold the single prime 2^w − 1 are 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107 and 127. In the other rows of a prime w the w bits are shared, for example 4.5 + 6.5 for w = 11, 7.4 + 75.6 for w = 83 and 12.9 + 184.1 for w = 197.
+
+**What a fold tells about primality** ([fold1.py](writeup/code/mersenne/strategies/ten/layers/fold1.py) → [fold1.txt](writeup/code/mersenne/strategies/ten/layers/fold1.txt); odd numbers of 21 bits, 14.04 % prime, full knowledge 0.585 bits).
+
+| Layers w | 2^w − 1 | Information (bits) |
+|---|---|---|
+| 2 | 3 | 0.090 |
+| 3 | 7 | 0.034 |
+| 4 | 3 · 5 | 0.142 |
+| 5 | 31 | 0.007 |
+| 6 | 3² · 7 | 0.126 |
+| 7 | 127 | 0.002 |
+| 8 | 3 · 5 · 17 | 0.156 |
+| 12 | 3² · 5 · 7 · 13 | 0.194 |
+| 13 | 8,191 | 0.000 |
+
+The information equals what the prime factors of 2^w − 1 give and nothing more (the log lists both). A number of layers that is a Mersenne exponent shows one prime only, and from 13 on that prime is too large to tell anything.
+
+**Layers one at a time, in pairs, in sets** ([bits1.py](writeup/code/mersenne/strategies/ten/layers/bits1.py) → [bits1.txt](writeup/code/mersenne/strategies/ten/layers/bits1.txt), [bits2.py](writeup/code/mersenne/strategies/ten/layers/bits2.py) → [bits2.txt](writeup/code/mersenne/strategies/ten/layers/bits2.txt)).
+
+- One layer: each of the bits 1 to 19 of the 73,586 primes of 21 bits is 1 for 49.4 % to 50.3 % of them.
+- Two layers: the largest information between two bit layers is 0.00006 bits.
+- Ones in the even layers against ones in the odd layers: a number is divisible by 3 exactly when the two counts differ by a multiple of 3 (2 ≡ −1 mod 3), so every third diagonal of that grid has no prime but 3.
+- Sets of layers: for each of the 1,048,575 sets, split the odd numbers below 2²¹ by the parity of their ones in the set; bias = (share of primes in the even half − share in the odd half)/(2 × overall share), noise 0.0023. The top layer alone: 0.054 (the primes thin out). All layers 1 to 20: 0.034 (primes more often have an odd number of ones). Sets that repeat every four layers, such as 110011001100100010000: 0.039. The 1,000 strongest sets hold 5.3 % of the total, and their biases are reproduced with correlation 0.956 by the numbers without a factor 3, 5, 7, 11 or 13. The parities see the small primes through the layers and nothing else.
+
+**Primes found by counting only** ([add1.py](writeup/code/mersenne/strategies/ten/layers/add1.py) → [add1.txt](writeup/code/mersenne/strategies/ten/layers/add1.txt)). Input: the list of primes; operations: adding and counting.
+
+- Rarest distances. For an odd n count the pairs of primes that lie 2n apart. Every odd prime factor p of n makes that distance (p − 1)/(p − 2) times more common (Hardy and Littlewood), so the count is lowest when n has no small factor. With the primes up to 10⁶ and odd n below 50,000, taking in each block of 2,048 odd numbers as many of the lowest counts as the block has primes gives 93.5 % primes (4,724 of 5,050; 20.5 % of these n are prime). With the primes up to 500,000 and n up to 10,000: 98.4 % (1,208 of 1,228). Measured steps for the smallest factor 3, 5, 7, 11: 2.11, 1.37, 1.21, 1.12 (rule: 2, 1.33, 1.2, 1.11; the surplus is the other factors of n).
+- Prime plus twice a prime. The number of ways n = p + 2q behaves the same: 67.1 % for the odd n between 500,000 and 10⁶ (14.8 % are prime); steps 2.11, 1.36, 1.22, 1.12.
+- Three primes work the other way round: the highest counts of n = p + q + r find 44.6 %.
+- These counts see the small factors of n, as the sieve does, by another road; they do not see more.
+
+**On the page.** Seven layouts: the primes by the number of layers in which they first show, with the exponents on the diagonal; the depth of every prime up to 140,000 with the floor; the fold in P layers; even against odd layers; the parity bias of every set of layers; the rarest distances; prime plus twice a prime.
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.
@@ -298,4 +341,5 @@ The coin model of section 13 fails near squares. This section replaces the coin 
 - Section 12: the five layouts without a sieve by [lean_profile.py](writeup/code/mersenne/strategies/ten/check/lean_profile.py), [lean_cutoff.py](writeup/code/mersenne/strategies/ten/check/lean_cutoff.py), [curve.py](writeup/code/mersenne/strategies/ten/check/curve.py), [tree.py](writeup/code/mersenne/strategies/ten/check/tree.py), [misc.py](writeup/code/mersenne/strategies/ten/check/misc.py), and again from scratch by [round3_check.py](writeup/code/mersenne/strategies/ten/check/round3_check.py) (sympy factorisations, Euler's criterion, PARI, plain Python); the ten puzzle layouts by [exp_scan.py](writeup/code/mersenne/strategies/ten/check/exp_scan.py), [exp_class.py](writeup/code/mersenne/strategies/ten/check/exp_class.py) and [round4_check.py](writeup/code/mersenne/strategies/ten/check/round4_check.py) (gmpy2 with 25 rounds for the tables, so their primes above 2^64 are PRP). Every count agrees with the page's own. Outputs in [logs/](writeup/code/mersenne/strategies/ten/logs/). The numbers of the ten shape layouts: [shapes_check.py](writeup/code/mersenne/strategies/ten/check/shapes_check.py).
 - Section 13: [score.js](writeup/code/mersenne/strategies/ten/backtest/score.js) and [gensearch.js](writeup/code/mersenne/strategies/ten/backtest/gensearch.js) run in headless Chrome against the page; [analyse.py](writeup/code/mersenne/strategies/ten/backtest/analyse.py) and [analyse_gen.py](writeup/code/mersenne/strategies/ten/backtest/analyse_gen.py) print the tables. The square effect is counted independently in numpy by [quad_deep.py](writeup/code/mersenne/strategies/ten/check/quad_deep.py), [quad_probe.py](writeup/code/mersenne/strategies/ten/check/quad_probe.py) (with two block sizes for the decoy density) and [quad_surv.py](writeup/code/mersenne/strategies/ten/check/quad_surv.py); the exponent backtest by [exp_backtest.py](writeup/code/mersenne/strategies/ten/check/exp_backtest.py). The cause and scope of the square effect: [quad_fermat.py](writeup/code/mersenne/strategies/ten/check/quad_fermat.py), [quad_scope.py](writeup/code/mersenne/strategies/ten/check/quad_scope.py).
 - Section 14: [check5.py](writeup/code/mersenne/strategies/ten/model/check5.py) → [check5.txt](writeup/code/mersenne/strategies/ten/model/check5.txt) recomputes the primes column with a plain Python sieve and other code (the scatter in windows with li removed instead of a fitted curve: 0.345) and two draws of the class model with another generator; [check5b.py](writeup/code/mersenne/strategies/ten/model/check5b.py) → [check5b.txt](writeup/code/mersenne/strategies/ten/model/check5b.txt) counts Goldbach sums directly for 1,500 random n (0.274 for the primes, 0.326 and 0.296 for two draws) and finds the first factors of every 8th prime with a primality test in place of the remainder filter (737 primes, no difference).
+- Section 15: [check6.py](writeup/code/mersenne/strategies/ten/layers/check6.py) → [check6.txt](writeup/code/mersenne/strategies/ten/layers/check6.txt) recomputes every number with plain loops and sympy: the pair counts and the counts of p + 2q by direct lookup instead of a transform (93.5 %, 98.4 %, 66.8 % for the page setting, and 66.4 % with steps 2.10, 1.37, 1.22, 1.13 on 16 random blocks), the layer shares, the pair information, three biases by direct parity counts (0.0542, 0.0335, 0.0393) and the correlation on 150 of the 1,000 strongest sets (0.962), the fold information by plain remainders, the depths with sympy's order function, and the table (each entry prime and of order w; 2^w − 1 fully split by the rows d | w for every w up to 200).
 - Above 20,000 the completeness of the list (no exponent missed between the known ones) rests on GIMPS, not on these runs; the page's list and 142 recompute it as far as they run.
