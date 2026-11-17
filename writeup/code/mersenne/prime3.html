@@ -32,6 +32,7 @@ canvas { display:block; width:100%; }
 .status .g { color:var(--green); font-weight:600; }
 .rec .p { color:var(--pink); font-weight:600; }
 .rec .m { color:#fbbf24; font-weight:600; }
+.rec .t, .status .t { color:#7dd3fc; font-weight:600; }
 .note { color:var(--muted); font-size:12.5px; margin:8px 0 0; }
 .rec { margin:10px 0 0; padding:8px 10px; background:#16243a; border:1px solid #2a3b55; border-radius:8px; font-size:13px; color:#d6e2f2; }
 .rec p { margin:0 0 4px; }
@@ -135,7 +136,7 @@ function fibmod(n,m){let a=0,b=1%m;for(let i=Math.floor(Math.log2(Math.max(1,n))
 function rule(){return RULES[S.v]||"div";}
 function posOf(k,T){switch(rule()){case"double":return(powmod(2,T,k)-1+k)%k;case"fib":return fibmod(T,k);case"pclock":return PIC[T]%k;case"accel":return((T%(2*k))*((T+1)%(2*k))/2)%k;case"square":return(T%k)*(T%k)%k;case"flip":return((DIC[T]%k)+k)%k;case"slip":return(Math.floor(T/k)*PHI[k]+SL[k][T%k])%k;default:return T%k;}}
 function homeK(k,T){const r=rule();return r==="fast"?(k*T)%120===0:r==="ll"?false:posOf(k,T)===0;}
-const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]},ll:{T:-1,s:[],res:[]},fs:new Int32Array(251),fl:[]};
+const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]},ll:{T:-1,s:[],res:[]},fs:new Int32Array(251),fl:[],q:{n:0,np:0,last:[]},tw:{pairs:0,twins:0,cur:0,a:0,best:{n:0,a:0,b:0}}};
 const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",mers:"#fbbf24",mbody:"#4a3d1a",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
 const cv=$("cv"),ctx=cv.getContext("2d");
 const NOTES={
@@ -275,13 +276,15 @@ function status(c){const T=c.T,G=S.L.G,r=rule(),f=x=>x.toLocaleString("en-US");i
   else if(r==="square")v=`Every wheel stands on tooth ${f(T)}² = ${f(T*T)}.`;
   else if(r==="flip")v=`On balance the wheels have moved ${DIC[T]<0?"−":""}${f(Math.abs(DIC[T]))} teeth; they now turn ${PIC[T]%2?"backward":"forward"}.`;
   s=`Tick <b>${f(T)}</b>. ${v} At home: ${hl}.${w}`;}
+ if(T>=3&&isP(T)&&(isP(T-2)||isP(T+2)))s+=` <span class="t">Twin prime tick: ${isP(T-2)?f(T-2)+" and "+f(T):f(T)+" and "+f(T+2)}${isP(T-2)&&isP(T+2)?" and "+f(T+2):""}; ${S.tw.cur} in a row.</span>`;
  $("status").innerHTML=s;$("primes").textContent=S.np?`Prime ticks so far: ${S.np.toLocaleString("en-US")}${S.np>40?" (the last 40: ":" ("}${S.seen.join(", ")}).`:"";
  if(arrived&&S.snd&&S.run&&T>0&&(r!=="pclock"||isP(T)))beep(hm);}
-function clearRec(){S.fs=new Int32Array(251);S.fl=[];S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};S.rm={n:0,t:0,l:[],h:[]};}
+function clearRec(){S.q={n:0,np:0,last:[]};S.tw={pairs:0,twins:0,cur:0,a:0,best:{n:0,a:0,b:0}};S.fs=new Int32Array(251);S.fl=[];S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};S.rm={n:0,t:0,l:[],h:[]};}
 function pureAt(t,G,F){if(S.v==="fast"){if(t%120===0)return[];const pr={},bad={};for(const k of G){const a=(k*t)%120;if(F[k])(pr[a]=pr[a]||[]).push(k);else bad[a]=1;}let best=[];for(const a in pr)if(!bad[a]&&pr[a].length>best.length)best=pr[a];return best;}
  const l=[],div=rule()==="div";for(const k of G){if(k>1&&(div?t%k===0:posOf(k,t)===0)){if(!F[k])return[];l.push(k);}}return l;}
+function quietAt(t,G){if(S.v==="fast"&&t%120===0)return false;for(const k of G)if(k>1&&homeK(k,t))return false;return true;}
 function track(T){const G=S.L.G,PG=G.filter(k=>PF[k]);if(T<S.done)clearRec();ext(T+1);const from=Math.max(S.done+1,T-(rule()==="div"||rule()==="fast"?200000:20000));
- for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}if(S.fl.length<PG.length&&(S.v!=="pclock"||PIC[t]>0))for(const k of PG)if(!S.fs[k]&&homeK(k,t)){S.fs[k]=t;S.fl.push([k,t]);}const l=pureAt(t,G,PF);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}
+ for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();const W=S.tw,lo=isP(t-2);if(lo)W.pairs++;if(lo||isP(t+2)){W.twins++;if(!W.cur)W.a=t;W.cur++;if(W.cur>W.best.n)W.best={n:W.cur,a:W.a,b:t};}else W.cur=0;}if(t>=2&&(S.v!=="pclock"||PIC[t]>0)&&quietAt(t,G)){S.q.n++;if(isP(t))S.q.np++;S.q.last.push(t);if(S.q.last.length>8)S.q.last.shift();}if(S.fl.length<PG.length&&(S.v!=="pclock"||PIC[t]>0))for(const k of PG)if(!S.fs[k]&&homeK(k,t)){S.fs[k]=t;S.fl.push([k,t]);}const l=pureAt(t,G,PF);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}
   if(l.length||S.v==="fast"){const e=pureAt(t,G,MF);if(e.length>S.rm.n){S.rm.h.push([S.rm.n,S.rm.t]);S.rm={n:e.length,t,l:e,h:S.rm.h};}}}
  S.done=Math.max(S.done,T);}
 function nextRec(T,F,R){const G=S.L.G,P=G.filter(k=>F[k]),f=x=>x.toLocaleString("en-US");if(!P.length||!["div","fast"].includes(rule()))return"";
@@ -297,6 +300,9 @@ function showRec(T){const f=x=>x.toLocaleString("en-US"),G=S.L.G,fast=S.v==="fas
  else{s=line(fast?"Only primes on one ray":"Only prime gears home",S.ro,PF,"p");if(hasM)s+=line(fast?"Only Mersenne exponents on one ray":"Only Mersenne-exponent gears home",S.rm,MF,"m");
   s+=fast?"<p>A ray counts when it holds no other hand. Whole turns (every 120 ticks) are left out: there every hand is back where it started.</p>":`<p>A tick counts when no other gear is home${G.includes(1)?" (gear 1 is always home and is left out)":""}.</p>`;
   const np=G.filter(k=>PF[k]).length;s+=`<p><b>Prime gears, the first tick each was home</b>, as gear (tick): ${S.fl.length?S.fl.map(x=>`${MF[x[0]]?`<span class="m">${x[0]}</span>`:x[0]} (${f(x[1])})`).join(", "):"none yet"}${S.fl.length<np?(S.fl.length?", …":"")+` ${np-S.fl.length} of ${np} not yet.`:"."}</p>`;}
+ const W=S.tw;s+=`<p><b>Twin primes among the ticks:</b> <span class="t">${f(W.pairs)}</span> pair${W.pairs===1?"":"s"} so far (${f(W.twins)} prime ticks with a prime two away). Twin prime ticks in a row: now <span class="t">${W.cur}</span>${W.cur?` (${f(W.a)} to ${f(S.seen[S.seen.length-1])})`:""}, longest <span class="t">${W.best.n}</span>${W.best.n?` (${f(W.best.a)} to ${f(W.best.b)})`:""}.</p>`;
+ const Q=S.q,acc=S.v==="accel",qa=t=>acc&&t+1<S.N*S.N?(t%2?`${f(t)} (prime, and so is ${f((t+1)/2)})`:`${f(t)} (2 × ${f(t/2)}, and ${f(t+1)} is prime)`):f(t);
+ s+=`<p><b>Quiet ticks</b> (no gear other than gear 1 home): ${f(Q.n)} so far${Q.n?`, ${f(Q.np)} of them prime (${(100*Q.np/Q.n).toFixed(1)}%). The last: ${Q.last.map(qa).join(", ")}`:""}.${acc?` On this machine a quiet tick below ${f(S.N*S.N-1)} is always a pair of primes: t = 2p with p and 2p + 1 prime, or a prime t with (t + 1)/2 prime, because the wheels have moved t(t + 1)/2 teeth and that number must have no factor up to ${S.N}.`:""}</p>`;
  $("record").innerHTML=s;}
 function beep(hm){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();const ac=S.ac,t0=ac.currentTime,n=Math.min(hm.length,8);for(let i=0;i<n;i++){const k=hm[hm.length-1-i],o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=180*Math.pow(2,(31-k)/12);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.12/n,t0+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.16);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.18);}}catch(e){}}
 function frame(now){if(S.run){const dt=Math.min(0.1,(now-S.last)/1000);S.tau+=dt*S.speed;draw();}S.last=now;requestAnimationFrame(frame);}
