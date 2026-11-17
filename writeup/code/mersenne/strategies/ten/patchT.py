@@ -9,7 +9,7 @@ def rep(old,new,cnt=1):
 o=''.join('<option value="%s">%s</option>'%tuple(l.split('|',1)) for l in opts if l)
 rep('<option value="llres">Lucas–Lehmer residues (100·P primes)</option>','<option value="llres">Lucas–Lehmer residues (100·P primes)</option>'+o)
 rep('const LS_IDO=[',lx.strip()+'\nconst LS_IDO=[')
-rep('Object.assign(W,lsNotes());','Object.assign(W,lsNotes(),lxNotes());')
+rep('Object.assign(W,lsNotes());','Object.assign(W,lsNotes(),lxNotes());if(W[S.layout])W[S.layout]+=lxScoreText(S.layout);')
 rep(' else if(S.layout==="hilbert"){',' else if(LXN.includes(S.layout)){const o=LX(S.layout,N,S.w,S.P,pos,S.sieve);S.cols=o.cols;S.rows=o.rows;S.dw=o.dw;S.fx=o.fx;S.fy=o.fy;S.l20=o;S.par=o.parity||null;}\n else if(S.layout==="hilbert"){')
 rep('S.pos=pos;S.vis=S.exps.filter(k=>pos[2*k]>=0);','S.pos=pos;S.vis=S.l20&&S.l20.noexp?[]:S.exps.filter(k=>pos[2*k]>=0);')
 rep('...LWR,...LSW].includes(S.layout));$("period")','...LWR,...LSW,...LXW].includes(S.layout));$("period")')
