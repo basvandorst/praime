@@ -48,7 +48,7 @@ T['found'] = [
   "The bottom rows rebuilt from the first 160 zeta zeros alone, with no prime: correlation 0.940 (H = 16,384), 0.904 (8,192), 0.841 (4,096, where "
   "zeros up to height 770 would be needed and 334 were used).", ""],
  ["Every layout scored against decoys (17 November)", "backtest; computed",
-  "The page now has 181 layouts. The score of the layout on screen stands under the picture, and a panel at the bottom of the page lists all "
+  "The page now has 188 layouts. The score of the layout on screen stands under the picture, and a panel at the bottom of the page lists all "
   "scored layouts in a table that can be sorted. The score takes every pair of neighbouring dots, in the 24 nearest "
   "directions, and measures how much one dot being prime tells about the other. The same is done for decoys: numbers that pass the sieve up to "
   "N<sup>0.4027</sup>, thinned by a coin. For the layouts that place n by a formula the primes carry the same amount as the decoys (0.999 of it in the "
@@ -99,7 +99,25 @@ T['found'] = [
   "of p with no factor below B follows ln(a·p)/ln B, with a = 2 for p ≡ 3 and a = 6 for p ≡ 1 (mod 4), for every B from 2<sup>18</sup> to "
   "2<sup>30</sup>. The layout that puts every prime at the height of its first factor shows the exponents in the band of primes that give up none.",
   "Measured share divided by ln(a·p)/ln B: 0.947 to 0.972. No factor below 2<sup>30</sup>: 55.9%, 53.6%, 57.5% and 42.1% for p ≡ 1, 5, 7, 11 "
-  "(mod 12); the 13 exponents in the range are among 3,076 such primes."],]
+  "(mod 12); the 13 exponents in the range are among 3,076 such primes."],
+ ["In binary a prime of b bits needs at least b layers, and only the Mersenne primes need no more (17 November)", "proved; table by PARI",
+  "Cut the binary digits of a number in pieces of w bits and add the pieces: that gives its remainder mod 2<sup>w</sup> − 1 without dividing. "
+  "A prime q shows in this fold exactly when it divides 2<sup>w</sup> − 1, and the smallest such w is its depth (the period of 1/q in binary). "
+  "Since q then is at most 2<sup>w</sup> − 1, the depth is at least log<sub>2</sub>(q + 1), with equality exactly for q = 2<sup>w</sup> − 1. "
+  "The Mersenne primes are the primes on this floor, and the exponents are their depths. A fold in a Mersenne exponent's number of layers shows "
+  "one prime only. Single bit layers and pairs of layers tell nothing about primality; parities of sets of layers do, and only as the small "
+  "primes dictate.",
+  "Checked for the 13,009 odd primes up to 140,000 (equality at 3, 7, 31, 127, 8,191, 131,071) and in the table of the 420 primes of depth up to "
+  "200, where the rows with the single prime 2<sup>w</sup> − 1 are 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127. Information about primality in "
+  "a fold (odd numbers of 21 bits, 0.585 bits is everything): 12 layers 0.194, 8 layers 0.156, 4 layers 0.142; 5, 7 and 13 layers 0.007, 0.002 "
+  "and 0.000. Parity of all layers below 2<sup>21</sup>: bias 0.034; the 1,000 strongest of 1,048,575 sets are reproduced by the numbers free "
+  "of 3, 5, 7, 11, 13 with correlation 0.956."],
+ ["Primes found by counting only: the rarest distances between primes are twice a prime", "computed; the rule is Hardy and Littlewood's conjecture",
+  "No division and no sieve: for an odd n count the pairs of primes that lie 2n apart. Every odd prime factor p of n makes that distance "
+  "(p − 1)/(p − 2) times more common, so the count is lowest when n is prime. The number of ways to write n as a prime plus twice a prime "
+  "behaves the same. Both see the small factors of n by adding, and no more than that.",
+  "Primes up to a million, odd n below 50,000: the lowest counts are prime in 93.5% of the cases (20.5% of these n are prime). Prime plus twice a "
+  "prime, n from 500,000 to a million: 67.1% (14.8%). Measured steps for the smallest factor 3, 5, 7, 11: 2.11, 1.37, 1.21, 1.12."],]
 C = []
 def card(**k): C.append(k)
 card(id="chaosgap", name="Chaos game of the gaps (mod 6)", q="layout=chaosgap&amp;links=none", imgs=["t_chaosgap.jpg", "t_chaosgap_z.jpg"],
