@@ -365,6 +365,8 @@ Mismatched pairs give chance: 3 with the strip 111: 1.002; 7 with the strip 11: 
 
 Ten machines show the same rule: wheels of one size that move one tooth per tick; a train of meshing gears; rings around one centre; chains on one shaft; pistons on a camshaft; drums that show the remainders; one dial on which wheel k turns k times as fast (after a/b of a turn the hands lie on b rays and the multiples of b are home); gears that roll inside a ring of 30 and draw a curve with 30/gcd(k, 30) petals that closes after lcm(k, 30) ticks; a tape on which the gears print the divisors; and gears of true size on a rack. Switches: all numbers, only the primes or without the primes; colour for the primes; pointers and lamps; numbers; sound.
 
+A box under the machine keeps the records: the tick at which the most prime gears were home at once, the earlier records and the tick of the next one. The records fall on the products of the first primes: 2, 6, 30, 210, 2,310, 30,030 (the page was run to tick 31,000), and the next is 510,510. The same box keeps the tick with the most gears home at all: 12, 24, 48, 60, 120, 240, 360, 720, 840, 1,680, 2,520 with 6, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19 gears.
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.
