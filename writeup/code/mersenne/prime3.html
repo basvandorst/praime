@@ -109,7 +109,7 @@ function fibmod(n,m){let a=0,b=1%m;for(let i=Math.floor(Math.log2(Math.max(1,n))
 function rule(){return RULES[S.v]||"div";}
 function posOf(k,T){switch(rule()){case"double":return(powmod(2,T,k)-1+k)%k;case"fib":return fibmod(T,k);case"pclock":return PIC[T]%k;case"accel":return((T%(2*k))*((T+1)%(2*k))/2)%k;case"square":return(T%k)*(T%k)%k;case"flip":return((DIC[T]%k)+k)%k;case"slip":return(Math.floor(T/k)*PHI[k]+SL[k][T%k])%k;default:return T%k;}}
 function homeK(k,T){const r=rule();return r==="fast"?(k*T)%120===0:r==="ll"?false:posOf(k,T)===0;}
-const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]},ll:{T:-1,s:[],res:[]}};
+const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]},ll:{T:-1,s:[],res:[]},fs:new Int32Array(251),fl:[]};
 const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",mers:"#fbbf24",mbody:"#4a3d1a",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
 const cv=$("cv"),ctx=cv.getContext("2d");
 const NOTES={
@@ -235,7 +235,7 @@ function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,n=L.n,home=k=>c.
  status(c);}
 function status(c){const T=c.T,G=S.L.G,r=rule(),f=x=>x.toLocaleString("en-US");if(T===S.lastTick&&S.statusV===S.v+S.N)return;S.statusV=S.v+S.N;const arrived=T!==S.lastTick;S.lastTick=T;ext(T+1);
  if(r==="ll"){const Q=S.ll,ok=[],no=[];let nx=0;G.forEach((p,i)=>{if(Q.res[i]===1)ok.push(p);else if(Q.res[i]===2)no.push(p);else if(!nx)nx=p;});
-  $("status").innerHTML=!G.length?"Move the slider to 3 or more: this machine has a wheel for every odd prime p up to 127.":`Tick <b>${f(T)}</b>. 2<sup>p</sup> − 1 is prime for p = ${ok.length?`<span class="g">${ok.join(", ")}</span>`:"none yet"}; not prime for p = ${no.length?no.join(", "):"none yet"}.${nx?` Next decision: p = ${nx} at tick ${nx-2}.`:" All wheels are decided."}`;$("record").innerHTML="";$("primes").textContent="";return;}
+  $("status").innerHTML=!G.length?"Move the slider to 3 or more: this machine has a wheel for every odd prime p up to 127.":`Tick <b>${f(T)}</b>. 2<sup>p</sup> − 1 is prime for p = ${ok.length?`<span class="g">${ok.map(p=>p+" ("+(p-2)+")").join(", ")}</span>`:"none yet"}; not prime for p = ${no.length?no.map(p=>p+" ("+(p-2)+")").join(", "):"none yet"}. In brackets: the tick that decided.${nx?` Next decision: p = ${nx} at tick ${nx-2}.`:" All wheels are decided."}`;$("record").innerHTML="";$("primes").textContent="";return;}
  track(T);showRec(T);const hm=G.filter(k=>homeK(k,T)),hl=T===0?"all":hm.length?`<span class="g">${hm.length>40?hm.slice(0,40).join(", ")+", … ("+hm.length+")":hm.join(", ")}</span>`:"none";let s;
  if(r==="fast"){const g=gcd(T%120,120),a=(T%120)/g,b=120/g;s=`Tick <b>${f(T)}</b>. Wheel 1 has made <b>${T%120===0?(T===0?"0":"a whole number")+" of turns":a+"/"+b+" of a turn"}</b>. At home: ${hl}${T%120&&b<=30?` (the multiples of ${b})`:""}.`;}
  else if(r==="div"){let v="";if(T>=2){if(isP(T))v=` <span class="p">${f(T)} is prime</span>: no gear between 1 and ${f(T)} is home.`;else{let d=2;while(T%d)d++;v=` ${f(T)} = ${d} × ${f(T/d)} is not prime.`;}}
@@ -251,11 +251,11 @@ function status(c){const T=c.T,G=S.L.G,r=rule(),f=x=>x.toLocaleString("en-US");i
   s=`Tick <b>${f(T)}</b>. ${v} At home: ${hl}.${w}`;}
  $("status").innerHTML=s;$("primes").textContent=S.np?`Prime ticks so far: ${S.np.toLocaleString("en-US")}${S.np>40?" (the last 40: ":" ("}${S.seen.join(", ")}).`:"";
  if(arrived&&S.snd&&S.run&&T>0&&(r!=="pclock"||isP(T)))beep(hm);}
-function clearRec(){S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};S.rm={n:0,t:0,l:[],h:[]};}
+function clearRec(){S.fs=new Int32Array(251);S.fl=[];S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};S.rm={n:0,t:0,l:[],h:[]};}
 function pureAt(t,G,F){if(S.v==="fast"){if(t%120===0)return[];const pr={},bad={};for(const k of G){const a=(k*t)%120;if(F[k])(pr[a]=pr[a]||[]).push(k);else bad[a]=1;}let best=[];for(const a in pr)if(!bad[a]&&pr[a].length>best.length)best=pr[a];return best;}
  const l=[],div=rule()==="div";for(const k of G){if(k>1&&(div?t%k===0:posOf(k,t)===0)){if(!F[k])return[];l.push(k);}}return l;}
-function track(T){const G=S.L.G;if(T<S.done)clearRec();ext(T+1);const from=Math.max(S.done+1,T-(rule()==="div"||rule()==="fast"?200000:20000));
- for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}const l=pureAt(t,G,PF);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}
+function track(T){const G=S.L.G,PG=G.filter(k=>PF[k]);if(T<S.done)clearRec();ext(T+1);const from=Math.max(S.done+1,T-(rule()==="div"||rule()==="fast"?200000:20000));
+ for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}if(S.fl.length<PG.length&&(S.v!=="pclock"||PIC[t]>0))for(const k of PG)if(!S.fs[k]&&homeK(k,t)){S.fs[k]=t;S.fl.push([k,t]);}const l=pureAt(t,G,PF);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}
   if(l.length||S.v==="fast"){const e=pureAt(t,G,MF);if(e.length>S.rm.n){S.rm.h.push([S.rm.n,S.rm.t]);S.rm={n:e.length,t,l:e,h:S.rm.h};}}}
  S.done=Math.max(S.done,T);}
 function nextRec(T,F,R){const G=S.L.G,P=G.filter(k=>F[k]),f=x=>x.toLocaleString("en-US");if(!P.length||!["div","fast"].includes(rule()))return"";
@@ -269,7 +269,8 @@ function showRec(T){const f=x=>x.toLocaleString("en-US"),G=S.L.G,fast=S.v==="fas
  const line=(title,R,F,cls)=>{const hist=R.h.filter(x=>x[0]>0).slice(-7).map(x=>`${x[0]} at tick ${f(x[1])}`),g=gcd(R.t%120,120),nx=nextRec(T,F,R);return`<p><b>${title}:</b> ${R.n?`<span class="${cls}">${R.n}</span> (${R.l.join(", ")}) at tick <b>${f(R.t)}</b>${fast?` (${(R.t%120)/g}/${120/g} of a turn)`:""}.`:nx.indexOf("No higher")>0?"this does not happen here.":"not yet."}${hist.length?` Earlier records: ${hist.join(", ")}.`:""}${R.n||nx.indexOf("No higher")<0?nx:""}</p>`;};
  if(!hasP)s="<p>No prime gears are shown.</p>";
  else{s=line(fast?"Only primes on one ray":"Only prime gears home",S.ro,PF,"p");if(hasM)s+=line(fast?"Only Mersenne exponents on one ray":"Only Mersenne-exponent gears home",S.rm,MF,"m");
-  s+=fast?"<p>A ray counts when it holds no other hand. Whole turns (every 120 ticks) are left out: there every hand is back where it started.</p>":`<p>A tick counts when no other gear is home${G.includes(1)?" (gear 1 is always home and is left out)":""}.</p>`;}
+  s+=fast?"<p>A ray counts when it holds no other hand. Whole turns (every 120 ticks) are left out: there every hand is back where it started.</p>":`<p>A tick counts when no other gear is home${G.includes(1)?" (gear 1 is always home and is left out)":""}.</p>`;
+  const np=G.filter(k=>PF[k]).length;s+=`<p><b>Prime gears, the first tick each was home</b>, as gear (tick): ${S.fl.length?S.fl.map(x=>`${MF[x[0]]?`<span class="m">${x[0]}</span>`:x[0]} (${f(x[1])})`).join(", "):"none yet"}${S.fl.length<np?(S.fl.length?", …":"")+` ${np-S.fl.length} of ${np} not yet.`:"."}</p>`;}
  $("record").innerHTML=s;}
 function beep(hm){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();const ac=S.ac,t0=ac.currentTime,n=Math.min(hm.length,8);for(let i=0;i<n;i++){const k=hm[hm.length-1-i],o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=180*Math.pow(2,(31-k)/12);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.12/n,t0+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.16);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.18);}}catch(e){}}
 function frame(now){if(S.run){const dt=Math.min(0.1,(now-S.last)/1000);S.tau+=dt*S.speed;draw();}S.last=now;requestAnimationFrame(frame);}
