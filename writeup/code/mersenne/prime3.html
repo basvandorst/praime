@@ -89,7 +89,7 @@ a { color:var(--accent); }
 const $=id=>document.getElementById(id);
 const isP=n=>{if(n<2)return false;for(let d=2;d*d<=n;d++)if(n%d===0)return false;return true;};
 const gcd=(a,b)=>{while(b){const t=a%b;a=b;b=t;}return a;};
-const S={v:"ratchet",set:"all",speed:1,hi:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,rp:{n:0,t:0,l:[],h:[]},ra:{n:0,t:0,l:[],h:[]}};
+const S={v:"ratchet",set:"all",speed:1,hi:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]}};
 const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
 const cv=$("cv"),ctx=cv.getContext("2d");
 const NOTES={
@@ -176,21 +176,25 @@ function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,home=k=>c.arr&&T
 function status(c){const T=c.T,G=S.L.G;if(T===S.lastTick&&S.statusV===S.v+S.set)return;S.statusV=S.v+S.set;const arrived=T!==S.lastTick;S.lastTick=T;track(T);showRec(T);let s;
  if(S.v==="fast"){const g=gcd(T%120,120),a=(T%120)/g,b=120/g,hm=G.filter(k=>(k*T)%120===0);s=`Tick <b>${T}</b>. Wheel 1 has made <b>${T%120===0?(T===0?"0":"a whole number")+" of turns":a+"/"+b+" of a turn"}</b>. At home: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}${T%120&&b<=30?` (the multiples of ${b})`:""}.`;}
  else{const hm=G.filter(k=>T%k===0);let v="";if(T>=2){if(isP(T))v=` <span class="p">${T} is prime</span>: no gear between 1 and ${T} is home.`;else{let d=2;while(T%d)d++;v=` ${T} = ${d} × ${T/d} is not prime.`;}}
-  s=`Tick <b>${T}</b>. At home${S.set==="all"?"":" (of the gears shown)"}: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}.${T===0?" Every gear starts at home.":v}`;}
+  s=`Tick <b>${T}</b>. At home${S.set==="all"?"":" (of the gears shown)"}: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}.${T===0?" Every gear starts at home.":v}${T>0&&pureAt(T,G).length>1?` <span class="p">Only prime gears are home.</span>`:""}`;}
  $("status").innerHTML=s;$("primes").textContent=S.np?`Prime ticks so far: ${S.np.toLocaleString("en-US")}${S.np>40?" (the last 40: ":" ("}${S.seen.join(", ")}).`:"";
  if(arrived&&S.snd&&S.run&&T>0)beep(G.filter(k=>T%k===0));}
 function homeAt(t,G){return S.v==="fast"?G.filter(k=>(k*t)%120===0):G.filter(k=>t%k===0);}
-function clearRec(){S.done=0;S.np=0;S.seen=[];S.rp={n:0,t:0,l:[],h:[]};S.ra={n:0,t:0,l:[],h:[]};}
+function clearRec(){S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};}
+function pureAt(t,G){if(S.v==="fast"){if(t%120===0)return[];const pr={},bad={};for(const k of G){const a=(k*t)%120;if(isP(k))(pr[a]=pr[a]||[]).push(k);else bad[a]=1;}let best=[];for(const a in pr)if(!bad[a]&&pr[a].length>best.length)best=pr[a];return best;}
+ const l=[];for(const k of G){if(k>1&&t%k===0){if(!isP(k))return[];l.push(k);}}return l;}
 function track(T){const G=S.L.G,fast=S.v==="fast";if(T<S.done)clearRec();const from=Math.max(S.done+1,T-200000);
- for(let t=from;t<=T;t++){let na=0,np=0;for(let i=0;i<G.length;i++){const k=G[i];if(fast?(k*t)%120===0:t%k===0){na++;if(isP(k))np++;}}
-  if(np>S.rp.n){S.rp.h.push([S.rp.n,S.rp.t]);S.rp={n:np,t,l:homeAt(t,G).filter(isP),h:S.rp.h};}if(na>S.ra.n){S.ra.h.push([S.ra.n,S.ra.t]);S.ra={n:na,t,l:homeAt(t,G),h:S.ra.h};}if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}}
+ for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}const l=pureAt(t,G);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}}
  S.done=Math.max(S.done,T);}
-function nextRec(T){const G=S.L.G,P=G.filter(isP);if(!P.length)return"";if(S.rp.n>=P.length)return" All prime gears have been home together.";
- if(S.v==="fast"){for(let t=T+1;t<=T+240;t++){if(homeAt(t,P).length>S.rp.n)return` Next record: tick <b>${t.toLocaleString("en-US")}</b>.`;}return" No higher record is possible on this dial.";}
- let m=1;const q=P.slice(0,S.rp.n+1);for(const p of q)m*=p;return` Next record: tick <b>${m.toLocaleString("en-US")}</b> = ${q.join(" × ")}.`;}
-function showRec(T){const f=x=>x.toLocaleString("en-US"),hist=h=>{const a=h.filter(x=>x[0]>0).slice(-6).map(x=>`${x[0]} at tick ${f(x[1])}`);return a.length?` Earlier records: ${a.join(", ")}.`:"";},hasP=S.L.G.some(isP);let s="";
- if(hasP)s+=`<p><b>Most prime gears home at once:</b> ${S.rp.n?`<span class="p">${S.rp.n}</span> (${S.rp.l.join(", ")}) at tick <b>${f(S.rp.t)}</b>.`:"none yet."}${hist(S.rp.h)}${nextRec(T)}</p>`;
- s+=`<p><b>Most gears home at once:</b> ${S.ra.n?`<span class="g">${S.ra.n}</span> (${S.ra.l.join(", ")}) at tick <b>${f(S.ra.t)}</b>.`:"none yet."}${hist(S.ra.h)}</p>`;$("record").innerHTML=s;}
+function nextRec(T){const G=S.L.G,P=G.filter(isP),f=x=>x.toLocaleString("en-US");if(!P.length)return"";
+ if(S.v==="fast"){const base=T-T%120;for(let t=T+1;t<base+240;t++){if(pureAt(t,G).length>S.ro.n)return` Next record: tick <b>${f(t)}</b>.`;}return" No higher record is possible on this dial.";}
+ const comp=G.filter(k=>k>1&&!isP(k));let best=0,bl=null;for(let m=1;m<(1<<P.length);m++){const q=P.filter((p,i)=>(m>>i)&1);if(q.length!==S.ro.n+1)continue;let pr=1;for(const p of q)pr*=p;if(best&&pr>=best)continue;if(comp.some(c=>pr%c===0))continue;best=pr;bl=q;}
+ return best?` Next record: tick <b>${f(best)}</b> = ${bl.join(" × ")}.`:" No higher record is possible: one more prime gear always brings a non-prime gear home with it.";}
+function showRec(T){const f=x=>x.toLocaleString("en-US"),G=S.L.G,fast=S.v==="fast",hasP=G.some(isP),hist=S.ro.h.filter(x=>x[0]>0).slice(-7).map(x=>`${x[0]} at tick ${f(x[1])}`);let s="";
+ if(!hasP)s="<p>No prime gears are shown.</p>";
+ else if(fast){const g=gcd(S.ro.t%120,120);s=`<p><b>Only primes on one ray:</b> ${S.ro.n?`<span class="p">${S.ro.n}</span> (${S.ro.l.join(", ")}) at tick <b>${f(S.ro.t)}</b> (${(S.ro.t%120)/g}/${120/g} of a turn).`:"not yet."}${hist.length?` Earlier records: ${hist.join(", ")}.`:""}${nextRec(T)}</p><p>A ray counts when it holds prime hands and no other hand. Whole turns (every 120 ticks) are left out: there every hand is back where it started.</p>`;}
+ else{s=`<p><b>Only prime gears home:</b> ${S.ro.n?`<span class="p">${S.ro.n}</span> (${S.ro.l.join(", ")}) at tick <b>${f(S.ro.t)}</b>.`:"not yet."}${hist.length?` Earlier records: ${hist.join(", ")}.`:""}${nextRec(T)}</p><p>A tick counts when no gear other than a prime is home${G.includes(1)?" (gear 1 is always home and is left out)":""}.</p>`;}
+ $("record").innerHTML=s;}
 function beep(hm){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();const ac=S.ac,t0=ac.currentTime,n=Math.min(hm.length,8);for(let i=0;i<n;i++){const k=hm[hm.length-1-i],o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=180*Math.pow(2,(31-k)/12);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.12/n,t0+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.16);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.18);}}catch(e){}}
 function frame(now){if(S.run){const dt=Math.min(0.1,(now-S.last)/1000);S.tau+=dt*S.speed;draw();}S.last=now;requestAnimationFrame(frame);}
 function setRun(r){S.run=r;$("start").textContent=r?"Pause":"Start";if(r&&S.snd&&S.ac&&S.ac.state==="suspended")S.ac.resume();}
