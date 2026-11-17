@@ -30,6 +30,8 @@ canvas { display:block; width:100%; }
 .status b { color:#fff; }
 .status .p { color:var(--pink); font-weight:600; }
 .status .g { color:var(--green); font-weight:600; }
+.rec .p { color:var(--pink); font-weight:600; }
+.rec .m { color:#fbbf24; font-weight:600; }
 .note { color:var(--muted); font-size:12.5px; margin:8px 0 0; }
 .rec { margin:10px 0 0; padding:8px 10px; background:#16243a; border:1px solid #2a3b55; border-radius:8px; font-size:13px; color:#d6e2f2; }
 .rec p { margin:0 0 4px; }
@@ -64,11 +66,6 @@ a { color:var(--accent); }
       <option value="100">1 to 100</option>
       <option value="250">1 to 250</option>
     </select></div>
-    <div class="ctl"><label for="set">Numbers</label><select id="set">
-      <option value="all">All of them</option>
-      <option value="primes">Only the primes</option>
-      <option value="noprimes">Without the primes</option>
-    </select></div>
     <div class="ctl wide"><span class="lab">Speed: <b id="spLabel">1</b> ticks per second</span><input id="speed" type="range" min="0" max="100" step="1" value="17" aria-label="Speed"></div>
     <div class="row">
       <button id="start" class="go" type="button">Start</button>
@@ -76,6 +73,7 @@ a { color:var(--accent); }
       <button id="reset" type="button">Reset</button>
     </div>
     <label class="check"><input id="hi" type="checkbox" checked>Colour the primes</label>
+    <label class="check"><input id="hm" type="checkbox" checked>Colour the Mersenne exponents</label>
     <label class="check"><input id="ind" type="checkbox" checked>Pointers and lamps</label>
     <label class="check"><input id="lab" type="checkbox" checked>Numbers</label>
     <label class="check"><input id="snd" type="checkbox">Sound</label>
@@ -86,7 +84,7 @@ a { color:var(--accent); }
     <div class="rec" id="record" aria-live="off"></div>
     <p class="note" id="primes"></p>
     <p class="note" id="why" style="color:#d6e2f2"></p>
-    <p class="note"><span class="key" style="background:var(--pink)"></span>mark of a gear · <span class="key" style="background:var(--green)"></span>gear at home · <span class="key" style="background:#6f8fb8"></span>gear with a prime number of teeth · <span class="key" style="background:#40536d"></span>other gear. More pictures of the primes: <a href="prime2.html">prime2.html</a>.</p>
+    <p class="note"><span class="key" style="background:var(--pink)"></span>mark of a gear · <span class="key" style="background:var(--green)"></span>gear at home · <span class="key" style="background:#6f8fb8"></span>gear with a prime number of teeth · <span class="key" style="background:#fbbf24"></span>gear whose number is a Mersenne exponent (2<sup>k</sup> − 1 is prime) · <span class="key" style="background:#40536d"></span>other gear. More pictures of the primes: <a href="prime2.html">prime2.html</a>.</p>
   </section>
 </main>
 <script>
@@ -95,8 +93,9 @@ const $=id=>document.getElementById(id);
 const isP=n=>{if(n<2)return false;for(let d=2;d*d<=n;d++)if(n%d===0)return false;return true;};
 const gcd=(a,b)=>{while(b){const t=a%b;a=b;b=t;}return a;};
 const PF=new Uint8Array(251);for(let k=2;k<=250;k++)PF[k]=isP(k)?1:0;
-const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]}};
-const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
+const MF=new Uint8Array(251);for(const k of [2,3,5,7,13,17,19,31,61,89,107,127])MF[k]=1;
+const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]}};
+const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",mers:"#fbbf24",mbody:"#4a3d1a",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
 const cv=$("cv"),ctx=cv.getContext("2d");
 const NOTES={
  ratchet:"Wheels of one size. Wheel k has k teeth and moves one tooth per tick, so its pink mark is back at the top every k ticks.",
@@ -111,9 +110,10 @@ const NOTES={
  rack:"Gears of true size (the radius grows with the number of teeth) ride on a moving rack, one tooth per tick. A gear is home when its pink tooth is down in the rack."
 };
 function note(){let t=NOTES[S.v].replace(/\{N\}/g,S.N).replace("{L}",S.N===30?" (1, 7, 11, 13, 17, 19, 23, 29)":"");if(S.N>60&&["train","rings","chains","pistons","rack"].includes(S.v))t+=" With this many gears the small parts are left out; a dot is the mark of a gear, pink for a prime gear when the primes are coloured.";return t;}
-function gears(){const a=[];for(let k=1;k<=S.N;k++){const p=PF[k]===1;if(S.set==="all"||(S.set==="primes"&&p)||(S.set==="noprimes"&&!p))a.push(k);}return a;}
+function gears(){const a=[];for(let k=1;k<=S.N;k++)a.push(k);return a;}
 function clock(){const n=Math.floor(S.tau),f=S.tau-n,arr=f<1e-9||f>=0.6,e=f<0.6?(1-Math.cos(Math.PI*f/0.6))/2:1,td=n+e;return{td,arr,T:arr?Math.round(td):n};}
-function fills(k,home){const p=S.hi&&isP(k);return{f:p?C.pbody:C.body,s:home&&S.ind?C.home:p?C.pedge:C.edge};}
+function tint(k){return S.hm&&MF[k]?C.mers:S.hi&&PF[k]?C.pedge:null;}
+function fills(k,home){const m=S.hm&&MF[k],p=S.hi&&PF[k];return{f:m?C.mbody:p?C.pbody:C.body,s:home&&S.ind?C.home:m?C.mers:p?C.pedge:C.edge};}
 function gear(x,y,r,n,a,th,fill,stroke,lw){const ri=Math.max(0.5,r-th*0.5),ro=r+th*0.5;ctx.beginPath();
  if(n>=3&&2*Math.PI*r/n<2.4){ctx.arc(x,y,Math.max(0.6,r),0,7);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=lw||1;ctx.stroke();return;}
  if(n<3){ctx.arc(x,y,ri,0,7);for(let i=0;i<n;i++){const t=a+i*2*Math.PI/n,w=Math.min(0.5,th/Math.max(1,ri)*0.9);ctx.moveTo(x+Math.cos(t-w)*ri,y+Math.sin(t-w)*ri);ctx.lineTo(x+Math.cos(t-w*0.5)*ro,y+Math.sin(t-w*0.5)*ro);ctx.lineTo(x+Math.cos(t+w*0.5)*ro,y+Math.sin(t+w*0.5)*ro);ctx.lineTo(x+Math.cos(t+w)*ri,y+Math.sin(t+w)*ri);}}
@@ -123,7 +123,7 @@ function dot(x,y,r,c){ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=c;ctx.fil
 function label(t,x,y,size,c,al){ctx.font=`${size}px system-ui,sans-serif`;ctx.textAlign=al||"center";ctx.textBaseline="middle";ctx.fillStyle=c||C.text;ctx.fillText(t,x,y);}
 function pointer(x,y,s,on){ctx.beginPath();ctx.moveTo(x-s,y-s*1.4);ctx.lineTo(x+s,y-s*1.4);ctx.lineTo(x,y);ctx.closePath();ctx.fillStyle=on?C.home:"#52657f";ctx.fill();}
 function grid(W,n){const cols=n<=30?(W<560?5:W<900?6:Math.min(10,n)):Math.max(5,Math.floor(W/(n<=100?48:38))),rows=Math.ceil(n/cols),cell=W/cols;return{cols,rows,cell};}
-function dcol(k,h){return h&&S.ind?C.home:!S.hi||PF[k]?C.mark:"#7f95b2";}
+function dcol(k,h){return h&&S.ind?C.home:S.hm&&MF[k]?C.mers:!S.hi||PF[k]?C.mark:"#7f95b2";}
 function sparse(k,i,n){return i===0||i===n-1||k%50===0;}
 function layout(){const W=S.W,G=gears(),n=G.length,L={G,n};
  if(S.v==="ratchet"||S.v==="drums"||S.v==="spiro"){Object.assign(L,grid(W,n));L.H=L.rows*L.cell*(S.v==="drums"?0.62:1)+10;
@@ -149,44 +149,44 @@ function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,n=L.n,home=k=>c.
    if(S.ind&&r>9)pointer(x,y-r+th*0.9+Math.max(3,Math.min(5,u*0.6))*1.4,Math.max(2.5,Math.min(5,u*0.6)),h);if(S.lab&&(r>11||!big))label(p.k,x,r>11?y:y-r-8,Math.max(9,Math.min(20,r*0.5)),h&&S.ind?C.home:C.text);}}
  else if(S.v==="rings"){const cx=W/2,cy=L.D/2+5,R=L.D/2-8,st=(R-14)/(n+0.5),dense=st<3;if(S.ind){ctx.strokeStyle="#33485f";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-R);ctx.stroke();}
   if(dense){ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.stroke();G.forEach((k,i)=>{const r=14+st*(i+0.5),a=-Math.PI/2+2*Math.PI*td/k;dot(cx+Math.cos(a)*r,cy+Math.sin(a)*r,Math.max(1.3,Math.min(2.4,st*1.1)),dcol(k,home(k)));});}
-  else G.forEach((k,i)=>{const r=14+st*(i+0.5),h=home(k),p=S.hi&&PF[k];ctx.strokeStyle=h&&S.ind?C.home:C.line;ctx.lineWidth=h&&S.ind?1.6:1;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();const dr=Math.max(1.4,Math.min(st*0.34,5));
-   for(let j=0;j<k;j++){const a=-Math.PI/2+2*Math.PI*(td+j)/k;dot(cx+Math.cos(a)*r,cy+Math.sin(a)*r,j===0?dr*1.35:dr,j===0?(h&&S.ind?C.home:C.mark):p?C.pedge:C.edge);}
+  else G.forEach((k,i)=>{const r=14+st*(i+0.5),h=home(k),p=tint(k);ctx.strokeStyle=h&&S.ind?C.home:C.line;ctx.lineWidth=h&&S.ind?1.6:1;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();const dr=Math.max(1.4,Math.min(st*0.34,5));
+   for(let j=0;j<k;j++){const a=-Math.PI/2+2*Math.PI*(td+j)/k;dot(cx+Math.cos(a)*r,cy+Math.sin(a)*r,j===0?dr*1.35:dr,j===0?(h&&S.ind?C.home:C.mark):p||C.edge);}
    if(S.lab&&st>=8)label(k,cx+r,cy+st*0.05+Math.min(9,st*0.75),Math.min(11,st*0.8),C.muted);});
   if(S.lab&&st<8){label(G[0],cx+14+st*0.5,cy+12,10,C.muted);label(G[n-1],cx+R-8,cy+12,10,C.muted);}}
  else if(S.v==="chains"){const s=L.s,rho=L.rho,top=40,dense=L.cw<5;ctx.strokeStyle="#52657f";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(4,top);ctx.lineTo(W-4,top);ctx.stroke();
-  G.forEach((k,i)=>{const cx=(i+0.5)*L.cw,per=k*s,rr=Math.min(rho,per/(2*Math.PI)),st=Math.max(0,(per-2*Math.PI*rr)/2),h=home(k),p=S.hi&&PF[k];
+  G.forEach((k,i)=>{const cx=(i+0.5)*L.cw,per=k*s,rr=Math.min(rho,per/(2*Math.PI)),st=Math.max(0,(per-2*Math.PI*rr)/2),h=home(k),p=tint(k);
    const pos=d=>{d=((d%per)+per)%per;if(d<Math.PI*rr/2){const a=-Math.PI/2+d/rr;return[cx+Math.cos(a)*rr,top+rr+Math.sin(a)*rr];}d-=Math.PI*rr/2;if(d<st)return[cx+rr,top+rr+d];d-=st;if(d<Math.PI*rr){const a=d/rr;return[cx+Math.cos(a)*rr,top+rr+st+Math.sin(a)*rr];}d-=Math.PI*rr;if(d<st)return[cx-rr,top+rr+st-d];d-=st;const a=Math.PI+d/rr;return[cx+Math.cos(a)*rr,top+rr+Math.sin(a)*rr];};
    if(dense){const z=pos(-td*s);dot(z[0],z[1],Math.max(1.3,Math.min(2.4,L.cw*0.9)),dcol(k,h));if(S.lab&&sparse(k,i,n))label(k,cx,14,10,C.muted);return;}
    ctx.strokeStyle=h&&S.ind?C.home:C.line;ctx.lineWidth=1;ctx.beginPath();for(let q=0;q<=40;q++){const z=pos(q*per/40);if(q)ctx.lineTo(z[0],z[1]);else ctx.moveTo(z[0],z[1]);}ctx.stroke();
-   const lr=Math.max(1.5,Math.min(rr*0.75,s*0.3));for(let j=k-1;j>=0;j--){const z=pos((j-td)*s);dot(z[0],z[1],j===0?lr*1.4:lr,j===0?(h&&S.ind?C.home:C.mark):p?C.pedge:C.edge);}
-   if(S.ind)pointer(cx,top-3,Math.max(2.5,Math.min(4,L.cw*0.22)),h);if(S.lab&&(L.cw>=9||sparse(k,i,n)))label(k,cx,14,Math.max(8,Math.min(12,L.cw*0.62)),h&&S.ind?C.home:p?C.pedge:C.text);});}
+   const lr=Math.max(1.5,Math.min(rr*0.75,s*0.3));for(let j=k-1;j>=0;j--){const z=pos((j-td)*s);dot(z[0],z[1],j===0?lr*1.4:lr,j===0?(h&&S.ind?C.home:C.mark):p||C.edge);}
+   if(S.ind)pointer(cx,top-3,Math.max(2.5,Math.min(4,L.cw*0.22)),h);if(S.lab&&(L.cw>=9||sparse(k,i,n)))label(k,cx,14,Math.max(8,Math.min(12,L.cw*0.62)),h&&S.ind?C.home:p||C.text);});}
  else if(S.v==="pistons"){const topY=44,botY=L.H-34,amp=(botY-topY)/2,mid=(topY+botY)/2,t=S.tau,near=Math.abs(t-Math.round(t))<0.12,Tn=Math.round(t),dense=L.cw<5;if(S.ind){ctx.strokeStyle="#33485f";ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(0,topY);ctx.lineTo(W,topY);ctx.stroke();ctx.setLineDash([]);}
-  G.forEach((k,i)=>{const cx=(i+0.5)*L.cw,y=mid-amp*Math.cos(2*Math.PI*t/k),h=near&&Tn%k===0,p=S.hi&&PF[k],w=Math.max(1.2,L.cw*0.62);
+  G.forEach((k,i)=>{const cx=(i+0.5)*L.cw,y=mid-amp*Math.cos(2*Math.PI*t/k),h=near&&Tn%k===0,p=tint(k),w=Math.max(1.2,L.cw*0.62);
    if(dense){ctx.fillStyle=dcol(k,h);ctx.fillRect(cx-w/2,y-1.5,w,3);if(S.lab&&sparse(k,i,n))label(k,cx,L.H-12,10,C.muted);return;}
    ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,topY);ctx.lineTo(cx,botY);ctx.stroke();
-   ctx.strokeStyle=p?C.pedge:C.edge;ctx.lineWidth=Math.max(1.5,w*0.22);ctx.beginPath();ctx.moveTo(cx,y);ctx.lineTo(cx,botY+10);ctx.stroke();ctx.fillStyle=h&&S.ind?C.home:p?C.pedge:"#52657f";ctx.fillRect(cx-w/2,y-4,w,8);dot(cx,y,Math.max(1.5,w*0.2),C.mark);
-   if(S.lab&&(L.cw>=9||sparse(k,i,n)))label(k,cx,L.H-12,Math.max(8,Math.min(12,L.cw*0.62)),h&&S.ind?C.home:p?C.pedge:C.text);});}
- else if(S.v==="drums"){const ch=L.cell*0.62;G.forEach((k,i)=>{const x=(i%L.cols)*L.cell,y=Math.floor(i/L.cols)*ch+6,bw=L.cell*0.78,bh=ch*0.6,bx=x+(L.cell-bw)/2,by=y+ch*0.3,h=home(k),p=S.hi&&PF[k],v=((td%k)+k)%k,lo=Math.floor(v+1e-9),fr=v-lo,fs=Math.max(10,bh*0.62);
-   if(S.lab)label(L.cell<56?k:"mod "+k,x+L.cell/2,y+ch*0.15,Math.max(8,Math.min(12,L.cell*0.16)),p?C.pedge:C.muted);ctx.fillStyle=C.dim;ctx.strokeStyle=h&&S.ind?C.home:p?C.pedge:C.edge;ctx.lineWidth=h&&S.ind?2:1;ctx.beginPath();ctx.rect(bx,by,bw,bh);ctx.fill();ctx.stroke();
+   ctx.strokeStyle=p||C.edge;ctx.lineWidth=Math.max(1.5,w*0.22);ctx.beginPath();ctx.moveTo(cx,y);ctx.lineTo(cx,botY+10);ctx.stroke();ctx.fillStyle=h&&S.ind?C.home:p||"#52657f";ctx.fillRect(cx-w/2,y-4,w,8);dot(cx,y,Math.max(1.5,w*0.2),C.mark);
+   if(S.lab&&(L.cw>=9||sparse(k,i,n)))label(k,cx,L.H-12,Math.max(8,Math.min(12,L.cw*0.62)),h&&S.ind?C.home:p||C.text);});}
+ else if(S.v==="drums"){const ch=L.cell*0.62;G.forEach((k,i)=>{const x=(i%L.cols)*L.cell,y=Math.floor(i/L.cols)*ch+6,bw=L.cell*0.78,bh=ch*0.6,bx=x+(L.cell-bw)/2,by=y+ch*0.3,h=home(k),p=tint(k),v=((td%k)+k)%k,lo=Math.floor(v+1e-9),fr=v-lo,fs=Math.max(10,bh*0.62);
+   if(S.lab)label(L.cell<56?k:"mod "+k,x+L.cell/2,y+ch*0.15,Math.max(8,Math.min(12,L.cell*0.16)),p||C.muted);ctx.fillStyle=C.dim;ctx.strokeStyle=h&&S.ind?C.home:p||C.edge;ctx.lineWidth=h&&S.ind?2:1;ctx.beginPath();ctx.rect(bx,by,bw,bh);ctx.fill();ctx.stroke();
    ctx.save();ctx.beginPath();ctx.rect(bx+1,by+1,bw-2,bh-2);ctx.clip();label(lo,x+L.cell/2,by+bh/2-fr*bh,fs,lo===0?(S.ind?C.home:C.mark):C.text);label((lo+1)%k,x+L.cell/2,by+bh/2+(1-fr)*bh,fs,(lo+1)%k===0?(S.ind?C.home:C.mark):C.text);ctx.restore();});}
  else if(S.v==="fast"){const cx=W/2,cy=L.D/2+5,R=L.D/2-10,t=S.tau,th=t/120,near=Math.abs(t-Math.round(t))<0.12,Tn=Math.round(t),many=n>60;ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.stroke();if(S.ind){ctx.strokeStyle="#33485f";ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-R);ctx.stroke();}
   const pts=G.map((k,i)=>{const len=R*(0.14+0.86*(i+1)/n),a=-Math.PI/2+2*Math.PI*k*th;return[cx+Math.cos(a)*len,cy+Math.sin(a)*len,k,len];});
   ctx.strokeStyle="#2f435c";ctx.lineWidth=1;ctx.beginPath();pts.forEach((p,i)=>{if(i)ctx.lineTo(p[0],p[1]);else ctx.moveTo(p[0],p[1]);});ctx.stroke();
-  for(const p of pts){const h=near&&(p[2]*Tn)%120===0,pr=S.hi&&PF[p[2]];if(!many||(h&&S.ind)){ctx.strokeStyle=h&&S.ind?C.home:pr?"#3d5f8f":"#2c3f58";ctx.lineWidth=h&&S.ind?2:1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p[0],p[1]);ctx.stroke();}dot(p[0],p[1],many?1.7:Math.max(2.2,R*0.012),many?dcol(p[2],h):h&&S.ind?C.home:pr?C.pedge:C.mark);if(S.lab&&R>250&&n<=40)label(p[2],p[0]+9,p[1]-8,10,C.muted);}}
- else if(S.v==="spiro"){const t=S.tau,RN=S.N,sp=L.sp,key=S.hi+"|"+S.ind+"|"+cv.width+"|"+cv.height,lw=n>60?0.6:1;
+  for(const p of pts){const h=near&&(p[2]*Tn)%120===0,pr=tint(p[2]);if(!many||(h&&S.ind)){ctx.strokeStyle=h&&S.ind?C.home:pr===C.mers?"#7a6420":pr?"#3d5f8f":"#2c3f58";ctx.lineWidth=h&&S.ind?2:1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p[0],p[1]);ctx.stroke();}dot(p[0],p[1],many?1.7:Math.max(2.2,R*0.012),many?dcol(p[2],h):h&&S.ind?C.home:pr||C.mark);if(S.lab&&R>250&&n<=40)label(p[2],p[0]+9,p[1]-8,10,C.muted);}}
+ else if(S.v==="spiro"){const t=S.tau,RN=S.N,sp=L.sp,key=S.hi+"|"+S.hm+"|"+S.ind+"|"+cv.width+"|"+cv.height,lw=n>60?0.6:1;
   if(!sp.c||sp.key!==key||t<sp.t){if(!sp.c){sp.c=document.createElement("canvas");sp.x=sp.c.getContext("2d");}sp.c.width=cv.width;sp.c.height=cv.height;sp.x.setTransform(cv.width/W,0,0,cv.width/W,0,0);sp.drawn.fill(0);sp.fin.fill(0);sp.key=key;}sp.t=t;
-  G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,R=L.cell*0.42,r=R*k/RN,P=L.pts[i],done=t>=P.end,q=Math.min(P.m,Math.floor(t/P.end*P.m)),p=S.hi&&PF[k],X=sp.x;
-   if(q>sp.drawn[i]){X.strokeStyle=p?C.pedge:"#8aa0bd";X.lineWidth=lw;X.beginPath();X.moveTo(x+P.a[2*sp.drawn[i]],y+P.a[2*sp.drawn[i]+1]);for(let j=sp.drawn[i]+1;j<=q;j++)X.lineTo(x+P.a[2*j],y+P.a[2*j+1]);X.stroke();sp.drawn[i]=q;}
+  G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,R=L.cell*0.42,r=R*k/RN,P=L.pts[i],done=t>=P.end,q=Math.min(P.m,Math.floor(t/P.end*P.m)),p=tint(k),X=sp.x;
+   if(q>sp.drawn[i]){X.strokeStyle=p||"#8aa0bd";X.lineWidth=lw;X.beginPath();X.moveTo(x+P.a[2*sp.drawn[i]],y+P.a[2*sp.drawn[i]+1]);for(let j=sp.drawn[i]+1;j<=q;j++)X.lineTo(x+P.a[2*j],y+P.a[2*j+1]);X.stroke();sp.drawn[i]=q;}
    if(done&&!sp.fin[i]){sp.fin[i]=1;if(S.ind){X.strokeStyle=C.home;X.lineWidth=lw;X.beginPath();X.moveTo(x+P.a[0],y+P.a[1]);for(let j=1;j<=P.m;j++)X.lineTo(x+P.a[2*j],y+P.a[2*j+1]);X.stroke();}}});
   ctx.drawImage(sp.c,0,0,W,L.H);
-  G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,R=L.cell*0.42,r=R*k/RN,p=S.hi&&PF[k];ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.stroke();
+  G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,R=L.cell*0.42,r=R*k/RN,p=tint(k);ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.stroke();
    const ph=2*Math.PI*t/RN,ro=-ph*(RN-k)/k,gx=x+(R-r)*Math.sin(ph),gy=y-(R-r)*Math.cos(ph),px=gx+r*0.8*Math.sin(ro),py=gy-r*0.8*Math.cos(ro);
-   ctx.strokeStyle="#40536d";ctx.beginPath();ctx.arc(gx,gy,Math.max(0.5,r),0,7);ctx.stroke();dot(px,py,n>60?1.6:2.2,C.mark);if(S.lab)label(k,x-R+2,y-R+6,Math.max(8,Math.min(12,L.cell*0.13)),p?C.pedge:C.muted,"left");});}
+   ctx.strokeStyle="#40536d";ctx.beginPath();ctx.arc(gx,gy,Math.max(0.5,r),0,7);ctx.stroke();dot(px,py,n>60?1.6:2.2,C.mark);if(S.lab)label(k,x-R+2,y-R+6,Math.max(8,Math.min(12,L.cell*0.13)),p||C.muted,"left");});}
  else if(S.v==="printer"){const rh=L.rh,cw=L.cwd,x0=30,xh=W-16,top=26,sm=rh<5;ctx.save();ctx.beginPath();ctx.rect(x0,0,W-x0,L.H);ctx.clip();const j0=Math.max(1,Math.floor(td-(xh-x0)/cw)-1);
   for(let j=j0;j<=T;j++){const x=xh-(td-j)*cw;if(S.hi&&isP(j)){ctx.fillStyle="rgba(244,114,182,0.13)";ctx.fillRect(x-cw/2,top-4,cw,n*rh+6);}if(S.lab&&(cw>=13&&j<1000||j%5===0&&j<1000||j%10===0||isP(j)&&cw>=11&&j<1000))label(j,x,12,Math.min(10,cw*0.8),isP(j)&&S.hi?C.mark:C.muted);
-   G.forEach((k,i)=>{if(j%k===0){const col=k===j||k===1?C.mark:S.hi&&PF[k]?C.pedge:"#8aa0bd";if(sm){ctx.fillStyle=col;ctx.fillRect(x-cw*0.3,top+i*rh,cw*0.6,Math.max(1.5,rh*0.85));}else dot(x,top+(i+0.5)*rh,Math.min(rh,cw)*0.3,col);}});}ctx.restore();
+   G.forEach((k,i)=>{if(j%k===0){const col=k===j||k===1?C.mark:tint(k)||"#8aa0bd";if(sm){ctx.fillStyle=col;ctx.fillRect(x-cw*0.3,top+i*rh,cw*0.6,Math.max(1.5,rh*0.85));}else dot(x,top+(i+0.5)*rh,Math.min(rh,cw)*0.3,col);}});}ctx.restore();
   ctx.strokeStyle="#52657f";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(xh,top-6);ctx.lineTo(xh,top+n*rh+4);ctx.stroke();
-  G.forEach((k,i)=>{const y=top+(i+0.5)*rh,h=home(k);if(S.lab&&rh>=9)label(k,14,y,Math.min(11,rh*0.9),h&&S.ind?C.home:S.hi&&PF[k]?C.pedge:C.muted);else if(S.lab&&sparse(k,i,n))label(k,14,y,9,C.muted);if(S.ind&&(!sm||h))dot(xh,y,sm?2.2:Math.min(rh*0.36,4.5),h?C.home:"#33485f");});}
+  G.forEach((k,i)=>{const y=top+(i+0.5)*rh,h=home(k);if(S.lab&&rh>=9)label(k,14,y,Math.min(11,rh*0.9),h&&S.ind?C.home:tint(k)||C.muted);else if(S.lab&&sparse(k,i,n))label(k,14,y,9,C.muted);if(S.ind&&(!sm||h))dot(xh,y,sm?2.2:Math.min(rh*0.36,4.5),h?C.home:"#33485f");});}
  else if(S.v==="rack"){const u=L.u,th=L.th,pitch=2*Math.PI*u,big=n>40;for(const rw of L.rows){const y=rw.y;ctx.fillStyle="#1a2a40";ctx.fillRect(4,y+th*0.5,W-8,u<1.2?3:8);if(pitch>=2.5){ctx.strokeStyle=C.edge;ctx.lineWidth=1;ctx.beginPath();const off=((td*pitch)%pitch+pitch)%pitch;
    for(let x=4-pitch-off;x<W;x+=pitch){const g=x+pitch/2;ctx.moveTo(g-pitch*0.27,y+th*0.5);ctx.lineTo(g-pitch*0.14,y-th*0.5);ctx.lineTo(g+pitch*0.14,y-th*0.5);ctx.lineTo(g+pitch*0.27,y+th*0.5);}ctx.stroke();}
    for(const it of rw.items){const k=it.k,r=it.r,cy=y-r,a=Math.PI/2+2*Math.PI*td/k,h=home(k),f=fills(k,h);gear(it.x,cy,r,k,a,Math.min(th,r*0.9),f.f,f.s,h&&S.ind?2:1);if(r>=3||!big)dot(it.x+Math.cos(a)*r,cy+Math.sin(a)*r,Math.max(1.5,Math.min(4,u*0.5)),h&&S.ind?C.home:C.mark);
@@ -195,27 +195,29 @@ function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,n=L.n,home=k=>c.
 function status(c){const T=c.T,G=S.L.G;if(T===S.lastTick&&S.statusV===S.v+S.set)return;S.statusV=S.v+S.set;const arrived=T!==S.lastTick;S.lastTick=T;track(T);showRec(T);let s;
  if(S.v==="fast"){const g=gcd(T%120,120),a=(T%120)/g,b=120/g,hm=G.filter(k=>(k*T)%120===0);s=`Tick <b>${T}</b>. Wheel 1 has made <b>${T%120===0?(T===0?"0":"a whole number")+" of turns":a+"/"+b+" of a turn"}</b>. At home: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}${T%120&&b<=30?` (the multiples of ${b})`:""}.`;}
  else{const hm=G.filter(k=>T%k===0);let v="";if(T>=2){if(isP(T))v=` <span class="p">${T} is prime</span>: no gear between 1 and ${T} is home.`;else{let d=2;while(T%d)d++;v=` ${T} = ${d} × ${T/d} is not prime.`;}}
-  s=`Tick <b>${T}</b>. At home${S.set==="all"?"":" (of the gears shown)"}: ${T===0?"all":hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}.${T===0?" Every gear starts at home.":v}${T>0&&pureAt(T,G).length>1?` <span class="p">Only prime gears are home.</span>`:""}`;}
+  s=`Tick <b>${T}</b>. At home: ${T===0?"all":hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}.${T===0?" Every gear starts at home.":v}${T>0&&pureAt(T,G,PF).length>1?` <span class="p">Only prime gears are home.</span>`:""}`;}
  $("status").innerHTML=s;$("primes").textContent=S.np?`Prime ticks so far: ${S.np.toLocaleString("en-US")}${S.np>40?" (the last 40: ":" ("}${S.seen.join(", ")}).`:"";
  if(arrived&&S.snd&&S.run&&T>0)beep(G.filter(k=>T%k===0));}
 function homeAt(t,G){return S.v==="fast"?G.filter(k=>(k*t)%120===0):G.filter(k=>t%k===0);}
-function clearRec(){S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};}
-function pureAt(t,G){if(S.v==="fast"){if(t%120===0)return[];const pr={},bad={};for(const k of G){const a=(k*t)%120;if(PF[k])(pr[a]=pr[a]||[]).push(k);else bad[a]=1;}let best=[];for(const a in pr)if(!bad[a]&&pr[a].length>best.length)best=pr[a];return best;}
- const l=[];for(const k of G){if(k>1&&t%k===0){if(!PF[k])return[];l.push(k);}}return l;}
-function track(T){const G=S.L.G,fast=S.v==="fast";if(T<S.done)clearRec();const from=Math.max(S.done+1,T-200000);
- for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}const l=pureAt(t,G);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}}
+function clearRec(){S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};S.rm={n:0,t:0,l:[],h:[]};}
+function pureAt(t,G,F){if(S.v==="fast"){if(t%120===0)return[];const pr={},bad={};for(const k of G){const a=(k*t)%120;if(F[k])(pr[a]=pr[a]||[]).push(k);else bad[a]=1;}let best=[];for(const a in pr)if(!bad[a]&&pr[a].length>best.length)best=pr[a];return best;}
+ const l=[];for(const k of G){if(k>1&&t%k===0){if(!F[k])return[];l.push(k);}}return l;}
+function track(T){const G=S.L.G;if(T<S.done)clearRec();const from=Math.max(S.done+1,T-200000);
+ for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}const l=pureAt(t,G,PF);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}
+  if(l.length||S.v==="fast"){const e=pureAt(t,G,MF);if(e.length>S.rm.n){S.rm.h.push([S.rm.n,S.rm.t]);S.rm={n:e.length,t,l:e,h:S.rm.h};}}}
  S.done=Math.max(S.done,T);}
-function nextRec(T){const G=S.L.G,P=G.filter(k=>PF[k]),f=x=>x.toLocaleString("en-US");if(!P.length)return"";
- if(S.v==="fast"){const base=T-T%120;for(let t=T+1;t<base+240;t++){if(pureAt(t,G).length>S.ro.n)return` Next record: tick <b>${f(t)}</b>.`;}return" No higher record is possible on this dial.";}
- const m=S.ro.n+1,comp=G.some(k=>k>1&&!PF[k]);let best=null,bl=null;
+function nextRec(T,F,R){const G=S.L.G,P=G.filter(k=>F[k]),f=x=>x.toLocaleString("en-US");if(!P.length)return"";
+ if(S.v==="fast"){const base=T-T%120;for(let t=T+1;t<base+240;t++){if(pureAt(t,G,F).length>R.n)return` Next record: tick <b>${f(t)}</b>.`;}return" No higher record is possible on this dial.";}
+ const m=R.n+1,comp=G.some(k=>k>1&&!PF[k]);let best=null,bl=null;
  if(!comp){if(m<=P.length){bl=P.slice(0,m);best=bl.reduce((x,y)=>x*BigInt(y),1n);}}
  else for(const p1 of P){const rest=P.filter(q=>q>p1&&q*p1>S.N).slice(0,m-1);if(rest.length<m-1)continue;const q=[p1,...rest],pr=q.reduce((x,y)=>x*BigInt(y),1n);if(best===null||pr<best){best=pr;bl=q;}}
- if(best===null)return comp?" No higher record is possible: one more prime gear always brings a non-prime gear home with it.":" All prime gears have been home together.";
+ if(best===null)return comp?" No higher record is possible: one more of these gears always brings another gear home with it.":" All of them have been home together.";
  const d=best.toString(),ts=d.length<=15?f(Number(best)):`about ${d[0]}.${d.slice(1,3)} × 10^${d.length-1}`,fs=bl.length<=8?bl.join(" × "):`${bl[0]} × ${bl[1]} × … × ${bl[bl.length-1]} (${bl.length} primes)`;return` Next record: tick <b>${ts}</b> = ${fs}.`;}
-function showRec(T){const f=x=>x.toLocaleString("en-US"),G=S.L.G,fast=S.v==="fast",hasP=G.some(k=>PF[k]),hist=S.ro.h.filter(x=>x[0]>0).slice(-7).map(x=>`${x[0]} at tick ${f(x[1])}`);let s="";
+function showRec(T){const f=x=>x.toLocaleString("en-US"),G=S.L.G,fast=S.v==="fast",hasP=G.some(k=>PF[k]),hasM=G.some(k=>MF[k]);let s="";
+ const line=(title,R,F,cls)=>{const hist=R.h.filter(x=>x[0]>0).slice(-7).map(x=>`${x[0]} at tick ${f(x[1])}`),g=gcd(R.t%120,120),nx=nextRec(T,F,R);return`<p><b>${title}:</b> ${R.n?`<span class="${cls}">${R.n}</span> (${R.l.join(", ")}) at tick <b>${f(R.t)}</b>${fast?` (${(R.t%120)/g}/${120/g} of a turn)`:""}.`:nx.indexOf("No higher")>0?"this does not happen here.":"not yet."}${hist.length?` Earlier records: ${hist.join(", ")}.`:""}${R.n||nx.indexOf("No higher")<0?nx:""}</p>`;};
  if(!hasP)s="<p>No prime gears are shown.</p>";
- else if(fast){const g=gcd(S.ro.t%120,120);s=`<p><b>Only primes on one ray:</b> ${S.ro.n?`<span class="p">${S.ro.n}</span> (${S.ro.l.join(", ")}) at tick <b>${f(S.ro.t)}</b> (${(S.ro.t%120)/g}/${120/g} of a turn).`:"not yet."}${hist.length?` Earlier records: ${hist.join(", ")}.`:""}${nextRec(T)}</p><p>A ray counts when it holds prime hands and no other hand. Whole turns (every 120 ticks) are left out: there every hand is back where it started.</p>`;}
- else{s=`<p><b>Only prime gears home:</b> ${S.ro.n?`<span class="p">${S.ro.n}</span> (${S.ro.l.join(", ")}) at tick <b>${f(S.ro.t)}</b>.`:"not yet."}${hist.length?` Earlier records: ${hist.join(", ")}.`:""}${nextRec(T)}</p><p>A tick counts when no gear other than a prime is home${G.includes(1)?" (gear 1 is always home and is left out)":""}.</p>`;}
+ else{s=line(fast?"Only primes on one ray":"Only prime gears home",S.ro,PF,"p");if(hasM)s+=line(fast?"Only Mersenne exponents on one ray":"Only Mersenne-exponent gears home",S.rm,MF,"m");
+  s+=fast?"<p>A ray counts when it holds no other hand. Whole turns (every 120 ticks) are left out: there every hand is back where it started.</p>":`<p>A tick counts when no other gear is home${G.includes(1)?" (gear 1 is always home and is left out)":""}.</p>`;}
  $("record").innerHTML=s;}
 function beep(hm){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();const ac=S.ac,t0=ac.currentTime,n=Math.min(hm.length,8);for(let i=0;i<n;i++){const k=hm[hm.length-1-i],o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=180*Math.pow(2,(31-k)/12);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.12/n,t0+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.16);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.18);}}catch(e){}}
 function frame(now){if(S.run){const dt=Math.min(0.1,(now-S.last)/1000);S.tau+=dt*S.speed;draw();}S.last=now;requestAnimationFrame(frame);}
@@ -227,14 +229,14 @@ $("reset").addEventListener("click",()=>{setRun(false);S.tau=0;S.lastTick=-1;cle
 function fresh(){S.tau=0;S.lastTick=-1;clearRec();$("why").textContent=note();resize();}
 $("variant").addEventListener("change",e=>{S.v=e.target.value;fresh();});
 $("count").addEventListener("change",e=>{S.N=Number(e.target.value);fresh();});
-$("set").addEventListener("change",e=>{S.set=e.target.value;fresh();});
 $("speed").addEventListener("input",e=>setSpeed(Number(e.target.value)));
 $("hi").addEventListener("change",e=>{S.hi=e.target.checked;draw();});
+$("hm").addEventListener("change",e=>{S.hm=e.target.checked;draw();});
 $("ind").addEventListener("change",e=>{S.ind=e.target.checked;draw();});
 $("lab").addEventListener("change",e=>{S.lab=e.target.checked;draw();});
 $("snd").addEventListener("change",e=>{S.snd=e.target.checked;if(S.snd){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();S.ac.resume();}catch(x){}}});
 window.addEventListener("resize",()=>{if($("stage").clientWidth!==S.W)resize();});
-(function(){const q=new URLSearchParams(location.search),v=q.get("v"),st=q.get("set"),t=Number(q.get("t"));if(v&&NOTES[v]){S.v=v;$("variant").value=v;}if(st&&["all","primes","noprimes"].includes(st)){S.set=st;$("set").value=st;}if(t>0&&t<1e6)S.tau=Math.floor(t);const nn=Number(q.get("n"));if([30,100,250].includes(nn)){S.N=nn;$("count").value=String(nn);}if(q.get("pointers")==="0"){S.ind=false;$("ind").checked=false;}if(q.get("colour")==="0"){S.hi=false;$("hi").checked=false;}
+(function(){const q=new URLSearchParams(location.search),v=q.get("v"),t=Number(q.get("t"));if(v&&NOTES[v]){S.v=v;$("variant").value=v;}if(t>0&&t<1e6)S.tau=Math.floor(t);const nn=Number(q.get("n"));if([30,100,250].includes(nn)){S.N=nn;$("count").value=String(nn);}if(q.get("pointers")==="0"){S.ind=false;$("ind").checked=false;}if(q.get("colour")==="0"){S.hi=false;$("hi").checked=false;}
  setSpeed(17);$("why").textContent=note();resize();if(q.get("run")==="1")setRun(true);requestAnimationFrame(frame);})();
 </script>
 </body>
