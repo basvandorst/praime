@@ -45,7 +45,7 @@ a { color:var(--accent); }
 <body>
 <header>
   <h1>Prime gears</h1>
-  <p>The numbers from 1 up as gears: the first 30, 100 or 250. Gear k has k teeth, and one tick moves every gear one tooth, so gear k is back home every k ticks. At tick t the gears at home are exactly the divisors of t, and t is prime when only gear 1 and gear t are home. Press Start and watch.</p>
+  <p>The numbers from 1 up as gears, as many as you set (up to 250). Gear k has k teeth, and one tick moves every gear one tooth, so gear k is back home every k ticks. At tick t the gears at home are exactly the divisors of t, and t is prime when only gear 1 and gear t are home. Press Start and watch.</p>
 </header>
 <main>
   <section class="panel controls">
@@ -61,11 +61,7 @@ a { color:var(--accent); }
       <option value="printer">9. The gears print a tape</option>
       <option value="rack">10. True-size gears on a rack</option>
     </select></div>
-    <div class="ctl"><label for="count">How many</label><select id="count">
-      <option value="30">1 to 30</option>
-      <option value="100">1 to 100</option>
-      <option value="250">1 to 250</option>
-    </select></div>
+    <div class="ctl wide"><span class="lab">How many: 1 to <b id="cnLabel">30</b></span><input id="count" type="range" min="2" max="250" step="1" value="30" aria-label="How many numbers"></div>
     <div class="ctl wide"><span class="lab">Speed: <b id="spLabel">1</b> ticks per second</span><input id="speed" type="range" min="0" max="100" step="1" value="17" aria-label="Speed"></div>
     <div class="row">
       <button id="start" class="go" type="button">Start</button>
@@ -228,7 +224,7 @@ $("step").addEventListener("click",()=>{setRun(false);S.tau=Math.floor(S.tau+1e-
 $("reset").addEventListener("click",()=>{setRun(false);S.tau=0;S.lastTick=-1;clearRec();draw();});
 function fresh(){S.tau=0;S.lastTick=-1;clearRec();$("why").textContent=note();resize();}
 $("variant").addEventListener("change",e=>{S.v=e.target.value;fresh();});
-$("count").addEventListener("change",e=>{S.N=Number(e.target.value);fresh();});
+$("count").addEventListener("input",e=>{S.N=Math.max(2,Math.min(250,Math.round(Number(e.target.value))||30));$("cnLabel").textContent=S.N;fresh();});
 $("speed").addEventListener("input",e=>setSpeed(Number(e.target.value)));
 $("hi").addEventListener("change",e=>{S.hi=e.target.checked;draw();});
 $("hm").addEventListener("change",e=>{S.hm=e.target.checked;draw();});
@@ -236,7 +232,7 @@ $("ind").addEventListener("change",e=>{S.ind=e.target.checked;draw();});
 $("lab").addEventListener("change",e=>{S.lab=e.target.checked;draw();});
 $("snd").addEventListener("change",e=>{S.snd=e.target.checked;if(S.snd){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();S.ac.resume();}catch(x){}}});
 window.addEventListener("resize",()=>{if($("stage").clientWidth!==S.W)resize();});
-(function(){const q=new URLSearchParams(location.search),v=q.get("v"),t=Number(q.get("t"));if(v&&NOTES[v]){S.v=v;$("variant").value=v;}if(t>0&&t<1e6)S.tau=Math.floor(t);const nn=Number(q.get("n"));if([30,100,250].includes(nn)){S.N=nn;$("count").value=String(nn);}if(q.get("pointers")==="0"){S.ind=false;$("ind").checked=false;}if(q.get("colour")==="0"){S.hi=false;$("hi").checked=false;}
+(function(){const q=new URLSearchParams(location.search),v=q.get("v"),t=Number(q.get("t"));if(v&&NOTES[v]){S.v=v;$("variant").value=v;}if(t>0&&t<1e6)S.tau=Math.floor(t);const nn=Number(q.get("n"));if(nn>=2&&nn<=250){S.N=Math.round(nn);$("count").value=String(S.N);$("cnLabel").textContent=S.N;}if(q.get("pointers")==="0"){S.ind=false;$("ind").checked=false;}if(q.get("colour")==="0"){S.hi=false;$("hi").checked=false;}
  setSpeed(17);$("why").textContent=note();resize();if(q.get("run")==="1")setRun(true);requestAnimationFrame(frame);})();
 </script>
 </body>
