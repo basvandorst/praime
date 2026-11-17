@@ -1,0 +1,30 @@
+1. WITHOUT CARRIES: 2^p - 1 as a product of patterns under carry-less multiplication (XOR instead of add)
+   theory: the strip of p ones splits into (p-1)/d irreducible patterns of d+1 bits, d = order of 2 mod p; it stays whole iff d = p-1
+   p=  3: order of 2 mod p =   2 -> stays whole (also prime without carries)
+   p=  5: order of 2 mod p =   4 -> stays whole (also prime without carries)
+   p=  7: order of 2 mod p =   3 -> 2 patterns of 4 bits: 11 x 13
+   p= 13: order of 2 mod p =  12 -> stays whole (also prime without carries)
+   p= 17: order of 2 mod p =   8 -> 2 patterns of 9 bits: 313 x 471
+   p= 19: order of 2 mod p =  18 -> stays whole (also prime without carries)
+   p= 31: order of 2 mod p =   5 -> 6 patterns of 6 bits: 37 x 41 x 47 x 55 x 59 x 61
+   p= 61: order of 2 mod p =  60 -> stays whole (also prime without carries)
+   p= 89: order of 2 mod p =  11 -> 8 patterns of 12 bits: 2243 x 2359 x 2543 x 3121 x 3583 x 3785 x 3961 x 4091
+   p=107: order of 2 mod p = 106 -> stays whole (also prime without carries)
+   p=127: order of 2 mod p =   7 -> 18 patterns of 8 bits: 131 x 137 x 143 x 145 x 157 x 167 x 171 x 185 x 191 x 193 x 203 x 211 x 213 x 229 x 239 x 241 x 247 x 253
+   odd exponents: 51; with 2 a primitive root (strip whole without carries): 15 = [3, 5, 13, 19, 61, 107, 4253, 9941, 11213, 21701, 86243, 1398269, 2976221, 77232917, 82589933]
+   expected for primes with the same remainders mod 8 (shares measured on the primes below 2e6: {1: 0.0, 3: 0.748, 5: 0.748, 7: 0.0}): 15.7 +- 2.0
+2. NUMBERS BELOW 2^20: prime with carries against irreducible without carries
+   primes 82025, irreducible patterns 58636, both 10226; if independent among all numbers: 4587; if independent among the odd numbers with an odd number of ones (262143; they hold 43543 of the primes and 58634 of the patterns): 9739
+3. ROTATIONS: share of the w rotations of a w-bit prime that are prime
+   all 2 rotations prime: 3
+   all 3 rotations prime: 7
+   all 5 rotations prime: 31
+   all 7 rotations prime: 127
+   all 13 rotations prime: 8191
+   all 17 rotations prime: 131071
+   all 19 rotations prime: 524287
+   mean share 0.1918 over 82024 primes; best that is not all ones, by length: 8:5/8(167) 9:4/9(307) 10:5/10(607) 11:5/11(1087) 12:8/12(2687) 13:5/13(4861) 14:8/14(12281) 15:7/15(17167) 16:9/16(41903) 17:7/17(80671) 18:9/18(153343) 19:8/19(297727) 20:12/20(786431)
+4. RUNS: primes below 2^20 by the number of runs of equal bits
+   1:7 3:225 5:2684 7:12557 9:26339 11:25870 13:11821 15:2361 17:157 19:3
+5. ALL ONES IN TWO BASES: numbers 1 + b + ... + b^(w-1), w >= 3, below 1e13
+   values 3186384, bases up to 3162277; values that occur twice: {31: [(2, 5), (5, 3)], 8191: [(2, 13), (90, 3)]}

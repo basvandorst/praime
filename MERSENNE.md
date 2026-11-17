@@ -328,6 +328,37 @@ The information equals what the prime factors of 2^w − 1 give and nothing more
 
 **On the page.** Seven layouts: the primes by the number of layers in which they first show, with the exponents on the diagonal; the depth of every prime up to 140,000 with the floor; the fold in P layers; even against odd layers; the parity bias of every set of layers; the rarest distances; prime plus twice a prime.
 
+## 16. Without carries, rotations, runs and other bases (the splitting rule is classical; the carry lemma and the rotation and run statements are proved; the link between the two kinds of division is measured)
+
+**Multiplying without carries.** Add the shifted copies of a long multiplication so that two ones in a column cancel (exclusive or). Bit patterns then multiply as polynomials over the field of two elements.
+
+- The strip of p ones (the number 2^p − 1) splits, without carries, into (p − 1)/d patterns of d + 1 bits, where d is the order of 2 mod p, the binary depth of p itself; it stays whole exactly when d = p − 1 (classical: the factors of x^p − 1). Computed for the exponents up to 127 ([lay2.py](writeup/code/mersenne/strategies/ten/carry/lay2.py) → [lay2.txt](writeup/code/mersenne/strategies/ten/carry/lay2.txt)): 7 = 11 ⊗ 13; 131,071 = 313 ⊗ 471; 2,147,483,647 = 37 ⊗ 41 ⊗ 47 ⊗ 55 ⊗ 59 ⊗ 61; 2^89 − 1 is 8 patterns of 12 bits; 2^127 − 1 is the 18 patterns of 8 bits that cannot be split. The strips for p = 3, 5, 13, 19, 61, 107 stay whole.
+- The carry lemma (proved). If a · b is a strip of p ones with p prime and a, b > 1, the multiplication carries. Without carries every column of the stack holds at most one 1, so the numbers of ones multiply: ones(a) · ones(b) = p. Then one factor has a single 1 and is a power of 2, which an odd number above 1 is not.
+- Of the 51 odd exponents, 15 give a strip that stays whole (2 is a primitive root). Primes with the same remainders mod 8 give 15.7 ± 2.0 (the share is 0.748 for the remainders 3 and 5, measured below 2·10⁶, and 0 for 1 and 7). No link.
+- Prime with carries against unsplittable without carries ([two.py](writeup/code/mersenne/strategies/ten/carry/two.py) → [two.txt](writeup/code/mersenne/strategies/ten/carry/two.txt)). Below 2²² there are 295,947 primes, 210,871 unsplittable patterns and 31,937 that are both. An unsplittable pattern ends in 1 and has an odd number of ones, so the comparison is made inside those numbers and length by length: the overlap is 1.026, 1.024 and 1.001 times the independent value for 20, 21 and 22 bits (4,517, 7,546 and 14,165 numbers). Pooled over all lengths the same data would show a false link of 5 %, because short numbers hold more of both kinds.
+
+**Where the two kinds of division do agree** ([link.py](writeup/code/mersenne/strategies/ten/carry/link.py) → [link.txt](writeup/code/mersenne/strategies/ten/carry/link.txt)). For all numbers below 2^L: how often "2^w − 1 divides n" and "the strip of w ones divides n without carries" hold together, as a multiple of chance.
+
+| w | 2^w − 1 | L = 16 | L = 20 | L = 24 |
+|---|---|---|---|---|
+| 2 | 3 | 1.20 | 1.11 | 1.06 |
+| 3 | 7 | 1.73 | 1.43 | 1.30 |
+| 4 | 15 | 3.31 | 2.43 | 1.91 |
+| 5 | 31 | 6.17 | 4.65 | 3.05 |
+| 6 | 63 | 12.5 | 8.13 | 6.59 |
+| 7 | 127 | 36.9 | 17.0 | 11.0 |
+| 8 | 255 | 128 | 42.9 | 25.5 |
+
+Mismatched pairs give chance: 3 with the strip 111: 1.002; 7 with the strip 11: 1.001; 7 with the strip 11111: 1.000; 31 with the strip 111: 1.000 (9, which divides 2⁶ − 1, with the strip 111: 1.10). For w = 2 this is Newman's phenomenon (multiples of 3 prefer an even number of ones); the table shows it for every width and growing fast with it. One cause: when the shifted copies of the strip do not collide, the product is the same number with and without carries.
+
+**Rotations, runs, bases** ([lay2.py](writeup/code/mersenne/strategies/ten/carry/lay2.py)).
+
+- Rotations (proved). Write a prime in binary and rotate the digits as a ring. If the pattern has a 0, some rotation ends in 0 and is even. So the primes all of whose rotations are prime are exactly the Mersenne primes. Below 2²⁰: 3, 7, 31, 127, 8,191, 131,071, 524,287; the best of the others with 20 bits is 786,431 (12 of 20); on average 19.2 % of the rotations of a prime are prime.
+- Runs. A prime above 2 has an odd number of runs of equal bits; one run is a Mersenne prime. Below 2²⁰: 7, 225, 2,684, 12,557, 26,339, 25,870, 11,821, 2,361, 157 and 3 primes with 1, 3, …, 19 runs.
+- Bases. The numbers 1 + b + … + b^(w−1) with w ≥ 3 below 10¹³: 3,186,384 values, and only 31 (bases 2 and 5) and 8,191 (bases 2 and 90) occur twice (Goormaghtigh's conjecture says there is no other).
+
+**On the page.** Six layouts: the stack that builds 2^P − 1 without carries next to the stack with carries; the multiples of 2^P − 1 with the numbers the strip divides in green; prime, unsplittable, or both; the rotations; the runs; all ones in base b.
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.
@@ -342,4 +373,5 @@ The information equals what the prime factors of 2^w − 1 give and nothing more
 - Section 13: [score.js](writeup/code/mersenne/strategies/ten/backtest/score.js) and [gensearch.js](writeup/code/mersenne/strategies/ten/backtest/gensearch.js) run in headless Chrome against the page; [analyse.py](writeup/code/mersenne/strategies/ten/backtest/analyse.py) and [analyse_gen.py](writeup/code/mersenne/strategies/ten/backtest/analyse_gen.py) print the tables. The square effect is counted independently in numpy by [quad_deep.py](writeup/code/mersenne/strategies/ten/check/quad_deep.py), [quad_probe.py](writeup/code/mersenne/strategies/ten/check/quad_probe.py) (with two block sizes for the decoy density) and [quad_surv.py](writeup/code/mersenne/strategies/ten/check/quad_surv.py); the exponent backtest by [exp_backtest.py](writeup/code/mersenne/strategies/ten/check/exp_backtest.py). The cause and scope of the square effect: [quad_fermat.py](writeup/code/mersenne/strategies/ten/check/quad_fermat.py), [quad_scope.py](writeup/code/mersenne/strategies/ten/check/quad_scope.py).
 - Section 14: [check5.py](writeup/code/mersenne/strategies/ten/model/check5.py) → [check5.txt](writeup/code/mersenne/strategies/ten/model/check5.txt) recomputes the primes column with a plain Python sieve and other code (the scatter in windows with li removed instead of a fitted curve: 0.345) and two draws of the class model with another generator; [check5b.py](writeup/code/mersenne/strategies/ten/model/check5b.py) → [check5b.txt](writeup/code/mersenne/strategies/ten/model/check5b.txt) counts Goldbach sums directly for 1,500 random n (0.274 for the primes, 0.326 and 0.296 for two draws) and finds the first factors of every 8th prime with a primality test in place of the remainder filter (737 primes, no difference).
 - Section 15: [check6.py](writeup/code/mersenne/strategies/ten/layers/check6.py) → [check6.txt](writeup/code/mersenne/strategies/ten/layers/check6.txt) recomputes every number with plain loops and sympy: the pair counts and the counts of p + 2q by direct lookup instead of a transform (93.5 %, 98.4 %, 66.8 % for the page setting, and 66.4 % with steps 2.10, 1.37, 1.22, 1.13 on 16 random blocks), the layer shares, the pair information, three biases by direct parity counts (0.0542, 0.0335, 0.0393) and the correlation on 150 of the 1,000 strongest sets (0.962), the fold information by plain remainders, the depths with sympy's order function, and the table (each entry prime and of order w; 2^w − 1 fully split by the rows d | w for every w up to 200).
+- Section 16: [check7.py](writeup/code/mersenne/strategies/ten/carry/check7.py) → [check7.txt](writeup/code/mersenne/strategies/ten/carry/check7.txt) multiplies the patterns as coefficient lists, counts the primitive roots with plain powers, decides "the strip divides n without carries" by a fold (n xor 2n, folded in w layers, is 0) instead of a division, tests the 20-bit patterns with Rabin's irreducibility test, rotates and counts runs on strings, and lists the all-ones numbers below 10¹² in another order.
 - Above 20,000 the completeness of the list (no exponent missed between the known ones) rests on GIMPS, not on these runs; the page's list and 142 recompute it as far as they run.
