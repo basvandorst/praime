@@ -30,5 +30,6 @@ rep('  </section>\n</main>','  </section>\n  <section class="panel" id="results"
 rep('(3.1 expected by chance).</p>','(3.1 expected by chance). Every layout is scored against decoys: the score of the layout on screen is under the picture, <a href="#results">all results</a> are at the bottom.</p>')
 rep('$("why").textContent=W[S.layout];','$("why").textContent=W[S.layout];lxStrip();')
 rep('fromURL();\n','fromURL();lxBoard();\n')
+rep('with screenshots of all layouts: <a href="prime2-patterns.html">the pattern report</a>.</p>','with screenshots of all layouts: <a href="prime2-patterns.html">the pattern report</a>. The first 30 numbers as turning gears: <a href="prime3.html">prime3.html</a>.</p>')
 assert '//' not in lx.replace('https://','') and '/*' not in lx
 open('prime2.html','w').write(b); print('built',len(b))

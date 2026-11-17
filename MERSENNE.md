@@ -359,6 +359,12 @@ Mismatched pairs give chance: 3 with the strip 111: 1.002; 7 with the strip 11: 
 
 **On the page.** Six layouts: the stack that builds 2^P − 1 without carries next to the stack with carries; the multiples of 2^P − 1 with the numbers the strip divides in green; prime, unsplittable, or both; the rotations; the runs; all ones in base b.
 
+## 17. The first 30 numbers as gears (a page to watch; the rule is elementary, the history is literature)
+
+[prime3.html](writeup/code/mersenne/prime3.html) shows the numbers 1 to 30 as gears that turn when Start is pressed. Gear k has k teeth and every tick moves every gear one tooth, so gear k is home every k ticks: at tick t the gears at home are the divisors of t, and t is prime when only gear 1 and gear t are home. With only the prime gears the machine is a sieve that is right up to tick 960 (below 31²). D. H. Lehmer built such a sieve from bicycle chains in 1926 and from gear wheels in 1932.
+
+Ten machines show the same rule: wheels of one size that move one tooth per tick; a train of meshing gears; rings around one centre; chains on one shaft; pistons on a camshaft; drums that show the remainders; one dial on which wheel k turns k times as fast (after a/b of a turn the hands lie on b rays and the multiples of b are home); gears that roll inside a ring of 30 and draw a curve with 30/gcd(k, 30) petals that closes after lcm(k, 30) ticks; a tape on which the gears print the divisors; and gears of true size on a rack. Switches: all numbers, only the primes or without the primes; colour for the primes; pointers and lamps; numbers; sound.
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.

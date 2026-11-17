@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime Gears</title>
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --pink:#f472b6; --accent:#38bdf8; --green:#34d399; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header { padding:22px 16px 10px; text-align:center; }
+h1 { margin:0 0 6px; font-size:clamp(20px,4vw,28px); }
+header p { margin:0 auto; max-width:760px; color:var(--muted); }
+main { max-width:1100px; margin:auto; padding:10px 16px 28px; display:flex; flex-direction:column; gap:12px; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; }
+.controls { display:flex; flex-wrap:wrap; gap:12px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:140px; }
+.ctl.wide { flex:1 1 220px; }
+label, .lab { color:#b8c8dc; font-size:12px; }
+select { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 8px; font:inherit; max-width:100%; }
+input[type=range] { width:100%; accent-color:var(--accent); }
+button { background:#1b2a40; color:#f4f8ff; border:1px solid #40536d; border-radius:7px; padding:8px 14px; font:inherit; cursor:pointer; white-space:nowrap; }
+button:hover { border-color:var(--accent); }
+button.go { background:#0f3a2e; border-color:var(--green); font-weight:600; min-width:92px; }
+.row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.check { display:flex; gap:6px; align-items:center; color:#d6e2f2; font-size:13px; }
+.stage { width:100%; background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; color:#d6e2f2; min-height:44px; }
+.status b { color:#fff; }
+.status .p { color:var(--pink); font-weight:600; }
+.status .g { color:var(--green); font-weight:600; }
+.note { color:var(--muted); font-size:12.5px; margin:8px 0 0; }
+.key { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+a { color:var(--accent); }
+@media (max-width:600px) { .ctl { min-width:120px; flex:1 1 40%; } .ctl.wide { flex-basis:100%; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime gears</h1>
+  <p>The first 30 numbers as gears. Gear k has k teeth, and one tick moves every gear one tooth, so gear k is back home every k ticks. At tick t the gears at home are exactly the divisors of t, and t is prime when only gear 1 and gear t are home. Press Start and watch.</p>
+</header>
+<main>
+  <section class="panel controls">
+    <div class="ctl wide"><label for="variant">Machine</label><select id="variant">
+      <option value="ratchet">1. Thirty wheels, one tooth per tick</option>
+      <option value="train">2. Gear train (each gear drives the next)</option>
+      <option value="rings">3. Rings around one centre</option>
+      <option value="chains">4. Bicycle chains on one shaft</option>
+      <option value="pistons">5. Pistons on a camshaft</option>
+      <option value="drums">6. Counting drums (remainders)</option>
+      <option value="fast">7. One dial, wheel k turns k times as fast</option>
+      <option value="spiro">8. Gears rolling inside a ring of 30</option>
+      <option value="printer">9. The gears print a tape</option>
+      <option value="rack">10. True-size gears on a rack</option>
+    </select></div>
+    <div class="ctl"><label for="set">Numbers</label><select id="set">
+      <option value="all">All, 1 to 30</option>
+      <option value="primes">Only the primes</option>
+      <option value="noprimes">Without the primes</option>
+    </select></div>
+    <div class="ctl wide"><span class="lab">Speed: <b id="spLabel">1</b> ticks per second</span><input id="speed" type="range" min="0" max="100" step="1" value="40" aria-label="Speed"></div>
+    <div class="row">
+      <button id="start" class="go" type="button">Start</button>
+      <button id="step" type="button">Step</button>
+      <button id="reset" type="button">Reset</button>
+    </div>
+    <label class="check"><input id="hi" type="checkbox" checked>Colour the primes</label>
+    <label class="check"><input id="ind" type="checkbox" checked>Pointers and lamps</label>
+    <label class="check"><input id="lab" type="checkbox" checked>Numbers</label>
+    <label class="check"><input id="snd" type="checkbox">Sound</label>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv"></canvas></div>
+  <section class="panel">
+    <div class="status" id="status" aria-live="polite"></div>
+    <p class="note" id="primes"></p>
+    <p class="note" id="why" style="color:#d6e2f2"></p>
+    <p class="note"><span class="key" style="background:var(--pink)"></span>mark of a gear · <span class="key" style="background:var(--green)"></span>gear at home · <span class="key" style="background:#6f8fb8"></span>gear with a prime number of teeth · <span class="key" style="background:#40536d"></span>other gear. More pictures of the primes: <a href="prime2.html">prime2.html</a>.</p>
+  </section>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const isP=n=>{if(n<2)return false;for(let d=2;d*d<=n;d++)if(n%d===0)return false;return true;};
+const gcd=(a,b)=>{while(b){const t=a%b;a=b;b=t;}return a;};
+const S={v:"ratchet",set:"all",speed:1,hi:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null};
+const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
+const cv=$("cv"),ctx=cv.getContext("2d");
+const NOTES={
+ ratchet:"Wheels of one size. Wheel k has k teeth and moves one tooth per tick, so its pink mark is back at the top every k ticks.",
+ train:"A real gear train: gear k has k teeth and each gear drives the next, so every gear moves one tooth per tick, by turns clockwise and anticlockwise. A gear is home when its pink mark points up.",
+ rings:"Rings around one centre, ring k with k teeth, the smallest inside. All rings move one tooth per tick. The marks that are home lie on the spoke at the top.",
+ chains:"Chains hang over one shaft. Chain k has k links, and the shaft pulls every chain one link per tick. D. H. Lehmer built a number sieve from bicycle chains in 1926 and one from gear wheels in 1932; this is the same idea.",
+ pistons:"Cams on one shaft: piston k goes up and down once every k ticks. The pistons that are at the top together are the divisors of the tick.",
+ drums:"Counting drums: drum k shows the remainder of the tick after division by k. A drum on 0 is home.",
+ fast:"The other way round: wheel k turns k times while wheel 1 turns once (one turn of wheel 1 takes 120 ticks). Every wheel is a hand on the same dial, longer for a larger k. After half a turn the even hands are home, after a third of a turn the multiples of 3, and the hands lie on as many rays as the denominator of the fraction.",
+ spiro:"Each gear rolls inside a ring of 30 teeth, one tooth per tick, and a pen on the gear draws. The curve of gear k closes after lcm(k, 30) ticks and has 30/gcd(k, 30) petals, so the gears that share no factor with 30 (1, 7, 11, 13, 17, 19, 23, 29) draw all 30.",
+ printer:"The gears print: every row is a gear, every column a tick, and a gear leaves a dot when it is home. A column with dots only in row 1 and in its own row is a prime.",
+ rack:"Gears of true size (the radius grows with the number of teeth) ride on a moving rack, one tooth per tick. A gear is home when its pink tooth is down in the rack."
+};
+function gears(){const a=[];for(let k=1;k<=30;k++){const p=isP(k);if(S.set==="all"||(S.set==="primes"&&p)||(S.set==="noprimes"&&!p))a.push(k);}return a;}
+function clock(){const n=Math.floor(S.tau),f=S.tau-n,arr=f<1e-9||f>=0.6,e=f<0.6?(1-Math.cos(Math.PI*f/0.6))/2:1,td=n+e;return{td,arr,T:arr?Math.round(td):n};}
+function fills(k,home){const p=S.hi&&isP(k);return{f:p?C.pbody:C.body,s:home&&S.ind?C.home:p?C.pedge:C.edge};}
+function gear(x,y,r,n,a,th,fill,stroke,lw){const ri=Math.max(0.5,r-th*0.5),ro=r+th*0.5;ctx.beginPath();
+ if(n<3){ctx.arc(x,y,ri,0,7);for(let i=0;i<n;i++){const t=a+i*2*Math.PI/n,w=Math.min(0.5,th/Math.max(1,ri)*0.9);ctx.moveTo(x+Math.cos(t-w)*ri,y+Math.sin(t-w)*ri);ctx.lineTo(x+Math.cos(t-w*0.5)*ro,y+Math.sin(t-w*0.5)*ro);ctx.lineTo(x+Math.cos(t+w*0.5)*ro,y+Math.sin(t+w*0.5)*ro);ctx.lineTo(x+Math.cos(t+w)*ri,y+Math.sin(t+w)*ri);}}
+ else{const s=2*Math.PI/n;for(let i=0;i<n;i++){const t=a+i*s,q=[[t-s*0.27,ri],[t-s*0.14,ro],[t+s*0.14,ro],[t+s*0.27,ri]];for(let j=0;j<4;j++){const px=x+Math.cos(q[j][0])*q[j][1],py=y+Math.sin(q[j][0])*q[j][1];if(i===0&&j===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}}ctx.closePath();}
+ ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=lw||1;ctx.stroke();}
+function dot(x,y,r,c){ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=c;ctx.fill();}
+function label(t,x,y,size,c,al){ctx.font=`${size}px system-ui,sans-serif`;ctx.textAlign=al||"center";ctx.textBaseline="middle";ctx.fillStyle=c||C.text;ctx.fillText(t,x,y);}
+function pointer(x,y,s,on){ctx.beginPath();ctx.moveTo(x-s,y-s*1.4);ctx.lineTo(x+s,y-s*1.4);ctx.lineTo(x,y);ctx.closePath();ctx.fillStyle=on?C.home:"#52657f";ctx.fill();}
+function grid(W,n){const cols=W<560?5:W<900?6:Math.min(10,n),rows=Math.ceil(n/cols),cell=W/cols;return{cols,rows,cell};}
+function layout(){const W=S.W,G=gears(),n=G.length,L={G,n};
+ if(S.v==="ratchet"||S.v==="drums"||S.v==="spiro"){Object.assign(L,grid(W,n));L.H=L.rows*L.cell*(S.v==="drums"?0.62:1)+10;
+  if(S.v==="spiro"){L.pts=G.map(k=>{const R=L.cell*0.42,r=R*k/30,d=r*0.8,end=30*k/gcd(k,30),m=Math.min(4000,Math.ceil(end*2)),a=new Float32Array(2*(m+1));for(let i=0;i<=m;i++){const ph=2*Math.PI*(i*end/m)/30,ro=-ph*(30-k)/k;a[2*i]=(R-r)*Math.sin(ph)+d*Math.sin(ro);a[2*i+1]=-(R-r)*Math.cos(ph)-d*Math.cos(ro);}return{a,end,m};});}}
+ else if(S.v==="train"){const P=[{k:G[0],x:0,y:0,r:Math.max(1,G[0]),al:0}];
+  for(let i=1;i<n;i++){const a=P[i-1],r=G[i],d=a.r+r;let best=null,bd=1e18;for(let t=0;t<360;t+=2){const al=t*Math.PI/180,x=a.x+d*Math.cos(al),y=a.y+d*Math.sin(al);let ok=true;for(let j=0;j<i-1;j++){const q=P[j];if(Math.hypot(x-q.x,y-q.y)<q.r+r+2.4){ok=false;break;}}if(ok){const dd=x*x+y*y*1.3;if(dd<bd){bd=dd;best={k:G[i],x,y,r,al};}}}P.push(best||{k:G[i],x:a.x+d,y:a.y,r,al:0});}
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const p of P){x0=Math.min(x0,p.x-p.r-1.5);x1=Math.max(x1,p.x+p.r+1.5);y0=Math.min(y0,p.y-p.r-1.5);y1=Math.max(y1,p.y+p.r+1.5);}
+  let u=(W-20)/(x1-x0);u=Math.min(u,9,Math.max(520,W*1.15)/(y1-y0));L.u=u;L.H=(y1-y0)*u+20;L.ox=(W-(x1-x0)*u)/2-x0*u;L.oy=10-y0*u;
+  P[0].s=1;P[0].t0=-Math.PI/2;for(let i=1;i<n;i++){const a=P[i-1],b=P[i];b.s=-a.s;let ua=((b.al-a.t0)*a.k/(2*Math.PI))%1;if(ua<0)ua+=1;const ub=0.5-ua;b.t0=b.al+Math.PI-2*Math.PI*ub/b.k;}L.P=P;}
+ else if(S.v==="rings"||S.v==="fast"){L.D=Math.min(W,680);L.H=L.D+10;}
+ else if(S.v==="chains"){L.cw=W/n;L.s=Math.max(6,Math.min(13,W/45));L.rho=Math.min(L.cw*0.3,9);const kmax=G[n-1];L.H=Math.max(120,(kmax*L.s-2*Math.PI*L.rho)/2+2*L.rho+64);}
+ else if(S.v==="pistons"){L.cw=W/n;L.H=Math.max(230,Math.min(380,W*0.5));}
+ else if(S.v==="printer"){L.rh=Math.max(7,Math.min(16,400/n));L.cwd=Math.max(9,Math.min(14,W/40));L.H=n*L.rh+44;}
+ else if(S.v==="rack"){const u=Math.max(2.1,Math.min(3.6,W/150)),th=u*1.7,rows=[];let x=10,row={items:[],rmax:0};for(const k of G){const r=Math.max(1,k)*u;if(x+2*r+th>W-10&&row.items.length){rows.push(row);row={items:[],rmax:0};x=10;}row.items.push({k,r,x:x+r+th/2});row.rmax=Math.max(row.rmax,r);x+=2*r+th+4;}rows.push(row);let y=12;for(const rw of rows){rw.y=y+2*rw.rmax+th;y=rw.y+26;}L.rows=rows;L.u=u;L.th=th;L.H=y+4;}
+ return L;}
+function resize(){const W=$("stage").clientWidth;S.W=W;S.L=layout();const dpr=Math.min(2,window.devicePixelRatio||1);cv.width=Math.round(W*dpr);cv.height=Math.round(S.L.H*dpr);cv.style.height=S.L.H+"px";ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
+function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,home=k=>c.arr&&T%k===0;ctx.clearRect(0,0,W,L.H);
+ if(S.v==="ratchet"){const R=L.cell*0.34,th=R*0.2;G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,a=-Math.PI/2+2*Math.PI*td/k,h=home(k),f=fills(k,h);gear(x,y,R,k,a,th,f.f,f.s,h&&S.ind?2:1);
+   ctx.strokeStyle=C.mark;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+Math.cos(a)*R*0.45,y+Math.sin(a)*R*0.45);ctx.lineTo(x+Math.cos(a)*R*0.86,y+Math.sin(a)*R*0.86);ctx.stroke();dot(x+Math.cos(a)*R*0.86,y+Math.sin(a)*R*0.86,Math.max(2,R*0.09),C.mark);
+   if(S.ind)pointer(x,y-R-th*0.6,Math.max(3,R*0.12),h);if(S.lab)label(k,x,y,Math.max(10,R*0.42),h&&S.ind?C.home:C.text);});}
+ else if(S.v==="train"){const u=L.u,th=Math.min(1.7*u,12);for(const p of L.P){const x=L.ox+p.x*u,y=L.oy+p.y*u,r=p.r*u,rot=p.s*2*Math.PI*td/p.k,h=home(p.k),f=fills(p.k,h);gear(x,y,r,p.k,p.t0+rot,Math.min(th,r*0.9),f.f,f.s,h&&S.ind?2:1);
+   const m=-Math.PI/2+rot;if(r>5){ctx.strokeStyle=C.mark;ctx.lineWidth=Math.max(1.5,u*0.35);ctx.beginPath();ctx.moveTo(x+Math.cos(m)*r*0.35,y+Math.sin(m)*r*0.35);ctx.lineTo(x+Math.cos(m)*(r-th*0.7),y+Math.sin(m)*(r-th*0.7));ctx.stroke();}dot(x+Math.cos(m)*Math.max(0,r-th*0.7),y+Math.sin(m)*Math.max(0,r-th*0.7),Math.max(1.6,u*0.45),C.mark);
+   if(S.ind&&r>9)pointer(x,y-r+th*0.9+Math.max(3,u*0.6)*1.4,Math.max(2.5,u*0.6),h);if(S.lab)label(p.k,x,r>11?y:y-r-8,Math.max(9,Math.min(20,r*0.5)),h&&S.ind?C.home:C.text);}}
+ else if(S.v==="rings"){const cx=W/2,cy=L.D/2+5,R=L.D/2-8,n=L.n,st=(R-14)/(n+0.5);if(S.ind){ctx.strokeStyle="#33485f";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-R);ctx.stroke();}
+  G.forEach((k,i)=>{const r=14+st*(i+0.5),h=home(k),p=S.hi&&isP(k);ctx.strokeStyle=h&&S.ind?C.home:C.line;ctx.lineWidth=h&&S.ind?1.6:1;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();const dr=Math.max(1.4,Math.min(st*0.34,5));
+   for(let j=0;j<k;j++){const a=-Math.PI/2+2*Math.PI*(td+j)/k;dot(cx+Math.cos(a)*r,cy+Math.sin(a)*r,j===0?dr*1.35:dr,j===0?(h&&S.ind?C.home:C.mark):p?C.pedge:C.edge);}
+   if(S.lab&&st>=8)label(k,cx+r,cy+st*0.05+Math.min(9,st*0.75),Math.min(11,st*0.8),C.muted);});
+  if(S.lab&&st<8){label(G[0],cx+14+st*0.5,cy+12,10,C.muted);label(G[L.n-1],cx+R-8,cy+12,10,C.muted);}}
+ else if(S.v==="chains"){const s=L.s,rho=L.rho,top=40;ctx.strokeStyle="#52657f";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(4,top);ctx.lineTo(W-4,top);ctx.stroke();
+  G.forEach((k,i)=>{const cx=(i+0.5)*L.cw,per=k*s,rr=Math.min(rho,per/(2*Math.PI)),st=Math.max(0,(per-2*Math.PI*rr)/2),h=home(k),p=S.hi&&isP(k);
+   const pos=d=>{d=((d%per)+per)%per;if(d<Math.PI*rr/2){const a=-Math.PI/2+d/rr;return[cx+Math.cos(a)*rr,top+rr+Math.sin(a)*rr];}d-=Math.PI*rr/2;if(d<st)return[cx+rr,top+rr+d];d-=st;if(d<Math.PI*rr){const a=d/rr;return[cx+Math.cos(a)*rr,top+rr+st+Math.sin(a)*rr];}d-=Math.PI*rr;if(d<st)return[cx-rr,top+rr+st-d];d-=st;const a=Math.PI+d/rr;return[cx+Math.cos(a)*rr,top+rr+Math.sin(a)*rr];};
+   ctx.strokeStyle=h&&S.ind?C.home:C.line;ctx.lineWidth=1;ctx.beginPath();for(let q=0;q<=40;q++){const z=pos(q*per/40);if(q)ctx.lineTo(z[0],z[1]);else ctx.moveTo(z[0],z[1]);}ctx.stroke();
+   const lr=Math.max(1.5,Math.min(rr*0.75,s*0.3));for(let j=k-1;j>=0;j--){const z=pos((j-td)*s);dot(z[0],z[1],j===0?lr*1.4:lr,j===0?(h&&S.ind?C.home:C.mark):p?C.pedge:C.edge);}
+   if(S.ind)pointer(cx,top-3,Math.max(2.5,Math.min(4,L.cw*0.22)),h);if(S.lab)label(k,cx,14,Math.max(8,Math.min(12,L.cw*0.62)),h&&S.ind?C.home:p?C.pedge:C.text);});}
+ else if(S.v==="pistons"){const topY=44,botY=L.H-34,amp=(botY-topY)/2,mid=(topY+botY)/2,t=S.tau,near=Math.abs(t-Math.round(t))<0.12,Tn=Math.round(t);if(S.ind){ctx.strokeStyle="#33485f";ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(0,topY);ctx.lineTo(W,topY);ctx.stroke();ctx.setLineDash([]);}
+  G.forEach((k,i)=>{const cx=(i+0.5)*L.cw,y=mid-amp*Math.cos(2*Math.PI*t/k),h=near&&Tn%k===0,p=S.hi&&isP(k),w=Math.max(3,L.cw*0.62);ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,topY);ctx.lineTo(cx,botY);ctx.stroke();
+   ctx.strokeStyle=p?C.pedge:C.edge;ctx.lineWidth=Math.max(1.5,w*0.22);ctx.beginPath();ctx.moveTo(cx,y);ctx.lineTo(cx,botY+10);ctx.stroke();ctx.fillStyle=h&&S.ind?C.home:p?C.pedge:"#52657f";ctx.fillRect(cx-w/2,y-4,w,8);dot(cx,y,Math.max(1.5,w*0.2),C.mark);
+   if(S.lab)label(k,cx,L.H-12,Math.max(8,Math.min(12,L.cw*0.62)),h&&S.ind?C.home:p?C.pedge:C.text);});}
+ else if(S.v==="drums"){const ch=L.cell*0.62;G.forEach((k,i)=>{const x=(i%L.cols)*L.cell,y=Math.floor(i/L.cols)*ch+6,bw=L.cell*0.78,bh=ch*0.6,bx=x+(L.cell-bw)/2,by=y+ch*0.3,h=home(k),p=S.hi&&isP(k),v=((td%k)+k)%k,lo=Math.floor(v+1e-9),fr=v-lo,fs=Math.max(11,bh*0.62);
+   if(S.lab)label("mod "+k,x+L.cell/2,y+ch*0.15,Math.max(9,Math.min(12,L.cell*0.16)),p?C.pedge:C.muted);ctx.fillStyle=C.dim;ctx.strokeStyle=h&&S.ind?C.home:p?C.pedge:C.edge;ctx.lineWidth=h&&S.ind?2:1;ctx.beginPath();ctx.rect(bx,by,bw,bh);ctx.fill();ctx.stroke();
+   ctx.save();ctx.beginPath();ctx.rect(bx+1,by+1,bw-2,bh-2);ctx.clip();label(lo,x+L.cell/2,by+bh/2-fr*bh,fs,lo===0?(S.ind?C.home:C.mark):C.text);label((lo+1)%k,x+L.cell/2,by+bh/2+(1-fr)*bh,fs,(lo+1)%k===0?(S.ind?C.home:C.mark):C.text);ctx.restore();});}
+ else if(S.v==="fast"){const cx=W/2,cy=L.D/2+5,R=L.D/2-10,n=L.n,t=S.tau,th=t/120,near=Math.abs(t-Math.round(t))<0.12,Tn=Math.round(t);ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.stroke();if(S.ind){ctx.strokeStyle="#33485f";ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-R);ctx.stroke();}
+  const pts=G.map((k,i)=>{const len=R*(0.14+0.86*(i+1)/n),a=-Math.PI/2+2*Math.PI*k*th;return[cx+Math.cos(a)*len,cy+Math.sin(a)*len,k,len];});
+  ctx.strokeStyle="#2f435c";ctx.lineWidth=1;ctx.beginPath();pts.forEach((p,i)=>{if(i)ctx.lineTo(p[0],p[1]);else ctx.moveTo(p[0],p[1]);});ctx.stroke();
+  for(const p of pts){const h=near&&(p[2]*Tn)%120===0,pr=S.hi&&isP(p[2]);ctx.strokeStyle=h&&S.ind?C.home:pr?"#3d5f8f":"#2c3f58";ctx.lineWidth=h&&S.ind?2:1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p[0],p[1]);ctx.stroke();dot(p[0],p[1],Math.max(2.2,R*0.012),h&&S.ind?C.home:pr?C.pedge:C.mark);if(S.lab&&R>250)label(p[2],p[0]+9,p[1]-8,10,C.muted);}}
+ else if(S.v==="spiro"){const t=S.tau;G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,R=L.cell*0.42,r=R*k/30,P=L.pts[i],done=t>=P.end,q=Math.min(P.m,Math.floor(t/P.end*P.m)),p=S.hi&&isP(k);ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.stroke();
+   ctx.strokeStyle=done&&S.ind?C.home:p?C.pedge:"#8aa0bd";ctx.lineWidth=1;ctx.beginPath();for(let j=0;j<=q;j++){if(j)ctx.lineTo(x+P.a[2*j],y+P.a[2*j+1]);else ctx.moveTo(x+P.a[0],y+P.a[1]);}
+   const ph=2*Math.PI*t/30,ro=-ph*(30-k)/k,gx=x+(R-r)*Math.sin(ph),gy=y-(R-r)*Math.cos(ph),px=gx+r*0.8*Math.sin(ro),py=gy-r*0.8*Math.cos(ro);if(!done)ctx.lineTo(px,py);ctx.stroke();
+   ctx.strokeStyle="#40536d";ctx.beginPath();ctx.arc(gx,gy,Math.max(0.5,r),0,7);ctx.stroke();dot(px,py,2.2,C.mark);if(S.lab)label(k,x-R+2,y-R+6,Math.max(9,Math.min(12,L.cell*0.13)),p?C.pedge:C.muted,"left");});}
+ else if(S.v==="printer"){const rh=L.rh,cw=L.cwd,x0=30,xh=W-16,top=26;ctx.save();ctx.beginPath();ctx.rect(x0,0,W-x0,L.H);ctx.clip();const j0=Math.max(1,Math.floor(td-(xh-x0)/cw)-1);
+  for(let j=j0;j<=T;j++){const x=xh-(td-j)*cw;if(S.hi&&isP(j)){ctx.fillStyle="rgba(244,114,182,0.13)";ctx.fillRect(x-cw/2,top-4,cw,L.n*rh+6);}if(S.lab&&(cw>=13||j%5===0||isP(j)&&cw>=11))label(j,x,12,Math.min(10,cw*0.8),isP(j)&&S.hi?C.mark:C.muted);
+   G.forEach((k,i)=>{if(j%k===0)dot(x,top+(i+0.5)*rh,Math.min(rh,cw)*0.3,k===j||k===1?C.mark:S.hi&&isP(k)?C.pedge:"#8aa0bd");});}ctx.restore();
+  ctx.strokeStyle="#52657f";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(xh,top-6);ctx.lineTo(xh,top+L.n*rh+4);ctx.stroke();
+  G.forEach((k,i)=>{const y=top+(i+0.5)*rh,h=home(k);if(S.lab&&rh>=9)label(k,14,y,Math.min(11,rh*0.9),h&&S.ind?C.home:S.hi&&isP(k)?C.pedge:C.muted);else if(S.lab&&(i===0||i===L.n-1))label(k,14,y,9,C.muted);if(S.ind)dot(xh,y,Math.min(rh*0.36,4.5),h?C.home:"#33485f");});}
+ else if(S.v==="rack"){const u=L.u,th=L.th,pitch=2*Math.PI*u;for(const rw of L.rows){const y=rw.y;ctx.fillStyle="#1a2a40";ctx.fillRect(4,y+th*0.5,W-8,8);ctx.strokeStyle=C.edge;ctx.lineWidth=1;ctx.beginPath();const off=((td*pitch)%pitch+pitch)%pitch;
+   for(let x=4-pitch-off;x<W;x+=pitch){const g=x+pitch/2;ctx.moveTo(g-pitch*0.27,y+th*0.5);ctx.lineTo(g-pitch*0.14,y-th*0.5);ctx.lineTo(g+pitch*0.14,y-th*0.5);ctx.lineTo(g+pitch*0.27,y+th*0.5);}ctx.stroke();
+   for(const it of rw.items){const k=it.k,r=it.r,cy=y-r,a=Math.PI/2+2*Math.PI*td/k,h=home(k),f=fills(k,h);gear(it.x,cy,r,k,a,Math.min(th,r*0.9),f.f,f.s,h&&S.ind?2:1);dot(it.x+Math.cos(a)*r,cy+Math.sin(a)*r,Math.max(1.8,u*0.5),h&&S.ind?C.home:C.mark);
+    if(S.ind)pointer(it.x,y+th*0.5+16,Math.max(2.5,Math.min(4,u)),h);if(S.lab)label(k,it.x,r>10?cy:y+th*0.5+18+(S.ind?2:0),Math.max(9,Math.min(18,r*0.5)),h&&S.ind?C.home:C.text);}}}
+ status(c);}
+function status(c){const T=c.T,G=S.L.G;if(T===S.lastTick&&S.statusV===S.v+S.set)return;S.statusV=S.v+S.set;const arrived=T!==S.lastTick;S.lastTick=T;let s;
+ if(S.v==="fast"){const g=gcd(T%120,120),a=(T%120)/g,b=120/g,hm=G.filter(k=>(k*T)%120===0);s=`Tick <b>${T}</b>. Wheel 1 has made <b>${T%120===0?(T===0?"0":"a whole number")+" of turns":a+"/"+b+" of a turn"}</b>. At home: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}${T%120&&b<=30?` (the multiples of ${b})`:""}.`;}
+ else{const hm=G.filter(k=>T%k===0);let v="";if(T>=2){if(isP(T))v=` <span class="p">${T} is prime</span>: no gear between 1 and ${T} is home.`;else{let d=2;while(T%d)d++;v=` ${T} = ${d} × ${T/d} is not prime.`;}}
+  s=`Tick <b>${T}</b>. At home${S.set==="all"?"":" (of the gears shown)"}: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}.${T===0?" Every gear starts at home.":v}`;}
+ $("status").innerHTML=s;if(T>=2&&isP(T)&&!S.seen.includes(T))S.seen.push(T);$("primes").textContent=S.seen.length?"Prime ticks so far: "+S.seen.slice(-40).join(", ")+".":"";
+ if(arrived&&S.snd&&S.run&&T>0)beep(G.filter(k=>T%k===0));}
+function beep(hm){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();const ac=S.ac,t0=ac.currentTime,n=Math.min(hm.length,8);for(let i=0;i<n;i++){const k=hm[hm.length-1-i],o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=180*Math.pow(2,(31-k)/12);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.12/n,t0+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.16);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+0.18);}}catch(e){}}
+function frame(now){if(S.run){const dt=Math.min(0.1,(now-S.last)/1000);S.tau+=dt*S.speed;draw();}S.last=now;requestAnimationFrame(frame);}
+function setRun(r){S.run=r;$("start").textContent=r?"Pause":"Start";if(r&&S.snd&&S.ac&&S.ac.state==="suspended")S.ac.resume();}
+function setSpeed(v){S.speed=Math.round(100*0.25*Math.pow(40,v/100))/100;$("spLabel").textContent=S.speed;}
+$("start").addEventListener("click",()=>setRun(!S.run));
+$("step").addEventListener("click",()=>{setRun(false);S.tau=Math.floor(S.tau+1e-9)+1;draw();});
+$("reset").addEventListener("click",()=>{setRun(false);S.tau=0;S.seen=[];S.lastTick=-1;draw();});
+$("variant").addEventListener("change",e=>{S.v=e.target.value;$("why").textContent=NOTES[S.v];S.lastTick=-1;resize();});
+$("set").addEventListener("change",e=>{S.set=e.target.value;S.lastTick=-1;resize();});
+$("speed").addEventListener("input",e=>setSpeed(Number(e.target.value)));
+$("hi").addEventListener("change",e=>{S.hi=e.target.checked;draw();});
+$("ind").addEventListener("change",e=>{S.ind=e.target.checked;draw();});
+$("lab").addEventListener("change",e=>{S.lab=e.target.checked;draw();});
+$("snd").addEventListener("change",e=>{S.snd=e.target.checked;if(S.snd){try{if(!S.ac)S.ac=new (window.AudioContext||window.webkitAudioContext)();S.ac.resume();}catch(x){}}});
+window.addEventListener("resize",()=>{if($("stage").clientWidth!==S.W)resize();});
+(function(){const q=new URLSearchParams(location.search),v=q.get("v"),st=q.get("set"),t=Number(q.get("t"));if(v&&NOTES[v]){S.v=v;$("variant").value=v;}if(st&&["all","primes","noprimes"].includes(st)){S.set=st;$("set").value=st;}if(t>0&&t<1e6)S.tau=Math.floor(t);if(q.get("pointers")==="0"){S.ind=false;$("ind").checked=false;}if(q.get("colour")==="0"){S.hi=false;$("hi").checked=false;}
+ setSpeed(40);$("why").textContent=NOTES[S.v];resize();if(q.get("run")==="1")setRun(true);requestAnimationFrame(frame);})();
+</script>
+</body>
+</html>
