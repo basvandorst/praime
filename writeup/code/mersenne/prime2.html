@@ -36,6 +36,22 @@ canvas { display:block; width:100%; height:100%; }
 .list span { background:#16243a; border:1px solid #2a3b55; border-radius:8px; padding:2px 8px; font-size:12px; color:#c9d8ec; }
 .list span b { color:var(--pink); font-weight:600; }
 .note { color:var(--muted); font-size:12.5px; margin:8px 0 0; }
+.score { display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; font-size:12.5px; }
+.score .t { background:#16243a; border:1px solid #2a3b55; border-radius:8px; padding:3px 10px; color:#c9d8ec; }
+.score .t b { color:#fff; font-size:15px; margin-right:5px; }
+.score .ok { color:#34d399; font-weight:600; }
+.score .warn { color:#fde68a; font-weight:600; }
+h2 { margin:0 0 4px; font-size:17px; }
+.found { margin:8px 0 12px; padding-left:20px; color:#d6e2f2; font-size:13px; }
+.found li { margin:6px 0; }
+.boardwrap { max-height:440px; overflow:auto; border:1px solid var(--edge); border-radius:8px; }
+table { border-collapse:collapse; width:100%; font-size:12.5px; font-variant-numeric:tabular-nums; }
+th, td { padding:4px 8px; text-align:right; border-bottom:1px solid #1e2d44; }
+th:nth-child(2), td:nth-child(2) { text-align:left; min-width:170px; }
+th { position:sticky; top:0; background:#16243a; color:#b8c8dc; font-weight:600; }
+th[data-c] { cursor:pointer; }
+tr.cur td { background:#1b2a40; }
+td.hi { color:#fde68a; font-weight:600; }
 a { color:var(--accent); }
 @media (max-width:600px) { .ctl { min-width:120px; flex:1 1 40%; } .ctl.wide { flex-basis:100%; } }
 </style>
@@ -43,7 +59,7 @@ a { color:var(--accent); }
 <body>
 <header>
   <h1>Mersenne exponents among the numbers</h1>
-  <p>Every number from 1 to 500,000 is a dot: row by row in a square, wound into a spiral, stacked as a tree or a triangle, along a space-filling curve, or riding a wave. The pink dots are the Mersenne exponents among them (the k with 2<sup>k</sup> − 1 prime), and the lines link them. In the square a column is a remainder, k mod the width; in the tree the centre line holds the numbers m² + (m + 1)², and 5, 13, 61 and 9,941 sit on it (3.1 expected by chance).</p>
+  <p>Every number from 1 to 500,000 is a dot: row by row in a square, wound into a spiral, stacked as a tree or a triangle, along a space-filling curve, or riding a wave. The pink dots are the Mersenne exponents among them (the k with 2<sup>k</sup> − 1 prime), and the lines link them. In the square a column is a remainder, k mod the width; in the tree the centre line holds the numbers m² + (m + 1)², and 5, 13, 61 and 9,941 sit on it (3.1 expected by chance). Every layout is scored against decoys: the score of the layout on screen is under the picture, <a href="#results">all results</a> are at the bottom.</p>
 </header>
 <main>
   <section class="panel controls">
@@ -59,6 +75,7 @@ a { color:var(--accent); }
     <label class="check"><input id="labels" type="checkbox" checked> Numbers at the pink dots</label>
   </section>
   <div class="stage" id="stage"><canvas id="cv"></canvas><div class="tip" id="tip" hidden></div><div class="zoom"><button id="testBtn" type="button">Test a line</button><button id="zin" type="button" aria-label="Zoom in">+</button><button id="zout" type="button" aria-label="Zoom out">−</button><button id="zreset" type="button">Reset</button></div></div>
+  <section class="panel score" id="scoreBox" aria-live="polite"></section>
   <section class="panel">
     <div class="stats" id="stats"></div>
     <p class="note" id="forecast" style="color:#d6e2f2"></p>
@@ -67,6 +84,13 @@ a { color:var(--accent); }
     <p class="note" id="why" style="color:#d6e2f2"></p>
     <div class="list" id="list"></div>
     <p class="note"><span class="key" style="background:var(--pink)"></span>Mersenne exponent · <span class="key" style="background:#6f8fb8"></span>prime · <span class="key" style="background:#34d399"></span>twin prime (when switched on) · <span class="key" style="background:#26364c"></span>other number. Scroll or pinch to zoom, drag to move; zoomed in far enough, every dot shows its number. The exponents are the known ones (all exponents below 83,880,077 are verified by GIMPS); the page <a href="prime.html">prime.html</a> computes and proves them one after another. What every pattern on this page is, and why, with screenshots of all layouts: <a href="prime2-patterns.html">the pattern report</a>.</p>
+  </section>
+  <section class="panel" id="results">
+    <h2>What the backtest found</h2>
+    <p class="note">Every layout was scored at N = 500,000 against decoys: numbers that pass the sieve up to N<sup>0.4027</sup> and are then thinned by a coin. Decoys have the density of the primes and everything the small factors do, and nothing else.</p>
+    <ul class="found" id="found"></ul>
+    <div class="boardwrap"><table id="board"></table></div>
+    <p class="note">Pattern strength: how much a dot being prime tells about its 24 nearest neighbours, in thousandths of a bit. Decoys: the same for the decoys (mean of 8 sets). Beyond the decoys: how far the pair counts of the primes are from those of the decoys, in units of the scatter among the decoys; a decoy scored as if it were the primes gives 0.50 on average, 0.73 at the 95% point and 0.85 at most. Improved model: the products of two primes in simple ratios are struck before the coin is thrown. Select a column head to sort, a layout to open it. More in <a href="prime2-patterns.html#ten-found">the pattern report</a>.</p>
   </section>
 </main>
 <script>
@@ -243,6 +267,30 @@ const LX_Z={1:[14.1347,21.0220,25.0109,30.4249,32.9351,37.5862,40.9187,43.3271,4
 const LB=n=>S.l20&&S.l20.label?S.l20.label(n):n;
 const LXSC={"rows":[197.9,198.1,0.32,0,0.27],"spiral":[200.8,201.2,0.75,0,0.51],"tree":[183.3,183.6,1.06,0,0.51],"klauber":[203.3,203.4,1.07,0,0.64],"hex":[38.1,38.3,0.97,0,0.6],"sacks":[29.4,28.4,0.8,0,0.44],"hilbert":[179.3,179.4,0.38,0,0.45],"snake":[181.6,182.2,0.41,0,0.42],"diag":[107.4,107.7,1.24,0,0.48],"shells":[203.1,202.7,0.69,0,0.47],"morton":[195.3,195.4,0.32,0,0.38],"peano":[180.2,180.0,0.34,0,0.32],"sunflower":[18.2,18.1,0.48,0,0.33],"polar":[7.5,7.5,0.61,0,0.37],"wheel":[16.2,16.3,0.44,1,0.45],"binring":1,"doubling":1,"ulam41":[200.8,201.3,0.79,0,0.47],"floyd":[80.4,80.4,1.22,0,0.48],"legendre":[204.2,203.8,1.02,0,0.53],"crt":[250.5,250.2,0.51,0,0.48],"zigzag":[108.5,109.0,0.77,0,0.41],"moore":[179.3,179.4,0.36,0,0.43],"gray":[9.2,9.3,0.42,0,0.34],"bitrev":[53.2,52.8,0.36,0,0.37],"btree":1,"decrings":1,"ternrings":1,"theodorus":[27.6,27.4,0.48,0,0.34],"omega":0,"sieverows":1,"honeycomb":[197.9,198.1,0.32,0,0.27],"diamond":[203.9,203.9,1.26,0,0.34],"turtle":[6.1,6.5,0.42,0,0.4],"mertens":0,"race4":0,"liouville":0,"bintri":1,"binblocks":[200.6,201.1,0.31,0,0.34],"ruler":1,"binsquares":1,"bands512":[212.0,212.6,0.4,0,0.34],"sierpinski":[183.3,183.6,1.06,0,0.51],"sinerows":[144.9,145.0,0.54,0,0.37],"cosrows":[107.3,107.4,0.1,0,0.43],"sawrows":[35.1,34.9,0.42,0,0.3],"beats":[161.1,162.0,0.59,0,0.3],"chirp":[143.8,146.6,0.45,0,0.33],"wave210":[126.7,127.1,0.44,0,0.24],"primeclock":[144.5,138.0,1.39,0,0.81],"lissajous":1,"mwave":[140.8,141.1,0.54,0,0.38],"mdamp":[129.1,129.4,0.55,0,0.38],"twinwave":0,"quadform":0,"eisenstein":0,"mersieve":0,"gaptowers":0,"polyspiral":[84.0,84.3,0.53,0,0.42],"digitrows":1,"chebrace":0,"totient":0,"goldbach":0,"dickman":0,"primroot":0,"pili":0,"ord2":0,"wieferich":0,"cunningham":0,"llres":0,"chaosgap":0,"chaoslane":0,"returnmap":0,"dejavu":0,"goldfirst":0,"mirror":0,"survivors":0,"scales":0,"atlas":0,"spectrum":0,"parity":0,"classrows":0,"lean":0,"sqwalk":0,"curve":0,"famplus":0,"famminus":0,"expclass":0,"per10":0,"per2":0,"pow2":0,"riesel":0,"primorial":0,"glue":0,"stairs":0,"shield":0,"lucky":0,"galaxy":[661.9,655.7,0.41,1,0.39],"globe":1,"donut":[233.8,232.6,0.43,1,0.26],"crystal":[65.0,64.7,0.59,0,0.39],"dragon":[24.0,24.3,0.54,0,0.48],"gosper":[1.3,1.1,0.53,0,0.44],"fan":0,"bubbles":0,"curlicue":[0.7,0.6,0.49,0,0.37],"road":[1.9,2.1,0.37,0,0.22],"daisy":[377.3,376.6,0.55,1,0.45],"mobius":[455.2,469.6,0.51,1,0.45],"canopy":[0.7,0.8,0.49,0,0.42],"disc":[24.7,24.8,0.48,0,0.37],"heart":[25.6,25.6,0.43,0,0.32],"fibsquares":[64.1,63.8,0.49,0,0.36],"dna":0,"popcorn":[121.1,125.2,0.64,0,0.6],"terdragon":[2.3,2.2,0.6,0,0.42],"nautilus":[1.8,1.9,0.54,0,0.35],"twindragon":[47.3,47.4,0.35,0,0.33],"fivedragon":[15.2,15.3,0.43,0,0.41],"hexaflake":[4.6,4.7,0.55,0,0.53],"pentaflake":[334.1,335.4,0.6,0,0.5],"carpet":[86.0,87.6,0.78,0,0.58],"vicsek":[39.3,39.0,0.61,0,0.52],"levy":[1.8,1.7,0.61,0,0.48],"fibword":[8.2,8.6,0.62,0,0.42],"collatz":[1.0,1.1,0.48,0,0.36],"sunrays":0,"cone":1,"vase":1,"trefoil":[36.6,36.0,0.44,1,0.48],"starrows":[14.2,14.3,0.58,0,0.45],"moon":[14.9,14.9,0.55,0,0.4],"letterm":[50.9,50.9,0.56,0,0.42],"yinyang":[22.3,22.3,0.54,0,0.39],"ringrows":[24.1,23.8,0.47,0,0.34],"wheels":[1165.4,1154.1,0.41,0,0.37],"fishbone":0,"tuned":[565.4,561.7,0.44,0,0.28],"fermat":0,"record":[11.5,11.2,0.51,1,0.31],"target":[591.9,592.0,0.32,1,0.33],"rainbow":[569.5,570.0,0.45,1,0.3],"mosaic":[702.7,704.7,0.34,1,0.31],"classbands":[745.8,747.5,0.4,1,0.35],"hourglass":1,"accordion":[179.0,178.8,0.62,0,0.37],"pinwheel":[656.6,658.1,0.48,1,0.33],"helicoid":[172.9,172.6,0.47,1,0.35],"leftsacks":0,"leftulam":0,"leftklauber":0,"tornado":1,"ball":[10.1,10.2,0.58,0,0.63],"flowerrows":[17.1,17.2,0.5,0,0.33],"leaf":[13.1,13.1,0.47,0,0.34],"eight":[151.5,150.4,0.41,1,0.28],"struck":0,"hexrows":[44.9,45.9,0.63,0,0.58],"crossrows":[206.1,204.9,0.41,0,0.22],"droprows":[13.5,13.5,0.57,0,0.41],"bowl":1,"spring":[48.0,48.1,0.68,1,0.49],"cantor":1,"clocks":[326.2,334.8,0.53,0,0.52],"ziggurat":[148.2,148.2,0.49,0,0.37],"pairs":0,"leftfloyd":0,"scallop":1,"kite":[14.4,14.3,0.39,0,0.34],"arrow":[42.6,42.6,0.63,0,0.49],"bell":[30.3,30.1,0.49,0,0.36]};
 function lxScoreText(L){const v=LXSC[L];if(v===undefined)return "";if(v===0)return " Backtest: not scored (the places or colours use more than the number itself).";if(v===1)return " Backtest: not scored (too few neighbouring dots).";return ` Backtest at N = 500,000${v[3]?" with period 30":""}: a dot tells ${v[0]} thousandths of a bit about its 24 neighbours; sieve-and-coin decoys give ${v[1]}; excess over the decoys ${v[2].toFixed(2)}, and ${v[4].toFixed(2)} against the improved model that first strikes the products of two primes in simple ratios (0.5 means none; above 1 is real).`;}
+const LXBS={c:0,d:-1};
+function lxEsc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function lxNames(){const m={};for(const o of $("layout").options)m[o.value]=o.textContent;return m;}
+function lxScored(){return Object.keys(LXSC).filter(k=>Array.isArray(LXSC[k]));}
+function lxLink(k,nm){const v=LXSC[k];return `<a href="?layout=${k}${v&&v[3]?"&period=30":""}" data-k="${k}">${lxEsc(nm[k]||k)}</a>`;}
+function lxStrip(){const e=$("scoreBox");if(!e)return;const L=S.layout,v=LXSC[L],more=` <a href="#results">All results</a>`;
+ if(!Array.isArray(v)){e.innerHTML=`<span class="lab">Backtest of this layout</span><span class="t">${v===1?"Not scored: the dots have too few neighbours.":v===0?"Not scored: the places or colours use more than the number itself.":"Not scored."}</span>`+more;lxBoardDraw();return;}
+ const ks=lxScored().sort((a,b)=>LXSC[b][0]-LXSC[a][0]),rk=ks.indexOf(L)+1;
+ e.innerHTML=`<span class="lab">Backtest of this layout at N = 500,000${v[3]?", period 30":""}</span><span class="t"><b>${v[0].toFixed(1)}</b>pattern strength (rank ${rk} of ${ks.length})</span><span class="t"><b>${v[1].toFixed(1)}</b>decoys</span><span class="t"><b>${v[2].toFixed(2)}</b>beyond the decoys</span><span class="t"><b>${v[4].toFixed(2)}</b>beyond the improved model</span><span class="${v[2]>1?"warn":"ok"}">${v[2]>1?(v[4]>1?"Above both models.":"Above the decoys; the improved model explains it."):"Nothing beyond the sieve."}</span>`+more;lxBoardDraw();}
+function lxBoardDraw(){const b=$("board");if(!b)return;const nm=lxNames(),c=LXBS.c,d=LXBS.d,R=lxScored().map(k=>({k,n:nm[k]||k,v:LXSC[k]}));
+ R.sort((x,y)=>c<0?d*x.n.localeCompare(y.n):d*(x.v[c]-y.v[c])||x.n.localeCompare(y.n));
+ const H=[["Layout",-1],["Pattern strength",0],["Decoys",1],["Beyond the decoys",2],["Beyond the improved model",4]];
+ b.innerHTML="<thead><tr><th>#</th>"+H.map(h=>`<th data-c="${h[1]}" tabindex="0"${h[1]===c?` aria-sort="${d<0?"descending":"ascending"}"`:""}>${h[0]}${h[1]===c?(d<0?" ▼":" ▲"):""}</th>`).join("")+"</tr></thead><tbody>"+R.map((r,i)=>`<tr${r.k===S.layout?' class="cur"':""}><td>${i+1}</td><td>${lxLink(r.k,nm)}${r.v[3]?" (period 30)":""}</td><td>${r.v[0].toFixed(1)}</td><td>${r.v[1].toFixed(1)}</td><td${r.v[2]>1?' class="hi"':""}>${r.v[2].toFixed(2)}</td><td${r.v[4]>1?' class="hi"':""}>${r.v[4].toFixed(2)}</td></tr>`).join("")+"</tbody>";}
+function lxOpen(k){const v=LXSC[k];$("layout").value=k;S.P=v&&v[3]?30:12;$("period").value=S.P;$("layout").dispatchEvent(new Event("change"));$("stage").scrollIntoView({behavior:"smooth",block:"center"});}
+function lxBoard(){const nm=lxNames(),ks=lxScored(),all=Object.keys(LXSC).length,rat=ks.map(k=>LXSC[k][0]/LXSC[k][1]).sort((a,b)=>a-b),med=(rat[Math.floor((rat.length-1)/2)]+rat[Math.ceil((rat.length-1)/2)])/2;
+ const ab=ks.filter(k=>LXSC[k][2]>1).sort((a,b)=>LXSC[b][2]-LXSC[a][2]),ab3=ks.filter(k=>LXSC[k][4]>1).length,top3=ks.slice().sort((a,b)=>LXSC[b][4]-LXSC[a][4])[0],best=ks.slice().sort((a,b)=>LXSC[b][0]-LXSC[a][0]).slice(0,5);
+ $("found").innerHTML=`<li><b>The primes look like their decoys.</b> Of the ${all} layouts, ${ks.length} can be scored (in the others the places or colours use more than the number itself, or the dots have too few neighbours). In the median the primes carry ${med.toFixed(3)} times the pattern strength of the decoys: what the eye sees in these pictures is the sieve. Strongest pictures: ${best.map(k=>lxLink(k,nm)+" "+Math.round(LXSC[k][0]).toLocaleString("en-US")).join(", ")}.</li>`+
+ `<li><b>One exception, and it is explained.</b> ${ab.length} layouts stand above the decoys (above 1.0): ${ab.map(k=>lxLink(k,nm)+" "+LXSC[k][2].toFixed(2)).join(", ")}. All are built on squares or triangular numbers. The cause lies in the decoys, not in the primes: the sieve leaves products of two large primes, and those whose factors are in a simple ratio sit at fixed places relative to the squares. That puts the coin off by up to 0.8% (measured up to 20 million) at distances near 2√n. With those products struck first (the improved model), ${ab3===0?"no layout is":ab3+" layouts are"} above 1.0; the highest is ${lxLink(top3,nm)} with ${LXSC[top3][4].toFixed(2)}. Two layouts show the products that are struck: ${lxLink("struck",nm)}; ${lxLink("pairs",nm)}.</li>`+
+ `<li><b>A search did not find more.</b> Some 1,400 generated maps (rows, power spirals, turns by a fixed angle, sheared cubes, maps built on squares) were scored on the numbers up to 500,000 and again on the unseen numbers from there to a million. Pattern strength rose from 411 to 565 (${lxLink("tuned",nm)}). In the closing test of 845 maps against the improved model no family kept a lead on the unseen numbers; the highest value was 0.78, and a decoy scored as if it were the primes reaches 0.85.</li>`+
+ `<li><b>No layout gathers the Mersenne exponents.</b> How close the exponents sit together in a picture does not carry over from N = 500,000 to a million (rank correlation 0.25; for pattern strength it is 0.96). The 10 remainder classes (moduli 3 to 500) that hold most of the first 20 exponents above 500 score 22 hits there and 0 on the next 20 (0.5 expected by chance). The rule from the first possible factor of 2<sup>p</sup> − 1 (p ≡ 11 mod 12 is the poor class, ${lxLink("expclass",nm)}) gains on both halves (+0.55 and +0.31).</li>`;
+ lxBoardDraw();
+ $("results").addEventListener("click",e=>{const a=e.target.closest("a[data-k]"),th=e.target.closest("th[data-c]");if(a){e.preventDefault();lxOpen(a.dataset.k);}else if(th)lxSort(Number(th.dataset.c));});
+ $("results").addEventListener("keydown",e=>{const th=e.target.closest("th[data-c]");if(th&&(e.key==="Enter"||e.key===" ")){e.preventDefault();lxSort(Number(th.dataset.c));}});}
+function lxSort(c){if(c===LXBS.c)LXBS.d=-LXBS.d;else{LXBS.c=c;LXBS.d=c<0?1:-1;}lxBoardDraw();}
 function lxLeanB(N,ks){const J=3000,QB=150,sm=[],mu=new Int8Array(J+1).fill(1),c=new Uint8Array(QB+1),B=new Float64Array(ks.length);
  for(let q=2;q<=QB;q++){if(c[q])continue;sm.push(q);for(let m=q*q;m<=QB;m+=q)c[m]=1;}
  const cj=new Uint8Array(J+1);for(let q=2;q<=J;q++){if(cj[q])continue;for(let m=q;m<=J;m+=q){cj[m]=1;mu[m]=-mu[m];}for(let m=q*q;m<=J;m+=q*q)mu[m]=0;}
@@ -752,7 +800,7 @@ lissajous:`Number n sits at R·(sin(2πn/P), cos(2πn/(P + 1))) from the centre:
 mwave:`One long sine wave of period P, read row by row, whose height is multiplied by 1.5 at every Mersenne exponent (${LV.M} times up to ${NN}), scaled so that it reaches full height at the last one. So the wave widens exactly at the pink dots. That is put in by hand: the page reads the list of exponents and widens the wave there, so the picture shows where the exponents are and is not evidence of anything. Every step multiplies, so the wave stays below a tenth of its full height until the sixth exponent from the end, and the earlier steps are too small to see; choose fewer numbers to see earlier ones. The steps crowd at the start (14 exponents lie below 1,000) and thin out later: the exponents grow by a factor of about 1.4 from one to the next on average (over the 52 known).`,
 mdamp:"A sine wave of period P that jumps back to full height at every Mersenne exponent k and then fades as (k/n)²: to a quarter by 2k, to a ninth by 3k. So every pink dot sits where the wave restarts, and the long fades are the long gaps: from 127 to 521 it fades to (127/520)² ≈ 0.06. Between the known exponents it fades to a median of two thirds before the next one restarts it. Like the growing wave, this is put in by hand from the list of exponents: it shows where they are, not why.",
 twinwave:`A sine wave of period P whose height counts the twin primes: it grows by one small step at every twin pair (p, p + 2), at p + 2, and reaches full height at the last pair up to ${NN}: ${LV.T.toLocaleString("en-US")} pairs. So the outline of the wave is the count of twin pairs, which rises ever more slowly as the twins thin out. Hardy and Littlewood's conjecture, 1.32·∫ dt/(ln t)² from 2 to N, gives ${LV.E.toLocaleString("en-US")} for N = ${NN}. Switch on the green twin primes to see where the steps are.`};
- Object.assign(W,lsNotes(),lxNotes());if(W[S.layout])W[S.layout]+=lxScoreText(S.layout);$("why").textContent=W[S.layout];
+ Object.assign(W,lsNotes(),lxNotes());if(W[S.layout])W[S.layout]+=lxScoreText(S.layout);$("why").textContent=W[S.layout];lxStrip();
  if(S.extra!=="none"){let c=0,last=0;for(let n=2;n<=S.N&&c<S.extraN;n++)if(!S.sieve[n]&&(S.extra==="primes"||isTwin(n))){c++;last=n;}$("stats").innerHTML+=` Also linked: the first ${c} ${S.extra==="twins"?"twin primes":"primes"} in order, up to ${last.toLocaleString("en-US")} (${S.extra==="twins"?"green":"light blue"}).`;}
  let tw=0,ew=0;const g=Math.exp(0.5772156649015329);for(let n=3;n<=S.N;n++)if(isTwin(n)){tw++;ew+=n<=7?1:Math.min(1,g*Math.log2((n%4===1?6:2)*n)/n);}const te=E.filter(isTwin);
  $("twinStat").innerHTML=S.twins?`<span class="key" style="background:#34d399"></span><b>${tw.toLocaleString("en-US")}</b> twin primes (p − 2 or p + 2 also prime) up to ${S.N.toLocaleString("en-US")}; ${te.length} of the ${m} exponents are among them (${te.join(", ")}); chance, by the Wagstaff heuristic, gives about ${ew.toFixed(1)}, so twin primes are no better a guess than other primes.`:"";
@@ -797,7 +845,7 @@ function fromURL(){const q=new URLSearchParams(location.search),L=q.get("layout"
  const ex=q.get("extra"),en=Number(q.get("count"));if(ex&&["none","primes","twins"].includes(ex)){$("extra").value=ex;S.extra=ex;}if(en>=2&&en<=2000){S.extraN=Math.round(en);$("extraN").value=S.extraN;}
  $("width").value=Math.min(2000,S.w);$("widthNum").value=S.w;$("wLabel").textContent=S.w.toLocaleString("en-US");
  setCtl();}
-fromURL();
+fromURL();lxBoard();
 function setWidth(v){v=Math.max(2,Math.min(100000,Math.round(Number(v))||708));S.w=v;$("width").value=Math.min(2000,v);$("widthNum").value=v;$("wLabel").textContent=v.toLocaleString("en-US");full();}
 $("count").addEventListener("change",e=>{S.N=Number(e.target.value);setWidth(sqW());});
 $("layout").addEventListener("change",e=>{const sq=S.w===sqW();S.layout=e.target.value;setCtl();if(sq&&S.w!==sqW())setWidth(sqW());else full();});
