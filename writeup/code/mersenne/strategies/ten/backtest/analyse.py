@@ -1,5 +1,5 @@
 import json,sys
-d=json.load(open(sys.argv[1])); CON={'fermat','leftsacks','leftulam','leftklauber','fishbone','parity','gaptowers','bubbles','sunrays','fan','dna','stairs','returnmap','chaosgap','chaoslane','dejavu','goldfirst','famplus','famminus','expclass','per10','per2','mersieve','ord2','primroot','llres','wieferich','cunningham','classrows','survivors','atlas','scales','spectrum','lean','sqwalk','curve','pow2','riesel','primorial','mirror','shield','lucky','glue','omega','dickman','totient','liouville','mertens','pili','chebrace','race4','goldbach','quadform','eisenstein','twinwave'}
+d=json.load(open(sys.argv[1])); CON={'struck','fermat','leftsacks','leftulam','leftklauber','fishbone','parity','gaptowers','bubbles','sunrays','fan','dna','stairs','returnmap','chaosgap','chaoslane','dejavu','goldfirst','famplus','famminus','expclass','per10','per2','mersieve','ord2','primroot','llres','wieferich','cunningham','classrows','survivors','atlas','scales','spectrum','lean','sqwalk','curve','pow2','riesel','primorial','mirror','shield','lucky','glue','omega','dickman','totient','liouville','mertens','pili','chebrace','race4','goldbach','quadform','eisenstein','twinwave'}
 ok=[r for r in d if r.get('struct') is not None]
 print("layouts scored:",len(ok),"of",len(d))
 hon=[r for r in ok if r['layout'] not in CON and r['pairs']>200000]
