@@ -28,7 +28,7 @@ const SCORE = `(()=>{const N=S.N,pos=S.pos,cols=S.cols,rows=S.rows,dw=Math.max(1
   const send = (method, params = {}) => new Promise(r => { const i = ++id; pend.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
   const ev = async e => { const r = await send('Runtime.evaluate', { expression: e, returnByValue: true }); return r.result?.result?.value; };
   await send('Page.enable'); await send('Runtime.enable');
-  await send('Page.navigate', { url: 'file://' + file + '?layout=rows&links=none' }); await sleep(1500);
+  await send('Page.navigate', { url: 'file://' + file + '?layout=rows&links=none' + (process.argv[5] ? '&n=' + process.argv[5] : '') }); await sleep(2500);
   const out = [];
   for (const r of runs) {
     const t0 = Date.now();
