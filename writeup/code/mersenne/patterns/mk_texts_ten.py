@@ -48,7 +48,7 @@ T['found'] = [
   "The bottom rows rebuilt from the first 160 zeta zeros alone, with no prime: correlation 0.940 (H = 16,384), 0.904 (8,192), 0.841 (4,096, where "
   "zeros up to height 770 would be needed and 334 were used).", ""],
  ["Every layout scored against decoys (17 November)", "backtest; computed",
-  "The page now has 188 layouts. The score of the layout on screen stands under the picture, and a panel at the bottom of the page lists all "
+  "The page now has 194 layouts. The score of the layout on screen stands under the picture, and a panel at the bottom of the page lists all "
   "scored layouts in a table that can be sorted. The score takes every pair of neighbouring dots, in the 24 nearest "
   "directions, and measures how much one dot being prime tells about the other. The same is done for decoys: numbers that pass the sieve up to "
   "N<sup>0.4027</sup>, thinned by a coin. For the layouts that place n by a formula the primes carry the same amount as the decoys (0.999 of it in the "
@@ -117,7 +117,24 @@ T['found'] = [
   "(p − 1)/(p − 2) times more common, so the count is lowest when n is prime. The number of ways to write n as a prime plus twice a prime "
   "behaves the same. Both see the small factors of n by adding, and no more than that.",
   "Primes up to a million, odd n below 50,000: the lowest counts are prime in 93.5% of the cases (20.5% of these n are prime). Prime plus twice a "
-  "prime, n from 500,000 to a million: 67.1% (14.8%). Measured steps for the smallest factor 3, 5, 7, 11: 2.11, 1.37, 1.21, 1.12."],]
+  "prime, n from 500,000 to a million: 67.1% (14.8%). Measured steps for the smallest factor 3, 5, 7, 11: 2.11, 1.37, 1.21, 1.12."],
+ ["Without carries, 2,147,483,647 is 37 × 41 × 47 × 55 × 59 × 61 (17 November)", "the splitting rule is classical; the carry lemma is proved; the link is measured",
+  "Multiply without carrying, so that two ones in a column cancel. The strip of p ones, 2<sup>p</sup> − 1, then splits into (p − 1)/d patterns of "
+  "d + 1 bits, where d is the binary depth of p, and stays whole only when d = p − 1. So the Mersenne prime 2<sup>31</sup> − 1 is a product of six "
+  "patterns, 127 is 11 × 13 and 131,071 is 313 × 471, while the strips for 3, 5, 13, 19, 61 and 107 stay whole. With carries a strip of p ones "
+  "(p prime) can only be a product if the multiplication carries: without carries the numbers of ones of the factors would multiply to p. Being "
+  "prime with carries and being unsplittable without carries are independent. One thing links the two worlds: a number divisible by "
+  "2<sup>w</sup> − 1 is far more often than chance also divisible, without carries, by the strip of w ones.",
+  "Of the 51 odd exponents 15 have a strip that stays whole (15.7 ± 2.0 expected). Prime and unsplittable among the odd numbers with an odd "
+  "number of ones: 1.026, 1.024 and 1.001 times the independent value for 20, 21 and 22 bits. Divisible both ways, against chance, for all "
+  "numbers below 2<sup>24</sup>: 1.06 (3), 1.30 (7), 1.91 (15), 3.05 (31), 6.59 (63), 11.0 (127), 25.5 (255); mismatched pairs: 1.00."],
+ ["Three more views that single out the Mersenne primes", "proved (rotations, runs); checked below 10<sup>13</sup> (bases)",
+  "The primes that stay prime under every rotation of their binary digits are exactly the Mersenne primes, because a 0 can be rotated to the end. "
+  "They are also the only primes with a single run of equal bits. And 31 and 8,191 are the only numbers that are written with three or more ones "
+  "and nothing else in two bases (Goormaghtigh's conjecture says there is no third).",
+  "Below 2<sup>20</sup>: all rotations prime for 3, 7, 31, 127, 8,191, 131,071, 524,287; the best other prime of 20 bits is 786,431 with 12 of 20; "
+  "on average 19.2% of the rotations of a prime are prime. Primes by number of runs (1, 3, …, 19): 7, 225, 2,684, 12,557, 26,339, 25,870, 11,821, "
+  "2,361, 157, 3. All-ones numbers below 10<sup>13</sup>: 3,186,384, with 31 (bases 2 and 5) and 8,191 (bases 2 and 90) the only ones that occur twice."],]
 C = []
 def card(**k): C.append(k)
 card(id="chaosgap", name="Chaos game of the gaps (mod 6)", q="layout=chaosgap&amp;links=none", imgs=["t_chaosgap.jpg", "t_chaosgap_z.jpg"],
