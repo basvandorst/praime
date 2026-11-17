@@ -60,6 +60,15 @@ a { color:var(--accent); }
       <option value="spiro">8. Gears rolling inside a ring</option>
       <option value="printer">9. The gears print a tape</option>
       <option value="rack">10. True-size gears on a rack</option>
+      <option value="double">11. Doubling wheels (a sieve for 2^t − 1)</option>
+      <option value="fib">12. Fibonacci wheels</option>
+      <option value="pclock">13. Prime clock (the wheels move only on prime ticks)</option>
+      <option value="accel">14. Accelerating wheels (they seem to turn back)</option>
+      <option value="square">15. Square jumps (the reachable teeth light up)</option>
+      <option value="flip">16. Back and forth (reverse at every prime tick)</option>
+      <option value="slip">17. Slipping wheels</option>
+      <option value="arm">18. Wheels on wheels (an arm with a joint per number)</option>
+      <option value="ll">19. Lucas–Lehmer wheels (which 2^p − 1 are prime)</option>
     </select></div>
     <div class="ctl wide"><span class="lab">How many: 1 to <b id="cnLabel">30</b></span><input id="count" type="range" min="2" max="250" step="1" value="30" aria-label="How many numbers"></div>
     <div class="ctl wide"><span class="lab">Speed: <b id="spLabel">1</b> ticks per second</span><input id="speed" type="range" min="0" max="100" step="1" value="17" aria-label="Speed"></div>
@@ -90,7 +99,17 @@ const isP=n=>{if(n<2)return false;for(let d=2;d*d<=n;d++)if(n%d===0)return false
 const gcd=(a,b)=>{while(b){const t=a%b;a=b;b=t;}return a;};
 const PF=new Uint8Array(251);for(let k=2;k<=250;k++)PF[k]=isP(k)?1:0;
 const MF=new Uint8Array(251);for(const k of [2,3,5,7,13,17,19,31,61,89,107,127])MF[k]=1;
-const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]}};
+const RULES={fast:"fast",double:"double",fib:"fib",pclock:"pclock",accel:"accel",square:"square",flip:"flip",slip:"slip",ll:"ll"},POSM=["double","fib","pclock","accel","square","flip","slip"];
+const MX=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593];
+const PHI=new Uint8Array(251),SL=[null];for(let k=1;k<=250;k++){const a=new Uint8Array(k+1);for(let j=1;j<=k;j++)a[j]=a[j-1]+(gcd(j,k)===1?1:0);SL.push(a);PHI[k]=a[k];}
+let PIC=new Int32Array(1024),DIC=new Int32Array(1024),PIN=1;
+function ext(T){if(T>=PIC.length){let c=PIC.length;while(c<=T)c*=2;const a=new Int32Array(c),b=new Int32Array(c);a.set(PIC);b.set(DIC);PIC=a;DIC=b;}for(;PIN<=T;PIN++){DIC[PIN]=DIC[PIN-1]+((PIC[PIN-1]&1)?-1:1);PIC[PIN]=PIC[PIN-1]+(isP(PIN)?1:0);}}
+function powmod(b,e,m){let r=1%m;b%=m;while(e>0){if(e&1)r=r*b%m;b=b*b%m;e=Math.floor(e/2);}return r;}
+function fibmod(n,m){let a=0,b=1%m;for(let i=Math.floor(Math.log2(Math.max(1,n)));i>=0;i--){const c=a*((2*b-a+2*m)%m)%m,d=(a*a+b*b)%m;if(Math.floor(n/Math.pow(2,i))%2){a=d;b=(c+d)%m;}else{a=c;b=d;}}return a;}
+function rule(){return RULES[S.v]||"div";}
+function posOf(k,T){switch(rule()){case"double":return(powmod(2,T,k)-1+k)%k;case"fib":return fibmod(T,k);case"pclock":return PIC[T]%k;case"accel":return((T%(2*k))*((T+1)%(2*k))/2)%k;case"square":return(T%k)*(T%k)%k;case"flip":return((DIC[T]%k)+k)%k;case"slip":return(Math.floor(T/k)*PHI[k]+SL[k][T%k])%k;default:return T%k;}}
+function homeK(k,T){const r=rule();return r==="fast"?(k*T)%120===0:r==="ll"?false:posOf(k,T)===0;}
+const S={N:30,v:"ratchet",set:"all",speed:1,hi:true,hm:true,ind:true,lab:true,snd:false,run:false,tau:0,last:0,L:null,W:0,lastTick:-1,seen:[],ac:null,done:0,np:0,ro:{n:0,t:0,l:[],h:[]},rm:{n:0,t:0,l:[],h:[]},ll:{T:-1,s:[],res:[]}};
 const C={body:"#22344e",edge:"#40536d",pbody:"#2c4a74",pedge:"#6f8fb8",mark:"#f472b6",home:"#34d399",mers:"#fbbf24",mbody:"#4a3d1a",text:"#edf4ff",muted:"#9fb0c6",dim:"#16243a",line:"#2a3b55"};
 const cv=$("cv"),ctx=cv.getContext("2d");
 const NOTES={
@@ -103,7 +122,16 @@ const NOTES={
  fast:"The other way round: wheel k turns k times while wheel 1 turns once (one turn of wheel 1 takes 120 ticks). Every wheel is a hand on the same dial, longer for a larger k. After half a turn the even hands are home, after a third of a turn the multiples of 3, and the hands lie on as many rays as the denominator of the fraction.",
  spiro:"Each gear rolls inside a ring of {N} teeth, one tooth per tick, and a pen on the gear draws. The curve of gear k closes after lcm(k, {N}) ticks and has {N}/gcd(k, {N}) petals, so the gears that share no factor with {N} draw all {N}{L}.",
  printer:"The gears print: every row is a gear, every column a tick, and a gear leaves a dot when it is home. A column with dots only in row 1 and in its own row is a prime.",
- rack:"Gears of true size (the radius grows with the number of teeth) ride on a moving rack, one tooth per tick. A gear is home when its pink tooth is down in the rack."
+ rack:"Gears of true size (the radius grows with the number of teeth) ride on a moving rack, one tooth per tick. A gear is home when its pink tooth is down in the rack.",
+ double:"Every tick doubles the position: a wheel on tooth x jumps to tooth 2x, counted around the wheel, starting from tooth 1. A wheel is home when it is back on tooth 1, so the wheels at home at tick t are the odd numbers that divide 2^t − 1. An even wheel never comes home (dim). When the tick is a prime p and no wheel is home, 2^p − 1 has no factor up to the largest wheel: the first test every candidate Mersenne prime has to pass. Wheels 3, 7, 31 and 127 are Mersenne primes themselves; they come home for the first time at ticks 2, 3, 5 and 7.",
+ fib:"After t ticks wheel k stands on tooth F(t), the Fibonacci number 0, 1, 1, 2, 3, 5, 8, …, counted around the wheel: every new position is the sum of the two before. The wheels at home at tick t are the divisors of F(t). Every wheel comes home sooner or later, and a wheel that is home at tick a is home at every multiple of a.",
+ pclock:"The wheels move one tooth only when the tick is prime. After t ticks every wheel has moved as many teeth as there are primes up to t, and the wheels at home are the divisors of that count. The rhythm of the machine is the rhythm of the primes; with the sound on you hear it.",
+ accel:"Every tick the step is one tooth longer: 1, 2, 3, …, so after t ticks a wheel has moved 1 + 2 + … + t = t(t + 1)/2 teeth. A wheel seems to speed up, stand still and run backwards, as a wagon wheel does in a film: only the step counted around the wheel shows. Wheel k is home when k divides t(t + 1)/2; an odd prime wheel p is home at the ticks p − 1 and p, twice in a row, and again every p ticks.",
+ square:"At tick t every wheel jumps to tooth t², counted around the wheel. The teeth a wheel can reach are the squares; they light up when visited (on the wheels that are large enough to show them). An odd prime wheel p lights (p + 1)/2 of its p teeth; a wheel with more odd prime factors lights a smaller share (15 lights 6 of 15, 105 lights 24 of 105). A wheel is home when k divides t².",
+ flip:"All wheels turn together, one tooth per tick, but the machine reverses after every prime tick. After t ticks the wheels have moved D(t) teeth forward on balance: the gaps between the primes, added and subtracted in turn. The wheels at home are the divisors of D(t), and when D(t) is 0 every wheel is home.",
+ slip:"Wheel k moves one tooth per tick but slips (stands still) whenever the tick shares a factor with k. In k ticks it moves only as many teeth as there are numbers up to k without a common factor with k. A prime wheel p slips once every p ticks, so it comes home one tick later than a full round: first at tick p + 1.",
+ arm:"An arm with a joint for every number: piece k turns once every k ticks, and each piece is fastened to the end of the one before. A piece points straight up when its number divides the tick (green). The tip draws the curve. The pieces with a number far above the tick have hardly moved yet, so the arm unrolls from the inside out.",
+ ll:"The Lucas–Lehmer test as a machine. The wheel for the odd prime p has 2^p − 1 teeth and starts on tooth 4; every tick it jumps from tooth s to tooth s² − 2, counted around the wheel. 2^p − 1 is prime exactly when the wheel stands on tooth 0, at the top, at tick p − 2 (Lucas and Lehmer). Then its lamp goes green; a wheel that misses goes dim. The slider sets how far p runs (up to 127)."
 };
 function note(){let t=NOTES[S.v].replace(/\{N\}/g,S.N).replace("{L}",S.N===30?" (1, 7, 11, 13, 17, 19, 23, 29)":"");if(S.N>60&&["train","rings","chains","pistons","rack"].includes(S.v))t+=" With this many gears the small parts are left out; a dot is the mark of a gear, pink for a prime gear when the primes are coloured.";return t;}
 function gears(){const a=[];for(let k=1;k<=S.N;k++)a.push(k);return a;}
@@ -121,22 +149,22 @@ function pointer(x,y,s,on){ctx.beginPath();ctx.moveTo(x-s,y-s*1.4);ctx.lineTo(x+
 function grid(W,n){const cols=n<=30?(W<560?5:W<900?6:Math.min(10,n)):Math.max(5,Math.floor(W/(n<=100?48:38))),rows=Math.ceil(n/cols),cell=W/cols;return{cols,rows,cell};}
 function dcol(k,h){return h&&S.ind?C.home:S.hm&&MF[k]?C.mers:!S.hi||PF[k]?C.mark:"#7f95b2";}
 function sparse(k,i,n){return i===0||i===n-1||k%50===0;}
-function layout(){const W=S.W,G=gears(),n=G.length,L={G,n};
- if(S.v==="ratchet"||S.v==="drums"||S.v==="spiro"){Object.assign(L,grid(W,n));L.H=L.rows*L.cell*(S.v==="drums"?0.62:1)+10;
+function layout(){const W=S.W,G=S.v==="ll"?gears().filter(k=>k>2&&PF[k]&&k<=127):gears(),n=G.length,L={G,n};if(S.v==="ll")S.ll={T:-1,s:[],res:[]};
+ if(S.v==="ratchet"||S.v==="drums"||S.v==="spiro"||S.v==="ll"||POSM.includes(S.v)){Object.assign(L,grid(W,Math.max(1,n)));L.H=L.rows*L.cell*(S.v==="drums"?0.62:1)+10;
   if(S.v==="spiro"){L.sp={c:null,x:null,drawn:new Int32Array(n),fin:new Uint8Array(n),key:"",t:0};L.pts=G.map(k=>{const RN=S.N,R=L.cell*0.42,r=R*k/RN,d=r*0.8,end=RN*k/gcd(k,RN),m=Math.min(4000,Math.ceil(end*2),Math.max(600,16*RN/gcd(k,RN))),a=new Float32Array(2*(m+1));for(let i=0;i<=m;i++){const ph=2*Math.PI*(i*end/m)/RN,ro=-ph*(RN-k)/k;a[2*i]=(R-r)*Math.sin(ph)+d*Math.sin(ro);a[2*i+1]=-(R-r)*Math.cos(ph)-d*Math.cos(ro);}return{a,end,m};});}}
  else if(S.v==="train"){const P=[{k:G[0],x:0,y:0,r:Math.max(1,G[0]),al:0}];
   for(let i=1;i<n;i++){const a=P[i-1],r=G[i],d=a.r+r;let best=null,bd=1e18;for(let t=0;t<360;t+=2){const al=t*Math.PI/180,x=a.x+d*Math.cos(al),y=a.y+d*Math.sin(al);let ok=true;for(let j=0;j<i-1;j++){const q=P[j];if(Math.hypot(x-q.x,y-q.y)<q.r+r+2.4){ok=false;break;}}if(ok){const dd=x*x+y*y*1.3;if(dd<bd){bd=dd;best={k:G[i],x,y,r,al};}}}P.push(best||{k:G[i],x:a.x+d,y:a.y,r,al:0});}
   let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const p of P){x0=Math.min(x0,p.x-p.r-1.5);x1=Math.max(x1,p.x+p.r+1.5);y0=Math.min(y0,p.y-p.r-1.5);y1=Math.max(y1,p.y+p.r+1.5);}
   let u=(W-20)/(x1-x0);u=Math.min(u,9,Math.max(520,W*1.15)/(y1-y0));L.u=u;L.H=(y1-y0)*u+20;L.ox=(W-(x1-x0)*u)/2-x0*u;L.oy=10-y0*u;
   P[0].s=1;P[0].t0=-Math.PI/2;for(let i=1;i<n;i++){const a=P[i-1],b=P[i];b.s=-a.s;let ua=((b.al-a.t0)*a.k/(2*Math.PI))%1;if(ua<0)ua+=1;const ub=0.5-ua;b.t0=b.al+Math.PI-2*Math.PI*ub/b.k;}L.P=P;}
- else if(S.v==="rings"||S.v==="fast"){L.D=Math.min(W,680);L.H=L.D+10;}
+ else if(S.v==="rings"||S.v==="fast"||S.v==="arm"){L.D=Math.min(W,680);L.H=L.D+10;L.arm={u:0,pts:[]};}
  else if(S.v==="chains"){L.cw=W/n;const kmax=G[n-1];L.s=Math.min(Math.max(6,Math.min(13,W/45)),920/kmax);L.rho=Math.min(L.cw*0.3,9);L.H=Math.max(120,(kmax*L.s-2*Math.PI*L.rho)/2+2*L.rho+64);}
  else if(S.v==="pistons"){L.cw=W/n;L.H=Math.max(230,Math.min(380,W*0.5));}
  else if(S.v==="printer"){L.rh=Math.max(2,Math.min(16,400/n));L.cwd=Math.max(9,Math.min(14,W/40));L.H=n*L.rh+44;}
  else if(S.v==="rack"){let sq=0;for(const k of G)sq+=k*k;const u=n<=30&&S.N<=30?Math.max(2.1,Math.min(3.6,W/150)):Math.max(0.1,Math.min(3.6,Math.sqrt(1500*W/(4*sq)),(W-30)/(2*G[n-1]))),th=Math.min(u*1.7,6),rows=[];let x=10,row={items:[],rmax:0};for(const k of G){const r=Math.max(1,k)*u;if(x+2*r+th>W-10&&row.items.length){rows.push(row);row={items:[],rmax:0};x=10;}row.items.push({k,r,x:x+r+th/2});row.rmax=Math.max(row.rmax,r);x+=2*r+th+4;}rows.push(row);let y=12;for(const rw of rows){rw.y=y+2*rw.rmax+th;y=rw.y+(u<1.2?16:26);}L.rows=rows;L.u=u;L.th=th;L.H=y+4;}
  return L;}
 function resize(){const W=$("stage").clientWidth;S.W=W;S.L=layout();const dpr=Math.min(2,window.devicePixelRatio||1);cv.width=Math.round(W*dpr);cv.height=Math.round(S.L.H*dpr);cv.style.height=S.L.H+"px";ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
-function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,n=L.n,home=k=>c.arr&&T%k===0;ctx.clearRect(0,0,W,L.H);
+function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,n=L.n,home=k=>c.arr&&homeK(k,T);ext(Math.ceil(td)+2);ctx.clearRect(0,0,W,L.H);
  if(S.v==="ratchet"){const R=L.cell*0.34,th=R*0.2;G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,a=-Math.PI/2+2*Math.PI*td/k,h=home(k),f=fills(k,h);gear(x,y,R,k,a,th,f.f,f.s,h&&S.ind?2:1);
    ctx.strokeStyle=C.mark;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+Math.cos(a)*R*0.45,y+Math.sin(a)*R*0.45);ctx.lineTo(x+Math.cos(a)*R*0.86,y+Math.sin(a)*R*0.86);ctx.stroke();dot(x+Math.cos(a)*R*0.86,y+Math.sin(a)*R*0.86,Math.max(2,R*0.09),C.mark);
    if(S.ind)pointer(x,y-R-th*0.6,Math.max(3,R*0.12),h);if(S.lab)label(k,x,y,Math.max(9,R*0.42),h&&S.ind?C.home:C.text);});}
@@ -187,22 +215,50 @@ function draw(){const L=S.L,W=S.W,c=clock(),td=c.td,T=c.T,G=L.G,n=L.n,home=k=>c.
    for(let x=4-pitch-off;x<W;x+=pitch){const g=x+pitch/2;ctx.moveTo(g-pitch*0.27,y+th*0.5);ctx.lineTo(g-pitch*0.14,y-th*0.5);ctx.lineTo(g+pitch*0.14,y-th*0.5);ctx.lineTo(g+pitch*0.27,y+th*0.5);}ctx.stroke();}
    for(const it of rw.items){const k=it.k,r=it.r,cy=y-r,a=Math.PI/2+2*Math.PI*td/k,h=home(k),f=fills(k,h);gear(it.x,cy,r,k,a,Math.min(th,r*0.9),f.f,f.s,h&&S.ind?2:1);if(r>=3||!big)dot(it.x+Math.cos(a)*r,cy+Math.sin(a)*r,Math.max(1.5,Math.min(4,u*0.5)),h&&S.ind?C.home:C.mark);
     if(S.ind&&(r>=6||!big))pointer(it.x,y+th*0.5+(u<1.2?9:16),Math.max(2.5,Math.min(4,u)),h);if(S.lab&&(r>10||!big))label(k,it.x,r>10?cy:y+th*0.5+18+(S.ind?2:0),Math.max(9,Math.min(18,r*0.5)),h&&S.ind?C.home:C.text);}}}
+ else if(POSM.includes(S.v)){const R=L.cell*0.34,th=R*0.2,n0=Math.floor(td+1e-9),e=td-n0,vis=S.v==="square"?Math.min(T,250):0;G.forEach((k,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,p0=posOf(k,n0),p1=posOf(k,n0+1);let d=((p1-p0)%k+k)%k;if(S.v==="flip"&&k>2&&d===k-1)d=-1;
+   const a=-Math.PI/2+2*Math.PI*(p0+e*d)/k,h=home(k),f=fills(k,h),dim=S.v==="double"&&k%2===0;if(dim)ctx.globalAlpha=0.35;gear(x,y,R,k,a,th,f.f,f.s,h&&S.ind?2:1);
+   if(vis&&k>2&&2*Math.PI*R*0.66/k>=1.7){const seen=new Uint8Array(k);for(let j=0;j<=Math.min(vis,k-1);j++)seen[j*j%k]=1;for(let j=0;j<k;j++)if(seen[j]){const b=-Math.PI/2+2*Math.PI*j/k;dot(x+Math.cos(b)*R*0.66,y+Math.sin(b)*R*0.66,Math.max(1,Math.min(2.4,Math.PI*R*0.66/k*0.7)),"#fde68a");}}
+   ctx.strokeStyle=C.mark;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+Math.cos(a)*R*0.45,y+Math.sin(a)*R*0.45);ctx.lineTo(x+Math.cos(a)*R*0.86,y+Math.sin(a)*R*0.86);ctx.stroke();dot(x+Math.cos(a)*R*0.86,y+Math.sin(a)*R*0.86,Math.max(2,R*0.09),C.mark);
+   if(S.ind)pointer(x,y-R-th*0.6,Math.max(3,R*0.12),h);if(S.lab)label(k,x,y,Math.max(9,R*0.42),h&&S.ind?C.home:C.text);ctx.globalAlpha=1;});}
+ else if(S.v==="arm"){const cx=W/2,cy=L.D/2+5,R=L.D/2-10,len=R*0.95/n,A=L.arm,tip=u=>{let x=0,y=0;for(const k of G){const a=2*Math.PI*u/k;x+=Math.sin(a);y-=Math.cos(a);}return[cx+x*len,cy+y*len];};
+  if(td<A.u-0.3||A.pts.length&&td-A.u>3000){A.u=Math.max(0,td-600);A.pts=[];}while(A.u<=td){A.pts.push(tip(A.u));A.u+=0.25;}if(A.pts.length>6000)A.pts.splice(0,A.pts.length-6000);
+  ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,R*0.95,0,7);ctx.stroke();ctx.strokeStyle="#4a6a96";ctx.beginPath();A.pts.forEach((p,i)=>{if(i)ctx.lineTo(p[0],p[1]);else ctx.moveTo(p[0],p[1]);});ctx.stroke();
+  let x=cx,y=cy;for(const k of G){const a=2*Math.PI*td/k,x2=x+Math.sin(a)*len,y2=y-Math.cos(a)*len,h=home(k);ctx.strokeStyle=h&&S.ind?C.home:tint(k)||"#8aa0bd";ctx.lineWidth=h&&S.ind?2.4:1.4;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y2);ctx.stroke();if(n<=60){dot(x2,y2,2,h&&S.ind?C.home:tint(k)||"#52657f");if(S.lab&&n<=30)label(k,x2+8,y2,9,C.muted);}x=x2;y=y2;}
+  dot(cx,cy,3,"#52657f");dot(x,y,3.5,C.mark);}
+ else if(S.v==="ll"){const R=L.cell*0.34,th=R*0.2,n0=Math.floor(td+1e-9),e=td-n0,Q=S.ll;if(Q.T<0||Q.T>n0||Q.s.length!==n){Q.T=0;Q.s=G.map(p=>4n%((1n<<BigInt(p))-1n));Q.res=G.map(()=>0);}
+  const stepAll=()=>{Q.T++;G.forEach((p,i)=>{const M=(1n<<BigInt(p))-1n;Q.s[i]=((Q.s[i]*Q.s[i]-2n)%M+M)%M;if(Q.T===p-2)Q.res[i]=Q.s[i]===0n?1:2;});};G.forEach((p,i)=>{if(p===3&&!Q.res[i]&&Q.T>=1)Q.res[i]=1;});while(Q.T<n0)stepAll();
+  if(!n)label("Move the slider to 3 or more.",W/2,L.H/2,13,C.muted);
+  G.forEach((p,i)=>{const x=(i%L.cols+0.5)*L.cell,y=(Math.floor(i/L.cols)+0.5)*L.cell+6,M=(1n<<BigInt(p))-1n,s0=Q.s[i],s1=((s0*s0-2n)%M+M)%M,f0=Number(s0*1000000n/M)/1e6,f1=Number(s1*1000000n/M)/1e6;let d=f1-f0;if(d>0.5)d-=1;if(d<-0.5)d+=1;
+   const a=-Math.PI/2+2*Math.PI*(f0+e*d),res=Q.res[i]||(p-2<=n0&&p-2===Q.T?(s0===0n?1:2):0),ok=res===1;if(res===2)ctx.globalAlpha=0.4;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.fillStyle=MF[p]&&S.hm&&ok?C.mbody:C.body;ctx.fill();ctx.strokeStyle=ok&&S.ind?C.home:C.edge;ctx.lineWidth=ok&&S.ind?2.5:1;ctx.stroke();
+   ctx.strokeStyle=C.mark;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+Math.cos(a)*R*0.5,y+Math.sin(a)*R*0.5);ctx.lineTo(x+Math.cos(a)*R*0.9,y+Math.sin(a)*R*0.9);ctx.stroke();dot(x+Math.cos(a)*R*0.9,y+Math.sin(a)*R*0.9,Math.max(2,R*0.09),C.mark);
+   if(S.ind)pointer(x,y-R-th*0.6,Math.max(3,R*0.12),ok);if(S.lab)label(p,x,y,Math.max(9,R*0.42),ok&&S.ind?C.home:C.text);ctx.globalAlpha=1;});}
  status(c);}
-function status(c){const T=c.T,G=S.L.G;if(T===S.lastTick&&S.statusV===S.v+S.set)return;S.statusV=S.v+S.set;const arrived=T!==S.lastTick;S.lastTick=T;track(T);showRec(T);let s;
- if(S.v==="fast"){const g=gcd(T%120,120),a=(T%120)/g,b=120/g,hm=G.filter(k=>(k*T)%120===0);s=`Tick <b>${T}</b>. Wheel 1 has made <b>${T%120===0?(T===0?"0":"a whole number")+" of turns":a+"/"+b+" of a turn"}</b>. At home: ${hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}${T%120&&b<=30?` (the multiples of ${b})`:""}.`;}
- else{const hm=G.filter(k=>T%k===0);let v="";if(T>=2){if(isP(T))v=` <span class="p">${T} is prime</span>: no gear between 1 and ${T} is home.`;else{let d=2;while(T%d)d++;v=` ${T} = ${d} × ${T/d} is not prime.`;}}
-  s=`Tick <b>${T}</b>. At home: ${T===0?"all":hm.length?`<span class="g">${hm.join(", ")}</span>`:"none"}.${T===0?" Every gear starts at home.":v}${T>0&&pureAt(T,G,PF).length>1?` <span class="p">Only prime gears are home.</span>`:""}`;}
+function status(c){const T=c.T,G=S.L.G,r=rule(),f=x=>x.toLocaleString("en-US");if(T===S.lastTick&&S.statusV===S.v+S.N)return;S.statusV=S.v+S.N;const arrived=T!==S.lastTick;S.lastTick=T;ext(T+1);
+ if(r==="ll"){const Q=S.ll,ok=[],no=[];let nx=0;G.forEach((p,i)=>{if(Q.res[i]===1)ok.push(p);else if(Q.res[i]===2)no.push(p);else if(!nx)nx=p;});
+  $("status").innerHTML=!G.length?"Move the slider to 3 or more: this machine has a wheel for every odd prime p up to 127.":`Tick <b>${f(T)}</b>. 2<sup>p</sup> − 1 is prime for p = ${ok.length?`<span class="g">${ok.join(", ")}</span>`:"none yet"}; not prime for p = ${no.length?no.join(", "):"none yet"}.${nx?` Next decision: p = ${nx} at tick ${nx-2}.`:" All wheels are decided."}`;$("record").innerHTML="";$("primes").textContent="";return;}
+ track(T);showRec(T);const hm=G.filter(k=>homeK(k,T)),hl=T===0?"all":hm.length?`<span class="g">${hm.length>40?hm.slice(0,40).join(", ")+", … ("+hm.length+")":hm.join(", ")}</span>`:"none";let s;
+ if(r==="fast"){const g=gcd(T%120,120),a=(T%120)/g,b=120/g;s=`Tick <b>${f(T)}</b>. Wheel 1 has made <b>${T%120===0?(T===0?"0":"a whole number")+" of turns":a+"/"+b+" of a turn"}</b>. At home: ${hl}${T%120&&b<=30?` (the multiples of ${b})`:""}.`;}
+ else if(r==="div"){let v="";if(T>=2){if(isP(T))v=` <span class="p">${f(T)} is prime</span>: no gear between 1 and ${f(T)} is home.`;else{let d=2;while(T%d)d++;v=` ${f(T)} = ${d} × ${f(T/d)} is not prime.`;}}
+  s=`Tick <b>${f(T)}</b>. At home: ${hl}.${T===0?" Every gear starts at home.":v}${T>0&&pureAt(T,G,PF).length>1?` <span class="p">Only prime gears are home.</span>`:""}`;}
+ else{let v="",w="";const dig=x=>Math.floor(x)+1;
+  if(r==="double"){v=`2<sup>${f(T)}</sup> − 1 = ${T<=50?f(Math.pow(2,T)-1):"a number of "+f(dig(T*Math.LOG10E*Math.LN2))+" digits"}.`;const big=hm.filter(k=>k>1),M=T<=8?Math.pow(2,T)-1:0;
+   if(T>=2&&isP(T)){if(big.length&&big[0]===M)w=` Wheel ${M} is 2<sup>${T}</sup> − 1 itself: <span class="p">it is prime</span>.`;else if(big.length)w=` 2<sup>${f(T)}</sup> − 1 is divisible by ${big[0]}, so it is not prime.`;else w=MX.includes(T)?` No wheel is home: 2<sup>${f(T)}</sup> − 1 has no factor up to ${S.N}, and <span class="p">it is prime</span> (${f(T)} is a Mersenne exponent).`:T<6972593?` No wheel is home: 2<sup>${f(T)}</sup> − 1 has no factor up to ${S.N}, yet it is not prime; its factors are larger.`:` No wheel is home: 2<sup>${f(T)}</sup> − 1 has no factor up to ${S.N}.`;}}
+  else if(r==="fib"){let a=0,b=1;for(let i=0;i<Math.min(T,78);i++){const t=a+b;a=b;b=t;}v=`F(${f(T)}) = ${T<=78?f(a):"a number of "+f(dig(T*Math.log10((1+Math.sqrt(5))/2)-Math.log10(Math.sqrt(5))))+" digits"}.`;}
+  else if(r==="pclock")v=`There are ${f(PIC[T])} primes up to ${f(T)}${T>=2&&isP(T)?` (<span class="p">${f(T)} is prime</span>: the wheels moved)`:""}.`;
+  else if(r==="accel")v=`The wheels have moved 1 + 2 + … + ${f(T)} = ${f(T*(T+1)/2)} teeth.`;
+  else if(r==="square")v=`Every wheel stands on tooth ${f(T)}² = ${f(T*T)}.`;
+  else if(r==="flip")v=`On balance the wheels have moved ${DIC[T]<0?"−":""}${f(Math.abs(DIC[T]))} teeth; they now turn ${PIC[T]%2?"backward":"forward"}.`;
+  s=`Tick <b>${f(T)}</b>. ${v} At home: ${hl}.${w}`;}
  $("status").innerHTML=s;$("primes").textContent=S.np?`Prime ticks so far: ${S.np.toLocaleString("en-US")}${S.np>40?" (the last 40: ":" ("}${S.seen.join(", ")}).`:"";
- if(arrived&&S.snd&&S.run&&T>0)beep(G.filter(k=>T%k===0));}
-function homeAt(t,G){return S.v==="fast"?G.filter(k=>(k*t)%120===0):G.filter(k=>t%k===0);}
+ if(arrived&&S.snd&&S.run&&T>0&&(r!=="pclock"||isP(T)))beep(hm);}
 function clearRec(){S.done=0;S.np=0;S.seen=[];S.ro={n:0,t:0,l:[],h:[]};S.rm={n:0,t:0,l:[],h:[]};}
 function pureAt(t,G,F){if(S.v==="fast"){if(t%120===0)return[];const pr={},bad={};for(const k of G){const a=(k*t)%120;if(F[k])(pr[a]=pr[a]||[]).push(k);else bad[a]=1;}let best=[];for(const a in pr)if(!bad[a]&&pr[a].length>best.length)best=pr[a];return best;}
- const l=[];for(const k of G){if(k>1&&t%k===0){if(!F[k])return[];l.push(k);}}return l;}
-function track(T){const G=S.L.G;if(T<S.done)clearRec();const from=Math.max(S.done+1,T-200000);
+ const l=[],div=rule()==="div";for(const k of G){if(k>1&&(div?t%k===0:posOf(k,t)===0)){if(!F[k])return[];l.push(k);}}return l;}
+function track(T){const G=S.L.G;if(T<S.done)clearRec();ext(T+1);const from=Math.max(S.done+1,T-(rule()==="div"||rule()==="fast"?200000:20000));
  for(let t=from;t<=T;t++){if(isP(t)){S.np++;S.seen.push(t);if(S.seen.length>40)S.seen.shift();}const l=pureAt(t,G,PF);if(l.length>S.ro.n){S.ro.h.push([S.ro.n,S.ro.t]);S.ro={n:l.length,t,l,h:S.ro.h};}
   if(l.length||S.v==="fast"){const e=pureAt(t,G,MF);if(e.length>S.rm.n){S.rm.h.push([S.rm.n,S.rm.t]);S.rm={n:e.length,t,l:e,h:S.rm.h};}}}
  S.done=Math.max(S.done,T);}
-function nextRec(T,F,R){const G=S.L.G,P=G.filter(k=>F[k]),f=x=>x.toLocaleString("en-US");if(!P.length)return"";
+function nextRec(T,F,R){const G=S.L.G,P=G.filter(k=>F[k]),f=x=>x.toLocaleString("en-US");if(!P.length||!["div","fast"].includes(rule()))return"";
  if(S.v==="fast"){const base=T-T%120;for(let t=T+1;t<base+240;t++){if(pureAt(t,G,F).length>R.n)return` Next record: tick <b>${f(t)}</b>.`;}return" No higher record is possible on this dial.";}
  const m=R.n+1,comp=G.some(k=>k>1&&!PF[k]);let best=null,bl=null;
  if(!comp){if(m<=P.length){bl=P.slice(0,m);best=bl.reduce((x,y)=>x*BigInt(y),1n);}}
