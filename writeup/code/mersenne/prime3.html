@@ -39,13 +39,22 @@ canvas { display:block; width:100%; }
 .rec b { color:#fff; }
 .key { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:middle; }
 a { color:var(--accent); }
+h2 { margin:0 0 4px; font-size:17px; }
+.found { margin:8px 0 12px; padding-left:20px; color:#d6e2f2; font-size:13px; }
+.found li { margin:6px 0; }
+.boardwrap { overflow:auto; border:1px solid var(--edge); border-radius:8px; }
+table { border-collapse:collapse; width:100%; font-size:12.5px; font-variant-numeric:tabular-nums; }
+th, td { padding:5px 8px; text-align:right; border-bottom:1px solid #1e2d44; vertical-align:top; }
+th:first-child, td:first-child, th:last-child, td:last-child { text-align:left; min-width:150px; }
+th { background:#16243a; color:#b8c8dc; font-weight:600; }
+
 @media (max-width:600px) { .ctl { min-width:120px; flex:1 1 40%; } .ctl.wide { flex-basis:100%; } }
 </style>
 </head>
 <body>
 <header>
   <h1>Prime gears</h1>
-  <p>The numbers from 1 up as gears, as many as you set (up to 250). Gear k has k teeth, and one tick moves every gear one tooth, so gear k is back home every k ticks. At tick t the gears at home are exactly the divisors of t, and t is prime when only gear 1 and gear t are home. Press Start and watch.</p>
+  <p>The numbers from 1 up as gears, as many as you set (up to 250). Gear k has k teeth, and one tick moves every gear one tooth, so gear k is back home every k ticks. At tick t the gears at home are exactly the divisors of t, and t is prime when only gear 1 and gear t are home. Press Start and watch. What the machines find when they all run for 100,000 ticks: <a href="#compare">the comparison</a> at the bottom.</p>
 </header>
 <main>
   <section class="panel controls">
@@ -90,6 +99,23 @@ a { color:var(--accent); }
     <p class="note" id="primes"></p>
     <p class="note" id="why" style="color:#d6e2f2"></p>
     <p class="note"><span class="key" style="background:var(--pink)"></span>mark of a gear · <span class="key" style="background:var(--green)"></span>gear at home · <span class="key" style="background:#6f8fb8"></span>gear with a prime number of teeth · <span class="key" style="background:#fbbf24"></span>gear whose number is a Mersenne exponent (2<sup>k</sup> − 1 is prime) · <span class="key" style="background:#40536d"></span>other gear. More pictures of the primes: <a href="prime2.html">prime2.html</a>.</p>
+  </section>
+  <section class="panel" id="compare">
+    <h2>All machines, run and compared</h2>
+    <p class="note">Every rule of motion was run for 100,000 ticks with 30, 100 and 250 gears. A quiet tick is a tick at which no gear other than gear 1 is home. Of all ticks, 9.6% are prime.</p>
+    <ul class="found">
+      <li><b>Four machines sieve the primes.</b> The plain wheels and the square jumps do it alike: with 250 gears 98.4% of the quiet ticks are prime, and 99.4% of the prime ticks are quiet (the rest are the primes up to 250, whose own gear is home). The doubling and the Fibonacci wheels do it at about half strength (51.9% and 38.1%): there a product of two large primes is a quiet tick too.</li>
+      <li><b>The accelerating wheels find pairs of primes.</b> With 250 gears there are 894 quiet ticks below 250² = 62,500, and every one is either t = 2p with p and 2p + 1 prime, or a prime t with (t + 1)/2 prime.</li>
+      <li><b>Three machines say nothing about the tick.</b> On the prime clock and the slipping wheels a quiet tick is prime as often as any tick (9.6% and 9.0%). On the back-and-forth machine it is twice as often (19.0%), only because its distance is odd exactly at the odd ticks.</li>
+      <li><b>More gears: harder or easier for primes to be home alone.</b> On the plain wheels the best within 100,000 ticks is 5, 4 and 3 prime gears with 30, 100 and 250 gears. On the slipping, Fibonacci and doubling wheels it grows: 8, 7 and 6 prime gears with 250.</li>
+      <li><b>The doubling wheels as a sieve for Mersenne numbers.</b> A wheel can only divide 2<sup>p</sup> − 1 when p is at most half its size, so 250 wheels reach the 30 prime ticks up to 124. They rule out five (11, 23, 29, 37 and 83, by the wheels 23, 47, 233, 223 and 167), 11 are Mersenne exponents, and 14 pass although 2<sup>p</sup> − 1 is not prime. The Lucas–Lehmer wheels (19) decide them all.</li>
+      <li><b>The Mersenne-exponent gears behave like the other prime gears.</b> On the doubling and the Fibonacci wheels they come home neither sooner nor later for their size (first tick divided by p, median 0.67 against 0.50, and 0.96 against 0.51; both within chance). On the other machines the first tick is a fixed rule (last column).</li>
+    </ul>
+    <div class="boardwrap"><table>
+      <thead><tr><th>Machine</th><th>Quiet ticks that are prime, 30 gears</th><th>100 gears</th><th>250 gears</th><th>Prime ticks that are quiet, 250 gears</th><th>Most prime gears home alone, 30 gears</th><th>250 gears</th><th>First tick prime gear p is home</th></tr></thead>
+      <tbody><tr><td>Wheels, one tooth per tick (machines 1 to 6, 8 to 10 and 18)</td><td>60.6%</td><td>80.9%</td><td>98.4%</td><td>99.4%</td><td>5 (tick 85,085)</td><td>3 (tick 7,337)</td><td>p itself</td></tr><tr><td>Square jumps (15)</td><td>60.6%</td><td>80.9%</td><td>98.4%</td><td>99.4%</td><td>4 (tick 17,017)</td><td>3 (tick 7,429)</td><td>p itself</td></tr><tr><td>Doubling wheels (11)</td><td>31.6%</td><td>41.3%</td><td>51.9%</td><td>99.9%</td><td>3 (tick 110)</td><td>6 (tick 6,545)</td><td>the order of 2: 3 (2), 7 (3), 5 (4), 17 (8), 31 (5), 127 (7)</td></tr><tr><td>Fibonacci wheels (12)</td><td>28.0%</td><td>33.8%</td><td>38.1%</td><td>99.9%</td><td>4 (tick 70)</td><td>7 (tick 20,482)</td><td>the first Fibonacci number p divides: 2 (3), 3 (4), 5 (5), 13 (7), 7 (8)</td></tr><tr><td>Accelerating wheels (14)</td><td>30.3%</td><td>41.5%</td><td>49.4%</td><td>6.9%</td><td>6 (tick 7,105)</td><td>6 (tick 46,138)</td><td>p − 1 (3 for p = 2)</td></tr><tr><td>Back and forth (16)</td><td>19.7%</td><td>19.3%</td><td>19.0%</td><td>15.1%</td><td>3 (tick 32,869)</td><td>2 (tick 8,773)</td><td>2, 5, 11, 17 for p = 2, 3, 5, 7; then 36 for every p</td></tr><tr><td>Prime clock (13)</td><td>9.7%</td><td>9.7%</td><td>9.6%</td><td>11.8%</td><td>4 (tick 48,661)</td><td>3 (tick 74,377)</td><td>the p-th prime: 2 (3), 3 (5), 5 (11), 7 (17)</td></tr><tr><td>Slipping wheels (17)</td><td>9.4%</td><td>9.4%</td><td>9.0%</td><td>4.3%</td><td>6 (tick 2,492)</td><td>8 (tick 51,331)</td><td>p + 1</td></tr><tr><td>One dial (7)</td><td>18.0%</td><td>36.0%</td><td>no quiet tick</td><td>0.0%</td><td>—</td><td>—</td><td>60, 40, 24 for p = 2, 3, 5; then 120</td></tr></tbody>
+    </table></div>
+    <p class="note">On the dial the hands that are home are the multiples of one number, so prime hands are never home alone there (the record box counts rays instead); its quiet ticks are the ticks that share little with 120, a sieve by 2, 3 and 5 only. All figures were recomputed by a second program that moves every wheel tick by tick.</p>
   </section>
 </main>
 <script>
