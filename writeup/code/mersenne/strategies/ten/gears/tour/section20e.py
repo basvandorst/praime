@@ -60,5 +60,6 @@ Cost ({L('norm2_bench.txt')}; one run in C, numbers between 2^62 and 2^64, time 
 before('**What this is and is not.**', text)
 assert 'machine 19: Lamps lit so far: 669. Mistakes so far: 0. script errors 0' in open('page_check_19.txt').read()
 rep("machine 18 is the two-cell wheel with a receipt, where wheel p decides 2^p − 1 (", "machine 19 is the two-cell wheel from a start of norm 2 (" + L('norm2_summary.py') + " → " + L('norm2.txt') + "; 669 lamps and no mistake with 5,000 wheels, " + L('page_check_19.txt') + "); machine 18 is the two-cell wheel with a receipt, where wheel p decides 2^p − 1 (")
+rep("for the two cells it is an unsettled Frobenius test)", "for the two cells it is a Frobenius test, which a start of norm 2 settles below 2^64, given the list, and nothing settles above; the chain of wheels and the test with a receipt are literature and their runs are computed)")
 open('section20.md', 'w', encoding='utf-8').write(s)
 print(len(s))

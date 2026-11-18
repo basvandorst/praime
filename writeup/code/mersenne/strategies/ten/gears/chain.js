@@ -61,5 +61,5 @@ function chProve(N,X){if(N<X.stop)return chSmall(N)?[{t:"td",N}]:null;const key=
  X.memo.set(key,res);return res;}
 function chTest(N,stop,O){O=Object.assign({pm:true,ec:true,h:4,deep:true},O||{});const X={stop:stop||CHL,memo:new Map(),nodes:0,max:4000,menu:[],O,R:{s:Number(N%1000003n)+7}};
  if(N<2n)return{ok:false,steps:null,menu:[],msg:"below 2"};if(N<X.stop)return{ok:chSmall(N),small:true,steps:chSmall(N)?[{t:"td",N}]:null,menu:[],nodes:0};if(!(N&1n))return{ok:false,even:true,steps:null,menu:[],nodes:0};
- if(!chSprp(N))return{ok:false,comp:"doubling",steps:null,menu:[],nodes:0};
+ if(!chSprp(N))return{ok:false,comp:"doubling",steps:null,menu:[],nodes:0};if(typeof n2Test==="function"&&!n2Test(N).ok)return{ok:false,comp:"norm2",steps:null,menu:[],nodes:0};
  try{const steps=chProve(N,X);return{ok:steps!==null,und:steps===null,steps,menu:X.menu,nodes:X.nodes};}catch(e){if(e instanceof ChC)return{ok:false,comp:e.message,steps:null,menu:X.menu,nodes:X.nodes};throw e;}}
