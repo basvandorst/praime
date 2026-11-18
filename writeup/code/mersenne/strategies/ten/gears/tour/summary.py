@@ -40,10 +40,12 @@ for tag in sorted(set(re.match(r'big_(census\d+)_',os.path.basename(f)).group(1)
             for c,k in re.findall(r'two-cell wheel c = (\d+) used (\d+) times',e): d.setdefault('steps',{}); d['steps'][c]=d['steps'].get(c,0)+int(k)
         for r,a in re.findall(r'ring (\d+): (\d+) passed the half ring',e):
             T['census'].setdefault(r,{'tested':0,'liars':0})['half_ring_passes']=T['census'][r].get('half_ring_passes',0)+int(a)
-if os.path.exists('big_ring2_5.err') and open('big_ring2_5.err').read().strip().endswith('done'):
-    m=re.search(r'ring 5: tested (\d+) skipped (\d+) liars (\d+) last (\d+)',open('big_ring2_5.err').read())
-    T['ring2_5']={'tested':int(m.group(1)),'skipped':int(m.group(2)),'liars':int(m.group(3))}
-    assert not open('big_ring2_5.out').read().strip()
+for rr in (5,7):
+    fn='big_ring2_%d.err'%rr
+    if os.path.exists(fn) and open(fn).read().strip().endswith('done'):
+        m=re.search(r'ring %d: tested (\d+) skipped (\d+) liars (\d+) last (\d+)'%rr,open(fn).read())
+        T['ring2_%d'%rr]={'tested':int(m.group(1)),'skipped':int(m.group(2)),'liars':int(m.group(3))}
+        assert not open('big_ring2_%d.out'%rr).read().strip()
 S={}
 def single(fn):
     t=open(fn).read(); m=re.search(r'tested (\d+) liars (\d+)',t); return int(m.group(1)),int(m.group(2)),[int(x) for x in t.split('\n') if x.strip().isdigit()]
@@ -77,7 +79,8 @@ L=["Pascal's wheel on the smallest ring the number does not fit: %s candidates (
 L.append("ring sizes used: "+", ".join("%d cells %s (%.2f %%)"%(k,f(rings[k]),100*rings[k]/tested) for k in sorted(rings)))
 for r in sorted(T['census'],key=int):
     c=T['census'][r]; L.append("ring of %s cells, every candidate that does not fit it: %s tested, %d came home%s"%(r,f(c['tested']),c['liars'],(" (%s passed the half ring with a sign)"%f(c['half_ring_passes'])) if 'half_ring_passes' in c else ""))
-if 'ring2_5' in T: L.append("second program (ring2.c), ring of 5 cells: %s tested (%s fit the ring or share a factor and were skipped), %d came home"%(f(T['ring2_5']['tested']),f(T['ring2_5']['skipped']),T['ring2_5']['liars']))
+for rr in (5,7):
+    if 'ring2_%d'%rr in T: L.append("second program (ring2.c), ring of %d cells: %s tested (%s fit the ring or share a factor and were skipped), %d came home"%(rr,f(T['ring2_%d'%rr]['tested']),f(T['ring2_%d'%rr]['skipped']),T['ring2_%d'%rr]['liars']))
 if T['pair']: L.append("doubling wheel and Fibonacci wheel, n = 2 or 3 (mod 5): %s tested, %d came home"%(f(T['pair']['tested']),T['pair']['liars']))
 if 'duo' in S: L.append("two-cell wheel alone, every odd composite below 1e%d: %s tested, %d came home"%(S['duo']['bound_exp'],f(S['duo']['tested']),S['duo']['liars']))
 if 'duo_list' in T: L.append("two-cell wheel on all candidates below 2^64 (so: together with the doubling wheel): %s tested, %d came home, %d squares with no step; largest step used %s"%(f(T['duo_list']['tested']),T['duo_list']['liars'],T['duo_list']['nostep'],max(int(c) for c in T['duo_list'].get('steps',{'0':0}))))

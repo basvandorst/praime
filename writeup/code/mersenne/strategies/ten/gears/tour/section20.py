@@ -54,7 +54,7 @@ Pascal's wheel. For each n take the smallest r that has no factor in common with
 
 - All {f(M['tested'])} candidates below 2^64: {M['liars']} came home. Ring sizes: {ringuse}; the largest ring needed had {M['max_ring']} cells.
 - Separately, every candidate was put on each ring of {", ".join(rs[:-1])} and {rs[-1]} cells that it does not fit ({cen}): none came home. By lemma 2 a mistake on a ring r that n does not fit shows on one of the prime-power parts of r that n does not fit either, and the parts 2, 3, 4 and 8 fit every number. So this settles every ring whose other prime-power parts are among {", ".join(rs)}; that includes every r up to {T['all_r_upto']}.
-{("- A second program, written separately with plain 128-bit remainders ("+L('ring2.c')+"), repeated the ring of 5 cells: "+f(T['ring2_5']['tested'])+" tested, "+str(T['ring2_5']['liars'])+" came home.") if 'ring2_5' in T else ""}
+{("- A second program, written separately with plain 128-bit remainders ("+L('ring2.c')+"), repeated "+" and ".join("the ring of %d cells (%s tested, %d came home)"%(rr,f(T['ring2_%d'%rr]['tested']),T['ring2_%d'%rr]['liars']) for rr in (5,7) if 'ring2_%d'%rr in T)+".") if 'ring2_5' in T else ""}
 - Even numbers: the test box turns an even n above 2 away. On the page's range (2 to 5,000) no even number comes home, and the three even numbers below 3 · 10^6 with 2^n ≡ 2 (mod n) do not either ({L('pascal_check.py')} → {L('pascal_check.txt')}).
 
 The two-cell wheel. Its step is the smallest odd prime c that is not a square mod n in the sense of the Jacobi symbol, (c/n) = −1; n "fits" a step that is a square. Even numbers, numbers divisible by a step tried on the way, and numbers with no step up to 199 (a square has none) are turned away. Results:
