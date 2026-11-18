@@ -27,6 +27,15 @@ assert len(_b) == 3
 JS = re.search(r'(\d+) numbers \(.*?different: (\d+)', open('norm2_js_check.txt').read()).groups()
 assert JS[1] == '0'
 li = N2['list']
+import os
+CEN = ''
+if os.path.exists('norm2_census.json'):
+    CJ = json.load(open('norm2_census.json'))
+    ct = CJ['total']
+    crow = '\n'.join('| %d + √%d | %s | %d | %s | %s | %s |' % (d['a'], d['c'], f(d['misfit']), d['misfit_home'], f(d['fit']), f(d['fit_same']), f(d['fit_swapped'])) for d in CJ['rows'])
+    CEN = ("Every start, not only the first (computed; " + L('norm2_census_check.py') + " → " + L('norm2_census.txt') + "). The lemma holds for every start of norm ±2, so the list also answers a wider question: does the result depend on the choice of start? Each of the " + f(CJ['lines']) + " numbers of the list was put on all " + str(len(CJ['rows'])) + " starts with a up to 8. On a start it does not fit ((c/n) = −1) home means a − √c; on a start it fits ((c/n) = +1) a prime would leave the cells unchanged, a + √c.\n\n| Start | Does not fit | Came home | Fits | Cells unchanged | Cells swapped |\n|---|---|---|---|---|---|\n" + crow + "\n\n"
+           + "In " + f(ct['misfit']) + " tests on a start the number does not fit, " + str(ct['misfit_home']) + " came home. In " + f(ct['fit']) + " tests on a start it fits, " + f(ct['fit_same']) + " left the cells unchanged, as a prime would, and " + str(ct['fit_swapped']) + " swapped them. So here too a number cheats only on a wheel it fits, and the choice of the first start is not what protects machine 19. The sampled results (" + f(CJ['samples']) + ") were recomputed in plain Python: " + str(CJ['sample_bad']) + " differ.\n\n")
+
 SEC = (" A second program, written separately ({L('norm2_second.c')}: plain remainders instead of Montgomery form, the power taken from the lowest bit up), read the whole list again: on a wheel {f(li['second']['tested'])}, came home {li['second']['home']}, and every count equals the first run.".replace("{L('norm2_second.c')}", L('norm2_second.c')).replace("{f(li['second']['tested'])}", f(li['second']['tested'])).replace("{li['second']['home']}", str(li['second']['home']))) if 'second' in li else ''
 rg = N2['range']
 lm = N2['lemma']
@@ -52,7 +61,7 @@ Checks that do not use the list. The lemma was tested where it is not empty ({L(
 
 The page's code for machine 19, run under node, gives the same start, the same two cells after n turns and the same verdict as {L('norm2.py')} on {f(int(JS[0]))} numbers (the sampled list lines, 3,000 primes and 3,000 random odd numbers of 19 digits, and every odd n up to 20,001): {JS[1]} differ ({L('norm2_js_check.py')} → {L('norm2_js_check.txt')}).
 
-What is known. Khashin (2018) states that his own version of the two-cell test (steps −1 and 2 first, then 1 + √c) has no mistake below 2^64; his proof is a long computation on the possible prime factors and does not use the list. We did not find the route above (a start of norm 2, so that the list of base-2 pseudoprimes settles the wheel in one pass) written down; it is a direct consequence of the lemma, so it may well be known. Above 2^64 nothing is proved, and the reasons to expect a mistake of such tests at some very large number apply here too. As a small probe, {f(BY[0])} numbers above 2^64 that were built to fool the doubling wheel (Carmichael numbers of Chernick's form and pseudoprimes p(k(p − 1) + 1), up to 6 · 10^60) were put on the wheel: {BY[1]} came home ({L('norm2_beyond.py')} → {L('norm2_beyond.txt')}).
+{CEN}What is known. Khashin (2018) states that his own version of the two-cell test (steps −1 and 2 first, then 1 + √c) has no mistake below 2^64; his proof is a long computation on the possible prime factors and does not use the list. We did not find the route above (a start of norm 2, so that the list of base-2 pseudoprimes settles the wheel in one pass) written down; it is a direct consequence of the lemma, so it may well be known. Above 2^64 nothing is proved, and the reasons to expect a mistake of such tests at some very large number apply here too. As a small probe, {f(BY[0])} numbers above 2^64 that were built to fool the doubling wheel (Carmichael numbers of Chernick's form and pseudoprimes p(k(p − 1) + 1), up to 6 · 10^60) were put on the wheel: {BY[1]} came home ({L('norm2_beyond.py')} → {L('norm2_beyond.txt')}).
 
 Cost ({L('norm2_bench.txt')}; one run in C, numbers between 2^62 and 2^64, time per number). On {f(bp[kn]['count'])} primes: one strong test to base 2 (the doubling wheel) {bp[k1]['ns']} ns, the norm-2 wheel {bp[kn]['ns']} ns, machine 11's wheel {bp[ko]['ns']} ns, the seven strong tests that are known to decide every number below 2^64 {bp[k7]['ns']} ns. On {f(bo[kn]['count'])} random odd numbers, where most are turned away early: {bo[k1]['ns']}, {bo[kn]['ns']}, {bo[ko]['ns']} and {bo[k7]['ns']} ns. The program is plain (four multiplications mod n for a squaring of the two cells); it is not tuned.
 

@@ -34,10 +34,22 @@ static int wheel(u64 n,int old,u64*pa,u64*pc,u64*px,u64*py){
     if((n>>i)&1){u64 nx=ad(mm(aM,x),mm(cM,y)),ny=ad(x,mm(aM,y));x=nx;y=ny;}}
   *pa=a;*pc=c;*px=redc(x);*py=redc(y);
   return x==aM&&y==N-ONE;}
+static void pw(u64 n,u64 a,u64 c,u64*px,u64*py){u64 aM=mm(a%n,R2),cM=mm(c%n,R2),x=aM,y=ONE;int top=63-__builtin_clzll(n);
+  for(int i=top-1;i>=0;i--){u64 xx=mm(x,x),yy=mm(y,y),xy=mm(x,y);x=ad(xx,mm(cM,yy));y=ad(xy,xy);if((n>>i)&1){u64 nx=ad(mm(aM,x),mm(cM,y)),ny=ad(x,mm(aM,y));x=nx;y=ny;}}*px=x;*py=y;}
 static int sprp(u64 n,u64 b){setn(n);u64 d=n-1;int s=0;while(!(d&1)){d>>=1;s++;}u64 x=ONE,B=mm(b%n,R2);if(B==0)return 1;for(int i=63-__builtin_clzll(d);i>=0;i--){x=mm(x,x);if((d>>i)&1)x=mm(x,B);}
   if(x==ONE||x==N-ONE)return 1;for(int i=1;i<s;i++){x=mm(x,x);if(x==N-ONE)return 1;}return 0;}
 static const u64 B7[]={2,325,9375,28178,450775,9780504,1795265022ULL};
 int main(int argc,char**argv){
+  if(argc>=5&&!strcmp(argv[1],"census")){u64 A=strtoull(argv[2],0,10),K=strtoull(argv[3],0,10),I=strtoull(argv[4],0,10),SK=argc>=6?strtoull(argv[5],0,10):0;
+    u64 sa[64],sc[64];int ns=0;for(u64 t=1;t<=A;t++){if(t>=2){sa[ns]=t;sc[ns++]=t*t-2;}sa[ns]=t;sc[ns++]=t*t+2;}
+    static u64 mt[64],mh[64],ft[64],fp[64],fm[64],sh[64];char buf[64];u64 line=0,mine=0,last=0;
+    while(fgets(buf,64,stdin)){u64 n=strtoull(buf,0,10);line++;last=n;if(line%K!=I||n<3||n%2==0)continue;mine++;setn(n);int smp=SK&&line%SK==I;
+      for(int i=0;i<ns;i++){int j=jac(sc[i],n);if(j==0){sh[i]++;continue;}u64 x,y,aM=mm(sa[i]%n,R2);pw(n,sa[i],sc[i],&x,&y);int minus=(x==aM&&y==N-ONE),plus=(x==aM&&y==ONE);
+        if(j==-1){mt[i]++;if(minus){mh[i]++;printf("misfit home %llu a %llu c %llu\n",(unsigned long long)n,(unsigned long long)sa[i],(unsigned long long)sc[i]);}}else{ft[i]++;fp[i]+=plus;fm[i]+=minus;}
+        if(smp)printf("sample %llu %llu %llu %d %llu %llu\n",(unsigned long long)n,(unsigned long long)sa[i],(unsigned long long)sc[i],j,(unsigned long long)redc(x),(unsigned long long)redc(y));}}
+    fprintf(stderr,"census of starts up to a = %llu, lines with number mod %llu = %llu: lines read %llu, last %llu, mine %llu\n",(unsigned long long)A,(unsigned long long)K,(unsigned long long)I,(unsigned long long)line,(unsigned long long)last,(unsigned long long)mine);
+    for(int i=0;i<ns;i++)fprintf(stderr,"start %llu + sqrt %llu: does not fit %llu, of these home %llu | fits %llu, of these (a + sqrt c)^n = a + sqrt c %llu, = a - sqrt c %llu | shares a factor %llu\n",(unsigned long long)sa[i],(unsigned long long)sc[i],(unsigned long long)mt[i],(unsigned long long)mh[i],(unsigned long long)ft[i],(unsigned long long)fp[i],(unsigned long long)fm[i],(unsigned long long)sh[i]);
+    fprintf(stderr,"done\n");return 0;}
   if(argc>=2&&!strcmp(argv[1],"bench")){static u64 v[2000000];int m=0;char buf[64];while(m<2000000&&fgets(buf,64,stdin))v[m++]=strtoull(buf,0,10);
     for(int mode=0;mode<4;mode++){struct timespec t0,t1;clock_gettime(CLOCK_MONOTONIC,&t0);u64 yes=0;
       for(int i=0;i<m;i++){u64 n=v[i],a,c,x,y;if(mode==0)yes+=sprp(n,2);else if(mode==1){int ok=1;for(int j=0;j<7&&ok;j++)ok=sprp(n,B7[j]);yes+=ok;}else yes+=wheel(n,mode==3,&a,&c,&x,&y)==1;}

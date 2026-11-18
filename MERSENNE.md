@@ -631,6 +631,28 @@ Checks that do not use the list. The lemma was tested where it is not empty ([no
 
 The page's code for machine 19, run under node, gives the same start, the same two cells after n turns and the same verdict as [norm2.py](writeup/code/mersenne/strategies/ten/gears/tour/norm2.py) on 45,742 numbers (the sampled list lines, 3,000 primes and 3,000 random odd numbers of 19 digits, and every odd n up to 20,001): 0 differ ([norm2_js_check.py](writeup/code/mersenne/strategies/ten/gears/tour/norm2_js_check.py) → [norm2_js_check.txt](writeup/code/mersenne/strategies/ten/gears/tour/norm2_js_check.txt)).
 
+Every start, not only the first (computed; [norm2_census_check.py](writeup/code/mersenne/strategies/ten/gears/tour/norm2_census_check.py) → [norm2_census.txt](writeup/code/mersenne/strategies/ten/gears/tour/norm2_census.txt)). The lemma holds for every start of norm ±2, so the list also answers a wider question: does the result depend on the choice of start? Each of the 118,968,378 numbers of the list was put on all 15 starts with a up to 8. On a start it does not fit ((c/n) = −1) home means a − √c; on a start it fits ((c/n) = +1) a prime would leave the cells unchanged, a + √c.
+
+| Start | Does not fit | Came home | Fits | Cells unchanged | Cells swapped |
+|---|---|---|---|---|---|
+| 1 + √3 | 26,335,981 | 0 | 92,100,204 | 4,846,053 | 0 |
+| 2 + √2 | 41,018,314 | 0 | 77,950,064 | 6,389,137 | 0 |
+| 2 + √6 | 43,294,311 | 0 | 75,141,874 | 3,307,599 | 0 |
+| 3 + √7 | 39,886,451 | 0 | 73,925,918 | 2,321,570 | 0 |
+| 3 + √11 | 46,386,702 | 0 | 65,924,257 | 2,507,385 | 0 |
+| 4 + √14 | 47,781,429 | 0 | 66,030,940 | 2,444,017 | 0 |
+| 4 + √18 | 40,906,324 | 0 | 77,529,861 | 5,722,673 | 0 |
+| 5 + √23 | 54,435,973 | 0 | 61,054,725 | 2,166,068 | 0 |
+| 5 + √27 | 26,335,981 | 0 | 92,100,204 | 6,971,101 | 0 |
+| 6 + √34 | 53,696,872 | 0 | 58,487,907 | 2,237,476 | 0 |
+| 6 + √38 | 54,203,192 | 0 | 57,542,084 | 2,208,788 | 0 |
+| 7 + √47 | 58,064,620 | 0 | 59,695,138 | 2,247,779 | 0 |
+| 7 + √51 | 50,950,525 | 0 | 60,803,145 | 2,083,922 | 0 |
+| 8 + √62 | 55,246,846 | 0 | 56,659,472 | 2,249,816 | 0 |
+| 8 + √66 | 50,997,000 | 0 | 60,873,722 | 2,274,045 | 0 |
+
+In 689,540,521 tests on a start the number does not fit, 0 came home. In 1,035,819,515 tests on a start it fits, 49,977,429 left the cells unchanged, as a prime would, and 0 swapped them. So here too a number cheats only on a wheel it fits, and the choice of the first start is not what protects machine 19. The sampled results (172,385) were recomputed in plain Python: 0 differ.
+
 What is known. Khashin (2018) states that his own version of the two-cell test (steps −1 and 2 first, then 1 + √c) has no mistake below 2^64; his proof is a long computation on the possible prime factors and does not use the list. We did not find the route above (a start of norm 2, so that the list of base-2 pseudoprimes settles the wheel in one pass) written down; it is a direct consequence of the lemma, so it may well be known. Above 2^64 nothing is proved, and the reasons to expect a mistake of such tests at some very large number apply here too. As a small probe, 12,000 numbers above 2^64 that were built to fool the doubling wheel (Carmichael numbers of Chernick's form and pseudoprimes p(k(p − 1) + 1), up to 6 · 10^60) were put on the wheel: 0 came home ([norm2_beyond.py](writeup/code/mersenne/strategies/ten/gears/tour/norm2_beyond.py) → [norm2_beyond.txt](writeup/code/mersenne/strategies/ten/gears/tour/norm2_beyond.txt)).
 
 Cost ([norm2_bench.txt](writeup/code/mersenne/strategies/ten/gears/tour/norm2_bench.txt); one run in C, numbers between 2^62 and 2^64, time per number). On 200,000 primes: one strong test to base 2 (the doubling wheel) 498 ns, the norm-2 wheel 1758 ns, machine 11's wheel 1734 ns, the seven strong tests that are known to decide every number below 2^64 3470 ns. On 200,000 random odd numbers, where most are turned away early: 460, 1103, 975 and 593 ns. The program is plain (four multiplications mod n for a squaring of the two cells); it is not tuned.
