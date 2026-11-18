@@ -58,6 +58,10 @@ if os.path.exists('single.done'):
     T['ring5_classes_1e10']={str(c):sum(1 for n in d['5'] if n%5==c) for c in (1,2,3,4)}
 if os.path.exists('single_frob_1e9.txt') and open('single_frob_1e9.txt').read().strip().endswith('done'):
     a=single('single_frob_1e9.txt'); S['duo']={'tested1e9':a[0],'below1e9':a[1]}
+if 'duo' in S:
+    S['duo']['bound_exp']=9; S['duo']['tested']=S['duo']['tested1e9']; S['duo']['liars']=S['duo']['below1e9']
+    if os.path.exists('single_frob_1e10.txt') and open('single_frob_1e10.txt').read().strip().endswith('done'):
+        a=single('single_frob_1e10.txt'); S['duo']['bound_exp']=10; S['duo']['tested']+=a[0]; S['duo']['liars']+=a[1]
 if os.path.exists('duo_row.json'): T['duo_row250']=json.load(open('duo_row.json'))['row250']
 T['single']=S
 pp=[5,7,9,11,13,16,17,19,23,25,27,29,31,32,37,41,43,47,49]
@@ -75,7 +79,7 @@ for r in sorted(T['census'],key=int):
     c=T['census'][r]; L.append("ring of %s cells, every candidate that does not fit it: %s tested, %d came home%s"%(r,f(c['tested']),c['liars'],(" (%s passed the half ring with a sign)"%f(c['half_ring_passes'])) if 'half_ring_passes' in c else ""))
 if 'ring2_5' in T: L.append("second program (ring2.c), ring of 5 cells: %s tested (%s fit the ring or share a factor and were skipped), %d came home"%(f(T['ring2_5']['tested']),f(T['ring2_5']['skipped']),T['ring2_5']['liars']))
 if T['pair']: L.append("doubling wheel and Fibonacci wheel, n = 2 or 3 (mod 5): %s tested, %d came home"%(f(T['pair']['tested']),T['pair']['liars']))
-if 'duo' in S: L.append("two-cell wheel alone, every odd composite below 1e9: %s tested, %d came home"%(f(S['duo']['tested1e9']),S['duo']['below1e9']))
+if 'duo' in S: L.append("two-cell wheel alone, every odd composite below 1e%d: %s tested, %d came home"%(S['duo']['bound_exp'],f(S['duo']['tested']),S['duo']['liars']))
 if 'duo_list' in T: L.append("two-cell wheel on all candidates below 2^64 (so: together with the doubling wheel): %s tested, %d came home, %d squares with no step; largest step used %s"%(f(T['duo_list']['tested']),T['duo_list']['liars'],T['duo_list']['nostep'],max(int(c) for c in T['duo_list'].get('steps',{'0':0}))))
 for k,v in S.items():
     if k=='duo': continue

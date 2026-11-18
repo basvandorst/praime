@@ -59,7 +59,7 @@ Pascal's wheel. For each n take the smallest r that has no factor in common with
 
 The two-cell wheel. Its step is the smallest odd prime c that is not a square mod n in the sense of the Jacobi symbol, (c/n) = −1; n "fits" a step that is a square. Even numbers, numbers divisible by a step tried on the way, and numbers with no step up to 199 (a square has none) are turned away. Results:
 
-- Alone, on every odd number below 10^9 that is not prime ({f(S['duo']['tested1e9'])} numbers): {S['duo']['below1e9']} came home.
+- Alone, on every odd number below 10^{S['duo']['bound_exp']} that is not prime ({f(S['duo']['tested'])} numbers): {S['duo']['liars']} came home.
 - On all {f(T['duo_list']['tested'])} candidates below 2^64, that is together with the doubling wheel: {T['duo_list']['liars']} came home; {T['duo_list']['nostep']} had no step (the squares of 1093 and 3511); the largest step needed was {max(int(c) for c in T['duo_list']['steps'])}.
 - Independent check in plain Python with sympy's Jacobi symbol: {L('tour_check2.py')} → {L('tour_check2.txt')}.
 
