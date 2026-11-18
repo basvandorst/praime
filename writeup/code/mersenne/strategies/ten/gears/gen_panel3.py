@@ -17,7 +17,7 @@ t2+=one("Perrin's wheel: three cells with a feedback",3,f(S['perrin']['first']),
 t2+=one("Pascal's wheel, always 5 cells",5,f(S['ring5']['first']),f(S['ring5']['below1e8'])+' below 10<sup>8</sup>; '+f(S['ring5']['below1e10'])+' below 10<sup>10</sup>')
 t2+=one('Doubling wheel and Fibonacci wheel together, for numbers that leave 2 or 3 after division by 5',3,'none','0 below '+B+' ('+f(T['pair']['tested'])+' candidates)')
 t2+=one("Pascal's wheel on a ring the number does not fit (machine 10)",'%d to %d'%(T['misfit']['min_ring'],T['misfit']['max_ring']),'none','0 below '+B+' ('+f(T['misfit']['tested'])+' candidates)')
-t2+=one("Two-cell wheel with a step the number does not fit (machine 11)",2,'none','0 among all odd numbers below 10<sup>%d</sup>; with the doubling wheel 0 below '%S['duo']['bound_exp']+B+' ('+f(T['duo_list']['tested'])+' candidates)')
+t2+=one("Two-cell wheel with a step the number does not fit (machine 11)",2,'none','0 among all odd numbers below '+S['duo']['bound_html']+'; with the doubling wheel 0 below '+B+' ('+f(T['duo_list']['tested'])+' candidates)')
 ringtxt=(" We also tried every one of them on each ring of "+", ".join(str(x) for x in rings[:-1])+" and "+str(rings[-1])+" cells that it does not fit: none came home.") if len(rings)>1 and all(cen[str(r)]['liars']==0 for r in rings) else ""
 html='''  <section class="panel" id="compare">
     <h2>Which machine has the best results</h2>
@@ -50,5 +50,5 @@ html='''  <section class="panel" id="compare">
 s=open('prime3.html',encoding='utf-8').read()
 i=s.index('  <section class="panel" id="compare">'); j=s.index('</section>\n',i)+len('</section>\n'); s=s[:i]+html+s[j:]
 import re
-s,k=re.subn(r'In our runs none of the [\d,]+ odd numbers below [\d,]+ that are not prime came home','In our runs none of the %s odd numbers below %s that are not prime came home'%(f(S['duo']['tested']),f(10**S['duo']['bound_exp'])),s); assert k==1
+s,k=re.subn(r'In our runs none of the [\d,]+ odd numbers below [\d,]+ that are not prime came home','In our runs none of the %s odd numbers below %s that are not prime came home'%(f(S['duo']['tested']),f(S['duo']['bound'])),s); assert k==1
 open('prime3.html','w',encoding='utf-8').write(s); print(len(s))

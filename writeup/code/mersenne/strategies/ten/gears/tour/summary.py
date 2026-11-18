@@ -64,6 +64,16 @@ if 'duo' in S:
     S['duo']['bound_exp']=9; S['duo']['tested']=S['duo']['tested1e9']; S['duo']['liars']=S['duo']['below1e9']
     if os.path.exists('single_frob_1e10.txt') and open('single_frob_1e10.txt').read().strip().endswith('done'):
         a=single('single_frob_1e10.txt'); S['duo']['bound_exp']=10; S['duo']['tested']+=a[0]; S['duo']['liars']+=a[1]
+        ab=['single_frob_2e10a.txt','single_frob_2e10b.txt']
+        if all(os.path.exists(x) and open(x).read().strip().endswith('done') for x in ab):
+            for x in ab:
+                a=single(x); S['duo']['tested']+=a[0]; S['duo']['liars']+=a[1]
+            S['duo']['bound']=2*10**10
+    S['duo'].setdefault('bound',10**S['duo']['bound_exp'])
+    two=S['duo']['bound']==2*10**10
+    S['duo']['bound_md']='2 · 10^10' if two else '10^%d'%S['duo']['bound_exp']
+    S['duo']['bound_html']='2 × 10<sup>10</sup>' if two else '10<sup>%d</sup>'%S['duo']['bound_exp']
+    S['duo']['bound_plain']='2e10' if two else '1e%d'%S['duo']['bound_exp']
 if os.path.exists('duo_row.json'): T['duo_row250']=json.load(open('duo_row.json'))['row250']
 T['single']=S
 pp=[5,7,9,11,13,16,17,19,23,25,27,29,31,32,37,41,43,47,49]
@@ -82,7 +92,7 @@ for r in sorted(T['census'],key=int):
 for rr in (5,7):
     if 'ring2_%d'%rr in T: L.append("second program (ring2.c), ring of %d cells: %s tested (%s fit the ring or share a factor and were skipped), %d came home"%(rr,f(T['ring2_%d'%rr]['tested']),f(T['ring2_%d'%rr]['skipped']),T['ring2_%d'%rr]['liars']))
 if T['pair']: L.append("doubling wheel and Fibonacci wheel, n = 2 or 3 (mod 5): %s tested, %d came home"%(f(T['pair']['tested']),T['pair']['liars']))
-if 'duo' in S: L.append("two-cell wheel alone, every odd composite below 1e%d: %s tested, %d came home"%(S['duo']['bound_exp'],f(S['duo']['tested']),S['duo']['liars']))
+if 'duo' in S: L.append("two-cell wheel alone, every odd composite below %s: %s tested, %d came home"%(S['duo']['bound_plain'],f(S['duo']['tested']),S['duo']['liars']))
 if 'duo_list' in T: L.append("two-cell wheel on all candidates below 2^64 (so: together with the doubling wheel): %s tested, %d came home, %d squares with no step; largest step used %s"%(f(T['duo_list']['tested']),T['duo_list']['liars'],T['duo_list']['nostep'],max(int(c) for c in T['duo_list'].get('steps',{'0':0}))))
 for k,v in S.items():
     if k=='duo': continue
