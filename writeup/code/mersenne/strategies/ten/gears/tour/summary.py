@@ -80,12 +80,62 @@ if 'duo' in S:
     S['duo']['bound_plain']='2e10' if two else '1e%d'%S['duo']['bound_exp']
 if os.path.exists('duo_row.json'): T['duo_row250']=json.load(open('duo_row.json'))['row250']
 T['single']=S
+def done2(fn): return os.path.exists(fn) and open(fn).read().strip().endswith('done')
+T['ring3']={}; T['folded']={}
+for tag in 'abcdef':
+    fs=['big3_%s_%d.err'%(tag,p) for p in (0,1)]
+    if all(done2(x) for x in fs):
+        nread=0
+        for x in fs:
+            e=open(x).read(); assert not open(x[:-3]+'out').read().strip(),x; nread+=int(re.search(r'numbers read (\d+)',e).group(1))
+            for r,a,b,c in re.findall(r'ring (\d+): tested (\d+), passed the first step (\d+), came home (\d+)',e):
+                d=T['ring3'].setdefault(r,{'tested':0,'first_step':0,'liars':0}); d['tested']+=int(a); d['first_step']+=int(b); d['liars']+=int(c)
+        assert nread==T['list_count'],(tag,nread)
+    fs=['big4_%s_%d.err'%(tag,p) for p in (0,1)]
+    if all(done2(x) for x in fs):
+        nread=0
+        for x in fs:
+            e=open(x).read(); assert not open(x[:-3]+'out').read().strip(),x; nread+=int(re.search(r'numbers read (\d+)',e).group(1))
+            for m in re.finditer(r'ring (\d+): tested (\d+);(.*?) no fold: (\d+) tested, (\d+) passed the half ring; came home on the full ring: (\d+)',e):
+                d=T['folded'].setdefault(m.group(1),{'tested':0,'folds':{},'silent':[],'nofold':0,'nofold_pass':0,'liars':0})
+                d['tested']+=int(m.group(2)); d['nofold']+=int(m.group(4)); d['nofold_pass']+=int(m.group(5)); d['liars']+=int(m.group(6))
+                for ee,a,b in re.findall(r'fold of (\d+) cells: (\d+) tested, (\d+) passed',m.group(3)):
+                    q=d['folds'].setdefault(ee,{'tested':0,'passed':0}); q['tested']+=int(a); q['passed']+=int(b)
+                d['silent']=sorted(set(d['silent'])|set(re.findall(r'fold of (\d+) cells: says nothing',m.group(3))),key=int)
+        assert nread==T['list_count'],(tag,nread)
+for r in T['folded']:
+    if r in T['census']: assert T['folded'][r]['tested']==T['census'][r]['tested'],r
+    if r in T['ring3']: assert T['folded'][r]['tested']==T['ring3'][r]['tested'],r
+T['fold_pass_total']=sum(q['passed'] for d in T['folded'].values() for q in d['folds'].values())
 pp=[5,7,9,11,13,16,17,19,23,25,27,29,31,32,37,41,43,47,49]
-done=set(int(r) for r in T['census']); R=4
+done=set(int(r) for r in T['census'])|set(int(r) for r in T['ring3'])|set(int(r) for r in T['folded']); R=4
+T['rings_done']=sorted(done)
+assert all(d['liars']==0 for d in list(T['ring3'].values())+list(T['folded'].values()))
 for q in pp:
     if q in done: R=q
     else: break
 T['all_r_upto']=[x for x in pp if x>R][0]-1 if R>4 else 4
+def _parts(m):
+    out=[]; q=2
+    while m>1:
+        if m%q==0:
+            k=1
+            while m%q==0: m//=q; k*=q
+            out.append((q,k))
+        q+=1
+    return out
+def _settled(m):
+    for q,k in _parts(m):
+        lo={2:16,3:9}.get(q,q); x=lo
+        while x<=k:
+            if x not in done: return False
+            x*=q
+    return True
+E=2
+while _settled(E+2): E+=2
+T['even_upto']=E; N=4
+while _settled(N+1): N+=1
+assert N==T['all_r_upto'],(N,T['all_r_upto'])
 if os.path.exists('pascal_check.json'): T['row250']=json.load(open('pascal_check.json'))['row250']
 json.dump(T,open('tournament.json','w'),indent=1)
 f=lambda n:format(n,',')
@@ -93,6 +143,13 @@ L=["Pascal's wheel on the smallest ring the number does not fit: %s candidates (
 L.append("ring sizes used: "+", ".join("%d cells %s (%.2f %%)"%(k,f(rings[k]),100*rings[k]/tested) for k in sorted(rings)))
 for r in sorted(T['census'],key=int):
     c=T['census'][r]; L.append("ring of %s cells, every candidate that does not fit it: %s tested, %d came home%s"%(r,f(c['tested']),c['liars'],(" (%s passed the half ring with a sign)"%f(c['half_ring_passes'])) if 'half_ring_passes' in c else ""))
+LOW={'25':5,'27':9,'32':16}
+for r in sorted(T['ring3'],key=int):
+    c=T['ring3'][r]; L.append("ring of %s cells (ring3.c), %s: %s tested, %s passed the first step (%s), %d came home"%(r,("every candidate that fits %d cells and not %s"%(LOW[r],r)) if r in LOW else "every candidate that does not fit it",f(c['tested']),f(c['first_step']),"the half ring with a sign" if r=='32' else "the half-size ring of the squares",c['liars']))
+for r in sorted(T['folded'],key=int):
+    c=T['folded'][r]; L.append("ring of %s cells (fold.c), every candidate that does not fit it: %s tested; %s%s%s; %d came home"%(r,f(c['tested']),"; ".join("fold onto %s cells: %s tested, %s passed"%(e,f(q['tested']),f(q['passed'])) for e,q in sorted(c['folds'].items(),key=lambda x:int(x[0]))),("; fold onto %s cells says nothing"%" and ".join(c['silent'])) if c['silent'] else "",("; no fold applies: %s tested on the half-size ring, %s passed"%(f(c['nofold']),f(c['nofold_pass']))) if c['nofold'] else "",c['liars']))
+if T['folded']: L.append("candidates that passed a folded wheel, all rings together: %d"%T['fold_pass_total'])
+L.append("every ring settled below 2^64 for numbers that do not fit it, without a gap, up to %d cells"%T['all_r_upto'])
 for rr in (5,7):
     if 'ring2_%d'%rr in T: L.append("second program (ring2.c), ring of %d cells: %s tested (%s fit the ring or share a factor and were skipped), %d came home"%(rr,f(T['ring2_%d'%rr]['tested']),f(T['ring2_%d'%rr]['skipped']),T['ring2_%d'%rr]['liars']))
 if 'direct_pascal' in T: L.append("Pascal's wheel on the smallest misfit ring, directly on every odd composite below 2e8 (no list, no shortcut): %s tested, %d came home"%(f(T['direct_pascal']['tested']),T['direct_pascal']['liars']))
