@@ -35,7 +35,7 @@ html='''  <section class="panel" id="compare">
     </ul>
     <h2 id="decides">One wheel decides: which wheel can be trusted</h2>
     <p class="note">A harder contest. Wheel n must be home after n turns exactly when n is prime. On every machine below each prime comes home; that is proved. The mistakes are the numbers that are not prime and come home too. All machines were run against the odd numbers that are not prime.</p>
-    <div class="boardwrap"><table>
+    <div class="boardwrap"><table class="dec">
       <thead><tr><th>Machine</th><th>Cells</th><th>First mistake</th><th>Mistakes found</th></tr></thead>
       <tbody>%s</tbody>
     </table></div>
