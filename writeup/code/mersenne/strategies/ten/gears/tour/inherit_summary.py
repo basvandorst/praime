@@ -1,0 +1,95 @@
+"""Collects the results of machine 23 (wheels that light each other) into inherit_sum.json and inherit_sum.txt.
+Every number is read from the output of the program that computed it."""
+import json, re, math
+from sympy import isprime, primerange
+from early import lucy
+from inherit import run
+
+out = {}
+lines = []
+
+
+def say(s):
+    lines.append(s)
+    print(s)
+
+
+P = json.load(open('inherit.json'))
+both = P['n - 1 and n + 1']
+minus = P['n - 1 only']
+assert both['ok'] and minus['ok'] and P['composites'][1] == 0
+out['python'] = P
+say('proofs run for every odd number up to %d (Python): the lit numbers are exactly the primes, with both neighbours and with n - 1 alone; %d composites with full helpers: %d passed' % (both['top'], P['composites'][0], P['composites'][1]))
+
+
+def read_c(name):
+    t = open(name).read()
+    X = int(re.search(r'X (\d+) side', t).group(1))
+    cnt = [(int(a), int(b), int(c)) for a, b, c in re.findall(r'depth (\d+): (\d+) primes, first (\d+)', t)]
+    mean = [(int(a), int(b), float(c)) for a, b, c in re.findall(r'primes in \[2\^(\d+), 2\^\d+\): (\d+), mean depth ([\d.]+)', t)]
+    assert 'done' in t
+    return X, cnt, mean
+
+
+X, cnt, mean = read_c('inherit_c_4e9.out')
+V, C, moves, pr = lucy(X)
+assert sum(c[1] for c in cnt) == C[0]
+for d, n, first in cnt:
+    if d < len(both['first']):
+        assert both['first'][d][1] == first
+py = dict(both['cnt'])
+small = read_c  # the C program on the range of the Python run is compared in final.sh (inherit 200000)
+out['c'] = dict(X=X, cnt=cnt, mean=mean, primes=C[0])
+say('C program up to %d: %d primes (equal to the count of the counting wheels); by rounds: %s' % (X, C[0], ', '.join('%d: %d' % (d, n) for d, n, f in cnt)))
+say('  smallest prime that needs 1, 2, ... rounds: %s; most rounds: %d' % (', '.join(str(f) for d, n, f in cnt[1:]), cnt[-1][0]))
+Xm, cntm, meanm = read_c('inherit_c_minus_1e9.out')
+out['c_minus'] = dict(X=Xm, cnt=cntm, mean=meanm)
+say('with n - 1 alone, up to %d: most rounds %d; smallest prime of each round: %s' % (Xm, cntm[-1][0], ', '.join(str(f) for d, n, f in cntm[1:])))
+say('  mean rounds for primes between 2^29 and 2^30: %.2f with both neighbours, %.2f with n - 1 alone' % (dict((a, c) for a, b, c in mean)[29], dict((a, c) for a, b, c in meanm)[29]))
+big = [json.loads(l) for l in open('inherit_big.out') if l.startswith('{')]
+out['big'] = big
+for b in big:
+    say('  random primes of %d digits: %d tried, mean %.2f rounds, most %d; by rounds %s' % (b['digits'], b['count'], b['mean'], b['worst'][0], b['hist']))
+# least squares: mean rounds against ln ln N, classes from 2^10 on and the samples
+pts = [(math.log(math.log(1.5 * 2 ** a)), c) for a, b, c in mean if a >= 10] + [(math.log(math.log(5.5 * 10 ** (b['digits'] - 1))), b['mean']) for b in big if b['digits'] >= 12]
+n = len(pts)
+sx = sum(p[0] for p in pts); sy = sum(p[1] for p in pts)
+sxx = sum(p[0] ** 2 for p in pts); sxy = sum(p[0] * p[1] for p in pts)
+slope = (n * sxy - sx * sy) / (n * sxx - sx * sx)
+icpt = (sy - slope * sx) / n
+resid = max(abs(p[1] - (icpt + slope * p[0])) for p in pts)
+out['fit'] = dict(slope=round(slope, 3), intercept=round(icpt, 3), points=n, max_resid=round(resid, 3))
+say('  straight line through %d points (mean rounds against ln ln N): rounds = %.2f + %.2f ln ln N, largest distance %.2f' % (n, icpt, slope, resid))
+# the same points with the slope fixed at 1 / ln 4 (both neighbours) and 1 / ln 2 (n - 1 alone): how far the constant moves
+c4 = [p[1] - p[0] / math.log(4) for p in pts]
+pm = [(math.log(math.log(1.5 * 2 ** a)), c) for a, b, c in meanm if 10 <= a <= 28]
+c2 = [p[1] - p[0] / math.log(2) for p in pm]
+out['law'] = dict(both=[round(min(c4), 3), round(max(c4), 3), round(sum(c4) / len(c4), 3)], minus=[round(min(c2), 3), round(max(c2), 3), round(sum(c2) / len(c2), 3)], minus_last_slope=round((pm[-1][1] - pm[-4][1]) / (pm[-1][0] - pm[-4][0]), 2))
+say('  with the slope fixed at 1/ln 4 = %.4f: rounds - log4(ln N) lies between %.2f and %.2f for all %d points (mean %.2f)' % (1 / math.log(4), min(c4), max(c4), n, sum(c4) / len(c4)))
+say('  n - 1 alone, classes 2^10 to 2^28, slope fixed at 1/ln 2: rounds - log2(ln N) lies between %.2f and %.2f; slope over the last three classes %.2f' % (min(c2), max(c2), out['law']['minus_last_slope']))
+B = open('inherit_big_check.txt').read()
+m = re.search(r'(\d+) primes up to (\d+): (\d+) differ', B)
+assert m.group(3) == '0' and '2223990533: 6 rounds' in B
+out['topdown'] = int(m.group(1))
+say('the rule from the top down (PARI) against the run from the bottom up: %s primes, 0 differ; 2,223,990,533 needs 6 rounds there too' % m.group(1))
+J = open('inherit_js_check.txt').read()
+m = re.search(r'(\d+) odd numbers, .*?, (\d+) differ', J)
+assert m.group(2) == '0'
+out['js'] = int(m.group(1))
+say('page code against Python: %s odd numbers, 0 differ' % m.group(1))
+d = run(5000, 2)
+MX = {2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127}
+Pp = list(primerange(2, 251))
+TW = [p for p in Pp if isprime(p - 2) or isprime(p + 2)]
+out['row250'] = [len(Pp), max(d[p] for p in Pp), len([p for p in Pp if p in MX]), max(d[p] for p in Pp if p in MX), len(TW), max(d[p] for p in TW)]
+c5 = {}
+for p in d:
+    c5[d[p]] = c5.get(d[p], 0) + 1
+out['upto5000'] = sorted(c5.items())
+r1 = sorted(p for p in d if d[p] == 1)
+proth = [p for p in r1 if ((p - 1) & -(p - 1)) ** 2 > p]
+out['round1'] = dict(count=len(r1), proth=len(proth), first=r1[:14])
+assert all((max((p - 1) & -(p - 1), (p + 1) & -(p + 1))) ** 2 > p for p in r1)
+say('250 wheels: all %d primes lit from round %d, the %d Mersenne exponents from round %d, the %d twin primes from round %d; up to 5,000 by rounds: %s; round 1 up to 5,000: %d primes, %d of them of the form k 2^m + 1 with k < 2^m' % (tuple(out['row250']) + (out['upto5000'], len(r1), len(proth))))
+json.dump(out, open('inherit_sum.json', 'w'))
+open('inherit_sum.txt', 'w').write('\n'.join(lines) + '\n')

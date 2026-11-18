@@ -9,7 +9,8 @@ R12=json.load(open('tour/rows_12_13.json'))
 CH=json.load(open('tour/chain.json'))
 RC=json.load(open('tour/receipt.json'))
 N2=json.load(open('tour/norm2.json'))
-rows=[("10. Pascal's wheel",pas),("11. Two-cell wheel",duo),("12. Three-cell wheel",['tri']+R12['three']),("13. Wilson's wheel",['wil']+R12['wilson']),("14. Lucas's wheel",['luc']+R12['lucas']),("15. Two cells with check turns",['np']+R12['nplus']),("16. Curve wheel",['ec']+json.load(open('tour/curve_wheel.json'))['row250']),("17. Chain of wheels",['ch']+CH['row250']),("19. Two cells from a start of norm 2",['n2']+N2['row250']),("18. Two cells with a receipt (wheel p decides 2<sup>p</sup> − 1)",['rc']+RC['row250']),('8. Back and forth',r['Back and forth (16)']),('6. Fibonacci wheels',r['Fibonacci (12)']),('7. Doubling wheels',r['Doubling (11)']),('5. Pattern machine, set to quadruplets',r['Pattern: quadruplets (20)']),('5. Pattern machine, set to twin primes',r['Pattern: twin primes (20)']),('3. Accelerating wheels',r['Accelerating (14)']),('4. Slipping wheels',r['Slipping (17)']),('1 and 2. Wheels, gear train',r['Wheels, one tooth per tick (1-6, 8-10, 18, 21)']),('9. Mersenne finder (250 prime wheels)',fd)]
+ES=json.load(open('tour/early_sum.json')); IS=json.load(open('tour/inherit_sum.json'))
+rows=[("10. Pascal's wheel",pas),("11. Two-cell wheel",duo),("12. Three-cell wheel",['tri']+R12['three']),("13. Wilson's wheel",['wil']+R12['wilson']),("14. Lucas's wheel",['luc']+R12['lucas']),("15. Two cells with check turns",['np']+R12['nplus']),("16. Curve wheel",['ec']+json.load(open('tour/curve_wheel.json'))['row250']),("17. Chain of wheels",['ch']+CH['row250']),("19. Two cells from a start of norm 2",['n2']+N2['row250']),("23. Wheels that light each other",['inh']+IS['row250']),("21. Gears from its own lamps",['sf']+ES['row250_sf']),("20. Squaring wheels",['sq']+ES['row250_sq']),("22. Counting wheels",['cnt']+ES['row250_cnt']),("18. Two cells with a receipt (wheel p decides 2<sup>p</sup> − 1)",['rc']+RC['row250']),('8. Back and forth',r['Back and forth (16)']),('6. Fibonacci wheels',r['Fibonacci (12)']),('7. Doubling wheels',r['Doubling (11)']),('5. Pattern machine, set to quadruplets',r['Pattern: quadruplets (20)']),('5. Pattern machine, set to twin primes',r['Pattern: twin primes (20)']),('3. Accelerating wheels',r['Accelerating (14)']),('4. Slipping wheels',r['Slipping (17)']),('1 and 2. Wheels, gear train',r['Wheels, one tooth per tick (1-6, 8-10, 18, 21)']),('9. Mersenne finder (250 prime wheels)',fd)]
 tb="".join("<tr><td>%s</td><td>%d (tick %s)</td><td>%d (tick %s)</td><td>%d (tick %s)</td></tr>"%(nm,x[1],f(x[2]),x[3],f(x[4]),x[5],f(x[6])) for nm,x in rows)
 S=T['single']; B='2<sup>64</sup>'
 def one(name,cells,first,found):
@@ -73,7 +74,7 @@ html='''  <section class="panel" id="compare">
     </table></div>
     <ul class="found">
       <li><b>The wheels that decide win without a trick.</b> On machines 10 to 17 and 19 each lamp is a decision: wheel n goes home at tick n only when n is prime, and stays there. At tick 241 all 53 prime lamps are on, and no other lamp. Machine 18 asks another question (is 2<sup>p</sup> − 1 prime?), so only the 12 Mersenne exponents light up.</li>
-      <li><b>Back and forth also has them all, for a simple reason.</b> At tick 36 its wheels are exactly back where they started, so every wheel is home, prime or not.</li>
+@@EARLY_LI@@      <li><b>Back and forth also has them all, for a simple reason.</b> At tick 36 its wheels are exactly back where they started, so every wheel is home, prime or not.</li>
       <li><b>Fibonacci and doubling come next.</b> On these a wheel that is home at tick a is home at every multiple of a, so at a tick with many divisors (27,720, 55,440, 83,160) half of the prime wheels are home together.</li>
       <li><b>On the plain wheels at most six primes are home at once.</b> The tick must be a multiple of every wheel that is home, and 2 × 3 × 5 × 7 × 11 × 13 = 30,030 is the last such product below 100,000.</li>
       <li><b>Two machines were removed.</b> The tape and the square jumps gave the same results as machine 1.</li>
@@ -90,8 +91,8 @@ html='''  <section class="panel" id="compare">
       <li><b>Is this the gear that amazes mathematicians?</b> Not yet, and we say so plainly. The rows that say “none” without “proved” are open problems: the pair of wheels and machines 10, 11, 12 and 19. Nobody has proved that they never make a mistake. For the pair of wheels there is a prize of 620 dollars, offered by Pomerance, Selfridge and Wagstaff; for Pascal's wheel the claim is a sibling of Agrawal's conjecture (his has x − 1 where the wheel has x + 1; on a ring with an even number of cells the two are the same); the two-cell wheel is a Frobenius test, for which no mistake is known either (Khashin reports that his own version of it makes none below 2<sup>64</sup>). There are reasons to expect a mistake at some very large number (Pomerance for the pair; Lenstra and Pomerance for Pascal's wheel). A proof for any of them, or the first number that fools one, would be news.</li>
 %s%s%s%s      <li><b>What they can do today.</b> Both wheels need a few cells and about as many steps as the number has binary digits, so they also run on numbers of a thousand digits: choose machine 10 or 11 and type one.</li>
     </ul>
-    <h2 id="winners">Who wins where</h2>
-    <p class="note">After five rounds, the best machine on this page for each question, and what it cannot do.</p>
+@@EARLY@@    <h2 id="winners">Who wins where</h2>
+    <p class="note">After six rounds, the best machine on this page for each question, and what it cannot do.</p>
     <div class="boardwrap"><table class="dec">
       <thead><tr><th>Question</th><th>Winner here</th><th>Why</th><th>Limit</th></tr></thead>
       <tbody>
@@ -99,7 +100,7 @@ html='''  <section class="panel" id="compare">
         <tr><td>Is n prime, with a proof, for n of any size?</td><td>Machine 17: a chain of wheels</td><td>Every link is a proved test. It proved all %d random primes of 20 to %d digits we gave it</td><td>It is a search, and this page stops at 150 digits</td></tr>
         <tr><td>Is 2<sup>p</sup> − 1 prime?</td><td>The Lucas–Lehmer test: machines 11, 15 and 18 are that test in gear form</td><td>Proved, and one squaring per turn. No wheel here needs fewer turns</td><td>The p − 2 turns cannot be skipped by anything we know</td></tr>
         <tr><td>Was a long test done right?</td><td>Machine 18: the receipt</td><td>The check was %.0f times faster than the test at p = %s</td><td>It shows that the work was done, not that the reported result is the true one</td></tr>
-      </tbody>
+@@WIN_ROWS@@      </tbody>
     </table></div>
     <h2 id="proved">Proved, fast, every number: which wheel has what</h2>
     <p class="note">Fast means that the wheel can jump: a few hundred steps do the work of n turns, so a number of a thousand digits is no problem. No single wheel on this page has all three for numbers of every size. The chain of machine 17 has them, and below 2<sup>64</sup> the wheels of machines 10 and 19 have them.</p>
@@ -117,7 +118,7 @@ html='''  <section class="panel" id="compare">
         <tr><td>17. Chain of wheels</td><td>yes</td><td>yes</td><td>yes for every number we tried, up to %d digits here; it is a search, so there is no guarantee</td></tr>
         <tr><td>19. Two cells from a start of norm 2</td><td>below 2<sup>64</sup> yes, given the published list; above that no, and no mistake is known</td><td>yes</td><td>yes</td></tr>
         <tr><td>18. Two cells with a receipt</td><td>yes (Lucas–Lehmer), and the work can be checked without doing it again</td><td>yes</td><td>no: 2<sup>p</sup> − 1 only</td></tr>
-      </tbody>
+@@PROVED_ROWS@@      </tbody>
     </table></div>
     <h2 id="receipt">A test with a receipt: what the check costs</h2>
     <p class="note">Machine 18 on Mersenne primes 2<sup>p</sup> − 1, outside the page (Python, the smaller time of two runs). The receipt is 6 or 8 numbers, whichever made the check faster. A small power is a power with a number of 64 binary digits.</p>
@@ -127,6 +128,46 @@ html='''  <section class="panel" id="compare">
     </table></div>
   </section>
 '''%(tb,t2,f(T['fit_liars']),f(T['list_count']),B,ringtxt,round2,round3,round4,round5,CH['js_proved'],CH['js_maxdigits'],t9['ratio'],f(t9['p']),CH['js_maxdigits'],rct)
+ic=IS['c']; firsts=[x[2] for x in ic['cnt']]; icm=IS['c_minus']; law=IS['law']; sfx=ES['early']['self']; wk=ES['work']; dy={t[0]:t[2] for t in ES['dyadic']}
+def sf_front(T):
+    return sfx['rows'][T-1][3]
+def sf_lamps(T):
+    return sfx['rows'][T-1][5]
+big60=[b for b in IS['big'] if b['digits']==60][0]; big8=[b for b in IS['big'] if b['digits']==8][0]
+assert firsts[1:]==[3,19,173,21767,1688173,2223990533] and ic['cnt'][-1][0]==6
+cross=ES['early']['cross']; box=ES['box']
+early_li='      <li><b>Four machines do not wait for tick n.</b> Machines 20, 21 and 23 have all 53 prime lamps on at tick %d, %d and %d, and machine 22 counts ahead of its lamps. They are compared under <a href="#early">primes before their tick</a>.</li>\n'%(ES['row250_sq'][1],ES['row250_sf'][1],IS['row250'][1])
+erow=lambda *c:"<tr>"+"".join("<td>%s</td>"%x for x in c)+"</tr>"
+etab=erow('10 to 19: wheel n makes one turn per tick','4','6','11','31','4,999','one turn of each wheel')
+etab+=erow('21: a new prime gear, taken from the lamps',f(sf_front(3)),f(sf_front(5)),f(sf_front(10)),f(sf_front(30)),str(sfx['all_5000'][0]),'it looks at every number below the frontier: %.0f moves per prime with 5,000 wheels'%((wk['strikes']+wk['looked'])/wk['primes']))
+etab+=erow('20: every wheel squares its cells','16','64',f(2**11),f(2**31),'12','every wheel works at every tick: %.0f ticks of a wheel per prime with 5,000 wheels'%(wk['ladder_ticks']/wk['primes']))
+etab+=erow('23: a round in which every dark wheel asks the lit ones',f(firsts[4]),f(firsts[6]),'not known','not known',str(IS['upto5000'][-1][0]),'a round is heavy: every dark wheel tries in every round')
+etab+=erow('22: a gear changes counters (it counts, it does not find)','16','36','121','961','4,999 for the lamps','%.2f moves per prime counted with 5,000 gears'%(wk['count_moves']/wk['count_primes']))
+assert sfx['all_5000'][0]==19 and (5000).bit_length()-1==12 and IS['upto5000'][-1][0]==3
+early_html='''    <h2 id="early">Primes before their tick</h2>
+    <p class="note">On machines 10 to 19 wheel n decides at tick n, so 30 ticks give the 10 primes up to 30. Four machines break that rule, each in its own way. The table says below which number every prime is on (for machine 22: counted) after 3, 5, 10 and 30 ticks, and at which tick all 669 primes below 5,000 are on.</p>
+    <div class="boardwrap"><table class="dec">
+      <thead><tr><th>Machine, and what one tick is</th><th>After tick 3: every prime below</th><th>After tick 5</th><th>After tick 10</th><th>After tick 30</th><th>All 669 primes below 5,000 at tick</th><th>The price</th></tr></thead>
+      <tbody>%s</tbody>
+    </table></div>
+    <ul class="found">
+      <li><b>Sixth round: do not wait for the tick.</b> Machine 21 looks ahead: with the gears it has, every number below the square of the next gear is already decided. Machine 20 turns faster: a wheel that squares its cells is done when the binary digits of its number are used up. Machine 23 lets the wheels help each other. Machine 22 does not find the primes at all: it counts them. With 5,000 wheels the lamps are all on at tick %d, %d and %d instead of 4,999.</li>
+      <li><b>Squaring is as early as one wheel can be.</b> Let a tick be one multiplication of values the wheel already holds and at most one plain turn. Then the turns made can at most double and grow by one, so a wheel that has to make n turns cannot be done before tick ⌊log<sub>2</sub> n⌋ (proved). Machine 20 is done exactly then: tick T decides every wheel below 2<sup>T+1</sup>. Its verdicts are those of machine 19, so with the published list there is no mistake below 2<sup>64</sup>, and at tick 63 all 425,656,284,035,217,743 primes below 2<sup>64</sup> would be on. Checked without the list: every odd number below 2<sup>32</sup> went on the wheel, and %s came home, the number machine 22 counts there.</li>
+      <li><b>A sieve that makes its own gears, and an open question inside it.</b> Machine 21 is the sieve of Eratosthenes counted in gears: 10 gears decide every number below %s (%s primes), 30 gears every number below %s (%s primes). Does every tick after the first light at least four new lamps? That is Brocard's conjecture of 1904, and nobody has proved it. In our run of %d ticks the fewest were %d, at tick %d.</li>
+      <li><b>More primes than moves, if counting is enough.</b> Machine 22 with 5,000 gears ends at %s primes up to %s after %s changes of a counter: %.1f primes per move. From %d gears on it always counts more primes than it makes moves (tried up to 2,999 gears). On the page it counted the %s primes up to 10<sup>10</sup> in %s moves, %d primes per move, without looking at any number above 100,000. The price is plain: it knows how many primes there are, not which. The rule is Legendre's of 1808, in the form known as Lucy's recursion.</li>
+      <li><b>A proof does not have to go deep when a number may ask both neighbours.</b> On machine 23 a wheel is proved by lit wheels that divide n − 1 or n + 1, and each of those was proved the same way, down to 2. Up to %s no prime needs more than %d rounds. The smallest primes that need 1 to 6 rounds are %s. Random primes of %d digits needed %.1f rounds on average, of 60 digits %.1f (never more than %d). All our sizes from 1,000 up to 60 digits fit one rule of thumb: rounds = log<sub>4</sub>(ln n) + %.2f, within %.2f. The reason we give for it is not a proof: when both neighbours help, each needs to supply only a quarter of the digits, so one more round raises the reachable size to about its fourth power. With n − 1 alone the rule becomes log<sub>2</sub>(ln n): twice as many rounds, %d below %s.</li>
+      <li><b>What is ours here and what is not.</b> Squaring, the sieve and the counting are old and well tested; we only put them next to each other on one clock. The two proof steps of machine 23 are old too (Pocklington 1914; Morrison, and Brillhart, Lehmer and Selfridge, 1975). The count of rounds with both neighbours, its list of first primes and the rule log<sub>4</sub>(ln n) we did not find in a search; the list is not in the OEIS. Close relatives are known: the classes of Erdős and Selfridge and the height of the Pratt tree, which grows like 2.7 × ln ln n in the model of Ford, Konyagin and Luca.</li>
+    </ul>
+'''%(etab,12,sfx['all_5000'][0],IS['upto5000'][-1][0],f(dy[31]),f(sf_front(10)),f(sf_lamps(10)),f(sf_front(30)),f(sf_lamps(30)),sfx['ticks'],sfx['min_new'][0],sfx['min_new'][1],f(wk['count_primes']),f(wk['N']**2),f(wk['count_moves']),wk['count_primes']/wk['count_moves'],cross,f(box[1]),f(box[2]),box[1]//box[2],f(ic['X']),ic['cnt'][-1][0],', '.join(f(x) for x in firsts[1:]),big8['digits'],big8['mean'],big60['mean'],big60['worst'][0],law['both'][2],max(law['both'][2]-law['both'][0],law['both'][1]-law['both'][2]),icm['cnt'][-1][0],f(icm['X']))
+win_rows='''        <tr><td>How many primes are there up to x?</td><td>Machine 22: counting wheels</td><td>It counted the %s primes up to 10<sup>10</sup> in %s moves: %d primes per move</td><td>It knows how many, not which</td></tr>
+        <tr><td>Which machine has its lamps on first?</td><td>Machine 23, then 20 and 21</td><td>All 669 primes below 5,000 are on after %d rounds, 12 ticks and %d ticks, instead of 4,999 ticks</td><td>A tick is heavier than one turn, and the total work is not less</td></tr>
+'''%(f(box[1]),f(box[2]),box[1]//box[2],IS['upto5000'][-1][0],sfx['all_5000'][0])
+proved_rows='''        <tr><td>20. Squaring wheels</td><td>as machine 19: below 2<sup>64</sup> yes, given the published list</td><td>yes: done at tick log<sub>2</sub> n</td><td>yes</td></tr>
+        <tr><td>21. Gears from its own lamps</td><td>yes (the sieve of Eratosthenes)</td><td>no: it looks at every number below the frontier</td><td>yes</td></tr>
+        <tr><td>22. Counting wheels</td><td>yes (Legendre's rule), for the count</td><td>yes for counting: far fewer moves than primes</td><td>it does not say which numbers are prime</td></tr>
+        <tr><td>23. Wheels that light each other</td><td>yes</td><td>yes when n − 1 and n + 1 can be taken apart</td><td>every prime up to %s in at most %d rounds; for a large number taking the neighbours apart is the hard part</td></tr>
+'''%(f(ic['X']),ic['cnt'][-1][0])
+html=html.replace('@@EARLY_LI@@',early_li).replace('@@EARLY@@',early_html).replace('@@WIN_ROWS@@',win_rows).replace('@@PROVED_ROWS@@',proved_rows); assert '@@' not in html
 s=open('prime3.html',encoding='utf-8').read()
 i=s.index('  <section class="panel" id="compare">'); j=s.index('</section>\n',i)+len('</section>\n'); s=s[:i]+html+s[j:]
 import re
