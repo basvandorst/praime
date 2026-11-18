@@ -27,7 +27,11 @@ def lucas(n):
         if all(pow(a, (n - 1)//q, n) != 1 for q in qs): return True
     return False
 MX = {2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127}; out = {}
-for name, home in (('three', three), ('wilson', wilson), ('lucas', lucas)):
+import sys, io, contextlib
+sys.argv = sys.argv[:1] + ['2', '2', '2', '2']
+with contextlib.redirect_stdout(io.StringIO()):
+    from proved_wheels import nplus
+for name, home in (('three', three), ('wilson', wilson), ('lucas', lucas), ('nplus', lambda n: nplus(n)[0])):
     lit = []; best = {'p': (0, 0), 'm': (0, 0), 'w': (0, 0)}
     for t in range(2, 251):
         if home(t): lit.append(t)
