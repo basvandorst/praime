@@ -84,6 +84,49 @@ m = re.search(r'box of machine 23: (\d+) primes .*?failed: (\d+); primes where t
 assert m.group(2) == '0' and m.group(4) == '0'
 out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)))
 say('box of machine 23 against PARI: %s primes, 0 differ, %s where the page says it could not take a neighbour apart' % (m.group(1), m.group(3)))
+import os
+un = []
+for name in ('inherit_big_70.out', 'inherit_big_80.out'):
+    if os.path.exists(name) and os.path.getsize(name):
+        b = json.loads(open(name).read().strip().split('\n')[-1])
+        nn = b['count']
+        mu = sum(k * v for k, v in b['hist']) / nn
+        se = (sum(v * (k - mu) ** 2 for k, v in b['hist']) / (nn - 1) / nn) ** 0.5
+        pred = math.log(math.log(5.5 * 10 ** (b['digits'] - 1))) / math.log(4) + out['law']['both'][2]
+        un.append(dict(digits=b['digits'], count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=b['worst'][0], hist=b['hist']))
+        say('  size not used for the rule: %d random primes of %d digits, mean %.2f rounds (standard error %.2f), the rule says %.2f; most %d' % (nn, b['digits'], mu, se, pred, b['worst'][0]))
+out['unseen'] = un
+src = []
+for k in (1, 2, 3, 5):
+    name = 'inherit_sources_%d.out' % k
+    if os.path.exists(name) and os.path.getsize(name):
+        d = json.loads(open(name).read().strip())
+        src.append(d)
+        say('  %d source%s of helpers: slope of mean rounds against ln ln N %.2f, the reason says 1/ln %d = %.2f (%d size classes; rounds - log_%d(ln N) between %.2f and %.2f)' % (k, '' if k == 1 else 's', d['slope'], 2 * k, d['predicted_slope'], len(d['rows']), 2 * k, d['const_min'], d['const_max']))
+out['sources'] = src
+two = [d for d in src if d['k'] == 2][0]
+cl = {a: c for a, b, c in mean}
+for name, x, n_, m_ in two['rows']:
+    if name.startswith('2^'):
+        assert abs(cl[int(name[2:4])] - m_) < 6e-5, (name, m_)
+D1 = open('inherit_deep_first.out').read()
+m = re.search(r'primes of 5 or more rounds below 4.2e9: (\d+)', D1)
+m1 = re.search(r'stage 1: (\d+) candidates s r \+- 1 with s <= (\d+), (\d+) primes, (\d+) of them need 6 rounds or more', D1)
+best = None
+for name in ('inherit_deep2.out', 'inherit_deep_wide2.out'):
+    if os.path.exists(name) and 'done' in open(name).read():
+        D2 = open(name).read()
+        m2 = re.search(r'stage 2 below (\d+): (\d+) primes q of 6 rounds or more, (\d+) candidates s q \+- 1, (\d+) primes, (\d+) need 7 rounds or more', D2)
+        rows = [(int(a), int(b), int(c), int(d), e) for a, b, c, d, e in re.findall(r'  (\d+) needs (\d+) rounds \((\d+) \* (\d+) ([+-]) 1\)', D2)]
+        cand = dict(file=name, bound=int(m2.group(1)), q=int(m2.group(2)), cands=int(m2.group(3)), primes=int(m2.group(4)), found=len(set(r[0] for r in rows)) if int(m2.group(5)) <= 12 else int(m2.group(5)), rows=rows)
+        if best is None or rows[0][0] < best['rows'][0][0]:
+            best = cand
+assert best and best['rows'][0][1] == 7
+out['deep'] = dict(deep5=int(m.group(1)), s1=int(m1.group(2)), cands1=int(m1.group(1)), primes1=int(m1.group(3)), six=int(m1.group(4)), stage2=best)
+r0 = best['rows'][0]
+say('search by construction: %s primes of 5 or 6 rounds below 4.2e9; q = s r +- 1 with s <= %s: %s primes of 6 rounds or more; N = s q +- 1 below %d: %d primes of 7 rounds; the smallest found is %d = %d * %d %s 1 (not shown to be the smallest of all)' % (m.group(1), m1.group(2), m1.group(4), best['bound'], best['found'], r0[0], r0[2], r0[3], r0[4]))
+X7 = open('inherit_box_check.txt').read()
+assert 'four primes of 7 rounds' in X7
 J = open('inherit_js_check.txt').read()
 m = re.search(r'(\d+) odd numbers, .*?, (\d+) differ', J)
 assert m.group(2) == '0'

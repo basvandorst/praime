@@ -22,4 +22,4 @@ else:
                 bad += 1
         elif r != rounds(int(t)) or not ok:
             bad += 1
-    print('box of machine 23: %d primes (all below 3,000; random ones of 9 to 30 digits; the first primes of 4, 5 and 6 rounds): rounds that differ from the rule worked out with PARI, or a proof that failed: %d; primes where the page could not take a neighbour apart and says so: %d; not finished by the page: %d' % (len(B), bad, part, und))
+    print('box of machine 23: %d primes (all below 3,000; random ones of 9 to 30 digits; the first primes of 4, 5 and 6 rounds; four primes of 7 rounds): rounds that differ from the rule worked out with PARI, or a proof that failed: %d; primes where the page could not take a neighbour apart and says so: %d; not finished by the page: %d' % (len(B), bad, part, und))

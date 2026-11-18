@@ -14,6 +14,7 @@ static inline void setd(u64 p,int d){u64 i=p>>1;D[i>>1]|=(uint8_t)(d<<((i&1)*4))
 static u64 rem[S+2]; static u64 fp[S+2][MF], fe[S+2][MF]; static int fc[S+2];
 static u64 gcd64(u64 a,u64 b){while(b){u64 t=a%b;a=b;b=t;}return a;}
 int main(int argc,char**argv){u64 X=strtoull(argv[1],0,10);int only=argc>2?atoi(argv[2]):0;
+  int thr=argc>4?atoi(argv[3]):99;FILE*dump=argc>4?fopen(argv[4],"w"):0;
   D=calloc(X/4+16,1);u64 H=X/2+2;u64 r=(u64)sqrtl((long double)H)+2;
   uint8_t*sm=calloc(r+1,1);u64*pr=malloc((r+1)*8);int np=0;for(u64 i=2;i<=r;i++){if(!sm[i]){pr[np++]=i;for(u64 j=i*i;j<=r;j+=i)sm[j]=1;}}
   u64 cnt[16]={0},first[16]={0},sumd[40]={0},numd[40]={0};first[0]=2;cnt[0]=1;
@@ -35,8 +36,9 @@ int main(int argc,char**argv){u64 X=strtoull(argv[1],0,10);int only=argc>2?atoi(
       if(g<0){fprintf(stderr,"no depth for %llu\n",(unsigned long long)N);return 1;}
       int dep=g+1;if(dep>15){fprintf(stderr,"depth overflow\n");return 1;}setd(N,dep);cnt[dep]++;if(!first[dep]){first[dep]=N;printf("first of depth %d: %llu\n",dep,(unsigned long long)N);fflush(stdout);}
       if(dep>=5&&cnt[dep]<=12)printf("depth %d prime %llu\n",dep,(unsigned long long)N);
+      if(dump&&dep>=thr)fprintf(dump,"%d %llu\n",dep,(unsigned long long)N);
       int lg=63-__builtin_clzll(N);sumd[lg]+=dep;numd[lg]++;}
   }
   printf("X %llu side %d\n",(unsigned long long)X,only);for(int d=0;d<16;d++)if(cnt[d])printf("depth %d: %llu primes, first %llu\n",d,(unsigned long long)cnt[d],(unsigned long long)first[d]);
   for(int l=1;l<40;l++)if(numd[l])printf("primes in [2^%d, 2^%d): %llu, mean depth %.4f\n",l,l+1,(unsigned long long)numd[l],(double)sumd[l]/numd[l]);
-  printf("done\n");return 0;}
+  if(dump)fclose(dump);printf("done\n");return 0;}
