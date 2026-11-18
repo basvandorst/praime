@@ -13,7 +13,7 @@ TC=json.load(open('three_check.json')); al=sorted([k for k in TC if k.startswith
 HO=format(int(re.search(r"primes below 100000 that are not \+-1 mod 7: (\d+)",open("three_orders.txt").read()).group(1)),","); assert "primes whose period is below the prime itself: 0 " in open("three_orders.txt").read()
 three_list=(" and on none of the base-2 pseudoprimes below 2^64" if ('list_0' in TC and 'list_1' in TC and TC['list_0']['home']+TC['list_1']['home']==0) else "")
 assert TC[al]['home']==0 and FA['passes_with_order_3_or_more']==0
-fold_line=(" On the list below 2^64 no candidate passed a folded wheel on which it does not fit ("+str(T['fold_pass_total'])+" passes on rings of "+", ".join(sorted(T['folded'],key=int))+" cells), so a full ring (r^2 work) was replaced by a wheel of 2 to 9 cells.") if T['folded'] else ""
+fold_line=(" On the list below 2^64 the folded wheels of the rings of "+", ".join(sorted(T['folded'],key=int))+" cells let "+str(T['fold_pass_total'])+" of "+f(sum(q['tested'] for d in T['folded'].values() for q in d['folds'].values()))+" tests through, so a full ring (r^2 work) was replaced by a wheel of 2 to 9 cells.") if T['folded'] else ""
 blk=f'''
 From the contest of wheels that decide alone (18 November 2026; writeup/code/mersenne/strategies/ten/gears/tour)
 - One evaluation makes a search finite. A ring of r cells in which every cell is added to its neighbour n times, mod n, holds (x + 1)^n mod (n, x^r - 1) and reads x^n + 1 for every prime n. At x = 1 (the sum of the cells) this is 2^n = 2 (mod n), so a composite that passes is a base-2 pseudoprime, and the published list of those below 2^64 ({f(T['list_count'])} numbers) holds every candidate. Look for the evaluation that maps a new test onto a list that exists.
