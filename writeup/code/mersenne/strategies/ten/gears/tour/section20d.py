@@ -36,7 +36,7 @@ Two groups ({L('receipt.py')}). One cell: x = 3 mod n = 2^p − 1 and T = p; for
 
 Agreement ({L('receipt_test.py')} → {L('receipt_test.txt')}): for all {a['primes']} odd primes p up to {f(a['top'])} both forms give the verdict of the plain Lucas–Lehmer test, and every honest receipt is accepted; the exponents found are the 19 odd Mersenne exponents below 5,000. For no composite exponent below 2,000 does 2^n − 1 pass the one-cell test.
 
-Cost ({L('receipt_timing.py')} → {L('receipt_timing.txt')}; Python with gmpy2, the smaller time of two runs on a shared machine; for each p the receipt of 6 or 8 numbers that gave the faster check). The counts of squarings are exact; the times are one machine's.
+Cost ({L('receipt_timing.py')} → {L('receipt_timing.txt')}; Python with gmpy2, the smaller time of two runs on a shared machine, and for the test the smallest of its four runs; for each p the receipt of 6 or 8 numbers that gave the faster check). The counts of squarings are exact; the times are one machine's.
 
 | p | Form | Halvings | Turns of the test | Test, s | Receipt, s | Check: squarings and small powers | Check, s | Test / check |
 |---|---|---|---|---|---|---|---|---|

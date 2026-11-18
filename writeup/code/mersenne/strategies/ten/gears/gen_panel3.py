@@ -8,7 +8,8 @@ duo=['duo']+T['duo_row250']
 R12=json.load(open('tour/rows_12_13.json'))
 CH=json.load(open('tour/chain.json'))
 RC=json.load(open('tour/receipt.json'))
-rows=[("10. Pascal's wheel",pas),("11. Two-cell wheel",duo),("12. Three-cell wheel",['tri']+R12['three']),("13. Wilson's wheel",['wil']+R12['wilson']),("14. Lucas's wheel",['luc']+R12['lucas']),("15. Two cells with check turns",['np']+R12['nplus']),("16. Curve wheel",['ec']+json.load(open('tour/curve_wheel.json'))['row250']),("17. Chain of wheels",['ch']+CH['row250']),("18. Two cells with a receipt (wheel p decides 2<sup>p</sup> − 1)",['rc']+RC['row250']),('8. Back and forth',r['Back and forth (16)']),('6. Fibonacci wheels',r['Fibonacci (12)']),('7. Doubling wheels',r['Doubling (11)']),('5. Pattern machine, set to quadruplets',r['Pattern: quadruplets (20)']),('5. Pattern machine, set to twin primes',r['Pattern: twin primes (20)']),('3. Accelerating wheels',r['Accelerating (14)']),('4. Slipping wheels',r['Slipping (17)']),('1 and 2. Wheels, gear train',r['Wheels, one tooth per tick (1-6, 8-10, 18, 21)']),('9. Mersenne finder (250 prime wheels)',fd)]
+N2=json.load(open('tour/norm2.json'))
+rows=[("10. Pascal's wheel",pas),("11. Two-cell wheel",duo),("12. Three-cell wheel",['tri']+R12['three']),("13. Wilson's wheel",['wil']+R12['wilson']),("14. Lucas's wheel",['luc']+R12['lucas']),("15. Two cells with check turns",['np']+R12['nplus']),("16. Curve wheel",['ec']+json.load(open('tour/curve_wheel.json'))['row250']),("17. Chain of wheels",['ch']+CH['row250']),("19. Two cells from a start of norm 2",['n2']+N2['row250']),("18. Two cells with a receipt (wheel p decides 2<sup>p</sup> − 1)",['rc']+RC['row250']),('8. Back and forth',r['Back and forth (16)']),('6. Fibonacci wheels',r['Fibonacci (12)']),('7. Doubling wheels',r['Doubling (11)']),('5. Pattern machine, set to quadruplets',r['Pattern: quadruplets (20)']),('5. Pattern machine, set to twin primes',r['Pattern: twin primes (20)']),('3. Accelerating wheels',r['Accelerating (14)']),('4. Slipping wheels',r['Slipping (17)']),('1 and 2. Wheels, gear train',r['Wheels, one tooth per tick (1-6, 8-10, 18, 21)']),('9. Mersenne finder (250 prime wheels)',fd)]
 tb="".join("<tr><td>%s</td><td>%d (tick %s)</td><td>%d (tick %s)</td><td>%d (tick %s)</td></tr>"%(nm,x[1],f(x[2]),x[3],f(x[4]),x[5],f(x[6])) for nm,x in rows)
 S=T['single']; B='2<sup>64</sup>'
 def one(name,cells,first,found):
@@ -39,6 +40,11 @@ j100=[x for x in CH['js'] if x.get('digits')==100][0]; pm60=big(60,'n - 1 and n 
 round3='''      <li><b>Third round: a chain of wheels has all three.</b> A number n has more wheels than one: one cell with n − 1 positions, two cells with a round trip of n + 1 turns, and curve wheels. For %d families of curves the number of positions follows from n at once, without counting. Machine 17 takes a size that comes apart, checks that wheel, and goes on with the large prime part: a chain of wheels down to a small number. The page's code proved all %d random primes of 20 to %d digits that we gave it, in about %.1f seconds for 100 digits, and a separate program accepted every chain. With n − 1 and n + 1 alone only %d of %d primes of 60 digits were proved, and with 9 families of curves %d of %d primes of 100 digits. It built no chain for any of the %s numbers that are not prime and pass the doubling wheel which we tried. This is not our idea: it is elliptic curve primality proving (Atkin and Morain), cut down to fit a page. And it is a search, with no proof that it always ends soon.</li>
 '''%(CH['families'],CH['js_proved'],CH['js_maxdigits'],int(j100['median_ms'])/1000,pm60['proved'],pm60['primes'],f9['proved'],f9['primes'],f(CH['adv']['spsp']['count']+sum(sum(CH['adv'][k].values()) for k in CH['adv'] if k.startswith('pq'))))
 assert CH['js_proved']==CH['js_primes']
+t2+=one("Two cells from a start of norm 2: the start a and 1 with a × a two more or two less than the step (machine 19)",2,'none','0 below '+B+', alone: a number that fools it must fool the doubling wheel, and none of the '+f(N2['list']['lines'])+' that do came home')
+bp=N2['bench']['primes']
+round5='''      <li><b>Fifth round: two cells, alone, settled below 2<sup>64</sup>.</b> Pascal's wheel is settled alone below 2<sup>64</sup>, because the sum of its cells is the doubling wheel; but it needs 5 to 47 cells. Machine 11 has two cells, but was checked up to 2<sup>64</sup> only with the doubling wheel at its side. Machine 19 has both. It changes the start of the two cells to a and 1, with a × a two more or two less than the step. Then the two cells, multiplied into one number, give 2 or −2, and that number is doubled at every turn. So whatever fools this wheel fools the doubling wheel too (proved). All %s numbers below 2<sup>64</sup> that fool the doubling wheel were put on it: none came home. As a check without the list, every odd number below 10<sup>10</sup> went on the wheel: %s came home, and a sieve counts %s odd primes there. On primes of 19 digits it took %d billionths of a second, against %d for the doubling wheel alone and %d for the seven tests that are known to settle every number below 2<sup>64</sup>. Khashin reported in 2018 that his version of the two-cell test makes no mistake below 2<sup>64</sup>, by a long computation; the short reason here is the 2. Above 2<sup>64</sup> nothing is proved.</li>
+'''%(f(N2['list']['lines']),f(N2['range']['home']),f(N2['range']['primes']),bp['norm-2 wheel']['ns'],bp['doubling wheel']['ns'],bp['seven strong tests']['ns'])
+assert N2['list']['home']==0 and N2['range']['home']==N2['range']['primes']
 two=[x for x in RC['timing'] if x['group']=='two cells']; t0=two[0]; t9=two[-1]; fo={(x['group'],x['factor'][:2]):x for x in RC['forgery']}
 f1=fo[('one','-1')]; f4=[x for x in RC['forgery'] if x['group']=='two' and 'order 4' in x['factor']][0]; tp=RC['tamper']['two']; sf=RC['safe']
 round4='''      <li><b>Fourth round: a test with a receipt.</b> A different way to win on the largest numbers: not a faster test, but a test that need not be done twice. Machine 18 runs the Lucas–Lehmer test in its two-cell form and writes down a few numbers, the receipt. With it a checker confirms the result by turning only a small piece of the strip of turns. In our runs the check was %.0f times faster than the test at p = %s and %.0f times at p = %s (table below). Every wrong result (%d of %d), every changed number in a receipt (%d of %d) and every bit flipped during a test (%d of %d) was rejected.</li>
@@ -62,7 +68,7 @@ html='''  <section class="panel" id="compare">
       <tbody>%s</tbody>
     </table></div>
     <ul class="found">
-      <li><b>The wheels that decide win without a trick.</b> On machines 10 to 17 each lamp is a decision: wheel n goes home at tick n only when n is prime, and stays there. At tick 241 all 53 prime lamps are on, and no other lamp. Machine 18 asks another question (is 2<sup>p</sup> − 1 prime?), so only the 12 Mersenne exponents light up.</li>
+      <li><b>The wheels that decide win without a trick.</b> On machines 10 to 17 and 19 each lamp is a decision: wheel n goes home at tick n only when n is prime, and stays there. At tick 241 all 53 prime lamps are on, and no other lamp. Machine 18 asks another question (is 2<sup>p</sup> − 1 prime?), so only the 12 Mersenne exponents light up.</li>
       <li><b>Back and forth also has them all, for a simple reason.</b> At tick 36 its wheels are exactly back where they started, so every wheel is home, prime or not.</li>
       <li><b>Fibonacci and doubling come next.</b> On these a wheel that is home at tick a is home at every multiple of a, so at a tick with many divisors (27,720, 55,440, 83,160) half of the prime wheels are home together.</li>
       <li><b>On the plain wheels at most six primes are home at once.</b> The tick must be a multiple of every wheel that is home, and 2 × 3 × 5 × 7 × 11 × 13 = 30,030 is the last such product below 100,000.</li>
@@ -78,22 +84,34 @@ html='''  <section class="panel" id="compare">
       <li><b>The rule that wins: give the number a wheel it does not fit.</b> A number n fits a ring of r cells when n × n leaves remainder 1 after division by r, and it fits a two-cell wheel with step c when c is a square in the arithmetic of remainders after division by n. Every mistake of Pascal's wheel that we found is a number that fits its ring: %s on rings of 2 to 40 cells below 10<sup>10</sup>, not one that does not fit. For rings the rule is not ours: it is the exception that Popovych wrote into his version of Agrawal's conjecture in 2009. Here it is carried over to the wheels of two and three cells.</li>
       <li><b>Checked as far as the lists go.</b> A number that fools Pascal's wheel must fool the doubling wheel first (add up the cells: the sum doubles every turn). All %s odd numbers below %s that fool the doubling wheel are known, and we put every one on the smallest ring it does not fit and on its two-cell wheel: none came home.%s</li>
       <li><b>Is this the gear that amazes mathematicians?</b> Not yet, and we say so plainly. The last three rows are open problems. Nobody has proved that they never make a mistake. For the pair of wheels there is a prize of 620 dollars, offered by Pomerance, Selfridge and Wagstaff; for Pascal's wheel the claim is a sibling of Agrawal's conjecture (his has x − 1 where the wheel has x + 1; on a ring with an even number of cells the two are the same); the two-cell wheel is a Frobenius test, for which no mistake is known either (Khashin reports that his own version of it makes none below 2<sup>64</sup>). There are reasons to expect a mistake at some very large number (Pomerance for the pair; Lenstra and Pomerance for Pascal's wheel). A proof for any of the three, or the first number that fools one, would be news.</li>
-%s%s%s      <li><b>What they can do today.</b> Both wheels need a few cells and about as many steps as the number has binary digits, so they also run on numbers of a thousand digits: choose machine 10 or 11 and type one.</li>
+%s%s%s%s      <li><b>What they can do today.</b> Both wheels need a few cells and about as many steps as the number has binary digits, so they also run on numbers of a thousand digits: choose machine 10 or 11 and type one.</li>
     </ul>
+    <h2 id="winners">Who wins where</h2>
+    <p class="note">After five rounds, the best machine on this page for each question, and what it cannot do.</p>
+    <div class="boardwrap"><table class="dec">
+      <thead><tr><th>Question</th><th>Winner here</th><th>Why</th><th>Limit</th></tr></thead>
+      <tbody>
+        <tr><td>Is n prime, for n below 2<sup>64</sup>?</td><td>Machine 19: one wheel of two cells</td><td>Nothing below 2<sup>64</sup> fools it. Every candidate is on a published list, and none came home</td><td>Above 2<sup>64</sup> nothing is proved</td></tr>
+        <tr><td>Is n prime, with a proof, for n of any size?</td><td>Machine 17: a chain of wheels</td><td>Every link is a proved test. It proved all %d random primes of 20 to %d digits we gave it</td><td>It is a search, and this page stops at 150 digits</td></tr>
+        <tr><td>Is 2<sup>p</sup> − 1 prime?</td><td>The Lucas–Lehmer test: machines 11, 15 and 18 are that test in gear form</td><td>Proved, and one squaring per turn. No wheel here needs fewer turns</td><td>The p − 2 turns cannot be skipped by anything we know</td></tr>
+        <tr><td>Was a long test done right?</td><td>Machine 18: the receipt</td><td>The check was %.0f times faster than the test at p = %s</td><td>It shows that the work was done, not that the reported result is the true one</td></tr>
+      </tbody>
+    </table></div>
     <h2 id="proved">Proved, fast, every number: which wheel has what</h2>
-    <p class="note">Fast means that the wheel can jump: a few hundred steps do the work of n turns, so a number of a thousand digits is no problem. No single wheel on this page has all three; the chain of machine 17 has.</p>
+    <p class="note">Fast means that the wheel can jump: a few hundred steps do the work of n turns, so a number of a thousand digits is no problem. No single wheel on this page has all three for numbers of every size. The chain of machine 17 has them, and below 2<sup>64</sup> the wheels of machines 10 and 19 have them.</p>
     <div class="boardwrap"><table class="dec">
       <thead><tr><th>Machine</th><th>Proved</th><th>Fast</th><th>Every number</th></tr></thead>
       <tbody>
         <tr><td>7. Doubling wheel</td><td>no: 341 fools it</td><td>yes</td><td>yes</td></tr>
-        <tr><td>10. Pascal's wheel</td><td>no; no mistake found</td><td>yes</td><td>yes</td></tr>
-        <tr><td>11. Two-cell wheel</td><td>no; no mistake found. Proved for 2<sup>p</sup> − 1</td><td>yes</td><td>yes</td></tr>
-        <tr><td>12. Three-cell wheel</td><td>no; no mistake found</td><td>yes</td><td>yes</td></tr>
+        <tr><td>10. Pascal's wheel</td><td>below 2<sup>64</sup> yes, given the published list; above that no, and no mistake is known</td><td>yes</td><td>yes</td></tr>
+        <tr><td>11. Two-cell wheel</td><td>no; no mistake found (below 2<sup>64</sup>: none together with the doubling wheel). Proved for 2<sup>p</sup> − 1</td><td>yes</td><td>yes</td></tr>
+        <tr><td>12. Three-cell wheel</td><td>no; no mistake found (below 2<sup>64</sup>: none together with the doubling wheel)</td><td>yes</td><td>yes</td></tr>
         <tr><td>13. Wilson's wheel</td><td>yes</td><td>no: every turn is needed</td><td>yes</td></tr>
         <tr><td>14. Lucas's wheel</td><td>yes</td><td>yes</td><td>no: only when n − 1 comes apart</td></tr>
         <tr><td>15. Two cells with check turns</td><td>yes</td><td>yes</td><td>no: only when n + 1 comes apart (every 2<sup>p</sup> − 1 does)</td></tr>
         <tr><td>16. Curve wheel</td><td>yes</td><td>no: it counts its positions one by one</td><td>yes</td></tr>
         <tr><td>17. Chain of wheels</td><td>yes</td><td>yes</td><td>yes for every number we tried, up to %d digits here; it is a search, so there is no guarantee</td></tr>
+        <tr><td>19. Two cells from a start of norm 2</td><td>below 2<sup>64</sup> yes, given the published list; above that no, and no mistake is known</td><td>yes</td><td>yes</td></tr>
         <tr><td>18. Two cells with a receipt</td><td>yes (Lucas–Lehmer), and the work can be checked without doing it again</td><td>yes</td><td>no: 2<sup>p</sup> − 1 only</td></tr>
       </tbody>
     </table></div>
@@ -104,7 +122,7 @@ html='''  <section class="panel" id="compare">
       <tbody>%s</tbody>
     </table></div>
   </section>
-'''%(tb,t2,f(T['fit_liars']),f(T['list_count']),B,ringtxt,round2,round3,round4,CH['js_maxdigits'],rct)
+'''%(tb,t2,f(T['fit_liars']),f(T['list_count']),B,ringtxt,round2,round3,round4,round5,CH['js_proved'],CH['js_maxdigits'],t9['ratio'],f(t9['p']),CH['js_maxdigits'],rct)
 s=open('prime3.html',encoding='utf-8').read()
 i=s.index('  <section class="panel" id="compare">'); j=s.index('</section>\n',i)+len('</section>\n'); s=s[:i]+html+s[j:]
 import re

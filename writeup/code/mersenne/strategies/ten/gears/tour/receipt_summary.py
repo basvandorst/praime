@@ -38,8 +38,13 @@ tm = {}
 import os
 TM = json.load(open('receipt_timing.json')) if os.path.exists('receipt_timing.json') else R['timing']
 out['timing_source'] = 'receipt_timing.txt' if os.path.exists('receipt_timing.json') else 'receipt_test.txt'
+tmin = {}
 for r in TM:
     key = (r['p'], r['group'])
+    tmin[key] = min(tmin.get(key, 1e99), r['test_s'])
+for r in TM:
+    key = (r['p'], r['group'])
+    r = dict(r, test_s=tmin[key], ratio=round(tmin[key] / r['check_s'], 1))
     if key not in tm or r['ratio'] > tm[key]['ratio']:
         tm[key] = r
 out['timing'] = [tm[k] for k in sorted(tm)]
