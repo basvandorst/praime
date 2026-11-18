@@ -1,6 +1,6 @@
 """The two-cell wheel in plain Python, with sympy's Jacobi symbol (the C program and the page use their own reciprocity rule).
-Wheel n: step c = smallest odd prime with Jacobi(c, n) = -1; cells (a, b) = (1, 1); a turn is (a, b) -> (a + c b, a + b) mod n,
-that is multiplication by 1 + sqrt(c); home after n turns means (1, -1).
+Wheel n: step c = smallest odd prime with Jacobi(c, n) = -1; cells (a, b) = (1, 0); a turn is (a, b) -> (a + c b, a + b) mod n,
+that is multiplication by 1 + sqrt(c); home after n turns means (1, -1). (The code starts from (1, 1), one turn in.)
 Checks: 1. odd n from 3 to 5,000: home exactly for the primes   2. every odd composite below 2e6: none home
         3. a sample of primes of 8 to 64 bits: all home          4. the candidates below 1e10 and a sample up to 2^64: none home"""
 import time
