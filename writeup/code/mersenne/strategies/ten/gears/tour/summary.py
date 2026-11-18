@@ -46,6 +46,10 @@ for rr in (5,7):
         m=re.search(r'ring %d: tested (\d+) skipped (\d+) liars (\d+) last (\d+)'%rr,open(fn).read())
         T['ring2_%d'%rr]={'tested':int(m.group(1)),'skipped':int(m.group(2)),'liars':int(m.group(3))}
         assert not open('big_ring2_%d.out'%rr).read().strip()
+if all(os.path.exists(x) and 'exit 0' in open(x).read() for x in ('direct_pascal_a.txt','direct_pascal_b.txt')):
+    T['direct_pascal']={'tested':0,'liars':0}
+    for x in ('direct_pascal_a.txt','direct_pascal_b.txt'):
+        m=re.search(r'tested (\d+) liars (\d+)',open(x).read()); T['direct_pascal']['tested']+=int(m.group(1)); T['direct_pascal']['liars']+=int(m.group(2))
 S={}
 def single(fn):
     t=open(fn).read(); m=re.search(r'tested (\d+) liars (\d+)',t); return int(m.group(1)),int(m.group(2)),[int(x) for x in t.split('\n') if x.strip().isdigit()]
@@ -91,6 +95,7 @@ for r in sorted(T['census'],key=int):
     c=T['census'][r]; L.append("ring of %s cells, every candidate that does not fit it: %s tested, %d came home%s"%(r,f(c['tested']),c['liars'],(" (%s passed the half ring with a sign)"%f(c['half_ring_passes'])) if 'half_ring_passes' in c else ""))
 for rr in (5,7):
     if 'ring2_%d'%rr in T: L.append("second program (ring2.c), ring of %d cells: %s tested (%s fit the ring or share a factor and were skipped), %d came home"%(rr,f(T['ring2_%d'%rr]['tested']),f(T['ring2_%d'%rr]['skipped']),T['ring2_%d'%rr]['liars']))
+if 'direct_pascal' in T: L.append("Pascal's wheel on the smallest misfit ring, directly on every odd composite below 2e8 (no list, no shortcut): %s tested, %d came home"%(f(T['direct_pascal']['tested']),T['direct_pascal']['liars']))
 if T['pair']: L.append("doubling wheel and Fibonacci wheel, n = 2 or 3 (mod 5): %s tested, %d came home"%(f(T['pair']['tested']),T['pair']['liars']))
 if 'duo' in S: L.append("two-cell wheel alone, every odd composite below %s: %s tested, %d came home"%(S['duo']['bound_plain'],f(S['duo']['tested']),S['duo']['liars']))
 if 'duo_list' in T: L.append("two-cell wheel on all candidates below 2^64 (so: together with the doubling wheel): %s tested, %d came home, %d squares with no step; largest step used %s"%(f(T['duo_list']['tested']),T['duo_list']['liars'],T['duo_list']['nostep'],max(int(c) for c in T['duo_list'].get('steps',{'0':0}))))

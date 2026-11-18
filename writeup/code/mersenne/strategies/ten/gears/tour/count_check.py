@@ -4,7 +4,7 @@ import re, os
 import cypari2
 pari=cypari2.Pari()
 runs=[('single_doubling_1e8.txt',1,10**8),('single_fib_1e8.txt',1,10**8),('single_perrin_1e8.txt',1,10**8),('single_ring5_1e8.txt',1,10**8),
-      ('single_frob_1e9.txt',1,10**9),('single_frob_1e10.txt',10**9,10**10),('single_frob_2e10a.txt',10**10,15*10**9),('single_frob_2e10b.txt',15*10**9,2*10**10)]
+      ('single_frob_1e9.txt',1,10**9),('single_frob_1e10.txt',10**9,10**10),('single_frob_2e10a.txt',10**10,15*10**9),('single_frob_2e10b.txt',15*10**9,2*10**10),('direct_pascal_a.txt',1,10**8),('direct_pascal_b.txt',10**8,2*10**8)]
 for fn,lo,hi in runs:
     if not os.path.exists(fn) or 'tested' not in open(fn).read(): continue
     t=int(re.search(r'tested (\d+) liars (\d+)',open(fn).read()).group(1))
