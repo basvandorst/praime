@@ -41,6 +41,57 @@ def pas(p):
         a = [fold(a[k] + a[k - 1], p, n) for k in range(r)]
     want = [mpz(0)]*r; want[0] += 1; want[int(n % r)] += 1
     return r, a == want
+from fold_check import classes
+SIZES = [7, 13, 19, 37, 61, 67, 73, 79, 97, 103, 139, 151, 163, 181, 193, 199, 211, 241]
+def three_tables(r):
+    cl = classes(r, 3); rep = {}
+    for x in range(r - 1, 0, -1): rep[cl[x]] = x
+    P = [0]*r; P[0] = 1
+    for h in range(1, r):
+        if cl[h] == 0: P = [P[z] + P[(z - h) % r] for z in range(r)]
+    u = [P[rep[k]] - P[0] for k in range(3)]; M = [[None]*3 for _ in range(3)]
+    for i in range(3):
+        for j in range(3):
+            v = [0]*r
+            for x in range(1, r):
+                if cl[x] == i:
+                    for y in range(1, r):
+                        if cl[y] == j: v[(x + y) % r] += 1
+            M[i][j] = [v[rep[k]] - v[0] for k in range(3)]
+    return cl, u, M
+def three(p):
+    """the three-cell wheel on 2^p - 1"""
+    n = (mpz(1) << p) - 1
+    for r in SIZES:
+        if n % r == 0: return r, False
+        cl, u, M = three_tables(r); sh = cl[int(n % r)]
+        if sh == 0: continue
+        B = [mpz(x) % n for x in u]
+        def mul(a, b):
+            o = [mpz(0)]*3
+            for i in range(3):
+                for j in range(3):
+                    t = a[i]*b[j]
+                    for k in range(3):
+                        if M[i][j][k]: o[k] += M[i][j][k]*t
+            return [x % n for x in o]
+        a = B
+        for _ in range(p - 1): a = mul(mul(a, a), B)
+        return r, all(a[(k + sh) % 3] == B[k] for k in range(3))
+    return 0, False
+def dpow(a, c, e, n):
+    x, y, A, B = mpz(1), mpz(0), mpz(a) % n, mpz(1)
+    while e:
+        if e & 1: x, y = (x*A + c*y*B) % n, (x*B + y*A) % n
+        A, B = (A*A + c*B*B) % n, 2*A*B % n
+        e >>= 1
+    return x, y
+def checkturns(p):
+    """two cells with check turns on 2^p - 1: step 3, start 1; n + 1 = 2^p has the one prime factor 2"""
+    n = (mpz(1) << p) - 1; h = dpow(1, 3, n, n)
+    if h != (1, n - 1): return False
+    k = (n + 1)//2; w = dpow(1, 3, 2*k, n); d0 = (w[0] - pow(mpz(-2), k, n)) % n
+    return __import__('math').gcd(int((d0*d0 - 3*w[1]*w[1]) % n), int(n)) == 1
 LIM = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
 LP = int(sys.argv[2]) if len(sys.argv) > 2 else 700
 ps = list(primerange(3, LIM)); bad = 0; home = []; steps = set(); badp = 0; np_ = 0
@@ -59,4 +110,6 @@ for p in [int(x) for x in sys.argv[3:]] or [4423, 9689, 11213]:
     t = time.time(); x = ll(p); t1 = time.time() - t
     t = time.time(); c, y = duo(p); t2 = time.time() - t
     t = time.time(); r, z = pas(p); t3 = time.time() - t
-    print('  p = %d (%d digits): Lucas-Lehmer %s %.2f | two-cell wheel %s %.2f | Pascal on %d cells %s %.2f' % (p, int(p*math.log10(2)) + 1, x, t1, y, t2, r, z, t3))
+    t = time.time(); r3, z3 = three(p); t4 = time.time() - t
+    t = time.time(); z5 = checkturns(p); t5 = time.time() - t
+    print('  p = %d (%d digits): Lucas-Lehmer %s %.2f | two-cell wheel %s %.2f | Pascal on %d cells %s %.2f | three-cell wheel from %d cells %s %.2f | two cells with check turns %s %.2f' % (p, int(p*math.log10(2)) + 1, x, t1, y, t2, r, z, t3, r3, z3, t4, z5, t5))
