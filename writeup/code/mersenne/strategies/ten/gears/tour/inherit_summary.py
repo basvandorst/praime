@@ -72,6 +72,18 @@ m = re.search(r'(\d+) primes up to (\d+): (\d+) differ', B)
 assert m.group(3) == '0' and '2223990533: 6 rounds' in B
 out['topdown'] = int(m.group(1))
 say('the rule from the top down (PARI) against the run from the bottom up: %s primes, 0 differ; 2,223,990,533 needs 6 rounds there too' % m.group(1))
+H = open('inherit_hist.txt').read()
+m = re.search(r'equal: True \((\d+) primes\)', H)
+m2 = re.search(r'every prime from 3 to (\d+)', H)
+m3 = re.search(r'the (\d+) primes of 5 and 6 rounds .*?: ([\d, ]+)\): rounds from the top down differ for (\d+)', H)
+assert m and m3.group(3) == '0'
+out['hist'] = dict(top=int(m2.group(1)), primes=int(m.group(1)), six=[int(x) for x in m3.group(2).split(', ')], listed=int(m3.group(1)))
+say('third count (PARI, top down) for every prime up to %s: histogram equal to the C program (%s primes); the primes of 6 rounds up to 4.2e9 are %s' % (m2.group(1), m.group(1), m3.group(2)))
+X = open('inherit_box_check.txt').read()
+m = re.search(r'box of machine 23: (\d+) primes .*?failed: (\d+); primes where the page could not take a neighbour apart and says so: (\d+); not finished by the page: (\d+)', X)
+assert m.group(2) == '0' and m.group(4) == '0'
+out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)))
+say('box of machine 23 against PARI: %s primes, 0 differ, %s where the page says it could not take a neighbour apart' % (m.group(1), m.group(3)))
 J = open('inherit_js_check.txt').read()
 m = re.search(r'(\d+) odd numbers, .*?, (\d+) differ', J)
 assert m.group(2) == '0'
