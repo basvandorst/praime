@@ -42,3 +42,24 @@ for n in range(2, A + 1):
 print('the proved ring test, n = 2 ..', A, ': wrong answers', bad, '| primes that needed the rings:', ran, '| largest machine: ring of %d cells with %d offsets for n = %d' % biggest)
 p = 4423; L = p
 print('for n = 2^4423 - 1 (1,332 digits): the ring needs more than (log2 n)^2 = %s cells and about sqrt(r) log2 n = %s offsets; machine 10 uses 5 cells and one offset' % (format(p*p, ','), format(int(math.sqrt(p*p)*p), ',')))
+from sympy import factorint
+def lucas(n, amax=250):
+    """Lucas (1876): n is prime if some a has a^(n-1) = 1 and a^((n-1)/q) != 1 (mod n) for every prime q dividing n - 1.
+    Returns (proof found, step used, certainly composite)."""
+    if n == 2: return True, 0, False
+    if n % 2 == 0: return False, 0, True
+    qs = list(factorint(n - 1))
+    for a in range(2, min(amax, n - 1) + 1):
+        if pow(a, n - 1, n) != 1: return False, a, True
+        if all(pow(a, (n - 1)//q, n) != 1 for q in qs): return True, a, False
+    return False, 0, False
+LW = int(sys.argv[3]) if len(sys.argv) > 3 else 200000
+bad = und = 0; amax = (0, 0)
+for n in range(2, LW + 1):
+    ok, a, comp = lucas(n)
+    if ok != isprime(n): bad += 1
+    if not ok and not comp: und += 1
+    if ok: amax = max(amax, (a, n))
+print("Lucas's wheel, n = 2 ..", LW, ': wrong answers', bad, '| not decided', und, '| largest step needed: %d (for n = %d)' % amax)
+P = 3*2**2208 + 1; ok, a, comp = lucas(P)
+print('3 * 2^2208 + 1 (%d digits): proof found %s with step %d' % (len(str(P)), ok, a))

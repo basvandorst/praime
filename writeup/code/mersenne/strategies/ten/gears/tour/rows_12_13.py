@@ -17,8 +17,17 @@ def wilson(n):
     f = 1
     for k in range(2, n): f = f*k % n
     return f == n - 1
+from sympy import factorint
+def lucas(n):
+    if n == 2: return True
+    if n % 2 == 0: return False
+    qs = list(factorint(n - 1))
+    for a in range(2, min(250, n - 1) + 1):
+        if pow(a, n - 1, n) != 1: return False
+        if all(pow(a, (n - 1)//q, n) != 1 for q in qs): return True
+    return False
 MX = {2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127}; out = {}
-for name, home in (('three', three), ('wilson', wilson)):
+for name, home in (('three', three), ('wilson', wilson), ('lucas', lucas)):
     lit = []; best = {'p': (0, 0), 'm': (0, 0), 'w': (0, 0)}
     for t in range(2, 251):
         if home(t): lit.append(t)
