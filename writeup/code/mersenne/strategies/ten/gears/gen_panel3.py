@@ -66,6 +66,21 @@ html='''  <section class="panel" id="compare">
       <li><b>Is this the gear that amazes mathematicians?</b> Not yet, and we say so plainly. The last three rows are open problems. Nobody has proved that they never make a mistake. For the pair of wheels there is a prize of 620 dollars, offered by Pomerance, Selfridge and Wagstaff; for Pascal's wheel the claim is a sibling of Agrawal's conjecture (his has x − 1 where the wheel has x + 1; on a ring with an even number of cells the two are the same); the two-cell wheel is a Frobenius test, for which no mistake is known either. There are reasons to expect a mistake at some very large number (Pomerance for the pair; Lenstra and Pomerance for Pascal's wheel). A proof for any of the three, or the first number that fools one, would be news.</li>
 %s      <li><b>What they can do today.</b> Both wheels need a few cells and about as many steps as the number has binary digits, so they also run on numbers of a thousand digits: choose machine 10 or 11 and type one.</li>
     </ul>
+    <h2 id="proved">Proved, fast, every number: which wheel has what</h2>
+    <p class="note">Fast means that the wheel can jump: a few hundred steps do the work of n turns, so a number of a thousand digits is no problem. No wheel on this page has all three.</p>
+    <div class="boardwrap"><table class="dec">
+      <thead><tr><th>Machine</th><th>Proved</th><th>Fast</th><th>Every number</th></tr></thead>
+      <tbody>
+        <tr><td>7. Doubling wheel</td><td>no: 341 fools it</td><td>yes</td><td>yes</td></tr>
+        <tr><td>10. Pascal's wheel</td><td>no; no mistake found</td><td>yes</td><td>yes</td></tr>
+        <tr><td>11. Two-cell wheel</td><td>no; no mistake found. Proved for 2<sup>p</sup> − 1</td><td>yes</td><td>yes</td></tr>
+        <tr><td>12. Three-cell wheel</td><td>no; no mistake found</td><td>yes</td><td>yes</td></tr>
+        <tr><td>13. Wilson's wheel</td><td>yes</td><td>no: every turn is needed</td><td>yes</td></tr>
+        <tr><td>14. Lucas's wheel</td><td>yes</td><td>yes</td><td>no: only when n − 1 comes apart</td></tr>
+        <tr><td>15. Two cells with check turns</td><td>yes</td><td>yes</td><td>no: only when n + 1 comes apart (every 2<sup>p</sup> − 1 does)</td></tr>
+        <tr><td>16. Curve wheel</td><td>yes</td><td>here no: it counts its positions one by one. In the literature yes</td><td>yes</td></tr>
+      </tbody>
+    </table></div>
   </section>
 '''%(tb,t2,f(T['fit_liars']),f(T['list_count']),B,ringtxt,round2)
 s=open('prime3.html',encoding='utf-8').read()
