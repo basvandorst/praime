@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime turtle</title>
+<meta name="description" content="A turtle walks one step per number and turns at the primes. What path do the primes draw, and how does it differ from chance?">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:150px; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.check { display:flex; align-items:center; gap:6px; color:#d7e3f4; font-size:13.5px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:120px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime turtle</h1>
+  <p>A turtle walks one step for every number 1, 2, 3, … and turns at the numbers that a rule picks out, for example at every prime. What path do the primes draw? Compare with a turtle that turns at random with the same frequency (the chance that a number near n is prime is about 1 / ln n). Galton board: <a href="prime7.html">prime7</a>, race: <a href="prime6.html">prime6</a>, balance: <a href="prime5.html">prime5</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="rule">The turtle turns</label><select id="rule">
+      <option value="left">left at every prime</option>
+      <option value="cram">left at random, with chance 1 / ln n (fake primes)</option>
+      <option value="mod4">left at primes 1 more than a multiple of 4, right at 3 more</option>
+      <option value="dig">left at primes ending in 1 or 9, right at 3 or 7</option>
+      <option value="twin">left at the lower of twin primes, right at other primes</option>
+      <option value="liou">at every number: left with an even number of prime factors, right with odd</option>
+      <option value="mexp">left at every Mersenne exponent p (2, 3, 5, 7, 13, …)</option>
+    </select></div>
+    <div class="ctl"><label for="maxn">Walk up to the number</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+    <div class="ctl"><span class="lab">Steps per second: <b id="spd">100</b></span><input id="speed" type="range" min="0" max="100" value="33" aria-label="Steps per second"></div>
+    <label class="check"><input id="dots" type="checkbox" checked> Dots at the turns</label>
+    <button id="go" class="go" type="button">Start</button>
+    <button id="end" type="button">Walk to the end</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The path of the turtle"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Does the prime turtle walk like chance? Measured up to 1,000,000</h2>
+    <p class="note">The rule "left at every prime". Diffusion: the mean squared distance the turtle covers in 1,000 steps, divided by 1,000. The fake turtles turn with the same density as the primes, each figure is the mean of 8 runs (they spread by about 0.2). The prime turtle covers clearly less ground than Cramér's fake primes. The reason is the length of the straight stretches, the gaps between primes: the turtle diffuses like the variance of the gaps divided by their mean, and prime gaps are more regular than random ones. A fake that also avoids the multiples of 2, 3, 5, … comes closer and closer: the regularity comes from the small primes (Granville made this point against Cramér's model). Up to 5,000 the same order shows for short windows (30 steps: 4.5 for the primes against 6.1 and 6.8 for the fakes, 4 to 5 spreads), while for windows of 300 steps the run is too short to tell. The page and a separate program agree on the end position, the turns and the farthest distance of every rule, up to 5,000 and up to 1,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Turtle</th><th>Diffusion (1,000 steps)</th><th>Variance of the gaps / mean gap</th><th>Mean of g² / (mean g)² (2 for random gaps)</th></tr></thead><tbody>
+<tr><td>the primes</td><td>8.666</td><td>8.298</td><td>1.651</td></tr>
+<tr><td>fake primes, Cramér (any number)</td><td>11.681</td><td>11.882</td><td>1.933</td></tr>
+<tr><td>fake primes without the factors 2</td><td>10.881</td><td>10.976</td><td>1.862</td></tr>
+<tr><td>fake primes without the factors 2, 3</td><td>9.903</td><td>9.930</td><td>1.781</td></tr>
+<tr><td>fake primes without the factors 2, 3, 5</td><td>9.471</td><td>9.437</td><td>1.740</td></tr>
+<tr><td>fake primes without the factors 2, 3, 5, 7</td><td>9.226</td><td>9.043</td><td>1.711</td></tr>
+<tr><td>fake primes without the factors 2, 3, 5, 7, 11, 13</td><td>8.947</td><td>8.757</td><td>1.686</td></tr>
+    </tbody></table></div>
+  </section>
+  <section class="panel"><h2>About this rule</h2><p class="note" id="why"></p></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const BP=(()=>{const M=100000,s=new Uint8Array(M+1),o=[];for(let i=2;i<=M;i++){if(!s[i]){o.push(i);for(let j=i*i;j<=M;j+=i)s[j]=1;}}return o;})();
+const SZ=65536,G={lo:1,om:null,i:0};
+function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),hi=lo+SZ;for(let i=0;i<SZ;i++)rem[i]=lo+i;for(const p of BP){if(p*p>=hi)break;let m=Math.ceil(lo/p)*p;for(;m<hi;m+=p){const i=m-lo;while(rem[i]%p===0){rem[i]/=p;om[i]++;}}}for(let i=0;i<SZ;i++)if(rem[i]>1)om[i]++;G.lo=lo;G.om=om;G.i=0;}
+function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return[G.lo+i,G.om[i]];}
+const MEXP=new Set([2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593]);
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const DX=[1,0,-1,0],DY=[0,1,0,-1];
+const S={rule:"left",maxN:1e6,rate:100,run:false,acc:0,last:0,n:0,x:0,y:0,d:0,turns:0,L:0,R:0,vx:[0],vy:[0],far:0,ret:0,minx:0,maxx:0,miny:0,maxy:0,stop:"",pend:null,rnd:rng(12345),dots:true,W:0,H:0,dpr:1};
+function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{n:0,x:0,y:0,d:0,turns:0,L:0,R:0,vx:[0],vy:[0],far:0,ret:0,minx:0,maxx:0,miny:0,maxy:0,stop:"",pend:null,rnd:rng(12345)});}
+function turnAt(n,om){const p=om===1;switch(S.rule){case"left":return p?1:0;case"cram":return n>=3&&S.rnd()<1/Math.log(n)?1:0;case"mod4":return p&&n>2?(n%4===1?1:-1):0;case"dig":return p&&n>5?(n%10===1||n%10===9?1:-1):0;
+ case"twin":return 0;case"liou":return om%2===0?1:-1;case"mexp":return MEXP.has(n)?1:0;}return 0;}
+function isPr(n){if(n<2)return false;for(const p of BP){if(p*p>n)return true;if(n%p===0)return n===p;}return true;}
+function step(){if(S.stop)return false;const [n,om]=nextNum();if(n>S.maxN){S.stop=`The walk ended at ${f(S.maxN)}.`;return false;}S.n=n;const ox=S.x,oy=S.y;S.x+=DX[S.d];S.y+=DY[S.d];
+ if(S.x===0&&S.y===0)S.ret++;else if(ox!==0&&oy===0&&S.y===0&&Math.sign(ox)!==Math.sign(S.x))S.ret++;
+ let t=turnAt(n,om);if(S.rule==="twin"&&om===1&&n>2)t=isPr(n+2)?1:-1;
+ if(t){S.d=(S.d+(t>0?1:3))%4;S.turns++;if(t>0)S.L++;else S.R++;S.vx.push(S.x);S.vy.push(S.y);}
+ const r=Math.hypot(S.x,S.y);if(r>S.far)S.far=r;if(S.x<S.minx)S.minx=S.x;if(S.x>S.maxx)S.maxx=S.x;if(S.y<S.miny)S.miny=S.y;if(S.y>S.maxy)S.maxy=S.y;return true;}
+function advance(m){for(let i=0;i<m;i++)if(!step())break;}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(360,Math.min(720,w*0.7)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,pad=16*dpr;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ const minx=Math.min(S.minx,-1),maxx=Math.max(S.maxx,1),miny=Math.min(S.miny,-1),maxy=Math.max(S.maxy,1),sc=Math.min((W-2*pad)/(maxx-minx),(H-2*pad)/(maxy-miny)),ox=(W-(maxx-minx)*sc)/2-minx*sc,oy=(H+(maxy-miny)*sc)/2+miny*sc,X=x=>ox+x*sc,Y=y=>oy-y*sc;
+ const n=S.vx.length,stepK=Math.max(1,Math.floor(n/150000));ctx.lineWidth=Math.max(1,Math.min(2*dpr,sc*0.4));ctx.lineJoin="round";
+ const seg=12;for(let s=0;s<seg;s++){const a=Math.floor(s*n/seg),b=Math.min(n,Math.floor((s+1)*n/seg)+1);if(b-a<2&&s<seg-1)continue;const hue=200+s*(130/seg);ctx.strokeStyle=`hsl(${hue},80%,62%)`;ctx.beginPath();for(let i=a;i<b;i+=stepK){const j=Math.min(i,n-1);i===a?ctx.moveTo(X(S.vx[j]),Y(S.vy[j])):ctx.lineTo(X(S.vx[j]),Y(S.vy[j]));}if(s===seg-1)ctx.lineTo(X(S.x),Y(S.y));ctx.stroke();}
+ if(S.dots&&n<4000){ctx.fillStyle="#fbbf24";for(let i=1;i<n;i++){ctx.beginPath();ctx.arc(X(S.vx[i]),Y(S.vy[i]),Math.max(1.4*dpr,Math.min(3*dpr,sc*0.35)),0,6.2832);ctx.fill();}}
+ ctx.fillStyle="#34d399";ctx.beginPath();ctx.arc(X(0),Y(0),5*dpr,0,6.2832);ctx.fill();ctx.fillStyle="#f472b6";ctx.beginPath();ctx.arc(X(S.x),Y(S.y),5*dpr,0,6.2832);ctx.fill();
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(W<700*dpr?"green: start · pink: now":"green: the start · pink: the turtle now · colour runs from blue (early) to pink (late)",8*dpr,6*dpr);}
+const WHY={left:"Between two primes the turtle walks straight, so every side of the path is a gap between consecutive primes, and the heading turns a quarter at each prime. The path is a square spiral with random lengths. Compare with the fake primes: a gap between primes is never odd above 2 (both primes are odd), and gaps of 6 and 12 are favoured; the random turtle knows none of this.",
+ cram:"The model of Cramér (1936): every number n ≥ 3 is a 'prime' with chance 1 / ln n, independently. It has the right density, but no structure: odd gaps, consecutive 'primes' 1 apart, everything is possible. The seed is fixed, so the same fake primes come back after Reset.",
+ mod4:"The turtle turns left at primes 1 more than a multiple of 4 and right at 3 more. So its heading is the race of prime6 with q = 4, wrapped round a circle: the difference of the two counts, modulo 4. The right horse leads almost always (Chebyshev's bias), so the difference stays small and negative, and the turtle keeps to a few headings for long stretches.",
+ dig:"Left at last digits 1 and 9 (the squares mod 10), right at 3 and 7. The heading is the race of squares against non-squares mod 10, modulo 4: Chebyshev's bias again.",
+ twin:"Left at the lower prime of a twin pair (p and p + 2 both prime), right at every other prime above 2. Twins thin out like 1 / (ln n)² against 1 / ln n for primes, so right turns win more and more.",
+ liou:"Every number turns the turtle: left when it has an even number of prime factors (counted with repetition), right when odd. The heading is Liouville's sum L(n) modulo 4; Pólya's question (is L(n) ≤ 0 from 2 on?) fails first at 906,150,257.",
+ mexp:"Only the 52 known Mersenne exponents turn the turtle: a square spiral whose sides are the gaps between the exponents. They grow so fast that each side dwarfs all the earlier ones."};
+function stats(){const d=Math.hypot(S.x,S.y),n=Math.max(1,S.n),gs=S.turns?n/S.turns:0;
+ const cells=[["Steps (numbers)",f(S.n)],["Turns",f(S.turns)+(S.R?` (${f(S.L)} left, ${f(S.R)} right)`:"")],["Position",`(${f(S.x)}, ${f(S.y)})`],["Distance from the start",f(d)],["Distance / √steps",(d/Math.sqrt(n)).toFixed(3)],["Farthest so far",f(S.far)],["Crossings of the start",f(S.ret)],["Heading",["east","north","west","south"][S.d]]];
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+ $("status").textContent=S.n?`Number ${f(S.n)}: the turtle is ${f(d)} steps from the start, heading ${["east","north","west","south"][S.d]}.`+(S.stop?" "+S.stop:""):"Press Start, or Walk to the end.";
+ $("why").textContent=WHY[S.rule];}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);}draw();stats();if(S.stop)setRun(false);raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function speed(v){const r=Math.round(Math.pow(10,v/100*6));S.rate=r;$("spd").textContent=r.toLocaleString("en-US");}
+function full(){reset();size();draw();stats();}
+$("go").addEventListener("click",()=>setRun(!S.run));
+$("end").addEventListener("click",()=>{setRun(false);advance(2e7);draw();stats();});
+$("reset").addEventListener("click",()=>{setRun(false);full();});
+$("rule").addEventListener("change",e=>{S.rule=e.target.value;setRun(false);full();});
+$("maxn").addEventListener("change",e=>{S.maxN=Number(e.target.value);setRun(false);full();});
+$("dots").addEventListener("change",e=>{S.dots=e.target.checked;draw();});
+$("speed").addEventListener("input",e=>speed(Number(e.target.value)));
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),mx=Number(q.get("max"));if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if([5000,100000,1000000,10000000].includes(mx)){S.maxN=mx;$("maxn").value=String(mx);}speed(Number($("speed").value));full();if(q.get("end")==="1"){advance(2e7);draw();stats();}if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
