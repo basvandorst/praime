@@ -108,7 +108,9 @@ if os.path.exists('inherit_second_8e9.out') and 'total primes' in open('inherit_
     six2 = [int(x) for x in re.findall(r'(\d+) \(6 rounds\)', L2)]
     d8 = sum(1 for l in open('inherit_deep_8e9.txt'))
     assert m7 and six2[:len(six8)] == six8 and not re.search(r'\((?:[7-9]|\d\d) rounds\)', L2) and d8 == sum(c[1] for c in c8 if c[0] >= 5)
-    S8.update(deep=d8, top2=int(re.search(r'primes of 6 or more rounds up to (\d+)', L2).group(1)), six2=six2, no7=int(m7.group(1)))
+    m4 = re.search(r'candidates s r \+- 1 up to (\d+) with r one of the (\d+) primes of 5 or more rounds up to (\d+): (\d+); primes of 6 or more rounds among them: (\d+), the same list: True', L2)
+    assert m4 and int(m4.group(3)) == 4200000000 and int(m4.group(5)) == len(six2)
+    S8.update(deep=d8, top2=int(re.search(r'primes of 6 or more rounds up to (\d+)', L2).group(1)), six2=six2, no7=int(m7.group(1)), cands4=int(m4.group(4)), small4=int(m4.group(2)))
     say('  by the lemma, with the %d primes of 5 or more rounds up to %d: %d primes of 6 rounds up to %d, and no prime of 7 rounds up to %d' % (d8, X8, len(six2), S8['top2'], S8['no7']))
     say('second C program run on to %d: %d primes (equal to the counting recursion), by rounds %s; primes of 6 rounds %s, the same as the count by the lemma; none of 7 rounds' % (X8, C8[0], ', '.join('%d: %d' % (d, n) for d, n, f in c8), six8))
 out['second8'] = S8
@@ -126,7 +128,7 @@ for name in ('inherit_big_70.out', 'inherit_big_80.out'):
         nn = b['count']
         mu = sum(k * v for k, v in b['hist']) / nn
         se = (sum(v * (k - mu) ** 2 for k, v in b['hist']) / (nn - 1) / nn) ** 0.5
-        pred = math.log(math.log(5.5 * 10 ** (b['digits'] - 1))) / math.log(4) + out['law']['both'][2]
+        pred = math.log(math.log(5.5 * 10 ** (b['digits'] - 1))) / math.log(4) + round(out['law']['both'][2], 2)
         un.append(dict(digits=b['digits'], count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=b['worst'][0], hist=b['hist']))
         say('  size not used for the rule: %d random primes of %d digits, mean %.2f rounds (standard error %.2f), the rule says %.2f; most %d' % (nn, b['digits'], mu, se, pred, b['worst'][0]))
 out['unseen'] = un

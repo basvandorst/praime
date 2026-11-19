@@ -36,4 +36,20 @@ for q in sorted(found):
             seven[N] = rounds(N)
         s += 2
 print('candidates N = s q + 1 up to %d with q one of these %d primes: %d; primes of 7 or more rounds up to %d: %s' % (2 * TOP, len(found), tried7, 2 * TOP, ', '.join(str(N) for N in sorted(seven)) or 'none'))
+# the same list from the primes of 5 or more rounds up to TOP / 4 only: a prime q <= TOP of 6 or more rounds has
+# q - 1 = s r and q + 1 = s' r' with r, r' of 5 or more rounds. If both exceeded TOP / 4, then s = s' = 2 and
+# r' = r + 1, two primes above 2 next to each other. So q = s r + 1 or s r - 1 with r <= TOP / 4.
+small = [r for r in deep5 if r <= TOP // 4]
+tried4 = 0
+found4 = set()
+for r in small:
+    s = 2
+    while s * r - 1 <= TOP:
+        for q in (s * r - 1, s * r + 1):
+            if q <= TOP:
+                tried4 += 1
+                if pari.ispseudoprime(q) and not atmost(q, 5):
+                    found4.add(q)
+        s += 2
+print('candidates s r +- 1 up to %d with r one of the %d primes of 5 or more rounds up to %d: %d; primes of 6 or more rounds among them: %d, the same list: %s' % (TOP, len(small), TOP // 4, tried4, len(found4), sorted(found4) == sorted(found)))
 
