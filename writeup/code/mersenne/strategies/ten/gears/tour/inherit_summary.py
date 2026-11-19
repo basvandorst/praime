@@ -173,6 +173,17 @@ for dg in sorted(by):
     un.append(dict(digits=dg, count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=e['most'], hist=sorted(e['hist'].items()), files=e['files'], z=round((mu - pred) / se, 1), parts=parts))
     say('  size not used for the rule: %d random primes of %d digits, mean %.3f rounds (standard error %.3f), the rule says %.3f: %.1f standard errors; most %d' % (nn, dg, mu, se, pred, (mu - pred) / se, e['most']))
 out['unseen'] = un
+more = []
+if os.path.exists('inherit_big_more.out'):
+    for l in open('inherit_big_more.out'):
+        b = json.loads(l)
+        nn = b['count']
+        mu = sum(k_ * v_ for k_, v_ in b['hist']) / nn
+        se = (sum(v_ * (k_ - mu) ** 2 for k_, v_ in b['hist']) / (nn - 1) / nn) ** 0.5
+        pred = math.log(math.log(5.5 * 10 ** (b['digits'] - 1))) / math.log(4) + round(out['law']['both'][2], 2)
+        more.append(dict(digits=b['digits'], count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), z=round((mu - pred) / se, 1), most=b['worst'][0]))
+    say('  %d more sizes not used for the rule (%d to %d digits, %d primes): largest difference %.3f rounds, largest in standard errors %.1f' % (len(more), more[0]['digits'], more[-1]['digits'], sum(m['count'] for m in more), max(abs(m['mean'] - m['pred']) for m in more), max(abs(m['z']) for m in more)))
+out['more'] = more
 src = []
 for k in (1, 2, 3, 5):
     name = 'inherit_sources_%d.out' % k

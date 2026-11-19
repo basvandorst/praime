@@ -77,6 +77,12 @@ h2 = lambda x: '%.2f' % (int(x * 100 + 0.5 + 1e-9) / 100)
 box = E['box']
 UNSEEN = ''
 if I.get('unseen'):
+    MORE = ''
+    if I.get('more'):
+        mm = I['more']
+        MORE = ('Because the large sizes allow only small samples, the rule was also tried on %d sizes between those of the fit, with %s random primes in all (' % (len(mm), f(sum(m['count'] for m in mm))) + L('inherit_big_more.out') + '):\n\n| Size | Primes | Mean rounds | Standard error | The rule says | Difference | In standard errors |\n|---|---|---|---|---|---|---|\n'
+                + ''.join('| %d digits | %s | %.3f | %.3f | %.3f | %s | %s |\n' % (m['digits'], f(m['count']), m['mean'], m['se'], m['pred'], ('%+.3f' % (m['mean'] - m['pred'])).replace('-', '−'), ('%.1f' % m['z']).replace('-', '−')) for m in mm)
+                + '\nHere the answer is sharp. The rule is never off by more than %.2f rounds, but it is not exact: %d of the %d differences are more than three standard errors. The mean moves in a slow wave around log₄(ln N) + %.2f, above it from 11 to 18 digits and below it near 28. So the honest form of the rule is: rounds = log₄(ln N) + %.2f, give or take %.2f.\n\n' % (max(abs(m['mean'] - m['pred']) for m in mm), sum(1 for m in mm if abs(m['z']) > 3), len(mm), law['both'][2], law['both'][2], max(abs(m['mean'] - m['pred']) for m in mm)))
     NEWC = ((I.get('second8') or {}).get('third') or {}).get('classes', [])
     DRIFT = ((I.get('second8') or {}).get('third') or {}).get('drift', [])
     zs = lambda z: ('%.1f' % z).replace('-', '−')
@@ -99,7 +105,7 @@ if I.get('unseen'):
               + ((' One size has two samples, and the reason must be said: the first sample of %d digits lay %s standard errors from the rule, so a second one was drawn with another seed; it lies %s standard errors on the other side. A second sample drawn because the first stood out is not a clean test, so both are shown.' % (twice['digits'], zs(twice['parts'][0]['z']), zs(twice['parts'][1]['z']))) if twice else '')
               + ' Taken one by one, the samples of random primes differ from the rule by at most %.2f rounds.' % max(singles)
               + ((' The two whole classes come from the later scan (' + L('inherit_third_17e9.out') + '); the lower one was partly, up to 4.2·10^9, in the first version of the fit. They lie %s rounds above the rule, and that is not noise: the difference mean − log₄(ln N) rises slowly through the classes 2^%d to 2^%d (%s), and is still rising at the top of the scanned range. Over all classes it stays between %.2f and %.2f; the rule is a rule of thumb with that much play, not a law with a fixed constant.' % (' and '.join('%.2f' % (e['mean'] - e['pred']) for e in NEWC), DRIFT[0][0], DRIFT[-1][0] + 1, ', '.join('%.3f' % d[1] for d in DRIFT), min(law['both'][0], min(d[1] for d in DRIFT)), max(law['both'][1], max(d[1] for d in DRIFT)))) if NEWC else '')
-              + '\n\n')
+              + '\n\n' + MORE)
 SRC = ''
 if len(I.get('sources', [])) >= 3:
     s5 = ([d for d in I['sources'] if d['k'] == 5] or [None])[0]

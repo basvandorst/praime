@@ -785,6 +785,24 @@ The rule tried on sizes it was not made from (computed; [inherit_runs.sh](writeu
 
 None of the random primes needed more than 5 rounds. One size has two samples, and the reason must be said: the first sample of 75 digits lay −2.4 standard errors from the rule, so a second one was drawn with another seed; it lies 1.2 standard errors on the other side. A second sample drawn because the first stood out is not a clean test, so both are shown. Taken one by one, the samples of random primes differ from the rule by at most 0.17 rounds. The two whole classes come from the later scan ([inherit_third_17e9.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_third_17e9.out)); the lower one was partly, up to 4.2·10^9, in the first version of the fit. They lie 0.03 and 0.04 rounds above the rule, and that is not noise: the difference mean − log₄(ln N) rises slowly through the classes 2^29 to 2^33 (0.529, 0.535, 0.541, 0.546), and is still rising at the top of the scanned range. Over all classes it stays between 0.47 and 0.56; the rule is a rule of thumb with that much play, not a law with a fixed constant.
 
+Because the large sizes allow only small samples, the rule was also tried on 11 sizes between those of the fit, with 27,300 random primes in all ([inherit_big_more.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_more.out)):
+
+| Size | Primes | Mean rounds | Standard error | The rule says | Difference | In standard errors |
+|---|---|---|---|---|---|---|
+| 11 digits | 3,000 | 2.869 | 0.009 | 2.824 | +0.045 | 4.8 |
+| 13 digits | 3,000 | 3.008 | 0.009 | 2.947 | +0.061 | 6.9 |
+| 14 digits | 3,000 | 3.045 | 0.009 | 3.002 | +0.043 | 4.9 |
+| 16 digits | 3,000 | 3.129 | 0.008 | 3.100 | +0.029 | 3.5 |
+| 17 digits | 3,000 | 3.183 | 0.008 | 3.144 | +0.039 | 4.7 |
+| 18 digits | 3,000 | 3.225 | 0.008 | 3.186 | +0.039 | 4.6 |
+| 19 digits | 3,000 | 3.241 | 0.009 | 3.226 | +0.015 | 1.7 |
+| 22 digits | 3,000 | 3.326 | 0.009 | 3.333 | −0.007 | −0.8 |
+| 28 digits | 2,000 | 3.473 | 0.012 | 3.509 | −0.036 | −3.0 |
+| 32 digits | 1,000 | 3.603 | 0.018 | 3.606 | −0.003 | −0.2 |
+| 45 digits | 300 | 3.907 | 0.030 | 3.853 | +0.054 | 1.7 |
+
+Here the answer is sharp. The rule is never off by more than 0.06 rounds, but it is not exact: 6 of the 11 differences are more than three standard errors. The mean moves in a slow wave around log₄(ln N) + 0.51, above it from 11 to 18 digits and below it near 28. So the honest form of the rule is: rounds = log₄(ln N) + 0.51, give or take 0.06.
+
 The reason tested where it had not been fitted (computed; [inherit_sources.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources.py) → [inherit_sources_1.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_1.out), [inherit_sources_2.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_2.out), [inherit_sources_3.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_3.out), [inherit_sources_5.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_5.out)). The same reasoning says more: with k sources of helpers each source has to supply 1/(2k) of the digits, so the rounds should grow like log_(2k)(ln N), with slope 1/ln(2k) against ln ln N. The lit part of N² + 1 is such a source, and for k = 5 also those of N² + N + 1 and N² − N + 1 (the proof steps for these numbers, wheels of four, three and six cells, are literature and were not built here; only the rounds were counted, with helpers below N). The slope 1/ln(2k) contains no fitted number. Every prime in six classes from 2^10 to 2^21 and random primes of 9 to 30 digits:
 
 | Sources of helpers | k | Slope measured | 1/ln(2k) |

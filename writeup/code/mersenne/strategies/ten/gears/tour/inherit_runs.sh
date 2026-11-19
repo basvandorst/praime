@@ -8,6 +8,7 @@ $PY inherit_big.py 75 40   | grep digits > inherit_big_75.out
 $PY inherit_big.py 75 40 1 | grep digits > inherit_big_75b.out   # drawn because the first sample of 75 digits stood out
 $PY inherit_big.py 80 24   | grep digits > inherit_big_80.out
 $PY inherit_big.py 85 20   | grep digits > inherit_big_85.out
+for spec in "11 3000" "13 3000" "14 3000" "16 3000" "17 3000" "18 3000" "19 3000" "22 3000" "28 2000" "32 1000" "45 300"; do set -- $spec; $PY inherit_big.py $1 $2 | grep digits; done > inherit_big_more.out
 # the scans
 ./inherit 4200000000 > inherit_c_4e9.out ; ./inherit 4200000000 0 5 inherit_deep_4e9.txt ; ./inherit 1000000000 1 > inherit_c_minus_1e9.out
 ./inherit_second 2100000001 4200000000 > inherit_second_4e9.out
