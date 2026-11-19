@@ -60,6 +60,10 @@ ul.events li { margin:2px 0; }
       <option value="liou">Numbers with an even number of prime factors left, odd right</option>
       <option value="mob">Square-free numbers: an even number of prime factors left, odd right</option>
     </select></div>
+    <div class="ctl"><label for="src">Which weights</label><select id="src">
+      <option value="primes">The primes</option>
+      <option value="mexp">The Mersenne exponents p: 2, 3, 5, 7, 13, … (not 2^p − 1)</option>
+    </select></div>
     <div class="ctl"><label for="wt">What a weight weighs</label><select id="wt">
       <option value="val">Its own value (5 weighs 5)</option>
       <option value="one">1 each (count them)</option>
@@ -98,10 +102,12 @@ function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),sq=new Ui
  for(let i=0;i<SZ;i++)if(rem[i]>1)om[i]++;G.lo=lo;G.om=om;G.sq=sq;G.i=0;}
 function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return{n:G.lo+i,om:G.om[i],sq:G.sq[i]};}
 const LOGMAX=100000;
-const S={logMode:"step",eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
+const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841],PRULES=["alt","light","coin","mod4","mod3"];
+const S={src:"primes",mi:0,logMode:"step",eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
 function resetHist(){S.hist={w:1,b:[],cur:null};}
-function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{eqLog:[],logShown:-1,L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
-function pick(){for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}
+function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{mi:0,eqLog:[],logShown:-1,L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
+function pick(){if(S.src==="mexp"&&PRULES.includes(S.rule)){for(;;){if(S.mi>=MEXP.length){S.stop="All 52 known Mersenne exponents are on the scale. (GIMPS has checked every exponent below 83,200,483 twice, so the first 51 are certainly consecutive; whether another one lies between 82,589,933 and 136,279,841 is not yet certain.)";return null;}const n=MEXP[S.mi++];if(S.rule==="mod4"&&n===2)continue;if(S.rule==="mod3"&&n<=3)continue;return{n,om:1,sq:1};}}
+ for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}
  switch(S.rule){case"alt":case"light":case"coin":if(isP)return x;break;case"mod4":if(isP&&n>2)return x;break;case"mod3":if(isP&&n>3)return x;break;case"liou":return x;case"mob":if(x.sq)return x;break;}}}
 function side(x){const n=x.n;switch(S.rule){case"alt":return S.k%2===0?1:-1;case"light":return S.L<=S.R?1:-1;case"coin":return Math.random()<0.5?1:-1;case"mod4":return n%4===1?1:-1;case"mod3":return n%3===1?1:-1;case"liou":return x.om%2===0?1:-1;case"mob":return x.om%2===0?1:-1;}return 1;}
 function weight(n){return S.wt==="one"?1:S.wt==="log"?(n===1?0:Math.log(n)):n;}
@@ -119,7 +125,7 @@ function addOne(){if(S.stop)return false;const x=pick();if(!x)return false;const
  return true;}
 function advance(m){for(let i=0;i<m;i++)if(!addOne())break;}
 function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(380,Math.min(560,w*0.55)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
-function block(x,y,w,h,n,col){ctx.fillStyle=col;ctx.beginPath();ctx.rect(x-w/2,y-h,w,h);ctx.fill();ctx.fillStyle="#0b1220";ctx.font=`600 ${Math.min(13*S.dpr,h*0.62)}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";const t=n.toLocaleString("en-US");ctx.fillText(t.length>9?t.slice(0,7)+"…":t,x,y-h/2+0.5*S.dpr);}
+function block(x,y,w,h,n,col){ctx.fillStyle=col;ctx.beginPath();ctx.rect(x-w/2,y-h,w,h);ctx.fill();const t=n.toLocaleString("en-US");ctx.fillStyle="#0b1220";ctx.font=`600 ${Math.min(13*S.dpr,h*0.62,w*0.95/(0.58*t.length))}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(t,x,y-h/2+0.5*S.dpr);}
 function draw(){const W=S.W,H=S.H,dpr=S.dpr,top=Math.round(H*0.55);ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
  const d=S.L-S.R,eq=S.k>0&&(S.wt==="log"?Math.abs(d)<1e-9:d===0),avg=S.k?(S.L+S.R)/S.k:1,ang=0.2*Math.tanh(d/(3*Math.max(avg,1e-9))),cx=W/2,py=top*0.32,arm=Math.min(W*0.36,330*dpr);
  ctx.fillStyle="#40536d";ctx.beginPath();ctx.moveTo(cx,py);ctx.lineTo(cx-34*dpr,top-14*dpr);ctx.lineTo(cx+34*dpr,top-14*dpr);ctx.closePath();ctx.fill();ctx.fillRect(cx-70*dpr,top-16*dpr,140*dpr,6*dpr);
@@ -134,7 +140,7 @@ function draw(){const W=S.W,H=S.H,dpr=S.dpr,top=Math.round(H*0.55);ctx.fillStyle
  const gy=top+6*dpr,gh=H-gy-8*dpr,gx=10*dpr,gw=W-20*dpr;ctx.fillStyle="#0b1422";ctx.fillRect(gx,gy,gw,gh);const B=S.hist.b.concat(S.hist.cur?[S.hist.cur]:[]);
  ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText("left minus right over time (above the line: left heavier)",gx+6*dpr,gy+4*dpr);
  if(B.length){let mx=1e-9;for(const b of B)mx=Math.max(mx,Math.abs(b.a),Math.abs(b.b));const band=S.rule==="mob"&&S.wt==="one";if(band)mx=Math.max(mx,Math.sqrt(B[B.length-1].n))*1.05;
-  const Y=v=>gy+gh/2-v/mx*(gh/2-18*dpr),X=i=>gx+gw*(i+0.5)/Math.max(B.length,600);
+  const Y=v=>gy+gh/2-v/mx*(gh/2-18*dpr),X=i=>gx+gw*(i+0.5)/Math.max(B.length,B.length<600?Math.max(B.length,20):600);if(B.length<600){ctx.strokeStyle="rgba(159,176,198,0.55)";ctx.lineWidth=1.5*dpr;ctx.beginPath();B.forEach((b,i)=>{const y=Y(b.b);i?ctx.lineTo(X(i),y):ctx.moveTo(X(i),y);});ctx.stroke();B.forEach((b,i)=>{ctx.fillStyle=b.b>0?"#38bdf8":b.b<0?"#f472b6":"#34d399";ctx.beginPath();ctx.arc(X(i),Y(b.b),Math.max(2*dpr,Math.min(4.5*dpr,gw/B.length/3)),0,6.2832);ctx.fill();});}
   ctx.strokeStyle="#334155";ctx.lineWidth=1*dpr;ctx.beginPath();ctx.moveTo(gx,Y(0));ctx.lineTo(gx+gw,Y(0));ctx.stroke();
   if(band){ctx.strokeStyle="rgba(251,191,36,0.6)";ctx.setLineDash([4*dpr,4*dpr]);ctx.beginPath();B.forEach((b,i)=>{const y=Y(Math.sqrt(b.n));i?ctx.lineTo(X(i),y):ctx.moveTo(X(i),y);});ctx.stroke();ctx.beginPath();B.forEach((b,i)=>{const y=Y(-Math.sqrt(b.n));i?ctx.lineTo(X(i),y):ctx.moveTo(X(i),y);});ctx.stroke();ctx.setLineDash([]);}
   ctx.lineWidth=Math.max(1,1.5*dpr);B.forEach((b,i)=>{const x=X(i);ctx.strokeStyle=b.b>0&&b.a<0?"#34d399":b.b<=0?"#f472b6":"#38bdf8";ctx.beginPath();ctx.moveTo(x,Y(b.a));ctx.lineTo(x,Y(b.b)+0.5*dpr);ctx.stroke();});
@@ -146,12 +152,18 @@ const WHY={alt:"The primes go left and right in turn: 2 left, 3 right, 5 left, 7
  mod3:"Primes above 3 leave remainder 1 or 2 after division by 3 (7, 13, 19, … left; 5, 11, 17, … right). With the weight 1 each the right pan leads from the start, and keeps leading for a very long time: the left pan is heavier for the first time at 608,981,813,029 (Bays and Hudson, 1978), far beyond what this page can reach. The bias has the same cause as with 4: squares are always 1 more than a multiple of 3 (or of 4), and the primes pay for the squares among the prime powers.",
  liou:"Every number goes on the scale: left when it has an even number of prime factors counted with repetition (1, 4 = 2·2, 6 = 2·3, …), right when odd (2, 3, 5, 7, 8 = 2·2·2, …). With the weight 1 each, Pólya asked in 1919 whether the right pan is never lighter from 2 on. It held for a long time, but it is false: the first number where the left pan is heavier again is 906,150,257 (Tanaka, 1980). The page reaches that number at the top speed after a few hours.",
  mob:"Only the square-free numbers go on the scale (no prime factor twice): left with an even number of prime factors (1, 6, 10, …), right with an odd number (2, 3, 5, 7, 30, …). With the weight 1 each the difference left − right is the Mertens function M(n). The dashed lines are ±√n: Mertens conjectured in 1897 that the difference always stays inside them. It does for every number anyone has checked, yet the conjecture is false (Odlyzko and te Riele, 1985); no single number where it fails is known. The pans are exactly equal again and again."};
+function srcUI(){const p=PRULES.includes(S.rule);$("src").disabled=!p;$("src").title=p?"":"This rule uses all numbers, not a list of weights";}
+const MWHY={alt:"Now the weights are the 52 known Mersenne exponents p themselves, not the primes 2^p − 1: the numbers p for which 2^p − 1 is prime, in order: 2 left, 3 right, 5 left, 7 right, 13 left, … With the weight 1 each the pans are equal after every pair. With their own values one exponent dwarfs the ones before (127 → 521, 216,091 → 756,839), so the pan that gets the big one wins.",
+ light:"Now the weights are the 52 known Mersenne exponents, each on the lighter pan. Most exponents are larger than everything on the scale so far, so the heavier side flips at almost every step; when two exponents are close (9,689 and 9,941, or 3,021,377 after 2,976,221) the balance can come close to equal.",
+ coin:"Now the weights are the 52 known Mersenne exponents, each on a random pan. Press Reset and Start a few times: with so few weights every run is different.",
+ mod4:"Now the weights are the Mersenne exponents above 2: those that are 1 more than a multiple of 4 go left (5, 13, 17, 61, …), those that are 3 more go right (3, 7, 19, 31, …). Exponents are a little more often 1 more than a multiple of 4 than ordinary primes, because then 2p + 1 can never divide 2^p − 1; with the weight 1 each watch whether the left pan takes the lead.",
+ mod3:"Now the weights are the Mersenne exponents above 3: 1 more than a multiple of 3 left (7, 13, 19, 31, 61, …), 2 more right (5, 17, 89, 107, …)."};
 function stats(){const pc=x=>S.k?(100*x/S.k).toFixed(1)+"%":"–",d=S.L-S.R;
  const cells=[["Weights placed",f(S.k)],["Last number",f(S.lastN)],["Left",f(S.L)],["Right",f(S.R)],["Exactly equal",f(S.eq)+(S.lastEq?` (last at ${f(S.lastEq[1])})`:"")],["Left heavier",pc(S.aheadL)],["Right heavier",pc(S.aheadR)],["Lead changes",f(S.changes)],["Longest left lead",S.bestL[0]?f(S.bestL[0])+" steps":"–"],["Longest right lead",S.bestR[0]?f(S.bestR[0])+" steps":"–"]];
  $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
  const ev=S.events.slice(0,6).concat(S.events.length>6?[`… and ${f(S.events.length-6)} more lead changes`]:[]);$("events").innerHTML=(ev.length?ev:["Nothing yet: press Start."]).map(e=>`<li>${e}</li>`).join("")+(S.stop?`<li>${S.stop}</li>`:"");
  $("status").innerHTML=S.k===0?"The pans are empty.":`Step ${f(S.k)}: ${f(S.lastN)} went to the <span class="${S.lastSide>0?"L":"R"}">${S.lastSide>0?"left":"right"}</span>. `+((S.wt==="log"?Math.abs(d)<1e-9:d===0)?`<span class="E">The pans are equal.</span>`:d>0?`<span class="L">Left heavier by ${f(d)}.</span>`:`<span class="R">Right heavier by ${f(-d)}.</span>`);
- $("why").textContent=WHY[S.rule];showLog(false);}
+ $("why").textContent=(S.src==="mexp"&&PRULES.includes(S.rule)?MWHY[S.rule]+" ":"")+WHY[S.rule]+(PRULES.includes(S.rule)?"":" (This rule always uses all numbers; the choice of weights does not apply.)");showLog(false);}
 function logList(){const E=S.eqLog,c=S.logMode==="num"?1:S.logMode==="pan"?3:0;return E.map(e=>e[c]);}
 function showLog(force){const now=performance.now();if(!force&&(S.logShown===S.eqLog.length||now-S.logAt<300))return;S.logAt=now;S.logShown=S.eqLog.length;const E=S.eqLog,m=E.length,box=$("log"),what=S.logMode==="num"?"the number just added":S.logMode==="pan"?"the weight of each pan":"the step";
  if(m===0){$("logInfo").textContent=(S.k?"Not equal yet.":"Press Start or One weight.")+(S.wt==="log"?" With logarithms as weights the pans are practically never exactly equal.":"");box.innerHTML="";return;}
@@ -168,11 +180,12 @@ $("logMode").addEventListener("change",e=>{S.logMode=e.target.value;showLog(true
 $("copy").addEventListener("click",()=>{const t=S.logMode==="detail"?S.eqLog.map(e=>`${e[0]},${e[1]},${e[2]>0?"left":"right"},${e[3]}`).join("\n"):logList().join(", ");const done=()=>{const b=$("copy");b.textContent="Copied";setTimeout(()=>b.textContent="Copy list",1200);};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,()=>{});else{const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done();}catch(e){}a.remove();}});
 $("one").addEventListener("click",()=>{setRun(false);advance(1);draw();stats();});
 $("reset").addEventListener("click",()=>{setRun(false);reset();draw();stats();showLog(true);});
-$("rule").addEventListener("change",e=>{S.rule=e.target.value;reset();draw();stats();showLog(true);});
+$("rule").addEventListener("change",e=>{S.rule=e.target.value;srcUI();reset();draw();stats();showLog(true);});
 $("wt").addEventListener("change",e=>{S.wt=e.target.value;reset();draw();stats();showLog(true);});
+$("src").addEventListener("change",e=>{S.src=e.target.value;reset();draw();stats();showLog(true);});
 $("speed").addEventListener("input",e=>speed(Number(e.target.value)));
 window.addEventListener("resize",()=>{size();draw();});
-(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),w=q.get("weight");if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(w&&["val","one","log"].includes(w)){S.wt=w;$("wt").value=w;}speed(Number($("speed").value));reset();size();draw();stats();if(q.get("run")==="1")setRun(true);})();
+(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),w=q.get("weight");if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(w&&["val","one","log"].includes(w)){S.wt=w;$("wt").value=w;}if(q.get("src")==="mexp"){S.src="mexp";$("src").value="mexp";}srcUI();speed(Number($("speed").value));reset();size();draw();stats();if(q.get("run")==="1")setRun(true);})();
 </script>
 </body>
 </html>
