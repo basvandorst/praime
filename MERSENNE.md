@@ -433,7 +433,7 @@ Dropped by the backtest:
 - The distance of the back-and-forth machine seemed to drift (2.4 spreads at 2·10⁶); at 10⁸ it is 0.45 spreads, and the mean gap at odd and even places differs by 0.006 ± 0.012 ([bt4.py](writeup/code/mersenne/strategies/ten/gears/bt4.py) → [bt4.txt](writeup/code/mersenne/strategies/ten/gears/bt4.txt)).
 - The 44 Mersenne exponents above 40 against 17 properties the machines look for (twin, p ± 4, p ± 6, 2p ± 1, (p ± 1)/2, 4p ± 1, 6p ± 1, a triplet, remainders mod 4 and 8), compared with the 300 nearest primes and with those of them whose 2^q − 1 has no factor 2kq + 1 for k ≤ 300: no z-score beyond 2.1, and the largest is the known tilt towards p ≡ 1 (mod 4) ([bt3.py](writeup/code/mersenne/strategies/ten/gears/bt3.py) → [bt3.txt](writeup/code/mersenne/strategies/ten/gears/bt3.txt)).
 
-## 20. One wheel decides: a wheel the number does not fit (that every prime comes home is proved; "no mistake below 2^64" is computed and rests on the published list of base-2 pseudoprimes; that there is never a mistake is open: for the ring it is Agrawal's conjecture with x + 1 in place of x − 1, the same statement when the number of cells is even; for the two cells it is a Frobenius test, which a start of norm 2 settles below 2^64, given the list, and nothing settles above; the chain of wheels and the test with a receipt are literature and their runs are computed)
+## 20. One wheel decides: a wheel the number does not fit (that every prime comes home is proved; "no mistake below 2^64" is computed and rests on the published list of base-2 pseudoprimes; that there is never a mistake is open: for the ring it is Agrawal's conjecture with x + 1 in place of x − 1, the same statement when the number of cells is even; for the two cells it is a Frobenius test, which a start of norm 2 settles below 2^64, given the list, and nothing settles above; the chain of wheels and the test with a receipt are literature and their runs are computed; the four machines that find primes before their tick are literature with computed runs, and the rule for the rounds of machine 23 is a heuristic)
 
 Sections 17 to 19 judged a machine by how many prime wheels are home together. A harder demand is that one wheel decides alone: wheel n must be home after n turns exactly when n is prime. The gear rules were put in a contest on that demand ([tour.c](writeup/code/mersenne/strategies/ten/gears/tour/tour.c), [psp2.c](writeup/code/mersenne/strategies/ten/gears/tour/psp2.c), [summary.py](writeup/code/mersenne/strategies/ten/gears/tour/summary.py) → [tournament.txt](writeup/code/mersenne/strategies/ten/gears/tour/tournament.txt)).
 
@@ -656,6 +656,140 @@ In 689,540,521 tests on a start the number does not fit, 0 came home. In 1,035,8
 What is known. Khashin (2018) states that his own version of the two-cell test (steps −1 and 2 first, then 1 + √c) has no mistake below 2^64; his proof is a long computation on the possible prime factors and does not use the list. We did not find the route above (a start of norm 2, so that the list of base-2 pseudoprimes settles the wheel in one pass) written down; it is a direct consequence of the lemma, so it may well be known. Above 2^64 nothing is proved, and the reasons to expect a mistake of such tests at some very large number apply here too. As a small probe, 12,000 numbers above 2^64 that were built to fool the doubling wheel (Carmichael numbers of Chernick's form and pseudoprimes p(k(p − 1) + 1), up to 6 · 10^60) were put on the wheel: 0 came home ([norm2_beyond.py](writeup/code/mersenne/strategies/ten/gears/tour/norm2_beyond.py) → [norm2_beyond.txt](writeup/code/mersenne/strategies/ten/gears/tour/norm2_beyond.txt)).
 
 Cost ([norm2_bench.txt](writeup/code/mersenne/strategies/ten/gears/tour/norm2_bench.txt); one run in C, numbers between 2^62 and 2^64, time per number). On 200,000 primes: one strong test to base 2 (the doubling wheel) 498 ns, the norm-2 wheel 1758 ns, machine 11's wheel 1734 ns, the seven strong tests that are known to decide every number below 2^64 3470 ns. On 200,000 random odd numbers, where most are turned away early: 460, 1103, 975 and 593 ns. The program is plain (four multiplications mod n for a squaring of the two cells); it is not tuned.
+
+**Primes before their tick: four machines that do not wait (squaring, the sieve, Legendre's count and the proof steps of Pocklington and Morrison are literature; the runs are computed; the rule log₄(ln n) for the rounds of machine 23 is a fit to the runs, and the reason given for it is a heuristic).** On machines 10 to 19 wheel n decides at tick n: 30 ticks give the 10 primes up to 30. Four machines of the page break that rule, each in another way. The table says below which number every prime is on after 3, 5, 10 and 30 ticks, with as many wheels as the machine can use ([early.py](writeup/code/mersenne/strategies/ten/gears/tour/early.py) → [early.txt](writeup/code/mersenne/strategies/ten/gears/tour/early.txt), [early_summary.py](writeup/code/mersenne/strategies/ten/gears/tour/early_summary.py) → [early_sum.txt](writeup/code/mersenne/strategies/ten/gears/tour/early_sum.txt); [inherit.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit.py) → [inherit.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit.txt), [inherit_summary.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_summary.py) → [inherit_sum.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sum.txt)).
+
+| Machine, and what one tick is | Every prime below … is on after tick 3 | after tick 5 | after tick 10 | after tick 30 | All 669 primes below 5,000 on at tick |
+|---|---|---|---|---|---|
+| 10 to 19: wheel n makes one turn | 4 | 6 | 11 | 31 | 4,999 |
+| 21: one new prime gear, taken from the lamps | 49 | 169 | 961 | 16,129 | 19 |
+| 20: every wheel squares its cells | 16 | 64 | 2,048 | 2,147,483,648 | 12 |
+| 23: a round in which every dark wheel asks the lit ones | 21,767 | 2,223,990,533 | not known | not known | 3 |
+| 22: a gear changes counters; it counts and does not find | 25 (counted) | 49 (counted) | 121 (counted) | 961 (counted) | 4,999 for the lamps |
+
+Machine 20, squaring wheels (the verdict is that of machine 19; the count of ticks is proved). The two cells of wheel n hold a + √c, the start of machine 19. Write n in binary as 1 b₁ b₂ … b_k. At tick i the wheel multiplies its two cells with themselves and, when b_i = 1, makes one more plain turn (it multiplies by a + √c).
+
+1. After tick i the cells hold (a + √c)^m with m = (1 b₁ … b_i) in binary (proved: squaring doubles m and the plain turn adds b_i). So after k = ⌊log₂ n⌋ ticks they hold (a + √c)^n, and tick T decides every wheel below 2^(T+1).
+2. No wheel that has to make n turns is earlier (proved). Let a tick be one multiplication of two values that the wheel already holds and at most one plain turn. Before the first tick the wheel holds 1 turn, fewer than 2. If the values held after t − 1 ticks stand for fewer than 2^t turns, the new value stands for at most 2(2^t − 1) + 1 < 2^(t+1) turns. So after t ticks fewer than 2^(t+1) turns are made, n turns need t ≥ ⌊log₂ n⌋ ticks, and the wheel is done exactly then. (A test that needs only the power (n ± 1)/2 could be one tick earlier.)
+3. Checked ([early.py](writeup/code/mersenne/strategies/ten/gears/tour/early.py)): for every n from 2 to 299,999 the verdict equals that of the stepping wheel ([norm2.py](writeup/code/mersenne/strategies/ten/gears/tour/norm2.py), which takes the power from the lowest binary digit up) and is right, and the number of ticks is the number of binary digits less one; differences 0 and 0. In C ([norm2.c](writeup/code/mersenne/strategies/ten/gears/tour/norm2.c), [early_dyadic.sh](writeup/code/mersenne/strategies/ten/gears/tour/early_dyadic.sh) → [early_dyadic.out](writeup/code/mersenne/strategies/ten/gears/tour/early_dyadic.out)) every odd number below 2^32 went on the wheel. The numbers that came home, added up:
+
+| Tick T | 3 | 5 | 10 | 12 | 15 | 20 | 25 | 30 | 31 |
+|---|---|---|---|---|---|---|---|---|---|
+| Lamps (primes below 2^(T+1)) | 6 | 18 | 309 | 1,028 | 6,542 | 155,611 | 3,957,809 | 105,097,565 | 203,280,221 |
+
+   Every one of the 31 totals equals the count of machine 22's recursion for 2^(T+1) − 1, which shares nothing with the wheel.
+4. Below 2^64 no number that is not prime comes home, given the list (see the two-cell wheel above). So at tick 63 the 425,656,284,035,217,743 primes below 2^64 would all be on (that count is literature).
+
+The price: every wheel works at every tick. With 5,000 wheels the odd wheels make 25,905 ticks together, 38.7 for each prime found, and a tick is one squaring of two cells and at most one plain turn. Square-and-multiply is as old as the subject; the only thing added here is the clock.
+
+Machine 21, gears from its own lamps (proved; the sieve of Eratosthenes counted in gears). Tick 1 puts in gear 2. At every tick after that the machine takes the smallest lamp that is not yet a gear.
+
+1. Let the gears be the primes p₁, …, p_j and let q be the smallest number above p_j that no gear divides. Then q is prime: a prime factor of q below q is either at most p_j, and then it is a gear, or it lies between p_j and q, and then it is itself a number above p_j that no gear divides, smaller than q. A number m below q² that is not prime has a prime factor at most √m < q, and that factor is a gear. So every number below q² that no gear divides is prime (proved). Tick j lights the primes below p_(j+1)².
+2. The run ([early.py](writeup/code/mersenne/strategies/ten/gears/tour/early.py); frontier up to 12,000,000, 484 ticks): at every tick each lamp is a prime and every prime below the frontier is lit, by comparison with a separate sieve.
+
+| Tick | Gear put in | Every number decided below | New lamps | Lamps |
+|---|---|---|---|---|
+| 1 | 2 | 9 | 4 | 4 |
+| 2 | 3 | 25 | 5 | 9 |
+| 3 | 5 | 49 | 6 | 15 |
+| 5 | 11 | 169 | 9 | 39 |
+| 10 | 29 | 961 | 16 | 162 |
+| 19 | 67 | 5,041 | 66 | 675 |
+| 30 | 113 | 16,129 | 354 | 1,877 |
+| 100 | 541 | 299,209 | 498 | 25,936 |
+
+3. An open question inside the machine. The new lamps of tick j ≥ 2 are the primes between p_j² and p_(j+1)²: 5, 6, 15, 9, 22, 11, 27, 47, 16, … (OEIS A050216). Brocard's conjecture (1904) says there are always at least four; it is open. In the run the fewest were 5, at tick 2.
+
+The price: it looks at every number below the frontier. With 5,000 wheels that is 8,087 strikes and 4,999 numbers looked at, 19.6 moves for each prime.
+
+Machine 22, counting wheels (proved; Legendre's rule of 1808 in the form known as Lucy's recursion, as in [p9_lucy.c](writeup/code/p9_lucy.c)). Let S(v, p) be the number of m with 2 ≤ m ≤ v that are prime or have no prime factor up to p. Then S(v, 1) = v − 1.
+
+1. For a prime p with p² ≤ v the numbers that leave the count are p · m with p ≤ m ≤ v/p and m without a prime factor below p. There are S(⌊v/p⌋, p − 1) − π(p − 1) of them, and π(p − 1) = S(p − 1, p − 1). So S(v, p) = S(v, p − 1) − (S(⌊v/p⌋, p − 1) − S(p − 1, p − 1)) (proved). For p² > v nothing leaves, so S(v, p) = π(v) as soon as p ≥ √v: a counter is exact once the tick has passed the square root of its number.
+2. p is prime exactly when S(p, p − 1) is one more than S(p − 1, p − 1) (proved: among the numbers up to p, only p itself can be without a prime factor below p, so S(p, p − 1) = π(p), and likewise S(p − 1, p − 1) = π(p − 1)). The machine needs no other test.
+3. The counters needed for x are those of v = ⌊x/k⌋, because ⌊⌊x/k⌋/p⌋ = ⌊x/(kp)⌋: about 2√x of them. A move is one change of a counter.
+
+| x | Counters | Prime gears | Moves | Primes up to x | Primes per move |
+|---|---|---|---|---|---|
+| 900 | 59 | 10 | 179 | 154 | 0.86 |
+| 10,000 | 199 | 25 | 990 | 1,229 | 1.24 |
+| 62,500 | 499 | 53 | 3,597 | 6,275 | 1.74 |
+| 1,000,000 | 1,999 | 168 | 24,641 | 78,498 | 3.19 |
+| 25,000,000 | 9,999 | 669 | 232,773 | 1,565,927 | 6.73 |
+| 100,000,000 | 19,999 | 1,229 | 614,527 | 5,761,455 | 9.38 |
+| 1,000,000,000 | 63,244 | 3,401 | 3,092,168 | 50,847,534 | 16.44 |
+
+   For each x the gears whose counter rose are exactly the primes up to √x, and the counters equal π ([early.py](writeup/code/mersenne/strategies/ten/gears/tour/early.py), against sympy). With the gears up to N and x = N² the moves stay below the primes counted for every N from 55 on (tried up to 2,999). The box of the page counted the 455,052,511 primes up to 10^10 in 15,697,553 moves ([early_node.js](writeup/code/mersenne/strategies/ten/gears/early_node.js), [early_js_check.py](writeup/code/mersenne/strategies/ten/gears/tour/early_js_check.py) → [early_js_check.txt](writeup/code/mersenne/strategies/ten/gears/tour/early_js_check.txt)).
+
+The price: it knows how many primes there are, not which. A machine that finds its primes needs at least one move for each. The fastest counts of this kind need about x^(2/3) steps (Meissel, Lehmer, Lagarias, Miller and Odlyzko, Deléglise and Rivat; fact 2020 of [FACTS.md](FACTS.md)).
+
+Machine 23, wheels that light each other (the proof steps are literature; the count of rounds is computed; its growth is a heuristic). Round 0: only the prime 2 is lit. In every round a dark number N looks at the lit primes that divide N − 1 and at those that divide N + 1. Let F₁ be the part of N − 1 made of lit primes (with their full powers), F₂ the same for N + 1, and L = lcm(F₁, F₂).
+
+1. If L² > N, the lit primes are enough to decide N (proved, from steps 1 and 2 of the chain of wheels above; the combination is that of Brillhart, Lehmer and Selfridge, 1975). Run the one-cell test for the primes of F₁ and the two-cell test, with one step c for all of them, for the primes of F₂. If N fails one of them it is not prime. If it passes, every prime factor r of N is 1 mod F₁ and, with one sign for the whole of F₂, 1 or −1 mod F₂. So r is 1 or x mod L, where x is the number below L that is 1 mod F₁ and −1 mod F₂. A composite N has a prime factor r ≤ √N < L; r cannot be 1 mod L, so r = x. Hence N is not prime when 1 < x < N and x divides N, and prime otherwise: one division finishes the proof.
+2. Every prime is lit in the end, and nothing else (proved). For a prime N the witnesses exist: a number that is not an f-th power mod N for the one cell, an element of order N + 1 among the elements of norm 1 for the two cells. By induction the primes below N are lit at some round, and when all prime factors of N − 1 are lit, L ≥ N − 1 > √N.
+3. rounds(N) is 1 more than the smallest g such that the primes lit by round g are enough. Round 1 is known without a run (proved from the rule): the primes with (2^m)² > N for the power 2^m in N − 1 or N + 1, that is the Proth primes k · 2^m + 1 with k < 2^m and their mirror images k · 2^m − 1 with k < 2^m: 3, 5, 7, 11, 13, 17, 23, 31, 41, 47, 79, 97, …
+
+The runs, by three programs.
+
+- Python with the real proofs ([inherit.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit.py) → [inherit.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit.txt)): every odd number up to 200,000 was put through the tests with witnesses. The numbers that got a proof are exactly the primes. As a test of step 1, 1,070 odd composites below 3,000 were given every prime factor of n − 1 and n + 1 as helper: 0 passed.
+- C by the rule ([inherit.c](writeup/code/mersenne/strategies/ten/gears/tour/inherit.c) → [inherit_c_4e9.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_c_4e9.out); primes by a Miller–Rabin test with the bases 2 to 13, which is exact far beyond this range) up to 4,200,000,000: 198,996,103 primes, the number that the counting recursion of machine 22 gives (the table leaves out the prime 2, which is lit from the start). A second C program, written separately from the description of the rule ([inherit_second.c](writeup/code/mersenne/strategies/ten/gears/tour/inherit_second.c) → [inherit_second_4e9.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_second_4e9.out); primes and factors from one sieve, no Miller–Rabin test), gives the same number of primes for every round up to 4,200,000,000 and the same list of 30,789 primes of 5 and 6 rounds. Run on to 8,400,000,000 ([inherit_second_8e9.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_second_8e9.out)), it finds 385,307,831 primes, the number of the counting recursion, and still none of 7 rounds; the primes of 6 rounds are 2,223,990,533, 3,053,740,441, 3,859,111,517, 7,066,121,653. That list was also made without a scan ([inherit_lemma.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_lemma.py) → [inherit_lemma.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_lemma.txt)): by the lemma under "Primes of 7 rounds" below, such a prime is s · q + 1 with q one of the primes of 5 or more rounds below 4.2·10^9, and trying all 104,170 such numbers gives the same 4 primes. One level up ([inherit_lemma_2.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_lemma_2.txt), with the 73,520 primes of 5 or more rounds up to 8.4·10^9, [inherit_deep_8e9.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_deep_8e9.txt)): there are 11 primes of 6 rounds up to 16,800,000,000, and no prime up to 33,600,000,000 needs 7 rounds.
+
+| Rounds | Primes up to 4,200,000,000 | Smallest such prime |
+|---|---|---|
+| 1 | 19,273 | 3 |
+| 2 | 62,240,805 | 19 |
+| 3 | 127,499,945 | 173 |
+| 4 | 9,205,290 | 21,767 |
+| 5 | 30,786 | 1,688,173 |
+| 6 | 3 | 2,223,990,533 |
+
+- From the top down with PARI ([inherit_big.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big.py) → [inherit_big_check.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_check.txt)): the same rule, worked out from N downwards, agrees on the 17,983 odd primes up to 200,000 and gives 6 rounds for 2,223,990,533. Its neighbours are 4 × 555,997,633 and 2 × 3 × 370,665,089, and both large primes need 5 rounds.
+
+- A third count ([inherit_hist.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_hist.py) → [inherit_hist.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_hist.txt)): the rule from the top down for every prime up to 20,000,000; the numbers of primes per round equal those of the C program (1,270,606 odd primes). It also confirms the 15 primes of 5 and 6 rounds that the C run printed; the three primes of 6 rounds up to 4.2·10^9 are 2,223,990,533, 3,053,740,441, 3,859,111,517.
+- The box of the page proves a typed number of up to 30 digits and lists its helpers round by round. For 2,223,990,533 it shows the helpers 555,997,633, 277,998,817, 138,999,409, 1,263,631, 577, 2; here 555,997,633 = 2 × 277,998,817 − 1 and 277,998,817 = 2 × 138,999,409 − 1. On 1,031 primes ([inherit_node.js](writeup/code/mersenne/strategies/ten/gears/inherit_node.js), [inherit_box_check.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_box_check.py) → [inherit_box_check.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_box_check.txt)) its rounds equal those of PARI, except for 5 primes of 30 digits where the page cannot take a neighbour apart; there it says so and gives a longer proof.
+
+With N − 1 alone ([inherit_c_minus_1e9.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_c_minus_1e9.out), up to 1,000,000,000) the same count needs up to 14 rounds; the smallest primes of each round are 3, 7, 23, 47, 283, 719, 1,439, 2,879, 34,549, 138,197, 1,266,767, 14,920,303, 36,449,279, 377,982,107. From 23 on, all 12 terms equal those of OEIS A056637 (the least prime of each class n− in the classification of Erdős and Selfridge, where every prime factor of p − 1 counts, down to 2 and 3). OEIS A082449 (the smallest prime for which taking the greatest prime factor of p − 1 again and again needs n steps) has one other term, 14,619,833 where these lists have 14,920,303. For the primes between 2^28 and 2^29 the mean is 4.30 rounds with N − 1 alone and 2.68 with both neighbours.
+
+How the rounds grow ([inherit_big.sh](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big.sh) → [inherit_big.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big.out): random primes, factored with PARI).
+
+| Size | Primes | Mean rounds | Most | log₄(ln n) + 0.51 |
+|---|---|---|---|---|
+| 2^10 to 2^11 (every prime) | 137 | 1.99 | – | 1.95 |
+| 2^15 to 2^16 (every prime) | 3,030 | 2.20 | – | 2.23 |
+| 2^20 to 2^21 (every prime) | 73,586 | 2.39 | – | 2.43 |
+| 2^25 to 2^26 (every prime) | 1,894,120 | 2.58 | – | 2.58 |
+| 2^30 to 2^31 (every prime) | 50,697,537 | 2.74 | – | 2.71 |
+| 12 digits (random) | 3,000 | 2.93 | 5 | 2.89 |
+| 15 digits (random) | 3,000 | 3.10 | 5 | 3.05 |
+| 20 digits (random) | 3,000 | 3.28 | 5 | 3.26 |
+| 25 digits (random) | 2,000 | 3.41 | 5 | 3.43 |
+| 30 digits (random) | 1,500 | 3.55 | 5 | 3.56 |
+| 35 digits (random) | 800 | 3.67 | 5 | 3.67 |
+| 40 digits (random) | 500 | 3.80 | 5 | 3.77 |
+| 50 digits (random) | 200 | 3.93 | 5 | 3.93 |
+| 60 digits (random) | 80 | 4.08 | 5 | 4.06 |
+
+The rule of thumb (heuristic). Suppose the primes below y are lit after g rounds. The part of a random number that is made of primes below y has, on average, about as many digits as y (the sum of ln p/(p − 1) over p ≤ y is ln y + O(1)). N is lit in the next round when F₁ and F₂ together have more than half the digits of N, and each neighbour supplies about ln y: 2 ln y > ½ ln N, that is N < y⁴. So one more round raises the size that can be reached to about its fourth power, and rounds(N) ≈ log₄(ln N) + constant. With N − 1 alone the same count gives N < y², hence log₂(ln N). The fit (computed): a straight line through 30 size classes (every class from 2^10 to 2^31 and the random sizes from 12 to 60 digits; the table above shows some of them; mean rounds against ln ln N) has slope 0.73, where 1/ln 4 = 0.72; and with the slope fixed at 1/ln 4 the difference rounds − log₄(ln N) lies between 0.47 and 0.56 for every one of these classes. With N − 1 alone and the slope fixed at 1/ln 2 the difference lies between −0.01 and 0.16 for the classes 2^10 to 2^28.
+
+The rule tried on sizes it was not made from (computed; [inherit_big_70.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_70.out), [inherit_big_80.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_80.out)). The constant 0.51 comes from the classes up to 60 digits. Afterwards: 40 random primes of 70 digits needed 4.175 rounds on average (standard error 0.08), and the rule says 4.173; 24 random primes of 80 digits needed 4.208 rounds on average (standard error 0.10), and the rule says 4.269. None needed more than 5 rounds.
+
+The reason tested where it had not been fitted (computed; [inherit_sources.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources.py) → [inherit_sources_1.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_1.out), [inherit_sources_2.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_2.out), [inherit_sources_3.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_3.out), [inherit_sources_5.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_5.out)). The same reasoning says more: with k sources of helpers each source has to supply 1/(2k) of the digits, so the rounds should grow like log_(2k)(ln N), with slope 1/ln(2k) against ln ln N. The lit part of N² + 1 is such a source (its proof step, a wheel of four cells, is literature and was not built here; only the rounds were counted, with helpers below N). The slope 1/ln(2k) contains no fitted number. Every prime in six classes from 2^10 to 2^21 and random primes of 9 to 30 digits:
+
+| Sources of helpers | k | Slope measured | 1/ln(2k) |
+|---|---|---|---|
+| N − 1 | 1 | 1.38 | 1.44 |
+| N − 1 and N + 1 (machine 23) | 2 | 0.71 | 0.72 |
+| N − 1, N + 1 and N² + 1 | 3 | 0.59 | 0.56 |
+| N − 1, N + 1, N² + 1, N² + N + 1 and N² − N + 1 | 5 | 0.54 | 0.43 |
+
+For k = 2 this fourth program gives the same class means as the C program. For k = 5 the straight line does not fit: slope 0.54 where the reasoning says 0.43. The curve there is a step: almost flat from 2^10 to 2^21 (1.93 to 2.02 rounds) and rising after that, because nearly every prime needs 2 or 3 rounds. A second measure, chosen after seeing the step and therefore worth less: from the first class to the last the mean rises by 2.94, 1.49, 1.18, 1.06 rounds for k = 1, 2, 3, 5, where the reasoning says 3.22, 1.61, 1.25, 0.97. So the size of the effect is right within about a tenth in all four cases, and the straight line is a fair picture only when one round is short compared with the range of sizes.
+
+Primes of 7 rounds exist (computed; a search by construction, [inherit_deep.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_deep.py) → [inherit_deep_first.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_deep_first.out), [inherit_deep2.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_deep2.out)). Each neighbour of a prime of g + 1 rounds has a prime factor of g rounds or more (proved: otherwise that neighbour is lit completely by round g − 1, and one whole neighbour is larger than √N by itself). So candidates were built on the deep primes already known. From the 30,789 primes r of 5 or 6 rounds below 4.2·10^9 ([inherit_deep_4e9.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_deep_4e9.txt)), q = s · r ± 1 with even s up to 2,000 gave 3,336 primes of 6 rounds or more; from these, N = s · q ± 1 below 320,000,000,000,000 gave 4 primes of 7 rounds. The smallest is 76,175,908,868,713 = 24 × 3,173,996,202,863 + 1; the box of the page proves it in 7 rounds as well. This search finds examples. It does not show that this is the smallest prime of 7 rounds: that one lies between 33,600,000,000 (see the lemma count above) and 76,175,908,868,713. Whether the number of rounds is unbounded is not proved.
+
+What is known, and what we did not find. The two proof steps are Pocklington's (1914) and Morrison's (1975). Counting levels of such proofs is known in two forms: the classes of Erdős and Selfridge (all prime factors of p + 1, or of p − 1, down to 2 and 3; OEIS A005113 and A056637) and the Pratt tree (all prime factors of p − 1), whose height Ford, Konyagin and Luca (2010) bound for almost all primes and for which their model suggests about e · ln ln p. The count used here differs: both neighbours, and only as many helpers as it takes to pass √N. We did not find it in a search, and the local copy of the OEIS (31 October 2026) contains neither 2, 3, 19, 173, 21767, 1688173, 2223990533 nor the list of round 1. It is a small step from known things and may well be known.
+
+What machine 23 is not. It is not a faster way to find primes: a round is heavy, because every dark wheel tries in every round, and a machine that may turn as much as it likes within one tick can let each wheel decide alone, as machine 20 does. For a large N the hard part is taking N − 1 and N + 1 apart. What the rounds measure is how deep a proof by these two steps has to go.
+
+On the page ([page_check_20_23.txt](writeup/code/mersenne/strategies/ten/gears/tour/page_check_20_23.txt); the page's own code in headless Chrome with 5,000 wheels): machine 20 has 669 lamps at tick 12, machine 21 at tick 19, machine 23 after round 3, machine 22 at tick 5,000 with 1,565,927 primes counted; no mistake on any of them. The page code of the four machines was compared with Python ([early_node.js](writeup/code/mersenne/strategies/ten/gears/early_node.js), [early_js_check.py](writeup/code/mersenne/strategies/ten/gears/tour/early_js_check.py) → [early_js_check.txt](writeup/code/mersenne/strategies/ten/gears/tour/early_js_check.txt): 270 comparisons, 0 differ; [inherit_node.js](writeup/code/mersenne/strategies/ten/gears/inherit_node.js), [inherit_js_check.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_js_check.py) → [inherit_js_check.txt](writeup/code/mersenne/strategies/ten/gears/tour/inherit_js_check.txt): rounds, helpers, witnesses and the division for 2,638 odd numbers, 0 differ).
 
 **What this is and is not.** No wheel here is new mathematics: the pair is the test of Baillie, Pomerance, Selfridge and Wagstaff, the two-cell wheel is a Frobenius test (Khashin's, here with odd prime steps only; for his own version, which tries the steps −1 and 2 first, he states that there is no mistake below 2^64), and Pascal's wheel is the congruence of Agrawal, Kayal and Saxena, whose proved test needs many rings and offsets. What the contest adds is the common rule in gear terms (in every case found a number cheats only on a wheel it fits, so take a wheel it does not fit; for the ring this is the exception clause of Popovych's version of the conjecture, carried over here to the wheels of two and three cells), the check of Pascal's wheel up to 2^64 on every ring up to 42 cells, the folding of the ring onto small wheels with its link to the Fibonacci wheel and the prize problem, the remark that the two-cell wheel is the Lucas–Lehmer test on Mersenne numbers, and a small statement on prime powers. A proof that either kept machine never errs would give a prime test of a few lines and would be a major result; so would the first number that fools it.
 
