@@ -38,6 +38,7 @@ ul.events { margin:6px 0 0; padding-left:18px; }
 ul.events li { margin:2px 0; }
 .log { max-height:280px; overflow:auto; background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:6px 10px; font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
 .log div { white-space:nowrap; }
+.log.flow { white-space:normal; word-break:normal; overflow-wrap:anywhere; }
 @media (max-width:600px) { .log div { white-space:normal; } } .log .s { color:var(--muted); }
 .logbar { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; justify-content:space-between; margin-bottom:8px; }
 @media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:130px; } }
@@ -77,7 +78,7 @@ ul.events li { margin:2px 0; }
     <ul class="events" id="events"></ul>
   </section>
   <section class="panel">
-    <div class="logbar"><h2 style="margin:0">Every time the pans are equal</h2><button id="csv" type="button">Download all as CSV</button></div>
+    <div class="logbar"><h2 style="margin:0">Every time the pans are equal</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><select id="logMode" aria-label="What the log shows"><option value="step">the step numbers</option><option value="num">the number just added</option><option value="pan">the weight of each pan</option><option value="detail">everything, one line each</option></select><button id="copy" type="button">Copy list</button><button id="csv" type="button">Download all as CSV</button></div></div>
     <p class="note" id="logInfo" style="margin:0 0 8px"></p>
     <div class="log" id="log" aria-live="off"></div>
   </section>
@@ -97,7 +98,7 @@ function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),sq=new Ui
  for(let i=0;i<SZ;i++)if(rem[i]>1)om[i]++;G.lo=lo;G.om=om;G.sq=sq;G.i=0;}
 function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return{n:G.lo+i,om:G.om[i],sq:G.sq[i]};}
 const LOGMAX=100000;
-const S={eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
+const S={logMode:"step",eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
 function resetHist(){S.hist={w:1,b:[],cur:null};}
 function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{eqLog:[],logShown:-1,L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
 function pick(){for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}
@@ -151,15 +152,20 @@ function stats(){const pc=x=>S.k?(100*x/S.k).toFixed(1)+"%":"–",d=S.L-S.R;
  const ev=S.events.slice(0,6).concat(S.events.length>6?[`… and ${f(S.events.length-6)} more lead changes`]:[]);$("events").innerHTML=(ev.length?ev:["Nothing yet: press Start."]).map(e=>`<li>${e}</li>`).join("")+(S.stop?`<li>${S.stop}</li>`:"");
  $("status").innerHTML=S.k===0?"The pans are empty.":`Step ${f(S.k)}: ${f(S.lastN)} went to the <span class="${S.lastSide>0?"L":"R"}">${S.lastSide>0?"left":"right"}</span>. `+((S.wt==="log"?Math.abs(d)<1e-9:d===0)?`<span class="E">The pans are equal.</span>`:d>0?`<span class="L">Left heavier by ${f(d)}.</span>`:`<span class="R">Right heavier by ${f(-d)}.</span>`);
  $("why").textContent=WHY[S.rule];showLog(false);}
-function showLog(force){const now=performance.now();if(!force&&(S.logShown===S.eqLog.length||now-S.logAt<300))return;S.logAt=now;S.logShown=S.eqLog.length;const E=S.eqLog,m=E.length,show=Math.min(m,300);
- $("logInfo").textContent=m===0?(S.k?"Not equal yet.":"Press Start or One weight.")+(S.wt==="log"?" With logarithms as weights the pans are practically never exactly equal.":""):`${f(S.eq)} time${S.eq===1?"":"s"} equal so far`+(S.eq>m?` (the log keeps the first ${f(LOGMAX)})`:"")+`; the newest ${show===m?"":""+f(show)+" "}${show===1?"is":"are"} shown first${m>show?", the download has them all":""}.`;
- let h="";for(let i=m-1;i>=m-show;i--){const e=E[i];h+=`<div><span class="s">step ${f(e[0])}:</span> ${f(e[1])} to the ${e[2]>0?'<span class="L">left</span>':'<span class="R">right</span>'}, each pan <span class="E">${f(e[3])}</span></div>`;}$("log").innerHTML=h;}
+function logList(){const E=S.eqLog,c=S.logMode==="num"?1:S.logMode==="pan"?3:0;return E.map(e=>e[c]);}
+function showLog(force){const now=performance.now();if(!force&&(S.logShown===S.eqLog.length||now-S.logAt<300))return;S.logAt=now;S.logShown=S.eqLog.length;const E=S.eqLog,m=E.length,box=$("log"),what=S.logMode==="num"?"the number just added":S.logMode==="pan"?"the weight of each pan":"the step";
+ if(m===0){$("logInfo").textContent=(S.k?"Not equal yet.":"Press Start or One weight.")+(S.wt==="log"?" With logarithms as weights the pans are practically never exactly equal.":"");box.innerHTML="";return;}
+ const cap=`${f(S.eq)} time${S.eq===1?"":"s"} equal so far`+(S.eq>m?` (the log keeps the first ${f(LOGMAX)})`:"");
+ if(S.logMode==="detail"){const show=Math.min(m,300);$("logInfo").textContent=cap+`; the newest ${show===1?"is":"are"} shown first`+(m>show?`, the download has them all.`:".");box.classList.remove("flow");let h="";for(let i=m-1;i>=m-show;i--){const e=E[i];h+=`<div><span class="s">step ${f(e[0])}:</span> ${f(e[1])} to the ${e[2]>0?'<span class="L">left</span>':'<span class="R">right</span>'}, each pan <span class="E">${f(e[3])}</span></div>`;}box.innerHTML=h;return;}
+ const L=logList(),show=Math.min(m,5000),part=L.slice(m-show).map(v=>String(v));$("logInfo").textContent=cap+`; for each time, ${what}`+(m>show?`, the last ${f(show)} (Copy and Download have them all).`:".");box.classList.add("flow");box.textContent=(m>show?"…, ":"")+part.join(", ");box.scrollTop=box.scrollHeight;}
 function csv(){const rows=["step,number added,side,left,right"].concat(S.eqLog.map(e=>`${e[0]},${e[1]},${e[2]>0?"left":"right"},${e[3]},${e[3]}`));const b=new Blob([rows.join("\n")+"\n"],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`prime-balance-equal-${S.rule}-${S.wt}.csv`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
 let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);}draw();stats();if(S.stop){setRun(false);}raf=requestAnimationFrame(frame);}
 function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
 function speed(v){const r=Math.round(Math.pow(10,v/100*5.3));S.rate=r;$("spd").textContent=r.toLocaleString("en-US");}
 $("go").addEventListener("click",()=>setRun(!S.run));
 $("csv").addEventListener("click",csv);
+$("logMode").addEventListener("change",e=>{S.logMode=e.target.value;showLog(true);});
+$("copy").addEventListener("click",()=>{const t=S.logMode==="detail"?S.eqLog.map(e=>`${e[0]},${e[1]},${e[2]>0?"left":"right"},${e[3]}`).join("\n"):logList().join(", ");const done=()=>{const b=$("copy");b.textContent="Copied";setTimeout(()=>b.textContent="Copy list",1200);};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,()=>{});else{const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done();}catch(e){}a.remove();}});
 $("one").addEventListener("click",()=>{setRun(false);advance(1);draw();stats();});
 $("reset").addEventListener("click",()=>{setRun(false);reset();draw();stats();showLog(true);});
 $("rule").addEventListener("change",e=>{S.rule=e.target.value;reset();draw();stats();showLog(true);});
