@@ -904,6 +904,17 @@ The backtest ([ref.py](writeup/code/mersenne/strategies/ten/balance/ref.py) inde
 
 The digit sums lean, and the cause is one small prime (computed, [baselines.py](writeup/code/mersenne/strategies/ten/balance/baselines.py) → [baselines.txt](writeup/code/mersenne/strategies/ten/balance/baselines.txt)). The parity of the digit sum in base b equals the parity of the alternating digit sum, and that is n mod (b + 1). A number not divisible by b + 1 cannot have alternating sum 0, the most likely even value, so it more often has an odd digit sum. Base 2: numbers without the factors 2 and 3 have an odd binary digit sum 57.1 % of the time up to 5,000 and 52.7 % up to 10^6; the primes 58.7 % and 53.0 %. Base 10: numbers without 2, 3, 5 show no lean (50.00 %), adding 11 gives 51.0 %, adding 7 and 13 instead of 11 gives none (49.98 %); the primes 51.2 % (one standard deviation of chance 0.18 %). So the lean of the primes is the lean of numbers without the factor b + 1, as Mauduit and Rivat's theorem (the share tends to 1/2) allows; we did not look for this remark in the literature.
 
+## 24. Prime race ([prime6.html](writeup/code/mersenne/prime6.html); the bias is literature, the backtest is computed)
+
+A horse for every remainder a prime can leave after division by q (q = 3, 4, 5, 7, 8, 10, 11, 12, 24, 30; with 10 the horses are the last digits 1, 3, 7, 9). Every prime moves its own horse one step; the track shows each horse's count minus the average, the squares mod q are marked. Counted: the leader after every prime (a tie has no leader), the share of the time each horse led, the first lead of each horse, every change of the leader (a log of the primes at which it changed). The racers can also be the 52 Mersenne exponents.
+
+Backtest ([ref6.py](writeup/code/mersenne/strategies/ten/race/ref6.py) independent of the page, [pagerun6.js](writeup/code/mersenne/strategies/ten/race/pagerun6.js) runs the page's code; all 40 races, primes and exponents, up to 5,000 and up to 10^6 (exponents: 20 and 52), agree in every count, lead time, first lead and the first 300 changes of the leader; [analysis6.json](writeup/code/mersenne/strategies/ten/race/analysis6.json) → [analysis6.txt](writeup/code/mersenne/strategies/ten/race/analysis6.txt)):
+- The squares lag at both sizes. For q = 3, 5, 8, 10, 12, 24, 30 a square horse led 0.0 % of the time up to 10^6 (with 10 a square led for the first time at 72,269); for q = 7 and 11, where half of the horses are squares, they led 7.7 % and 4.5 % of the time, not 50 %. With q = 4 the square 1 leads first at 26,861 (Leech).
+- Which of the other horses leads longest is not predictable from the run to 5,000: it changed for q = 5, 11, 12, 24, 30. Among the non-squares the race is close.
+- The Mersenne exponents run the other way for q = 4 and 8: the square 1 takes the lead (the known tilt; 52 racers are few).
+
+This is Chebyshev's bias in the form of Rubinstein and Sarnak (1994) and Granville and Martin (Prime number races, 2006); the page and the backtest show it, they add nothing to the theory.
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.

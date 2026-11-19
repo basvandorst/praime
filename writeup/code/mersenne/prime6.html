@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime race</title>
+<meta name="description" content="A horse race of the primes: one horse for every possible last digit (or remainder), each prime moves its horse one step. Who leads, and why do some horses lag?">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --green:#34d399; --gold:#fbbf24; --accent:#38bdf8; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:170px; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.log { max-height:220px; overflow:auto; background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:6px 10px; font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; overflow-wrap:anywhere; }
+.logbar { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; justify-content:space-between; margin-bottom:8px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:620px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:130px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime race</h1>
+  <p>A horse race of the primes. There is one horse for every remainder a prime can leave after division by a number q, for example the last digits 1, 3, 7 and 9 when q is 10. Every prime moves its own horse one step. In the long run all horses are equally fast (Dirichlet), yet some lead almost all the time. Watch the squares (marked ■): they lag. Balance: <a href="prime5.html">prime5</a>, beads: <a href="prime4.html">prime4</a>, gears: <a href="prime3.html">prime3</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="q">The horses: remainders after division by</label><select id="q">
+      <option value="3">3 (2 horses: 1, 2)</option>
+      <option value="4">4 (2 horses: 1, 3)</option>
+      <option value="5">5 (4 horses)</option>
+      <option value="7">7 (6 horses)</option>
+      <option value="8">8 (4 horses: 1, 3, 5, 7)</option>
+      <option value="10" selected>10: the last digit (1, 3, 7, 9)</option>
+      <option value="11">11 (10 horses)</option>
+      <option value="12">12 (4 horses: 1, 5, 7, 11)</option>
+      <option value="24">24 (8 horses)</option>
+      <option value="30">30 (8 horses)</option>
+    </select></div>
+    <div class="ctl"><label for="src">Which numbers race</label><select id="src">
+      <option value="primes">The primes</option>
+      <option value="mexp">The Mersenne exponents p: 2, 3, 5, 7, 13, … (the 52 known)</option>
+    </select></div>
+    <div class="ctl"><label for="maxn">Stop after the numbers up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000">1,000,000</option><option value="10000000000" selected>10,000,000,000</option></select></div>
+    <div class="ctl"><span class="lab">Primes per second: <b id="spd">20</b></span><input id="speed" type="range" min="0" max="100" value="27" aria-label="Primes per second"></div>
+    <button id="go" class="go" type="button">Start</button>
+    <button id="one" type="button">One prime</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The race track"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel">
+    <div class="grid" id="stats"></div>
+  </section>
+  <section class="panel">
+    <div class="logbar"><h2 style="margin:0">Every change of the leader</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><select id="logMode" aria-label="What the log shows"><option value="p">the prime at which it happened</option><option value="who">the new leader</option><option value="both">both</option></select><button id="copy" type="button">Copy list</button></div></div>
+    <p class="note" id="logInfo" style="margin:0 0 8px"></p>
+    <div class="log" id="log"></div>
+  </section>
+  <section class="panel" id="backtest">
+    <h2>Backtest: a race to 5,000, checked to 1,000,000</h2>
+    <p class="note">For every q: how much of the time a square led (the squares are listed after the number of horses; if the race were fair in every respect they would lead a share equal to their number of horses), and which horse led longest, up to 5,000 and in the long run. All 40 races were run twice, by this page and by a separate program, with the same counts, times in the lead, first leads and changes of the leader. What holds: the squares lag at both sizes. What does not: which of the other horses leads longest; among them the race is close, and the winner at 5,000 is often not the winner at 1,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>q</th><th>Horses (squares)</th><th>Squares led, up to 5,000</th><th>Squares led, long run</th><th>Horse that led longest</th><th></th></tr></thead><tbody>
+<tr><th colspan="6" style="text-align:left">The primes: up to 5,000, then up to 1,000,000</th></tr>
+<tr><td>3</td><td>2 (1)</td><td>0.0%</td><td>0.0%</td><td>2 → 2</td><td>same</td></tr>
+<tr><td>4</td><td>2 (1)</td><td>0.0%</td><td>0.3%</td><td>3 → 3</td><td>same</td></tr>
+<tr><td>5</td><td>4 (1, 4)</td><td>0.0%</td><td>0.0%</td><td>2 → 3</td><td>changed</td></tr>
+<tr><td>7</td><td>6 (1, 2, 4)</td><td>2.2%</td><td>7.7%</td><td>3 → 3</td><td>same</td></tr>
+<tr><td>8</td><td>4 (1)</td><td>0.0%</td><td>0.0%</td><td>3 → 3</td><td>same</td></tr>
+<tr><td>10</td><td>4 (1, 9)</td><td>0.0%</td><td>0.0%</td><td>3 → 3</td><td>same</td></tr>
+<tr><td>11</td><td>10 (1, 3, 4, 5, 9)</td><td>1.3%</td><td>4.5%</td><td>2 → 7</td><td>changed</td></tr>
+<tr><td>12</td><td>4 (1)</td><td>0.0%</td><td>0.0%</td><td>5 → 7</td><td>changed</td></tr>
+<tr><td>24</td><td>8 (1)</td><td>0.0%</td><td>0.0%</td><td>5 → 19</td><td>changed</td></tr>
+<tr><td>30</td><td>8 (1, 19)</td><td>0.0%</td><td>0.0%</td><td>7 → 23</td><td>changed</td></tr>
+<tr><th colspan="6" style="text-align:left">The Mersenne exponents: the 20 up to 5,000, then all 52</th></tr>
+<tr><td>3</td><td>2 (1)</td><td>57.9%</td><td>71.9%</td><td>1 → 1</td><td>same</td></tr>
+<tr><td>4</td><td>2 (1)</td><td>10.5%</td><td>43.8%</td><td>3 → 1</td><td>changed</td></tr>
+<tr><td>5</td><td>4 (1, 4)</td><td>0.0%</td><td>0.0%</td><td>2 → 2</td><td>same</td></tr>
+<tr><td>7</td><td>6 (1, 2, 4)</td><td>5.3%</td><td>6.2%</td><td>5 → 5</td><td>same</td></tr>
+<tr><td>8</td><td>4 (1)</td><td>0.0%</td><td>28.1%</td><td>7 → 1</td><td>changed</td></tr>
+<tr><td>10</td><td>4 (1, 9)</td><td>0.0%</td><td>0.0%</td><td>7 → 7</td><td>same</td></tr>
+<tr><td>11</td><td>10 (1, 3, 4, 5, 9)</td><td>0.0%</td><td>3.0%</td><td>2 → 2</td><td>same</td></tr>
+<tr><td>12</td><td>4 (1)</td><td>0.0%</td><td>0.0%</td><td>7 → 7</td><td>same</td></tr>
+<tr><td>24</td><td>8 (1)</td><td>0.0%</td><td>0.0%</td><td>7 → 7</td><td>same</td></tr>
+<tr><td>30</td><td>8 (1, 19)</td><td>11.8%</td><td>6.7%</td><td>7 → 7</td><td>same</td></tr>
+    </tbody></table></div>
+  </section>
+  <section class="panel">
+    <h2>Why some horses lag</h2>
+    <p class="note" id="why"></p>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const BP=(()=>{const M=100000,s=new Uint8Array(M+1),o=[];for(let i=2;i<=M;i++){if(!s[i]){o.push(i);for(let j=i*i;j<=M;j+=i)s[j]=1;}}return o;})();
+const SZ=65536,G={lo:1,pr:null,i:0};
+function fill(lo){const ok=new Uint8Array(SZ).fill(1),hi=lo+SZ;if(lo===1)ok[0]=0;for(const p of BP){if(p*p>=hi)break;let m=Math.max(p*p,Math.ceil(lo/p)*p);for(;m<hi;m+=p)ok[m-lo]=0;}G.lo=lo;G.pr=ok;G.i=0;}
+function nextPrime(){for(;;){if(!G.pr||G.i>=SZ)fill(G.pr?G.lo+SZ:1);const i=G.i++;if(G.pr[i])return G.lo+i;}}
+const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841];
+const COL=["#38bdf8","#f472b6","#fbbf24","#34d399","#a78bfa","#fb923c","#f87171","#2dd4bf","#e879f9","#facc15"];
+function gcd(a,b){while(b){const t=a%b;a=b;b=t;}return a;}
+const S={q:10,src:"primes",maxN:1e10,rate:20,run:false,acc:0,last:0,cls:[],idx:{},sqr:{},cnt:[],lead:[],first:[],k:0,lastP:0,leader:-1,changes:0,since:0,mi:0,stop:"",chg:[],logMode:"p",W:0,H:0,dpr:1,scale:4,trace:null};
+function setup(){const q=S.q;S.cls=[];for(let r=1;r<q;r++)if(gcd(r,q)===1)S.cls.push(r);S.idx={};S.cls.forEach((r,i)=>S.idx[r]=i);S.sqr={};for(let x=1;x<q;x++)if(gcd(x,q)===1)S.sqr[x*x%q]=true;}
+function reset(){G.pr=null;G.lo=1;G.i=0;setup();const m=S.cls.length;Object.assign(S,{cnt:new Array(m).fill(0),lead:new Array(m).fill(0),first:new Array(m).fill(null),k:0,lastP:0,leader:-1,changes:0,since:0,mi:0,stop:"",chg:[],scale:4,hist:[]});}
+function next(){if(S.src==="mexp"){for(;;){if(S.mi>=MEXP.length){S.stop="All 52 known Mersenne exponents have run.";return null;}const p=MEXP[S.mi];if(p>S.maxN){S.stop=`Stopped after the numbers up to ${f(S.maxN)}.`;return null;}S.mi++;if(S.q%p===0)continue;return p;}}
+ for(;;){const p=nextPrime();if(p>1e10){S.stop="The page stops at 10,000,000,000.";return null;}if(p>S.maxN){S.stop=`Stopped after the numbers up to ${f(S.maxN)}.`;return null;}if(S.q%p===0)continue;return p;}}
+function addOne(){if(S.stop)return false;const p=next();if(p===null)return false;const i=S.idx[p%S.q];S.cnt[i]++;S.k++;S.lastP=p;if(S.trace)S.trace.push(p);
+ let b=-1,bv=-1,tie=false;for(let j=0;j<S.cnt.length;j++){if(S.cnt[j]>bv){bv=S.cnt[j];b=j;tie=false;}else if(S.cnt[j]===bv)tie=true;}const L=tie?-1:b;
+ if(L>=0){S.lead[L]++;if(S.first[L]===null)S.first[L]=[S.k,p];}
+ if(L>=0&&L!==S.leader){if(S.leader>=0||S.chg.length){S.changes++;S.chg.push([p,S.cls[L]]);}else S.chg.push([p,S.cls[L]]);S.leader=L;S.since=p;}
+ const mean=S.k/S.cnt.length;for(let j=0;j<S.cnt.length;j++)S.scale=Math.max(S.scale,Math.abs(S.cnt[j]-mean)*1.15);
+ return true;}
+function advance(m){for(let i=0;i<m;i++)if(!addOne())break;}
+function size(){const w=cv.parentElement.clientWidth,n=Math.max(2,S.cls.length),h=Math.round(Math.max(260,Math.min(620,60+n*Math.max(40,Math.min(64,w/12)))));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,n=S.cls.length,top=34*dpr,lh=(H-top-12*dpr)/n,lx=W<700*dpr?78*dpr:120*dpr,rx=W-16*dpr,cx=(lx+rx)/2,mean=S.k/Math.max(1,n);
+ ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.font=`${12*dpr}px system-ui,sans-serif`;ctx.fillStyle="#9fb0c6";ctx.textAlign="center";ctx.textBaseline="top";
+ ctx.fillText(W<700*dpr?"← behind · ahead → (±"+f(S.scale)+")":"behind the average  ←  ·  →  ahead of the average (±"+f(S.scale)+" primes)",cx,8*dpr);ctx.strokeStyle="#334155";ctx.setLineDash([4*dpr,4*dpr]);ctx.beginPath();ctx.moveTo(cx,top-6*dpr);ctx.lineTo(cx,H-6*dpr);ctx.stroke();ctx.setLineDash([]);
+ for(let i=0;i<n;i++){const r=S.cls[i],y=top+lh*(i+0.5),c=COL[i%COL.length],lead=i===S.leader;ctx.fillStyle=i%2?"#0f1b2d":"#101e33";ctx.fillRect(lx,top+lh*i+2*dpr,rx-lx,lh-4*dpr);
+  ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillStyle=c;ctx.font=`700 ${Math.min(16*dpr,lh*0.42)}px system-ui,sans-serif`;ctx.fillText((S.q===10?"ends in "+r:"rest "+r)+(S.sqr[r]?" ■":""),8*dpr,y-lh*0.14);
+  ctx.font=`${Math.min(12*dpr,lh*0.3)}px system-ui,sans-serif`;ctx.fillStyle="#9fb0c6";ctx.fillText(f(S.cnt[i])+" · led "+(S.k?Math.round(100*S.lead[i]/S.k):0)+"%",8*dpr,y+lh*0.2);
+  const x=cx+(S.cnt[i]-mean)/S.scale*(rx-lx)/2*0.92,rad=Math.min(14*dpr,lh*0.32);ctx.strokeStyle=c;ctx.globalAlpha=0.35;ctx.lineWidth=3*dpr;ctx.beginPath();ctx.moveTo(cx,y);ctx.lineTo(x,y);ctx.stroke();ctx.globalAlpha=1;
+  ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,rad,0,6.2832);ctx.fill();if(lead){ctx.strokeStyle="#ffffff";ctx.lineWidth=2.5*dpr;ctx.stroke();}ctx.fillStyle="#0b1220";ctx.textAlign="center";ctx.font=`700 ${Math.min(13*dpr,rad*1.1)}px system-ui,sans-serif`;ctx.fillText(String(r),x,y+0.5*dpr);}}
+const WHY={gen:"Dirichlet proved in 1837 that every horse gets its fair share in the long run: the primes are spread evenly over the remainders. Yet the race is not fair at any finite moment. Chebyshev noticed in 1853 that primes leaving 3 after division by 4 stay ahead of those leaving 1. The general rule: the remainders that are squares (marked ■; 1 is always one) lag behind the others. The reason is that the counting really concerns all prime powers, and the squares of primes always land on the squares, so the primes themselves leave a gap there. Rubinstein and Sarnak (1994), assuming the generalized Riemann hypothesis and a condition on the zeros, computed how often each order occurs: with q = 4 the horse 3 is ahead 99.59% of the time (in the logarithmic sense), with q = 3 the horse 2 99.90%. With more horses the races are closer, but the squares still lag. See also Granville and Martin, Prime number races (2006).",
+ 4:" With q = 4 the horse 1 leads for the first time at 26,861 (Leech, 1957).",3:" With q = 3 the horse 1 leads for the first time at 608,981,813,029 (Bays and Hudson, 1978), far beyond this page.",
+ mexp:" With the Mersenne exponents as racers there are only 52 of them, and the rules are different: an exponent p with p ≡ 3 (mod 4) and 2p + 1 prime is impossible (2p + 1 divides 2^p − 1), so the remainders 1 mod 4 (and 1 mod 8) are favoured, the opposite of the primes."};
+function stats(){const pc=x=>S.k?Math.round(100*x/S.k)+"%":"–",n=S.cls.length,L=S.leader;
+ const cells=[["Primes run",f(S.k)],["Last prime",f(S.lastP)],["Leader now",L>=0?(S.q===10?"ends in ":"rest ")+S.cls[L]+(S.sqr[S.cls[L]]?" ■":""):"tie"],["Leader since",L>=0?f(S.since):"–"],["Changes of the leader",f(S.changes)]].concat(S.cls.map((r,i)=>[`${S.q===10?"Ends in ":"Rest "}${r}${S.sqr[r]?" ■":""}: first lead`,S.first[i]?f(S.first[i][1]):"not yet"]));
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=S.k===0?"Press Start.":`Prime ${f(S.lastP)} moves the horse ${S.lastP%S.q}. `+(L>=0?`The leader is ${S.cls[L]}${S.sqr[S.cls[L]]?" (a square)":""}.`:"Two or more horses share the lead.")+(S.stop?" "+S.stop:"");
+ $("why").textContent=WHY.gen+(WHY[S.q]||"")+(S.src==="mexp"?WHY.mexp:"");
+ const E=S.chg,m=E.length,t=S.logMode==="p"?E.map(e=>String(e[0])):S.logMode==="who"?E.map(e=>String(e[1])):E.map(e=>e[0]+" ("+e[1]+")");$("logInfo").textContent=m?`${f(m)} times a new leader (the first entry is the first leader); newest at the end.`:"No leader yet.";const show=t.slice(-3000);$("log").textContent=(t.length>show.length?"…, ":"")+show.join(", ");}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);}draw();stats();if(S.stop)setRun(false);raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function speed(v){const r=Math.round(Math.pow(10,v/100*5.3));S.rate=r;$("spd").textContent=r.toLocaleString("en-US");}
+function full(){reset();size();draw();stats();}
+$("go").addEventListener("click",()=>setRun(!S.run));
+$("one").addEventListener("click",()=>{setRun(false);advance(1);draw();stats();});
+$("reset").addEventListener("click",()=>{setRun(false);full();});
+$("q").addEventListener("change",e=>{S.q=Number(e.target.value);setRun(false);full();});
+$("src").addEventListener("change",e=>{S.src=e.target.value;setRun(false);full();});
+$("maxn").addEventListener("change",e=>{S.maxN=Number(e.target.value);setRun(false);full();});
+$("speed").addEventListener("input",e=>speed(Number(e.target.value)));
+$("logMode").addEventListener("change",e=>{S.logMode=e.target.value;stats();});
+$("copy").addEventListener("click",()=>{const t=$("log").textContent.replace(/^…, /,"");const done=()=>{$("copy").textContent="Copied";setTimeout(()=>$("copy").textContent="Copy list",1200);};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(S.chg.map(e=>S.logMode==="who"?e[1]:S.logMode==="p"?e[0]:e[0]+" ("+e[1]+")").join(", ")).then(done,()=>{});});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),qq=Number(q.get("q"));if([3,4,5,7,8,10,11,12,24,30].includes(qq)){S.q=qq;$("q").value=String(qq);}if(q.get("src")==="mexp"){S.src="mexp";$("src").value="mexp";}const mx=Number(q.get("max"));if([5000,100000,1000000,1e10].includes(mx)){S.maxN=mx;$("maxn").value=String(mx);}speed(Number($("speed").value));full();if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
