@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime balance</title>
+<meta name="description" content="A balance that receives the primes (or the numbers) one by one, left or right by a rule of your choice. Which side is heavier, and how often is it equal?">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --left:#38bdf8; --right:#f472b6; --green:#34d399; --gold:#fbbf24; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--left); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--left); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:170px; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.L { color:var(--left); font-weight:600; } .R { color:var(--right); font-weight:600; } .E { color:var(--green); font-weight:600; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+ul.events { margin:6px 0 0; padding-left:18px; }
+ul.events li { margin:2px 0; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:130px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime balance</h1>
+  <p>A balance that receives weights one by one: the primes (or all numbers), each placed on the left or the right pan by a rule you choose. Press Start and watch which side is heavier, how often the pans are exactly equal, and when the lead changes. Some rules hide famous surprises. Beads: <a href="prime4.html">prime4</a>, gears: <a href="prime3.html">prime3</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="rule">Where each weight goes</label><select id="rule">
+      <option value="alt">Primes in turn: left, right, left, …</option>
+      <option value="light">Each prime on the lighter pan</option>
+      <option value="coin">Each prime on a random pan (a coin)</option>
+      <option value="mod4">Primes 1 more than a multiple of 4 left, 3 more right</option>
+      <option value="mod3">Primes 1 more than a multiple of 3 left, 2 more right</option>
+      <option value="liou">Numbers with an even number of prime factors left, odd right</option>
+      <option value="mob">Square-free numbers: an even number of prime factors left, odd right</option>
+    </select></div>
+    <div class="ctl"><label for="wt">What a weight weighs</label><select id="wt">
+      <option value="val">Its own value (5 weighs 5)</option>
+      <option value="one">1 each (count them)</option>
+      <option value="log">Its logarithm (ln 5 = 1.61)</option>
+    </select></div>
+    <div class="ctl"><span class="lab">Weights per second: <b id="spd">20</b></span><input id="speed" type="range" min="0" max="100" value="27" aria-label="Weights per second"></div>
+    <button id="go" class="go" type="button">Start</button>
+    <button id="one" type="button">One weight</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The balance and the difference over time"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel">
+    <div class="grid" id="stats"></div>
+    <h2 style="margin-top:12px">What happened</h2>
+    <ul class="events" id="events"></ul>
+  </section>
+  <section class="panel">
+    <h2>About this rule</h2>
+    <p class="note" id="why"></p>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.abs(x)>=1e6||Number.isInteger(x)?Math.round(x).toLocaleString("en-US"):x.toLocaleString("en-US",{maximumFractionDigits:2});
+const BP=(()=>{const M=100000,s=new Uint8Array(M+1),o=[];for(let i=2;i<=M;i++){if(!s[i]){o.push(i);for(let j=i*i;j<=M;j+=i)s[j]=1;}}return o;})();
+const SZ=65536;
+const G={lo:1,om:null,sq:null,i:0,n:0};
+function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),sq=new Uint8Array(SZ).fill(1),hi=lo+SZ;for(let i=0;i<SZ;i++)rem[i]=lo+i;
+ for(const p of BP){if(p*p>=hi)break;let m=Math.ceil(lo/p)*p;for(;m<hi;m+=p){const i=m-lo;let e=0;while(rem[i]%p===0){rem[i]/=p;e++;}om[i]+=e;if(e>1)sq[i]=0;}}
+ for(let i=0;i<SZ;i++)if(rem[i]>1)om[i]++;G.lo=lo;G.om=om;G.sq=sq;G.i=0;}
+function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return{n:G.lo+i,om:G.om[i],sq:G.sq[i]};}
+const S={rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
+function resetHist(){S.hist={w:1,b:[],cur:null};}
+function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
+function pick(){for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}
+ switch(S.rule){case"alt":case"light":case"coin":if(isP)return x;break;case"mod4":if(isP&&n>2)return x;break;case"mod3":if(isP&&n>3)return x;break;case"liou":return x;case"mob":if(x.sq)return x;break;}}}
+function side(x){const n=x.n;switch(S.rule){case"alt":return S.k%2===0?1:-1;case"light":return S.L<=S.R?1:-1;case"coin":return Math.random()<0.5?1:-1;case"mod4":return n%4===1?1:-1;case"mod3":return n%3===1?1:-1;case"liou":return x.om%2===0?1:-1;case"mob":return x.om%2===0?1:-1;}return 1;}
+function weight(n){return S.wt==="one"?1:S.wt==="log"?(n===1?0:Math.log(n)):n;}
+function addOne(){if(S.stop)return false;const x=pick();if(!x)return false;const s=side(x),w=weight(x.n);if(s>0)S.L+=w;else S.R+=w;S.k++;S.lastN=x.n;
+ (s>0?S.panL:S.panR).push(x.n);if(S.panL.length>7)S.panL.shift();if(S.panR.length>7)S.panR.shift();S.lastSide=s;
+ if(S.L>9e15||S.R>9e15){S.stop="The totals passed 9,000,000,000,000,000, where this page can no longer add exactly.";}
+ const d=S.L-S.R,sg=S.wt==="log"?(Math.abs(d)<1e-9?0:Math.sign(d)):Math.sign(d);
+ if(sg===0){S.eq++;S.lastEq=[S.k,x.n];}else if(sg>0)S.aheadL++;else S.aheadR++;
+ if(sg!==0){if(sg===S.streakSide)S.streak++;else{if(S.streakSide!==0){S.changes++;if(S.events.length<200)S.events.push(`Step ${f(S.k)} (number ${f(x.n)}): the ${sg>0?"left":"right"} pan becomes heavier again; lead change number ${f(S.changes)}.`);}S.streakSide=sg;S.streak=1;}
+  if(sg>0&&S.streak>S.bestL[0])S.bestL=[S.streak,x.n];if(sg<0&&S.streak>S.bestR[0])S.bestR=[S.streak,x.n];}
+ if(sg>0&&!S.firstL){S.firstL=[S.k,x.n];if(S.k>1)S.events.unshift(`First time the left pan is heavier: step ${f(S.k)}, number ${f(x.n)}.`);}
+ if(sg<0&&!S.firstR){S.firstR=[S.k,x.n];if(S.k>1)S.events.unshift(`First time the right pan is heavier: step ${f(S.k)}, number ${f(x.n)}.`);}
+ const H=S.hist;if(!H.cur)H.cur={a:d,b:d,n:x.n,k:S.k,c:0};H.cur.a=Math.min(H.cur.a,d);H.cur.b=Math.max(H.cur.b,d);H.cur.n=x.n;H.cur.k=S.k;H.cur.c++;
+ if(H.cur.c>=H.w){H.b.push(H.cur);H.cur=null;if(H.b.length>=1200){const nb=[];for(let i=0;i+1<H.b.length;i+=2){const u=H.b[i],v=H.b[i+1];nb.push({a:Math.min(u.a,v.a),b:Math.max(u.b,v.b),n:v.n,k:v.k,c:u.c+v.c});}H.b=nb;H.w*=2;}}
+ return true;}
+function advance(m){for(let i=0;i<m;i++)if(!addOne())break;}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(380,Math.min(560,w*0.55)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function block(x,y,w,h,n,col){ctx.fillStyle=col;ctx.beginPath();ctx.rect(x-w/2,y-h,w,h);ctx.fill();ctx.fillStyle="#0b1220";ctx.font=`600 ${Math.min(13*S.dpr,h*0.62)}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";const t=n.toLocaleString("en-US");ctx.fillText(t.length>9?t.slice(0,7)+"…":t,x,y-h/2+0.5*S.dpr);}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,top=Math.round(H*0.55);ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ const d=S.L-S.R,eq=S.k>0&&(S.wt==="log"?Math.abs(d)<1e-9:d===0),avg=S.k?(S.L+S.R)/S.k:1,ang=0.2*Math.tanh(d/(3*Math.max(avg,1e-9))),cx=W/2,py=top*0.32,arm=Math.min(W*0.36,330*dpr);
+ ctx.fillStyle="#40536d";ctx.beginPath();ctx.moveTo(cx,py);ctx.lineTo(cx-34*dpr,top-14*dpr);ctx.lineTo(cx+34*dpr,top-14*dpr);ctx.closePath();ctx.fill();ctx.fillRect(cx-70*dpr,top-16*dpr,140*dpr,6*dpr);
+ const lx=cx-arm*Math.cos(ang),ly=py+arm*Math.sin(ang),rx=cx+arm*Math.cos(ang),ry=py-arm*Math.sin(ang);
+ ctx.strokeStyle=eq?"#34d399":"#9fb0c6";ctx.lineWidth=(eq?7:6)*dpr;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(rx,ry);ctx.stroke();ctx.fillStyle="#cbd5e1";ctx.beginPath();ctx.arc(cx,py,7*dpr,0,6.2832);ctx.fill();
+ const pan=(x,y,list,col,tot,lab)=>{const pw=Math.min(150*dpr,W*0.2),ph=Math.max(40*dpr,top-py-arm*Math.sin(0.2)-30*dpr),by=y+ph;ctx.strokeStyle="#64748b";ctx.lineWidth=1.5*dpr;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-pw/2,by);ctx.moveTo(x,y);ctx.lineTo(x+pw/2,by);ctx.stroke();
+  ctx.strokeStyle=col;ctx.lineWidth=4*dpr;ctx.beginPath();ctx.moveTo(x-pw/2-6*dpr,by);ctx.lineTo(x+pw/2+6*dpr,by);ctx.stroke();
+  const bh=Math.min(20*dpr,(ph*0.85)/7-2*dpr);list.forEach((n,i)=>block(x,by-2*dpr-i*(bh+2*dpr),pw*0.78,bh,n,col));
+  ctx.fillStyle=col;ctx.font=`700 ${15*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="top";ctx.fillText(lab+": "+f(tot),x,by+8*dpr);};
+ pan(lx,ly,S.panL,"#38bdf8",S.L,"Left");pan(rx,ry,S.panR,"#f472b6",S.R,"Right");
+ ctx.font=`700 ${17*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillStyle=eq?"#34d399":d>0?"#38bdf8":d<0?"#f472b6":"#9fb0c6";ctx.fillText(S.k===0?"empty":eq?"EQUAL":d>0?"left heavier by "+f(d):"right heavier by "+f(-d),12*dpr,8*dpr);
+ const gy=top+6*dpr,gh=H-gy-8*dpr,gx=10*dpr,gw=W-20*dpr;ctx.fillStyle="#0b1422";ctx.fillRect(gx,gy,gw,gh);const B=S.hist.b.concat(S.hist.cur?[S.hist.cur]:[]);
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText("left minus right over time (above the line: left heavier)",gx+6*dpr,gy+4*dpr);
+ if(B.length){let mx=1e-9;for(const b of B)mx=Math.max(mx,Math.abs(b.a),Math.abs(b.b));const band=S.rule==="mob"&&S.wt==="one";if(band)mx=Math.max(mx,Math.sqrt(B[B.length-1].n))*1.05;
+  const Y=v=>gy+gh/2-v/mx*(gh/2-18*dpr),X=i=>gx+gw*(i+0.5)/Math.max(B.length,600);
+  ctx.strokeStyle="#334155";ctx.lineWidth=1*dpr;ctx.beginPath();ctx.moveTo(gx,Y(0));ctx.lineTo(gx+gw,Y(0));ctx.stroke();
+  if(band){ctx.strokeStyle="rgba(251,191,36,0.6)";ctx.setLineDash([4*dpr,4*dpr]);ctx.beginPath();B.forEach((b,i)=>{const y=Y(Math.sqrt(b.n));i?ctx.lineTo(X(i),y):ctx.moveTo(X(i),y);});ctx.stroke();ctx.beginPath();B.forEach((b,i)=>{const y=Y(-Math.sqrt(b.n));i?ctx.lineTo(X(i),y):ctx.moveTo(X(i),y);});ctx.stroke();ctx.setLineDash([]);}
+  ctx.lineWidth=Math.max(1,1.5*dpr);B.forEach((b,i)=>{const x=X(i);ctx.strokeStyle=b.b>0&&b.a<0?"#34d399":b.b<=0?"#f472b6":"#38bdf8";ctx.beginPath();ctx.moveTo(x,Y(b.a));ctx.lineTo(x,Y(b.b)+0.5*dpr);ctx.stroke();});
+  ctx.fillStyle="#9fb0c6";ctx.textAlign="right";ctx.fillText("±"+f(mx),gx+gw-6*dpr,gy+4*dpr);}}
+const WHY={alt:"The primes go left and right in turn: 2 left, 3 right, 5 left, 7 right, … With the weight 1 each the pans are equal after every pair, of course. With their own values the pans are never equal again after the start: after an even number of steps the right pan is heavier by the sum of every second gap between primes, after an odd number the left pan is heavier, and the difference grows roughly like half the last prime. So the balance swings from side to side, more and more.",
+ light:"Each prime goes on the lighter pan (on the left when they are equal). This is the greedy way to keep a balance even. Because every new prime is larger than the difference so far, the heavier side flips at every step, and the difference is 2, then 3 − 2 = 1, then 5 − 1 = 4, then 7 − 4 = 3, … : the last prime minus the difference before it. That is the alternating sum p − p' + p'' − …, the same numbers as the rule above, and it never returns to 0 after the start.",
+ coin:"Each prime goes on a random pan, as a baseline. With the weight 1 each this is a random walk: it returns to equal again and again, and the lead changes often but irregularly. With their own values the pans are almost never exactly equal. Compare this with the rules below: a rule that behaves very differently from the coin has a reason.",
+ mod4:"Primes above 2 leave remainder 1 or 3 after division by 4 (5, 13, 17, … left; 3, 7, 11, … right). There are equally many of each in the long run (Dirichlet), yet with the weight 1 each the right pan is heavier almost all the time: Chebyshev noticed this bias in 1853. The left pan is heavier for the first time at the prime 26,861 (Leech, 1957), and only briefly. Rubinstein and Sarnak (1994) showed, assuming the generalized Riemann hypothesis and a condition on the zeros, that the right pan is ahead for 99.59% of the time in the logarithmic sense. Press Start with 1 each and a high speed and watch for 26,861.",
+ mod3:"Primes above 3 leave remainder 1 or 2 after division by 3 (7, 13, 19, … left; 5, 11, 17, … right). With the weight 1 each the right pan leads from the start, and keeps leading for a very long time: the left pan is heavier for the first time at 608,981,813,029 (Bays and Hudson, 1978), far beyond what this page can reach. The bias has the same cause as with 4: squares are always 1 more than a multiple of 3 (or of 4), and the primes pay for the squares among the prime powers.",
+ liou:"Every number goes on the scale: left when it has an even number of prime factors counted with repetition (1, 4 = 2·2, 6 = 2·3, …), right when odd (2, 3, 5, 7, 8 = 2·2·2, …). With the weight 1 each, Pólya asked in 1919 whether the right pan is never lighter from 2 on. It held for a long time, but it is false: the first number where the left pan is heavier again is 906,150,257 (Tanaka, 1980). The page reaches that number at the top speed after a few hours.",
+ mob:"Only the square-free numbers go on the scale (no prime factor twice): left with an even number of prime factors (1, 6, 10, …), right with an odd number (2, 3, 5, 7, 30, …). With the weight 1 each the difference left − right is the Mertens function M(n). The dashed lines are ±√n: Mertens conjectured in 1897 that the difference always stays inside them. It does for every number anyone has checked, yet the conjecture is false (Odlyzko and te Riele, 1985); no single number where it fails is known. The pans are exactly equal again and again."};
+function stats(){const pc=x=>S.k?(100*x/S.k).toFixed(1)+"%":"–",d=S.L-S.R;
+ const cells=[["Weights placed",f(S.k)],["Last number",f(S.lastN)],["Left",f(S.L)],["Right",f(S.R)],["Exactly equal",f(S.eq)+(S.lastEq?` (last at ${f(S.lastEq[1])})`:"")],["Left heavier",pc(S.aheadL)],["Right heavier",pc(S.aheadR)],["Lead changes",f(S.changes)],["Longest left lead",S.bestL[0]?f(S.bestL[0])+" steps":"–"],["Longest right lead",S.bestR[0]?f(S.bestR[0])+" steps":"–"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ const ev=S.events.slice(0,6).concat(S.events.length>6?[`… and ${f(S.events.length-6)} more lead changes`]:[]);$("events").innerHTML=(ev.length?ev:["Nothing yet: press Start."]).map(e=>`<li>${e}</li>`).join("")+(S.stop?`<li>${S.stop}</li>`:"");
+ $("status").innerHTML=S.k===0?"The pans are empty.":`Step ${f(S.k)}: ${f(S.lastN)} went to the <span class="${S.lastSide>0?"L":"R"}">${S.lastSide>0?"left":"right"}</span>. `+((S.wt==="log"?Math.abs(d)<1e-9:d===0)?`<span class="E">The pans are equal.</span>`:d>0?`<span class="L">Left heavier by ${f(d)}.</span>`:`<span class="R">Right heavier by ${f(-d)}.</span>`);
+ $("why").textContent=WHY[S.rule];}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);}draw();stats();if(S.stop){setRun(false);}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function speed(v){const r=Math.round(Math.pow(10,v/100*5.3));S.rate=r;$("spd").textContent=r.toLocaleString("en-US");}
+$("go").addEventListener("click",()=>setRun(!S.run));
+$("one").addEventListener("click",()=>{setRun(false);advance(1);draw();stats();});
+$("reset").addEventListener("click",()=>{setRun(false);reset();draw();stats();});
+$("rule").addEventListener("change",e=>{S.rule=e.target.value;reset();draw();stats();});
+$("wt").addEventListener("change",e=>{S.wt=e.target.value;reset();draw();stats();});
+$("speed").addEventListener("input",e=>speed(Number(e.target.value)));
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),w=q.get("weight");if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(w&&["val","one","log"].includes(w)){S.wt=w;$("wt").value=w;}speed(Number($("speed").value));reset();size();draw();stats();if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
