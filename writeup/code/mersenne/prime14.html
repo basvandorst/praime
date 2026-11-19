@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime census</title>
+<meta name="description" content="A census of the numbers by how many different primes divide them. Erdős and Kac predict a bell curve; at every size we can reach it is far too wide, and one missing term says why.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:150px; }
+.check { display:flex; align-items:center; gap:6px; color:#d7e3f4; font-size:13.5px; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:120px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime census</h1>
+  <p>Hold a census of the numbers 1, 2, 3, … and ask each one: how many different primes divide you? 12 = 2 · 2 · 3 has two, 30 = 2 · 3 · 5 has three. Erdős and Kac proved in 1940 that the answers follow a bell curve, centred at ln ln x with spread √(ln ln x). That is a theorem about the limit. Here we watch real numbers, and see how far from the limit they still are. Dance: <a href="prime13.html">prime13</a>, rain: <a href="prime12.html">prime12</a>, Galton board: <a href="prime7.html">prime7</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Census of the numbers up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+    <div class="ctl"><span class="lab">Numbers per second: <b id="spd">1,000</b></span><input id="speed" type="range" min="0" max="100" value="43" aria-label="Numbers per second"></div>
+    <label class="check"><input id="m_ek" type="checkbox" checked> Erdős–Kac</label>
+    <label class="check"><input id="m_ss" type="checkbox" checked> Sathe–Selberg</label>
+    <label class="check"><input id="m_tc" type="checkbox" checked> Bell with the true spread</label>
+    <button id="go" class="go" type="button">Count</button>
+    <button id="end" type="button">Count all</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The census"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Which prediction fits, measured up to 5,000, 1,000,000 and 10,000,000</h2>
+    <p class="note">Distance: the share of numbers that a prediction puts in the wrong bar (total variation; 0 is perfect). Erdős–Kac uses a bell with mean and variance ln ln x. Sathe and Selberg (1954) give a finer formula, (x / ln x) (ln ln x)<sup>k−1</sup> / (k − 1)! · G((k − 1) / ln ln x). The third prediction is a bell with the mean of the census (exactly Σ ⌊x/p⌋ / x) and the variance Σ (1/p)(1 − 1/p) minus the sum of 1/(pq) over pairs of primes p ≠ q with pq &gt; x: two such primes cannot both divide a number up to x. That subtracted sum is 1.29 at 5,000, 1.43 at 1,000,000 and 1.47 at 10,000,000, on its way to π²/6 = 1.645, while ln ln x itself is only 2.1 to 2.8. So the bell of Erdős and Kac is far too wide at every size a computer can count, and it will stay too wide for a long time, because ln ln x grows so slowly. The true spread was derived here as a heuristic and checked against the census; the page and a separate program agree on every bar, mean, variance and distance, up to 5,000, 1,000,000 and 10,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>ln ln x</th><th>measured mean, variance</th><th>Erdős–Kac</th><th>Poisson (Landau)</th><th>Sathe–Selberg</th><th>bell with the true spread</th></tr></thead><tbody>
+<tr><td>5,000</td><td>2.142</td><td>2.348, 0.655</td><td>0.278</td><td>0.293</td><td>0.165</td><td>0.022 (variance 0.668)</td></tr>
+<tr><td>1,000,000</td><td>2.626</td><td>2.854, 0.981</td><td>0.230</td><td>0.235</td><td>0.120</td><td>0.015 (variance 1.001)</td></tr>
+<tr><td>10,000,000</td><td>2.780</td><td>3.013, 1.103</td><td>0.217</td><td>0.227</td><td>0.115</td><td>0.017 (variance 1.122)</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+function lgamma(z){const g=7,c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];if(z<0.5)return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);z-=1;let a=c[0];const t=z+g+0.5;for(let i=1;i<9;i++)a+=c[i]/(z+i);return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(a);}
+function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.5*x);const y=1-t*Math.exp(-x*x-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277)))))))));return s*y;}
+function Phi(z){return 0.5*(1+erf(z/Math.SQRT2));}
+const S={X:1e6,om:null,P:null,PG:null,n:0,N:[],rate:1000,run:false,acc:0,last:0,model:null,W:0,H:0,dpr:1,show:{ek:true,ss:true,tc:true}};
+function prepare(){const X=S.X,M=Math.max(X,1000000),s=new Uint8Array(M+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=M;i++)if(s[i])for(let j=i*i;j<=M;j+=i)s[j]=0;const PG=[];for(let i=2;i<=M;i++)if(s[i])PG.push(i);S.PG=PG;S.P=PG.filter(p=>p<=X);
+ const om=new Uint8Array(X+1);for(const p of S.P)for(let m=p;m<=X;m+=p)om[m]++;S.om=om;S.n=0;S.N=[];S.model=models();}
+function G(z){let s=0;for(const p of S.PG)s+=Math.log1p(z/(p-1))+z*Math.log1p(-1/p);return Math.exp(s-lgamma(z+1));}
+function models(){const X=S.X,L=Math.log(Math.log(X)),lx=Math.log(X),P=S.P;let mean=0,v1=0;for(const p of P){mean+=Math.floor(X/p);v1+=(1/p)*(1-1/p);}mean/=X;
+ const n=P.length,suf=new Float64Array(n+1);for(let i=n-1;i>=0;i--)suf[i]=suf[i+1]+1/P[i];let ex=0;for(let i=0;i<n;i++){const p=P[i],lim=X/p;let lo=0,hi=n;while(lo<hi){const m=(lo+hi)>>1;if(P[m]<=lim)lo=m+1;else hi=m;}ex+=(1/p)*suf[lo];if(p*p>X)ex-=1/(p*p);}
+ const v=v1-ex,K=12,ek=[],ss=[],tc=[],po=[];for(let k=0;k<K;k++){ek.push(X*(Phi((k+0.5-L)/Math.sqrt(L))-Phi((k-0.5-L)/Math.sqrt(L))));tc.push(X*(Phi((k+0.5-mean)/Math.sqrt(v))-Phi((k-0.5-mean)/Math.sqrt(v))));if(k===0){ss.push(0);po.push(0);}else{let lf=0;for(let i=2;i<=k-1;i++)lf+=Math.log(i);const b=X/lx*Math.exp((k-1)*Math.log(L)-lf);po.push(b);ss.push(b*G((k-1)/L));}}
+ return{L,mean,v1,ex,v,ek,ss,tc,po};}
+function census(m){const X=S.X;for(let i=0;i<m&&S.n<X;i++){S.n++;const k=S.om[S.n];while(S.N.length<=k)S.N.push(0);S.N[k]++;}}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(300,Math.min(480,w*0.5)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,M=S.model,full=S.n>=S.X,scale=S.n/S.X,K=Math.max(8,S.N.length+1),padL=50*dpr,padR=10*dpr,padT=14*dpr,padB=26*dpr,bw=(W-padL-padR)/K;
+ let ymax=1;for(const v of S.N)ymax=Math.max(ymax,v);for(const k of ["ek","ss","tc"])if(S.show[k])for(let i=0;i<K;i++)ymax=Math.max(ymax,(M[k][i]||0)*scale);ymax*=1.08;
+ const ys=v=>H-padB-v/ymax*(H-padT-padB);ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#26364c";ctx.lineWidth=1;ctx.fillStyle="#9fb0c6";ctx.font=`${10.5*dpr}px system-ui,sans-serif`;ctx.textAlign="right";ctx.textBaseline="middle";
+ for(let i=0;i<=4;i++){const v=ymax*i/4,y=ys(v);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.fillText(f(v),padL-5*dpr,y);}
+ ctx.textAlign="center";ctx.textBaseline="top";for(let k=0;k<K;k++)ctx.fillText(String(k),padL+bw*(k+0.5),H-padB+6*dpr);
+ for(let k=0;k<S.N.length;k++){const v=S.N[k];if(!v)continue;ctx.fillStyle="#38bdf8";ctx.fillRect(padL+bw*k+bw*0.15,ys(v),bw*0.7,H-padB-ys(v));}
+ const cols={ek:"#f472b6",ss:"#fbbf24",tc:"#34d399"};for(const key of ["ek","ss","tc"]){if(!S.show[key])continue;ctx.strokeStyle=cols[key];ctx.fillStyle=cols[key];ctx.lineWidth=2.5*dpr;ctx.beginPath();let st=false;for(let k=0;k<K;k++){const v=(M[key][k]||0)*scale;if(key==="ss"&&k===0)continue;const x=padL+bw*(k+0.5),y=ys(v);st?ctx.lineTo(x,y):ctx.moveTo(x,y);st=true;}ctx.stroke();for(let k=key==="ss"?1:0;k<K;k++){const v=(M[key][k]||0)*scale;ctx.beginPath();ctx.arc(padL+bw*(k+0.5),ys(v),3.2*dpr,0,6.2832);ctx.fill();}}
+ ctx.textAlign="left";ctx.textBaseline="top";ctx.font=`${11*dpr}px system-ui,sans-serif`;let lx=padL+6*dpr;const nar=W<600*dpr;for(const [key,lab] of [["ek","Erdős–Kac"],["ss",nar?"S–S":"Sathe–Selberg"],["tc",nar?"true spread":"bell with the true spread"]]){if(!S.show[key])continue;ctx.fillStyle=cols[key];ctx.fillText("● "+lab,lx,padT-8*dpr);lx+=ctx.measureText("● "+lab).width+14*dpr;}
+ ctx.fillStyle="#9fb0c6";ctx.textAlign="right";if(!nar)ctx.fillText(W<600*dpr?"bars: census":"bars: the census · number of different prime factors along the bottom",W-padR,padT+8*dpr);}
+function tv(key){const M=S.model;let s=0;const K=Math.max(S.N.length,12);for(let k=0;k<K;k++)s+=Math.abs((S.N[k]||0)-(M[key][k]||0));return s/(2*S.X);}
+function stats(){const M=S.model;let m=0,q=0;for(let k=0;k<S.N.length;k++){m+=k*S.N[k];q+=k*k*S.N[k];}const n=Math.max(1,S.n),mean=m/n,vr=q/n-mean*mean,full=S.n>=S.X;
+ const cells=[["Numbers counted",f(S.n)],["ln ln x",M.L.toFixed(3)],["Mean so far (census of all: Σ⌊x/p⌋/x)",`${mean.toFixed(3)} (${M.mean.toFixed(3)})`],["Variance so far (true spread²: Σ(1/p)(1−1/p) − pairs)",`${vr.toFixed(3)} (${M.v.toFixed(3)})`],["Pairs p·q > x: Σ 1/(pq)",M.ex.toFixed(3)+" (→ π²/6 = 1.645)"],["Distance: Erdős–Kac / Sathe–Selberg / true spread",full?`${tv("ek").toFixed(3)} / ${tv("ss").toFixed(3)} / ${tv("tc").toFixed(3)}`:"after the full count"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ const k=S.n?S.om[S.n]:0;$("status").textContent=S.n?`${f(S.n)} has ${k} different prime factor${k===1?"":"s"}`+(full?`. The census up to ${f(S.X)} is complete; the most is ${S.N.length-1}, first reached at ${f(S.om.indexOf(S.N.length-1))}.`:"."):"Press Count.";S.tvs=full?[tv("ek"),tv("ss"),tv("tc"),tv("po")]:null;S.meanv=[mean,vr];}
+function render(){draw();stats();}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;census(m);render();}if(S.n>=S.X){setRun(false);render();return;}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Count";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function speed(v){S.rate=Math.max(1,Math.round(Math.pow(10,v/100*7)));$("spd").textContent=S.rate.toLocaleString("en-US");}
+function full(){prepare();size();render();}
+$("go").addEventListener("click",()=>{if(S.n>=S.X){S.n=0;S.N=[];}setRun(!S.run);});
+$("end").addEventListener("click",()=>{setRun(false);census(S.X);render();});
+$("reset").addEventListener("click",()=>{setRun(false);S.n=0;S.N=[];render();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setRun(false);$("status").textContent="Preparing the census…";setTimeout(full,20);});
+for(const k of ["ek","ss","tc"])$("m_"+k).addEventListener("change",e=>{S.show[k]=e.target.checked;draw();});
+$("speed").addEventListener("input",e=>speed(Number(e.target.value)));
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max"));if([5000,100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}speed(Number($("speed").value));full();if(q.get("end")==="1"){census(S.X);render();}if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
