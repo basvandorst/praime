@@ -20,7 +20,7 @@ int main(int argc,char**argv){u64 X=strtoull(argv[1],0,10);int only=argc>2?atoi(
   u64 cnt[16]={0},first[16]={0},sumd[40]={0},numd[40]={0};first[0]=2;cnt[0]=1;
   /* m runs over [A, A+S]; N = 2m+1 for m in [A, A+S) uses m and m+1 */
   for(u64 A=1;A<H;A+=S){u64 n=S+1;for(u64 i=0;i<n;i++){rem[i]=A+i;fc[i]=0;}
-    for(int k=0;k<np;k++){u64 p=pr[k];if(p*p>A+n)break;u64 s=(A+p-1)/p*p;for(u64 m=s;m<A+n;m+=p){u64 i=m-A,pe=1;while(rem[i]%p==0){rem[i]/=p;pe*=p;}fp[i][fc[i]]=p;fe[i][fc[i]++]=pe;}}
+    for(int k=0;k<np;k++){u64 p=pr[k];if(p*p>A+n)break;u64 s=(A+p-1)/p*p;for(u64 m=s;m<A+n;m+=p){u64 i=m-A,pe=1;while(rem[i]%p==0){rem[i]/=p;pe*=p;}if(fc[i]>=MF-1){fprintf(stderr,"too many prime factors: raise MF\n");return 2;}fp[i][fc[i]]=p;fe[i][fc[i]++]=pe;}}
     for(u64 i=0;i<n;i++)if(rem[i]>1){fp[i][fc[i]]=rem[i];fe[i][fc[i]++]=rem[i];}
     for(u64 i=0;i+1<n;i++){u64 m=A+i,N=2*m+1;if(N>X)break;
       /* N prime? use a small test: N is prime iff ... we need primality: check via the nibble of factors is not possible; do trial by Miller-Rabin */

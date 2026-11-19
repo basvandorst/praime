@@ -27,7 +27,7 @@ int main(int argc,char**argv){
   for(u64 A=2; A<=X2; A+=W){
     for(int i=0;i<W+2;i++){ rem[i]=A+i; nf[i]=0; }
     for(int k=0;k<np;k++){ u64 p=pr[k]; if(p*p>A+W+1) break; u64 s=((A+p-1)/p)*p;
-      for(u64 m=s;m<=A+W+1;m+=p){ int i=(int)(m-A); u64 pe=1; while(rem[i]%p==0){rem[i]/=p;pe*=p;} fprime[i][nf[i]]=p; fpw[i][nf[i]]=pe; nf[i]++; } }
+      for(u64 m=s;m<=A+W+1;m+=p){ int i=(int)(m-A); u64 pe=1; while(rem[i]%p==0){rem[i]/=p;pe*=p;} if(nf[i]>=MAXF){fprintf(stderr,"more than %d prime factors: raise MAXF\n",MAXF);exit(7);} fprime[i][nf[i]]=p; fpw[i][nf[i]]=pe; nf[i]++; } }
     for(int i=1;i<=W;i++){ u64 N=A+i; if(N>X2) break; if(!(N&1)) continue;
       if(!((nf[i]==0 && rem[i]==N) || (nf[i]==1 && fprime[i][0]==N))) continue;   /* N prime: no smaller sieve prime divides it */
       /* gather the prime powers of N-1 (side 0) and N+1 (side 1) with the round of their prime */

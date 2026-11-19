@@ -134,8 +134,9 @@ if S8 and os.path.exists('inherit_third_17e9.out') and 'total primes' in open('i
     for a, b, c in cl3:
         if a <= mean[-1][0] and a >= 10:
             assert abs(dict((x, z) for x, y, z in mean)[a] - c) < 6e-5, a
+    drift = [(a, round(c - math.log(math.log(1.5 * 2 ** a)) / math.log(4), 3)) for a, b, c in cl3 if 29 <= a and 2 ** (a + 1) - 1 <= X3]
     newc = [dict(a=a, primes=b, mean=c, pred=round(math.log(math.log(1.5 * 2 ** a)) / math.log(4) + round(out['law']['both'][2], 2), 3)) for a, b, c in cl3 if a > mean[-1][0] and 2 ** (a + 1) - 1 <= X3]
-    S8.update(third=dict(X=X3, cnt=c3, primes=C3[0], six=six3, deep=len(d3), chain=ch3, classes=newc), no7=ch3['top7'])
+    S8.update(third=dict(X=X3, cnt=c3, primes=C3[0], six=six3, deep=len(d3), chain=ch3, classes=newc, drift=drift), no7=ch3['top7'])
     for e in newc:
         say('  class not used for the rule: every prime from 2^%d to 2^%d (%d primes): mean %.3f rounds, the rule says %.3f' % (e['a'], e['a'] + 1, e['primes'], e['mean'], e['pred']))
     say('third program (the second with a smaller table) up to %d: %d primes (equal to the counting recursion), by rounds %s; the %d primes of 6 rounds are those of the lemma; with its %d primes of 5 or more rounds: %d primes of 6 rounds up to %d, no prime of 7 rounds up to %d' % (X3, C3[0], ', '.join('%d: %d' % (d, n) for d, n, f in c3), len(six3), len(d3), ch3['six'], ch3['top6'], ch3['top7']))
@@ -149,11 +150,12 @@ out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)), chain=[i
 say('box of machine 23 against PARI: %s primes, 0 differ, %s where the page says it could not take a neighbour apart' % (m.group(1), m.group(3)))
 un = []
 by = {}
-for name in ('inherit_big_65.out', 'inherit_big_70.out', 'inherit_big_75.out', 'inherit_big_75b.out', 'inherit_big_80.out'):
+for name in ('inherit_big_65.out', 'inherit_big_70.out', 'inherit_big_75.out', 'inherit_big_75b.out', 'inherit_big_80.out', 'inherit_big_85.out'):
     if os.path.exists(name) and os.path.getsize(name):
         b = json.loads(open(name).read().strip().split('\n')[-1])
         e = by.setdefault(b['digits'], dict(digits=b['digits'], files=[], hist={}, most=0))
         e['files'].append(name)
+        e.setdefault('parts', []).append((name, b['count'], dict(b['hist'])))
         for k_, v_ in b['hist']:
             e['hist'][k_] = e['hist'].get(k_, 0) + v_
         e['most'] = max(e['most'], b['worst'][0])
@@ -163,7 +165,12 @@ for dg in sorted(by):
     mu = sum(k_ * v_ for k_, v_ in e['hist'].items()) / nn
     se = (sum(v_ * (k_ - mu) ** 2 for k_, v_ in e['hist'].items()) / (nn - 1) / nn) ** 0.5
     pred = math.log(math.log(5.5 * 10 ** (dg - 1))) / math.log(4) + round(out['law']['both'][2], 2)
-    un.append(dict(digits=dg, count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=e['most'], hist=sorted(e['hist'].items()), files=e['files'], z=round((mu - pred) / se, 1)))
+    parts = []
+    for name, n1, h1 in e['parts']:
+        m1 = sum(int(k_) * v_ for k_, v_ in h1.items()) / n1
+        s1 = (sum(v_ * (int(k_) - m1) ** 2 for k_, v_ in h1.items()) / (n1 - 1) / n1) ** 0.5
+        parts.append(dict(file=name, count=n1, mean=round(m1, 3), se=round(s1, 3), z=round((m1 - pred) / s1, 1)))
+    un.append(dict(digits=dg, count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=e['most'], hist=sorted(e['hist'].items()), files=e['files'], z=round((mu - pred) / se, 1), parts=parts))
     say('  size not used for the rule: %d random primes of %d digits, mean %.3f rounds (standard error %.3f), the rule says %.3f: %.1f standard errors; most %d' % (nn, dg, mu, se, pred, (mu - pred) / se, e['most']))
 out['unseen'] = un
 src = []
