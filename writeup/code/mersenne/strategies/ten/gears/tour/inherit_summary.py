@@ -117,6 +117,21 @@ if os.path.exists('inherit_second_8e9.out') and 'total primes' in open('inherit_
     assert ch4['list'] == S2['deep'] and ch4['B'] == S2['X'] and ch8['list'] == d8 and ch8['B'] == X8
     S8.update(deep=d8, chain4=ch4, chain8=ch8, no7=ch8['top7'], no7_both=ch4['top7'])
     say('  the lemma used twice: from the list up to %d: %d primes of 6 rounds up to %d and no prime of 7 rounds up to %d; from the list up to %d: %d primes of 6 rounds up to %d and no prime of 7 rounds up to %d' % (ch4['B'], ch4['six'], ch4['top6'], ch4['top7'], ch8['B'], ch8['six'], ch8['top6'], ch8['top7']))
+if S8 and os.path.exists('inherit_third_17e9.out') and 'total primes' in open('inherit_third_17e9.out').read():
+    t3 = open('inherit_third_17e9.out').read()
+    c3 = [(int(a), int(b), int(c)) for a, b, c in re.findall(r'round (\d+): (\d+) primes, first (\d+)', t3)]
+    X3 = int(re.search(r'X2 (\d+)', t3).group(1))
+    V3, C3, mv3, pr3 = lucy(X3)
+    assert sum(c[1] for c in c3) == C3[0] and c3[-1][0] == 6
+    six3 = sorted(int(b) for a, b in re.findall(r'deep (\d+) (\d+)', t3) if int(a) >= 6)
+    lem11 = [int(x) for x in re.findall(r'(\d+) \(6 rounds\)', open('inherit_lemma_2.txt').read())]
+    d3 = [int(l.split()[1]) for l in open('inherit_deep_17e9.txt')]
+    d8l = [int(l.split()[1]) for l in open('inherit_deep_8e9.txt')]
+    assert six3 == lem11 and len(six3) == S8['chain4']['six'] and len(d3) == sum(c[1] for c in c3 if c[0] >= 5) and d3[:len(d8l)] == d8l
+    ch3 = rd('inherit_lemma_chain_17e9.txt')
+    assert ch3['list'] == len(d3) and ch3['B'] == X3 and ch3['six'] >= S8['chain8']['six']
+    S8.update(third=dict(X=X3, cnt=c3, primes=C3[0], six=six3, deep=len(d3), chain=ch3), no7=ch3['top7'])
+    say('third program (the second with a smaller table) up to %d: %d primes (equal to the counting recursion), by rounds %s; the %d primes of 6 rounds are those of the lemma; with its %d primes of 5 or more rounds: %d primes of 6 rounds up to %d, no prime of 7 rounds up to %d' % (X3, C3[0], ', '.join('%d: %d' % (d, n) for d, n, f in c3), len(six3), len(d3), ch3['six'], ch3['top6'], ch3['top7']))
 out['second8'] = S8
 X = open('inherit_box_check.txt').read()
 m = re.search(r'box of machine 23: (\d+) primes .*?failed: (\d+); primes where the page could not take a neighbour apart and says so: (\d+); not finished by the page: (\d+)', X)
