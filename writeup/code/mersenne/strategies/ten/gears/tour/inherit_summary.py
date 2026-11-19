@@ -176,6 +176,15 @@ for name in ('inherit_deep2.out', 'inherit_deep_wide2.out'):
 assert best and best['rows'][0][1] == 7
 out['deep'] = dict(deep5=int(m.group(1)), s1=int(m1.group(2)), cands1=int(m1.group(1)), primes1=int(m1.group(3)), six=int(m1.group(4)), stage2=best)
 r0 = best['rows'][0]
+if os.path.exists('inherit_deep_wide2.out') and 'done' in open('inherit_deep_wide2.out').read():
+    W1 = open('inherit_deep_wide.out').read()
+    W2 = open('inherit_deep_wide2.out').read()
+    w1 = re.search(r'stage 1: (\d+) candidates s r \+- 1 with s <= \d+, (\d+) primes, (\d+) of them need 6 rounds or more', W1)
+    w2 = re.search(r'stage 2 below (\d+): (\d+) primes q of 6 rounds or more, (\d+) candidates s q \+- 1, (\d+) primes', W2)
+    wmin = min(int(a) for a in re.findall(r'  (\d+) needs 7 rounds', W2))
+    assert int(w1.group(3)) == int(w2.group(2)) and wmin == r0[0]
+    out['deep']['wide'] = dict(cands=int(w1.group(1)), primes=int(w1.group(2)), six=int(w1.group(3)), bound=int(w2.group(1)), cands2=int(w2.group(3)), smallest=wmin)
+    say('  wider first stage: %s candidates, %s primes of 6 rounds or more; below %s the smallest prime of 7 rounds found is the same' % (w1.group(1), w1.group(3), w2.group(1)))
 say('search by construction: %s primes of 5 or 6 rounds below 4.2e9; q = s r +- 1 with s <= %s: %s primes of 6 rounds or more; N = s q +- 1 below %d: %d primes of 7 rounds; the smallest found is %d = %d * %d %s 1 (not shown to be the smallest of all)' % (m.group(1), m1.group(2), m1.group(4), best['bound'], best['found'], r0[0], r0[2], r0[3], r0[4]))
 X7 = open('inherit_box_check.txt').read()
 assert 'four primes of 7 rounds' in X7 and out['boxcheck']['chain'][0] == 555997633
