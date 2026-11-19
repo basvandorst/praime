@@ -130,7 +130,14 @@ if S8 and os.path.exists('inherit_third_17e9.out') and 'total primes' in open('i
     assert six3 == lem11 and len(six3) == S8['chain4']['six'] and len(d3) == sum(c[1] for c in c3 if c[0] >= 5) and d3[:len(d8l)] == d8l
     ch3 = rd('inherit_lemma_chain_17e9.txt')
     assert ch3['list'] == len(d3) and ch3['B'] == X3 and ch3['six'] >= S8['chain8']['six']
-    S8.update(third=dict(X=X3, cnt=c3, primes=C3[0], six=six3, deep=len(d3), chain=ch3), no7=ch3['top7'])
+    cl3 = [(int(a), int(b), float(c)) for a, b, c in re.findall(r'class 2\^(\d+): (\d+) primes, mean ([\d.]+)', t3)]
+    for a, b, c in cl3:
+        if a <= mean[-1][0] and a >= 10:
+            assert abs(dict((x, z) for x, y, z in mean)[a] - c) < 6e-5, a
+    newc = [dict(a=a, primes=b, mean=c, pred=round(math.log(math.log(1.5 * 2 ** a)) / math.log(4) + round(out['law']['both'][2], 2), 3)) for a, b, c in cl3 if a > mean[-1][0] and 2 ** (a + 1) - 1 <= X3]
+    S8.update(third=dict(X=X3, cnt=c3, primes=C3[0], six=six3, deep=len(d3), chain=ch3, classes=newc), no7=ch3['top7'])
+    for e in newc:
+        say('  class not used for the rule: every prime from 2^%d to 2^%d (%d primes): mean %.3f rounds, the rule says %.3f' % (e['a'], e['a'] + 1, e['primes'], e['mean'], e['pred']))
     say('third program (the second with a smaller table) up to %d: %d primes (equal to the counting recursion), by rounds %s; the %d primes of 6 rounds are those of the lemma; with its %d primes of 5 or more rounds: %d primes of 6 rounds up to %d, no prime of 7 rounds up to %d' % (X3, C3[0], ', '.join('%d: %d' % (d, n) for d, n, f in c3), len(six3), len(d3), ch3['six'], ch3['top6'], ch3['top7']))
 out['second8'] = S8
 X = open('inherit_box_check.txt').read()

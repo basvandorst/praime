@@ -772,14 +772,16 @@ The rule of thumb (heuristic). Suppose the primes below y are lit after g rounds
 
 The rule tried on sizes it was not made from (computed; [inherit_big_65.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_65.out), [inherit_big_70.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_70.out), [inherit_big_75.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_75.out), [inherit_big_75b.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_75b.out), [inherit_big_80.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_big_80.out)). The constant 0.51 comes from the classes up to 60 digits. Afterwards, random primes of larger sizes:
 
-| Digits | Primes | Mean rounds | Standard error | The rule says | Difference in standard errors |
+| Size | Primes | Mean rounds | Standard error | The rule says | Difference in standard errors |
 |---|---|---|---|---|---|
-| 65 | 60 | 4.083 | 0.055 | 4.120 | −0.7 |
-| 70 | 40 | 4.175 | 0.079 | 4.174 | 0.0 |
-| 75 | 80 | 4.188 | 0.057 | 4.224 | −0.6 |
-| 80 | 24 | 4.208 | 0.104 | 4.270 | −0.6 |
+| 2^31 to 2^32, every prime | 98,182,656 | 2.767 | – | 2.736 | – |
+| 2^32 to 2^33, every prime | 190,335,585 | 2.795 | – | 2.759 | – |
+| 65 digits, random | 60 | 4.083 | 0.055 | 4.120 | −0.7 |
+| 70 digits, random | 40 | 4.175 | 0.079 | 4.174 | 0.0 |
+| 75 digits, random | 80 | 4.188 | 0.057 | 4.224 | −0.6 |
+| 80 digits, random | 24 | 4.208 | 0.104 | 4.270 | −0.6 |
 
-None needed more than 5 rounds. The means differ from the rule by at most 0.06 rounds, and 3 of the 4 lie below it (the largest difference is −0.7 standard errors, at 65 digits), so the rule may be slightly high at these sizes. The samples are too small to say more.
+None needed more than 5 rounds. The means of the random primes differ from the rule by at most 0.06 rounds, and 3 of the 4 lie below it (the largest difference is −0.7 standard errors, at 65 digits). The two whole classes that the later scan added ([inherit_third_17e9.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_third_17e9.out)) lie 0.03 and 0.04 rounds above the rule. So on unseen sizes the rule holds to about 0.06 rounds, on both sides. The samples of large primes are too small to say more.
 
 The reason tested where it had not been fitted (computed; [inherit_sources.py](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources.py) → [inherit_sources_1.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_1.out), [inherit_sources_2.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_2.out), [inherit_sources_3.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_3.out), [inherit_sources_5.out](writeup/code/mersenne/strategies/ten/gears/tour/inherit_sources_5.out)). The same reasoning says more: with k sources of helpers each source has to supply 1/(2k) of the digits, so the rounds should grow like log_(2k)(ln N), with slope 1/ln(2k) against ln ln N. The lit part of N² + 1 is such a source, and for k = 5 also those of N² + N + 1 and N² − N + 1 (the proof steps for these numbers, wheels of four, three and six cells, are literature and were not built here; only the rounds were counted, with helpers below N). The slope 1/ln(2k) contains no fitted number. Every prime in six classes from 2^10 to 2^21 and random primes of 9 to 30 digits:
 
