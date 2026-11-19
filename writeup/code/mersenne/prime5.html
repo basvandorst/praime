@@ -41,6 +41,9 @@ ul.events li { margin:2px 0; }
 .log.flow { white-space:normal; word-break:normal; overflow-wrap:anywhere; }
 @media (max-width:600px) { .log div { white-space:normal; } } .log .s { color:var(--muted); }
 .logbar { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; justify-content:space-between; margin-bottom:8px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
 @media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:130px; } }
 </style>
 </head>
@@ -57,8 +60,20 @@ ul.events li { margin:2px 0; }
       <option value="coin">Each prime on a random pan (a coin)</option>
       <option value="mod4">Primes 1 more than a multiple of 4 left, 3 more right</option>
       <option value="mod3">Primes 1 more than a multiple of 3 left, 2 more right</option>
+      <option value="mod8">Primes 1 more than a multiple of 8 left (weigh 3×), 3, 5 or 7 more right</option>
+      <option value="lastdig">Primes ending in 1 or 9 left, in 3 or 7 right</option>
+      <option value="repeat">Primes with the same last digit as the prime before left (weigh 3×), another right</option>
+      <option value="binsum">Primes with an even sum of binary digits left, odd right</option>
+      <option value="decsum">Primes with an even sum of decimal digits left, odd right</option>
+      <option value="twincous">Twin primes p, p + 2 left, cousin primes p, p + 4 right</option>
+      <option value="twinsexy">Twin primes p, p + 2 left (weigh 2×), pairs p, p + 6 right</option>
+      <option value="sophie">Primes p with 2p + 1 prime left, with 2p − 1 prime right</option>
+      <option value="gap24">Primes 2 after the prime before left, 4 after right</option>
+      <option value="gap26">Primes 2 after the prime before left, 6 after right</option>
+      <option value="updown">Primes followed by a larger gap left, by a smaller gap right</option>
       <option value="liou">Numbers with an even number of prime factors left, odd right</option>
       <option value="mob">Square-free numbers: an even number of prime factors left, odd right</option>
+      <option value="omega">Numbers with an even number of different prime factors left, odd right</option>
     </select></div>
     <div class="ctl"><label for="src">Which weights</label><select id="src">
       <option value="primes">The primes</option>
@@ -68,8 +83,10 @@ ul.events li { margin:2px 0; }
       <option value="val">Its own value (5 weighs 5)</option>
       <option value="one">1 each (count them)</option>
       <option value="log">Its logarithm (ln 5 = 1.61)</option>
+      <option value="recip">1 divided by it (5 weighs 0.2)</option>
     </select></div>
     <div class="ctl"><span class="lab">Weights per second: <b id="spd">20</b></span><input id="speed" type="range" min="0" max="100" value="27" aria-label="Weights per second"></div>
+    <div class="ctl"><label for="maxn">Stop after the numbers up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000">1,000,000</option><option value="10000000000" selected>10,000,000,000</option></select></div>
     <button id="go" class="go" type="button">Start</button>
     <button id="one" type="button">One weight</button>
     <button id="reset" type="button">Reset</button>
@@ -86,6 +103,40 @@ ul.events li { margin:2px 0; }
     <p class="note" id="logInfo" style="margin:0 0 8px"></p>
     <div class="log" id="log" aria-live="off"></div>
   </section>
+  <section class="panel" id="backtest">
+    <h2>Backtest: a run to 5,000, checked to 1,000,000</h2>
+    <p class="note">Every rule with the weight 1 each, first over the numbers up to 5,000, then up to 1,000,000 (for the Mersenne exponents: the 20 up to 5,000, then all 52). The table says which pan was heavier most of the time, and whether that still holds in the long run. 14 of the 18 rules on primes keep their side. All 104 runs (every rule, source and weight) were done twice, by this page and by a separate program, with the same counts, totals, equal moments and lead changes.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Rule</th><th>Up to 5,000</th><th>Up to 1,000,000</th><th>Holds?</th><th>Why</th></tr></thead><tbody>
+<tr><th colspan="5" style="text-align:left">The primes</th></tr>
+<tr><td>in turn</td><td>left 50% of the time</td><td>left 50% of the time</td><td>yes (by construction)</td><td>by construction: equal after every pair</td></tr>
+<tr><td>on the lighter pan</td><td>left 50% of the time</td><td>left 50% of the time</td><td>yes (by construction)</td><td>by construction: equal after every pair</td></tr>
+<tr><td>1 vs 3 mod 4</td><td>right 99% of the time</td><td>right 100% of the time</td><td>yes</td><td>Chebyshev's bias: the squares (1 mod 4) lose; left leads first at 26,861</td></tr>
+<tr><td>1 vs 2 mod 3</td><td>right 99% of the time</td><td>right 100% of the time</td><td>yes</td><td>Chebyshev's bias; left leads first at 608,981,813,029</td></tr>
+<tr><td>1 (x3) vs 3,5,7 mod 8</td><td>right 100% of the time</td><td>right 100% of the time</td><td>yes</td><td>Chebyshev's bias, strong: three classes against the one square class</td></tr>
+<tr><td>ending 1,9 vs 3,7</td><td>right 100% of the time</td><td>right 100% of the time</td><td>yes</td><td>Chebyshev's bias: endings 1 and 9 are the squares</td></tr>
+<tr><td>same last digit (x3) vs other</td><td>right 100% of the time</td><td>right 100% of the time</td><td>yes</td><td>consecutive primes avoid repeating their last digit (Lemke Oliver and Soundararajan)</td></tr>
+<tr><td>binary digit sum even vs odd</td><td>right 99% of the time</td><td>right 100% of the time</td><td>yes</td><td>not the primes: every number not divisible by 3 leans the same way (57% odd at 5,000, 52.7% at 10^6)</td></tr>
+<tr><td>digit sum even vs odd</td><td>right 93% of the time</td><td>right 100% of the time</td><td>yes</td><td>not the primes: every number not divisible by 11 leans the same way (51.0% odd); primes 51.2%</td></tr>
+<tr><td>twins vs cousins</td><td>right 69% of the time</td><td>left 62% of the time</td><td>no</td><td>a fair race (Hardy–Littlewood): 8,169 against 8,144, so who leads is chance</td></tr>
+<tr><td>twins (x2) vs p, p+6</td><td>left 49% of the time</td><td>right 70% of the time</td><td>no</td><td>a fair race: 16,338 against 16,386 (twins counted double)</td></tr>
+<tr><td>2p+1 vs 2p-1 prime</td><td>left 98% of the time</td><td>left 87% of the time</td><td>yes</td><td>a fair race: 7,746 against 7,752</td></tr>
+<tr><td>gap 2 vs gap 4</td><td>right 59% of the time</td><td>left 65% of the time</td><td>no</td><td>a fair race (the same as twins against cousins)</td></tr>
+<tr><td>gap 2 vs gap 6</td><td>right 84% of the time</td><td>right 100% of the time</td><td>yes</td><td>gaps of 6 are more common</td></tr>
+<tr><td>next gap larger vs smaller</td><td>left 100% of the time</td><td>left 98% of the time</td><td>yes</td><td>ahead 98% of the time, but only by 56 in 75,502: chance</td></tr>
+<tr><td>Liouville (all numbers)</td><td>right 100% of the time</td><td>right 100% of the time</td><td>yes</td><td>Pólya: odd stays ahead until 906,150,257</td></tr>
+<tr><td>Möbius (square-free)</td><td>right 61% of the time</td><td>right 52% of the time</td><td>yes</td><td>a fair race (Mertens); the sum keeps returning to 0</td></tr>
+<tr><td>distinct factors even vs odd</td><td>left 99% of the time</td><td>right 99% of the time</td><td>no</td><td>the lead turns: from 12,101 on the odd side leads</td></tr>
+<tr><th colspan="5" style="text-align:left">The Mersenne exponents: the 20 up to 5,000, then all 52</th></tr>
+<tr><td>in turn</td><td>left 50% of the time</td><td>left 50% of the time</td><td>yes (by construction)</td><td>by construction: equal after every pair</td></tr>
+<tr><td>on the lighter pan</td><td>left 50% of the time</td><td>left 50% of the time</td><td>yes (by construction)</td><td>by construction: equal after every pair</td></tr>
+<tr><td>1 vs 3 mod 4</td><td>right 53% of the time</td><td>left 65% of the time</td><td>no</td><td>the known tilt of the exponents towards 1 mod 4 shows only with more of them; with all 52 the left pan leads from 17 on</td></tr>
+<tr><td>1 vs 2 mod 3</td><td>left 83% of the time</td><td>left 84% of the time</td><td>yes</td><td>the same lean with 20 and with 52 weights</td></tr>
+<tr><td>1 (x3) vs 3,5,7 mod 8</td><td>right 74% of the time</td><td>left 69% of the time</td><td>no</td><td>the same tilt (p ≡ 1 mod 8 is also 1 mod 4); 20 weights are too few to show it</td></tr>
+<tr><td>ending 1,9 vs 3,7</td><td>right 94% of the time</td><td>right 98% of the time</td><td>yes</td><td>the same lean with 20 and with 52 weights</td></tr>
+<tr><td>binary digit sum even vs odd</td><td>right 80% of the time</td><td>right 92% of the time</td><td>yes</td><td>the same lean with 20 and with 52 weights</td></tr>
+<tr><td>digit sum even vs odd</td><td>left 45% of the time</td><td>right 75% of the time</td><td>no</td><td>too few weights to tell</td></tr>
+    </tbody></table></div>
+  </section>
   <section class="panel">
     <h2>About this rule</h2>
     <p class="note" id="why"></p>
@@ -93,28 +144,45 @@ ul.events li { margin:2px 0; }
 </main>
 <script>
 const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
-const f=x=>Math.abs(x)>=1e6||Number.isInteger(x)?Math.round(x).toLocaleString("en-US"):x.toLocaleString("en-US",{maximumFractionDigits:2});
+const f=x=>Math.abs(x)>=1e6||Number.isInteger(x)?Math.round(x).toLocaleString("en-US"):Math.abs(x)<1?Number(x.toPrecision(3)).toString():x.toLocaleString("en-US",{maximumFractionDigits:2});
 const BP=(()=>{const M=100000,s=new Uint8Array(M+1),o=[];for(let i=2;i<=M;i++){if(!s[i]){o.push(i);for(let j=i*i;j<=M;j+=i)s[j]=1;}}return o;})();
 const SZ=65536;
 const G={lo:1,om:null,sq:null,i:0,n:0};
-function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),sq=new Uint8Array(SZ).fill(1),hi=lo+SZ;for(let i=0;i<SZ;i++)rem[i]=lo+i;
- for(const p of BP){if(p*p>=hi)break;let m=Math.ceil(lo/p)*p;for(;m<hi;m+=p){const i=m-lo;let e=0;while(rem[i]%p===0){rem[i]/=p;e++;}om[i]+=e;if(e>1)sq[i]=0;}}
- for(let i=0;i<SZ;i++)if(rem[i]>1)om[i]++;G.lo=lo;G.om=om;G.sq=sq;G.i=0;}
-function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return{n:G.lo+i,om:G.om[i],sq:G.sq[i]};}
+function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),wd=new Uint8Array(SZ),sq=new Uint8Array(SZ).fill(1),hi=lo+SZ;for(let i=0;i<SZ;i++)rem[i]=lo+i;
+ for(const p of BP){if(p*p>=hi)break;let m=Math.ceil(lo/p)*p;for(;m<hi;m+=p){const i=m-lo;let e=0;while(rem[i]%p===0){rem[i]/=p;e++;}om[i]+=e;wd[i]++;if(e>1)sq[i]=0;}}
+ for(let i=0;i<SZ;i++)if(rem[i]>1){om[i]++;wd[i]++;}G.lo=lo;G.om=om;G.wd=wd;G.sq=sq;G.i=0;}
+function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return{n:G.lo+i,om:G.om[i],wd:G.wd[i],sq:G.sq[i]};}
+function mulmod(a,b,m){const bh=Math.floor(b/262144),bl=b%262144;return((a*bh)%m*262144%m+(a*bl)%m)%m;}
+function powmod(a,e,m){let r=1;a%=m;while(e>0){if(e%2===1)r=mulmod(r,a,m);a=mulmod(a,a,m);e=Math.floor(e/2);}return r;}
+function isPr(n){if(n<2)return false;for(const p of [2,3,5,7,11,13,17,19,23,29,31,37]){if(n===p)return true;if(n%p===0)return false;}let d=n-1,r=0;while(d%2===0){d/=2;r++;}for(const a of [2,3,5,7,11,13]){let x=powmod(a,d,n);if(x===1||x===n-1)continue;let ok=false;for(let i=1;i<r;i++){x=mulmod(x,x,n);if(x===n-1){ok=true;break;}}if(!ok)return false;}return true;}
+function dsum(n,b){let s=0;while(n>0){s+=n%b;n=Math.floor(n/b);}return s;}
 const LOGMAX=100000;
-const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841],PRULES=["alt","light","coin","mod4","mod3"];
-const S={src:"primes",mi:0,logMode:"step",eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
+const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841],PRULES=["alt","light","coin","mod4","mod3","mod8","lastdig","binsum","decsum"];
+const S={maxN:1e10,pend:[],pp:0,u:[0,0],trace:null,src:"primes",mi:0,logMode:"step",eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
 function resetHist(){S.hist={w:1,b:[],cur:null};}
-function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{mi:0,eqLog:[],logShown:-1,L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
-function pick(){if(S.src==="mexp"&&PRULES.includes(S.rule)){for(;;){if(S.mi>=MEXP.length){S.stop="All 52 known Mersenne exponents are on the scale. (GIMPS has checked every exponent below 83,200,483 twice, so the first 51 are certainly consecutive; whether another one lies between 82,589,933 and 136,279,841 is not yet certain.)";return null;}const n=MEXP[S.mi++];if(S.rule==="mod4"&&n===2)continue;if(S.rule==="mod3"&&n<=3)continue;return{n,om:1,sq:1};}}
- for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}
- switch(S.rule){case"alt":case"light":case"coin":if(isP)return x;break;case"mod4":if(isP&&n>2)return x;break;case"mod3":if(isP&&n>3)return x;break;case"liou":return x;case"mob":if(x.sq)return x;break;}}}
-function side(x){const n=x.n;switch(S.rule){case"alt":return S.k%2===0?1:-1;case"light":return S.L<=S.R?1:-1;case"coin":return Math.random()<0.5?1:-1;case"mod4":return n%4===1?1:-1;case"mod3":return n%3===1?1:-1;case"liou":return x.om%2===0?1:-1;case"mob":return x.om%2===0?1:-1;}return 1;}
-function weight(n){return S.wt==="one"?1:S.wt==="log"?(n===1?0:Math.log(n)):n;}
-function addOne(){if(S.stop)return false;const x=pick();if(!x)return false;const s=side(x),w=weight(x.n);if(s>0)S.L+=w;else S.R+=w;S.k++;S.lastN=x.n;
+function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{pend:[],pp:0,u:[0,0],mi:0,eqLog:[],logShown:-1,L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
+function pick(){if(S.pend.length)return S.pend.shift();
+ if(S.src==="mexp"&&PRULES.includes(S.rule)){for(;;){if(S.mi>=MEXP.length){S.stop="All 52 known Mersenne exponents are on the scale. (GIMPS has checked every exponent below 83,200,483 twice, so the first 51 are certainly consecutive; whether another one lies between 82,589,933 and 136,279,841 is not yet certain.)";return null;}const n=MEXP[S.mi];if(n>S.maxN){S.stop=`Stopped after the numbers up to ${S.maxN.toLocaleString("en-US")}.`;return null;}S.mi++;if((S.rule==="mod4"||S.rule==="mod8")&&n===2)continue;if(S.rule==="mod3"&&n<=3)continue;if(S.rule==="lastdig"&&(n===2||n===5))continue;return{n,om:1,sq:1};}}
+ for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}if(n>S.maxN){S.stop=`Stopped after the numbers up to ${S.maxN.toLocaleString("en-US")}.`;return null;}
+  if(!isP){if(S.rule==="liou"||S.rule==="omega")return x;if(S.rule==="mob"&&x.sq)return x;continue;}
+  const prev=S.pp;S.pp=n;
+  switch(S.rule){case"alt":case"light":case"coin":case"binsum":case"decsum":case"liou":return x;case"mob":return x;case"omega":return x;
+   case"mod4":case"mod8":if(n>2)return x;break;case"mod3":if(n>3)return x;break;case"lastdig":if(n!==2&&n!==5)return x;break;
+   case"repeat":if(prev>5)return{...x,side:n%10===prev%10?1:-1};break;
+   case"twincous":{const a=isPr(n+2),b=isPr(n+4);if(a&&b)S.pend.push({...x,side:-1});if(a)return{...x,side:1};if(b)return{...x,side:-1};break;}
+   case"twinsexy":{const a=isPr(n+2),b=isPr(n+6);if(a&&b)S.pend.push({...x,side:-1});if(a)return{...x,side:1};if(b)return{...x,side:-1};break;}
+   case"sophie":{const a=isPr(2*n+1),b=isPr(2*n-1);if(a&&b)S.pend.push({...x,side:-1});if(a)return{...x,side:1};if(b)return{...x,side:-1};break;}
+   case"gap24":if(prev&&(n-prev===2||n-prev===4))return{...x,side:n-prev===2?1:-1};break;
+   case"gap26":if(prev&&(n-prev===2||n-prev===6))return{...x,side:n-prev===2?1:-1};break;
+   case"updown":{const a=S.u[0],b=S.u[1];S.u=[b,n];if(a&&b){const g1=b-a,g2=n-b;if(g1!==g2)return{n:b,om:1,sq:1,side:g2>g1?1:-1};}break;}}}}
+function side(x){if(x.side)return x.side;const n=x.n;switch(S.rule){case"alt":return S.k%2===0?1:-1;case"light":return S.L<=S.R?1:-1;case"coin":return Math.random()<0.5?1:-1;case"mod4":return n%4===1?1:-1;case"mod3":return n%3===1?1:-1;case"mod8":return n%8===1?1:-1;case"lastdig":return n%10===1||n%10===9?1:-1;case"binsum":return dsum(n,2)%2===0?1:-1;case"decsum":return dsum(n,10)%2===0?1:-1;case"liou":return x.om%2===0?1:-1;case"mob":return x.om%2===0?1:-1;case"omega":return x.wd%2===0?1:-1;}return 1;}
+function factor(s){return(S.rule==="mod8"||S.rule==="repeat")&&s>0?3:S.rule==="twinsexy"&&s>0?2:1;}
+function weight(n){return S.wt==="one"?1:S.wt==="log"?(n===1?0:Math.log(n)):S.wt==="recip"?1/n:n;}
+function isEq(d){return S.wt==="log"||S.wt==="recip"?Math.abs(d)<1e-12*Math.max(1,S.L+S.R):d===0;}
+function addOne(){if(S.stop)return false;const x=pick();if(!x)return false;const s=side(x),w=weight(x.n)*factor(s);if(S.trace)S.trace.push([x.n,s]);if(s>0)S.L+=w;else S.R+=w;S.k++;S.lastN=x.n;
  (s>0?S.panL:S.panR).push(x.n);if(S.panL.length>7)S.panL.shift();if(S.panR.length>7)S.panR.shift();S.lastSide=s;
  if(S.L>9e15||S.R>9e15){S.stop="The totals passed 9,000,000,000,000,000, where this page can no longer add exactly.";}
- const d=S.L-S.R,sg=S.wt==="log"?(Math.abs(d)<1e-9?0:Math.sign(d)):Math.sign(d);
+ const d=S.L-S.R,sg=isEq(d)?0:Math.sign(d);
  if(sg===0){S.eq++;S.lastEq=[S.k,x.n];if(S.eqLog.length<LOGMAX)S.eqLog.push([S.k,x.n,s,S.L]);}else if(sg>0)S.aheadL++;else S.aheadR++;
  if(sg!==0){if(sg===S.streakSide)S.streak++;else{if(S.streakSide!==0){S.changes++;if(S.events.length<200)S.events.push(`Step ${f(S.k)} (number ${f(x.n)}): the ${sg>0?"left":"right"} pan becomes heavier again; lead change number ${f(S.changes)}.`);}S.streakSide=sg;S.streak=1;}
   if(sg>0&&S.streak>S.bestL[0])S.bestL=[S.streak,x.n];if(sg<0&&S.streak>S.bestR[0])S.bestR=[S.streak,x.n];}
@@ -127,7 +195,7 @@ function advance(m){for(let i=0;i<m;i++)if(!addOne())break;}
 function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(380,Math.min(560,w*0.55)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
 function block(x,y,w,h,n,col){ctx.fillStyle=col;ctx.beginPath();ctx.rect(x-w/2,y-h,w,h);ctx.fill();const t=n.toLocaleString("en-US");ctx.fillStyle="#0b1220";ctx.font=`600 ${Math.min(13*S.dpr,h*0.62,w*0.95/(0.58*t.length))}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(t,x,y-h/2+0.5*S.dpr);}
 function draw(){const W=S.W,H=S.H,dpr=S.dpr,top=Math.round(H*0.55);ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
- const d=S.L-S.R,eq=S.k>0&&(S.wt==="log"?Math.abs(d)<1e-9:d===0),avg=S.k?(S.L+S.R)/S.k:1,ang=0.2*Math.tanh(d/(3*Math.max(avg,1e-9))),cx=W/2,py=top*0.32,arm=Math.min(W*0.36,330*dpr);
+ const d=S.L-S.R,eq=S.k>0&&isEq(d),avg=S.k?(S.L+S.R)/S.k:1,ang=0.2*Math.tanh(d/(3*Math.max(avg,1e-9))),cx=W/2,py=top*0.32,arm=Math.min(W*0.36,330*dpr);
  ctx.fillStyle="#40536d";ctx.beginPath();ctx.moveTo(cx,py);ctx.lineTo(cx-34*dpr,top-14*dpr);ctx.lineTo(cx+34*dpr,top-14*dpr);ctx.closePath();ctx.fill();ctx.fillRect(cx-70*dpr,top-16*dpr,140*dpr,6*dpr);
  const lx=cx-arm*Math.cos(ang),ly=py+arm*Math.sin(ang),rx=cx+arm*Math.cos(ang),ry=py-arm*Math.sin(ang);
  ctx.strokeStyle=eq?"#34d399":"#9fb0c6";ctx.lineWidth=(eq?7:6)*dpr;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(rx,ry);ctx.stroke();ctx.fillStyle="#cbd5e1";ctx.beginPath();ctx.arc(cx,py,7*dpr,0,6.2832);ctx.fill();
@@ -151,6 +219,18 @@ const WHY={alt:"The primes go left and right in turn: 2 left, 3 right, 5 left, 7
  mod4:"Primes above 2 leave remainder 1 or 3 after division by 4 (5, 13, 17, … left; 3, 7, 11, … right). There are equally many of each in the long run (Dirichlet), yet with the weight 1 each the right pan is heavier almost all the time: Chebyshev noticed this bias in 1853. The left pan is heavier for the first time at the prime 26,861 (Leech, 1957), and only briefly. Rubinstein and Sarnak (1994) showed, assuming the generalized Riemann hypothesis and a condition on the zeros, that the right pan is ahead for 99.59% of the time in the logarithmic sense. Press Start with 1 each and a high speed and watch for 26,861.",
  mod3:"Primes above 3 leave remainder 1 or 2 after division by 3 (7, 13, 19, … left; 5, 11, 17, … right). With the weight 1 each the right pan leads from the start, and keeps leading for a very long time: the left pan is heavier for the first time at 608,981,813,029 (Bays and Hudson, 1978), far beyond what this page can reach. The bias has the same cause as with 4: squares are always 1 more than a multiple of 3 (or of 4), and the primes pay for the squares among the prime powers.",
  liou:"Every number goes on the scale: left when it has an even number of prime factors counted with repetition (1, 4 = 2·2, 6 = 2·3, …), right when odd (2, 3, 5, 7, 8 = 2·2·2, …). With the weight 1 each, Pólya asked in 1919 whether the right pan is never lighter from 2 on. It held for a long time, but it is false: the first number where the left pan is heavier again is 906,150,257 (Tanaka, 1980). The page reaches that number at the top speed after a few hours.",
+ mod8:"Primes above 2 leave 1, 3, 5 or 7 after division by 8. Only 1 is a square among these four (every odd square leaves 1), and Chebyshev's bias favours the classes that are not squares. To make the race fair, a prime that leaves 1 weighs three times as much (it is one class against three). With the weight 1 each the right pan leads almost all the time; the bias is strong here because three classes gang up against one.",
+ lastdig:"Primes above 5 end in 1, 3, 7 or 9, about equally often in the long run (Dirichlet). The squares of such numbers end in 1 or 9, never in 3 or 7, and Chebyshev's bias favours the endings that are not squares: with the weight 1 each the right pan (3 and 7) leads most of the time.",
+ repeat:"Each prime above 7 is compared with the prime before it: same last digit, left; another last digit, right. If last digits were independent, a repeat would happen one time in four, so a repeat weighs 3. In fact consecutive primes avoid repeating their last digit, so the right pan runs away. Lemke Oliver and Soundararajan found and explained this in 2016 (from the Hardy–Littlewood conjecture); the bias fades, but very slowly.",
+ binsum:"Each prime goes left when it has an even number of ones in binary, right when odd. Gelfond asked in 1968 whether the primes are split evenly this way; Mauduit and Rivat proved it in 2010. Even and odd shares tend to one half, though the lead can last a long time.",
+ decsum:"The same with the ordinary digits: even digit sum left, odd right. Mauduit and Rivat's theorem covers this too (for base 10 and remainders mod 2). Note that the digit sum mod 3 would not work: it is the number mod 3.",
+ twincous:"For every prime p: if p + 2 is prime too (twins: 3, 5, 11, 17, 29, …) a weight goes left; if p + 4 is prime (cousins: 3, 7, 13, 19, 37, …) one goes right (3 counts on both pans). The conjecture of Hardy and Littlewood predicts equally many twins and cousins in the long run; nobody has proved that either list is infinite.",
+ twinsexy:"For every prime p: a twin pair (p + 2 prime) left, a pair p, p + 6 right (the primes in between do not matter). Hardy and Littlewood predict twice as many pairs 6 apart as twins, because a distance divisible by 3 is not blocked by the prime 3; so a twin weighs 2 here, and the pans should balance in the long run.",
+ sophie:"For every prime p: left if 2p + 1 is prime too (Sophie Germain primes: 2, 3, 5, 11, 23, …), right if 2p − 1 is prime (2, 3, 7, 19, 31, …). The conjecture of Hardy and Littlewood gives both the same density; neither is proved infinite.",
+ gap24:"Only consecutive primes: a prime that comes 2 after the prime before goes left, one that comes 4 after goes right; other gaps are skipped. Hardy and Littlewood give the same constant for gaps of 2 and 4 between consecutive primes, so the race should stay close for ever.",
+ gap26:"Consecutive primes 2 apart left, 6 apart right. Small numbers have many gaps of 2; in the long run gaps of 6 are more common, and 6 is the most common gap of all over a huge range (Odlyzko, Rubinstein and Wolf, 1999). Watch when the right pan takes over for good.",
+ updown:"Each prime p is placed when the next prime is known: left if the gap after p is larger than the gap before it, right if smaller; equal gaps are skipped. There is no lean we know of, but neighbouring gaps are not independent.",
+ omega:"Every number by the parity of its number of different prime factors (12 = 2·2·3 has two, 2 and 3; 1 has none and goes left). The difference stays a vanishing share of all numbers (a classical consequence of the prime number theorem), but it wanders far from 0.",
  mob:"Only the square-free numbers go on the scale (no prime factor twice): left with an even number of prime factors (1, 6, 10, …), right with an odd number (2, 3, 5, 7, 30, …). With the weight 1 each the difference left − right is the Mertens function M(n). The dashed lines are ±√n: Mertens conjectured in 1897 that the difference always stays inside them. It does for every number anyone has checked, yet the conjecture is false (Odlyzko and te Riele, 1985); no single number where it fails is known. The pans are exactly equal again and again."};
 function srcUI(){const p=PRULES.includes(S.rule);$("src").disabled=!p;$("src").title=p?"":"This rule uses all numbers, not a list of weights";}
 const MWHY={alt:"Now the weights are the 52 known Mersenne exponents p themselves, not the primes 2^p − 1: the numbers p for which 2^p − 1 is prime, in order: 2 left, 3 right, 5 left, 7 right, 13 left, … With the weight 1 each the pans are equal after every pair. With their own values one exponent dwarfs the ones before (127 → 521, 216,091 → 756,839), so the pan that gets the big one wins.",
@@ -162,11 +242,11 @@ function stats(){const pc=x=>S.k?(100*x/S.k).toFixed(1)+"%":"–",d=S.L-S.R;
  const cells=[["Weights placed",f(S.k)],["Last number",f(S.lastN)],["Left",f(S.L)],["Right",f(S.R)],["Exactly equal",f(S.eq)+(S.lastEq?` (last at ${f(S.lastEq[1])})`:"")],["Left heavier",pc(S.aheadL)],["Right heavier",pc(S.aheadR)],["Lead changes",f(S.changes)],["Longest left lead",S.bestL[0]?f(S.bestL[0])+" steps":"–"],["Longest right lead",S.bestR[0]?f(S.bestR[0])+" steps":"–"]];
  $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
  const ev=S.events.slice(0,6).concat(S.events.length>6?[`… and ${f(S.events.length-6)} more lead changes`]:[]);$("events").innerHTML=(ev.length?ev:["Nothing yet: press Start."]).map(e=>`<li>${e}</li>`).join("")+(S.stop?`<li>${S.stop}</li>`:"");
- $("status").innerHTML=S.k===0?"The pans are empty.":`Step ${f(S.k)}: ${f(S.lastN)} went to the <span class="${S.lastSide>0?"L":"R"}">${S.lastSide>0?"left":"right"}</span>. `+((S.wt==="log"?Math.abs(d)<1e-9:d===0)?`<span class="E">The pans are equal.</span>`:d>0?`<span class="L">Left heavier by ${f(d)}.</span>`:`<span class="R">Right heavier by ${f(-d)}.</span>`);
- $("why").textContent=(S.src==="mexp"&&PRULES.includes(S.rule)?MWHY[S.rule]+" ":"")+WHY[S.rule]+(PRULES.includes(S.rule)?"":" (This rule always uses all numbers; the choice of weights does not apply.)");showLog(false);}
+ $("status").innerHTML=S.k===0?"The pans are empty.":`Step ${f(S.k)}: ${f(S.lastN)} went to the <span class="${S.lastSide>0?"L":"R"}">${S.lastSide>0?"left":"right"}</span>. `+(isEq(d)?`<span class="E">The pans are equal.</span>`:d>0?`<span class="L">Left heavier by ${f(d)}.</span>`:`<span class="R">Right heavier by ${f(-d)}.</span>`);
+ $("why").textContent=(S.src==="mexp"&&PRULES.includes(S.rule)?(MWHY[S.rule]||"Now the weights are the 52 known Mersenne exponents p themselves (2, 3, 5, 7, 13, …), placed by the same rule.")+" ":"")+WHY[S.rule]+(S.wt==="recip"&&(S.rule==="liou"||S.rule==="mob")?" With the weight 1/n the difference tends to 0: that the sum of μ(n)/n (and of λ(n)/n) is 0 is a theorem equivalent to the prime number theorem (von Mangoldt, Landau).":"")+(PRULES.includes(S.rule)?"":" (This rule always uses all numbers; the choice of weights does not apply.)");showLog(false);}
 function logList(){const E=S.eqLog,c=S.logMode==="num"?1:S.logMode==="pan"?3:0;return E.map(e=>e[c]);}
 function showLog(force){const now=performance.now();if(!force&&(S.logShown===S.eqLog.length||now-S.logAt<300))return;S.logAt=now;S.logShown=S.eqLog.length;const E=S.eqLog,m=E.length,box=$("log"),what=S.logMode==="num"?"the number just added":S.logMode==="pan"?"the weight of each pan":"the step";
- if(m===0){$("logInfo").textContent=(S.k?"Not equal yet.":"Press Start or One weight.")+(S.wt==="log"?" With logarithms as weights the pans are practically never exactly equal.":"");box.innerHTML="";return;}
+ if(m===0){$("logInfo").textContent=(S.k?"Not equal yet.":"Press Start or One weight.")+(S.wt==="log"||S.wt==="recip"?" With these weights the pans are practically never exactly equal.":"");box.innerHTML="";return;}
  const cap=`${f(S.eq)} time${S.eq===1?"":"s"} equal so far`+(S.eq>m?` (the log keeps the first ${f(LOGMAX)})`:"");
  if(S.logMode==="detail"){const show=Math.min(m,300);$("logInfo").textContent=cap+`; the newest ${show===1?"is":"are"} shown first`+(m>show?`, the download has them all.`:".");box.classList.remove("flow");let h="";for(let i=m-1;i>=m-show;i--){const e=E[i];h+=`<div><span class="s">step ${f(e[0])}:</span> ${f(e[1])} to the ${e[2]>0?'<span class="L">left</span>':'<span class="R">right</span>'}, each pan <span class="E">${f(e[3])}</span></div>`;}box.innerHTML=h;return;}
  const L=logList(),show=Math.min(m,5000),part=L.slice(m-show).map(v=>String(v));$("logInfo").textContent=cap+`; for each time, ${what}`+(m>show?`, the last ${f(show)} (Copy and Download have them all).`:".");box.classList.add("flow");box.textContent=(m>show?"…, ":"")+part.join(", ");box.scrollTop=box.scrollHeight;}
@@ -183,9 +263,10 @@ $("reset").addEventListener("click",()=>{setRun(false);reset();draw();stats();sh
 $("rule").addEventListener("change",e=>{S.rule=e.target.value;srcUI();reset();draw();stats();showLog(true);});
 $("wt").addEventListener("change",e=>{S.wt=e.target.value;reset();draw();stats();showLog(true);});
 $("src").addEventListener("change",e=>{S.src=e.target.value;reset();draw();stats();showLog(true);});
+$("maxn").addEventListener("change",e=>{S.maxN=Number(e.target.value);reset();draw();stats();showLog(true);});
 $("speed").addEventListener("input",e=>speed(Number(e.target.value)));
 window.addEventListener("resize",()=>{size();draw();});
-(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),w=q.get("weight");if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(w&&["val","one","log"].includes(w)){S.wt=w;$("wt").value=w;}if(q.get("src")==="mexp"){S.src="mexp";$("src").value="mexp";}srcUI();speed(Number($("speed").value));reset();size();draw();stats();if(q.get("run")==="1")setRun(true);})();
+(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),w=q.get("weight");if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(w&&["val","one","log","recip"].includes(w)){S.wt=w;$("wt").value=w;}{const mx=Number(q.get("max"));if([5000,100000,1000000,1e10].includes(mx)){S.maxN=mx;$("maxn").value=String(mx);}}if(q.get("src")==="mexp"){S.src="mexp";$("src").value="mexp";}srcUI();speed(Number($("speed").value));reset();size();draw();stats();if(q.get("run")==="1")setRun(true);})();
 </script>
 </body>
 </html>
