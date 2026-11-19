@@ -150,7 +150,7 @@ out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)), chain=[i
 say('box of machine 23 against PARI: %s primes, 0 differ, %s where the page says it could not take a neighbour apart' % (m.group(1), m.group(3)))
 un = []
 by = {}
-for name in ('inherit_big_65.out', 'inherit_big_70.out', 'inherit_big_75.out', 'inherit_big_75b.out', 'inherit_big_80.out', 'inherit_big_85.out'):
+for name in ('inherit_big_65.out', 'inherit_big_65b.out', 'inherit_big_70.out', 'inherit_big_70b.out', 'inherit_big_75.out', 'inherit_big_75b.out', 'inherit_big_80.out', 'inherit_big_80b.out'):
     if os.path.exists(name) and os.path.getsize(name):
         b = json.loads(open(name).read().strip().split('\n')[-1])
         e = by.setdefault(b['digits'], dict(digits=b['digits'], files=[], hist={}, most=0))

@@ -7,6 +7,7 @@ $PY inherit_big.py 70 40   | grep digits > inherit_big_70.out
 $PY inherit_big.py 75 40   | grep digits > inherit_big_75.out
 $PY inherit_big.py 75 40 1 | grep digits > inherit_big_75b.out   # drawn because the first sample of 75 digits stood out
 $PY inherit_big.py 80 24   | grep digits > inherit_big_80.out
+$PY inherit_big.py 65 60 1 | grep digits > inherit_big_65b.out ; $PY inherit_big.py 70 40 1 | grep digits > inherit_big_70b.out ; $PY inherit_big.py 80 24 1 | grep digits > inherit_big_80b.out   # second samples for the other sizes, drawn afterwards
 # $PY inherit_big.py 85 20   (20 primes of 85 digits: stopped after 55 minutes without a result; not used)
 for spec in "11 3000" "13 3000" "14 3000" "16 3000" "17 3000" "18 3000" "19 3000" "22 3000" "28 2000" "32 1000" "45 300"; do set -- $spec; $PY inherit_big.py $1 $2 | grep digits; done > inherit_big_more.out
 # the scans
