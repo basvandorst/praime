@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime waterfall</title>
+<meta name="description" content="Gilbreath's waterfall: the primes, and below every row the differences of the row above. The first number of every row is 1, so far. Is that the primes, or would any sequence do?">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.good { color:var(--green); font-weight:600; } .bad { color:var(--pink); font-weight:600; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime waterfall</h1>
+  <p>Write the primes in a row: 2, 3, 5, 7, 11, 13, … Below it write the differences, without minus signs: 1, 2, 2, 4, 2, … Below that the differences of that row, and so on: a waterfall. Gilbreath noticed in 1958 that every row after the first starts with 1 (Proth had claimed a proof in 1878; it was wrong). It has been checked for the first 3.4 × 10<sup>11</sup> primes (Odlyzko, 1993), and nobody has proved it. Is this about the primes, or would any sequence do? Try the fakes. Turtle: <a href="prime8.html">prime8</a>, Galton board: <a href="prime7.html">prime7</a>, race: <a href="prime6.html">prime6</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="src">The top row</label><select id="src">
+      <option value="primes">The primes</option>
+      <option value="fake">Fake primes: 2, then random odd numbers (chance 2 / ln n)</option>
+      <option value="fake100">Fake primes, but the true primes up to 100 first</option>
+      <option value="wheel">Fake primes avoiding 2, 3, 5, 7 (true primes up to 100 first)</option>
+      <option value="mexp">The Mersenne exponents 2, 3, 5, 7, 13, 17, 19, 31, …</option>
+    </select></div>
+    <div class="ctl"><label for="maxn">Numbers up to</label><select id="maxn"><option value="1000">1,000</option><option value="5000" selected>5,000</option><option value="100000">100,000</option><option value="1000000">1,000,000</option></select></div>
+    <button id="go" class="go" type="button">Let it fall</button>
+    <button id="all" type="button">All rows at once</button>
+    <button id="newfake" type="button">New fakes</button>
+    <button id="hundred" type="button">Compare with fakes</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The waterfall of differences"></canvas></div>
+  <div class="legend"><span><span class="sw" style="background:#fbbf24"></span>1</span><span><span class="sw" style="background:#1b2a42"></span>0</span><span><span class="sw" style="background:#38bdf8"></span>2</span><span><span class="sw" style="background:#a78bfa"></span>4 to 8</span><span><span class="sw" style="background:#f472b6"></span>more, or odd above 1</span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div><p class="note" id="cmp" style="margin-top:10px"></p></section>
+  <section class="panel" id="backtest">
+    <h2>Is the waterfall about the primes? Measured up to 5,000 and up to 1,000,000</h2>
+    <p class="note">Depth: the first row from which only 0s and 2s follow the leading 1. The fakes copy the true primes up to 100 and then take each number n that is not a multiple of the listed primes with the chance that makes their density match the primes. None of the 1,500 fakes up to 5,000 and none of the 500 fakes up to 1,000,000 broke Gilbreath's rule (fakes that are random from 3 on do break it: 70 of 200 odd fakes up to 5,000, and every fake that may also take even numbers). So the rule itself does not need the primes. What does single out the primes is how fast the waterfall settles: their depth is lower than for nearly all odd fakes, and fakes that also avoid 3, 5, 7, 11, 13 come closer, because the small primes make prime gaps more regular (the same reason the turtle of prime8 walks less far). The page and a separate program agree on the depth and the first column for the primes up to 1,000, 5,000, 100,000 and 1,000,000 and for the Mersenne exponents; the program also reproduces OEIS A036277 (where the first number above 2 sits in rows 0 to 51).</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Top row</th><th>Depth up to 5,000 (300 fakes)</th><th>Share of fakes at or below the primes</th><th>Depth up to 1,000,000 (100 fakes)</th><th>Share at or below the primes</th></tr></thead><tbody>
+<tr><td>the primes</td><td>23</td><td>–</td><td>95</td><td>–</td></tr>
+<tr><td>odd fakes</td><td>median 36.5 (10% to 90%: 28 to 49)</td><td>1%</td><td>median 115.5 (103 to 143)</td><td>1%</td></tr>
+<tr><td>fakes avoiding 2, 3</td><td>35 (27 to 47)</td><td>2%</td><td>112.5 (97 to 137)</td><td>9%</td></tr>
+<tr><td>fakes avoiding 2, 3, 5, 7</td><td>33 (25 to 43)</td><td>4%</td><td>107 (92 to 129)</td><td>11%</td></tr>
+<tr><td>fakes avoiding 2 to 13</td><td>31 (25 to 41)</td><td>5%</td><td>102 (89 to 127)</td><td>26%</td></tr>
+    </tbody></table></div>
+  </section>
+  <section class="panel"><h2>What the waterfall shows</h2><p class="note" id="why"></p></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433];
+let SIEVE=null;function sieve(X){if(SIEVE&&SIEVE.length>X)return SIEVE;const s=new Uint8Array(X+1).fill(1);s[0]=0;s[1]=0;for(let i=2;i*i<=X;i++)if(s[i])for(let j=i*i;j<=X;j+=i)s[j]=0;SIEVE=s;return s;}
+function seqOf(src,X,seed){const s=sieve(X),out=[];if(src==="primes"){for(let n=2;n<=X;n++)if(s[n])out.push(n);return out;}if(src==="mexp")return MEXP.filter(p=>p<=X);
+ const r=rng(seed),W=src==="wheel"?[2,3,5,7]:[2],B=src==="fake"?2:100;let c=1;for(const p of W)c*=p/(p-1);for(let n=2;n<=Math.min(B,X);n++)if(s[n])out.push(n);
+ for(let n=B+1;n<=X;n++){let ok=true;for(const p of W)if(n%p===0){ok=false;break;}if(!ok)continue;if(r()<Math.min(1,c/Math.log(n)))out.push(n);}return out;}
+function analyse(a){let row=Int32Array.from(a),d=0,maxv=0;const firsts=[a[0]];for(;;){if(d>0){if(row[0]!==1)return{depth:d,holds:false,breakRow:d,firsts,maxv};let ok=true;for(let i=1;i<row.length;i++)if(row[i]!==0&&row[i]!==2){ok=false;break;}if(ok||row.length<=1)return{depth:d,holds:true,breakRow:0,firsts,maxv};}
+ if(row.length<=1)return{depth:d,holds:true,breakRow:0,firsts,maxv};const nx=new Int32Array(row.length-1);for(let i=0;i<nx.length;i++){const v=Math.abs(row[i+1]-row[i]);nx[i]=v;if(v>maxv&&d>=0)maxv=v;}row=nx;d++;firsts.push(row[0]);}}
+const S={src:"primes",X:5000,seed:1,seq:[],res:null,shown:0,run:false,cmp:null,W:0,H:0,dpr:1,rows:[]};
+function build(){S.seq=seqOf(S.src,S.X,S.seed);S.res=analyse(S.seq);const R=Math.min(S.res.depth+12,400),C=Math.min(S.seq.length,Math.max(60,2*R));S.rows=[];let row=S.seq.slice(0,C+R);for(let d=0;d<R&&row.length;d++){S.rows.push(row.slice(0,C));const nx=[];for(let i=0;i+1<row.length;i++)nx.push(Math.abs(row[i+1]-row[i]));row=nx;}S.shown=0;S.cmp=null;}
+function size(){const w=cv.parentElement.clientWidth,R=Math.max(1,S.rows.length),C=Math.max(1,S.rows[0]?S.rows[0].length:1),c=Math.max(1,Math.min((w-8)/C,22)),h=Math.round(Math.max(120,Math.min(900,R*c+8)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function col(v,d){if(d===0)return"#475569";if(v===1)return"#fbbf24";if(v===0)return"#1b2a42";if(v===2)return"#38bdf8";if(v%2===0&&v<=8)return"#a78bfa";return"#f472b6";}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,rows=S.rows,R=Math.max(1,rows.length),C=Math.max(1,rows[0]?rows[0].length:1),cs=Math.max(1,Math.min(Math.floor((W-8*dpr)/C),Math.floor((H-8*dpr)/R),22*dpr)),ox=4*dpr,oy=4*dpr;
+ ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);const n=Math.min(S.shown,rows.length);
+ for(let d=0;d<n;d++){const row=rows[d];for(let i=0;i<row.length;i++){ctx.fillStyle=col(row[i],d);ctx.fillRect(ox+i*cs,oy+d*cs,Math.max(1,cs-(cs>3?1:0)),Math.max(1,cs-(cs>3?1:0)));}}
+ if(cs>=13*dpr){ctx.font=`${Math.floor(cs*0.6)}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";for(let d=1;d<n;d++){const row=rows[d];for(let i=0;i<row.length;i++){const v=row[i];if(v===0||v>99)continue;ctx.fillStyle=v===1?"#3b2a00":"#0b1220";ctx.fillText(String(v),ox+i*cs+cs/2,oy+d*cs+cs/2+0.5);}}}
+ if(S.res&&n>S.res.depth&&S.res.holds){ctx.strokeStyle="#34d399";ctx.lineWidth=2*dpr;ctx.beginPath();ctx.moveTo(ox,oy+S.res.depth*cs);ctx.lineTo(ox+C*cs,oy+S.res.depth*cs);ctx.stroke();}}
+const WHY="The first row is the sequence, every next row the differences of the row above, without signs. Gilbreath's observation is that every row starts with 1. Once a row has 1 in front and only 0s and 2s after it, every later row starts with 1 too (the green line marks that row: the depth). Odlyzko checked the primes up to 3.4 × 10^11 this way and found that depth is never large, and he argued that the property has little to do with primes: any sequence that starts with 2, continues with odd numbers and has gaps that are not too large and random enough should have it. The fakes test this. Fake primes that are random from 3 on break it often (a third of the odd fakes up to 5,000), because their first differences can already be wild; fakes that copy the true primes up to 100 and are random after that break it only now and then (about 1 or 2 runs in 100 for odd fakes, none in our runs for fakes that avoid 2, 3, 5 and 7). What the primes do have: a shallower waterfall. Their depth is smaller than for most fakes; fakes that also avoid the multiples of 3, 5, 7 come closer, because the small primes make the gaps of the primes more regular (the same reason as in the turtle of prime8). The Mersenne exponents break it quickly.";
+function stats(){const r=S.res,k=S.seq.length;const cells=[["Terms in the top row",f(k)],["Largest",k?f(S.seq[k-1]):"–"],["Depth (rows until only 0 and 2)",r?f(r.depth):"–"],["First column all 1?",r?(r.holds?'<span class="good">yes</span>':`<span class="bad">no: row ${f(r.breakRow)} starts with ${f(r.firsts[r.firsts.length-1])}</span>`):"–"],["First column",r?r.firsts.slice(0,12).join(", ")+(r.firsts.length>12?", …":""):"–"]].concat(S.src!=="primes"&&S.src!=="mexp"?[["Seed of the fakes",String(S.seed)]]:[]);
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+ $("status").innerHTML=r?(S.shown<S.rows.length?`Row ${f(S.shown)} of ${f(S.rows.length)} shown.`:(r.holds?`<span class="good">Every row starts with 1</span> (from row ${f(r.depth)} on only 0s and 2s follow the 1).`:`<span class="bad">Row ${f(r.breakRow)} does not start with 1.</span>`)):"";
+ $("why").textContent=WHY;if(S.cmp)$("cmp").innerHTML=S.cmp;}
+function compare(){const X=S.X,K=X>100000?20:100,P=analyse(seqOf("primes",X,0));const out=[];for(const src of ["fake100","wheel"]){const ds=[];let br=0;for(let s=1;s<=K;s++){const r=analyse(seqOf(src,X,1000+s));ds.push(r.depth);if(!r.holds)br++;}ds.sort((a,b)=>a-b);const below=ds.filter(d=>d<=P.depth).length;out.push(`${src==="fake100"?"odd fakes":"fakes avoiding 2, 3, 5, 7"}: depth from ${ds[0]} to ${ds[K-1]}, median ${(ds[K/2-1]+ds[K/2])/2}; ${below} of ${K} at or below the primes; ${br} of ${K} break Gilbreath`);}
+ S.cmp=`Up to ${f(X)} the primes have depth ${P.depth}. ${K} fakes each (true primes up to 100 first): `+out.join("; ")+".";stats();}
+let raf=null;function frame(){if(!S.run){raf=null;return;}S.shown=Math.min(S.rows.length,S.shown+Math.max(1,Math.ceil(S.rows.length/90)));draw();stats();if(S.shown>=S.rows.length){setRun(false);return;}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Let it fall";$("go").classList.toggle("on",v);if(v&&!raf)raf=requestAnimationFrame(frame);}
+function full(){build();size();draw();stats();}
+$("go").addEventListener("click",()=>{if(S.shown>=S.rows.length)S.shown=0;setRun(!S.run);});
+$("all").addEventListener("click",()=>{setRun(false);S.shown=S.rows.length;draw();stats();});
+$("newfake").addEventListener("click",()=>{S.seed++;if(S.src==="primes"||S.src==="mexp"){S.src="fake100";$("src").value="fake100";}setRun(false);full();S.shown=S.rows.length;draw();stats();});
+$("hundred").addEventListener("click",()=>{$("cmp").textContent="Running the fakes…";setTimeout(compare,30);});
+$("src").addEventListener("change",e=>{S.src=e.target.value;setRun(false);full();S.shown=S.rows.length;draw();stats();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setRun(false);full();S.shown=S.rows.length;draw();stats();});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),s=q.get("src"),mx=Number(q.get("max")),sd=Number(q.get("seed"));if(s&&[...$("src").options].some(o=>o.value===s)){S.src=s;$("src").value=s;}if([1000,5000,100000,1000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(sd>0)S.seed=sd;full();if(q.get("run")==="1")setRun(true);else{S.shown=S.rows.length;draw();stats();}})();
+</script>
+</body>
+</html>
