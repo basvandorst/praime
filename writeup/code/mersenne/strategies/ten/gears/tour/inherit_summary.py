@@ -91,6 +91,27 @@ if os.path.exists('inherit_second_4e9.out') and 'total primes' in open('inherit_
     S2 = dict(X=int(re.search(r'X2 (\d+)', t2).group(1)), deep=len(deep2))
     say('second C program, written separately (primes from a sieve): up to %d the primes per round and the %d primes of 5 or 6 rounds are the same' % (S2['X'], S2['deep']))
 out['second'] = S2
+S8 = None
+if os.path.exists('inherit_second_8e9.out') and 'total primes' in open('inherit_second_8e9.out').read():
+    t8 = open('inherit_second_8e9.out').read()
+    c8 = [(int(a), int(b), int(c)) for a, b, c in re.findall(r'round (\d+): (\d+) primes, first (\d+)', t8)]
+    X8 = int(re.search(r'X2 (\d+)', t8).group(1))
+    V8, C8, mv8, pr8 = lucy(X8)
+    assert sum(c[1] for c in c8) == C8[0] == int(re.search(r'total primes (\d+)', t8).group(1))
+    six8 = sorted(int(b) for a, b in re.findall(r'deep (\d+) (\d+)', t8) if int(a) >= 6)
+    LM = open('inherit_lemma.txt').read()
+    lem = [int(x) for x in re.findall(r'(\d+) \(\d+ rounds\)', LM)]
+    assert lem == six8 and c8[-1][0] == 6, (lem, six8)
+    S8 = dict(X=X8, cnt=c8, primes=C8[0], six=six8, lemma_cands=int(re.search(r': (\d+), of which', LM).group(1)))
+    L2 = open('inherit_lemma_2.txt').read()
+    m7 = re.search(r'primes of 7 or more rounds up to (\d+): none', L2)
+    six2 = [int(x) for x in re.findall(r'(\d+) \(6 rounds\)', L2)]
+    d8 = sum(1 for l in open('inherit_deep_8e9.txt'))
+    assert m7 and six2[:len(six8)] == six8 and not re.search(r'\((?:[7-9]|\d\d) rounds\)', L2) and d8 == sum(c[1] for c in c8 if c[0] >= 5)
+    S8.update(deep=d8, top2=int(re.search(r'primes of 6 or more rounds up to (\d+)', L2).group(1)), six2=six2, no7=int(m7.group(1)))
+    say('  by the lemma, with the %d primes of 5 or more rounds up to %d: %d primes of 6 rounds up to %d, and no prime of 7 rounds up to %d' % (d8, X8, len(six2), S8['top2'], S8['no7']))
+    say('second C program run on to %d: %d primes (equal to the counting recursion), by rounds %s; primes of 6 rounds %s, the same as the count by the lemma; none of 7 rounds' % (X8, C8[0], ', '.join('%d: %d' % (d, n) for d, n, f in c8), six8))
+out['second8'] = S8
 X = open('inherit_box_check.txt').read()
 m = re.search(r'box of machine 23: (\d+) primes .*?failed: (\d+); primes where the page could not take a neighbour apart and says so: (\d+); not finished by the page: (\d+)', X)
 assert m.group(2) == '0' and m.group(4) == '0'
