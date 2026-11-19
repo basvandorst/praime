@@ -22,7 +22,7 @@ sfT=ES['early']['self']['all_5000'][0]; cross=ES['early']['cross']; cm=f(ES['wor
 iX=f(IS['c']['X']); imax=IS['c']['cnt'][-1][0]; ifirst=', '.join(str(x[2]) for x in IS['c']['cnt'][1:]); c4='%.2f'%IS['law']['both'][2]; d4='%.2f'%max(IS['law']['both'][2]-IS['law']['both'][0],IS['law']['both'][1]-IS['law']['both'][2]); mmax=IS['c_minus']['cnt'][-1][0]; mX=f(IS['c_minus']['X'])
 r5=[d for d in IS['sources'] if d['k']==5][0]['rise']; p5=[d for d in IS['sources'] if d['k']==5][0]['pred_rise']
 no7=f(IS['second8']['no7'])
-srctxt='; '.join('k = %d: %.2f against %.2f'%(d['k'],d['slope'],d['predicted_slope']) for d in IS['sources']); untxt='; '.join('%.3f for %d digits where %.3f was measured'%(u['pred'],u['digits'],u['mean']) for u in IS['unseen']); seven=f(IS['deep']['stage2']['rows'][0][0])
+srctxt='; '.join('k = %d: %.2f against %.2f'%(d['k'],d['slope'],d['predicted_slope']) for d in IS['sources']); untxt='; '.join('%.2f for %d digits where %.2f was measured (%.1f standard errors)'%(u['pred'],u['digits'],u['mean'],u['z']) for u in IS['unseen']); seven=f(IS['deep']['stage2']['rows'][0][0])
 blk=f'''
 From the contest of wheels that decide alone (18 November 2026; writeup/code/mersenne/strategies/ten/gears/tour)
 - One evaluation makes a search finite. A ring of r cells in which every cell is added to its neighbour n times, mod n, holds (x + 1)^n mod (n, x^r - 1) and reads x^n + 1 for every prime n. At x = 1 (the sum of the cells) this is 2^n = 2 (mod n), so a composite that passes is a base-2 pseudoprime, and the published list of those below 2^64 ({f(T['list_count'])} numbers) holds every candidate. Look for the evaluation that maps a new test onto a list that exists.

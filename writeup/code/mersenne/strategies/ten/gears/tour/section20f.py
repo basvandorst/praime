@@ -77,7 +77,9 @@ h2 = lambda x: '%.2f' % (int(x * 100 + 0.5 + 1e-9) / 100)
 box = E['box']
 UNSEEN = ''
 if I.get('unseen'):
-    UNSEEN = 'The rule tried on sizes it was not made from (computed; ' + ', '.join(L('inherit_big_%d.out' % u['digits']) for u in I['unseen']) + '). The constant %.2f comes from the classes up to 60 digits. Afterwards: ' % law['both'][2] + '; '.join('%d random primes of %d digits needed %.3f rounds on average (standard error %.2f), and the rule says %.3f' % (u['count'], u['digits'], u['mean'], u['se'], u['pred']) for u in I['unseen']) + '. None needed more than %d rounds.\n\n' % max(u['most'] for u in I['unseen'])
+    UNSEEN = ('The rule tried on sizes it was not made from (computed; ' + ', '.join(L(x) for u in I['unseen'] for x in u['files']) + '). The constant %.2f comes from the classes up to 60 digits. Afterwards, random primes of larger sizes:\n\n| Digits | Primes | Mean rounds | Standard error | The rule says | Difference in standard errors |\n|---|---|---|---|---|---|\n' % law['both'][2]
+              + ''.join('| %d | %d | %.3f | %.3f | %.3f | %s |\n' % (u['digits'], u['count'], u['mean'], u['se'], u['pred'], ('%.1f' % u['z']).replace('-', '−')) for u in I['unseen'])
+              + '\nNone needed more than %d rounds. The means differ from the rule by at most %.2f rounds, and %d of the %d lie below it (the largest difference is %s standard errors, at %d digits), so the rule may be slightly high at these sizes. The samples are too small to say more.\n\n' % (max(u['most'] for u in I['unseen']), max(abs(u['mean'] - u['pred']) for u in I['unseen']), sum(1 for u in I['unseen'] if u['z'] < 0), len(I['unseen']), ('%.1f' % min(u['z'] for u in I['unseen'])).replace('-', '−'), min(I['unseen'], key=lambda u: u['z'])['digits']))
 SRC = ''
 if len(I.get('sources', [])) >= 3:
     s5 = ([d for d in I['sources'] if d['k'] == 5] or [None])[0]

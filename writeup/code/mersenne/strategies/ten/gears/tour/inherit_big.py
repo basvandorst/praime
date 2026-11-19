@@ -1,7 +1,7 @@
 """Rounds needed by large primes on machine 23 (wheels that light each other), by the rule of inherit.py,
 worked out from the top down so that only the needed neighbours are factored (PARI).
 usage: inherit_big.py check            the rule from the top down against inherit.py's run from the bottom up
-       inherit_big.py DIGITS COUNT     COUNT primes after random starts of DIGITS digits (seed 20261118 + DIGITS)"""
+       inherit_big.py DIGITS COUNT [K] COUNT primes after random starts of DIGITS digits (seed 20261118 + DIGITS + 1000 K)"""
 import sys, random, json, time
 from math import gcd
 import cypari2
@@ -73,7 +73,7 @@ if __name__ == '__main__':
                     print('     helper %d needs %d rounds' % (p, rounds(p)))
     else:
         digits, count = int(sys.argv[1]), int(sys.argv[2])
-        rng = random.Random(20261118 + digits)
+        rng = random.Random(20261118 + digits + (1000 * int(sys.argv[3]) if len(sys.argv) > 3 else 0))
         hist = {}
         t0 = time.time()
         worst = (0, 0)

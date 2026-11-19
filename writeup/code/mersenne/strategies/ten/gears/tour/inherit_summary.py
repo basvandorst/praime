@@ -126,15 +126,23 @@ md = re.search(r'they have (\d+) to (\d+) digits', X)
 out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)), chain=[int(x) for x in mc.group(1).split(', ')], digits=[int(md.group(1)), int(md.group(2))])
 say('box of machine 23 against PARI: %s primes, 0 differ, %s where the page says it could not take a neighbour apart' % (m.group(1), m.group(3)))
 un = []
-for name in ('inherit_big_70.out', 'inherit_big_80.out'):
+by = {}
+for name in ('inherit_big_65.out', 'inherit_big_70.out', 'inherit_big_75.out', 'inherit_big_75b.out', 'inherit_big_80.out'):
     if os.path.exists(name) and os.path.getsize(name):
         b = json.loads(open(name).read().strip().split('\n')[-1])
-        nn = b['count']
-        mu = sum(k * v for k, v in b['hist']) / nn
-        se = (sum(v * (k - mu) ** 2 for k, v in b['hist']) / (nn - 1) / nn) ** 0.5
-        pred = math.log(math.log(5.5 * 10 ** (b['digits'] - 1))) / math.log(4) + round(out['law']['both'][2], 2)
-        un.append(dict(digits=b['digits'], count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=b['worst'][0], hist=b['hist']))
-        say('  size not used for the rule: %d random primes of %d digits, mean %.2f rounds (standard error %.2f), the rule says %.2f; most %d' % (nn, b['digits'], mu, se, pred, b['worst'][0]))
+        e = by.setdefault(b['digits'], dict(digits=b['digits'], files=[], hist={}, most=0))
+        e['files'].append(name)
+        for k_, v_ in b['hist']:
+            e['hist'][k_] = e['hist'].get(k_, 0) + v_
+        e['most'] = max(e['most'], b['worst'][0])
+for dg in sorted(by):
+    e = by[dg]
+    nn = sum(e['hist'].values())
+    mu = sum(k_ * v_ for k_, v_ in e['hist'].items()) / nn
+    se = (sum(v_ * (k_ - mu) ** 2 for k_, v_ in e['hist'].items()) / (nn - 1) / nn) ** 0.5
+    pred = math.log(math.log(5.5 * 10 ** (dg - 1))) / math.log(4) + round(out['law']['both'][2], 2)
+    un.append(dict(digits=dg, count=nn, mean=round(mu, 3), se=round(se, 3), pred=round(pred, 3), most=e['most'], hist=sorted(e['hist'].items()), files=e['files'], z=round((mu - pred) / se, 1)))
+    say('  size not used for the rule: %d random primes of %d digits, mean %.3f rounds (standard error %.3f), the rule says %.3f: %.1f standard errors; most %d' % (nn, dg, mu, se, pred, (mu - pred) / se, e['most']))
 out['unseen'] = un
 src = []
 for k in (1, 2, 3, 5):
