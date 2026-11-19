@@ -103,16 +103,20 @@ if os.path.exists('inherit_second_8e9.out') and 'total primes' in open('inherit_
     lem = [int(x) for x in re.findall(r'(\d+) \(\d+ rounds\)', LM)]
     assert lem == six8 and c8[-1][0] == 6, (lem, six8)
     S8 = dict(X=X8, cnt=c8, primes=C8[0], six=six8, lemma_cands=int(re.search(r': (\d+), of which', LM).group(1)))
-    L2 = open('inherit_lemma_2.txt').read()
-    m7 = re.search(r'primes of 7 or more rounds up to (\d+): none', L2)
-    six2 = [int(x) for x in re.findall(r'(\d+) \(6 rounds\)', L2)]
     d8 = sum(1 for l in open('inherit_deep_8e9.txt'))
-    assert m7 and six2[:len(six8)] == six8 and not re.search(r'\((?:[7-9]|\d\d) rounds\)', L2) and d8 == sum(c[1] for c in c8 if c[0] >= 5)
-    m4 = re.search(r'candidates s r \+- 1 up to (\d+) with r one of the (\d+) primes of 5 or more rounds up to (\d+): (\d+); primes of 6 or more rounds among them: (\d+), the same list: True', L2)
-    assert m4 and int(m4.group(3)) == 4200000000 and int(m4.group(5)) == len(six2)
-    S8.update(deep=d8, top2=int(re.search(r'primes of 6 or more rounds up to (\d+)', L2).group(1)), six2=six2, no7=int(m7.group(1)), cands4=int(m4.group(4)), small4=int(m4.group(2)))
-    say('  by the lemma, with the %d primes of 5 or more rounds up to %d: %d primes of 6 rounds up to %d, and no prime of 7 rounds up to %d' % (d8, X8, len(six2), S8['top2'], S8['no7']))
-    say('second C program run on to %d: %d primes (equal to the counting recursion), by rounds %s; primes of 6 rounds %s, the same as the count by the lemma; none of 7 rounds' % (X8, C8[0], ', '.join('%d: %d' % (d, n) for d, n, f in c8), six8))
+    assert d8 == sum(c[1] for c in c8 if c[0] >= 5)
+
+    def rd(name):
+        t = open(name).read()
+        a = re.search(r'from the (\d+) primes of 5 or more rounds up to (\d+): (\d+) candidates s r \+- 1 up to (\d+), primes of 6 or more rounds: (\d+) \(most rounds 6\)', t)
+        b = re.search(r'from these: (\d+) candidates s q \+- 1 up to (\d+), primes of 7 or more rounds: none', t)
+        assert a and b, name
+        return dict(list=int(a.group(1)), B=int(a.group(2)), cands=int(a.group(3)), top6=int(a.group(4)), six=int(a.group(5)), cands7=int(b.group(1)), top7=int(b.group(2)))
+
+    ch4, ch8 = rd('inherit_lemma_chain_4e9.txt'), rd('inherit_lemma_chain_8e9.txt')
+    assert ch4['list'] == S2['deep'] and ch4['B'] == S2['X'] and ch8['list'] == d8 and ch8['B'] == X8
+    S8.update(deep=d8, chain4=ch4, chain8=ch8, no7=ch8['top7'], no7_both=ch4['top7'])
+    say('  the lemma used twice: from the list up to %d: %d primes of 6 rounds up to %d and no prime of 7 rounds up to %d; from the list up to %d: %d primes of 6 rounds up to %d and no prime of 7 rounds up to %d' % (ch4['B'], ch4['six'], ch4['top6'], ch4['top7'], ch8['B'], ch8['six'], ch8['top6'], ch8['top7']))
 out['second8'] = S8
 X = open('inherit_box_check.txt').read()
 m = re.search(r'box of machine 23: (\d+) primes .*?failed: (\d+); primes where the page could not take a neighbour apart and says so: (\d+); not finished by the page: (\d+)', X)
