@@ -1,6 +1,6 @@
 """Collects the results of machine 23 (wheels that light each other) into inherit_sum.json and inherit_sum.txt.
 Every number is read from the output of the program that computed it."""
-import json, re, math
+import json, re, math, os
 from sympy import isprime, primerange
 from early import lucy
 from inherit import run
@@ -27,6 +27,7 @@ def read_c(name):
     X = int(re.search(r'X (\d+) side', t).group(1))
     cnt = [(int(a), int(b), int(c)) for a, b, c in re.findall(r'depth (\d+): (\d+) primes, first (\d+)', t)]
     mean = [(int(a), int(b), float(c)) for a, b, c in re.findall(r'primes in \[2\^(\d+), 2\^\d+\): (\d+), mean depth ([\d.]+)', t)]
+    mean = [m for m in mean if 2 ** (m[0] + 1) - 1 <= X]  # the last class of a run is cut off by X: leave it out
     assert 'done' in t
     return X, cnt, mean
 
@@ -45,7 +46,8 @@ say('  smallest prime that needs 1, 2, ... rounds: %s; most rounds: %d' % (', '.
 Xm, cntm, meanm = read_c('inherit_c_minus_1e9.out')
 out['c_minus'] = dict(X=Xm, cnt=cntm, mean=meanm)
 say('with n - 1 alone, up to %d: most rounds %d; smallest prime of each round: %s' % (Xm, cntm[-1][0], ', '.join(str(f) for d, n, f in cntm[1:])))
-say('  mean rounds for primes between 2^29 and 2^30: %.2f with both neighbours, %.2f with n - 1 alone' % (dict((a, c) for a, b, c in mean)[29], dict((a, c) for a, b, c in meanm)[29]))
+say('  mean rounds for primes between 2^28 and 2^29: %.2f with both neighbours, %.2f with n - 1 alone' % (dict((a, c) for a, b, c in mean)[28], dict((a, c) for a, b, c in meanm)[28]))
+out['fit_classes'] = [mean[0][0] if mean[0][0] >= 10 else 10, mean[-1][0]]
 big = [json.loads(l) for l in open('inherit_big.out') if l.startswith('{')]
 out['big'] = big
 for b in big:
@@ -79,12 +81,23 @@ m3 = re.search(r'the (\d+) primes of 5 and 6 rounds .*?: ([\d, ]+)\): rounds fro
 assert m and m3.group(3) == '0'
 out['hist'] = dict(top=int(m2.group(1)), primes=int(m.group(1)), six=[int(x) for x in m3.group(2).split(', ')], listed=int(m3.group(1)))
 say('third count (PARI, top down) for every prime up to %s: histogram equal to the C program (%s primes); the primes of 6 rounds up to 4.2e9 are %s' % (m2.group(1), m.group(1), m3.group(2)))
+S2 = None
+if os.path.exists('inherit_second_4e9.out') and 'total primes' in open('inherit_second_4e9.out').read():
+    t2 = open('inherit_second_4e9.out').read()
+    c2 = [(int(a), int(b), int(c)) for a, b, c in re.findall(r'round (\d+): (\d+) primes, first (\d+)', t2)]
+    deep2 = sorted(int(b) for a, b in re.findall(r'deep (\d+) (\d+)', t2))
+    deep1 = sorted(int(l.split()[1]) for l in open('inherit_deep_4e9.txt'))
+    assert c2 == [tuple(x) for x in cnt] and deep2 == deep1, 'second program differs'
+    S2 = dict(X=int(re.search(r'X2 (\d+)', t2).group(1)), deep=len(deep2))
+    say('second C program, written separately (primes from a sieve): up to %d the primes per round and the %d primes of 5 or 6 rounds are the same' % (S2['X'], S2['deep']))
+out['second'] = S2
 X = open('inherit_box_check.txt').read()
 m = re.search(r'box of machine 23: (\d+) primes .*?failed: (\d+); primes where the page could not take a neighbour apart and says so: (\d+); not finished by the page: (\d+)', X)
 assert m.group(2) == '0' and m.group(4) == '0'
-out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)))
+mc = re.search(r'helpers of 2223990533 on the page, largest first: ([\d, ]+)', X)
+md = re.search(r'they have (\d+) to (\d+) digits', X)
+out['boxcheck'] = dict(primes=int(m.group(1)), partial=int(m.group(3)), chain=[int(x) for x in mc.group(1).split(', ')], digits=[int(md.group(1)), int(md.group(2))])
 say('box of machine 23 against PARI: %s primes, 0 differ, %s where the page says it could not take a neighbour apart' % (m.group(1), m.group(3)))
-import os
 un = []
 for name in ('inherit_big_70.out', 'inherit_big_80.out'):
     if os.path.exists(name) and os.path.getsize(name):
@@ -101,8 +114,12 @@ for k in (1, 2, 3, 5):
     name = 'inherit_sources_%d.out' % k
     if os.path.exists(name) and os.path.getsize(name):
         d = json.loads(open(name).read().strip())
+        d['rise'] = round(d['rows'][-1][3] - d['rows'][0][3], 3)
+        d['pred_rise'] = round((d['rows'][-1][1] - d['rows'][0][1]) / math.log(2 * k), 3)
+        d['flat'] = [d['rows'][0][3], d['rows'][5][3]]
         src.append(d)
         say('  %d source%s of helpers: slope of mean rounds against ln ln N %.2f, the reason says 1/ln %d = %.2f (%d size classes; rounds - log_%d(ln N) between %.2f and %.2f)' % (k, '' if k == 1 else 's', d['slope'], 2 * k, d['predicted_slope'], len(d['rows']), 2 * k, d['const_min'], d['const_max']))
+        say('     rise of the mean from the first class to the last: %.2f rounds, the reason says %.2f' % (d['rise'], d['pred_rise']))
 out['sources'] = src
 two = [d for d in src if d['k'] == 2][0]
 cl = {a: c for a, b, c in mean}
@@ -126,7 +143,7 @@ out['deep'] = dict(deep5=int(m.group(1)), s1=int(m1.group(2)), cands1=int(m1.gro
 r0 = best['rows'][0]
 say('search by construction: %s primes of 5 or 6 rounds below 4.2e9; q = s r +- 1 with s <= %s: %s primes of 6 rounds or more; N = s q +- 1 below %d: %d primes of 7 rounds; the smallest found is %d = %d * %d %s 1 (not shown to be the smallest of all)' % (m.group(1), m1.group(2), m1.group(4), best['bound'], best['found'], r0[0], r0[2], r0[3], r0[4]))
 X7 = open('inherit_box_check.txt').read()
-assert 'four primes of 7 rounds' in X7
+assert 'four primes of 7 rounds' in X7 and out['boxcheck']['chain'][0] == 555997633
 J = open('inherit_js_check.txt').read()
 m = re.search(r'(\d+) odd numbers, .*?, (\d+) differ', J)
 assert m.group(2) == '0'

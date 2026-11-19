@@ -2,7 +2,7 @@ proofs run for every odd number up to 200000 (Python): the lit numbers are exact
 C program up to 4200000000: 198996103 primes (equal to the count of the counting wheels); by rounds: 0: 1, 1: 19273, 2: 62240805, 3: 127499945, 4: 9205290, 5: 30786, 6: 3
   smallest prime that needs 1, 2, ... rounds: 3, 19, 173, 21767, 1688173, 2223990533; most rounds: 6
 with n - 1 alone, up to 1000000000: most rounds 14; smallest prime of each round: 3, 7, 23, 47, 283, 719, 1439, 2879, 34549, 138197, 1266767, 14920303, 36449279, 377982107
-  mean rounds for primes between 2^29 and 2^30: 2.71 with both neighbours, 4.35 with n - 1 alone
+  mean rounds for primes between 2^28 and 2^29: 2.68 with both neighbours, 4.30 with n - 1 alone
   random primes of 8 digits: 3000 tried, mean 2.58 rounds, most 4; by rounds [[2, 1333], [3, 1598], [4, 69]]
   random primes of 10 digits: 3000 tried, mean 2.78 rounds, most 4; by rounds [[2, 830], [3, 1998], [4, 172]]
   random primes of 12 digits: 3000 tried, mean 2.93 rounds, most 5; by rounds [[2, 478], [3, 2263], [4, 258], [5, 1]]
@@ -14,16 +14,23 @@ with n - 1 alone, up to 1000000000: most rounds 14; smallest prime of each round
   random primes of 40 digits: 500 tried, mean 3.80 rounds, most 5; by rounds [[3, 130], [4, 341], [5, 29]]
   random primes of 50 digits: 200 tried, mean 3.93 rounds, most 5; by rounds [[3, 31], [4, 152], [5, 17]]
   random primes of 60 digits: 80 tried, mean 4.08 rounds, most 5; by rounds [[3, 5], [4, 64], [5, 11]]
-  straight line through 31 points (mean rounds against ln ln N): rounds = 0.49 + 0.73 ln ln N, largest distance 0.05
-  with the slope fixed at 1/ln 4 = 0.7213: rounds - log4(ln N) lies between 0.47 and 0.56 for all 31 points (mean 0.51)
+  straight line through 30 points (mean rounds against ln ln N): rounds = 0.49 + 0.73 ln ln N, largest distance 0.05
+  with the slope fixed at 1/ln 4 = 0.7213: rounds - log4(ln N) lies between 0.47 and 0.56 for all 30 points (mean 0.51)
   n - 1 alone, classes 2^10 to 2^28, slope fixed at 1/ln 2: rounds - log2(ln N) lies between -0.01 and 0.16; slope over the last three classes 1.39
 the rule from the top down (PARI) against the run from the bottom up: 17983 primes, 0 differ; 2,223,990,533 needs 6 rounds there too
 third count (PARI, top down) for every prime up to 20000000: histogram equal to the C program (1270606 primes); the primes of 6 rounds up to 4.2e9 are 2223990533, 3053740441, 3859111517
+second C program, written separately (primes from a sieve): up to 4200000000 the primes per round and the 30789 primes of 5 or 6 rounds are the same
 box of machine 23 against PARI: 1031 primes, 0 differ, 5 where the page says it could not take a neighbour apart
   size not used for the rule: 40 random primes of 70 digits, mean 4.17 rounds (standard error 0.08), the rule says 4.17; most 5
+  size not used for the rule: 24 random primes of 80 digits, mean 4.21 rounds (standard error 0.10), the rule says 4.27; most 5
   1 source of helpers: slope of mean rounds against ln ln N 1.38, the reason says 1/ln 2 = 1.44 (12 size classes; rounds - log_2(ln N) between -0.12 and 0.16)
+     rise of the mean from the first class to the last: 2.94 rounds, the reason says 3.22
   2 sources of helpers: slope of mean rounds against ln ln N 0.71, the reason says 1/ln 4 = 0.72 (12 size classes; rounds - log_4(ln N) between 0.43 and 0.58)
+     rise of the mean from the first class to the last: 1.49 rounds, the reason says 1.61
   3 sources of helpers: slope of mean rounds against ln ln N 0.59, the reason says 1/ln 6 = 0.56 (12 size classes; rounds - log_6(ln N) between 0.69 and 0.87)
+     rise of the mean from the first class to the last: 1.18 rounds, the reason says 1.25
+  5 sources of helpers: slope of mean rounds against ln ln N 0.54, the reason says 1/ln 10 = 0.43 (12 size classes; rounds - log_10(ln N) between 0.85 and 1.21)
+     rise of the mean from the first class to the last: 1.06 rounds, the reason says 0.97
 search by construction: 30789 primes of 5 or 6 rounds below 4.2e9; q = s r +- 1 with s <= 2000: 3336 primes of 6 rounds or more; N = s q +- 1 below 320000000000000: 4 primes of 7 rounds; the smallest found is 76175908868713 = 24 * 3173996202863 + 1 (not shown to be the smallest of all)
 page code against Python: 2638 odd numbers, 0 differ
 250 wheels: all 53 primes lit from round 3, the 12 Mersenne exponents from round 2, the 33 twin primes from round 2; up to 5,000 by rounds: [(0, 1), (1, 56), (2, 551), (3, 61)]; round 1 up to 5,000: 56 primes, 29 of them of the form k 2^m + 1 with k < 2^m

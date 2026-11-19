@@ -1,5 +1,5 @@
 """Looks for primes that need more rounds than any prime below 4.2e9 (machine 23).
-A prime of g + 1 rounds must have, next to it on both sides, helpers of g rounds that cannot be missed. So:
+Each neighbour of a prime of g + 1 rounds has a prime factor of g rounds or more. So:
 stage 1: q = s r + 1 and s r - 1 for the primes r of 5 or more rounds below 4.2e9 (inherit_deep_4e9.txt) and even s <= S1;
          keep the q that need 6 rounds or more;
 stage 2: N = s q + 1 and s q - 1 for these q and even s <= S2; report the N that need 7 rounds or more.
