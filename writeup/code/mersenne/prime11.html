@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime radio</title>
+<meta name="description" content="Tune a radio to the primes: the spectrum of the primes has stations at the fractions a/q, of strength 1/φ(q) for square-free q, and less noise between them than chance.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:100%; }
+.dialrow { display:flex; gap:12px; align-items:center; margin-top:10px; }
+.dialrow input { flex:1; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; cursor:crosshair; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.check { display:flex; align-items:center; gap:6px; color:#d7e3f4; font-size:13.5px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime radio</h1>
+  <p>Turn the primes into a sound: give every prime p the wave e<sup>2πi p θ</sup> and add them up. At most dial settings θ the waves cancel and you hear noise. At the fractions a/q they line up, and you hear a station: its strength is about 1/φ(q) of the number of primes when q has no square factor, and nothing when it has one. Between the stations the primes are quieter than random numbers. Goldbach comet: <a href="prime10.html">prime10</a>, waterfall: <a href="prime9.html">prime9</a>, race: <a href="prime6.html">prime6</a>.</p>
+</header>
+<main>
+  <section class="panel" aria-label="Settings">
+    <div class="controls">
+      <div class="ctl"><label for="src">Signal</label><select id="src">
+        <option value="primes">The primes</option>
+        <option value="fake">Fake primes: random odd numbers, chance 2 / ln n</option>
+        <option value="wheel">Fake primes avoiding the multiples of 2 to 13</option>
+        <option value="c30">All numbers without the factors 2, 3, 5</option>
+      </select></div>
+      <div class="ctl"><label for="maxn">Primes up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000" selected>100,000</option><option value="1000000">1,000,000</option></select></div>
+      <div class="ctl"><label for="zoom">Band</label><select id="zoom"><option value="0.5">the whole dial, 0 to 1/2</option><option value="0.05">a slice of 1/20 around the dial</option><option value="0.005">a slice of 1/200 around the dial</option></select></div>
+      <label class="check"><input id="logy" type="checkbox" checked> Logarithmic scale</label>
+      <button id="go" class="go" type="button">Scan</button>
+    </div>
+    <div class="dialrow"><span class="lab">Dial θ</span><input id="dial" type="range" min="0" max="100000" value="20000" aria-label="Dial"><b id="dv"></b></div>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The spectrum"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel"><h2>The stations, exactly</h2><p class="note">At θ = a/q the sum depends only on how the primes fall into the remainders modulo q, so it can be computed exactly from those counts. Measured strength: |F(a/q)| divided by the number of primes, the mean over all a coprime to q. Predicted: |μ(q)| / φ(q) (1/φ(q) when q has no square factor, else 0).</p><div style="overflow-x:auto"><table class="bt" id="peaks"></table></div></section>
+  <section class="panel" id="backtest">
+    <h2>Quieter than chance: measured up to 5,000 and up to 1,000,000</h2>
+    <p class="note" id="btnote"></p>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function sieve(X){const s=new Uint8Array(X+1).fill(1);s[0]=0;s[1]=0;for(let i=2;i*i<=X;i++)if(s[i])for(let j=i*i;j<=X;j+=i)s[j]=0;return s;}
+function gcd(a,b){while(b){[a,b]=[b,a%b];}return a;}
+function phi(q){let r=q,m=q;for(let p=2;p*p<=m;p++)if(m%p===0){while(m%p===0)m/=p;r-=r/p;}if(m>1)r-=r/m;return r;}
+function mu(q){let m=q,k=0;for(let p=2;p*p<=m;p++)if(m%p===0){m/=p;if(m%p===0)return 0;k++;}if(m>1)k++;return k%2?-1:1;}
+function fft(re,im){const n=re.length;for(let i=1,j=0;i<n;i++){let b=n>>1;for(;j&b;b>>=1)j^=b;j^=b;if(i<j){let t=re[i];re[i]=re[j];re[j]=t;t=im[i];im[i]=im[j];im[j]=t;}}
+ for(let len=2;len<=n;len<<=1){const ang=-2*Math.PI/len,wr=Math.cos(ang),wi=Math.sin(ang);for(let i=0;i<n;i+=len){let cr=1,ci=0;for(let k=0;k<len/2;k++){const a=i+k,b=a+len/2,xr=re[b]*cr-im[b]*ci,xi=re[b]*ci+im[b]*cr;re[b]=re[a]-xr;im[b]=im[a]-xi;re[a]+=xr;im[a]+=xi;const t=cr*wr-ci*wi;ci=cr*wi+ci*wr;cr=t;}}}}
+const S={src:"primes",X:100000,zoom:0.5,logy:true,dial:0.2,ind:null,N:0,L:0,A:null,run:false,W:0,H:0,dpr:1,floor:{}};
+function signal(){const X=S.X,isP=sieve(X),ind=new Uint8Array(X+1);if(S.src==="primes"){for(let n=2;n<=X;n++)ind[n]=isP[n];}else if(S.src==="c30"){for(let n=7;n<=X;n++)if(n%2&&n%3&&n%5)ind[n]=1;}
+ else{const r=rng(11),W=S.src==="wheel"?[2,3,5,7,11,13]:[2];let c=1;for(const p of W)c*=p/(p-1);for(let n=2;n<=Math.min(100,X);n++)ind[n]=isP[n];for(let n=101;n<=X;n++){let ok=true;for(const p of W)if(n%p===0){ok=false;break;}if(ok&&r()<Math.min(1,c/Math.log(n)))ind[n]=1;}}return ind;}
+function build(){S.ind=signal();let N=0;for(const v of S.ind)N+=v;S.N=N;let L=1;while(L<2*(S.X+1))L<<=1;S.L=L;const re=new Float64Array(L),im=new Float64Array(L);for(let n=0;n<=S.X;n++)re[n]=S.ind[n];fft(re,im);const H=L/2+1;S.A=new Float64Array(H);for(let k=0;k<H;k++)S.A[k]=(re[k]*re[k]+im[k]*im[k])/N;floors();}
+function floors(){const L=S.L,H=L/2+1;for(const Q of [12,50]){const m=new Uint8Array(H).fill(1);for(let q=1;q<=Q;q++)for(let a=0;2*a<=q;a++){if(gcd(a,q)!==1)continue;const c=Math.round(L*a/q),w=Math.max(3,Math.round(20*L/2097152*1));for(let k=Math.max(0,c-w);k<=Math.min(H-1,c+w);k++)m[k]=0;}let s=0,c=0;for(let k=0;k<H;k++)if(m[k]){s+=S.A[k];c++;}S.floor[Q]=s/c;}}
+function exactF(a,q){const cnt=new Float64Array(q);for(let n=0;n<=S.X;n++)if(S.ind[n])cnt[n%q]++;let re=0,im=0;for(let r=0;r<q;r++){if(!cnt[r])continue;const t=2*Math.PI*a*r/q;re+=cnt[r]*Math.cos(t);im+=cnt[r]*Math.sin(t);}return Math.hypot(re,im);}
+function peaks(){const rows=[];for(let q=1;q<=12;q++){let s=0,k=0;for(let a=0;a<q;a++){if(gcd(a,q)!==1)continue;s+=exactF(a,q);k++;}const m=s/k/S.N,pr=Math.abs(mu(q))/phi(q);rows.push([q,m,pr]);}S.peakRows=rows;
+ $("peaks").innerHTML="<thead><tr><th>q</th><th>Measured strength</th><th>Predicted</th><th>Note</th></tr></thead><tbody>"+rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1].toFixed(5)}</td><td>${r[2].toFixed(5)}</td><td>${r[2]===0?"square factor: the station is silent, apart from the race between the remainders (prime6); at q = 4 the strength is exactly the lead of the primes 3 mod 4 over 1 mod 4, divided by the number of primes":""}</td></tr>`).join("")+"</tbody>";}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(480,w*0.45)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function range(){const z=S.zoom;if(z>=0.5)return[0,0.5];let a=S.dial-z/2,b=S.dial+z/2;if(a<0){b-=a;a=0;}if(b>0.5){a-=b-0.5;b=0.5;}return[Math.max(0,a),b];}
+function fr(x){let best=null;for(let q=1;q<=40;q++){const a=Math.round(x*q);if(gcd(a,q)!==1)continue;if(Math.abs(x-a/q)<0.5/S.L*4){best=[a,q];break;}}return best;}
+function draw(){if(!S.A||S.W<60)return;const W=S.W,H=S.H,dpr=S.dpr,L=S.L,padL=46*dpr,padR=10*dpr,padT=14*dpr,padB=22*dpr,[t0,t1]=range(),k0=Math.floor(t0*L),k1=Math.min(L/2,Math.ceil(t1*L)),cols=Math.max(1,Math.round(W-padL-padR));
+ ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);const top=S.N,bot=S.logy?0.01:0,ymap=v=>{const y=S.logy?(Math.log10(Math.max(v,bot))-Math.log10(bot))/(Math.log10(top)-Math.log10(bot)):v/(S.zoom>=0.5?top:Math.max(...colMax));return H-padB-Math.min(1,Math.max(0,y))*(H-padT-padB);};
+ var colMax=new Float64Array(cols);for(let c=0;c<cols;c++){const a=k0+Math.floor((k1-k0)*c/cols),b=Math.max(a+1,k0+Math.floor((k1-k0)*(c+1)/cols));let m=0;for(let k=a;k<b&&k<S.A.length;k++)if(S.A[k]>m)m=S.A[k];colMax[c]=m;}
+ if(!S.logy){let mm=0;for(let c=0;c<cols;c++){const t=t0+(t1-t0)*(c+0.5)/cols;if(t>0.002)mm=Math.max(mm,colMax[c]);}S.lin=mm||1;}
+ const Y=v=>S.logy?ymap(v):H-padB-Math.min(1,v/S.lin)*(H-padT-padB);
+ ctx.strokeStyle="#26364c";ctx.lineWidth=1;ctx.fillStyle="#9fb0c6";ctx.font=`${10.5*dpr}px system-ui,sans-serif`;ctx.textAlign="right";ctx.textBaseline="middle";
+ if(S.logy){for(let e=-2;e<=Math.log10(top);e++){const y=Y(10**e);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.fillText(e<=0?String(10**e):f(10**e),padL-5*dpr,y);}}
+ else{for(let k=0;k<=4;k++){const v=S.lin*k/4,y=Y(v);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.fillText(v<10?v.toFixed(1):f(v),padL-5*dpr,y);}}
+  ctx.strokeStyle="#38bdf8";ctx.lineWidth=Math.max(1,dpr);ctx.beginPath();for(let c=0;c<cols;c++){const x=padL+c+0.5,y=Y(colMax[c]);ctx.moveTo(x,H-padB);ctx.lineTo(x,y);}ctx.stroke();
+ const fl=S.floor[50];ctx.strokeStyle="#34d399";ctx.lineWidth=1.5*dpr;ctx.setLineDash([5*dpr,4*dpr]);ctx.beginPath();ctx.moveTo(padL,Y(fl));ctx.lineTo(W-padR,Y(fl));ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="#fbbf24";ctx.textAlign="center";ctx.textBaseline="bottom";const Qlab=S.zoom>=0.5?(W<700*dpr?6:10):24;
+ for(let q=1;q<=Qlab;q++)for(let a=0;2*a<=q;a++){if(gcd(a,q)!==1)continue;const t=a/q;if(t<t0||t>t1)continue;const x=padL+(t-t0)/(t1-t0)*cols,pk=S.A[Math.round(t*L)];ctx.fillText(q===1?"0":`${a}/${q}`,x,Math.max(padT+10*dpr,Y(pk)-3*dpr));}
+ const xd=padL+(S.dial-t0)/(t1-t0)*cols;if(S.dial>=t0&&S.dial<=t1){ctx.strokeStyle="#f472b6";ctx.lineWidth=2*dpr;ctx.beginPath();ctx.moveTo(xd,padT);ctx.lineTo(xd,H-padB);ctx.stroke();}
+ ctx.fillStyle="#9fb0c6";ctx.textAlign="center";ctx.textBaseline="top";for(let k=0;k<=4;k++){const t=t0+(t1-t0)*k/4;ctx.fillText(t.toFixed(S.zoom>=0.5?3:5),Math.min(W-26*dpr,Math.max(padL+16*dpr,padL+cols*k/4)),H-padB+5*dpr);}
+ ctx.textAlign="left";ctx.fillStyle="#34d399";ctx.fillText(W<700*dpr?"dashed: noise":"dashed green: the mean noise between the stations (each column shows its loudest bin)",padL+6*dpr,padT-12*dpr);}
+function dialRead(){const k=Math.round(S.dial*S.L),v=S.A[Math.min(k,S.A.length-1)],fq=fr(S.dial);$("dv").textContent=S.dial.toFixed(5);
+ $("status").textContent=`Dial ${S.dial.toFixed(5)}: strength² ${v.toFixed(2)} × the number of signals`+(fq?` — a station at ${fq[0]}/${fq[1]} (predicted ${(Math.abs(mu(fq[1]))/phi(fq[1])).toFixed(4)} of the signals, so ${(S.N*(mu(fq[1])/phi(fq[1]))**2).toFixed(0)} on this scale)`:" — noise");}
+function stats(){const cells=[["Signals (numbers in the sum)",f(S.N)],["Bins in the spectrum",f(S.L/2+1)],["Noise level between the stations with q ≤ 12",S.floor[12].toFixed(3)],["Noise level between the stations with q ≤ 50",S.floor[50].toFixed(3)],["Noise of random numbers of this density (about)",(1-S.N/S.X).toFixed(3)]];$("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");}
+const BT="The noise level is the mean of |F|² / N over the bins away from the stations a/q (N signals; random signals give about 1 minus their density). Up to 1,000,000, measured away from the stations with q ≤ 50: the primes 0.597, odd fake primes 0.844, fakes avoiding 2 to 13: 0.629, fakes avoiding the primes up to 100: 0.594. Remove the stations up to q = 400 as well and the primes drop to 0.470, while the odd fakes stay at 0.844 and the fakes avoiding 2 to 13 reach only 0.603: the primes have stations for every square-free q, far beyond the small primes, because the sieve uses every prime up to √X. Parseval's identity says the total power is fixed, so what goes into the stations is missing from the noise. That is why the Goldbach comet (prime10) is narrower than chance: Hardy and Littlewood's prediction contains all the stations, and what is left over is the quieter noise. Up to 5,000 (stations q ≤ 12): primes 0.568, odd fakes 0.764. The page and a separate program agree on the station strengths for q = 1 to 12 and on the two noise levels, up to 5,000, 100,000 and 1,000,000.";
+let raf=null;function frame(){if(!S.run){raf=null;return;}S.dial+=0.0004*(S.zoom>=0.5?1:S.zoom*4);if(S.dial>0.5)S.dial=0;$("dial").value=String(Math.round(S.dial/0.5*100000));draw();dialRead();raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Stop":"Scan";$("go").classList.toggle("on",v);if(v&&!raf)raf=requestAnimationFrame(frame);}
+function full(){build();size();draw();dialRead();stats();peaks();$("btnote").textContent=BT;}
+$("go").addEventListener("click",()=>setRun(!S.run));
+$("dial").addEventListener("input",e=>{S.dial=Number(e.target.value)/100000*0.5;draw();dialRead();});
+cv.addEventListener("click",e=>{const b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*S.dpr,[t0,t1]=range(),padL=46*S.dpr,cols=S.W-padL-10*S.dpr;S.dial=Math.max(0,Math.min(0.5,t0+(x-padL)/cols*(t1-t0)));$("dial").value=String(Math.round(S.dial/0.5*100000));draw();dialRead();});
+$("src").addEventListener("change",e=>{S.src=e.target.value;setRun(false);$("status").textContent="Computing…";setTimeout(full,20);});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setRun(false);$("status").textContent="Computing…";setTimeout(full,20);});
+$("zoom").addEventListener("change",e=>{S.zoom=Number(e.target.value);draw();});
+$("logy").addEventListener("change",e=>{S.logy=e.target.checked;draw();});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),s=q.get("src"),mx=Number(q.get("max")),d=Number(q.get("dial")),z=Number(q.get("zoom"));if(s&&[...$("src").options].some(o=>o.value===s)){S.src=s;$("src").value=s;}if([5000,100000,1000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(d>0&&d<=0.5){S.dial=d;}if([0.5,0.05,0.005].includes(z)){S.zoom=z;$("zoom").value=String(z);}$("dial").value=String(Math.round(S.dial/0.5*100000));full();})();
+</script>
+</body>
+</html>
