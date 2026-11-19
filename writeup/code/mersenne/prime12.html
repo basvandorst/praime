@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime rain</title>
+<meta name="description" content="Every prime is a cloud that rains on its multiples. The forecast says how many numbers stay dry if the clouds were independent; near the square root it is wrong, and Buchstab's function says by how much.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime rain</h1>
+  <p>Every prime is a cloud. The cloud 2 rains on every second number, the cloud 3 on every third, and so on. After the clouds up to y, which numbers are still dry? The forecast treats the clouds as independent: each cloud p leaves a share 1 − 1/p dry, so x · (1 − 1/2)(1 − 1/3)(1 − 1/5)… numbers stay dry (Mertens). For small clouds the forecast is excellent. Near y = √x it fails: then the dry numbers are just the primes above y, and there are fewer of them than the forecast says. Radio: <a href="prime11.html">prime11</a>, Goldbach comet: <a href="prime10.html">prime10</a>, turtle: <a href="prime8.html">prime8</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Numbers up to x =</label><select id="maxn"><option value="600">600</option><option value="2000" selected>2,000</option><option value="100000">100,000</option><option value="1000000">1,000,000</option></select></div>
+    <button id="go" class="go" type="button">Start the rain</button>
+    <button id="one" type="button">Next cloud</button>
+    <button id="root" type="button">Clouds up to √x</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="two" id="stage">
+    <div><div class="stage"><canvas id="cv" aria-label="The numbers, wet or dry"></canvas></div><div class="legend"><span><span class="sw" style="background:#e2e8f0"></span>dry</span><span><span class="sw" style="background:#1e40af"></span>wet</span><span><span class="sw" style="background:#fbbf24"></span>a cloud (a prime up to y)</span><span><span class="sw" style="background:#f472b6"></span>just rained on</span></div></div>
+    <div><div class="stage"><canvas id="ch" aria-label="Dry numbers against the forecast"></canvas></div><div class="legend"><span><span class="sw" style="background:#38bdf8"></span>dry / forecast, measured</span><span><span class="sw" style="background:#34d399"></span>Buchstab: e<sup>γ</sup> ω(u), u = ln x / ln y</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Where the forecast fails, measured up to 5,000 and up to 1,000,000</h2>
+    <p class="note">The forecast x ∏ (1 − 1/p) assumes that the clouds act independently. They do not quite, because a number up to x has room for only a few large prime factors. Buchstab's function ω(u) gives the true share: the dry count is about x ω(u) / ln y, while the forecast is about x e<sup>−γ</sup> / ln y (Mertens), so the ratio tends to e<sup>γ</sup> ω(u). It is 1 for small clouds, dips to e<sup>γ</sup>/2 = 0.8905 at y = √x, overshoots 1 slightly near u = 2.8 (ω has its first maximum 0.567 above e<sup>−γ</sup> = 0.561 there) and then settles. At finite x the dip is much shallower and comes before √x: at 1,000,000 it reaches 0.945 at y = 701, at 5,000 only 0.978 at y = 47, and at √x the ratio is back at 0.968 and 1.003. Buchstab's count in its integral form, ∫ ω(ln t / ln y) / ln y dt from y to x, follows the measured ratio closely at 1,000,000 (0.9689 against 0.9675 at √x) but is 2 to 4 % off at 5,000. The overshoot near u = 3 shows at 1,000,000 (1.0037 at y = 101) but not at 5,000 (0.997 at y = 17). The page and a separate program agree on the dry count and the forecast after every cloud, up to 5,000 and up to 1,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>clouds up to y</th><th>u</th><th>dry</th><th>forecast</th><th>dry / forecast</th><th>e<sup>γ</sup> ω(u)</th><th>Buchstab integral / forecast</th></tr></thead><tbody>
+<tr><td>1,000,000</td><td>31</td><td>4.02</td><td>152,839</td><td>152,852</td><td>0.9999</td><td>1.0000</td><td>–</td></tr>
+<tr><td>1,000,000</td><td>101</td><td>2.99</td><td>119,563</td><td>119,126</td><td>1.0037</td><td>1.0055</td><td>1.0266</td></tr>
+<tr><td>1,000,000</td><td>251</td><td>2.50</td><td>98,415</td><td>100,353</td><td>0.9807</td><td>1.0013</td><td>0.9938</td></tr>
+<tr><td>1,000,000</td><td>701</td><td>2.11</td><td>80,389</td><td>85,098</td><td>0.9447</td><td>0.9317</td><td>0.9481</td></tr>
+<tr><td>1,000,000</td><td>997 (= largest prime ≤ √x)</td><td>2.00</td><td>78,330</td><td>80,965</td><td>0.9675</td><td>0.8909</td><td>0.9689</td></tr>
+<tr><td>1,000,000</td><td>1,999</td><td>1.82</td><td>78,195</td><td>73,672</td><td>1.0614</td><td>0.9798</td><td>1.0630</td></tr>
+<tr><td>5,000</td><td>17</td><td>3.01</td><td>900</td><td>902.6</td><td>0.9971</td><td>1.0050</td><td>–</td></tr>
+<tr><td>5,000</td><td>47</td><td>2.21</td><td>678</td><td>693.5</td><td>0.9776</td><td>0.9600</td><td>1.0157</td></tr>
+<tr><td>5,000</td><td>67 (= largest prime ≤ √x)</td><td>2.03</td><td>650</td><td>648.1</td><td>1.0029</td><td>0.9015</td><td>1.0221</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),EG=Math.exp(0.5772156649015329);
+const OM=(()=>{const h=1e-3,n=Math.round(39/h)+1,om=new Float64Array(n),k1=Math.round(1/h);for(let i=0;i<n;i++){const u=1+i*h;if(u<=2+1e-12){om[i]=1/u;continue;}om[i]=((u-h)*om[i-1]+h*(om[i-k1]+om[i-1-k1])/2)/u;}return om;})();
+function omega(u){if(u<1)return 0;const t=(u-1)/1e-3,i=Math.floor(t);if(i>=OM.length-1)return OM[OM.length-1];return OM[i]+(OM[i+1]-OM[i])*(t-i);}
+const S={x:2000,wet:null,cloud:null,P:[],k:0,dry:0,prod:1,hist:[],flash:null,run:false,acc:0,last:0,W:0,H:0,W2:0,H2:0,dpr:1};
+function reset(){const x=S.x,s=new Uint8Array(x+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=x;i++)if(s[i])for(let j=i*i;j<=x;j+=i)s[j]=0;S.P=[];for(let i=2;i<=x;i++)if(s[i])S.P.push(i);S.wet=new Uint8Array(x+1);S.cloud=new Uint8Array(x+1);S.k=0;S.dry=x-1;S.prod=1;S.hist=[];S.flash=null;}
+function nextCloud(){if(S.k>=S.P.length)return false;const p=S.P[S.k++],x=S.x;S.cloud[p]=1;const fl=[];for(let m=p;m<=x;m+=p){if(!S.wet[m]){S.wet[m]=1;S.dry--;fl.push(m);}}S.prod*=1-1/p;S.flash=x<=2000?fl:null;S.hist.push([p,S.dry,x*S.prod]);return true;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(260,Math.min(420,w*0.75)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawGrid(){const W=S.W,H=S.H,dpr=S.dpr,x=S.x;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ if(x>2000){const p=S.k?S.P[S.k-1]:1,r=Math.sqrt(x);ctx.fillStyle="#9fb0c6";ctx.font=`${15*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(`${f(S.dry)} of ${f(x-1)} numbers dry`,W/2,H/2-30*dpr);const fr=S.dry/(x-1);ctx.fillStyle="#1e40af";ctx.fillRect(W*0.1,H/2,W*0.8,22*dpr);ctx.fillStyle="#e2e8f0";ctx.fillRect(W*0.1,H/2,W*0.8*fr,22*dpr);ctx.fillStyle="#9fb0c6";ctx.font=`${12*dpr}px system-ui,sans-serif`;ctx.fillText(`clouds up to ${f(p)} (√x = ${r.toFixed(1)})`,W/2,H/2+46*dpr);ctx.fillText("too many numbers to draw: the bar shows the dry share",W/2,H/2+66*dpr);return;}
+ const cols=Math.ceil(Math.sqrt((x-1)*W/H)),rows=Math.ceil((x-1)/cols),cs=Math.min((W-8*dpr)/cols,(H-8*dpr)/rows),ox=(W-cs*cols)/2,oy=(H-cs*rows)/2,fl=new Set(S.flash||[]);
+ for(let n=2;n<=x;n++){const i=n-2,c=i%cols,r=Math.floor(i/cols);ctx.fillStyle=S.cloud[n]?"#fbbf24":fl.has(n)?"#f472b6":S.wet[n]?"#1e40af":"#e2e8f0";ctx.fillRect(ox+c*cs,oy+r*cs,Math.max(1,cs-(cs>4?1:0)),Math.max(1,cs-(cs>4?1:0)));
+  if(cs>=16*dpr){ctx.fillStyle=S.wet[n]&&!S.cloud[n]&&!fl.has(n)?"#93c5fd":"#0b1220";ctx.font=`${Math.floor(cs*0.38)}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(n),ox+c*cs+cs/2,oy+r*cs+cs/2);}}}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,x=S.x,padL=42*dpr,padR=10*dpr,padT=12*dpr,padB=24*dpr,lx=Math.log(x),X0=Math.log(2),X1=lx,xs=t=>padL+(Math.log(t)-X0)/(X1-X0)*(W-padL-padR),y0=0.8,y1=1.25,ys=v=>H-padB-(Math.min(y1,Math.max(y0,v))-y0)/(y1-y0)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.lineWidth=1;cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";
+ for(const v of [0.8,0.9,1,1.1,1.2]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(1),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(const t of [2,10,100,1000,10000,100000,1000000])if(t<=x)cx.fillText(f(t),Math.min(W-padR-22*dpr,xs(t)),H-padB+5*dpr);
+ const r=Math.sqrt(x);cx.strokeStyle="#f472b6";cx.setLineDash([4*dpr,4*dpr]);cx.beginPath();cx.moveTo(xs(r),padT);cx.lineTo(xs(r),H-padB);cx.stroke();cx.setLineDash([]);cx.fillStyle="#f472b6";cx.textAlign="left";cx.fillText("√x",xs(r)+4*dpr,padT);
+ cx.strokeStyle="#34d399";cx.lineWidth=2*dpr;cx.beginPath();let on=false;for(let i=0;i<=400;i++){const t=Math.exp(X0+(X1-X0)*i/400),u=lx/Math.log(t),v=EG*omega(u);if(u<1||v>y1){on=false;continue;}const X=xs(t),Y=ys(v);on?cx.lineTo(X,Y):cx.moveTo(X,Y);on=true;}cx.stroke();
+ cx.strokeStyle="#38bdf8";cx.lineWidth=2*dpr;cx.beginPath();S.hist.forEach((h,i)=>{const X=xs(h[0]),Y=ys(h[1]/h[2]);i?cx.lineTo(X,Y):cx.moveTo(X,Y);});cx.stroke();
+ if(S.hist.length){const h=S.hist[S.hist.length-1];cx.fillStyle="#fbbf24";cx.beginPath();cx.arc(xs(h[0]),ys(h[1]/h[2]),4*dpr,0,6.2832);cx.fill();}
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText("dry / forecast against the last cloud y (log scale)",padL+4*dpr,H-padB-16*dpr);}
+function stats(){const x=S.x,h=S.hist[S.hist.length-1],p=h?h[0]:0,u=p?Math.log(x)/Math.log(p):Infinity,fc=x*S.prod;
+ const cells=[["Clouds so far",f(S.k)+(p?` (up to ${f(p)})`:"")],["Dry numbers from 2 to x",f(S.dry)],["Forecast x ∏ (1 − 1/p)",fc>=100?f(fc):fc.toFixed(1)],["Dry / forecast",p?(S.dry/fc).toFixed(4):"–"],["Buchstab e^γ ω(u)",p&&u>=1?(EG*omega(u)).toFixed(4):"–"],["u = ln x / ln y",p?u.toFixed(3):"–"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=!p?"Press Start the rain, or Next cloud.":p*p>x?`The clouds have passed √x = ${Math.sqrt(x).toFixed(1)}: the dry numbers are exactly the primes above ${f(p)}. Every new cloud now only wets itself.`:`Cloud ${f(p)} has rained. ${f(S.dry)} numbers are still dry; the forecast says ${fc>=100?f(fc):fc.toFixed(1)}.`;}
+function render(){drawGrid();drawChart();stats();}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=dt*(S.x<=2000?2.5:30);let m=Math.floor(S.acc);if(m>0){S.acc-=m;for(;m>0;m--)if(!nextCloud()){setRun(false);break;}render();}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start the rain";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function full(){reset();size();render();}
+$("go").addEventListener("click",()=>{if(S.k>=S.P.length)reset();setRun(!S.run);});
+$("one").addEventListener("click",()=>{setRun(false);nextCloud();render();});
+$("root").addEventListener("click",()=>{setRun(false);while(S.k<S.P.length&&S.P[S.k]*S.P[S.k]<=S.x)nextCloud();S.flash=null;render();});
+$("reset").addEventListener("click",()=>{setRun(false);full();});
+$("maxn").addEventListener("change",e=>{S.x=Number(e.target.value);setRun(false);full();});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),y=Number(q.get("y"));if([600,2000,100000,1000000].includes(mx)){S.x=mx;$("maxn").value=String(mx);}full();if(y>0){while(S.k<S.P.length&&S.P[S.k]<=y)nextCloud();S.flash=null;render();}if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
