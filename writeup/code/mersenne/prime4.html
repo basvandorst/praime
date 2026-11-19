@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime beads</title>
+<meta name="description" content="The numbers 1 to 200 as beads with the primes lit. Drag a bead and its neighbours follow: does a pattern appear in the rest?">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --prime:#fbbf24; --green:#34d399; --pink:#f472b6; --accent:#38bdf8; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+select { max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+.check { display:flex; align-items:center; gap:6px; color:#d7e3f4; font-size:13.5px; }
+select, input[type=number], button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 9px; font:inherit; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+input[type=range] { width:150px; }
+.stage { position:relative; background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; }
+canvas { display:block; width:100%; cursor:grab; }
+canvas.dragging { cursor:grabbing; }
+.meter { font-size:14.5px; }
+.meter b { color:#fff; }
+.good { color:var(--green); font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.dot { display:inline-block; width:11px; height:11px; border-radius:50%; vertical-align:-1px; margin-right:5px; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:120px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime beads</h1>
+  <p>The numbers 1 to 200 as beads, the primes lit. Grab a bead and drag it: its neighbours come along, as if tied with elastic. The elastic is tied in the shape you start from (or the shape you have when you change the neighbours), so nothing moves until you drag. Shape the string as you like and watch the lit beads. Does a pattern appear in the rest? The meter under the picture says whether the primes lie closer together than random groups of beads. Double-click a bead (or hold it on a phone) to pin it. Gears: <a href="prime3.html">prime3</a>, layouts: <a href="prime2.html">prime2</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="count">Beads</label><input id="count" type="number" min="20" max="500" step="1" value="200"></div>
+    <div class="ctl"><label for="links">Neighbours</label><select id="links">
+      <option value="chain">The next number: n − 1 and n + 1 (a string)</option>
+      <option value="div">Its prime factors: n hangs on every prime that divides it</option>
+      <option value="both">Both</option>
+      <option value="mod6">Six apart: n − 6 and n + 6 (six strings)</option>
+    </select></div>
+    <div class="ctl"><label for="shape">Start shape</label><select id="shape">
+      <option value="circle">A circle (rolled up when it does not fit)</option>
+      <option value="rows">Rows of 10</option>
+      <option value="snake">A snake</option>
+      <option value="spiral">Ulam spiral</option>
+      <option value="random">Random</option>
+    </select></div>
+    <div class="ctl"><span class="lab">How strongly neighbours follow</span><input id="stiff" type="range" min="1" max="100" value="45" aria-label="How strongly neighbours follow"></div>
+    <label class="check"><input id="hi" type="checkbox" checked> Highlight the primes</label>
+    <label class="check"><input id="showLinks" type="checkbox" checked> Show the links</label>
+    <label class="check"><input id="labels" type="checkbox" checked> Numbers</label>
+    <button id="reset" type="button">Reset</button>
+    <button id="shake" type="button">Shake</button>
+    <button id="unpin" type="button">Unpin all</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="Beads to drag"></canvas></div>
+  <div class="legend"><span><span class="dot" style="background:var(--prime)"></span>prime</span><span><span class="dot" style="background:#3a4d6b"></span>not prime</span><span><span class="dot" style="background:#94a3b8"></span>1</span><span><span class="dot" style="background:transparent;border:2px solid #fff"></span>pinned</span></div>
+  <section class="panel">
+    <h2>Pattern meter</h2>
+    <div class="meter" id="meter" aria-live="polite"></div>
+    <p class="note" id="why"></p>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),stage=$("stage");
+const S={N:200,links:"chain",shape:"circle",k:0.45,hi:true,showLinks:true,labels:true,x:[],y:[],px:[],py:[],pin:[],E:[],drag:-1,mx:0,my:0,W:0,H:0,dpr:1,r:10,still:0,meterAt:0,isP:[],moved:false};
+function primeTable(N){const s=new Uint8Array(N+1).fill(1);s[0]=0;s[1]=0;for(let i=2;i*i<=N;i++)if(s[i])for(let j=i*i;j<=N;j+=i)s[j]=0;return s;}
+function size(){const w=stage.clientWidth,h=Math.round(Math.max(380,Math.min(760,window.innerWidth<600?window.innerHeight*0.72:w*0.66)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;S.r=Math.max(5*S.dpr,Math.min(15*S.dpr,Math.sqrt(S.W*S.H/(S.N*14))));}
+function edges(){const N=S.N,E=[],r=S.r,has=S.x.length===N+1,add=(a,b,L,w)=>{if(a>=1&&b>=1&&a<=N&&b<=N&&a!==b)E.push([a,b,w===1&&has?Math.max(2.05*r,Math.min(6*r,Math.hypot(S.x[a]-S.x[b],S.y[a]-S.y[b]))):L,w]);};
+ if(S.links==="chain"||S.links==="both")for(let n=1;n<N;n++)add(n,n+1,2.3*r,1);
+ if(S.links==="mod6")for(let n=1;n+6<=N;n++)add(n,n+6,2.3*r,1);
+ if(S.links==="div"||S.links==="both")for(let n=4;n<=N;n++){if(S.isP[n])continue;let m=n;for(let p=2;p*p<=m;p++)if(m%p===0){add(n,p,4.2*r,0.5);while(m%p===0)m/=p;}if(m>1)add(n,m,4.2*r,0.5);}
+ S.E=E;}
+function ulam(i){let x=0,y=0,dx=1,dy=0,len=1,run=0,turn=0;for(let j=1;j<i;j++){x+=dx;y+=dy;run++;if(run===len){run=0;const t=dx;dx=dy;dy=-t;turn++;if(turn%2===0)len++;}}return[x,-y];}
+function place(){const N=S.N,W=S.W,H=S.H,r=S.r,g=2.3*r;let pts=[];
+ if(S.shape==="circle"){const R=Math.min(W,H)/2-1.5*r;if(2*Math.PI*R>=N*g){for(let n=1;n<=N;n++){const a=-Math.PI/2+2*Math.PI*(n-1)/N;pts.push([W/2+R*Math.cos(a),H/2+R*Math.sin(a)]);}}else{const B=2.5*r/(2*Math.PI);let th=0;for(let n=1;n<=N;n++){const rr=Math.max(r,R-B*th),a=-Math.PI/2+th;pts.push([W/2+rr*Math.cos(a),H/2+rr*Math.sin(a)]);th+=g/Math.max(rr,2*r);}}}
+ else if(S.shape==="rows"||S.shape==="snake"){const c=S.shape==="rows"?10:Math.max(8,Math.floor(W/(g*1.05))-2),rows=Math.ceil(N/c),gx=Math.min(g*1.15,(W-4*r)/c),gy=Math.min(g*1.15,(H-4*r)/rows),ox=(W-gx*(c-1))/2,oy=(H-gy*(rows-1))/2;
+  for(let n=1;n<=N;n++){const i=n-1,row=Math.floor(i/c);let col=i%c;if(S.shape==="snake"&&row%2)col=c-1-col;pts.push([ox+col*gx,oy+row*gy]);}}
+ else if(S.shape==="spiral"){const raw=[];let mx=1;for(let n=1;n<=N;n++){const p=ulam(n);raw.push(p);mx=Math.max(mx,Math.abs(p[0]),Math.abs(p[1]));}const sp=Math.min(g*1.15,Math.min(W,H)/2/(mx+1));for(const p of raw)pts.push([W/2+p[0]*sp,H/2+p[1]*sp]);}
+ else{for(let n=1;n<=N;n++)pts.push([r+Math.random()*(W-2*r),r+Math.random()*(H-2*r)]);}
+ S.x=[0];S.y=[0];S.px=[0];S.py=[0];S.pin=[false];for(const p of pts){S.x.push(p[0]);S.y.push(p[1]);S.px.push(p[0]);S.py.push(p[1]);S.pin.push(false);}S.still=0;S.moved=false;}
+function rebuild(){size();S.isP=primeTable(S.N);S.x=[];place();edges();draw();meter(true);}
+function step(){const N=S.N,x=S.x,y=S.y,px=S.px,py=S.py,pin=S.pin,d=S.drag,damp=0.82,r=S.r,W=S.W,H=S.H;let mv=0;
+ for(let n=1;n<=N;n++){if(n===d||pin[n]){px[n]=x[n];py[n]=y[n];continue;}const vx=(x[n]-px[n])*damp,vy=(y[n]-py[n])*damp;px[n]=x[n];py[n]=y[n];x[n]+=vx;y[n]+=vy;}
+ if(d>0){x[d]=S.mx;y[d]=S.my;}
+ const k=S.k,min=2*r*0.98,min2=min*min;
+ for(let it=0;it<6;it++){
+  for(const e of S.E){const a=e[0],b=e[1];const fa=(a===d||pin[a])?0:1,fb=(b===d||pin[b])?0:1,s=fa+fb;if(!s)continue;let dx=x[b]-x[a],dy=y[b]-y[a];const dd=Math.hypot(dx,dy)||0.001,c=(dd-e[2])/dd*k*e[3]/s;dx*=c;dy*=c;if(fa){x[a]+=dx;y[a]+=dy;}if(fb){x[b]-=dx;y[b]-=dy;}}
+  for(let a=1;a<=N;a++){const xa=x[a],ya=y[a];for(let b=a+1;b<=N;b++){const dx=x[b]-xa,dy=y[b]-ya;if(dx>min||dx<-min||dy>min||dy<-min)continue;const q=dx*dx+dy*dy;if(q>=min2)continue;const dd=Math.sqrt(q)||0.01,fa=(a===d||pin[a])?0:1,fb=(b===d||pin[b])?0:1,s=fa+fb;if(!s)continue;const c=(min-dd)/dd/s;if(fa){x[a]-=dx*c;y[a]-=dy*c;}if(fb){x[b]+=dx*c;y[b]+=dy*c;}}}
+  for(let n=1;n<=N;n++){if(n===d||pin[n])continue;if(x[n]<r)x[n]=r;else if(x[n]>W-r)x[n]=W-r;if(y[n]<r)y[n]=r;else if(y[n]>H-r)y[n]=H-r;}}
+ for(let n=1;n<=N;n++)mv=Math.max(mv,Math.abs(x[n]-px[n])+Math.abs(y[n]-py[n]));
+ return mv;}
+function draw(){const N=S.N,x=S.x,y=S.y,r=S.r,dpr=S.dpr;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,S.W,S.H);
+ if(S.showLinks){ctx.lineWidth=Math.max(1,1.2*dpr);ctx.strokeStyle=S.links==="div"||S.links==="both"?"rgba(120,146,182,0.30)":"rgba(120,146,182,0.55)";ctx.beginPath();for(const e of S.E){ctx.moveTo(x[e[0]],y[e[0]]);ctx.lineTo(x[e[1]],y[e[1]]);}ctx.stroke();}
+ const fs=Math.max(7*dpr,Math.min(13*dpr,r*0.95));ctx.font=`600 ${fs}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";
+ for(let n=1;n<=N;n++){const p=S.isP[n];ctx.beginPath();ctx.arc(x[n],y[n],r,0,6.2832);ctx.fillStyle=n===1?"#94a3b8":(S.hi&&p)?"#fbbf24":S.hi?"#2c3d58":"#5b7290";ctx.fill();
+  if(S.pin[n]||n===S.drag){ctx.lineWidth=2*dpr;ctx.strokeStyle=n===S.drag?"#38bdf8":"#ffffff";ctx.stroke();}
+  if(S.labels&&r>=6.5*dpr){ctx.fillStyle=(S.hi&&p)||n===1?"#1a1204":"#c9d6e8";const t=String(n);ctx.font=`600 ${t.length>2?fs*0.8:fs}px system-ui,sans-serif`;ctx.fillText(t,x[n],y[n]+0.5*dpr);}}}
+function nnMean(ids){const x=S.x,y=S.y;let s=0;for(const a of ids){let b=Infinity;for(const c of ids){if(c===a)continue;const d=(x[a]-x[c])**2+(y[a]-y[c])**2;if(d<b)b=d;}s+=Math.sqrt(b);}return s/ids.length;}
+function sample(pool,m){const a=pool.slice();for(let i=0;i<m;i++){const j=i+Math.floor(Math.random()*(a.length-i));const t=a[i];a[i]=a[j];a[j]=t;}return a.slice(0,m);}
+function cmp(pr,pool,draws){const v=[];for(let i=0;i<draws;i++)v.push(nnMean(sample(pool,pr.length)));const mu=v.reduce((a,b)=>a+b,0)/draws,sd=Math.sqrt(v.reduce((a,b)=>a+(b-mu)**2,0)/(draws-1)),obs=nnMean(pr);return{obs,mu,sd,z:(obs-mu)/Math.max(sd,1e-9)};}
+function verdict(z){return z<-3?'<span class="good">much closer together</span> than these random groups':z<-2?'<span class="good">closer together</span> than these random groups':z>3?"much further apart than these random groups":z>2?"further apart than these random groups":"no different from these random groups";}
+function meter(force){const now=performance.now();if(!force&&now-S.meterAt<600)return;S.meterAt=now;const N=S.N,pr=[],all=[],odd=[],six=[];for(let n=2;n<=N;n++){all.push(n);if(n%2||n===2)odd.push(n);if(n%6===1||n%6===5||n===2||n===3)six.push(n);if(S.isP[n])pr.push(n);}
+ if(pr.length<3){$("meter").textContent="Too few primes to measure.";return;}const px=v=>Math.round(v/S.dpr),A=cmp(pr,all,150),B=cmp(pr,odd,150),C=cmp(pr,six,150);
+ $("meter").innerHTML=`The <b>${pr.length}</b> primes up to ${N}: on average <b>${px(A.obs)} px</b> from the nearest other prime.<br>`+
+  `Random groups of ${pr.length} beads from 2 to ${N}: ${px(A.mu)} ± ${px(A.sd)} px, so the primes are ${verdict(A.z)} (z = ${A.z.toFixed(1)}).<br>`+
+  `Random groups of odd beads (and 2): ${px(B.mu)} ± ${px(B.sd)} px: ${verdict(B.z)} (z = ${B.z.toFixed(1)}).<br>`+
+  `Random groups of beads that leave 1 or 5 after division by 6 (and 2, 3): ${px(C.mu)} ± ${px(C.sd)} px: ${verdict(C.z)} (z = ${C.z.toFixed(1)}).`;
+ const w=S.links==="chain"?"Every bead is tied to the next number, so the string runs 1, 2, 3, … and the primes sit along it at the places where no smaller number divides. ":S.links==="mod6"?"Every bead is tied to the number six further, so there are six strings: 1, 7, 13, …; 2, 8, 14, …; and so on. Above 3 every prime lies on the strings of 1 and 5. ":S.links==="div"?"Every number that is not prime hangs on each prime that divides it, so dragging 2 pulls all even numbers along, dragging 3 all multiples of 3. Primes above "+Math.floor(N/2)+" hang on nothing and float. ":"Both kinds of tie at once. ";
+ $("why").textContent=w+"How the meter works: for every prime the distance to the nearest other prime is measured, and the mean is compared with 150 random groups of the same size. A z below −2 means the primes clump. Compare with the odd beads and with the beads that leave 1 or 5 after division by 6: every prime above 3 is such a bead, so a clump that the last comparison does not show comes from that simple rule, not from the primes themselves. Every start shape is the numbers in order; the rows of 10, for example, put the primes in the columns 1, 3, 7 and 9.";}
+function hit(px,py){let b=-1,bd=Infinity;for(let n=1;n<=S.N;n++){const d=(S.x[n]-px)**2+(S.y[n]-py)**2;if(d<bd){bd=d;b=n;}}return bd<=(S.r*1.6)**2?b:-1;}
+function pos(e){const b=cv.getBoundingClientRect();return[(e.clientX-b.left)*S.dpr,(e.clientY-b.top)*S.dpr];}
+let hold=null,downAt=null,lastTap={n:-1,t:0};
+cv.addEventListener("pointerdown",e=>{const [px,py]=pos(e),n=hit(px,py);if(n<0)return;e.preventDefault();cv.setPointerCapture(e.pointerId);S.drag=n;S.mx=px;S.my=py;S.moved=true;cv.classList.add("dragging");downAt=[px,py];
+ clearTimeout(hold);hold=setTimeout(()=>{if(S.drag===n&&downAt&&Math.hypot(S.mx-downAt[0],S.my-downAt[1])<6*S.dpr){S.pin[n]=!S.pin[n];S.drag=-1;cv.classList.remove("dragging");kick();}},550);
+ const t=performance.now();if(lastTap.n===n&&t-lastTap.t<320){S.pin[n]=!S.pin[n];S.drag=-1;cv.classList.remove("dragging");clearTimeout(hold);}lastTap={n,t};kick();});
+cv.addEventListener("pointermove",e=>{if(S.drag<0)return;const [px,py]=pos(e);S.mx=Math.max(S.r,Math.min(S.W-S.r,px));S.my=Math.max(S.r,Math.min(S.H-S.r,py));kick();});
+const up=()=>{if(S.drag>0){const n=S.drag;S.px[n]=S.x[n];S.py[n]=S.y[n];}S.drag=-1;clearTimeout(hold);cv.classList.remove("dragging");kick();};
+cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
+let running=false;function kick(){S.still=0;if(!running){running=true;requestAnimationFrame(frame);}}
+function frame(){const mv=step();draw();meter(false);if(mv<0.05*S.dpr&&S.drag<0){S.still++;}else S.still=0;if(S.still>20){running=false;meter(true);return;}requestAnimationFrame(frame);}
+function readURL(){const q=new URLSearchParams(location.search),n=Number(q.get("n")),l=q.get("links"),s=q.get("shape");if(n>=20&&n<=500){S.N=Math.round(n);$("count").value=S.N;}if(l&&[...$("links").options].some(o=>o.value===l)){S.links=l;$("links").value=l;}if(s&&[...$("shape").options].some(o=>o.value===s)){S.shape=s;$("shape").value=s;}}
+$("count").addEventListener("change",e=>{let v=Math.round(Number(e.target.value))||200;v=Math.max(20,Math.min(500,v));e.target.value=v;S.N=v;rebuild();kick();});
+$("links").addEventListener("change",e=>{S.links=e.target.value;edges();kick();meter(true);});
+$("shape").addEventListener("change",e=>{S.shape=e.target.value;place();edges();kick();meter(true);});
+$("stiff").addEventListener("input",e=>{S.k=Number(e.target.value)/100;kick();});
+$("hi").addEventListener("change",e=>{S.hi=e.target.checked;draw();});
+$("showLinks").addEventListener("change",e=>{S.showLinks=e.target.checked;draw();});
+$("labels").addEventListener("change",e=>{S.labels=e.target.checked;draw();});
+$("reset").addEventListener("click",()=>{place();edges();kick();meter(true);});
+$("shake").addEventListener("click",()=>{for(let n=1;n<=S.N;n++)if(!S.pin[n]){S.px[n]=S.x[n]+(Math.random()-0.5)*12*S.dpr;S.py[n]=S.y[n]+(Math.random()-0.5)*12*S.dpr;}kick();});
+$("unpin").addEventListener("click",()=>{S.pin=S.pin.map(()=>false);kick();});
+let rt=null;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{const w=S.W,h=S.H;size();const fx=S.W/w,fy=S.H/h;for(let n=1;n<=S.N;n++){S.x[n]*=fx;S.y[n]*=fy;S.px[n]=S.x[n];S.py[n]=S.y[n];}edges();kick();},150);});
+readURL();rebuild();kick();
+</script>
+</body>
+</html>

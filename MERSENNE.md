@@ -879,6 +879,12 @@ The largest ratio is 2^2.04 (127 → 521), the smallest 2^0.0158 (9,689 → 9,94
 
 What this is and is not: the size test repeats, with today's 51 exponents, a check that Wagstaff and others made with fewer. The remainder test is elementary. Neither finds anything beyond the model.
 
+## 22. Prime beads: drag the numbers yourself ([prime4.html](writeup/code/mersenne/prime4.html); a page to play with, nothing claimed)
+
+The numbers 1 to 200 (20 to 500) are beads, the primes lit. A bead is tied with elastic to its neighbours. The neighbours are n − 1 and n + 1 (a string), its prime factors (every number that is not prime hangs on each prime that divides it), both, or n ± 6 (six strings). Dragging a bead pulls its neighbours along; a double-click (a long press on a phone) pins it. The elastic is tied in the shape the beads have when the ties are made, so nothing moves until a bead is dragged. Start shapes: the numbers in order on a circle (rolled up into a spiral when it does not fit), in rows of 10, as a snake, as an Ulam spiral, or at random.
+
+Under the picture a meter asks whether the primes lie closer together than chance. For every prime it takes the distance to the nearest other prime and compares the mean with 150 random groups of the same size: from all beads, from the odd beads (and 2), and from the beads that leave 1 or 5 after division by 6 (and 2, 3). A clump that only the first comparison shows comes from parity or from the remainders mod 6, not from the primes themselves. With the prime factors as ties the primes above 100 hang on nothing and float away from the composite numbers, which pull together around 2 and 3; the meter then reports the primes as further apart than random beads. That is how the ties are made, not a property of the primes.
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.
