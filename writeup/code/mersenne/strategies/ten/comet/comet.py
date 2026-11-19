@@ -30,13 +30,13 @@ S = np.ones(X + 1)
 for p in oddp:
     S[p::p] *= (p - 1) / (p - 2)
 def I(n):
-    t = np.linspace(2, n - 2, 4001); f = 1 / (np.log(t) * np.log(n - t)); return float(np.sum((f[1:] + f[:-1]) / 2) * (t[1] - t[0]))
+    v = np.linspace(np.log(2), np.log(n / 2), 4001); t = np.exp(v); f = t / (np.log(t) * np.log(n - t)); return 2 * float(np.sum((f[1:] + f[:-1]) / 2) * (v[1] - v[0]))   # trapezoid in ln t, symmetric halves (the plain trapezoid in t overestimated I by 0.3 %)
 pr('\n1. Bands. Mean of r(n) / (n / ln^2 n) over even n in (X/2, X], by class; ratio of the classes; Hardy-Littlewood ratio')
 half = E[E > X // 2]; base = r[half] / (half / np.log(half) ** 2)
 for p in (3, 5, 7, 11, 13):
     a = base[half % p == 0].mean(); b = base[half % p != 0].mean()
     pr('  p = %2d: divisible %.4f, not %.4f, ratio %.4f; predicted %.4f' % (p, a, b, a / b, (p - 1) / (p - 2)))
-pr('\n2. Ratio r(n) / (2 C2 S(n) I(n)) at even n (trapezoid with 4001 points)')
+pr('\n2. Ratio r(n) / (2 C2 S(n) I(n)) at even n (trapezoid in ln t with 4001 points)')
 qs = [n for n in (100, 1000, 5000, 10 ** 4, 10 ** 5, 10 ** 6, 2 * 10 ** 6) if n <= X]
 for n in qs:
     pr('  n = %8d: r = %6d, prediction %9.2f, ratio %.4f' % (n, r[n], 2 * C2 * S[n] * I(n), r[n] / (2 * C2 * S[n] * I(n))))

@@ -1,7 +1,7 @@
 """Independent reference for prime10.html (numpy counting per n, no Fourier product): for even n <= X the number of
 ordered sums r(n); the n with exactly one unordered sum; the fewest unordered sums for n >= X/2; the band ratios for
 3, 5, 7, 11, 13 (mean of r / (n / ln^2 n) for p | n against p not | n, n >= X/2); the width: sd of r / HL over even
-n >= X/2 after dividing by a least-squares quadratic, HL = 2 C2 S(n) I(n) with I by the trapezoid rule (4001 points).
+n >= X/2 after dividing by a least-squares quadratic, HL = 2 C2 S(n) I(n) with I by the trapezoid rule in ln t (4001 points).
 usage: ref10.py X out.json"""
 import sys, json, math
 import numpy as np
@@ -20,7 +20,7 @@ low = min((G(n), n) for n in up)
 S = np.ones(X + 1)
 for p in P[1:]: S[p::p] *= (p - 1) / (p - 2)
 def I(n):
-    t = np.linspace(2, n - 2, 4001); f = 1 / (np.log(t) * np.log(n - t)); return float(np.sum((f[1:] + f[:-1]) / 2) * (t[1] - t[0]))
+    v = np.linspace(np.log(2), np.log(n / 2), 4001); t = np.exp(v); f = t / (np.log(t) * np.log(n - t)); return 2 * float(np.sum((f[1:] + f[:-1]) / 2) * (v[1] - v[0]))   # trapezoid in ln t, symmetric halves (the plain trapezoid in t overestimated I by 0.3 %)
 C2 = 0.6601618158468696
 ratios = []
 for p in (3, 5, 7, 11, 13):

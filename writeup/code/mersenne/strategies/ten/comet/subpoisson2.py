@@ -21,7 +21,7 @@ def detr(v): return v / np.polyval(np.polyfit(ns, v, 2), ns)
 C2 = 0.6601618158468696; S = np.ones(X + 1)
 for p in P[1:]: S[p::p] *= (p - 1) / (p - 2)
 def I(n):
-    t = np.linspace(2, n - 2, 4001); f = 1 / (np.log(t) * np.log(n - t)); return float(np.sum((f[1:] + f[:-1]) / 2) * (t[1] - t[0]))
+    v = np.linspace(np.log(2), np.log(n / 2), 4001); t = np.exp(v); f = t / (np.log(t) * np.log(n - t)); return 2 * float(np.sum((f[1:] + f[:-1]) / 2) * (v[1] - v[0]))   # trapezoid in ln t, symmetric halves (the plain trapezoid in t overestimated I by 0.3 %)
 r = np.rint(conv(sv.astype(float))).astype(np.int64)
 HL = np.array([2 * C2 * S[n] * I(n) for n in ns]); qp = detr(r[ns] / HL)
 pr('X = %d, %d even n in [X/2, X]; sd of the primes r/HL (drift removed): %.5f; Poisson-for-pairs spread mean sqrt(2/HL): %.5f (ratio %.3f)' % (X, len(ns), qp.std(), np.mean(np.sqrt(2 / HL)), qp.std() / np.mean(np.sqrt(2 / HL))))
