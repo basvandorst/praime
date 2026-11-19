@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goldbach comet</title>
+<meta name="description" content="Every even number as a sum of two primes, in how many ways? The points form a comet with bands; the small primes explain the bands, and the comet is narrower than chance.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; cursor:crosshair; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:50%; }
+.parts { font:12.5px/1.6 ui-monospace,Menlo,Consolas,monospace; color:#d7e3f4; word-break:break-word; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Goldbach comet</h1>
+  <p>Goldbach guessed in 1742 that every even number from 4 on is a sum of two primes: 10 = 3 + 7 = 5 + 5. In how many ways? Plot that count for every even number and the points form a comet with bright bands. Click a point to see its sums. Waterfall: <a href="prime9.html">prime9</a>, turtle: <a href="prime8.html">prime8</a>, Galton board: <a href="prime7.html">prime7</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Even numbers up to</label><select id="maxn"><option value="2000">2,000</option><option value="5000" selected>5,000</option><option value="20000">20,000</option><option value="100000">100,000</option><option value="200000">200,000</option></select></div>
+    <div class="ctl"><label for="view">Show</label><select id="view">
+      <option value="raw">the number of ways</option>
+      <option value="sing">the number of ways, divided by the factor of the small primes</option>
+      <option value="hl">the number of ways against the prediction of Hardy and Littlewood</option>
+    </select></div>
+    <div class="ctl"><label for="colr">Colour by</label><select id="colr"><option value="15">divisible by 3, by 5</option><option value="7">divisible by 7</option><option value="none">one colour</option></select></div>
+    <button id="go" class="go" type="button">Start</button>
+    <button id="all" type="button">Show all</button>
+    <button id="fake" type="button">Compare with fake primes</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The Goldbach comet"></canvas></div>
+  <div class="legend" id="legend"></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div><p class="note" id="cmp" style="margin-top:10px"></p></section>
+  <section class="panel"><h2 id="pt">Click a point</h2><div class="parts" id="parts">The sums of the even number you click appear here.</div></section>
+  <section class="panel" id="backtest">
+    <h2>What the comet shows, measured up to 5,000 and up to 1,000,000</h2>
+    <p class="note">Hardy and Littlewood (1923) predicted the number of ordered sums n = p + q as 2 C<sub>2</sub> S(n) ∫ dt / (ln t · ln(n − t)), with C<sub>2</sub> = 0.6601… and S(n) the product of (p − 1)/(p − 2) over the odd primes p dividing n. So the bands are the small primes: a multiple of 3 has twice as many sums (factor 2/1), a multiple of 5 a third more (4/3), of 7 a fifth more (6/5). A random p is equally likely to leave any remainder, but when 3 divides n, n − p is a multiple of 3 only if p is, so no pair is lost to the factor 3. The table compares the bands for the even numbers in the upper half of each range; the counts were made with a fast Fourier product and checked by direct counting.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Band ratio</th><th>Predicted</th><th>Measured, 2,500 to 5,000</th><th>Measured, 500,000 to 1,000,000</th></tr></thead><tbody>
+<tr><td>divisible by 3 against not</td><td>2</td><td>1.985</td><td>2.000</td></tr>
+<tr><td>by 5</td><td>4/3 = 1.333</td><td>1.326</td><td>1.333</td></tr>
+<tr><td>by 7</td><td>6/5 = 1.2</td><td>1.198</td><td>1.200</td></tr>
+<tr><td>by 11</td><td>10/9 = 1.111</td><td>1.106</td><td>1.111</td></tr>
+<tr><td>by 13</td><td>12/11 = 1.091</td><td>1.084</td><td>1.091</td></tr>
+    </tbody></table></div>
+    <p class="note" style="margin-top:10px">How wide is the comet once the bands are divided out? For the even numbers from 500,000 to 1,000,000 the count divided by the prediction (a slow drift removed) spreads by 0.0080. Fake primes, with the right density and the true primes up to 100, spread by 0.0124: the real comet is about 35 % narrower. Fake primes that avoid the multiples of the primes up to 13, 31 or 100 spread by 0.0129, 0.0118 and 0.0107 (4 runs per model): avoiding a few small primes does not help, only a deeper sieve brings the fakes closer, so the narrowness looks like the work of the sieve as a whole. Up to 5,000: 0.057 against 0.085 for the fakes. We found no source that compares the width of the comet with chance. Every even number from 4 to 1,000,000 has at least one sum; Goldbach's guess has been checked up to 4 · 10<sup>18</sup> (Oliveira e Silva, Herzog and Pardi, 2014). The page and a separate program agree on the counts, the even numbers with a single sum (4, 6, 8, 12), the fewest sums in the upper half, the band ratios and the width, up to 5,000, 20,000 and 200,000.</p>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const C2=0.6601618158468696;
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function sieve(X){const s=new Uint8Array(X+1).fill(1);s[0]=0;s[1]=0;for(let i=2;i*i<=X;i++)if(s[i])for(let j=i*i;j<=X;j+=i)s[j]=0;return s;}
+function counts(isP,X){const P=[];for(let i=2;i<=X;i++)if(isP[i])P.push(i);const r=new Int32Array(X+1);for(let a=0;a<P.length;a++){const p=P[a];if(2*p>X)break;for(let b=a;b<P.length;b++){const s=p+P[b];if(s>X)break;r[s]+=a===b?1:2;}}return r;}
+function Ival(n){const K=4000,h=(n-4)/K;let s=0;for(let i=0;i<=K;i++){const t=2+i*h,v=1/(Math.log(t)*Math.log(n-t));s+=(i===0||i===K)?v/2:v;}return s*h;}
+function singular(X,isP){const S=new Float64Array(X+1).fill(1);for(let p=3;p<=X;p++)if(isP[p])for(let m=p;m<=X;m+=p)S[m]*=(p-1)/(p-2);return S;}
+function detrSd(xs,ys){const n=xs.length;let m=0;for(const x of xs)m+=x;m/=n;let sc=0;for(const x of xs)sc=Math.max(sc,Math.abs(x-m));const A=[[0,0,0],[0,0,0],[0,0,0]],B=[0,0,0];for(let i=0;i<n;i++){const u=(xs[i]-m)/sc,v=[1,u,u*u];for(let a=0;a<3;a++){B[a]+=v[a]*ys[i];for(let b=0;b<3;b++)A[a][b]+=v[a]*v[b];}}
+ for(let c=0;c<3;c++){let pv=c;for(let r=c+1;r<3;r++)if(Math.abs(A[r][c])>Math.abs(A[pv][c]))pv=r;[A[c],A[pv]]=[A[pv],A[c]];[B[c],B[pv]]=[B[pv],B[c]];for(let r=0;r<3;r++)if(r!==c){const q=A[r][c]/A[c][c];for(let k=0;k<3;k++)A[r][k]-=q*A[c][k];B[r]-=q*B[c];}}
+ const co=[B[0]/A[0][0],B[1]/A[1][1],B[2]/A[2][2]];let s1=0,s2=0;for(let i=0;i<n;i++){const u=(xs[i]-m)/sc,z=ys[i]/(co[0]+co[1]*u+co[2]*u*u);s1+=z;s2+=z*z;}const mu=s1/n;return Math.sqrt(Math.max(0,s2/n-mu*mu));}
+const S={X:5000,view:"raw",colr:"15",isP:null,r:null,Sg:null,Ig:null,shown:0,run:false,sel:0,cmp:"",W:0,H:0,dpr:1,box:null};
+function G(n){return(S.r[n]+(S.isP[n/2]?1:0))/2;}
+function HL(n){const X=S.X,k=Math.min(S.Ig.length-2,Math.floor((n-4)/(X-4)*(S.Ig.length-1))),n0=4+k*(X-4)/(S.Ig.length-1),n1=4+(k+1)*(X-4)/(S.Ig.length-1),I=S.Ig[k]+(S.Ig[k+1]-S.Ig[k])*(n-n0)/(n1-n0);return 2*C2*S.Sg[n]*I;}
+function build(){const X=S.X;S.isP=sieve(X);S.r=counts(S.isP,X);S.Sg=singular(X,S.isP);const K=512;S.Ig=new Float64Array(K+1);for(let k=0;k<=K;k++)S.Ig[k]=Ival(4+k*(X-4)/K);S.shown=0;S.cmp="";S.sel=0;}
+function yval(n){const g=G(n);if(S.view==="raw")return g;if(S.view==="sing")return g/S.Sg[n];return 2*g/HL(n);}
+function colOf(n){if(S.colr==="none")return"#38bdf8";if(S.colr==="7")return n%7===0?"#f472b6":"#38bdf8";const a=n%3===0,b=n%5===0;return a&&b?"#f472b6":a?"#fbbf24":b?"#34d399":"#38bdf8";}
+function legend(){const L=S.colr==="none"?[]:S.colr==="7"?[["#f472b6","divisible by 7"],["#38bdf8","not"]]:[["#38bdf8","neither 3 nor 5"],["#fbbf24","by 3"],["#34d399","by 5"],["#f472b6","by 15"]];$("legend").innerHTML=L.map(x=>`<span><span class="sw" style="background:${x[0]}"></span>${x[1]}</span>`).join("");}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(300,Math.min(560,w*0.55)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,X=S.X,padL=44*dpr,padR=10*dpr,padT=10*dpr,padB=22*dpr;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ let ymax=0;for(let n=4;n<=X;n+=2){const y=yval(n);if(y>ymax)ymax=y;}if(S.view==="hl")ymax=2;else ymax*=1.05;
+ const xs=n=>padL+(n-4)/(X-4)*(W-padL-padR),ys=y=>H-padB-y/ymax*(H-padT-padB);S.box={padL,padR,X,W,xs};
+ ctx.strokeStyle="#26364c";ctx.lineWidth=1;ctx.fillStyle="#9fb0c6";ctx.font=`${10.5*dpr}px system-ui,sans-serif`;ctx.textAlign="right";ctx.textBaseline="middle";
+ for(let k=0;k<=4;k++){const y=ymax*k/4,yy=ys(y);ctx.beginPath();ctx.moveTo(padL,yy);ctx.lineTo(W-padR,yy);ctx.stroke();ctx.fillText(S.view==="hl"?y.toFixed(2):(y<10?y.toFixed(1):f(y)),padL-5*dpr,yy);}
+ ctx.textAlign="center";ctx.textBaseline="top";for(let k=0;k<=4;k++){const n=k?X*k/4:4;ctx.fillText(f(n),Math.min(W-30*dpr,Math.max(padL+10*dpr,xs(n))),H-padB+5*dpr);}
+ if(S.view==="hl"){ctx.strokeStyle="#9fb0c6";ctx.setLineDash([5*dpr,4*dpr]);ctx.beginPath();ctx.moveTo(padL,ys(1));ctx.lineTo(W-padR,ys(1));ctx.stroke();ctx.setLineDash([]);}
+ const nm=Math.min(X,4+2*S.shown),sz=Math.max(1,Math.min(3*dpr,Math.round(1.2*dpr*Math.sqrt(4000/X)*2)));
+ for(let n=4;n<=nm;n+=2){ctx.fillStyle=colOf(n);ctx.fillRect(xs(n)-sz/2,ys(yval(n))-sz/2,sz,sz);}
+ if(S.sel){ctx.strokeStyle="#ffffff";ctx.lineWidth=1.5*dpr;ctx.beginPath();ctx.arc(xs(S.sel),ys(yval(S.sel)),6*dpr,0,6.2832);ctx.stroke();}}
+function stats(){const X=S.X,lo=Math.floor(X/2);let low=Infinity,lowN=0,ones=[];const xs=[],ys=[];const cls=[[0,0],[0,0],[0,0],[0,0],[0,0]],Ps=[3,5,7,11,13];
+ for(let n=4;n<=X;n+=2){const g=G(n);if(g===1)ones.push(n);if(n>=lo){if(g<low){low=g;lowN=n;}xs.push(n);ys.push(S.r[n]/HL(n));const b=S.r[n]/(n/Math.log(n)**2);Ps.forEach((p,i)=>{cls[i][n%p===0?0:1]+=b;});}}
+ const cnt=Ps.map(p=>{let a=0,c=0;for(let n=lo+(lo%2);n<=X;n+=2){if(n<4)continue;if(n%p===0)a++;else c++;}return[a,c];});
+ const ratios=Ps.map((p,i)=>(cls[i][0]/cnt[i][0])/(cls[i][1]/cnt[i][1]));S.width=detrSd(xs,ys);S.ratios=ratios;S.low=[low,lowN];S.ones=ones;
+ const cells=[["Even numbers",f((X-2)/2)],["With exactly one sum",ones.join(", ")],[`Fewest sums from ${f(lo)} on`,`${f(low)} (at ${f(lowN)})`],["Band ratio 3 (predicted 2)",ratios[0].toFixed(3)],["Band ratio 5 (predicted 1.333)",ratios[1].toFixed(3)],["Width of the comet (spread of count / prediction, upper half)",S.width.toFixed(4)]];
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+ $("status").textContent=S.shown*2+4<X?`Up to ${f(Math.min(X,4+2*S.shown))}.`:`All even numbers up to ${f(X)}: every one is a sum of two primes.`;$("cmp").textContent=S.cmp;}
+function showParts(n){S.sel=n;const out=[];for(let p=2;2*p<=n;p++)if(S.isP[p]&&S.isP[n-p])out.push(`${p} + ${n-p}`);$("pt").textContent=`${f(n)} = sum of two primes in ${f(out.length)} way${out.length===1?"":"s"}`+(S.view!=="raw"?"":"");$("parts").textContent=(out.length>60?out.slice(0,60).join(",  ")+",  …":out.join(",  "))+`   (prediction: ${(HL(n)/2).toFixed(1)}; factor of the small primes ${S.Sg[n].toFixed(3)})`;draw();}
+cv.addEventListener("click",e=>{if(!S.box)return;const b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*S.dpr,{padL,padR,X,W}=S.box;let n=Math.round(4+(x-padL)/(W-padL-padR)*(X-4));n=Math.max(4,Math.min(X,n-(n%2)));showParts(n);});
+function compare(){const X=S.X,isP=S.isP,r=rng(7),fk=new Uint8Array(X+1);for(let n=2;n<=Math.min(100,X);n++)fk[n]=isP[n];for(let n=101;n<=X;n+=2)if(r()<Math.min(1,2/Math.log(n)))fk[n]=1;const rf=counts(fk,X),lo=Math.floor(X/2),xs=[],ys=[];for(let n=lo+(lo%2);n<=X;n+=2){xs.push(n);ys.push(rf[n]);}
+ const w=detrSd(xs,ys);S.cmp=`Fake primes (the true primes up to 100, then each odd number n with chance 2 / ln n): their comet has width ${w.toFixed(4)} against ${S.width.toFixed(4)} for the primes. The real comet is narrower than chance: the sieve makes the primes more even than random numbers.`;stats();}
+let raf=null;function frame(){if(!S.run){raf=null;return;}S.shown=Math.min(S.X/2,S.shown+Math.max(1,Math.ceil(S.X/2/240)));draw();if(S.shown*2+4>=S.X){setRun(false);stats();return;}$("status").textContent=`Up to ${f(4+2*S.shown)}.`;raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v&&!raf)raf=requestAnimationFrame(frame);}
+function full(all){build();size();legend();if(all)S.shown=S.X/2;draw();stats();}
+$("go").addEventListener("click",()=>{if(S.shown*2+4>=S.X)S.shown=0;setRun(!S.run);});
+$("all").addEventListener("click",()=>{setRun(false);S.shown=S.X/2;draw();stats();});
+$("fake").addEventListener("click",()=>{$("cmp").textContent="Counting the fake sums…";setTimeout(compare,30);});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setRun(false);$("status").textContent="Counting…";setTimeout(()=>full(true),20);});
+$("view").addEventListener("change",e=>{S.view=e.target.value;draw();if(S.sel)showParts(S.sel);});
+$("colr").addEventListener("change",e=>{S.colr=e.target.value;legend();draw();});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),v=q.get("view");if([2000,5000,20000,100000,200000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(v&&["raw","sing","hl"].includes(v)){S.view=v;$("view").value=v;}full(q.get("run")!=="1");if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
