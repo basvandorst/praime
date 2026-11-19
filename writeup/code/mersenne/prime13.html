@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime dance</title>
+<meta name="description" content="A dancer steps to the last digit of each prime in turn. The primes avoid repeating a step; fake primes that only respect 2, 3 and 5 dance almost the same.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:150px; }
+.two { display:grid; grid-template-columns:3fr 2fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+table.mx { border-collapse:collapse; font-size:13px; width:100%; }
+table.mx th, table.mx td { border:1px solid var(--edge); padding:6px 4px; text-align:center; }
+table.mx th { color:var(--muted); font-weight:600; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:120px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime dance</h1>
+  <p>The dance floor has a spot for every last digit a prime can have: 1, 3, 7 and 9. A dancer steps to the spot of each prime in turn: 7, 11, 13, 17, 19, 23 … is the dance 7 → 1 → 3 → 7 → 9 → 3. If the digits were independent, every step would be equally common, and a repeat (the same spot twice) would happen a quarter of the time. The primes repeat far less (Lemke Oliver and Soundararajan, 2016). Fake primes show where that comes from. Rain: <a href="prime12.html">prime12</a>, radio: <a href="prime11.html">prime11</a>, race: <a href="prime6.html">prime6</a>, balance: <a href="prime5.html">prime5</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="q">Spots: the remainder after division by</label><select id="q"><option value="3">3 (two spots)</option><option value="4">4 (two spots)</option><option value="5">5 (four spots)</option><option value="8">8 (four spots)</option><option value="10" selected>10: the last digit (four spots)</option><option value="12">12 (four spots)</option></select></div>
+    <div class="ctl"><label for="src">Dancers</label><select id="src"><option value="primes">The primes</option><option value="f25">Fake primes avoiding the multiples of 2 and 5</option><option value="f235">Fake primes avoiding 2, 3 and 5</option><option value="f13">Fake primes avoiding 2 to 13</option></select></div>
+    <div class="ctl"><label for="maxn">Up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+    <div class="ctl"><span class="lab">Steps per second: <b id="spd">3</b></span><input id="speed" type="range" min="0" max="100" value="10" aria-label="Steps per second"></div>
+    <button id="go" class="go" type="button">Dance</button>
+    <button id="end" type="button">Dance to the end</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The dance floor"></canvas></div>
+    <div class="panel" style="margin:0"><h2>Steps from (row) to (column)</h2><table class="mx" id="mx"></table><p class="note" style="margin-top:8px">Share of all steps; green: more common than if the digits were independent, pink: less.</p></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Where the dislike of repeats comes from, measured up to 5,000 and up to 1,000,000</h2>
+    <p class="note">Last digits, primes above 100. A repeat needs a gap that is a multiple of 10, and gaps are mostly short, so repeats are rare for any sequence that avoids the even numbers and the multiples of 5. Fake primes that avoid only 2 and 5 already show four fifths of the deficit; fakes that also avoid 3 match the primes up to 1,000,000 within their own spread, in every one of the 16 cells (largest difference 0.0027). So at this size the bias is the work of the smallest primes, which agrees with Holt (2024), who traces it to the first stages of the sieve; Lemke Oliver and Soundararajan derived it from the prime k-tuples conjecture. Fakes avoiding more primes repeat slightly less than the primes (0.1508 against 0.1536, two to five spreads), a small effect we have not explained. Up to 10,000,000 the primes repeat 0.1630 of the time: the dislike fades slowly. The page and a separate program agree on all transition counts of the primes for every remainder offered, up to 5,000, 1,000,000 and 10,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Dancers</th><th>Repeats up to 5,000</th><th>Repeats up to 1,000,000</th></tr></thead><tbody>
+<tr><td>if the digits were independent</td><td>0.25</td><td>0.25</td></tr>
+<tr><td>the primes</td><td>0.1135</td><td>0.1536</td></tr>
+<tr><td>fakes avoiding 2 and 5</td><td>0.1209 (spread 0.0121, 200 runs)</td><td>0.1744 (spread 0.0012, 10 runs)</td></tr>
+<tr><td>fakes avoiding 2, 3 and 5</td><td>0.1078 (0.0117)</td><td>0.1544 (0.0014)</td></tr>
+<tr><td>fakes avoiding 2 to 7</td><td>0.1074 (0.0113)</td><td>0.1508 (0.0016)</td></tr>
+<tr><td>fakes avoiding 2 to 13</td><td>0.1113 (0.0106)</td><td>0.1508 (0.0008)</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function gcd(a,b){while(b){[a,b]=[b,a%b];}return a;}
+let SV=null;function sieve(X){if(SV&&SV.length>X)return SV;const s=new Uint8Array(X+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=X;i++)if(s[i])for(let j=i*i;j<=X;j+=i)s[j]=0;SV=s;return s;}
+function seqOf(src,X){const s=sieve(X),out=[];if(src==="primes"){for(let n=2;n<=X;n++)if(s[n])out.push(n);return out;}
+ const W=src==="f25"?[2,5]:src==="f235"?[2,3,5]:[2,3,5,7,11,13],r=rng(2016);let c=1;for(const p of W)c*=p/(p-1);for(let n=2;n<=Math.min(100,X);n++)if(s[n])out.push(n);
+ for(let n=101;n<=X;n++){let ok=true;for(const p of W)if(n%p===0){ok=false;break;}if(ok&&r()<Math.min(1,c/Math.log(n)))out.push(n);}return out;}
+const S={q:10,src:"primes",X:1e6,rate:3,seq:[],spots:[],idx:{},i:0,M:null,tot:0,prev:-1,run:false,acc:0,last:0,hop:null,W:0,H:0,dpr:1};
+function reset(){S.seq=seqOf(S.src,S.X);S.spots=[];for(let r=1;r<S.q;r++)if(gcd(r,S.q)===1)S.spots.push(r);S.idx={};S.spots.forEach((r,i)=>S.idx[r]=i);const k=S.spots.length;S.M=Array.from({length:k},()=>new Array(k).fill(0));S.tot=0;S.prev=-1;S.i=0;while(S.i<S.seq.length&&S.seq[S.i]<=S.q)S.i++;S.hop=null;}
+function step(){if(S.i>=S.seq.length)return false;const p=S.seq[S.i++],j=S.idx[p%S.q];if(j===undefined)return true;if(S.prev>=0){S.M[S.prev][j]++;S.tot++;S.hop=[S.prev,j,p];}S.prev=j;S.cur=p;return true;}
+function advance(m){for(let i=0;i<m;i++)if(!step())break;}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(300,Math.min(460,w*0.8)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function pos(i){const k=S.spots.length,R=Math.min(S.W,S.H)*0.32,a=-Math.PI/2+2*Math.PI*i/k+(k===4?Math.PI/4:0);return[S.W/2+R*Math.cos(a),S.H/2+R*Math.sin(a)];}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,k=S.spots.length,exp=1/(k*k);ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ for(let a=0;a<k;a++)for(let b=0;b<k;b++){const sh=S.tot?S.M[a][b]/S.tot:0,lw=Math.max(0.5,sh*k*k*6)*dpr,col=sh>exp?"rgba(52,211,153,0.75)":"rgba(244,114,182,0.75)";ctx.strokeStyle=S.tot?col:"#26364c";ctx.lineWidth=S.tot?lw:dpr;const [x1,y1]=pos(a),[x2,y2]=pos(b);ctx.beginPath();
+  if(a===b){const [cx0,cy0]=[W/2,H/2],dx=x1-cx0,dy=y1-cy0,d=Math.hypot(dx,dy),ox=x1+dx/d*28*dpr,oy=y1+dy/d*28*dpr;ctx.arc(ox,oy,20*dpr,0,6.2832);}
+  else{const mx=(x1+x2)/2,my=(y1+y2)/2,nx=-(y2-y1),ny=x2-x1,nl=Math.hypot(nx,ny),bend=0.12;ctx.moveTo(x1,y1);ctx.quadraticCurveTo(mx+nx/nl*bend*nl,my+ny/nl*bend*nl,x2,y2);}ctx.stroke();}
+ for(let i=0;i<k;i++){const [x,y]=pos(i);ctx.fillStyle="#1b2a42";ctx.strokeStyle="#9fb0c6";ctx.lineWidth=1.5*dpr;ctx.beginPath();ctx.arc(x,y,24*dpr,0,6.2832);ctx.fill();ctx.stroke();ctx.fillStyle="#edf4ff";ctx.font=`600 ${17*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(S.spots[i]),x,y);}
+ if(S.prev>=0){const [x,y]=pos(S.prev);ctx.fillStyle="#fbbf24";ctx.beginPath();ctx.arc(x,y,9*dpr,0,6.2832);ctx.fill();ctx.fillStyle="#fbbf24";ctx.font=`${12*dpr}px system-ui,sans-serif`;ctx.fillText(f(S.cur),x,y+38*dpr);}
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(W<600*dpr?"thick: common step":"line width: how common a step is; loops: repeats",8*dpr,6*dpr);}
+function table(){const k=S.spots.length,exp=1/(k*k);let h="<tr><th></th>"+S.spots.map(r=>`<th>→ ${r}</th>`).join("")+"</tr>";for(let a=0;a<k;a++){h+=`<tr><th>${S.spots[a]}</th>`;for(let b=0;b<k;b++){const sh=S.tot?S.M[a][b]/S.tot:0,d=S.tot?(sh-exp)/exp:0,al=Math.min(0.6,Math.abs(d)*1.2);h+=`<td style="background:${d>0?`rgba(52,211,153,${al})`:`rgba(244,114,182,${al})`}">${S.tot?(100*sh).toFixed(2)+"%":"–"}</td>`;}h+="</tr>";}$("mx").innerHTML=h;}
+function stats(){const k=S.spots.length;let rep=0,best=[0,0,-1],worst=[0,0,2];for(let a=0;a<k;a++)for(let b=0;b<k;b++){const sh=S.tot?S.M[a][b]/S.tot:0;if(a===b)rep+=sh;if(sh>best[2])best=[a,b,sh];if(sh<worst[2])worst=[a,b,sh];}
+ const cells=[["Steps",f(S.tot)],["Repeats",S.tot?(100*rep).toFixed(2)+"%":"–"],["If independent",(100/k).toFixed(2)+"%"],["Most common step",S.tot?`${S.spots[best[0]]} → ${S.spots[best[1]]}: ${(100*best[2]).toFixed(2)}%`:"–"],["Rarest step",S.tot?`${S.spots[worst[0]]} → ${S.spots[worst[1]]}: ${(100*worst[2]).toFixed(2)}%`:"–"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=S.hop?`${f(S.cur)}: a step from ${S.spots[S.hop[0]]} to ${S.spots[S.hop[1]]}${S.hop[0]===S.hop[1]?" (a repeat)":""}.`+(S.i>=S.seq.length?` The dance ended at ${f(S.X)}.`:""):"Press Dance.";S.rep=rep;}
+function render(){draw();table();stats();}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);render();}if(S.i>=S.seq.length){setRun(false);render();return;}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Dance";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function speed(v){S.rate=Math.max(1,Math.round(Math.pow(10,v/100*5.3)));$("spd").textContent=S.rate.toLocaleString("en-US");}
+function full(){reset();size();render();}
+$("go").addEventListener("click",()=>{if(S.i>=S.seq.length)reset();setRun(!S.run);});
+$("end").addEventListener("click",()=>{setRun(false);advance(1e8);render();});
+$("reset").addEventListener("click",()=>{setRun(false);full();});
+for(const [id,key,num] of [["q","q",1],["src","src",0],["maxn","X",1]])$(id).addEventListener("change",e=>{S[key]=num?Number(e.target.value):e.target.value;setRun(false);$("status").textContent="Preparing the dancers…";setTimeout(full,20);});
+$("speed").addEventListener("input",e=>speed(Number(e.target.value)));
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),qq=Number(q.get("q")),s=q.get("src"),mx=Number(q.get("max"));if([3,4,5,8,10,12].includes(qq)){S.q=qq;$("q").value=String(qq);}if(s&&[...$("src").options].some(o=>o.value===s)){S.src=s;$("src").value=s;}if([5000,100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}speed(Number($("speed").value));full();if(q.get("end")==="1"){advance(1e8);render();}if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
