@@ -36,6 +36,10 @@ canvas { display:block; width:100%; }
 .note { color:var(--muted); font-size:13px; }
 ul.events { margin:6px 0 0; padding-left:18px; }
 ul.events li { margin:2px 0; }
+.log { max-height:280px; overflow:auto; background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:6px 10px; font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+.log div { white-space:nowrap; }
+@media (max-width:600px) { .log div { white-space:normal; } } .log .s { color:var(--muted); }
+.logbar { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; justify-content:space-between; margin-bottom:8px; }
 @media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:130px; } }
 </style>
 </head>
@@ -73,6 +77,11 @@ ul.events li { margin:2px 0; }
     <ul class="events" id="events"></ul>
   </section>
   <section class="panel">
+    <div class="logbar"><h2 style="margin:0">Every time the pans are equal</h2><button id="csv" type="button">Download all as CSV</button></div>
+    <p class="note" id="logInfo" style="margin:0 0 8px"></p>
+    <div class="log" id="log" aria-live="off"></div>
+  </section>
+  <section class="panel">
     <h2>About this rule</h2>
     <p class="note" id="why"></p>
   </section>
@@ -87,9 +96,10 @@ function fill(lo){const rem=new Float64Array(SZ),om=new Uint8Array(SZ),sq=new Ui
  for(const p of BP){if(p*p>=hi)break;let m=Math.ceil(lo/p)*p;for(;m<hi;m+=p){const i=m-lo;let e=0;while(rem[i]%p===0){rem[i]/=p;e++;}om[i]+=e;if(e>1)sq[i]=0;}}
  for(let i=0;i<SZ;i++)if(rem[i]>1)om[i]++;G.lo=lo;G.om=om;G.sq=sq;G.i=0;}
 function nextNum(){if(!G.om||G.i>=SZ)fill(G.om?G.lo+SZ:1);const i=G.i++;return{n:G.lo+i,om:G.om[i],sq:G.sq[i]};}
-const S={rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
+const LOGMAX=100000;
+const S={eqLog:[],logShown:-1,logAt:0,rule:"alt",wt:"val",rate:20,run:false,acc:0,last:0,L:0,R:0,k:0,lastN:0,eq:0,lead:0,leadL:0,leadR:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],hist:null,stop:"",W:0,H:0,dpr:1};
 function resetHist(){S.hist={w:1,b:[],cur:null};}
-function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
+function reset(){G.om=null;G.lo=1;G.i=0;Object.assign(S,{eqLog:[],logShown:-1,L:0,R:0,k:0,lastN:0,eq:0,lead:0,aheadL:0,aheadR:0,changes:0,streak:0,streakSide:0,bestL:[0,0],bestR:[0,0],firstL:null,firstR:null,lastEq:null,events:[],panL:[],panR:[],stop:""});resetHist();}
 function pick(){for(;;){const x=nextNum(),n=x.n,isP=x.om===1;if(n>1e10){S.stop="The page stops at 10,000,000,000.";return null;}
  switch(S.rule){case"alt":case"light":case"coin":if(isP)return x;break;case"mod4":if(isP&&n>2)return x;break;case"mod3":if(isP&&n>3)return x;break;case"liou":return x;case"mob":if(x.sq)return x;break;}}}
 function side(x){const n=x.n;switch(S.rule){case"alt":return S.k%2===0?1:-1;case"light":return S.L<=S.R?1:-1;case"coin":return Math.random()<0.5?1:-1;case"mod4":return n%4===1?1:-1;case"mod3":return n%3===1?1:-1;case"liou":return x.om%2===0?1:-1;case"mob":return x.om%2===0?1:-1;}return 1;}
@@ -98,7 +108,7 @@ function addOne(){if(S.stop)return false;const x=pick();if(!x)return false;const
  (s>0?S.panL:S.panR).push(x.n);if(S.panL.length>7)S.panL.shift();if(S.panR.length>7)S.panR.shift();S.lastSide=s;
  if(S.L>9e15||S.R>9e15){S.stop="The totals passed 9,000,000,000,000,000, where this page can no longer add exactly.";}
  const d=S.L-S.R,sg=S.wt==="log"?(Math.abs(d)<1e-9?0:Math.sign(d)):Math.sign(d);
- if(sg===0){S.eq++;S.lastEq=[S.k,x.n];}else if(sg>0)S.aheadL++;else S.aheadR++;
+ if(sg===0){S.eq++;S.lastEq=[S.k,x.n];if(S.eqLog.length<LOGMAX)S.eqLog.push([S.k,x.n,s,S.L]);}else if(sg>0)S.aheadL++;else S.aheadR++;
  if(sg!==0){if(sg===S.streakSide)S.streak++;else{if(S.streakSide!==0){S.changes++;if(S.events.length<200)S.events.push(`Step ${f(S.k)} (number ${f(x.n)}): the ${sg>0?"left":"right"} pan becomes heavier again; lead change number ${f(S.changes)}.`);}S.streakSide=sg;S.streak=1;}
   if(sg>0&&S.streak>S.bestL[0])S.bestL=[S.streak,x.n];if(sg<0&&S.streak>S.bestR[0])S.bestR=[S.streak,x.n];}
  if(sg>0&&!S.firstL){S.firstL=[S.k,x.n];if(S.k>1)S.events.unshift(`First time the left pan is heavier: step ${f(S.k)}, number ${f(x.n)}.`);}
@@ -140,15 +150,20 @@ function stats(){const pc=x=>S.k?(100*x/S.k).toFixed(1)+"%":"–",d=S.L-S.R;
  $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
  const ev=S.events.slice(0,6).concat(S.events.length>6?[`… and ${f(S.events.length-6)} more lead changes`]:[]);$("events").innerHTML=(ev.length?ev:["Nothing yet: press Start."]).map(e=>`<li>${e}</li>`).join("")+(S.stop?`<li>${S.stop}</li>`:"");
  $("status").innerHTML=S.k===0?"The pans are empty.":`Step ${f(S.k)}: ${f(S.lastN)} went to the <span class="${S.lastSide>0?"L":"R"}">${S.lastSide>0?"left":"right"}</span>. `+((S.wt==="log"?Math.abs(d)<1e-9:d===0)?`<span class="E">The pans are equal.</span>`:d>0?`<span class="L">Left heavier by ${f(d)}.</span>`:`<span class="R">Right heavier by ${f(-d)}.</span>`);
- $("why").textContent=WHY[S.rule];}
+ $("why").textContent=WHY[S.rule];showLog(false);}
+function showLog(force){const now=performance.now();if(!force&&(S.logShown===S.eqLog.length||now-S.logAt<300))return;S.logAt=now;S.logShown=S.eqLog.length;const E=S.eqLog,m=E.length,show=Math.min(m,300);
+ $("logInfo").textContent=m===0?(S.k?"Not equal yet.":"Press Start or One weight.")+(S.wt==="log"?" With logarithms as weights the pans are practically never exactly equal.":""):`${f(S.eq)} time${S.eq===1?"":"s"} equal so far`+(S.eq>m?` (the log keeps the first ${f(LOGMAX)})`:"")+`; the newest ${show===m?"":""+f(show)+" "}${show===1?"is":"are"} shown first${m>show?", the download has them all":""}.`;
+ let h="";for(let i=m-1;i>=m-show;i--){const e=E[i];h+=`<div><span class="s">step ${f(e[0])}:</span> ${f(e[1])} to the ${e[2]>0?'<span class="L">left</span>':'<span class="R">right</span>'}, each pan <span class="E">${f(e[3])}</span></div>`;}$("log").innerHTML=h;}
+function csv(){const rows=["step,number added,side,left,right"].concat(S.eqLog.map(e=>`${e[0]},${e[1]},${e[2]>0?"left":"right"},${e[3]},${e[3]}`));const b=new Blob([rows.join("\n")+"\n"],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`prime-balance-equal-${S.rule}-${S.wt}.csv`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
 let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);}draw();stats();if(S.stop){setRun(false);}raf=requestAnimationFrame(frame);}
 function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
 function speed(v){const r=Math.round(Math.pow(10,v/100*5.3));S.rate=r;$("spd").textContent=r.toLocaleString("en-US");}
 $("go").addEventListener("click",()=>setRun(!S.run));
+$("csv").addEventListener("click",csv);
 $("one").addEventListener("click",()=>{setRun(false);advance(1);draw();stats();});
-$("reset").addEventListener("click",()=>{setRun(false);reset();draw();stats();});
-$("rule").addEventListener("change",e=>{S.rule=e.target.value;reset();draw();stats();});
-$("wt").addEventListener("change",e=>{S.wt=e.target.value;reset();draw();stats();});
+$("reset").addEventListener("click",()=>{setRun(false);reset();draw();stats();showLog(true);});
+$("rule").addEventListener("change",e=>{S.rule=e.target.value;reset();draw();stats();showLog(true);});
+$("wt").addEventListener("change",e=>{S.wt=e.target.value;reset();draw();stats();showLog(true);});
 $("speed").addEventListener("input",e=>speed(Number(e.target.value)));
 window.addEventListener("resize",()=>{size();draw();});
 (()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),w=q.get("weight");if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(w&&["val","one","log"].includes(w)){S.wt=w;$("wt").value=w;}speed(Number($("speed").value));reset();size();draw();stats();if(q.get("run")==="1")setRun(true);})();
