@@ -80,9 +80,13 @@ if I.get('unseen'):
     MORE = ''
     if I.get('more'):
         mm = I['more']
+        assert max(mm, key=lambda m: m['mean'] - m['pred'])['digits'] == 13 and min(mm, key=lambda m: m['mean'] - m['pred'])['digits'] == 28
+        assert min(((c - math.log(math.log(1.5 * 2 ** a_)) / math.log(4)), a_) for a_, b_, c in ic['mean'] if a_ >= 10)[1] == 17
+        b40 = [b for b in I['big'] if b['digits'] == 40][0]
+        assert b40['mean'] - math.log(math.log(5.5e39)) / math.log(4) > law['both'][2] + 0.02
         MORE = ('Because the large sizes allow only small samples, the rule was also tried on %d sizes between those of the fit, with %s random primes in all (' % (len(mm), f(sum(m['count'] for m in mm))) + L('inherit_big_more.out') + '):\n\n| Size | Primes | Mean rounds | Standard error | The rule says | Difference | In standard errors |\n|---|---|---|---|---|---|---|\n'
                 + ''.join('| %d digits | %s | %.3f | %.3f | %.3f | %s | %s |\n' % (m['digits'], f(m['count']), m['mean'], m['se'], m['pred'], ('%+.3f' % (m['mean'] - m['pred'])).replace('-', '−'), ('%.1f' % m['z']).replace('-', '−')) for m in mm)
-                + '\nHere the answer is sharp. The rule is never off by more than %.2f rounds, but it is not exact: %d of the %d differences are more than three standard errors. The mean moves in a slow wave around log₄(ln N) + %.2f, above it from 11 to 18 digits and below it near 28. So the honest form of the rule is: rounds = log₄(ln N) + %.2f, give or take %.2f.\n\n' % (max(abs(m['mean'] - m['pred']) for m in mm), sum(1 for m in mm if abs(m['z']) > 3), len(mm), law['both'][2], law['both'][2], max(abs(m['mean'] - m['pred']) for m in mm)))
+                + '\nHere the answer is sharp. The rule is never off by more than %.2f rounds, but it is not exact: %d of the %d differences are more than three standard errors. The mean moves in a slow wave around log₄(ln N) + %.2f, above it from 11 to 18 digits and below it near 28. So the honest form of the rule is: rounds = log₄(ln N) + %.2f, give or take %.2f. The crests of the wave (13 digits, and again 40 to 45 digits) and its troughs (the class 2^17, and again 28 digits) lie about one round apart on the scale of ln ln N, where a round is ln 4 = 1.39: that is what a count in whole rounds would do. With two crests and two troughs this is an impression, not a result.\n\n' % (max(abs(m['mean'] - m['pred']) for m in mm), sum(1 for m in mm if abs(m['z']) > 3), len(mm), law['both'][2], law['both'][2], max(abs(m['mean'] - m['pred']) for m in mm)))
     NEWC = ((I.get('second8') or {}).get('third') or {}).get('classes', [])
     DRIFT = ((I.get('second8') or {}).get('third') or {}).get('drift', [])
     zs = lambda z: ('%.1f' % z).replace('-', '−')
