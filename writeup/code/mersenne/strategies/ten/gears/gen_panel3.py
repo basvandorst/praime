@@ -176,7 +176,22 @@ if 3 in _src: unseen_txt+=" The reason was tested as well: it says that a third 
 if 5 in _src: unseen_txt+=" With five sources a straight line did not fit (slope %.2f where the reason says %.2f): the curve is a step, flat at about 2 rounds up to two million and rising after that. Over the whole range of sizes the mean rose by %.2f rounds, where the reason says %.2f."%(_src[5]['slope'],_src[5]['predicted_slope'],_src[5]['rise'],_src[5]['pred_rise'])
 unseen_txt+="</li>\n      <li><b>How deep can it get?</b> Primes that need 7 rounds exist: the smallest we found is %s, by building on primes of 6 rounds. A smaller one may exist%s. It is not proved that the number of rounds has no upper limit."%(f(_r0[0]),(", but not below %s: a short argument about the two neighbours replaces the scan above 16,800,000,000 by a list of candidates"%f(IS['second8']['no7'])) if IS.get('second8') else "")
 early_html=early_html.replace('@@UNSEEN@@',unseen_txt)
-html=html.replace('@@EARLY_LI@@',early_li).replace('@@EARLY@@',early_html).replace('@@WIN_ROWS@@',win_rows).replace('@@PROVED_ROWS@@',proved_rows); assert '@@' not in html
+MG=json.load(open('tour/mexp_gaps.json')); _mr={r['m']:r for r in MG['mods']['rows']}; _od=[w for w in MG['wheels']['rows'] if w['p']<0.05]; _s5=MG['sizes_from_5']
+_phi={3:2,4:2,5:4,7:6,8:4,9:6,11:10,12:4,13:12,16:8,24:8}
+_mrows="".join("<tr><td>%d</td><td>%d</td><td>%.1f</td><td>%.2f</td></tr>"%(m,_mr[m]['real'],MG['mods']['pairs']/_phi[m],_mr[m]['pB']) for m in (3,4,5,7,8,9,11,12,13,16,24))
+mgap_html='''    <h2 id="mgaps">Gaps between Mersenne exponents (machine 24, and two layouts on the page of layouts)</h2>
+    <p class="note">The %d gaps between consecutive Mersenne exponents from 61 to 82,589,933 (every exponent below that has been checked twice). Column 2: how many gaps are a multiple of m, which means that the two exponents leave the same remainder after division by m. Column 3: what random primes give, one gap in φ(m). Column 4: the chance of a deviation this large, from %s runs with random primes that, like the exponents, pass trial division of 2<sup>p</sup> − 1 by 2kp + 1 up to k = %d.</p>
+    <div class="boardwrap"><table class="dec">
+      <thead><tr><th>m</th><th>Multiples of m</th><th>Random primes</th><th>p</th></tr></thead>
+      <tbody>%s</tbody>
+    </table></div>
+    <ul class="found">
+      <li><b>No remainder rule.</b> The smallest p of the eleven values of m chosen in advance is %.2f; with eleven tries that is what chance gives. Of the wheels 2 to 60, %d are off at the 5%% level (15 and 30: home %s where %.1f are expected; 21 and 42: %d times where %.1f). A random sequence gives %.1f such wheels on average and %d or more in %d%% of runs.</li>
+      <li><b>No size rule either.</b> The ratio of two consecutive exponents is 2 to the power of a number with mean %.2f, where the model of Lenstra, Pomerance and Wagstaff (a conjecture: log<sub>2</sub> of the exponents is a random scatter with e<sup>γ</sup> ≈ 1.78 points per doubling) says %.2f (p = %.2f). The spread fits that model (p = %.2f), and a large jump is not followed by a small one more often than chance (correlation %s, p = %.2f).</li>
+      <li><b>So the gaps cannot point to the next exponent.</b> If the model holds and no exponent below 142,351,031 is missing, the next one is about %d million (median) and below %d million with 90%% chance. That is all the gaps say.</li>
+    </ul>
+'''%(MG['mods']['pairs'],f(MG['mods']['sims']),MG['mods']['K'],_mrows,min(r['pB'] for r in MG['mods']['rows']),len(_od),'once' if _od[0]['real']==1 else '%d times'%_od[0]['real'],_od[0]['B'],_od[1]['real'],_od[1]['B'],MG['wheels']['null_mean'],len(_od),round(100*MG['wheels']['p_global']),_s5['mean'],_s5['model'],_s5['pMean'],_s5['pD'],("%.2f"%_s5['rho']).replace("-","−"),_s5['pRho'],round(MG['next']['median']/1e6),round(MG['next']['q90']/1e6))
+html=html.replace('@@EARLY_LI@@',early_li).replace('@@EARLY@@',early_html+mgap_html).replace('@@WIN_ROWS@@',win_rows).replace('@@PROVED_ROWS@@',proved_rows); assert '@@' not in html
 s=open('prime3.html',encoding='utf-8').read()
 i=s.index('  <section class="panel" id="compare">'); j=s.index('</section>\n',i)+len('</section>\n'); s=s[:i]+html+s[j:]
 import re
