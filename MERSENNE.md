@@ -915,6 +915,15 @@ Backtest ([ref6.py](writeup/code/mersenne/strategies/ten/race/ref6.py) independe
 
 This is Chebyshev's bias in the form of Rubinstein and Sarnak (1994) and Granville and Martin (Prime number races, 2006); the page and the backtest show it, they add nothing to the theory.
 
+## 25. Prime Galton board ([prime7.html](writeup/code/mersenne/prime7.html); the fair coin is Dirichlet's theorem, the backtest is computed)
+
+Numbers fall through 4 to 14 rows of pins; at row i the ball goes right when binary digit i of the number is 1 (digit 0 skipped), or when its remainder after division by the i-th odd prime is in the upper half, or when it is a nonzero square after that division; a coin is the comparison. The balls are the primes, the odd numbers, the numbers without the factors 2 and 3, all numbers, or the Mersenne exponents. The page measures the mean bin against the middle, the share of balls in odd bins, and the shape against the binomial bell (chi-square).
+
+Backtest with 10 rows ([ref7.py](writeup/code/mersenne/strategies/ten/galton/ref7.py) independent of the page, [pagerun7.js](writeup/code/mersenne/strategies/ten/galton/pagerun7.js) runs the page's code; all 30 boards to 5,000 and to 10^6 agree bin by bin; [analysis7.json](writeup/code/mersenne/strategies/ten/galton/analysis7.json) → [analysis7.txt](writeup/code/mersenne/strategies/ten/galton/analysis7.txt)):
+- The primes fall like a fair coin on the remainder board (mean 5.002 at 10^6), as Dirichlet's theorem says; every set that contains multiples leans left (mean 4.467 for all numbers, z = −337), because remainder 0 counts as the lower half: the sieve.
+- The binary board looked lopsided for every set at 5,000 (mean 4.78), and that was an edge effect: the block from 4,096 to 5,000 is incomplete. At 10^6 all sets are fair. A warning against reading a run that stops inside a block.
+- The square-remainder board is fair in the mean for the primes (4.994, z = −1.0) but not in shape at 10^6 (p = 5·10^−8): the last two bins are short (−5.3 and −4.3 standard errors). Below the period 3 · 5 · … · 31 ≈ 10^11, a number that is a square modulo all these primes is mostly a real square, and a prime never is; the non-squares that pass are Lehmer's pseudosquares, rare at this size. At 5,000 this did not show (p = 0.016).
+
 ## Validation
 
 - [ll_check.py](writeup/code/mersenne/ll_check.py) → [ll_check.txt](writeup/code/mersenne/ll_check.txt): Lucas–Lehmer (gmpy2) on all 1,229 primes below 10⁴ gives exactly the 22 exponents.

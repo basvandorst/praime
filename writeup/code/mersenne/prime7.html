@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime Galton board</title>
+<meta name="description" content="Numbers fall through rows of pins; at each row a property of the number sends the ball left or right. Do the primes fall like coin flips?">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:150px; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.good { color:var(--green); font-weight:600; } .bad { color:var(--pink); font-weight:600; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:120px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime Galton board</h1>
+  <p>Numbers fall as balls through rows of pins. At every row a property of the number decides: left or right. A fair coin would pile the balls up in a bell (the dashed line). Choose the property and the numbers, press Start, and see whether the primes fall like coin flips, or lean. Race: <a href="prime6.html">prime6</a>, balance: <a href="prime5.html">prime5</a>, beads: <a href="prime4.html">prime4</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="rule">At row i the ball goes right when</label><select id="rule">
+      <option value="bin">binary digit i of the number is 1 (the last digit is skipped)</option>
+      <option value="half">the remainder after division by the i-th odd prime is in the upper half</option>
+      <option value="qr">the number is a nonzero square after division by the i-th odd prime</option>
+      <option value="coin">a coin says so (for comparison)</option>
+    </select></div>
+    <div class="ctl"><label for="src">The balls</label><select id="src">
+      <option value="primes">The primes</option>
+      <option value="odd">All odd numbers</option>
+      <option value="c6">Numbers without the factors 2 and 3</option>
+      <option value="all">All numbers</option>
+      <option value="mexp">The Mersenne exponents p: 2, 3, 5, 7, 13, … (the 52 known)</option>
+    </select></div>
+    <div class="ctl"><label for="rows">Rows</label><select id="rows"><option>4</option><option>6</option><option>8</option><option selected>10</option><option>12</option><option>14</option></select></div>
+    <div class="ctl"><label for="maxn">Stop after the numbers up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000">1,000,000</option><option value="100000000" selected>100,000,000</option></select></div>
+    <div class="ctl"><span class="lab">Balls per second: <b id="spd">20</b></span><input id="speed" type="range" min="0" max="100" value="27" aria-label="Balls per second"></div>
+    <button id="go" class="go" type="button">Start</button>
+    <button id="one" type="button">One ball</button>
+    <button id="reset" type="button">Reset</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The board"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Backtest: boards to 5,000, checked to 1,000,000</h2>
+    <p class="note">Ten rows. "Leans" means that the mean bin is more than 3 standard errors from the middle, or that the shape differs from the bell with p below 0.001. All 30 boards (three rules, five kinds of balls, two sizes) were run twice, by this page and by a separate program, with the same count in every bin. The Mersenne exponents are left out of the table: with 5 to 25 balls nothing can be told.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Rule</th><th>Balls</th><th>Up to 5,000</th><th>Up to 1,000,000</th><th>Why</th></tr></thead><tbody>
+<tr><td>binary digits</td><td>primes</td><td>fair (mean 4.80)</td><td>fair (mean 5.00)</td><td>fair at 10^6; the odd-bin share at 5,000 (58.9%) is the factor-3 effect on few balls</td></tr>
+<tr><td>binary digits</td><td>odd numbers</td><td>leans (mean 4.78)</td><td>fair (mean 5.00)</td><td>the lean at 5,000 is an edge effect: the block 4,096 to 5,000 is incomplete</td></tr>
+<tr><td>binary digits</td><td>no factor 2, 3</td><td>leans (mean 4.78)</td><td>fair (mean 5.00)</td><td>edge effect, as for the odd numbers</td></tr>
+<tr><td>binary digits</td><td>all numbers</td><td>leans (mean 4.78)</td><td>fair (mean 5.00)</td><td>edge effect</td></tr>
+<tr><td>upper half of the remainder</td><td>primes</td><td>fair (mean 5.03)</td><td>fair (mean 5.00)</td><td>a fair coin, as Dirichlet says</td></tr>
+<tr><td>upper half of the remainder</td><td>odd numbers</td><td>leans (mean 4.47)</td><td>leans (mean 4.47)</td><td>multiples leave remainder 0: the sieve leans left</td></tr>
+<tr><td>upper half of the remainder</td><td>no factor 2, 3</td><td>leans (mean 4.63)</td><td>leans (mean 4.63)</td><td>the same, a little less</td></tr>
+<tr><td>upper half of the remainder</td><td>all numbers</td><td>leans (mean 4.47)</td><td>leans (mean 4.47)</td><td>the sieve leans left</td></tr>
+<tr><td>square remainder</td><td>primes</td><td>fair (mean 4.93)</td><td>leans (mean 4.99)</td><td>the mean is fair, but bins 9 and 10 are short: below 10^6 being a square mod 3 to 31 mostly means being a real square, which a prime never is (Lehmer's pseudosquares)</td></tr>
+<tr><td>square remainder</td><td>odd numbers</td><td>leans (mean 4.47)</td><td>leans (mean 4.47)</td><td>squares and multiples lean left</td></tr>
+<tr><td>square remainder</td><td>no factor 2, 3</td><td>leans (mean 4.63)</td><td>leans (mean 4.63)</td><td>the same</td></tr>
+<tr><td>square remainder</td><td>all numbers</td><td>leans (mean 4.47)</td><td>leans (mean 4.47)</td><td>the same</td></tr>
+    </tbody></table></div>
+  </section>
+  <section class="panel"><h2>What this rule tests</h2><p class="note" id="why"></p></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const BP=(()=>{const M=10000,s=new Uint8Array(M+1),o=[];for(let i=2;i<=M;i++){if(!s[i]){o.push(i);for(let j=i*i;j<=M;j+=i)s[j]=1;}}return o;})();
+const OP=BP.slice(1,40);
+const SZ=65536,G={lo:1,pr:null,i:0};
+function fill(lo){const ok=new Uint8Array(SZ).fill(1),hi=lo+SZ;if(lo===1)ok[0]=0;for(const p of BP){if(p*p>=hi)break;let m=Math.max(p*p,Math.ceil(lo/p)*p);for(;m<hi;m+=p)ok[m-lo]=0;}G.lo=lo;G.pr=ok;G.i=0;}
+function nextNum(){if(!G.pr||G.i>=SZ)fill(G.pr?G.lo+SZ:1);const i=G.i++;return[G.lo+i,G.pr[i]===1];}
+const MEXP=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841];
+const QR=OP.map(p=>{const s=new Uint8Array(p);for(let x=1;x<p;x++)s[x*x%p]=1;return s;});
+const S={rule:"bin",src:"primes",R:10,maxN:1e8,rate:20,run:false,acc:0,last:0,bins:[],k:0,sum:0,sum2:0,lastN:0,stop:"",mi:0,fly:[],W:0,H:0,dpr:1,trace:null};
+function start(){return S.rule==="bin"?Math.pow(2,S.R+1):OP[S.R-1]+1;}
+function reset(){G.pr=null;G.lo=1;G.i=0;Object.assign(S,{bins:new Array(S.R+1).fill(0),k:0,sum:0,sum2:0,lastN:0,stop:"",mi:0,fly:[]});}
+function next(){const lo=start();if(S.src==="mexp"){for(;;){if(S.mi>=MEXP.length){S.stop="All 52 known Mersenne exponents have fallen.";return null;}const p=MEXP[S.mi];if(p>S.maxN){S.stop=`Stopped after the numbers up to ${f(S.maxN)}.`;return null;}S.mi++;if(p>=lo)return p;}}
+ for(;;){const [n,pr]=nextNum();if(n>S.maxN){S.stop=`Stopped after the numbers up to ${f(S.maxN)}.`;return null;}if(n<lo)continue;
+  if(S.src==="primes"&&!pr)continue;if(S.src==="odd"&&n%2===0)continue;if(S.src==="c6"&&(n%2===0||n%3===0))continue;return n;}}
+function path(n){const R=S.R,o=[];for(let i=1;i<=R;i++){let r;if(S.rule==="bin")r=Math.floor(n/Math.pow(2,i))%2;else if(S.rule==="half"){const p=OP[i-1];r=n%p>p/2?1:0;}else if(S.rule==="qr"){const p=OP[i-1],m=n%p;r=m!==0&&QR[i-1][m]?1:0;}else r=Math.random()<0.5?1:0;o.push(r);}return o;}
+function addOne(){if(S.stop)return false;const n=next();if(n===null)return false;const pt=path(n),b=pt.reduce((a,x)=>a+x,0);S.bins[b]++;S.k++;S.sum+=b;S.sum2+=b*b;S.lastN=n;if(S.trace)S.trace.push([n,b]);if(S.fly.length<40)S.fly.push({n,pt,t:0});return true;}
+function advance(m){for(let i=0;i<m;i++)if(!addOne())break;}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(380,Math.min(640,w*0.62)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function expected(){const R=S.R,o=[];let c=1;for(let b=0;b<=R;b++){o.push(c/Math.pow(2,R));c=c*(R-b)/(b+1);}return o;}
+function draw(dt){const W=S.W,H=S.H,dpr=S.dpr,R=S.R,top=24*dpr,boardH=H*0.46,bot=H-26*dpr,bw=(W-40*dpr)/(R+1),x0=20*dpr,cx=W/2,dx=bw/2,dy=boardH/(R+1);
+ ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.fillStyle="#52657f";
+ for(let i=0;i<R;i++)for(let j=0;j<=i;j++){const x=cx+(j-i/2)*bw,y=top+(i+1)*dy;ctx.beginPath();ctx.arc(x,y,Math.max(1.6*dpr,bw*0.06),0,6.2832);ctx.fill();}
+ for(const b of S.fly){b.t+=dt*Math.max(4,Math.min(60,S.rate/4));const i=Math.min(R,Math.floor(b.t));let j=0;for(let r=0;r<i;r++)j+=b.pt[r];const fr=b.t-Math.floor(b.t),jn=i<R?j+b.pt[i]*fr:j;const x=cx+(jn-Math.min(b.t,R)/2)*bw,y=top+Math.min(b.t,R+0.6)*dy;ctx.fillStyle="#fbbf24";ctx.beginPath();ctx.arc(x,y,Math.max(2.5*dpr,bw*0.12),0,6.2832);ctx.fill();}
+ S.fly=S.fly.filter(b=>b.t<R+0.6);
+ const hy=top+(R+1)*dy+8*dpr,hh=bot-hy,E=expected(),mx=Math.max(1,...S.bins,...E.map(e=>e*S.k));
+ for(let b=0;b<=R;b++){const x=x0+b*bw,h=hh*S.bins[b]/mx;ctx.fillStyle="#38bdf8";ctx.fillRect(x+bw*0.12,bot-h,bw*0.76,h);ctx.strokeStyle="#26364c";ctx.strokeRect(x+bw*0.06,hy,bw*0.88,hh);
+  ctx.fillStyle="#9fb0c6";ctx.font=`${Math.min(11*dpr,bw*0.32)}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="top";ctx.fillText(String(b),x+bw/2,bot+5*dpr);}
+ if(S.k){ctx.strokeStyle="#f472b6";ctx.setLineDash([5*dpr,4*dpr]);ctx.lineWidth=2*dpr;ctx.beginPath();for(let b=0;b<=R;b++){const x=x0+(b+0.5)*bw,y=bot-hh*E[b]*S.k/mx;b?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();ctx.setLineDash([]);
+  const m=S.sum/S.k,xm=x0+(m+0.5)*bw;ctx.strokeStyle="#fbbf24";ctx.lineWidth=2*dpr;ctx.beginPath();ctx.moveTo(xm,hy);ctx.lineTo(xm,bot);ctx.stroke();ctx.strokeStyle="#9fb0c6";ctx.setLineDash([2*dpr,3*dpr]);ctx.beginPath();ctx.moveTo(x0+(R/2+0.5)*bw,hy);ctx.lineTo(x0+(R/2+0.5)*bw,bot);ctx.stroke();ctx.setLineDash([]);}
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(W<700*dpr?"dashed: a fair coin · yellow: the mean":"bin = number of rights · dashed: a fair coin · yellow line: the mean, grey: the middle",8*dpr,6*dpr);}
+function chi(){const E=expected();let c=0,dfree=0;for(let b=0;b<=S.R;b++){const e=E[b]*S.k;if(e>0){c+=(S.bins[b]-e)**2/e;dfree++;}}return[c,dfree-1];}
+function chiP(c,k){if(k<=0)return 1;const z=(Math.pow(c/k,1/3)-(1-2/(9*k)))/Math.sqrt(2/(9*k));return 0.5*erfc(z/Math.SQRT2);}
+function erfc(x){const t=1/(1+0.5*Math.abs(x)),y=t*Math.exp(-x*x-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277)))))))));return x>=0?y:2-y;}
+const WHY={bin:"Row i reads binary digit i (counting from 0 at the right; digit 0 is skipped because every prime above 2 ends in 1). For all odd numbers the digits are exactly fair in long runs, so the balls fill the bell. The primes are not divisible by 3, and in binary that is a statement about the digits (the alternating digit sum is the number mod 3), so they lean a little: towards an odd number of ones in all their digits. On this board only part of the digits is read, so the lean is small, but compare the primes with the numbers without the factors 2 and 3: they fall the same way. Only numbers from 2^(rows + 1) on fall, so that every row has a digit to read.",
+ half:"Row i asks whether the remainder after division by the i-th odd prime (3, 5, 7, 11, …) is in the upper half. A prime larger than these leaves every nonzero remainder equally often in the long run (Dirichlet), and the nonzero remainders split exactly in half, so the primes fall like a fair coin. All numbers do not: a multiple leaves remainder 0, which counts as the lower half, so they lean left. The sieve is visible as a lean of the ordinary numbers, not of the primes.",
+ qr:"Row i asks whether the number is a nonzero square after division by the i-th odd prime q. For a prime p the answer is Legendre's symbol, and by quadratic reciprocity and Dirichlet the primes give yes and no equally often, so they fall like a fair coin. Numbers divisible by q go left, and squares tend to be squares mod everything, so all numbers lean left. One more thing shows with many balls: the primes are short in the last two bins. Below about 10^11 (the product 3 · 5 · … · 31) a number that is a square after division by every one of these primes is mostly a real square, and a prime never is; the numbers that are not squares yet pass all these tests are Lehmer's pseudosquares, and they are rare at this size. So up to 1,000,000 the primes in bin 10 are about half of what a coin would give, while the mean stays fair.",
+ coin:"A coin decides every row: the bell that the other boards are compared with. Even a fair coin never fills the dashed line exactly; the meter says how far it may be off by chance."};
+function stats(){const k=S.k,R=S.R,m=k?S.sum/k:0,sd=k>1?Math.sqrt((S.sum2-k*m*m)/(k-1)):0,se=Math.sqrt(R/4/Math.max(1,k)),z=k?(m-R/2)/se:0,[c,df]=chi(),pv=k?chiP(c,df):1;
+ const cells=[["Balls",f(k)],["Last number",f(S.lastN)],["Mean bin",k?m.toFixed(3):"–"],["A fair coin",(R/2).toFixed(1)+" ± "+(1.96*se).toFixed(3)],["Lean of the mean",k?`<span class="${Math.abs(z)>3?"bad":"good"}">${z.toFixed(1)} standard errors</span>`:"–"],["Spread",k>1?sd.toFixed(3)+" (coin "+(Math.sqrt(R)/2).toFixed(3)+")":"–"],["Balls in odd bins",k?(()=>{let o=0;for(let b=1;b<=R;b+=2)o+=S.bins[b];const zz=(o/k-0.5)/Math.sqrt(0.25/k);return (100*o/k).toFixed(2)+"% ("+(zz>=0?"+":"")+zz.toFixed(1)+" s.e.; coin 50%)";})():"–"],["Shape against the bell",k?`chi² ${c.toFixed(1)}, ${df} df: p ${pv<0.0001?"< 0.0001":pv.toFixed(3)}`:"–"]];
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+ $("status").innerHTML=k?`Ball ${f(k)}: ${f(S.lastN)} landed in bin ${path(S.lastN).reduce((a,x)=>a+x,0)}. `+(Math.abs(z)>3?`<span class="bad">The mean leans ${z>0?"right":"left"}: more than a coin would allow.</span>`:`<span class="good">So far this looks like a fair coin.</span>`)+(S.stop?" "+S.stop:""):"Press Start.";
+ $("why").textContent=WHY[S.rule];}
+let raf=null,lt=0;function frame(t){const dt=Math.min(0.1,(t-(lt||t))/1000);lt=t;if(S.run){S.acc+=S.rate*dt;const m=Math.floor(S.acc);if(m>0){S.acc-=m;advance(m);}}draw(dt);stats();if(S.stop&&S.run)setRun(false);if(S.run||S.fly.length)raf=requestAnimationFrame(frame);else raf=null;}
+function kick(){if(!raf){lt=0;raf=requestAnimationFrame(frame);}}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Start";$("go").classList.toggle("on",v);if(v)kick();}
+function speed(v){const r=Math.round(Math.pow(10,v/100*5));S.rate=r;$("spd").textContent=r.toLocaleString("en-US");}
+function full(){reset();size();draw(0);stats();}
+$("go").addEventListener("click",()=>setRun(!S.run));
+$("one").addEventListener("click",()=>{setRun(false);advance(1);kick();stats();});
+$("reset").addEventListener("click",()=>{setRun(false);full();});
+for(const id of ["rule","src","rows","maxn"])$(id).addEventListener("change",e=>{const v=e.target.value;if(id==="rows")S.R=Number(v);else if(id==="maxn")S.maxN=Number(v);else S[id]=v;setRun(false);full();});
+$("speed").addEventListener("input",e=>speed(Number(e.target.value)));
+window.addEventListener("resize",()=>{size();draw(0);});
+(()=>{const q=new URLSearchParams(location.search),r=q.get("rule"),s=q.get("src"),R=Number(q.get("rows")),mx=Number(q.get("max"));if(r&&WHY[r]){S.rule=r;$("rule").value=r;}if(s&&[...$("src").options].some(o=>o.value===s)){S.src=s;$("src").value=s;}if([4,6,8,10,12,14].includes(R)){S.R=R;$("rows").value=String(R);}if([5000,100000,1000000,1e8].includes(mx)){S.maxN=mx;$("maxn").value=String(mx);}speed(Number($("speed").value));full();if(q.get("run")==="1")setRun(true);})();
+</script>
+</body>
+</html>
