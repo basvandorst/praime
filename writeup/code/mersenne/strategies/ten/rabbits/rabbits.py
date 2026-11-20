@@ -24,13 +24,27 @@ def z(p):
             else: break
     return n
 marks = [10 ** e for e in range(3, int(math.log10(X)) + 1)]
-ev = 0; mx = 0; tot = 0; res = {}
+ev = 0; mx = 0; tot = 0; res = {}; luc = 0; spl = 0; ine = 0; mod4 = 0
+def lucas_div(p):                  # brute force: does p divide some L_n, n >= 1 (L_n mod p is periodic, period <= 2p + 2... use 6p + 6)
+    a, b = 2 % p, 1 % p
+    for n in range(1, 6 * p + 8):
+        a, b = b, (a + b) % p
+        if a == 0: return True
+    return False
 for p in primerange(2, X + 1):
-    zz = z(p); tot += 1; ev += (zz % 2 == 0)
-    if p not in (2, 5) and zz == p - legendre_symbol(5, p): mx += 1
+    zz = z(p); tot += 1; ev += (zz % 2 == 0); luc += (zz % 2 == 0 or p == 2)
+    if p < 3000: assert lucas_div(p) == (zz % 2 == 0 or p == 2), p
+    if p not in (2, 5) and zz == p - legendre_symbol(5, p):
+        mx += 1; mod4 += (p % 4 == 3)
+        if legendre_symbol(5, p) == 1: spl += 1
+        else: ine += 1
     for mk in marks:
-        if p <= mk: res[mk] = (tot, ev, mx)
+        if p <= mk: res[mk] = (tot, ev, mx, luc, spl, ine, mod4)
 pr('X = %d: z(2) = %d, z(3) = %d, z(7) = %d, z(11) = %d (F_n: 3 | F_4, 7 | F_8, 11 | F_10)' % (X, z(2), z(3), z(7), z(11)))
-pr('     x   primes   z(p) even (divides a Lucas number)   share   (2/3 = 0.6667)   z(p) = p - (5/p): share')
+pr('checked for p < 3000 by brute force: p divides some L_n (n >= 1) exactly when z(p) is even or p = 2 (2 | L_3 = 4)')
+pr('     x   primes   z(p) even   divide a Lucas number   share   (2/3 = 0.6667)   longest clock z(p) = p - (5/p) among p != 2, 5: count, share; split (z = p - 1), inert (z = p + 1); how many = 3 mod 4')
+A = 0.3739558136
 for mk in marks:
-    t, e, m = res[mk]; pr('%8.0e %8d %20d %20.4f %22.4f' % (mk, t, e, e / t, m / t))
+    t, e, m, l, sp, ie, m4 = res[mk]; pr('%8.0e %8d %10d %14d %20.4f %10d %10.4f %8d %8d %8d' % (mk, t, e, l, l / t, m, m / (t - 2), sp, ie, m4))
+t, e, m, l, sp, ie, m4 = res[marks[-1]]
+pr('at %d: split share %.5f (GRH value 9A/19 = %.5f), inert share %.5f (10A/19 = %.5f), total %.5f (Artin A = %.5f)' % (marks[-1], sp / (t - 2), 9 * A / 19, ie / (t - 2), 10 * A / 19, m / (t - 2), A))
