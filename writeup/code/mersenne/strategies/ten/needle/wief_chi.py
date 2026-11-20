@@ -1,5 +1,5 @@
 """Second look at the evenness of q(p)/p: chi-square for 10 and 20 bins at x = 10^6, 3*10^6, 10^7, and the same for p
-itself replaced by random uniform numbers (1,000 samples of the same size) to give the spread.  usage: wief_chi.py out.txt"""
+itself replaced by random uniform numbers (300 samples of the same size) to give the spread.  usage: wief_chi.py out.txt"""
 import sys, math, gmpy2
 import numpy as np
 from sympy import primerange
