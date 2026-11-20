@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime window</title>
+<meta name="description" content="Slide a window from x/2 to x along the numbers and count the primes inside. Ramanujan primes mark the last moment the window held too few; their share of all primes creeps towards one half.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:220px; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:160px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime window</h1>
+  <p>Hold a window over the numbers from x/2 to x and count the primes in it. Bertrand's postulate says there is always at least one. Ramanujan proved in 1919 that the count grows past every n, and the last x at which the window held fewer than n primes, plus one, is the n-th Ramanujan prime: 2, 11, 17, 29, 41, … Slide the window and watch the count wobble upward. Doorman: <a href="prime21.html">prime21</a>, baskets: <a href="prime16.html">prime16</a>, trains: <a href="prime19.html">prime19</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><span class="lab">Window end x = <b id="xv">100</b></span><input id="x" type="range" min="0" max="1000" value="250" aria-label="Window end"></div>
+    <div class="ctl"><label for="maxn">Numbers up to</label><select id="maxn"><option value="1000">1,000</option><option value="100000" selected>100,000</option><option value="10000000">10,000,000</option></select></div>
+    <button id="go" class="go" type="button">Slide</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="The window and its count"></canvas></div>
+  <div class="legend"><span><span class="sw" style="background:#38bdf8"></span>primes in the window (x/2, x]</span><span><span class="sw" style="background:#fbbf24"></span>the lowest count from x on: the number of Ramanujan primes up to x</span><span><span class="sw" style="background:#f472b6"></span>Ramanujan primes</span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>How many primes are Ramanujan primes, counted up to 10,000,000</h2>
+    <p class="note">Straight from the definition, the number of Ramanujan primes up to x equals the smallest window count from x onward: min over y ≥ x of π(y) − π(y/2) (the yellow staircase); a separate program checks this at 10<sup>3</sup> to 10<sup>6</sup>. Since the window count wobbles only a little below its trend, the share of the primes up to x that are Ramanujan primes is close to (li(x) − li(x/2)) / li(x), which tends to one half from below like 1/2 − ln 2 / (2 ln x). That one half is the theorem of Amersi, Beckwith, Miller, Ronan and Sondow (first observed by Sondow, Nicholson and Noe). The page and the separate program agree on the Ramanujan primes up to 10,000,000 and match the start of OEIS A104272.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>Ramanujan primes up to x</th><th>share of the primes</th><th>(li(x) − li(x/2)) / li(x)</th><th>(1/2 − share) · ln x</th></tr></thead><tbody>
+<tr><td>1,000</td><td>72</td><td>0.4286</td><td>0.4294</td><td>0.49</td></tr>
+<tr><td>10,000</td><td>559</td><td>0.4548</td><td>0.4513</td><td>0.42</td></tr>
+<tr><td>100,000</td><td>4,459</td><td>0.4649</td><td>0.4635</td><td>0.40</td></tr>
+<tr><td>1,000,000</td><td>36,960</td><td>0.4708</td><td>0.4708</td><td>0.40</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const S={X:1e5,x:100,pi:null,s:null,fmin:null,R:[],isR:null,run:false,W:0,H:0,dpr:1};
+function prepare(){const X=S.X,M=2*X,sv=new Uint8Array(M+1).fill(1);sv[0]=sv[1]=0;for(let i=2;i*i<=M;i++)if(sv[i])for(let j=i*i;j<=M;j+=i)sv[j]=0;const pi=new Int32Array(M+1);for(let i=1;i<=M;i++)pi[i]=pi[i-1]+sv[i];const s=new Int32Array(M+1);for(let i=0;i<=M;i++)s[i]=pi[i]-pi[i>>1];
+ const fmin=new Int32Array(M+1);fmin[M]=s[M];for(let i=M-1;i>=0;i--)fmin[i]=Math.min(s[i],fmin[i+1]);S.pi=pi;S.s=s;S.fmin=fmin;S.sv=sv;
+ S.R=[];const nmax=fmin[X];const last=new Int32Array(nmax+1).fill(-1);for(let y=0;y<=M;y++){const k=s[y];if(k<=nmax&&y>last[k])last[k]=y;}let run=-1;for(let k=0;k<nmax;k++){if(last[k]>run)run=last[k];S.R.push(run+1);}
+ S.isR=new Uint8Array(M+1);for(const r of S.R)S.isR[r]=1;}
+function piR(x){return S.fmin[x];}
+function li(t){if(t<2)return 0;let s=0;const K=2000,a=Math.log(2),b=Math.log(t),h=(b-a)/K;for(let i=0;i<=K;i++){const u=a+i*h,v=Math.exp(u)/u;s+=(i===0||i===K)?v/2:v;}return s*h;}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(320,Math.min(500,w*0.5)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,x=S.x,top=70*dpr;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ const lo=Math.floor(x/2),span=x,X0=12*dpr,X1=W-12*dpr,y0=38*dpr,sc=(X1-X0)/span;ctx.strokeStyle="#40536d";ctx.beginPath();ctx.moveTo(X0,y0);ctx.lineTo(X1,y0);ctx.stroke();ctx.fillStyle="rgba(56,189,248,0.18)";ctx.fillRect(X0+lo*sc,y0-14*dpr,(x-lo)*sc,28*dpr);
+ const step=Math.max(1,Math.floor(span/2000));for(let n=2;n<=x;n+=1){if(!S.sv[n])continue;if(span>4000&&n%step)continue;const X=X0+n*sc;ctx.fillStyle=n>lo?(S.isR[n]?"#f472b6":"#38bdf8"):"#33445c";ctx.fillRect(X-0.75*dpr,y0-8*dpr,1.5*dpr,16*dpr);}
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`0 … ${f(x)}: the window (${f(lo)}, ${f(x)}] holds ${f(S.s[x])} primes`,X0,y0+16*dpr);
+ const padL=48*dpr,padR=10*dpr,padB=24*dpr,xmax=Math.max(10,x),ymax=Math.max(2,S.s[Math.min(S.s.length-1,Math.floor(xmax*1.02))])*1.05,xs=t=>padL+t/xmax*(W-padL-padR),ys=v=>H-padB-v/ymax*(H-top-padB);
+ ctx.strokeStyle="#26364c";ctx.lineWidth=1;for(let k=0;k<=4;k++){const v=ymax*k/4,yy=ys(v);ctx.beginPath();ctx.moveTo(padL,yy);ctx.lineTo(W-padR,yy);ctx.stroke();ctx.fillStyle="#9fb0c6";ctx.textAlign="right";ctx.textBaseline="middle";ctx.fillText(f(v),padL-5*dpr,yy);}
+ const N=Math.min(1500,xmax),drawLine=(arr,col,w)=>{ctx.strokeStyle=col;ctx.lineWidth=w;ctx.beginPath();for(let i=0;i<=N;i++){const t=Math.round(i/N*xmax),X=xs(t),Y=ys(arr[t]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y);}ctx.stroke();};
+ drawLine(S.s,"#38bdf8",1.2*dpr);drawLine(S.fmin,"#fbbf24",2*dpr);
+ if(xmax<=3000){ctx.fillStyle="#f472b6";for(const r of S.R){if(r>xmax)break;ctx.beginPath();ctx.arc(xs(r),ys(S.fmin[r]),3*dpr,0,6.2832);ctx.fill();}}
+ ctx.strokeStyle="#9fb0c6";ctx.setLineDash([4*dpr,4*dpr]);ctx.beginPath();ctx.moveTo(xs(x),top);ctx.lineTo(xs(x),H-padB);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle="#9fb0c6";ctx.textAlign="center";ctx.textBaseline="top";for(let k=0;k<=4;k++)ctx.fillText(f(xmax*k/4),Math.min(W-padR-20*dpr,Math.max(padL+10*dpr,xs(xmax*k/4))),H-padB+5*dpr);}
+function stats(){const x=S.x,pr=piR(x),pc=S.pi[x],sm=(li(x)-li(x/2))/li(x);const cells=[["Primes in (x/2, x]",f(S.s[x])],["Ramanujan primes up to x",f(pr)],["Primes up to x",f(pc)],["Share",pc?(pr/pc).toFixed(4):"–"],["(li(x) − li(x/2)) / li(x)",x>=4?sm.toFixed(4):"–"],["First Ramanujan primes",S.R.slice(0,10).join(", ")+", …"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=S.isR[x]?`${f(x)} is a Ramanujan prime: R_${S.R.indexOf(x)+1}. From here on the window never holds fewer than ${S.R.indexOf(x)+1} primes.`:`Up to ${f(x)} there are ${f(pr)} Ramanujan primes: the window never again drops below ${f(pr)} primes.`;}
+function setX(v){S.x=Math.max(2,Math.round(Math.exp(Math.log(2)+(Math.log(S.X)-Math.log(2))*v/1000)));$("xv").textContent=f(S.x);draw();stats();}
+let raf=null;function frame(){if(!S.run){raf=null;return;}let v=Number($("x").value)+2;if(v>1000){v=1000;S.run=false;$("go").textContent="Slide";$("go").classList.remove("on");}$("x").value=String(v);setX(v);raf=requestAnimationFrame(frame);}
+$("go").addEventListener("click",()=>{S.run=!S.run;$("go").textContent=S.run?"Pause":"Slide";$("go").classList.toggle("on",S.run);if(S.run){if(Number($("x").value)>=1000)$("x").value="0";if(!raf)raf=requestAnimationFrame(frame);}});
+$("x").addEventListener("input",e=>setX(Number(e.target.value)));
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);$("status").textContent="Counting…";setTimeout(()=>{prepare();setX(Number($("x").value));},20);});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),v=Number(q.get("v"));if([1000,100000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(v>=0&&v<=1000&&q.get("v")!==null)$("x").value=String(v);prepare();size();setX(Number($("x").value));})();
+</script>
+</body>
+</html>
