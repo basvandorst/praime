@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spot the primes</title>
+<meta name="description" content="Two strips of numbers: one shows the true primes, the other fakes. Can you tell which is which? Five detectives try, each with one statistic. Against well-made fakes only one of them succeeds.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.big { font-size:16px; padding:8px 16px; }
+button.pick { background:#1e3a5f; border-color:#38bdf8; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:16px; margin:10px 2px 0; min-height:24px; }
+.good { color:var(--green); font-weight:600; } .bad { color:var(--pink); font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+.row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:10px; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Spot the primes</h1>
+  <p>Two strips show the same stretch of numbers. In one, the marked numbers are the true primes. In the other, a forger has marked fakes: random numbers with exactly the right density, and the better forgers also avoid the multiples of small primes, as primes do. Which strip is real? Five detectives try too, each with a single statistic, and a rule fixed in advance: the primes are the more regular set. Bricks: <a href="prime17.html">prime17</a>, baskets: <a href="prime16.html">prime16</a>, dance: <a href="prime13.html">prime13</a>, turtle: <a href="prime8.html">prime8</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="forger">Forger</label><select id="forger"><option value="w2">Clumsy: random odd numbers</option><option value="w5">Careful: avoids 2, 3, 5</option><option value="w13" selected>Skilled: avoids 2 to 13</option><option value="w100">Master: avoids all primes up to 100</option></select></div>
+    <div class="ctl"><label for="len">Strip length</label><select id="len"><option value="10000" selected>10,000 numbers</option><option value="100000">100,000 numbers</option></select></div>
+    <div class="ctl"><label for="where">Numbers near</label><select id="where"><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+    <button id="new" class="big" type="button">New round</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="Two strips of numbers"></canvas></div>
+  <div class="row"><button id="pa" class="big pick" type="button">A is real</button><button id="pb" class="big pick" type="button">B is real</button><span class="note" id="score"></span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><h2>The detectives</h2><div style="overflow-x:auto"><table class="bt" id="det"></table></div><p class="note" style="margin-top:8px">Each detective computes one number for both strips and calls the smaller one real. Sieve: how many marked numbers have a prime factor up to 31. Gaps: the mean square of the gaps divided by the squared mean gap. Repeats: the share of consecutive marked numbers with the same last digit. Baskets of 100 and of 1,000: the variance of the counts in baskets of that width, around h / ln n, divided by the mean.</p></section>
+  <section class="panel" id="backtest">
+    <h2>How often each detective is right (rounds played by a program)</h2>
+    <p class="note">The clumsy forger is caught by every detective. The careful and the skilled forger pass the gap and repeat tests in short strips but not the sieve test. The master forger passes the sieve test by construction and fools every detective except the one with the wide baskets: the primes' counts in wide baskets vary less than any fixed sieve can imitate, because the primes are sieved by every prime up to the square root, so their sieve grows with the numbers (prime16). The repeat detective is wrong more often than right against the deeper forgers: such fakes repeat their last digit slightly less than the primes do (prime13). The page and a separate program agree on the five statistics of the true primes in fixed strips.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Forger</th><th>Strip</th><th>Sieve</th><th>Gaps</th><th>Repeats</th><th>Baskets 100</th><th>Baskets 1,000</th></tr></thead><tbody>
+<tr><td>clumsy</td><td>10,000 near 10<sup>6</sup></td><td>1.00</td><td>0.99</td><td>0.93</td><td>0.96</td><td>0.87</td></tr>
+<tr><td>careful</td><td>10,000 near 10<sup>6</sup></td><td>1.00</td><td>0.90</td><td>0.51</td><td>0.91</td><td>0.79</td></tr>
+<tr><td>skilled</td><td>10,000 near 10<sup>6</sup></td><td>1.00</td><td>0.70</td><td>0.41</td><td>0.71</td><td>0.79</td></tr>
+<tr><td>master</td><td>10,000 near 10<sup>6</sup></td><td>0.50</td><td>0.55</td><td>0.46</td><td>0.52</td><td>0.61</td></tr>
+<tr><td>master</td><td>100,000 near 10<sup>6</sup></td><td>0.50</td><td>0.62</td><td>0.44</td><td>0.58</td><td>0.91</td></tr>
+<tr><td>master</td><td>100,000 near 10<sup>7</sup></td><td>0.50</td><td>0.65</td><td>0.54</td><td>0.63</td><td>0.80</td></tr>
+<tr><td>master</td><td>1,000,000 near 10<sup>7</sup></td><td>0.50</td><td>0.85</td><td>0.30</td><td>0.97</td><td>1.00</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const SMALL=(()=>{const o=[];for(let n=2;n<=4000;n++){let ok=true;for(const p of o){if(p*p>n)break;if(n%p===0){ok=false;break;}}if(ok)o.push(n);}return o;})();
+const W={w2:[2],w5:[2,3,5],w13:[2,3,5,7,11,13],w100:SMALL.filter(p=>p<=100)};
+const S={forger:"w13",L:10000,N0:1e6,lo:0,sets:null,real:0,picked:-1,you:[0,0],dets:[0,0,0,0,0],rounds:0,R:rng(Date.now()%100000),W:0,H:0,dpr:1,stats:null};
+function primesIn(lo,hi){const m=new Uint8Array(hi-lo).fill(1);for(const p of SMALL){if(p*p>=hi)break;let s=Math.max(p*p,Math.ceil(lo/p)*p);for(let k=s;k<hi;k+=p)m[k-lo]=0;}const o=[];for(let i=0;i<hi-lo;i++)if(m[i]&&lo+i>1)o.push(lo+i);return o;}
+function fakesIn(lo,hi,w,r){let c=1;for(const p of w)c*=p/(p-1);const o=[];for(let n=lo;n<hi;n++){let ok=true;for(const p of w)if(n%p===0){ok=false;break;}if(ok&&r()<Math.min(1,c/Math.log(n)))o.push(n);}return o;}
+function stats(set,lo,hi){const small=SMALL.filter(p=>p<=31);let div=0;for(const n of set){if(n<=31)continue;for(const p of small)if(n%p===0){div++;break;}}
+ let s1=0,s2=0,k=0;for(let i=1;i<set.length;i++){const g=set[i]-set[i-1];s1+=g;s2+=g*g;k++;}const gap2=k>1?(s2/k)/((s1/k)**2):NaN;
+ let rp=0,rn=0,prev=-1;for(const n of set){const d=n%10;if(d!==1&&d!==3&&d!==7&&d!==9)continue;if(prev>=0){rn++;if(d===prev)rp++;}prev=d;}const rep=rn?rp/rn:NaN;
+ const bask=h=>{const nb=Math.floor((hi-lo)/h),c=new Float64Array(nb);for(const n of set){const b=Math.floor((n-lo)/h);if(b>=0&&b<nb)c[b]++;}let m=0,q=0,em=0;for(let b=0;b<nb;b++){const e=h/Math.log(lo+b*h+h/2),d=c[b]-e;m+=d;q+=d*d;em+=e;}m/=nb;return(q/nb-m*m)/(em/nb);};
+ return{div,gap2,rep,bask:bask(100),bask1k:bask(1000)};}
+function newRound(){const N0=S.N0,L=S.L;S.lo=Math.floor(N0/2+S.R()*(N0/2));const hi=S.lo+L,P=primesIn(S.lo,hi),F=fakesIn(S.lo,hi,W[S.forger],S.R);S.real=S.R()<0.5?0:1;S.sets=S.real===0?[P,F]:[F,P];S.picked=-1;S.stats=S.sets.map(s=>stats(s,S.lo,hi));render();}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(260,Math.min(360,w*0.34)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,L=S.L;if(W<80)return;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);if(!S.sets)return;const padL=34*dpr,padR=10*dpr,bandH=(H-30*dpr)/2;
+ for(let s=0;s<2;s++){const y0=10*dpr+s*bandH,set=S.sets[s],col=S.picked<0?"#fbbf24":(s===S.real?"#34d399":"#f472b6");ctx.fillStyle="#edf4ff";ctx.font=`600 ${15*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillText(s?"B":"A",8*dpr,y0+bandH*0.3);
+  const zl=Math.min(L,240),zw=(W-padL-padR)/zl;ctx.fillStyle="#1b2a42";ctx.fillRect(padL,y0,W-padL-padR,bandH*0.42);ctx.fillStyle=col;for(const n of set){const i=n-S.lo;if(i>=zl)break;ctx.fillRect(padL+i*zw,y0+2*dpr,Math.max(1.5*dpr,zw*0.8),bandH*0.42-4*dpr);}
+  const yb=y0+bandH*0.5,hb=bandH*0.38,cols=Math.max(1,Math.floor(W-padL-padR)),cnt=new Float64Array(cols);for(const n of set)cnt[Math.min(cols-1,Math.floor((n-S.lo)/L*cols))]++;let mx=0;for(const v of cnt)mx=Math.max(mx,v);ctx.fillStyle="#1b2a42";ctx.fillRect(padL,yb,cols,hb);ctx.fillStyle=col;for(let c=0;c<cols;c++){const v=cnt[c]/mx;ctx.globalAlpha=0.25+0.75*v;ctx.fillRect(padL+c,yb+hb*(1-v),1,hb*v);}ctx.globalAlpha=1;}
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="bottom";ctx.fillText(W<600*dpr?`${f(S.lo)} … ${f(S.lo+L)}`:`top of each strip: the first 240 numbers from ${f(S.lo)}; bottom: how many marked numbers fall in each slice of the whole strip, up to ${f(S.lo+L)}`,padL,H-4*dpr);}
+const DET=[["div","Sieve",0],["gap2","Gaps",4],["rep","Repeats",4],["bask","Baskets of 100",3],["bask1k","Baskets of 1,000",3]];
+function table(){if(!S.stats){$("det").innerHTML="";return;}const [a,b]=S.stats,shown=S.picked>=0;let h="<tr><th>Detective</th><th>A</th><th>B</th><th>Calls real</th>"+(shown?"<th>Right?</th>":"")+"</tr>";
+ for(const [k,name,dg] of DET){const call=a[k]<b[k]?0:a[k]>b[k]?1:-1,right=call===S.real;h+=`<tr><td>${name}</td><td>${dg?a[k].toFixed(dg):a[k]}</td><td>${dg?b[k].toFixed(dg):b[k]}</td><td>${call<0?"cannot tell":call?"B":"A"}</td>`+(shown?`<td>${call<0?"–":right?'<span class="good">yes</span>':'<span class="bad">no</span>'}</td>`:"")+"</tr>";}$("det").innerHTML=h;}
+function render(){draw();table();const r=S.rounds;$("score").textContent=r?`You: ${S.you[0]} of ${r} right. Detectives: `+DET.map(([k,n],i)=>`${n.split(" ")[0].toLowerCase()}${n.includes("1,000")?" 1,000":n.includes("100")?" 100":""} ${S.dets[i]}`).join(", "):"";}
+function pick(s){if(!S.sets||S.picked>=0)return;S.picked=s;S.rounds++;const ok=s===S.real;if(ok)S.you[0]++;DET.forEach(([k],i)=>{const a=S.stats[0][k],b=S.stats[1][k];const call=a<b?0:a>b?1:-1;if(call===S.real)S.dets[i]++;else if(call<0)S.dets[i]+=0.5;});
+ $("status").innerHTML=(ok?'<span class="good">Right!</span>':'<span class="bad">Fooled.</span>')+` Strip ${S.real?"B":"A"} holds the true primes between ${f(S.lo)} and ${f(S.lo+S.L)}; the other holds ${S.sets[1-S.real].length} fakes against ${S.sets[S.real].length} primes.`;render();}
+$("new").addEventListener("click",()=>{$("status").textContent="Which strip shows the true primes?";newRound();});
+$("pa").addEventListener("click",()=>pick(0));$("pb").addEventListener("click",()=>pick(1));
+$("forger").addEventListener("change",e=>{S.forger=e.target.value;S.rounds=0;S.you=[0,0];S.dets=[0,0,0,0,0];newRound();});
+$("len").addEventListener("change",e=>{S.L=Number(e.target.value);newRound();});
+$("where").addEventListener("change",e=>{S.N0=Number(e.target.value);newRound();});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),fg=q.get("forger"),sd=Number(q.get("seed"));if(fg&&W[fg]){S.forger=fg;$("forger").value=fg;}if(sd>0)S.R=rng(sd);size();$("status").textContent="Which strip shows the true primes?";newRound();})();
+</script>
+</body>
+</html>
