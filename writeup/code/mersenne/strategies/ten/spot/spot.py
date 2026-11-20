@@ -7,10 +7,10 @@ prod p/(p-1) / ln n.  Statistics: div (elements with a prime factor <= 31), gap2
 of repeated last digits), bask, bask1k (variance / mean of the counts in non-overlapping baskets of 100 and of 1,000, detrended by h / ln n).  Accuracy over
 R windows with N uniform in [N0/2, N0].  Prediction written before the run: div unmasks W = {2} and {2,3,5} at once;
 gap2 and bask unmask the deeper wheels, bask best; nothing is perfect against the primes <= 100 at L = 10^4.
-usage: spot.py N0 L R out.txt"""
+usage: spot.py N0 L R out.txt [master]"""
 import sys, math
 import numpy as np
-N0, L, RR = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]); out = open(sys.argv[4], 'w')
+N0, L, RR = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]); out = open(sys.argv[4], 'w'); ONLY = sys.argv[5] if len(sys.argv) > 5 else ''   # 'master' runs only the deepest forger
 def pr(*a):
     s = ' '.join(str(v) for v in a); print(s); out.write(s + '\n')
 M = 2 * N0 + L + 10
@@ -32,6 +32,7 @@ ref = stats(P, N0 // 2, 2 * N0)
 pr('N0 = %d, L = %d, %d windows; reference values of the primes in [N0/2, 2 N0]: gap2 %.4f, rep %.4f, bask %.4f, bask1k %.4f' % (N0, L, RR, ref['gap2'], ref['rep'], ref['bask'], ref['bask1k']))
 rng = np.random.default_rng(1818)
 for name, W in (('W={2}', [2]), ('W={2,3,5}', [2, 3, 5]), ('W={2..13}', [2, 3, 5, 7, 11, 13]), ('W=primes<=100', list(P[P <= 100]))):
+    if ONLY == 'master' and name != 'W=primes<=100': continue
     W = np.array(W); c = float(np.prod(W / (W - 1.0)))
     acc = {k: 0.0 for k in ref}; acc['div'] = 0.0; vals = {k: [] for k in ('div', 'gap2', 'rep', 'bask', 'bask1k')}
     for r in range(RR):
