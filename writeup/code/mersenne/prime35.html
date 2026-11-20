@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pair clocks</title>
+<meta name="description" content="Our conjecture (we found it nowhere else), frozen before the count: for prime pairs (p, p+d), the share where both primes divide some 2^n+1, or both divide some Lucas number, is an exact fraction that depends on d. Counted to 10^9 and 10^10: the predictions hold, and two impossibilities are proved.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+.two { display:grid; grid-template-columns:3fr 2fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+ul.rules { margin:6px 0; padding-left:20px; }
+ul.rules li { margin:3px 0; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pair clocks</h1>
+  <p>Every prime q carries two clocks. The powers 2, 4, 8, … mod q repeat with a period; if that period is even, q divides some 2<sup>n</sup> + 1 (Hasse: 17/24 of all primes do). The Fibonacci numbers mod q first hit 0 at the rank z(q); if z(q) is even, q divides some Lucas number 2, 1, 3, 4, 7, 11, … (Lagarias: 2/3 of all primes). Now take prime pairs (p, p + d). How often are both clocks even? Multiplying gives (17/24)<sup>2</sup> = 0.502 and (2/3)<sup>2</sup> = 0.444 for every d. Our conjecture says the share depends on d, through the classes of p mod 5 and mod powers of 2, and is an exact fraction: for twins (d = 2) 11/24 and 4/9, for d = 6 only 2/9 on the Lucas clock, for d = 8 already 43/64 on the 2<sup>n</sup> + 1 clock. The fractions were committed before any pair was counted; then the pairs were counted to 10<sup>9</sup> and 10<sup>10</sup>. Rabbit clocks (one prime at a time): <a href="prime29.html">prime29</a>, jumping champion: <a href="prime34.html">prime34</a>, overview: <a href="primes.html">all pages</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="clock">Clock</label><select id="clock"><option value="L" selected>divides a Lucas number (z even)</option><option value="H">divides some 2^n + 1 (period of 2 even)</option></select></div>
+    <div class="ctl"><label for="dist">Distance d for the right chart</label><select id="dist"></select></div>
+    <div class="ctl"><label for="maxn">Pairs with p up to</label><select id="maxn"><option value="100000">100,000</option><option value="1000000">1,000,000</option><option value="10000000" selected>10,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="Share of pairs with both clocks even, for each distance d"></canvas></div>
+    <div class="stage"><canvas id="ch" aria-label="The share for one distance as the primes grow"></canvas></div>
+  </div>
+  <div class="legend"><span><span class="sw" style="background:#38bdf8"></span>counted share, both even</span><span><span class="sw" style="background:#fbbf24"></span>predicted fraction</span><span><span class="sw" style="background:#f472b6"></span>naive product</span><span><span class="sw" style="background:#34d399"></span>share for one d as p grows</span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel"><h2>Why the share depends on d</h2><p class="note">Write e for the power of 2 in q − 1. Some cases are proved, the rest are coin flips with a known bias:</p>
+  <ul class="rules note">
+    <li>2<sup>n</sup> + 1 clock: q ≡ 3, 5 mod 8 is always even (2 is not a square mod q); q ≡ 7 mod 8 is always odd (the period divides the odd number (q − 1)/2); q ≡ 1 mod 8 is even with chance 1 − 2<sup>1−e</sup>.</li>
+    <li>Lucas clock: q ≡ 3 mod 4 is always even; q ≡ 1 mod 4 with q ≡ 2, 3 mod 5 is always odd; q ≡ 1 mod 4 with q ≡ 1, 4 mod 5 is even with chance 1 − 2<sup>1−e</sup>.</li>
+    <li>Proved consequences: if d ≡ 2 mod 4, one of p, p + d is 3 mod 4, so a pair with both Lucas clocks odd never occurs. If d ≡ 4 mod 8, a pair with both 2<sup>n</sup> + 1 clocks odd never occurs (an odd clock needs q ≡ 1 or 7 mod 8, and adding d turns 1 into 5 and 7 into 3).</li>
+    <li>The conjecture adds two assumptions: prime pairs spread evenly over the classes mod 8 · 5 (and mod higher powers of 2) that they can occupy, and within a pair the two coins are independent. Then the share is an average over classes, an exact fraction. Example d = 6: one member is 3 mod 4 and always even; the other must be 1 or 4 mod 5. But p ≡ 4 mod 5 would make p + 6 a multiple of 5, and p + 6 ≡ 1 mod 5 would make p one, so that member lands in a good class a third of the time instead of two thirds (as for twins), and the Lucas share halves from 4/9 to 2/9.</li>
+  </ul></section>
+  <section class="panel" id="backtest"><h2>The test: predictions committed first, then counted</h2><p class="note" id="btnote"></p>
+  <div style="overflow-x:auto"><table class="bt"><thead><tr><th>d</th><th>pairs, p ≤ 10<sup>9</sup></th><th>2<sup>n</sup>+1: predicted</th><th>counted</th><th>Lucas: predicted</th><th>counted</th><th>pairs, p ≤ 10<sup>10</sup></th><th>2<sup>n</sup>+1 counted</th><th>Lucas counted</th></tr></thead><tbody id="bt"></tbody></table></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const DS=[2,4,6,8,10,12,14,16,18,20,22,24,26,28,30];
+const PRED={2:["11/24","1/24","4/9","0"],4:["5/12","0","1/2","5/18"],6:["11/24","1/24","2/9","0"],8:["43/64","49/192","37/64","77/576"],10:["11/24","1/24","1/3","0"],12:["5/12","0","41/72","1/8"],14:["11/24","1/24","2/9","0"],16:["1037/1536","397/1536","1/2","5/18"],18:["11/24","1/24","4/9","0"],20:["5/12","0","29/48","13/48"],22:["11/24","1/24","4/9","0"],24:["43/64","49/192","1/2","5/18"],26:["11/24","1/24","2/9","0"],28:["5/12","0","41/72","1/8"],30:["11/24","1/24","1/3","0"]};
+const BIG={"note":"Fractions committed (commit 5c3800f) before any pair was counted, then counted by a separate program and recounted with sympy for p up to 10^6 (all d) and 10^7 (d = 2). The twelve impossible cells (both Lucas clocks odd for d \u2261 2 mod 4, both 2^n + 1 clocks odd for d \u2261 4 mod 8) are exactly 0 in both runs. The other 45 predictions lie within 1.61 binomial standard deviations at 10^9 and 1.80 at 10^10; the naive product misses by up to 1,170 at 10^9. Triples (p, p+2, p+6) and (p, p+4, p+6), predicted and committed before counting: 0, 1/12, 17/24, 5/24 of them have 0, 1, 2, 3 members dividing some 2^n + 1, and 0, 1/3, 1/2, 1/6 for Lucas numbers; at 10^9 (379,507 and 379,748 triples) all twelve nonzero cells lie within 2.03 standard deviations.","e9":{"2":[3424504,1569569,1521851],"4":[3424679,1427160,1712596],"6":[6849046,3139500,1522652],"8":[3426122,2301683,1979781],"10":[4567690,2093754,1522200],"12":[6847939,2851231,3899943],"14":[4108772,1884643,911971],"16":[3426913,2313266,1712889],"18":[6849305,3138875,3043585],"20":[4564934,1902295,2758143],"22":[3805634,1743992,1691569],"24":[6851135,4602607,3425646],"26":[3734933,1711660,830233],"28":[4109401,1710647,2341288],"30":[9136632,4186895,3045606]},"e10":{"2":[27412677,12562419,12178730],"4":[27409998,11421989,13704790],"6":[54818295,25127438,12181606],"8":[27411506,18418027,15846809],"10":[36548838,16748189,12181053],"12":[54822709,22842811,31219039],"14":[32891697,15076656,7308648],"16":[27414827,18507494,13708714],"18":[54823058,25129949,24365650],"20":[36548154,15226099,22081519],"22":[30459489,13960729,13537953],"24":[54823857,36833433,27410489],"26":[29900777,13703764,6643375],"28":[32895944,13705786,18735364],"30":[73094856,33496015,24365490]}};
+const val=s=>{const [a,b]=s.split("/");return b?Number(a)/Number(b):Number(a);};
+const S={X:1e7,clock:"L",d:6,T:null,marks:[],W:0,H:0,W2:0,H2:0,dpr:1};
+function mm(a,b,q){return (a*b)%q;}
+function oddPart(n){while(n%2===0)n/=2;return n;}
+function clockH(q){let m=oddPart(q-1),r=1,b=2%q;while(m>0){if(m&1)r=mm(r,b,q);b=mm(b,b,q);m=Math.floor(m/2);}return r!==1;}
+function clockL(q){const r5=q%5,m=oddPart(r5===1||r5===4?q-1:q+1);let a=0,b=1;for(let k=Math.floor(Math.log2(m));k>=0;k--){const c=mm(a,(2*b-a+q)%q,q),dd=(a*a+b*b)%q;if(Math.floor(m/2**k)%2===1){a=dd;b=(c+dd)%q;}else{a=c;b=dd;}}return a!==0;}
+function prepare(){const X=S.X,N=X+32,comp=new Uint8Array(N+1);for(let i=2;i*i<=N;i++)if(!comp[i])for(let j=i*i;j<=N;j+=i)comp[j]=1;
+ const fl=new Uint8Array(N+1);for(let q=7;q<=N;q++)if(!comp[q])fl[q]=(clockH(q)?1:0)|(clockL(q)?2:0);
+ const T={};for(const d of DS)T[d]={N:0,H2:0,H0:0,L2:0,L0:0};S.marks=[];let next=1000;
+ for(let p=7;p<=X;p++){if(!comp[p]){for(const d of DS){if(comp[p+d])continue;const a=fl[p],b=fl[p+d],t=T[d];t.N++;if(a&b&1)t.H2++;if(!((a|b)&1))t.H0++;if(a&b&2)t.L2++;if(!((a|b)&2))t.L0++;}}
+  if(p>=next||p===X){const snap={};for(const d of DS)snap[d]=[T[d].N,T[d].H2,T[d].L2];S.marks.push([p,snap]);next=Math.ceil(next*1.12);}}
+ S.T=T;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(420,w*(k?0.9:0.6))));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function naive(){return S.clock==="H"?(17/24)**2:(2/3)**2;}
+function predOf(d){return val(PRED[d][S.clock==="H"?0:2]);}
+function shareOf(d){const t=S.T[d];return (S.clock==="H"?t.H2:t.L2)/Math.max(1,t.N);}
+function drawBars(){const W=S.W,H=S.H,dpr=S.dpr,padL=34*dpr,padR=8*dpr,padB=24*dpr,padT=22*dpr,n=DS.length,bw=(W-padL-padR)/n,ys=v=>H-padB-v*(H-padT-padB);
+ ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.font=`${10*dpr}px system-ui,sans-serif`;ctx.strokeStyle="#26364c";ctx.fillStyle="#9fb0c6";ctx.textAlign="right";ctx.textBaseline="middle";
+ for(const v of [0,0.25,0.5,0.75]){const y=ys(v);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.fillText(v.toFixed(2),padL-4*dpr,y);}
+ ctx.textAlign="center";ctx.textBaseline="top";
+ DS.forEach((d,i)=>{const x=padL+i*bw,s=shareOf(d),p=predOf(d);ctx.fillStyle=d===S.d?"#7dd3fc":"#38bdf8";ctx.fillRect(x+2*dpr,ys(s),Math.max(1,bw-4*dpr),ys(0)-ys(s));ctx.fillStyle="#fbbf24";ctx.fillRect(x+1*dpr,ys(p)-1.5*dpr,Math.max(1,bw-2*dpr),3*dpr);ctx.fillStyle="#9fb0c6";ctx.fillText(String(d),x+bw/2,H-padB+5*dpr);});
+ ctx.strokeStyle="#f472b6";ctx.setLineDash([5*dpr,4*dpr]);ctx.lineWidth=1.5*dpr;ctx.beginPath();ctx.moveTo(padL,ys(naive()));ctx.lineTo(W-padR,ys(naive()));ctx.stroke();ctx.setLineDash([]);ctx.lineWidth=1;
+ ctx.fillStyle="#9fb0c6";ctx.textAlign="left";ctx.fillText(`share of pairs (p, p+d), p ≤ ${f(S.X)}, with both clocks even`,padL,5*dpr);}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,X=S.X,d=S.d,p=predOf(d),nv=naive(),lo=Math.max(0,Math.min(p,nv)-0.12),hi=Math.min(1,Math.max(p,nv)+0.12),padL=40*dpr,padR=10*dpr,padT=22*dpr,padB=26*dpr,xs=x=>padL+(Math.log10(x)-3)/Math.max(0.5,Math.log10(X)-3)*(W-padL-padR),ys=v=>H-padB-(Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";
+ for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4,y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(2),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(let e=3;e<=Math.log10(X);e++){const x0=xs(10**e);cx.textAlign=x0>W-24*dpr?"right":"center";cx.fillText("10^"+e,Math.min(x0,W-2*dpr),H-padB+6*dpr);}
+ cx.lineWidth=2*dpr;cx.strokeStyle="#fbbf24";cx.beginPath();cx.moveTo(padL,ys(p));cx.lineTo(W-padR,ys(p));cx.stroke();
+ cx.strokeStyle="#f472b6";cx.setLineDash([5*dpr,4*dpr]);cx.lineWidth=1.5*dpr;cx.beginPath();cx.moveTo(padL,ys(nv));cx.lineTo(W-padR,ys(nv));cx.stroke();cx.setLineDash([]);
+ cx.strokeStyle="#34d399";cx.lineWidth=2*dpr;cx.beginPath();let first=true;for(const [x,snap] of S.marks){const [n,h2,l2]=snap[d];if(n<20)continue;const v=(S.clock==="H"?h2:l2)/n,X1=xs(x),Y=ys(v);first?cx.moveTo(X1,Y):cx.lineTo(X1,Y);first=false;}cx.stroke();cx.lineWidth=1;
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(`d = ${d}: share as p grows (log scale)`,padL+4*dpr,5*dpr);}
+function stats(){const d=S.d,t=S.T[d],h=S.clock==="H",both=h?t.H2:t.L2,none=h?t.H0:t.L0,pb=PRED[d][h?0:2],pn=PRED[d][h?1:3];
+ const cells=[["Pairs (p, p+"+d+"), p ≤ "+f(S.X),f(t.N)],["Both even: counted",(both/t.N).toFixed(4)],["Both even: predicted",pb+" = "+val(pb).toFixed(4)],["Both odd: counted",(none/t.N).toFixed(4)+" ("+f(none)+")"],["Both odd: predicted",pn==="0"?"0, proved":pn+" = "+val(pn).toFixed(4)],["Naive product",naive().toFixed(4)]];
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+ const z=(both/t.N-val(pb))/Math.sqrt(val(pb)*(1-val(pb))/t.N);
+ $("status").textContent=`d = ${d}, ${h?"2^n + 1":"Lucas"} clock: both even in ${(100*both/t.N).toFixed(2)} % of ${f(t.N)} pairs, predicted ${(100*val(pb)).toFixed(2)} % (${z>=0?"+":""}${z.toFixed(1)} binomial standard deviations); the naive product says ${(100*naive()).toFixed(2)} %.`;}
+function table(){const r=BIG;$("btnote").textContent=r.note;$("bt").innerHTML=DS.map(d=>{const a=r.e9[d],b=r.e10[d];const c=(v,n)=>(v/n).toFixed(6);return `<tr><td>${d}</td><td>${f(a[0])}</td><td>${PRED[d][0]} = ${val(PRED[d][0]).toFixed(6)}</td><td>${c(a[1],a[0])}</td><td>${PRED[d][2]} = ${val(PRED[d][2]).toFixed(6)}</td><td>${c(a[2],a[0])}</td><td>${b?f(b[0]):"–"}</td><td>${b?c(b[1],b[0]):"–"}</td><td>${b?c(b[2],b[0]):"–"}</td></tr>`;}).join("");}
+function render(){drawBars();drawChart();stats();}
+$("dist").innerHTML=DS.map(d=>`<option value="${d}">${d}</option>`).join("");
+$("clock").addEventListener("change",e=>{S.clock=e.target.value;render();});
+$("dist").addEventListener("change",e=>{S.d=Number(e.target.value);render();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),dd=Number(q.get("d")),ck=q.get("clock");if([100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(DS.includes(dd)){S.d=dd;}$("dist").value=String(S.d);if(ck==="H"||ck==="L"){S.clock=ck;$("clock").value=ck;}prepare();size();render();table();})();
+</script>
+</body>
+</html>
