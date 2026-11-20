@@ -21,7 +21,7 @@ for a in range(1, R + 1):
     ang.append(t[ok])
     if not ONLYP: latt_n.append(n); latt_t.append(t); latt_prim.append((np.gcd(a, b) == 1) & (n % 2 == 1))
 inert = [p for p in range(3, int(X ** .5) + 1, 4) if sv[p]]
-A = np.concatenate(ang + [np.zeros(len(inert))]); N = len(A)
+A = np.concatenate(ang + [np.zeros(len(inert))]); N = len(A); A_split = np.concatenate(ang)
 pr('X = %d: N = %d prime ideals (%d split angles incl. 1+i, %d inert at angle 0)' % (X, N, N - len(inert), len(inert)))
 if not ONLYP: LN = np.concatenate(latt_n).astype(float); LT = np.concatenate(latt_t); LP = np.concatenate(latt_prim)
 def nv(t, K, offs=64):
@@ -32,10 +32,10 @@ def nv(t, K, offs=64):
     return float(np.mean(v)) / (len(t) / K)
 rng = np.random.default_rng(20)
 if ONLYP:
-    pr('    K   log K/log N   primes Var/mean   RW min(1, 2 logK/logN)')
+    pr('    K   log K/log N   primes Var/mean   RW min(1, 2 logK/logN)   without the inert ideals   (inert^2 / N = %.4f)' % (len(inert) ** 2 / N))
     K = 16
     while K <= N // 4:
-        bb = math.log(K) / math.log(N); pr('%7d %10.3f %15.3f %19.3f' % (K, bb, nv(A, K), min(1, 2 * bb))); K *= STEP
+        bb = math.log(K) / math.log(N); pr('%7d %10.3f %15.3f %19.3f %22.3f' % (K, bb, nv(A, K), min(1, 2 * bb), nv(A_split, K))); K *= STEP
     sys.exit()
 c1 = N / float(np.sum(1 / np.log(np.maximum(LN, 2)))); p1 = np.minimum(1, c1 / np.log(np.maximum(LN, 2))); p1[LN < 2] = 0
 c2 = N / float(np.sum(LP / np.log(np.maximum(LN, 2)))); p2 = np.where(LP, np.minimum(1, c2 / np.log(np.maximum(LN, 2))), 0.0); p2[LN < 2] = 0
