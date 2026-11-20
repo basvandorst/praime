@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Möbius walker</title>
+<meta name="description" content="A walker steps forward at square-free numbers with an even number of prime factors and back at those with an odd number. Drunk walkers on the same steps stray far beyond √x; the Möbius walker stays within a fifth of it, held by the zeros of the zeta function.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:560px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Möbius walker</h1>
+  <p>A walker goes along the numbers 1, 2, 3, … At a square-free number with an even number of prime factors (1, 6, 10, 14, 15, …) it steps forward, at one with an odd number (2, 3, 5, 7, 11, 13, 30, …) it steps back, and at numbers divisible by a square (4, 8, 9, 12, …) it stands still. Its position after x numbers is the Mertens function M(x). Drunk walkers that toss a coin at the same square-free numbers stray about 0.78 √x away, and sooner or later beyond √x. The Möbius walker stays within about a fifth of √x: the zeros of the zeta function hold it on a short leash. Rabbit clocks: <a href="prime29.html">prime29</a>, census (counting prime factors): <a href="prime14.html">prime14</a>, overview: <a href="primes.html">all pages</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Walk up to</label><select id="maxn"><option value="1000000">1,000,000</option><option value="10000000" selected>10,000,000</option></select></div>
+    <button id="again" type="button">New drunk walkers</button>
+  </section>
+  <div id="stage"><div class="stage"><canvas id="ch" aria-label="The walkers divided by the square root of x"></canvas></div></div>
+  <div class="legend"><span><span class="sw" style="background:#fbbf24"></span>Möbius walker M(x) / √x</span><span><span class="sw" style="background:#f472b6"></span>three drunk walkers / √x</span><span><span class="sw" style="background:#9fb0c6"></span>±1: the walls of √x</span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest"><h2>How far they stray, counted up to 10,000,000</h2><p class="note">A separate program computed M(x) up to 10<sup>7</sup> and 200 drunk walkers on the same 6,079,291 square-free numbers. From x = 200 on, every one of the 200 drunk walkers passed √x somewhere (the median largest |W| / √x was 1.88, the smallest 1.14). The Möbius walker never came closer than 0.566 of √x (at x = 200), and from 10<sup>6</sup> to 10<sup>7</sup> no closer than 0.418. Averaged over ln x from 10<sup>4</sup> to 10<sup>7</sup>, (M(x) / √x)<sup>2</sup> is 0.0289, against 6/π<sup>2</sup> = 0.608 for a drunk walker. Under the Riemann hypothesis and further assumptions, Ng (2004) showed that this average equals the sum of 1 / |ρ ζ′(ρ)|<sup>2</sup> over the zeros ρ of the zeta function; the first 200 zeros give 0.0286. Mertens's conjecture |M(x)| &lt; √x is false (Odlyzko and te Riele, 1985), but nobody has found an x where it fails: the first exception lies far beyond any count. The page and the program agree on M(10<sup>k</sup>) for k = 2 to 7.</p>
+  <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Range of x</th><th>largest |M(x)| / √x</th><th>at x</th><th>M at the end</th></tr></thead><tbody>
+<tr><td>200 to 1,000</td><td>0.5657</td><td>200</td><td>M(1,000) = 2</td></tr>
+<tr><td>1,000 to 10,000</td><td>0.4722</td><td>2,803</td><td>M(10,000) = −23</td></tr>
+<tr><td>10,000 to 100,000</td><td>0.4630</td><td>24,185</td><td>M(100,000) = −48</td></tr>
+<tr><td>100,000 to 1,000,000</td><td>0.4378</td><td>300,551</td><td>M(1,000,000) = 212</td></tr>
+<tr><td>1,000,000 to 10,000,000</td><td>0.4182</td><td>1,066,854</td><td>M(10,000,000) = 1,037</td></tr>
+  </tbody></table></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const S={X:1e7,mu:null,M:null,seed:1,walk:[],W:0,H:0,dpr:1};
+function prepare(){const X=S.X,mu=new Int8Array(X+1).fill(1),comp=new Uint8Array(X+1);mu[0]=0;for(let p=2;p<=X;p++){if(comp[p])continue;for(let j=p;j<=X;j+=p){if(j>p)comp[j]=1;mu[j]=-mu[j];}const q=p*p;if(q<=X)for(let j=q;j<=X;j+=q)mu[j]=0;}S.mu=mu;S.marks={};let m=0,best=0,bx=0;S.curve=[];let next=10;for(let n=1;n<=X;n++){m+=mu[n];if(n>=200){const r=Math.abs(m)/Math.sqrt(n);if(r>best){best=r;bx=n;}}if(n>=next){S.curve.push([n,m/Math.sqrt(n)]);next=Math.ceil(next*1.01);}if(n===10**Math.round(Math.log10(n))&&n>=100)S.marks[n]=m;}S.MX=m;S.best=best;S.bx=bx;walkers();}
+function rnd(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function walkers(){const X=S.X,mu=S.mu;S.walk=[];S.over=0;for(let k=0;k<3;k++){const r=rnd(S.seed*7919+k),c=[];let w=0,next=10,best=0;for(let n=1;n<=X;n++){if(mu[n])w+=r()<0.5?1:-1;if(n>=200){const q=Math.abs(w)/Math.sqrt(n);if(q>best)best=q;}if(n>=next){c.push([n,w/Math.sqrt(n)]);next=Math.ceil(next*1.01);}}S.walk.push({c,best});if(best>=1)S.over++;}}
+function size(){const w=ch.parentElement.clientWidth,h=Math.round(Math.max(300,Math.min(480,w*0.5)));S.dpr=window.devicePixelRatio||1;ch.width=Math.round(w*S.dpr);ch.height=Math.round(h*S.dpr);ch.style.height=h+"px";S.W=ch.width;S.H=ch.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,X=S.X,padL=40*dpr,padR=10*dpr,padT=14*dpr,padB=26*dpr,lim=2.5,xs=x=>padL+Math.log10(x)/Math.log10(X)*(W-padL-padR),ys=v=>padT+(lim-Math.max(-lim,Math.min(lim,v)))/(2*lim)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [-2,-1,0,1,2]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(String(v),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(let e=1;e<=Math.log10(X);e++)cx.fillText("10^"+e,xs(10**e),H-padB+6*dpr);
+ cx.strokeStyle="#9fb0c6";cx.setLineDash([6*dpr,4*dpr]);cx.lineWidth=1.5*dpr;for(const v of [-1,1]){cx.beginPath();cx.moveTo(padL,ys(v));cx.lineTo(W-padR,ys(v));cx.stroke();}cx.setLineDash([]);
+ const line=(c,col,lw)=>{cx.strokeStyle=col;cx.lineWidth=lw*dpr;cx.beginPath();c.forEach(([x,v],i)=>{const X1=xs(x),Y=ys(v);i?cx.lineTo(X1,Y):cx.moveTo(X1,Y);});cx.stroke();};
+ S.walk.forEach(w=>line(w.c,"rgba(244,114,182,0.75)",1.3));line(S.curve,"#fbbf24",2.2);
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText("position / √x against x (log scale)",padL+4*dpr,padT);}
+function stats(){const cells=[["M("+f(S.X)+")",f(S.MX)],["Largest |M(x)| / √x from x = 200",S.best.toFixed(4)+" at "+f(S.bx)],["Drunk walkers past √x",S.over+" of 3"],["Their largest |W| / √x",S.walk.map(w=>w.best.toFixed(2)).join(", ")]];$("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");$("status").textContent=`Up to ${f(S.X)} the Möbius walker strays at most ${S.best.toFixed(3)} √x from home; ${S.over} of the 3 drunk walkers passed √x.`;}
+function render(){draw();stats();}
+$("again").addEventListener("click",()=>{S.seed++;walkers();render();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),sd=Number(q.get("seed"));if([1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(sd>0)S.seed=sd;prepare();size();render();})();
+</script>
+</body>
+</html>
