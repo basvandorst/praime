@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wieferich's needle</title>
+<meta name="description">For every prime p, 2^(p−1) leaves a remainder 1 on division by p; divide once more by p and the needle q(p)/p points anywhere on a dial. Only for 1093 and 3511 does it point straight up. The needles spread evenly, as the heuristic behind the search for more Wieferich primes assumes.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+input[type=number], select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+input[type=number] { width:130px; }
+button { cursor:pointer; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Wieferich's needle</h1>
+  <p>Fermat's little theorem says that p divides 2<sup>p−1</sup> − 1 for every odd prime p. Divide once and take the remainder of the quotient on division by p again: q(p) = (2<sup>p−1</sup> − 1)/p mod p, a number from 0 to p − 1. Draw it as a needle on a dial at the angle q(p)/p of a full turn. For 1093 and 3511 the needle points straight up: p² divides 2<sup>p−1</sup> − 1, and these are the only Wieferich primes known. If the needles point anywhere with equal chance, about Σ 1/p of them should point straight up, a sum that grows like ln ln x: forever, but extremely slowly. Two-square tiles: <a href="prime32.html">prime32</a>, impostors (the other side of Fermat's theorem): <a href="prime24.html">prime24</a>, overview: <a href="primes.html">all pages</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="p">Needle of the prime p =</label><input id="p" type="number" min="3" max="1000000" value="1093"></div>
+    <button id="next" type="button">Next prime</button>
+    <div class="ctl"><label for="maxn">Spread of all needles up to</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The needle of one prime"></canvas></div>
+    <div class="stage"><canvas id="ch" aria-label="Where all needles point"></canvas></div>
+  </div>
+  <div class="legend"><span><span class="sw" style="background:#fbbf24"></span>needle of p</span><span><span class="sw" style="background:#38bdf8"></span>needles of all primes up to x, in 20 sectors</span><span><span class="sw" style="background:#34d399"></span>even spread</span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest"><h2>All needles up to ten million</h2><p class="note">A separate program computed q(p) for all 664,578 odd primes below 10<sup>7</sup>. In ten sectors of the dial the needles number 66,303 to 66,699, against 66,458 each for an even spread; the chi-square value is 2.42 on 9 degrees of freedom. That is unusually even (random needles give less only about 1 % of the time), but at 10<sup>6</sup> and 3 · 10<sup>6</sup> the values are ordinary (7.6 and 7.7, in the middle of the random spread), so we take it as chance. The needles within a thousandth of a turn of straight up (besides the two Wieferich primes) number 1,332, against 1,329 ± 36 for an even spread. The closest misses below 10<sup>7</sup> are 1,897,121 (q = −1), 2,152,849 (q = 5) and 1,437,049 (q = −5). The even spread predicts about Σ 1/p = 2.54 Wieferich primes below 10<sup>7</sup> (two found), and only about 0.8 more between 10<sup>7</sup> and 6.7 · 10<sup>15</sup>, where Dorais and Klyve (2011) searched and found none. The page and the program agree on the needles of all primes up to 10<sup>6</sup>.</p></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const S={p:1093,X:1e6,bins:null,near:0,n:0,wief:[],W:0,H:0,W2:0,H2:0,dpr:1};
+function powmod(b,e,m){let r=1n;b%=m;while(e>0n){if(e&1n)r=r*b%m;b=b*b%m;e>>=1n;}return r;}
+function quot(p){const P=BigInt(p);return Number((powmod(2n,P-1n,P*P)-1n)/P);}
+function isP(n){if(n<2)return false;if(n%2===0)return n===2;for(let d=3;d*d<=n;d+=2)if(n%d===0)return false;return true;}
+function prepare(){const X=S.X,comp=new Uint8Array(X+1);S.bins=new Array(20).fill(0);S.near=0;S.n=0;S.wief=[];S.sum=0;S.marks={};for(let p=2;p<=X;p++){if(comp[p])continue;if(p<=X/p)for(let j=p*p;j<=X;j+=p)comp[j]=1;if(p===2)continue;const q=quot(p);S.n++;S.sum+=q;if(q===0)S.wief.push(p);S.bins[Math.min(19,Math.floor(q/p*20))]++;if(Math.min(q,p-q)/p<1e-3)S.near++;}}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(420,w*0.85)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function dial(c,W,H,dpr){const R=Math.min(W,H)*0.38,x0=W/2,y0=H/2+6*dpr;c.fillStyle="#0e1828";c.fillRect(0,0,W,H);c.strokeStyle="#40536d";c.lineWidth=2*dpr;c.beginPath();c.arc(x0,y0,R,0,6.2832);c.stroke();for(let k=0;k<20;k++){const a=-Math.PI/2+2*Math.PI*k/20;c.beginPath();c.moveTo(x0+R*0.94*Math.cos(a),y0+R*0.94*Math.sin(a));c.lineTo(x0+R*Math.cos(a),y0+R*Math.sin(a));c.stroke();}return [x0,y0,R];}
+function drawNeedle(){const W=S.W,H=S.H,dpr=S.dpr,[x0,y0,R]=dial(ctx,W,H,dpr),q=quot(S.p),a=-Math.PI/2+2*Math.PI*q/S.p;S.q=q;ctx.strokeStyle="#fbbf24";ctx.lineWidth=4*dpr;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x0+R*0.9*Math.cos(a),y0+R*0.9*Math.sin(a));ctx.stroke();ctx.fillStyle="#fbbf24";ctx.beginPath();ctx.arc(x0,y0,6*dpr,0,6.2832);ctx.fill();ctx.fillStyle="#edf4ff";ctx.font=`600 ${14*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`p = ${f(S.p)}: q(p) = ${f(q)}${q===0?"  (Wieferich!)":""}`,8*dpr,6*dpr);}
+function drawSpread(){const W=S.W2,H=S.H2,dpr=S.dpr,[x0,y0,R]=dial(cx,W,H,dpr),m=S.n/20,mx=Math.max(...S.bins);for(let k=0;k<20;k++){const a0=-Math.PI/2+2*Math.PI*k/20,a1=a0+2*Math.PI/20,r=R*0.85*S.bins[k]/mx;cx.fillStyle="rgba(56,189,248,0.75)";cx.beginPath();cx.moveTo(x0,y0);cx.arc(x0,y0,r,a0+0.02,a1-0.02);cx.closePath();cx.fill();}cx.strokeStyle="#34d399";cx.lineWidth=1.5*dpr;cx.setLineDash([5*dpr,4*dpr]);cx.beginPath();cx.arc(x0,y0,R*0.85*m/mx,0,6.2832);cx.stroke();cx.setLineDash([]);cx.fillStyle="#9fb0c6";cx.font=`${11*dpr}px system-ui,sans-serif`;cx.textAlign="left";cx.textBaseline="top";cx.fillText(`${f(S.n)} needles, primes up to ${f(S.X)}`,8*dpr,6*dpr);}
+function stats(){const m=S.n/20,chi=S.bins.reduce((s,b)=>s+(b-m)**2/m,0);const cells=[["q(p) for p = "+f(S.p),f(S.q)+" (angle "+(S.q/S.p).toFixed(4)+" of a turn)"],["Wieferich primes up to "+f(S.X),S.wief.join(", ")||"none"],["Needles in the 20 sectors",f(Math.min(...S.bins))+" to "+f(Math.max(...S.bins))],["Chi-square (19 degrees of freedom)",chi.toFixed(1)],["Within 1/1000 turn of the top",f(S.near)+" (even spread: "+(2e-3*S.n).toFixed(0)+")"]];$("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");$("status").textContent=S.q===0?`${f(S.p)} is a Wieferich prime: ${f(S.p)}² divides 2^${f(S.p-1)} − 1.`:`The needle of ${f(S.p)} points ${(S.q/S.p).toFixed(4)} of a turn round the dial.`;}
+function show(){let p=Math.max(3,Math.min(1000000,Math.round(Number($("p").value)||3)));while(!isP(p)||p===2)p++;S.p=p;$("p").value=String(p);drawNeedle();stats();}
+function render(){drawNeedle();drawSpread();stats();}
+$("p").addEventListener("change",show);$("next").addEventListener("click",()=>{$("p").value=String(S.p+1);show();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),p=Number(q.get("p")),mx=Number(q.get("max"));if([100000,1000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(p>2)$("p").value=String(p);prepare();size();S.p=Number($("p").value);render();show();})();
+</script>
+</body>
+</html>
