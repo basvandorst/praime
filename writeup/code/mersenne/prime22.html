@@ -44,7 +44,7 @@ table.bt th { color:var(--muted); font-weight:600; }
 <body>
 <header>
   <h1>Prime window</h1>
-  <p>Hold a window over the numbers from x/2 to x and count the primes in it. Bertrand's postulate says there is always at least one. Ramanujan proved in 1919 that the count grows past every n, and the last x at which the window held fewer than n primes, plus one, is the n-th Ramanujan prime: 2, 11, 17, 29, 41, … Slide the window and watch the count wobble upward. Doorman: <a href="prime21.html">prime21</a>, baskets: <a href="prime16.html">prime16</a>, trains: <a href="prime19.html">prime19</a>.</p>
+  <p>Hold a window over the numbers from x/2 to x and count the primes in it. Bertrand's postulate says there is always at least one. Ramanujan proved in 1919 that the count grows past every n, and the last x at which the window held fewer than n primes, plus one, is the n-th Ramanujan prime: 2, 11, 17, 29, 41, … Slide the window and watch the count wobble upward. High jump: <a href="prime23.html">prime23</a>, doorman: <a href="prime21.html">prime21</a>, baskets: <a href="prime16.html">prime16</a>, trains: <a href="prime19.html">prime19</a>.</p>
 </header>
 <main>
   <section class="panel controls" aria-label="Settings">
@@ -58,8 +58,8 @@ table.bt th { color:var(--muted); font-weight:600; }
   <section class="panel"><div class="grid" id="stats"></div></section>
   <section class="panel" id="backtest">
     <h2>How many primes are Ramanujan primes, counted up to 10,000,000</h2>
-    <p class="note">Straight from the definition, the number of Ramanujan primes up to x equals the smallest window count from x onward: min over y ≥ x of π(y) − π(y/2) (the yellow staircase); a separate program checks this at 10<sup>3</sup> to 10<sup>6</sup>. Since the window count wobbles only a little below its trend, the share of the primes up to x that are Ramanujan primes is close to (li(x) − li(x/2)) / li(x), which tends to one half from below like 1/2 − ln 2 / (2 ln x). That one half is the theorem of Amersi, Beckwith, Miller, Ronan and Sondow (first observed by Sondow, Nicholson and Noe). The page and the separate program agree on the Ramanujan primes up to 10,000,000 and match the start of OEIS A104272.</p>
-    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>Ramanujan primes up to x</th><th>share of the primes</th><th>(li(x) − li(x/2)) / li(x)</th><th>(1/2 − share) · ln x</th></tr></thead><tbody>
+    <p class="note">Straight from the definition, the number of Ramanujan primes up to x equals the smallest window count from x onward: min over y ≥ x of π(y) − π(y/2) (the yellow staircase); a separate program checks this at 10<sup>3</sup> to 10<sup>6</sup>. The window count grows fast and wobbles only a little, so the share of the primes up to x that are Ramanujan primes is close to (Li(x) − Li(x/2)) / Li(x), which tends to one half from below like 1/2 − ln 2 / (2 ln x); here Li(x) is the logarithmic integral from 2 to x. That one half is the theorem of Amersi, Beckwith, Miller, Ronan and Sondow (noted earlier by Sondow, Nicholson and Noe). The page and the separate program agree on the Ramanujan primes up to 10,000,000 and match the start of OEIS A104272.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>Ramanujan primes up to x</th><th>share of the primes</th><th>(Li(x) − Li(x/2)) / Li(x)</th><th>(1/2 − share) · ln x</th></tr></thead><tbody>
 <tr><td>1,000</td><td>72</td><td>0.4286</td><td>0.4294</td><td>0.49</td></tr>
 <tr><td>10,000</td><td>559</td><td>0.4548</td><td>0.4513</td><td>0.42</td></tr>
 <tr><td>100,000</td><td>4,459</td><td>0.4649</td><td>0.4635</td><td>0.40</td></tr>
@@ -88,7 +88,7 @@ function draw(){const W=S.W,H=S.H,dpr=S.dpr,x=S.x,top=70*dpr;ctx.fillStyle="#0e1
  drawLine(S.s,"#38bdf8",1.2*dpr);drawLine(S.fmin,"#fbbf24",2*dpr);
  if(xmax<=3000){ctx.fillStyle="#f472b6";for(const r of S.R){if(r>xmax)break;ctx.beginPath();ctx.arc(xs(r),ys(S.fmin[r]),3*dpr,0,6.2832);ctx.fill();}}
  ctx.strokeStyle="#9fb0c6";ctx.setLineDash([4*dpr,4*dpr]);ctx.beginPath();ctx.moveTo(xs(x),top);ctx.lineTo(xs(x),H-padB);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle="#9fb0c6";ctx.textAlign="center";ctx.textBaseline="top";for(let k=0;k<=4;k++)ctx.fillText(f(xmax*k/4),Math.min(W-padR-20*dpr,Math.max(padL+10*dpr,xs(xmax*k/4))),H-padB+5*dpr);}
-function stats(){const x=S.x,pr=piR(x),pc=S.pi[x],sm=(li(x)-li(x/2))/li(x);const cells=[["Primes in (x/2, x]",f(S.s[x])],["Ramanujan primes up to x",f(pr)],["Primes up to x",f(pc)],["Share",pc?(pr/pc).toFixed(4):"–"],["(li(x) − li(x/2)) / li(x)",x>=4?sm.toFixed(4):"–"],["First Ramanujan primes",S.R.slice(0,10).join(", ")+", …"]];
+function stats(){const x=S.x,pr=piR(x),pc=S.pi[x],sm=(li(x)-li(x/2))/li(x);const cells=[["Primes in (x/2, x]",f(S.s[x])],["Ramanujan primes up to x",f(pr)],["Primes up to x",f(pc)],["Share",pc?(pr/pc).toFixed(4):"–"],["(Li(x) − Li(x/2)) / Li(x)",x>=4?sm.toFixed(4):"–"],["First Ramanujan primes",S.R.slice(0,10).join(", ")+", …"]];
  $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
  $("status").textContent=S.isR[x]?`${f(x)} is a Ramanujan prime: R_${S.R.indexOf(x)+1}. From here on the window never holds fewer than ${S.R.indexOf(x)+1} primes.`:`Up to ${f(x)} there are ${f(pr)} Ramanujan primes: the window never again drops below ${f(pr)} primes.`;}
 function setX(v){S.x=Math.max(2,Math.round(Math.exp(Math.log(2)+(Math.log(S.X)-Math.log(2))*v/1000)));$("xv").textContent=f(S.x);draw();stats();}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime impostors</title>
+<meta name="description" content="Fermat's passport check: a prime p always has 2^(p−1) leaving remainder 1 after division by p. Some composite numbers pass the check too. Meet the impostors, and the Carmichael numbers that fool every check.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+input[type=number], select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+input[type=number] { width:150px; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+.gallery { font:12.5px/1.7 ui-monospace,Menlo,Consolas,monospace; color:#d7e3f4; max-height:220px; overflow:auto; }
+.carm { color:#f472b6; font-weight:600; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime impostors</h1>
+  <p>Fermat's passport check: if p is prime, then 2<sup>p−1</sup> leaves remainder 1 after division by p. A number that fails is certainly composite. But some composite numbers pass: 341 = 11 · 31 is the first. These impostors are rare, and a few of them, the Carmichael numbers (561 = 3 · 11 · 17 is the first), pass the check for every base that shares no factor with them. High jump: <a href="prime23.html">prime23</a>, doorman: <a href="prime21.html">prime21</a>, carousel: <a href="prime15.html">prime15</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="n">Check the number</label><input id="n" type="number" min="3" max="100000000" value="341"></div>
+    <div class="ctl"><label for="base">Base</label><select id="base"><option value="2" selected>2</option><option value="3">3</option><option value="5">5</option><option value="7">7</option></select></div>
+    <div class="ctl"><label for="maxn">Find the impostors up to</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The check, step by step"></canvas></div>
+    <div><div class="stage"><canvas id="ch" aria-label="How many impostors"></canvas></div><div class="legend"><span><span class="sw" style="background:#fbbf24"></span>impostors to base 2 (counted here, then OEIS A055550)</span><span><span class="sw" style="background:#f472b6"></span>Carmichael numbers (OEIS A055553)</span><span><span class="sw" style="background:#38bdf8"></span>primes</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><h2>The gallery</h2><div class="gallery" id="gal"></div></section>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest"><h2>How rare, counted and compared</h2><p class="note" id="btnote">The page counts the impostors to base 2 and the Carmichael numbers up to 10,000,000; a separate program counts them up to 10<sup>9</sup>, and both agree with the published counts (OEIS A055550 and A055553, from Pinch and Feitsma). Pomerance's heuristic says the number of impostors up to x is x<sup>1 − (1 + o(1)) ln ln ln x / ln ln x</sup>; with the o(1) left out it overshoots by many orders of magnitude at every size anyone has counted. The local growth, how many times more impostors per factor 10, is far below 10 and rises only slowly.</p><div style="overflow-x:auto"><table class="bt" id="bt"></table></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const PSP=[0,0,0,3,22,78,245,750,2057,5597,14884,38975,101629,264239,687007,1801533,4744920,12604009,33763684,91210364];
+const CAR=[0,0,0,1,7,16,43,105,255,646,1547,3605,8241,19279,44706,105212,246683,585355,1401644,3381806,8220777,20138200,49679870,123381982,308279939];
+function mulmod(a,b,m){if(a*b<9e15)return a*b%m;let r=0;a%=m;while(b>0){if(b%2===1){r+=a;if(r>=m)r-=m;}a+=a;if(a>=m)a-=m;b=Math.floor(b/2);}return r;}
+function powmod(b,e,m){let r=1;b%=m;while(e>0){if(e%2===1)r=mulmod(r,b,m);b=mulmod(b,b,m);e=Math.floor(e/2);}return r;}
+function factor(n){const o=[];let m=n;for(let d=2;d*d<=m;d+=d===2?1:2)while(m%d===0){o.push(d);m/=d;}if(m>1)o.push(m);return o;}
+function isCarm(n){const F=factor(n);if(F.length<3)return false;for(let i=1;i<F.length;i++)if(F[i]===F[i-1])return false;return F.every(p=>(n-1)%(p-1)===0);}
+const S={n:341,base:2,X:1e6,psp:[],carm:[],counts:{},W:0,H:0,W2:0,H2:0,dpr:1};
+function prepare(){const X=S.X,s=new Uint8Array(X+1);for(let i=2;i*i<=X;i++)if(!s[i])for(let j=i*i;j<=X;j+=i)s[j]=1;S.psp=[];for(let n=9;n<=X;n+=2){if(!s[n])continue;if(powmod(2,n-1,n)===1)S.psp.push(n);}S.carm=S.psp.filter(isCarm);S.np=0;for(let i=2;i<=X;i++)if(!s[i])S.np++;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(420,w*0.8)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawCheck(){const W=S.W,H=S.H,dpr=S.dpr,n=S.n,b=S.base;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);const r=powmod(b,n-1,n),F=factor(n),prime=F.length===1,pass=r===1;
+ ctx.fillStyle="#edf4ff";ctx.font=`600 ${16*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`${f(n)} = ${F.join(" · ")}`,12*dpr,12*dpr);
+ ctx.font=`${14*dpr}px system-ui,sans-serif`;ctx.fillStyle="#9fb0c6";ctx.fillText(`${b}^${f(n-1)} leaves remainder ${f(r)} after division by ${f(n)}`,12*dpr,40*dpr);
+ const verdict=prime?"a prime: it passes, as every prime must":pass?(isCarm(n)?"an impostor, and a Carmichael number: it passes for every base without a common factor":"an impostor: composite, but it passes"):"composite, and caught by the check";
+ ctx.fillStyle=prime?"#38bdf8":pass?"#f472b6":"#34d399";ctx.font=`600 ${14*dpr}px system-ui,sans-serif`;const vp=verdict.split(": ");ctx.fillText(vp[0]+(vp[1]?":":""),12*dpr,64*dpr);if(vp[1])ctx.fillText(vp[1],12*dpr,84*dpr);
+ const bases=[2,3,5,7,11,13,17,19,23,29,31,37],cw=(W-24*dpr)/bases.length;bases.forEach((a,i)=>{const g=F.includes(a),rr=g?null:powmod(a,n-1,n),x=12*dpr+i*cw,y=116*dpr;ctx.fillStyle=g?"#33445c":rr===1?"#f472b6":"#34d399";if(prime)ctx.fillStyle=g?"#33445c":"#38bdf8";ctx.fillRect(x+2*dpr,y,cw-4*dpr,cw-4*dpr);ctx.fillStyle="#0b1220";ctx.font=`600 ${Math.min(14,cw/dpr*0.4)*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(a),x+cw/2,y+(cw-4*dpr)/2);});
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(W<500*dpr?"bases: pink passes, green catches":"the check with other bases: pink = passes, green = catches, grey = shares a factor",12*dpr,110*dpr+cw+6*dpr);}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,padL=40*dpr,padR=10*dpr,padT=12*dpr,padB=26*dpr,e1=24,xs=e=>padL+e/e1*(W-padL-padR),ys=v=>H-padB-v/24*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(let k=0;k<=24;k+=6){const y=ys(k);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText("10^"+k,padL-4*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(let e=0;e<=24;e+=6)cx.fillText("10^"+e,xs(e),H-padB+6*dpr);
+ const line=(arr,col)=>{cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=2*dpr;cx.beginPath();let st=false;arr.forEach((v,e)=>{if(v<=0)return;const X=xs(e),Y=ys(Math.log10(v));st?cx.lineTo(X,Y):cx.moveTo(X,Y);st=true;});cx.stroke();arr.forEach((v,e)=>{if(v<=0)return;cx.beginPath();cx.arc(xs(e),ys(Math.log10(v)),2.5*dpr,0,6.2832);cx.fill();});};
+ cx.strokeStyle="#38bdf8";cx.lineWidth=2*dpr;cx.beginPath();for(let e=1;e<=24;e+=0.25){const x=10**e,v=x/Math.log(x);e===1?cx.moveTo(xs(e),ys(Math.log10(v))):cx.lineTo(xs(e),ys(Math.log10(v)));}cx.stroke();
+ line(PSP,"#fbbf24");line(CAR,"#f472b6");cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(W<500*dpr?"how many below x (log–log)":"how many below x, log–log: primes (about x / ln x) against impostors",padL+4*dpr,padT);}
+function gallery(){const cs=new Set(S.carm);$("gal").innerHTML=S.psp.slice(0,400).map(n=>cs.has(n)?`<span class="carm">${n}</span>`:String(n)).join(", ")+(S.psp.length>400?", …":"");}
+function stats(){const cells=[["Impostors to base 2 up to "+f(S.X),f(S.psp.length)],["Carmichael numbers among them",f(S.carm.length)],["Primes up to "+f(S.X),f(S.np)],["One impostor per",f(S.np/S.psp.length)+" primes"]];$("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");}
+function table(){let h="<thead><tr><th>Below</th><th>impostors to base 2</th><th>× per factor 10</th><th>Carmichael numbers</th><th>× per factor 10</th></tr></thead><tbody>";for(let e=3;e<CAR.length;e++){const p=e<PSP.length?PSP[e]:null,pp=e<PSP.length?PSP[e-1]:null;h+=`<tr><td>10<sup>${e}</sup></td><td>${p!==null?f(p):"–"}</td><td>${p&&pp?(p/pp).toFixed(2):"–"}</td><td>${f(CAR[e])}</td><td>${CAR[e-1]?(CAR[e]/CAR[e-1]).toFixed(2):"–"}</td></tr>`;}$("bt").innerHTML=h+"</tbody>";}
+function show(){let n=Math.max(3,Math.round(Number($("n").value)||341));S.n=n;$("n").value=String(n);drawCheck();$("status").textContent=`${f(n)}: ${powmod(S.base,n-1,n)===1?"passes":"fails"} the check with base ${S.base}.`;}
+function render(){show();drawChart();stats();gallery();table();}
+$("n").addEventListener("change",show);$("base").addEventListener("change",e=>{S.base=Number(e.target.value);show();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);$("status").textContent="Checking every number…";setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),n=Number(q.get("n"));if([100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(n>2)$("n").value=String(n);prepare();size();render();})();
+</script>
+</body>
+</html>
