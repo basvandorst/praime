@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Euler's fountain</title>
+<meta name="description" content="n² + n + 41 is prime for n = 0 to 39 and keeps spouting primes far more often than other numbers of its size. No prime below 41 ever divides it; Bateman and Horn's formula predicts how many primes it gives, and the count agrees to 0.04 % up to ten million.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:560px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Euler's fountain</h1>
+  <p>In 1772 Euler noticed that n² + n + 41 is prime for every n from 0 to 39: 41, 43, 47, 53, 61, 71, … At n = 40 the fountain sputters (40² + 40 + 41 = 41²), but it keeps spouting primes far more often than other numbers of the same size. The reason: no prime below 41 ever divides n² + n + 41, because −163 is not a square modulo any of them. Bateman and Horn's conjecture turns this into a count: their constant C = 6.6395 says how much richer the fountain is than numbers picked at random. Spiral: the numbers 41, 42, 43, … wound outward, with the fountain's values on one diagonal. Möbius walker: <a href="prime30.html">prime30</a>, star clusters (the same kind of constant): <a href="prime26.html">prime26</a>, overview: <a href="primes.html">all pages</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Count n below</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="Ulam spiral starting at 41"></canvas></div>
+    <div class="stage"><canvas id="ch" aria-label="Count against prediction"></canvas></div>
+  </div>
+  <div class="legend"><span><span class="sw" style="background:#38bdf8"></span>primes in the spiral</span><span><span class="sw" style="background:#fbbf24"></span>n² + n + 41 (prime)</span><span><span class="sw" style="background:#f472b6"></span>n² + n + 41 (composite)</span><span><span class="sw" style="background:#34d399"></span>count / Bateman–Horn</span></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest"><h2>Counted up to ten million</h2><p class="note">Bateman and Horn's conjecture (1962) predicts that the number of n below N with n² + n + 41 prime is about C · Σ 1 / ln(n² + n + 41), where C is a product over all primes p of (1 − w(p)/p) / (1 − 1/p) and w(p) is the number of solutions of n² + n + 41 ≡ 0 mod p. Since w(p) = 1 + (−163 / p), and −163 is a non-square modulo every prime below 41, w(p) = 0 for those primes and each of them raises C. The class number formula for Q(√−163) turns the product into an absolutely convergent one: C = 6.6395464 (computed with the primes up to 10<sup>7</sup>; with ln(n² + n + 41) ≈ 2 ln n the same prediction reads 3.3197732 · Σ 1 / ln n). A separate program sieved the values for n below 10<sup>7</sup> and a third counted them by a primality test below 10<sup>6</sup>: both give the counts below. The conjecture is not proved for any polynomial of degree 2; it is not even known that n² + n + 41 is prime infinitely often.</p>
+  <div style="overflow-x:auto"><table class="bt"><thead><tr><th>n below</th><th>primes n² + n + 41</th><th>Bateman–Horn</th><th>ratio</th></tr></thead><tbody>
+<tr><td>100</td><td>86</td><td>94.7</td><td>0.9077</td></tr>
+<tr><td>1,000</td><td>581</td><td>584.3</td><td>0.9943</td></tr>
+<tr><td>10,000</td><td>4,149</td><td>4,131.6</td><td>1.0042</td></tr>
+<tr><td>100,000</td><td>31,985</td><td>31,963.5</td><td>1.0007</td></tr>
+<tr><td>1,000,000</td><td>261,081</td><td>261,020.3</td><td>1.0002</td></tr>
+<tr><td>10,000,000</td><td>2,208,197</td><td>2,207,373.0</td><td>1.0004</td></tr>
+  </tbody></table></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),C=6.6395464;
+const S={N:1e6,alive:null,curve:[],marks:{},W:0,H:0,W2:0,H2:0,dpr:1};
+function pw(b,e,m){let r=1;b%=m;while(e>0){if(e&1)r=r*b%m;b=b*b%m;e=Math.floor(e/2);}return r;}
+function sqrtMod(a,p){a%=p;if(p===2)return a;let q=p-1,s=0;while(q%2===0){q/=2;s++;}let z=2;while(pw(z,(p-1)/2,p)!==p-1)z++;let m=s,c=pw(z,q,p),t=pw(a,q,p),r=pw(a,(q+1)/2,p);while(t!==1){let i=0,u=t;while(u!==1){u=u*u%p;i++;}let b=c;for(let j=0;j<m-i-1;j++)b=b*b%p;m=i;c=b*b%p;t=t*c%p;r=r*b%p;}return r;}
+function prepare(){const N=S.N,top=Math.ceil(Math.sqrt(N*N+N+41))+1,comp=new Uint8Array(top+1),alive=new Uint8Array(N).fill(1);for(let p=2;p<=top;p++){if(comp[p])continue;for(let j=p*p;j<=top;j+=p)comp[j]=1;if(p===2)continue;const a=(p-163%p)%p;if(a!==0&&pw(a,(p-1)/2,p)!==1)continue;const s=a===0?0:sqrtMod(a,p),inv2=(p+1)/2;for(const r of new Set([s,(p-s)%p])){const n0=((r-1+p)%p)*inv2%p;for(let n=n0;n<N;n+=p)if(n*n+n+41!==p)alive[n]=0;}}
+ S.alive=alive;let c=0,bh=0,next=10;S.curve=[];S.marks={};for(let n=0;n<N;n++){c+=alive[n];bh+=1/Math.log(n*n+n+41);if(n+1>=next){S.curve.push([n+1,c/(C*bh)]);next=Math.ceil(next*1.03);}if([100,1000,10000,100000,1000000].includes(n+1))S.marks[n+1]=[c,+(C*bh).toFixed(1)];}S.count=c;S.bh=C*bh;}
+function isP(n){if(n<2)return false;if(n%2===0)return n===2;for(let d=3;d*d<=n;d+=2)if(n%d===0)return false;return true;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(460,k?w*0.8:w)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawSpiral(){const W=S.W,H=S.H,dpr=S.dpr,side=Math.max(41,Math.floor(Math.min(W,H)/(3*dpr))|1),cell=Math.min(W,H)/side,ox=(W-side*cell)/2,oy=(H-side*cell)/2;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);const fv=new Set();for(let n=0;n*n+n+41<41+side*side;n++)fv.add(n*n+n+41);
+ let x=0,y=0,dx=1,dy=0,len=1,stepped=0,turns=0;const half=(side-1)/2;for(let k=0;k<side*side;k++){const v=41+k,px=ox+(x+half)*cell,py=oy+(half-y)*cell;if(fv.has(v)){ctx.fillStyle=isP(v)?"#fbbf24":"#f472b6";ctx.fillRect(px,py,Math.max(1,cell*0.95),Math.max(1,cell*0.95));}else if(isP(v)){ctx.fillStyle="#38bdf8";ctx.fillRect(px+cell*0.15,py+cell*0.15,Math.max(1,cell*0.7),Math.max(1,cell*0.7));}
+ x+=dx;y+=dy;stepped++;if(stepped===len){stepped=0;[dx,dy]=[-dy,dx];turns++;if(turns%2===0)len++;}}}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,N=S.N,padL=48*dpr,padR=10*dpr,padT=14*dpr,padB=26*dpr,y0=0.9,y1=1.1,xs=x=>padL+Math.log10(x)/Math.log10(N)*(W-padL-padR),ys=v=>H-padB-(Math.min(y1,Math.max(y0,v))-y0)/(y1-y0)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [0.9,0.95,1,1.05,1.1]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(2),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(let e=1;e<=Math.log10(N);e++)cx.fillText("10^"+e,xs(10**e),H-padB+6*dpr);
+ cx.strokeStyle="#34d399";cx.lineWidth=2*dpr;cx.beginPath();S.curve.forEach(([x,v],i)=>{const X1=xs(x),Y=ys(v);i?cx.lineTo(X1,Y):cx.moveTo(X1,Y);});cx.stroke();cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText("count / Bateman–Horn prediction, n below N (cut at 0.9)",padL+4*dpr,padT);}
+function stats(){const cells=[["Prime values, n below "+f(S.N),f(S.count)],["Bateman–Horn prediction",f(S.bh)],["Ratio",(S.count/S.bh).toFixed(5)],["Share of n giving a prime",(S.count/S.N).toFixed(4)],["Random numbers of that size","about "+(S.count/S.N/C).toFixed(4)]];$("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");$("status").textContent=`For n below ${f(S.N)}, n² + n + 41 is prime ${f(S.count)} times; Bateman and Horn predict ${f(S.bh)}.`;}
+function render(){drawSpiral();drawChart();stats();}
+$("maxn").addEventListener("change",e=>{S.N=Number(e.target.value);setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max"));if([100000,1000000].includes(mx)){S.N=mx;$("maxn").value=String(mx);}prepare();size();render();})();
+</script>
+</body>
+</html>
