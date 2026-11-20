@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime carousel</title>
+<meta name="description" content="For each prime p, ride a carousel of p − 1 seats by multiplying by 2. How often do you visit every seat? Artin guessed 37.4 % of the primes; with Hooley's correction the guess holds for every base we tried.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+input[type=range] { width:180px; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:140px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime carousel</h1>
+  <p>Take a prime, say 7, and put the seats 1 to 6 in a ring. Start at seat 1 and keep multiplying by 2, keeping only the remainder after division by 7: 1 → 2 → 4 → 1. That ride visits only three seats. With 3 instead: 1 → 3 → 2 → 6 → 4 → 5 → 1, every seat. When every seat is visited, the number is a primitive root of the prime. Artin guessed in 1927 that 2 is a primitive root for a fixed share of all primes, about 37.4 %. Census: <a href="prime14.html">prime14</a>, dance: <a href="prime13.html">prime13</a>, radio: <a href="prime11.html">prime11</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="base">Multiply by</label><select id="base"><option value="2" selected>2</option><option value="3">3</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="10">10 (the decimals of 1/p)</option><option value="13">13</option><option value="21">21</option><option value="-3">−3</option><option value="4">4 (a square)</option></select></div>
+    <div class="ctl"><span class="lab">The carousel of the prime <b id="pv">101</b></span><input id="pr" type="range" min="1" max="167" value="25" aria-label="Prime"></div>
+    <div class="ctl"><label for="maxn">Count over the primes up to</label><select id="maxn"><option value="5000">5,000</option><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+    <button id="go" class="go" type="button">Ride</button>
+    <button id="tour" type="button">Next prime</button>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The carousel"></canvas></div>
+    <div class="stage"><canvas id="ch" aria-label="Share of full rides"></canvas></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Artin's guess, measured up to 5,000 and up to 1,000,000</h2>
+    <p class="note">Artin's constant A = ∏ (1 − 1/(q(q − 1))) over all primes q is 0.3739558… For a base that is not a square, not −1 and has no square factor, the predicted share is A, except when the base is 1 more than a multiple of 4: then A is multiplied by 1 − μ(|a|) ∏ 1/(q² − q − 1) over the primes q dividing a (Heilbronn's correction; μ is +1 or −1 as a has an even or odd number of prime factors). So 5 should be a primitive root more often (0.3936), −3 much more often (0.4488) and 21 a little less often (0.3721). Hooley proved all this in 1967, assuming the generalised Riemann hypothesis; without that assumption it is still open even for the base 2. The measured shares agree with every prediction to within about one binomial standard deviation, up to 1,000,000 and up to 10,000,000. The page and a separate program agree on every count, up to 5,000, 1,000,000 and 10,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Base</th><th>Predicted</th><th>Up to 5,000 (668 primes)</th><th>Up to 1,000,000 (78,497 primes)</th><th>Up to 10,000,000 (664,578 primes)</th></tr></thead><tbody>
+<tr><td>2</td><td>0.37396</td><td>0.38174</td><td>0.37378</td><td>0.37391</td></tr>
+<tr><td>3</td><td>0.37396</td><td>0.39671</td><td>0.37445</td><td>0.37411</td></tr>
+<tr><td>5</td><td>0.39364</td><td>0.42066</td><td>0.39345</td><td>0.39394</td></tr>
+<tr><td>10</td><td>0.37396</td><td>0.38681</td><td>0.37582</td><td>0.37450</td></tr>
+<tr><td>13</td><td>0.37637</td><td>0.37425</td><td>0.37674</td><td>0.37647</td></tr>
+<tr><td>21</td><td>0.37213</td><td>0.36282</td><td>0.37193</td><td>0.37213</td></tr>
+<tr><td>−3</td><td>0.44875</td><td>0.46557</td><td>0.45000</td><td>0.44894</td></tr>
+<tr><td>4</td><td>0 (a square)</td><td>0</td><td>0</td><td>0</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),ART=0.3739558136192023;
+const SMALL=(()=>{const o=[];for(let n=3;n<1000;n++){let ok=true;for(let d=2;d*d<=n;d++)if(n%d===0){ok=false;break;}if(ok)o.push(n);}return o;})();
+function mulmod(a,b,m){return(a*b)%m;}
+function powmod(b,e,m){let r=1;b%=m;while(e>0){if(e&1)r=mulmod(r,b,m);b=mulmod(b,b,m);e=Math.floor(e/2);}return r;}
+function factorsOf(n,spf){const s=[];while(n>1){const q=spf[n];s.push(q);while(n%q===0)n/=q;}return s;}
+function predicted(a){if(a===4)return 0;const m=Math.abs(a);if(((a%4)+4)%4!==1)return ART;let mu=1,c=1,t=m;for(let q=2;q<=t;q++)if(t%q===0){t/=q;mu=-mu;c*=1/(q*q-q-1);}return ART*(1-mu*c);}
+const S={a:2,pi:25,X:1e6,ride:[],k:0,run:false,acc:0,last:0,hist:[],cnt:0,tot:0,W:0,H:0,W2:0,H2:0,dpr:1};
+function count(){const X=S.X,spf=new Int32Array(X+1);for(let i=2;i<=X;i++)if(!spf[i])for(let j=i;j<=X;j+=i)if(!spf[j])spf[j]=i;let c=0,t=0;const hist=[];let next=5;
+ for(let p=2;p<=X;p++){if(spf[p]!==p)continue;const g=((S.a%p)+p)%p;if(g===0)continue;t++;let full=true;for(const q of factorsOf(p-1,spf))if(powmod(g,(p-1)/q,p)===1){full=false;break;}if(full)c++;if(p>=next){hist.push([p,c/t]);next=Math.max(next+1,Math.floor(next*1.01));}}
+ hist.push([X,c/t]);S.cnt=c;S.tot=t;S.hist=hist;}
+function makeRide(){const p=SMALL[S.pi],g=((S.a%p)+p)%p;S.ride=[1];if(g===0){S.k=0;return;}let x=g;while(x!==1&&S.ride.length<p){S.ride.push(x);x=mulmod(x,g,p);}S.ride.push(1);S.k=0;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(440,w*0.85)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function seat(i,p){const W=S.W,H=S.H,R=Math.min(W,H)*0.42,a=-Math.PI/2+2*Math.PI*(i-1)/(p-1);return[W/2+R*Math.cos(a),H/2+R*Math.sin(a)];}
+function drawRide(){const W=S.W,H=S.H,dpr=S.dpr,p=SMALL[S.pi],n=p-1,shown=Math.min(S.k,S.ride.length-1),vis=new Set(S.ride.slice(0,shown+1));ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ ctx.lineWidth=Math.max(0.6,1.4-n/600)*dpr;for(let i=0;i<shown;i++){const [x1,y1]=seat(S.ride[i],p),[x2,y2]=seat(S.ride[i+1],p);ctx.strokeStyle=`hsla(${200+140*i/Math.max(1,S.ride.length-1)},80%,62%,0.8)`;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+ const r=Math.max(1.5*dpr,Math.min(9*dpr,Math.PI*Math.min(W,H)*0.42/n*0.8));for(let i=1;i<=n;i++){const [x,y]=seat(i,p);ctx.fillStyle=vis.has(i)?"#fbbf24":"#33445c";ctx.beginPath();ctx.arc(x,y,r,0,6.2832);ctx.fill();if(n<=40){ctx.fillStyle=vis.has(i)?"#0b1220":"#9fb0c6";ctx.font=`${Math.max(8,Math.min(12,r/dpr*1.2))*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(i),x,y);}}
+ if(shown<S.ride.length&&S.ride.length>1){const [x,y]=seat(S.ride[shown],p);ctx.strokeStyle="#f472b6";ctx.lineWidth=2.5*dpr;ctx.beginPath();ctx.arc(x,y,r+4*dpr,0,6.2832);ctx.stroke();}
+ ctx.fillStyle="#edf4ff";ctx.font=`600 ${15*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(`p = ${p}`,W/2,H/2-10*dpr);ctx.fillStyle="#9fb0c6";ctx.font=`${12*dpr}px system-ui,sans-serif`;ctx.fillText(`× ${S.a}`,W/2,H/2+10*dpr);}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,padL=46*dpr,padR=10*dpr,padT=14*dpr,padB=26*dpr,pred=predicted(S.a),y0=pred>0?pred-0.08:0,y1=pred>0?pred+0.08:0.1,X=S.X;
+ const xs=p=>padL+Math.log(p/2)/Math.log(X/2)*(W-padL-padR),ys=v=>H-padB-(Math.min(y1,Math.max(y0,v))-y0)/(y1-y0)*(H-padT-padB);cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.lineWidth=1;cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";
+ for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4,y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(2),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(const t of [10,100,1000,1e4,1e5,1e6,1e7])if(t<=X)cx.fillText(f(t),Math.min(W-padR-20*dpr,xs(t)),H-padB+6*dpr);
+ cx.strokeStyle="#34d399";cx.setLineDash([6*dpr,4*dpr]);cx.lineWidth=2*dpr;cx.beginPath();cx.moveTo(padL,ys(pred));cx.lineTo(W-padR,ys(pred));cx.stroke();cx.setLineDash([]);
+ cx.strokeStyle="#38bdf8";cx.lineWidth=2*dpr;cx.beginPath();S.hist.forEach((h,i)=>{const x=xs(h[0]),y=ys(h[1]);i?cx.lineTo(x,y):cx.moveTo(x,y);});cx.stroke();
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(W<500*dpr?"share of full rides; dashed: prediction":"share of primes with a full ride, up to p (log scale); dashed green: the prediction",padL+4*dpr,padT-8*dpr);}
+function stats(){const p=SMALL[S.pi],L=S.ride.length-1,pred=predicted(S.a),sd=pred>0?Math.sqrt(pred*(1-pred)/S.tot):0,sh=S.cnt/S.tot;
+ const cells=[["Ride length for p = "+p,L>0?`${L} of ${p-1} seats`+(L===p-1?" (all)":""):"–"],["Primes counted",f(S.tot)],["Full rides",f(S.cnt)],["Share",sh.toFixed(5)],["Predicted",pred.toFixed(5)],["Difference",pred>0?`${(sh-pred>=0?"+":"")+(sh-pred).toFixed(5)} (${((sh-pred)/sd).toFixed(1)} sd)`:"–"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=S.ride.length<2?`${S.a} is a multiple of ${p}: no ride.`:S.k>=S.ride.length-1?(L===p-1?`${S.a} is a primitive root of ${p}: the ride visits all ${p-1} seats.`:`${S.a} is not a primitive root of ${p}: back at seat 1 after ${L} of ${p-1} seats (${L} divides ${p-1}).`)+(S.a===10?` The decimals of 1/${p} repeat every ${L} digits.`:""):`Riding: seat ${S.ride[S.k]}.`;}
+function render(){drawRide();drawChart();stats();}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=dt*Math.max(4,S.ride.length/3);const m=Math.floor(S.acc);if(m>0){S.acc-=m;S.k=Math.min(S.ride.length-1,S.k+m);render();}if(S.k>=S.ride.length-1){setRun(false);render();return;}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Ride";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function setPrime(i){S.pi=Math.max(0,Math.min(SMALL.length-1,i));$("pr").value=String(S.pi+1);$("pv").textContent=String(SMALL[S.pi]);makeRide();}
+function full(){count();size();makeRide();S.k=S.ride.length-1;render();}
+$("pr").max=String(SMALL.length);
+$("go").addEventListener("click",()=>{if(S.k>=S.ride.length-1)S.k=0;setRun(!S.run);});
+$("tour").addEventListener("click",()=>{setPrime(S.pi+1);S.k=0;setRun(true);});
+$("pr").addEventListener("input",e=>{setRun(false);setPrime(Number(e.target.value)-1);S.k=S.ride.length-1;render();});
+$("base").addEventListener("change",e=>{S.a=Number(e.target.value);setRun(false);$("status").textContent="Counting…";setTimeout(full,20);});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setRun(false);$("status").textContent="Counting…";setTimeout(full,20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),a=Number(q.get("a")),mx=Number(q.get("max")),p=Number(q.get("p"));if([2,3,5,6,7,10,13,21,-3,4].includes(a)){S.a=a;$("base").value=String(a);}if([5000,100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}const ip=SMALL.indexOf(p);if(ip>=0)S.pi=ip;$("pr").value=String(S.pi+1);$("pv").textContent=String(SMALL[S.pi]);full();if(q.get("run")==="1"){S.k=0;setRun(true);}})();
+</script>
+</body>
+</html>
