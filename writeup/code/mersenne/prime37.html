@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime gaps</title>
+<meta name="description" content="Every gap between consecutive primes up to 1,000 or 10,000: prime 1 to 2 (2 to 3) gap 1, prime 2 to 3 (3 to 5) gap 2, and so on. A bar for every gap, a mosaic, how often each gap occurs and the full list. Up to 10,000 the most common gap is 6 and the largest is 36, from 9,551 to 9,587.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+#cv, #mo { touch-action:none; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:8px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+.list { max-height:420px; overflow:auto; border:1px solid var(--edge); border-radius:9px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; font-variant-numeric:tabular-nums; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:4px 10px; text-align:right; }
+table.bt th { color:var(--muted); font-weight:600; position:sticky; top:0; background:var(--panel); }
+table.bt td:first-child, table.bt th:first-child { text-align:left; }
+.chip { display:inline-block; min-width:28px; text-align:center; border-radius:6px; padding:0 6px; color:#0b1220; font-weight:700; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime gaps</h1>
+  <p>Walk along the primes 2, 3, 5, 7, 11, … and write down each step: prime 1 to 2 (2 to 3) has gap 1, prime 2 to 3 (3 to 5) gap 2, prime 3 to 4 (5 to 7) gap 2, prime 4 to 5 (7 to 11) gap 4. Every gap after the first is even, because all primes after 2 are odd. Below: a bar for every gap, a mosaic with one tile per gap, how often each gap occurs, and the full list. Tap or hover a bar or a tile. Jumping champion (the most common gap further out): <a href="prime34.html">prime34</a>, overview: <a href="primes.html">all pages</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Primes up to</label><select id="maxn"><option value="1000" selected>1,000 (168 primes)</option><option value="10000">10,000 (1,229 primes)</option></select></div>
+    <div class="ctl"><label for="only">List shows</label><select id="only"></select></div>
+  </section>
+  <div id="stage">
+    <div class="stage"><canvas id="cv" aria-label="A bar for every gap between consecutive primes"></canvas></div>
+    <div class="two">
+      <div class="stage"><canvas id="mo" aria-label="Mosaic, one tile per gap"></canvas></div>
+      <div class="stage"><canvas id="hi" aria-label="How often each gap occurs"></canvas></div>
+    </div>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel"><h2>Every gap</h2><p class="note">n to n + 1 means the n-th and the (n + 1)-th prime. Record gaps, larger than every gap before them, are marked ★.</p>
+  <div class="list"><table class="bt"><thead><tr><th>primes</th><th>from</th><th>to</th><th>gap</th></tr></thead><tbody id="bt"></tbody></table></div></section>
+  <section class="panel"><h2>What to notice</h2><p class="note" id="notes"></p></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),mo=$("mo"),mx=mo.getContext("2d"),hi=$("hi"),hx=hi.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const S={X:1000,P:[],G:[],rec:new Set(),only:"all",hover:-1,dpr:1,W:0,H:0,W2:0,H2:0,W3:0,H3:0,bar:null,tile:null};
+const COLS=[[2,"#38bdf8"],[4,"#34d399"],[6,"#fbbf24"],[8,"#fb923c"],[12,"#f472b6"],[18,"#a78bfa"],[999,"#ef4444"]];
+const col=g=>COLS.find(c=>g<=c[0])[1];
+const LEG=[["1 or 2","#38bdf8"],["4","#34d399"],["6","#fbbf24"],["8","#fb923c"],["10, 12","#f472b6"],["14 to 18","#a78bfa"],["20 and more","#ef4444"]];
+function prepare(){const X=S.X,c=new Uint8Array(X+1);for(let i=2;i*i<=X;i++)if(!c[i])for(let j=i*i;j<=X;j+=i)c[j]=1;S.P=[];for(let n=2;n<=X;n++)if(!c[n])S.P.push(n);S.G=S.P.slice(1).map((q,i)=>q-S.P[i]);S.rec=new Set();let b=0;S.G.forEach((g,i)=>{if(g>b){b=g;S.rec.add(i);}});
+ const gs=[...new Set(S.G)].sort((a,b)=>a-b);$("only").innerHTML=`<option value="all">every gap</option><option value="rec">record gaps only</option>`+gs.map(g=>`<option value="${g}">gap ${g} only</option>`).join("");if(S.only!=="all"&&S.only!=="rec"&&!gs.includes(Number(S.only)))S.only="all";$("only").value=S.only;}
+function counts(){const c={};for(const g of S.G)c[g]=(c[g]||0)+1;return c;}
+function summary(){const c=counts(),mostN=Math.max(...Object.values(c));return {primes:S.P.length,gaps:S.G.length,sum:S.G.reduce((a,b)=>a+b,0),max:Math.max(...S.G),count:c,most:Object.keys(c).filter(k=>c[k]===mostN).map(Number),records:[...S.rec].map(i=>[i+1,S.P[i],S.P[i+1],S.G[i]]),list:S.G};}
+function size(){S.dpr=window.devicePixelRatio||1;const d=S.dpr;
+ let w=cv.parentElement.clientWidth,h=Math.round(Math.max(240,Math.min(380,w*0.38)));cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;
+ w=mo.parentElement.clientWidth;h=Math.round(Math.max(260,Math.min(420,w*0.8)));mo.width=Math.round(w*d);mo.height=Math.round(h*d);mo.style.height=h+"px";S.W2=mo.width;S.H2=mo.height;
+ w=hi.parentElement.clientWidth;hi.width=Math.round(w*d);hi.height=mo.height;hi.style.height=h+"px";S.W3=hi.width;S.H3=hi.height;}
+function drawBars(){const W=S.W,H=S.H,d=S.dpr,G=S.G,n=G.length,top=Math.max(...G),padL=30*d,padR=10*d,padT=24*d,padB=22*d,bw=(W-padL-padR)/n,ys=v=>H-padB-v/top*(H-padT-padB);S.bar={padL,bw};
+ ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.font=`${10*d}px system-ui,sans-serif`;ctx.strokeStyle="#26364c";ctx.fillStyle="#9fb0c6";ctx.textAlign="right";ctx.textBaseline="middle";
+ const step=top>24?6:2;for(let v=0;v<=top;v+=step){const y=ys(v);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.fillText(String(v),padL-5*d,y);}
+ G.forEach((g,i)=>{ctx.fillStyle=col(g);const x=padL+i*bw;ctx.fillRect(x+(bw>3*d?0.5*d:0),ys(g),Math.max(0.6*d,bw-(bw>3*d?1*d:0)),ys(0)-ys(g));});
+ ctx.textAlign="center";ctx.textBaseline="bottom";ctx.fillStyle="#edf4ff";for(const i of S.rec){if(G[i]<6)continue;ctx.fillText(`${S.P[i]}→${S.P[i+1]}`,Math.min(W-padR-30*d,Math.max(padL+30*d,padL+(i+0.5)*bw)),ys(G[i])-3*d);}
+ if(S.hover>=0){ctx.strokeStyle="#ffffff";ctx.lineWidth=1.5*d;const x=padL+S.hover*bw;ctx.strokeRect(x-1*d,ys(G[S.hover])-1*d,Math.max(2*d,bw)+2*d,ys(0)-ys(G[S.hover])+2*d);ctx.lineWidth=1;}
+ ctx.fillStyle="#9fb0c6";ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`gap after each prime, from prime 1 (2) to prime ${S.P.length} (${f(S.P[S.P.length-1])})`,padL,5*d);ctx.textAlign="center";ctx.textBaseline="top";
+ for(const k of [1,Math.round(n/4),Math.round(n/2),Math.round(3*n/4),n])ctx.fillText("#"+k,Math.min(W-padR-14*d,Math.max(padL+10*d,padL+(k-0.5)*bw)),H-padB+5*d);}
+function drawMosaic(){const W=S.W2,H=S.H2,d=S.dpr,G=S.G,n=G.length,pad=8*d,top=22*d;let cols=Math.ceil(Math.sqrt(n*(W-2*pad)/(H-pad-top)));let rows=Math.ceil(n/cols);const t=Math.min((W-2*pad)/cols,(H-pad-top)/rows);S.tile={pad,top,t,cols};
+ mx.fillStyle="#0e1828";mx.fillRect(0,0,W,H);mx.textAlign="center";mx.textBaseline="middle";mx.font=`600 ${Math.max(7*d,t*0.45)}px system-ui,sans-serif`;
+ G.forEach((g,i)=>{const x=pad+(i%cols)*t,y=top+Math.floor(i/cols)*t,on=S.only==="all"||(S.only==="rec"?S.rec.has(i):g===Number(S.only));mx.globalAlpha=on?1:0.18;mx.fillStyle=col(g);mx.fillRect(x+0.5*d,y+0.5*d,t-1*d,t-1*d);if(t>=14*d&&on){mx.fillStyle="#0b1220";mx.fillText(String(g),x+t/2,y+t/2+0.5*d);}});mx.globalAlpha=1;
+ if(S.hover>=0){const i=S.hover,x=pad+(i%cols)*t,y=top+Math.floor(i/cols)*t;mx.strokeStyle="#ffffff";mx.lineWidth=2*d;mx.strokeRect(x,y,t,t);mx.lineWidth=1;}
+ mx.fillStyle="#9fb0c6";mx.font=`${10*d}px system-ui,sans-serif`;mx.textAlign="left";mx.textBaseline="top";mx.fillText(`one tile per gap, read like a book (${cols} per row)`,pad,5*d);}
+function drawHist(){const W=S.W3,H=S.H3,d=S.dpr,c=counts(),ks=Object.keys(c).map(Number).sort((a,b)=>a-b),mxv=Math.max(...Object.values(c)),padL=34*d,padR=34*d,padT=24*d,padB=8*d,rh=(H-padT-padB)/ks.length;
+ hx.fillStyle="#0e1828";hx.fillRect(0,0,W,H);hx.font=`${Math.min(10.5*d,rh*0.75)}px system-ui,sans-serif`;hx.textBaseline="middle";
+ ks.forEach((k,i)=>{const y=padT+i*rh,h=Math.max(1,rh*0.74),w=(W-padL-padR)*c[k]/mxv;hx.fillStyle=col(k);hx.fillRect(padL,y,w,h);hx.fillStyle="#9fb0c6";hx.textAlign="right";hx.fillText(String(k),padL-6*d,y+h/2);hx.textAlign="left";hx.fillStyle="#edf4ff";hx.fillText(f(c[k]),padL+w+4*d,y+h/2);});
+ hx.fillStyle="#9fb0c6";hx.textAlign="left";hx.textBaseline="top";hx.font=`${10*d}px system-ui,sans-serif`;hx.fillText("how often each gap occurs",padL,5*d);}
+function stats(){const s=summary();const cells=[["Primes up to "+f(S.X),f(s.primes)],["Gaps",f(s.gaps)],["Average gap",(s.sum/s.gaps).toFixed(2)],["Most common gap",s.most.join(", ")+" ("+f(s.count[s.most[0]])+"×)"],["Largest gap",s.max+" ("+s.records[s.records.length-1][1]+" → "+s.records[s.records.length-1][2]+")"],["Twin pairs (gap 2)",f(s.count[2]||0)]];
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");}
+function table(){const rows=[];S.G.forEach((g,i)=>{if(S.only==="rec"&&!S.rec.has(i))return;if(S.only!=="all"&&S.only!=="rec"&&g!==Number(S.only))return;rows.push(`<tr><td>prime ${i+1}–${i+2}${S.rec.has(i)?" ★":""}</td><td>${f(S.P[i])}</td><td>${f(S.P[i+1])}</td><td><span class="chip" style="background:${col(g)}">${g}</span></td></tr>`);});$("bt").innerHTML=rows.join("");}
+function notes(){const s=summary(),c=s.count,t=c[2]||0,q=c[4]||0,x=c[6]||0;$("notes").textContent=`Up to ${f(S.X)} there are ${f(s.primes)} primes and ${f(s.gaps)} gaps. The gaps add up to ${f(s.sum)}, the last prime minus 2. Gap 6 is the most common (${f(x)} times) ahead of 2 (${f(t)}) and 4 (${f(q)}): for a prime p above 3, one of p + 2 and p + 4 is a multiple of 3, but p + 6 never is. After 3, gaps of 2, 8, 14, 20, … (2 mod 6) can only start at a prime of the form 6k − 1, and gaps of 4, 10, 16, … only at 6k + 1. The gaps grow slowly: the average up to x is about ln x − 1 (${(Math.log(S.X)-1).toFixed(2)} here, counted ${(s.sum/s.gaps).toFixed(2)}), since there are about x / ln x primes up to x. The record gaps, each larger than all before it, start at ${s.records.map(r=>f(r[1])).join(", ")}.`;}
+function status(){if(S.hover<0){const s=summary();$("status").textContent=`${f(s.gaps)} gaps between the ${f(s.primes)} primes up to ${f(S.X)}; the largest is ${s.max}, from ${f(s.records[s.records.length-1][1])} to ${f(s.records[s.records.length-1][2])}.`;return;}const i=S.hover;$("status").textContent=`Prime ${i+1}–${i+2}: ${f(S.P[i])} → ${f(S.P[i+1])}, gap ${S.G[i]}${S.rec.has(i)?", a record":""}.`;}
+function render(){drawBars();drawMosaic();drawHist();stats();status();}
+function pickBar(e){const b=cv.getBoundingClientRect(),d=S.dpr,i=Math.floor(((e.clientX-b.left)*d-S.bar.padL)/S.bar.bw);S.hover=i>=0&&i<S.G.length?i:-1;render();}
+function pickTile(e){const b=mo.getBoundingClientRect(),d=S.dpr,T=S.tile,cx=Math.floor(((e.clientX-b.left)*d-T.pad)/T.t),cy=Math.floor(((e.clientY-b.top)*d-T.top)/T.t),i=cy*T.cols+cx;S.hover=cx>=0&&cx<T.cols&&cy>=0&&i<S.G.length?i:-1;render();}
+cv.addEventListener("pointermove",pickBar);cv.addEventListener("pointerdown",pickBar);mo.addEventListener("pointermove",pickTile);mo.addEventListener("pointerdown",pickTile);
+for(const c of [cv,mo])c.addEventListener("pointerleave",e=>{if(e.pointerType!=="mouse")return;S.hover=-1;render();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);S.hover=-1;prepare();size();render();table();notes();});
+$("only").addEventListener("change",e=>{S.only=e.target.value;render();table();});
+window.addEventListener("resize",()=>{size();render();});
+$("legend").innerHTML=LEG.map(([t,c])=>`<span><span class="sw" style="background:${c}"></span>gap ${t}</span>`).join("");
+(()=>{const q=new URLSearchParams(location.search),m=Number(q.get("max"));if([1000,10000].includes(m)){S.X=m;$("maxn").value=String(m);}prepare();size();render();table();notes();})();
+</script>
+</body>
+</html>
