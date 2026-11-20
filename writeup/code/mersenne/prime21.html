@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime doorman</title>
+<meta name="description" content="At the door of each prime p the numbers 2, 3, 4, … knock; the squares mod p are let in. Who is the first one turned away? Half the time 2, a quarter of the time 3: Erdős's law, and its slow mean 3.6746.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+input[type=number], select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+input[type=number] { width:140px; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime doorman</h1>
+  <p>At the door of a prime p stand the numbers 1, 2, 3, 4, … The doorman lets in the squares: the numbers that leave the same remainder after division by p as some square. For p = 7 the squares 1, 4, 9 = 2, 16 = 2, … leave 1, 2, 4, so 1, 2, 4 go in and 3 is the first turned away. Half of the primes turn away 2 already, a quarter 3, an eighth 5: Erdős's law. Compass: <a href="prime20.html">prime20</a>, carousel (the first number that visits every seat): <a href="prime15.html">prime15</a>, Galton board: <a href="prime7.html">prime7</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="p">The door of the prime</label><input id="p" type="number" min="3" max="10000000" value="71"></div>
+    <button id="nextp" type="button">Next prime</button>
+    <button id="rec" type="button">Next record</button>
+    <div class="ctl"><label for="maxn">Count the primes up to</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The queue at the door"></canvas></div>
+    <div><div class="stage"><canvas id="ch" aria-label="Who is turned away first"></canvas></div><div class="legend"><span><span class="sw" style="background:#38bdf8"></span>share of primes whose first refused is 2, 3, 5, …</span><span><span class="sw" style="background:#34d399"></span>Erdős: 1/2, 1/4, 1/8, …</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Erdős's law, measured up to 100,000 and 1,000,000</h2>
+    <p class="note">The first number turned away is always a prime q, and it is q exactly when every smaller prime is a square mod p and q is not. By quadratic reciprocity each of these is a condition on the remainder of p, and by Dirichlet's theorem the primes satisfy each combination equally often, so the share with first refusal at the k-th prime tends to 2<sup>−k</sup> (Erdős, 1961), and the mean tends to Σ p<sub>k</sub> / 2<sup>k</sup> = 3.674644. The shares are on target within 0.002, but the mean creeps up from below: the conditions for a late refusal repeat only every 8 · 3 · 5 · 7 · … numbers, and up to a million the rare primes that turn away 31 or 43 (the pseudosquares of prime7) have not all appeared. The least primitive root, the first knocker who would visit every seat of the carousel, averages 4.73 and 4.88; Elliott and Murata conjectured that its mean tends to a constant. The page and a separate program agree on every count and both means, up to 100,000 and 1,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>First refused</th><th>Erdős</th><th>up to 100,000</th><th>up to 1,000,000</th></tr></thead><tbody>
+<tr><td>2</td><td>0.50000</td><td>0.50130</td><td>0.50035</td></tr>
+<tr><td>3</td><td>0.25000</td><td>0.25107</td><td>0.25025</td></tr>
+<tr><td>5</td><td>0.12500</td><td>0.12533</td><td>0.12520</td></tr>
+<tr><td>7</td><td>0.06250</td><td>0.06277</td><td>0.06265</td></tr>
+<tr><td>11</td><td>0.03125</td><td>0.03190</td><td>0.03142</td></tr>
+<tr><td>mean</td><td>3.67464</td><td>3.60035</td><td>3.64614</td></tr>
+<tr><td>largest</td><td>–</td><td>31 (at 31,391)</td><td>43 (at 366,791)</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+const QS=(()=>{const o=[];for(let n=2;n<400;n++){let ok=true;for(const q of o){if(q*q>n)break;if(n%q===0){ok=false;break;}}if(ok)o.push(n);}return o;})();
+const ERD=QS.reduce((s,q,k)=>s+q/2**(k+1),0);
+function mulmod(a,b,m){return a*b%m;}
+function powmod(b,e,m){let r=1;b%=m;while(e>0){if(e%2===1)r=mulmod(r,b,m);b=mulmod(b,b,m);e=Math.floor(e/2);}return r;}
+const S={X:1e6,p:71,spf:null,P:[],nq:null,gq:null,cnt:{},mean:0,gmean:0,curve:[],W:0,H:0,W2:0,H2:0,dpr:1};
+function factors(n){const s=[];while(n>1){const q=S.spf[n]||n;s.push(q);while(n%q===0)n/=q;}return s;}
+function lnr(p){const h=(p-1)/2;for(const q of QS)if(powmod(q,h,p)===p-1)return q;return 0;}
+function lpr(p){const F=factors(p-1);for(let g=2;;g++){let ok=true;for(const r of F)if(powmod(g,(p-1)/r,p)===1){ok=false;break;}if(ok)return g;}}
+function prepare(){const X=S.X,spf=new Int32Array(X+1);for(let i=2;i*i<=X;i++)if(!spf[i])for(let j=i*i;j<=X;j+=i)if(!spf[j])spf[j]=i;S.spf=spf;S.P=[];for(let p=3;p<=X;p++)if(!spf[p])S.P.push(p);
+ S.cnt={};let s=0,g=0,n=0;S.curve=[];let next=10;S.nq=new Uint16Array(S.P.length);S.gq=new Uint16Array(S.P.length);
+ S.P.forEach((p,i)=>{const q=lnr(p),r=lpr(p);S.nq[i]=q;S.gq[i]=r;S.cnt[q]=(S.cnt[q]||0)+1;s+=q;g+=r;n++;if(p>=next){S.curve.push([p,s/n]);next*=1.05;}});S.mean=s/n;S.gmean=g/n;S.curve.push([X,s/n]);}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(420,w*0.8)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawDoor(){const W=S.W,H=S.H,dpr=S.dpr,p=S.p;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);const n=Math.min(p-1,64),cols=8,cs=Math.min((W-20*dpr)/cols,(H-60*dpr)/Math.ceil(n/cols)),ox=(W-cs*cols)/2,oy=44*dpr,h=(p-1)/2,q=lnr(p),g=lpr(p);
+ ctx.fillStyle="#edf4ff";ctx.font=`600 ${15*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`The door of ${f(p)}: first turned away ${q}, first primitive root ${g}`,10*dpr,10*dpr);
+ for(let k=1;k<=n;k++){const i=k-1,c=i%cols,r=Math.floor(i/cols),sq=powmod(k,h,p)===1,x=ox+c*cs,y=oy+r*cs;ctx.fillStyle=sq?"#14532d":"#3b1530";if(k<q)ctx.fillStyle=sq?"#34d399":"#3b1530";ctx.fillRect(x+2*dpr,y+2*dpr,cs-4*dpr,cs-4*dpr);if(k===q){ctx.strokeStyle="#f472b6";ctx.lineWidth=3*dpr;ctx.strokeRect(x+2*dpr,y+2*dpr,cs-4*dpr,cs-4*dpr);}if(k===g){ctx.strokeStyle="#fbbf24";ctx.lineWidth=2*dpr;ctx.strokeRect(x+5*dpr,y+5*dpr,cs-10*dpr,cs-10*dpr);}
+  ctx.fillStyle=sq?"#edf4ff":"#f9a8d4";ctx.font=`${Math.min(16,cs/dpr*0.4)*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(k),x+cs/2,y+cs/2);}
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="bottom";ctx.fillText(W<900*dpr?"green: let in · pink frame: first refused · gold: primitive root":"green: a square mod p, let in · dark pink: refused · pink frame: the first refused · gold frame: the least primitive root",10*dpr,H-6*dpr);}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,K=9,padL=40*dpr,padR=10*dpr,padT=14*dpr,padB=26*dpr,bw=(W-padL-padR)/K,n=S.P.length,ys=v=>H-padB-Math.sqrt(v/0.55)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [0.01,0.05,0.125,0.25,0.5]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(String(v),padL-5*dpr,y);}
+ for(let k=0;k<K;k++){const q=QS[k],sh=(S.cnt[q]||0)/n,x=padL+k*bw;cx.fillStyle="#38bdf8";cx.fillRect(x+bw*0.15,ys(sh),bw*0.5,H-padB-ys(sh));cx.fillStyle="#34d399";cx.fillRect(x+bw*0.68,ys(2**-(k+1)),bw*0.2,H-padB-ys(2**-(k+1)));cx.fillStyle="#9fb0c6";cx.textAlign="center";cx.textBaseline="top";cx.fillText(String(q),x+bw/2,H-padB+6*dpr);}
+ cx.textAlign="left";cx.fillText(W<500*dpr?"share by first refused (square-root scale)":"share of primes up to x by their first refused number (square-root scale)",padL+4*dpr,padT-10*dpr);}
+function stats(){const cells=[["Primes counted",f(S.P.length)],["Mean first refused",S.mean.toFixed(5)],["Erdős's limit",ERD.toFixed(5)],["Mean least primitive root",S.gmean.toFixed(5)],["Largest first refused",(()=>{let m=0,at=0;S.P.forEach((p,i)=>{if(S.nq[i]>m){m=S.nq[i];at=p;}});return`${m} (at ${f(at)})`;})()]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");}
+function isP(p){if(p<3||p%2===0)return false;for(let d=3;d*d<=p;d+=2)if(p%d===0)return false;return true;}
+function show(){let p=Math.round(Number($("p").value)||71);if(p<3)p=3;while(!isP(p))p++;S.p=p;$("p").value=String(p);drawDoor();const q=lnr(p);$("status").textContent=`${f(p)}: the numbers below ${q} are all squares mod ${f(p)}; ${q} is not.`;}
+function render(){show();drawChart();stats();}
+$("p").addEventListener("change",show);
+$("nextp").addEventListener("click",()=>{$("p").value=String(S.p+2);show();});
+$("rec").addEventListener("click",()=>{let best=lnr(S.p);for(let p=S.p+2;p<=S.X;p+=2){if(!isP(p))continue;if(lnr(p)>best){$("p").value=String(p);show();return;}}$("status").textContent="No new record up to "+f(S.X)+".";});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);$("status").textContent="Counting…";setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),p=Number(q.get("p"));if([100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(p>2)$("p").value=String(p);prepare();size();render();})();
+</script>
+</body>
+</html>
