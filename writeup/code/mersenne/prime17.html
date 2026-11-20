@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime bricks</title>
+<meta name="description" content="Build every number from prime bricks. With only small bricks, how many numbers can you build? Dickman's function answers in the limit; de Bruijn's corrections are needed at every size we can count.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+input[type=range] { width:200px; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:150px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime bricks</h1>
+  <p>Every number is a tower of prime bricks: 360 = 2 · 2 · 2 · 3 · 3 · 5. Now take away all bricks larger than y. Which numbers can you still build? With bricks up to 10 only (2, 3, 5, 7), you can build 1,273 of the numbers up to a million. Dickman found in 1930 that the share tends to ρ(u), u = ln x / ln y, a function that falls faster than any power. At every size we can count, ρ is too pessimistic. Baskets: <a href="prime16.html">prime16</a>, rain (the opposite: numbers with only large bricks): <a href="prime12.html">prime12</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><span class="lab">Largest brick y = <b id="yv">13</b></span><input id="y" type="range" min="0" max="1000" value="210" aria-label="Largest brick"></div>
+    <div class="ctl"><label for="maxn">Count the numbers up to x =</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div><div class="stage"><canvas id="cv" aria-label="The numbers up to 600, buildable or not"></canvas></div><div class="legend"><span><span class="sw" style="background:#34d399"></span>buildable with bricks up to y</span><span><span class="sw" style="background:#1b2a42"></span>needs a larger brick</span><span>click a number for its tower</span></div></div>
+    <div><div class="stage"><canvas id="ch" aria-label="Share of buildable numbers against the predictions"></canvas></div><div class="legend"><span><span class="sw" style="background:#38bdf8"></span>the count Ψ(x, y) (= 1)</span><span><span class="sw" style="background:#f472b6"></span>Dickman ρ(u)</span><span><span class="sw" style="background:#fbbf24"></span>+ de Bruijn's term</span><span><span class="sw" style="background:#34d399"></span>de Bruijn's Λ (dots, for every y you visit)</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Three predictions against the count, up to 1,000,000 and 10,000,000</h2>
+    <p class="note">Ψ(x, y) counts the numbers up to x without a prime factor above y. Dickman: x ρ(u), with ρ = 1 up to 1 and u ρ′(u) = −ρ(u − 1) beyond. De Bruijn showed that the difference is about (1 − γ) x ρ(u − 1) / ln x, and he defined a finer approximation Λ(x, y) = x ∫ ρ(u − v) d(⌊y<sup>v</sup>⌋ / y<sup>v</sup>), which Saias (1989) proved to be accurate to a factor 1 + O(exp(−(ln y)<sup>3/5 − ε</sup>)) when y is not too small. At these sizes every step helps but none is exact: the counted share is above all three. The page and a separate program agree on the counts, ρ and Λ, up to 100,000, 1,000,000 and 10,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>y</th><th>u</th><th>Ψ(x, y)</th><th>x ρ(u) / Ψ</th><th>with de Bruijn's term</th><th>Λ / Ψ</th></tr></thead><tbody>
+<tr><td>1,000,000</td><td>100</td><td>3.00</td><td>72,271</td><td>0.673</td><td>0.803</td><td>0.888</td></tr>
+<tr><td>1,000,000</td><td>1,000</td><td>2.00</td><td>344,299</td><td>0.891</td><td>0.980</td><td>0.989</td></tr>
+<tr><td>1,000,000</td><td>10,000</td><td>1.50</td><td>628,743</td><td>0.946</td><td>0.994</td><td>0.998</td></tr>
+<tr><td>10,000,000</td><td>100</td><td>3.50</td><td>269,882</td><td>0.601</td><td>0.728</td><td>0.837</td></tr>
+<tr><td>10,000,000</td><td>215</td><td>3.00</td><td>665,196</td><td>0.729</td><td>0.850</td><td>0.915</td></tr>
+<tr><td>10,000,000</td><td>3,162</td><td>2.00</td><td>3,362,157</td><td>0.913</td><td>0.991</td><td>0.997</td></tr>
+<tr><td>10,000,000</td><td>46,416</td><td>1.50</td><td>6,230,064</td><td>0.954</td><td>0.996</td><td>1.000</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),G=0.5772156649015329;
+const RH=1e-4,RHO=(()=>{const n=Math.round(20/RH)+1,r=new Float64Array(n).fill(1),k=Math.round(1/RH);for(let i=k+1;i<n;i++){const u=i*RH,up=(i-1)*RH;r[i]=r[i-1]-RH*(r[i-k]/u+r[i-1-k]/up)/2;}return r;})();
+function rho(u){if(u<0)return 0;const t=u/RH,i=Math.floor(t);if(i>=RHO.length-1)return 0;return RHO[i]+(RHO[i+1]-RHO[i])*(t-i);}
+const GLX=[-0.9324695142031521,-0.6612093864662645,-0.2386191860831969,0.2386191860831969,0.6612093864662645,0.9324695142031521],GLW=[0.1713244923791704,0.3607615730481386,0.4679139345726910,0.4679139345726910,0.3607615730481386,0.1713244923791704];
+function Lam(x,y){const ly=Math.log(y),u=Math.log(x)/ly;let s1=0,s2=0;for(let m=1;m<=x;m++){s1+=rho(u-Math.log(m)/ly)/m;if(m<x){let g=0;for(let k=0;k<6;k++){const t=m+(GLX[k]+1)/2;g+=GLW[k]*rho(u-Math.log(t)/ly)/(t*t);}s2+=m*g/2;}}return x*(s1-s2);}
+const S={x:1e6,yi:5,P:[],gpf:null,cum:null,sel:0,small:600,W:0,H:0,W2:0,H2:0,dpr:1,lam:{}};
+function prepare(){const x=S.x,gpf=new Int32Array(x+1),s=new Uint8Array(x+1);gpf[1]=1;S.P=[];for(let p=2;p<=x;p++){if(s[p])continue;S.P.push(p);for(let m=p;m<=x;m+=p){s[m]=1;gpf[m]=p;}}S.gpf=gpf;const cnt=new Int32Array(x+1);for(let n=1;n<=x;n++)cnt[gpf[n]]++;const cum=new Float64Array(x+1);let c=0;for(let i=0;i<=x;i++){c+=cnt[i];cum[i]=c;}S.cum=cum;S.lam={};
+ S.yi=idxFor(Number($("y").value));}
+function idxFor(v){const t=Math.exp(Math.log(2)+(Math.log(S.x)-Math.log(2))*v/1000);let lo=0,hi=S.P.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(S.P[m]<=t)lo=m;else hi=m-1;}return lo;}
+let lamT=null;function lamLater(){clearTimeout(lamT);lamT=setTimeout(()=>{const y=Y();if(S.lam[y]===undefined){S.lam[y]=Lam(S.x,y);render();}},250);}
+function Y(){return S.P[S.yi];}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(440,w*0.8)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function cellOf(n){const N=S.small,W=S.W,H=S.H,cols=Math.ceil(Math.sqrt(N*W/H)),cs=Math.min((W-8*S.dpr)/cols,(H-8*S.dpr)/Math.ceil(N/cols)),ox=(W-cs*cols)/2,oy=(H-cs*Math.ceil(N/cols))/2;return{cols,cs,ox,oy};}
+function factors(n){const o=[];let m=n;while(m>1){const p=S.gpf[m];o.push(p);m/=p;}return o.sort((a,b)=>a-b);}
+function drawGrid(){const W=S.W,H=S.H,dpr=S.dpr,y=Y(),N=S.small,{cols,cs,ox,oy}=cellOf();ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ for(let n=1;n<=N;n++){const i=n-1,c=i%cols,r=Math.floor(i/cols),ok=S.gpf[n]<=y;ctx.fillStyle=n===S.sel?"#fbbf24":ok?"#34d399":"#1b2a42";ctx.fillRect(ox+c*cs,oy+r*cs,Math.max(1,cs-1),Math.max(1,cs-1));if(cs>=15*dpr){ctx.fillStyle=ok||n===S.sel?"#0b1220":"#6b7f99";ctx.font=`${Math.floor(cs*0.36)}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(n),ox+c*cs+cs/2,oy+r*cs+cs/2);}}
+ if(S.sel){const fs=factors(S.sel),bw=Math.min(70*dpr,W*0.18),x0=W-bw-10*dpr;let yb=H-10*dpr;ctx.fillStyle="rgba(11,18,32,0.85)";ctx.fillRect(x0-6*dpr,8*dpr,bw+12*dpr,H-16*dpr);for(const p of fs){const hgt=Math.max(12*dpr,Math.log(p)*14*dpr);yb-=hgt;ctx.fillStyle=p<=y?"#34d399":"#f472b6";ctx.fillRect(x0,yb,bw,hgt-2*dpr);ctx.fillStyle="#0b1220";ctx.font=`600 ${11*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(p),x0+bw/2,yb+hgt/2);}ctx.fillStyle="#edf4ff";ctx.font=`600 ${12*dpr}px system-ui,sans-serif`;ctx.fillText(String(S.sel),x0+bw/2,Math.max(20*dpr,yb-10*dpr));}}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,x=S.x,lx=Math.log(x),padL=44*dpr,padR=10*dpr,padT=12*dpr,padB=26*dpr,X0=Math.log(2),X1=lx,xs=t=>padL+(Math.log(t)-X0)/(X1-X0)*(W-padL-padR),y0=0.4,y1=1.05,ys=v=>H-padB-(Math.min(y1,Math.max(y0,v))-y0)/(y1-y0)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.lineWidth=1;cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [0.4,0.6,0.8,1.0]){const yy=ys(v);cx.beginPath();cx.moveTo(padL,yy);cx.lineTo(W-padR,yy);cx.stroke();cx.fillText(v.toFixed(1),padL-5*dpr,yy);}
+ cx.textAlign="center";cx.textBaseline="top";for(const t of [10,100,1000,1e4,1e5,1e6,1e7])if(t<=x)cx.fillText(f(t),Math.min(W-padR-18*dpr,xs(t)),H-padB+6*dpr);
+ const line=(fn,col,step)=>{cx.strokeStyle=col;cx.lineWidth=2*dpr;cx.beginPath();let st=false;for(let i=0;i<=300;i+=step||1){const t=Math.exp(X0+(X1-X0)*i/300),v=fn(t);if(v===null)continue;const X=xs(t),Yv=ys(v);st?cx.lineTo(X,Yv):cx.moveTo(X,Yv);st=true;}cx.stroke();};
+ const C=t=>S.cum[Math.floor(t)];line(t=>1,"#38bdf8");line(t=>{const c=C(t);return c>=20?x*rho(lx/Math.log(t))/c:null;},"#f472b6");line(t=>{const c=C(t),u=lx/Math.log(t);return c>=20?x*(rho(u)+(1-G)*rho(u-1)/lx)/c:null;},"#fbbf24");
+ const keys=Object.keys(S.lam).map(Number).sort((a,b)=>a-b);cx.fillStyle="#34d399";for(const y of keys){cx.beginPath();cx.arc(xs(y),ys(S.lam[y]/S.cum[y]),3.5*dpr,0,6.2832);cx.fill();}
+ const y=Y();cx.strokeStyle="#9fb0c6";cx.setLineDash([4*dpr,4*dpr]);cx.beginPath();cx.moveTo(xs(y),padT);cx.lineTo(xs(y),H-padB);cx.stroke();cx.setLineDash([]);
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(W<500*dpr?"prediction / count":"each prediction divided by the count (1 = exact), against the largest brick y",padL+4*dpr,padT);}
+function stats(){const x=S.x,y=Y(),u=Math.log(x)/Math.log(y),ps=S.cum[y],r=x*rho(u),d=r+(1-G)*x*rho(u-1)/Math.log(x);const L=S.lam[y];if(L===undefined)lamLater();
+ const cells=[["Bricks","primes up to "+f(y)+` (${S.yi+1} of them)`],["u = ln x / ln y",u.toFixed(3)],["Buildable numbers up to x: Ψ(x, y)",f(ps)],["Dickman x ρ(u)",f(r)+` (${(r/ps).toFixed(3)} of Ψ)`],["+ de Bruijn's term",f(d)+` (${(d/ps).toFixed(3)})`],["de Bruijn's Λ(x, y)",L===undefined?"computing…":f(L)+` (${(L/ps).toFixed(3)})`]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=S.sel?`${S.sel} = ${factors(S.sel).join(" · ")||"1"}: ${S.gpf[S.sel]<=y?"buildable":"needs the brick "+S.gpf[S.sel]}.`:`With bricks up to ${f(y)}, ${f(ps)} of the numbers up to ${f(x)} can be built (${(100*ps/x).toFixed(2)} %).`;S.out={y,ps,r,L};}
+function render(){drawGrid();drawChart();stats();}
+cv.addEventListener("click",e=>{const b=cv.getBoundingClientRect(),X=(e.clientX-b.left)*S.dpr,Yc=(e.clientY-b.top)*S.dpr,{cols,cs,ox,oy}=cellOf();const c=Math.floor((X-ox)/cs),r=Math.floor((Yc-oy)/cs),n=r*cols+c+1;if(c>=0&&c<cols&&n>=1&&n<=S.small){S.sel=n;render();}});
+$("y").addEventListener("input",e=>{S.yi=idxFor(Number(e.target.value));$("yv").textContent=f(Y());render();});
+$("maxn").addEventListener("change",e=>{S.x=Number(e.target.value);$("status").textContent="Counting…";setTimeout(()=>{prepare();$("yv").textContent=f(Y());size();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),y=Number(q.get("y"));if([100000,1000000,10000000].includes(mx)){S.x=mx;$("maxn").value=String(mx);}prepare();if(y>1){let i=0;while(i<S.P.length-1&&S.P[i+1]<=y)i++;S.yi=i;$("y").value=String(Math.round(1000*(Math.log(S.P[i])-Math.log(2))/(Math.log(S.x)-Math.log(2))));}$("yv").textContent=f(Y());size();render();})();
+</script>
+</body>
+</html>
