@@ -19,6 +19,7 @@ p { margin:6px 0; }
 .controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
 .ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
 .ctl label { color:var(--muted); font-size:12.5px; }
+input[type=range] { width:220px; max-width:100%; accent-color:#fbbf24; }
 select { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
 .two { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
 @media (max-width:820px) { .two { grid-template-columns:1fr; } }
@@ -50,6 +51,7 @@ table.bt td:first-child, table.bt th:first-child { text-align:left; }
 <main>
   <section class="panel controls" aria-label="Settings">
     <div class="ctl"><label for="maxn">Primes up to</label><select id="maxn"><option value="1000" selected>1,000 (168 primes)</option><option value="10000">10,000 (1,229 primes)</option></select></div>
+    <div class="ctl"><label for="cols">Tiles per row: <span id="colsv">auto</span></label><input type="range" id="cols" min="0" max="60" step="1" value="0" aria-label="Tiles per row in the mosaic, 0 is automatic"></div>
     <div class="ctl"><label for="only">List shows</label><select id="only"></select></div>
   </section>
   <div id="stage">
@@ -69,7 +71,7 @@ table.bt td:first-child, table.bt th:first-child { text-align:left; }
 <script>
 const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),mo=$("mo"),mx=mo.getContext("2d"),hi=$("hi"),hx=hi.getContext("2d");
 const f=x=>Math.round(x).toLocaleString("en-US");
-const S={X:1000,P:[],G:[],rec:new Set(),only:"all",hover:-1,dpr:1,W:0,H:0,W2:0,H2:0,W3:0,H3:0,bar:null,tile:null};
+const S={X:1000,P:[],G:[],rec:new Set(),only:"all",cols:0,hover:-1,dpr:1,W:0,H:0,W2:0,H2:0,W3:0,H3:0,bar:null,tile:null};
 const COLS=[[2,"#38bdf8"],[4,"#34d399"],[6,"#fbbf24"],[8,"#fb923c"],[12,"#f472b6"],[18,"#a78bfa"],[999,"#ef4444"]];
 const col=g=>COLS.find(c=>g<=c[0])[1];
 const LEG=[["1 or 2","#38bdf8"],["4","#34d399"],["6","#fbbf24"],["8","#fb923c"],["10, 12","#f472b6"],["14 to 18","#a78bfa"],["20 and more","#ef4444"]];
@@ -79,8 +81,8 @@ function counts(){const c={};for(const g of S.G)c[g]=(c[g]||0)+1;return c;}
 function summary(){const c=counts(),mostN=Math.max(...Object.values(c));return {primes:S.P.length,gaps:S.G.length,sum:S.G.reduce((a,b)=>a+b,0),max:Math.max(...S.G),count:c,most:Object.keys(c).filter(k=>c[k]===mostN).map(Number),records:[...S.rec].map(i=>[i+1,S.P[i],S.P[i+1],S.G[i]]),list:S.G};}
 function size(){S.dpr=window.devicePixelRatio||1;const d=S.dpr;
  let w=cv.parentElement.clientWidth,h=Math.round(Math.max(240,Math.min(380,w*0.38)));cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;
- w=mo.parentElement.clientWidth;h=Math.round(Math.max(260,Math.min(420,w*0.8)));mo.width=Math.round(w*d);mo.height=Math.round(h*d);mo.style.height=h+"px";S.W2=mo.width;S.H2=mo.height;
- w=hi.parentElement.clientWidth;hi.width=Math.round(w*d);hi.height=mo.height;hi.style.height=h+"px";S.W3=hi.width;S.H3=hi.height;}
+ w=mo.parentElement.clientWidth;h=Math.round(Math.max(260,Math.min(420,w*0.8)));if(S.cols>0){const n=Math.max(1,S.G.length),rows=Math.ceil(n/S.cols),t0=(w-16)/S.cols;h=Math.round(Math.max(200,Math.min(1600,22+rows*t0+8)));}mo.width=Math.round(w*d);mo.height=Math.round(h*d);mo.style.height=h+"px";S.W2=mo.width;S.H2=mo.height;
+ w=hi.parentElement.clientWidth;const h3=Math.round(Math.max(260,Math.min(420,w*0.8)));hi.width=Math.round(w*d);hi.height=Math.round(h3*d);hi.style.height=h3+"px";S.W3=hi.width;S.H3=hi.height;}
 function drawBars(){const W=S.W,H=S.H,d=S.dpr,G=S.G,n=G.length,top=Math.max(...G),padL=30*d,padR=10*d,padT=24*d,padB=22*d,bw=(W-padL-padR)/n,ys=v=>H-padB-v/top*(H-padT-padB);S.bar={padL,bw};
  ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.font=`${10*d}px system-ui,sans-serif`;ctx.strokeStyle="#26364c";ctx.fillStyle="#9fb0c6";ctx.textAlign="right";ctx.textBaseline="middle";
  const step=top>24?6:2;for(let v=0;v<=top;v+=step){const y=ys(v);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.fillText(String(v),padL-5*d,y);}
@@ -89,11 +91,11 @@ function drawBars(){const W=S.W,H=S.H,d=S.dpr,G=S.G,n=G.length,top=Math.max(...G
  if(S.hover>=0){ctx.strokeStyle="#ffffff";ctx.lineWidth=1.5*d;const x=padL+S.hover*bw;ctx.strokeRect(x-1*d,ys(G[S.hover])-1*d,Math.max(2*d,bw)+2*d,ys(0)-ys(G[S.hover])+2*d);ctx.lineWidth=1;}
  ctx.fillStyle="#9fb0c6";ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`gap after each prime, from prime 1 (2) to prime ${S.P.length} (${f(S.P[S.P.length-1])})`,padL,5*d);ctx.textAlign="center";ctx.textBaseline="top";
  for(const k of [1,Math.round(n/4),Math.round(n/2),Math.round(3*n/4),n])ctx.fillText("#"+k,Math.min(W-padR-14*d,Math.max(padL+10*d,padL+(k-0.5)*bw)),H-padB+5*d);}
-function drawMosaic(){const W=S.W2,H=S.H2,d=S.dpr,G=S.G,n=G.length,pad=8*d,top=22*d;let cols=Math.ceil(Math.sqrt(n*(W-2*pad)/(H-pad-top)));let rows=Math.ceil(n/cols);const t=Math.min((W-2*pad)/cols,(H-pad-top)/rows);S.tile={pad,top,t,cols};
+function drawMosaic(){const W=S.W2,H=S.H2,d=S.dpr,G=S.G,n=G.length,pad=8*d,top=22*d;let cols=S.cols>0?S.cols:Math.ceil(Math.sqrt(n*(W-2*pad)/(H-pad-top)));let rows=Math.ceil(n/cols);const t=Math.min((W-2*pad)/cols,(H-pad-top)/rows);S.tile={pad,top,t,cols};
  mx.fillStyle="#0e1828";mx.fillRect(0,0,W,H);mx.textAlign="center";mx.textBaseline="middle";mx.font=`600 ${Math.max(7*d,t*0.45)}px system-ui,sans-serif`;
  G.forEach((g,i)=>{const x=pad+(i%cols)*t,y=top+Math.floor(i/cols)*t,on=S.only==="all"||(S.only==="rec"?S.rec.has(i):g===Number(S.only));mx.globalAlpha=on?1:0.18;mx.fillStyle=col(g);mx.fillRect(x+0.5*d,y+0.5*d,t-1*d,t-1*d);if(t>=14*d&&on){mx.fillStyle="#0b1220";mx.fillText(String(g),x+t/2,y+t/2+0.5*d);}});mx.globalAlpha=1;
  if(S.hover>=0){const i=S.hover,x=pad+(i%cols)*t,y=top+Math.floor(i/cols)*t;mx.strokeStyle="#ffffff";mx.lineWidth=2*d;mx.strokeRect(x,y,t,t);mx.lineWidth=1;}
- mx.fillStyle="#9fb0c6";mx.font=`${10*d}px system-ui,sans-serif`;mx.textAlign="left";mx.textBaseline="top";mx.fillText(`one tile per gap, read like a book (${cols} per row)`,pad,5*d);}
+ mx.fillStyle="#9fb0c6";mx.font=`${10*d}px system-ui,sans-serif`;mx.textAlign="left";mx.textBaseline="top";mx.fillText(`one tile per gap, read like a book (${cols} per row${S.cols>0?"":", automatic"})`,pad,5*d);}
 function drawHist(){const W=S.W3,H=S.H3,d=S.dpr,c=counts(),ks=Object.keys(c).map(Number).sort((a,b)=>a-b),mxv=Math.max(...Object.values(c)),padL=34*d,padR=34*d,padT=24*d,padB=8*d,rh=(H-padT-padB)/ks.length;
  hx.fillStyle="#0e1828";hx.fillRect(0,0,W,H);hx.font=`${Math.min(10.5*d,rh*0.75)}px system-ui,sans-serif`;hx.textBaseline="middle";
  ks.forEach((k,i)=>{const y=padT+i*rh,h=Math.max(1,rh*0.74),w=(W-padL-padR)*c[k]/mxv;hx.fillStyle=col(k);hx.fillRect(padL,y,w,h);hx.fillStyle="#9fb0c6";hx.textAlign="right";hx.fillText(String(k),padL-6*d,y+h/2);hx.textAlign="left";hx.fillStyle="#edf4ff";hx.fillText(f(c[k]),padL+w+4*d,y+h/2);});
@@ -110,9 +112,10 @@ cv.addEventListener("pointermove",pickBar);cv.addEventListener("pointerdown",pic
 for(const c of [cv,mo])c.addEventListener("pointerleave",e=>{if(e.pointerType!=="mouse")return;S.hover=-1;render();});
 $("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);S.hover=-1;prepare();size();render();table();notes();});
 $("only").addEventListener("change",e=>{S.only=e.target.value;render();table();});
+$("cols").addEventListener("input",e=>{S.cols=Number(e.target.value);$("colsv").textContent=S.cols>0?String(S.cols):"auto";S.hover=-1;size();render();});
 window.addEventListener("resize",()=>{size();render();});
 $("legend").innerHTML=LEG.map(([t,c])=>`<span><span class="sw" style="background:${c}"></span>gap ${t}</span>`).join("");
-(()=>{const q=new URLSearchParams(location.search),m=Number(q.get("max"));if([1000,10000].includes(m)){S.X=m;$("maxn").value=String(m);}prepare();size();render();table();notes();})();
+(()=>{const q=new URLSearchParams(location.search),m=Number(q.get("max"));if([1000,10000].includes(m)){S.X=m;$("maxn").value=String(m);}const k=Number(q.get("cols"));if(k>=1&&k<=60){S.cols=k;$("cols").value=String(k);$("colsv").textContent=String(k);}prepare();size();render();table();notes();})();
 </script>
 </body>
 </html>
