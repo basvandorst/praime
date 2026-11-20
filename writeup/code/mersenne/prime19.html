@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime trains</title>
+<meta name="description" content="A train is a run of consecutive primes, its length their sum: 41 = 11 + 13 + 17. On average a number has ln 2 trains (Moser), but the average gets there so slowly that it is still falling at a billion.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+input[type=number], select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+input[type=number] { width:150px; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime trains</h1>
+  <p>Couple consecutive primes into a train; its length is their sum. 41 has three trains: 41 on its own, 11 + 13 + 17, and 2 + 3 + 5 + 7 + 11 + 13. Some numbers have none (4, 6, 9, 11 …). Moser proved in 1963 that on average a number has ln 2 = 0.693 trains. Watch how slowly the average gets there. Spot the primes: <a href="prime18.html">prime18</a>, bricks: <a href="prime17.html">prime17</a>, baskets: <a href="prime16.html">prime16</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="n">Trains of length</label><input id="n" type="number" min="2" max="10000000" value="41"></div>
+    <button id="next" type="button">Next number with a new record</button>
+    <div class="ctl"><label for="maxn">Count up to</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The trains of the chosen number"></canvas></div>
+    <div><div class="stage"><canvas id="ch" aria-label="The average number of trains"></canvas></div><div class="legend"><span><span class="sw" style="background:#38bdf8"></span>average up to x, counted (line: this page; dots at 10<sup>8</sup>, 10<sup>9</sup>: a separate program)</span><span><span class="sw" style="background:#fbbf24"></span>smooth model</span><span><span class="sw" style="background:#f472b6"></span>published count at 10<sup>14</sup></span><span><span class="sw" style="background:#34d399"></span>Moser's limit ln 2</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>How slowly the average reaches ln 2</h2>
+    <p class="note">Counted exactly up to 10<sup>9</sup> (by a separate program; the page counts up to 10<sup>7</sup>): the average number of trains per number falls from 0.684 at 1,000 to 0.6451 at 10<sup>9</sup>, away from ln 2. The smooth model replaces the k-th prime by li<sup>−1</sup>(k), the number below which li counts k primes, and counts trains of these smooth numbers; it uses no other property of the primes. It follows the true averages ever more closely (0.6 % high at 10<sup>7</sup>, 0.13 % at 10<sup>9</sup>), bottoms out near 10<sup>10</sup> at 0.6454, and gives 0.64776 at 10<sup>14</sup>, where Sorenson and Waiss (2025) counted every number: their table gives 0.647735. So the slow approach is a property of the density of the primes alone, and the model, followed to 10<sup>16</sup>, is still 0.044 below ln 2 there. The page and the separate program agree on all counts up to 10,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>x</th><th>average up to x, exact</th><th>smooth model</th><th>ln 2 − model</th></tr></thead><tbody>
+<tr><td>10<sup>4</sup></td><td>0.66670</td><td>0.70576</td><td>−0.0126</td></tr>
+<tr><td>10<sup>6</sup></td><td>0.65100</td><td>0.65914</td><td>0.0340</td></tr>
+<tr><td>10<sup>8</sup></td><td>0.64582</td><td>0.64753</td><td>0.0456</td></tr>
+<tr><td>10<sup>9</sup></td><td>0.64509</td><td>0.64590</td><td>0.0473</td></tr>
+<tr><td>10<sup>10</sup></td><td>–</td><td>0.64542 (the lowest)</td><td>0.0477</td></tr>
+<tr><td>10<sup>12</sup></td><td>–</td><td>0.64614</td><td>0.0470</td></tr>
+<tr><td>10<sup>14</sup></td><td>0.647735 (Sorenson and Waiss)</td><td>0.64776</td><td>0.0454</td></tr>
+<tr><td>10<sup>16</sup></td><td>–</td><td>0.64948</td><td>0.0437</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),LN2=Math.LN2;
+const MODEL=[[4,0.70576],[5,0.67488],[6,0.65914],[7,0.65131],[8,0.64753],[9,0.64590],[10,0.64542],[11,0.64560],[12,0.64614],[13,0.64689],[14,0.64776],[15,0.64866],[16,0.64948]];
+const S={X:1e6,P:null,cs:null,fN:null,FN:2e5,n:41,curve:[],W:0,H:0,W2:0,H2:0,dpr:1};
+function prepare(){const X=S.X,s=new Uint8Array(X+1);const P=[];for(let i=2;i<=X;i++){if(s[i])continue;P.push(i);if(i<=X/i)for(let j=i*i;j<=X;j+=i)s[j]=1;}S.P=P;const cs=new Float64Array(P.length+1);for(let i=0;i<P.length;i++)cs[i+1]=cs[i]+P[i];S.cs=cs;
+ S.curve=[];for(let e=2;e<=Math.log10(X)+1e-9;e+=0.25){const x=Math.round(10**e);S.curve.push([x,countTrains(x)/x]);}
+ const FN=Math.min(X,S.FN),fN=new Uint8Array(FN+1);for(let i=0;i<P.length&&P[i]<=FN;i++){let sm=0;for(let j=i;j<P.length;j++){sm+=P[j];if(sm>FN)break;fN[sm]++;}}S.fN=fN;}
+function countTrains(x){const cs=S.cs,P=S.P;let n=0;while(n<P.length&&P[n]<=x)n++;let tot=0,j=0;for(let i=0;i<n;i++){if(j<i)j=i;while(j+1<=n&&cs[j+1]-cs[i]<=x)j++;tot+=j-i;}return tot;}
+function trainsOf(n){const P=S.P,cs=S.cs,out=[];let j=0;for(let i=0;i<P.length&&P[i]<=n;i++){if(j<i)j=i;while(j+1<=P.length&&cs[j+1]-cs[i]<n)j++;if(j+1<=P.length&&cs[j+1]-cs[i]===n)out.push([i,j+1]);}return out;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(420,w*0.8)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawTrains(){const W=S.W,H=S.H,dpr=S.dpr,n=S.n,T=S.trains;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);ctx.fillStyle="#edf4ff";ctx.font=`600 ${15*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`${f(n)}: ${T.length} train${T.length===1?"":"s"}`,12*dpr,10*dpr);
+ if(!T.length){ctx.fillStyle="#9fb0c6";ctx.font=`${13*dpr}px system-ui,sans-serif`;ctx.fillText("No run of consecutive primes adds up to this number.",12*dpr,40*dpr);return;}
+ const rowH=Math.min(46*dpr,(H-50*dpr)/T.length),x0=12*dpr,wTot=W-24*dpr;T.forEach(([a,b],r)=>{const y=44*dpr+r*rowH,k=b-a;let x=x0;for(let i=a;i<b;i++){const w=Math.max(2,S.P[i]/n*wTot);ctx.fillStyle=k===1?"#fbbf24":r%2?"#38bdf8":"#34d399";ctx.fillRect(x,y,Math.max(1,w-2*dpr),rowH*0.7);if(w>22*dpr){ctx.fillStyle="#0b1220";ctx.font=`600 ${Math.min(12,rowH/dpr*0.35)*dpr}px system-ui,sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(S.P[i]),x+w/2,y+rowH*0.35);}x+=w;}
+  ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";if(rowH>24*dpr)ctx.fillText(k===1?"one prime":`${k} primes, ${S.P[a]} to ${S.P[b-1]}`,x0,y+rowH*0.72);});}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,padL=44*dpr,padR=10*dpr,padT=12*dpr,padB=26*dpr,e0=2,e1=16,y0=0.62,y1=0.72,xs=e=>padL+(e-e0)/(e1-e0)*(W-padL-padR),ys=v=>H-padB-(Math.min(y1,Math.max(y0,v))-y0)/(y1-y0)*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.lineWidth=1;cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [0.62,0.64,0.66,0.68,0.70,0.72]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(2),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(let e=2;e<=16;e+=2)cx.fillText("10^"+e,Math.min(W-padR-16*dpr,xs(e)),H-padB+6*dpr);
+ cx.strokeStyle="#34d399";cx.setLineDash([6*dpr,4*dpr]);cx.lineWidth=2*dpr;cx.beginPath();cx.moveTo(padL,ys(LN2));cx.lineTo(W-padR,ys(LN2));cx.stroke();cx.setLineDash([]);
+ cx.strokeStyle="#fbbf24";cx.lineWidth=2*dpr;cx.beginPath();MODEL.forEach(([e,v],i)=>{i?cx.lineTo(xs(e),ys(v)):cx.moveTo(xs(e),ys(v));});cx.stroke();
+ cx.strokeStyle="#38bdf8";cx.lineWidth=2.5*dpr;cx.beginPath();S.curve.forEach(([x,v],i)=>{const e=Math.log10(x);i?cx.lineTo(xs(e),ys(v)):cx.moveTo(xs(e),ys(v));});cx.stroke();
+ cx.fillStyle="#38bdf8";for(const [e,v] of [[8,0.645815],[9,0.645089]]){cx.beginPath();cx.arc(xs(e),ys(v),4*dpr,0,6.2832);cx.fill();}cx.fillStyle="#f472b6";cx.beginPath();cx.arc(xs(14),ys(0.647735),5*dpr,0,6.2832);cx.fill();
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(W<500*dpr?"average trains per number":"average number of trains per number up to x",padL+4*dpr,padT);}
+function stats(){const fN=S.fN,FN=fN.length-1,lo=Math.floor(FN/2);const h=[];let m=0,c=0;for(let n=lo;n<=FN;n++){const v=fN[n];h[v]=(h[v]||0)+1;m+=v;c++;}m/=c;const pois=k=>c*Math.exp(-m)*m**k/[1,1,2,6,24,120,720,5040][k];let rec=0,recn=0;for(let n=2;n<=FN;n++)if(fN[n]>rec){rec=fN[n];recn=n;}
+ const cells=[["Average up to "+f(S.X),(countTrains(S.X)/S.X).toFixed(5)],["ln 2",LN2.toFixed(5)],[`Numbers ${f(lo)}–${f(FN)} with 0 / 1 / 2 / 3 trains`,[0,1,2,3].map(k=>f(h[k]||0)).join(" / ")],["Poisson with the same mean",[0,1,2,3].map(k=>f(pois(k))).join(" / ")],[`Most trains up to ${f(FN)}`,`${rec} (first at ${f(recn)})`]];
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");}
+function show(){S.n=Math.max(2,Math.min(S.X,Math.round(Number($("n").value)||41)));$("n").value=String(S.n);S.trains=trainsOf(S.n);drawTrains();$("status").textContent=S.trains.map(([a,b])=>S.P.slice(a,b).join(" + ")).map(t=>t.length>80?t.slice(0,80)+" …":t).join("   ·   ")+"";}
+function render(){show();drawChart();stats();}
+$("n").addEventListener("change",show);
+$("next").addEventListener("click",()=>{const fN=S.fN;let best=0;for(let n=2;n<=Math.min(S.n,fN.length-1);n++)best=Math.max(best,fN[n]);for(let n=S.n+1;n<fN.length;n++)if(fN[n]>best){$("n").value=String(n);show();return;}$("status").textContent="No new record below "+f(fN.length-1)+".";});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);$("status").textContent="Counting…";setTimeout(()=>{prepare();size();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),n=Number(q.get("n"));if([100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(n>1)$("n").value=String(n);prepare();size();render();})();
+</script>
+</body>
+</html>
