@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime compass</title>
+<meta name="description" content="Every prime 1 more than a multiple of 4 is a² + b², a needle pointing at an angle. The needles spread evenly (Hecke), but in narrow sectors far more evenly than chance, as Rudnick and Waxman predicted.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+input[type=range] { width:180px; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:140px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime compass</h1>
+  <p>Fermat knew that every prime 1 more than a multiple of 4 is a sum of two squares: 13 = 3² + 2². Draw the point (3, 2): it is a needle at an angle. Every such prime gives two needles, (a, b) and (b, a), and the prime 2 one at 45°. Hecke proved in 1918 that the needles spread evenly over the quarter circle. Rudnick and Waxman (2019) looked closer: in narrow sectors the needles are spread far more evenly than random needles would be. Trains: <a href="prime19.html">prime19</a>, baskets (the same effect on the number line): <a href="prime16.html">prime16</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="maxn">Primes with a² + b² up to</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option><option value="10000000">10,000,000</option></select></div>
+    <div class="ctl"><span class="lab">Sectors K = <b id="kv">256</b></span><input id="k" type="range" min="2" max="20" value="8" aria-label="Number of sectors (power of 2)"></div>
+    <label class="lab" style="display:flex;gap:6px;align-items:center"><input id="fake" type="checkbox" checked> also fake needles</label>
+  </section>
+  <div class="two" id="stage">
+    <div><div class="stage"><canvas id="cv" aria-label="The needles"></canvas></div><div class="legend"><span>left: the needles of the primes a² + b² up to 3,000 · right: the counts in K sectors</span></div></div>
+    <div><div class="stage"><canvas id="ch" aria-label="Variance against sector size"></canvas></div><div class="legend"><span><span class="sw" style="background:#38bdf8"></span>primes</span><span><span class="sw" style="background:#f472b6"></span>fake needles</span><span><span class="sw" style="background:#34d399"></span>Rudnick–Waxman min(1, 2 log K / log N)</span><span><span class="sw" style="background:#9fb0c6"></span>random needles (1)</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Measured up to norm 10<sup>8</sup></h2>
+    <p class="note">The variance of the number of needles in a sector of a fraction 1/K of the quarter circle, averaged over 64 positions of the sectors, divided by the mean N/K (N needles in all; the inert primes 3, 7, 11 … with p² up to the bound sit at angle 0). Random needles give 1. Rudnick and Waxman conjecture min(1, 2 log K / log N) for large K and N. The measured curve rises with the same slope 2 in log K / log N, but lies below their line: by about 0.47 at norm 10<sup>7</sup> and 0.35 at 10<sup>8</sup>, a gap that shrinks slowly. For very fine sectors it levels off near 0.93, close to 1 − 1 / ln N. Fake needles (lattice points (a, b) with a, b coprime and a² + b² odd, each kept with a chance that gives the right density) are also below 1, because keeping a point is a coin flip with a sizeable chance (their floor is 0.75), but averaged over 10 sets of fakes they stay well above the primes at every K from 64 on: the extra evenness of the primes is arithmetic, not a property of the lattice. The fake curve on the page is a single set and scatters at small K; for K below about 64 every estimate rests on too few sectors to mean much. The page and a separate program agree on the variances of the primes for every K, up to 1,000,000 and 10,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Norm up to</th><th>K</th><th>log K / log N</th><th>primes: variance / mean</th><th>Rudnick–Waxman</th><th>fake needles (10 sets: mean, spread)</th></tr></thead><tbody>
+<tr><td>10<sup>6</sup></td><td>256</td><td>0.492</td><td>0.459</td><td>0.984</td><td>0.829 (0.061)</td></tr>
+<tr><td>10<sup>6</sup></td><td>1,024</td><td>0.615</td><td>0.650</td><td>1.000</td><td>0.900 (0.032)</td></tr>
+<tr><td>10<sup>6</sup></td><td>4,096</td><td>0.738</td><td>0.825</td><td>1.000</td><td>0.946 (0.017)</td></tr>
+<tr><td>10<sup>7</sup></td><td>256</td><td>0.414</td><td>0.357</td><td>0.827</td><td>–</td></tr>
+<tr><td>10<sup>7</sup></td><td>16,384</td><td>0.724</td><td>0.887</td><td>1.000</td><td>–</td></tr>
+<tr><td>10<sup>8</sup></td><td>256</td><td>0.356</td><td>0.363</td><td>0.712</td><td>–</td></tr>
+<tr><td>10<sup>8</sup></td><td>1,024</td><td>0.445</td><td>0.541</td><td>0.891</td><td>–</td></tr>
+<tr><td>10<sup>8</sup></td><td>4,096</td><td>0.534</td><td>0.668</td><td>1.000</td><td>–</td></tr>
+<tr><td>10<sup>8</sup></td><td>65,536</td><td>0.712</td><td>0.909</td><td>1.000</td><td>–</td></tr>
+<tr><td>10<sup>8</sup></td><td>1,048,576</td><td>0.891</td><td>0.930</td><td>1.000</td><td>–</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),HP=Math.PI/2;
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function gcd(a,b){while(b){[a,b]=[b,a%b];}return a;}
+const S={X:1e6,kp:8,A:null,F:null,N:0,curveP:[],curveF:[],small:[],fake:true,W:0,H:0,W2:0,H2:0,dpr:1};
+function prepare(){const X=S.X,s=new Uint8Array(X+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=X;i++)if(s[i])for(let j=i*i;j<=X;j+=i)s[j]=0;const R=Math.floor(Math.sqrt(X)),ang=[],sm=[];
+ for(let a=1;a<=R;a++){const bm=Math.floor(Math.sqrt(X-a*a));for(let b=0;b<=bm;b++){const n=a*a+b*b;if(s[n]){ang.push(Math.atan2(b,a));if(n<=3000)sm.push([a,b]);}}}
+ for(let p=3;p*p<=X;p+=4)if(s[p])ang.push(0);S.A=Float64Array.from(ang);S.N=ang.length;S.small=sm;
+ S.F=null;if(S.fake&&X<=1e6){const r=rng(2019);let tot=0;for(let a=1;a<=R;a++){const bm=Math.floor(Math.sqrt(X-a*a));for(let b=0;b<=bm;b++){const n=a*a+b*b;if(n>=2&&(n&1)&&gcd(a,b)===1)tot+=1/Math.log(n);}}const c=S.N/tot,F=[];
+  for(let a=1;a<=R;a++){const bm=Math.floor(Math.sqrt(X-a*a));for(let b=0;b<=bm;b++){const n=a*a+b*b;if(n>=2&&(n&1)&&gcd(a,b)===1&&r()<Math.min(1,c/Math.log(n)))F.push(Math.atan2(b,a));}}S.F=Float64Array.from(F);}
+ S.curveP=[];S.curveF=[];for(let k=2;(1<<k)<=S.N/4;k++){const K=1<<k;S.curveP.push([K,nv(S.A,K)]);if(S.F)S.curveF.push([K,nv(S.F,K)]);}}
+function nv(t,K,offs=64){const w=HP/K,c=new Float64Array(K);let v=0;for(let o=0;o<offs;o++){c.fill(0);const d=o*w/offs;for(let i=0;i<t.length;i++){let x=(t[i]+d)%HP;c[Math.floor(x/w)]++;}let m=0,q=0;for(let j=0;j<K;j++){m+=c[j];q+=c[j]*c[j];}m/=K;v+=q/K-m*m;}return v/offs/(t.length/K);}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(420,w*0.8)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawCompass(){const W=S.W,H=S.H,dpr=S.dpr,K=1<<S.kp;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);const half=W/2,R1=Math.min(half,H)*0.9,ox=10*dpr,oy=H-10*dpr,sc=R1/Math.sqrt(3000);
+ ctx.strokeStyle="#26364c";ctx.beginPath();ctx.arc(ox,oy,R1,-HP,0);ctx.stroke();ctx.fillStyle="#fbbf24";for(const [a,b] of S.small){const r=Math.max(1.5*dpr,2*dpr);ctx.beginPath();ctx.arc(ox+a*sc,oy-b*sc,r,0,6.2832);ctx.fill();}
+ const c=new Float64Array(K);for(const t of S.A)c[Math.min(K-1,Math.floor(t/(HP/K)))]++;let mx=0;for(const v of c)mx=Math.max(mx,v);const ox2=half+12*dpr,R2=Math.min(W-ox2-6*dpr,H-20*dpr),mean=S.N/K;
+ for(let j=0;j<K;j++){const a0=j*HP/K,a1=(j+1)*HP/K,rr=R2*0.25+R2*0.75*c[j]/mx;ctx.fillStyle=c[j]>mean?"#38bdf8":"#1e40af";ctx.beginPath();ctx.moveTo(ox2,oy);ctx.arc(ox2,oy,rr,-a1,-a0);ctx.closePath();ctx.fill();}
+ ctx.strokeStyle="#34d399";ctx.lineWidth=1.5*dpr;ctx.beginPath();ctx.arc(ox2,oy,R2*0.25+R2*0.75*mean/mx,-HP,0);ctx.stroke();ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`${K} sectors · green: the mean`,ox2,6*dpr);}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,padL=40*dpr,padR=10*dpr,padT=12*dpr,padB=26*dpr,lN=Math.log(S.N),xs=b=>padL+b*(W-padL-padR),ys=v=>H-padB-Math.min(1.3,Math.max(0,v))/1.3*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.lineWidth=1;cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [0,0.25,0.5,0.75,1,1.25]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(2),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(const b of [0,0.25,0.5,0.75,1])cx.fillText(b.toFixed(2),xs(b),H-padB+6*dpr);
+ cx.strokeStyle="#9fb0c6";cx.setLineDash([4*dpr,4*dpr]);cx.beginPath();cx.moveTo(padL,ys(1));cx.lineTo(W-padR,ys(1));cx.stroke();cx.setLineDash([]);
+ cx.strokeStyle="#34d399";cx.lineWidth=2*dpr;cx.beginPath();cx.moveTo(xs(0),ys(0));cx.lineTo(xs(0.5),ys(1));cx.lineTo(xs(1),ys(1));cx.stroke();
+ for(const [cur,col] of [[S.curveP,"#38bdf8"],[S.curveF,"#f472b6"]]){if(!cur.length)continue;cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=2*dpr;cx.beginPath();cur.forEach(([K,v],i)=>{const X=xs(Math.log(K)/lN),Y=ys(v);i?cx.lineTo(X,Y):cx.moveTo(X,Y);});cx.stroke();cur.forEach(([K,v])=>{cx.beginPath();cx.arc(xs(Math.log(K)/lN),ys(v),2.5*dpr,0,6.2832);cx.fill();});}
+ const K=1<<S.kp;cx.strokeStyle="#fbbf24";cx.beginPath();cx.moveTo(xs(Math.log(K)/lN),padT);cx.lineTo(xs(Math.log(K)/lN),H-padB);cx.stroke();
+ cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(W<500*dpr?"variance / mean against log K / log N":"variance / mean of the sector counts, against log K / log N",padL+4*dpr,padT);}
+function stats(){const K=1<<S.kp,b=Math.log(K)/Math.log(S.N),p=S.curveP.find(c=>c[0]===K),q=S.curveF.find(c=>c[0]===K);
+ const cells=[["Needles N",f(S.N)],["Sectors K",f(K)+` (mean ${(S.N/K).toFixed(1)} per sector)`],["log K / log N",b.toFixed(3)],["Primes: variance / mean",p?p[1].toFixed(3):"–"],["Rudnick–Waxman",Math.min(1,2*b).toFixed(3)],["Fake needles",q?q[1].toFixed(3):S.X>1e6?"only up to 1,000,000":"–"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");
+ $("status").textContent=`${f(S.N)} needles in ${f(K)} sectors: their counts vary ${p?(p[1]<0.6?"much less than":"less than"):"–"} random needles would.`;}
+function render(){drawCompass();drawChart();stats();}
+$("k").addEventListener("input",e=>{S.kp=Number(e.target.value);$("kv").textContent=f(1<<S.kp);render();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);$("status").textContent="Computing…";setTimeout(()=>{prepare();$("k").max=String(Math.floor(Math.log2(S.N/4)));if(S.kp>Number($("k").max))S.kp=Number($("k").max);size();render();},20);});
+$("fake").addEventListener("change",e=>{S.fake=e.target.checked;$("status").textContent="Computing…";setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),mx=Number(q.get("max")),k=Number(q.get("k"));if([100000,1000000,10000000].includes(mx)){S.X=mx;$("maxn").value=String(mx);}if(k>=2&&k<=20){S.kp=k;$("k").value=String(k);}$("kv").textContent=f(1<<S.kp);prepare();$("k").max=String(Math.floor(Math.log2(S.N/4)));size();render();})();
+</script>
+</body>
+</html>
