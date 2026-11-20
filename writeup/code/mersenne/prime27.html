@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime lighthouse</title>
+<meta name="description" content="Put every prime p at distance p and angle p radians: the primes form spiral arms and straight rays. There are exactly 20 arms and 280 rays, they are filled far more evenly than chance, and the square arms lag behind.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+select { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#070d18; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:640px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime lighthouse</h1>
+  <p>Put every prime p at distance p from the centre and at angle p radians. Close in you see spirals; further out, 20 spiral arms; far out, 280 straight rays. The reason: 2π is close to 44/7 and very close to 710/113, so numbers that differ by 44 (or 710) land at almost the same angle, and a prime can only sit on the arms whose remainder mod 44 (or 710) shares no factor with it: φ(44) = 20 arms and φ(710) = 280 rays. Star clusters: <a href="prime26.html">prime26</a>, race of the remainders: <a href="prime6.html">prime6</a>, overview: <a href="primes.html">all pages</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="zoom">Show the primes up to</label><select id="zoom"><option value="1000">1,000: spirals</option><option value="20000" selected>20,000: 20 arms (mod 44)</option><option value="400000">400,000: 280 rays (mod 710)</option></select></div>
+    <div class="ctl"><label for="q">Count the arms mod</label><select id="q"><option value="44" selected>44</option><option value="710">710</option></select></div>
+    <div class="ctl"><label for="maxn">Count up to</label><select id="maxn"><option value="1000000">1,000,000</option><option value="10000000" selected>10,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div class="stage"><canvas id="cv" aria-label="The primes in polar coordinates"></canvas></div>
+    <div><div class="stage"><canvas id="ch" aria-label="Primes per arm"></canvas></div><div class="legend"><span><span class="sw" style="background:#f472b6"></span>square remainders</span><span><span class="sw" style="background:#38bdf8"></span>the other arms</span><span><span class="sw" style="background:#fbbf24"></span>the even share</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>Fairer than fair, counted up to 10,000,000</h2>
+    <p class="note">If the primes picked their arm at random, the counts would scatter like a multinomial sample, and the chi-square sum would be about the number of arms minus one. The primes are far more even: up to 10,000,000 the chi-square is 0.8 for the 20 arms mod 44 (19 expected) and 60.8 for the 280 rays mod 710 (279 expected). That primes spread over remainder classes more evenly than random numbers is the subject of the Montgomery–Hooley theorem (on average over q, the variance over the classes mod q grows like x log q, against x log x for random weights). Taken at face value for one q, that scale suggests a chi-square of about 4.5 and 114 here; the measured values are lower still, which lower-order terms would have to explain (not computed here). The arms of the squares mod q lag behind: Chebyshev's bias, of about c · π(√x) / (2 φ(q)) primes, where c (here 4) is the number of square roots each square has mod q. For mod 44 that is 44.6, measured 45.7; for mod 710 it is 3.2, measured 5.1 (heuristic). The page and a separate program agree on all arm counts.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>Up to</th><th>mod</th><th>arms</th><th>primes per arm, min / max</th><th>chi-square (random: about)</th><th>square arms behind by</th></tr></thead><tbody>
+<tr><td>100,000</td><td>44</td><td>20</td><td>465 / 493</td><td>2.6 (19)</td><td>4.7</td></tr>
+<tr><td>100,000</td><td>710</td><td>280</td><td>24 / 42</td><td>76.7 (279)</td><td>0.4</td></tr>
+<tr><td>10,000,000</td><td>44</td><td>20</td><td>33,165 / 33,313</td><td>0.8 (19)</td><td>45.7</td></tr>
+<tr><td>10,000,000</td><td>710</td><td>280</td><td>2,294 / 2,440</td><td>60.8 (279)</td><td>5.1</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US");
+function gcd(a,b){while(b){[a,b]=[b,a%b];}return a;}
+const S={zoom:20000,q:44,X:1e7,sv:null,cnt:null,W:0,H:0,W2:0,H2:0,dpr:1};
+function prepare(){const X=S.X,s=new Uint8Array(X+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=X;i++)if(s[i])for(let j=i*i;j<=X;j+=i)s[j]=0;S.sv=s;}
+function count(){const q=S.q,c=new Float64Array(q);for(let p=2;p<=S.X;p++)if(S.sv[p])c[p%q]++;S.cnt=c;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(300,Math.min(480,w)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawPolar(){const W=S.W,H=S.H,dpr=S.dpr,N=S.zoom,R=Math.min(W,H)/2-6*dpr,cxp=W/2,cyp=H/2;ctx.fillStyle="#070d18";ctx.fillRect(0,0,W,H);const r=Math.max(1.4*dpr,Math.min(3*dpr,R/Math.sqrt(N)*3));
+ for(let p=2;p<=N;p++){if(!S.sv[p])continue;const rr=p/N*R,x=cxp+rr*Math.cos(p),y=cyp-rr*Math.sin(p);ctx.fillStyle="#edf4ff";ctx.fillRect(x-r/2,y-r/2,r,r);}
+ ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`primes up to ${f(N)} at (p, p radians)`,8*dpr,6*dpr);}
+function sqset(q){const s=new Set();for(let t=1;t<q;t++)if(gcd(t,q)===1)s.add(t*t%q);return s;}
+function drawArms(){const W=S.W2,H=S.H2,dpr=S.dpr,q=S.q,arms=[];for(let a=1;a<q;a++)if(gcd(a,q)===1)arms.push(a);const sq=sqset(q),vals=arms.map(a=>S.cnt[a]),mean=vals.reduce((x,y)=>x+y,0)/vals.length;let lo=Infinity,hi=-Infinity;for(const v of vals){lo=Math.min(lo,v);hi=Math.max(hi,v);}const pad=(hi-lo)*0.3+1,y0=lo-pad,y1=hi+pad;
+ const padL=56*dpr,padR=10*dpr,padT=14*dpr,padB=20*dpr,bw=(W-padL-padR)/arms.length,ys=v=>H-padB-(v-y0)/(y1-y0)*(H-padT-padB);cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(let k=0;k<=4;k++){const v=y0+(y1-y0)*k/4,y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(f(v),padL-5*dpr,y);}
+ arms.forEach((a,i)=>{cx.fillStyle=sq.has(a)?"#f472b6":"#38bdf8";const v=S.cnt[a];cx.fillRect(padL+i*bw+bw*0.1,ys(v),Math.max(1,bw*0.8),H-padB-ys(v));});
+ cx.strokeStyle="#fbbf24";cx.lineWidth=2*dpr;cx.beginPath();cx.moveTo(padL,ys(mean));cx.lineTo(W-padR,ys(mean));cx.stroke();cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(`primes per arm mod ${q} up to ${f(S.X)} (axis does not start at 0)`,padL+4*dpr,padT-12*dpr);}
+function stats(){const q=S.q,arms=[];for(let a=1;a<q;a++)if(gcd(a,q)===1)arms.push(a);const vals=arms.map(a=>S.cnt[a]),n=vals.length,mean=vals.reduce((x,y)=>x+y,0)/n,x2=vals.reduce((s,v)=>s+(v-mean)**2/mean,0),sq=sqset(q);let s1=0,n1=0,s2=0,n2=0;arms.forEach(a=>{if(sq.has(a)){s1+=S.cnt[a];n1++;}else{s2+=S.cnt[a];n2++;}});S.res={x2,lag:s2/n2-s1/n1,min:Math.min(...vals),max:Math.max(...vals)};
+ const cells=[["Arms (remainders coprime to "+q+")",String(n)],["Primes per arm",`${f(S.res.min)} to ${f(S.res.max)}`],["Chi-square (random: about "+(n-1)+")",x2.toFixed(1)],["Square arms behind by",S.res.lag.toFixed(1)+" primes"]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");$("status").textContent=`Up to ${f(S.X)} the ${n} arms mod ${q} hold between ${f(S.res.min)} and ${f(S.res.max)} primes each: far more even than chance.`;}
+function render(){drawPolar();drawArms();stats();}
+$("zoom").addEventListener("change",e=>{S.zoom=Number(e.target.value);drawPolar();});
+$("q").addEventListener("change",e=>{S.q=Number(e.target.value);count();drawArms();stats();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setTimeout(()=>{prepare();count();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const qq=new URLSearchParams(location.search),z=Number(qq.get("zoom")),q=Number(qq.get("q"));if([1000,20000,400000].includes(z)){S.zoom=z;$("zoom").value=String(z);}if([44,710].includes(q)){S.q=q;$("q").value=String(q);}prepare();count();size();render();})();
+</script>
+</body>
+</html>
