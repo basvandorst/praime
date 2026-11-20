@@ -41,7 +41,7 @@ table.bt th { color:var(--muted); font-weight:600; }
 <body>
 <header>
   <h1>Prime baskets</h1>
-  <p>Drop a basket of width h somewhere between N/2 and N and count the primes that fall into it. Do it again and again. If the primes were scattered at random with the right density (Cramér's model), the counts would spread like a Poisson count: the variance would equal the mean. The primes spread much less, and the wider the basket, the less. Bricks: <a href="prime17.html">prime17</a>, carousel: <a href="prime15.html">prime15</a>, census: <a href="prime14.html">prime14</a>, Goldbach comet: <a href="prime10.html">prime10</a>, turtle: <a href="prime8.html">prime8</a>.</p>
+  <p>Drop a basket of width h somewhere between N/2 and N and count the primes that fall into it. Do it again and again. If the primes were scattered at random with the right density (Cramér's model), the counts would spread almost like a Poisson count: the variance would be nearly the mean (1 − 1/ln n of it). The primes spread much less, and the wider the basket, the less. Bricks: <a href="prime17.html">prime17</a>, carousel: <a href="prime15.html">prime15</a>, census: <a href="prime14.html">prime14</a>, Goldbach comet: <a href="prime10.html">prime10</a>, turtle: <a href="prime8.html">prime8</a>.</p>
 </header>
 <main>
   <section class="panel controls" aria-label="Settings">
@@ -57,16 +57,16 @@ table.bt th { color:var(--muted); font-weight:600; }
   <section class="panel"><div class="grid" id="stats"></div></section>
   <section class="panel" id="backtest">
     <h2>How much less than chance, measured up to 1,000,000 and 10,000,000</h2>
-    <p class="note">For every start n between N/2 and N (not only the dropped baskets) the page computes the exact spread. Weighted by ln p (the sum of ln p over the primes and prime powers in the basket), Montgomery and Soundararajan (2004) derived from a uniform form of the Hardy–Littlewood conjecture that the variance is h (ln(n/h) + B) with B = 1 − γ − ln 2π = −1.415, for ln N ≤ h ≤ √N; Cramér's model gives h ln n. Unweighted, dividing by ln² n gives the heuristic variance / mean = 1 − (ln h − B) / ln n. The counts are compared with li(n + h) − li(n), so the slow thinning of the primes does not count as spread. Fake primes with a fixed sieve also spread less than Poisson, but by the same factor for every width; only the primes spread less and less as the basket grows. The page and a separate program agree on all these spreads for N = 100,000 and 1,000,000.</p>
+    <p class="note">For every start n between N/2 and N (not only the dropped baskets) the page computes the exact spread. Weighted by ln p (the sum of ln p over the primes and prime powers in the basket), Montgomery and Soundararajan (2004) derived from a uniform form of the Hardy–Littlewood conjecture that the variance is h (ln(n/h) + B) with B = 1 − γ − ln 2π = −1.415, for ln N ≤ h ≤ √N; Cramér's model gives h ln n. Unweighted, dividing by ln² n gives the heuristic variance / mean = 1 − (ln h − B) / ln n. All counts, of primes and of fakes, are compared with li(n + h) − li(n), so the slow thinning does not count as spread. Fake primes with a fixed sieve also spread less and less as the basket grows, but only up to widths of about the largest prime they avoid; beyond that their curve flattens, while the primes keep falling, because their sieve grows with the numbers. The agreement with Montgomery and Soundararajan is a test of an asymptotic formula: at these sizes the error term of their theorem is not small, and at h = 1,000 and 3,000 (N = 10,000,000) the measured variance is 4 % and 8 % below it. The page and a separate program agree on all these spreads for N = 100,000 and 1,000,000.</p>
     <div style="overflow-x:auto"><table class="bt"><thead><tr><th>N</th><th>h</th><th>weighted variance: measured / Montgomery–Soundararajan</th><th>/ Cramér</th><th>counts: variance / mean</th><th>heuristic</th><th>fakes, random odd</th><th>fakes avoiding 2 to 13</th><th>avoiding the primes to 100</th></tr></thead><tbody>
-<tr><td>1,000,000</td><td>10</td><td>1.003</td><td>0.727</td><td>0.727</td><td>0.725</td><td>0.852</td><td>0.613</td><td>0.384</td></tr>
-<tr><td>1,000,000</td><td>100</td><td>1.016</td><td>0.563</td><td>0.564</td><td>0.554</td><td>0.843</td><td>0.610</td><td>0.385</td></tr>
-<tr><td>1,000,000</td><td>1,000</td><td>0.999</td><td>0.383</td><td>0.384</td><td>0.384</td><td>0.827</td><td>0.621</td><td>0.368</td></tr>
-<tr><td>1,000,000</td><td>10,000 (&gt; √N)</td><td>0.838</td><td>0.179</td><td>0.177</td><td>0.213</td><td>0.695</td><td>0.549</td><td>0.370</td></tr>
-<tr><td>10,000,000</td><td>10</td><td>1.004</td><td>0.768</td><td>0.768</td><td>0.765</td><td>0.876</td><td>0.672</td><td>0.475</td></tr>
-<tr><td>10,000,000</td><td>100</td><td>1.002</td><td>0.620</td><td>0.620</td><td>0.619</td><td>0.884</td><td>0.669</td><td>0.477</td></tr>
-<tr><td>10,000,000</td><td>1,000</td><td>0.963</td><td>0.456</td><td>0.456</td><td>0.474</td><td>0.890</td><td>0.656</td><td>0.478</td></tr>
-<tr><td>10,000,000</td><td>3,000 (≈ √N)</td><td>0.924</td><td>0.374</td><td>0.373</td><td>0.404</td><td>0.905</td><td>0.633</td><td>0.474</td></tr>
+<tr><td>1,000,000</td><td>10</td><td>1.003</td><td>0.727</td><td>0.727</td><td>0.725</td><td>0.852</td><td>0.734</td><td>0.732</td></tr>
+<tr><td>1,000,000</td><td>100</td><td>1.016</td><td>0.563</td><td>0.564</td><td>0.554</td><td>0.843</td><td>0.638</td><td>0.572</td></tr>
+<tr><td>1,000,000</td><td>1,000</td><td>0.999</td><td>0.383</td><td>0.384</td><td>0.384</td><td>0.827</td><td>0.624</td><td>0.454</td></tr>
+<tr><td>1,000,000</td><td>10,000 (&gt; √N)</td><td>0.838</td><td>0.179</td><td>0.177</td><td>0.213</td><td>0.695</td><td>0.549</td><td>0.398</td></tr>
+<tr><td>10,000,000</td><td>10</td><td>1.004</td><td>0.768</td><td>0.768</td><td>0.765</td><td>0.876</td><td>0.778</td><td>0.769</td></tr>
+<tr><td>10,000,000</td><td>100</td><td>1.002</td><td>0.620</td><td>0.620</td><td>0.619</td><td>0.884</td><td>0.695</td><td>0.634</td></tr>
+<tr><td>10,000,000</td><td>1,000</td><td>0.963</td><td>0.456</td><td>0.456</td><td>0.474</td><td>0.890</td><td>0.659</td><td>0.544</td></tr>
+<tr><td>10,000,000</td><td>3,000 (≈ √N)</td><td>0.924</td><td>0.374</td><td>0.373</td><td>0.404</td><td>0.905</td><td>0.634</td><td>0.518</td></tr>
     </tbody></table></div>
   </section>
 </main>
@@ -77,9 +77,9 @@ function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(
 const S={src:"primes",N:1e6,h:100,ind:null,exp:null,psi:null,counts:[],drops:[],run:false,acc:0,last:0,R:rng(7),ex:null,W:0,H:0,dpr:1};
 function prepare(){const N=S.N,M=N+10001,s=new Uint8Array(M+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=M;i++)if(s[i])for(let j=i*i;j<=M;j+=i)s[j]=0;
  const lam=new Float64Array(M+1);for(let p=2;p<=M;p++)if(s[p]){const lp=Math.log(p);for(let q=p;q<=M;q*=p)lam[q]+=lp;}const psi=new Float64Array(M+1);for(let i=1;i<=M;i++)psi[i]=psi[i-1]+lam[i];S.psi=psi;
- const ind=new Uint8Array(M+1),exp=new Float64Array(M+1);if(S.src==="primes"){for(let i=0;i<=M;i++)ind[i]=s[i];for(let i=2;i<=M;i++)exp[i]=exp[i-1]+1/Math.log(i);}
+ const ind=new Uint8Array(M+1),exp=new Float64Array(M+1);for(let i=2;i<=M;i++)exp[i]=exp[i-1]+1/Math.log(i);if(S.src==="primes"){for(let i=0;i<=M;i++)ind[i]=s[i];}
  else{const W=S.src==="f2"?[2]:S.src==="f13"?[2,3,5,7,11,13]:(()=>{const o=[];for(let p=2;p<=100;p++)if(s[p])o.push(p);return o;})(),cut=Math.max(100,W[W.length-1]),r=rng(1600);let c=1;for(const p of W)c*=p/(p-1);
-  for(let i=1;i<=M;i++){let pb=0;if(i<=cut)pb=s[i];else{let ok=true;for(const p of W)if(i%p===0){ok=false;break;}if(ok)pb=Math.min(1,c/Math.log(i));}exp[i]=exp[i-1]+pb;if(pb>0&&r()<pb)ind[i]=1;}}
+  for(let i=1;i<=M;i++){let pb=0;if(i<=cut)pb=s[i];else{let ok=true;for(const p of W)if(i%p===0){ok=false;break;}if(ok)pb=Math.min(1,c/Math.log(i));}if(pb>0&&r()<pb)ind[i]=1;}}
  const cs=new Int32Array(M+1);for(let i=1;i<=M;i++)cs[i]=cs[i-1]+ind[i];S.ind=ind;S.cs=cs;S.exp=exp;exact();S.counts=[];S.drops=[];}
 function exact(){const N=S.N,h=S.h,lo=Math.floor(N/2),cs=S.cs,ex=S.exp,psi=S.psi;let n0=0,s1=0,s2=0,m=0,w1=0,w2=0,ms=0,cr=0,heur=0;
  for(let n=lo;n<=N;n++){const d=(cs[n+h]-cs[n])-(ex[n+h]-ex[n]);s1+=d;s2+=d*d;m+=ex[n+h]-ex[n];n0++;const w=psi[n+h]-psi[n]-h;w1+=w;w2+=w*w;const ln=Math.log(n);ms+=h*(Math.log(n/h)+B);cr+=h*ln;heur+=1-(Math.log(h)-B)/ln;}
@@ -105,7 +105,7 @@ function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.5*x);return s*
 function stats(){const E=S.ex,c=S.counts;let m=0,q=0;for(const v of c){m+=v;q+=v*v;}const n=c.length,mu=n?m/n:0,vr=n?q/n-mu*mu:0;
  const cells=[["Baskets dropped",f(n)],["Mean count (all baskets)",E.mean.toFixed(2)],["Variance / mean (all baskets; Poisson 1)",E.ratio.toFixed(3)],["Heuristic 1 − (ln h − B) / ln n",E.heur.toFixed(3)]].concat(S.src==="primes"?[["Weighted variance / Montgomery–Soundararajan",(E.wv/E.ms).toFixed(3)],["Weighted variance / Cramér",(E.wv/E.cr).toFixed(3)]]:[]);
  $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
- $("status").textContent=S.h*S.h>S.N&&S.src==="primes"?`h = ${f(S.h)} is above √N = ${f(Math.sqrt(S.N))}: outside the range of the Montgomery–Soundararajan formula.`:n?`${f(n)} baskets so far; their counts spread with variance ${vr.toFixed(2)} around ${mu.toFixed(2)}.`:"";}
+ $("status").textContent=S.h*S.h>S.N&&S.src==="primes"?`h = ${f(S.h)} is above √N = ${f(Math.sqrt(S.N))}: beyond the range in which Montgomery and Soundararajan proved their formula (they conjecture it further).`:n?`${f(n)} baskets so far; their counts spread with variance ${vr.toFixed(2)} around ${mu.toFixed(2)}.`:"";}
 function render(){draw();stats();}
 let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=dt*(S.counts.length<50?6:S.counts.length<500?60:600);const m=Math.floor(S.acc);if(m>0){S.acc-=m;drop(m);render();}if(S.counts.length>=20000){setRun(false);return;}raf=requestAnimationFrame(frame);}
 function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Drop baskets";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
