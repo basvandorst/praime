@@ -51,5 +51,6 @@ From the prime pages of 19-20 November 2026 (MERSENNE.md sections 22-49, prime4.
 - Cite a theorem only inside its proved range: Montgomery-Hooley concerns moduli q comparable to x and says nothing about q = 44 at x = 10^7; for a fixed q, use the explicit formula. A difference between classes can often be written exactly as a few character sums (the lag of the square arms mod 44 is three of them), which shows its true noise.
 - A 'mysterious' near-match with a known constant deserves a derivation before it is called an observation: the share 0.3745 of primes with maximal Fibonacci rank is Artin's constant under GRH (9A/19 + 10A/19).
 - A conditional limit (Ng: the log-mean of (M(x)/sqrt x)^2 tends to the sum of 1/|rho zeta'(rho)|^2) fixes only the average; quote the maximum (0.57) and the rms (0.17) separately, and estimate the tail of a zero sum before comparing.
+- Before reading a coefficient off residuals, compute it: for sums of two squares the Selberg-Delange method gives the expansion K x/sqrt(ln x) (1 + 0.58195/L + 1.2910/L^2 + 4.875/L^3) (K and Shanks's 0.58195 come out as checks); residuals at 10^8..10^16 had suggested 1.3-1.4 for the third coefficient, and with the four terms the error at 10^16 drops from 0.105 % to 0.0018 %.
 '''
 open('findings20.txt','w').write(blk); print(blk)
