@@ -46,7 +46,7 @@ table.bt th { color:var(--muted); font-weight:600; }
 <body>
 <header>
   <h1>Prime impostors</h1>
-  <p>Fermat's passport check: if p is prime, then 2<sup>p−1</sup> leaves remainder 1 after division by p. A number that fails is certainly composite. But some composite numbers pass: 341 = 11 · 31 is the first. These impostors are rare, and a few of them, the Carmichael numbers (561 = 3 · 11 · 17 is the first), pass the check for every base that shares no factor with them. Orchard: <a href="prime25.html">prime25</a>, high jump: <a href="prime23.html">prime23</a>, doorman: <a href="prime21.html">prime21</a>, carousel: <a href="prime15.html">prime15</a>.</p>
+  <p>Fermat's passport check: if p is an odd prime, then 2<sup>p−1</sup> leaves remainder 1 after division by p. A number that fails is certainly composite. But some composite numbers pass: 341 = 11 · 31 is the first. These impostors are rare, and a few of them, the Carmichael numbers (561 = 3 · 11 · 17 is the first), pass the check for every base that shares no factor with them. Orchard: <a href="prime25.html">prime25</a>, high jump: <a href="prime23.html">prime23</a>, doorman: <a href="prime21.html">prime21</a>, carousel: <a href="prime15.html">prime15</a>.</p>
 </header>
 <main>
   <section class="panel controls" aria-label="Settings">
@@ -61,7 +61,7 @@ table.bt th { color:var(--muted); font-weight:600; }
   <div class="status" id="status" aria-live="polite"></div>
   <section class="panel"><h2>The gallery</h2><div class="gallery" id="gal"></div></section>
   <section class="panel"><div class="grid" id="stats"></div></section>
-  <section class="panel" id="backtest"><h2>How rare, counted and compared</h2><p class="note" id="btnote">The page counts the impostors to base 2 and the Carmichael numbers up to 10,000,000; a separate program counts them up to 10<sup>9</sup>, and both agree with the published counts (OEIS A055550 and A055553, from Pinch and Feitsma). Pomerance's heuristic says the number of impostors up to x is x<sup>1 − (1 + o(1)) ln ln ln x / ln ln x</sup>; with the o(1) left out it overshoots by many orders of magnitude at every size anyone has counted. The local growth, how many times more impostors per factor 10, is far below 10 and rises only slowly.</p><div style="overflow-x:auto"><table class="bt" id="bt"></table></div></section>
+  <section class="panel" id="backtest"><h2>How rare, counted and compared</h2><p class="note" id="btnote">The page counts the impostors to base 2 and the Carmichael numbers up to 10,000,000; a separate program counts them up to 10<sup>9</sup>, and both agree with the published counts (OEIS A055550, by Pinch, Feitsma and Galway, and A055553, by Pinch, Goutier, and Shallue and Webster). Pomerance's heuristic says the number of impostors up to x is x<sup>1 − (1 + o(1)) ln ln ln x / ln ln x</sup>; with the o(1) left out it overshoots by many orders of magnitude at every size anyone has counted. The local growth, how many times more Carmichael numbers per factor 10, is 2.3 to 2.5, where the heuristic without its o(1) would give 4.2 to 4.8.</p><div style="overflow-x:auto"><table class="bt" id="bt"></table></div></section>
 </main>
 <script>
 const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");

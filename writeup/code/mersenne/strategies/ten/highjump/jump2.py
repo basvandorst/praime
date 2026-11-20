@@ -1,4 +1,4 @@
-"""The 85 record gaps (OEIS A002386 / A005250 b-files) against Wolf's formula (x / pi(x)) (2 ln pi(x) - ln x + ln C2),
+"""The 85 record gaps (OEIS A002386 / A005250 b-files) against Wolf's formula (x / pi(x)) (2 ln pi(x) - ln x + ln C2), C2 = 1.3203 (twice the twin prime constant),
 pi(x) replaced by li(x) (relative error below 10^-4 for x > 10^6), Cramer's random-model maximum ln x ln pi(x), and
 ln^2 x; all at x = p.  Also the largest g / ln^2 p.   usage: jump2.py out.txt"""
 import sys, math
@@ -8,7 +8,7 @@ def pr(*a):
     s = ' '.join(str(v) for v in a); print(s); out.write(s + '\n')
 P = [int(l.split()[1]) for l in open('oeis/b002386.txt') if l.strip() and not l.startswith('#')]
 G = [int(l.split()[1]) for l in open('oeis/b005250.txt') if l.strip() and not l.startswith('#')]
-C2 = 0.6601618158468696
+C2 = 1.3203236316937391   # Wolf's C2 = 2 * prod (1 - 1/(p-1)^2), twice the twin prime constant
 li = lambda x: float(expi(math.log(x)) - expi(math.log(2)))
 r_w = []; r_c = []; r_l = []
 for p, g in zip(P, G):

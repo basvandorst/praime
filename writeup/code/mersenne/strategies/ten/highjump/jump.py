@@ -2,7 +2,7 @@
 up to 10^9 (Cramer: odd numbers with chance 2 / ln n; wheels: numbers without prime factors in W with chance
 prod p/(p-1) / ln n; true primes up to max(W, 100) copied).  Predictions: Cramer's model's largest gap below x is about
 ln x * ln pi(x) (the largest of pi(x) exponential gaps of mean ln x); Wolf's formula (x / pi(x)) (2 ln pi(x) - ln x + c0),
-c0 = ln C2 = -0.4154 (C2 twin constant 0.6601...); Cramer's conjecture ln^2 x.
+c0 = ln C2 = 0.2779 (Wolf's C2 = 1.3203..., twice the twin prime constant; Kourbatov: log(2 Pi2)); Cramer's conjecture ln^2 x.
 Prediction written before the run: the primes' largest gaps lie below the Cramer-model fakes and close to Wolf's formula;
 fakes with a wheel come closer to the primes.   usage: jump.py out.txt"""
 import sys, math
@@ -13,7 +13,7 @@ def pr(*a):
 P = [int(l.split()[1]) for l in open('oeis/b002386.txt') if l.strip() and not l.startswith('#')]
 G = [int(l.split()[1]) for l in open('oeis/b005250.txt') if l.strip() and not l.startswith('#')]
 from sympy import primepi
-C2 = 0.6601618158468696
+C2 = 1.3203236316937391   # Wolf's C2 = 2 * prod (1 - 1/(p-1)^2), twice the twin prime constant
 def wolf(x, pix): return x / pix * (2 * math.log(pix) - math.log(x) + math.log(C2))
 pr('records from the OEIS b-files: %d, last p = %d, gap %d; the largest g / ln^2 p: %.4f at p = %d' % (len(P), P[-1], G[-1], max(g / math.log(p) ** 2 for p, g in zip(P, G)), max(zip([g / math.log(p) ** 2 for p, g in zip(P, G)], P))[1]))
 xs = [10 ** e for e in range(3, 10)]
