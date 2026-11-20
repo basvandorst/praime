@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime baskets</title>
+<meta name="description" content="Drop a basket of width h on the number line and count the primes in it. The counts vary much less than chance, and the wider the basket, the stronger: Montgomery and Soundararajan predicted by how much.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button.go { background:#14532d; border-color:#22c55e; min-width:86px; }
+button.go.on { background:#4a1d1d; border-color:#f87171; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:680px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Prime baskets</h1>
+  <p>Drop a basket of width h somewhere between N/2 and N and count the primes that fall into it. Do it again and again. If the primes were scattered at random with the right density (Cramér's model), the counts would spread like a Poisson count: the variance would equal the mean. The primes spread much less, and the wider the basket, the less. Carousel: <a href="prime15.html">prime15</a>, census: <a href="prime14.html">prime14</a>, Goldbach comet: <a href="prime10.html">prime10</a>, turtle: <a href="prime8.html">prime8</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><label for="src">Numbers</label><select id="src"><option value="primes">The primes</option><option value="f2">Fake primes: random odd numbers</option><option value="f13">Fake primes avoiding 2 to 13</option><option value="f100">Fake primes avoiding the primes up to 100</option></select></div>
+    <div class="ctl"><label for="maxn">Baskets between N/2 and N =</label><select id="maxn"><option value="100000">100,000</option><option value="1000000" selected>1,000,000</option></select></div>
+    <div class="ctl"><label for="h">Basket width h</label><select id="h"><option>10</option><option>30</option><option selected>100</option><option>300</option><option>1000</option><option>3000</option><option>10000</option></select></div>
+    <button id="go" class="go" type="button">Drop baskets</button>
+    <button id="many" type="button">Drop 10,000</button>
+    <button id="reset" type="button">Empty</button>
+  </section>
+  <div class="stage" id="stage"><canvas id="cv" aria-label="Baskets and the spread of their counts"></canvas></div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>How much less than chance, measured up to 1,000,000 and 10,000,000</h2>
+    <p class="note">For every start n between N/2 and N (not only the dropped baskets) the page computes the exact spread. Weighted by ln p (the sum of ln p over the primes and prime powers in the basket), Montgomery and Soundararajan (2004) derived from a uniform form of the Hardy–Littlewood conjecture that the variance is h (ln(n/h) + B) with B = 1 − γ − ln 2π = −1.415, for ln N ≤ h ≤ √N; Cramér's model gives h ln n. Unweighted, dividing by ln² n gives the heuristic variance / mean = 1 − (ln h − B) / ln n. The counts are compared with li(n + h) − li(n), so the slow thinning of the primes does not count as spread. Fake primes with a fixed sieve also spread less than Poisson, but by the same factor for every width; only the primes spread less and less as the basket grows. The page and a separate program agree on all these spreads for N = 100,000 and 1,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>N</th><th>h</th><th>weighted variance: measured / Montgomery–Soundararajan</th><th>/ Cramér</th><th>counts: variance / mean</th><th>heuristic</th><th>fakes, random odd</th><th>fakes avoiding 2 to 13</th><th>avoiding the primes to 100</th></tr></thead><tbody>
+<tr><td>1,000,000</td><td>10</td><td>1.003</td><td>0.727</td><td>0.727</td><td>0.725</td><td>0.852</td><td>0.613</td><td>0.384</td></tr>
+<tr><td>1,000,000</td><td>100</td><td>1.016</td><td>0.563</td><td>0.564</td><td>0.554</td><td>0.843</td><td>0.610</td><td>0.385</td></tr>
+<tr><td>1,000,000</td><td>1,000</td><td>0.999</td><td>0.383</td><td>0.384</td><td>0.384</td><td>0.827</td><td>0.621</td><td>0.368</td></tr>
+<tr><td>1,000,000</td><td>10,000 (&gt; √N)</td><td>0.838</td><td>0.179</td><td>0.177</td><td>0.213</td><td>0.695</td><td>0.549</td><td>0.370</td></tr>
+<tr><td>10,000,000</td><td>10</td><td>1.004</td><td>0.768</td><td>0.768</td><td>0.765</td><td>0.876</td><td>0.672</td><td>0.475</td></tr>
+<tr><td>10,000,000</td><td>100</td><td>1.002</td><td>0.620</td><td>0.620</td><td>0.619</td><td>0.884</td><td>0.669</td><td>0.477</td></tr>
+<tr><td>10,000,000</td><td>1,000</td><td>0.963</td><td>0.456</td><td>0.456</td><td>0.474</td><td>0.890</td><td>0.656</td><td>0.478</td></tr>
+<tr><td>10,000,000</td><td>3,000 (≈ √N)</td><td>0.924</td><td>0.374</td><td>0.373</td><td>0.404</td><td>0.905</td><td>0.633</td><td>0.474</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),B=1-0.5772156649015329-Math.log(2*Math.PI),HS=[10,30,100,300,1000,3000,10000];
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const S={src:"primes",N:1e6,h:100,ind:null,exp:null,psi:null,counts:[],drops:[],run:false,acc:0,last:0,R:rng(7),ex:null,W:0,H:0,dpr:1};
+function prepare(){const N=S.N,M=N+10001,s=new Uint8Array(M+1).fill(1);s[0]=s[1]=0;for(let i=2;i*i<=M;i++)if(s[i])for(let j=i*i;j<=M;j+=i)s[j]=0;
+ const lam=new Float64Array(M+1);for(let p=2;p<=M;p++)if(s[p]){const lp=Math.log(p);for(let q=p;q<=M;q*=p)lam[q]+=lp;}const psi=new Float64Array(M+1);for(let i=1;i<=M;i++)psi[i]=psi[i-1]+lam[i];S.psi=psi;
+ const ind=new Uint8Array(M+1),exp=new Float64Array(M+1);if(S.src==="primes"){for(let i=0;i<=M;i++)ind[i]=s[i];for(let i=2;i<=M;i++)exp[i]=exp[i-1]+1/Math.log(i);}
+ else{const W=S.src==="f2"?[2]:S.src==="f13"?[2,3,5,7,11,13]:(()=>{const o=[];for(let p=2;p<=100;p++)if(s[p])o.push(p);return o;})(),cut=Math.max(100,W[W.length-1]),r=rng(1600);let c=1;for(const p of W)c*=p/(p-1);
+  for(let i=1;i<=M;i++){let pb=0;if(i<=cut)pb=s[i];else{let ok=true;for(const p of W)if(i%p===0){ok=false;break;}if(ok)pb=Math.min(1,c/Math.log(i));}exp[i]=exp[i-1]+pb;if(pb>0&&r()<pb)ind[i]=1;}}
+ const cs=new Int32Array(M+1);for(let i=1;i<=M;i++)cs[i]=cs[i-1]+ind[i];S.ind=ind;S.cs=cs;S.exp=exp;exact();S.counts=[];S.drops=[];}
+function exact(){const N=S.N,h=S.h,lo=Math.floor(N/2),cs=S.cs,ex=S.exp,psi=S.psi;let n0=0,s1=0,s2=0,m=0,w1=0,w2=0,ms=0,cr=0,heur=0;
+ for(let n=lo;n<=N;n++){const d=(cs[n+h]-cs[n])-(ex[n+h]-ex[n]);s1+=d;s2+=d*d;m+=ex[n+h]-ex[n];n0++;const w=psi[n+h]-psi[n]-h;w1+=w;w2+=w*w;const ln=Math.log(n);ms+=h*(Math.log(n/h)+B);cr+=h*ln;heur+=1-(Math.log(h)-B)/ln;}
+ const v=s2/n0-(s1/n0)**2,wv=w2/n0-(w1/n0)**2;S.ex={ratio:v/(m/n0),mean:m/n0,wv,ms:ms/n0,cr:cr/n0,heur:heur/n0};}
+function drop(k){const N=S.N,h=S.h,lo=Math.floor(N/2);for(let i=0;i<k;i++){const n=lo+Math.floor(S.R()*(N-lo+1)),c=S.cs[n+h]-S.cs[n];S.counts.push(c);if(S.drops.length>40)S.drops.shift();S.drops.push([n,c]);}}
+function size(){const w=cv.parentElement.clientWidth,h=Math.round(Math.max(340,Math.min(520,w*0.55)));S.dpr=window.devicePixelRatio||1;cv.width=Math.round(w*S.dpr);cv.height=Math.round(h*S.dpr);cv.style.height=h+"px";S.W=cv.width;S.H=cv.height;}
+function draw(){const W=S.W,H=S.H,dpr=S.dpr,h=S.h,top=96*dpr;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ const last=S.drops[S.drops.length-1];ctx.fillStyle="#9fb0c6";ctx.font=`${11*dpr}px system-ui,sans-serif`;ctx.textAlign="left";ctx.textBaseline="top";
+ if(last){const [n,c]=last,x0=16*dpr,x1=W-16*dpr,y=48*dpr,span=Math.min(h,4000);ctx.strokeStyle="#40536d";ctx.lineWidth=dpr;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+  for(let i=1;i<=span;i++){if(!S.ind[n+i])continue;const x=x0+(i-0.5)/span*(x1-x0);ctx.fillStyle="#fbbf24";ctx.beginPath();ctx.arc(x,y,Math.max(1.5*dpr,Math.min(4*dpr,(x1-x0)/span*0.4)),0,6.2832);ctx.fill();}
+  ctx.strokeStyle="#34d399";ctx.lineWidth=2*dpr;ctx.beginPath();ctx.moveTo(x0,y-16*dpr);ctx.lineTo(x0,y+12*dpr);ctx.lineTo(x1,y+12*dpr);ctx.lineTo(x1,y-16*dpr);ctx.stroke();ctx.fillStyle="#9fb0c6";ctx.fillText(`basket (${f(n)}, ${f(n+h)}]${h>span?" (first 4,000 shown)":""}: ${c} ${S.src==="primes"?"primes":"fakes"}`,x0,y+18*dpr);}
+ else ctx.fillText("Press Drop baskets.",16*dpr,40*dpr);
+ const counts=S.counts;if(!counts.length)return;let mn=Infinity,mx=-Infinity;for(const c of counts){if(c<mn)mn=c;if(c>mx)mx=c;}const mu=S.ex.mean,sdP=Math.sqrt(mu),lo=Math.max(0,Math.floor(Math.min(mn,mu-4*sdP))),hi=Math.ceil(Math.max(mx,mu+4*sdP)),bins=Math.min(80,hi-lo+1),bw=(hi-lo+1)/bins,hist=new Array(bins).fill(0);
+ for(const c of counts)hist[Math.min(bins-1,Math.floor((c-lo)/bw))]++;const padL=40*dpr,padR=12*dpr,padB=24*dpr,x=v=>padL+(v-lo)/(hi-lo+1)*(W-padL-padR);
+ const pois=k=>Math.exp(-mu+k*Math.log(mu)-lg(k+1)),sdM=Math.sqrt(S.ex.ratio*mu),norm=(a,b)=>0.5*(erf((b-mu)/(sdM*Math.SQRT2))-erf((a-mu)/(sdM*Math.SQRT2)));
+ let ymax=1;for(const v of hist)ymax=Math.max(ymax,v);const curP=[],curM=[];for(let i=0;i<bins;i++){let p=0;for(let k=Math.ceil(lo+i*bw);k<lo+(i+1)*bw;k++)p+=pois(k);curP.push(p*counts.length);curM.push(norm(lo+i*bw-0.5,lo+(i+1)*bw-0.5)*counts.length);ymax=Math.max(ymax,curP[i],curM[i]);}
+ const y=v=>H-padB-v/ymax/1.08*(H-top-padB);for(let i=0;i<bins;i++){ctx.fillStyle="#38bdf8";const xa=x(lo+i*bw),xb=x(lo+(i+1)*bw);ctx.fillRect(xa+0.5,y(hist[i]),Math.max(1,xb-xa-1),H-padB-y(hist[i]));}
+ for(const [cur,col] of [[curP,"#f472b6"],[curM,"#34d399"]]){ctx.strokeStyle=col;ctx.lineWidth=2.2*dpr;ctx.beginPath();cur.forEach((v,i)=>{const X=x(lo+(i+0.5)*bw),Y=y(v);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y);});ctx.stroke();}
+ ctx.fillStyle="#9fb0c6";ctx.textAlign="center";ctx.textBaseline="top";for(let k=0;k<=4;k++){const v=Math.round(lo+(hi-lo)*k/4);ctx.fillText(String(v),x(v+0.5),H-padB+5*dpr);}
+ ctx.textAlign="left";ctx.fillStyle="#f472b6";ctx.fillText(W<600*dpr?"● chance (Poisson)":"● chance: a Poisson count with the same mean",padL,top-16*dpr);ctx.fillStyle="#34d399";ctx.fillText(W<600*dpr?"● measured spread":"● a bell with the measured spread of all baskets",padL+(W<600*dpr?130:280)*dpr,top-16*dpr);}
+function lg(z){const c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];z-=1;let a=c[0];const t=z+7.5;for(let i=1;i<9;i++)a+=c[i]/(z+i);return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(a);}
+function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.5*x);return s*(1-t*Math.exp(-x*x-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277))))))))));}
+function stats(){const E=S.ex,c=S.counts;let m=0,q=0;for(const v of c){m+=v;q+=v*v;}const n=c.length,mu=n?m/n:0,vr=n?q/n-mu*mu:0;
+ const cells=[["Baskets dropped",f(n)],["Mean count (all baskets)",E.mean.toFixed(2)],["Variance / mean (all baskets; Poisson 1)",E.ratio.toFixed(3)],["Heuristic 1 − (ln h − B) / ln n",E.heur.toFixed(3)]].concat(S.src==="primes"?[["Weighted variance / Montgomery–Soundararajan",(E.wv/E.ms).toFixed(3)],["Weighted variance / Cramér",(E.wv/E.cr).toFixed(3)]]:[]);
+ $("stats").innerHTML=cells.map(x=>`<div class="cell"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+ $("status").textContent=S.h*S.h>S.N&&S.src==="primes"?`h = ${f(S.h)} is above √N = ${f(Math.sqrt(S.N))}: outside the range of the Montgomery–Soundararajan formula.`:n?`${f(n)} baskets so far; their counts spread with variance ${vr.toFixed(2)} around ${mu.toFixed(2)}.`:"";}
+function render(){draw();stats();}
+let raf=null;function frame(t){if(!S.run){raf=null;return;}const dt=Math.min(0.1,(t-(S.last||t))/1000);S.last=t;S.acc+=dt*(S.counts.length<50?6:S.counts.length<500?60:600);const m=Math.floor(S.acc);if(m>0){S.acc-=m;drop(m);render();}if(S.counts.length>=20000){setRun(false);return;}raf=requestAnimationFrame(frame);}
+function setRun(v){S.run=v;$("go").textContent=v?"Pause":"Drop baskets";$("go").classList.toggle("on",v);if(v&&!raf){S.last=0;raf=requestAnimationFrame(frame);}}
+function full(){prepare();size();render();}
+$("go").addEventListener("click",()=>setRun(!S.run));
+$("many").addEventListener("click",()=>{setRun(false);drop(10000);render();});
+$("reset").addEventListener("click",()=>{setRun(false);S.counts=[];S.drops=[];S.R=rng(7);render();});
+$("src").addEventListener("change",e=>{S.src=e.target.value;setRun(false);$("status").textContent="Preparing…";setTimeout(full,20);});
+$("maxn").addEventListener("change",e=>{S.N=Number(e.target.value);setRun(false);$("status").textContent="Preparing…";setTimeout(full,20);});
+$("h").addEventListener("change",e=>{S.h=Number(e.target.value);setRun(false);exact();S.counts=[];S.drops=[];S.R=rng(7);render();});
+window.addEventListener("resize",()=>{size();draw();});
+(()=>{const q=new URLSearchParams(location.search),s=q.get("src"),mx=Number(q.get("max")),h=Number(q.get("h"));if(s&&[...$("src").options].some(o=>o.value===s)){S.src=s;$("src").value=s;}if([100000,1000000].includes(mx)){S.N=mx;$("maxn").value=String(mx);}if(HS.includes(h)){S.h=h;$("h").value=String(h);}full();if(q.get("drop")){drop(Number(q.get("drop")));render();}})();
+</script>
+</body>
+</html>
