@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Euclid's orchard</title>
+<meta name="description" content="Trees stand at every lattice point. Standing at the origin you see only the trees whose coordinates share no prime factor: 6/π² of them, the product of (1 − 1/p²) over all primes.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label, .lab { color:var(--muted); font-size:12.5px; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+input[type=range] { width:200px; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:6px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; min-width:600px; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:5px 8px; text-align:left; vertical-align:top; }
+table.bt th { color:var(--muted); font-weight:600; }
+@media (max-width:600px) { header, main { padding:12px; } input[type=range] { width:150px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Euclid's orchard</h1>
+  <p>A tree stands at every point (a, b) with whole coordinates. You stand at the origin and look out. The tree at (4, 6) is hidden behind the tree at (2, 3): you see a tree exactly when a and b share no prime factor. A prime p hides a share 1/p² of the trees (both coordinates divisible by p), so the share you see is the product of (1 − 1/p²) over all primes, which is 6/π² = 0.6079. Impostors: <a href="prime24.html">prime24</a>, rain (the same product idea): <a href="prime12.html">prime12</a>.</p>
+</header>
+<main>
+  <section class="panel controls" aria-label="Settings">
+    <div class="ctl"><span class="lab">Orchard of <b id="nv">24</b> × <b id="nv2">24</b> trees</span><input id="n" type="range" min="4" max="80" value="24" aria-label="Size"></div>
+    <div class="ctl"><label for="maxn">Count the orchards up to</label><select id="maxn"><option value="10000">10,000</option><option value="1000000" selected>1,000,000</option></select></div>
+  </section>
+  <div class="two" id="stage">
+    <div><div class="stage"><canvas id="cv" aria-label="The orchard"></canvas></div><div class="legend"><span><span class="sw" style="background:#34d399"></span>visible</span><span><span class="sw" style="background:#33445c"></span>hidden</span><span><span class="sw" style="background:#fbbf24"></span>lines of sight to a few visible trees</span></div></div>
+    <div><div class="stage"><canvas id="ch" aria-label="The error of 6/π²"></canvas></div><div class="legend"><span><span class="sw" style="background:#38bdf8"></span>D(N) / N, D = visible − (6/π²) N²</span><span><span class="sw" style="background:#fbbf24"></span>6/π²</span></div></div>
+  </div>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="panel"><div class="grid" id="stats"></div></section>
+  <section class="panel" id="backtest">
+    <h2>How close 6/π² is, counted up to N = 10,000,000</h2>
+    <p class="note">The number of visible trees in the N × N orchard is V(N) = 2 (φ(1) + … + φ(N)) − 1 (φ is Euler's function). Mertens showed in 1874 that V(N) = (6/π²) N² + D(N) with D(N) at most a constant times N ln N; Walfisz sharpened that to N (ln N)<sup>2/3</sup> (ln ln N)<sup>4/3</sup>. Counted, D(N) / N looks like a stationary wobble: over every range of N its mean is 0.6079, the value of 6/π² itself to four digits, its spread 0.28, it lies between −0.18 and 1.39 up to 10<sup>7</sup>, and it is negative for only 0.2 % of the N. The page and a separate program agree on V(N) and on these statistics up to 1,000,000.</p>
+    <div style="overflow-x:auto"><table class="bt"><thead><tr><th>N in</th><th>mean of D(N) / N</th><th>spread</th><th>smallest</th><th>largest</th><th>share with D &gt; 0</th></tr></thead><tbody>
+<tr><td>[10, 10<sup>3</sup>]</td><td>0.6050</td><td>0.2814</td><td>−0.023</td><td>1.197</td><td>0.999</td></tr>
+<tr><td>[10<sup>3</sup>, 10<sup>5</sup>]</td><td>0.6079</td><td>0.2819</td><td>−0.115</td><td>1.364</td><td>0.998</td></tr>
+<tr><td>[10<sup>5</sup>, 10<sup>7</sup>]</td><td>0.6079</td><td>0.2819</td><td>−0.183</td><td>1.390</td><td>0.998</td></tr>
+    </tbody></table></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d"),ch=$("ch"),cx=ch.getContext("2d");
+const f=x=>Math.round(x).toLocaleString("en-US"),C=6/Math.PI**2;
+function gcd(a,b){while(b){[a,b]=[b,a%b];}return a;}
+const S={n:24,X:1e6,V:null,W:0,H:0,W2:0,H2:0,dpr:1};
+function prepare(){const X=S.X,phi=new Float64Array(X+1);for(let i=0;i<=X;i++)phi[i]=i;for(let p=2;p<=X;p++)if(phi[p]===p)for(let m=p;m<=X;m+=p)phi[m]-=phi[m]/p;const V=new Float64Array(X+1);let s=0;for(let i=1;i<=X;i++){s+=phi[i];V[i]=2*s-1;}S.V=V;}
+function size(){for(const [c,k] of [[cv,""],[ch,"2"]]){const w=c.parentElement.clientWidth,h=Math.round(Math.max(280,Math.min(440,w*0.85)));S.dpr=window.devicePixelRatio||1;c.width=Math.round(w*S.dpr);c.height=Math.round(h*S.dpr);c.style.height=h+"px";S["W"+k]=c.width;S["H"+k]=c.height;}}
+function drawOrchard(){const W=S.W,H=S.H,dpr=S.dpr,n=S.n,pad=14*dpr,cs=Math.min((W-2*pad)/n,(H-2*pad)/n),ox=pad,oy=H-pad;ctx.fillStyle="#0e1828";ctx.fillRect(0,0,W,H);
+ ctx.strokeStyle="rgba(251,191,36,0.35)";ctx.lineWidth=1*dpr;for(const [a,b] of [[n,1],[n,n-1],[1,n],[n-1,n],[Math.ceil(n*0.7),Math.ceil(n*0.4)]]){if(gcd(a,b)!==1)continue;ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+a*cs,oy-b*cs);ctx.stroke();}
+ for(let a=1;a<=n;a++)for(let b=1;b<=n;b++){const vis=gcd(a,b)===1,x=ox+a*cs,y=oy-b*cs,r=Math.max(1.2*dpr,cs*0.28);ctx.fillStyle=vis?"#34d399":"#33445c";ctx.beginPath();ctx.arc(x,y,r,0,6.2832);ctx.fill();}
+ ctx.fillStyle="#f472b6";ctx.beginPath();ctx.arc(ox,oy,4*dpr,0,6.2832);ctx.fill();}
+function drawChart(){const W=S.W2,H=S.H2,dpr=S.dpr,X=S.X,padL=40*dpr,padR=10*dpr,padT=14*dpr,padB=26*dpr,xs=n=>padL+Math.log10(n)/Math.log10(X)*(W-padL-padR),ys=v=>H-padB-(v+0.4)/2*(H-padT-padB);
+ cx.fillStyle="#0e1828";cx.fillRect(0,0,W,H);cx.strokeStyle="#26364c";cx.fillStyle="#9fb0c6";cx.font=`${10.5*dpr}px system-ui,sans-serif`;cx.textAlign="right";cx.textBaseline="middle";for(const v of [-0.4,0,0.4,0.8,1.2,1.6]){const y=ys(v);cx.beginPath();cx.moveTo(padL,y);cx.lineTo(W-padR,y);cx.stroke();cx.fillText(v.toFixed(1),padL-5*dpr,y);}
+ cx.textAlign="center";cx.textBaseline="top";for(let e=0;e<=Math.log10(X);e++)cx.fillText("10^"+e,xs(10**e),H-padB+6*dpr);
+ cx.fillStyle="rgba(56,189,248,0.55)";const cols=Math.floor(W-padL-padR);for(let c=0;c<cols;c++){const n0=Math.max(2,Math.floor(10**(c/cols*Math.log10(X)))),n1=Math.max(n0+1,Math.floor(10**((c+1)/cols*Math.log10(X))));let lo=1e9,hi=-1e9;for(let n=n0;n<n1&&n<=X;n++){const d=(S.V[n]-C*n*n)/n;if(d<lo)lo=d;if(d>hi)hi=d;}if(hi<lo)continue;cx.fillRect(padL+c,ys(hi),1,Math.max(1,ys(lo)-ys(hi)));}
+ cx.strokeStyle="#fbbf24";cx.lineWidth=2*dpr;cx.beginPath();cx.moveTo(padL,ys(C));cx.lineTo(W-padR,ys(C));cx.stroke();cx.fillStyle="#9fb0c6";cx.textAlign="left";cx.textBaseline="top";cx.fillText(W<500*dpr?"D(N)/N against N":"the error D(N) / N against N (log scale), range per pixel",padL+4*dpr,padT);}
+function stats(){const n=S.n,v=S.V[n],X=S.X;let m=0,q=0,pos=0,c=0;for(let k=Math.max(10,Math.floor(X/100));k<=X;k++){const d=(S.V[k]-C*k*k)/k;m+=d;q+=d*d;if(d>0)pos++;c++;}m/=c;S.st={m,sd:Math.sqrt(q/c-m*m),pos:pos/c};
+ const cells=[["Visible trees in "+n+" × "+n,f(v)+" of "+f(n*n)],["Share visible",(v/(n*n)).toFixed(4)],["6/π²",C.toFixed(4)],[`Mean D(N)/N for N in [${f(Math.max(10,Math.floor(X/100)))}, ${f(X)}]`,m.toFixed(4)],["Spread",S.st.sd.toFixed(4)],["Share of N with D > 0",S.st.pos.toFixed(4)]];
+ $("stats").innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join("");$("status").textContent=`In the ${n} × ${n} orchard you see ${f(v)} trees; 6/π² of ${f(n*n)} would be ${(C*n*n).toFixed(1)}.`;}
+function render(){drawOrchard();drawChart();stats();}
+$("n").addEventListener("input",e=>{S.n=Number(e.target.value);$("nv").textContent=S.n;$("nv2").textContent=S.n;drawOrchard();stats();});
+$("maxn").addEventListener("change",e=>{S.X=Number(e.target.value);setTimeout(()=>{prepare();render();},20);});
+window.addEventListener("resize",()=>{size();render();});
+(()=>{const q=new URLSearchParams(location.search),n=Number(q.get("n"));if(n>=4&&n<=80){S.n=n;$("n").value=String(n);}$("nv").textContent=S.n;$("nv2").textContent=S.n;prepare();size();render();})();
+</script>
+</body>
+</html>
