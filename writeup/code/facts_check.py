@@ -1587,5 +1587,31 @@ assert starts4026(7) == [11, 15760091, 25658441, 93625991, 182403491] and starts
 pr11 = [int(p) for p in P4026[i11:i11 + 20]]
 def admissible4026(tup): return all(len({(p - tup[0]) % r for p in tup}) < r for r in primerange(2, len(tup) + 1))
 assert admissible4026(pr11[:15]) and not admissible4026(pr11[:16]) and pr11[14] == 67 and pr11[15] == 71
+del P4026, g4026
+
+# 2048: G(y) = sum_{n<=y} Lambda(n)(y/n - 1) - y ln y + (1+gamma) y stays within (2 + gamma - ln 4pi) sqrt(y) of ln 2pi - T(y)
+g2048 = 0.57721566490153286061; lim2048 = 2 + g2048 - math.log(4 * math.pi)
+assert abs(lim2048 - 0.0461914179) < 1e-10
+def triv2048(y): u = 1 / y; return -0.5 * math.log(1 - u * u) - math.atanh(u) / u + 1 if y > 1.0001 else 1 - math.log(2)
+assert abs((1 + g2048) - math.log(2 * math.pi) + (1 - math.log(2)) - lim2048) < 1e-15
+P2048 = P[P <= 100_000_000]
+nn2048, ww2048 = [P2048.astype(np.float64)], [np.log(P2048.astype(np.float64))]
+for k2048 in range(2, 27):
+    pk = P2048[P2048 <= int(1e8 ** (1 / k2048)) + 1]; q = pk.astype(np.int64) ** k2048; m = q <= 100_000_000
+    nn2048.append(q[m].astype(np.float64)); ww2048.append(np.log(pk[m].astype(np.float64)))
+n2048 = np.concatenate(nn2048); w2048 = np.concatenate(ww2048); o2048 = np.argsort(n2048); n2048 = n2048[o2048]; w2048 = w2048[o2048]
+A2048 = np.cumsum((w2048 / n2048).astype(np.longdouble)); S2048 = np.cumsum(w2048.astype(np.longdouble)); N2048 = n2048.astype(np.longdouble)
+dev2048 = ((N2048 * A2048 - S2048 - N2048 * np.log(N2048) + (1 + g2048) * N2048) - np.longdouble(math.log(2 * math.pi))) / np.sqrt(N2048)
+ys2048 = np.exp(A2048 + g2048); in2048 = (ys2048 > N2048) & (ys2048 < np.append(N2048[1:], np.longdouble(1e8)))
+Y2048 = ys2048[in2048]
+devs2048 = ((Y2048 * A2048[in2048] - S2048[in2048] - Y2048 * np.log(Y2048) + (1 + g2048) * Y2048) - np.longdouble(math.log(2 * math.pi))) / np.sqrt(Y2048)
+big2048 = N2048 >= 100
+assert abs(float(min(dev2048[big2048].min(), devs2048[Y2048 >= 100].min())) + 0.022681) < 5e-7 and float(N2048[big2048][dev2048[big2048].argmin()]) == 319439
+assert abs(float(max(dev2048[big2048].max(), devs2048[Y2048 >= 100].max())) - 0.024694) < 5e-7 and float(N2048[big2048][dev2048[big2048].argmax()]) == 34186499
+small2048 = [(int(n), math.log(p)) for p in primerange(2, 2001) for n in [p ** k for k in range(1, 12)] if n <= 2000]
+worst2048 = max(abs(sum(L * (y / n - 1) for n, L in small2048 if n <= y) - y * math.log(y) + (1 + g2048) * y - math.log(2 * math.pi) + triv2048(y)) / math.sqrt(y)
+                for y in (1 + i * 0.02 for i in range(1, 100_000)))
+assert worst2048 < 0.0211
+del P2048, nn2048, ww2048, n2048, w2048, A2048, S2048, N2048, dev2048, ys2048, Y2048, devs2048
 
 print("all FACTS.md checks passed")

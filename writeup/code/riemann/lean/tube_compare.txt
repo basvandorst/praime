@@ -1,0 +1,14 @@
+Tube panel: page (JS, sieve to 1e7, Kahan sums) against tube.py (numpy, long double) and tube_zeros.py (plain Python + 400 mpmath zeros)
+dev(y) = (G(y) - log 2pi + trivial-zero sum)/sqrt(y)
+y          page        tube_zeros.py (primes)
+1.5        +0.005359   +0.00536
+2          -0.017332   -0.01733
+3          -0.020971   -0.02097
+10         +0.007777   +0.00778
+100        -0.011617   -0.01162
+1000       -0.009707   -0.00971
+y = 1: page 0.046191, bound 2 + gamma - log 4pi = 0.0461914179 (equality)
+100 <= y <= 1e7: page min -0.0227 at 319,439 and max 0.0187 near 3,100; tube.py 1e7: min -0.022681 at 319439, interior max +0.018674
+pi(1e7) on the page 664,579 (known value 664,579)
+1e8 (tube.py only): min -0.022681, max +0.024694 at 34,186,499, bound 0.046191
+explicit formula vs 400 zeros (tube_zeros.py): largest difference 3.4e-4 * sqrt(y) at y = 5, cut-off bound about 2.2e-3
