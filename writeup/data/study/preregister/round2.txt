@@ -1,0 +1,26 @@
+Round 2, pre-registered 2026-11-21 ~23:50 UTC, before round-2 theory meets the holdouts A and B or any statistic
+other than the single-gap shares at train.
+
+What was looked at while building it (development data): the single-gap shares S.gap{6,10,18,30,50,70,90} on the
+train window only. Two versions were tried there:
+  v1 factorial-cumulant exponential (ln P = -A1/lam + A2/lam^2 - ...): converged to the wrong value (x1.6 at h=90);
+     the cause is the diagonal X^2 = X, which the exponential formula for set functions ignores.
+  v2 Bahadur form (theory2.Pattern): ln P(B) = ln S(B) - |B| ln lam + sum ln(1-p_m) + sum c~ - sum k3~ + sum k4~
+     at order 4 it gave pred/actual 1.0009, 1.0007, 1.0021, 1.0026, 1.0083, 1.0086, 0.990 (se 0.0012..0.018).
+v2 is frozen now. No parameter exists to fit; the only choices are the order and the cut-offs below.
+
+Frozen choices:
+  order 4 for patterns with span <= 120, order 3 above (cost); single-gap law summed to h = 12*lam_max + 40.
+  joint law of two consecutive gaps: Pattern([0, h1, h1+h2]); classes as in probes.py (gap/2 capped at 20;
+  gap/2 mod 3); pairs with h1 or h2 above the cap are obtained from marginals: P(h1, >=42) = P(h1) - sum P(h1,h2<=40).
+  Variance of counts: exact HL pair sum, Var/mean = 1 - 1/lam + (2/(H lam)) sum_{h<H}(H-h)(S(0,h)-1).
+
+Predictions to be tested (train blocks, then A and B with nothing changed):
+  S.gap{h}       all h, pass |z_T| <= 3 at all three windows.
+  N.eqgap        sum_h P(0,h,2h): pass |z_T| <= 3.
+  A.same{q}      sum_{q|h} P(0,h) / sum_h P(0,h): pass |z_T| <= 3 (the LOS bias, here with no free constant).
+  I.migap_lag1, D.gain1_gap, I.mi6_lag1, D.gain1_mod6: computed from the joint law; reported as rel. diff
+                 (no block test for these, their block noise is not yet estimated).
+  S.var{50,500,5000}: pass |z_T| <= 3 with the exact pair sum (round 1: M-S missed H = 50 at z = 13).
+Expected failure modes written down now: the order-3 cut above span 120 may bias A.same at window B; the joint
+law beyond the cap is approximate.
