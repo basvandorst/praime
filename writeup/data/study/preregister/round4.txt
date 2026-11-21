@@ -1,0 +1,16 @@
+Round 4, pre-registered 2026-11-22 ~00:05 UTC, before any twin-prime statistic was computed.
+
+Object: consecutive twin-prime pairs (p, p+2), p > 5, in the windows train, A, B, C (the pair belongs to the window
+when p does). Twin gap h = distance between the first members of consecutive pairs (h = 0 mod 6).
+
+Law (derived, no parameter; theory_twins.py, class EventPattern): B = {0, 2, h, h+2}; interior events
+e_m = {m, m+2}, 0 < m < h; moments E prod_{e in A} X_e = S(B u (union A)) / (S(B) lam^{|union A minus B|});
+Bahadur form as in round 2: ln P = ln S(B) - 4 ln lam + sum ln(1 - p_e) + sum c~ - sum k3~ (order 3, all spans
+used here, h <= 300). Share per twin pair: P(B) / (S({0,2}) / lam^2), averaged over the window with weight 1/ln^2 t.
+
+Statistics (blocks of 10 as before; block z):
+ W1 share of twin gaps h for h = 6, 12, 18, 24, 30, 36, 42, 48, 60, 90, 120, 150, 180, 210
+ W2 share of twin gaps h <= 300 (sum of the law over h <= 300)
+ W3 same class mod 5 and mod 7 of consecutive twin pairs among twin gaps <= 300 (conditional share)
+Pass: |z| <= 3. Expected: fits at A, B, C; at train perhaps a miss as for the single-prime tail.
+Also reported: order 2 against order 3 (the convergence).
