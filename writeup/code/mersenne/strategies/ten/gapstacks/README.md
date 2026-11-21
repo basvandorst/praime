@@ -1,9 +1,8 @@
-# Prime gap balls (prime40.html)
+# Prime gap stacks (prime40.html)
 
-One ball per gap between consecutive primes (diameter = the gap, in order 1, 2, 2, 4, 2, 4, …) falls into a box 100 units high; the page lets you set the width (10 to 300 units) and the speed. The page sieves the primes up to 2,000,000 itself.
+Falling blocks with vertical bars only: the gap from p_n to p_(n+1) is a bar of max(1, gap/2) cells, dropped in order into a box of W columns and H rows; a full row clears, and the game ends when the next bar does not fit. The column is the lowest one (leftmost on ties), a random one (fixed LCG, seed 20261121) or p_n mod W. The page sieves the primes up to 20,000,000 itself. (An earlier version of the page dropped round balls; it was replaced because frozen balls let small balls overlap.)
 
-- `ref40.py` → `ref40.json`: the first 200 gaps and the gap counts, recomputed with sympy; the page's gaps agree (first 30 checked in headless Chrome, and the legend after a full box of width 60: gaps 1, 2, 4, 6, 8, 10, 12, 14, 18 occur 1, 30, 32, 39, 12, 13, 6, 4, 1 times among the first 138, the primes up to 797).
-- `probe.js`: fast-forwards the simulation until the box is full and reports balls, steps, the largest overlap (relative to the smaller radius) and balls outside the box. Widths 60, 200, 300: full after about 141, 315, 406 balls, 0 outside, overlap at most 0.47 (four solver passes per step). Width 10: stopped by the gap 14 after 113.
-- `t40.js`: the headless runner (`node t40.js $PWD/prime40.html '[{"q":"","tag":"x","wait":6000}]'`).
-
-The physics (Verlet, gravity, walls, pairwise pushes weighted by r², a little damping) makes a picture, not a packing measurement.
+- `ref40game.py` → `ref40game.json`: an independent replay of the rules in Python (numpy sieve) for five settings.
+- `probe2.js`: plays the same five games on the page at full speed; `compare40.txt`: page against replay, 0 mismatches. For example 12 × 40 with the lowest column: 14,356 bars and 6,492 cleared rows, ended by the gap 86 after 155,921 (43 cells, taller than the box); 12 × 40 with p mod 12: 47 bars, 0 rows, because columns 0, 4, 6, 8, 9, 10 never get a bar (a column sharing a factor with W gets at most the bar of a prime dividing W).
+- `ref40.py` → `ref40.json`: the first gaps and their counts (sympy).
+- `t40.js`: the headless runner.
