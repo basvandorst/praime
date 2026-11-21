@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fibonacci fools itself</title>
+<meta name="description" content="The Fibonacci wheel says n is prime when n divides F(n − 1) or F(n + 1). It is fooled 1,460 times below 10^8, and among its mistakes are Fibonacci numbers: every composite F(p) and F(2p), because on a Fibonacci number the wheel only tests the index. Computed live up to 10^7, with the proof and its sources.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; --green:#34d399; --pink:#f472b6; --red:#f87171; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+h2 { font-size:16px; margin:4px 0 8px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; margin:6px 0 10px; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+input[type=range] { width:220px; max-width:100%; accent-color:#fbbf24; }
+input[type=text] { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; width:220px; max-width:100%; }
+select, button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 10px; font:inherit; max-width:100%; }
+button { cursor:pointer; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.chips button { padding:4px 9px; font-size:13px; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+@media (max-width:820px) { .two { grid-template-columns:1fr; } }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; position:relative; }
+canvas { display:block; width:100%; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px 14px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; font-variant-numeric:tabular-nums; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:8px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:2px; }
+.list { max-height:340px; overflow:auto; border:1px solid var(--edge); border-radius:9px; }
+table.bt { border-collapse:collapse; width:100%; font-size:13px; font-variant-numeric:tabular-nums; }
+table.bt th, table.bt td { border-bottom:1px solid var(--edge); padding:4px 10px; text-align:right; }
+table.bt th { color:var(--muted); font-weight:600; position:sticky; top:0; background:var(--panel); }
+table.bt td.l, table.bt th.l { text-align:left; }
+.mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; }
+pre { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:10px 12px; overflow:auto; margin:8px 0; font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:#dbe7f7; white-space:pre-wrap; }
+.big { font-size:17px; font-weight:600; }
+.ok { color:var(--green); font-weight:600; }
+.bad { color:var(--gold); font-weight:600; }
+.brk { word-break:break-all; }
+.tip { position:absolute; pointer-events:none; background:rgba(9,15,27,.94); border:1px solid #40536d; border-radius:8px; padding:6px 9px; font-size:12.5px; max-width:320px; display:none; z-index:2; }
+</style>
+</head>
+<body>
+<header>
+<h1>Fibonacci fools itself</h1>
+<p>The Fibonacci wheel of the <a href="prime3.html">prime gears</a> page is a quick test for primes. Let ε = +1 when n leaves 1 or 4 after division by 5, and ε = −1 when it leaves 2 or 3. Every prime n other than 2 and 5 divides the Fibonacci number F(n − ε): turn the two cells of the wheel n − ε times and they come home. A number that is not prime and still comes home is a <i>Fibonacci pseudoprime</i>, a mistake of the wheel. The first is 323 = 17 · 19. This page counts the mistakes and shows a family hiding among them: the Fibonacci numbers themselves.</p>
+</header>
+<main>
+
+<section class="panel">
+<h2>1. Put a number on the wheel</h2>
+<div class="controls">
+<div class="ctl"><label for="nin">a number n</label><input id="nin" type="text" value="4181" inputmode="numeric"></div>
+<div class="ctl"><label for="kin">or a Fibonacci number F(k), k =</label><input id="kin" type="text" value="" inputmode="numeric" placeholder="for example 4181"></div>
+<div class="ctl"><label>&nbsp;</label><button id="go">Turn the wheel</button></div>
+</div>
+<div class="chips" id="chips"></div>
+<div class="status" id="res"></div>
+<p class="note">The page computes F(n − ε) modulo n by doubling (about two multiplications per binary digit of n), and decides whether n is prime with the strong test to the first twelve prime bases, which is exact below 3.3·10<sup>24</sup>; above that a "prime" verdict means probable prime, while "not prime" is always certain.</p>
+</section>
+
+<section class="panel">
+<h2>2. Every mistake up to N</h2>
+<div class="controls">
+<div class="ctl"><label for="nsel">N</label><select id="nsel"><option value="100000">100,000</option><option value="1000000">1,000,000</option><option value="10000000" selected>10,000,000</option></select></div>
+</div>
+<div class="stage"><canvas id="cm"></canvas><div class="tip" id="tipm"></div></div>
+<div class="legend"><span><span class="sw" style="background:#38bdf8"></span>n leaves 1 or 4 after division by 5 (the wheel turns n − 1 times)</span><span><span class="sw" style="background:#f472b6"></span>n leaves 2 or 3 (n + 1 turns)</span><span><span class="sw" style="background:#fbbf24"></span>the mistake is itself a Fibonacci number</span></div>
+<div class="grid" id="mnums" style="margin-top:10px"></div>
+<div class="status" id="mst"></div>
+<div class="list" style="margin-top:10px"><table class="bt"><thead><tr><th>#</th><th>mistake n</th><th class="l">n = …</th><th>n mod 5</th><th class="l">also fools the doubling wheel?</th></tr></thead><tbody id="mlist"></tbody></table></div>
+</section>
+
+<section class="panel">
+<h2>3. The Fibonacci numbers fool their own wheel</h2>
+<p>One square for every F(k), k = 3 to K. Grey: F(k) is even (3 divides k) or a multiple of 5 (5 divides k), so the wheel does not apply. Blue: F(k) is prime. Gold: F(k) is not prime and the wheel is fooled. Dark red: not prime and caught. A dot marks a prime k, a ring twice a prime.</p>
+<div class="controls"><div class="ctl"><label for="kmax">K = <b id="kmv">600</b></label><input id="kmax" type="range" min="60" max="1500" step="30" value="600"></div></div>
+<div class="stage"><canvas id="cg"></canvas><div class="tip" id="tipg"></div></div>
+<div class="legend"><span><span class="sw" style="background:#38bdf8"></span>F(k) prime</span><span><span class="sw" style="background:#fbbf24"></span>composite, fools the wheel</span><span><span class="sw" style="background:#7f1d1d"></span>composite, caught</span><span><span class="sw" style="background:#334155"></span>even or a multiple of 5</span></div>
+<div class="status" id="gst"></div>
+</section>
+
+<section class="panel">
+<h2>4. Why: on a Fibonacci number the wheel tests the index</h2>
+<p>Two facts about Fibonacci numbers do all the work.</p>
+<pre>(a)  F(a) divides F(b) exactly when a divides b          (for a ≥ 3)
+(b)  for a prime p ≠ 5:  F(p) ≡ ε(p)  (mod p)            (Lucas)</pre>
+<p>Put n = F(k) on the wheel. By (a), n divides F(n − ε) exactly when <b>k divides F(k) − ε</b>. The wheel no longer looks at the big number n at all; it looks at the small number k. Now take k = p prime. Modulo 5, x² − x − 1 = (x − 3)², so F(m) ≡ m · 3<sup>m−1</sup> (mod 5), which gives ε(F(p)) = ε(p). With (b), p divides F(p) − ε. So every F(p) that is not prime fools the wheel: F(19) = 37 · 113, F(31) = 557 · 2417, F(37) = 73 · 149 · 2221, and so on. For k = 2p the same works with F(2p) = F(p) · L(p) and L(p) ≡ 1 (mod p).</p>
+<p>The recursion goes further. If k is itself a mistake of the right kind, F(k) is one too: 4181 = F(19) fools the wheel, and so does F(4181), a number of 874 digits (try it above). The indices k up to 100,000 whose F(k) fools the wheel are <span id="icount"></span></p>
+<p class="note">None of this is new. Duparc (1955) and Emma Lehmer (<a href="https://www.fq.math.ca/Scanned/2-3/lehmer.pdf">1964</a>) proved that F(2p) fools the wheel for every prime p &gt; 5, which gives infinitely many mistakes. Parberry (<a href="https://www.fq.math.ca/Scanned/8-1/parberry.pdf">1970</a>, Theorem 2) proved the equivalence above for k prime to 30, and that composite F(p) generate further mistakes recursively; Bruckman (<a href="https://www.mathstat.dal.ca/FQ/Scanned/32-2/bruckman3.pdf">1994</a>) showed that a composite F(p) fools the Lucas test as well. The mistakes are <a href="https://oeis.org/A081264">OEIS A081264</a>; the extra indices are terms of <a href="https://oeis.org/A279072">A279072</a>. Our part is the counting and the pictures. Whether infinitely many F(p) are composite is still unknown.</p>
+</section>
+
+<section class="panel">
+<h2>5. The Fibonacci numbers on the prime gears page, recounted</h2>
+<div class="list" style="max-height:none"><table class="bt"><thead><tr><th class="l">claim on prime3.html</th><th class="l">recount (separate program)</th></tr></thead><tbody id="rc"></tbody></table></div>
+<p class="note">A lesson from the way here: below k = 40 the F(k) that are caught are exactly those with 4 dividing k (8, 16, 28, 32), which looks like a rule. It breaks at k = 49. One small range is not a test.</p>
+</section>
+
+<p class="note">How this page was checked: the mistakes up to 10<sup>7</sup>, the squares of section 3 and the examples were recomputed by a separate Python program (gmpy2, on the Fibonacci numbers themselves rather than through the index rule), and agree with the page. The 1,460 mistakes below 10<sup>8</sup> and the indices up to 100,000 come from that program.</p>
+</main>
+<script>
+const D=__DATA__;
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n).toLocaleString('en-US');
+function setup(cv,h){const r=window.devicePixelRatio||1,w=cv.clientWidth||cv.parentNode.clientWidth;cv.width=Math.round(w*r);cv.height=Math.round(h*r);const g=cv.getContext('2d');g.setTransform(r,0,0,r,0,0);return {g,w,h};}
+
+function fibModN(m,n){let a=0,b=1%n;for(let i=Math.floor(Math.log2(Math.max(1,m)));i>=0;i--){const c=a*((2*b-a+2*n)%n)%n,d=(a*a+b*b)%n;if(Math.floor(m/Math.pow(2,i))%2){a=d;b=(c+d)%n;}else{a=c;b=d;}}return a;}
+function powModN(b,e,n){let r=1%n;b%=n;while(e>0){if(e%2===1)r=mulN(r,b,n);b=mulN(b,b,n);e=Math.floor(e/2);}return r;}
+function mulN(a,b,n){if(a*b<9e15)return a*b%n;return Number(BigInt(a)*BigInt(b)%BigInt(n));}
+function epsOf(r){return (r===1||r===4)?1:-1;}
+
+function fibModB(m,n){let a=0n,b=1n%n;const s=m.toString(2);for(const ch of s){const c=a*(((2n*b-a)%n+n)%n)%n,d=(a*a+b*b)%n;if(ch==='1'){a=d;b=(c+d)%n;}else{a=c;b=d;}}return a;}
+function powB(b,e,n){let r=1n;b%=n;while(e>0n){if(e&1n)r=r*b%n;b=b*b%n;e>>=1n;}return r;}
+function isPrimeB(n){if(n<2n)return false;const sp=[2n,3n,5n,7n,11n,13n,17n,19n,23n,29n,31n,37n];for(const p of sp){if(n===p)return true;if(n%p===0n)return false;}let d=n-1n,s=0;while(!(d&1n)){d>>=1n;s++;}for(const a of sp){let x=powB(a,d,n);if(x===1n||x===n-1n)continue;let ok=false;for(let i=1;i<s;i++){x=x*x%n;if(x===n-1n){ok=true;break;}}if(!ok)return false;}return true;}
+function fibB(k){let a=0n,b=1n;const s=k.toString(2);for(const ch of s){const c=a*(2n*b-a),d=a*a+b*b;if(ch==='1'){a=d;b=c+d;}else{a=c;b=d;}}return a;}
+function smallFactors(n){const out=[];let m=n;for(let p=2n;p*p<=m&&p<1000000n;p+=(p===2n?1n:2n)){while(m%p===0n){out.push(p);m/=p;}}return {f:out,rest:m};}
+function isPrimeSmall(k){if(k<2)return false;for(let p=2;p*p<=k;p++)if(k%p===0)return false;return true;}
+function divisorsOf(k){const d=[];for(let i=3;i<k;i++)if(k%i===0)d.push(i);return d;}
+
+function turn(){
+  const ks=$('kin').value.trim();let n,label;
+  if(ks){if(!/^\d+$/.test(ks)||+ks<3||+ks>5000){$('res').innerHTML='k must be a whole number from 3 to 5,000.';return;}const k=+ks;n=fibB(k);label=`F(${fmt(k)})`;
+    if(k%3===0){$('res').innerHTML=`${label} is even (3 divides ${fmt(k)}); the wheel is for odd numbers.`;return;}
+    if(k%5===0){$('res').innerHTML=`${label} is a multiple of 5 (5 divides ${fmt(k)}); the wheel leaves out multiples of 5.`;return;}}
+  else{const s=$('nin').value.trim().replace(/[ ,_]/g,'');if(!/^\d+$/.test(s)||s.length>400){$('res').innerHTML='Type a whole number (up to 400 digits).';return;}n=BigInt(s);label=null;
+    if(n<7n){$('res').innerHTML='Take n ≥ 7.';return;}if(n%2n===0n||n%5n===0n){$('res').innerHTML=`${fmt(n)} is divisible by ${n%2n===0n?2:5}; the wheel is for odd numbers not divisible by 5.`;return;}}
+  const r5=Number(n%5n),e=epsOf(r5),m=n-BigInt(e),v=fibModB(m,n),home=v===0n,pr=isPrimeB(n);
+  const digits=n.toString().length,nm=label||(digits>40?`a number of ${digits} digits`:fmt(n));
+  let why='';
+  if(label&&!pr){const k=+ks,dv=divisorsOf(k);why=dv.length?` It is divisible by ${dv.slice(0,3).map(d=>'F('+d+')').join(', ')}${dv.length>3?', …':''}, since ${dv.slice(0,3).join(', ')} divide${dv.length===1?'s':''} ${fmt(k)}.`:` Its factors are not of the form F(d), since ${fmt(k)} is prime.`;
+    why+=` Index test: ${fmt(k)} ${(Number(fibB(k)%BigInt(k))-e+k)%k===0?'divides':'does not divide'} F(${fmt(k)}) − (${e>0?'+1':'−1'}).`;}
+  else if(!pr&&digits<=13){const sf=smallFactors(n),fn=fibName(Number(n));why=` n = ${fn?fn+' = ':''}${sf.f.map(String).join(' · ')}${sf.rest>1n?' · '+sf.rest:''}.`;}
+  const verdict=pr?(home?'<span class="ok">comes home, and is prime'+(n>3317044064679887385961981n?' (probable prime)':'')+'</span>':'<span class="bad">does not come home although prime?</span>'):(home?'<span class="bad">comes home but is not prime: the wheel is fooled</span>':'<span class="ok">does not come home: caught, not prime</span>');
+  $('res').innerHTML=`<span class="big">${nm}</span> leaves ${r5} after division by 5, so ε = ${e>0?'+1':'−1'} and the wheel turns n ${e>0?'− 1':'+ 1'} times. F(n ${e>0?'−':'+'} 1) mod n ${home?'= 0':'≠ 0'}: ${verdict}.${why}`;
+}
+
+const MS={N:0,list:[],run:0};
+function scan(N){
+  const run=++MS.run;MS.N=N;MS.list=[];$('mst').innerHTML='Counting…';
+  const sv=new Uint8Array(N+1);for(let p=2;p*p<=N;p++)if(!sv[p])for(let q=p*p;q<=N;q+=p)sv[q]=1;
+  let n=9;const step=()=>{if(run!==MS.run)return;const stop=Math.min(N,n+400000);
+    for(;n<stop;n+=2){if(!sv[n]||n%5===0)continue;const r=n%5,e=epsOf(r),m=n-e;let a=0,b=1;
+      for(let i=Math.floor(Math.log2(m));i>=0;i--){const c=a*((2*b-a+2*n)%n)%n,d=(a*a+b*b)%n;if((m>>i)&1){a=d;b=(c+d)%n;}else{a=c;b=d;}}
+      if(a===0)MS.list.push(n);}
+    if(n<N){$('mst').innerHTML=`Counting… ${fmt(n)}`;setTimeout(step,0);}else done();};
+  const done=()=>{const L=MS.list,cls={1:0,2:0,3:0,4:0};let pair=0,fer=0;const FS=new Set();let a=1,b=2;while(b<=N){FS.add(b);[a,b]=[b,a+b];}
+    MS.info=L.map(n=>{const r=n%5,f=powModN(2,n-1,n)===1;cls[r]++;if(f)fer++;if(f&&(r===2||r===3))pair++;return {n,r,f,fib:FS.has(n)};});
+    const fibs=MS.info.filter(x=>x.fib);
+    $('mnums').innerHTML=[['mistakes below '+fmt(N),fmt(L.length)],['n ≡ ±1 (mod 5)',fmt(cls[1]+cls[4])],['n ≡ ±2 (mod 5)',fmt(cls[2]+cls[3])],['also fool doubling',fmt(fer)],['… and n ≡ ±2',fmt(pair)],['Fibonacci numbers',fmt(fibs.length)]].map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join('');
+    $('mst').innerHTML=`The first mistake is ${fmt(L[0])}. Mistakes with n ≡ ±1 (mod 5) outnumber those with n ≡ ±2 by ${((cls[1]+cls[4])/Math.max(1,cls[2]+cls[3])).toFixed(2)} to 1. ${fmt(fer)} of them fool the doubling wheel (2<sup>n−1</sup> ≡ 1) too, but ${pair===0?'not one':fmt(pair)} with n ≡ ±2: that pair is the Pomerance–Selfridge–Wagstaff test, with a prize of 620 dollars for the first number that fools both. The Fibonacci numbers among the mistakes: ${fibs.map(x=>fibName(x.n)).join(', ')}.`;
+    $('mlist').innerHTML=MS.info.slice(0,3000).map((x,i)=>{const sf=smallFactors(BigInt(x.n));return `<tr><td>${i+1}</td><td>${fmt(x.n)}${x.fib?' <span class="bad">'+fibName(x.n)+'</span>':''}</td><td class="l">${sf.f.join(' · ')}${sf.rest>1n?' · '+sf.rest:''}</td><td>${x.r}</td><td class="l">${x.f?'yes':'no'}</td></tr>`;}).join('');
+    drawM();};
+  step();
+}
+function fibName(n){let a=0,b=1,k=0;while(a<n){[a,b]=[b,a+b];k++;}return a===n?`F(${k})`:'';}
+let MP=[];
+function drawM(){
+  if(!MS.info)return;const cv=$('cm'),{g,w,h}=setup(cv,170),pad=12,N=MS.N,lo=Math.log10(300),hi=Math.log10(N);
+  const X=n=>pad+(w-2*pad)*(Math.log10(n)-lo)/(hi-lo);MP=[];
+  g.fillStyle='#9fb0c6';g.font='11px system-ui';g.textAlign='center';for(let e=3;e<=Math.log10(N)+1e-9;e++){const x=X(Math.pow(10,e));g.fillText('10'+['⁰','¹','²','³','⁴','⁵','⁶','⁷'][e],x,h-6);g.strokeStyle='#1c2a40';g.beginPath();g.moveTo(x,10);g.lineTo(x,h-20);g.stroke();}
+  let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+  for(const x of MS.info){const r=x.r,top=(r===1||r===4),y=top?18+rnd()*50:78+rnd()*50,px=X(x.n);g.fillStyle=top?'rgba(56,189,248,.8)':'rgba(244,114,182,.8)';g.beginPath();g.arc(px,y,2.2,0,7);g.fill();MP.push({x:px,y,info:x});
+    if(x.fib){g.strokeStyle='#fbbf24';g.lineWidth=2;g.beginPath();g.arc(px,y,6,0,7);g.stroke();}}
+  g.textAlign='left';g.fillStyle='#9fb0c6';g.fillText('n ≡ ±1 (mod 5)',pad,12);g.fillText('n ≡ ±2 (mod 5)',pad,140);
+}
+
+function cellState(k){if(k%3===0)return 'even';if(k%5===0)return 'five';if(D.fibPrimeK.includes(k))return 'prime';const r5=(k*powModN(3,k-1,5))%5,e=epsOf(r5);return ((fibModN(k,k)-e)%k+k)%k===0?'fools':'no';}
+let GC=[];
+function drawGrid(){
+  const K=+$('kmax').value;$('kmv').textContent=K;const cv=$('cg'),W=cv.parentNode.clientWidth,cols=Math.max(20,Math.min(60,Math.floor(W/18))),rows=Math.ceil((K-2)/cols),sz=Math.floor((W-8)/cols);
+  const {g,w,h}=setup(cv,rows*sz+8);GC=[];const C={even:'#334155',five:'#334155',prime:'#38bdf8',fools:'#fbbf24',no:'#7f1d1d'};const cnt={prime:0,fools:0,no:0,even:0,five:0};let fp=0,f2p=0,fo=[];
+  for(let k=3;k<=K;k++){const i=k-3,x=4+(i%cols)*sz,y=4+Math.floor(i/cols)*sz,s=cellState(k);cnt[s]++;g.fillStyle=C[s];g.fillRect(x+1,y+1,sz-2,sz-2);
+    const kp=isPrimeSmall(k),k2p=k%2===0&&isPrimeSmall(k/2);
+    if(kp){g.fillStyle='#0b1220';g.beginPath();g.arc(x+sz/2,y+sz/2,Math.max(1.5,sz/7),0,7);g.fill();}
+    if(k2p){g.strokeStyle='#0b1220';g.lineWidth=1.3;g.beginPath();g.arc(x+sz/2,y+sz/2,Math.max(2.5,sz/4),0,7);g.stroke();}
+    if(s==='fools'){if(kp)fp++;else if(k2p)f2p++;else fo.push(k);}
+    GC.push({x,y,s:sz,k,st:s,kp,k2p});}
+  $('gst').innerHTML=`k = 3 … ${fmt(K)}: ${cnt.prime} Fibonacci primes, <b>${cnt.fools}</b> composite F(k) that fool the wheel and ${cnt.no} that are caught (${cnt.even+cnt.five} grey). Of the ${cnt.fools}, ${fp} have k prime and ${f2p} have k twice a prime${fo.length?'; the others are k = '+fo.join(', '):''}. Every prime k and every k = 2p in this range whose F(k) is composite fools the wheel.`;
+}
+function gridTip(e){const cv=$('cg'),b=cv.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top,c=GC.find(q=>x>=q.x&&x<q.x+q.s&&y>=q.y&&y<q.y+q.s),tp=$('tipg');if(!c){tp.style.display='none';return;}
+  const nd=Math.max(1,Math.floor(c.k*0.20898764-0.349)+1),T={even:'even: the wheel does not apply',five:'a multiple of 5',prime:'prime',fools:'not prime, and it fools the wheel',no:'not prime, and the wheel catches it'};
+  tp.innerHTML=`<b>F(${c.k})</b>, ${nd} digits: ${T[c.st]}.<br>k = ${c.k} is ${c.kp?'prime':c.k2p?'twice a prime':'neither prime nor twice a prime'}.`;tp.style.display='block';tp.style.left=Math.min(cv.clientWidth-240,x+12)+'px';tp.style.top=(y+12)+'px';}
+function mTip(e){const cv=$('cm'),b=cv.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top,tp=$('tipm');let best=null,bd=64;for(const p of MP){const d=(p.x-x)**2+(p.y-y)**2;if(d<bd){bd=d;best=p;}}if(!best){tp.style.display='none';return;}
+  const sf=smallFactors(BigInt(best.info.n));tp.innerHTML=`<b>${fmt(best.info.n)}</b>${best.info.fib?' = '+fibName(best.info.n):''} = ${sf.f.join(' · ')}${sf.rest>1n?' · '+sf.rest:''}`;tp.style.display='block';tp.style.left=Math.min(cv.clientWidth-240,x+12)+'px';tp.style.top=(y+12)+'px';}
+
+function staticParts(){
+  const I=D.indices;$('icount').innerHTML=`${fmt(I.counts.prime)} primes, ${fmt(I.counts['2p'])} doubles of a prime, and ${I.other.length} others: ${I.other.map(fmt).join(', ')}.`;
+  $('rc').innerHTML=D.recount.map(r=>`<tr><td class="l">${r[0]}</td><td class="l">${r[1]}</td></tr>`).join('');
+  $('chips').innerHTML=[['323','n'],['1891','n'],['4181','n'],['F(31)','k31'],['F(49)','k49'],['F(4181)','k4181'],['2047','n'],['1000003','n']].map(([t,m])=>`<button data-v="${t}" data-m="${m}">${t}</button>`).join('');
+  $('chips').querySelectorAll('button').forEach(bt=>bt.addEventListener('click',()=>{const m=bt.dataset.m;if(m==='n'){$('nin').value=bt.dataset.v;$('kin').value='';}else{$('kin').value=m.slice(1);}turn();}));
+}
+staticParts();turn();scan(+$('nsel').value);drawGrid();
+$('go').addEventListener('click',turn);$('nin').addEventListener('keydown',e=>{if(e.key==='Enter'){$('kin').value='';turn();}});$('kin').addEventListener('keydown',e=>{if(e.key==='Enter')turn();});
+$('nin').addEventListener('input',()=>{$('kin').value='';});
+$('nsel').addEventListener('change',()=>scan(+$('nsel').value));
+$('kmax').addEventListener('input',drawGrid);
+$('cg').addEventListener('mousemove',gridTip);$('cg').addEventListener('mouseleave',()=>{$('tipg').style.display='none';});
+$('cm').addEventListener('mousemove',mTip);$('cm').addEventListener('mouseleave',()=>{$('tipm').style.display='none';});
+let rz;window.addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{drawGrid();drawM();},200);});
+</script>
+</body>
+</html>

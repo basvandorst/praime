@@ -29,7 +29,7 @@ FA=json.load(open('tour/folded_alone_1e8.json' if os.path.exists('tour/folded_al
 fab='10<sup>'+FA['bound'][2:]+'</sup>'; g5=[x for x in FA['folds'] if x['r']==5][0]; fa_tot=sum(x['passed'] for x in FA['folds'])
 TC=json.load(open('tour/three_check.json')); al=sorted([k for k in TC if k.startswith('alone_')],key=lambda x:float(x.split('_')[1]))[-1]
 tl=('list_0' in TC and 'list_1' in TC)
-t2+=one("Golden wheel: Pascal's 5 cells folded onto 2 (the Fibonacci wheel in other clothes)",2,f(g5['first'][0]),f(g5['passed'])+' below '+fab)
+t2+=one("Golden wheel: Pascal's 5 cells folded onto 2 (the Fibonacci wheel in other clothes), for numbers that leave 2 or 3 after division by 5",2,f(g5['first'][0]),f(g5['passed'])+' below '+fab+'; the Fibonacci wheel makes the same '+f(g5['passed'])+' there (<a href="prime39.html">Fibonacci fools itself</a>)')
 t2+=one("Three-cell wheel: Pascal's ring folded onto 3 cells that the number does not fit (machine 12)",3,'none','0 among all odd numbers below 10<sup>'+al.split('_')[1][2:]+'</sup>'+(('; with the doubling wheel 0 below '+B+' ('+f(TC['list_0']['tested']+TC['list_1']['tested'])+' candidates)') if tl and TC['list_0']['home']+TC['list_1']['home']==0 else ''))
 t2+=one("Wilson's wheel: one cell, multiplied by 1, 2, 3, … turn after turn (machine 13)",1,'none, proved','never, but no turn can be skipped: a number of 20 digits needs more turns than can ever be made')
 t2+=one("Lucas's wheel: one cell, home after n − 1 turns and at no check turn (machine 14)",1,'none, proved','never, and it is fast; but it needs the primes that divide n − 1')

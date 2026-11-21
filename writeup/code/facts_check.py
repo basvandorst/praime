@@ -1614,4 +1614,41 @@ worst2048 = max(abs(sum(L * (y / n - 1) for n, L in small2048 if n <= y) - y * m
 assert worst2048 < 0.0211
 del P2048, nn2048, ww2048, n2048, w2048, A2048, S2048, N2048, dev2048, ys2048, Y2048, devs2048
 
+# 6121: Fibonacci pseudoprimes (odd composite n, 5 not dividing n, n | F(n - eps)) below 1e8, and Fibonacci numbers among them
+def fib6121(m, n):
+    a = np.zeros_like(n); b = np.ones_like(n)
+    for i in range(26, -1, -1):
+        c = a * ((2 * b - a) % n) % n; d = (a * a + b * b) % n; bit = ((m >> i) & 1).astype(bool)
+        a, b = np.where(bit, d, c), np.where(bit, (c + d) % n, d)
+    return a
+fpp6121 = []
+for lo in range(9, 100_000_000, 8_000_000):
+    n = np.arange(lo, min(100_000_000, lo + 8_000_000), 2, dtype=np.int64); n = n[(n % 5 != 0) & ~isp[n]]
+    e = np.where((n % 5 == 1) | (n % 5 == 4), 1, -1); fpp6121.extend(n[fib6121(n - e, n) == 0].tolist())
+assert len(fpp6121) == 1460 and fpp6121[:6] == [323, 377, 1891, 3827, 4181, 5777] and sum(1 for x in fpp6121 if x < 10**7) == 511
+assert sum(1 for x in fpp6121 if x % 5 in (1, 4)) == 949 and not any(x % 5 in (2, 3) and pow(2, x - 1, x) == 1 for x in fpp6121)
+F6121 = [0, 1]
+while F6121[-1] < 10**8: F6121.append(F6121[-1] + F6121[-2])
+assert [k for k in range(3, len(F6121)) if F6121[k] in set(fpp6121)] == [14, 19, 22, 26, 31, 34, 37, 38]
+F6121 = [gmpy2.mpz(0), gmpy2.mpz(1)]
+for _ in range(2, 4200): F6121.append(F6121[-1] + F6121[-2])
+def fibmod6121(m, n):
+    a, b = gmpy2.mpz(0), gmpy2.mpz(1)
+    for bit in bin(m)[2:]:
+        c = a * ((2 * b - a) % n) % n; d = (a * a + b * b) % n
+        a, b = (d, (c + d) % n) if bit == '1' else (c, d)
+    return a
+other6121 = []
+for k in range(3, 701):
+    n = F6121[k]
+    if k % 3 == 0 or k % 5 == 0 or gmpy2.is_prime(n): continue
+    e = 1 if n % 5 in (1, 4) else -1
+    fools = fibmod6121(n - e, n) == 0
+    assert fools == ((n - e) % k == 0)
+    if isprime(k) or (k % 2 == 0 and isprime(k // 2)): assert fools
+    elif fools: other6121.append(k)
+assert other6121 == [572, 646]
+n6121 = F6121[4181]; assert len(str(n6121)) == 874 and fibmod6121(n6121 - (1 if n6121 % 5 in (1, 4) else -1), n6121) == 0
+del fpp6121, F6121
+
 print("all FACTS.md checks passed")
