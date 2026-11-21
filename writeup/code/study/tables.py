@@ -79,5 +79,20 @@ def t2():
         print('| %s | %d | %.1f | %d | %.3f | %.1f |' % (w, d['sum_obs'], d['chi2'], d['dof'], d['chi2_per_dof'], d['z']))
 
 
+def _main():
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins}[sys.argv[1]]()
+
+
+def twins():
+    v = J('verdicts_twins.json')
+    print('| statistic | twins (train) | law, order 1 / 3 | z train | z A | z B | z C |')
+    print('|---|---|---|---|---|---|---|')
+    lab = lambda s: ('twin gap %s' % s[6:]) if s.startswith('W1') else {'W2.le300': 'twin gap ≤ 300',
+          'W3.same5': 'same class mod 5 (gaps ≤ 300)', 'W3.same7': 'same class mod 7 (gaps ≤ 300)'}[s]
+    for s, d in v['train'].items():
+        print('| %s | %.5g | %.5g / %.5g | %s |' % (lab(s), d['x'], d['order1'], d['T'],
+              ' | '.join('%.1f' % v[w][s]['zT'] for w in ('train', 'A', 'B', 'C'))))
+
+
 if __name__ == '__main__':
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails}[sys.argv[1]]()
+    _main()

@@ -1,6 +1,6 @@
 # Seven lines, one law: what Hardy–Littlewood's singular series predict
 
-> **In short:** Seven kinds of structure in the primes were measured on four windows (10⁷–10⁸, and 5·10⁷ or 2·10⁷ numbers at 10¹⁰, 10¹², 10¹⁵): repeated numbers, Ulam's diagonals, gap statistics, residue classes, the gap sequence as a chain, its information content, and reproducibility. The textbook formulas miss most of them by 1–46 %. All of them follow from one object, the Hardy–Littlewood correlation functions S(B)/ln^k x, once three things are done right: (1) the chance that a pattern of primes has no prime inside is expanded around independent interior numbers (a Bahadur expansion, order 4), (2) counts in intervals on a fixed grid keep the residues of the grid, (3) counts along a quadratic use the Bateman–Horn constants of polynomial pairs. With no fitted parameter, 25 of 26 statistics fit within three standard errors in every window where they were tested, including the fresh window at 10¹⁵; the one miss is the far tail of the gaps at the smallest scale (−0.9 %).
+> **In short:** Seven kinds of structure in the primes were measured on four windows (10⁷–10⁸, and 5·10⁷ or 2·10⁷ numbers at 10¹⁰, 10¹², 10¹⁵): repeated numbers, Ulam's diagonals, gap statistics, residue classes, the gap sequence as a chain, its information content, and reproducibility. The textbook formulas miss most of them by 1–46 %. All of them follow from one object, the Hardy–Littlewood correlation functions S(B)/ln^k x, once three things are done right: (1) the chance that a pattern of primes has no prime inside is expanded around independent interior numbers (a Bahadur expansion, order 4), (2) counts in intervals on a fixed grid keep the residues of the grid, (3) counts along a quadratic use the Bateman–Horn constants of polynomial pairs. With no fitted parameter, 25 of 26 statistics fit within three standard errors in every window where they were tested, including the fresh window at 10¹⁵; the one miss is the far tail of the gaps at the smallest scale (−0.9 %). The same expansion, with pairs as events, predicts the gaps between consecutive twin primes and their class bias (68 of 68 tests fit).
 
 **Code:** [writeup/code/study/](writeup/code/study/). **Data:** [writeup/data/study/](writeup/data/study/) (results, theory values, verdicts, and the pre-registrations written before each round).
 
@@ -135,7 +135,33 @@ The one miss is the tail at train: the law is 0.9–1.4 % too high for gaps of 5
 | B | 1040754 | 250.0 | 276 | 0.906 | -1.1 |
 | C | 260307 | 286.4 | 276 | 1.038 | 0.4 |
 
-## 7. What the seven lines turn out to be
+## 7. The same law for twin primes ([theory_twins.py](writeup/code/study/theory_twins.py), [round4.txt](writeup/data/study/preregister/round4.txt), [verdicts_twins.json](writeup/data/study/verdicts_twins.json))
+
+"The next twin pair comes h later" is the same avoidance problem with composite events: B = {0, 2, h, h + 2}, and the interior events are the pairs e_m = {m, m + 2}, 0 < m < h. Their moments are again singular series, of the union of the events, divided by λ to the number of new elements: E∏_(e∈A) X_e = S(B ∪ ∪A)/(S(B) λ^|∪A ∖ B|). The Bahadur form of section 3 applies unchanged (order 3; the steps at h = 300 and λ = 17.8 are −1.155, −1.199 and −1.2015 for orders 1 to 3). The share per twin pair is P(B)/(S(0, 2)/λ²), averaged with weight 1/ln² t. The pre-registration was written before any twin statistic was computed; the windows hold 381,332 / 124,843 / 86,479 / 22,013 twin pairs.
+
+| statistic | twins (train) | law, order 1 / 3 | z train | z A | z B | z C |
+|---|---|---|---|---|---|---|
+| twin gap 6 | 0.010146 | 0.010146 / 0.010146 | -0.0 | 2.8 | -2.2 | -0.4 |
+| twin gap 12 | 0.027097 | 0.027055 / 0.027055 | 0.1 | -0.3 | -0.2 | -0.9 |
+| twin gap 18 | 0.019833 | 0.019746 / 0.019743 | 0.5 | 0.2 | 1.1 | -0.1 |
+| twin gap 24 | 0.012265 | 0.012319 / 0.012319 | -0.4 | -0.2 | 1.3 | -0.1 |
+| twin gap 30 | 0.038088 | 0.038235 / 0.038217 | -0.3 | 0.4 | 0.6 | -0.6 |
+| twin gap 36 | 0.010998 | 0.010867 / 0.010865 | 1.6 | -1.6 | -0.4 | 2.1 |
+| twin gap 42 | 0.034584 | 0.034844 / 0.034807 | -0.8 | 0.5 | 1.2 | 0.7 |
+| twin gap 48 | 0.018695 | 0.018627 / 0.018585 | 0.6 | -1.4 | -0.5 | -0.9 |
+| twin gap 60 | 0.027417 | 0.027358 / 0.027285 | 0.5 | 0.2 | 1.2 | 0.0 |
+| twin gap 90 | 0.026958 | 0.027141 / 0.026927 | 0.2 | -1.0 | -1.0 | -0.7 |
+| twin gap 120 | 0.020667 | 0.021143 / 0.020902 | -1.0 | 1.2 | 1.2 | 0.2 |
+| twin gap 150 | 0.019914 | 0.020274 / 0.019958 | -0.3 | -1.1 | 0.4 | 1.2 |
+| twin gap 180 | 0.02325 | 0.023922 / 0.023389 | -0.6 | -1.1 | 1.3 | 0.0 |
+| twin gap 210 | 0.025673 | 0.026214 / 0.025402 | 1.2 | -1.1 | -0.2 | -0.4 |
+| twin gap ≤ 300 | 0.72637 | 0.73687 / 0.72634 | 0.0 | 0.4 | 0.8 | -0.4 |
+| same class mod 5 (gaps ≤ 300) | 0.30457 | 0.30527 / 0.30434 | 0.5 | -0.7 | 0.6 | -0.1 |
+| same class mod 7 (gaps ≤ 300) | 0.16918 | 0.16929 / 0.16883 | 0.9 | -0.1 | -0.4 | 1.7 |
+
+All 68 tests fit (|z| ≤ 3). The share of twin gaps up to 300 is 0.72637 against 0.72634 at train; order 1 (independent interior pairs) gives 0.73687. The twin pairs also avoid repeating their class: two consecutive twin pairs with the same p mod 5 occur at a share of 0.3046 among twin gaps ≤ 300 against 0.3043 predicted, a Lemke Oliver–Soundararajan bias for twin primes that follows from the same singular series.
+
+## 8. What the seven lines turn out to be
 
 - **Numerical, statistical, algebraic, dynamic, information-theoretic**: five views of one object, the law of runs of consecutive primes. Its only input is the singular series; its only scale is ln x. The textbook versions miss because they truncate it: the Poisson factor e^(−h/ln x) ignores that the numbers between two primes are correlated with them (round 1: up to 30 %), the exponential resummation mistreats X² = X (step 3), and the Montgomery–Soundararajan asymptotics ignore the grid (H = 50).
 - **Geometric**: Ulam's diagonals are the same law for polynomials: the means are Bateman–Horn and the scatter is set by the Bateman–Horn constants of polynomial pairs.
