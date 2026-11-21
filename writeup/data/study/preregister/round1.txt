@@ -1,0 +1,32 @@
+Round 1, pre-registered 2026-11-21 (before any run of round 1; the only earlier run was one engine smoke test
+on the train window, file results_test.jsonl, deleted before this round).
+
+Windows: train [1e7, 1e8); A [1e10, 1e10 + 5e7); B [1e12, 1e12 + 5e7). Each split into K = 10 equal blocks.
+Generators: primes (exact), cramer (coin with probability 1/ln n, 10 draws, seeds 1001..1010),
+shuffle (the window's gaps in random order, 10 draws, seeds 6001..6010). No sieve-based fake primes (Bas's
+preference: no sieves, no heavy computation).
+
+Probes (probes.py) and theory (theory.py), frozen for this round:
+  N.eqgap      share of g_{n+1} = g_n             theory: sum_h S(0,h,2h) e^{-2h/lam}/lam^2   (crude)
+  N.updown     P(g_{n+1} > g_n) - P(<)             theory: 0
+  S.gap{h}     share of gaps h                     theory: S(0,h) e^{-h/lam}/lam              (crude)
+  S.var{H}     Var/mean of counts in [n, n+H)      theory: Montgomery-Soundararajan 1 - (ln H - B)/lam
+  A.same{q}    next prime in the same class mod q  theory: crude gap law summed over h = 0 mod q
+  A.race{q}    Chebyshev race, regression slope    theory: 1 (Rubinstein-Sarnak mean); no block test
+  D.gain*      Markov predictability (bits)        no theory in round 1
+  I.mi*        mutual information of gap classes   no theory in round 1
+  G.chi2_BH    mean (obs-BH)^2/BH over 195 Ulam-diagonal quadratics 4n^2+bn+c    theory: 1 (Poisson)
+  G.slope_BH   least-squares obs = s*BH                                         theory: 1
+  G.corr_BH    correlation of obs and BH shares                                 no theory
+
+Pass rules:
+  structure: |z vs coins| > 3.
+  theory fits: |z_T| <= 3, z_T = mean block residual / its standard error. Otherwise "misses".
+  A miss in train is a target for round 2: derive a better formula from theory (no fitting to the window),
+  pre-register it, and test it on train, A and B. A formula change that is fitted to train only is not allowed.
+
+Predictions written down now (from the smoke test and the literature):
+  - The crude gap law will miss the small gaps (too low by ~10-20 %): the Poisson factor exp(-h/lam) ignores
+    that the numbers between two primes are themselves correlated with them.
+  - Montgomery-Soundararajan will fit for H = 500 and 5000 at train.
+  - G.chi2_BH below 1 (the smoke test gave 0.39): the counts along a quadratic scatter less than Poisson.
