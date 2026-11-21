@@ -291,6 +291,38 @@ def pair_sum(H):
     return float(np.sum((H - h) * (pair_S(h) - 1.0)))
 
 
+C2 = 0.66016181584686957393
+
+
+@lru_cache(maxsize=None)
+def aligned_sum(H, r0):
+    """sum over offset pairs a < b in one interval [n, n+H), n = r0 (mod 10), of c_H * R(b - a) * u(a) u(b):
+    u(a) = 1 if n + a is prime to 10; c_H = 1/((1-1/2)(1-1/5))^2; R(h) = HL pair factor without p = 2, 5:
+    R(h) = R0 prod_{p | h, p != 2, 5} (p-1)/(p-2), R0 = C2 / ((1-2/5)/(1-1/5)^2)."""
+    a = np.arange(H)
+    u = (np.gcd(r0 + a, 10) == 1).astype(np.int64)
+    h = np.arange(1, H, dtype=np.int64)
+    # N_h = sum_a u(a) u(a+h)
+    cu = np.correlate(u, u, mode='full')[H:]        # lags 1..H-1
+    R = np.full(H - 1, C2 / (0.6 / 0.64))
+    for p in small_primes(H)[1:]:
+        p = int(p)
+        if p == 5:
+            continue
+        R = np.where(h % p == 0, R * (p - 1) / (p - 2), R)
+    return float(np.sum(cu * R) / ((0.5 * 0.8) ** 2))
+
+
+def var_ratio_aligned(H, L, W):
+    """Var/mean of the prime count in the intervals [L + jH, L + (j+1)H) (grid fixed by L, H divisible by 10):
+    1 + (2 * aligned_sum - H^2)/(H lam). The one-point part uses p_a = u(a)/(lam (1-1/2)(1-1/5))."""
+    assert H % 10 == 0 and L % 10 == 0
+    s = aligned_sum(H, 0)
+    # diagonal: sum_a p_a (1 - p_a) = H/lam - sum_a p_a^2, sum p_a^2 = (#u) * 6.25 / lam^2 = H*2.5/lam^2;
+    # E c^2 - (E c)^2 = H/lam + 2 s/lam^2 - H^2/lam^2 ; ratio = 1 + (2 s - H^2)/(H lam)
+    return window_avg(L, W, lambda lam: 1 + (2 * s - H * H) / (H * lam))
+
+
 def var_ratio_exact(H, L, W):
     """Var/mean = 1 - 1/lam + (2/(H lam)) sum_{h<H} (H-h)(S(0,h)-1)   (HL pairs; no asymptotics)."""
     ps = pair_sum(H)
