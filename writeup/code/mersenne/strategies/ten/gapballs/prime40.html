@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime gap balls</title>
+<meta name="description" content="Balls fall into a box, one for every gap between consecutive primes: the gap from 2 to 3 is a ball of diameter 1, from 3 to 5 diameter 2, and so on. Choose the width of the box and the speed, and watch the twin primes pile up as small gold balls with a few big gaps among them.">
+<style>
+:root { color-scheme: dark; --bg:#0b1220; --panel:#121e30; --muted:#9fb0c6; --edge:#26364c; --gold:#fbbf24; --accent:#38bdf8; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:#edf4ff; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+header, main { max-width:1120px; margin:0 auto; padding:16px; }
+header { padding-bottom:0; }
+h1 { font-size:22px; margin:6px 0 6px; }
+a { color:var(--accent); }
+p { margin:6px 0; }
+.panel { background:var(--panel); border:1px solid var(--edge); border-radius:12px; padding:12px 14px; margin:12px 0; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:flex-end; margin:0 0 10px; }
+.ctl { display:flex; flex-direction:column; gap:4px; min-width:0; max-width:100%; }
+.ctl label { color:var(--muted); font-size:12.5px; }
+input[type=range] { width:220px; max-width:100%; accent-color:#fbbf24; }
+button { background:#0e1828; color:#edf4ff; border:1px solid #40536d; border-radius:7px; padding:6px 12px; font:inherit; cursor:pointer; }
+.stage { background:#0e1828; border:1px solid var(--edge); border-radius:12px; overflow:hidden; position:relative; }
+canvas { display:block; width:100%; touch-action:manipulation; }
+.status { font-size:15px; margin:10px 2px 0; min-height:22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px 14px; margin-top:10px; }
+.cell { background:#0e1828; border:1px solid var(--edge); border-radius:9px; padding:8px 10px; }
+.cell .k { color:var(--muted); font-size:12px; }
+.cell .v { font-size:17px; font-weight:600; font-variant-numeric:tabular-nums; }
+.note { color:var(--muted); font-size:13px; }
+.legend { display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:12.5px; margin-top:8px; }
+.sw { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border-radius:50%; }
+.tip { position:absolute; pointer-events:none; background:rgba(9,15,27,.94); border:1px solid #40536d; border-radius:8px; padding:6px 9px; font-size:12.5px; display:none; z-index:2; }
+</style>
+</head>
+<body>
+<header>
+<h1>Prime gap balls</h1>
+<p>One ball for every gap between consecutive primes, in order: 2 → 3 is a ball of diameter 1, 3 → 5 a ball of diameter 2, 5 → 7 diameter 2, 7 → 11 diameter 4, and so on. The balls fall into a box, roll and settle. The box is 100 units high; you choose how wide it is and how fast the balls come. A gap wider than the box cannot get in.</p>
+</header>
+<main>
+<section class="panel">
+<div class="controls">
+<div class="ctl"><label for="bw">Width of the box: <b id="bwv">60</b> units</label><input id="bw" type="range" min="10" max="300" step="5" value="60"></div>
+<div class="ctl"><label for="sp">Speed: <b id="spv">4</b>×</label><input id="sp" type="range" min="1" max="20" step="1" value="4"></div>
+<button id="restart">Restart</button><button id="pause">Pause</button>
+</div>
+<div class="stage" id="stage"><canvas id="cv"></canvas><div class="tip" id="tip"></div></div>
+<div class="legend" id="leg"></div>
+<div class="grid" id="nums"></div>
+<div class="status" id="st"></div>
+<p class="note">Every ball is a real gap, computed from a sieve of the primes up to 2,000,000. Where a ball enters is chosen by a fixed random sequence, so a restart with the same width gives the same pile. The physics is simple: gravity, walls, and balls that push each other apart (heavier balls move less) with a little damping, so the pile is a picture, not a measurement of how tightly circles can pack.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n).toLocaleString('en-US');
+const NMAX=2000000,SV=new Uint8Array(NMAX+1),PR=[];
+for(let i=2;i<=NMAX;i++){if(!SV[i]){PR.push(i);for(let j=i*i;j<=NMAX;j+=i)SV[j]=1;}}
+const GAPS=[];for(let i=0;i+1<PR.length;i++)GAPS.push(PR[i+1]-PR[i]);
+const PAL={1:'#e2e8f0',2:'#fbbf24',4:'#38bdf8',6:'#34d399',8:'#f472b6',10:'#a78bfa',12:'#fb923c',14:'#f87171'};
+const colOf=g=>PAL[g]||(g<=20?'#ef4444':g<=30?'#dc2626':'#b91c1c');
+const H=100,G=420,DT=1/240,SPAWN=0.18;
+let S=null,raf=0,paused=false;
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+function reset(){
+  const W=+$('bw').value;$('bwv').textContent=W;
+  S={W,n:0,x:[],y:[],px:[],py:[],r:[],t:0,next:0,rand:rng(20261121),full:false,blocked:null,maxg:0,maxgAt:0,area:0,counts:{}};
+  paused=false;$('pause').textContent='Pause';
+}
+function spawn(){
+  const i=S.n;if(i>=GAPS.length){S.full=true;return;}
+  const g=GAPS[i],r=g/2;
+  if(2*r>S.W){S.blocked={g,p:PR[i]};S.full=true;return;}
+  const x=r+S.rand()*(S.W-2*r),y=-r-1;
+  for(let j=Math.max(0,S.n-200);j<S.n;j++){const dx=S.x[j]-x,dy=S.y[j]-y,rr=S.r[j]+r;if(dx*dx+dy*dy<rr*rr*0.98)return;}
+  S.x.push(x);S.y.push(y);S.px.push(x);S.py.push(y-0.05);S.r.push(r);S.n++;S.area+=Math.PI*r*r;
+  S.counts[g]=(S.counts[g]||0)+1;if(g>S.maxg){S.maxg=g;S.maxgAt=PR[i];}
+}
+function step(){
+  const n=S.n,W=S.W,X=S.x,Y=S.y,PX=S.px,PY=S.py,R=S.r;
+  for(let i=0;i<n;i++){const vx=(X[i]-PX[i])*0.996,vy=(Y[i]-PY[i])*0.996;PX[i]=X[i];PY[i]=Y[i];X[i]+=vx;Y[i]+=vy+G*DT*DT;}
+  let cs=1;for(let i=0;i<n;i++)if(R[i]>cs)cs=R[i];cs*=2;
+  const cols=Math.max(1,Math.ceil(W/cs)),grid=new Map();
+  for(let i=0;i<n;i++){const k=Math.floor(Math.max(0,Math.min(W-1e-9,X[i]))/cs)+cols*Math.floor((Y[i]+400)/cs);let a=grid.get(k);if(!a){a=[];grid.set(k,a);}a.push(i);}
+  for(let it=0;it<4;it++){
+    for(const [k,a] of grid){const cx=k%cols,cy=Math.floor(k/cols);
+      for(let ox=-1;ox<=1;ox++)for(let oy=0;oy<=1;oy++){if(oy===0&&ox<0)continue;const nx=cx+ox;if(nx<0||nx>=cols)continue;const b=grid.get(nx+cols*(cy+oy));if(!b)continue;const same=(ox===0&&oy===0);
+        for(let u=0;u<a.length;u++){const i=a[u];for(let v=same?u+1:0;v<b.length;v++){const j=b[v];const dx=X[j]-X[i],dy=Y[j]-Y[i],rr=R[i]+R[j],d2=dx*dx+dy*dy;if(d2>=rr*rr||d2===0)continue;const d=Math.sqrt(d2),ov=(rr-d),mi=R[i]*R[i],mj=R[j]*R[j],wi=mj/(mi+mj),wj=mi/(mi+mj),ux=dx/d,uy=dy/d;
+          X[i]-=ux*ov*wi;Y[i]-=uy*ov*wi;X[j]+=ux*ov*wj;Y[j]+=uy*ov*wj;}}}}
+    for(let i=0;i<n;i++){const r=R[i];if(X[i]<r){X[i]=r;}else if(X[i]>W-r){X[i]=W-r;}if(Y[i]>H-r){Y[i]=H-r;PX[i]=X[i]-(X[i]-PX[i])*0.6;}}
+  }
+  S.t+=DT;
+  if(!S.full&&S.t>=S.next){spawn();S.next=S.t+SPAWN;}
+}
+function topOfPile(){let top=H;for(let i=0;i<S.n;i++){const v=Math.abs(S.y[i]-S.py[i]);if(v<0.01&&S.y[i]-S.r[i]<top)top=S.y[i]-S.r[i];}return top;}
+let VIEW={sc:1,ox:0,oy:0};
+function draw(){
+  const cv=$('cv'),dpr=window.devicePixelRatio||1,cw=cv.parentNode.clientWidth,maxH=Math.min(640,Math.round(window.innerHeight*0.72)),margin=24;
+  const sc=Math.min((cw-2*margin)/S.W,(maxH-2*margin)/(H+12)),hpx=Math.round((H+12)*sc+2*margin);
+  if(cv.width!==Math.round(cw*dpr)||cv.height!==Math.round(hpx*dpr)){cv.width=Math.round(cw*dpr);cv.height=Math.round(hpx*dpr);}
+  const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,cw,hpx);
+  const ox=(cw-S.W*sc)/2,oy=margin+12*sc;VIEW={sc,ox,oy};
+  g.fillStyle='#0b1525';g.fillRect(ox,oy,S.W*sc,H*sc);
+  for(let i=0;i<S.n;i++){const r=S.r[i]*sc;g.fillStyle=colOf(2*S.r[i]);g.beginPath();g.arc(ox+S.x[i]*sc,oy+S.y[i]*sc,Math.max(0.6,r-0.4),0,7);g.fill();}
+  g.strokeStyle='#9fb0c6';g.lineWidth=2;g.beginPath();g.moveTo(ox,oy-6);g.lineTo(ox,oy+H*sc);g.lineTo(ox+S.W*sc,oy+H*sc);g.lineTo(ox+S.W*sc,oy-6);g.stroke();
+  const top=topOfPile();if(S.n>20&&top<H){g.strokeStyle='rgba(251,191,36,.5)';g.setLineDash([4,4]);g.lineWidth=1;g.beginPath();g.moveTo(ox,oy+top*sc);g.lineTo(ox+S.W*sc,oy+top*sc);g.stroke();g.setLineDash([]);}
+  stats(top);
+}
+function stats(top){
+  const n=S.n,last=n?n-1:0,fillH=H-top,dens=fillH>0?S.area/(S.W*fillH):0;
+  $('nums').innerHTML=[['balls',fmt(n)],['last gap',n?`${GAPS[last]}: ${fmt(PR[last])} → ${fmt(PR[last+1])}`:'–'],['biggest ball',n?`${S.maxg}, after ${fmt(S.maxgAt)}`:'–'],['twin balls (gap 2)',fmt(S.counts[2]||0)],['height of the pile',`${Math.max(0,Math.round(fillH))} of 100`],['ball area / box area',n>20?`${Math.round(100*Math.min(1,dens))} %`:'–']].map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join('');
+  const gs=Object.keys(S.counts).map(Number).sort((a,b)=>a-b);
+  $('leg').innerHTML=gs.slice(0,12).map(g=>`<span><span class="sw" style="background:${colOf(g)}"></span>gap ${g}: ${fmt(S.counts[g])}</span>`).join('')+(gs.length>12?`<span>… up to gap ${gs[gs.length-1]}</span>`:'');
+  let s='';
+  if(S.blocked)s=`Stopped: the gap of ${S.blocked.g} after ${fmt(S.blocked.p)} is wider than the box (${S.W}). Below it, ${fmt(n)} gaps got in.`;
+  else if(S.full)s=`The box is full after ${fmt(n)} balls: every gap between the primes from 2 to ${fmt(PR[n])}.`;
+  else s=`Falling: the ${fmt(n)}th gap, from ${fmt(PR[last])} to ${fmt(PR[last+1])}. Small balls are the common gaps; the rare big ones are the long runs without primes.`;
+  $('st').innerHTML=s;
+}
+function loop(){
+  if(!paused&&S){const k=+$('sp').value;for(let i=0;i<k*4;i++)step();if(!S.full&&S.n>5&&topOfPile()<0)S.full=true;}
+  draw();raf=requestAnimationFrame(loop);
+}
+$('bw').addEventListener('input',()=>{$('bwv').textContent=$('bw').value;});
+$('bw').addEventListener('change',reset);
+$('sp').addEventListener('input',()=>{$('spv').textContent=$('sp').value;});
+$('restart').addEventListener('click',reset);
+$('pause').addEventListener('click',()=>{paused=!paused;$('pause').textContent=paused?'Go on':'Pause';});
+$('cv').addEventListener('mousemove',e=>{const b=$('cv').getBoundingClientRect(),x=(e.clientX-b.left-VIEW.ox)/VIEW.sc,y=(e.clientY-b.top-VIEW.oy)/VIEW.sc,tp=$('tip');let hit=-1;for(let i=S.n-1;i>=0;i--){const dx=S.x[i]-x,dy=S.y[i]-y;if(dx*dx+dy*dy<=S.r[i]*S.r[i]){hit=i;break;}}
+  if(hit<0){tp.style.display='none';return;}tp.innerHTML=`gap <b>${GAPS[hit]}</b>: ${fmt(PR[hit])} → ${fmt(PR[hit+1])}<br>ball ${fmt(hit+1)}`;tp.style.display='block';tp.style.left=Math.min(b.width-190,e.clientX-b.left+12)+'px';tp.style.top=(e.clientY-b.top+12)+'px';});
+$('cv').addEventListener('mouseleave',()=>{$('tip').style.display='none';});
+reset();loop();
+</script>
+</body>
+</html>
