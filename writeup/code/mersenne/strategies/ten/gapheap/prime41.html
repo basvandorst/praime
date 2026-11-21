@@ -37,12 +37,12 @@ canvas { display:block; width:100%; touch-action:manipulation; }
 <body>
 <header>
 <h1>Prime gap heap</h1>
-<p>No box: the balls fall on one spot in the middle and pile up on the floor. Each ball drops straight down, rolls over the balls that are already there and stops where two of them, or one ball and the floor, hold it. A ball that lands exactly on top of another has no reason to go either way, so it takes turns: the first such ball rolls left, the next right, then left again. Choose what falls. <b>Prime numbers of balls:</b> round 1 drops 2 equal balls, round 2 drops 3, then 5, 7, 11, 13, …, each round in its own colour. <b>Prime gaps:</b> one ball for every gap between consecutive primes, in order, its diameter the gap.</p>
+<p>No box: the balls fall on one spot in the middle and pile up on the floor. Each ball drops straight down, rolls over the balls that are already there and stops where two of them, or one ball and the floor, hold it. A ball that lands exactly on top of another has no reason to go either way, so it takes turns: the first such ball rolls left, the next right, then left again. Choose what falls. <b>Prime numbers of balls:</b> round 1 drops 2 equal balls, round 2 drops 3, then 5, 7, 11, 13, …, each round in its own colour. <b>Mersenne exponents of balls:</b> the same, with the exponents p for which 2<sup>p</sup> − 1 is prime: 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, … <b>Prime gaps of balls:</b> the same, with the gaps between consecutive primes: 1, 2, 2, 4, 2, 4, 2, 4, 6, … <b>One ball per prime gap:</b> a ball for every gap, in order, its diameter the gap.</p>
 </header>
 <main>
 <section class="panel">
 <div class="controls">
-<div class="ctl"><label for="mode">What falls</label><select id="mode"><option value="count">a prime number of balls per round</option><option value="gap">one ball per prime gap</option></select></div>
+<div class="ctl"><label for="mode">What falls</label><select id="mode"><option value="count">a prime number of balls per round (2, 3, 5, 7, …)</option><option value="mers">a Mersenne exponent of balls per round (2, 3, 5, 7, 13, …)</option><option value="gapc">a prime gap of balls per round (1, 2, 2, 4, …)</option><option value="gap">one ball per prime gap, its size the gap</option></select></div>
 <div class="ctl"><label for="sp">Speed: <b id="spv">6</b></label><input id="sp" type="range" min="1" max="20" step="1" value="6"></div>
 <button id="restart">Restart</button><button id="pause">Pause</button>
 </div>
@@ -59,6 +59,10 @@ const fmt=n=>Number(n).toLocaleString('en-US');
 const NMAX=1000000,SV=new Uint8Array(NMAX+1),PRL=[];
 for(let i=2;i<=NMAX;i++){if(!SV[i]){PRL.push(i);for(let j=i*i;j<=NMAX;j+=i)SV[j]=1;}}
 const PR=Int32Array.from(PRL);
+const MERS=[2,3,5,7,13,17,19,31,61,89,107,127,521,607,1279,2203,2281,3217,4253,4423,9689,9941,11213,19937,21701,23209,44497,86243,110503,132049,216091,756839,859433,1257787,1398269,2976221,3021377,6972593,13466917,20996011,24036583,25964951,30402457,32582657,37156667,42643801,43112609,57885161,74207281,77232917,82589933,136279841];
+const GAPC=[];for(let i=0;i+1<PR.length;i++)GAPC.push(PR[i+1]-PR[i]);
+const SEQ={count:PR,mers:MERS,gapc:GAPC};
+const SEQNAME={count:'prime',mers:'Mersenne exponent',gapc:'prime gap'};
 const CAPN=50000;
 const GPAL={1:'#e2e8f0',2:'#fbbf24',4:'#38bdf8',6:'#34d399',8:'#f472b6',10:'#a78bfa',12:'#fb923c',14:'#f87171'};
 const gapCol=g=>GPAL[g]||(g<=20?'#ef4444':g<=30?'#dc2626':'#b91c1c');
@@ -73,7 +77,7 @@ function reset(){
 const key=(a,b)=>a*1000003+b;
 function cellRange(x0,x1,y0,y1,f){const cs=S.cs,st=++stampN;for(let a=Math.floor(x0/cs);a<=Math.floor(x1/cs);a++)for(let b=Math.floor(Math.max(0,y0)/cs);b<=Math.floor(Math.max(0,y1)/cs);b++){const L=S.grid.get(key(a,b));if(!L)continue;for(const j of L){if(STAMP[j]===st)continue;STAMP[j]=st;f(j);}}}
 function insert(i){const cs=S.cs,r=R[i];for(let a=Math.floor((X[i]-r)/cs);a<=Math.floor((X[i]+r)/cs);a++)for(let b=Math.floor(Math.max(0,Y[i]-r)/cs);b<=Math.floor((Y[i]+r)/cs);b++){const k=key(a,b);let L=S.grid.get(k);if(!L){L=[];S.grid.set(k,L);}L.push(i);}}
-function nextRadius(){if(S.mode==='gap'){const i=S.n;return {r:(PR[i+1]-PR[i])/2,tag:i};}if(S.leftInRound===0){S.round++;S.leftInRound=PR[S.round-1];}return {r:0.5,tag:S.round};}
+function nextRadius(){if(S.mode==='gap'){const i=S.n;return {r:(PR[i+1]-PR[i])/2,tag:i};}if(S.leftInRound===0){S.round++;S.leftInRound=SEQ[S.mode][S.round-1];}return {r:0.5,tag:S.round};}
 function fall(x0,yTop,r,skip){let best=r,who=-1;cellRange(x0-r-S.maxR,x0+r+S.maxR,0,yTop+r+S.maxR,j=>{if(j===skip)return;const dx=x0-X[j],rr=r+R[j];if(Math.abs(dx)>=rr)return;const y=Y[j]+Math.sqrt(rr*rr-dx*dx);if(y<=yTop+1e-7&&y>best){best=y;who=j;}});return {y:best,j:who};}
 function touching(x,y,r){const L=[];cellRange(x-r-S.maxR,x+r+S.maxR,y-r-S.maxR,y+r+S.maxR,k=>{if(Math.abs(Math.hypot(x-X[k],y-Y[k])-r-R[k])<1e-7*Math.max(1,r))L.push(k);});return L;}
 function cone(x,y,j,k){const ax=x-X[j],ay=y-Y[j],bx=x-X[k],by=y-Y[k],det=ax*by-ay*bx;if(Math.abs(det)<1e-12)return false;const A=-bx/det,B=ax/det;return A>=-1e-12&&B>=-1e-12;}
@@ -104,8 +108,8 @@ function drop(r){
   return {x,y,path};
 }
 function place(){
-  if(S.n>=CAPN||(S.mode==='gap'&&S.n+2>=PR.length)){S.done=true;return null;}
-  const b=nextRadius(),res=drop(b.r),i=S.n;X[i]=res.x;Y[i]=res.y;R[i]=b.r;TAG[i]=b.tag;S.n++;if(S.mode==='count')S.leftInRound--;
+  if(S.n>=CAPN||(S.mode==='gap'&&S.n+2>=PR.length)||(S.mode!=='gap'&&S.leftInRound===0&&S.round>=SEQ[S.mode].length)){S.done=true;return null;}
+  const b=nextRadius(),res=drop(b.r),i=S.n;X[i]=res.x;Y[i]=res.y;R[i]=b.r;TAG[i]=b.tag;S.n++;if(S.mode!=='gap')S.leftInRound--;
   if(b.r>S.maxR)S.maxR=b.r;insert(i);if(X[i]-b.r<S.minX)S.minX=X[i]-b.r;if(X[i]+b.r>S.maxX)S.maxX=X[i]+b.r;if(Y[i]+b.r>S.top)S.top=Y[i]+b.r;
   const kk=S.mode==='gap'?(PR[b.tag+1]-PR[b.tag]):b.tag;S.cnt[kk]=(S.cnt[kk]||0)+1;return {i,path:res.path};
 }
@@ -134,14 +138,14 @@ function draw(){
 function stats(){
   const n=S.n,w=S.maxX-S.minX,slope=w>0?Math.atan2(S.top,w/2)*180/Math.PI:0;let cells;
   if(S.mode==='gap'){const last=n-1;cells=[['balls',fmt(n)],['last gap',n?`${PR[last+1]-PR[last]}: ${fmt(PR[last])} → ${fmt(PR[last+1])}`:'–'],['biggest ball',n?`gap ${2*S.maxR}`:'–'],['twin balls (gap 2)',fmt(S.cnt[2]||0)],['heap: height × width',`${S.top.toFixed(0)} × ${w.toFixed(0)}`],['height / half-width',n>10?`${slope.toFixed(0)}°`:'–']];}
-  else{let sum=0;for(let k=0;k<S.round;k++)sum+=PR[k];cells=[['balls',fmt(n)],['round',S.round?`${S.round}: ${fmt(PR[S.round-1])} balls`:'–'],['balls after this round',fmt(sum)],['still to come this round',fmt(S.leftInRound)],['heap: height × width',`${S.top.toFixed(1)} × ${w.toFixed(1)}`],['height / half-width',n>10?`${slope.toFixed(0)}°`:'–']];}
+  else{const Q=SEQ[S.mode];let sum=0;for(let k=0;k<S.round;k++)sum+=Q[k];cells=[['balls',fmt(n)],['round',S.round?`${S.round}: ${fmt(Q[S.round-1])} balls`:'–'],['balls after this round',fmt(sum)],['still to come this round',fmt(S.leftInRound)],['heap: height × width',`${S.top.toFixed(1)} × ${w.toFixed(1)}`],['height / half-width',n>10?`${slope.toFixed(0)}°`:'–']];}
   $('nums').innerHTML=cells.map(c=>`<div class="cell"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join('');
   if(S.mode==='gap'){const gs=Object.keys(S.cnt).map(Number).sort((a,b)=>a-b);$('leg').innerHTML=gs.slice(0,11).map(g=>`<span><span class="sw" style="background:${gapCol(g)}"></span>gap ${g}: ${fmt(S.cnt[g])}</span>`).join('')+(gs.length>11?`<span>… up to gap ${gs[gs.length-1]}</span>`:'');}
-  else{const rs=[];for(let k=Math.max(1,S.round-9);k<=S.round;k++)rs.push(`<span><span class="sw" style="background:${RPAL[(k-1)%RPAL.length]}"></span>round ${k}: ${fmt(PR[k-1])}</span>`);$('leg').innerHTML=rs.join('');}
+  else{const rs=[];for(let k=Math.max(1,S.round-9);k<=S.round;k++)rs.push(`<span><span class="sw" style="background:${RPAL[(k-1)%RPAL.length]}"></span>round ${k}: ${fmt(SEQ[S.mode][k-1])}</span>`);$('leg').innerHTML=rs.join('');}
   let s;
   if(S.done)s=`Stopped at ${fmt(n)} balls${S.mode==='gap'?`: every gap between the primes from 2 to ${fmt(PR[n])}`:`, in round ${S.round}`}.`;
   else if(S.mode==='gap')s=`Ball ${fmt(n)}: the gap ${n?PR[n]-PR[n-1]:'–'} after ${n?fmt(PR[n-1]):'–'}. Small balls fill the notches; a big gap lands on top and rolls down the side until something holds it.`;
-  else s=`Round ${S.round}: ${fmt(PR[S.round-1]||0)} balls. ${fmt(S.ties)} balls so far landed exactly on top of another and took turns, left and right.`;
+  else{const Q=SEQ[S.mode],v=Q[S.round-1]||0,why=S.mode==='mers'?` (2<sup>${v}</sup> − 1 is prime)`:S.mode==='gapc'?` (the gap from ${fmt(PR[S.round-1])} to ${fmt(PR[S.round])})`:` (the ${S.round}th prime)`;s=`Round ${S.round}: ${fmt(v)} balls${why}. ${fmt(S.ties)} balls so far landed exactly on top of another and took turns, left and right.`;}
   $('st').innerHTML=s;
 }
 function loop(){if(!paused&&S)advance();draw();requestAnimationFrame(loop);}
@@ -151,7 +155,7 @@ $('pause').addEventListener('click',()=>{paused=!paused;$('pause').textContent=p
 $('cv').addEventListener('mousemove',e=>{const b=$('cv').getBoundingClientRect(),x=(e.clientX-b.left-VIEW.ox)/VIEW.sc,y=(VIEW.oy-(e.clientY-b.top))/VIEW.sc,tp=$('tip');let hit=-1;
   cellRange(x-S.maxR,x+S.maxR,y-S.maxR,y+S.maxR,i=>{const dx=X[i]-x,dy=Y[i]-y;if(dx*dx+dy*dy<=R[i]*R[i])hit=i;});
   if(hit<0){tp.style.display='none';return;}
-  tp.innerHTML=S.mode==='gap'?`gap <b>${PR[TAG[hit]+1]-PR[TAG[hit]]}</b>: ${fmt(PR[TAG[hit]])} → ${fmt(PR[TAG[hit]+1])}<br>ball ${fmt(hit+1)}`:`round ${TAG[hit]}: one of ${fmt(PR[TAG[hit]-1])} balls<br>ball ${fmt(hit+1)}`;
+  tp.innerHTML=S.mode==='gap'?`gap <b>${PR[TAG[hit]+1]-PR[TAG[hit]]}</b>: ${fmt(PR[TAG[hit]])} → ${fmt(PR[TAG[hit]+1])}<br>ball ${fmt(hit+1)}`:`round ${TAG[hit]}: one of ${fmt(SEQ[S.mode][TAG[hit]-1])} balls (${SEQNAME[S.mode]})<br>ball ${fmt(hit+1)}`;
   tp.style.display='block';tp.style.left=Math.min(b.width-200,e.clientX-b.left+12)+'px';tp.style.top=(e.clientY-b.top+12)+'px';});
 $('cv').addEventListener('mouseleave',()=>{$('tip').style.display='none';});
 reset();loop();
