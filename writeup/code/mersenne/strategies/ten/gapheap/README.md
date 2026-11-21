@@ -1,0 +1,5 @@
+# Prime gap heap (prime41.html)
+
+No box: balls fall on one spot in the middle and pile up. Each ball drops straight down, rolls (no bouncing, no sliding) over the balls at rest and stops where two of them, or one and the floor, hold it: rolling deposition (Visscher and Bolsterli 1972). Two contacts hold a ball exactly when the upward direction is a positive combination of the two contact normals. A ball that lands exactly on top of another rolls left, the next such ball right, and so on. Modes: round k drops p_k equal balls (diameter 1), or one ball per prime gap (diameter = gap).
+
+`probe41.js` (run with `t41.js`) places the balls without animation and checks every ball: no overlap (smallest distance minus radii about -5e-15, rounding), every ball on the floor or held by two contacts, and the left/right balance. Results: 3,000 equal balls in 0.5 s, 0 unsupported, 1,481 left and 1,481 right, a triangle 65 high and 77 wide (60-degree sides); 20,000 equal balls, 0 unsupported; 5,000 gap balls, 0 overlaps, 0 unsupported. Two earlier versions (a physics simulation with friction) gave flat, lopsided heaps and were dropped.

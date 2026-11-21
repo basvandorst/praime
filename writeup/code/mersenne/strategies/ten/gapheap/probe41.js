@@ -1,0 +1,6 @@
+(()=>{const out=[];for(const [mode,N] of [['count',3000],['gap',5000],['count',20000]]){$('mode').value=mode;reset();paused=true;const t0=performance.now();while(S.n<N&&!S.done)place();const sec=(performance.now()-t0)/1000;
+ let minGap=1e9,unsupported=0,L=0,Rt=0,checked=0;const lim=Math.min(S.n,6000);
+ for(let i=0;i<lim;i++){if(X[i]<-1e-9)L++;else if(X[i]>1e-9)Rt++;const c=[];cellRange(X[i]-R[i]-S.maxR,X[i]+R[i]+S.maxR,Y[i]-R[i]-S.maxR,Y[i]+R[i]+S.maxR,j=>{if(j===i)return;const d=Math.hypot(X[i]-X[j],Y[i]-Y[j])-R[i]-R[j];if(d<minGap)minGap=d;if(d<1e-7*Math.max(1,R[i]))c.push(j);});
+  checked++;const floor=Math.abs(Y[i]-R[i])<1e-7;let ok=floor;if(!ok){for(let a=0;a<c.length&&!ok;a++)for(let b=a+1;b<c.length&&!ok;b++){const ax=X[i]-X[c[a]],ay=Y[i]-Y[c[a]],bx=X[i]-X[c[b]],by=Y[i]-Y[c[b]],det=ax*by-ay*bx;if(Math.abs(det)>1e-12&&-bx/det>=-1e-9&&ax/det>=-1e-9)ok=true;}}if(!ok)unsupported++;}
+ out.push({mode,n:S.n,sec:+sec.toFixed(2),round:S.round,ties:S.ties,minGap:+minGap.toExponential(2),unsupported,checked,left:L,right:Rt,height:+S.top.toFixed(2),width:+(S.maxX-S.minX).toFixed(2),first8:Array.from({length:8},(_,i)=>[+X[i].toFixed(4),+Y[i].toFixed(4)])});}
+ draw();return JSON.stringify(out);})()
