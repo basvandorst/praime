@@ -1,0 +1,17 @@
+Round 3, pre-registered 2026-11-22 ~00:00 UTC. Stress tests of the round-2 cluster law (theory2.Pattern,
+Bahadur form; order 4 for span <= 120, order 3 above), nothing re-fitted, no parameter exists.
+
+New holdout window C = [1e15, 1e15 + 2e7) (never looked at before). The lam grid of the pattern cache is
+extended to ln(1e15 + 2e7) and the single-gap law to h = 12 lam + 40 = 456.
+
+Tests (windows train, A, B, C; block z with K = 10 blocks as before):
+ T1 tail: share of gaps >= h for h = 3 lam_mid, 4 lam_mid, 5 lam_mid (rounded to even), from the single-gap law.
+    Pass |z| <= 3. Expected: fits at 3 and 4 lam; 5 lam is where order 3 may fail.
+ T2 joint law of two consecutive gaps (h1, h2 <= 38): Pearson chi^2 over the 361 cells against
+    N_pairs * P(h1, h2) (whole window). Pass: chi^2/dof within 1 +- 3 sqrt(2/dof) (dof = 361; cells with expected
+    count < 5 merged into one cell).
+ T3 four primes in a row in arithmetic progression (CPAP-4): share sum_h P(0,h,2h,3h) (order 4 if 3h <= 120,
+    else order 3), h up to 150. Pass |z| <= 3 (block test).
+ T4 Shannon entropy (bits) of the gap class c = min(g/2, 20) and the conditional entropy H(c_{n+1} | c_n), from the
+    single and joint laws. Pass |z| <= 3.
+ Round 2 statistics re-tested at C (S.gap*, N.eqgap, A.same*, S.var* aligned, I.migap_lag1): pass |z| <= 3.
