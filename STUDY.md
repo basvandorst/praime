@@ -6,6 +6,8 @@
 
 **Status:** computed. The Hardy–Littlewood and Bateman–Horn conjectures are conjectures; every prediction below assumes them. The expansions are our own derivations (heuristic: the series are asymptotic and truncated; section 3 gives the error of order 4 against the exact inclusion–exclusion sum for gaps up to 42). No parameter was fitted. Every number in the tables is printed by [tables.py](writeup/code/study/tables.py) from the verdict files.
 
+**Contents.** 1 method and windows · 2 the textbook formulas (round 1) · 3 the law: Hardy–Littlewood plus the Bahadur expansion (round 2) · 4 counts on a grid · 5 Ulam's diagonals (round 9) · 6 the law in all windows: gaps, classes, variance, information, tails, the fifth order, 10¹⁸, jumping champions, the exact gap law (rounds 3, 8, 17, 19, 22) · 7 twin primes (round 4) · 8 n² + 1 (round 5) · 9 second differences, bits per prime, the hidden residue chain (rounds 6–7) · 10 counts in intervals: third cumulant, the full distribution, exact sums, long intervals, the pair excess (rounds 10, 12, 20, 21) · 11 Gaussian and Eisenstein primes (rounds 11, 16) · 12 the residue chain cell by cell, three-gap law (rounds 13, 15) · 13 Sophie Germain primes and n² + n + 41 (rounds 14, 18) · 14 synthesis and the scoreboard of all tests · Validation.
+
 ## 1. The question and the method
 
 The protocol asked for seven independent lines (numerical, geometric, statistical, algebraic, dynamic, information-theoretic, computational) and for every result to be checked against known theory: the prime number theorem, residue classes, analytic number theory.
@@ -98,7 +100,7 @@ where C_d is the Bateman–Horn constant of the pair {f(x), f(x + d)}: C_d/C² =
 
 Both fit. Since 4n² + 4n + c = f₋₄,c(n + 1), 39 of the 198 Ulam curves are shifted copies of others; the middle row keeps only the 159 distinct curves, so that the scatter over curves is not counted twice (review, point 10). The counts along a quadratic scatter at about half the Poisson value at this size, as the pair constants predict. The Bateman–Horn constants run from 0.62 to 6.64 (n² + n + 41) in both families; the test is on the mean over the curves, not curve by curve.
 
-## 6. Rounds 2 and 3 against all four windows ([round3.txt](writeup/data/study/preregister/round3.txt), [verdicts_r3.json](writeup/data/study/verdicts_r3.json))
+## 6. The law against all windows: rounds 2–3, 8, 17, 19, 22 ([round3.txt](writeup/data/study/preregister/round3.txt), [verdicts_r3.json](writeup/data/study/verdicts_r3.json))
 
 | statistic | primes (train) | cluster law | rel. diff train | z train | z A | z B | z C (10¹⁵) |
 |---|---|---|---|---|---|---|---|
