@@ -41,7 +41,7 @@ if __name__ == '__main__':
     else:
         T = np.load(TAB).astype(np.float64); rs = T.sum(1)
         cum = np.cumsum(T / rs[:, None], 1); cum[:, -1] = 1.0
-        gaps = np.arange(2, G + 1, 2); rng = np.random.default_rng(76 if Y == 17 else 77)
+        gaps = np.arange(2, G + 1, 2); rng = np.random.default_rng(76 if Y == 17 else 78 if Y < 7 else 77)
         Tall = []; Tq = {q: [] for q in QS}; rep = {q: 0 for q in QS}; nst = 0
         for b0 in range(0, NCH, 5_000):
             n = 5_000; cur = CLS[rng.integers(0, len(CLS), n)]; D = np.zeros(n, np.int64)
@@ -72,4 +72,4 @@ if __name__ == '__main__':
                **{'mean_T_q%d' % q: float(np.mean(np.concatenate(Tq[q]))) for q in QS},
                **{'P_gap0_q%d' % q: rep[q] / nst for q in QS}, 'cdf': cdf.tolist()}
         print({k: (round(v, 4) if isinstance(v, float) else v) for k, v in res.items() if k != 'cdf'}, flush=True)
-        json.dump(res, open(os.path.join(OUT, ('r76.json' if Y == 17 else 'r77_y%d.json' % Y)), 'w'), indent=1)
+        json.dump(res, open(os.path.join(OUT, ('r76.json' if Y == 17 else ('r78_y%d.json' if Y < 7 else 'r77_y%d.json') % Y)), 'w'), indent=1)
