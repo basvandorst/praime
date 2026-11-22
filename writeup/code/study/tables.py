@@ -222,6 +222,9 @@ def scoreboard():
         r20rows.update(J('r20_H60_%s.json' % w))
     zs = [t for r in r20rows.values() for t, l in zip(r['t9'], r['law']) if l >= 1e-3]
     rows.append(('20', 'count distribution in short intervals (H = 30, 60; cells with P ≥ 10⁻³)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    r21 = J('r21.json')
+    zs = [t for w in ('train', 'A', 'B', 'C') for t, l in zip(r21[w]['t9'], r21[w]['law_exact']) if l >= 1e-3]
+    rows.append(('21', 'the same for H = 30 with the exact Hardy–Littlewood sums', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     r13 = J('r13.json')
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
@@ -266,8 +269,19 @@ def r20():
                 w, H, d[0], l[0], p[0], d[2], l[2], p[2], tvl, tvp, int(np.sum(np.abs(t[sel]) > 3)), int(sel.sum())))
 
 
+def r21():
+    r = J('r21.json')
+    print('| window | k = 0 | 1 | 2 | 3 | 4 | 5 | block misses |')
+    print('|---|---|---|---|---|---|---|---|')
+    for w in ('train', 'A', 'B', 'C'):
+        d = r[w]
+        miss = sum(abs(t) > 3 for t, l in zip(d['t9'], d['law_exact']) if l >= 1e-3)
+        n = sum(l >= 1e-3 for l in d['law_exact'])
+        print('| %s | %s | %d of %d |' % (w, ' | '.join('%.4f / %.4f' % (d['data'][k], d['law_exact'][k]) for k in range(6)), miss, n))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20, 'r21': r21}[sys.argv[1]]()
 
 
 def twins():
