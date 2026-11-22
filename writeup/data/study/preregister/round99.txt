@@ -1,0 +1,16 @@
+Round 99, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+The tube of fact 2048 for primes in residue classes (ours; from the GRH proof's G_chi, Zhang's note §1.2, and fact
+2047). For an odd primitive Dirichlet character chi mod q, G_chi(x) = sum_{n<=x} Lambda(n) chi(n) (x/n - 1)
++ x L'/L(1,chi) has Mellin transform -L'/L(s,chi)/(s(s-1)) + L'/L(1,chi)/(s-1); residues at the zeros, at s = 0 and
+at the trivial zeros -1, -3, ... give the exact formula
+  G_chi(x) = sum_rho x^rho/(rho(1-rho)) + L'/L(0,chi) - T(x),  T(x) = sum_{n odd} x^(-n)/(n(n+1)),
+so under GRH |G_chi(x) - L'/L(0,chi) + T(x)| <= C_chi sqrt(x) for x >= 1, C_chi = sum_rho 1/|rho|^2, with equality
+at x = 1. Two expressions for C_chi: (a) from x = 1: C = L'/L(1,chi) - L'/L(0,chi) + ln 2; (b) from the Hadamard
+product: C = 2 Re L'/L(1,chi) + ln(q/pi) + psi((1+a)/2) (a = 1 for odd chi).
+Characters: chi_4 (mod 4) and chi_3 (mod 3). Primes and prime powers up to 1e9; G is piecewise linear between prime
+powers, so the maximum of |G - L'/L(0) + T|/sqrt(x) on [100, 1e9] is taken at prime powers and at interior stationary
+points (T neglected there, < 0.005/sqrt(x)... < 1e-4 relative).
+Readings: (1) the two expressions for C_chi agree to 1e-10 for both characters; (2) the measured maximum ratio on
+[100, 1e9] is at most C_chi (a check of the theorem given fact 2047); (3) heuristic, by analogy with zeta (0.53 of C
+up to 1e8): the maximum ratio lies between 0.3 and 0.8 of C_chi for both characters.
