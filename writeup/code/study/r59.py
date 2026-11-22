@@ -18,7 +18,7 @@ BIGP = C.small_primes(20_000_000).astype(float); BIGP = BIGP[BIGP > 3000]
 TAIL = {k: float(np.sum(np.log1p(-k / BIGP) - k * np.log1p(-1 / BIGP))) for k in (2, 4, 6, 8)}
 L0, L1 = int(float(os.environ.get('R59_L0', 1e9))), int(float(os.environ.get('R59_L1', 2e9)))
 LAMS = [math.log(L0), math.log((L0 + L1) / 2), math.log(L1)]
-DMAX = 1200
+DMAX = int(os.environ.get('R59_DMAX', 1200))
 CLS = np.array([a for a in range(PP) if math.gcd(a, PP) == 1 and math.gcd(a + 2, PP) == 1], dtype=np.int64)
 
 

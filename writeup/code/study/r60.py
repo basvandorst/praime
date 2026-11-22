@@ -20,16 +20,18 @@ def K_tw_with_tail():
 
 if __name__ == '__main__':
     K, c = K_tw_with_tail()
-    r = json.load(open(os.path.join(OUT, 'r59.json')))
+    src = os.environ.get('R60_SRC', 'r59.json'); r = json.load(open(os.path.join(OUT, src)))
     data = {int(k): v for k, v in r['data'].items()}; N = sum(data.values())
     cnt = np.array(list(data.values()), float); pp = cnt / N
     H_data = float(-np.sum(pp * np.log2(pp)) + (len(cnt) - 1) / (2 * N * math.log(2)))
     lam = r['compare']['mean_lambda']; rho = 2 * C2 / lam ** 2
     H_asym = (math.log(math.e / (6 * rho)) - K) / math.log(2)
     # round 59's conditioned law, averaged over the window as in r59 compare, up to d = 1200, plus an exponential tail
-    LAMS = [math.log(1e9), math.log(1.5e9), math.log(2e9)]
+    L0, L1 = float(os.environ.get('R60_L0', 1e9)), float(os.environ.get('R60_L1', 2e9))
+    LAMS = [math.log(L0), math.log((L0 + L1) / 2), math.log(L1)]
     u = np.linspace(LAMS[0], LAMS[-1], 401); wt = np.exp(u) / u ** 2
-    law = np.array([float(np.sum(np.interp(u, LAMS, r['law'][str(d)]) * wt) / np.sum(wt)) for d in range(6, 1201, 6)])
+    DM = int(os.environ.get('R60_DMAX', 1200))
+    law = np.array([float(np.sum(np.interp(u, LAMS, r['law'][str(d)]) * wt) / np.sum(wt)) for d in range(6, DM + 1, 6)])
     tail_mass = 1 - law.sum(); q = 1 - 6 * rho
     tail = tail_mass * (1 - q) * q ** np.arange(0, 2000)
     Pl = np.concatenate([law, tail]); Pl = Pl[Pl > 0]
@@ -48,4 +50,4 @@ if __name__ == '__main__':
            'H_data': H_data, 'H_law_round59': H_law, 'H_discrete_leading': H_disc, 'H_asym': H_asym,
            'data_minus_law': H_data - H_law, 'data_minus_asym': H_data - H_asym}
     print({k: (round(v, 5) if isinstance(v, float) else v) for k, v in out.items()})
-    json.dump(out, open(os.path.join(OUT, 'r60.json'), 'w'), indent=1)
+    json.dump(out, open(os.path.join(OUT, os.environ.get('R60_OUT', 'r60.json')), 'w'), indent=1)
