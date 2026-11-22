@@ -164,8 +164,17 @@ def eis():
               ' | '.join('%.4g / %.4g, %.1f' % (v[b][s]['x'], v[b][s]['T'], v[b][s]['zT']) for b in boxes)))
 
 
+def r17():
+    r = J('r17.json')
+    print('| statistic | primes near 10¹⁸ | cluster law | rel. diff | t₉ | z (binomial) |')
+    print('|---|---|---|---|---|---|')
+    for s, d in r['stats'].items():
+        print('| %s | %.5g | %.5g | %+.2f %% | %.1f | %s |' % (nm(s), d['x'], d['T'], 100 * d['rel'], d['t9'],
+              '%.1f' % d['z_binom'] if d['z_binom'] is not None else ''))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17}[sys.argv[1]]()
 
 
 def twins():

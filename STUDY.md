@@ -142,6 +142,31 @@ The one miss is the tail at train beyond 3 ln x: the law is 0.9–1.4 % too high
 
 **Round 8: the next order** ([r8.py](writeup/code/study/r8.py), [round8.txt](writeup/data/study/preregister/round8.txt), [r8_tail.json](writeup/data/study/r8_tail.json), [r8_blocks.json](writeup/data/study/r8_blocks.json)). The fifth cumulant, κ₅ = Σ_π (−1)^(|π|−1) (|π|−1)! ∏_(blocks) μ(block) over the 52 set partitions of five interior points, enters with the sign (−1)⁵; every partition carries λ⁻⁵, so κ₅ = K₅/λ⁵ with K₅ built from singular series alone. Added for spans 50–120 (and order 4 in place of order 3 for spans 122–200), it is about half the order-4 term at every gap (gap 90 at λ = 17.8: −0.037 at order 4, −0.018 at order 5, in ln P), and it lowers the train tail by 0.29 % (gaps ≥ 54: 0.035827 → 0.035722; primes 0.035494). The block t₉ goes from −4.09 to −2.80 (≥ 54), −2.30 to −1.19 (≥ 72) and −1.41 to −0.37 (≥ 90). The pre-registration expected a shift of about 1 %; it is 0.29 %, enough to bring the test inside |t₉| ≤ 3 but leaving 0.64 % (2.8 binomial standard errors) to the higher orders, which keep the same sign, or to chance. With the exact-sum comparison of section 3 (order 4 is 0.32 % above the exact law already at gap 42 and λ = 17.8, growing with h), truncation is a plausible cause of most of the rest, but that is not shown: the miss is partly truncation.
 
+**Round 17: a window at 10¹⁸** ([r17.py](writeup/code/study/r17.py) → [r17.json](writeup/data/study/r17.json), [round17.txt](writeup/data/study/preregister/round17.txt)). [10¹⁸, 10¹⁸ + 2·10⁶), 48,427 primes listed one by one with gmpy2.next_prime (no sieve; below 2⁶⁴ the test has no known exception), λ = 41.4; the frozen law with order 2 for spans above 300 (the law sums to 1.0001):
+
+| statistic | primes near 10¹⁸ | cluster law | rel. diff | t₉ | z (binomial) |
+|---|---|---|---|---|---|
+| gap 2 | 0.033535 | 0.031856 | +5.27 % | 2.0 | 2.1 |
+| gap 4 | 0.030768 | 0.031856 | -3.42 % | -2.0 | -1.4 |
+| gap 6 | 0.061474 | 0.060384 | +1.80 % | 0.8 | 1.0 |
+| gap 8 | 0.029261 | 0.028587 | +2.36 % | 1.1 | 0.9 |
+| gap 10 | 0.039152 | 0.0376 | +4.13 % | 3.1 | 1.8 |
+| gap 12 | 0.051521 | 0.052641 | -2.13 % | -1.6 | -1.1 |
+| gap 18 | 0.047783 | 0.046447 | +2.88 % | 1.6 | 1.4 |
+| gap 30 | 0.045904 | 0.045367 | +1.18 % | 0.4 | 0.6 |
+| two equal gaps in a row | 0.01398 | 0.013565 | +3.06 % | 0.6 | 0.8 |
+| next prime same class mod 3 | 0.46976 | 0.47069 | -0.20 % | -0.4 | -0.4 |
+| same class mod 4 | 0.47269 | 0.47254 | +0.03 % | 0.1 | 0.1 |
+| same class mod 5 | 0.21166 | 0.21144 | +0.10 % | 0.1 | 0.1 |
+| same class mod 7 | 0.12491 | 0.1285 | -2.79 % | -2.2 | -2.4 |
+| same class mod 8 | 0.2163 | 0.21408 | +1.04 % | 1.4 | 1.2 |
+| entropy of the gap class (bits) | 3.471 | 3.4602 | +0.31 % | 0.9 |  |
+| gaps ≥ 124 | 0.044232 | 0.044079 | +0.35 % | 0.2 | 0.2 |
+| gaps ≥ 166 | 0.015673 | 0.014576 | +7.53 % | 1.6 | 2.0 |
+| gaps ≥ 208 | 0.0050592 | 0.004805 | +5.29 % | 0.9 | 0.8 |
+
+17 of 18 pass the block test (gap 10 at t₉ = 3.1 is the exception; its binomial z is 1.8); every binomial z lies within ±2.4. The law frozen on [10⁷, 10⁸) holds eleven orders of magnitude higher.
+
 **The joint law cell by cell** (Pearson χ² over the 19 × 19 pairs of consecutive gaps ≤ 38, cells with expectation below 5 merged):
 
 | window | gap pairs in the cells | χ² | cells | χ²/cell | z |
