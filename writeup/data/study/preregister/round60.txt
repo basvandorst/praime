@@ -1,0 +1,12 @@
+Round 60, written before the entropy of the twin gaps is computed (the counts themselves were taken in round 59).
+
+Entropy of the distance d between consecutive twin primes (own derivation). Leading-order law on d in 6N:
+P(d) proportional to S({0,2,d,d+2})/S({0,2}) e^(-d rho_tw), rho_tw = 2 C2/lam^2. The local factor at p >= 5 is
+proportional to (1 - nu/p) with nu = 2 (d = 0 mod p), 3 (d = +-2), 4 (otherwise), and its mean over d is
+p(p-2)/(p-1)^2; at p = 2, 3 it is constant on 6N. So
+  H(twin gap) = log2(e/(6 rho_tw)) - K_tw/ln 2,  K_tw = sum_{p>=5} (1/p) sum_d w_d ln w_d,  w = local factor / its mean,
+a closed sum over primes (computed in r60.py before the comparison).
+Data: the 2,963,534 twin gaps of [1e9, 2e9) (round 59), plug-in entropy with Miller-Madow. Also the entropy of round
+59's conditioned law itself (averaged over the window) and of the discrete leading-order law.
+Reading fixed now: the data entropy agrees with round 59's law to within 0.01 bits, and the asymptote lies within
+0.1 bits of the data (the approach is expected to be slow, as for the prime gaps, rounds 52 and 57).
