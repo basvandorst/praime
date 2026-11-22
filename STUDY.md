@@ -547,7 +547,7 @@ All fit (the sliding estimate for H = 10⁷ inside blocks of 9·10⁶ was invali
 | B | 0.995 | 1 | 0.925 |
 | C | 0.894 | 1 | 0.954 |
 
-Against independent draws the four whole windows give a χ² of about 38 on 4 degrees of freedom; against the rigidity about 10 (p ≈ 0.04), almost all from train, which stays 2.7σ low, and the 9·10⁵ sub-windows are 2.1σ low while the 9·10⁶ ones match. So the under-dispersion of round 13 is mostly the long-range rigidity that the Hardy–Littlewood correlations imply; a remainder at train (about 0.16 in χ²/dof) is not explained, and the heuristic for the interiors (g ≥ 6) is the first suspect.
+Against independent draws the four whole windows give a χ² of about 38 on 4 degrees of freedom; against the rigidity about 10 (p ≈ 0.04), almost all from train, which stays 2.7σ low, and the 9·10⁵ sub-windows are 2.1σ low while the 9·10⁶ ones match. So the under-dispersion of round 13 is mostly the long-range rigidity that the Hardy–Littlewood correlations imply; a remainder at train (about 0.16 in χ²/dof) is not explained. It is not only the heuristic for the interiors: the gaps 2 and 4, where the derivation has no heuristic step, also lie below it at train (0.29 and 0.31 against 0.42, each about 0.8σ).
 
 **Round 15: three consecutive gaps** ([r15.py](writeup/code/study/r15.py) → [r15.json](writeup/data/study/r15.json), [round15.txt](writeup/data/study/preregister/round15.txt)). Four consecutive primes, P(0, h₁, h₁ + h₂, h₁ + h₂ + h₃) for all 729 triples of gaps ≤ 18 (order 4), a direct test of the four-point correlations, cell by cell:
 
