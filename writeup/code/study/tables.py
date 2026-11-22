@@ -229,7 +229,9 @@ def scoreboard():
     rows.append(('21', 'the same with the exact Hardy–Littlewood sums (H = 30 and 60)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     a70 = J('r22_HM70.json'); a52 = J('r22_HM52.json')
     zs = [d['t9'] for d in a70['stats'].values()] + [a52['stats']['T1.tail54']['t9']]
-    rows.append(('22', 'exact gap law at train: gaps 2–70 and the tails ≥ 54, ≥ 72', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    for w in ('A', 'B', 'C'):
+        zs += [d['t9'] for d in J('r22_HM70_%s.json' % w)['stats'].values()]
+    rows.append(('22', 'exact gap law: gaps 2–70 and the tail ≥ 72 in four windows (and ≥ 54 at train)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     r13 = J('r13.json')
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))

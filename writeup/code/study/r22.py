@@ -64,9 +64,10 @@ def main():
         print('h', h, 'sets so far', nsets, round(time.time() - t0), 's', flush=True)
     rows = [json.loads(l) for l in open(os.path.join(OUT, 'results_r3.jsonl'))]
     import common as C
-    L, W = R3.WIN['train']
+    WINNAME = os.environ.get('R22_WIN', 'train')
+    L, W = R3.WIN[WINNAME]
     M = C.primes_mask(L, W); P = np.nonzero(M)[0].astype(np.int64) + L; g = np.diff(P)
-    res = {'HM': HM, 'admissible_sets': nsets, 'blocks': []}
+    res = {'HM': HM, 'window': WINNAME, 'admissible_sets': nsets, 'blocks': []}
     stats = {}
     for b in range(10):
         Lb, Wb = L + b * (W // 10), W // 10
@@ -87,7 +88,7 @@ def main():
     for k in ('S.gap6', 'S.gap30', 'S.gap50', 'S.gap52', 'T1.tail%d' % (HM + 2)):
         if k in out:
             print(k, out[k], flush=True)
-    json.dump(res, open(os.path.join(OUT, 'r22_HM%d.json' % HM), 'w'), indent=1)
+    json.dump(res, open(os.path.join(OUT, 'r22_HM%d%s.json' % (HM, '' if WINNAME == 'train' else '_' + WINNAME)), 'w'), indent=1)
 
 
 if __name__ == '__main__':
