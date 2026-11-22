@@ -238,6 +238,9 @@ def scoreboard():
     r25 = J('r25.json')['summary']
     zs = [(r25['mean'] - 1) / r25['se'], 0.0 if r25['ks_p'] > 0.01 else 99.0]
     rows.append(('25', 'the same with the polymer overlap correction', 2, sum(abs(z) > 3 for z in zs), 0.0027 + 0.01))
+    r32 = J('r32b.json')['U4_summary']
+    zs = [(r32['mean'] - 1) / r32['se'], 0.0 if r32['ks_p'] > 0.01 else 99.0]
+    rows.append(('32', 'first occurrences of the gaps 180–300 with the order-4 term (mean of U, KS)', 2, sum(abs(z) > 3 for z in zs), 0.0027 + 0.01))
     a31 = J('r31.json'); l31 = J('r31_long.json'); b31 = J('r31b.json')
     zs = [a31[w][H]['t9'] for w in ('train', 'A') for H in ('1000', '10000', '100000')] + [l31['train']['1000000']['t9']] + [b31[H]['t9'] for H in ('1000000', '10000000')]
     rows.append(('31', 'variance of twin counts in intervals (H = 10³ to 10⁷; the invalid sliding H = 10⁷ estimate left out)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
