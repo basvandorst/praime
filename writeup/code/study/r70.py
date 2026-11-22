@@ -1,6 +1,7 @@
 """Round 70 (theory, no data): how the discrete leading-order law's information between consecutive gaps approaches
-I_inf, at lam from 20 to 200 (beyond any data). P(g1, g2) proportional to S({0, g1, g1+g2}) e^(-(g1+g2)/lam), summed to
-g1 + g2 <= G = 24 lam. Fits of I(lam) - I_inf to a/lam and to (a + b ln lam)/lam. usage: r70.py lam1,lam2,..."""
+I_inf, at lam from 21 to 300 (beyond any data). P(g1, g2) proportional to S({0, g1, g1+g2}) e^(-(g1+g2)/lam), summed to
+g1 + g2 <= G = 24 lam. usage: r70.py lam1,lam2,... | fit   (fit: lam (I - I_inf) against a + b ln lam and
+a + b ln lam + c ln^2 lam, stored in r70.json under 'fit')"""
 import os, sys, json, math
 import numpy as np
 import theory2 as T2
@@ -30,8 +31,21 @@ def mi(lam):
     return H(m1) + H(m2) - Hjoint
 
 
+def fit(res):
+    ks = [k for k in res if k[0].isdigit()]
+    lam = np.array([float(k) for k in ks]); y = np.array([res[k]['lambda_times_diff'] for k in ks])
+    o = np.argsort(lam); lam, y = lam[o], y[o]; L = np.log(lam)
+    b, a = np.polyfit(L, y, 1); r1 = y - (a + b * L)
+    c2, b2, a2 = np.polyfit(L, y, 2); r2 = y - (a2 + b2 * L + c2 * L * L)
+    return {'a_bits': float(a), 'b_bits': float(b), 'max_residual': float(np.max(np.abs(r1))), 'residual_signs': ''.join('+' if v > 0 else '-' for v in r1),
+            'quadratic': {'a': float(a2), 'b': float(b2), 'c': float(c2), 'max_residual': float(np.max(np.abs(r2)))},
+            'form': 'lam (I - I_inf) against a + b ln lam (and + c ln^2 lam); a description of lam = 21-300, not a law'}
+
+
 if __name__ == '__main__':
     res = json.load(open(PATH)) if os.path.exists(PATH) else {}
+    if sys.argv[1] == 'fit':
+        res['fit'] = fit(res); json.dump(res, open(PATH, 'w'), indent=1); print(res['fit']); sys.exit()
     Iinf = json.load(open(os.path.join(OUT, 'r56.json')))['I_inf_bits']
     for lam in map(float, sys.argv[1].split(',')):
         if '%.1f' % lam in res:
