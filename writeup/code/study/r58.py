@@ -41,7 +41,7 @@ def data(L, W):
 
 
 def law(lam, G):
-    """discrete leading-order law over even a, b, c with a + b + c <= G: P ~ S({0,a,a+b,a+b+c}) e^(-(a+b+c)/lam)."""
+    """discrete leading-order law over even a, b, c with a + b + c <= G (G = 20 lam; 12 lam left about 0.0007 bits): P ~ S({0,a,a+b,a+b+c}) e^(-(a+b+c)/lam)."""
     ev = np.arange(2, G + 1, 2)
     A, B, Cc = np.meshgrid(ev, ev, ev, indexing='ij'); A = A.ravel(); B = B.ravel(); Cc = Cc.ravel()
     m = A + B + Cc <= G; A, B, Cc = A[m], B[m], Cc[m]
@@ -66,6 +66,6 @@ if __name__ == '__main__':
     else:
         for name in WINS:
             lam = res[name]['mean_lambda'] if name in res else math.log(WINS[name][0] + WINS[name][1] / 2)
-            jl = law(lam, int(12 * lam) // 2 * 2)
+            jl = law(lam, int(20 * lam) // 2 * 2)
             res.setdefault(name, {}).update({'J_law_discrete': jl})
             json.dump(res, open(PATH, 'w'), indent=1); print(name, res[name], flush=True)
