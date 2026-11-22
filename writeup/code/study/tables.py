@@ -206,9 +206,9 @@ def scoreboard():
     sk = J('r10_skew.json')
     zs = [sk[w][H]['t9'] for w in ('train', 'A', 'B', 'C') for H in ('50', '500')]
     rows.append(('10', 'third cumulant of interval counts', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
-    v1 = J('r10_var.json'); v2 = J('r10_var_3000000000.json')
-    zs = [d[H]['t9'] for d in (v1, v2) for H in ('10000', '100000', '1000000')]
-    rows.append(('10', 'variance in long intervals (2 windows)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    v1 = J('r10_var.json'); v2 = J('r10_var_3000000000.json'); v3 = J('r10_var_5000000000.json')
+    zs = [d[H]['t9'] for d in (v1, v2, v3) for H in ('10000', '100000', '1000000')]
+    rows.append(('10, 34', 'variance in long intervals (3 windows)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     r9 = J('r9.json')
     zs = [r9[k]['z'] for k in ('U', 'E')] + [r9[k]['z_BH'] for k in ('U', 'E')]
     rows.append(('9', 'variance and means along quadratics (fresh data)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
@@ -247,7 +247,7 @@ def scoreboard():
     r13 = J('r13.json')
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
-    rows.sort(key=lambda r: int(r[0].split('-')[0]))
+    rows.sort(key=lambda r: int(r[0].split('-')[0].split(',')[0]))
     print('| round | what | tests | misses | expected by chance |')  # miss: |t9| > 3 (block), |z| > 3 (chi-square, means), KS p < 0.01 (rounds 24-25)
     print('|---|---|---|---|---|')
     T = M = E = 0
