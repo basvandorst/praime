@@ -1,0 +1,12 @@
+Round 106, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+MERSENNE section 34 reports that at N = 10^7 the variance of psi(n + h) - psi(n) - h over the integers n in [N/2, N]
+falls below Montgomery-Soundararajan's h (ln(n/h) + B) by the factors 0.963, 0.924, 0.879 at h = 1000, 3000, 10000, "a
+shortfall we have not explained". Claim (ours): it is the off-diagonal term of the zeros (pairs of distinct zeros, the
+almost periodic swing of rounds 96-98), which does not average out over a window only ln 2 long in ln x.
+Test: (a) recompute the measured ratios from a fresh sieve; (b) compute the same mean square from the explicit formula,
+psi(x + h) - psi(x) - h = -sum_rho ((x + h)^rho - x^rho)/rho, with the 10,000 zeros of
+writeup/data/riemann/zeros_10000_flint.txt (and conjugates), averaged over x in [N/2, N], plus the diagonal tail of the
+zeros above the last one.
+Readings: (1) the zero sums give a ratio below 1 at h = 10^4 and h = 3000; (2) they reproduce the measured ratio at
+h = 3000 and 10^4 within 0.03 each; (3) at h = 10^3 within 0.05 (the zeros above 10^4 matter more there).
