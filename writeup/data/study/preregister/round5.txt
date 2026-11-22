@@ -1,0 +1,18 @@
+Round 5, pre-registered 2026-11-22 ~00:10 UTC, before any statistic of n^2 + 1 was computed.
+
+Object: the n with f(n) = n^2 + 1 prime (n even, n > 1), tested one by one with gmpy2.is_prime (no sieve;
+above 2^64 this is a BPSW probable-prime test). Windows in n: F1 = [1e6, 3e6), F2 = [1e8, 1e8 + 1e6),
+F3 = [1e10, 1e10 + 2e5) (values near 1e20: probable primes). 10 blocks each.
+
+Law (derived, no parameter; theory_landau.py): Bateman-Horn singular series of shifts,
+  S_f(B) = prod_p (1 - omega_B(p)/p)/(1 - 1/p)^|B|,  omega_B(p) = #{x mod p : prod_{b in B} f(x+b) = 0 mod p},
+the density of n with f(n+b) prime for all b in B being S_f(B)/prod ln f(n+b). The gap g in n between consecutive
+such n is the pattern B = {0, g} with interior points m, 0 < m < g: Bahadur form, order 3 (order 4 if g <= 60),
+lam_f = ln(n^2 + 1). Share per such n averaged over the window with weight 1/ln f(n).
+Check of the machinery: S_f({0}) must equal the Bateman-Horn constant of n^2 + 1, 1.3728134628.
+
+Statistics (block z): shares of the n-gaps g = 2, 4, 6, 8, 10, 12, 20, 30, 50; P(g >= 60), P(g >= 100);
+P(next n in the same class mod q) for q = 3, 5, 7, 13.
+Prediction written now: q = 5 and 13 (where x^2 + 1 splits) and q = 3, 7 (inert) behave differently: for an inert q
+every class is allowed, for a split q two classes are excluded, and the bias against repeating a class should be
+there in both cases. Pass |z| <= 3.
