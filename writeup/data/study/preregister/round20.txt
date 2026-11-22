@@ -1,0 +1,10 @@
+Round 20, pre-registered before the computation (commit order shows the order; see STUDY.md section 1).
+
+The distribution of the number of primes in [n, n + H) for every n (sliding), H = 30 and 60, windows train, A, B, C.
+Law (derived, no parameter): probability generating function G(z) = E prod_{0<=m<H} (1 - (1 - z) X_m) with the
+Hardy-Littlewood correlation functions (n unconditioned: single-point density 1/lam, k-point S(B)/lam^k).
+Bahadur form with p_m -> (1 - z) p_m: ln G(z) = sum ln(1 - (1-z) p) + sum (1-z)^2 c~ - sum (1-z)^3 k3~ + sum (1-z)^4 k4~,
+with the normalisers (1 - (1-z) p); evaluated at the 64 roots of unity, P(k) by FFT; order 4; averaged over the
+window with weight dt (every n counts). Statistics: P(k) for k = 0..7 (H = 30) and k = 0..10 (H = 60); block t9
+(10 blocks) and binomial z (the n overlap, so binomial z is only indicative). Pass |t9| <= 3.
+Also reported: the Poisson law with mean H/lam (Gallagher's limit) against the same data.
