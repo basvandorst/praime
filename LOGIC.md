@@ -2,7 +2,7 @@
 
 > **In short:** The regularities this repo has measured in the primes sort into three layers: a local layer (each prime p on its own: residues, the sieve, the singular series), an archimedean layer (size: the density 1/ln x, the pole, the gamma factor) and a spectral layer (the zeros). For linear prime sums the explicit formula joins the three exactly; correlations such as gaps and twins rest on the Hardy–Littlewood conjecture. The layers determine each other: the small primes fix the lowest zero, the lowest zero sets the phase of the prime race, and the zeros' slow swing explains two variance misses. Measured on 3,040 L-functions and at 200 heights.
 
-The documents this map draws on: [STUDY.md](STUDY.md) (seven lines, rounds 1–109), [RIEMANN.md](RIEMANN.md) (sections 1–23), [MERSENNE.md](MERSENNE.md) (sections 2–55), [FACTS.md](FACTS.md), [FINDINGS.txt](FINDINGS.txt). Each statement carries its status: *theorem*, *computed*, *heuristic*, *conjecture* or *open*; *ours* marks what this repo derived or measured first, as far as we found. An adversarial review with its own code recomputed every number of section 3 (all confirmed) and corrected the wording of this map.
+The documents this map draws on: [STUDY.md](STUDY.md) (seven lines, rounds 1–110), [RIEMANN.md](RIEMANN.md) (sections 1–23), [MERSENNE.md](MERSENNE.md) (sections 2–55), [FACTS.md](FACTS.md), [FINDINGS.txt](FINDINGS.txt). Each statement carries its status: *theorem*, *computed*, *heuristic*, *conjecture* or *open*; *ours* marks what this repo derived or measured first, as far as we found. An adversarial review with its own code recomputed every number of section 3 (all confirmed) and corrected the wording of this map.
 
 ## 1. The identity, and what it covers
 
@@ -70,7 +70,7 @@ A reading, *heuristic*. The primes are not random in any layer. The local layer 
 - **Twins across classes:** a long-range correction to the four-point sums, of the kind L2 gives single primes.
 - **The low-χ² family:** recompute the χ² of rounds 83–86 with errors from the rigidity of round 40 instead of binomial errors; the prediction is χ²/dof near 1.
 - **Order 3 of the gap laws:** whether the long-gap excess (law high) and the twin-gap tail (law low) come from two different lower-order terms.
-- **Rigidity of L-function zeros mod q:** whether the swing deficit of L6 holds for Dirichlet L-functions, which would make the class counts rigid for a spectral reason too.
+- **Rigidity of L-function zeros mod q:** round 110 found every Dirichlet L-function tested below GUE in spacing variance, but not as a function of the density alone (real q = 3, 4, 5 more rigid than ζ at equal ln(qt/2π), z ≈ −8; complex characters in between; χ₋₁₆₃ less rigid). What sets the order is open; the Bogomolny–Keating arithmetic factor for each L-function is the next thing to compute.
 
 ## Validation
 
