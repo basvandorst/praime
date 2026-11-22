@@ -1,0 +1,11 @@
+Round 8, pre-registered 2026-11-22 ~00:30 UTC. Self-improvement of the one remaining miss: the gap tail at train
+(round 3, T1.tail54: law 0.9 % too high, block t9 = -4.1, p = 0.003; tail72 -1.3 %, tail90 -1.4 %).
+
+Question: is the miss the truncation of the Bahadur series? The fifth-order connected term is
+  -kappa5~ = -kappa5(X_a..X_e) / prod (1 - p),  kappa5 = sum over the 52 set partitions pi of {a..e} of
+  (-1)^(|pi|-1) (|pi|-1)! prod_{blocks} mu(block),  mu(block) = S(B u block)/(S(B) lam^|block|).
+Computed (r8.py) for the single-gap patterns with span <= 120, and order 4 instead of order 3 for spans 122..200;
+the tail shares at train recomputed with these and with nothing else changed.
+Prediction written now: if the miss is truncation, the order-5 / order-4 corrections lower the tail by about 1 %
+and |t9| falls below 3; if they move it by much less than 1 %, the miss is not truncation (chance at p = 0.003
+among about 100 tests, or an effect outside the law).
