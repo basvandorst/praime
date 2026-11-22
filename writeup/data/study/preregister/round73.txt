@@ -1,0 +1,11 @@
+Round 73, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+How many consecutive gaps reveal p mod 30030? From the past gaps, p mod q is determined once the residues of
+{p, p - D_1, ..., p - D_k} mod q fill all q - 1 nonzero... more precisely once {0, D_1, ..., D_k} mod q holds q - 1
+distinct residues (round 61's count m reaching q - 1). At leading order m grows by one with chance (q-1-m)/(q-1) per
+gap, independently across q (CRT), so P(T <= k) = prod over q = 3, 5, 7, 11, 13 of P(m_k^(q) = q - 1), with T the
+number of past gaps needed to determine p mod 30030. Data: the same 20,000 random target primes in [1e9, 1.1e9) as
+round 72 (seed 72), T found from the shrinking class sets (up to k = 150).
+Reading fixed now: the prediction holds if the largest difference between the predicted and the empirical CDF of T
+is at most 0.03 (the 5 % Kolmogorov bound for 20,000 draws is 0.0096; the margin allows for finite-lam effects); the
+mean of T is reported against the prediction.
