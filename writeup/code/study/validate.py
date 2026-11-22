@@ -71,7 +71,31 @@ PROSE = [
       b8['round8']['T1.tail72']['t9'], b8['round3']['T1.tail90']['t9'], b8['round8']['T1.tail90']['t9']],
      'from {:.2f} to {:.2f} (≥ 54), {:.2f} to {:.2f} (≥ 72) and {:.2f} to {:.2f} (≥ 90)'),
 ]
+# 2b. prose numbers of rounds 45-62 (added after the seventeenth review)
+r45b = J('r45b.json'); r50 = J('r50.json'); r52 = J('r52.json'); r53g = J('r53g.json')['compare']; r51f = J('r51f.json')['summary']
+r54 = J('r54.json')['bands']; r55 = J('r55.json')['bands']; r56 = J('r56.json'); r58t = J('r58_theory.json'); r59 = J('r59.json')['compare']
+r59b = J('r59b.json'); r60 = J('r60.json'); r61 = J('r61.json'); r48 = J('r48.json')['bands']
+PROSE += [
+    ('= 0.7627474', r52['K_nats'], '= {:.7f}'),
+    ('= 0.26965 bits', r56['I_inf_bits'], '= {:.5f} bits'),
+    ('= **0.26965 bits**', r56['I_inf_bits'], '= **{:.5f} bits**'),
+    ('= **0.15093 bits**', r58t['J_inf_bits'], '= **{:.5f} bits**'),
+    ('0.11434 nats = 0.16496 bits', [r60['K_tw_nats'], r60['K_tw_bits']], '{:.5f} nats = {:.5f} bits'),
+    ('χ² = 30.7 on 30 bands', [r59['chi2'], r59['dof']], 'χ² = {:.1f} on {} bands'),
+    ('gives **2,294**', round(r59b['chi2_pair_factor_baseline']), 'gives **{:,}**'),
+    ('(largest 0.063 % at g = 640)', 100 * r53g['640']['rel_o3'], '(largest {:.3f} % at g = 640)'),
+    ('Mean U is **1.160**', r51f['order3_overlap']['mean'], 'Mean U is **{:.3f}**'),
+    ('72,370 | 73,950 (z −5.8) | 72,432', [r48['120-178_o3']['count'], r48['120-178_o3']['law']], '{:,} | 73,950 (z −5.8) | {:,.0f}'),
+    ('| **pooled** | 9.7–18.2 | 4,446 | 4,547 | 0.978 |', [r54['pooled']['count'], r54['pooled']['law'], r54['pooled']['ratio']], '| **pooled** | 9.7–18.2 | {:,} | {:,.0f} | {:.3f} |'),
+    ('| **pooled** | 10.0–16.3 | 195 | 182.0 | 1.07 |', [r55['pooled']['count'], r55['pooled']['law'], r55['pooled']['ratio']], '| **pooled** | 10.0–16.3 | {} | {:.1f} | {:.2f} |'),
+    ('agree to within 0.0016', max(abs(x['diff']) for x in r50['hit']), 'agree to within {:.4f}'),
+    ('| 100 | 1,000 | 10,000 |', None, None),
+]
 for quoted, val, fmt in PROSE:
+    if fmt is None:
+        if quoted not in study:
+            fail.append('prose: quoted text not found in STUDY.md: %s' % quoted)
+        continue
     got = fmt.format(*val) if isinstance(val, list) else fmt.format(val)
     got = got.replace('-', '−')
     if quoted not in study:
