@@ -762,7 +762,7 @@ An independent walk over 200,000 consecutive primes near 10¹² (gmpy2, gcd with
 
   **H(next gap) = log₂(e·ln p) − K/ln 2 bits,  K = ln(2C₂) + Σ_{p>2} ln((p − 1)/(p − 2))/(p − 1) = 0.7627474**
 
-(brute force over the even g up to 4·10⁶: 0.762742). For gaps that were only even and otherwise random K would be ln 2, so the singular series takes away (K − ln 2)/ln 2 = 0.1004 bits, almost exactly a tenth of a bit. Measured over every gap of five windows (plug-in with the Miller–Madow correction):
+(brute force over the even g up to 4·10⁶: 0.762742). For gaps that were only even and otherwise random K would be ln 2, so the singular series takes away (K − ln 2)/ln 2 = 0.1004 bits, almost exactly a tenth of a bit. (A quick literature search found entropy studies of prime gaps, for example [arXiv:1606.08293](https://arxiv.org/abs/1606.08293), and a conditional lower bound of order log log X, [arXiv:2605.12504](https://arxiv.org/abs/2605.12504), but no closed formula of this kind.) Measured over every gap of five windows (plug-in with the Miller–Madow correction):
 
 | window | gaps | mean λ | measured H (bits) | log₂(eλ) − K/ln 2 | difference | λ × difference | discrete leading-order law |
 |---|---|---|---|---|---|---|---|
