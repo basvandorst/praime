@@ -34,7 +34,7 @@ def var_theory(H, L, W):
 
 def var():
     L0, W0, K = int(os.environ.get("R10_L0", 10 ** 9)), 10 ** 9, 10
-    Hs = [10 ** 4, 10 ** 5, 10 ** 6]
+    Hs = [int(h) for h in os.environ.get('R10_HS', '10000,100000,1000000').split(',')]
     assert abs(aligned_s(5000) - T2.aligned_sum(5000, 0)) < 1e-6 * abs(T2.aligned_sum(5000, 0))
     res = {str(H): {'meas': [], 'theory': []} for H in Hs}
     for b in range(K):
@@ -42,9 +42,8 @@ def var():
         cnt = {H: [] for H in Hs}
         for j in range(10):                                # segments of 1e7 (a multiple of every H)
             M = C.primes_mask(Lb + j * 10 ** 7, 10 ** 7)
-            for H in Hs[:2]:
+            for H in Hs:
                 cnt[H].append(M.reshape(-1, H).sum(1))
-            cnt[Hs[2]].append(M.reshape(-1, Hs[2]).sum(1))
         for H in Hs:
             c = np.concatenate(cnt[H]).astype(float)
             mid = Lb + np.arange(len(c)) * H + H / 2
@@ -58,7 +57,8 @@ def var():
         d['mean_meas'] = float(np.mean(d['meas'])); d['mean_theory'] = float(np.mean(d['theory']))
         d['t9'] = float(r.mean() / (r.std(ddof=1) / math.sqrt(K))); d['p'] = float(2 * student_t.sf(abs(d['t9']), K - 1))
         print(H, {k: (round(v, 4) if isinstance(v, float) else '') for k, v in d.items()}, flush=True)
-    json.dump(res, open(os.path.join(OUT, "r10_var_%d.json" % L0 if L0 != 10 ** 9 else "r10_var.json"), "w"), indent=1)
+    tag = "" if "R10_HS" not in os.environ else "_short"
+    json.dump(res, open(os.path.join(OUT, ("r10_var_%d%s.json" % (L0, tag)) if (L0 != 10 ** 9 or tag) else "r10_var.json"), "w"), indent=1)
 
 
 def triple_sums(H):
