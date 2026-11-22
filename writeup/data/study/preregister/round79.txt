@@ -1,0 +1,14 @@
+Round 79, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+The twenty-second review found that primes two steps apart repeat their residue mod q less often than any chain on
+classes mod 30030 gives: P(p_n = p_{n+2} mod q) = 0.4911, 0.2367, 0.1485, 0.0765, 0.0598 (q = 3, 5, 7, 11, 13; data
+[1e9, 1.1e9), standard errors 0.00023, 0.00019, 0.00016, 0.00012, 0.00011) against 0.4943, 0.2379, 0.1495, 0.0768,
+0.0605 for the chain. Prediction: the conditioned law for two consecutive gaps at once closes this. For class a and
+consecutive gaps g1, g2 (g = g1 + g2 <= 300): P_a(g1, g2) = rho0^2 S_{>13}({0, g1, g}) exp(L'_a + Q'_a), with L'_a the
+first-order sum over the rough interior points of (0, g) other than g1, with s1 taken relative to the base {0, g1, g}
+(exact), and Q'_a the order-2 term with the pair correlations of the single-gap base {0, g} minus the terms of g1
+(an approximation stated now: the change of the interior pair correlations by the extra base point g1 is left out).
+lam = ln(1.05e9), y = 13, classes averaged uniformly. The same code also gives the chain value from the one-gap laws,
+as a control (should reproduce the review's chain numbers within 2e-4).
+Reading: pass if the two-gap law is within 4 standard errors of the data for all five q (and closer to the data than
+the chain for each q where the chain misses by more than 3 standard errors).
