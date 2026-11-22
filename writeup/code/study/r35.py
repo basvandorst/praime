@@ -37,20 +37,22 @@ for k in range(10):
 
 
 def sig(x):
-    return (2 * math.sqrt(x) / math.log(x)) * math.sqrt(math.log(T / (2 * math.pi)) / (2 * math.pi * T))
+    # random-phase sum over the zeros above T (sixth review): <cos^2> = 1/2 and the +1 of the tail integral
+    # int_T^inf ln(t/2pi)/(2 pi t^2) dt = (ln(T/2pi) + 1)/(2 pi T); the pre-registered form was 1.3-1.8 times larger
+    return (2 * math.sqrt(x) / math.log(x)) * math.sqrt((math.log(T / (2 * math.pi)) + 1) / (4 * math.pi * T))
 
 
 out = {'T': T, 'blocks': []}
 for k in range(10):
     a, b = edges[k], edges[k + 1]
     pred = float((Rv[b] - Rv[a]) - (Zv[b] - Zv[a]))
-    dli = float(liv[b] - liv[a]); s = math.sqrt(2) * sig(b)
-    d = {'a': a, 'count': counts[k], 'count_minus_li': counts[k] - dli, 'prediction_minus_li': pred - dli,
+    dli = float(liv[b] - liv[a]); s = math.sqrt(sig(a) ** 2 + sig(b) ** 2)
+    d = {'a': a, 'count': counts[k], 'count_minus_li': counts[k] - dli, 'prediction_minus_li': pred - dli, 'R_minus_li': float(Rv[b] - Rv[a]) - dli,
          'count_minus_prediction': counts[k] - pred, 'sigma': s, 'z': (counts[k] - pred) / s}
     out['blocks'].append(d)
     print(k, counts[k], 'count-li %.0f' % d['count_minus_li'], 'pred-li %.0f' % d['prediction_minus_li'], 'diff %.0f' % d['count_minus_prediction'], 'z %.2f' % d['z'], flush=True)
 a, b = edges[0], edges[-1]
-pred = float((Rv[b] - Rv[a]) - (Zv[b] - Zv[a])); dli = float(liv[b] - liv[a]); N = sum(counts); s = math.sqrt(2) * sig(b)
-out['whole'] = {'count': N, 'count_minus_li': N - dli, 'prediction_minus_li': pred - dli, 'count_minus_prediction': N - pred, 'sigma': s, 'z': (N - pred) / s}
+pred = float((Rv[b] - Rv[a]) - (Zv[b] - Zv[a])); dli = float(liv[b] - liv[a]); N = sum(counts); s = math.sqrt(sig(a) ** 2 + sig(b) ** 2)
+out['whole'] = {'count': N, 'count_minus_li': N - dli, 'prediction_minus_li': pred - dli, 'R_minus_li': float(Rv[b] - Rv[a]) - dli, 'count_minus_prediction': N - pred, 'sigma': s, 'z': (N - pred) / s}
 print('whole', out['whole'])
 json.dump(out, open(os.path.join(OUT, 'r35.json' if L0 == 10 ** 9 else 'r35_%d.json' % L0), 'w'), indent=1)
