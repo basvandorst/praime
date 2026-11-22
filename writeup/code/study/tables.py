@@ -235,6 +235,9 @@ def scoreboard():
     r24 = J('r24.json')['U_summary']
     zs = [(r24['mean'] - 1) / r24['se'], 0.0 if r24['ks_p'] > 0.01 else 99.0]
     rows.append(('24', 'first occurrences of the gaps 180–454 (mean of U, KS test against Exp(1))', 2, sum(abs(z) > 3 for z in zs), 0.0027 + 0.01))
+    r25 = J('r25.json')['summary']
+    zs = [(r25['mean'] - 1) / r25['se'], 0.0 if r25['ks_p'] > 0.01 else 99.0]
+    rows.append(('25', 'the same with the polymer overlap correction', 2, sum(abs(z) > 3 for z in zs), 0.0027 + 0.01))
     r13 = J('r13.json')
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))

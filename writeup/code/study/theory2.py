@@ -390,3 +390,16 @@ def S_cond(a, Q):
             fac *= np.where(unit & (den > 0), 1.0 / np.where(den > 0, den, 1.0), 0.0)
         return base * fac
     return f
+
+
+def overlap_correction(pt, lam):
+    """Second-order polymer (cluster-expansion) correction of the exponentiated Bahadur form for pair clusters:
+    -1/2 [sum_B k~_B^2 + sum_i sum_{j != k} k~_ij k~_ik], k~_ij = (m2_ij - p_i p_j)/((1-p_i)(1-p_j)) (round 25)."""
+    if pt.SB == 0 or pt.pairs is None:
+        return 0.0
+    p = pt.s1 / lam; n = len(p)
+    i, j, s2v = pt.pairs
+    c = (s2v / lam ** 2 - p[i] * p[j]) / ((1 - p[i]) * (1 - p[j]))
+    Cm = np.zeros((n, n)); Cm[i, j] = c; Cm[j, i] = c
+    r = Cm.sum(1)
+    return -0.5 * (float(np.sum(c * c)) + float(np.sum(r * r - (Cm * Cm).sum(1))))
