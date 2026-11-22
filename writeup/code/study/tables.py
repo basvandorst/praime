@@ -288,8 +288,16 @@ def r21():
             print('| %d | %s | %s | %d of %d |' % (H, w, ' | '.join('%.4f / %.4f' % (d['data'][k], d['law_exact'][k]) for k in range(6)), miss, n))
 
 
+def r23():
+    r = J('r23.json')
+    print('| gap g | N(g) below 4·10¹⁸ (counted) | exact law | relative difference | (count − law)/√count |')
+    print('|---|---|---|---|---|')
+    for g, d in sorted(r.items(), key=lambda kv: int(kv[0])):
+        print('| %s | %s | %s | %+.1e | %+.1f |' % (g, format(d['data'], ','), format(round(d['law']), ','), d['rel'], d['z_sqrtN']))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20, 'r21': r21}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20, 'r21': r21, 'r23': r23}[sys.argv[1]]()
 
 
 def twins():
