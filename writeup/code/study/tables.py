@@ -143,8 +143,19 @@ def r9():
               d['chi2'], d['theory'], d['z'], d['mean_rel_dev_from_BH'], d['z_BH']))
 
 
+def sg():
+    v = J('verdicts_r14.json')
+    lab = lambda s: ('gap %s' % s[6:]) if s.startswith('W1') else {'W2.le300': 'gap ≤ 300',
+          'W3.same5': 'same class mod 5 (gaps ≤ 300)', 'W3.same7': 'same class mod 7 (gaps ≤ 300)'}[s]
+    print('| statistic | SG primes (train) | law, order 1 / 3 | t₉ train | t₉ A | t₉ B | t₉ C |')
+    print('|---|---|---|---|---|---|---|')
+    for s, d in v['train'].items():
+        print('| %s | %.5g | %.5g / %.5g | %s |' % (lab(s), d['x'], d['order1'], d['T'],
+              ' | '.join('%.1f' % v[w][s]['zT'] for w in ('train', 'A', 'B', 'C'))))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg}[sys.argv[1]]()
 
 
 def twins():
