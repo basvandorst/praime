@@ -244,6 +244,9 @@ def scoreboard():
     a31 = J('r31.json'); l31 = J('r31_long.json'); b31 = J('r31b.json')
     zs = [a31[w][H]['t9'] for w in ('train', 'A') for H in ('1000', '10000', '100000')] + [l31['train']['1000000']['t9']] + [b31[H]['t9'] for H in ('1000000', '10000000')]
     rows.append(('31', 'variance of twin counts in intervals (H = 10³ to 10⁷; the invalid sliding H = 10⁷ estimate left out)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    r35 = J('r35.json')
+    zs = [d['z'] for d in r35['blocks']] + [r35['whole']['z']]
+    rows.append(('35', 'prime counts per block of 10⁸ in [10⁹, 2·10⁹) against the explicit formula (2,419 zeros)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * 0.0027))
     r13 = J('r13.json')
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
