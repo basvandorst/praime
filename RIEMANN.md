@@ -1448,16 +1448,17 @@ I(X, δ) = ∫₁^X (ψ((1 + δ)x) − ψ(x) − δx)² dx  ~  ½ δ X² ln(1/δ
 
 With RH formal since November 2026 (fact 2047), the zero statement can be tested on the primes without any zero. The second-order form, from Hardy–Littlewood's pair sums (Montgomery–Soundararajan's variance; STUDY.md formula 2), is R = I/(½δX²) = ln(1/δ) + B with B = 1 − γ − ln 2π = −1.41509. Derivation: Var(ψ(x + H) − ψ(x) − H) = H(ln x − 1) (the diagonal, E Λ² − 1) + 2Σ_{h<H}(H − h)(S(h) − 1), and the pair sum is −½H ln H + ½(2 − γ − ln 2π)H + o(H) (computed at H = 10⁴, 10⁵, 10⁶: the constant is −0.20662, −0.20752, −0.20753 against −0.20753; [r91_B.py](writeup/code/study/r91_B.py) → [r91_B.json](writeup/data/study/r91_B.json)), so the variance at x is H(ln(x/H) + 1 − γ − ln 2π); with H = δx, ln(x/H) = ln(1/δ) at every x, and integrating δx over [1, X] gives ½δX²; a model with no correlations (Cramér) gives R = ln X − ½. Pre-registered as STUDY round 91 ([round91.txt](writeup/data/study/preregister/round91.txt); [r91.py](writeup/code/study/r91.py) → [r91_X1e+09.json](writeup/data/study/r91_X1e+09.json), [r91_X1e+08.json](writeup/data/study/r91_X1e+08.json)); ψ exact from a segmented sieve, prime powers included (ψ(10⁸) = 99,998,242.80 agrees with an independent sieve), the integral by the midpoint rule on 2,000,000 points:
 
-| δ | ln(1/δ) | GUE second order ln(1/δ) + B | R at X = 10⁸ | R at X = 10⁹ | Cramér (no correlation), 10⁹ |
-|---|---|---|---|---|---|
-| 10⁻¹ | 2.303 | 0.887 | 0.966 | 1.230 | 20.22 |
-| 10⁻² | 4.605 | 3.190 | 2.952 | 3.180 | 20.22 |
-| 10⁻³ | 6.908 | 5.493 | 5.692 | 5.558 | 20.22 |
-| 10⁻⁴ | 9.210 | 7.795 | 8.014 | 7.786 | 20.22 |
-| 10⁻⁵ | 11.513 | 10.098 | 10.093 | 10.107 | 20.22 |
-| 10⁻⁶ | 13.816 | 12.400 | 12.522 | 12.444 | 20.22 |
+| δ | ln(1/δ) | GUE second order ln(1/δ) + B | R at X = 10⁸ | R at X = 10⁹ | R at X = 10¹⁰ | Cramér (no correlation), 10⁹ |
+|---|---|---|---|---|---|---|
+| 10⁻¹ | 2.303 | 0.887 | 0.966 | 1.230 | 1.276 | 20.22 |
+| 10⁻² | 4.605 | 3.190 | 2.952 | 3.180 | 3.254 | 20.22 |
+| 10⁻³ | 6.908 | 5.493 | 5.692 | 5.558 | 5.436 | 20.22 |
+| 10⁻⁴ | 9.210 | 7.795 | 8.014 | 7.786 | 7.739 | 20.22 |
+| 10⁻⁵ | 11.513 | 10.098 | 10.093 | 10.107 | 10.106 | 20.22 |
+| 10⁻⁶ | 13.816 | 12.400 | 12.522 | 12.444 | 12.424 | 20.22 |
+| 10⁻⁷ | 16.118 | 14.703 | – | – | 14.734 | – |
 
-(The registration wrote B = −1.41506, a typo for −1.41509; the script uses the exact value.) The registered reading passes: for δ = 10⁻³ … 10⁻⁶ at X = 10⁹ the data are within 0.066 of ln(1/δ) + B (rule 0.3), and at δ = 10⁻² within 0.010. So the primes up to 10⁹ confirm not only the leading ln(1/δ) of the pair correlation but its second-order constant B to about 0.05; the leading term alone is off by 1.4, and the uncorrelated model by 10–19. At X = 10⁸ the differences are larger (up to 0.24), as expected for one deterministic integral whose relative fluctuation shrinks with X; at δ = 0.1, near the edge X^(−ε) of the theorem's range, the difference is 0.34 at 10⁹. This is evidence at finite X, not a proof: the equivalence is asymptotic. What it shows is the side effect asked for: a statement about the zeros (their GUE repulsion, F(α) = 1 for α ≥ 1) is, through RH, a statement about the variance of primes in short intervals, and that variance is the Hardy–Littlewood pair sum the study tests everywhere.
+(The registration wrote B = −1.41506, a typo for −1.41509; the script uses the exact value.) The registered reading passes: for δ = 10⁻³ … 10⁻⁶ at X = 10⁹ the data are within 0.066 of ln(1/δ) + B (rule 0.3), and at δ = 10⁻² within 0.010. So the primes up to 10⁹ confirm not only the leading ln(1/δ) of the pair correlation but its second-order constant B to about 0.05; the leading term alone is off by 1.4, and the uncorrelated model by 10–19. Out of sample at X = 10¹⁰ (round 92, pre-registered, [r91_X1e+10.json](writeup/data/study/r91_X1e+10.json)) all five registered δ (10⁻³ … 10⁻⁷) are within 0.057. At X = 10⁸ the differences are larger (up to 0.24), as expected for one deterministic integral whose relative fluctuation shrinks with X; at δ = 0.1, near the edge X^(−ε) of the theorem's range, the difference is 0.34 at 10⁹. This is evidence at finite X, not a proof: the equivalence is asymptotic. What it shows is the side effect asked for: a statement about the zeros (their GUE repulsion, F(α) = 1 for α ≥ 1) is, through RH, a statement about the variance of primes in short intervals, and that variance is the Hardy–Littlewood pair sum the study tests everywhere.
 
 ## References
 

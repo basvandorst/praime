@@ -8,7 +8,7 @@ import common as C
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'study')
 X = int(float(os.environ.get('R91_X', 1e9)))
-DELTAS = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
+DELTAS = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6] + ([1e-7] if X >= 10 ** 10 else [])
 NPT = 2_000_000
 STEP = X / NPT
 B = 1 - 0.5772156649015329 - math.log(2 * math.pi)
