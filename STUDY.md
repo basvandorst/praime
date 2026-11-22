@@ -256,7 +256,7 @@ All eight fit. The counts are far less skewed than Poisson counts (κ₃/mean �
 | 100,000 | 0.3859 / 0.3875, -0.35 | 0.4014 / 0.4116, -1.58 |
 | 1,000,000 | 0.2662 / 0.2784, -1.07 | 0.2898 / 0.3068, -1.08 |
 
-H = 10⁵ and 10⁶ fit in both windows. H = 10⁴ misses in the first window (+0.8 %, p = 0.008) and fits in the replication (+0.46 %, t₉ = 1.40), with the same sign. **Open point:** over all variance tests with H ≥ 500 (sections 6 and 10) the measured variance lies above the pair-sum law in 9 of 10 cases, by 0.1–1.4 % (about a 1 % chance for a fair sign). A relative excess of about 10⁻⁵ in the pair counts, summed over h < H, would produce it, so the variance at long H is a very sensitive probe of the pair counts; whether this is a lower-order term of the Hardy–Littlewood pair law or chance is not settled here.
+H = 10⁵ and 10⁶ fit in both windows. H = 10⁴ misses in the first window (+0.8 %, p = 0.008) and fits in the replication (+0.46 %, t₉ = 1.40), with the same sign. **Open point:** over the variance tests with 500 ≤ H ≤ 10⁴ (sections 6 and 10) the measured variance lies above the pair-sum law in 9 of 10 cases, by up to 1.4 % (about a 1 % chance for a fair sign); at H = 10⁵ and 10⁶ all four values lie below it (−0.4, −4.4, −2.5, −5.5 %), each within its noise. A relative excess of about 10⁻⁵ in the pair counts, summed over h < H, would produce it, so the variance at long H is a very sensitive probe of the pair counts; whether this is a lower-order term of the Hardy–Littlewood pair law or chance is not settled here.
 
 ## 11. What the seven lines turn out to be
 
