@@ -47,22 +47,25 @@ def psi_at(q):
 
 if __name__ == '__main__':
     t0 = time.time()
-    STEP_ = (X - 1) / NPT; x = (np.arange(NPT) + 0.5) * STEP_ + 1.0       # midpoints of [1, X]
+    STEP_ = (X - 1) / NPT
+    # stratified random points (one per cell, seed 91): a grid commensurate with the integers biased small delta
+    # (twenty-eighth review: every window started in the same residue class)
+    x = (np.arange(NPT) + np.random.default_rng(91).random(NPT)) * STEP_ + 1.0
     xs = x[x <= X]
     pts = [xs] + [xs * (1 + d) for d in DELTAS]
     allq = np.concatenate(pts); order = np.argsort(allq, kind='stable')
     vals = np.empty_like(allq); vals[order] = psi_at(allq[order])
     n = len(xs); ps0 = vals[:n]
     # sanity: psi(X) against X
-    res = {'X': X, 'step': STEP, 'B': B, 'psi_check': {}, 'rows': []}
+    res = {'X': X, 'step': STEP, 'B': B, 'points': 'stratified random, seed 91', 'rows': []}
     for i, d in enumerate(DELTAS):
         ps1 = vals[(i + 1) * n:(i + 2) * n]
         diff = ps1 - ps0 - d * xs
         I = float(np.sum(diff * diff) * STEP_)
         R = I / (0.5 * d * X * X)
         res['rows'].append({'delta': d, 'R': R, 'gue_second_order': math.log(1 / d) + B, 'gue_leading': math.log(1 / d),
-                            'cramer': math.log(X) - 0.5, 'diff_second_order': R - (math.log(1 / d) + B)})
-        print('delta %.0e  R %.4f  ln(1/d)+B %.4f  diff %+.4f  ln(1/d) %.3f  Cramer %.2f' % (d, R, math.log(1 / d) + B, R - math.log(1 / d) - B, math.log(1 / d), math.log(X) - 0.5), flush=True)
+                            'cramer': math.log(X) - 1.5, 'diff_second_order': R - (math.log(1 / d) + B)})
+        print('delta %.0e  R %.4f  ln(1/d)+B %.4f  diff %+.4f  ln(1/d) %.3f  Cramer %.2f' % (d, R, math.log(1 / d) + B, R - math.log(1 / d) - B, math.log(1 / d), math.log(X) - 1.5), flush=True)
     res['psi_at_last_midpoint'] = float(ps0[-1]); res['last_midpoint'] = float(xs[-1]); res['seconds'] = time.time() - t0
     json.dump(res, open(os.path.join(OUT, 'r91_X%.0e.json' % X), 'w'), indent=1)
     print('psi(%.0f) = %.1f, %d s' % (xs[-1], ps0[-1], time.time() - t0))

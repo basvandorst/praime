@@ -1438,27 +1438,58 @@ y*(β, t) = (C·|ρ₀(1 − ρ₀)|)^(1/(β − ½))
 
 The side effect, read the other way: the zeros are verified on the line up to height 3·10¹² (Platt–Trudgian 2021), so an off-line zero could only sit above it, and there it would break the tube only beyond about 10⁴⁷ even for β next to 1, and beyond 10⁹⁴ at β = ¾. Conversely, the tube checked to 10⁸ (fact 2048; at prime powers and interior maxima on [100, 10⁸], sampled on [1, 2000]) excludes by this argument zeros with β → 1 below height about 464 (β = ¾: 46), and, using the measured maximum 0.0247√y of the rest instead of C√y, about 531 (β = ¾: 53); checked to 10¹⁸ it would reach 147,000 (β = ¾: 827). This blindness belongs to *global* criteria, uniform over all heights, whose terms carry a weight decaying like a power of |ρ| (the tube 1/|ρ|², ψ and Schoenfeld's bound 1/|ρ|, where the threshold at t = 3·10¹² is about 10²⁹·⁵ for β → 1 and 10⁶¹·⁵ for β = ¾, per a review of this section with its own code, [tube/review27/r27.py](writeup/code/riemann/tube/review27/r27.py)). It is not a property of the primes: a prime sum localised in height, Σ Λ(n) n^(−it₀) f(ln(n/X)) with f smooth and compactly supported, sees by the explicit formula an off-line zero near t₀ with weight X^β·f̂ against the on-line zeros' X^½·O(ln t₀), so it needs only X^(β−½) ≫ ln t₀, about 10⁶–10⁸ for β = ¾ at t₀ = 3·10¹² (a heuristic sketch). Section 13 shows the scale in practice: the prime powers up to X ≈ 2√(T/2π) ≈ 4·10⁵ locate the zeros near height 2.68·10¹¹ to 10⁻⁴; a zero off the line there would make that fit fail, so a height-localised method needs primes only to about √t (about 7·10⁵ at t = 3·10¹²), against 10⁴⁷ for the tube. So the information of RH beyond the verified height is in the primes at computable sizes, but only for a detector tuned to the height; height-uniform inequalities like the tube, Schoenfeld's or Robin's cannot see it.
 
-## 23. The pair correlation of the zeros, tested with primes only
+## 23. The variance of primes in short intervals: Hardy–Littlewood, the zeros' pair correlation, and the zeros' counting function
 
-Montgomery's conjecture (fact 2010) is a statement about zeros: the pair correlation of the γ's is 1 − (sin πu/πu)². Goldston and Montgomery (1987) showed that, assuming RH, its strong form (F(α) ~ 1 for α ≥ 1) is equivalent to a statement about primes only:
+**The question.** Montgomery's conjecture (fact 2010) is a statement about zeros: the pair correlation of the γ's, with F(α) = 1 + o(1) for 1 ≤ α ≤ M (every fixed M). Goldston and Montgomery (1987, Progr. Math. 70, 183–203; Theorem 7 in Goldston's notes, arXiv math/0412313) showed that, assuming RH, it is equivalent to a statement about primes only: for every fixed ε > 0,
 
 ```
-I(X, δ) = ∫₁^X (ψ((1 + δ)x) − ψ(x) − δx)² dx  ~  ½ δ X² ln(1/δ),   uniformly for 1/X ≤ δ ≤ X^(−ε).
+I(X, δ) = ∫₁^X (ψ((1 + δ)x) − ψ(x) − δx)² dx  ~  ½ δ X² ln(1/δ)   uniformly for 1/X ≤ δ ≤ X^(−ε)
 ```
 
-With RH formal since November 2026 (fact 2047), the zero statement can be tested on the primes without any zero. The second-order form, from Hardy–Littlewood's pair sums (Montgomery–Soundararajan's variance; STUDY.md formula 2), is R = I/(½δX²) = ln(1/δ) + B with B = 1 − γ − ln 2π = −1.41509. Derivation: Var(ψ(x + H) − ψ(x) − H) = H(ln x − 1) (the diagonal, E Λ² − 1) + 2Σ_{h<H}(H − h)(S(h) − 1), and the pair sum is −½H ln H + ½(2 − γ − ln 2π)H + o(H) (computed at H = 10⁴, 10⁵, 10⁶: the constant is −0.20662, −0.20752, −0.20753 against −0.20753; [r91_B.py](writeup/code/study/r91_B.py) → [r91_B.json](writeup/data/study/r91_B.json)), so the variance at x is H(ln(x/H) + 1 − γ − ln 2π); with H = δx, ln(x/H) = ln(1/δ) at every x, and integrating δx over [1, X] gives ½δX²; a model with no correlations (Cramér) gives R = ln X − ½. Pre-registered as STUDY round 91 ([round91.txt](writeup/data/study/preregister/round91.txt); [r91.py](writeup/code/study/r91.py) → [r91_X1e+09.json](writeup/data/study/r91_X1e+09.json), [r91_X1e+08.json](writeup/data/study/r91_X1e+08.json)); ψ exact from a segmented sieve, prime powers included (ψ(10⁸) = 99,998,242.80 agrees with an independent sieve), the integral by the midpoint rule on 2,000,000 points:
+(with log³ margins in the ranges). With RH formal since November 2026 (fact 2047) the zero statement can be tested on the primes. Write R = I/(½δX²).
 
-| δ | ln(1/δ) | GUE second order ln(1/δ) + B | R at X = 10⁸ | R at X = 10⁹ | R at X = 10¹⁰ | Cramér (no correlation), 10⁹ |
-|---|---|---|---|---|---|---|
-| 10⁻¹ | 2.303 | 0.887 | 0.966 | 1.230 | 1.276 | 20.22 |
-| 10⁻² | 4.605 | 3.190 | 2.952 | 3.180 | 3.254 | 20.22 |
-| 10⁻³ | 6.908 | 5.493 | 5.692 | 5.558 | 5.436 | 20.22 |
-| 10⁻⁴ | 9.210 | 7.795 | 8.014 | 7.786 | 7.739 | 20.22 |
-| 10⁻⁵ | 11.513 | 10.098 | 10.093 | 10.107 | 10.106 | 20.22 |
-| 10⁻⁶ | 13.816 | 12.400 | 12.522 | 12.444 | 12.424 | 20.22 |
-| 10⁻⁷ | 16.118 | 14.703 | – | – | 14.734 | – |
+**The prediction at second order is Hardy–Littlewood's**, not GUE's: Goldston–Montgomery fixes only the leading term. From the Hardy–Littlewood pair sums, Var(ψ(x + H) − ψ(x) − H) = H(ln x − 1) (the diagonal, E Λ² − 1) + 2Σ_{h<H}(H − h)(S(h) − 1), and the pair sum is −½H ln H + ½(2 − γ − ln 2π)H + o(H) (computed at H = 10⁴, 10⁵, 10⁶: constant −0.20662, −0.20752, −0.20753 against −0.20755; [r91_B.py](writeup/code/study/r91_B.py) → [r91_B.json](writeup/data/study/r91_B.json)), so the variance at x is H(ln(x/H) + 1 − γ − ln 2π); with H = δx, ln(x/H) = ln(1/δ) at every x, so R = ln(1/δ) + B, B = 1 − γ − ln 2π = −1.41509 (for finite δ the diagonal adds (1 + δ) ln(1 + δ)/δ − 1, +0.05 at δ = 0.1). A model with no correlations (Cramér: each site a Bernoulli variable of variance ln n − 1) gives R = ln X − 3/2: 16.9, 19.2, 21.5 at X = 10⁸, 10⁹, 10¹⁰.
 
-(The registration wrote B = −1.41506, a typo for −1.41509; the script uses the exact value.) The registered reading passes: for δ = 10⁻³ … 10⁻⁶ at X = 10⁹ the data are within 0.066 of ln(1/δ) + B (rule 0.3), and at δ = 10⁻² within 0.010. So the primes up to 10⁹ confirm not only the leading ln(1/δ) of the pair correlation but its second-order constant B to about 0.05; the leading term alone is off by 1.4, and the uncorrelated model by 10–19. Out of sample at X = 10¹⁰ (round 92, pre-registered, [r91_X1e+10.json](writeup/data/study/r91_X1e+10.json)) all five registered δ (10⁻³ … 10⁻⁷) are within 0.057. At X = 10⁸ the differences are larger (up to 0.24), as expected for one deterministic integral whose relative fluctuation shrinks with X; at δ = 0.1, near the edge X^(−ε) of the theorem's range, the difference is 0.34 at 10⁹. This is evidence at finite X, not a proof: the equivalence is asymptotic. What it shows is the side effect asked for: a statement about the zeros (their GUE repulsion, F(α) = 1 for α ≥ 1) is, through RH, a statement about the variance of primes in short intervals, and that variance is the Hardy–Littlewood pair sum the study tests everywhere.
+**The primes** (STUDY rounds 91–92, pre-registered: [round91.txt](writeup/data/study/preregister/round91.txt), [round92.txt](writeup/data/study/preregister/round92.txt); [r91.py](writeup/code/study/r91.py) → [r91_X1e+08.json](writeup/data/study/r91_X1e+08.json), [r91_X1e+09.json](writeup/data/study/r91_X1e+09.json), [r91_X1e+10.json](writeup/data/study/r91_X1e+10.json)); ψ exact from a segmented sieve, prime powers included (ψ(10⁸) = 99,998,242.80 agrees with an independent sieve); the integral on 2,000,000 stratified random points (a first run on a grid commensurate with the integers biased the smallest δ by up to +0.1, found by the twenty-eighth review, whose exact integration of the step function agrees with the corrected values to about 0.01):
+
+| δ | ln(1/δ) | Hardy–Littlewood second order ln(1/δ) + B | R at X = 10⁸ | R at X = 10⁹ | R at X = 10¹⁰ |
+|---|---|---|---|---|---|
+| 10⁻¹ | 2.303 | 0.887 | 0.966 | 1.230 | 1.276 |
+| 10⁻² | 4.605 | 3.190 | 2.952 | 3.180 | 3.254 |
+| 10⁻³ | 6.908 | 5.493 | 5.692 | 5.558 | 5.436 |
+| 10⁻⁴ | 9.210 | 7.795 | 8.016 | 7.785 | 7.739 |
+| 10⁻⁵ | 11.513 | 10.098 | 10.087 | 10.108 | 10.103 |
+| 10⁻⁶ | 13.816 | 12.400 | 12.418 | 12.428 | 12.400 |
+| 10⁻⁷ | 16.118 | 14.703 | – | – | 14.702 |
+
+Both registered readings pass: within 0.065 of ln(1/δ) + B for δ = 10⁻³ … 10⁻⁶ at 10⁹ and within 0.057 for δ = 10⁻³ … 10⁻⁷ at 10¹⁰ (rule 0.3). The Cramér model is off by 7–14. The leading term ln(1/δ) alone is off by |B| = 1.4, as expected: R/ln(1/δ) is only 0.8–0.9 here, so the asymptotic "~" of Goldston–Montgomery shows only once the Hardy–Littlewood constant is included. At fixed δ the values do not settle with X (δ = 10⁻³: 5.69, 5.56, 5.44; δ = 0.1: 0.97, 1.23, 1.28); that is the subject of the next part.
+
+**Round 93: the zeros reproduce it, and say what the parts are** ([round93.txt](writeup/data/study/preregister/round93.txt), pre-registered; [r93.py](writeup/code/study/r93.py) → [r93.json](writeup/data/study/r93.json); our analysis). By the explicit formula (RH), ψ((1 + δ)x) − ψ(x) − δx = −Σ_ρ c_ρ x^ρ with c_ρ = ((1 + δ)^ρ − 1)/ρ, so
+
+```
+R(X, δ) = (2/(δX²)) Re Σ_(ρ,ρ') c_ρ c̄_ρ' (X^(2 + i(γ − γ')) − 1)/(2 + i(γ − γ'))
+```
+
+a sum over pairs of zeros only. With the 2,419 zeros up to height 2,949 (and their conjugates; the diagonal tail beyond is added analytically):
+
+| δ | X | R, primes | R, 2,419 zeros only | diagonal (each zero with itself) | pairs of distinct zeros |
+|---|---|---|---|---|---|
+| 0.1 | 10⁸ | 0.9663 | 0.9664 | 1.1028 | -0.1364 |
+| 0.1 | 10⁹ | 1.2301 | 1.2298 | 1.1028 | +0.1271 |
+| 0.1 | 10¹⁰ | 1.2757 | 1.2759 | 1.1028 | +0.1732 |
+| 0.01 | 10⁸ | 2.9524 | 2.9550 | 3.2163 | -0.2613 |
+| 0.01 | 10⁹ | 3.1797 | 3.1795 | 3.2163 | -0.0368 |
+| 0.01 | 10¹⁰ | 3.2544 | 3.2549 | 3.2163 | +0.0386 |
+
+Both predictions pass: the zeros give the primes' R to 0.0001–0.003 at every X, drift included (rules 0.05 and 0.1). The split is the point. The diagonal (each zero paired with itself) does not depend on X; the pairs of distinct zeros carry all the dependence on X, as terms X^(i(γ − γ')) that oscillate in ln X. So at fixed δ the variance of primes in long intervals is an almost periodic function of ln X around the diagonal value, played by the low zeros; it has no limit, and its swing shrinks as δ decreases (−0.26 to +0.04 at δ = 0.01, against −0.14 to +0.17 at δ = 0.1, relative to a larger mean). Its average over ln X is the diagonal.
+
+**The diagonal is Hardy–Littlewood's constant, and B comes from the zeros' counting function** ([r93_B.py](writeup/code/study/r93_B.py) → [r93_B.json](writeup/data/study/r93_B.json); derivation ours). With the Riemann–von Mangoldt density N′(t) = ln(t/2π)/2π, the diagonal is D(δ) = (2/δ) ∫ N′(t) |(1 + δ)^(½ + it) − 1|²/(¼ + t²) dt. For small δ, |(1 + δ)^(½ + it) − 1|² ≈ 2(1 − cos tδ), and with ∫₀^∞ (1 − cos at)/t² dt = πa/2 and ∫₀^∞ ln t (1 − cos at)/t² dt = (πa/2)(1 − γ − ln a) (checked numerically at a = 0.5, 1, 3),
+
+```
+D(δ) = ln(1/δ) + 1 − γ − ln 2π = ln(1/δ) + B.
+```
+
+Numerically D(δ) − ln(1/δ) = -1.1769, -1.3904, -1.4199, -1.4151 at δ = 10⁻¹ … 10⁻⁴, against B = −1.41509. So the second-order constant of the Hardy–Littlewood pair sums, 1 − γ − ln 2π, is reproduced on the zero side by the diagonal alone: the ln 2π in B is the 2π of N(T) = (T/2π) ln(T/2πe), and the γ comes from the Fourier integral of ln t. The pairs of distinct zeros (the GUE repulsion) only oscillate around it. Equivalently: F(α) = 1 for α ≥ 1 says that only the diagonal survives, and the diagonal already carries the whole Hardy–Littlewood second order. (The link between the singular series and zero correlations is Bogomolny–Keating's; this diagonal derivation of B we did not find stated, but the search was not exhaustive.) This is evidence and a derivation at finite X, not a proof of either conjecture.
 
 ## References
 
