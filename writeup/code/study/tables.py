@@ -197,7 +197,7 @@ def scoreboard():
     cnt = {json.loads(l)['window']: json.loads(l)['stats']['count'] for l in open(os.path.join(D, 'results_euler41.jsonl'))
            if json.loads(l)['block'] == -1}
     zs = [d['zT'] for w in ('F1', 'F2', 'F3') for d in ve[w].values() if d['T'] * (cnt[w] - 1) >= 5]
-    rows.append(('18', 'consecutive n with n² + n + 41 prime (tests with expected count ≥ 5)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    rows.append(('18', 'consecutive n with n² + n + 41 prime (37 of 45 registered tests; 8 with expected count below 5 excluded after the run, 3 of which miss formally)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     e1 = J('verdicts_r16_dd.json'); e2 = J('verdicts_r16_rep_dd.json')
     zs = [d['zT'] for v in (e1, e2) for w in v if not w.startswith('_') for d in v[w].values()]
     rows.append(('16', 'Eisenstein primes, nearest neighbours (4 boxes)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
@@ -242,7 +242,7 @@ def scoreboard():
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
     rows.sort(key=lambda r: int(r[0].split('-')[0]))
-    print('| round | what | tests | misses | expected by chance |')
+    print('| round | what | tests | misses | expected by chance |')  # miss: |t9| > 3 (block), |z| > 3 (chi-square, means), KS p < 0.01 (rounds 24-25)
     print('|---|---|---|---|---|')
     T = M = E = 0
     for rnd, lab, n, m, e in rows:
@@ -259,7 +259,8 @@ def euler():
         cells = []
         for w in ('F1', 'F2', 'F3'):
             d = v[w][s]
-            t = '%.1f' % d['zT'] if abs(d['zT']) < 100 else '(degenerate)'
+            n_w = json.loads([l for l in open(os.path.join(D, 'results_euler41.jsonl')) if json.loads(l)['window'] == w and json.loads(l)['block'] == -1][0])['stats']['count'] - 1
+            t = '%.1f' % d['zT'] if d['T'] * n_w >= 5 else '(excluded: expected count %.1f)' % (d['T'] * n_w)
             cells.append('%.4g / %.4g | %s, %.1f' % (d['x'], d['T'], t, d['z_binom']))
         print('| %s | %s |' % (lab(s), ' | '.join(cells)))
 
