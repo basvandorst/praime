@@ -10,14 +10,14 @@ import mpmath
 import common as C
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'study')
-PATH = os.path.join(OUT, 'r59.json' if int(os.environ.get('R59_Y', 13)) == 13 else 'r59_y%s.json' % os.environ.get('R59_Y'))
+PATH = os.path.join(OUT, os.environ.get('R59_OUT') or ('r59.json' if int(os.environ.get('R59_Y', 13)) == 13 else 'r59_y%s.json' % os.environ.get('R59_Y')))
 Y = int(os.environ.get('R59_Y', 13))
 SMALL = [q for q in (2, 3, 5, 7, 11, 13, 17, 19) if q <= Y]; PP = math.prod(SMALL); DEN = math.prod(1 - 1 / q for q in SMALL)
 MID = [int(q) for q in C.small_primes(3001) if q > Y]
 BIGP = C.small_primes(20_000_000).astype(float); BIGP = BIGP[BIGP > 3000]
 TAIL = {k: float(np.sum(np.log1p(-k / BIGP) - k * np.log1p(-1 / BIGP))) for k in (2, 4, 6, 8)}
-L0, L1 = 10 ** 9, 2 * 10 ** 9
-LAMS = [math.log(L0), math.log(1.5e9), math.log(L1)]
+L0, L1 = int(float(os.environ.get('R59_L0', 1e9))), int(float(os.environ.get('R59_L1', 2e9)))
+LAMS = [math.log(L0), math.log((L0 + L1) / 2), math.log(L1)]
 DMAX = 1200
 CLS = np.array([a for a in range(PP) if math.gcd(a, PP) == 1 and math.gcd(a + 2, PP) == 1], dtype=np.int64)
 
@@ -78,18 +78,25 @@ if __name__ == '__main__':
             json.dump(res, open(PATH, 'w'))
         print('law done', len(res['law']), 'of', DMAX // 6, round(time.time() - t0), 's', flush=True)
     elif mode == 'data':
-        cnt = {}; last = None; n = 0
-        for s in range(L0, L1, 10 ** 8):
-            P = np.nonzero(C.primes_mask(s, 10 ** 8))[0].astype(np.int64) + s
+        cnt = {}; last = None; lastw = None; ntw = 0; ngap = 0
+        for s0 in range(L0, L1, 10 ** 8):
+            P = np.nonzero(C.primes_mask(s0, min(10 ** 8, L1 - s0)))[0].astype(np.int64) + s0
             if last is not None:
                 P = np.concatenate([[last], P])
             last = int(P[-1])
             tw = P[:-1][np.diff(P) == 2]
-            cnt.setdefault('starts', []).extend(tw.tolist())
-        st = np.array(cnt['starts']); dd = np.diff(st)
-        v, c = np.unique(dd, return_counts=True)
-        res['data'] = {str(a): int(b) for a, b in zip(v.tolist(), c.tolist())}; res['twins'] = len(st); res['gaps'] = len(dd)
-        json.dump(res, open(PATH, 'w')); print('twins', len(st), 'gaps', len(dd), 'not multiple of 6:', int(np.sum(dd % 6 != 0)), flush=True)
+            if len(tw) == 0:
+                continue
+            ntw += len(tw)
+            if lastw is not None:
+                tw = np.concatenate([[lastw], tw])
+            lastw = int(tw[-1])
+            dd = np.diff(tw); ngap += len(dd)
+            v, c = np.unique(dd, return_counts=True)
+            for a, b in zip(v.tolist(), c.tolist()):
+                cnt[a] = cnt.get(a, 0) + b
+        res['data'] = {str(a): int(b) for a, b in sorted(cnt.items())}; res['twins'] = ntw; res['gaps'] = ngap
+        json.dump(res, open(PATH, 'w')); print('twins', ntw, 'gaps', ngap, 'not multiple of 6:', sum(v for k, v in cnt.items() if k % 6), flush=True)
     else:
         N = res['gaps']; data = {int(k): v for k, v in res['data'].items()}
         u = np.linspace(LAMS[0], LAMS[-1], 401); wt = np.exp(u) / u ** 2
