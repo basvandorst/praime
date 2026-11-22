@@ -1638,6 +1638,17 @@ for chi2049, q2049, mx2049, at2049 in (([0, 1, 0, -1], 4, 0.100970, 1511), ([0, 
     assert abs(top - mx2049) < 5e-7 and float(N[big][dev[big].argmax()]) == at2049 and top < float(Ca)
 del P2049, nn, ww, n, w, A, S, N, dev, xs, devs
 
+# 2049 (even case): Legendre symbol mod 5; G - ln y - 1 - B0 + T_e within C sqrt(y), C = L'/L(1) - B0 - ln 2
+chi2049e = [0, 1, -1, -1, 1]
+d1e = mp2049.dirichlet(1, chi2049e, 1) / mp2049.dirichlet(1, chi2049e)
+B0e = mp2049.limit(lambda s: mp2049.dirichlet(s, chi2049e, 1) / mp2049.dirichlet(s, chi2049e) - 1 / s, 0)
+Ce = d1e - B0e - mp2049.log(2)
+assert abs(Ce - (2 * d1e + mp2049.log(mp2049.mpf(5) / mp2049.pi) + mp2049.digamma(mp2049.mpf(1) / 2))) < 1e-25 and abs(float(Ce) - 0.1565570) < 1e-7
+ye = 3109
+Se = sum(math.log(p) * chi2049e[p % 5] ** k * (ye / p ** k - 1) for p in primerange(2, ye + 1) for k in range(1, 13) if p ** k <= ye)
+r2049e = abs(Se + ye * float(d1e) - math.log(ye) - 1 - float(B0e) + sum(ye ** (-n) / (n * (n + 1)) for n in range(2, 12, 2))) / math.sqrt(ye)
+assert abs(r2049e - 0.0868363) < 1e-6 and r2049e < float(Ce)
+
 # 6121: Fibonacci pseudoprimes (odd composite n, 5 not dividing n, n | F(n - eps)) below 1e8, and Fibonacci numbers among them
 def fib6121(m, n):
     a = np.zeros_like(n); b = np.ones_like(n)
