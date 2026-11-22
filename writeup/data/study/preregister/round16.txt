@@ -1,0 +1,12 @@
+Round 16, pre-registered before any Eisenstein-prime statistic was computed (commit order is the evidence).
+
+Object: Eisenstein primes z = a + b w (w = e^(2 pi i/3), norm a^2 - ab + b^2 prime, a, b in the box) as points of
+the hexagonal lattice; boxes E1: a in [2e5, 2e5 + 2000), b in [1e5, 1e5 + 2000); E2: a in [6e6, 6e6 + 1000),
+b in [3e6, 3e6 + 1000) (norms near 3e10 and 2.7e13). Primality of the norm by gmpy2; neighbours searched to norm 75.
+Statistic: the nearest-neighbour norm d = N(w) of each Eisenstein prime in the box: P(d = 1, 3, 4, 7, 9, 12, 13),
+P(d >= 19), mean d; 10 strips in b; block t9; pass |t9| <= 3.
+Law (derived, no parameter; r16.py): Hardy-Littlewood for Z[w], S_E(B) = prod_pi (1 - nu_pi(B)/N(pi))/(1 - 1/N(pi))^|B|
+over 1 - w (classes a + b mod 3), the two primes over each p = 1 mod 3 (classes a + b r mod p, r^2 + r + 1 = 0), and
+p = 2 mod 3 (classes (a mod p, b mod p), norm p^2); density 3 sqrt(3) / (pi ln N) per lattice point (six units,
+covolume sqrt(3)/2). P(d >= r) = avoidance of the hexagonal disc {w : 0 < N(w) < r}, Bahadur form, order 4 while the
+live disc has <= 40 points, order 3 above.
