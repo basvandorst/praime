@@ -78,25 +78,34 @@ if __name__ == '__main__':
             json.dump(res, open(PATH, 'w'))
         print('law done', len(res['law']), 'of', DMAX // 6, round(time.time() - t0), 's', flush=True)
     elif mode == 'data':
-        cnt = {}; last = None; lastw = None; ntw = 0; ngap = 0
-        for s0 in range(L0, L1, 10 ** 8):
+        # resumable: the state (counts, carried primes, next segment) is saved after every segment
+        st = res.get('data_partial', {'cnt': {}, 'last': None, 'lastw': None, 'ntw': 0, 'ngap': 0, 'next': L0})
+        cnt = {int(k): v for k, v in st['cnt'].items()}; last, lastw = st['last'], st['lastw']; ntw, ngap = st['ntw'], st['ngap']
+        s0 = st['next']
+        while s0 < L1 and time.time() - t0 < 480:
             P = np.nonzero(C.primes_mask(s0, min(10 ** 8, L1 - s0)))[0].astype(np.int64) + s0
             if last is not None:
                 P = np.concatenate([[last], P])
             last = int(P[-1])
             tw = P[:-1][np.diff(P) == 2]
-            if len(tw) == 0:
-                continue
-            ntw += len(tw)
-            if lastw is not None:
-                tw = np.concatenate([[lastw], tw])
-            lastw = int(tw[-1])
-            dd = np.diff(tw); ngap += len(dd)
-            v, c = np.unique(dd, return_counts=True)
-            for a, b in zip(v.tolist(), c.tolist()):
-                cnt[a] = cnt.get(a, 0) + b
-        res['data'] = {str(a): int(b) for a, b in sorted(cnt.items())}; res['twins'] = ntw; res['gaps'] = ngap
-        json.dump(res, open(PATH, 'w')); print('twins', ntw, 'gaps', ngap, 'not multiple of 6:', sum(v for k, v in cnt.items() if k % 6), flush=True)
+            if len(tw):
+                ntw += len(tw)
+                if lastw is not None:
+                    tw = np.concatenate([[lastw], tw])
+                lastw = int(tw[-1])
+                dd = np.diff(tw); ngap += len(dd)
+                v, c = np.unique(dd, return_counts=True)
+                for a, b in zip(v.tolist(), c.tolist()):
+                    cnt[a] = cnt.get(a, 0) + b
+            s0 += 10 ** 8
+            res['data_partial'] = {'cnt': {str(k): v for k, v in cnt.items()}, 'last': last, 'lastw': lastw, 'ntw': ntw, 'ngap': ngap, 'next': s0}
+            json.dump(res, open(PATH, 'w'))
+        if s0 >= L1:
+            res['data'] = {str(a): int(b) for a, b in sorted(cnt.items())}; res['twins'] = ntw; res['gaps'] = ngap
+            res.pop('data_partial', None); json.dump(res, open(PATH, 'w'))
+            print('twins', ntw, 'gaps', ngap, 'not multiple of 6:', sum(v for k, v in cnt.items() if k % 6), flush=True)
+        else:
+            print('partial: next segment', s0, 'of', L1, flush=True)
     else:
         N = res['gaps']; data = {int(k): v for k, v in res['data'].items()}
         u = np.linspace(LAMS[0], LAMS[-1], 401); wt = np.exp(u) / u ** 2
