@@ -1,0 +1,13 @@
+Round 47, pre-registered before the U values are computed (commit order shows the order; STUDY.md section 1).
+
+Own method, the conditioned expansion (r47.py): the singular series splits exactly into the primes <= y and > y; the
+part <= y is averaged exactly over the classes of p mod prod_{q<=y} q (y = 13: 5760 classes), and only the weak
+correlations of the primes > y are expanded (Bahadur form, order 2). Validation already run (r47_check_y13.json, against
+the exact sums of r28 for g = 74..90): error 0.08-0.27 % at lam = 17.8, <= 0.03 % at lam = 23, against 0.7-1.7 % for the
+unconditioned order 4. No prime data was used.
+Test: the first occurrences of the 61 gaps 180..300 (rounds 24, 32, 38): U_g = integral from 1e7 to the first
+occurrence of share_g(lam)/lam dt with the conditioned law (ln share interpolated on lam = 16..26); mean U, its null
+standard error 1/sqrt(61) = 0.128, and the KS test against Exp(1). Convergence check: the same with y = 17
+(92160 classes); the two must agree to well within the standard error, or the result is reported as unconverged.
+Reading fixed now: mean U within 1 null standard error of 1 -> the large-gap excess was the truncated expansion
+(closed); more than 2 null standard errors above 1 -> the primes deviate from the Hardy-Littlewood law there; else open.
