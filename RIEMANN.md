@@ -1495,6 +1495,22 @@ The reading passes: the primes land within 0.0007 of the zeros' values at δ = 0
 
 **The diagonal and Hardy–Littlewood's constant** ([r93_B.py](writeup/code/study/r93_B.py) → [r93_B.json](writeup/data/study/r93_B.json)). With the smooth Riemann–von Mangoldt density N₀′(t) = ln(t/2π)/2π the diagonal is D₀(δ) = (2/δ) ∫₀^∞ N₀′(t) |(1 + δ)^(½ + it) − 1|²/(¼ + t²) dt. For small δ, |(1 + δ)^(½ + it) − 1|² ≈ 2(1 − cos tδ), and ∫₀^∞ (1 − cos at)/t² dt = πa/2 and ∫₀^∞ ln t (1 − cos at)/t² dt = (πa/2)(1 − γ − ln a) (from the Mellin transform −Γ(s − 1) cos(π(s − 1)/2) at s = 0) give D₀(δ) = ln(1/δ) + 1 − γ − ln 2π + O(δ) = ln(1/δ) + B + O(δ): the ln 2π in B is the 2π of N(T) = (T/2π) ln(T/2πe). This is not new: T. H. Chan (arXiv math/0206292, 2002) proved under RH that the second-order term C in ∫(ψ((1+δ)x) − ψ(x) − δx)² = ½δX² ln(1/δ) + CδX² + o(δX²) is equivalent to a pair correlation F(X, T) = (T/2π) ln(T/2π) − T/2π + o(T), "which matches the diagonal terms", with 2C equal to our B (his B is defined differently); see also Montgomery–Soundararajan, Primes in short intervals (2004). What we add is numerical. Integrated period by period from t = 0, D₀(δ) − ln(1/δ) − B = 0.048349, 0.004983, 0.000500, 0.000050 at δ = 10⁻¹ … 10⁻⁴, and Hardy–Littlewood's exact finite-δ term (1 + δ)ln(1 + δ)/δ − 1 is 0.048412, 0.004983, 0.000500, 0.000050: Hardy–Littlewood's variance for relative intervals is the zeros' diagonal with the smooth density, to 6·10⁻⁵ at δ = 0.1 and to 10⁻⁶ below (the twenty-ninth review noticed this first). The actual low zeros differ from the smooth density (N − N₀ = 7/8 + S(t) + …), and at δ = 0.1 that moves the diagonal from 0.936 to 1.103: the long-interval excess over Hardy–Littlewood is the irregularity of the zero count, and the oscillation around it is the pairs of distinct zeros. (An earlier version of this paragraph used an unreliable quadrature, an arbitrary lower limit 2π and a novelty claim, all corrected after the twenty-ninth review.) Montgomery's F(α) → 1 for α ≥ 1 fixes only the leading term ln(1/δ); the constant B needs Chan's more precise form (off-diagonal o(T)). This is analysis at finite X, not a proof of either conjecture.
 
+**Round 95: the 7/8 of the zero count** ([round95.txt](writeup/data/study/preregister/round95.txt), pre-registered; [r95.py](writeup/code/study/r95.py) → [r95.json](writeup/data/study/r95.json); the 9,999 zeros are the twenty-ninth review's python-flint list, [zeros_9999_flint.txt](writeup/data/riemann/zeros_9999_flint.txt), identical to ours on the first 2,419). Why the actual zeros exceed the smooth density by 0.167 at δ = 0.1: for γ ≪ 1/δ each zero weighs about δ in D(δ) (|(1 + δ)^ρ − 1|² ≈ δ²|ρ|²), and the actual count exceeds the smooth one by 7/8 on average (N(T) = (T/2π) ln(T/2πe) + 7/8 + S(T) + O(1/T), with S averaging 0); counting both signs of γ,
+
+```
+D(δ) = HL_exact(δ) + (7/4)·δ + O(δ²),   HL_exact(δ) = ln(1/δ) + B + (1 + δ) ln(1 + δ)/δ − 1
+```
+
+(derivation ours, heuristic in the averaging of S; not found in the literature, search not exhaustive). With 9,999 zeros and the smooth tail:
+
+| δ | 0.1 | 0.05 | 0.02 | 0.01 | 0.005 | 0.002 |
+|---|---|---|---|---|---|---|
+| diagonal D(δ), 9,999 zeros + tail | 1.10271 | 1.69062 | 2.54152 | 3.21247 | 3.89445 | 4.80401 |
+| Hardy–Littlewood exact | 0.93590 | 1.60523 | 2.50686 | 3.19506 | 3.88572 | 4.80051 |
+| (D − HL)/δ | 1.6680 | 1.7077 | 1.7327 | 1.7412 | 1.7455 | 1.7476 |
+
+The reading passes: at the four registered δ (0.05, 0.02, 0.005, 0.002) the ratio is within 2.4 % of 7/4 (rule 10 %), and it tends to 7/4 as δ → 0, with a next term of about −0.85δ². So the average variance of primes over relative intervals (x, (1 + δ)x], over ln X, is Hardy–Littlewood's exact value plus (7/4)δ: the second-order constant B comes from the main terms of N(T) (Chan), and the first correction at finite δ from its constant term 7/8.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).
