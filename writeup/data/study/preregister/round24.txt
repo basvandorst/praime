@@ -1,0 +1,11 @@
+Round 24, pre-registered before the comparison (commit order shows the order; STUDY.md section 1).
+
+First occurrences of large gaps. Data: P(g), the first prime followed by a gap of g, from Oliveira e Silva's table
+(t0.txt.gz, linked from http://sweet.ua.pt/tos/gaps.html), for even g from 180 to 456 with P(g) between 1e7 and 1e15.
+Law: N_law(x; g) = N(1e7; g) (counted) + integral from 1e7 to x of the round-3 cluster law share_g(u) e^u / u du
+(theory_r3 cache: order 4 for g <= 120, order 3 above; lam grid to ln(1e15)). Statistic: U_g = N_law(P(g); g), the
+expected number of gaps g before the first one. If gaps g arrive as a Poisson process with the law's rate, U_g is
+exponential with mean 1. Tests: the mean of U_g (pass: within 3 standard errors of 1), and a Kolmogorov-Smirnov test of
+U_g against Exp(1) (pass: p > 0.01). For comparison the crude law S(0,g) e^(-g/u)/u (Cramer with singular series).
+Remark written now: first occurrences of different g are not independent (one long gap at x makes the gaps just
+below it occur there too), so the KS p-value is indicative.
