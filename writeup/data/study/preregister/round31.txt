@@ -14,3 +14,9 @@ Addendum (after H = 1e3..1e5 passed in train and A; before any longer run): H = 
 same sliding counts, 10 blocks of 9e6; for H = 1e7 the sliding counts of a block extend into the next block, so the
 blocks overlap and t9 is only indicative). Question: does the Hardy-Littlewood rigidity of twin counts reach the
 levels (Var/mean about 0.2-0.5) that round 13 found for twin counts per residue class over whole windows?
+
+Addendum 2 (after the H = 1e7 run gave 0.116 against 0.435): that number is not valid. With blocks of 9e6 every
+sliding window of 1e7 inside a block overlaps the others almost completely, so their sample variance holds about one
+independent interval and is biased low. Correct test, before running it: non-overlapping intervals of H = 1e6 and 1e7
+in [1e9, 3e9) (2000 and 200 intervals), Var/mean of the twin counts (each detrended by the law's mean), against the same
+law over that range; noise from the scatter of the variance estimate over 10 sub-ranges of 2e8 (t9).
