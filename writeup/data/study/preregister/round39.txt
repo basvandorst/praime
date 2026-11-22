@@ -1,0 +1,14 @@
+Round 39, written before the computation; NOT blind: the measured values (r13e.json, r13.json) were seen in round 13.
+
+Derivation of the round-13 under-dispersion from Hardy-Littlewood rigidity, no fitted parameter.
+Row a (class mod 210), gap g: X = number of gap-g events (p, next prime p + g) with p = a mod 210, Y = number of primes
+= a mod 210, P = the law's share P_a(g). E[(X - P Y)^2] = Var X - 2 P Cov(X, Y) + P^2 Var Y, with
+  Var Y: pairs {0, d}, Var X: four-point sets {0, g, d, d + g}, Cov: three-point sets {0, g, +-d}, d = 210 k,
+each as sum_j r_j(1 - r_j) + sum over pairs of r r' (rho(k) - 1), rho = ratio of singular series (factors p | 210
+cancel; closed products over p >= 11, cofactor method for p | 210k +- g), r_j = (210/48)/ln(m_j) for Y and P r_j for X.
+Heuristic for g >= 6: the emptiness of the interiors of two events 210k apart is taken as independent.
+Prediction: the mean over rows of E[(X - P Y)^2]/(P m) for gaps 2..38 (round-13e classes 1..19; null value 1 - P),
+at train and A, and the implied chi^2/dof of the mod-210 table (sum of predictions / sum of (1 - P) over cells with
+E >= 5; class >= 40 taken at its null). Check: Var Y reproduces round 36 (0.084 at train).
+Reading: the round-13 open point is explained if the predicted chi^2/dof is within about 0.06 (its noise) of 0.691
+(train) and 0.857 (A), and the per-class predictions follow r13e (0.29 / 0.31 / 0.31 for gaps 2 / 4 / 6 at train).
