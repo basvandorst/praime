@@ -11,7 +11,7 @@ PATH = os.path.join(OUT, 'r57.json')
 if __name__ == '__main__':
     res = json.load(open(PATH)) if os.path.exists(PATH) else {}
     for lam in map(float, sys.argv[1].split(',')):
-        key = '%.1f' % lam
+        key = '%.1f' % lam if abs(lam - round(lam, 1)) < 1e-9 else '%.4f' % lam
         if key in res:
             continue
         t0 = time.time(); G = int(16 * lam) // 2 * 2

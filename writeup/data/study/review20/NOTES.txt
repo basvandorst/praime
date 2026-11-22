@@ -1,0 +1,13 @@
+Review 20 (rounds 66-69). Scripts here: c66.py, sv.py (own odd segmented sieve, checked vs gmpy2), pass12.py, mi12.py,
+law12.py, tw13.py, chi67.py; outputs *.out.
+R66: own gmpy2 listing == repo r17_primes.txt (48,428 incl. one prime beyond the window). H_MM 5.69139, iid se 0.00660,
+ block bootstrap 0.0061-0.0071; MM residual bias ~ -0.0005. Law at window lam 41.4465 (quadratic interp of r57) 5.69546 ->
+ data-law -0.0041 (z -0.62) instead of -0.0024 (z -0.36). Pass unchanged. Prime list in repo since 9cd9895 but not linked.
+R67: full recount of twins in [1e13,1e13+1e10): histogram identical to r67.json. chi2 19.33/30 (p=0.93 upper), max|z| 2.04.
+ Tail diff +67.7 == -(sum of band residuals): identity, not independent. Truncation scaled from 1e11 via gamma(4,1200 rho_tw)
+ (reproduces 1e9 from 1e11 to 20%): predicted +1,274 gaps at 1e13, z 0.89 -> test has no power to say "faded".
+R68: full recount: 361,840,206 pairs, 13,660 cells, MI_MM 0.304596 (=repo). Discrete law own code 0.302443 (G=30 and 40 lam same).
+R69: full recount: 361,840,205 triples, 406,698 cells, J_MM 0.165518 (=repo). Law own code G=20 lam 0.163774 (=repo).
+ Shuffle (hypergeometric, margins fixed) bias: 3e8: 0.00914 (=repo), 1e9 0.00340, 3e9 0.00134, full 0.000473 (repo scaled 0.000274).
+ N*bias 99k -> 171k. Corrected 0.165045; -law +0.00127; lam*(J-Jinf) 0.390. Corrected values drift 0.16417,0.16467,0.16492,0.16505.
+ r69.py keep=True appends 2 duplicated gaps per segment boundary: n_sub 10,858,589 vs true 10,858,585.

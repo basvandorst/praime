@@ -11,10 +11,10 @@ v, c = np.unique(g, return_counts=True); N = int(c.sum()); p = c / N
 H = float(-np.sum(p * np.log2(p)) + (len(c) - 1) / (2 * N * math.log(2)))
 se = float(np.sqrt(np.sum(p * np.log2(p) ** 2) - np.sum(p * np.log2(p)) ** 2) / math.sqrt(N))
 lam = math.log(P[0] + (P[-1] - P[0]) / 2)
-r57 = json.load(open(os.path.join(OUT, 'r57.json')))['41.4']
+r57 = json.load(open(os.path.join(OUT, 'r57.json')))['41.4465']   # the window's own lam (twentieth review; 41.4 before)
 K = json.load(open(os.path.join(OUT, 'r52.json')))['K_nats']
 asym = (math.log(math.e * lam) - K) / math.log(2)
-out = {'primes': len(P), 'gaps': N, 'first': P[0], 'lambda': lam, 'H_data': H, 'se': se, 'H_law_lam41.4': r57['H_law'],
+out = {'primes': len(P), 'gaps': N, 'first': P[0], 'lambda': lam, 'H_data': H, 'se': se, 'H_law_window_lam': r57['H_law'],
        'H_asym': asym, 'data_minus_law': H - r57['H_law'], 'data_minus_asym': H - asym, 'z_law': (H - r57['H_law']) / se}
 print({k: (round(x, 4) if isinstance(x, float) else x) for k, x in out.items()})
 json.dump(out, open(os.path.join(OUT, 'r66.json'), 'w'), indent=1)

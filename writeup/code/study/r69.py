@@ -18,7 +18,7 @@ def triples(lo, hi, keep=False):
             P = np.concatenate([prev, P])
         g = np.diff(P)
         if keep:
-            gs.append(g if prev is None else g)
+            gs.append(g if prev is None else g[2:])          # the first two gaps repeat the previous segment's last two
         k = (g[:-2] * SH + g[1:-1]) * SH + g[2:]
         v, c = np.unique(k, return_counts=True)
         for a, b in zip(v.tolist(), c.tolist()):
