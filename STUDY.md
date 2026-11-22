@@ -285,7 +285,24 @@ Four boxes, primality by gmpy2, every Gaussian prime's nearest neighbour searche
 
 34 of the 36 tests fit. The two misses are both at d = 10 in the first two boxes (G1: −1.6 %, t₉ = −8.1; G2: +2.0 %, t₉ = 3.9; d = 8 in G2 sits at the edge, −4.2 %, t₉ = −3.0); the exact sum rules out truncation. In the two replication boxes, one on the diagonal a = b and one far from it, all 18 tests fit and d = 10 deviates with opposite signs (+1.1 %, −0.5 %), so by the pre-registered rule the G1 miss is counted as chance. The mean nearest-neighbour norm, which depends on the whole law, fits in all four boxes. One structural effect is real but small here: b + ai is a Gaussian prime whenever a + bi is, so near the diagonal every Gaussian prime has a mirror neighbour at norm 2(a − b)².
 
-## 12. What the seven lines turn out to be
+## 12. The residue chain, cell by cell ([r13.py](writeup/code/study/r13.py), [r13_null.py](writeup/code/study/r13_null.py), [r13b.py](writeup/code/study/r13b.py), [r13c.py](writeup/code/study/r13c.py), [round13.txt](writeup/data/study/preregister/round13.txt))
+
+For each residue a of p and each class c of the next gap, the conditioned law of section 9 gives P_a(c); the table of counts N[a, c] is compared with N[a, ·] P_a(c) by a Pearson χ² (cells with expectation below 5 pooled per row; the pass rule |χ²/dof − 1| ≤ 3√(2/dof)):
+
+| window | primes | mod 30: χ²/dof (dof 79) | mod 210: χ²/dof (dof 401) | no residue: χ²/dof | mod 2310: χ²/dof (dof 3624) |
+|---|---|---|---|---|---|
+| train | 5,096,875 | 0.902 | 0.691 | 7117 | 0.810 |
+| A | 2,171,133 | 0.702 | 0.857 | 2680 | 0.892 |
+| B | 1,808,832 | 0.947 | 0.995 | 2025 | 0.944 |
+| C | 578,836 | 0.833 | 0.894 | 565 | 0.925 |
+
+- The residue carries the structure: without it χ²/dof is in the hundreds to tens of thousands, with it about 1.
+- Mod 30 passes everywhere. Mod 210 passes at A, B and C and fails at train, on the low side: χ²/dof = 0.691, where 1.000 ± 0.058 is the value for counts drawn independently from the law ([r13_null.json](writeup/data/study/r13_null.json)). All the values lie at or below 1: **the counts of the primes scatter less than independent draws**, and the law is not the cause, since it is calibrated.
+- Rejected explanations, each pre-registered before its run: drift of the law inside the window (each block drawn from its own law: 1.001 ± 0.052); stratification by p mod 11 (each class mod 2310 drawn from its own law with the actual counts, aggregated to mod 210: 1.022 ± 0.055, [r13b.json](writeup/data/study/r13b.json)); flow conservation in the chain (the mod-210 chain itself simulated: 1.014 ± 0.056, [r13c.json](writeup/data/study/r13c.json)). The data are under-dispersed against the mod-2310 law as well (last column).
+- By window length inside the train window: 0.691 for W = 9·10⁷, 0.888 ± 0.022 for W = 9·10⁶ and 0.880 ± 0.023 for W = 9·10⁵. The prediction of the rigidity hypothesis (that χ²/dof climbs to 1 as W/x falls) holds only from the whole window to its blocks; below that it stays near 0.88.
+- **Open point.** The gap classes of the primes, counted per residue class, are more regular than independent, stratified or Markov draws from a calibrated law, by about 10 % at every window length and by 30 % over the whole of [10⁷, 10⁸). A likely source is the long-range rigidity of counts that the Hardy–Littlewood correlations imply (section 4: counts of primes in long intervals scatter far less than Poisson), applied to counts of patterns; deriving its size needs four-point sums and is not done here.
+
+## 13. What the seven lines turn out to be
 
 - **Numerical, statistical, algebraic, dynamic, information-theoretic**: five views of one object, the law of runs of consecutive primes. Its only input is the singular series; its only scale is ln x. The textbook versions miss because they truncate it: the Poisson factor e^(−h/ln x) ignores that the numbers between two primes are correlated with them (round 1: up to 30 %), exponentiating the Ursell functions of distinct points mistreats X² = X (step 3), and the Montgomery–Soundararajan asymptotics ignore the grid (H = 50).
 - **Geometric**: Ulam's diagonals are the same law for polynomials: the means are Bateman–Horn and the scatter is set by the Bateman–Horn constants of polynomial pairs. In the plane, the Gaussian primes follow the same expansion with the singular series of ℤ[i] (section 11).
