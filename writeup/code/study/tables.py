@@ -79,8 +79,27 @@ def t2():
         print('| %s | %d | %.1f | %d | %.3f | %.1f |' % (w, d['sum_obs'], d['chi2'], d['dof'], d['chi2_per_dof'], d['z']))
 
 
+def landau():
+    v = J('verdicts_landau.json')
+    lab = lambda s: {'L.ge60': 'n-gap ≥ 60', 'L.ge100': 'n-gap ≥ 100'}.get(s, ('n-gap %s' % s[5:]) if s.startswith('L.gap')
+                                                                       else 'same n mod %s' % s[6:])
+    print('| statistic | F1: data / law | t₉, z_bin | F2: data / law | t₉, z_bin | F3: data / law | t₉, z_bin |')
+    print('|---|---|---|---|---|---|---|')
+    for s in v['F1']:
+        cells = []
+        for w in ('F1', 'F2', 'F3'):
+            d = v[w][s]
+            cells.append('%.4g / %.4g | %.1f, %.1f' % (d['x'], d['T'], d['zT'], d['z_binom']))
+        print('| %s | %s |' % (lab(s), ' | '.join(cells)))
+    sm = v['_summary']
+    print()
+    print('%d tests; %d with |t₉| > 3 (expected by chance %.1f); largest |z_bin| = %.1f.' % (
+        sm['tests'], sm['misses'], sm['expected_by_chance'],
+        max(abs(v[w][s]['z_binom']) for w in ('F1', 'F2', 'F3') for s in v[w])))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau}[sys.argv[1]]()
 
 
 def twins():

@@ -1,6 +1,6 @@
 # Seven lines, one law: what Hardy–Littlewood's singular series predict
 
-> **In short:** Seven kinds of structure in the primes were measured on four windows (10⁷–10⁸, and 5·10⁷ or 2·10⁷ numbers at 10¹⁰, 10¹², 10¹⁵): repeated numbers, Ulam's diagonals, gap statistics, residue classes, the gap sequence as a chain, its information content, and reproducibility. The textbook formulas miss most of them by 1–46 %. All of them follow from one object, the Hardy–Littlewood correlation functions S(B)/ln^k x, once three things are done right: (1) the chance that a pattern of primes has no prime inside is expanded around independent interior numbers (a Bahadur expansion, order 4), (2) counts in intervals on a fixed grid keep the residues of the grid, (3) counts along a quadratic use the Bateman–Horn constants of polynomial pairs. With no fitted parameter, 25 of 26 statistics fit within three standard errors in every window where they were tested, including the fresh window at 10¹⁵; the one miss is the far tail of the gaps at the smallest scale (−0.9 %). The same expansion, with pairs as events, predicts the gaps between consecutive twin primes and their class bias (68 of 68 tests fit).
+> **In short:** Seven kinds of structure in the primes were measured on four windows (10⁷–10⁸, and 5·10⁷ or 2·10⁷ numbers at 10¹⁰, 10¹², 10¹⁵): repeated numbers, Ulam's diagonals, gap statistics, residue classes, the gap sequence as a chain, its information content, and reproducibility. The textbook formulas miss most of them by 1–46 %. All of them follow from one object, the Hardy–Littlewood correlation functions S(B)/ln^k x, once three things are done right: (1) the chance that a pattern of primes has no prime inside is expanded around independent interior numbers (a Bahadur expansion, order 4), (2) counts in intervals on a fixed grid keep the residues of the grid, (3) counts along a quadratic use the Bateman–Horn constants of polynomial pairs. With no fitted parameter, 25 of 26 statistics fit within three standard errors in every window where they were tested, including the fresh window at 10¹⁵; the one miss is the far tail of the gaps at the smallest scale (−0.9 %). The same expansion, with pairs as events, predicts the gaps between consecutive twin primes and their class bias (68 of 68 tests fit), and with Bateman–Horn's singular series the gaps between consecutive n with n² + 1 prime (45 tests, all binomial |z| ≤ 2.7).
 
 **Code:** [writeup/code/study/](writeup/code/study/). **Data:** [writeup/data/study/](writeup/data/study/) (results, theory values, verdicts, and the pre-registrations written before each round).
 
@@ -161,7 +161,38 @@ The one miss is the tail at train: the law is 0.9–1.4 % too high for gaps of 5
 
 All 68 tests fit (|z| ≤ 3). The share of twin gaps up to 300 is 0.72637 against 0.72634 at train; order 1 (independent interior pairs) gives 0.73687. The twin pairs also avoid repeating their class: two consecutive twin pairs with the same p mod 5 occur at a share of 0.3046 among twin gaps ≤ 300 against 0.3043 predicted, a Lemke Oliver–Soundararajan bias for twin primes that follows from the same singular series.
 
-## 8. What the seven lines turn out to be
+## 8. The same law on a parabola: Landau's n² + 1 ([theory_landau.py](writeup/code/study/theory_landau.py), [round5.txt](writeup/data/study/preregister/round5.txt), [verdicts_landau.json](writeup/data/study/verdicts_landau.json))
+
+Whether n² + 1 is prime infinitely often is Landau's fourth problem. Here the question is how the n with n² + 1 prime follow each other. The singular series of a set of shifts B is now Bateman–Horn's: S_f(B) = ∏_p (1 − ω_B(p)/p)/(1 − 1/p)^|B| with ω_B(p) = |{(r − b) mod p}|, r running over the roots of x² + 1 mod p (two roots for p ≡ 1 mod 4, none for p ≡ 3 mod 4, the root 1 for p = 2). For large p the factor is generic, (1 − |B|(1 + χ₄(p))/p)/(1 − 1/p)^|B|, except where two shifted roots coincide: r − b = r′ − b′ with r − r′ = ±2i, that is p | (b − b′)² + 4. Check: S_f({0}) = 1.37279, the Bateman–Horn constant of n² + 1 being 1.37281 (the product converges conditionally; it runs to 2·10⁷ here). The gap law of section 3 then applies with λ = ln(n² + 1): order 4 for gaps ≤ 60, order 3 above (g = 60: −2.645, −2.793, −2.802, −2.805 for orders 1 to 4 at λ = 30).
+
+The data are the even n in F1 = [10⁶, 3·10⁶), F2 = [10⁸, 10⁸ + 10⁶) and F3 = [10¹⁰, 10¹⁰ + 2·10⁵) with n² + 1 prime, tested one by one with gmpy2 (no sieve; the values in F3 are near 10²⁰, so these are BPSW probable primes): 94,545, 37,081 and 5,974 of them.
+
+| statistic | F1: data / law | t₉, z_bin | F2: data / law | t₉, z_bin | F3: data / law | t₉, z_bin |
+|---|---|---|---|---|---|---|
+| n-gap 2 | 0.04946 / 0.04916 | 0.4, 0.4 | 0.0377 / 0.03855 | -1.2, -0.9 | 0.03432 / 0.03085 | 1.5, 1.6 |
+| n-gap 4 | 0.09853 / 0.09832 | 0.4, 0.2 | 0.07621 / 0.07711 | -1.0, -0.6 | 0.05809 / 0.0617 | -1.0, -1.2 |
+| n-gap 6 | 0.08579 / 0.08514 | 1.0, 0.7 | 0.06823 / 0.06901 | -0.8, -0.6 | 0.05525 / 0.05652 | -0.3, -0.4 |
+| n-gap 8 | 0.04585 / 0.04575 | 0.4, 0.1 | 0.03608 / 0.0371 | -1.0, -1.0 | 0.03064 / 0.0304 | 0.0, 0.1 |
+| n-gap 10 | 0.1183 / 0.1203 | -2.0, -1.9 | 0.1013 / 0.1013 | -0.0, -0.0 | 0.08572 / 0.08524 | 0.2, 0.1 |
+| n-gap 12 | 0.03018 / 0.0313 | -1.5, -2.0 | 0.02648 / 0.02744 | -1.2, -1.1 | 0.02093 / 0.02374 | -1.5, -1.4 |
+| n-gap 20 | 0.06531 / 0.06548 | -0.2, -0.2 | 0.06559 / 0.0622 | 6.3, 2.7 | 0.05441 / 0.05689 | -0.6, -0.8 |
+| n-gap 30 | 0.03823 / 0.03761 | 3.9, 1.0 | 0.04086 / 0.04078 | 0.1, 0.1 | 0.04068 / 0.04086 | -0.1, -0.1 |
+| n-gap 50 | 0.01389 / 0.01352 | 1.2, 1.0 | 0.01837 / 0.01863 | -0.3, -0.4 | 0.02076 / 0.02205 | -0.9, -0.7 |
+| n-gap ≥ 60 | 0.05191 / 0.05171 | 0.4, 0.3 | 0.1051 / 0.1041 | 0.6, 0.6 | 0.1671 / 0.1692 | -0.7, -0.4 |
+| n-gap ≥ 100 | 0.005786 / 0.005889 | -0.4, -0.4 | 0.02033 / 0.02003 | 0.5, 0.4 | 0.0447 / 0.04675 | -0.8, -0.7 |
+| same n mod 3 | 0.282 / 0.2793 | 2.5, 1.8 | 0.2893 / 0.2894 | -0.0, -0.0 | 0.2913 / 0.297 | -0.7, -1.0 |
+| same n mod 5 | 0.2788 / 0.279 | -0.1, -0.2 | 0.292 / 0.289 | 1.4, 1.3 | 0.2937 / 0.2963 | -0.5, -0.5 |
+| same n mod 7 | 0.09606 / 0.09597 | 0.2, 0.1 | 0.1031 / 0.1017 | 0.9, 0.9 | 0.1157 / 0.1068 | 3.1, 2.2 |
+| same n mod 13 | 0.04716 / 0.04724 | -0.1, -0.1 | 0.05221 / 0.05362 | -1.1, -1.2 | 0.05676 / 0.05833 | -1.1, -0.5 |
+
+45 tests; 3 with |t₉| > 3 (expected by chance 0.7); largest |z_bin| = 2.7.
+
+
+The class bias appears on both kinds of moduli: consecutive n repeat their class mod 3 in 28.2 % of the cases (all 3 classes are allowed, 1/3 without bias) and mod 5 in 27.9 % (the 3 allowed classes 0, 1, 4; 1/3 without bias), and the law gets both. The block test exceeds 3 in three of 45 cases against 0.7 expected by chance, a mild excess; the binomial z, which takes its scale from the counts instead of from 10 blocks, stays within 2.7 everywhere.
+
+**A note on the test (computed, applies to every table).** The block z divides by a standard deviation estimated from 10 blocks, so it is a Student t with 9 degrees of freedom: |t| > 3 has chance 0.015, not 0.0027. Over the 96 tests of section 6 the block test exceeds 3 four times against 1.4 expected; three of them are the information estimators before their bias is removed, the fourth is the train tail. Over the 68 twin-prime tests it exceeds 3 zero times (1.0 expected).
+
+## 9. What the seven lines turn out to be
 
 - **Numerical, statistical, algebraic, dynamic, information-theoretic**: five views of one object, the law of runs of consecutive primes. Its only input is the singular series; its only scale is ln x. The textbook versions miss because they truncate it: the Poisson factor e^(−h/ln x) ignores that the numbers between two primes are correlated with them (round 1: up to 30 %), the exponential resummation mistreats X² = X (step 3), and the Montgomery–Soundararajan asymptotics ignore the grid (H = 50).
 - **Geometric**: Ulam's diagonals are the same law for polynomials: the means are Bateman–Horn and the scatter is set by the Bateman–Horn constants of polynomial pairs.
