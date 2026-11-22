@@ -4,6 +4,16 @@
 
 **Code:** [writeup/code/study/](writeup/code/study/). **Data:** [writeup/data/study/](writeup/data/study/) (results, theory values, verdicts, and the pre-registrations written before each round).
 
+
+**The formula in one place.** Write λ = ln x. For a pattern H = {h₁, …, h_k} (for example {0, 2} for twins):
+
+  P(n + h₁, …, n + h_k all prime, n near x) ≈ S(H) / λ^k,  S(H) = ∏_p (1 − ν_p(H)/p) / (1 − 1/p)^k,
+
+with ν_p(H) the number of different remainders of h₁, …, h_k mod p (Hardy–Littlewood; S({0, 2}) = 1.3203, and S = 0 when some p sees every remainder, as {0, 2, 4} mod 3). Everything in this study follows from it in three ways:
+1. *Gaps*: the next prime after p is p + g when p + g is prime and nothing in between is: P(gap = g) = Σ_B (−1)^|B| S({0, g} ∪ B) / λ^(|B|+2), summed over the sets B of points strictly between 0 and g (exact, sections 6 and 10), or its Bahadur expansion (section 3).
+2. *Counts in an interval of length H*: Var/mean = 1 + (2/(Hλ)) Σ_{h<H} (H − h)(S({0, h}) − 1), about 1 − (ln H − 1 + γ + ln 2π)/λ (section 4).
+3. *Counts per residue class*: the same sum over points 210k apart, with S restricted to the primes p ∤ 210; it makes the counts per class far more even than chance (round 39).
+
 **Status:** computed. The Hardy–Littlewood and Bateman–Horn conjectures are conjectures; every prediction below assumes them. The expansions are our own derivations (heuristic: the series are asymptotic and truncated; section 3 gives the error of order 4 against the exact inclusion–exclusion sum for gaps up to 42). No parameter was fitted. Every number in the tables is printed by [tables.py](writeup/code/study/tables.py) from the verdict files.
 
 **Contents.** 1 method and windows · 2 the textbook formulas (round 1) · 3 the law: Hardy–Littlewood plus the Bahadur expansion (round 2) · 4 counts on a grid · 5 Ulam's diagonals (round 9) · 6 the law in all windows: gaps, classes, variance, information, tails, the fifth order, the exact gap law, every gap below 4·10¹⁸, large gaps (first occurrences, counts below 4·10¹⁸, far tails), 10¹⁸, jumping champions (rounds 3, 8, 22, 23, 24–30, 32, 33, 38, 17, 19) · 7 twin primes (round 4) · 8 n² + 1 (round 5) · 9 second differences, bits per prime, the hidden residue chain (rounds 6–7) · 10 counts in intervals: third cumulant, the full distribution, exact sums, long intervals, the pair excess, the zeros of ζ (rounds 10, 12, 20, 21, 34, 35, 37) · 11 Gaussian and Eisenstein primes (rounds 11, 16) · 12 the residue chain cell by cell, rigidity of twin counts, the rigidity of the tables derived, three-gap law (rounds 13, 31, 39–44, 15) · 13 Sophie Germain primes and n² + n + 41 (rounds 14, 18) · 14 synthesis and the scoreboard of all tests · Validation.
