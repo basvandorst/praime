@@ -1411,6 +1411,31 @@ The runs, the recorded trees and these reports are in [writeup/data/riemann/hp/]
 - **Computed:** the diagnosis table, and the window law near 1,100.
 - **Extrapolation:** 2.8√x at 10,000.
 
+## 22. Without zeros: the tube as a criterion, and what an off-line zero would do to the primes
+
+**The criterion.** Let `G(y) = Σ_(n≤y) Λ(n)(y/n − 1) − y ln y + (1 + γ)y` and `T(y)` as in fact 2048, and `C = 2 + γ − ln 4π = 0.0461914`. Then
+
+```
+RH  ⟺  |G(y) − ln 2π + T(y)| ≤ C·√y  for every y ≥ 1      (equality at y = 1)
+```
+
+a statement about primes only, of the same kind as Robin's (fact 2009) and Schoenfeld's (fact 2005), with a sharp constant. ⇒ is fact 2048 (the exact formula; on the line each term has size √y/|ρ|² and Σ 1/|ρ|² = C). ⇐ (proved, the standard Mellin argument): the exact formula comes from ∫₁^∞ G(y) y^(−s−1) dy, whose continuation has a simple pole at every zero ρ with residue 1/(ρ(1 − ρ)) ≠ 0; if |G − ln 2π + T| ≤ C√y, the integral of the left side converges absolutely for Re s > ½, so no pole, hence no zero, lies there.
+
+**What an off-line zero would do** ([tube/offline.py](writeup/code/riemann/tube/offline.py) → [offline.json](writeup/code/riemann/tube/offline.json); derivation ours, standard method). A zero ρ₀ = β + it with β > ½ adds, with its conjugate, a term of amplitude A(y) = 2y^β/|ρ₀(1 − ρ₀)|; the rest of the sum is at most C√y in size. Once A(y) > 2C√y the tube must break at the term's peaks, so it is certainly broken beyond
+
+```
+y*(β, t) = (C·|ρ₀(1 − ρ₀)|)^(1/(β − ½))
+```
+
+| height t | β = 0.51 | 0.6 | 0.75 | 0.9 | 1 |
+|---|---|---|---|---|---|
+| 14 | 10⁹⁷ | 10¹⁰ | 10⁴ | 10² | 10² |
+| 10³ | 10⁴⁶⁶ | 10⁴⁷ | 10¹⁹ | 10¹² | 10⁹ |
+| 10⁶ | 10¹⁰⁶⁶ | 10¹⁰⁷ | 10⁴³ | 10²⁷ | 10²¹ |
+| 3·10¹² | 10²³⁶² | 10²³⁶ | 10⁹⁴ | 10⁵⁹ | 10⁴⁷ |
+
+The side effect, read the other way: the zeros are verified on the line up to height about 3·10¹² (Platt–Trudgian), so a zero off the line could only sit above it, and there it would break the primes' tube only beyond 10⁴⁷ even at β = 1, and beyond 10⁹⁴ at β = ¾. Conversely, the tube checked to 10⁸ (fact 2048) excludes by this argument only zeros with β = 1 below height 465 (β = ¾: 46); checked to 10¹⁸ it would reach 147,000 (β = ¾: 827). So every prime-side criterion of this kind (the tube, Schoenfeld's bound, Robin's inequality) is blind, in any computable range, to the zeros that are not already computed: what RH says beyond the verified height is, for the primes, information stored at sizes they cannot reach (compare section 20). This is a threshold for certain violation, not a statement that a violation could not appear earlier by the phase of the term.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).
