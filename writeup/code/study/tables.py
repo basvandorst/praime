@@ -120,8 +120,31 @@ def chain():
         print('| %s | %.4f / %.4f | %.4f | %s |' % (w, m['H1_meas'], m['H2_meas'], m['H1_meas'] - m['H2_meas'], ' | '.join(cells)))
 
 
+def gauss():
+    v = J('verdicts_r11.json'); v.update(J('verdicts_r11_rep.json'))
+    boxes = [('G1', 'a, b ∈ [10⁵, 10⁵ + 2000)'), ('G2', 'a, b ∈ [5·10⁶, 5·10⁶ + 1000)'),
+             ('G3', 'a, b ∈ [2·10⁵, 2·10⁵ + 2000)'), ('G4', 'a ∈ [10⁵, +2000), b ∈ [3·10⁵, +2000)')]
+    print('| statistic | ' + ' | '.join('%s: data / law, t₉' % b for b, _ in boxes) + ' |')
+    print('|---|---|---|---|---|')
+    for s in v['G1']:
+        print('| %s | %s |' % (s.replace('d=', 'd = ').replace('d>=', 'd ≥ ').replace('mean_d', 'mean d'),
+              ' | '.join('%.4g / %.4g, %.1f' % (v[b][s]['x'], v[b][s]['T'], v[b][s]['zT']) for b, _ in boxes)))
+
+
+def r9():
+    r = J('r9.json'); r.update(J('r9_U159.json'))
+    names = {'U': 'Ulam diagonals 4n² + bn + c (all 198)', 'U159': 'Ulam diagonals, the 159 distinct curves',
+             'E': "Euler's n² + n + c, c odd ≤ 199"}
+    print('| family | curves | prime values | χ²/curve | law | z | Bateman–Horn: mean (obs − E)/E, z |')
+    print('|---|---|---|---|---|---|---|')
+    for k in ('U', 'U159', 'E'):
+        d = r[k]
+        print('| %s | %d | %s | %.3f | %.3f | %.1f | %+.5f, %.1f |' % (names[k], d['curves'], format(d['primes'], ','),
+              d['chi2'], d['theory'], d['z'], d['mean_rel_dev_from_BH'], d['z_BH']))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9}[sys.argv[1]]()
 
 
 def twins():

@@ -10,6 +10,10 @@ import theory_geo as TG
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'study')
 N0, N = 1_000_000, 50_000
 FAM = {'U': PR.curves(), 'E': [(1, 1, c) for c in range(1, 200, 2)]}
+# 4n^2 + 4n + c = f_{-4,c}(n + 1): the b = 4 curves are shifted copies of the b = -4 curves (review, point 10)
+FAM['U159'] = [f for f in PR.curves() if f[1] != 4]
+if os.environ.get('R9_ONLY'):
+    FAM = {k: FAM[k] for k in os.environ['R9_ONLY'].split(',')}
 
 
 def one(f):
@@ -41,4 +45,4 @@ for fam, curves in FAM.items():
                 'C_range': [float(min(r[3] for r in rows)), float(max(r[3] for r in rows))],
                 'secs': round(time.time() - t0)}
     print(fam, res[fam], flush=True)
-json.dump(res, open(os.path.join(OUT, 'r9.json'), 'w'), indent=1)
+json.dump(res, open(os.path.join(OUT, 'r9%s.json' % ('_' + os.environ['R9_ONLY'] if os.environ.get('R9_ONLY') else '')), 'w'), indent=1)

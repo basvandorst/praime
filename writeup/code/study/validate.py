@@ -20,7 +20,7 @@ J = lambda f: json.load(open(os.path.join(D, f)))
 fail = []
 
 # 1. tables
-for name in ('r1', 'r23', 't2', 'tails', 'twins', 'landau', 'bits', 'chain'):
+for name in ('r1', 'r23', 't2', 'tails', 'twins', 'landau', 'bits', 'chain', 'gauss', 'r9'):
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         getattr(tables, name)()
@@ -91,5 +91,5 @@ import theory_landau as TL
 if abs(TL.Sf_many(np.array([[0]]))[0] - 1.3728134628) > 5e-5:
     fail.append('S_f({0}) far from the Bateman-Horn constant of n^2+1')
 
-print('\n'.join(fail) if fail else 'all checks pass: %d table generators, %d prose numbers, 3 identities' % (8, len(PROSE)))
+print('\n'.join(fail) if fail else 'all checks pass: %d table generators, %d prose numbers, 3 identities' % (10, len(PROSE)))
 sys.exit(1 if fail else 0)

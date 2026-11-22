@@ -28,8 +28,8 @@ for R in (8, 10, 16):
                 break
         sums.append(tot)
     res = {}
-    for box, (A, K) in r11.BOXES.items():
-        lam_eff = math.log((A + K / 2) ** 2 * 2) / r11.KAPPA
+    for box, (A, B0, K) in r11.BOXES.items():
+        lam_eff = math.log((A + K / 2) ** 2 + (B0 + K / 2) ** 2) / r11.KAPPA
         exact = sum((-1) ** k * sums[k] / lam_eff ** k for k in range(len(sums)))
         d = r11.Disc(R, 4)
         res[box] = {'exact': exact, 'order4': math.exp(d.log_avoid(lam_eff, 4)), 'order3': math.exp(d.log_avoid(lam_eff, 3))}
