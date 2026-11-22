@@ -20,7 +20,7 @@ J = lambda f: json.load(open(os.path.join(D, f)))
 fail = []
 
 # 1. tables
-for name in ('r1', 'r23', 't2', 'tails', 'twins', 'landau', 'bits', 'chain', 'gauss', 'r9', 'sg', 'eis', 'r17', 'scoreboard', 'euler', 'r20', 'r21', 'r23'):
+for name in ('r1', 'r3', 't2', 'tails', 'twins', 'landau', 'bits', 'chain', 'gauss', 'r9', 'sg', 'eis', 'r17', 'scoreboard', 'euler', 'r20', 'r21', 'r23'):
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         getattr(tables, name)()

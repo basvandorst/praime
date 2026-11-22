@@ -37,7 +37,7 @@ def r1():
               ' | '.join('%.1f' % x if x is not None else '' for x in z)))
 
 
-def r23():
+def r3():
     v2 = J('verdicts_theory_r2.json'); v3 = J('verdicts_r3.json'); b3 = J('bias_r3.json'); g = J('verdicts_theory_geo.json')
     stats = [s for s in v3['train'] if not s.startswith('T2') and not s.startswith('T1')]
     print('| statistic | primes (train) | cluster law | rel. diff train | z train | z A | z B | z C (10¹⁵) |')
@@ -104,7 +104,7 @@ def bits():
     print('| model or measurement | ' + ' | '.join(['train', 'A', 'B', 'C (10¹⁵)']) + ' |')
     print('|---|---|---|---|---|')
     for k in keys:
-        print('| %s | %s |' % (k, ' | '.join('%.4f' % b[w][k] for w in ('train', 'A', 'B', 'C'))))
+        print('| %s | %s |' % (k.replace('|', '\\|'), ' | '.join('%.4f' % b[w][k] for w in ('train', 'A', 'B', 'C'))))
 
 
 def chain():
@@ -311,7 +311,7 @@ def r23():
 
 
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20, 'r21': r21, 'r23': r23}[sys.argv[1]]()
+    {'r1': r1, 'r3': r3, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20, 'r21': r21, 'r23': r23}[sys.argv[1]]()
 
 
 def twins():
