@@ -1,0 +1,13 @@
+Round 72, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+An online predictor of the next prime gap from the previous gaps only (own construction, joining rounds 45 and 61).
+The past primes p - D_j (D_j = sum of the last j gaps) are coprime to every q <= 13, so p mod 30030 lies in
+A_k = {a coprime to 30030 : a - D_j coprime to 30030 for j <= k}. Predictor after k past gaps:
+P_k(g) = mean over a in A_k of P(g | a), with P(g | a) the conditioned law of round 47 for the class a (order 2,
+y = 13, at lam = ln(1.05e9)), renormalised over g <= 20 lam. As k grows, A_k shrinks to the true class (coupon
+collecting per prime q), and P_k tends to the full-residue predictor P(g | p mod 30030).
+Data: 20,000 target primes chosen at random in [1e9, 1.1e9); log-loss L_k = mean of -log2 P_k(next gap) for k = 0..60,
+and L_true with the true class.
+Predictions: (1) the total gain L_0 - L_true equals the model's own information I(gap; p mod 30030) (computed from the
+same tables) within 0.02 bits; (2) the normalised learning curve (L_0 - L_k)/(L_0 - L_true) follows the coupon-collector
+shape of round 61 restricted to q = 3, 5, 7, 11, 13 (lam -> infinity weights), within 0.05 at every k = 1..60.
