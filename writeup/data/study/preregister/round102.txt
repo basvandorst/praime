@@ -1,0 +1,15 @@
+Round 102, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+The variance law of the prime race (ours, from the Guinand-Weil formula as in round 95). For a primitive character
+chi mod q (parity a), psi(x, chi) = sum_{n<=x} Lambda(n) chi(n) has no main term, and under GRH the average over ln X
+of R_chi(X, d) = int_1^X |psi((1+d)x, chi) - psi(x, chi)|^2 dx / ((1/2) d X^2) is
+  D_chi(d) = (1/(2 pi d)) int h(r) [ln(q/pi) + Re psi((1/2 + a)/2 + i r/2)] dr,  h(r) = |(1+d)^(1/2+ir) - 1|^2/(1/4+r^2),
+because the test function's Fourier transform lives in |x| <= ln(1+d) < ln 2 and no prime enters; unlike zeta there
+is no pole term 2 ln(1+d). Computed (writeup/code/riemann/race/dchi.py, which reproduces zeta's closed form exactly):
+  chi_4: D(0.1) = 2.3460, D(0.01) = 4.5838;   chi_3: D(0.1) = 2.0583, D(0.01) = 4.2962.
+For chi_4 this is the race between primes 1 and 3 mod 4: psi(x, chi_4) = theta-weighted count of primes 1 mod 4 minus
+3 mod 4 (prime powers included).
+Primes: R_chi at 200 log-spaced X in [1e6, 1e9] from one pass (psi(x, chi) exact up to 1.1e9, 2,000,000 stratified
+log-uniform points in [1e4, 1e9], seed 102), averaged over ln X.
+Readings: (1) at d = 0.1 the average is within 0.10 of D_chi for both chi, and closer to D_chi than to the value with
+the pole term added (D_chi + 2 ln 1.1 = D_chi + 0.19); (2) at d = 0.01 within 0.15 of D_chi for both chi.
