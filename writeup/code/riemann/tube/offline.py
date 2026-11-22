@@ -24,10 +24,11 @@ excl = {}
 for Y in (1e8, 1e18, 1e29):
     excl[str(Y)] = {str(b): math.sqrt(max(Y ** (b - 0.5) / C, 0.0)) for b in (0.6, 0.75, 0.9, 1.0)}
 out = {'C': C, 'rows': rows, 'max_height_excluded_by_primes_up_to_Y': excl,
-       'note': 'heuristic threshold for certain violation; not a proof of detection below y*'}
+       'note': 'violation at every peak beyond y*, proved if rho0 quadruple is the only off-line one; not a statement about detection below y*'}
 print('C =', C)
 for r in rows:
     print('t = %-8g' % r['t'], ' '.join('b=%s: 10^%.0f' % (b, v) for b, v in r['log10_ystar'].items()))
 for Y, d in excl.items():
     print('primes up to', Y, 'exclude zeros below height', {b: round(v, 1) for b, v in d.items()})
-json.dump(out, open('offline.json', 'w'), indent=1)
+import os
+json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'offline.json'), 'w'), indent=1)
