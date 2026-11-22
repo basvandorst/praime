@@ -1,0 +1,13 @@
+Round 45, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+How predictable is the next gap from partial knowledge of p? If p mod q is known for every prime q <= y, the best
+rule is to guess the first y-rough number after p (no prime factor <= y); the guess is right iff that number is prime,
+i.e. iff every composite between p and the next prime has its smallest prime factor <= y. So with M(p) = the largest
+smallest-prime-factor among the composites between p and the next prime, hit(y) = P(M(p) <= y): one array per window.
+Prediction (no fitted parameter): the share of primes among y-rough numbers near x,
+  hit(y) = 1 / ( ln x * prod_{q <= y} (1 - 1/q) * e^gamma * omega(u) ),   u = ln x / ln y,
+with omega Buchstab's function (omega(u) = 1/u on [1, 2], (u omega(u))' = omega(u - 1)); for large u e^gamma omega -> 1
+(Mertens), and at y >= sqrt(x) hit = 1. Data: windows [1e9, 1e9 + 5e7) and [1e12, 1e12 + 1e7), y over the primes up to
+sqrt(x) (grid). Reported: measured vs predicted hit(y); also the best guess per class mod 6, 30, 210 for comparison.
+Reading fixed now: the law holds if |measured - predicted| <= 0.01 + 3 binomial sd at every grid point with u >= 1.5;
+otherwise report where it fails.
