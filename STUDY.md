@@ -17,7 +17,7 @@ The protocol asked for seven independent lines (numerical, geometric, statistica
 
 ## 2. Round 1: the textbook formulas ([round1.txt](writeup/data/study/preregister/round1.txt), [verdicts_r1.json](writeup/data/study/verdicts_r1.json))
 
-The crude Gallagher–Hardy–Littlewood law says a prime near x is followed by the gap h with chance S(0, h)·e^(−h/ln x)/ln x. Montgomery and Soundararajan give Var/mean = 1 − (ln H − 1 + γ + ln 2π)/ln x for counts in [n, n + H). Lemke Oliver–Soundararajan-type class shares follow by summing the gap law over h ≡ 0 (mod q). Bateman–Horn gives the expected count on each of 195 irreducible quadratics 4n² + bn + c (b = −4 … 4 even, c odd ≤ 79), the curves Ulam's spiral draws as diagonals.
+The crude Gallagher–Hardy–Littlewood law says a prime near x is followed by the gap h with chance S(0, h)·e^(−h/ln x)/ln x. Montgomery and Soundararajan give Var/mean = 1 − (ln H − 1 + γ + ln 2π)/ln x for counts in [n, n + H). Lemke Oliver–Soundararajan-type class shares follow by summing the gap law over h ≡ 0 (mod q). Bateman–Horn gives the expected count on each of 198 irreducible quadratics 4n² + bn + c (b = −4 … 4 even, c odd ≤ 79; only 4n² ± 4n + 1 = (2n ± 1)² is left out), the curves Ulam's spiral draws as diagonals. (The pre-registration of round 1 says 195; that was a miscount in the text, the code used all 198 from the start.)
 
 | statistic | primes (train) | round-1 formula | rel. diff | z train | z A | z B |
 |---|---|---|---|---|---|---|
@@ -84,6 +84,15 @@ On each quadratic f the count of prime values has mean Σ_n C(f)/ln f(n) (Batema
   Var/E = 1 − C/λ + (2/(C·N·λ)) Σ_d (N − d)(C_d − C²)  (λ-weights done exactly per n in the code),
 
 where C_d is the Bateman–Horn constant of the pair {f(x), f(x + d)}: C_d/C² = ∏_p (1 − ω_d(p)/p)/(1 − w(p)/p)², w(p) the number of roots of f mod p and ω_d(p) = |R ∪ (R − d)|. For large p the factor is generic (ω = 2w) except at p | d (ω = w: the shifted curve has the same roots) and at p | 16d² − D, D = b² − 64c (ω = 3: one root of f(x + d) is a root of f(x)). For 4n² + 1 the neighbours repel: C₁/C² = 0.5175 (brute-force product to 3,000: 0.51751). The predicted χ²/curve is 0.406 at train, 0.694 at A and 0.831 at B, against 0.386, 0.715 and 0.721 (block z −0.0, 1.1, −1.0). This is a Montgomery–Soundararajan-type law for a curve instead of an interval: the counts are rigid because values a short step apart along the curve share prime factors in a structured way.
+
+**Round 9: fresh data and a second family** ([r9.py](writeup/code/study/r9.py), [round9.txt](writeup/data/study/preregister/round9.txt), [r9.json](writeup/data/study/r9.json)). For a general f = ax² + bx + c the coincidence rule reads a²d² ≡ D (mod p). On n ∈ [10⁶, 1.05·10⁶), every value tested by gmpy2 (no sieve), the pre-registered test compares the mean of (obs − E)²/E over the curves with the mean predicted Var/E, the noise taken from the scatter over the curves:
+
+| family | curves | prime values | χ²/curve | law | z | Bateman–Horn: mean (obs − E)/E, z |
+|---|---|---|---|---|---|---|
+| Ulam diagonals 4n² + bn + c | 198 | 681,550 | 0.499 | 0.542 | -0.9 | -0.00015, -0.2 |
+| Euler's n² + n + c, c odd ≤ 199 | 100 | 361,921 | 0.494 | 0.522 | -0.4 | +0.00074, 0.5 |
+
+Both fit. The counts along a quadratic scatter at about half the Poisson value at this size, as the pair constants predict. The Bateman–Horn constants run from 0.62 to 6.64 (n² + n + 41) in both families; the test is on the mean over the curves, not curve by curve.
 
 ## 6. Rounds 2 and 3 against all four windows ([round3.txt](writeup/data/study/preregister/round3.txt), [verdicts_r3.json](writeup/data/study/verdicts_r3.json))
 

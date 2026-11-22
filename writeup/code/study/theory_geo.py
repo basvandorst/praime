@@ -9,7 +9,7 @@ E[(obs - E)^2 / E] = Var / E,  so the theory for G.chi2_BH is the mean over the 
 C_d / C^2 = prod_p (1 - omega_d(p)/p) / (1 - w(p)/p)^2,
   w(p) = #roots of f mod p, omega_d(p) = #(R u (R - d)) = 2w - #(R n (R - d)).
 For p <= P0 everything by brute force (periodic in d). For p > P0 (p odd, p does not divide 4):
-  generic omega = 2w;  p | d -> omega = w;  p | 16 d^2 - D, p not dividing dD -> omega = 3 (w = 2, one root shared).
+  generic omega = 2w;  p | d -> omega = w;  p | a^2 d^2 - D, p not dividing dD -> omega = 3 (w = 2, one root shared; a^2 = 16 on Ulam's diagonals).
 Primes p > P1 = 30000 with p | 16d^2 - D change C_d by a factor (1-3/p)/(1-4/p) < 1 + 4e-5 and are ignored.
 The generic product runs to 2e6 (the tail sum w^2/p^2 beyond it is below 1e-7).
 """
@@ -64,7 +64,7 @@ def ratio_Cd(f, dmax):
         p = int(p)
         if wp != 2:
             continue
-        x = (D * pow(16, -1, p)) % p
+        x = (D * pow(a * a, -1, p)) % p             # collision: a^2 d^2 = D (mod p); a = 4 for Ulam's diagonals
         rts = sqrt_mod(x, p, all_roots=True)
         corr = math.log((1 - 3 / p) / (1 - 2 / p) ** 2) - g
         for r in rts:
