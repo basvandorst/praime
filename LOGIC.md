@@ -46,7 +46,7 @@ Two catalogues of everything in the repo that did not fit (one agent per side, b
 
 **Lower-order terms of the local layer (proposed: truncation and normalisation).**
 - The conditioned gap law's residuals are all positive and grow with g (0.065 % at g = 700; STUDY round 53); the law's share of gaps ≥ 40 is 0.26 % high at 10⁸–10⁹ (round 41) and the two-gap law 0.27 % high in long-gap cells at 10⁹ but not at 10¹² (stress test); the twin-gap tail beyond 1,200 is high by 0.24 % (rounds 59, 64). The two-gap law's row sums are 1.0006–1.0012 and the k-th neighbour law's mass is off by 2·10⁻⁴: one order-2 normalisation error would produce all of these. Order 3 would decide.
-- Runs of prime values of n² + n + 41: observed/expected falls from 1.000 (r = 1) to 0.856 (r = 8) (round 103); long patterns at small x overweight the small-t end of the Bateman–Horn integral.
+- Runs of prime values of n² + n + 41: observed/expected fell from 1.000 (r = 1) to 0.856 (r = 8) in round 103; on fresh n in [10⁷, 3·10⁷) the ratio at r = 8 is 1.22 (round 108, pre-registered), so the fall was chance (explained).
 
 **The archimedean layer at finite height (explained).** The (7/4)δ of the variance (round 95); the 7/8 of N(T); the race without the pole (round 102).
 
