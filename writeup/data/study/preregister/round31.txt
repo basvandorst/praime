@@ -1,0 +1,11 @@
+Round 31, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Variance of the number of twin primes (p, p+2) with p in [n, n+H), over all n (sliding windows, so no grid), H = 1e3,
+1e4, 1e5, windows train and A; 10 blocks, block t9. Law (Hardy-Littlewood, derived): with r = S(0,2)/lam^2 the twin
+density and S4(d) = S({0, 2, d, d+2}),
+  Var/mean = 1 - H r + (2 / (H r lam^4)) sum_{d=1}^{H-1} (H - d) S4(d)
+(the term d = 2 is the prime triple {0, 2, 4}, impossible mod 3, so S4(2) = 0). Closed form for S4: zero unless 6 | d;
+then S4(d) = 8 * (27/16) * prod_{p>=5} (1 - 4/p)/(1 - 1/p)^4 * prod_{p>=5, p | d} (1 - 2/p)/(1 - 4/p)
+* prod_{p>=5, p | (d-2)(d+2)} (1 - 3/p)/(1 - 4/p). Checked against theory2.S_many for d <= 200 before use.
+Pass: |t9| <= 3. Question behind it: are twin counts more rigid than the Hardy-Littlewood correlations allow
+(round 13 found twin counts per residue class spread less than Poisson)?
