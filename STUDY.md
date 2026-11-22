@@ -203,6 +203,18 @@ The counts are between 10¹⁴ and 10¹⁶, and the exact Hardy–Littlewood law
 
 Pooled over the windows, the 10 ln x tail has 57 gaps against 76.6 expected (ratio 0.74, z = -2.2). At train the law overestimates the far tail more the farther out (ratios 0.98, 0.89, 0.57); at A it does not (the pre-registered prediction held at train, not at A). The reading consistent with rounds 24–27: the expansion overestimates very long gaps when λ is small (its parameters ρ/λ are larger there), which is where the first occurrences of gaps 180–454 sit, while at λ ≈ 40 (round 26) the counts of the same gaps are right. That is plausible, not shown: the exact sums are out of reach for these spans.
 
+**Round 28: how large is the expansion's bias for longer gaps?** (diagnostics after round 27; [r28.py](writeup/code/study/r28.py) → [r28.json](writeup/data/study/r28.json), [r28b.py](writeup/code/study/r28b.py) → [r28b.json](writeup/data/study/r28b.json)). The exact sums can be pushed to single gaps of 90 by streaming the enumeration (up to 27 million admissible interior sets per gap); the error of the expansion against them:
+
+| gap h | admissible interior sets | order 4, λ = 17.8 | order 4 + overlap, λ = 17.8 | order 4, λ = 23 | order 4 + overlap, λ = 23 |
+|---|---|---|---|---|---|
+| 74 | 733,900 | +1.30 % | +0.31 % | +0.36 % | +0.06 % |
+| 78 | 2,581,763 | +0.73 % | +0.69 % | +0.15 % | +0.15 % |
+| 82 | 2,333,308 | +1.62 % | +0.37 % | +0.45 % | +0.07 % |
+| 86 | 5,516,720 | +1.71 % | +0.47 % | +0.46 % | +0.09 % |
+| 90 | 27,218,840 | +1.12 % | +0.94 % | +0.24 % | +0.20 % |
+
+Up to gap 90 the bias stays below 2 % at train, far too small for the far-tail shortfall. But the round-3 law used order 3 for spans above 120, and round 8's order-4 terms for spans 122–200 are large at train; with them the train tails change from ratios 0.978 / 0.885 / 0.567 to 0.988 / 0.930 / 0.603 (6, 8, 10 ln x). So truncation at long spans explains part of the large-gap discrepancy; the 10 ln x tail (gaps ≥ 178, only 15 of them, mostly beyond span 200 where order 3 remains) is still too low, and the first-occurrence result stays open.
+
 **Round 17: a window at 10¹⁸** ([r17.py](writeup/code/study/r17.py) → [r17.json](writeup/data/study/r17.json), [round17.txt](writeup/data/study/preregister/round17.txt)). [10¹⁸, 10¹⁸ + 2·10⁶), 48,427 primes listed one by one with gmpy2.next_prime (no sieve; below 2⁶⁴ the test has no known exception), λ = 41.4; the frozen law with order 2 for spans above 300 (the law sums to 1.0001):
 
 | statistic | primes near 10¹⁸ | cluster law | rel. diff | t₉ | z (binomial) |
