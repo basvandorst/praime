@@ -1,0 +1,8 @@
+Round 75, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Where does round 74's 2.5 % lag come from? Two candidates: (A) the order-2 conditioned table P(g | a) is slightly off;
+(B) the chain ignores the dependence of a gap on earlier gaps beyond the current class. Test: the same chain (r74's code,
+200,000 chains, seed 75) but with the empirical backward-gap table of the primes in [1e9, 1.1e9) (the gap before p,
+tabulated by p mod 30030) instead of the theory table. This keeps the true class dependence and drops only (B).
+Reading fixed now: if the empirical-table chain's mean reveal time is within 0.3 gaps of the theory chain's 34.91, the
+lag is (B); if it is within 0.3 of the data's 33.99, it is (A); otherwise both contribute (reported as the split).
