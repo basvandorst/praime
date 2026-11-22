@@ -554,6 +554,18 @@ Every test with an expected count of at least 5 in its window fits (37 of them).
 
 ## 14. What the seven lines turn out to be
 
+**The seven questions of the protocol, answered.**
+
+| line | question | answer (sections) |
+|---|---|---|
+| Numerical | Which recurring numerical relations exist? | Equal and nearly equal consecutive gaps, second differences, four primes in a row in arithmetic progression, the jumping champions: all are runs of consecutive primes, and their frequencies follow from the Hardy–Littlewood singular series of the pattern and of its interior (3, 6, 9). |
+| Geometric | Can the primes be structured geometrically? | Ulam's diagonals are quadratics whose means are Bateman–Horn and whose scatter (sub-Poisson) follows from the Bateman–Horn constants of polynomial pairs; in the plane, Gaussian and Eisenstein primes have nearest-neighbour laws from the singular series of ℤ[i] and ℤ[ω] (5, 11). |
+| Statistical | Which distribution patterns are significant? | All of them are far from coin flips and far from Poisson, and all are predicted: gap shares, the variance, skewness and full distribution of counts in intervals (to the 3rd–4th decimal with exact sums), the counts of every gap below 4·10¹⁸ to their own scatter. Open: very long gaps near 10⁷–10¹¹ (4, 6, 10). |
+| Algebraic | Which relations arise from modular arithmetic? | Residue classes enter only through the local factors of the singular series: the Lemke Oliver–Soundararajan bias, the grid term of the variance, the classes of twin and Sophie Germain primes and of n² + 1 and n² + n + 41 (6, 7, 8, 13). |
+| Dynamic | Can consecutive primes be modelled as a system? | Yes: a hidden Markov chain on p mod 210 whose transitions are the residue-conditioned law reproduces the extra information of two previous gaps to 10⁻⁴ bits; counted per residue class the chain is more regular than any independent model (open, probably long-range rigidity) (9, 12). |
+| Information-theoretic | What information do gaps and patterns carry? | About 3.77 bits per prime for the gap class near 10⁷ given the previous gap, 0.13 bits less given two; each layer of theory (coins, singular series, cluster law, Markov law) removes a measured share, and the three-point law reaches the measured entropy (9). |
+| Computational | Are the structures reproducible? | 711 pre-registered tests in windows from 10⁷ to 10¹⁸ (and the counts below 4·10¹⁸), four independent reviews with their own code, a validator for every table: the misses that remain are at chance level apart from the open points (1, 14, Validation). |
+
 **The scoreboard** (every pre-registered test of the law, from the verdict files; a miss is |t₉| > 3 for block tests, |z| > 3 for χ² tests and means, and p < 0.01 for the Kolmogorov–Smirnov tests of rounds 24–25; the chance of a miss per test is about 0.015, 0.0027 and 0.01; the tests are not all independent: round 22 re-tests round 3's gap shares on the same primes, and nested tails overlap):
 
 | round | what | tests | misses | expected by chance |
