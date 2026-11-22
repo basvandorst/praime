@@ -10,9 +10,10 @@ import mpmath
 import common as C
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'study')
-PATH = os.path.join(OUT, 'r59.json')
-SMALL = [2, 3, 5, 7, 11, 13]; PP = math.prod(SMALL); DEN = math.prod(1 - 1 / q for q in SMALL)
-MID = [int(q) for q in C.small_primes(3001) if q > 13]
+PATH = os.path.join(OUT, 'r59.json' if int(os.environ.get('R59_Y', 13)) == 13 else 'r59_y%s.json' % os.environ.get('R59_Y'))
+Y = int(os.environ.get('R59_Y', 13))
+SMALL = [q for q in (2, 3, 5, 7, 11, 13, 17, 19) if q <= Y]; PP = math.prod(SMALL); DEN = math.prod(1 - 1 / q for q in SMALL)
+MID = [int(q) for q in C.small_primes(3001) if q > Y]
 BIGP = C.small_primes(20_000_000).astype(float); BIGP = BIGP[BIGP > 3000]
 TAIL = {k: float(np.sum(np.log1p(-k / BIGP) - k * np.log1p(-1 / BIGP))) for k in (2, 4, 6, 8)}
 L0, L1 = 10 ** 9, 2 * 10 ** 9
