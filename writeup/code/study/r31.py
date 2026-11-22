@@ -6,7 +6,7 @@ import theory2 as T2
 import common as C
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'study')
-HS = [1000, 10000, 100000]
+HS = [int(x) for x in os.environ.get('R31_H', '1000,10000,100000').split(',')]
 DMAX = max(HS) + 4
 PR = C.small_primes(20_000_000).astype(np.float64)
 G4 = 8 * 27 / 16 * float(np.exp(np.sum(np.log1p(-4 / PR[PR >= 5]) - 4 * np.log1p(-1 / PR[PR >= 5]))))
@@ -47,16 +47,17 @@ def law(H, L, W):
 
 
 out = {'G4': G4}
-for win in ('train', 'A'):
+for win in os.environ.get('R31_WIN', 'train,A').split(','):
     L, W = C.WINDOWS[win]
-    M = C.primes_mask(L, W + 2)
+    M = C.primes_mask(L, W + 2 + max(HS))
     tw = (M[:-2] & M[2:]).astype(np.int8)                         # twin starting at position i
     res = {}
     for H in HS:
         meas, th = [], []
         for b in range(10):
             lo, n = b * W // 10, W // 10
-            c = np.concatenate((np.zeros(1, np.int32), np.cumsum(tw[lo:lo + n], dtype=np.int32)))
+            seg = tw[lo:lo + n + (H if H > n // 10 else 0)]
+            c = np.concatenate((np.zeros(1, np.int32), np.cumsum(seg, dtype=np.int32)))
             cnt = (c[H:] - c[:-H]).astype(np.float64)
             # detrend by the law's mean at each position (slow drift of lam inside the block)
             pos = L + lo + np.arange(len(cnt)) + H / 2
@@ -67,4 +68,4 @@ for win in ('train', 'A'):
         res[str(H)] = {'meas': float(np.mean(meas)), 'law': float(np.mean(th)), 't9': t9, 'p': float(2 * student_t.sf(abs(t9), 9))}
         print(win, H, res[str(H)], flush=True)
     out[win] = res
-json.dump(out, open(os.path.join(OUT, 'r31.json'), 'w'), indent=1)
+json.dump(out, open(os.path.join(OUT, 'r31%s.json' % ('' if 'R31_H' not in os.environ else '_long')), 'w'), indent=1)
