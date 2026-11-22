@@ -1,0 +1,12 @@
+Round 10, pre-registered 2026-11-22 ~00:45 UTC, before the statistics below were computed.
+
+10a  Variance of prime counts in long intervals. New window V = [1e9, 2e9) (never used), intervals [1e9 + jH, ...)
+     for H = 1e4, 1e5, 1e6. Prediction: the exact HL pair sum on the aligned grid (theory2.var_ratio_aligned), with
+     no change. Noise: 10 blocks of 1e8, block t9. Pass |t9| <= 3. (At H = 1e6 there are only 100 intervals per
+     block; the test is weak there.)
+10b  Third cumulant of the count in [n, n+H) on the aligned grid, H = 50 and 500, windows train, A, B, C:
+     kappa3 = E c^3 - 3 E c E c^2 + 2 (E c)^3 with
+       E c   = sum_a p_a,  E c^2 = sum_a p_a + 2 sum_{a<b} mu_ab,  E c^3 = sum_a p_a + 6 sum_{a<b} mu_ab + 6 sum_{a<b<c} mu_abc,
+       mu_X = S_0(X) / lam^|X|, S_0 the singular series conditioned on n = 0 (mod 10) (theory2.S_cond(0, 10)).
+     Statistic: kappa3 / E c. Poisson gives 1. Measured: the third central moment of c - e over the intervals of a
+     block (e = H / ln(midpoint)), per block; block t9. Pass |t9| <= 3.
