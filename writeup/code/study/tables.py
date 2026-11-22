@@ -98,8 +98,30 @@ def landau():
         max(abs(v[w][s]['z_binom']) for w in ('F1', 'F2', 'F3') for s in v[w])))
 
 
+def bits():
+    b = J('bits_r6.json')
+    keys = list(b['train'].keys())
+    print('| model or measurement | ' + ' | '.join(['train', 'A', 'B', 'C (10¹⁵)']) + ' |')
+    print('|---|---|---|---|---|')
+    for k in keys:
+        print('| %s | %s |' % (k, ' | '.join('%.4f' % b[w][k] for w in ('train', 'A', 'B', 'C'))))
+
+
+def chain():
+    r = J('r7.json')
+    print('| window | measured H₁ / H₂ | H₁ − H₂ measured | mod 6: H₁ / H₂, H₁ − H₂ | mod 30 | mod 210 |')
+    print('|---|---|---|---|---|---|')
+    for w in ('train', 'A', 'B', 'C'):
+        m = r['%s_Q6' % w]
+        cells = []
+        for Q in (6, 30, 210):
+            d = r['%s_Q%d' % (w, Q)]
+            cells.append('%.4f / %.4f, %.4f' % (d['H1_pred'], d['H2_pred'], d['H1_pred'] - d['H2_pred']))
+        print('| %s | %.4f / %.4f | %.4f | %s |' % (w, m['H1_meas'], m['H2_meas'], m['H1_meas'] - m['H2_meas'], ' | '.join(cells)))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain}[sys.argv[1]]()
 
 
 def twins():

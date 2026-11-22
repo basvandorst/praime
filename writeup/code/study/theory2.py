@@ -327,3 +327,66 @@ def var_ratio_exact(H, L, W):
     """Var/mean = 1 - 1/lam + (2/(H lam)) sum_{h<H} (H-h)(S(0,h)-1)   (HL pairs; no asymptotics)."""
     ps = pair_sum(H)
     return window_avg(L, W, lambda lam: 1 - 1 / lam + 2 * ps / (H * lam))
+
+
+class GPattern(Pattern):
+    """Pattern with a pluggable singular series Sfun(int array (n, k)) -> array (n): used for residue-conditioned
+    series (round 7). Same Bahadur expansion, same log_avoid."""
+
+    def __init__(self, B, kmax, Sfun):
+        from itertools import combinations
+        B = sorted(B)
+        self.B = B
+        s = B[-1]
+        self.SB = float(Sfun(np.array([B], dtype=np.int64))[0])
+        self.kmax = kmax
+        self.s1 = np.zeros(0)
+        self.pairs = self.trip = self.quad = None
+        if self.SB == 0:
+            return
+        Bset = set(B)
+        I = np.array([m for m in range(1, s) if m not in Bset], dtype=np.int64)
+        Barr = np.array(B, dtype=np.int64)
+        SB = self.SB
+        Ssub = lambda cols: Sfun(np.concatenate([np.tile(Barr, (cols.shape[0], 1)), cols], axis=1)) / SB
+        if len(I) == 0:
+            return
+        s1 = Ssub(I[:, None])
+        live = I[s1 > 0]; s1 = s1[s1 > 0]; n = len(live)
+        self.s1 = s1
+        if kmax >= 2 and n >= 2:
+            i, j = np.triu_indices(n, 1)
+            s2v = Ssub(np.stack([live[i], live[j]], 1))
+            s2 = np.zeros((n, n)); s2[i, j] = s2v; s2[j, i] = s2v
+            self.pairs = (i, j, s2v); self.s2 = s2
+        if kmax >= 3 and n >= 3:
+            T = np.array(list(combinations(range(n), 3)), dtype=np.int64)
+            a, b, c = T[:, 0], T[:, 1], T[:, 2]
+            s3v = Ssub(np.stack([live[a], live[b], live[c]], 1))
+            self.trip = (a, b, c, s3v)
+            if kmax >= 4 and n >= 4:
+                s3 = np.zeros((n, n, n))
+                for (x, y, z) in ((a, b, c), (a, c, b), (b, a, c), (b, c, a), (c, a, b), (c, b, a)):
+                    s3[x, y, z] = s3v
+                Q = np.array(list(combinations(range(n), 4)), dtype=np.int64)
+                a, b, c, d = Q[:, 0], Q[:, 1], Q[:, 2], Q[:, 3]
+                self.quad = (a, b, c, d, Ssub(np.stack([live[a], live[b], live[c], live[d]], 1)), s3)
+
+
+def S_cond(a, Q):
+    """S_a(B) = S(B) * prod_{p | Q} 1[a + b != 0 mod p for all b] / (1 - nu_p(B)/p): the singular series for the
+    n = a (mod Q); S_a({0}) = Q/phi(Q) for a prime to Q."""
+    ps = [int(p) for p in small_primes(Q) if Q % p == 0]
+
+    def f(arr):
+        arr = np.asarray(arr, dtype=np.int64)
+        base = S_many(arr)
+        fac = np.ones(len(arr))
+        for p in ps:
+            r = np.sort((a + arr) % p, axis=1)
+            nu = 1 + np.count_nonzero(np.diff(r, axis=1), axis=1)
+            unit = np.all(r != 0, axis=1)
+            den = 1 - nu / p
+            fac *= np.where(unit & (den > 0), 1.0 / np.where(den > 0, den, 1.0), 0.0)
+        return base * fac
+    return f

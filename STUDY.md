@@ -192,7 +192,39 @@ The class bias appears on both kinds of moduli: consecutive n repeat their class
 
 **A note on the test (computed, applies to every table).** The block z divides by a standard deviation estimated from 10 blocks, so it is a Student t with 9 degrees of freedom: |t| > 3 has chance 0.015, not 0.0027. Over the 96 tests of section 6 the block test exceeds 3 four times against 1.4 expected; three of them are the information estimators before their bias is removed, the fourth is the train tail. Over the 68 twin-prime tests it exceeds 3 zero times (1.0 expected).
 
-## 9. What the seven lines turn out to be
+## 9. Second differences, and the gap sequence in bits ([r6.py](writeup/code/study/r6.py), [r7.py](writeup/code/study/r7.py), [round6.txt](writeup/data/study/preregister/round6.txt), [round7.txt](writeup/data/study/preregister/round7.txt))
+
+**Second differences (numerical line).** The second difference of the primes, p_(n+1) − 2p_n + p_(n−1) = g_n − g_(n−1), has P(d = k) = Σ_h P(0, h, 2h + k). The 20 tests (k = −6, −2, 0, 2, 6 in four windows) all fit ([verdicts_r6.json](writeup/data/study/verdicts_r6.json); 0 block-test misses, 0.3 expected). Two gaps that differ by 2 are 2.4 times as common as two equal gaps (0.0683 and 0.0285 at train): {0, h, 2h} survives mod 3 only when 6 | h (theorem), and the law carries the rest. P(d = k) = P(d = −k) holds exactly for the law, because (0, h, 2h + k) and (0, h + k, 2h + k) are mirror images and S is invariant under reflection; the primes agree within the noise (0.068348 and 0.068196 at train).
+
+**Bits per prime (information line).** Code the gap class c = min(g/2, 20) of every prime with each model; the cross-entropy is the code length in bits per prime (M0: P(h) ∝ e^(−h/λ) on even h; M1: × S(0, h); M2: the cluster law; M3: the cluster law as a Markov chain from the joint law; the measured conditional entropies use the Miller–Madow correction):
+
+| model or measurement | train | A | B | C (10¹⁵) |
+|---|---|---|---|---|
+| M0 coins | 4.1097 | 4.0818 | 3.9672 | 3.7414 |
+| M1 crude Gallagher | 4.0460 | 4.0215 | 3.9104 | 3.6891 |
+| M2 cluster law, i.i.d. | 4.0345 | 4.0156 | 3.9068 | 3.6871 |
+| M3 cluster law, Markov | 3.7658 | 3.7993 | 3.7268 | 3.5487 |
+| measured H(c_n+1 | c_n) | 3.7657 | 3.7993 | 3.7269 | 3.5487 |
+| measured H(c_n+1 | c_n, c_n-1) | 3.6336 | 3.7022 | 3.6525 | 3.4981 |
+
+Each layer of theory removes bits; the three-point law as a Markov chain codes the primes at exactly their measured order-1 conditional entropy (to 10⁻⁴ bits in all four windows). But knowing two previous gaps saves another 0.13 bits per prime at train (0.05 at 10¹⁵), which no three-point law can supply.
+
+**Where those bits live: a hidden chain on the residues (dynamic line).** Two previous gaps can reveal p_n mod 3 where one cannot (a gap ≡ 0 mod 6 hides it, the gap before may show it), and likewise mod 5 and 7. So take the residue a = p_n mod Q as a hidden state: conditioning on n ≡ a (mod Q) changes only the local factors of the singular series at the primes p | Q,
+
+  S_a(B) = S(B) · ∏_(p|Q) 1[a + b ≢ 0 (mod p) for all b ∈ B] / (1 − ν_p(B)/p)
+
+(identity check: the average of S_a(B) over all a mod 30 is S(B) to 10⁻¹⁶), and the same Bahadur expansion gives the gap law P_a(h) of each state. The gap sequence becomes a hidden Markov chain a → a + h whose class statistics are products of 8 × 8 (Q = 30) or 48 × 48 (Q = 210) matrices T_c[a, a′] = Σ_(h∈c, a+h≡a′) P_a(h):
+
+| window | measured H₁ / H₂ | H₁ − H₂ measured | mod 6: H₁ / H₂, H₁ − H₂ | mod 30 | mod 210 |
+|---|---|---|---|---|---|
+| train | 3.7657 / 3.6336 | 0.1321 | 3.7709 / 3.6668, 0.1041 | 3.7596 / 3.6327, 0.1269 | 3.7610 / 3.6290, 0.1320 |
+| A | 3.7993 / 3.7022 | 0.0971 | 3.8045 / 3.7268, 0.0777 | 3.7947 / 3.7012, 0.0935 | 3.7954 / 3.6983, 0.0971 |
+| B | 3.7269 / 3.6525 | 0.0744 | 3.7313 / 3.6712, 0.0601 | 3.7229 / 3.6510, 0.0719 | 3.7232 / 3.6486, 0.0746 |
+| C | 3.5487 / 3.4981 | 0.0506 | 3.5534 / 3.5119, 0.0415 | 3.5467 / 3.4973, 0.0494 | 3.5467 / 3.4956, 0.0511 |
+
+The drop H₁ − H₂ is 79 % explained mod 6, 96 % mod 30 and 100 % mod 210 at train (0.1320 against 0.1321; 0.0971 against 0.0971 at 10¹⁰, 0.0746 against 0.0744 at 10¹², 0.0511 against 0.0506 at 10¹⁵). The pre-registered tolerance (0.005 bits) holds for every H₂ mod 30 and for every value mod 210; mod 30 misses H₁ at train by 0.0061. The chain's levels sit 0.002–0.005 bits below the measured entropies: conditional independence of consecutive gaps given the residue over-states their dependence slightly, the remainder of the three-point coupling (the long-range part through λ) that residues do not carry. In words: beyond one step back, the memory of the prime gaps is the residue of the current prime modulo 2·3·5·7.
+
+## 10. What the seven lines turn out to be
 
 - **Numerical, statistical, algebraic, dynamic, information-theoretic**: five views of one object, the law of runs of consecutive primes. Its only input is the singular series; its only scale is ln x. The textbook versions miss because they truncate it: the Poisson factor e^(−h/ln x) ignores that the numbers between two primes are correlated with them (round 1: up to 30 %), the exponential resummation mistreats X² = X (step 3), and the Montgomery–Soundararajan asymptotics ignore the grid (H = 50).
 - **Geometric**: Ulam's diagonals are the same law for polynomials: the means are Bateman–Horn and the scatter is set by the Bateman–Horn constants of polynomial pairs.
