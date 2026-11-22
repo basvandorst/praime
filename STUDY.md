@@ -381,6 +381,28 @@ A Sophie Germain prime p has 2p + 1 prime too: two linear forms, x and 2x + 1. W
 
 ## 14. What the seven lines turn out to be
 
+**The scoreboard** (every pre-registered test of the law, from the verdict files; a miss is |t₉| > 3 for block tests, |z| > 3 for χ² tests; the chance of a miss per test is 0.015 and 0.0027):
+
+| round | what | tests | misses | expected by chance |
+|---|---|---|---|---|
+| 2-3 | gap law, classes, variance, information, tails, CPAP-4 (4 windows; registered test) | 96 | 4 | 1.4 |
+| 4 | consecutive twin primes | 68 | 0 | 1.0 |
+| 5 | consecutive n with n² + 1 prime | 45 | 3 | 0.7 |
+| 6 | second differences | 20 | 0 | 0.3 |
+| 9 | variance and means along quadratics (fresh data) | 4 | 0 | 0.0 |
+| 10 | third cumulant of interval counts | 8 | 0 | 0.1 |
+| 10 | variance in long intervals (2 windows) | 6 | 1 | 0.1 |
+| 11 | Gaussian primes, nearest neighbours (4 boxes) | 36 | 2 | 0.5 |
+| 13 | residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss) | 8 | 1 | 0.0 |
+| 14 | consecutive Sophie Germain primes | 56 | 1 | 0.8 |
+| 15 | joint law of three gaps, 729 cells (4 windows) | 4 | 0 | 0.0 |
+| 16 | Eisenstein primes, nearest neighbours (4 boxes) | 36 | 2 | 0.5 |
+| 17 | the law at 10¹⁸ | 18 | 1 | 0.3 |
+| | **all** | **405** | **15** | **5.9** |
+
+15 misses against 5.9 expected. Four of them have a known cause: three are the information estimators before their bias was measured from the law (round 3), and one is the gap tail at train, which the fifth order brings inside the test (round 8). The other 11 against 5.9 expected are an excess of about two to one, spread over different objects, windows and distances, with no common pattern found: the law is right to 0.1–2 % across all these objects and ten orders of magnitude, but not to the last standard error everywhere.
+
+
 - **Numerical, statistical, algebraic, dynamic, information-theoretic**: five views of one object, the law of runs of consecutive primes. Its only input is the singular series; its only scale is ln x. The textbook versions miss because they truncate it: the Poisson factor e^(−h/ln x) ignores that the numbers between two primes are correlated with them (round 1: up to 30 %), exponentiating the Ursell functions of distinct points mistreats X² = X (step 3), and the Montgomery–Soundararajan asymptotics ignore the grid (H = 50).
 - **Geometric**: Ulam's diagonals are the same law for polynomials: the means are Bateman–Horn and the scatter is set by the Bateman–Horn constants of polynomial pairs. In the plane, the Gaussian primes follow the same expansion with the singular series of ℤ[i] (section 11).
 - **Computational**: the pre-registered windows and the block test. Four windows over eight orders of magnitude, one of them opened only after the law was frozen.

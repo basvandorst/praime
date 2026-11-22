@@ -173,8 +173,57 @@ def r17():
               '%.1f' % d['z_binom'] if d['z_binom'] is not None else ''))
 
 
+def scoreboard():
+    from scipy.stats import t as st, norm
+    p9 = float(2 * st.sf(3, 9)); pn = float(2 * norm.sf(3))
+    rows = []
+
+    def summ(f, label, rnd):
+        v = J(f)
+        if '_summary' in v:
+            sm = v['_summary']; rows.append((rnd, label, sm['tests'], sm['misses'], sm['tests'] * p9))
+        else:
+            zs = [d.get('zT') for w in v for d in v[w].values() if isinstance(d, dict) and d.get('zT') is not None]
+            rows.append((rnd, label, len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    summ('verdicts_r3_t9.json', 'gap law, classes, variance, information, tails, CPAP-4 (4 windows; registered test)', '2-3')
+    summ('verdicts_twins.json', 'consecutive twin primes', '4')
+    summ('verdicts_landau.json', 'consecutive n with n² + 1 prime', '5')
+    summ('verdicts_r6.json', 'second differences', '6')
+    g1 = J('verdicts_r11.json'); g2 = J('verdicts_r11_rep.json')
+    zs = [d['zT'] for v in (g1, g2) for w in v if not w.startswith('_') for d in v[w].values()]
+    rows.append(('11', 'Gaussian primes, nearest neighbours (4 boxes)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    summ('verdicts_r14.json', 'consecutive Sophie Germain primes', '14')
+    e1 = J('verdicts_r16.json'); e2 = J('verdicts_r16_rep.json')
+    zs = [d['zT'] for v in (e1, e2) for w in v if not w.startswith('_') for d in v[w].values()]
+    rows.append(('16', 'Eisenstein primes, nearest neighbours (4 boxes)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    r = J('r17.json')
+    rows.append(('17', 'the law at 10¹⁸', len(r['stats']), sum(abs(d['t9']) > 3 for d in r['stats'].values()), len(r['stats']) * p9))
+    sk = J('r10_skew.json')
+    zs = [sk[w][H]['t9'] for w in ('train', 'A', 'B', 'C') for H in ('50', '500')]
+    rows.append(('10', 'third cumulant of interval counts', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    v1 = J('r10_var.json'); v2 = J('r10_var_3000000000.json')
+    zs = [d[H]['t9'] for d in (v1, v2) for H in ('10000', '100000', '1000000')]
+    rows.append(('10', 'variance in long intervals (2 windows)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    r9 = J('r9.json')
+    zs = [r9[k]['z'] for k in ('U', 'E')] + [r9[k]['z_BH'] for k in ('U', 'E')]
+    rows.append(('9', 'variance and means along quadratics (fresh data)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
+    r15 = J('r15.json')
+    zs = [r15[w]['z'] for w in r15]
+    rows.append(('15', 'joint law of three gaps, 729 cells (4 windows)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
+    r13 = J('r13.json')
+    zs = [d['z'] for d in r13.values()]
+    rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
+    rows.sort(key=lambda r: int(r[0].split('-')[0]))
+    print('| round | what | tests | misses | expected by chance |')
+    print('|---|---|---|---|---|')
+    T = M = E = 0
+    for rnd, lab, n, m, e in rows:
+        print('| %s | %s | %d | %d | %.1f |' % (rnd, lab, n, m, e)); T += n; M += m; E += e
+    print('| | **all** | **%d** | **%d** | **%.1f** |' % (T, M, E))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard}[sys.argv[1]]()
 
 
 def twins():
