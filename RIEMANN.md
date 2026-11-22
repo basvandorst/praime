@@ -1509,7 +1509,7 @@ D(δ) = HL_exact(δ) + (7/4)·δ + O(δ²),   HL_exact(δ) = ln(1/δ) + B + (1 +
 | Hardy–Littlewood exact | 0.93590 | 1.60523 | 2.50686 | 3.19506 | 3.88572 | 4.80051 |
 | (D − HL)/δ | 1.6680 | 1.7077 | 1.7327 | 1.7412 | 1.7455 | 1.7476 |
 
-The reading passes: at the four registered δ (0.05, 0.02, 0.005, 0.002) the ratio is within 2.4 % of 7/4 (rule 10 %), and it tends to 7/4 as δ → 0, with a next term of about −0.85δ². So the average variance of primes over relative intervals (x, (1 + δ)x], over ln X, is Hardy–Littlewood's exact value plus (7/4)δ: the second-order constant B comes from the main terms of N(T) (Chan), and the first correction at finite δ from its constant term 7/8.
+The reading passes: at the four registered δ (0.05, 0.02, 0.005, 0.002) the ratio is within 2.4 % of 7/4 (rule 10 %), and it tends to 7/4 as δ → 0, with a next term of about −0.85δ². So the average variance of primes over relative intervals (x, (1 + δ)x], over ln X, is Hardy–Littlewood's exact value plus (7/4)δ: the second-order constant B comes from the main terms of N(T) (Chan), and the first correction at finite δ from its constant term 7/8. A refinement found after the run (post hoc, not registered): for 1 ≪ γ ≪ 1/δ the weight is exactly √(1 + δ) ln²(1 + δ)/δ = δ − δ²/2 + …, which gives D(δ) − HL_exact(δ) ≈ (7/4)√(1 + δ) ln²(1 + δ)/δ; the remainders are +7.2e-05, +9.5e-06, +5.1e-07, -1.1e-06, -6.4e-07, -1.4e-06 at δ = 0.1 … 0.002, about 10⁻⁴ of the correction or less except at the ends (the low-zero structure S(t) at δ = 0.1, the tail at 0.002).
 
 ## References
 
