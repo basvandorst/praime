@@ -1617,7 +1617,7 @@ del P2048, nn2048, ww2048, n2048, w2048, A2048, S2048, N2048, dev2048, ys2048, Y
 # 2049: for chi_4 and chi_3, G_chi(y) = sum_{n<=y} Lambda(n) chi(n)(y/n - 1) + y L'/L(1,chi) stays within C_chi sqrt(y) of L'/L(0,chi) - T(y)
 import mpmath as mp2049
 mp2049.mp.dps = 30
-for chi2049, q2049, mx2049, at2049 in (([0, 1, 0, -1], 4, 0.100961, 1511), ([0, 1, -1], 3, 0.063865, 17509)):
+for chi2049, q2049, mx2049, at2049 in (([0, 1, 0, -1], 4, 0.100970, 1511), ([0, 1, -1], 3, 0.063865, 17509)):
     d1 = mp2049.dirichlet(1, chi2049, 1) / mp2049.dirichlet(1, chi2049); d0 = mp2049.dirichlet(0, chi2049, 1) / mp2049.dirichlet(0, chi2049)
     Ca = d1 - d0 + mp2049.log(2); Cb = 2 * d1 + mp2049.log(mp2049.mpf(q2049) / mp2049.pi) - mp2049.euler
     assert abs(Ca - Cb) < 1e-25
@@ -1629,9 +1629,10 @@ for chi2049, q2049, mx2049, at2049 in (([0, 1, 0, -1], 4, 0.100961, 1511), ([0, 
     n = np.concatenate(nn); w = np.concatenate(ww); o = np.argsort(n); n = n[o]; w = w[o]
     A = np.cumsum((w / n).astype(np.longdouble)); S = np.cumsum(w.astype(np.longdouble)); N = n.astype(np.longdouble)
     al = A + np.longdouble(float(d1)); be = -S - np.longdouble(float(d0))
-    dev = np.abs(al * N + be) / np.sqrt(N)
+    T2049 = lambda y: sum(y ** (-k) / (k * (k + 1)) for k in range(1, 12, 2))   # trivial zeros; below 0.006 for y >= 100
+    dev = np.abs(al * N + be + T2049(N)) / np.sqrt(N)
     xs = be / al; nxt = np.append(N[1:], np.longdouble(1e7)); ins = (xs > N) & (xs < nxt) & (xs >= 100)
-    devs = np.abs(al[ins] * xs[ins] + be[ins]) / np.sqrt(xs[ins])
+    devs = np.abs(al[ins] * xs[ins] + be[ins] + T2049(xs[ins])) / np.sqrt(xs[ins])
     big = N >= 100
     top = max(float(dev[big].max()), float(devs.max()) if len(devs) else 0.0)
     assert abs(top - mx2049) < 5e-7 and float(N[big][dev[big].argmax()]) == at2049 and top < float(Ca)
