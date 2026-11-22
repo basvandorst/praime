@@ -215,6 +215,13 @@ def scoreboard():
     r15 = J('r15.json')
     zs = [r15[w]['z'] for w in r15]
     rows.append(('15', 'joint law of three gaps, 729 cells (4 windows)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
+    import numpy as np
+    r20rows = {}
+    r20rows.update(J('r20_H30.json'))
+    for w in ('train', 'A', 'B', 'C'):
+        r20rows.update(J('r20_H60_%s.json' % w))
+    zs = [t for r in r20rows.values() for t, l in zip(r['t9'], r['law']) if l >= 1e-3]
+    rows.append(('20', 'count distribution in short intervals (H = 30, 60; cells with P ≥ 10⁻³)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     r13 = J('r13.json')
     zs = [d['z'] for d in r13.values()]
     rows.append(('13', 'residue chain mod 30 and 210, cell by cell (χ² too low counts as a miss)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * pn))
@@ -241,8 +248,26 @@ def euler():
         print('| %s | %s |' % (lab(s), ' | '.join(cells)))
 
 
+def r20():
+    import numpy as np
+    rows = {}
+    rows.update(J('r20_H30.json'))
+    for w in ('train', 'A', 'B', 'C'):
+        rows.update(J('r20_H60_%s.json' % w))
+    print('| window | H | P(0): data / law / Poisson | P(2): data / law / Poisson | distance to the data: law / Poisson | block misses (cells with P ≥ 10⁻³) |')
+    print('|---|---|---|---|---|---|')
+    for H in (30, 60):
+        for w in ('train', 'A', 'B', 'C'):
+            r = rows['%s_H%d' % (w, H)]
+            d, l, p, t = map(np.array, (r['data'], r['law'], r['poisson'], r['t9']))
+            tvl = 0.5 * np.abs(d - l).sum(); tvp = 0.5 * np.abs(d - p).sum()
+            sel = l >= 1e-3
+            print('| %s | %d | %.4f / %.4f / %.4f | %.4f / %.4f / %.4f | %.4f / %.4f | %d of %d |' % (
+                w, H, d[0], l[0], p[0], d[2], l[2], p[2], tvl, tvp, int(np.sum(np.abs(t[sel]) > 3)), int(sel.sum())))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler, 'r20': r20}[sys.argv[1]]()
 
 
 def twins():
