@@ -1,0 +1,13 @@
+Round 52, pre-registered before the data are looked at (commit order shows the order; STUDY.md section 1).
+
+Entropy of the next prime gap (own derivation). To leading order the Hardy-Littlewood gap law is
+P(g) = (S(0,g)/lam) e^(-g/lam) for even g, whose Shannon entropy is ln(e lam) - (1/2) mean_{g even}[S ln S]; with
+S(0,g) = 2C2 prod_{p | g, p > 2} (p-1)/(p-2) and mean_even[S 1(p | g)] = 2/(p - 1) this is
+  H(next gap) = log2(e lam) - K/ln 2 bits,  K = ln(2C2) + sum_{p>2} ln((p-1)/(p-2))/(p-1) = 0.7627474 nats
+(brute force over even g <= 4e6: 0.762742). Relative to parity-only randomness the singular series removes
+(K - ln 2)/ln 2 = 0.1004 bits. Corrections are expected to shrink with lam (like ln lam/lam).
+Data: the gap entropy (plug-in, Miller-Madow) over the windows [1e7, 1e8), [1e9, 2e9), A [1e10, +5e7),
+B [1e12, +5e7), C [1e15, +2e7), compared with the formula at the window's mean lam (entropy of the mixture over the
+window: the formula averaged with the window's weight is used).
+Reading fixed now: the formula is the right asymptote if |H_data - H_formula| decreases from window to window as lam
+grows and is below 0.05 bits at C (lam = 34.5).
