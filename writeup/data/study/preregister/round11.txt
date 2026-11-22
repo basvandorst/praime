@@ -1,0 +1,18 @@
+Round 11, pre-registered 2026-11-22 ~00:55 UTC, before any Gaussian-prime statistic was computed.
+
+Object: Gaussian primes z = a + bi (a, b > 0, a^2 + b^2 prime) as points of the plane, in two boxes:
+  G1: a, b in [1e5, 1e5 + 2000)   (norms near 2e10)
+  G2: a, b in [5e6, 5e6 + 1000)   (norms near 5e13)
+(the neighbours are searched in a margin of 40 around the box; primality of a^2 + b^2 by gmpy2, no sieve; the
+Gaussian primes on the axes and of norm p^2 do not occur in these boxes).
+Statistic: the nearest-neighbour squared distance d of each Gaussian prime in the box: P(d = 2, 4, 8, 10, 16, 18, 20),
+P(d >= 26), and the mean of d. 10 blocks = 10 horizontal strips of the box; block t9; pass |t9| <= 3.
+
+Law (derived, no parameter; r11.py): Hardy-Littlewood for Z[i]. For a set B of Gaussian integers,
+  S_G(B) = prod_pi (1 - nu_pi(B)/N(pi)) / (1 - 1/N(pi))^|B|,
+pi over the Gaussian primes up to associates: 1 + i (classes: x + y mod 2), the two primes over each p = 1 mod 4
+(classes: x + y i0 and x - y i0 mod p, i0^2 = -1), and p = 3 mod 4 (classes: (x mod p, y mod p), norm p^2).
+Density of Gaussian primes at norm N: (4/pi) / ln N per lattice point (prime ideal theorem, 4 units).
+P(d >= r) = avoidance of the disc {w : 0 < |w|^2 < r} around a Gaussian prime: the Bahadur form of round 2
+with interior points w, p_w = rho_w (4/pi)/ln N, order 4 while the live disc has <= 40 points, order 3 above.
+P(d = r) = P(d >= r) - P(d >= next r).
