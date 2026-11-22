@@ -1,4 +1,4 @@
-$\color{red}{\textsf{last updated: 2026-11-21 23:54 (CET)}}$
+$\color{red}{\textsf{last updated: 2026-11-22 03:36 (CET)}}$
 
 # Praime
 ## Beating prime puzzle records with LLM reasoning 
@@ -269,7 +269,7 @@ Submissions:
 - [CLAUDE.md](CLAUDE.md): contains the instructions for the LLM: where the data is, how to crack a puzzle, the rules.
 - [IDEAS.txt](IDEAS.txt): contains tricks to try next and open puzzles that look reachable.
 - [FINDINGS.txt](FINDINGS.txt): contains the results that surprised us.
-- [STUDY.md](STUDY.md): seven lines of structure in the primes (gaps, classes, variance, chains, information, Ulam's diagonals) predicted with no fitted parameter from Hardy–Littlewood's singular series, tested at 10⁷ to 10¹⁵.
+- [STUDY.md](STUDY.md): seven lines of structure in the primes (gaps, classes, variance, chains, information, Ulam's diagonals) predicted with no fitted parameter from Hardy–Littlewood's singular series, by a cluster expansion and by exact sums over admissible sets; tested at 10⁷ to 10¹⁸ and against the counts of every gap below 4·10¹⁸, with twin primes, Sophie Germain primes, n² + 1, n² + n + 41 and Gaussian and Eisenstein primes; 28 pre-registered rounds, four independent reviews.
 - [FACTS.md](FACTS.md): a long list of facts about primes (residues, counts, gaps, runs of consecutive primes, formulas, open problems), each with its formula and how we checked it.
 - [writeup/](writeup/): contains all our write-ups (records, answers and attempts on open puzzles), with their code in `writeup/code/` and data in `writeup/data/`.
 
