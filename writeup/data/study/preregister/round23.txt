@@ -1,0 +1,10 @@
+Round 23, pre-registered before the comparison (commit order shows the order; STUDY.md section 1).
+
+Data: Tomas Oliveira e Silva's counts N(g) of each gap g between consecutive primes below 4e18 (table t0.txt.gz linked
+from http://sweet.ua.pt/tos/gaps.html, test interval [2, 4e18]); only N(g) for even g <= 70 is used.
+Law: the exact Hardy-Littlewood gap law of round 22 (U_j(g) from the admissible interior subsets, lam-free),
+N_law(4e18; g) = N_true(1e6; g) + integral from 1e6 to 4e18 of sum_j (-1)^j U_j(g) / ln(t)^(j+2) dt
+(the counts below 1e6 by direct sieve, since the law is asymptotic), integrals with mpmath (30 digits).
+Reported for each g: relative difference and (N_data - N_law)/sqrt(N_data). No pass rule is set in advance beyond
+this description: the page itself states that Hardy-Littlewood estimates of N(x; g) stay within sqrt(2 N log log N);
+if the law here does, it reproduces those estimates; the relative differences show the accuracy of the law at 4e18.
