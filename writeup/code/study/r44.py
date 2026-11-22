@@ -19,7 +19,7 @@ if __name__ == '__main__':
             d[str(Q)] = {'twins': int(X.sum()), 'measured': meas, 'predicted': pred, 'ratio': meas / pred,
                          'p_lower': float(chi2.cdf((K - 1) * meas / pred, K - 1))}
         # level 2: spread of the 11 subclasses mod 2310 within each class mod 210, against the prediction
-        # (the within part of the mod-2310 sum of squares: SS2310 - SS210/11 on 135 - 15 = 120 degrees of freedom)
+        # (the within part of the mod-2310 sum of squares: SS2310 - SS210/9 on 135 - 15 = 120 degrees of freedom)
         adm2 = [a for a in range(2310) if math.gcd(a * (a + 2), 2310) == 1]
         X2 = cnt[2310][adm2]; m2 = X2.mean()
         ss2 = float(np.sum((X2 - m2) ** 2))
