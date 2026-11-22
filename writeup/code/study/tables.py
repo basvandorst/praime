@@ -154,8 +154,18 @@ def sg():
               ' | '.join('%.1f' % v[w][s]['zT'] for w in ('train', 'A', 'B', 'C'))))
 
 
+def eis():
+    v = J('verdicts_r16.json'); v.update(J('verdicts_r16_rep.json'))
+    boxes = ['E1', 'E2', 'E3', 'E4']
+    print('| statistic | ' + ' | '.join('%s: data / law, t₉' % b for b in boxes) + ' |')
+    print('|---|---|---|---|---|')
+    for s in v['E1']:
+        print('| %s | %s |' % (s.replace('d=', 'd = ').replace('d>=', 'd ≥ ').replace('mean_d', 'mean d'),
+              ' | '.join('%.4g / %.4g, %.1f' % (v[b][s]['x'], v[b][s]['T'], v[b][s]['zT']) for b in boxes)))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis}[sys.argv[1]]()
 
 
 def twins():

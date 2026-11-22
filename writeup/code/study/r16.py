@@ -12,6 +12,9 @@ import theory2 as T2
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'study')
 BOXES = {'E1': (200_000, 100_000, 2000), 'E2': (6_000_000, 3_000_000, 1000)}
 SUF = ''
+if os.environ.get('R16_SET') == 'rep':
+    BOXES = {'E3': (8_000_000, 4_000_000, 1000), 'E4': (1_000_000, 5_000_000, 1000)}
+    SUF = '_rep'
 MARGIN = 40
 RMAX = 75
 RTH = 52
@@ -135,7 +138,7 @@ def theory():
             t['mean_d'] = sum(R * v for R, v in pd.items()) + ge[Rs[-1]] * Rs[-1]
             res[box][str(blk)] = t
         print(box, {k: round(v, 5) for k, v in res[box]['-1'].items()}, flush=True)
-    json.dump(res, open(os.path.join(OUT, 'theory_r16.json'), 'w'), indent=1)
+    json.dump(res, open(os.path.join(OUT, 'theory_r16%s.json' % SUF), 'w'), indent=1)
 
 
 def data():
@@ -165,7 +168,7 @@ def data():
             st['max_d'] = int(d.max())
             rows.append({'window': box, 'block': blk, 'stats': st})
         print(box, int(core.sum()), 'Eisenstein primes', flush=True)
-    with open(os.path.join(OUT, 'results_r16.jsonl'), 'w') as f:
+    with open(os.path.join(OUT, 'results_r16%s.jsonl' % SUF), 'w') as f:
         for r in rows:
             f.write(json.dumps(r) + '\n')
 
