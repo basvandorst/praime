@@ -11,7 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', '..', 'data', 'study')
 Z = [mp.mpf(l.strip()) for l in open(os.path.join(HERE, '..', '..', 'data', 'riemann', 'zeros_hp2419.txt')) if l.strip()]
 T = float(Z[-1])
-L0, B = 10 ** 9, 10 ** 8
+L0, B = int(os.environ.get('R35_L0', 10 ** 9)), int(os.environ.get('R35_B', 10 ** 8))
 edges = [L0 + k * B for k in range(11)]
 
 
@@ -32,7 +32,7 @@ for k in range(10):
     lo = edges[k]
     n = 0
     for s in range(10):
-        n += int(C.primes_mask(lo + s * 10 ** 7, 10 ** 7).sum())
+        n += int(C.primes_mask(lo + s * (B // 10), B // 10).sum())
     counts.append(n)
 
 
@@ -53,4 +53,4 @@ a, b = edges[0], edges[-1]
 pred = float((Rv[b] - Rv[a]) - (Zv[b] - Zv[a])); dli = float(liv[b] - liv[a]); N = sum(counts); s = math.sqrt(2) * sig(b)
 out['whole'] = {'count': N, 'count_minus_li': N - dli, 'prediction_minus_li': pred - dli, 'count_minus_prediction': N - pred, 'sigma': s, 'z': (N - pred) / s}
 print('whole', out['whole'])
-json.dump(out, open(os.path.join(OUT, 'r35.json'), 'w'), indent=1)
+json.dump(out, open(os.path.join(OUT, 'r35.json' if L0 == 10 ** 9 else 'r35_%d.json' % L0), 'w'), indent=1)
