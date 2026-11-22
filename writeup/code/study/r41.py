@@ -38,6 +38,9 @@ if __name__ == '__main__':
     Pa_rows = {g: [float(Pa[i, g // 2 - 1]) if math.gcd(int(a) + g, Q) == 1 else 0.0 for i, a in enumerate(U)] for g in GAPS}
     N, Y, Xg = counts(U)
     c, d = r13.chi2(N, Pa)
+    E = N.sum(1, keepdims=True) * Pa
+    r2 = np.where(E >= 5, (N - E) ** 2 / np.where(E > 0, E, 1), np.nan)
+    cells = {'class_%d' % (k + 1): [float(np.nanmean(r2[:, k])), float(np.nanmean(np.where(E[:, k] >= 5, 1 - Pa[:, k], np.nan))), int(np.sum(E[:, k] >= 5))] for k in range(20)}
     pr = r40.predict(L0, W, Pa_rows)
     Ybar = Y.mean(); v = (Y - Ybar) / math.sqrt(Ybar)
     per = {}; pu = []; mu = []; pc = []; mc = []; wts = []; cell_pred = 0.0; cell_null = 0.0
@@ -59,6 +62,6 @@ if __name__ == '__main__':
                   'diff': float(np.average(dl, weights=wts)), 'se_from_scatter': float(np.std(dl, ddof=1) / math.sqrt(len(dl)))},
            'uv': {'pred': float(np.average(pc, weights=wts)), 'meas': float(np.average(mc, weights=wts))},
            'v2': {'pred': pr['vY'], 'meas': float(np.mean(v * v) * 48 / 47)},
-           'chi2_per_dof': {'measured': c / d, 'dof': d, 'implied_prediction': implied}}
+           'chi2_per_dof': {'measured': c / d, 'dof': d, 'implied_prediction': implied}, 'cells_r13e': cells}
     print(json.dumps({k: res[k] for k in ('primes', 'u2', 'uv', 'v2', 'chi2_per_dof')}), flush=True)
     json.dump(res, open(os.path.join(R3.OUT, 'r41.json'), 'w'), indent=1)
