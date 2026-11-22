@@ -67,5 +67,5 @@ if __name__ == '__main__':
                             'cramer': math.log(X) - 1.5, 'diff_second_order': R - (math.log(1 / d) + B)})
         print('delta %.0e  R %.4f  ln(1/d)+B %.4f  diff %+.4f  ln(1/d) %.3f  Cramer %.2f' % (d, R, math.log(1 / d) + B, R - math.log(1 / d) - B, math.log(1 / d), math.log(X) - 1.5), flush=True)
     res['psi_at_last_midpoint'] = float(ps0[-1]); res['last_midpoint'] = float(xs[-1]); res['seconds'] = time.time() - t0
-    json.dump(res, open(os.path.join(OUT, 'r91_X%.0e.json' % X), 'w'), indent=1)
+    json.dump(res, open(os.path.join(OUT, os.environ.get('R91_OUT') or ('r91_X%.0e.json' % X)), 'w'), indent=1)
     print('psi(%.0f) = %.1f, %d s' % (xs[-1], ps0[-1], time.time() - t0))

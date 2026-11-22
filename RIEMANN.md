@@ -1483,6 +1483,16 @@ a sum over pairs of zeros only. With the 2,419 zeros up to height 2,949 (and the
 
 Both predictions pass: the zeros give the primes' R to 0.0001–0.003 at every X, drift included (rules 0.05 and 0.1). The split is the point. The diagonal (each zero paired with itself) does not depend on X; the pairs of distinct zeros carry all the dependence on X, as terms X^(i(γ − γ')) that oscillate in ln X. So at fixed δ the variance of primes in long intervals is an almost periodic function of ln X around the diagonal value, played by the low zeros; it has no limit, and its swing shrinks as δ decreases (−0.26 to +0.04 at δ = 0.01, against −0.14 to +0.17 at δ = 0.1, relative to a larger mean). Its average over ln X is the diagonal.
 
+**Round 94: the zeros predict the primes** ([round94.txt](writeup/data/study/preregister/round94.txt), pre-registered; r91.py with R91_OUT → [r94_X3.268e9.json](writeup/data/study/r94_X3.268e9.json), [r94_X3.9e9.json](writeup/data/study/r94_X3.9e9.json), [r94_X2e10.json](writeup/data/study/r94_X2e10.json)). A forward test of the split above: the zero side alone was evaluated first at 120 values of X between 1.2·10⁹ and 4·10¹⁰, three X were chosen at the extremes of the swing, their R registered, and only then were the primes counted:
+
+| X | R(0.1), zeros (registered) | R(0.1), primes | R(0.01), zeros (registered) | R(0.01), primes |
+|---|---|---|---|---|
+| 3.268·10⁹ | 0.8533 | 0.8527 | 3.1199 | 3.1108 |
+| 3.900·10⁹ | 1.4816 | 1.4809 | 3.0404 | 3.0300 |
+| 2·10¹⁰ | 1.1254 | 1.1261 | 2.9853 | 2.9848 |
+
+The reading passes: the primes land within 0.0007 of the zeros' values at δ = 0.1 and within 0.010 at δ = 0.01 (rules 0.02 and 0.03). The swing from 0.853 to 1.482 between X = 3.27·10⁹ and 3.90·10⁹, a factor 1.2 apart, predicted from 2,419 zeros, is there in the primes; Hardy–Littlewood's X-independent 0.936 misses both by 0.08 and 0.55. (This is the explicit formula at work, a numerical identity under RH rather than a new law; what it shows is that the long-interval variance of the primes is, to 10⁻³, a finite melody of the lowest zeros that can be played forward.)
+
 **The diagonal is Hardy–Littlewood's constant, and B comes from the zeros' counting function** ([r93_B.py](writeup/code/study/r93_B.py) → [r93_B.json](writeup/data/study/r93_B.json); derivation ours). With the Riemann–von Mangoldt density N′(t) = ln(t/2π)/2π, the diagonal is D(δ) = (2/δ) ∫ N′(t) |(1 + δ)^(½ + it) − 1|²/(¼ + t²) dt. For small δ, |(1 + δ)^(½ + it) − 1|² ≈ 2(1 − cos tδ), and with ∫₀^∞ (1 − cos at)/t² dt = πa/2 and ∫₀^∞ ln t (1 − cos at)/t² dt = (πa/2)(1 − γ − ln a) (checked numerically at a = 0.5, 1, 3),
 
 ```
