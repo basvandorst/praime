@@ -1,0 +1,10 @@
+Round 35, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+The deficit of primes against li in [1e9, 2e9) (round 12: relative -2.8e-5), from Riemann's explicit formula.
+Data: the number of primes in each block [1e9 + k 1e8, 1e9 + (k+1) 1e8), k = 0..9 (exact sieve), and in the whole window.
+Prediction: pi(b) - pi(a) = [R(b) - R(a)] - sum over the first 2419 zeros (28 digits, writeup/data/riemann/zeros_hp2419.txt)
+of 2 Re[li(b^rho) - li(a^rho)], with R(y) = sum_n mu(n)/n li(y^(1/n)) (n up to 40) and li(y^rho) = Ei(rho ln y)
+(mpmath); the trivial zeros and the higher terms of R(x^rho) are left out (far below 1 here).
+Noise of the truncation (zeros above T = 2419th): for one endpoint sigma = (2 sqrt(x)/ln x) sqrt(ln(T/2pi)/(2 pi T)),
+for an increment sqrt(2) times that. Reported: count - li, count - prediction, and that difference in units of sigma.
+Pass: |count - prediction| <= 3 sigma for each block and the whole window.
