@@ -302,6 +302,17 @@ For each residue a of p and each class c of the next gap, the conditioned law of
 - By window length inside the train window: 0.691 for W = 9·10⁷, 0.888 ± 0.022 for W = 9·10⁶ and 0.880 ± 0.023 for W = 9·10⁵. The prediction of the rigidity hypothesis (that χ²/dof climbs to 1 as W/x falls) holds only from the whole window to its blocks; below that it stays near 0.88.
 - **Open point.** The gap classes of the primes, counted per residue class, are more regular than independent, stratified or Markov draws from a calibrated law, by about 10 % at every window length and by 30 % over the whole of [10⁷, 10⁸). A likely source is the long-range rigidity of counts that the Hardy–Littlewood correlations imply (section 4: counts of primes in long intervals scatter far less than Poisson), applied to counts of patterns; deriving its size needs four-point sums and is not done here. A third mechanism was tested and rejected as well (addendum 3, [r13d.py](writeup/code/study/r13d.py) → [r13d.json](writeup/data/study/r13d.json)): if the gaps after the primes of one residue class had to fill an almost fixed share of the window, every row would lose one degree of freedom (expected 0.88); but the squared projection of each row's residual on the gap-length direction averages 0.66, 0.92, 0.75 and 0.74 in the four windows (about 1 under independence, 0 under such a constraint), and removing it leaves χ²/dof at 0.70 at train.
 
+**Round 15: three consecutive gaps** ([r15.py](writeup/code/study/r15.py) → [r15.json](writeup/data/study/r15.json), [round15.txt](writeup/data/study/preregister/round15.txt)). Four consecutive primes, P(0, h₁, h₁ + h₂, h₁ + h₂ + h₃) for all 729 triples of gaps ≤ 18 (order 4), a direct test of the four-point correlations, cell by cell:
+
+| window | triples with all gaps ≤ 18: data / law | χ²/dof (dof) | z | control (multinomial from the law) |
+|---|---|---|---|---|
+| train | 0.2773 / 0.2775 | 0.992 (404) | -0.1 | 1.031 ± 0.044 |
+| A | 0.1586 / 0.1582 | 1.038 (404) | 0.5 | 0.995 ± 0.082 |
+| B | 0.1044 / 0.1041 | 1.089 (404) | 1.3 | 0.998 ± 0.072 |
+| C | 0.0606 / 0.0606 | 0.985 (404) | -0.2 | 0.999 ± 0.054 |
+
+All four fit. The three-gap table shows no under-dispersion, not even at train, so the low χ² of the tables split by residue (section 12) is not a general regularity of consecutive gaps; it is specific to the counts per residue class.
+
 ## 13. Sophie Germain primes: two forms with different slopes ([r14.py](writeup/code/study/r14.py), [round14.txt](writeup/data/study/preregister/round14.txt), [verdicts_r14.json](writeup/data/study/verdicts_r14.json))
 
 A Sophie Germain prime p has 2p + 1 prime too: two linear forms, x and 2x + 1. Write the form x + b as the token 2b and the form 2x + 2m + 1 as the token 2m + 1; for an odd prime q both have the root −t/2 (mod q), so the number of roots mod q is the number of distinct tokens mod q, and only q = 2 is special (only the forms x + b have roots there). Checks: the series of {x, 2x + 1} is 1.3203236 = 2C₂, as it must be; p and p + 6 both Sophie Germain have 5.2713 (5.2725 from a brute product to 3000); p and p + 3 or p + 15 get 0. Consecutive Sophie Germain primes at distance h are the pattern of four forms at 0 and h with interior events {x + m, 2x + 2m + 1}, and the Bahadur form of the twin primes applies with two scales, ln x and ln 2x. The windows hold 367,108 / 120,953 / 84,510 / 21,704 Sophie Germain primes (train: exactly π_SG(10⁸) − π_SG(10⁷) = 423,140 − 56,032).
