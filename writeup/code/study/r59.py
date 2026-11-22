@@ -103,7 +103,7 @@ if __name__ == '__main__':
         law = {}
         for k, v in res['law'].items():
             ls = np.interp(u, LAMS, v); law[int(k)] = float(np.sum(ls * wt) / np.sum(wt))
-        mass = sum(law.values())
+        mass = sum(v for d, v in law.items() if d <= 1200)          # the bands stop at 1200; a longer law is ignored here
         lam_m = float(np.sum(u * wt) / np.sum(wt)); pi6 = 6 * 1.3203236316937 / lam_m ** 2
         bands = [(lo, lo + 24) for lo in range(6, 600, 30)] + [(lo, lo + 54) for lo in range(606, 1200, 60)]
         rows = []; chi = 0.0; dof = 0; chiP = 0.0
