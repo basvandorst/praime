@@ -1,6 +1,7 @@
 """Round 83 (preregister/round83.txt): the distribution of the distance to the k-th neighbour, D_k = p_{n+k} - p_n,
 from round 81's generating-function law (copied here), against the primes in [1e9, 1.1e9), for k = 2, 3, 4; compared
-with Gallagher's Gamma(k) law and with the sum of k independent class-averaged gaps. usage: r83.py"""
+with Gallagher's Gamma(k) law, with the sum of k independent class-averaged gaps, and (added after the twenty-third review)
+with the exact first-order chain on classes mod 30030 (one-gap laws per class, no memory beyond the class). usage: r83.py"""
 import os, json, math
 import numpy as np
 from scipy import stats
@@ -14,6 +15,28 @@ LAM = math.log(1.05e9); RHO0 = 1 / (LAM * r47.RHO_DEN)
 DMAX = 240; NZ = 48; KS = (1, 2, 3, 4)
 Z = np.exp(2j * np.pi * np.arange(NZ) / NZ)
 NCLS = sum(1 for a in range(PP) if math.gcd(a, PP) == 1)
+
+
+def class_chain():
+    """Exact distribution of D_k for the first-order chain on classes (one-gap law per class), k in KS."""
+    cls = np.array([a for a in range(PP) if math.gcd(a, PP) == 1]); idx = np.full(PP, -1); idx[cls] = np.arange(len(cls))
+    NG = DMAX // 2; P1 = np.zeros((len(cls), NG))
+    for g in range(2, DMAX + 1, 2):
+        st = r47.setup(g); n = st['M'].shape[1]; rows = idx[cls[np.gcd(cls + g, PP) == 1]]; M = st['M']; p = RHO0 * st['s1']
+        L = M @ np.log1p(-p) if n else np.zeros(len(rows))
+        if n > 1:
+            w = p / (1 - p); L = L + 0.5 * np.sum((M @ ((w[:, None] * w[None, :]) * st['R'])) * M, axis=1)
+        P1[rows, g // 2 - 1] = RHO0 * st['S2'] * np.exp(L)
+    P1 /= P1.sum(1, keepdims=True)
+    out = {1: P1.mean(0)}; cur = P1.copy()
+    for k in KS[1:]:
+        new = np.zeros_like(cur)
+        for j in range(NG):
+            nxt = idx[(cls + 2 * (j + 1)) % PP]; ok = (nxt >= 0) & (cur[:, j] > 0); m = NG - j - 1
+            if m > 0:
+                new[ok, j + 1:] += cur[ok, j:j + 1] * P1[nxt[ok], :m]
+        cur = new; out[k] = cur.mean(0) / cur.mean(0).sum()
+    return out
 
 
 def law():
@@ -47,7 +70,7 @@ def chi2(counts, expect):
 
 
 if __name__ == '__main__':
-    dist = law()
+    dist = law(); chain = class_chain()
     Ds = np.arange(2, DMAX + 1, 2)
     P = np.nonzero(C.primes_mask(10 ** 9, 10 ** 8))[0].astype(np.int64) + 10 ** 9
     edges = list(range(2, DMAX + 1, 12))                         # bands [lo, lo + 10]
@@ -70,12 +93,13 @@ if __name__ == '__main__':
                 full = np.convolve(full, one)
             dd = 2 * (np.arange(len(full)) + k); ind = np.array([full[dd == D].sum() for D in Ds]); ind /= ind.sum()
         e_ind = np.array([N * ind[(Ds >= lo) & (Ds <= lo + 10)].sum() for lo in edges])
+        e_ch = np.array([N * chain[k][(Ds >= lo) & (Ds <= lo + 10)].sum() for lo in edges])
         out = {'N': N}
-        for name, e in (('law', e_law), ('gamma', e_gam), ('independent_gaps', e_ind)):
+        for name, e in (('law', e_law), ('gamma', e_gam), ('independent_gaps', e_ind), ('class_chain', e_ch)):
             x, dof, rows = chi2(cnt, e)
             out[name] = {'chi2': x, 'dof': dof, 'q999': float(stats.chi2.ppf(0.999, dof)),
                          'max_abs_z': float(max(abs(a - b) / math.sqrt(b) for a, b in rows))}
         out['bands'] = [{'lo': lo, 'count': int(c), 'law': float(e)} for lo, c, e in zip(edges, cnt, e_law)]
         res['k'][str(k)] = out
-        print(k, 'N', N, {n: (round(out[n]['chi2'], 1), out[n]['dof'], round(out[n]['max_abs_z'], 1)) for n in ('law', 'gamma', 'independent_gaps')}, 'q999', round(out['law']['q999'], 1), flush=True)
+        print(k, 'N', N, {n: (round(out[n]['chi2'], 1), out[n]['dof'], round(out[n]['max_abs_z'], 1)) for n in ('law', 'gamma', 'independent_gaps', 'class_chain')}, 'q999', round(out['law']['q999'], 1), flush=True)
     json.dump(res, open(os.path.join(OUT, 'r83.json'), 'w'), indent=1)
