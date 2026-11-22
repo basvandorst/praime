@@ -1,7 +1,7 @@
 # Independent D(delta) with numpy Gauss-Legendre per period; decomposition D - D0 = (7/8) f(0) + P3 + P4.
 import numpy as np, math, json
 from scipy.special import loggamma
-Z=np.array([float(l) for l in open('/home/bas/praime/writeup/data/riemann/zeros_9999_flint.txt') if l.strip()])
+Z=np.array([float(l) for l in open('/home/bas/praime/writeup/data/riemann/zeros_10000_flint.txt') if l.strip()])
 T=Z[-1]; NT=len(Z); B=1-0.5772156649015329-math.log(2*math.pi)
 xg,wg=np.polynomial.legendre.leggauss(60)
 def gl(F, edges):

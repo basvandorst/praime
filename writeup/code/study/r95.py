@@ -15,12 +15,15 @@ for d in (0.1, 0.05, 0.02, 0.01, 0.005, 0.002):
     w = lambda g: ((1 + d) + 1 - 2 * s * np.cos(g * u)) / (0.25 + g * g)
     zsum = 2 * float(np.sum(w(Z))) / d
     f = lambda t: math.log(t / (2 * math.pi)) / (2 * math.pi) * float(w(t))
-    # smooth tail from T, but starting at the midpoint between the last zero and the next expected one (half a spacing)
-    T0 = T + 0.5 * 2 * math.pi / math.log(T / (2 * math.pi))
-    per = 2 * math.pi / u; tail = 0.0; a = T0
-    while a < T0 + 3000 * per and a < 3e7:
+    # tail beyond T (after the thirty-first review): int_T^inf w dN = int_T^inf w N0' dt - w(T) S(T+), with
+    # S(T+) = n - 1 - theta(T)/pi (n = number of zeros <= T); the remaining -int w' S is far smaller
+    import mpmath
+    S_T = len(Z) - 1 - float(mpmath.siegeltheta(T)) / math.pi
+    per = 2 * math.pi / u; tail = 0.0; a = T
+    while a < T + 3000 * per and a < 3e7:
         tail += integrate.quad(f, a, a + per, limit=100)[0]; a += per
     tail += (2 + d) / (2 * math.pi) * (math.log(a / (2 * math.pi)) + 1) / a
+    tail -= float(w(T)) * S_T
     D = zsum + 2 * tail / d
     hl = math.log(1 / d) + B + (1 + d) * math.log1p(d) / d - 1
     refined = 1.75 * math.sqrt(1 + d) * math.log1p(d) ** 2 / d          # post hoc approximation (superseded)
