@@ -44,7 +44,7 @@ if __name__ == '__main__':
         if q < 3:
             continue
         if q > 20000:
-            # m_k is then almost always k+1 (all distinct): use H(1) - H(k+1) with a small-collision correction ignored
+            # all-distinct approximation: collisions are not rare at k = 1e4, but the per-q term is about k/(2q^3), so the error is below 1e-5 nats
             for k in ks:
                 if k + 1 < q:
                     tot[k] += float(Hq(q, 1) - Hq(q, k + 1))

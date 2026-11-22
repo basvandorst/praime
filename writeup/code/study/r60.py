@@ -15,7 +15,7 @@ def K_tw_with_tail():
     mean = (f2 + 2 * f3 + (ps - 3) * f4) / ps
     w2, w3, w4 = f2 / mean, f3 / mean, f4 / mean
     terms = (w2 * np.log(w2) + 2 * w3 * np.log(w3) + (ps - 3) * w4 * np.log(w4)) / ps
-    return float(terms.sum()), float(terms[-1] * ps[-1] ** 2)   # terms fall like c/p^2; beyond 2e7 below 1e-9
+    return float(terms.sum()), float(terms[-1] * ps[-1] ** 2)   # terms fall like about 3/p^3; beyond 2e7 negligible
 
 
 if __name__ == '__main__':

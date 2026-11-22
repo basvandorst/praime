@@ -1,0 +1,52 @@
+(1) brute force vs coupon, nats
+ q= 3 k=1 brute 0.1732867951 coupon 0.1732867951 diff -2.2e-16
+ q= 3 k=2 brute 0.2599301927 coupon 0.2599301927 diff -2.2e-16
+ q= 3 k=3 brute 0.3032518915 coupon 0.3032518915 diff 1.3e-15
+ q= 3 k=4 brute 0.3249127409 coupon 0.3249127409 diff -2.7e-15
+ q= 3 k=5 brute 0.3357431656 coupon 0.3357431656 diff 4.6e-15
+ q= 3 k=6 brute 0.3411583779 coupon 0.3411583779 diff -3.0e-15
+ q= 5 k=1 brute 0.0097717502 coupon 0.0097717502 diff -4.4e-16
+ q= 5 k=2 brute 0.0232568474 coupon 0.0232568474 diff 1.6e-15
+ q= 5 k=3 brute 0.0483948385 coupon 0.0483948385 diff -2.2e-15
+ q= 5 k=4 brute 0.0777469225 coupon 0.0777469225 diff 1.6e-15
+ q= 5 k=5 brute 0.1057569074 coupon 0.1057569074 diff 2.2e-16
+ q= 7 k=1 brute 0.0026435526 coupon 0.0026435526 diff -2.2e-16
+ q= 7 k=2 brute 0.0058182177 coupon 0.0058182177 diff 6.7e-16
+ q= 7 k=3 brute 0.0096714640 coupon 0.0096714640 diff 2.9e-15
+ q= 7 k=4 brute 0.0144457452 coupon 0.0144457452 diff 1.9e-14
+ q=11 k=1 brute 0.0005382320 coupon 0.0005382320 diff -8.9e-16
+ q=11 k=2 brute 0.0011352619 coupon 0.0011352619 diff 1.8e-15
+ q=11 k=3 brute 0.0017983159 coupon 0.0017983159 diff 5.8e-15
+ q=13 k=1 brute 0.0003073391 coupon 0.0003073391 diff -1.3e-15
+ q=13 k=2 brute 0.0006421448 coupon 0.0006421448 diff -4.4e-16
+ q=13 k=3 brute 0.0010070980 coupon 0.0010070980 diff 3.9e-14
+ round56 I_p p=3 0.1732867951 coupon k=1 0.1732867951
+ round56 I_p p=5 0.0097717502 coupon k=1 0.0097717502
+ round56 I_p p=7 0.0026435526 coupon k=1 0.0026435526
+(2) Taylor vs exact DP
+ q=101 k=10 exact 5.2681e-06 taylor 5.2685e-06
+ q=101 k=1000 exact 9.9203e-03 taylor 1.4718e-02
+ q=101 k=10000 exact 9.9498e-03 taylor 9.9498e-03
+ q=1009 k=10 exact 4.9070e-09 taylor 4.8831e-09
+ q=1009 k=1000 exact 8.3535e-07 taylor 8.3664e-07
+ q=1009 k=10000 exact 9.5838e-04 taylor 1.2925e-03
+ q=3001 k=10 exact 1.8550e-10 taylor 2.0170e-10
+ q=3001 k=1000 exact 2.1980e-08 taylor 2.2867e-08
+ q=3001 k=10000 exact 1.5058e-06 taylor 1.5068e-06
+(3) I_k table
+ k=    1 I_k 0.186982 nats 0.26976 bits  [q>2e5 part -3.52e-06 nats, tail>2e7 7.7e-05]
+ k=    2 I_k 0.291531 nats 0.42059 bits  [q>2e5 part -8.45e-07 nats, tail>2e7 1.1e-05]
+ k=    3 I_k 0.365307 nats 0.52703 bits  [q>2e5 part -1.46e-06 nats, tail>2e7 4.8e-05]
+ k=    5 I_k 0.469911 nats 0.67794 bits  [q>2e5 part -1.54e-06 nats, tail>2e7 9.4e-05]
+ k=   10 I_k 0.626200 nats 0.90342 bits  [q>2e5 part -1.75e-06 nats, tail>2e7 -5.5e-06]
+ k=   30 I_k 0.853535 nats 1.23139 bits  [q>2e5 part 5.53e-07 nats, tail>2e7 -1.4e-04]
+ k=  100 I_k 1.097732 nats 1.58369 bits  [q>2e5 part -1.43e-06 nats, tail>2e7 1.7e-04]
+ k= 1000 I_k 1.488701 nats 2.14774 bits  [q>2e5 part 3.05e-05 nats, tail>2e7 -1.4e-03]
+ k=10000 I_k 1.790728 nats 2.58347 bits  [q>2e5 part 6.12e-04 nats, tail>2e7 -8.3e-03]
+ I2-I1 = 0.10454977 nats
+ growth k=1e3->1e4: 0.3020 nats; lnln diff 0.2877
+ growth k=100->1e3: 0.3910 nats; lnln diff 0.4055
+ k->inf sum up to 100: 1.9547 bits
+ k->inf sum up to 1000: 2.5261 bits
+ k->inf sum up to 10000: 2.9374 bits
+ k->inf sum up to 100000: 3.2580 bits
