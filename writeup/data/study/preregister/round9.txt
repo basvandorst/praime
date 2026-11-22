@@ -1,0 +1,12 @@
+Round 9, pre-registered 2026-11-22 ~00:40 UTC, before any count on these curves was made.
+
+The variance law along a quadratic (section 5; pair Bateman-Horn constants C_d), tested on fresh data:
+  U: the 195 Ulam-diagonal quadratics 4n^2 + bn + c of round 1, on n in [1e6, 1.05e6) (values near 4e12);
+  E: Euler's family n^2 + n + c, c odd from 1 to 199 (100 curves, all irreducible), on n in [1e6, 1.05e6).
+Counts by gmpy2.is_prime on every value (no sieve). Collision rule for general f = a x^2 + b x + c:
+omega_d(p) = 3 when p | a^2 d^2 - D and p does not divide dD (the code of round 2 had a = 4 built in).
+Statistics per family: chi2 = mean over the curves of (obs - E)^2 / E, E = C(f) sum_n 1/ln f(n);
+theory = mean over the curves of Var/E from the pair constants (correlation sums by FFT, d up to 5e4).
+Noise: z = (chi2 - theory) / (sd over curves of (obs - E)^2/E / sqrt(#curves)). Pass |z| <= 3.
+Also: the slope of obs on E (Bateman-Horn, theory 1), z from the same per-curve scatter.
+Expected: chi2 near 0.6-0.7 for both families (values near e^29, windows of 5e4 consecutive n).
