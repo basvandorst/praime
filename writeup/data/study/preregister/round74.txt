@@ -1,0 +1,12 @@
+Round 74, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Round 73 failed: the gaps reveal p mod 30030 sooner (mean 34.0 gaps) than the uniform coupon collector (39.7), because
+consecutive primes repeat their residue mod q less often than 1/(q-1). Prediction from our own law, no fit: a Markov
+chain on the classes a mod 30030 whose step is a gap drawn from the conditioned law P(g | a) of round 72 (order 2,
+y = 13, lam = ln(1.05e9), the same table). Going backwards from p, the previous gap has law P(g | -a mod 30030)
+(reflection symmetry of the sieve and of S_{>13}). Simulate 200,000 backward chains from classes drawn uniformly
+(seed 74), up to 150 steps, and record T (steps until one class is consistent) and T_q per q = 3, 5, 7, 11, 13, plus
+the chain's P(gap = 0 mod q).
+Readings fixed now, against round 73's data (no new data): (1) max |CDF_chain - CDF_data| <= 0.03 over k = 0..150;
+(2) mean T within 1.0 gap of 34.0; (3) every per-q mean T_q within 5 % of the data. The chain keeps only the dependence
+of each gap on the current class mod 30030 (not on earlier gaps beyond it), so a miss in (1)-(3) would point there.
