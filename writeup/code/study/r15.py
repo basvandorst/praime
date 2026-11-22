@@ -42,7 +42,7 @@ def main():
             o2 = np.append(o[big], o[~big].sum()); e2 = np.append(e[big], e[~big].sum())
             if e2[-1] < 5:
                 o2, e2 = o2[:-1], e2[:-1]
-            c2 = float(np.sum((o2 - e2) ** 2 / e2)); d = len(o2) - 1
+            c2 = float(np.sum((o2 - e2) ** 2 / e2)); d = len(o2)          # expectation not rescaled to the total: dof = cells (review 2)
             return c2, d
         c2, d = chi(obs, exp)
         ctrl = []

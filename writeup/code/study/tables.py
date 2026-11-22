@@ -121,7 +121,7 @@ def chain():
 
 
 def gauss():
-    v = J('verdicts_r11.json'); v.update(J('verdicts_r11_rep.json'))
+    v = J('verdicts_r11_dd.json'); v.update(J('verdicts_r11_rep_dd.json'))
     boxes = [('G1', 'a, b ∈ [10⁵, 10⁵ + 2000)'), ('G2', 'a, b ∈ [5·10⁶, 5·10⁶ + 1000)'),
              ('G3', 'a, b ∈ [2·10⁵, 2·10⁵ + 2000)'), ('G4', 'a ∈ [10⁵, +2000), b ∈ [3·10⁵, +2000)')]
     print('| statistic | ' + ' | '.join('%s: data / law, t₉' % b for b, _ in boxes) + ' |')
@@ -155,7 +155,7 @@ def sg():
 
 
 def eis():
-    v = J('verdicts_r16.json'); v.update(J('verdicts_r16_rep.json'))
+    v = J('verdicts_r16_dd.json'); v.update(J('verdicts_r16_rep_dd.json'))
     boxes = ['E1', 'E2', 'E3', 'E4']
     print('| statistic | ' + ' | '.join('%s: data / law, t₉' % b for b in boxes) + ' |')
     print('|---|---|---|---|---|')
@@ -189,11 +189,16 @@ def scoreboard():
     summ('verdicts_twins.json', 'consecutive twin primes', '4')
     summ('verdicts_landau.json', 'consecutive n with n² + 1 prime', '5')
     summ('verdicts_r6.json', 'second differences', '6')
-    g1 = J('verdicts_r11.json'); g2 = J('verdicts_r11_rep.json')
+    g1 = J('verdicts_r11_dd.json'); g2 = J('verdicts_r11_rep_dd.json')
     zs = [d['zT'] for v in (g1, g2) for w in v if not w.startswith('_') for d in v[w].values()]
     rows.append(('11', 'Gaussian primes, nearest neighbours (4 boxes)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     summ('verdicts_r14.json', 'consecutive Sophie Germain primes', '14')
-    e1 = J('verdicts_r16.json'); e2 = J('verdicts_r16_rep.json')
+    ve = J('verdicts_euler41.json')
+    cnt = {json.loads(l)['window']: json.loads(l)['stats']['count'] for l in open(os.path.join(D, 'results_euler41.jsonl'))
+           if json.loads(l)['block'] == -1}
+    zs = [d['zT'] for w in ('F1', 'F2', 'F3') for d in ve[w].values() if d['T'] * (cnt[w] - 1) >= 5]
+    rows.append(('18', 'consecutive n with n² + n + 41 prime (tests with expected count ≥ 5)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
+    e1 = J('verdicts_r16_dd.json'); e2 = J('verdicts_r16_rep_dd.json')
     zs = [d['zT'] for v in (e1, e2) for w in v if not w.startswith('_') for d in v[w].values()]
     rows.append(('16', 'Eisenstein primes, nearest neighbours (4 boxes)', len(zs), sum(abs(z) > 3 for z in zs), len(zs) * p9))
     r = J('r17.json')
@@ -222,8 +227,22 @@ def scoreboard():
     print('| | **all** | **%d** | **%d** | **%.1f** |' % (T, M, E))
 
 
+def euler():
+    v = J('verdicts_euler41.json')
+    lab = lambda s: {'L.ge15': 'n-gap ≥ 15'}.get(s, ('n-gap %s' % s[5:]) if s.startswith('L.gap') else 'same n mod %s' % s[6:])
+    print('| statistic | F1: data / law | t₉, z_bin | F2: data / law | t₉, z_bin | F3: data / law | t₉, z_bin |')
+    print('|---|---|---|---|---|---|---|')
+    for s in v['F1']:
+        cells = []
+        for w in ('F1', 'F2', 'F3'):
+            d = v[w][s]
+            t = '%.1f' % d['zT'] if abs(d['zT']) < 100 else '(degenerate)'
+            cells.append('%.4g / %.4g | %s, %.1f' % (d['x'], d['T'], t, d['z_binom']))
+        print('| %s | %s |' % (lab(s), ' | '.join(cells)))
+
+
 def _main():
-    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard}[sys.argv[1]]()
+    {'r1': r1, 'r23': r23, 't2': t2, 'tails': tails, 'twins': twins, 'landau': landau, 'bits': bits, 'chain': chain, 'gauss': gauss, 'r9': r9, 'sg': sg, 'eis': eis, 'r17': r17, 'scoreboard': scoreboard, 'euler': euler}[sys.argv[1]]()
 
 
 def twins():

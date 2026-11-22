@@ -120,12 +120,14 @@ def theory():
         order = 4 if len(d0.s1) <= 40 else 3
         discs[R] = (Disc(R, order) if order == 4 else d0, order)
         print('disc R<%d live %d order %d %ds' % (R, len(d0.s1), order, time.time() - t0), flush=True)
+    dat = {}
+    for l in open(os.path.join(OUT, 'results_r11%s_dd.jsonl' % SUF)):
+        r = json.loads(l); dat[(r['window'], r['block'])] = r['stats']['mean_lnN']
     for box, (A, B0, K) in BOXES.items():
         res[box] = {}
         for blk in range(-1, 10):
             b0, b1 = (B0, B0 + K) if blk < 0 else (B0 + blk * K // 10, B0 + (blk + 1) * K // 10)
-            Nmid = (A + K / 2) ** 2 + ((b0 + b1) / 2) ** 2
-            lam_eff = math.log(Nmid) / KAPPA                  # p_w = rho_w * KAPPA / ln N
+            lam_eff = dat[(box, blk)] / KAPPA                 # mean ln N of the block's points                  # p_w = rho_w * KAPPA / ln N
             ge = {R: math.exp(discs[R][0].log_avoid(lam_eff, discs[R][1])) for R in discs}   # P(d >= R)
             Rs = sorted(ge)
             pd = {Rs[i]: ge[Rs[i]] - ge[Rs[i + 1]] for i in range(len(Rs) - 1)}
@@ -134,36 +136,51 @@ def theory():
             t['mean_d'] = sum(R * v for R, v in pd.items()) + ge[Rs[-1]] * Rs[-1]
             res[box][str(blk)] = t
         print(box, {k: round(v, 5) for k, v in res[box]['-1'].items()}, flush=True)
-    json.dump(res, open(os.path.join(OUT, 'theory_r11%s.json' % SUF), 'w'), indent=1)
+    json.dump(res, open(os.path.join(OUT, 'theory_r11%s_dd.json' % SUF), 'w'), indent=1)
+
+
+NORM = lambda x, y: x * x + y * y
+MIRROR = lambda a, b: (b, a)
 
 
 def data():
-    offs = sorted([(x, y) for x in range(-10, 11) for y in range(-10, 11) if 0 < x * x + y * y <= RMAX],
-                  key=lambda v: v[0] ** 2 + v[1] ** 2)
+    offs = sorted([(x, y) for x in range(-10, 10 + 1) for y in range(-10, 10 + 1) if 0 < NORM(x, y) <= RMAX],
+                  key=lambda v: NORM(*v))
     rows = []
     for box, (A, B0, K) in BOXES.items():
         lo = A - MARGIN; loB = B0 - MARGIN; n = K + 2 * MARGIN
         M = np.zeros((n, n), dtype=bool)
         for i in range(n):
             a = lo + i
-            M[i] = [gmpy2.is_prime(a * a + (loB + j) ** 2) for j in range(n)]
+            M[i] = [gmpy2.is_prime(NORM(a, loB + j)) for j in range(n)]
         core = M[MARGIN:MARGIN + K, MARGIN:MARGIN + K]
         nn = np.full((K, K), 10 ** 6, dtype=np.int64)
         for (x, y) in offs:
             sh = M[MARGIN + x:MARGIN + x + K, MARGIN + y:MARGIN + y + K]
             upd = core & sh & (nn == 10 ** 6)
-            nn[upd] = x * x + y * y
+            nn[upd] = NORM(x, y)
         assert not np.any(core & (nn == 10 ** 6)), 'neighbour beyond RMAX'
-        for blk in range(-1, 10):
-            sl = slice(None) if blk < 0 else slice(blk * K // 10, (blk + 1) * K // 10)
-            d = nn[:, sl][core[:, sl]]
-            st = {'count': int(len(d))}
+        ia, ib = np.nonzero(core)
+        a_ = (A + ia).astype(np.int64); b_ = (B0 + ib).astype(np.int64); dd = nn[ia, ib]
+        # review 2, point 1: the mirror image has the same norm and the same nearest-neighbour norm; keep one of each
+        # pair whose two members both lie in the box (the one with the larger (a, b) is dropped)
+        ma, mb = MIRROR(a_, b_)
+        inbox = (ma >= A) & (ma < A + K) & (mb >= B0) & (mb < B0 + K)
+        keep = ~inbox | (ma > a_) | ((ma == a_) & (mb > b_))
+        a_, b_, dd = a_[keep], b_[keep], dd[keep]
+        order = np.argsort(b_, kind='stable')
+        a_, b_, dd = a_[order], b_[order], dd[order]
+        lnN = np.log(NORM(a_.astype(np.float64), b_.astype(np.float64)))
+        for blk in range(-1, 10):                      # 10 blocks of equal count, contiguous in b
+            sl = slice(None) if blk < 0 else slice(blk * len(dd) // 10, (blk + 1) * len(dd) // 10)
+            d = dd[sl]
+            st = {'count': int(len(d)), 'mean_lnN': float(np.mean(lnN[sl])), 'dropped_mirrors': int((~keep).sum())}
             for v in REPORT_D:
                 st['d=%d' % v] = float(np.mean(d == v))
             st['d>=26'] = float(np.mean(d >= 26)); st['mean_d'] = float(np.mean(d))
             rows.append({'window': box, 'block': blk, 'stats': st})
-        print(box, int(core.sum()), 'Gaussian primes', flush=True)
-    with open(os.path.join(OUT, 'results_r11%s.jsonl' % SUF), 'w') as f:
+        print(box, int(core.sum()), 'primes in the box,', int(keep.sum()), 'after dropping mirror duplicates', flush=True)
+    with open(os.path.join(OUT, 'results_r11%s_dd.jsonl' % SUF), 'w') as f:
         for r in rows:
             f.write(json.dumps(r) + '\n')
 
