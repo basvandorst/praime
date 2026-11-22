@@ -16,3 +16,14 @@ h <= 38, class h >= 40 as the remainder); null = each class mod 2310 drawn from 
 of primes in it, aggregated to mod 210, chi^2 against the mod-210 law as before (20 draws). Prediction: the null
 gives chi^2/dof near the observed values (0.69 at train). Also reported: the chi^2 of the data against the mod-2310
 law itself.
+
+Addendum 2 (after the stratified null gave 1.02 +- 0.06 at train: hypothesis 1 rejected; the data are also
+under-dispersed against the mod-2310 law, chi^2/dof 0.81 at train). Hypothesis 2: rigidity of pattern counts over
+long ranges (the Montgomery-Soundararajan effect for counts of (prime = a, next gap in class c) over a window W
+comparable to x). Tests, written before running:
+ (a) Markov null: simulate the mod-210 chain itself (gaps drawn from P_a(h), h <= 300, the state moving to a + h),
+     as many steps as primes in the window, 10 runs; chi^2/dof of the simulated table against P_a. If near 1, flow
+     conservation between states is not the cause.
+ (b) Scale: chi^2/dof mod 210 on sub-windows of the train window of length W = 9e7, 9e6, 9e5 (the latter two:
+     mean over the 10 / 100 sub-windows of [1e7, 1e8)... using the first 10 sub-windows of each size). Prediction
+     under hypothesis 2: chi^2/dof rises towards 1 as W/x falls.
