@@ -1438,6 +1438,27 @@ y*(β, t) = (C·|ρ₀(1 − ρ₀)|)^(1/(β − ½))
 
 The side effect, read the other way: the zeros are verified on the line up to height 3·10¹² (Platt–Trudgian 2021), so an off-line zero could only sit above it, and there it would break the tube only beyond about 10⁴⁷ even for β next to 1, and beyond 10⁹⁴ at β = ¾. Conversely, the tube checked to 10⁸ (fact 2048; at prime powers and interior maxima on [100, 10⁸], sampled on [1, 2000]) excludes by this argument zeros with β → 1 below height about 464 (β = ¾: 46), and, using the measured maximum 0.0247√y of the rest instead of C√y, about 531 (β = ¾: 53); checked to 10¹⁸ it would reach 147,000 (β = ¾: 827). This blindness belongs to *global* criteria, uniform over all heights, whose terms carry a weight decaying like a power of |ρ| (the tube 1/|ρ|², ψ and Schoenfeld's bound 1/|ρ|, where the threshold at t = 3·10¹² is about 10²⁹·⁵ for β → 1 and 10⁶¹·⁵ for β = ¾, per a review of this section with its own code, [tube/review27/r27.py](writeup/code/riemann/tube/review27/r27.py)). It is not a property of the primes: a prime sum localised in height, Σ Λ(n) n^(−it₀) f(ln(n/X)) with f smooth and compactly supported, sees by the explicit formula an off-line zero near t₀ with weight X^β·f̂ against the on-line zeros' X^½·O(ln t₀), so it needs only X^(β−½) ≫ ln t₀, about 10⁶–10⁸ for β = ¾ at t₀ = 3·10¹² (a heuristic sketch). Section 13 shows the scale in practice: the prime powers up to X ≈ 2√(T/2π) ≈ 4·10⁵ locate the zeros near height 2.68·10¹¹ to 10⁻⁴; a zero off the line there would make that fit fail, so a height-localised method needs primes only to about √t (about 7·10⁵ at t = 3·10¹²), against 10⁴⁷ for the tube. So the information of RH beyond the verified height is in the primes at computable sizes, but only for a detector tuned to the height; height-uniform inequalities like the tube, Schoenfeld's or Robin's cannot see it.
 
+## 23. The pair correlation of the zeros, tested with primes only
+
+Montgomery's conjecture (fact 2010) is a statement about zeros: the pair correlation of the γ's is 1 − (sin πu/πu)². Goldston and Montgomery (1987) showed that, assuming RH, its strong form (F(α) ~ 1 for α ≥ 1) is equivalent to a statement about primes only:
+
+```
+I(X, δ) = ∫₁^X (ψ((1 + δ)x) − ψ(x) − δx)² dx  ~  ½ δ X² ln(1/δ),   uniformly for 1/X ≤ δ ≤ X^(−ε).
+```
+
+With RH formal since November 2026 (fact 2047), the zero statement can be tested on the primes without any zero. The second-order form, from Montgomery–Soundararajan's variance (Hardy–Littlewood's pair sums, as in STUDY.md formula 2), is R = I/(½δX²) = ln(1/δ) + B with B = 1 − γ − ln 2π = −1.41506; a model with no correlations (Cramér) gives R = ln X − ½. Pre-registered as STUDY round 91 ([round91.txt](writeup/data/study/preregister/round91.txt); [r91.py](writeup/code/study/r91.py) → [r91_X1e+09.json](writeup/data/study/r91_X1e+09.json), [r91_X1e+08.json](writeup/data/study/r91_X1e+08.json)); ψ exact from a segmented sieve, prime powers included (ψ(10⁸) = 99,998,242.80 agrees with an independent sieve), the integral by the midpoint rule on 2,000,000 points:
+
+| δ | ln(1/δ) | GUE second order ln(1/δ) + B | R at X = 10⁸ | R at X = 10⁹ | Cramér (no correlation), 10⁹ |
+|---|---|---|---|---|---|
+| 10⁻¹ | 2.303 | 0.887 | 0.966 | 1.230 | 20.22 |
+| 10⁻² | 4.605 | 3.190 | 2.952 | 3.180 | 20.22 |
+| 10⁻³ | 6.908 | 5.493 | 5.692 | 5.558 | 20.22 |
+| 10⁻⁴ | 9.210 | 7.795 | 8.014 | 7.786 | 20.22 |
+| 10⁻⁵ | 11.513 | 10.098 | 10.093 | 10.107 | 20.22 |
+| 10⁻⁶ | 13.816 | 12.400 | 12.522 | 12.444 | 20.22 |
+
+The registered reading passes: for δ = 10⁻³ … 10⁻⁶ at X = 10⁹ the data are within 0.066 of ln(1/δ) + B (rule 0.3), and at δ = 10⁻² within 0.010. So the primes up to 10⁹ confirm not only the leading ln(1/δ) of the pair correlation but its second-order constant B to about 0.05; the leading term alone is off by 1.4, and the uncorrelated model by 10–19. At X = 10⁸ the differences are larger (up to 0.24), as expected for one deterministic integral whose relative fluctuation shrinks with X; at δ = 0.1, near the edge X^(−ε) of the theorem's range, the difference is 0.34 at 10⁹. This is evidence at finite X, not a proof: the equivalence is asymptotic. What it shows is the side effect asked for: a statement about the zeros (their GUE repulsion, F(α) = 1 for α ≥ 1) is, through RH, a statement about the variance of primes in short intervals, and that variance is the Hardy–Littlewood pair sum the study tests everywhere.
+
 ## References
 
 - B. Riemann, Über die Anzahl der Primzahlen unter einer gegebenen Grösse (1859); H. von Mangoldt (1895) for ψ(x).
