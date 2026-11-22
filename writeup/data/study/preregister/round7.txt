@@ -1,0 +1,14 @@
+Round 7, pre-registered 2026-11-22 ~00:20 UTC, after round 6 showed that the measured order-2 conditional entropy
+of the gap class lies 0.13 bits (train) below the order-1 value that the three-point cluster law reproduces.
+
+Hypothesis: the extra information is carried by the residue of p_n modulo Q = 6, 30 (and 210 if time allows): the
+gap sequence is, to this precision, a hidden Markov chain whose hidden state is a = p_n mod Q.
+
+Law (derived, no parameter): conditional singular series for n = a (mod Q):
+  S_a(B) = S(B) * prod_{p | Q} 1[a + b != 0 mod p for all b in B] / (1 - nu_p(B)/p),
+the same Bahadur expansion (theory2.GPattern with S_a; order 4 for span <= 120, order 3 above; gaps h <= 300,
+renormalised per state), transition a -> a + h with probability P_a(h). For gap classes c = min(h/2, 20):
+  T_c[a, a'] = sum_{h in c, a + h = a'} P_a(h),  P(c1, ..., ck) = pi T_c1 ... T_ck 1  (pi stationary).
+Predictions: H1 = H(c_n+1 | c_n) and H2 = H(c_n+1 | c_n, c_n-1) for Q = 6, 30 at train, A, B, C.
+Pass: |predicted - measured (Miller-Madow, whole window)| <= 0.005 bits at train, A and B (C has too few primes for
+8000 cells and is reported only). Expected: Q = 6 explains part of H1 - H2, Q = 30 most of it.
