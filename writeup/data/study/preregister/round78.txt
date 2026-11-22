@@ -1,0 +1,11 @@
+Round 78, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Round 77's law failed as registered (for targets q > y the chain loses the hard rule D != p mod q). Found after that
+run (r77b.py -> r77b.json): for every target prime q <= y, the chains' mean reveal time is linear in
+W(y) = sum_{q'>y} 1/q'^2, T_q(y) = A_q + B_q W(y) (largest residual 0.016 over y = 7, 11, 13, 17), and the intercept
+A_q (a chain that holds every prime) equals the data's mean (1.777, 6.424, 11.93, 24.45 against 1.777, 6.434, 11.91,
+24.41). Predictions now, from those lines, for chains not yet run (same method, seed 78; W(5) = 0.0511, W(3) = 0.0911,
+far beyond the fitted range 0.013-0.031):
+  y = 5 (8 classes):  T_3 = 1.8144,  T_5 = 6.6704;   y = 3 (2 classes): T_3 = 1.8441.
+Reading: pass if |observed - predicted| <= 0.01 (T_3 at y = 5), 0.03 (T_5 at y = 5) and 0.02 (T_3 at y = 3); these
+allow about 3 Monte Carlo standard errors plus some curvature over the long extrapolation.
