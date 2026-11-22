@@ -1,0 +1,13 @@
+Round 103, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Runs of prime values of Euler's polynomial f(n) = n^2 + n + 41 beyond its famous run n = 0..39 (which is algebra:
+-163 is a non-residue mod every p < 41, and f(n) < 41^2 for n <= 39). Prediction from Bateman-Horn for the pattern
+{n, n+1, ..., n+r-1}: the number of n in [1e3, 1e7) with f(n), ..., f(n+r-1) all prime is S_r * int dn/prod ln f(n+i),
+S_r = prod_p (1 - nu_p/p)/(1 - 1/p)^r (p <= 2e6; writeup/code/study/euler41/runs_law.py -> runs_law.json):
+  r:        1         2        3        4       5      6      7     8
+  S_r:      6.6405    44.645   298.07   2018.4  13577  92693  628772 4326072
+  expected: 2207109   496283   111657   25723   5959   1424   346    88
+Data: gmpy2.is_prime on f(n) for n in [1e3, 1e7 + 8).
+Reading: for every r = 1..8, |observed - expected| <= 3 sqrt(expected) + 0.01 expected (1 % for the truncated product
+and finite-size terms; overlapping windows make the true scatter larger than Poisson for r >= 2). Reported: the
+longest run observed and the expected number of runs of that length.
