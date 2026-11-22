@@ -1648,6 +1648,11 @@ ye = 3109
 Se = sum(math.log(p) * chi2049e[p % 5] ** k * (ye / p ** k - 1) for p in primerange(2, ye + 1) for k in range(1, 13) if p ** k <= ye)
 r2049e = abs(Se + ye * float(d1e) - math.log(ye) - 1 - float(B0e) + sum(ye ** (-n) / (n * (n + 1)) for n in range(2, 12, 2))) / math.sqrt(ye)
 assert abs(r2049e - 0.0868363) < 1e-6 and r2049e < float(Ce)
+pk2049e = [(p ** k, math.log(p) * chi2049e[p % 5] ** k) for p in primerange(2, 101) for k in range(1, 8) if p ** k <= 100]
+def g2049e(y):   # |G - ln y - 1 - B0 + T_e|/sqrt(y) on [1, 100]; catches a wrong sign of ln y, of the constant or of T_e
+    u = 1 / y; Te = -0.5 * math.log(1 - u * u) - math.atanh(u) / u + 1 if y > 1.0001 else 1 - math.log(2)
+    return abs(sum(L * (y / n - 1) for n, L in pk2049e if n <= y) + y * float(d1e) - math.log(y) - 1 - float(B0e) + Te) / math.sqrt(y)
+assert abs(g2049e(1.0) - float(Ce)) < 1e-12 and max(g2049e(1 + 0.05 * i) for i in range(1, 1981)) < float(Ce)
 
 # 6121: Fibonacci pseudoprimes (odd composite n, 5 not dividing n, n | F(n - eps)) below 1e8, and Fibonacci numbers among them
 def fib6121(m, n):
