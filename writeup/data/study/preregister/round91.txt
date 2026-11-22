@@ -1,0 +1,12 @@
+Round 91, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Montgomery's pair correlation of the zeros, tested with primes only. Goldston-Montgomery (1987): assuming RH (formal
+since November 2026, fact 2047), the strong pair correlation conjecture (F(alpha) ~ 1 for alpha >= 1) is equivalent to
+  I(X, delta) = int_1^X (psi((1 + delta) x) - psi(x) - delta x)^2 dx  ~  (1/2) delta X^2 ln(1/delta)
+uniformly for 1/X <= delta <= X^(-eps). The second-order form (Montgomery-Soundararajan's variance, from
+Hardy-Littlewood): R(X, delta) = I / ((1/2) delta X^2) = ln(1/delta) + B, B = 1 - gamma - ln 2 pi = -1.41506.
+The Cramer model (no correlations) gives R = ln X - 1/2 instead (20.2 at X = 1e9).
+Computation: psi exact from a segmented sieve (prime powers included) up to 1.1e9; the integral over [1, 1e9] by the
+midpoint rule on a grid of 2,000,000 points (step 500); delta = 1e-1, 1e-2, ..., 1e-6.
+Readings: for delta = 1e-3, 1e-4, 1e-5, 1e-6 at X = 1e9, |R - (ln(1/delta) + B)| <= 0.3 (a test of the second-order
+constant B, whose size is 1.4); reported for every delta, also against ln(1/delta) alone and against the Cramer value.
