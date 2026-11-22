@@ -33,7 +33,7 @@ def var_theory(H, L, W):
 
 
 def var():
-    L0, W0, K = 10 ** 9, 10 ** 9, 10
+    L0, W0, K = int(os.environ.get("R10_L0", 10 ** 9)), 10 ** 9, 10
     Hs = [10 ** 4, 10 ** 5, 10 ** 6]
     assert abs(aligned_s(5000) - T2.aligned_sum(5000, 0)) < 1e-6 * abs(T2.aligned_sum(5000, 0))
     res = {str(H): {'meas': [], 'theory': []} for H in Hs}
@@ -58,7 +58,7 @@ def var():
         d['mean_meas'] = float(np.mean(d['meas'])); d['mean_theory'] = float(np.mean(d['theory']))
         d['t9'] = float(r.mean() / (r.std(ddof=1) / math.sqrt(K))); d['p'] = float(2 * student_t.sf(abs(d['t9']), K - 1))
         print(H, {k: (round(v, 4) if isinstance(v, float) else '') for k, v in d.items()}, flush=True)
-    json.dump(res, open(os.path.join(OUT, 'r10_var.json'), 'w'), indent=1)
+    json.dump(res, open(os.path.join(OUT, "r10_var_%d.json" % L0 if L0 != 10 ** 9 else "r10_var.json"), "w"), indent=1)
 
 
 def triple_sums(H):

@@ -235,7 +235,30 @@ Each layer of theory removes bits; the three-point law as a Markov chain codes t
 
 The drop H₁ − H₂ is 79 % explained mod 6, 96 % mod 30 and 100 % mod 210 at train (0.1320 against 0.1321; 0.0971 against 0.0971 at 10¹⁰, 0.0746 against 0.0744 at 10¹², 0.0511 against 0.0506 at 10¹⁵). The pre-registered tolerance (0.005 bits) holds for every H₂ mod 30 and for every value mod 210; mod 30 misses H₁ at train by 0.0061. The chain's levels sit 0.002–0.005 bits below the measured entropies: conditional independence of consecutive gaps given the residue over-states their dependence slightly, the remainder of the three-point coupling (the long-range part through λ) that residues do not carry. In words: beyond one step back, the memory of the prime gaps is the residue of the current prime modulo 2·3·5·7.
 
-## 10. What the seven lines turn out to be
+## 10. Counts in intervals: the third cumulant, and long intervals ([r10.py](writeup/code/study/r10.py), [round10.txt](writeup/data/study/preregister/round10.txt), [r10_skew.json](writeup/data/study/r10_skew.json), [r10_var.json](writeup/data/study/r10_var.json), [r10_var_3000000000.json](writeup/data/study/r10_var_3000000000.json))
+
+**Third cumulant.** For 0/1 variables c³ = Σ_a X_a + 6 Σ_(a<b) X_a X_b + 6 Σ_(a<b<c) X_a X_b X_c, so on the aligned grid the moments of the count are E c = Σ p_a, E c² = Σ p_a + 2 Σ μ_ab, E c³ = Σ p_a + 6 Σ μ_ab + 6 Σ μ_abc, with μ_X = S₀(X)/λ^|X| and S₀ the singular series conditioned on n ≡ 0 (mod 10) (section 9). The third cumulant κ₃ = E c³ − 3 E c E c² + 2 (E c)³ divided by the mean is 1 for Poisson counts:
+
+| window | H = 50: measured / law, t₉ | H = 500: measured / law, t₉ |
+|---|---|---|
+| train | 0.3116 / 0.3119, -0.1 | 0.1279 / 0.1248, 0.2 |
+| A | 0.4395 / 0.4375, 1.1 | 0.2944 / 0.2539, 1.9 |
+| B | 0.5143 / 0.5154, -0.8 | 0.3340 / 0.3441, -0.5 |
+| C | 0.6008 / 0.5996, 0.2 | 0.4757 / 0.4479, 1.2 |
+
+All eight fit. The counts are far less skewed than Poisson counts (κ₃/mean ≈ 0.31 at H = 50 near 10⁷ instead of 1), and the triple sums of the singular series give the value.
+
+**Long intervals.** In a window not used before, [10⁹, 2·10⁹), the exact pair sum of section 4 (no change) against the variance for H = 10⁴, 10⁵, 10⁶; after a miss at H = 10⁴ a replication in [3·10⁹, 4·10⁹) was pre-registered and run:
+
+| H | [10⁹, 2·10⁹): measured / law, t₉ | [3·10⁹, 4·10⁹) (replication): measured / law, t₉ |
+|---|---|---|
+| 10,000 | 0.5007 / 0.4967, 3.41 | 0.5189 / 0.5165, 1.40 |
+| 100,000 | 0.3859 / 0.3875, -0.35 | 0.4014 / 0.4116, -1.58 |
+| 1,000,000 | 0.2662 / 0.2784, -1.07 | 0.2898 / 0.3068, -1.08 |
+
+H = 10⁵ and 10⁶ fit in both windows. H = 10⁴ misses in the first window (+0.8 %, p = 0.008) and fits in the replication (+0.46 %, t₉ = 1.40), with the same sign. **Open point:** over all variance tests with H ≥ 500 (sections 6 and 10) the measured variance lies above the pair-sum law in 9 of 10 cases, by 0.1–1.4 % (about a 1 % chance for a fair sign). A relative excess of about 10⁻⁵ in the pair counts, summed over h < H, would produce it, so the variance at long H is a very sensitive probe of the pair counts; whether this is a lower-order term of the Hardy–Littlewood pair law or chance is not settled here.
+
+## 11. What the seven lines turn out to be
 
 - **Numerical, statistical, algebraic, dynamic, information-theoretic**: five views of one object, the law of runs of consecutive primes. Its only input is the singular series; its only scale is ln x. The textbook versions miss because they truncate it: the Poisson factor e^(−h/ln x) ignores that the numbers between two primes are correlated with them (round 1: up to 30 %), the exponential resummation mistreats X² = X (step 3), and the Montgomery–Soundararajan asymptotics ignore the grid (H = 50).
 - **Geometric**: Ulam's diagonals are the same law for polynomials: the means are Bateman–Horn and the scatter is set by the Bateman–Horn constants of polynomial pairs.
