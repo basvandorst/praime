@@ -1,0 +1,13 @@
+Round 93, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Hypothesis (ours): for long intervals the variance of primes is the music of the lowest zeros, not a limit. Round 91/92
+found R(X, 0.1) = 0.97, 1.23, 1.28 at X = 1e8, 1e9, 1e10, drifting with X, while the Hardy-Littlewood formula, written
+out exactly for relative intervals, gives an X-independent R_HL(delta) = ln(1/delta) - gamma - ln 2pi
++ (1 + delta) ln(1 + delta)/delta = 0.936 at delta = 0.1.
+Zero side only (explicit formula, RH): psi((1+d)x) - psi(x) - dx = -sum_rho c_rho x^rho, c_rho = ((1+d)^rho - 1)/rho, so
+R_zero(X, d) = (2/(d X^2)) Re sum_{rho, rho'} c_rho conj(c_rho') (X^(2 + i(g - g')) - 1)/(2 + i(g - g')),
+over the 2,419 zeros up to height 2949 and their conjugates (writeup/data/riemann/zeros_hp2419.txt), plus the diagonal
+tail beyond 2949, (2 + d)(ln(T/2pi) + 1)/(pi T d).
+Predictions: (1) R_zero reproduces the primes' R(X, 0.1) at X = 1e8, 1e9, 1e10 within 0.05 each, including the drift;
+(2) at d = 0.01 within 0.1 (the truncated off-diagonal tail is larger there). Reported: the diagonal-only (X-independent)
+part, the off-diagonal (pair) part, and R_HL.
