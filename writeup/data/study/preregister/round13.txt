@@ -6,3 +6,13 @@ against the expectation N[a, .] * P_a(c), with P_a the round-7 law for that wind
 per state). Pearson chi^2 over the cells with expectation >= 5 (the rest of each row pooled into one cell when its
 expectation is >= 5, else dropped); dof = number of cells minus number of states. Pass: |chi^2/dof - 1| <= 3 sqrt(2/dof).
 Also reported: the same table against the unconditioned law (cluster law, no residue), to show what the residue adds.
+
+Addendum (after the first run: chi^2/dof mod 210 = 0.691 at train, 0.857 at A, 0.995 at B, 0.894 at C; the test
+machinery gives 1.00 +- 0.06 on multinomial samples from the law, also when each block is drawn from its own law):
+hypothesis: stratification. Given p mod 210 the next gap still depends on p mod 11, 13, ...; the primes fill these
+classes almost exactly equally (far more evenly than chance), so the counts per class mod 210 are stratified samples
+and scatter less than multinomial ones. Test before running: the law conditioned mod 2310 (theory2.S_cond, gaps
+h <= 38, class h >= 40 as the remainder); null = each class mod 2310 drawn from its own law with the actual number
+of primes in it, aggregated to mod 210, chi^2 against the mod-210 law as before (20 draws). Prediction: the null
+gives chi^2/dof near the observed values (0.69 at train). Also reported: the chi^2 of the data against the mod-2310
+law itself.
