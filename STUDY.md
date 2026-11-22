@@ -233,6 +233,18 @@ Up to gap 90 the bias stays below 2 % at train, far too small for the far-tail s
 
 The pre-registered prediction (an error growing to 20–30 % near g/ln x = 16) failed: at 4·10¹⁸ the law is too high by only 0.6 % to 1.3 %, growing slowly with g/ln x. So the 27 % of rounds 24–25 is not a property of large g/ln x as such; it belongs to the sizes where the first occurrences sit (ln x from 16 to 27), where the expansion's parameters ρ/λ are larger. The exact sums of round 28 measure the expansion's bias at ln x = 17.8 only up to gap 90 (below 2 %), so whether the expansion or the primes are responsible at gaps of 180 to 454 near 10⁷–10¹¹ is not settled.
 
+**Round 30: large gaps counted at 10⁹** ([r30.py](writeup/code/study/r30.py) → [r30.json](writeup/data/study/r30.json), [round30.txt](writeup/data/study/preregister/round30.txt)). In [10⁹, 2·10⁹) (47,374,752 gaps, ln x ≈ 21), the same law against the counts by band:
+
+| band of g | g/ln x | gaps counted | law | ratio | z |
+|---|---|---|---|---|---|
+| 120–178 | 5.7–8.4 | 72,370 | 73949.8 | 0.979 | −5.8 |
+| 180–238 | 8.5–11.3 | 2,234 | 2287.8 | 0.976 | −1.1 |
+| 240–298 | 11.4–14.1 | 58 | 66.6 | 0.871 | −1.1 |
+| 300–358 | 14.2–16.9 | 0 | 2.0 | 0 | −1.4 |
+| 360–454 | 17.0–21.5 | 0 | 0.1 | 0 | −0.2 |
+
+At this size the law is too high by about 2 % at 6 to 11 times ln x (significant at 6–8 ln x with 72,000 gaps) and by about 13 % at 11–14 times ln x (58 gaps, not significant alone); beyond 14 ln x there are too few gaps. At 4·10¹⁸ the same g/ln x gave about 1 %. So the law's error for large gaps grows with g/ln x at small x and stays small at large x, which fits the 27 % of the first occurrences (g/ln x from 10 to 18 near 10⁷–10¹¹) and an expansion whose parameters ρ/λ grow as λ falls. The pre-registered expectation (ratios near 0.8 from gap 240 up) is met only partly (0.87, from 58 gaps). Whether the expansion or the primes carry the remaining error at these sizes is still open: the exact sums reach only gap 90.
+
 **Round 17: a window at 10¹⁸** ([r17.py](writeup/code/study/r17.py) → [r17.json](writeup/data/study/r17.json), [round17.txt](writeup/data/study/preregister/round17.txt)). [10¹⁸, 10¹⁸ + 2·10⁶), 48,427 primes listed one by one with gmpy2.next_prime (no sieve; below 2⁶⁴ the test has no known exception), λ = 41.4; the frozen law with order 2 for spans above 300 (the law sums to 1.0001):
 
 | statistic | primes near 10¹⁸ | cluster law | rel. diff | t₉ | z (binomial) |
