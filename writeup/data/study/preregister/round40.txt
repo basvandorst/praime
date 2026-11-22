@@ -1,0 +1,10 @@
+Round 40 (diagnostic), written before the computation. The parts below were never measured, so the comparison is blind
+for them (the combined cell values were known from round 13).
+
+Round 39 predicts each residue-table cell from three parts: Var X, Cov(X, Y), Var Y (X = gap-g events with p = a mod
+210, Y = primes = a). At train [1e7, 1e8) the combined prediction is too high (0.85 vs 0.69). Here the parts are
+measured across the rows a (admissible for g), per gap g = 2..38:
+  u_a = (X_a - P_a Ybar)/sqrt(P_a Ybar),  v_a = (Y_a - Ybar)/sqrt(Ybar),  Ybar = mean of Y over the 48 classes,
+mean over rows of u^2 (predicted Var X/(P m)), v^2 (Var Y/m), and u v (predicted Cov/(m sqrt P)), pooled over g with
+weights = rows. Predictions from r39 (same code, components stored). Reported: measured vs predicted for each part,
+noise from the scatter over g. Question: which part carries the remainder at train? Same at A as a control.
