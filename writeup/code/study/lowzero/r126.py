@@ -1,4 +1,4 @@
-"""Round 126 (preregister/round126.txt): small-prime filter, then rank by the zero. usage: r125.py"""
+"""Round 126 (preregister/round126.txt): small-prime filter, then rank by the zero. usage: r126.py"""
 import os, json, math, random
 import numpy as np, cypari2, gmpy2
 from scipy.stats import mannwhitneyu
