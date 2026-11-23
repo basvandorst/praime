@@ -35,4 +35,4 @@ for q in (5, 7, 11, 13, 17, 19, 23, 29, 31):
 pr = np.array([r['pred'] for r in out]); me = np.array([r['meas'] for r in out])
 r = pearsonr(pr, me)[0]; mae = float(np.mean(np.abs(pr - me)))
 print('races %d; Pearson %.3f; mean abs error %.3f; readings %s %s' % (len(out), r, mae, r >= 0.9, mae <= 0.08))
-json.dump({'races': out, 'pearson': float(r), 'mae': mae, 'readings': [bool(r >= 0.9), bool(mae <= 0.08)]}, open(os.path.join(H, os.environ.get('R131_OUT', 'r131.json')), 'w'), indent=0)
+json.dump({'races': out, 'pearson': float(r), 'mae': mae, 'readings': [bool(r >= 0.9), bool(mae <= 0.08)]}, open(os.path.join(H, os.environ.get('R131_OUT', 'r131_ablate.json')), 'w'), indent=0)
