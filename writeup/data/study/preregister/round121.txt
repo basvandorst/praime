@@ -1,0 +1,11 @@
+Round 121, pre-registered before the computation (commit order shows the order; STUDY.md section 1).
+
+Rounds 116-120 established for REAL characters that each prime p dividing the conductor (missing from the Euler product)
+lowers the zeros' number variance Sigma2(1) by Berry's diagonal amount dS(p, L) = -(4/L^2) sum_k (ln p)^2 p^-k
+(1 - cos a_k)/a_k^2. The diagonal term has weight |chi(p)|^2, so it should hold for complex characters too, whose chi^2 is
+not principal (the off-diagonal terms differ). Test: for each conductor N in {primes 101..397, every second one} and
+N = 3p, 4p, 5p, 7p (p prime, p not 2, 3, 5, 7 resp., 100 <= N <= 400), the primitive character with the smallest Conrey
+label of order > 2 (PARI lfuncreate(Mod(m, N))); zeros with 100 <= |gamma| <= 500 (both signs, as two sequences),
+unfolded with N(t) = (t/2pi) ln(N t/(2 pi e)); Sigma2(1) on a dense grid (step 0.01), pooled over both signs;
+x = sum over primes p | N of dS(p, L) at the L-function's mean L. Fit Sigma2(1) = a + beta x.
+Readings: (1) beta > 0 at more than 4 standard errors; (2) beta between 0.7 and 1.4 (Berry's diagonal term: beta = 1).
