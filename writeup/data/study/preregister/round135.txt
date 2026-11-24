@@ -1,0 +1,110 @@
+Round 135, pre-registered before the computation (commit order shows the order; STUDY.md section 1). No statistic below
+was computed on these windows before this file was committed. Source: writeup/code/study/noise/ (derivation.md,
+law.py -> law_output.txt section 8; all numbers below are copied from there).
+
+The low-chi^2 family read as rigid class counts. Hardy-Littlewood pairs give the class counts N_a mod q in a window of
+length H at x (lam = ln x):
+  Var/mean v_q = 1 - [ln(H/q) + S_q - B]/lam,
+  Cov/mean = -Lambda(m)/(phi(m) lam) with m = q/(b-a, q),
+  S_q = sum_{p|q} ln p/(p-1), B = 1 - gamma - ln 2pi.
+Any table of local prime events is, to first order, a linear function of the class counts mod Q = 30030 plus a
+short-range remainder. The class-response law is
+  E chi^2 = E_M chi^2 - FO_M + FO_HL   (derivation.md eq. 6.1),
+the sieve model's value with its class-count covariance replaced by the Hardy-Littlewood one. For transition tables
+this means:
+  - the C-1 column directions (class contrasts) shrink to about v_q;
+  - the rest of the table keeps the short-range value.
+
+WINDOWS
+- W1 = [3e11, 3e11 + 1e8), W2 = [6e11, 6e11 + 1e8), W3 = [9e11, 9e11 + 1e8).
+- lam = ln(x0 + 5e7) = 26.4272, 27.1203, 27.5257.
+- None of the strings 3·10¹¹, 6·10¹¹, 9·10¹¹, 3e11, 6e11, 9e11 occurs in STUDY.md, RIEMANN.md, MERSENNE.md, LOGIC.md or
+  preregister/*.txt (checked by grep).
+- The law was validated only on [5e11, 5e11 + 1e8).
+- Blocks: 100 per window, block beta = [x0 + beta*1e6, x0 + (beta+1)*1e6).
+- A prime belongs to the block containing it.
+- A pair (p_n, p_{n+k}) belongs to the block of p_n. p_{n+k} may lie in the next block or past the window end (sieve
+  1e4 beyond the end).
+
+STATISTICS
+
+S1(q), q in {3, 4, 10, 210}: equidistribution per block (the classical part).
+- X_beta = sum_a (N_a,beta - N_beta/phi)^2 / (N_beta/phi), over the phi(q) reduced classes. N_beta is the block's prime
+  count.
+- R1(q, W) = sum_beta X_beta / (100 (phi-1)). R1(q) = mean over W1-W3.
+- Error: the standard deviation of X_beta/(phi-1) over the 300 blocks, divided by sqrt(300).
+
+S2(q, k), (q, k) in {(3,1), (3,2), (10,1), (10,2)}: block homogeneity of the transition tables (the new part).
+- X_ab,beta = #{n : p_n in block beta, p_n = a, p_{n+k} = b (mod q)}, with a, b reduced and no limit on p_{n+k} - p_n.
+- N_a,beta = sum_b X_ab,beta. Phat_ab = sum_beta X_ab,beta / sum_beta N_a,beta, per window.
+- chi2_beta = sum_ab (X_ab,beta - N_a,beta Phat_ab)^2 / (N_a,beta Phat_ab).
+- R2(q,k,W) = sum_beta chi2_beta / (99 * R(C-1)), with R = C = phi(q): 2 dof per block for q = 3, 12 for q = 10.
+- Split of each chi2_beta into two parts:
+  - col_beta = c' M^+ c, with c_b = sum_a (X_ab,beta - N_a,beta Phat_ab) and
+    M = sum_a N_a,beta (diag Phat_a - Phat_a Phat_a').
+  - within_beta = chi2_beta - col_beta.
+- R2col = sum col / (99 (C-1)). R2within = sum within / (99 (R-1)(C-1)).
+- Pooled values are the means over W1-W3.
+- Errors: the standard deviation over the 300 blocks of the per-block quantity divided by its dof, over sqrt(300),
+  times 100/99.
+
+PREDICTIONS (law), with the noise each pooled value should have (sigma_m, from the model's block scatter) and the
+prediction's own simulation error (sigma_p)
+
+S1, pooled R1(q):
+                      law (W1, W2, W3 -> pooled)      sigma_m   sieve M_Q (1-p)   multinomial / chain
+  q = 3       0.465, 0.479, 0.487 -> 0.477            0.039       0.807              1
+  q = 4       0.476, 0.490, 0.497 -> 0.488            0.040       0.807              1
+  q = 10      0.485, 0.498, 0.505 -> 0.496            0.023       0.807              1
+  q = 210     0.554, 0.566, 0.572 -> 0.564            0.0067      0.807              1
+
+S2, pooled:
+                 R2: law  sigma_m  sigma_p | M_Q  | chain/multinomial | R2col: law  M_Q   chain | R2within: law
+  (3, 1)           0.763   0.045   0.010   | 0.971 |       1          |   0.564    0.95   1     |   0.962
+  (3, 2)           0.739   0.043   0.010   | 0.917 |       1          |   0.486    0.82   1     |   0.993
+  (10, 1)          0.872   0.021   0.004   | 0.980 |       1          |   0.578    0.94   1     |   0.970
+  (10, 2)          0.881   0.021   0.004   | 0.968 |       1          |   0.509    0.83   1     |   1.005
+  (M_Q R2 pooled over 5 simulation runs, 9120 blocks: errors 0.010, 0.010, 0.004, 0.004.)
+
+- Per window, R2 law = 0.757 / 0.764 / 0.768 (3,1); 0.733 / 0.740 / 0.744 (3,2); 0.870 / 0.873 / 0.874 (10,1);
+  0.879 / 0.882 / 0.884 (10,2). sigma_m per window is about 0.076, 0.073, 0.036, 0.037.
+- sigma_m for R2col: about 0.045 (q = 3) and 0.028 (q = 10).
+- sigma_m for R2within: about 0.079 (q = 3) and 0.027 (q = 10).
+- These sigma_m assume chi^2-shaped block values. The registered errors are the empirical ones above.
+
+The comparators:
+- Multinomial rows, or a first-order chain on the classes mod q (Anderson-Goodman): 1 for R2, R2col and R2within.
+- The sieve model M_Q, a first-order chain on the classes mod 30030 with the sieve's gap law and no long-range rigidity:
+  the M_Q columns above.
+- The exact first-order chain mod 30030 with the Hardy-Littlewood gap law (r83.py class_chain at lam of W2, simulated
+  in 300 blocks of 37,800 steps) is expected within 0.03 of the M_Q column. This is optional, and part of no reading.
+
+READINGS (thresholds fixed here; sigma = sqrt(sigma_m^2 + sigma_p^2), with sigma_m the empirical error)
+(1) Classical part. For each q in {3, 4, 10, 210}: |R1(q) - law| <= 3 sigma. For q = 210 also: R1 < 0.807 - 5 sigma.
+(2) The law.
+    - For each of the four (q, k): |R2 - law| <= 3 sigma.
+    - For (3,1) and (10,1): R2 below the M_Q value by more than 3 sigma.
+(3) The mechanism.
+    - For (3,1) and (10,1): |R2col - law| <= 3 sigma and |R2within - law| <= 3 sigma.
+    - Equivalently: the shortfall of the table sits in the column directions, and the rest of the table behaves like
+      the chain.
+(4) Falsifier. The law is falsified if either holds:
+    - R2within for q = 10 (k = 1 or 2) lies more than 3 sigma below the law. That would be rigidity of the transitions
+      beyond the class counts, like round 13's open remainder.
+    - R2(10,1) lies within 2 sigma of the M_Q value 0.980.
+    Reading (1) alone passing is the classical result, not a confirmation of the law.
+
+Reported, no reading:
+- per-window values;
+- the same split for the last-digit tables of rounds 85-86 (law_output section 4 gives the retrospective split);
+- the q = 4 chi^2 of S2 if computed (not predicted: the sieve model mod 30030 does not resolve classes mod 4).
+
+Clarifications, written before the computation:
+- sigma_p: 0 for S1 (the law is a formula); for R2, R2col and R2within the values of the R2 column (0.010 for q = 3,
+  0.004 for q = 10).
+- The class-count law v_q, with the logarithm on the class c = 0 only, is in substance Lemke Oliver-Soundararajan
+  (2016, Prop. 2.1), Montgomery-Soundararajan (2004) and Goldston-Yildirim (1998, eq. 1.13). The class-response law
+  for tables of events (eq. 6.1) and the split into a column part and a within part were not found in print.
+- The law for tables uses a sieve model (a first-order chain mod 30030) as its short-range base; only S1 is free of it.
+- The model windows at 3e11 in the source folder (rigid_3e11.json, sl_rigidcmp_3e11.json, sl_reg_W1..3.json) are
+  simulations at the windows' ln x; they contain no primes.
