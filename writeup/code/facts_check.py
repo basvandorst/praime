@@ -1691,4 +1691,34 @@ assert other6121 == [572, 646]
 n6121 = F6121[4181]; assert len(str(n6121)) == 874 and fibmod6121(n6121 - (1 if n6121 % 5 in (1, 4) else -1), n6121) == 0
 del fpp6121, F6121
 
+# 2050: the mean variance of primes in (x, (1+delta)x] in closed form, as the tube function of fact 2048 at 1 + delta
+import os
+def D2050(d, chi=None, q=1, a=0):
+    y = 1 + d; s = 0.0
+    for p2050 in (2, 3, 5, 7):
+        n2050 = p2050
+        while n2050 <= y:
+            s += math.log(p2050) * (1 if chi is None else chi(n2050)) * (y / n2050 - 1); n2050 *= p2050
+    if chi is None: return math.log(1 / d) - g2048 - math.log(2 * math.pi) + 2 * math.log(1 + d) + (2 + d) / d * math.log(1 + d / 2) - 2 / d * s
+    om = (2 + d) / d * math.log(1 + d / 2); om = 2 * (1 + d) / d * math.log(1 + d) - om if a else om
+    return math.log(q / (2 * math.pi * d)) - g2048 + om - 2 / d * s
+def tube2050(d):
+    y = 1 + d; G = sum(math.log(p) * (y / p ** k - 1) for p in (2, 3, 5, 7) for k in range(1, 4) if p ** k <= y) - y * math.log(y) + (1 + g2048) * y
+    return ((2 + d) * lim2048 - 2 * (G - math.log(2 * math.pi) + triv2048(y))) / d
+for d2050 in (0.01, 0.1, 0.5, 1.5, 2.0, 3.7, 9.0): assert abs(D2050(d2050) - tube2050(d2050)) < 1e-9, d2050
+assert abs(D2050(0.1) - 1.102706) < 5e-7 and abs(D2050(1) - (math.log(27 / (4 * math.pi)) - g2048)) < 1e-12 and abs(D2050(1) - 0.187597) < 5e-7
+assert abs(D2050(2) - 0.128705) < 5e-7 and abs(D2050(2) + 2 / 2 * math.log(2) * (3 / 2 - 1) - 0.4753) < 5e-5      # with and without the prime 2
+m2050 = min((D2050(i / 10 ** 6), i / 10 ** 6) for i in range(700_000, 780_000))
+assert abs(m2050[0] - 0.159433) < 5e-7 and abs(m2050[1] - 0.740322) < 2e-6
+assert all(D2050(i / 1000) > D2050((i + 1) / 1000) for i in range(1, 740)) and all(D2050(i / 1000) < D2050((i + 1) / 1000) for i in range(741, 1000))
+z2050 = np.loadtxt(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'riemann', 'zeros_40000_flint.txt'), usecols=-1)
+for d2050 in (0.1, 0.5, 1.5, 4.5, 9.0):     # sum over 40,000 zeros with the smooth tail; 1 + d is no prime power
+    y = 1 + d2050; t2050 = (y + 1) * (math.log(z2050[-1] / (2 * math.pi)) + 1) / (math.pi * z2050[-1])
+    assert abs((2 * np.sum((y + 1 - 2 * math.sqrt(y) * np.cos(z2050 * math.log(y))) / (0.25 + z2050 ** 2)) + t2050) / d2050 - D2050(d2050)) < 2e-7, d2050
+chi4_2050 = lambda n: (0, 1, 0, -1)[n % 4]; chi3_2050 = lambda n: (0, 1, -1)[n % 3]
+assert abs(D2050(0.1, chi4_2050, 4, 1) - 2.3460) < 5e-5 and abs(D2050(0.1, chi3_2050, 3, 1) - 2.0583) < 5e-5
+assert abs(D2050(0.1, chi4_2050, 4, 1) - D2050(0.1, chi3_2050, 3, 1) - math.log(4 / 3)) < 1e-12
+assert abs(D2050(0.3, lambda n: 1, 5, 0) - (D2050(0.3) - 2 * math.log(1.3) + math.log(5))) < 1e-12                # even: no pole term, plus ln q
+del z2050
+
 print("all FACTS.md checks passed")
