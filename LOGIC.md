@@ -30,6 +30,7 @@ with the zeros ρ on the left, the archimedean place (the pole of ζ at s = 1 an
 | L4 | inert small primes → prime-rich quadratics → low zeros | Spearman 0.87 with ln L(1); records at percentile 0.02 (0.22 matched on χ(p ≤ 23)) | 104, 124–126 | computed |
 | L5 | lowest zero → phase of the race | race share Pearson 0.98 (quadratic characters), 0.99 over 137 races mod q ≤ 31; mod 4 lead regions to 0.3 % with li and squares | 105, 112–113, 131 | computed |
 | L6 | missing primes → rigid zeros | per-prime drop = the diagonal term, slopes 0.94–1.02 at ℓ = 1; over ℓ = 0.5–8 the off-diagonal term of Bogomolny–Keating, amplitude 0.992 ± 0.013 of the predicted one (blind, 362 L-functions; 0.93 ± 0.02 on the first 184) | 110, 115–123, 128–129, 134, 136 | computed |
+| L6b | missing primes → three-point function of the zeros | third cumulant of zero counts: missing-orbit amplitude 0.9990 ± 0.0042 of the ratios-conjecture / trace-formula value (910 L-functions; 185 blind), level within 0.0005; GUE and two-point-only rejected | 138 | computed; not yet reviewed |
 | L7 | zeros' swing → window variances | three "misses" reproduced by the explicit formula (within 0.8 % with 40,000 zeros) | 106, 109, 119, 127 | computed |
 | L8 | local → polynomial records | first dividing prime 41–89 for the records of degrees 2–6 | polynomial section, 124 | computed; degrees ≥ 3 open |
 
