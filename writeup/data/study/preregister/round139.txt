@@ -1,0 +1,222 @@
+Round 139 (direction map of the within part), pre-registered before the computation (commit order shows the
+order; STUDY.md section 1). No statistic below has been computed on the fresh windows or on the fresh response
+stretches. The numbers marked "seen" come from windows that were already used. Code: writeup/code/study/map/.
+
+Why. Round 137 and the forty-fourth review left the growth of the within part with the block length open: per unit
+ln H the within part of the k = 1 table mod 5 falls about twice as fast as the linear-response (pair-correlation) tail,
+and the review placed the excess in the four mixed directions mod 5 (the order-4 character against the Legendre
+symbol): -0.0083 +- 0.0021 per unit ln H per direction over both heights, unexplained. This round asks two things on
+fresh primes: (1) is the mod-5 mixed excess there, with the size seen; (2) do the other cells of a map over eight
+moduli and all direction types, whose large values were selected on seen data, keep their sign.
+
+INSTRUMENT (map.py, self-contained, numpy + standard library; nothing imported from the repo; evaluate.py applies the
+readings below mechanically to map.py's report)
+  Window W = [x0, x0 + 1e8); blocks of length H = 1e4, 1e5, 1e6 by the position of p_n; c_n = class of p_n mod q;
+  table X_ab = #{n : p_n in the block, c_n = a, c_(n+k) = b}; per window P^ = pooled table row-normalised;
+  E = N_a P^_ab; y = (X - E)/sqrt(E) in R^(C^2), C = phi(q).
+  Directions: for each pair of non-principal characters (chi_i, chi_j) of (Z/q)*, the function chi_i(a) conj chi_j(b)
+  weighted by sqrt(pi_a P_ab), projected on the within space (row and column parts removed), real and imaginary parts,
+  Loewdin-orthonormalised (P, pi pooled over the 24 windows). (C - 1)^2 real directions d.
+  W_d(H) = sum over blocks (y . B_d)^2 / (NB - 1) per window. Measured slope s_d = (W_d(1e6) - W_d(1e4)) / ln 100.
+  Comparator (linear response, the review's tailemp.py per direction): the response of the table to inserting a prime
+  at a site x coprime to 510510 (k = 1: +(L1, x) +(x, R1) -(L1, R1); k = 2: +(L2, x) +(L1, R1) +(x, R2) -(L2, R1)
+  -(L1, R2)), averaged per class u mod Q = lcm(510510, q) on the response stretches; A_d(h) = mean_u r_ud r_(u+h)d
+  (lag 0 from cross products of disjoint quarters, so no sampling-noise term); W_tail,d(H) = (2/lam)(Q/phi(Q))
+  (lam_resp/lam) sum_(h<H) (1 - h/H)(1 - e^(-h/lam)) A_d(h mod Q)(S_(>17)(h) - 1); LR slope_d = (W_tail,d(1e6) -
+  W_tail,d(1e4)) / ln 100 (y = 17: the review's machinery).
+  EXCESS of a set of directions = mean over its directions and over the 24 windows of (s_d - LR slope_d).
+  Error = jackknife over the 24 windows (measurement) combined in quadrature with the jackknife over the four quarters
+  of the response stretches (comparator). Both are measurement errors; no model error enters any band.
+  Direction types: eq (i = j), conj (i = conj j, i != j), rr (both real, different), rc (one real, one complex),
+  cc (both complex, neither equal nor conjugate); subtypes by (ord chi_i, ord chi_j, ord chi_i conj chi_j).
+  Moduli q = 3, 5, 7, 8, 9, 11, 12, 13; k = 1, 2; controls q = 5, 7 at k = 50.
+
+VALIDATION OF THE INSTRUMENT (seen data; retrospective; labelled as such)
+  - Measured part: every number of the review's dirs.json (24 windows 6.0e9-8.3e9) and dirs_old.json (nine windows
+    2e11-1e12), cells 3_1, 5_1, 7_1 and 10_2 (= mod 5, k = 2): W at 1e4, 1e5, 1e6, their errors, the slopes and their
+    errors, reproduced to 3.6e-15 or better (384 numbers).
+  - Comparator: the review's V per group reproduced to 4e-16 (responses pooled over the 24 windows, its own noise
+    correction), and its tailemp.json tails at y = 11, 13, 17 to 7e-17; the instrument's own estimator (lag 0 from
+    quarters) agrees to 1e-7 in the tail and 0.04 % in V.
+  - One response stretch of 1e8 against the 24-window responses: the LR slopes per type differ by at most 8e-5 for
+    q = 3, 5, 7 (jackknife errors 2e-5 to 3e-4); for the composite moduli 8, 9, 12 (Q = 2042040, 1531530, 1021020,
+    only 49-98 sites per class) the single stretch is noisier (q = 8 eq: -0.0039 +- 0.0021 against -0.0047; q = 12 eq
+    -0.0038 +- 0.0001 against -0.0041). Hence four response stretches for q = 8, 9, 12 (below).
+  - Sieve: identical to gmpy2.is_prime on [6e9, +2e5), [4e10, +2e5), [1e12 - 1e5, +2e5).
+  - Height of the response stretch: V does NOT scale like 1/lam. Responses on [2e11, +1e8) (lam 26.02) give a
+    comparator 10-16 % below the one from [5e9, +1e8) (lam 22.34) after the 1/lam rescaling, for every type of
+    q = 5 and 7 (the raw V falls about like lam^-1.9 between these heights). The review's dirs_old.json rescaled the
+    new-height V by 1/lam and so overstates the old-height comparator by about 13 %. Here the old-height column of the
+    map uses responses pooled over the nine old windows themselves (lam_resp = lam), and the fresh response stretch
+    lies next to the fresh windows (lam 24.09 against 24.16: the rescaling error is below 0.5 %).
+
+EXPLORATORY MAP (seen data: the 24 windows 6.0e9-8.3e9 with the response stretch [5e9, 5e9 + 1e8), and the nine
+windows 2e11-1e12 with responses pooled over those nine windows; it is the basis of the readings below and is NOT
+evidence). Excess per unit ln H per direction, error, z:
+  q  k  type ndir | new height (lam 22.69, 24 w) | old height (lam 27.02, 9 w) | combined                 | LR (new)
+  3  1  eq     1  | +0.0116 +- 0.0064 (+1.8)     | +0.0030 +- 0.0077 (+0.4)    | +0.0081 +- 0.0049 (+1.6) | -0.0028
+  3  2  eq     1  | -0.0024 +- 0.0064 (-0.4)     | -0.0098 +- 0.0115 (-0.9)    | -0.0042 +- 0.0056 (-0.7) | -0.0013
+  5  1  eq     3  | -0.0014 +- 0.0033 (-0.4)     | -0.0026 +- 0.0044 (-0.6)    | -0.0019 +- 0.0026 (-0.7) | -0.0055
+  5  1  conj   2  | +0.0013 +- 0.0030 (+0.4)     | +0.0027 +- 0.0050 (+0.5)    | +0.0017 +- 0.0025 (+0.7) | -0.0034
+  5  1  rc     4  | -0.0085 +- 0.0021 (-4.1)     | -0.0098 +- 0.0030 (-3.2)    | -0.0089 +- 0.0017 (-5.2) | -0.0057
+  5  2  eq     3  | -0.0081 +- 0.0040 (-2.0)     | +0.0035 +- 0.0067 (+0.5)    | -0.0051 +- 0.0034 (-1.5) | -0.0016
+  5  2  conj   2  | -0.0020 +- 0.0043 (-0.5)     | -0.0095 +- 0.0072 (-1.3)    | -0.0040 +- 0.0037 (-1.1) | -0.0013
+  5  2  rc     4  | -0.0042 +- 0.0034 (-1.2)     | -0.0017 +- 0.0023 (-0.7)    | -0.0025 +- 0.0019 (-1.3) | -0.0018
+  7  1  eq     5  | -0.0015 +- 0.0026 (-0.6)     | -0.0015 +- 0.0041 (-0.4)    | -0.0015 +- 0.0022 (-0.7) | -0.0068
+  7  1  conj   4  | -0.0044 +- 0.0023 (-1.9)     | -0.0019 +- 0.0029 (-0.6)    | -0.0034 +- 0.0018 (-1.9) | -0.0045
+  7  1  rc     8  | -0.0030 +- 0.0023 (-1.3)     | +0.0024 +- 0.0038 (+0.6)    | -0.0016 +- 0.0019 (-0.8) | -0.0070
+  7  1  cc     8  | -0.0032 +- 0.0022 (-1.5)     | +0.0034 +- 0.0037 (+0.9)    | -0.0015 +- 0.0019 (-0.8) | -0.0066
+  7  2  eq     5  | -0.0008 +- 0.0024 (-0.3)     | -0.0073 +- 0.0049 (-1.5)    | -0.0020 +- 0.0021 (-0.9) | -0.0020
+  7  2  conj   4  | -0.0026 +- 0.0034 (-0.8)     | -0.0095 +- 0.0044 (-2.1)    | -0.0052 +- 0.0027 (-1.9) | -0.0017
+  7  2  rc     8  | -0.0017 +- 0.0017 (-1.0)     | -0.0005 +- 0.0034 (-0.1)    | -0.0015 +- 0.0015 (-1.0) | -0.0022
+  7  2  cc     8  | -0.0038 +- 0.0028 (-1.4)     | +0.0016 +- 0.0056 (+0.3)    | -0.0027 +- 0.0025 (-1.1) | -0.0021
+  8  1  eq     3  | -0.0051 +- 0.0040 (-1.3)     | -0.0022 +- 0.0078 (-0.3)    | -0.0045 +- 0.0036 (-1.3) | -0.0039
+  8  1  rr     6  | -0.0070 +- 0.0023 (-3.0)     | -0.0078 +- 0.0052 (-1.5)    | -0.0071 +- 0.0021 (-3.4) | -0.0063
+  8  2  eq     3  | +0.0016 +- 0.0040 (+0.4)     | -0.0060 +- 0.0042 (-1.4)    | -0.0020 +- 0.0029 (-0.7) | -0.0010
+  8  2  rr     6  | +0.0006 +- 0.0022 (+0.2)     | +0.0033 +- 0.0039 (+0.9)    | +0.0012 +- 0.0019 (+0.6) | -0.0016
+  9  1  eq     5  | -0.0008 +- 0.0026 (-0.3)     | +0.0028 +- 0.0037 (+0.7)    | +0.0004 +- 0.0021 (+0.2) | -0.0059
+  9  1  conj   4  | -0.0097 +- 0.0025 (-3.8)     | -0.0055 +- 0.0054 (-1.0)    | -0.0090 +- 0.0023 (-3.9) | -0.0050
+  9  1  rc     8  | +0.0002 +- 0.0018 (+0.1)     | -0.0033 +- 0.0031 (-1.0)    | -0.0007 +- 0.0016 (-0.4) | -0.0055
+  9  1  cc     8  | -0.0015 +- 0.0024 (-0.6)     | -0.0029 +- 0.0056 (-0.5)    | -0.0017 +- 0.0022 (-0.8) | -0.0068
+  9  2  eq     5  | -0.0036 +- 0.0027 (-1.4)     | +0.0056 +- 0.0049 (+1.2)    | -0.0015 +- 0.0023 (-0.6) | -0.0021
+  9  2  conj   4  | -0.0031 +- 0.0031 (-1.0)     | +0.0067 +- 0.0039 (+1.7)    | +0.0008 +- 0.0024 (+0.3) | -0.0019
+  9  2  rc     8  | -0.0012 +- 0.0021 (-0.6)     | +0.0056 +- 0.0028 (+2.0)    | +0.0013 +- 0.0017 (+0.7) | -0.0017
+  9  2  cc     8  | +0.0017 +- 0.0016 (+1.0)     | +0.0054 +- 0.0031 (+1.8)    | +0.0025 +- 0.0014 (+1.7) | -0.0024
+ 11  1  eq     9  | -0.0033 +- 0.0017 (-1.9)     | -0.0040 +- 0.0022 (-1.8)    | -0.0036 +- 0.0014 (-2.6) | -0.0071
+ 11  1  conj   8  | -0.0019 +- 0.0021 (-0.9)     | +0.0006 +- 0.0027 (+0.2)    | -0.0010 +- 0.0017 (-0.6) | -0.0051
+ 11  1  rc    16  | -0.0021 +- 0.0013 (-1.6)     | -0.0063 +- 0.0011 (-5.8)    | -0.0046 +- 0.0009 (-5.5) | -0.0072
+ 11  1  cc    48  | -0.0024 +- 0.0009 (-2.8)     | -0.0032 +- 0.0016 (-2.0)    | -0.0025 +- 0.0008 (-3.4) | -0.0070
+ 11  2  eq     9  | -0.0015 +- 0.0020 (-0.7)     | -0.0010 +- 0.0032 (-0.3)    | -0.0014 +- 0.0017 (-0.8) | -0.0026
+ 11  2  conj   8  | -0.0017 +- 0.0026 (-0.6)     | -0.0001 +- 0.0034 (-0.0)    | -0.0011 +- 0.0021 (-0.5) | -0.0022
+ 11  2  rc    16  | -0.0006 +- 0.0015 (-0.4)     | +0.0022 +- 0.0028 (+0.8)    | -0.0000 +- 0.0013 (-0.0) | -0.0026
+ 11  2  cc    48  | -0.0014 +- 0.0008 (-1.8)     | +0.0004 +- 0.0016 (+0.2)    | -0.0010 +- 0.0007 (-1.5) | -0.0026
+ 12  1  eq     3  | +0.0023 +- 0.0023 (+1.0)     | -0.0005 +- 0.0066 (-0.1)    | +0.0020 +- 0.0021 (+0.9) | -0.0038
+ 12  1  rr     6  | -0.0021 +- 0.0021 (-1.0)     | -0.0005 +- 0.0041 (-0.1)    | -0.0018 +- 0.0018 (-1.0) | -0.0061
+ 12  2  eq     3  | -0.0024 +- 0.0034 (-0.7)     | -0.0064 +- 0.0078 (-0.8)    | -0.0030 +- 0.0031 (-1.0) | -0.0016
+ 12  2  rr     6  | -0.0039 +- 0.0027 (-1.5)     | +0.0061 +- 0.0042 (+1.5)    | -0.0010 +- 0.0023 (-0.4) | -0.0016
+ 13  1  eq    11  | -0.0007 +- 0.0019 (-0.4)     | -0.0044 +- 0.0023 (-1.9)    | -0.0022 +- 0.0015 (-1.5) | -0.0070
+ 13  1  conj  10  | -0.0012 +- 0.0024 (-0.5)     | -0.0055 +- 0.0028 (-1.9)    | -0.0030 +- 0.0018 (-1.6) | -0.0051
+ 13  1  rc    20  | +0.0016 +- 0.0013 (+1.2)     | +0.0019 +- 0.0021 (+0.9)    | +0.0017 +- 0.0011 (+1.5) | -0.0067
+ 13  1  cc    80  | -0.0022 +- 0.0007 (-3.2)     | -0.0007 +- 0.0014 (-0.5)    | -0.0019 +- 0.0006 (-3.1) | -0.0070
+ 13  2  eq    11  | +0.0002 +- 0.0021 (+0.1)     | +0.0003 +- 0.0023 (+0.1)    | +0.0002 +- 0.0015 (+0.2) | -0.0028
+ 13  2  conj  10  | +0.0008 +- 0.0022 (+0.4)     | +0.0005 +- 0.0024 (+0.2)    | +0.0007 +- 0.0016 (+0.4) | -0.0023
+ 13  2  rc    20  | -0.0032 +- 0.0013 (-2.4)     | -0.0011 +- 0.0015 (-0.7)    | -0.0022 +- 0.0010 (-2.3) | -0.0027
+ 13  2  cc    80  | -0.0016 +- 0.0007 (-2.4)     | -0.0002 +- 0.0006 (-0.3)    | -0.0009 +- 0.0005 (-1.9) | -0.0028
+  Mod-5 contrast (excess of rc minus excess of the other five directions, per window): new -0.0082 +- 0.0031,
+  old -0.0093 +- 0.0039, combined -0.0086 +- 0.0024 (-3.5). Slope / LR: rc 2.48 and 3.79, the other five 1.07 and 1.18.
+  Inside rc mod 5 the subtypes (ord chi(p_n), ord chi(p_(n+1)), ord ratio) 4.2.4 and 2.4.4 give -0.0136 +- 0.0035 and
+  -0.0034 +- 0.0040 at the new height, -0.0076 +- 0.0058 and -0.0107 +- 0.0045 at the old (no consistent asymmetry).
+  The same contrast for mod 7 (rc against the rest) is 0.0000 +- 0.0031 (new); for mod 11 +0.0003 +- 0.0012 (new),
+  -0.0035 +- 0.0008 (old).
+  The whole table (all directions) falls faster than the comparator at k = 1 for q = 5, 7, 8, 9, 11, 13 (excess per
+  direction -0.0040, -0.0030, -0.0064, -0.0021, -0.0024, -0.0013 at the new height, z -2.2 to -3.1); q = 12: -0.0006
+  (-0.4); q = 3: +0.0116 (+1.8).
+  48 type cells at k = 1, 2 were looked at; |combined z| > 2.5 in 7 of them (one, mod 5 rc, chosen before the map).
+  The old-height column with the 5e9 responses rescaled by 1/lam (as the review did) reads about 0.0005 closer to
+  zero in every k = 1 cell (mod 5 rc -0.0092 +- 0.0030; mod 11 eq -0.0035, then not selected).
+
+NULL CHECKS ON THE INSTRUMENT (seen data)
+  - First-order chain with the primes' pooled matrix, 96 simulated windows: every type slope is 0 within errors
+    (rms z 1.00 over 55 type cells; one |z| > 2); mod 5 rc -0.0011 +- 0.0015. The O(1/N) level bias at 1e4 is -0.001
+    to -0.004 per direction at k = 1, so the measured slopes are biased by +0.0002 to +0.0008 (towards zero), not
+    towards the excess.
+  - Successors permuted within the window (same first class): W = 1 and slope 0 in every type (rms z 0.85).
+  - The 1e4-blocks in random order (E[slope] = 0 exactly): rms z 1.06 over types, 1.09 over 322 groups (25 groups
+    with |z| > 2 against 14.7 for a normal law and 18.5 for t with 23 degrees of freedom): the type errors are right,
+    single groups are slightly heavy-tailed.
+  - p_(n+50) instead of p_(n+1) (q = 5, 7): measured slopes and LR are both about 0; mod 5 rc excess -0.0003 +- 0.0028
+    (combined). The excess is not produced by the statistic, the basis, the per-window P^ or the block layout.
+  - The comparator grows with its truncation: LR(y = 13)/LR(y = 17) = 0.79-0.94 by type at k = 1 (one noisy composite
+    cell 1.06). Mod 5: rc 0.86, eq 0.87, conj 0.79: the mixed directions do not grow faster with y than the others.
+
+WINDOWS (a new height)
+  - W_i = [x0_i, x0_i + 1e8), x0_i = 3.0e10 + i * 1e8, i = 0..23, i.e. [3.0e10, 3.24e10). lam_i = ln(x0_i + 5e7),
+    mean 24.163 (between the two seen heights 22.693 and 27.017).
+  - Response stretches R_j = [2.90e10 + j * 1e8, + 1e8): R_0 for q = 3, 5, 7, 11, 13; R_0..R_3 pooled for q = 8, 9, 12
+    (the validation showed one stretch is too few sites per class for these moduli). lam_resp = 24.092 (R_0),
+    24.097 (R_0..R_3). The response stretches are disjoint from the windows.
+  - Grep over STUDY.md, RIEMANN.md, MERSENNE.md, LOGIC.md and preregister/*.txt for every value between 2e10 and 4e10
+    in the forms 3e10, 3.1e10, 3·10¹⁰, 30000000000: no window bound in [2.9e10, 3.24e10). Mentions: [1e10, 2e10)
+    (rounds 54, 58, 62), X = 2e10 (round 94), round 94's zero-side scan up to 4e10 (zeros only, no primes).
+  - Disclosure: round 16's box E1 (a in [2e5, 2e5 + 2000), b in [1e5, 1e5 + 2000)) tested the primality of about
+    4e6 values of a^2 - ab + b^2 in [3.0000e10, 3.0604e10], which overlaps windows 0-6. That is a different statistic
+    on a sparse subset of the integers (Eisenstein primes, nearest-neighbour norms); no consecutive primes, residue
+    classes or transition tables there.
+
+READINGS (thresholds fixed now; err = the realized error of the cell, measurement only)
+ P1 (primary): mod 5, k = 1, type rc (the four mixed directions).
+    - Passes (the excess is there) if excess <= -2 err. Strong if excess <= -3 err.
+    - P1m (magnitude): passes if |excess - (-0.0087)| <= 2.5 err.
+    - Expected excess at lam = 24.16: -0.0089 (constant), -0.0087 (scaling 1/lam, fitted to both heights),
+      -0.0084 (1/lam^2); from the new height alone -0.0080 (1/lam), -0.0075 (1/lam^2). Both heights agree with each
+      law (chi2 0.12, 0.57, 1.27 on 1 dof), so the height dependence is not decided by this round.
+    - Expected err 0.0021 (the 24-window error at the new height; the per-block noise does not depend on N; the
+      comparator adds 0.0001). Expected LR slope about -0.0048 (the new height's -0.0057 and the old height's
+      own-response -0.0035, interpolated in ln lam), expected measured slope about -0.0135.
+    - Power: if the excess is -0.0087, P(P1) = 0.98, P(strong) = 0.87, P(P1m) = 0.99; if -0.0075, 0.94 / 0.72 / 0.97.
+      If there is no excess, P(P1) = 0.023 and P(P1m) = 0.05.
+ S0 (secondary): the mod-5 contrast, excess(rc) - excess(the other five directions), from per-window values.
+    Passes if <= -2 err. Expected -0.0086, err about 0.0031; power 0.78 (0.27 if the contrast is half as large).
+    It is free of any offset the comparator shares across directions.
+ S1-S6 (secondary): the types with |combined z| > 2.5 in the exploratory map keep their sign at 2 errors or more
+    (excess <= -2 err):
+      S1 q = 8,  k = 1, rr    (6 dirs)   seen -0.0071 +- 0.0021   expected err 0.0023   power 0.86
+      S2 q = 9,  k = 1, conj  (4 dirs)   seen -0.0090 +- 0.0023   expected err 0.0025   power 0.95
+      S3 q = 11, k = 1, eq    (9 dirs)   seen -0.0036 +- 0.0014   expected err 0.0017   power 0.55
+      S4 q = 11, k = 1, rc   (16 dirs)   seen -0.0046 +- 0.0009   expected err 0.0013   power 0.94 (0.35 at the
+                                                                  new-height value -0.0021: the heights disagree)
+      S5 q = 11, k = 1, cc   (48 dirs)   seen -0.0025 +- 0.0008   expected err 0.0009   power 0.78
+      S6 q = 13, k = 1, cc   (80 dirs)   seen -0.0019 +- 0.0006   expected err 0.0007   power 0.76
+    Powers assume the seen values are true; they were selected for being large, so they are optimistic (with half the
+    seen value: 0.32, 0.42, 0.17, 0.41, 0.27, 0.26). Report how many of the six pass: about 4.8 expected if the seen
+    values hold, 1.9 if they are half as large, 0.14 if they were noise.
+ No reading: every other (q, k, type) cell, the subtypes and the groups, the lag-50 controls, the "all directions"
+    excess per modulus, the asymptotic comparator -V/lam, and the comparator at y = 11 and 13. They are reported.
+ FALSIFIER: |excess(mod 5, k = 1, rc)| < 1 err. Probability 0.001 if the excess is -0.0087 (0.005 at -0.0075), 0.68
+    if there is none. It would say that the mod-5 mixed excess of the seen data was a fluctuation of the two old heights
+    (combined -5.2 err there).
+
+Verdict rule: the mod-5 mixed excess is confirmed on fresh primes if P1 passes, and specific to the mixed directions
+if S0 passes too. P1 passing with S0 failing leaves open whether the excess is a share of a deficit of the comparator
+common to all directions. The map's other cells are confirmed as a pattern only by the count of S1-S6 passes.
+
+COMMANDS (fresh run; every run under the memory cap and the time limit; nothing in the background)
+  M=<path>/map.py; cd <an empty work directory>
+  CELLS=3:1,3:2,5:1,5:2,5:50,7:1,7:2,7:50,8:1,8:2,9:1,9:2,11:1,11:2,12:1,12:2,13:1,13:2
+  W1="30000000000 30100000000 30200000000 30300000000 30400000000 30500000000 30600000000 30700000000 30800000000 30900000000 31000000000 31100000000"
+  W2="31200000000 31300000000 31400000000 31500000000 31600000000 31700000000 31800000000 31900000000 32000000000 32100000000 32200000000 32300000000"
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I $M measure fresh $W1 --cells $CELLS)
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I $M measure fresh $W2 --cells $CELLS)
+    Two batches of 12 windows (2-5 s per window measured at 6e9-1e12, so about 1 minute per batch); each window is one
+    file fresh/m_<x0>.npz; a batch that is cut off can be rerun (finished windows are skipped). The batches are
+    pooled by the report, which reads every m_*.npz in fresh/ and weights the windows equally.
+  R0=29000000000; R4="29000000000 29100000000 29200000000 29300000000"
+  for spec in "13:1,2:$R0" "11:1,2:$R0" "3:1,2:$R0" "5:1,2,50:$R0" "7:1,2,50:$R0" "8:1,2:$R4" "9:1,2:$R4" "12:1,2:$R4"; do
+    q=${spec%%:*}; rest=${spec#*:}; ks=${rest%%:*}; st=${rest#*:}
+    (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I $M respond --out lr_fresh_q$q.json \
+        --stretch $st --set fresh=fresh --qs $q --ks $ks)
+  done
+    One run per modulus (measured on seen stretches: q = 13 with four stretches 124 s, 1.09 GB resident; q = 7 with
+    lag 50 and four stretches 155 s, 0.56 GB; q = 9 with nine stretches 231 s, 1.22 GB).
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I $M report --set fresh=fresh \
+      --lr lr_fresh_q*.json --json rep_fresh.json --groups) > rep_fresh.txt
+  .venv/bin/python -I <path>/evaluate.py rep_fresh.json > verdict_fresh.txt
+  Optional (no reading): (ulimit ...; python -I $M chain chain_fresh --set fresh=fresh --nwin 24 --seed 2026 --cells $CELLS)
+
+Known weak points, stated now:
+- The comparator is the linear response at y = 17. It grows with y (from 11 to 13 to 17 by 6-33 % per step, the steps
+  shrinking but not converged), so an excess common to all directions is expected from the truncation alone; that is
+  why S0 (a contrast inside mod 5) is registered next to P1. The truncation ratio y = 13 / y = 17 is 0.86 for the mixed
+  directions mod 5, 0.87 and 0.79 for the others, but nothing beyond y = 17 was computed.
+- The comparator's estimator matters when the classes are thin: cross products of disjoint parts at every lag depend
+  on how a single stretch is split (mod 5, all directions: -0.0052 to -0.0057 per direction against -0.0052 for the
+  pooled class means), and for q = 8, 9 by 30 % to a factor 2.8 in single types; with 24 stretches all estimators
+  agree. The registered estimator (pooled class means, lag 0 from quarters) is the one that matches the review and
+  the 24-window responses.
+- V is rescaled by lam_resp/lam, which is wrong in general (V falls about like lam^-1.9, see the validation); the
+  fresh response stretch lies 0.07 below the windows in lam, so the error is below 0.5 % of the comparator.
+- With 24 windows the jackknife error has 23 degrees of freedom; single groups (not types) show slightly heavier tails
+  than normal in the block-shuffle control.
+- The secondary cells were selected on the seen map (selection bias); their powers are upper bounds.
+- The O(1/N) bias of the statistic (from the chain null) moves the slopes by at most +0.0008 per direction, towards
+  zero; it is not subtracted.
