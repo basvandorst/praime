@@ -62,7 +62,7 @@ out = {'windows': WIN}
 for key, d in acc.items():
     v = np.concatenate(d['v']); law = None if d['law'][0] is None else float(np.mean(d['law']))
     pw = [float(t.mean()) for t in d['v']]; m = float(np.mean(pw)); e = float(v.std() / math.sqrt(len(v)))
-    out[key] = {'mean': m, 'err': e, 'law': law, 'per_window': pw}
+    out[key] = {'mean': m, 'err': e, 'law': law, 'per_window': pw, 'per_window_err': [float(t.std() / math.sqrt(len(t))) for t in d['v']]}
 for BL in BLS:
     print('H = %.0e' % BL)
     print('  S1   ' + '  '.join('q=%d %.4f+-%.4f (law %.4f, z %+.1f)' % (q, out['S1_%d_%d' % (q, BL)]['mean'], out['S1_%d_%d' % (q, BL)]['err'], out['S1_%d_%d' % (q, BL)]['law'], (out['S1_%d_%d' % (q, BL)]['mean'] - out['S1_%d_%d' % (q, BL)]['law']) / out['S1_%d_%d' % (q, BL)]['err']) for q in S1Q))
