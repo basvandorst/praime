@@ -1,0 +1,139 @@
+Round 134, pre-registered before the computation (commit order shows the order; STUDY.md section 1). No zero set was
+loaded for the predictions: only file existence and sizes were checked.
+
+Why. Round 123 found Berry's per-prime diagonal law right to first order over l = 0.5..8, but with a residual of period 1
+in l (too negative at whole l, too positive at half l, growing with l; chi2 15-85 on 6) and a failure at l = 0.5 (slope
+0.56 real, 0.30 complex). The Bogomolny-Keating two-point function for primitive Dirichlet L-functions (J. Phys. A 46
+(2013) 095202, arXiv:1307.6010) has an off-diagonal term (1/4pi^2) e^{i eps L} |zeta(1+i eps)|^2 Phi_off(eps) Psi_off(eps,k)
++ c.c., L = ln(kE/2pi), with Psi_off = prod_{p|k} F_p, F_p = (p - p^{-i eps})/(p - 2 + p^{i eps}). In unfolded units
+e^{i eps L} = e^{2 pi i r}. A prime p | k changes the number variance by Berry's diagonal term
+  dSigma2_diag(l; p, L) = -(2/pi^2) sum_m sin^2(pi l m ln p/L)/(m^2 p^m)
+plus an off-diagonal term
+  dSigma2_off(l; p, L, S) = (4/L^2) int_0^l (l - r) Re[e^{2 pi i r} |zeta(1+i eps)|^2 Phi_off(eps) prod_{q in S} F_q(eps)
+                            (F_p(eps) - 1)] dr,  eps = 2 pi r/L, S = the other primes dividing k.
+The off-diagonal term has period 1 in l and vanishes at whole l to leading order. It is not additive over bad primes.
+Derivation, code and checks: writeup/code/study/lowzero/bk/ (derivation.md, bklib.py, predict.py, validate.py; an
+independent recomputation of the integrals agrees to
+1.5e-8).
+
+Retrospective (known before this registration; labelled as such). On round 123's 96 fitted coefficients the exact law
+(regression-matched, all prime divisors of D, L-averaged) gives chi2 15.7 against 684 for the diagonal law (OLS se),
+slope 0.999, and residual-on-off-part slope 0.995. On zeta's round-129 data it gives max |data - BK| = 0.0008 over
+l = 0.5..8, against 0.0037 for Berry. The absolute Sigma2(1) agrees within 0.0004 in rounds 120, 121 and 122 (no
+fitted constant). No parameter was fitted; the only data used for the predictions are the conductor lists and the
+height ranges.
+
+Frozen predictions (same folder): predictions_per_lfunction.json (sha256 df2065b2a65183dcfb34668c4e01c47fce6bc0d4f06df37ec0574b0b3df20bf7)
+holds, for every L-function of tests A, B and C, the predicted Sigma2_i(l) on l = 0.125, 0.25, ..., 8:
+  full = the Bogomolny-Keating law with all bad primes;
+  diag = the diagonal law (the same base, the bad primes acting only through Berry's term).
+Each value is averaged over the height range with weight ln(q t/2pi) (the zero density; Gauss-Legendre, 8 nodes).
+predict.json (sha256 8a2edf62371c3466b7c43382c0ad7c992ce6062fc91ead58b860561d1673a0a0) holds the regression-matched
+per-prime coefficients quoted below. Both files are committed with this registration, before any zero is computed.
+
+TEST B (primary; fully blind). Data:
+  - All 184 fundamental discriminants with 400 < |D| <= 700 (list in the json).
+  - Zeros 100 <= gamma <= 600 from PARI lfunzeros(lfuncreate(D), 600).
+  - Then the repo's completeness check: drift of the count against N(t) above 1.2 -> search the 30 largest unfolded
+    gaps again with 256 subdivisions, as in fixpairs.py. Report how many sets were completed.
+Mean L 10.23. Group sizes for 2, 3, 5, 7, 11, 13: 61, 46, 31, 21, 16, 12.
+
+Statistic, exactly as r123.py:
+  - u = (gamma/2pi) ln(|D| gamma/(2 pi e));
+  - window starts x = arange(u_0, u_end - l, 0.01);
+  - counts by searchsorted; Sigma2_i(l) = np.var(counts);
+  - primary grid l = 0.5, 1.0, ..., 8.0; fine grid l = 0.125 steps (figure only, no reading).
+For each l: OLS of Sigma2_i(l) on [1, I(2|D), I(3|D), I(5|D), I(7|D), I(11|D), I(13|D)] gives fit(p,l) and its OLS se.
+The same OLS on the frozen per-L-function predictions gives pred_full(p,l) and pred_diag(p,l).
+Define off(p,l) = pred_full - pred_diag and res(p,l) = fit - pred_diag.
+Bootstrap: 2000 resamples of L-functions with replacement, numpy default_rng(134). In each resample recompute fit,
+pred_full and pred_diag on the resampled design, then the statistics below.
+
+Readings (thresholds fixed now):
+ (1) gamma = sum res*off / sum off^2 over the 96 cells. The full law predicts 1, the diagonal law 0.
+     Full law passes if 0.7 <= gamma <= 1.3. Diagonal law fails if the bootstrap 2.5% point of gamma is above 0.3.
+     (Expected bootstrap se about 0.12.)
+ (2) chi2 = sum ((fit - pred)/se)^2 over the 96 cells, with OLS se (round 123's convention).
+     Full law passes if chi2_full <= 96. Diagonal law fails if chi2_diag >= 4 chi2_full.
+     (Expected chi2_full about 15-40; chi2_diag about 450.)
+ (3) l = 0.5: rho = sum_p fit*pred_diag / sum_p pred_diag^2. The full law predicts 0.560, the diagonal law 1.
+     Full law passes if 0.40 <= rho <= 0.72. Diagonal law fails if rho <= 0.80.
+ (4) p = 2, res(2,l) at l = 6, 6.5, 7, 7.5, 8 has signs -, +, -, +, -.
+     Predicted -0.0051, +0.0074, -0.0075, +0.0091, -0.0081 (expected se about 0.0013); the diagonal law predicts 0.
+     Passes if all five signs are as predicted.
+ (5) secondary, absolute, no fitted constant: |mean_i (Sigma2_i(l) - full_i(l))| <= 0.004 at every l of the primary
+     grid.
+ (6) secondary, per L-function: the pooled regression of Sigma2_i(l) - diag_i(l) on full_i(l) - diag_i(l), with a free
+     intercept per l, over 184 x 16 points has slope in [0.7, 1.3] (bootstrap over L-functions).
+The full law is confirmed if (1)-(4) pass. The diagonal law is rejected if the "fails" parts of (1), (2) and (3) all
+hold.
+
+Predicted coefficients, Test B (full / diag / off), l = 0.5..8:
+  l     p=2                      p=3                      p=5                      p=7                      p=11                     p=13
+ 0.5 -0.0013 -0.0025 +0.0011  -0.0017 -0.0031 +0.0014  -0.0017 -0.0030 +0.0013  -0.0018 -0.0032 +0.0014  -0.0014 -0.0024 +0.0011  -0.0014 -0.0025 +0.0011
+ 1.0 -0.0096 -0.0092 -0.0003  -0.0118 -0.0114 -0.0004  -0.0114 -0.0110 -0.0004  -0.0115 -0.0112 -0.0004  -0.0088 -0.0085 -0.0003  -0.0087 -0.0085 -0.0002
+ 1.5 -0.0169 -0.0186 +0.0017  -0.0204 -0.0225 +0.0021  -0.0191 -0.0211 +0.0021  -0.0184 -0.0204 +0.0019  -0.0134 -0.0148 +0.0014  -0.0129 -0.0142 +0.0013
+ 2.0 -0.0299 -0.0289 -0.0010  -0.0353 -0.0340 -0.0013  -0.0317 -0.0304 -0.0013  -0.0279 -0.0271 -0.0009  -0.0186 -0.0180 -0.0006  -0.0162 -0.0160 -0.0002
+ 2.5 -0.0374 -0.0398 +0.0024  -0.0414 -0.0445 +0.0031  -0.0344 -0.0371 +0.0028  -0.0274 -0.0296 +0.0022  -0.0150 -0.0166 +0.0016  -0.0121 -0.0131 +0.0009
+ 3.0 -0.0527 -0.0510 -0.0017  -0.0559 -0.0535 -0.0024  -0.0418 -0.0404 -0.0015  -0.0286 -0.0279 -0.0007  -0.0122 -0.0117 -0.0004  -0.0071 -0.0076 +0.0004
+ 3.5 -0.0588 -0.0618 +0.0030  -0.0564 -0.0607 +0.0043  -0.0373 -0.0395 +0.0022  -0.0208 -0.0225 +0.0018  -0.0047 -0.0057 +0.0011  -0.0024 -0.0027 +0.0003
+ 4.0 -0.0739 -0.0715 -0.0023  -0.0698 -0.0664 -0.0034  -0.0352 -0.0348 -0.0004  -0.0149 -0.0148 -0.0002  -0.0011 -0.0014 +0.0003  -0.0003 -0.0011 +0.0009
+ 4.5 -0.0765 -0.0804 +0.0038  -0.0649 -0.0696 +0.0047  -0.0262 -0.0273 +0.0011  -0.0061 -0.0071 +0.0011  -0.0005 -0.0009 +0.0004  -0.0034 -0.0035 +0.0000
+ 5.0 -0.0916 -0.0882 -0.0034  -0.0718 -0.0689 -0.0028  -0.0178 -0.0182 +0.0004  -0.0022 -0.0027 +0.0005  -0.0040 -0.0048 +0.0007  -0.0070 -0.0080 +0.0011
+ 5.5 -0.0894 -0.0945 +0.0052  -0.0613 -0.0645 +0.0032  -0.0082 -0.0090 +0.0007  -0.0024 -0.0031 +0.0007  -0.0109 -0.0111 +0.0002  -0.0127 -0.0126 -0.0001
+ 6.0 -0.1043 -0.0992 -0.0051  -0.0589 -0.0578 -0.0011  -0.0020 -0.0025 +0.0005  -0.0072 -0.0077 +0.0005  -0.0159 -0.0165 +0.0006  -0.0140 -0.0151 +0.0011
+ 6.5 -0.0947 -0.1021 +0.0074  -0.0478 -0.0497 +0.0019  -0.0004 -0.0013 +0.0009  -0.0136 -0.0146 +0.0009  -0.0173 -0.0180 +0.0007  -0.0139 -0.0139 +0.0000
+ 7.0 -0.1112 -0.1037 -0.0075  -0.0402 -0.0399 -0.0003  -0.0056 -0.0059 +0.0002  -0.0215 -0.0216 +0.0001  -0.0149 -0.0147 -0.0002  -0.0083 -0.0092 +0.0009
+ 7.5 -0.0951 -0.1042 +0.0091  -0.0274 -0.0288 +0.0014  -0.0129 -0.0141 +0.0012  -0.0258 -0.0271 +0.0013  -0.0073 -0.0087 +0.0015  -0.0035 -0.0038 +0.0003
+ 8.0 -0.1115 -0.1035 -0.0081  -0.0178 -0.0180 +0.0002  -0.0234 -0.0232 -0.0002  -0.0291 -0.0291 -0.0000  -0.0043 -0.0037 -0.0006  -0.0010 -0.0014 +0.0004
+
+TEST A (second test; complex characters; NOT fully blind). Data:
+  - The 88 primitive characters of round 121 (lzeros/r121_part0..3.npz, 196-200 KB each, completed in the data
+    repair).
+  - Zeros 100 <= |gamma| <= 500 on both sides; Sigma2 per side as above (with N in place of |D|), and the
+    window-count-weighted mean of the two sides, as in r121.py.
+  - Indicators of 2, 3, 5, 7 (group sizes 16, 21, 14, 10).
+Blindness: Sigma2(l) for l = 0.5..8 of these sets was computed once, by the thirty-eighth review (review38/r121.py),
+before the data repair. Per-l fits for p = 2, 3, 5, 7 were printed, with a qualitative "fails at other lengths" in
+STUDY.md. The only number published is the l = 0.5 slope 0.30. The review's values sit outside the repo
+(/home/bas/scratch/review-logic3/complex.npz, pre-repair), and the proposer did not open that file. The comparison
+with the off-diagonal law has never been made on these data. Test A tests the paper's claim that real and complex
+characters of equal conductor follow the same law. The repo's earlier guess of extra rigidity for real characters has
+no counterpart in the paper.
+
+Readings, as for B with 64 cells:
+ (1A) 0.7 <= gamma <= 1.3; diagonal law fails if the bootstrap 2.5% point is above 0.3.
+ (2A) chi2_full <= 64; diagonal law fails if chi2_diag >= 4 chi2_full.
+ (3A) rho predicted 0.550. Full law passes if 0.35 <= rho <= 0.75; diagonal law fails if rho <= 0.80. The pre-repair
+      0.30 would fail this reading; the reading decides between that value and the law.
+ (4A) p = 2 signs at l = 6, 6.5, 7, 7.5, 8: -, +, -, +, -. Predicted -0.0045, +0.0074, -0.0064, +0.0080, -0.0061.
+ (5A) absolute, as (5).
+
+Predicted coefficients, Test A (full / diag / off):
+  l     p=2                      p=3                      p=5                      p=7
+ 0.5 -0.0020 -0.0037 +0.0017  -0.0022 -0.0041 +0.0019  -0.0025 -0.0046 +0.0021  -0.0028 -0.0050 +0.0022
+ 1.0 -0.0133 -0.0130 -0.0003  -0.0148 -0.0145 -0.0003  -0.0162 -0.0158 -0.0003  -0.0172 -0.0169 -0.0003
+ 1.5 -0.0220 -0.0238 +0.0019  -0.0244 -0.0266 +0.0022  -0.0250 -0.0273 +0.0023  -0.0254 -0.0276 +0.0023
+ 2.0 -0.0339 -0.0337 -0.0002  -0.0380 -0.0376 -0.0004  -0.0342 -0.0342 -0.0000  -0.0307 -0.0310 +0.0003
+ 2.5 -0.0433 -0.0451 +0.0018  -0.0466 -0.0489 +0.0023  -0.0368 -0.0382 +0.0014  -0.0272 -0.0285 +0.0013
+ 3.0 -0.0597 -0.0595 -0.0003  -0.0610 -0.0602 -0.0008  -0.0402 -0.0413 +0.0010  -0.0238 -0.0248 +0.0010
+ 3.5 -0.0704 -0.0722 +0.0018  -0.0645 -0.0669 +0.0024  -0.0389 -0.0397 +0.0008  -0.0189 -0.0199 +0.0010
+ 4.0 -0.0804 -0.0805 +0.0001  -0.0676 -0.0679 +0.0003  -0.0297 -0.0307 +0.0010  -0.0115 -0.0125 +0.0010
+ 4.5 -0.0858 -0.0873 +0.0015  -0.0670 -0.0668 -0.0002  -0.0173 -0.0183 +0.0011  -0.0048 -0.0059 +0.0011
+ 5.0 -0.0958 -0.0949 -0.0008  -0.0610 -0.0642 +0.0032  -0.0074 -0.0083 +0.0009  -0.0036 -0.0047 +0.0011
+ 5.5 -0.0970 -0.1012 +0.0042  -0.0592 -0.0573 -0.0019  -0.0022 -0.0032 +0.0010  -0.0090 -0.0098 +0.0008
+ 6.0 -0.1088 -0.1043 -0.0045  -0.0429 -0.0463 +0.0033  -0.0031 -0.0042 +0.0011  -0.0174 -0.0191 +0.0017
+ 6.5 -0.0975 -0.1049 +0.0074  -0.0350 -0.0341 -0.0009  -0.0095 -0.0100 +0.0005  -0.0280 -0.0277 -0.0003
+ 7.0 -0.1103 -0.1039 -0.0064  -0.0207 -0.0227 +0.0019  -0.0167 -0.0186 +0.0019  -0.0284 -0.0310 +0.0026
+ 7.5 -0.0937 -0.1017 +0.0080  -0.0123 -0.0126 +0.0004  -0.0279 -0.0276 -0.0003  -0.0283 -0.0281 -0.0002
+ 8.0 -0.1039 -0.0978 -0.0061  -0.0047 -0.0058 +0.0010  -0.0326 -0.0348 +0.0023  -0.0196 -0.0215 +0.0018
+
+TEST C (optional replication, fully blind). The 181 discriminants of round 120 at the new band 600 <= gamma <= 1000
+(not computed so far; the saved sets stop at 600). Mean L 10.28. Same statistic and readings as B: rho predicted 0.561;
+p = 2 at l = 6..8 predicted -0.0053, +0.0075, -0.0077, +0.0093, -0.0082. Per-cell predictions are in predict.json
+(fresh.C).
+
+Order: commit this file and the two json files -> compute the zeros of B (and C) -> completeness check -> Sigma2 ->
+readings. Test A may run first, since its zeros exist. Report every reading, passed or failed.
+Statuses: the formula is Bogomolny-Keating's (heuristic). The number-variance integral of the bad-prime off-diagonal
+term and its test on zeros are ours as far as found (citing papers not yet searched).
