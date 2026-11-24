@@ -1721,4 +1721,16 @@ assert abs(D2050(0.1, chi4_2050, 4, 1) - D2050(0.1, chi3_2050, 3, 1) - math.log(
 assert abs(D2050(0.3, lambda n: 1, 5, 0) - (D2050(0.3) - 2 * math.log(1.3) + math.log(5))) < 1e-12                # even: no pole term, plus ln q
 del z2050
 
+# 2051: the echo law: sum_rho a^rho/|rho|^2 = a[1 + gamma + int_1^a E(t) dt/t^2] - ln 2pi + T(a); correlations at a = 2, 3, 4
+def J2051(a):
+    s = sum(math.log(p) * (1 / p ** k - 1 / a) for p in (2, 3, 5, 7, 11) for k in range(1, 4) if p ** k <= a)
+    return a * (1 + g2048 + s - math.log(a)) - math.log(2 * math.pi) + triv2048(a)
+assert abs(J2051(1) - lim2048) < 1e-12
+for a2051, r2051 in ((2, -0.3752), (3, -0.4540), (4, -0.0457), (6, 0.2907)): assert abs(J2051(a2051) / (math.sqrt(a2051) * lim2048) - r2051) < 5e-5, a2051
+z2051 = np.loadtxt(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'riemann', 'zeros_40000_flint.txt'), usecols=-1)
+for a2051 in (1.5, 2.5, 3.5, 6.5, 10.5):       # the zero sum with its smooth tail; a is no prime power
+    assert abs(2 * math.sqrt(a2051) * np.sum(np.cos(z2051 * math.log(a2051)) / (0.25 + z2051 ** 2)) - J2051(a2051)) < 2e-6, a2051
+assert all(J2051(3) / math.sqrt(3) <= J2051(1 + i / 1000) / math.sqrt(1 + i / 1000) for i in range(0, 11000))   # the minimum on [1, 12] is at a = 3
+del z2051
+
 print("all FACTS.md checks passed")

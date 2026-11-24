@@ -1,0 +1,255 @@
+<frozen site>:107: RuntimeWarning: Unexpected value in sys.prefix, expected /home/bas/praime/.venv, got /home/bas/praime/writeup/code/study/echo/../../../../.venv
+<frozen site>:107: RuntimeWarning: Unexpected value in sys.exec_prefix, expected /home/bas/praime/.venv, got /home/bas/praime/writeup/code/study/echo/../../../../.venv
+
+== 0. constants  [0 s]
+ok    C = 2 + gamma - ln 4pi   0.0461914179322  (note: 0.0461914179322, tol 1e-16)
+ok    gamma1 (first Stieltjes constant)   -0.0728158454837  (note: -0.0728158454837, tol 1e-15)
+ok    K2 = sum 1/|rho|^4 (closed form)   7.42012728749e-05  (note: 7.42012728749e-05, tol 1e-18)
+ok    B = 1 - gamma - ln 2pi   -1.41509273131  (note: -1.41509273131, tol 1e-11)
+ok    zeta'/zeta(0) = ln 2pi   -2.29588740395e-41  (note: 0, tol 1e-30)
+ok    (zeta'/zeta)'(0) = pi^2/12 - 2 gamma1 - gamma^2   1.14794370197e-41  (note: 0, tol 1e-25)
+ok    sqrt(K2)/C (rms of the correlation coefficient)   0.186485205625  (note: 0.1865, tol 5e-05)
+ok    3 - 3 K2/C^2 (kurtosis under LI)   2.89566980425  (note: 2.8957, tol 5e-05)
+ok    3 C^2 - 3 K2 (fourth moment under LI)   0.00617833745315  (note: 0.0061783, tol 5e-08)
+ok    excess kurtosis -3 K2/C^2 under LI   -0.104330195751  (note: -0.1043, tol 5e-05)
+PARI stack size set to 120000000 bytes, maximum size set to 120000512
+ok    chi_-4: L'/L(1), L'/L(0) agree mpmath vs PARI   0.245609584777314 0.783188785413674
+ok    chi_-4: functional equation L'/L(0) + L'/L(1) = -ln(q/pi) + gamma + ln 2   -4.5917748079e-41  (note: 0, tol 1e-30)
+ok    chi_-3: L'/L(1), L'/L(0) agree mpmath vs PARI   0.368281615970148 0.948198826672621
+ok    chi_-3: functional equation L'/L(0) + L'/L(1) = -ln(q/pi) + gamma + ln 2   -2.29588740395e-41  (note: 0, tol 1e-30)
+ok    chi_-4: L'/L(1)   0.245609584777  (note: 0.2456095848, tol 1e-10)
+ok    chi_-4: L'/L(0)   0.783188785414  (note: 0.7831887854, tol 1e-10)
+ok    chi_-3: L'/L(1)   0.36828161597  (note: 0.368281616, tol 1e-10)
+ok    chi_-3: L'/L(0)   0.948198826673  (note: 0.9481988267, tol 1e-10)
+ok    C_chi_-4 = L'/L(1) - L'/L(0) + ln 2   0.155567979924  (note: 0.155568, tol 5e-07)
+ok    C_chi_-3   0.113229969857  (note: 0.11323, tol 5e-07)
+ok    C_chi_-4 = 2 L'/L(1) + ln(q/pi) - gamma   0.155567979924  (note: 0.155567979924, tol 1e-14)
+ok    C_chi_-3 = 2 L'/L(1) + ln(q/pi) - gamma   0.113229969857  (note: 0.113229969857, tol 1e-14)
+ok    (./5) even: B0 = b(chi)   -0.0220246578387  (note: -0.0220247, tol 5e-08)
+ok    (./5) even: C_chi = L'/L(1) - B0 - ln 2   0.156556953994  (note: 0.156557, tol 5e-07)
+ok    (./5) even: B0 + L'/L(1) = -ln(q/pi) + gamma + ln 2   -1.14794370197e-41  (note: 0, tol 1e-25)
+ok    (./5) even: C_chi = 2 L'/L(1) + ln(q/pi) + psi(1/2)   -2.86985925494e-42  (note: 0, tol 1e-25)
+
+== 1. closed forms and the tail identities  [1 s]
+ok    T(a): closed form = series (a = 1.3, 2, 7)   2.41695959127e-41  (note: 0, tol 1e-30)
+ok    T_o(a): closed form = series   5.73971850987e-42  (note: 0, tol 1e-30)
+ok    T(1) = 1 - ln 2   0  (note: 0, tol 1e-30)
+ok    T_o(1) = ln 2   0  (note: 0, tol 1e-30)
+ok    -(a/2) int_a^oo ln(1 - t^-2) dt/t^2 = T(a)  (zeta: E0 tail = E tail - ln 2pi + T)   1.39905638678e-41  (note: 0, tol 1e-25)
+ok    a int_a^oo artanh(1/t) dt/t^2 = T_o(a)  (odd chi)   2.08064795983e-41  (note: 0, tol 1e-25)
+ok    a int_a^oo ln t dt/t^2 = ln a + 1  (even chi)   4.5917748079e-41  (note: 0, tol 1e-25)
+ok    T'(y) = 1/y - (1/2) ln((y+1)/(y-1))  (sympy; so dJ/da -> -oo as a -> 1+)
+ok    T2(1) = pi^2/6 - 3 + 2 ln 2   1.68604231228e-41  (note: 0, tol 1e-30)
+
+== 2. J(a) from 40,000 zeros of zeta against the closed form, 1 <= a <= 50  [1 s]
+ok    J(1) = C (closed form)   0.0461914179322  (note: 0.0461914179322, tol 1e-15)
+ok    J_chi_-4(1) = C_chi (closed form)   0.155567979924  (note: 0.155567979924, tol 1e-15)
+ok    J_chi_-3(1) = C_chi (closed form)   0.113229969857  (note: 0.113229969857, tol 1e-15)
+     grid: 4901 values of a, T = 33190.012, S(T+) = 0.4648
+ok    grid size (step 0.01 on [1.01, 50], and a = 1)   4901  (note: 4901, tol 0)
+ok    height H of the last zero   33190.0121451  (note: 33190.012, tol 0.0005)
+ok    S(H+)   0.464832143931  (note: 0.4648, tol 5e-05)
+ok    zeros - closed at a = 1   -3.91631171937e-14  (note: -3.9e-14, tol 5e-15)
+ok    max |zeros - closed| with |ln a - ln n| > 0.004 for every prime power n   2.46385973152e-07  (note: 2.5e-07, tol 5e-09)
+ok    max |zeros - closed - resonance| over the whole grid   5.02545097973e-09  (note: 5e-09, tol 1e-10)
+ok    at each prime power n <= 50: zeros - closed = Lambda(n)/(pi T) to within 0.6%   max relative deviation 0.0051
+ok    Lambda(2)/(pi T)   6.64765047956e-06  (note: 6.648e-06, tol 5e-10)
+     a =   1.5  J closed +0.006563666906  zeros-closed +3.898e-10  resonance +3.854e-10  residual +4.4e-12
+     a =   2.0  J closed -0.024511350168  zeros-closed +6.648e-06  resonance +6.648e-06  residual -4.3e-11
+     a =   2.5  J closed +0.015776429387  zeros-closed +6.081e-10  resonance +7.377e-10  residual -1.3e-10
+     a =   6.0  J closed +0.032896658806  zeros-closed -3.573e-09  resonance -4.143e-09  residual +5.7e-10
+     a =  10.0  J closed +0.024592742021  zeros-closed +1.721e-09  resonance +2.169e-09  residual -4.5e-10
+     a =  30.5  J closed -0.061489173454  zeros-closed +3.052e-08  resonance +2.798e-08  residual +2.5e-09
+     a =  50.0  J closed +0.041704291519  zeros-closed +5.285e-08  resonance +4.802e-08  residual +4.8e-09
+ok    J(1.5)   0.00656366690619  (note: 0.0065637, tol 5e-08)
+ok    J(2)   -0.0245113501684  (note: -0.0245114, tol 5e-08)
+ok    J(2.5)   0.0157764293875  (note: 0.0157764, tol 5e-08)
+ok    J(6)   0.032896658806  (note: 0.0328967, tol 5e-08)
+ok    J(10)   0.0245927420207  (note: 0.0245927, tol 5e-08)
+ok    J(30.5)   -0.0614891734538  (note: -0.0614892, tol 5e-08)
+ok    J(50)   0.0417042915193  (note: 0.0417043, tol 5e-08)
+ok    zeros - closed at a = 2   6.64772794445e-06  (note: 6.648e-06, tol 5e-10)
+ok    zeros - closed at a = 6   -3.57297530451e-09  (note: -3.6e-09, tol 1e-10)
+ok    residual at a = 6 after the resonance term   5.70503419749e-10  (note: 5.7e-10, tol 1e-10)
+ok    J2(y) closed form vs 40,000 zeros at y = 1, 2, 5, 10.5, 40   2.58434631117e-14  (note: 2.6e-14, tol 5e-15)
+ok    J2(1) = K2   7.42012728749e-05  (note: 7.42012728749e-05, tol 1e-20)
+
+== 3. correlation coefficients r(a) = A(a)/(sqrt(a) A(1)), closed form  [4 s]
+     z: 1.01:+0.6540 1.1:-0.1369 1.5:+0.1160 2:-0.3752 3:-0.4540 4:-0.0457 5:-0.4533 6:+0.2907 7:-0.4418 8:-0.0445 9:+0.0285 10:+0.1684 100:-0.2515 1000:-0.2101
+ok    r table (z), 14 values, max deviation   4.81320497391e-05  (note: 0, tol 5e-05)
+     4: 1.01:+0.8534 1.1:+0.2822 1.5:-0.2671 2:-0.1379 3:+0.4585 4:-0.1305 5:-0.5372 6:-0.0066 7:+0.4536 8:+0.2296 9:+0.0371 10:+0.1161 100:-0.4695 1000:-0.2642
+ok    r table (4), 14 values, max deviation   4.99143821847e-05  (note: 0, tol 5e-05)
+     3: 1.01:+0.8112 1.1:+0.1345 1.5:-0.2300 2:+0.3122 3:-0.1021 4:-0.1850 5:+0.5034 6:-0.0591 7:-0.5185 8:-0.0414 9:+0.1301 10:+0.2879 100:+0.1209 1000:+0.0258
+ok    r table (3), 14 values, max deviation   4.99651424326e-05  (note: 0, tol 5e-05)
+     z: first zero 1.065851; min (3.0, -0.45399912106924895); largest value after the first zero (208.11480259365635, 0.3934090028184323); rms 0.1854; mean +0.0001
+     4: first zero 1.197472; min (5.0, -0.5372022526068582); largest value after the first zero (491.0, 0.6076214165317249); rms 0.2730; mean -0.0032
+     3: first zero 1.136504; min (7.0, -0.5185178414282107); largest value after the first zero (257.0, 0.5154164175932764); rms 0.2304; mean -0.0017
+ok    zeta: first zero of r   1.06585082074  (note: 1.06585, tol 5e-06)
+ok    zeta: min of r on [1,1000] at a = 3   3  (note: 3, tol 0)
+ok    zeta: min value   -0.453999121069  (note: -0.454, tol 5e-06)
+ok    zeta: largest r after the first zero, location   208.114802594  (note: 208.115, tol 0.0005)
+ok    zeta: its value   0.393409002818  (note: 0.39341, tol 5e-06)
+ok    zeta: rms of r over ln a on [1,1000]   0.185398334489  (note: 0.1854, tol 5e-05)
+ok    chi_-4: first zero of r   1.19747189991  (note: 1.19747, tol 5e-06)
+ok    chi_-4: min at a = 5   5  (note: 5, tol 0)
+ok    chi_-4: min value   -0.537202252607  (note: -0.5372, tol 5e-06)
+ok    chi_-4: largest r after the first zero at a = 491   491  (note: 491, tol 0)
+ok    chi_-4: its value   0.607621416532  (note: 0.60762, tol 5e-06)
+ok    chi_-4: rms of r on [1,1000]   0.272951789578  (note: 0.273, tol 5e-05)
+ok    chi_-3: first zero of r   1.13650358496  (note: 1.1365, tol 5e-06)
+ok    chi_-3: min at a = 7   7  (note: 7, tol 0)
+ok    chi_-3: min value   -0.518517841428  (note: -0.51852, tol 5e-06)
+ok    chi_-3: largest r after the first zero at a = 257   257  (note: 257, tol 0)
+ok    chi_-3: its value   0.515416417593  (note: 0.51542, tol 5e-06)
+ok    chi_-3: rms of r on [1,1000]   0.230418539847  (note: 0.2304, tol 5e-05)
+ok    D(1) = ln(27/(4pi)) - gamma = (3 C - 2 J(2))/1   0.187596954134  (note: 0.187596954134, tol 1e-14)
+ok    D(1) value   0.187596954134  (note: 0.187596954134, tol 1e-15)
+ok    r(1 + 0.01): the two-term expansion   0.654689377651  (note: 0.6547, tol 5e-05)
+ok    r(1 + 0.01) exact   0.654003181599  (note: 0.654, tol 5e-05)
+ok    r(1 + 0.01): two-term expansion within 1e-3   expansion 0.6547
+ok    r(1 + 0.001): the two-term expansion   0.940544555747  (note: 0.9405, tol 5e-05)
+ok    r(1 + 0.001) exact   0.940550054324  (note: 0.9406, tol 5e-05)
+ok    r(1 + 0.001): two-term expansion within 1e-3   expansion 0.9405
+ok    T''(y) = 1/(y^2 (y^2 - 1)) (sympy), so J'' = -1/a + 1/(a^2(a^2-1)) between prime powers
+ok    J convex on (1, a*), concave beyond: a*^3 = a* + 1   1.32471795724  (note: 1.32472, tol 5e-06)
+ok    zeta: interior local minimum of r on (1, a*): location   1.16481873903  (note: 1.16482, tol 5e-05)
+ok    zeta: interior local minimum of r: value   -0.208881628606  (note: -0.20888, tol 5e-06)
+ok    zeta: r(a) = 1/2 at a   1.01742929042  (note: 1.01743, tol 5e-06)
+ok    race chi_-4: covariance J_chi(2)/sqrt(2)   -0.0214575399248  (note: -0.0214575, tol 5e-07)
+ok    race chi_-4: covariance J_chi(3)/sqrt(3)   0.0713252782042  (note: 0.071325, tol 5e-07)
+ok    race chi_-4: covariance J_chi(5)/sqrt(5)   -0.0835714692484  (note: -0.083571, tol 5e-07)
+
+== 4. zeros of L(s, chi_-4), L(s, chi_-3) from PARI to height 1000  [5 s]
+ok    chi_-4: 868 zeros; mean of S(gamma_n+) in each block of height 100 rounds to 0.50   0.501 0.499 0.502 0.496 0.504 0.497 0.501 0.500 0.501 0.501
+ok    chi_-4: C_chi from the zeros (sum 1/|rho|^2 + tail) = closed form   0.155567980117  (note: 0.155567979924, tol 2e-08)
+     chi_-4: K2_chi = sum 1/|rho|^4 = 1.835740e-03 (zeros to 1000), rms of r: sqrt(K2)/C = 0.2754
+ok    chi_-4: sqrt(K2_chi)/C_chi   0.275413597759  (note: 0.2754, tol 5e-05)
+ok    chi_-4: K2_chi from the zeros to 1000   0.00183574004484  (note: 0.00183574, tol 5e-10)
+ok    chi_-3: 823 zeros; mean of S(gamma_n+) in each block of height 100 rounds to 0.50   0.498 0.501 0.498 0.502 0.498 0.502 0.503 0.497 0.503 0.497
+ok    chi_-3: C_chi from the zeros (sum 1/|rho|^2 + tail) = closed form   0.113229969171  (note: 0.113229969857, tol 2e-08)
+     chi_-3: K2_chi = sum 1/|rho|^4 = 6.866039e-04 (zeros to 1000), rms of r: sqrt(K2)/C = 0.2314
+ok    chi_-3: sqrt(K2_chi)/C_chi   0.231415118529  (note: 0.2314, tol 5e-05)
+ok    chi_-3: K2_chi from the zeros to 1000   0.000686603859104  (note: 0.0006866039, tol 5e-10)
+ok    L(1/2, chi_-4) (nonzero: no frequency 0, so the race has mean 1)   0.66769145719  (note: 0.667691, tol 5e-07)
+ok    L(1/2, chi_-3) (nonzero: no frequency 0, so the race has mean 1)   0.480867557697  (note: 0.480868, tol 5e-07)
+ok    zeta: count of zeros below 1000   649  (note: 649, tol 0)
+ok    chi_-4: zeros below 1000   868  (note: 868, tol 0)
+ok    chi_-3: zeros below 1000   823  (note: 823, tol 0)
+     closest ordinates below 1000: zeta vs chi_-4 5.21e-04, chi_-4 vs chi_-3 1.60e-04
+ok    closest ordinates below 1000, zeta vs chi_-4   0.000521231524601  (note: 0.00052, tol 5e-06)
+ok    closest ordinates below 1000, chi_-4 vs chi_-3   0.00016019395207  (note: 0.00016, tol 5e-06)
+
+== 5. primes to 10^8: windowed means against the law  [21 s]
+ok    pi(10^8)   5761455  (note: 5761455, tol 0)
+ok    psi(10^8) - 10^8   -1757.2033806  (note: -1757.2034, tol 0.005)
+ok    int_1^X E(t) dt/t^2 + 1 + gamma at X = 10^8   -1.09729755671e-06  (note: -1.1e-06, tol 5e-08)
+ok    its bound (C sqrt X + ln 2pi + 1)/X   4.64752056389e-06  (note: 4.6e-06, tol 5e-08)
+ok    zeta window term: band 60 vs band 120, max over a = 1, 2, 10   4.26693350444e-09  (note: 0, tol 1e-06)
+     window: ln x in [ln 1e2, ln 1e7], length 11.5129, Hann weight; zeta pairs with 40000 zeros (band 60), chi pairs with zeros to 1000
+ok    window length   11.512925465  (note: 11.5129, tol 5e-05)
+     a= 1.0 zeta: primes +0.0461685 law +0.0461914 window -1.92e-05 resid -3.8e-06 (T=1000 window -3.37e-05) | chi4: +0.1555462 +0.1555680 -5.07e-05 +2.9e-05 | chi3: +0.1131199 +0.1132300 -1.57e-04 +4.7e-05
+     a= 1.5 zeta: primes +0.0065478 law +0.0065637 window -1.55e-05 resid -3.8e-07 (T=1000 window -1.22e-05) | chi4: -0.0513371 -0.0508955 -4.41e-04 -6.8e-07 | chi3: -0.0319545 -0.0318974 -6.46e-05 +7.5e-06
+     a= 2.0 zeta: primes -0.0244982 law -0.0245114 window +1.18e-05 resid +1.4e-06 (T=1000 window +5.79e-06) | chi4: -0.0304979 -0.0303455 -1.52e-04 -4.9e-07 | chi3: +0.0499758 +0.0499885 -2.29e-05 +1.0e-05
+     a= 2.9 zeta: primes -0.0190973 law -0.0191289 window +3.15e-05 resid +8.4e-08 (T=1000 window +3.14e-05) | chi4: +0.1053270 +0.1050833 +2.35e-04 +8.4e-06 | chi3: -0.0163074 -0.0160940 -2.12e-04 -1.1e-06
+     a= 3.0 zeta: primes -0.0362790 law -0.0363226 window +4.17e-05 resid +1.9e-06 (T=1000 window +4.20e-05) | chi4: +0.1236480 +0.1235390 +1.02e-04 +6.9e-06 | chi3: -0.0197829 -0.0200285 +2.50e-04 -4.5e-06
+     a= 3.1 zeta: primes -0.0200626 law -0.0200907 window +2.80e-05 resid +9.4e-08 (T=1000 window +3.83e-05) | chi4: +0.1056177 +0.1057915 -1.75e-04 +1.1e-06 | chi3: -0.0232800 -0.0235458 +2.64e-04 +2.3e-06
+     a= 4.9 zeta: primes -0.0331299 law -0.0329335 window -1.97e-04 resid +3.7e-07 (T=1000 window -1.75e-04) | chi4: -0.1729603 -0.1727284 -2.61e-04 +2.9e-05 | chi3: +0.1100617 +0.1100370 +2.62e-05 -1.5e-06
+     a= 5.0 zeta: primes -0.0467046 law -0.0468243 window +1.17e-04 resid +2.9e-06 (T=1000 window +1.45e-04) | chi4: -0.1865053 -0.1868715 +3.88e-04 -2.1e-05 | chi3: +0.1272187 +0.1274528 -2.75e-04 +4.1e-05
+     a= 5.1 zeta: primes -0.0307187 law -0.0305099 window -2.09e-04 resid +6.2e-08 (T=1000 window -2.32e-04) | chi4: -0.1695071 -0.1687425 -7.77e-04 +1.2e-05 | chi3: +0.1130676 +0.1127633 +2.89e-04 +1.5e-05
+     a= 7.0 zeta: primes -0.0538522 law -0.0539962 window +1.41e-04 resid +3.0e-06 (T=1000 window +1.62e-04) | chi4: +0.1868271 +0.1867106 +6.82e-05 +4.8e-05 | chi3: -0.1551002 -0.1553367 +2.67e-04 -3.0e-05
+     a=10.0 zeta: primes +0.0241592 law +0.0245927 window -4.32e-04 resid -1.2e-06 (T=1000 window -4.50e-04) | chi4: +0.0573193 +0.0571065 +1.98e-04 +1.5e-05 | chi3: +0.1029152 +0.1030698 -1.81e-04 +2.6e-05
+ok    max |primes - law| before the window correction, 11 ratios, 3 functions   0.000764599617133  (note: 0.00076, tol 5e-06)
+ok    zeta: max |primes - law - window| (40,000 zeros)   3.77268928655e-06  (note: 3.8e-06, tol 1e-07)
+ok    zeta: max change of the window term from 1000 to 40,000 zeros   2.81663186185e-05  (note: 2.8e-05, tol 1e-06)
+ok    chi_-4: max |primes - law - window| (zeros to 1000)   4.83138193811e-05  (note: 4.8e-05, tol 1e-06)
+ok    chi_-3: max |primes - law - window| (zeros to 1000)   4.65739342674e-05  (note: 4.7e-05, tol 1e-06)
+     a = 1:  zeta +0.046168 (law +0.046191)  chi_-4 +0.155546 (law +0.155568)  chi_-3 +0.113120 (law +0.113230)
+ok    table row a = 1 (primes and law, 3 functions), max deviation   4.88122609235e-07  (note: 0, tol 5e-07)
+     a = 2:  zeta -0.024498 (law -0.024511)  chi_-4 -0.030498 (law -0.030346)  chi_-3 +0.049976 (law +0.049988)
+ok    table row a = 2 (primes and law, 3 functions), max deviation   4.7714994892e-07  (note: 0, tol 5e-07)
+     a = 3:  zeta -0.036279 (law -0.036323)  chi_-4 +0.123648 (law +0.123539)  chi_-3 -0.019783 (law -0.020029)
+ok    table row a = 3 (primes and law, 3 functions), max deviation   4.67753247673e-07  (note: 0, tol 5e-07)
+     a = 10:  zeta +0.024159 (law +0.024593)  chi_-4 +0.057319 (law +0.057107)  chi_-3 +0.102915 (law +0.103070)
+ok    table row a = 10 (primes and law, 3 functions), max deviation   4.90679828866e-07  (note: 0, tol 5e-07)
+     corner z at 3: second difference primes +0.03340, law +0.03343, law + window +0.03340, law without the corner -0.00319
+     corner z at 5: second difference primes +0.02956, law +0.03021, law + window +0.02957, law without the corner -0.00198
+     corner 4 at 3: second difference primes -0.03635, law -0.03620, law + window -0.03635, law without the corner +0.00042
+     corner 4 at 5: second difference primes +0.03054, law +0.03227, law + window +0.03046, law without the corner +0.00008
+     corner 3 at 3: second difference primes -0.00002, law +0.00042, law + window -0.00003, law without the corner +0.00042
+     corner 3 at 5: second difference primes -0.03131, law -0.03211, law + window -0.03124, law without the corner +0.00008
+ok    second difference at 3 (z): primes   0.0333980929512  (note: 0.0334, tol 5e-06)
+ok    second difference at 3 (z): law   0.0334256423466  (note: 0.03343, tol 5e-06)
+ok    second difference at 3 (z): law without its corner   -0.00319476727565  (note: -0.00319, tol 5e-06)
+ok    second difference at 3 (z): |primes - (law + window)| < 1e-4   -3.6e-06
+ok    second difference at 5 (z): primes   0.0295606173937  (note: 0.02956, tol 5e-06)
+ok    second difference at 5 (z): law   0.0302053031957  (note: 0.03021, tol 5e-06)
+ok    second difference at 5 (z): law without its corner   -0.00198345505298  (note: -0.00198, tol 5e-06)
+ok    second difference at 5 (z): |primes - (law + window)| < 1e-4   -5.3e-06
+ok    second difference at 3 (4): primes   -0.0363512784912  (note: -0.03635, tol 5e-06)
+ok    second difference at 3 (4): law   -0.0362031875634  (note: -0.0362, tol 5e-06)
+ok    second difference at 3 (4): law without its corner   0.000417222058831  (note: 0.00042, tol 5e-06)
+ok    second difference at 3 (4): |primes - (law + window)| < 1e-4   -4.3e-06
+ok    second difference at 5 (4): primes   0.0305432672258  (note: 0.03054, tol 5e-06)
+ok    second difference at 5 (4): law   0.0322721270528  (note: 0.03227, tol 5e-06)
+ok    second difference at 5 (4): law without its corner   8.33688040925e-05  (note: 8e-05, tol 5e-06)
+ok    second difference at 5 (4): |primes - (law + window)| < 1e-4   8.4e-05
+ok    second difference at 3 (3): primes   -2.16267346136e-05  (note: -2e-05, tol 5e-06)
+ok    second difference at 3 (3): law   0.000417222058831  (note: 0.00042, tol 5e-06)
+ok    second difference at 3 (3): law without its corner   0.000417222058831  (note: 0.00042, tol 5e-06)
+ok    second difference at 3 (3): |primes - (law + window)| < 1e-4   1.0e-05
+ok    second difference at 5 (3): primes   -0.0313080277225  (note: -0.03131, tol 5e-06)
+ok    second difference at 5 (3): law   -0.0321053894446  (note: -0.03211, tol 5e-06)
+ok    second difference at 5 (3): law without its corner   8.33688040926e-05  (note: 8e-05, tol 5e-06)
+ok    second difference at 5 (3): |primes - (law + window)| < 1e-4   -6.7e-05
+     cross a=1: zeta x chi4 primes -0.001063, window prediction -0.001029, diff -3.4e-05;  chi4 x chi3 primes +0.005724, prediction +0.005705, diff +1.9e-05
+     cross a=2: zeta x chi4 primes -0.007410, window prediction -0.007409, diff -1.5e-06;  chi4 x chi3 primes +0.005138, prediction +0.005096, diff +4.3e-05
+     cross a=3: zeta x chi4 primes +0.003865, window prediction +0.003892, diff -2.7e-05;  chi4 x chi3 primes +0.005583, prediction +0.005543, diff +4.0e-05
+ok    cross a = 1: primes and window predictions (4 numbers), max deviation   4.54206100351e-07  (note: 0, tol 5e-07)
+ok    cross a = 2: primes and window predictions (4 numbers), max deviation   4.31923518289e-07  (note: 0, tol 5e-07)
+ok    cross a = 3: primes and window predictions (4 numbers), max deviation   4.21755955391e-07  (note: 0, tol 5e-07)
+ok    cross: max |primes - window prediction| (a = 1, 2, 3)   4.25117048994e-05  (note: 4.3e-05, tol 1e-06)
+     race a=1: N: mean(ax) 1.2233 mean(x) 1.2233 cov +0.15696 | theta-race: mean 0.9214 0.9214 cov +0.15997 | law cov J_chi(a)/sqrt(a) = +0.15557
+     race a=2: N: mean(ax) 1.2214 mean(x) 1.2233 cov -0.02010 | theta-race: mean 0.9383 0.9214 cov -0.01761 | law cov J_chi(a)/sqrt(a) = -0.02146
+     race a=3: N: mean(ax) 1.2192 mean(x) 1.2233 cov +0.07114 | theta-race: mean 0.9467 0.9214 cov +0.07317 | law cov J_chi(a)/sqrt(a) = +0.07133
+     race a=5: N: mean(ax) 1.2152 mean(x) 1.2233 cov -0.08349 | theta-race: mean 0.9556 0.9214 cov -0.08168 | law cov J_chi(a)/sqrt(a) = -0.08357
+ok    race a = 1: window covariance of the normalised pi-race   0.156959488153  (note: 0.15696, tol 5e-06)
+ok    race a = 1: window covariance of the theta-race   0.15997483952  (note: 0.15997, tol 5e-06)
+ok    race a = 1: law J_chi(a)/sqrt(a)   0.155567979924  (note: 0.15557, tol 5e-06)
+ok    race a = 2: window covariance of the normalised pi-race   -0.020098433537  (note: -0.0201, tol 5e-06)
+ok    race a = 2: window covariance of the theta-race   -0.0176084418436  (note: -0.01761, tol 5e-06)
+ok    race a = 2: law J_chi(a)/sqrt(a)   -0.0214575399248  (note: -0.02146, tol 5e-06)
+ok    race a = 3: window covariance of the normalised pi-race   0.0711404384209  (note: 0.07114, tol 5e-06)
+ok    race a = 3: window covariance of the theta-race   0.0731701643662  (note: 0.07317, tol 5e-06)
+ok    race a = 3: law J_chi(a)/sqrt(a)   0.0713252782042  (note: 0.07133, tol 5e-06)
+ok    race a = 5: window covariance of the normalised pi-race   -0.0834934116796  (note: -0.08349, tol 5e-06)
+ok    race a = 5: window covariance of the theta-race   -0.081680580399  (note: -0.08168, tol 5e-06)
+ok    race a = 5: law J_chi(a)/sqrt(a)   -0.0835714692484  (note: -0.08357, tol 5e-06)
+ok    race: window mean of the normalised pi-race   1.22334201531  (note: 1.2233, tol 5e-05)
+ok    race: window mean of the theta-race   0.921355302734  (note: 0.9214, tol 5e-05)
+ok    race: max |window covariance - law| over N, R_theta and a = 1, 2, 3, 5   0.00440685959605  (note: 0.0044, tol 5e-05)
+ok    theta(10)/10 - 1 (the prime-square term at x = 10^2)   -0.465289246928  (note: -0.4653, tol 5e-05)
+
+== 6. third and fourth moments (a = 1) against the LI prediction  [43 s]
+     zeta: M2 0.0461685  M3 primes -1.6893e-04 (window value from zeros to 1000, 2000, 4000: -1.7512e-04 -1.7030e-04 -1.6676e-04)
+     zeta: M4 primes 0.0059981; LI + window from zeros to 1000, 2000, 4000: 0.0060083 0.0059949 0.0059975; window part -1.808e-04; without the -3K2 term 0.0062201; kurtosis 2.8140
+ok    zeta: number of zeros to 4000   3474  (note: 3474, tol 0)
+ok    zeta: M3 primes   -0.000168932420205  (note: -0.0001689, tol 5e-08)
+ok    zeta: M3 window value (zeros to 4000)   -0.000166758094283  (note: -0.0001668, tol 5e-08)
+ok    zeta: M3 window value (zeros to 2000)   -0.000170298143775  (note: -0.0001703, tol 5e-08)
+ok    zeta: M3 window value (zeros to 1000)   -0.000175117976887  (note: -0.0001751, tol 5e-08)
+ok    zeta: M4 primes   0.00599814740691  (note: 0.0059981, tol 5e-08)
+ok    zeta: M4 = 3C^2 - 3K2 + window part (zeros to 4000)   0.00599748802284  (note: 0.0059975, tol 5e-08)
+ok    zeta: M4 window part (zeros to 4000)   -0.000180849430309  (note: -0.0001808, tol 5e-08)
+ok    zeta: M4 with zeros to 2000   0.00599488341592  (note: 0.0059949, tol 5e-08)
+ok    zeta: M4 prediction without the -3K2 term   0.00622009184146  (note: 0.0062201, tol 5e-08)
+ok    zeta: M4 without the -3K2 term minus primes   0.000221944434556  (note: 0.00022, tol 5e-06)
+ok    zeta: kurtosis M4/M2^2 in the window   2.81401124512  (note: 2.814, tol 5e-05)
+     chi_-4: M2 0.155546  M3 -9.4524e-04 (zeros to 1000 -8.8696e-04)  M4 0.070489 (LI + window 0.070487)  kurtosis 2.9134 (LI limit 2.7724)
+ok    chi_-4: M3 primes   -0.000945244844851  (note: -0.0009452, tol 5e-08)
+ok    chi_-4: M3 window value (zeros to 1000)   -0.00088696375851  (note: -0.000887, tol 5e-08)
+ok    chi_-4: M4 primes   0.0704887343091  (note: 0.070489, tol 5e-07)
+ok    chi_-4: M4 = 3C^2 - 3K2 + window part (zeros to 1000)   0.0704872733848  (note: 0.070487, tol 5e-07)
+ok    chi_-4: kurtosis in the window   2.9134041778  (note: 2.9134, tol 5e-05)
+ok    chi_-4: LI kurtosis 3 - 3 K2_chi/C_chi^2   2.77244205051  (note: 2.7724, tol 5e-05)
+
+187 checks, 0 failed  [66 s]
