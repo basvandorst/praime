@@ -1,0 +1,154 @@
+Round 138, pre-registered: the third cumulant of the zero count of Dirichlet L-functions, and the missing
+orbits in the three-point function. Committed with predictions_kappa3.json before any zero of the fresh tests was
+computed. When this file was committed: no zero of Fn or Bp existed; on the zero sets of rounds 117-136 (R120, B, Dn, C
+and the complex set A) only the NOISE of kappa3 was computed (residuals of the indicator regression, noise.py ->
+noise_clean_out.txt); no mean, no coefficient and no comparison with any prediction was computed or looked at.
+Derivation and code: writeup/code/study/lowzero/triple/ (derivation.md, lib/tplib.py, kappa3_tables.py, predict3.py,
+power3.py).
+
+Why. The physics picture: zeros of L(s, chi) are levels of a chaotic system whose periodic orbits are the prime powers;
+an orbit p | k is missing. Rounds 117-136 confirmed the two-point function with the missing orbits (Bogomolny-Keating
+2013; amplitude 0.998 +- 0.014 on fresh data). The three-point function with all arithmetic terms is known for zeta
+(Bogomolny-Keating; Conrey-Snaith, ratios conjecture) and was compared with zeta's zeros once (Conrey-Snaith 2007,
+100,000 zeros); for Dirichlet L-functions, and for the conductor's primes, no test was found in print. The statistic:
+kappa3(l) = E[(n - l)^3], n = number of unfolded zeros in a window of l mean spacings; kappa3 = k[3] + 3 Sigma2 - 2l with
+k[3] = the cube integral of the connected three-point function T3.
+
+The law (derivation.md sections 3-5; conjecture: ratios recipe = BK 2013 form, checked equal to 1e-7):
+  T3 = (1/L^3) sum of six terms J*_k(a; b1, b2) = Q_k - P1_k P3_k - P1_k P3_k, L = ln(k t/2pi), every prime p | k deleted
+  from every prime sum and Euler product, zeta(1 +- x) -> (k/phi(k)) L(1 +- x, chi_0), zeta'/zeta -> L'/L(., chi_0).
+  A prime p | k:  (1) removes the triple-orbit term (orbits p^m, p^n, p^(m+n)), which in kappa3 is exactly
+        dkappa3_diag(l; p, L) = +(6/pi^3) sum_{m,n>=1} sin(m th) sin(n th) sin((m+n) th) / (m n (m+n) p^(m+n)), th = pi l ln p/L
+      (leading term (3/pi^3) sin^2(th) sin(2 th)/p^2; +0.0166 for p = 2 near l = 4);
+  (2) multiplies the off-diagonal amplitude by BK's two-point factor and shifts the bracket P3 (derivation.md 3.3); in
+      kappa3 this part, 3 dSigma2 + dk[3]_P, is small (-0.007 .. +0.006 for p = 2), because the large drop of Sigma2
+      (3 dSigma2 down to -0.33) is cancelled inside the three-point function: a missing orbit changes the variance at
+      order ln^2 p/p but the skewness only at order 1/p^2 plus this remainder.
+  The level for k = 1: kappa3 - kappa3_GUE = -0.006 .. -0.025 for l = 0.5 .. 6 (L = 9.4 .. 10.7); kappa3_GUE is
+  +0.045, +0.011, ..., +0.002 (l = 0.5, 1, ..., 8; CUE-checked).
+
+Hypotheses (all parameter-free):
+  H_full  the law above. All amplitude readings 1.
+  H_GUE   kappa3 = kappa3_GUE for every L-function (no arithmetic in the skewness).
+  H_Q0    the conductor does not remove the triple-orbit term (Q over all primes, everything else as H_full).
+  H_2pt   bad primes act through the two-point function only (k[3] of k = 1 at the same L, Sigma2 with the bad primes).
+  H_diag  bad primes act on kappa3 only through the triple-orbit term (kappa3 of k = 1 at the same L plus dkappa3_diag):
+          tests the off-diagonal remainder 3 dSigma2 + dk[3]_P (the bad-prime factors of P1 and P3).
+
+Frozen predictions: predictions_kappa3.json (sha256 91ab3eb0f90011e23185e4e87220ed1d9628b83050a90cad2a81c739debf3cd4). For every L-function of Fn, Bp, R120, B, Dn, C and
+l = 0.5 .. 8: full, Q0, twopt, base (k = 1 at the same L), diagonly (kappa3 under H_full, H_Q0, H_2pt, -, H_diag),
+sigma2 (BK), kf3 and kQ (k[3] and its diagonal part), meanL; GUE values once.
+Height average with the zero-density weight (4 Gauss nodes in t).
+
+TEST Fn (primary, fresh): all 186 fundamental discriminants with 1000 < |D| <= 1300, zeros 100 <= gamma <= 600
+  (about 880 zeros per set; mean L 10.98; groups for 2, 3, 5, 7, 11, 13: 61, 45, 31, 24, 16, 13).
+TEST Bp (secondary, fresh): test B's 184 discriminants, zeros 600 <= gamma <= 1000 (about 709 per set; mean L 11.13).
+TEST O (optional; zeros known, statistic never computed): R120 + B + Dn (546 L-functions, 100-600) and C (R120's D at
+  600-1000), after the three incomplete sets (C: D = -195; Dn: D = -939; and A's q = 173 if A is used) are repaired.
+
+Data and completeness (stricter than round 136; decided before any statistic): PARI lfunzeros(lfuncreate(D), [lo, hi]) as
+r134z.py, plus for every set: (a) N(t) - theta_chi(t)/pi on 200 equally spaced heights in [lo, hi] and at lo and hi
+(true gamma factor, parity a = 0 for D > 0, 1 for D < 0); (b) the largest unfolded gap. A set with any |N - theta/pi|
+> 1.5 or a gap > 3.0 is recomputed in the offending window with 4x finer subdivision (fixpairs.py) and reported; if still
+flagged it is excluded, and the exclusion is reported. (A missing zero moves kappa3(8) of its set by about -0.02, five to
+seven times the per-set noise; three sets used in rounds 121/136 miss a pair: derivation.md section 6.)
+
+Statistic per L-function (new; r134.py's windows): u = (gamma/2pi) ln(|D| gamma/(2 pi e)) for the zeros in the band;
+window starts x = arange(u_0, u_end - l, 0.01); c = counts by searchsorted; kappa3_i(l) = mean((c - mean c)^3);
+k[3]_i(l) = kappa3_i - 3 var(c) + 2 mean(c); l = 0.5, 1, ..., 8. Edge check (reported, no reading): the same with
+x = arange(u_0 + 3, u_end - 3 - l, 0.01).
+
+Readings (definitions fixed now; bootstrap: 2000 resamples of L-functions, numpy default_rng(1371); "se" below = the
+bootstrap se of the reading on the data, the expected values come from power3.py):
+ T1 level (primary). m(l) = mean_i (kappa3_i - full_i). Hotelling T^2 = n m' C^-1 m, C the sample covariance of
+    (kappa3_i - full_i) over the 16 lengths; null (n-1)16/(n-16) F(16, n-16).
+    Pass: p(T^2) >= 0.001 and |m(l)| <= 4 se(l) at every l.
+ T2 arithmetic amplitude of the level. gamma_A = (a' C^-1 b)/(a' C^-1 a), a = mean_i(full_i) - GUE, b = mean_i(kappa3_i) - GUE.
+    H_full 1, H_GUE 0.
+ T3 per-prime coefficients. For each l, OLS of kappa3_i(l) on [1, I(2|D), I(3|D), I(5|D), I(7|D), I(11|D), I(13|D)];
+    the same OLS on full_i, Q0_i, twopt_i gives the regression-matched predictions. For p = 2, 3, 5: chi2_p over the 16
+    lengths with the covariance A_pp C_res (C_res from the data residuals), against full, Q0, twopt, diagonly and 0 (GUE).
+    p = 7, 11, 13: reported, no reading.
+ T4 triple-orbit amplitude (the missing-orbit reading). gamma_Q = sum w (fit - pQ0)(pfull - pQ0) / sum w (pfull - pQ0)^2
+    over the 48 cells p in {2, 3, 5} x 16 lengths, w = 1/se_OLS^2. H_full 1, H_Q0 0. Also the pooled per-L-function
+    version: slope of (kappa3_i - Q0_i) on (full_i - Q0_i), centred per l, weights 1/var(l). And gamma_2pt: as gamma_Q
+    with twopt in place of Q0 (H_full 1, H_2pt 0), and gamma_off: as gamma_Q with diagonly in place of Q0 (H_full 1,
+    H_diag 0): the amplitude of the off-diagonal bad-prime remainder.
+ T5 (secondary) the factorial cumulant k[3]: level m_f(l) = mean_i(k[3]_i - kf3_i) and per-prime coefficients against
+    full and two-point-only (its noise is 3x larger; it reads the three-point function alone).
+ T6 (secondary, signs) the coefficient of I(2|D) at l = 3, 3.5, 4, 4.5, 5.5 is positive (predicted +0.008 .. +0.018, 14-24 se each).
+
+Predicted values and expected se (noise model: residual covariance of Dn for Fn, of C for Bp, scaled by zeros):
+  Test Fn (186 L-functions; noise model Dn). Level, l = 0.5 .. 8:
+    full  +0.0370 +0.0035 -0.0048 -0.0051 -0.0137 -0.0082 -0.0152 -0.0082 -0.0131 -0.0064 -0.0091 -0.0033 -0.0038 -0.0001 +0.0008 +0.0014
+    GUE   +0.0453 +0.0112 +0.0119 +0.0068 +0.0066 +0.0048 +0.0046 +0.0037 +0.0035 +0.0030 +0.0029 +0.0025 +0.0024 +0.0022 +0.0021 +0.0019
+    Q0-full -0.0002 -0.0010 -0.0024 -0.0039 -0.0051 -0.0059 -0.0062 -0.0061 -0.0056 -0.0049 -0.0040 -0.0029 -0.0017 -0.0006 +0.0004 +0.0011
+    se     0.00026 0.00012 0.00028 0.00022 0.00031 0.00026 0.00033 0.00029 0.00033 0.00026 0.00034 0.00026 0.00034 0.00028 0.00035 0.00024
+  Readings, expected value under  H_full | H_GUE | H_Q0 | H_2pt | H_diag  || expected se:
+    T1 T^2 (incl. its 16 dof; 0.1% point 46.0)   16 | 39389 | 4202 | 5.2e6 | 1073
+    T2 gamma_A                                  1.000 | 0.000 | 1.299 | 9.35 | 0.875 || 0.0050
+    T3 chi2_2 vs full (0.1% point 39.3)          16 | 4647 | 7015 | 3.6e6 | 853
+       chi2_3                                    16 | 629 | 1461 | 1.1e6 | 670
+       chi2_5                                    16 | 108 | 149 | 2.2e5 | 290
+    T4 gamma_Q                                  1.000 | 0.302 | 0.000 | -13.6 | 1.302 || 0.0132
+       gamma_off                                1.000 | 1.218 | 2.218 | 15.2 | 0.000 || 0.0265
+       gamma_2pt                                1.000 | 0.979 | 0.973 | 0.000 | 1.007 || 0.0006
+    T6 p = 2 coefficient at l = 3, 3.5, 4, 4.5, 5.5: +0.0080 +0.0133 +0.0108 +0.0172 +0.0176 (14-24 se)
+  Predicted per-prime coefficients (H_full; "diag" = the diagonal part alone = H_diag; regression-matched; se):
+    p=2 full  -0.0017 -0.0010 +0.0007 +0.0029 +0.0070 +0.0080 +0.0133 +0.0108 +0.0172 +0.0098 +0.0176 +0.0062 +0.0138 +0.0015 +0.0056 -0.0014
+        diag  +0.0002 +0.0013 +0.0034 +0.0064 +0.0095 +0.0124 +0.0147 +0.0161 +0.0166 +0.0161 +0.0148 +0.0127 +0.0099 +0.0066 +0.0031 -0.0007
+        se     0.0006  0.0003  0.0006  0.0005  0.0007  0.0006  0.0007  0.0006  0.0007  0.0006  0.0007  0.0005  0.0007  0.0006  0.0008  0.0005
+    p=3 full  -0.0020 -0.0012 -0.0005 +0.0020 +0.0029 +0.0051 +0.0029 +0.0057 -0.0009 +0.0040 -0.0063 +0.0004 -0.0078 -0.0019 -0.0044 -0.0012
+        diag  +0.0002 +0.0012 +0.0030 +0.0050 +0.0066 +0.0071 +0.0066 +0.0050 +0.0027 -0.0001 -0.0028 -0.0050 -0.0065 -0.0069 -0.0063 -0.0049
+        se     0.0006  0.0003  0.0006  0.0005  0.0007  0.0006  0.0008  0.0007  0.0008  0.0006  0.0008  0.0006  0.0008  0.0007  0.0008  0.0006
+    p=5 full  -0.0024 -0.0014 -0.0020 +0.0013 -0.0012 +0.0029 -0.0030 +0.0022 -0.0026 +0.0016 +0.0009 +0.0015 +0.0010 -0.0003 -0.0017 -0.0013
+        diag  +0.0001 +0.0009 +0.0019 +0.0025 +0.0023 +0.0012 -0.0003 -0.0017 -0.0024 -0.0023 -0.0015 -0.0006 -0.0001 +0.0001 +0.0005 +0.0012
+        se     0.0007  0.0003  0.0007  0.0006  0.0008  0.0007  0.0009  0.0008  0.0009  0.0007  0.0009  0.0007  0.0009  0.0008  0.0009  0.0006
+    T5 k[3] level, full minus GUE: +0.008 +0.076 +0.117 +0.180 +0.208 +0.257 +0.277 +0.319 +0.339 +0.380 +0.399 +0.437 +0.460
+       +0.500 +0.529 +0.563 (se 0.0003-0.0013; GUE at 32-565 se per l)
+  Test Bp (184; noise model C): level full +0.0372 +0.0036 -0.0045 ... +0.0014 (se 0.00013-0.00041); T1 T^2 under GUE
+    34846, Q0 3646, H_diag 1006; gamma_A se 0.0054 (H_Q0 1.296, H_diag 0.863); gamma_Q se 0.0149; gamma_off se 0.0291;
+    chi2_2 under GUE 3762, Q0 6341, H_diag 758; chi2_5 under GUE 86, Q0 115. Full rows: registry_out.txt.
+  Test O (546 pooled, if run): se of the level 0.00007-0.00021; gamma_Q se 0.0077; p = 2 vs GUE 104 se (combined).
+  Theory's own uncertainty (not in the bands): finite-height terms of the level unknown, of order <= 1e-3 judging from
+  the two-point level (4-7e-4 in rounds 134/136); the estimator's edge bias < 5e-4 (CUE, unresolved); truncations and
+  quadrature < 1e-6. For the amplitudes gamma_Q and gamma_off no finite-height term is known; the two-point analogue
+  (round 136) held to 0.998 +- 0.014.
+
+Decisions (thresholds fixed now):
+ D1 (missing orbits in the three-point function; primary falsifier). H_full passes if |gamma_Q - 1| <= 4 se and
+    chi2_2 (T3, p = 2, against full) is below its 0.1 % point; it is falsified otherwise. H_Q0 is rejected if
+    gamma_Q >= 0.5 and gamma_Q >= 5 se. Expected: se(gamma_Q) 0.013 (Fn), 0.015 (Bp); H_Q0 at 76 se;
+    error rates < 1e-4 each way under the noise model (the bootstrap se replaces the model se in the decision).
+ D1b (off-diagonal remainder). H_full passes if |gamma_off - 1| <= 4 se; H_diag rejected if gamma_off >= 5 se (expected
+    se 0.027 on Fn: H_diag at 38 se).
+ D2 (two-point only). H_2pt rejected if gamma_2pt >= 5 se (expected z 1,747 on Fn).
+ D3 (GUE). H_GUE rejected if gamma_A >= 5 se (expected z 198 on Fn) and the p = 2 coefficients differ from 0 (chi2_2 against 0
+    above its 0.1 % point; expected chi2 4,647, i.e. combined z 68).
+ D4 (level). T1 as defined. The law's own uncertainty is NOT in the band: finite-height terms beyond the recipe are
+    unknown; the two-point level held to 4-7e-4 in rounds 134/136 and the estimator's edge bias is < 5e-4 (CUE). If T1
+    fails with max |m(l)| <= 0.001 this is recorded as a level offset within the theory's allowance (with its sign and
+    l-shape), not as a falsification; if max |m| > 0.001 the law's level is wrong. gamma_A is read the same way: a
+    level offset of 0.001 moves it by about 0.06.
+ Reported in all cases: T5, T6, the edge check, the completeness numbers, every cell.
+
+Every predicted cell and its reading:
+  kappa3 level, 16 lengths ......................... T1 (and T2)
+  per-prime kappa3 coefficients p = 2, 3, 5 x 16 .... T3, T4
+  per-prime coefficients p = 7, 11, 13 .............. no reading (reported)
+  k[3] level and coefficients ....................... T5 (secondary)
+  Sigma2 (in the JSON) .............................. no reading (tested in rounds 134-136)
+  the diagonal part kQ alone ........................ no reading (enters T4 through Q0)
+  complex characters, spacing statistics ............ no reading
+  test O ............................................ the same readings, labelled "zeros known, statistic new"
+
+Falsifier, in one line: the law is falsified on Fn if the bad-prime contrasts of kappa3 do not carry the triple-orbit
+term at its predicted size (|gamma_Q - 1| > 4 se), or the off-diagonal remainder at its size (|gamma_off - 1| > 4 se),
+or the p = 2 coefficients miss their predicted shape (chi2_2 beyond the 0.1 % point).
+
+Order: commit this file and predictions_kappa3.json -> compute the zeros of Fn (then Bp) -> completeness -> kappa3 ->
+readings. Report every reading, passed or failed.
+
+Statuses: the three-point function is a conjecture (ratios recipe / BK heuristic; the two routes agree to 1e-7 here); the
+adaptation to chi mod k ("p | k deleted"), the closed form of the diagonal part of kappa3, the per-prime decomposition and
+the cancellation of 3 dSigma2 inside kappa3 are derived here (elementary; not found in print); the numbers are computed.
