@@ -1,0 +1,35 @@
+(a1) ratios-conjecture form (direct Euler products, mpmath zeta) against BK (bklib C(r), splines):
+    k    1 r 1.30  ratios -0.01784884  BK -0.01784884  diff -7.5e-14
+    k    1 r 6.20  ratios -0.02445560  BK -0.02445560  diff -1.5e-14
+    k    5 r 1.30  ratios -0.02775444  BK -0.02775444  diff -7.3e-14
+    k    5 r 6.20  ratios -0.03678773  BK -0.03678773  diff -1.5e-14
+    k    8 r 1.30  ratios -0.02482222  BK -0.02482222  diff -7.6e-14
+    k    8 r 6.20  ratios +0.05564455  BK +0.05564455  diff 5.0e-14
+    k   12 r 1.30  ratios -0.03297187  BK -0.03297187  diff -7.6e-14
+    k   12 r 6.20  ratios +0.06950608  BK +0.06950608  diff 2.6e-13
+    k  105 r 1.30  ratios -0.04841492  BK -0.04841492  diff -7.1e-14
+    k  105 r 6.20  ratios -0.09223419  BK -0.09223419  diff -1.0e-13
+    k  440 r 1.30  ratios -0.04130163  BK -0.04130163  diff -7.2e-14
+    k  440 r 6.20  ratios +0.08052580  BK +0.08052580  diff 7.8e-14
+    k  664 r 1.30  ratios -0.02238139  BK -0.02238139  diff -7.5e-14
+    k  664 r 6.20  ratios +0.05937129  BK +0.05937129  diff 5.2e-14
+    largest |difference| over 7 conductors x 4 distances: 1.0e-12
+
+(a2) exact off-diagonal phase 2[theta(t+eps/2) - theta(t-eps/2)] - eps ln(kt/2pi), k = 550 (radians):
+    t   100  a=0: eps 1, 3, 5.5 -> -8.33e-06 -1.25e-04 -7.16e-04   a=1: -8.33e-06 -1.25e-04 -7.16e-04
+    t   300  a=0: eps 1, 3, 5.5 -> -9.26e-07 -1.39e-05 -7.96e-05   a=1: -9.26e-07 -1.39e-05 -7.96e-05
+    t   600  a=0: eps 1, 3, 5.5 -> -2.31e-07 -3.47e-06 -1.99e-05   a=1: -2.31e-07 -3.47e-06 -1.99e-05
+    parity difference of the phase at t = 100, eps = 5.5: 0.0e+00 rad
+    predicted from Stirling: -eps/(24 t^2) - eps^3/(24 t^2) * ... ; at t=100, eps=5.5: eps^3/(24 t^2) = 6.9e-04
+    p = 2 off-diagonal Sigma2 term at t = 100 with the exact phase: max change 1.8e-06 (term itself up to 7.8e-03); projection ratio 1.000076
+
+(b) density drift and pair midpoint (k = 550):
+    t   100, r = 8 spacings (eps 5.54): d(t-eps/2) d(t+eps/2)/d(t)^2 - 1 = -9.4e-05;  eps^3/(24 t^2) = 7.1e-04 rad
+    t   600, r = 8 spacings (eps 4.62): d(t-eps/2) d(t+eps/2)/d(t)^2 - 1 = -1.5e-06;  eps^3/(24 t^2) = 1.1e-05 rad
+
+(d) test unfolding u = (t/2pi) ln(kt/(2pi e)) against theta(t)/pi (exact smooth count), k = 550:
+    a = 0: theta/pi - u = -0.124934 at t=100, -0.124989 at t=600 (constant -0.1250 = -1/8; the rest is 1/(48 pi t) = 6.63e-05 at 100)
+           largest change across 8 spacings: 3.5e-06 spacings -> phase error 2pi x that = 2.2e-05 rad
+    a = 1: theta/pi - u = +0.125066 at t=100, +0.125011 at t=600 (constant +0.1250 = +1/8; the rest is 1/(48 pi t) = 6.63e-05 at 100)
+           largest change across 8 spacings: 3.5e-06 spacings -> phase error 2pi x that = 2.2e-05 rad
+    a 7 % loss of a period-1 term by Gaussian phase jitter needs rms phase sqrt(2 x 0.07) = 0.37 rad, i.e. 0.060 spacings

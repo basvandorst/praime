@@ -1,0 +1,145 @@
+Round 136, pre-registered (commit order shows the order; STUDY.md section 1). When this file was committed, zeros of
+test C were being computed (r134z.py, 39 of the 181 sets saved, data only); no number variance or other statistic of
+C, Dn or Bp had been computed by anyone. Derivation and scripts: writeup/code/study/lowzero/amp/ (derivation.md;
+alt.py, register.py, regfinal.py, retro.py, decomp.py and their outputs).
+
+Why. In test B of round 134 (184 real L-functions, 400 < |D| <= 700, heights 100-600), the amplitude of the bad-prime
+off-diagonal term of Bogomolny-Keating (BK) came out at gamma = 0.932 +- 0.024 (two-sided p = 0.003 against 1). Five
+explanations were worked out (derivation.md):
+  (a) lower-order terms (ratios conjecture with the exact gamma factor and parity);
+  (b) density drift across a window;
+  (c) the bad-prime factor for k not squarefree;
+  (d) the unfolding and the estimator;
+  (e) anything else.
+None gives more than 1e-4 in gamma; (c) gives exactly 0.
+  - The ratios-conjecture two-point function for primitive chi mod k equals BK's term by term: the bad-prime factor
+    (p/(p-1))^2 comes from the residue of L(1+z, chi_0), and the difference is 1e-12 numerically.
+  - The X-factor has modulus 1, so there is no amplitude correction. The phase differs from the test's 2 pi r by
+    -eps/(24 t^2) (2e-5 rad).
+  - The parity enters only through a constant +-1/8 in N(t).
+RETROSPECTIVE evidence (data known; not blind):
+  - The same statistic on the 181 real L-functions of rounds 117/120 (100 <= |D| <= 400, the same heights 100-600) gives
+    gamma = 1.001 +- 0.019.
+  - Inside B, the part of the per-L-function off pattern that the prime indicators do not carry has slope
+    1.042 +- 0.028, against 0.938 +- 0.021 for the indicator part (z = -2.9). B's registered reading (6) is
+    0.975 +- 0.014.
+  - Joint chi2 of these four numbers: BK 11.7 on 4 (p 0.019), "plain amplitude 0.932" 32.5 (p 1.5e-6), "off-diagonal at
+    L + 0.3" 34.0 (p 7.5e-7).
+The proposer's reading: BK is complete, and B's indicator contrasts made a low excursion. This round tests that, blind,
+against the two phenomenological alternatives and against a descriptive conductor trend.
+
+Hypotheses (all parameter-free except H_k, which is a descriptive fit to retrospective data):
+  H_BK   the BK law as frozen in round 134 (lowzero/bk/). Every amplitude reading is 1.
+  H_AMP  BK with the bad-prime off-diagonal change multiplied by 0.932. Every amplitude reading is 0.932.
+  H_LP3  BK with the bad-prime off-diagonal change evaluated at L + 0.3 (diagonal at L). Readings about 0.92-0.94, listed
+         per sample below.
+  H_k    gamma falls with the conductor: 1.001, 1.017, 0.956 and 0.917 in the four half-samples (rounds 117/120 split at
+         |D| = 248, B split at 551) give slope -0.058 +- 0.035 per unit ln|D| (1.7 sigma; no mechanism known).
+  H_set  the deficit belongs to test B's 184 L-functions (their between-group slope 0.938), not to the law.
+
+Frozen predictions:
+  - lowzero/bk/predictions_per_lfunction.json (round 134; sha256 df2065b2a65183dcfb34668c4e01c47fce6bc0d4f06df37ec0574b0b3df20bf7):
+    BK full and diag for test C.
+  - lowzero/amp/predictions_alt.json (sha256 df8bec28d9010df2d7d642cb5e7842cd0eae06889fb0c7b5ca2df1da986e19f3):
+    for C, Dn and Bp, on l = 0.5..8, per L-function: BK full, diag, and full_LP3. AMP = diag + 0.932 (full - diag).
+    It is made by alt.py from the repo's frozen bklib.py. Its B and C rows equal the round-134 frozen file to 0.0e+00.
+    It is committed with this file.
+
+TEST C (primary; registered in round 134, not run). The 181 fundamental discriminants with 100 <= |D| <= 400 (the list
+under 'C' in predictions_per_lfunction.json), zeros 600 <= gamma <= 1000.
+  Mean L 10.282 (B: 10.234); about 654 zeros per set; group sizes for 2, 3, 5, 7, 11, 13: 60, 46, 30, 23, 14, 14.
+  C has B's L and the conductors of the sample where gamma = 1.001. So it separates a law that depends on L (H_AMP,
+  H_LP3: 0.93) from H_BK, H_k and H_set (about 1).
+TEST Dn (secondary; new). All 181 fundamental discriminants with 700 < |D| <= 1000 (list in predictions_alt.json,
+'Dn'), zeros 100 <= gamma <= 600.
+  Mean L 10.675; about 848 zeros per set; groups 62, 46, 30, 23, 13, 13. It continues B to larger conductors at B's
+  heights, so it separates H_k (0.919) from H_BK (1).
+TEST Bp (optional; new). Test B's 184 discriminants, zeros 600 <= gamma <= 1000.
+  Mean L 11.132; about 709 zeros per set; groups 61, 46, 31, 21, 16, 12. The same L-functions at new heights: H_set
+  predicts the indicator (between) slope at about 0.94, H_BK at 1.
+
+Data: PARI lfunzeros(lfuncreate(D), [lo, hi]) as in r134z.py, with the completeness repair of fixpairs.py. In addition,
+report for every set the mean over the band of N(t) - theta_chi(t)/pi, with the true gamma factor and parity a = 0 for
+D > 0, a = 1 for D < 0. It is 0.000 +- 0.004 in B. Repair or report every set with |mean| > 0.5.
+
+Statistic: exactly r134.py (u = (gamma/2pi) ln(|D| gamma/(2 pi e)); windows from the first to the last zero of the band,
+step 0.01; np.var; l = 0.5..8; OLS on [1, I(2|D), ..., I(13|D)]), with the predictions of the band.
+
+Readings (definitions fixed now):
+ (R1) gamma = sum res*off / sum off^2 over the 96 cells (round 134 reading (1)). Bootstrap se from 2000 resamples of
+      L-functions, numpy default_rng(136).
+ (R2) pooled slope: (S - diag) on (full - diag), centred per l (round 134 reading (6)). Bootstrap se as R1.
+ (R3) between and within. Let H be the hat matrix of the design, x = full - diag and y = S - diag.
+        between = slope of centred Hy on centred Hx;
+        within  = slope of (1-H)y on (1-H)x.
+      Their null sd and correlation come from 1000 sets "full + resampled residual rows" (residual = S - full minus its
+      fit on the design), numpy default_rng(1361).
+ (R4) secondary, as round 134: rho at l = 0.5, and the signs of the p = 2 residuals at l = 6..8.
+ (R5) secondary: gamma by sign of D, by l <= 4 / l > 4, and for p = 2.
+
+Predicted values. Columns: H_BK | H_AMP | H_LP3 || expected statistical se (noise model: residual rows of rounds 117/120
+at 100-600, scaled by sqrt(zeros ratio); the model reproduces B's se, 0.025 against the bootstrap 0.024).
+  Test C
+    R1 gamma        1.000 | 0.932 | 0.924 || 0.026      (H_k 0.993 +- 0.021; H_set 1.00)
+    R2 pooled       1.000 | 0.932 | 0.928 || 0.019
+    R3 between      1.000 | 0.932 | 0.923 || 0.025
+       within       1.000 | 0.932 | 0.938 || 0.032      null corr -0.09, sd(between - within) 0.042
+    R4 rho(0.5)     0.561 | 0.591 | 0.586
+       p=2 off part, l = 6, 6.5, 7, 7.5, 8:
+         BK  -0.0053 +0.0075 -0.0077 +0.0093 -0.0082
+         AMP -0.0049 +0.0070 -0.0071 +0.0086 -0.0076
+         LP3 -0.0046 +0.0067 -0.0069 +0.0086 -0.0078
+    R5 D>0 1.000|0.932|0.922 (se 0.038); D<0 1.000|0.932|0.927 (0.037); l<=4 1.000|0.932|0.933 (0.056);
+       l>4 1.000|0.932|0.922 (0.026); p=2 1.000|0.932|0.912 (0.028)
+  Test Dn
+    R1 gamma        1.000 | 0.932 | 0.925 || 0.027      (H_k 0.919 +- 0.039; H_set 1.00)
+    R2 pooled       1.000 | 0.932 | 0.930 || 0.019
+    R3 between      1.000 | 0.932 | 0.922 || 0.024
+       within       1.000 | 0.932 | 0.943 || 0.028      null corr 0.02, sd(between - within) 0.037
+    R4 rho(0.5)     0.561 | 0.591 | 0.585
+       p=2 off part, l = 6..8:
+         BK  -0.0043 +0.0064 -0.0066 +0.0085 -0.0078
+         AMP -0.0040 +0.0060 -0.0062 +0.0079 -0.0073
+         LP3 -0.0038 +0.0057 -0.0059 +0.0077 -0.0074
+    R5 D>0 1.000|0.932|0.926 (0.035); D<0 1.000|0.932|0.924 (0.040); l<=4 1.000|0.932|0.933 (0.050);
+       l>4 1.000|0.932|0.922 (0.026); p=2 1.000|0.932|0.908 (0.027)
+  Test Bp
+    R1 gamma        1.000 | 0.932 | 0.923 || 0.033      (H_k 0.944 +- 0.026; H_set about 0.94 in R3 between)
+    R2 pooled       1.000 | 0.932 | 0.929 || 0.023
+    R3 between      1.000 | 0.932 | 0.919 || 0.031
+       within       1.000 | 0.932 | 0.944 || 0.035      null corr -0.04, sd(between - within) 0.048
+    R4 rho(0.5)     0.563 | 0.593 | 0.586
+       p=2 off part, l = 6..8:
+         BK  -0.0034 +0.0050 -0.0051 +0.0070 -0.0069
+         AMP -0.0032 +0.0047 -0.0048 +0.0066 -0.0064
+         LP3 -0.0030 +0.0045 -0.0045 +0.0063 -0.0063
+
+Decisions (thresholds fixed now; 0.966 is halfway between 1 and 0.932):
+ D1 (amplitude; primary). Take the inverse-variance mean of R2 over the tests that are run (C alone, or C + Dn).
+      >= 0.966 : H_AMP and H_LP3 rejected for the fresh data;
+      <  0.966 : the BK amplitude rejected, and the proposer's reading ("B was an excursion") killed.
+    Error rates under the noise model:
+      C alone:  0.034 each way between BK and AMP; LP3 above the line 0.022;
+      C + Dn:   0.005 each way; LP3 0.0025.
+    The same rule on R1 has error rates 0.098 (C) and 0.035 (C + Dn); report it, but D1 decides on R2.
+ D2 (structure). In each fresh test, |between - within| <= 2.5 null sd (C 0.105, Dn 0.093, Bp 0.12) is expected under
+    H_BK, H_AMP and H_LP3 alike: a change of the law moves both parts. A failure would repeat B's pattern, and would mean
+    the indicator contrasts carry something no amplitude or L-shift describes.
+ D3 (conductor). If R1(Dn) <= 0.95 while R1(C) >= 0.97: H_k supported, and BK is in question for |D| >~ 500 at heights
+    below 600; this also kills the proposer's reading. Under H_BK the chance of R1(Dn) <= 0.95 is 0.03. Under H_k it is
+    0.75, using the trend error 0.039 and the se 0.027. If R1(Dn) >= 0.97, H_k loses its support. That is only about a
+    1 sigma statement, because the trend itself is uncertain.
+ D4 (set, only if Bp is run). R3 between(Bp) <= 0.95 supports H_set; >= 0.97 rejects it. Weak: 2 sigma separation
+    (0.938 against 1, se 0.031).
+ Reported in all cases: R4, R5, the level reading of r134b.py (c), the completeness numbers.
+
+Order: commit this file and predictions_alt.json -> compute the zeros of C (then Dn, then Bp) -> completeness -> Sigma2 ->
+readings. Report every reading, passed or failed.
+
+Statuses:
+  - The two-point function is Bogomolny-Keating's (heuristic), equal to the ratios-conjecture function (Conrey-Farmer-
+    Zirnbauer recipe, as applied by Conrey-Snaith). That equality for p | k, the exponent independence, the exact-phase
+    correction -eps/(24 t^2), and the between/within reading are derived here (derivation.md sections 1-5).
+  - The retrospective numbers (1.001 on rounds 117/120; between 0.938 and within 1.042 in B; the joint chi2) were computed
+    on data already known and are not evidence of the kind this round seeks.
+  - H_AMP and H_LP3 are phenomenological; H_k is a descriptive fit with no mechanism.
