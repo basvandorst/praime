@@ -1,0 +1,69 @@
+Round 140, pre-registered: the within part of consecutive-prime transition tables is the all-order
+Hardy-Littlewood local model. Nothing below has been computed on the proposed windows.
+Model values are frozen in writeup/code/study/allorder/reg_numbers.json and come from cgsim4.py there, which sieves
+only rough numbers at random 120-digit starting points and lists no primes. The model is a sieve model: it serves as
+the comparator that says whether the deficit of round 139 is Hardy-Littlewood at all orders; it is no formula.
+
+WHY. Round 139 (fresh, lam 24.16) found that the k = 1 within part, summed over all directions, falls with ln H
+1.4-2.0 times faster than the linear-response comparator truncated at y = 17 (q = 7, 9, 11, 13), and that the mod-5
+mixed-direction excess does not replicate. Derivation (writeup/code/study/allorder/derivation.md):
+ (a) the within marks are doubly centred, so the class-level four-pair Hardy-Littlewood terms vanish in every
+     direction (proved), and the large-prime response power is isotropic (computed), so no direction type is special;
+ (b) the comparator is not converged in y: each prime adds response power kappa/p (computed, p up to 499), and this
+     power switches on inside H in [1e4, 1e6]. The first-order sum without truncation (a closed, convergent sum over
+     that range, Sigma f_p/p = 0.625) overshoots the fresh slopes by 3-5 errors for q = 9, 11, 13;
+ (c) the all-order local model CG(P) (every local factor up to P, independent thinning, random profinite start)
+     converges in P by 1e4-1e5 for H <= 1e6. Retrospectively (fresh numbers known, nothing fitted) it gives the fresh
+     slopes for ten (q, k) cells with chi^2 = 14.5 / 10 dof, and the levels W(1e4) to 0.0004.
+This round tests (c) on fresh primes at a third height.
+
+LAW L. For each modulus q and lag k, the block statistic W(H) of the primes (review44/dirs.py definition, all
+(phi(q)-1)^2 directions averaged) and its slope s = (W(1e6) - W(1e4))/ln 100 equal those of CG(1e5) at the windows'
+lambda. CG(P): a site with no prime factor <= P is a pseudo-prime independently with probability
+prod_{p<=P}(1-1/p)^(-1)/lambda; same statistic, same window length 1e8, same H.
+
+WINDOWS (fresh; not 2.9e10-3.24e10, not 6.0e9-8.4e9, 5e9, 1.5e11, 2e11-1.2e12 (nine windows), 1e9, 1e10, 1e13, 1e14):
+  24 windows [2.40e11 + i*1e8, 2.40e11 + (i+1)*1e8), i = 0..23; mean lambda = 26.209.
+  Comparator response stretch (for the reported comparator only): [2.39e11, 2.39e11 + 1e8), next to the windows.
+INSTRUMENT: round 139's map.py unchanged (windows and stretch replaced); errors = jackknife over the 24 windows
+  (measurement only). The model's own uncertainty is stated beside each value and is NOT in any band.
+
+FROZEN MODEL VALUES (CG(1e5), 206 model windows at lambda 26.21; MC = model Monte Carlo error; P-conv = change
+from P = 1e4 to 1e5 seen at lambda 24.16, at most 0.0008, taken as +-0.0005 systematic):
+  cell   CG slope            CG W(1e4)          expected meas. err (= round 139)
+  7_1    -0.00748 +- 0.00040  0.9852 +- 0.0002   0.00120
+  9_1    -0.00671 +- 0.00038  0.9849 +- 0.0002   0.00091
+  11_1   -0.00696 +- 0.00022  0.9865 +- 0.0001   0.00061
+  13_1   -0.00650 +- 0.00019  0.9879 +- 0.0001   0.00039
+  11_2   -0.00309 +- 0.00023  1.0015 +- 0.0001   0.00067
+  13_2   -0.00260 +- 0.00019  1.0011 +- 0.0001   0.00062
+  (reported, no reading: 5_1 -0.00807, 7_2 -0.00221, 9_2 -0.00273, 5_2 -0.00392)
+  For orientation only (approximate, scaled from lambda 24.16 by (24.16/lambda)^1.9; the instrument computes its own):
+  comparator y = 17: 7_1 -0.0046, 9_1 -0.0043, 11_1 -0.0050, 13_1 -0.0049, 11_2 -0.0018, 13_2 -0.0019;
+  first-order untruncated: -0.0106, -0.0101, -0.0096, -0.0084, -0.0040, -0.0036.
+
+READINGS (mechanical; err = measurement error of the cell):
+  P1-P4  k = 1, q = 7, 9, 11, 13: PASS if |s - s_CG| <= 2.5 err.   P(pass | L) = 0.98, 0.98, 0.98, 0.98
+         (MC error included; with the +-0.0005 P-convergence systematic at its edge, q = 13 drops to 0.86 and
+         q = 11 to 0.94).
+  P5-P6  k = 2, q = 11, 13: same rule. P(pass | L) = 0.98 each.
+  J      joint: chi^2 = sum over P1-P6 of ((s - s_CG)/err)^2 <= 16.8 (99 % for 6 dof).
+  L-levels (secondary): |W(1e4) - W_CG(1e4)| <= 2.5 err_W for 7_1, 11_1, 13_1.
+FALSIFIERS:
+  F1 (the comparator suffices): the inverse-variance pooled excess s - LR17 over P1-P4 within 1 error of 0.
+     Under L the pooled excess is about -0.0020 against a pooled error of about 0.0003 (separations per cell -2.4,
+     -2.6, -3.3, -4.0 errors; combined 6.3): P(F1 fires | L) < 1e-6.
+  F2 (the first-order sum without truncation): pooled s - s_FO within 1 error of 0 AND pooled s - s_CG beyond
+     -3 errors (s_FO = LR17 - (kappa/lambda) * 0.625, kappa from the instrument's own y = 13 -> 17 step,
+     formula fixed here). Separations of CG from first order per cell: +2.6, +3.7, +4.3, +4.8 errors (combined 7.9).
+  L is FALSIFIED if J fails AND at least two of P1-P4 fail, or if F2 holds.
+DIRECTION TYPES (secondary; the law says none is special): for q = 5, 7, 11, 13 at k = 1 the excess of the odd
+  directions (chi_i(-1) chi_j(-1) = -1) minus that of the even ones within 2.5 errors of 0. Prediction for q = 11 and
+  13: no pair (i, j) gets an extra term; per-direction slopes differ only through the y = 17 response power V_d.
+  (Counts: odd directions 40 of 81 for q = 11, 60 of 121 for q = 13.)
+
+KNOWN WEAKNESSES (stated before the computation): the model's identification with HL is heuristic; P = 1e5 is the
+largest P used, and the model density reaches 1 near P = exp(lambda e^-gamma) = 2.4e6 at lambda 26.2; the expected
+measurement errors are round 139's (the same window count and block lengths); the comparator and first-order values
+above are approximate and are not used in P1-P6.
+reg_numbers.json sha256 62a01832570a51953938ec3e077bd17c99f14b734ad4aa102126f17d5d7465db
