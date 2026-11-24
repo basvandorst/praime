@@ -1,0 +1,38 @@
+  gamma = (res * off).sum() / (off ** 2).sum()
+  pooled = (yc * xc).sum() / (xc ** 2).sum()
+=== test B
+  full (BK)              GLS chi2    85.9 on 96 | OLS-se chi2    27.5 | gamma(vs own off)  0.933 | rho pred 0.560 obs 0.635 | p2 l=6..8 pred -0.0051 +0.0074 -0.0075 +0.0091 -0.0081
+  diag                   GLS chi2   716.6 on 96 | OLS-se chi2   834.5 | gamma(vs own off)    nan | rho pred 1.000 obs 0.635 | p2 l=6..8 pred +0.0000 +0.0000 +0.0000 +0.0000 +0.0000
+  sign-flipped off       GLS chi2  1577.4 on 96 | OLS-se chi2  3511.8 | gamma(vs own off) -0.933 | rho pred 1.440 obs 0.635 | p2 l=6..8 pred +0.0051 -0.0074 +0.0075 -0.0091 +0.0081
+  one prime at a time    GLS chi2   210.9 on 96 | OLS-se chi2   326.7 | gamma(vs own off)  1.211 | rho pred 0.558 obs 0.635 | p2 l=6..8 pred -0.0016 +0.0041 -0.0043 +0.0062 -0.0053
+  full at L-0.3          GLS chi2  2874.5 on 96 | OLS-se chi2   385.0 | gamma(vs own off)  0.597 | rho pred 0.592 obs 0.635 | p2 l=6..8 pred -0.0072 +0.0076 -0.0086 +0.0099 -0.0074
+  full at L+0.3          GLS chi2  3153.8 on 96 | OLS-se chi2   383.5 | gamma(vs own off)  0.619 | rho pred 0.530 obs 0.635 | p2 l=6..8 pred -0.0031 +0.0074 -0.0062 +0.0085 -0.0083
+  full at L-0.6          GLS chi2 10014.5 on 96 | OLS-se chi2  1552.6 | gamma(vs own off)  0.301 | rho pred 0.627 obs 0.635 | p2 l=6..8 pred -0.0091 +0.0080 -0.0095 +0.0110 -0.0060
+  full at L+0.6          GLS chi2  9669.6 on 96 | OLS-se chi2  1342.5 | gamma(vs own off)  0.292 | rho pred 0.503 obs 0.635 | p2 l=6..8 pred -0.0011 +0.0077 -0.0048 +0.0081 -0.0081
+  diag + 0.750*off       GLS chi2   138.6 on 96 | OLS-se chi2    53.9 | gamma(vs own off)  1.245 | rho pred 0.670 obs 0.635 | p2 l=6..8 pred -0.0039 +0.0055 -0.0056 +0.0068 -0.0061
+  diag + 0.850*off       GLS chi2    90.6 on 96 | OLS-se chi2    29.3 | gamma(vs own off)  1.098 | rho pred 0.626 obs 0.635 | p2 l=6..8 pred -0.0044 +0.0063 -0.0063 +0.0078 -0.0069
+  diag + 0.933*off       GLS chi2    74.8 on 96 | OLS-se chi2    23.1 | gamma(vs own off)  1.000 | rho pred 0.589 obs 0.635 | p2 l=6..8 pred -0.0048 +0.0069 -0.0070 +0.0085 -0.0075
+  diag + 1.150*off       GLS chi2   192.3 on 96 | OLS-se chi2    67.8 | gamma(vs own off)  0.812 | rho pred 0.494 obs 0.635 | p2 l=6..8 pred -0.0059 +0.0085 -0.0086 +0.0105 -0.0093
+  diag + 1.250*off       GLS chi2   300.7 on 96 | OLS-se chi2   118.0 | gamma(vs own off)  0.747 | rho pred 0.450 obs 0.635 | p2 l=6..8 pred -0.0064 +0.0092 -0.0093 +0.0114 -0.0101
+  diag + free sinusoid per prime (12 params): GLS chi2 565.2 on 84 (diag alone 716.6)
+  diag + sinusoid + linear per prime (24 params): GLS chi2 494.1
+  diag + BK off-shape, free amplitude per prime: amplitudes [0.921 0.948 0.891 0.801 0.64  1.149], GLS chi2 67.7 (BK fixed: 85.9)
+  fitted sinusoid per prime (a cos + b sin): [(2, np.float64(-0.0015), np.float64(142632172399.3356)), (3, np.float64(-0.001), np.float64(34360578891.9225)), (5, np.float64(-0.0009), np.float64(-147368675501.3587)), (7, np.float64(-0.0006), np.float64(-23138850096.6085)), (11, np.float64(-0.0004), np.float64(90012521165.9726)), (13, np.float64(-0.0004), np.float64(-28133743788.1409))]
+=== test A
+  full (BK)              GLS chi2    73.5 on 64 | OLS-se chi2    14.0 | gamma(vs own off)  0.942 | rho pred 0.550 obs 0.481 | p2 l=6..8 pred -0.0045 +0.0074 -0.0064 +0.0080 -0.0061
+  diag                   GLS chi2   802.8 on 64 | OLS-se chi2   118.8 | gamma(vs own off)    nan | rho pred 1.000 obs 0.481 | p2 l=6..8 pred +0.0000 +0.0000 +0.0000 +0.0000 +0.0000
+  sign-flipped off       GLS chi2  2470.1 on 64 | OLS-se chi2   428.0 | gamma(vs own off) -0.942 | rho pred 1.450 obs 0.481 | p2 l=6..8 pred +0.0045 -0.0074 +0.0064 -0.0080 +0.0061
+  one prime at a time    GLS chi2    68.7 on 64 | OLS-se chi2    13.5 | gamma(vs own off)  0.971 | rho pred 0.549 obs 0.481 | p2 l=6..8 pred -0.0041 +0.0072 -0.0062 +0.0078 -0.0058
+  full at L-0.3          GLS chi2  2126.2 on 64 | OLS-se chi2   101.4 | gamma(vs own off)  0.473 | rho pred 0.584 obs 0.481 | p2 l=6..8 pred -0.0059 +0.0086 -0.0059 +0.0102 -0.0032
+  full at L+0.3          GLS chi2  1903.4 on 64 | OLS-se chi2    72.8 | gamma(vs own off)  0.521 | rho pred 0.519 obs 0.481 | p2 l=6..8 pred -0.0027 +0.0065 -0.0065 +0.0063 -0.0082
+  full at L-0.6          GLS chi2  4279.8 on 64 | OLS-se chi2   351.8 | gamma(vs own off)  0.192 | rho pred 0.622 obs 0.481 | p2 l=6..8 pred -0.0069 +0.0100 -0.0050 +0.0131 +0.0007
+  full at L+0.6          GLS chi2  4247.2 on 64 | OLS-se chi2   257.4 | gamma(vs own off)  0.219 | rho pred 0.490 obs 0.481 | p2 l=6..8 pred -0.0007 +0.0059 -0.0063 +0.0049 -0.0097
+  diag + 0.750*off       GLS chi2   104.2 on 64 | OLS-se chi2    21.1 | gamma(vs own off)  1.256 | rho pred 0.663 obs 0.481 | p2 l=6..8 pred -0.0034 +0.0056 -0.0048 +0.0060 -0.0046
+  diag + 0.850*off       GLS chi2    77.5 on 64 | OLS-se chi2    16.7 | gamma(vs own off)  1.109 | rho pred 0.618 obs 0.481 | p2 l=6..8 pred -0.0038 +0.0063 -0.0054 +0.0068 -0.0052
+  diag + 0.933*off       GLS chi2    69.8 on 64 | OLS-se chi2    14.7 | gamma(vs own off)  1.010 | rho pred 0.580 obs 0.481 | p2 l=6..8 pred -0.0042 +0.0069 -0.0060 +0.0075 -0.0057
+  diag + 1.150*off       GLS chi2   113.9 on 64 | OLS-se chi2    16.0 | gamma(vs own off)  0.819 | rho pred 0.483 obs 0.481 | p2 l=6..8 pred -0.0051 +0.0085 -0.0074 +0.0092 -0.0071
+  diag + 1.250*off       GLS chi2   165.3 on 64 | OLS-se chi2    19.8 | gamma(vs own off)  0.754 | rho pred 0.438 obs 0.481 | p2 l=6..8 pred -0.0056 +0.0093 -0.0080 +0.0100 -0.0077
+  diag + free sinusoid per prime (8 params): GLS chi2 565.8 on 56 (diag alone 802.8)
+  diag + sinusoid + linear per prime (16 params): GLS chi2 496.4
+  diag + BK off-shape, free amplitude per prime: amplitudes [0.913 0.977 0.989 1.149], GLS chi2 67.0 (BK fixed: 73.5)
+  fitted sinusoid per prime (a cos + b sin): [(2, np.float64(-0.0019), np.float64(446850891099.0506)), (3, np.float64(-0.0001), np.float64(-87764951910.2369)), (5, np.float64(-0.0003), np.float64(-134721744865.1644)), (7, np.float64(-0.0001), np.float64(-120427078849.0756))]
