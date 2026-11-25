@@ -1,0 +1,142 @@
+Round 15x, pre-registered: a blind test of the one-point law of the zeros on 130 primitive L-functions of degree 1 to 4,
+32 products and 10 pairs of elliptic curves.
+To be committed with predictions_blind.json, testset.json, the constants folder, bz_lib.py, bz_zeros.py, bt_test.py and this
+text before any zero of a test L-function is computed. Folder: scratchpad/universal/blind/ (round 1 in ../, committed as
+writeup/code/study/lowzero/universal/).
+
+STATE WHEN THIS WAS WRITTEN. No zero of any test L-function has been computed (zeros_blind/ does not exist). Computed:
+the constants (Euler products, L-values: constants/*.json); lfuncheckfeq for every test L-function; lfunzeros on proxies
+(similar L-functions that are not tested). One exposure: the first draw of 10 product pairs (round-144 zero lists, which
+already exist) was read by accident when bt_test.py was run on this folder before the hash was final. That reading
+(D12 = 11.60 + 0.84i +- 13.11, PASS) is reported as seen and not blind; those pairs were replaced by a new seeded draw
+(b0c_pairs.py) before this file was written. The superseded prediction file (sha256 c7b918fa...) differs from the frozen
+one only in the pairs.
+
+THE LAW (general_law.md of round 1; recipe-level for degree >= 2, a theorem for degree 1). L primitive, analytic
+normalisation, conductor Q, gamma shifts mu_j, root number eps (PARI lfunrootres), theta_L(t) = (t/2) ln(Q/pi^d)
++ sum_j Im lnGamma((1/2 + mu_j + it)/2):
+   G(r) = sum_{0<g<=T2} e^{2i theta_L(g)} r^{-ig} = -eps c_L (rho_L(r)/sqrt(ab)) T2/2pi + o(T),  rho(1) = 1,
+   c_L = B_L(1)/L(1, Ad) = lim F_L(1+x)/x, F_L(s) = sum conj(lambda(n)) mu_L(n) n^-s;  Hann weight sin^2(pi g/T2): half.
+Products (finite-height mechanism, found post hoc in round 1, registered here for the first time): zeta_K = zeta L(rho):
+   M1 = sum over all zeros of zeta_K of e^{2i theta_K} = -c_rho sum_{k<=T2/2pi} rho_rho(1/k);  M2 = sum over the rho-zeros of
+   e^{2i theta_zeta} = -psi_rho(T2/2pi);  M3 = sum over the zeta-zeros of e^{2i theta_K} = 0.
+   Each Artin factor also obeys the law: R = sum over the rho-zeros of e^{2i theta_rho} = -c_rho T2/2pi.
+   L(C) = L(f) L(f^sigma) (genus-2 curves of GL(2) type): sum over all zeros of e^{i theta_C} = -(eps_a c_a + eps_b c_b) T2/2pi;
+   with the product phase: 0.  Pairs L(E1) L(E2): the product phase on the union: 0.
+
+TEST SET (testset.json, sha256 50c73ee9...; rule: enumerate a fixed box, sort, permute with numpy default_rng(20261125 + class
+index), first n are tested, the next ones are proxies; b0_sources.py, b0b_genus2.py, b0c_pairs.py):
+  T1  40 primitive complex characters (20 conjugate pairs), 8 <= q <= 60, order >= 3 (308 pairs in the box): q in {17, 23,
+      27, 31, 32, 37, 39, 41 (x5), 43 (x2), 47 (x2), 52, 53 (x2), 59}; c = q/phi(q) (1.017-2.167); T2 = 1000.
+  T2  30 newforms with rational coefficients and trivial character, weights 4-12, squarefree levels 3-58 (177 in the
+      box); 17 have eps = -1; c = B/L(1, Sym^2 f) from an arithmetic Sym^2 built in GP (lfuncheckfeq -27 to -53), range
+      -0.068 to 3.136 (one negative c: weight 4, level 33); T2 = 500.
+  T3  Sym^2 E for 30 semistable classes, 26 <= N <= 145 (72 in the curve box), not 11a, 14a, 15a, 17a, 19a, 37a and the
+      probed 30a; c = B/(L(1,Sym^2 E) L(1,Sym^4 E)), 0.082-3.961; T2 = 150.
+  T4a Sym^3 E for 15 classes, 26 <= N <= 79 (33 in the box); c by the direct product (exact p <= 3000, first order to 1e5;
+      L(1, Sym^6 E) is too costly at these conductors; the exact route agrees to 1e-4 on N = 26); 6 have eps = -1;
+      c 0.163-3.895; T2 = 70.
+  T4b 15 genus-2 curves, conductor 349-997 (all 16 primitive genus-2 L-functions with N < 1000 found in the box with a
+      valid conductor (lfunparams, lfuncheckfeq <= -20); one proxy); 4 have eps = -1; three have c < 0; c direct
+      (exact p <= 1000, first order to 5e4); T2 = 150.
+  T5  30 complex cubic fields, -500 < d < 0, not -23, -31 (56 in the box); T2 = 300. For d = -239 (x^3 - x - 3) the prime
+      3 splits completely, F_3(1/3) = 0 and c_rho = 0 EXACTLY: a primitive L-function for which the law predicts no
+      main term (reading D10b).
+  T5g the two genus-2 curves of GL(2) type found in the T4b search: conductor 529 = 23^2 and 961 = 31^2, L(C) = L(f)L(f^sigma)
+      verified to 1e-14 (n <= 300) for the level-23 and level-31 newforms with real-quadratic coefficients (the forms
+      whose own zeros PARI could not compute in round 1); c_a, c_b frozen in round 1; T2 = 150.
+  pairs 10 pairs of round-144 curves (new draw, SEED + 8): window (0, 400].
+DROPPED / CHANGED before registration (no test zero involved):
+  - Classes with non-integer coefficients (embedded irrational newforms, nebentypus forms): PARI lfunzeros fails on them
+    (round 1); not in the set (T2 is rational with trivial character by construction). They enter only through T5g.
+  - Heights lowered after timing proxies: Sym^2 200 -> 150 (proxies needed 40-108 s for an initialisation to 200);
+    Sym^3 120 -> 70 (135 s for windows at 100).
+  - Genus 2: PARI's genus2red omits the 2-part of the conductor when it cannot determine it (1472 warnings; conductors
+    such as 19 or 97, impossible for genus 2); the rule now reads the conductor from lfungenus2 and requires the FE check.
+  - The first pair draw (seen; see STATE).
+
+CHECKS BEFORE REGISTRATION (b1_*_out.txt; proxies only):
+  lfuncheckfeq <= -45 for all 190 test objects (40 T1, 30 T2, 30 Sym^2, 15 Sym^3, 15 genus 2, 30 zeta_K + 30 L(rho)).
+  Short windows (0, 15] and (T2-10, T2] on 16 proxies: counts within 1.4 of theta/pi in every case (b1_short_out_part*.txt).
+  Full-height proxy runs through the registered zero routine (b1_full_out_*.txt): T1 (chi mod 31) 45 s, T2 (k10 N38) 26 s,
+  T3 (Sym^2, N = 30-class) 19 s, T4a (Sym^3) 47 s, T4b (N = 745) 39 s, T5 7 s; all COMPLETE with r_mean = c_exp to 0.003.
+  Dry runs (dry/): the zero script on 5 round-1 L-functions reproduces their zero lists exactly (max |diff| 0; resumed after
+  a 60 s budget stop); the test script on the 23 round-1 zero sets with dry predictions (sha256 f48453da...) reproduces
+  round 1 (all primitive 0.978 +- 0.014, lines 0.982 +- 0.012, beta 0.914 +- 0.039; no decision fails; dry/bt_test_dry_out.txt).
+
+COMPLETENESS RULE (bz_lib.py): lfunzeros at the default subdivision on (0.01, T2 + 1]; 3 rounds re-searching the 30 largest
+  unfolded gaps (divz 64; 256 above 2.2 mean spacings) and the first interval; duplicates (< 1e-7) removed; m0 =
+  lfunorderzero; r_n = n - theta(g_n)/pi; COMPLETE iff |drift| <= 0.2 (mean r of the last 15 % minus the first 15 %) and
+  |mean r - c_exp| <= 0.25, c_exp = 1/2 + (pole at s = 1) - m0/2 - arg(eps)/2pi (arg 0 for real eps); else one pass over all
+  gaps > 1.8 spacings with divz 256; if still failing: REJECTED. Two unfinished attempts (timeout): REJECTED. Rejected
+  L-functions are excluded and listed; no replacement. (c_exp checked on all 24 round-1 sets: |mean r - c_exp| <= 0.004.)
+
+NOISE MODEL (measured in round 1 on 20 primitive L, sharp sums, Var/M with M = theta(T2)/pi): r = 1 along the prediction
+  0.077, across 0.21; Hann the same per 3M/8; lines along 0.14, across 0.18. Products at a frequency that is not the zeros'
+  own (no rigidity): 1.0; rho-zeros under the zeta phase (form factor ~ 0.4): 0.4. Round 1 per family (along): degree 1
+  0.015, degree 2 0.04-0.10, degree 3 0.094, degree 4 0.134 (the model is conservative in degree 1, slightly
+  optimistic in degree 4).
+
+DECISIONS (printed by bt_test.py; se from the noise model on the COMPLETE subset; expected se from power_blind.txt):
+  D1  family pooled slope b_F = sum Re(G conj pred)/sum |pred|^2; PASS iff |b_F - 1| <= 3 se_F.
+      expected se: T1 0.0078, T2 0.0106, T3 0.0219, T4a 0.0532, T4b 0.0301.
+  D2  all 130 primitive: PASS iff |b - 1| <= 3 se, expected se 0.0062 (band 1 +- 0.019).
+  D3  H0 (no main term) rejected iff b/se >= 5 (expected 162 se).
+  D4  lines r = 2, 1/2, 3, 1/3 pooled: PASS iff |b - 1| <= 3 se; expected se 0.0057.
+  D5  c_hat_L = Re(G conj(-eps))/(T2/2pi) regressed on [1, c_L - 1]: PASS iff |beta - 1| <= 3 se_beta (expected 0.0145);
+      H-c1 (beta = 0) rejected iff beta/se >= 3 (expected 69 se).
+  D6  the 27 primitive L with eps = -1: PASS iff |b - 1| <= 3 se (expected 0.0133; H-noroot gives -1, 150 se away).
+  D7  the 40 complex characters: complex pooled slope s; PASS iff |Im s| <= 3 se_im (expected 0.0129); H-conj gives s =
+      0.056, H-noroot s = 0.334 (both rejected by Re s at > 85 se if the law holds).
+  D8  products M1: slope of M1 on its mechanism value over the 30 fields; PASS iff |b - 1| <= 3 se; H-prod0 (b = 0)
+      rejected iff b/se >= 3. Expected se 0.52: UNDERPOWERED (the mechanism values are 8.9 rms against a noise of 26 per
+      field); H-prod0 can be rejected only if b >= 1.6.
+  D9  M2 slope on -psi_rho: expected se 0.28 (H-prod0 at 3.6 se if the mechanism holds); M3: |mean| <= 3 x 2.14.
+  D10 Artin law on the rho-zeros of the 29 fields with c_rho != 0: PASS iff |b - 1| <= 3 se; expected se 0.0115.
+  D10b d = -239 (c_rho = 0): PASS iff |Re R| <= 3 x 6.42 (a c = 1 law would give -47.7, 7.4 sd).
+  D11 T5g: half-phase slope pooled over the 2 curves within 3 x 0.0785 of 1 and the product phase |Re| <= 3 x 19.
+  D12 pairs: mean of the 10 product-phase sums within 3 se of 0 (se ~ 12.6).
+  Strict statistical decisions carry no theory allowance: a FAIL in D1, D2, D4-D6 with the slope within the allowance
+  below is reported as a detected finite-height correction (round 1 ran 2-6 % low in degree 2 and 3), not as a falsification.
+
+FALSIFIER (one line). The general law is falsified if the slope pooled over all complete primitive test L-functions lies
+outside 1 +- max(4 se, 0.05), or any family's pooled slope lies outside 1 +- max(4 se_F, 0.10).
+
+EVERY PREDICTED CELL: cells_blind.txt (1126 cells): for each primitive L the sharp r = 1 sum (reading: D1, D2, D3, D5, and
+  D6 or D7 where they apply), the Hann sum (no reading, reported), the four lines (reading: D4), and the alternatives (no
+  reading by themselves; they enter D3, D5, D6, D7); for each field M1 (D8), M1 Hann (no reading), M2 (D9), M2 Hann (no
+  reading), M3 (D9), the Artin sum (D10; D10b for d = -239), its Hann sum and four lines (no reading); T5g half phase and
+  product phase (D11); pairs (D12).
+
+HASHES (sha256; hashes.txt):
+  predictions_blind.json            c8a77047709d6e8c4fe5dbfb1fa595961dc3ef25ef9d2082ea7245eece3bf50f   (frozen 2026-11-25 13:41:21 UTC)
+  superseded (first pair draw)      c7b918fabeab5d18cbfb1c91bd3cf4fda290d3be4941e90600702529a0d11355   (13:39:16 UTC)
+  testset.json                      50c73ee9c43369c5651297b43237d55eece1d383a005ce4a42348f34a8047028
+  bt_test.py (FROZEN inside)        169ef19af5152667d152d496bc2bf83d1de58405e849e48897049b5276329eef
+  bz_zeros.py                       1dbc007c2c9eb05c11a84a6b3edeb96105c787aa9d1b36084b57cecfb9dc4a5c
+  bz_lib.py                         b13953109028e3196b4d957615f4894933e3a5c9554d05f67fdf34e71df1be5f
+  ulib.py (round 1, ../)            4e45bc8965a137593491b18d93b81e9e4d718e361aa76d5d16aa524902938980
+  dry/predictions_dry.json          f48453daaaf9725f76b994345a48c12c0e6f69d4f09eca88dc16d45537930456
+
+COST. Manifest estimate (proxy timings on this shared 2-core machine): 6,725 s = 1.9 CPU-hours (T1 40 x 45 s, T2 30 x 30,
+  T3 30 x 60, T4a 15 x 60, T4b 15 x 60, T5 30 x 10, T5g 2 x 60, zeta 5); the proxies suggest 1.3-1.9 h. About 13 runs of
+  540 s.
+
+COMMANDS (from scratchpad/universal/blind/):
+  zeros (repeat until it prints ALL DONE; resumable, one file per L-function in zeros_blind/):
+    (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I bz_zeros.py --budget 540)
+  test (refuses any prediction file whose sha256 is not c8a77047...):
+    (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I bt_test.py)
+
+CAVEATS. (1) Degree >= 2 is recipe-level; (2) Sym^3 and genus-2 constants come from direct products (0.1-0.3 %);
+  (3) the product mechanism is post hoc from round 1 (two fields) and its M1 reading is underpowered; (4) the T5g factor
+  constants and the forms' root numbers come from round 1 (computed from Euler products, not from zeros); (5) GRH assumed;
+  (6) the T3 and T4a curves are box representatives of their isogeny classes (Sym^m L-functions depend only on the class).
+
+Registered state (round 151): the folder is writeup/code/study/lowzero/universal/blind/. predictions_blind.json, testset.json,
+bz_lib.py and ../ulib.py are byte-identical to the proposer's files (hashes above). bt_test.py and bz_zeros.py differ from the
+proposer's copies only in an absolute path made relative and a command line in a comment; as committed their sha256 are
+c914f664fa19a56be65523ed36d39baa77eb16161f5259d5aac89fc8190dea1a (bt_test.py) and
+94f24daac020e452420a666e985faec35b3a76a0a91809937e3da489460e090c (bz_zeros.py). No zero of a test L-function existed when this
+was committed (no folder zeros_blind/); the ten pairs L(E1)L(E2) use zero lists of round 144, and the first draw of pairs was
+seen by the proposer and replaced, as stated above.
