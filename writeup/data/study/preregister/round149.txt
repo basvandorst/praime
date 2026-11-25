@@ -1,0 +1,139 @@
+Round 149, pre-registered: the mean square of a product of three different Dirichlet L-functions on the critical
+line, against the CFKRS/Heap recipe with all lower-order terms; pairs and zeta*L(chi) as theorem controls. To be
+committed with predictions_triple.json (sha256 b674db97f04aeadf2ee19cc62dfa1ddd918a1ca0e54ea2e46e42191af6cdd5a6) before any value |L(1/2 + it, chi_D)| of a reserved character is
+computed. When this file was written: |L(1/2 + it)| on [100, 1000] existed only for the 8 development characters
+(1001, -1003, 1005, -1048, 1068, -1195, 1253, -1267) and for zeta; on them the statistic WAS computed (development:
+noise model, comparators, dry run). No value of any reserved character existed.
+Derivation and code: derivation.md, tmlib.py (recipe and comparators), freeze.py (sets and predictions),
+moment_values.py (values), check_values.py (independent value check), moment_test.py (readings), power.py (power).
+
+Why. The CFKRS recipe (2005) and Heap's conjecture for non-primitive L-functions (arXiv 1303.6119, Conjecture 4) predict
+  M_3 = int_100^1000 |L(1/2+it, chi_1) L(1/2+it, chi_2) L(1/2+it, chi_3)|^2 dt = int P(t) dt + O(T^(1/2+eps)),
+  P(t) = sum over the 8 sets S of swapped L-functions (2.1) = sum_m h[m] prod_{j not in m} (ln(q_j t/2pi) + 2 gamma) (2.2),
+  h(z) = prod_j c_j(2 z_j) prod_{i<j} L(1 + z_i + z_j, chi_i chi_j)^2 A_3(z), h(0) = a_L(1) (Heap's arithmetic factor,
+  with prod_{i<j} L(1, chi_i chi_j)^2 and the three-body Euler factor A_3).
+  No asymptotic is proved for any product of three L-functions (degree 3, as the sixth moment of zeta). For two different
+  characters the same recipe is a theorem (Topacogullari, Math. Z. 2021, Thm 1.3; our polynomial equals his to 3e-12).
+  No numerical test of the k = 3 conjecture (or of the k = 2 theorem) was found in print.
+
+What is conjecture (the filter). The order T(log T)^3 is theorem-grade (lower bound unconditional, upper bound under GRH,
+  Hagen 2024); readings that only see "M_3 grows with h(0)" test almost nothing. Conjectural, and read here:
+  (a) the level: the universal factor 1 together with the off-diagonal (mixed swaps |S| = 1, 2) and the lower-order
+      terms; the diagonal-only alternative (AFE diagonal, H_diag) is 11.3 % higher (mean over the test triples; 7.2 .. 27.1 %);
+  (b) the three-body Euler factor A_3/prod A_ij (0.28 .. 2.45 over the test triples, median 1.10), absent under H_no3
+      and H_kirk.
+  Pair readings and the theorem controls test nothing new; they calibrate.
+
+Hypotheses (all parameter-free; densities in derivation.md 2.4-2.5):
+  H_full  the recipe (2.2).
+  H_diag  the mean square of the diagonal of the product's approximate functional equation (sharp cutoff at sqrt(C)):
+          zero and full swaps only; leading term h(0)(sum L_j)^3/24.
+  H_no3   the recipe with A_3(z) replaced by prod_{i<j} A_ij(z_i + z_j) (no three-body Euler factor).
+  H_kirk  pairwise superposition: prod_{i<j} P_2(chi_i, chi_j) / prod_j P_1(chi_j) (built from the theorem-grade
+          pair and single formulas).
+  H_ind   independence: prod_j P_1(chi_j) (no coupling factor at all).
+  H_lead  the leading term h(0) prod_j ln(q_j t/2pi) only.
+
+Frozen predictions: predictions_triple.json (sha256 b674db97f04aeadf2ee19cc62dfa1ddd918a1ca0e54ea2e46e42191af6cdd5a6): sets (dev, reserved R, 1540 pairs, 2000 triples, the draw
+rule); per character P1 (second moment), P4 (fourth moment, Topacogullari (5508)), zeta*L (full, diag, lead); per pair
+full, diag, lead; per triple full, diag, kirk, no3, ind, lead, the multilinear coefficients h[m] and h_no3[m], g, the
+three-body factor and the p = 2 configuration. All integrals over [100, 1000] (96-point Gauss-Legendre in ln t).
+
+TEST R (fresh): 56 fundamental discriminants, 100 <= |D| <= 1300, distinct |D|, none of the development set; seeded draw
+(freeze.py: numpy default_rng(20261125).permutation of the 724 candidates, first 56 with distinct |D|):
+  -1288 -1243 -1220 -1191 -1187 -1119 -1111 -1099 -1043 -1039 -1011 -983 -820 -807
+  -795 -763 -687 -635 -552 -532 -419 -415 -407 -383 -379 -339 -296 -287
+  -148 -136 -115 120 181 248 253 265 305 317 341 412 456 461
+  472 601 664 757 861 885 904 917 952 993 1013 1048 1149 1173
+  Pairs: all 1540. Triples: default_rng(20261126).choice(27720, 2000, replace=False) on the sorted list of all triples
+  (80 .. 128 per character). Controls: the 56 singles (second and fourth moments) and zeta * L(chi_D) for the 56.
+
+Data and completeness (decided now): moment_values.py (PARI lfuninit + lfun, realprecision 19) on the grid
+t = 100 + k/20, k = 0..18000, one file per character; every file present with 18001 finite values; check_values.py:
+2 random grid points per character (seed 7; about 20 s per point, run in batches of 12 characters) agree with the
+Hurwitz-zeta sum to 1e-10 (a failing character is recomputed; if it
+still fails it is excluded with every tuple containing it, and reported). Quadrature: trapezoid, error < 2e-5 relative.
+
+Statistic: M = trapezoid integral of the product of |L|^2 on [100, 1000]; r = M / P_full; for a triple, the pair
+excess c = sum over its three pairs of (r_pair - 1), and z = sum of the three ln r_pair.
+Jackknife: delete one character (all tuples containing it), 56 replicates.
+
+Readings (moment_test.py; definitions fixed now):
+ C1-C3 controls (theorems): mean r for singles (second and fourth moment) and for zeta*L; zeta*L also against its
+    AFE diagonal (8-35 % off: the mixed swaps of a proved case). Reported; C3 recorded as "control failed" if the zeta*L
+    mean ratio is outside [0.95, 1.05].
+ P1 pair level (control): rho_2 = mean r over the 1540 pairs. Expected 1 +- 0.010 (model).
+ T1 triple level (primary, polynomial and mixed swaps): theta = mean over triples of (r - c) (control variate, beta = 1
+    fixed, parameter-free); also the raw mean of r.
+ T2 three-body factor (primary, arithmetic): gamma_c = centred OLS slope of (ln M - z - ln P_c) on (ln P_full - ln P_c),
+    c = no3 (and kirk); also without z (raw). H_full 1, H_c 0.
+ T3 slope of ln M (and ln M - z) on ln P_full across triples: H_full 1.
+ T4 levels against every comparator: mean M/P_c, raw and CV.
+ T5 (secondary) T2 split by the p = 2 configuration of the triple.
+
+Predicted values and expected se (power.py; noise model fitted on the development set ONLY; 1000 simulations per
+hypothesis; the jackknife se replaces the model se in every decision):
+  noise model (dev only): CV statistic sig_e 0.150, sig_a 0.030; raw sig_e 0.194, sig_a 0.106; pairs 0.056, 0.036.
+  Expected reading under    H_full | H_diag | H_kirk | H_no3  | H_ind  | H_lead || se (sig_a as fitted; doubled)
+  T1 theta (CV level)        1.000 |  1.113 |  0.983 |  0.980 |  1.80  |  0.640 || 0.012 (0.024)
+     raw mean of r           0.999 |  1.112 |  0.982 |  0.979 |  1.80  |  0.640 || 0.042 (0.089)
+  T2 gamma_no3 (CV)          1.000 |  1.004 | -0.023 |  0.000 |  4.09  |  0.608 || 0.014 (0.020); raw 0.032 (0.058)
+     gamma_kirk (CV)         0.999 |  1.004 |  0.000 |  0.025 |  4.05  |  0.600 || 0.014 (0.019)
+     gamma_ind (CV)          1.000 |  1.003 |  1.160 |  1.155 |  0.000 |  1.205 || 0.003 (0.004)
+     gamma_lead (CV)         1.000 |  0.967 |  0.721 |  0.739 |  3.73  |  0.000 || 0.013 (0.020)
+  T3 slope (CV)              1.000 |  1.005 |  1.123 |  1.119 |  0.147 |  1.205 || 0.003 (0.006)
+  P1 pair level rho_2        1 (control) || 0.010;  pairs: P_diag/P_full 0.988 (no reading), zeta*L: 1.084 .. 1.347 (mean 1.178)
+  Separations: H_diag from H_full 9 se on theta (4.6 se with sig_a doubled; raw 2.7 se); H_no3 and H_kirk 70 se on
+  gamma (50 se doubled; raw 31 se); H_ind, H_lead > 40 se. On 40 simulated data sets the delete-one-character
+  jackknife reproduced the level se (0.0136 vs 0.0142) and overstated the gamma_no3 se (0.023 vs 0.012: conservative).
+  Development set, same code (dryrun_dev_out.txt, 8 characters, 56 triples): theta 1.0006 +- 0.045, raw 0.9945 +- 0.118,
+  gamma_no3 0.93 +- 0.23, gamma_kirk 0.93 +- 0.22, gamma_ind 0.99 +- 0.08, gamma_lead 1.05 +- 0.17; theta against
+  diag 0.906 +- 0.040; pairs 0.998 +- 0.030; zeta*L 0.989 (gamma_diag 1.07); singles 1.0013 +- 0.0039.
+
+Theory's own uncertainty (not in the bands). (i) The recipe's remainder, conjectured O(T^(1/2+eps)), is the noise
+  itself (20-24 % per triple at these heights, 7 % per pair, 1 % per single); its mean over characters is conjectured 0.
+  A finite-height mean offset is not excluded by anything: allowance A = max(0.03, 3 |rho_2 - 1|), calibrated by the pair
+  control on the same characters and heights. (ii) H_diag is defined only up to the AFE weight: about +-2 % (derivation
+  2.5); it does not move the decision (H_diag sits 11.3 % above H_full). (iii) Truncations (Euler product 1e5, Gauss
+  quadrature) < 1e-7; quadrature of the data < 2e-5.
+
+Decisions (thresholds fixed now):
+ D1 (three-body factor; primary falsifier). H_full passes if |gamma_no3 - 1| <= 4 se. H_no3 is rejected if gamma_no3 >= 5 se
+    and gamma_no3 >= 0.5; the same with kirk for H_kirk.
+ D2 (level; mixed swaps). H_full passes if |theta - 1| <= 4 se. H_diag is rejected if theta <= theta_diag - 5 se, where
+    theta_diag = mean(P_diag/P_full) over the triples (1.1132). If H_full fails D2 with |theta - 1| <= A it is recorded as a
+    finite-height level offset (sign and size reported), not a falsification; if |theta - 1| > A the recipe's level is
+    wrong at these heights.
+ D3 (independence, leading order only). H_ind and H_lead rejected if gamma_ind >= 5 se, resp. gamma_lead >= 5 se.
+ D4 (pair control). If |rho_2 - 1| > 4 se_2, the pair formula (a theorem's main term) is off at these heights by more
+    than the noise: the CV reading theta is then reported but D2 uses the raw mean of r instead, and the round records
+    that the controls failed.
+ Reported in all cases: C1-C3, P1, T3, T4, T5, every jackknife se, the per-character table, the excluded characters.
+
+Every predicted cell and its reading:
+  triple level (theta, raw mean) ......................... T1 -> D2
+  three-body factor (gamma_no3, gamma_kirk) ............... T2 -> D1
+  gamma_ind, gamma_lead ................................... T2 -> D3
+  slope ln M on ln P_full ................................. T3 (no decision: theorem-grade in bulk)
+  levels against diag, kirk, no3, ind, lead ............... T4 (reported)
+  p = 2 configuration ..................................... T5 (secondary, no decision)
+  pair level, pair diag/lead .............................. P1 -> D4 (control; pair diag differs by about 1 %: no reading)
+  singles, fourth moments, zeta*L ......................... C1-C3 (controls)
+  the multilinear split h[m], the values P(t) at 3 heights  no reading (in the JSON for reuse)
+
+Falsifier, in one line: the recipe for three L-functions is falsified if the three-body factor is not carried at its
+predicted size (|gamma_no3 - 1| > 4 se), or if the level misses by more than both 4 se and the allowance A.
+
+Order: commit this file, sets.json and predictions_triple.json -> moment_values.py VALDIR --set sets.json reserved (zeta: the
+existing dev_values/absL_1.npy, passed with --zeta) in chunks under
+10 minutes -> check_values.py -> moment_test.py -> report every reading, passed or failed.
+
+Statuses: the recipe for k = 3 is a conjecture (CFKRS 2005, Heap 2013); the per-factor swap rule is Heap's; the
+explicit form (2.2) with exact local factors for imprimitive chi_i chi_j, the closed forms of the three-body factor, the
+AFE-diagonal comparator and the pairwise comparators are derived here; k = 1 and k = 2 polynomials are theorems
+(classical; Topacogullari 2021) and our code reproduces them (checked); the numbers are computed.
+
+Registered state: derivation, scripts, sets and frozen predictions are in writeup/code/study/lowzero/moment3/ (the
+proposer's folder "triple_mom"); the development values are in writeup/data/study/r149/dev_values/. The scripts
+moment_values.py, moment_test.py and check_values.py are committed unchanged (sha256 a2f4c8630c1a33bc…, fd0c63523c17fb1c…,
+fdf71a83a9d5a2aa…); only development scripts had their paths made relative.
