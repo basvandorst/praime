@@ -1,0 +1,77 @@
+Round 146, pre-registered: the variance of log|L'(rho)| per prime dividing the conductor, from the two- and three-point functions with no model step.
+to be pre-registered. To be committed with predictions_varlp.json before any L'-value of the fresh sets is computed.
+
+State when drafted: L'(rho, chi_D) has never been computed at the zeros 600 <= gamma <= 1000 of the sets C (r134_C.npz,
+181 L-functions, 100 <= |D| <= 400) and Bp (r138_Bp.npz, 184 L-functions, 400 < |D| <= 700). Of these zero files only the
+keys (the discriminants) were read to make the predictions; no zero height was read. Round 142's data (R120, Dn, Fn at
+100..600) WERE seen: the law below was compared with them retrospectively (derivation.md sect. 6: matched coefficients
+-0.1933 -0.1056 -0.0519 -0.0326 against measured -0.1942 -0.1071 -0.0541 -0.0326, z = -0.6 -0.9 -1.1 0.0; amplitude 0.98).
+That comparison is disclosed and is not part of this test. Derivation: derivation.md. Code: assemble.py, fresh.py,
+var_test.py (reuses the registered lprime_test.py of round 142 with its band set to 600..1000; end-to-end check on
+round 142's stored values reproduces its fitted coefficients exactly: var_test_retro_out.txt).
+
+Why. Round 142 measured the change of Var log|L'(rho)| per prime dividing the conductor (-0.194, -0.107, -0.054, -0.033
+for p = 2, 3, 5, 7) and had no theory for it: the leading order -Li2(1/p)/2 is off by 60 se, the registered heuristic
+(LDM) by 18 se (amplitude 0.74). Here the variance is written exactly through the zeros (Hadamard product) as a Palm
+functional of the two- and three-point correlation functions (checked on CUE(N) to 1e-15), and the registered law of
+rounds 134-138 (ratios conjecture / Bogomolny-Keating with the bad primes deleted) is integrated without any model step.
+
+Law (derivation.md):
+  V (conjecture-level input = the registered T2, T3; all else proved or computed): for a bad set S at fixed L,
+     dVar(S, L) = sum_{p in S}[ -Li2(1/p)/2 + dB_off + dA + dV3_Q + dV3_P ] + (pair terms) - [(mu + dmu(S))^2 - mu^2],
+     with the closed forms dV3_Q = (ln p/L) ln^2(p/(p-1)), dmu_diag = ln p ln(p/(p-1))/L,
+     dA_diag = -(2/L) sum_m ln p (gamma_E + ln(2 pi m ln p/L))/(m p^m), mu = gamma_E + ln 2pi - 1 + (gamma_E + C1)/L + mu_off,
+     and the numerical off-diagonal and three-point pieces. First order (derived): -Li2(1/p)/2 + (ln p/L) l (2 + l),
+     l = ln(p/(p-1)) (= the LDM's first-order term; the LDM misses only second and higher orders).
+     At fixed L = 10.2: -0.191, -0.104, -0.050, -0.031, -0.017, -0.013 for p = 2, 3, 5, 7, 11, 13.
+Hypotheses for the alternatives: H_LDM (round 142's registered heuristic: leading order + first-order term only);
+H_lead (leading order only); H_none (no dependence on the conductor's primes).
+
+Frozen predictions: predictions_varlp.json (sha256 eb1f554352da5db63b02008899777df4fba042320ec8d0ac908f344578d3fe29), made by
+fresh.py from the discriminants and the heights only (zero-density weights, 32 Gauss nodes in 600..1000): for every
+L-function of C and Bp: bad primes, n_zeros_expected, mean_lnL, cum2_3pt (frozen prediction), cum2_3pt_numunc, cum2_ldm,
+cum2_lead, cum2_none, cum1_3pt (mean shift, secondary).
+
+TEST V (primary, fresh): C + Bp, zeros 600 <= gamma <= 1000 (about 249,000), pooled with one nuisance intercept per set.
+Groups (2,3,5,7,11,13): 121, 92, 61, 44, 30, 26 (before the completeness rule; two sets of C are expected to fail it).
+
+Data and completeness (decided now; as round 142): L'(1/2 + i gamma) by PARI, lprime_values.py with --lo 600 --hi 1000
+  (lfuninit to 1005), realprecision 38. A set is excluded, and reported, if (a) the round-138 completeness rule fails on
+  600..1000 (|N - theta/pi| > 1.5 on 200 heights or largest unfolded gap > 3.0), or (b) any zero has |L|/|L'| > 1e-8, or
+  (c) the stored heights differ from the zero file.
+Statistic per L-function i: v_i = var(y) (ddof 1), y_j = log|L'(rho_j)| - ln(q gamma_j/2pi) over the band; mu_i = mean y.
+Design (lprime_test.design): X = [1, set intercept, <ln L>_i, I(2|D), I(3|D), I(5|D), I(7|D), I(11|D), I(13|D)], nuisance and
+  indicator columns centred. Frozen per-L-function predictions are matched through the same design on the kept L-functions.
+  Bootstrap: 2000 resamples of L-functions, numpy default_rng(20261126); "se" = bootstrap se on the data.
+
+Expected values (matched over all 365; p = 2, 3, 5, 7 | 11, 13):
+  three-point  -0.1965 -0.1083 -0.0529 -0.0338 | -0.0178 -0.0134
+  LDM          -0.1697 -0.0823 -0.0307 -0.0136 | -0.0029 +0.0004
+  lead         -0.2933 -0.1843 -0.1063 -0.0763 | -0.0453 -0.0376
+  expected se   0.0022  0.0023  0.0027  0.0032 |  0.0046  0.0046   (round 142's se x sqrt(449,710/248,828) = 1.344)
+  theory's own numerical uncertainty (matched, conservative): 0.0007 per coefficient (stated separately; not in the bands)
+  power |3pt - LDM|/se 12.5 11.2 8.4 6.3; |3pt - lead|/se 45 33 20 13; amplitude gamma (0 = lead, 1 = 3pt) expected se 0.017
+  (59 se separation); gamma_L (0 = LDM, 1 = 3pt) expected se 0.053 (19 se).
+
+Readings and decisions (var_test.py; decision primes 2, 3, 5, 7; 11 and 13 reported, no reading):
+ V1 per prime: |fit_p - pred3pt_p| <= 4 se_p for every p in 2, 3, 5, 7.                     PASS if all four hold.
+ V2 amplitude gamma = sum (fit - lead)(3pt - lead) / sum (3pt - lead)^2 over p = 2, 3, 5:  PASS if |gamma - 1| <= 4 se.
+ V3 leading order rejected: gamma >= max(5 se, 0.5).
+ V4 the round-142 heuristic rejected: gamma_L >= max(5 se, 0.5), gamma_L the same amplitude with LDM as the 0.
+ Every cell: p = 2, 3, 5, 7 -> V1 reading; p = 11, 13 -> no reading (reported); mean -> no decision (reported, matched
+   cum1_3pt, the two-point law at new heights); set C alone, Bp alone -> no decision (reported); third and fourth cumulants
+   -> no reading (no prediction: they need the four-point function).
+ FALSIFIER: the three-point law as computed is falsified at these heights if p = 2 or p = 3 lies more than 6 se from its
+   prediction, or |gamma - 1| > 6 se. If V1 fails but the falsifier does not fire, report "partial" with the z values.
+
+Commands (from the repo root; one set at a time; lprime_values.py resumes, re-run until "0 of N left"):
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I writeup/code/study/lowzero/lprime/lprime_values.py VALDIR_C \
+       writeup/data/riemann/lzeros/r134_C.npz --lo 600 --hi 1000 --seconds 540)
+  (same with VALDIR_Bp and r138_Bp.npz)
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I var_test.py predictions_varlp.json \
+       C:VALDIR_C:writeup/data/riemann/lzeros/r134_C.npz Bp:VALDIR_Bp:writeup/data/riemann/lzeros/r138_Bp.npz --boot 2000)
+  (lprime_values.py takes the band from --lo/--hi, not from the zero file, and initialises lfuninit to int(hi) + 5 = 1005.)
+
+Not in this test: the 88 complex characters of r121 (heights |gamma| <= 500 only; lprime_values.py handles real D only; the
+law is the same, since only |chi|^2 enters T2 and T3, and the Hadamard representation holds for complex chi with the zeros of
+L(s, chi) alone) - a possible later set at 100..500 with an L' script for lfuncreate([G, chi]).
