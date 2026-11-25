@@ -1733,4 +1733,62 @@ for a2051 in (1.5, 2.5, 3.5, 6.5, 10.5):       # the zero sum with its smooth ta
 assert all(J2051(3) / math.sqrt(3) <= J2051(1 + i / 1000) / math.sqrt(1 + i / 1000) for i in range(0, 11000))   # the minimum on [1, 12] is at a = 3
 del z2051
 
+# 2052, 2053: zeros of an elliptic curve as a sum over prime powers with the kernel e^{i(2 theta - t ln n)}, and its exact dual side over all integers
+def ap2052(co, X):
+    """a_p for the primes p <= X of y^2 + a1 xy + a3 y = x^3 + a2 x^2 + a4 x + a6, by counting points: a_p = p - #affine points."""
+    a1, a2, a3, a4, a6 = co; sv = np.ones(X + 1, bool); sv[:2] = False
+    for i in range(2, int(X ** 0.5) + 1):
+        if sv[i]: sv[i * i::i] = False
+    out = {2: 2 - sum(1 for x in range(2) for y in range(2) if (y * y + a1 * x * y + a3 * y - x ** 3 - a2 * x * x - a4 * x - a6) % 2 == 0)}
+    for p in np.nonzero(sv)[0].tolist()[1:]:
+        x = np.arange(p, dtype=np.int64); v = ((a1 * x + a3) ** 2 + 4 * ((x * x % p * x + a2 * x * x + a4 * x + a6) % p)) % p
+        sq = np.zeros(p, bool); sq[x * x % p] = True
+        out[p] = int(p - (np.count_nonzero(v == 0) + 2 * np.count_nonzero(sq[v] & (v != 0))))
+    return out
+def th2052(N, t):
+    """theta_E(t) = (t/2) ln N - t ln 2pi + Im ln Gamma(1 + it) (Stirling at 13 + it and the recurrence)."""
+    t = np.asarray(t, float); z = 1 + 1j * t; w = z + 12
+    s = (w - 0.5) * np.log(w) - w + 0.5 * math.log(2 * math.pi) + 1 / (12 * w) - 1 / (360 * w ** 3) + 1 / (1260 * w ** 5) - 1 / (1680 * w ** 7)
+    for k in range(12): s = s - np.log(z + k)
+    return t / 2 * math.log(N) - t * math.log(2 * math.pi) + s.imag
+erf2052 = np.vectorize(math.erf)
+def H2052(t, T1, T2, D): return 0.5 * (erf2052((t - T1) / D) - erf2052((t - T2) / D))      # the indicator of [T1, T2] convolved with g_D
+def I2052(N, T1, T2, D, lnn, h=0.005):
+    t = np.arange(T1 - 7 * D, T2 + 7 * D + h / 2, h); base = H2052(t, T1, T2, D) * np.exp(2j * th2052(N, t)); lnn = np.asarray(lnn); res = np.empty(len(lnn), complex)
+    for i in range(0, len(lnn), 400): res[i:i + 400] = h * (base[None, :] * np.exp(-1j * np.outer(lnn[i:i + 400], t))).sum(1)
+    return res
+a2052 = ap2052([0, -1, 1, 0, 0], 40000)                      # the curve 11a: y^2 + y = x^3 - x^2, root number +1
+assert [a2052[p] for p in (2, 3, 5, 7, 11, 13)] == [-2, -1, 1, -2, 1, 4]
+z2052 = np.array([15.914072603300, 17.033610320381, 17.941433573459, 19.185724971852, 20.379260464350, 22.172490291475, 23.301415502230, 25.209868424252, 25.876403079349,
+                  27.067635233439, 28.449649699572, 28.683909882685, 29.974859948719, 31.663575568833, 33.082842812340, 34.112852476531, 35.236487792740, 35.722877822786,
+                  37.036405154384, 37.761957168112, 38.833486365521, 40.146656176320, 41.037794018166, 42.511732788798, 43.429098611223, 44.746454527504, 45.158714137333,
+                  45.910261957754, 46.757598972532, 47.972050628827, 48.807518118384, 50.243942182734, 51.371365899970, 52.256372153907, 52.913351812234, 54.007412252131,
+                  54.763025619901, 55.571029569769, 56.479776670189, 57.331691331357, 58.183661923818, 59.560440162712])   # zeros of L(11a, s) with 15 < gamma < 60 (PARI lfunzeros)
+n2052, c2052 = [], []                                      # Lambda_E(p^k) = (alpha^k + beta^k) ln p, or (a_p/sqrt p)^k ln p at the bad prime
+for p2052, ap_ in a2052.items():
+    l_ = ap_ / math.sqrt(p2052); b0_, b1_ = 2.0, l_; pk_ = p2052; k_ = 1
+    while pk_ <= 40000:
+        n2052.append(pk_); c2052.append((l_ ** k_ if p2052 == 11 else b1_) * math.log(p2052)); pk_ *= p2052; k_ += 1; b0_, b1_ = b1_, l_ * b1_ - b0_
+n2052 = np.array(n2052, float); c2052 = np.array(c2052)
+zero2052 = np.sum(H2052(z2052, 30.0, 36.0, 3.0) * np.exp(2j * th2052(11, z2052)))
+prime2052 = -(1 / (2 * math.pi)) * np.sum(c2052 / np.sqrt(n2052) * I2052(11, 30.0, 36.0, 3.0, np.log(n2052)))
+assert abs(zero2052 - prime2052) < 1e-9 and abs(zero2052) > 1, (zero2052, prime2052)
+def lam2053(ap, N, X):                                    # lambda(n) = a_n/sqrt n for n <= X
+    lam = np.ones(X + 1)
+    for p, a in ap.items():
+        if p > X: continue
+        vals = [1.0, a / math.sqrt(p)]; pk = p * p
+        while pk <= X:
+            vals.append(vals[1] * vals[-1] - (0 if N % p == 0 else vals[-2])); pk *= p
+        for k in range(len(vals) - 1, 0, -1):
+            q = p ** k; idx = np.arange(q, X + 1, q); idx = idx[idx % (q * p) != 0]; lam[idx] *= vals[k]
+    return lam
+def Hh2053(xi, T1, T2, D): return ((T2 - T1) if abs(xi) < 1e-14 else (np.exp(-1j * xi * T1) - np.exp(-1j * xi * T2)) / (1j * xi)) * math.exp(-D * D * xi * xi / 4)
+for co_, N_, w_, r_, win_ in (([0, 0, 1, -1, 0], 37, -1, 1.5, (9.0, 13.0, 2.5)), ([0, -1, 1, 0, 0], 11, 1, 2.0, (12.0, 17.0, 2.5))):   # 37a (root number -1) and 11a
+    ap_ = ap2052(co_, 8000); lam_ = lam2053(ap_, N_, 8000); nn_ = np.arange(1, 8001)
+    left_ = np.sum(lam_[1:] / np.sqrt(nn_) * I2052(N_, *win_, np.log(nn_ * r_)))
+    right_ = sum(lam_[m] / math.sqrt(m) * Hh2053(math.log(r_ / m), *win_) for m in range(1, 400))
+    assert abs(left_ - w_ * right_) < 1e-9 and abs(left_ + w_ * right_) > 1, (N_, left_, right_)       # holds with the root number, fails with its sign flipped
+del a2052, n2052, c2052
+
 print("all FACTS.md checks passed")

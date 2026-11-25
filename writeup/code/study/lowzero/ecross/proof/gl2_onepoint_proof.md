@@ -23,14 +23,16 @@ lemma that was opened), **sketch**, **GAP**, **conjecture**, **heuristic**, **co
    N^{1/4}T^{3/4}) + O(N^{1/4}T^{3/4} log NT) (proved). (ii) Sharp on both sides, unconditional, Arias de Reyna's method
    gives **O(√N T log²(NT)), not O(T^{1/2} log² T)** (sketch): degree 2 is ADR's κ = 2 case, whose error is T^{κ/2}. This
    is the size of the conjectured main term −w c_E T/2π, so the sharp-sharp form cannot decide the main term. The
-   reviewer's error term is **wrong for degree 2**. Numerically the sharp-sharp discrepancy is 0.9–8.9 for T ≤ 400.
+   error O(T^{1/2} log² T) quoted for degree 2 is therefore not what ADR's Theorem 3.1 gives at κ = 2; it is unproved, not
+   disproved (an error o(T) with sharp edges is open). Numerically the sharp-sharp discrepancy is 0.9–8.9 for T ≤ 400.
 4. **Twist** r^{−iγ}: the prime sum runs with r^{1/4} e(−2√(nr/N)) H(2π√(nr/N)) (proved, same error).
 5. **Voronoi over all integers (proved, exact identity):** Σ_n λ(n) n^{−½} I_n(r) = w Σ_m λ(m) m^{−½} Ĥ(ln(r/m)). For r = 1
    the m = 1 term gives the resonance (e^{3πi/4}/√2)N^{−1/4} Σ λ(n) n^{−1/4} e(−2√(n/N)) H(t_n) = (w/2π)∫H + O(√N T^{1/2}):
    "c = 1" for λ. Checked: exact identity to 10^{−9}; stationary-phase form to 0.003; sharp partial sums within 0.1–0.3 %.
 6. **Consequences.** (a) zero-side law ⟺ prime-side law for smoothed sums (theorem); the sharp prime asymptotic implies
    both, the converse needs a Tauberian input (GAP). (b) Under GRH the smoothed prime sum is ≪ (x³/N)^{1/4} log x +
-   (Nx)^{1/2} (theorem): the conjectured main term has the largest size GRH allows, up to log x. Unconditionally only Zhao's
+   (Nx)^{1/2} (theorem, but trivial: it is the number of zeros in the window times sup|H|, carried to the prime side by Theorem 2;
+   GRH enters only through |X(ρ)^{−1}| = 1). Unconditionally only Zhao's
    x^{5/6}log^{21}x (level 1). (d) The heuristic Λ_E = (λ log) ∗ μ_E + Voronoi gives c_E = F′(1) = B_E/L(1, Sym²E) and the
    recipe's line factors ρ(p), ρ(1/p) exactly (checked symbolically); the unjustified step is the type II range.
 7. **Novelty:** the sharp theorem: KNOWN IN SUBSTANCE (ADR 2014 Thm 3.1 and Fujii 1992 for ζ with general κ; the degree-2
@@ -156,7 +158,7 @@ sum over n. (i) Terms with w itself (only k ≥ 2): T^{⌊2k/3⌋−k} ≤ T^{�
 unit t-intervals [k, k+1] (n-length ≍ NT, Σ_{n in it}|Λ_E(n)| ≤ 2(NT + 1)log x, n^{−1/4}N^{−1/4} ≍ N^{−½}T^{−½}),
 Σ_n |Λ_E(n)|n^{−1/4}N^{−1/4}|f(t_n)| ≪ √N T^{½} log(NT)·(‖f‖_{L¹} + ‖f′‖_{L¹}) (and ≪ √N T^{½}·T‖f‖_∞ without log, by Chebyshev). Box: ‖H^{(j)}‖_{L¹} ≍
 Δ^{1−j}; the largest term is k = 1: T‖H″‖₁ ≍ T/Δ; the others are smaller (T^kΔ^{1−2k} = (T/Δ)(T/Δ²)^{k−1}; T^{(2j−k)/3}
-Δ^{1−j} ≤ T^{(2−k)/3} for k ≥ 2). Hann type: H^{(j)} = W″ ∗ g_Δ^{(j−2)} (j ≥ 2), ‖H^{(j)}‖_∞ ≪ T^{−2}Δ^{2−j}, ‖H′‖_∞ ≪ 1/T;
+Δ^{1−j} ≤ T^{max((2−k)/3, δ(4−2k))} ≤ 1 ≤ T/Δ for k ≥ 2, since for Δ ≥ T^{½+δ} the exponent is linear in j with its maximum at j = 1 or j = 2k − 3; referee's correction). Hann type: H^{(j)} = W″ ∗ g_Δ^{(j−2)} (j ≥ 2), ‖H^{(j)}‖_∞ ≪ T^{−2}Δ^{2−j}, ‖H′‖_∞ ≪ 1/T;
 every term is ≪ T^{−1} pointwise on [T/2, 4T] (k = 1: T·T^{−2}; T^k T^{−2}Δ^{2−2k} ≤ T^{−1}; mixed T^{(2j−k)/3}T^{−2}Δ^{2−j}
 ≤ T^{−1}), so the total is ≪ √N T^{½} with Chebyshev only. Prop 8.2's remainder O(Z^{−A}) per n sums to ≪ √N T^{2−A}.
 (iii) If t_n ∉ supp w, then p_k(t_n) = 0 for all k: only the O(Z^{−A}) remainder is left.
@@ -229,7 +231,7 @@ converges absolutely; shifting each m-term back to σ = ½ gives (w/2π)Σλ(m)m
 This is the GL(2) Voronoi formula (equivalently the functional equation) for this test function (known in substance).
 
 **Corollary 4.1 (resonance at dual index 1).** With the hypotheses of Theorem 2 and r = 1:
-(e^{3πi/4}/√2)N^{−1/4}Σ_n λ(n)n^{−1/4}e(−2√(n/N))H(2π√(n/N)) = (w/2π)[∫H + Σ_{m≥2}λ(m)m^{−½}Ĥ(−ln m)] + O_E(√N T^{½}(…)),
+(e^{3πi/4}/√2)N^{−1/4}Σ_n λ(n)n^{−1/4}e(−2√(n/N))H(2π√(n/N)) = (w/2π)[∫H + Σ_{m≥2}λ(m)m^{−½}Ĥ(−ln m)] + O_E(√N T^{½}) (Hann type, by Σ_{n≤x}|λ(n)| ≪_E x; for the box add √N T^{3/2}Δ^{−1}log²(NT), using |λ(n)| ≤ d(n) and Shiu's bound on short intervals),
 where Ĥ(−ln m) = Ŵ(−ln m)e^{−Δ²ln²m/4} is negligible (box) or ≪ T^{−A} (Hann type). For integer r = q: main term
 (w/2π)λ(q)q^{−½}∫H (dual index q); for r with no integer m near r: no main term. (Proof: Theorem 4 + the stationary-phase
 analysis of §3 with λ in place of Λ_E, using Σ_{n≤x}|λ(n)| ≪_E x (Rankin–Selberg and Cauchy–Schwarz); the constant now
@@ -273,8 +275,9 @@ the main term; a Tauberian input (a bound for short sums of Λ_E(n)e(−2√(n/N
       Σ_n Λ_E(n) e(−2√(n/N)) V(n/x) ≪_V x^{3/4} N^{−1/4} log x + (Nx)^{½}.
 
   (Apply Theorem 2, Hann type with w₀ ∈ C^∞_c, to W := H and Δ = 1; replacing (W ∗ g₁)(t_n) by W(t_n) costs ≪ x^{1/4}T^{−2}
-  per term, ≪ N in total.) The conjectured main term (2√2/3)c_E(x³/N)^{1/4}·(…) is of exactly this order: GRH allows the resonance, and caps it at the
-  conjectured size up to log x. (Known in substance from Zhao's Lindelöf remark, which gives x^{3/4+ε}.)
+  per term, ≪ N in total.) The conjectured main term (2√2/3)c_E(x³/N)^{1/4}·(…) is of exactly this order: this bound is the
+  triangle inequality over the zeros in the window (the zero count N(t+1) − N(t) ≪ log(N(|t|+2)) is unconditional; GRH
+  only makes each summand unimodular), so it carries no information on the resonance beyond its trivial size. (Known in substance from Zhao's Lindelöf remark, which gives x^{3/4+ε}.)
 - **Type I/II (where it fails).** Λ_E = (λ log) ∗ μ_E (from −L′/L = (−L′)·(1/L)). A Vaughan/Heath-Brown decomposition gives
   type I sums Σ_{d≤D}μ_E(d)Σ_m λ(m)log m·f(dm), f(n) = e(−2√(n/N))V(n/x): each inner sum is evaluated exactly by Theorem 4
   with r = d (main term ∝ wλ(d)d^{−½}: dual index d). Type II sums Σ_{d∼D}Σ_{m∼M}a_d b_m e(−2√(dm/N)) with D, M in
@@ -393,6 +396,19 @@ needs T ≥ N^{1+O(δ)}; at the data's T ≈ 400, N^{1/4}T^{3/4} ≈ 400 = T: no
 402 (round 144); Proposition 1 at 10^{−9} confirms completeness in the tested windows only. Central zeros and γ < 0 are absent
 from the lists; their weight is e^{−T₁²/Δ²}. (7) The bad primes enter Λ_E exactly (λ_p^k ln p); additive reduction (λ_p = 0)
 does not occur in the 5 curves (semistable), but the proofs cover it.
+
+## 9a. Referee report (25 November 2026)
+
+An independent referee (own code in [referee/](referee/)) checked the note. Verdicts: Proposition 1 and Theorem 4: theorems,
+unconditional, as stated (P1 verified three ways to 5·10⁻¹³ on N = 373 (w = −1) and to 2·10⁻¹¹ on N = 307; T4 verified
+exactly with w = −1 and twists r = 1, 2, 1.5 to 3·10⁻¹³, and it fails by 0.6–40 with the sign of w flipped). Theorem 2:
+theorem given Blomer–Khan–Young (arXiv:1203.2573, §8) Lemma 8.1 and Proposition 8.2, whose statements were opened and
+match; the stationary-phase constant was re-derived (|A/B − 1|·T → 16.187 against 16 + 1/48 + 1/6). Theorem 3(i): theorem
+under GRH; its uniformity in N rests on Iwaniec–Kowalski Proposition 5.7 (not opened). Proposition 3(ii): a sketch (GAP).
+Corrections applied above: the bound in 6(b) is the trivial one; the error O(T^{1/2}log²T) for sharp edges is unproved,
+not disproved; the inequality in the proof of Theorem 2 (c)(ii); the error term of Corollary 4.1. Not applied: the E₀ bound
+of Proposition 1 is valid but crude (measured |E₀| ≈ 10⁻¹⁹) and omits a term e^{−T₁²/(4Δ²)}. In check_gl2.py the tolerances
+of A4 and A5 are now 10⁻⁸; A6 and A7 test the pure Hann window, which is outside the hypotheses of Theorem 2 (empirical).
 
 ## 10. What a referee should check first
 

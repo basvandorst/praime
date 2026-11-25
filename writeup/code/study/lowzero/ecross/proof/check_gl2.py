@@ -5,9 +5,9 @@ exponentials on a uniform grid (Simpson), coefficients by PARI.  Asserts:
   A1  X(1/2+it)^{-1} = e^{2i theta(t)};  L(1/2+it) = w e^{-2i theta(t)} L(1/2-it) (PARI lfun, centre 1);  Z = w conj Z
   A2  Stirling forms of theta, theta', theta'' (errors O(t^-3), O(t^-4), O(t^-5))
   A3  stationary phase for one n: quadrature vs leading term vs second order; the simplified constant
-  A4  Prop. 1 (exact explicit formula), Gaussian-edged box, two curves:  |zeros - primes| < 1e-6
-  A5  Voronoi identity sum lambda(n) n^-1/2 I_n = w sum lambda(m) m^-1/2 Hhat(-ln m):  < 1e-6
-  A6  Theorem 2 (Hann [20,400]), 5 curves: |Z - P| < 0.3 (leading), < 0.1 (second order)
+  A4  Prop. 1 (exact explicit formula), Gaussian-edged box, two curves:  |zeros - primes| < 1e-8
+  A5  Voronoi identity sum lambda(n) n^-1/2 I_n = w sum lambda(m) m^-1/2 Hhat(-ln m):  < 1e-8 (exact test with w = -1 and twists: referee/r2_t4.py)
+  A6  stationary-phase form with the pure Hann window [20,400] (empirical: outside the hypotheses of Theorem 2), 5 curves: |Z - P| < 0.3 (leading), < 0.1 (second order)
   A7  twist r = 2, 1/2 (Hann [20,400]), 2 curves: |Z - P| < 0.3
   A8  the line factors from the Voronoi heuristic equal the recipe's rho(p), rho(1/p)   (sympy, exact)
   A9  constants: partial summation (2 sqrt2/3), prime-side density <-> zero-side law (quadrature)
@@ -151,7 +151,7 @@ if PARTS in ('a', 'all'):
         xlo = N * lo ** 2 / (4 * PI ** 2) * math.exp(-1.6); xhi = N * hi ** 2 / (4 * PI ** 2) * math.exp(1.6)
         n, L = prime_powers(C['ainv'], C['bad'], int(xhi)); m = n >= xlo
         P = -(1 / (2 * PI)) * np.sum(L[m] * n[m] ** -0.5 * In_quad(N, Hf, lo, hi, np.log(n[m]), h=0.04))
-        check('A4', abs(Zs - P) < 1e-6, '%s box[%g,%g] Delta=%g: zeros %.8f%+.8fi, primes %.8f%+.8fi, |diff| %.1e (%d prime powers)' % (
+        check('A4', abs(Zs - P) < 1e-8, '%s box[%g,%g] Delta=%g: zeros %.8f%+.8fi, primes %.8f%+.8fi, |diff| %.1e (%d prime powers)' % (
             cid, a, b, D, Zs.real, Zs.imag, P.real, P.imag, abs(Zs - P), m.sum()))
         if cid != 'N307_0_0_1_m8_m9':
             continue                                      # Voronoi quadrature only on the small case (cost)
@@ -161,7 +161,7 @@ if PARTS in ('a', 'all'):
         k = np.arange(1, 60, dtype=float); u = np.log(k)
         Hh = np.where(k == 1, b - a, (np.exp(1j * b * u) - np.exp(1j * a * u)) / (1j * np.where(k == 1, 1, u)) * np.exp(-D * D * u * u / 4))
         right = w * np.sum(lam[:59] * k ** -0.5 * Hh)
-        check('A5', abs(left - right) < 1e-6, 'Voronoi identity: %.8f%+.8fi vs w*(dual) %.8f%+.8fi (m = 1 term %g), |diff| %.1e' % (
+        check('A5', abs(left - right) < 1e-8, 'Voronoi identity: %.8f%+.8fi vs w*(dual) %.8f%+.8fi (m = 1 term %g), |diff| %.1e' % (
             left.real, left.imag, right.real, right.imag, w * (b - a), abs(left - right)))
 
 if PARTS in ('b', 'all'):
