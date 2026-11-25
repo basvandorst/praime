@@ -1,0 +1,164 @@
+Round 144, pre-registered: the zeros of elliptic-curve L-functions (degree 2): each prime is an orbit weighted by its Frobenius eigenvalues.
+|alpha_p^k + beta_p^k|^2: the number variance of the zeros of elliptic-curve L-functions, curve by curve.
+To be committed with fresh_predictions.json before any zero of test F is computed. When this draft was written: zeros
+existed only for the 20 development curves (dev_set.json; used, see below) and 6 CM pilot curves (cm_pilot_set.json;
+used); no zero of any curve of fresh_set.json had been computed.
+Derivation and code: deg2/ (derivation.md, deg2lib.py, deg2_predict.py, deg2_zeros.py, deg2_test.py, validate.py,
+contrasts.py, registry.py, power.py).
+
+Why. Rounds 117-141 confirmed, blind, that for a Dirichlet L-function each prime acts on the zeros as a periodic orbit
+and a prime dividing the conductor is a missing orbit (two-point function to 1 %, three-point function to 0.6 %). In
+degree 2 the orbit p^k carries the weight W_p(k) = (alpha_p^k + beta_p^k)^2 instead of 1: a prime with a_p = 0 is
+missing at k = 1 (W = 0) and doubled at k = 2 (W = 4); |a_2| = 2 gives W = 2 at k = 1 and 0 at k = 2; |a_3| = 3 gives
+W = 3; a multiplicative prime has W = p^-k (nearly missing), an additive one W = 0. So, unlike degree 1, a prime can make
+the zeros LESS rigid, and a curve whose small primes have large |a_p| has Sigma2 above GUE for l = 2..9 (15 of the 138
+fresh curves by more than 0.02 at l = 6). The formula is known (Bui-Keating-Smith, J. London Math. Soc. 94 (2016),
+Conjecture RCd; D. J. Smith, thesis, arXiv:1607.03297, Heuristic 1; from the ratios conjecture by the Conrey-Snaith
+method) and was checked there on the prime side only; zeros of elliptic-curve L-functions were compared with GUE at
+leading order (Rubinstein, arXiv:math/0412181: pair correlation and spacings of the first 100,000 zeros of 11a, 14a, 15a,
+17a, 19a); no test of its arithmetic terms on zeros was found.
+
+The law (derivation.md sections 2-4; conjecture: ratios recipe; local factors derived here and checked to 1e-15):
+  R(r) - 1 = (2/L^2) Re[ J(i eps) + e^{-i eps L} K(i eps) ],  eps = 2 pi r/L,  L = ln(N t^2/(2 pi)^2)
+  J(x) = sum_p sum_k (ln p)^2 W_p(k) p^{-k(1+x)}: good p W_p(k) = (2 cos k theta_p)^2; p || N: p^-k; additive: 0
+  K(x) = prod_p O_p(x)/(1 - 1/p)^2, O_p the local four-fold ratios sum (closed form in derivation.md 3)
+       = zeta(1+x) zeta(1-x) L(1+x, Sym2 E) L(1-x, Sym2 E)/L(1, Sym2 E)^2 Aot(x)   (Aot absolutely convergent)
+  Mean density (1/2 pi) L = twice the density of a degree-1 L-function of conductor sqrt(N); unfolding u = theta_E/pi,
+  theta_E(t) = (t/2) ln N - t ln 2 pi + Im ln Gamma(1 + it); N+(t) = theta_E/pi - r/2 + S(t).
+  Sigma2(l) = Sigma2_GUE(l) + 2 int_0^l (l - r) C(r) dr, averaged over the band with the zero-density weight.
+  The symmetry type is unitary (GUE) for one L-function in the t-aspect; root number and rank do not enter.
+
+Hypotheses (all parameter-free):
+  H_full   the law.
+  H_GUE    Sigma2 = Sigma2_GUE for every curve.
+  H_deg1   every good prime has weight 1 at every traversal, bad primes missing orbits (Bogomolny-Keating 2013 at
+           density L/2 pi): "the curve acts like a degree-1 L-function".
+  H_k1     every traversal k >= 2 of every good prime carries the Sato-Tate mean weight 2 (repetitions blind to a_p).
+  H_k1p2   the same for p = 2 only (the doubled orbit of a_2 = 0 is absent).   H_k1p3 likewise for p = 3.
+  H_w1p2   the first traversal of p = 2 has weight 1 instead of a_2^2/2.     H_w1p3 likewise for p = 3.
+  H_offzeta  the off-diagonal amplitude has the degree-1 form |zeta(1+ie)|^2 Phi_off prod_{p|N} F_p (no L(Sym2 E), no
+           a_p in the off-diagonal term); diagonal as the law.
+
+Frozen predictions: fresh_predictions.json, sha256 9cadbca81e70bb95a6a3462893ccbadf10fe3cc8d08b4f5998af6deb139a4f5e.
+For every curve and l = 0.5, 1, ..., 10: full, deg1, k1, k1p2, k1p3, w1p2, w1p3, offzeta, the diagonal pieces d{p}_{k}
+(p = 2, 3, 5, 7; k = 1, 2, >= 3), meanL, L(1, Sym2 E), expected zeros; gue once. Height average over [20, 400] with
+10 Gauss nodes in t, weight L(t).
+
+TEST F (primary, fresh): 138 semistable isogeny classes (one curve each; N squarefree, 307 <= N <= 2929), drawn with
+  numpy default_rng(20261125) from the 961 classes with 300 <= N <= 3000 found by deg2_curves.py (equations
+  [a1, a2, a3, a4, a6], a1, a3 in {0, 1}, a2 in {-1, 0, 1}, |a4|, |a6| <= 30), 7 per cell of
+  (|a_2| in {0, 1, 2} or 2|N) x (|a_3| in {0, 1, 2, 3} or 3|N) (cell (2, 3) has 5), disjoint from the 20 development
+  curves (one per cell). Groups: |a_2| = 0, 1, 2, 2|N: 35, 35, 33, 35; |a_3| = 0, 1, 2, 3, 3|N: 28, 28, 28, 26, 28.
+  Root number +1: 65, -1: 73. Band 20 <= gamma <= 400: 114,723 zeros expected (831 per curve); mean L 13.89
+  (12.51 .. 14.74). CM curves cannot occur (CM curves are not semistable).
+
+Data and completeness (decided before any statistic): PARI lfunzeros(lfuncreate(E), 402) (divz = 8), deg2_zeros.py.
+  s(t) = N+(t) - theta_E(t)/pi + r/2 at 202 heights in [20, 400]; its running mean over 21 heights; largest unfolded gap.
+  Repair trigger: max|s| > 1.5 or max|running mean| > 0.8 or gap > 3.0 -> lfunzeros again with divz = 64 (twice), then
+  256, around the trigger heights; additions logged. Exclusion: max|running mean| > 1.0 or max|s| > 2.0 after repair;
+  reported. (Development: max|s| 0.95-1.49, max|running mean| <= 0.24, gaps <= 2.73, nothing added; a pair deleted at
+  20/50/80/95 % of the band was caught in 80 of 80 trials; divz = 32 on two development curves found no further zero.
+  A pair missing in the last ~3 % of the band may escape the rule; it affects only windows at the top end.)
+
+Statistic per curve (as rounds 134-138): u = theta_E(gamma)/pi for the zeros in the band; window starts
+  x = arange(u_0, u_end - l, 0.01); counts by searchsorted; Sigma2_i(l) = np.var(counts); l = 0.5, 1, ..., 10. Edge
+  check (reported, no reading): x in [u_0 + 3, u_end - 3 - l].
+
+Readings (deg2_test.py; bootstrap 2000 resamples of curves, numpy default_rng(20261125); "se" = bootstrap se on the data;
+pooled slopes use the weights w_l = 1/var_i(Sigma2_i - full_i) and are centred per l, i.e. between-curve):
+ T1 level: m(l) = mean_i(Sigma2_i - full_i); Hotelling T^2 with the sample covariance; null (n-1)20/(n-20) F(20, n-20).
+ T2 weights: gamma_deg1 = slope of (Sigma2 - deg1) on (full - deg1); gamma_A = slope of Sigma2 on full.
+ T3 repetitions: gamma_k1 (all good primes), gamma_k1p2 (p = 2: the doubled orbit), gamma_k1p3 (p = 3), each the slope of
+    (Sigma2 - alt) on (full - alt).
+ T4 first traversal: gamma_w1p2, gamma_w1p3 (same construction).
+ T5 off-diagonal Sym2 factor: gamma_offzeta.
+ T6 per-prime indicator contrasts: per l, OLS of Sigma2_i on [1, I(|a2|=0), I(|a2|=2), I(2|N), I(|a3|=0), I(|a3|=2),
+    I(|a3|=3), I(3|N)]; the same OLS on every hypothesis' predictions gives the regression-matched contrasts; chi2 of the
+    3 x 20 p = 2 coefficients (and 4 x 20 for p = 3) with covariance (X'X)^-1 (x) C_res, against each hypothesis.
+ T7 less rigid than GUE: the 15 curves with full_i(6) - GUE(6) > 0.02 (fixed by the frozen predictions): mean of
+    Sigma2_i - GUE at each l, error = measurement only (sd of Sigma2_i - full_i over these curves / sqrt 15); and the
+    count of them with Sigma2_i(6) - GUE(6) > 3 x 0.0042 (0.0042 = development per-curve noise at l = 6).
+ T8 sign: coefficient of I(|a2| = 2) (more variance than |a2| = 1) positive at l = 6, 7, 8, 9, 10.
+
+Expected values (power.py: 5 synthetic data sets per hypothesis = hypothesis_i + noise drawn from the development
+residual covariance, shrunk 30 % to its diagonal, scaled by expected zeros; "sd" over draws, "se" mean bootstrap se):
+  reading        H_full          H_k1     H_deg1    H_k1p2   H_w1p2   H_offzeta  H_GUE
+  gamma_A        1.000 (0.002)   1.050    0.177     1.023    0.929    1.005      0.000
+  gamma_deg1     0.999 (0.002)   1.053   -0.001     1.023    0.912    1.006      0.126
+  gamma_k1       1.003 (0.011)   0.005    2.98      0.404    2.18     0.987      2.90
+  gamma_k1p2     1.006 (0.012)   0.026    2.19      0.015    2.93     0.999      2.23
+  gamma_k1p3     0.987 (0.028)   0.013    3.95      0.989    0.904    0.955      3.54
+  gamma_w1p2     0.998 (0.003)   1.075    0.226     1.053   -0.004    1.000      0.277
+  gamma_w1p3     1.000 (0.003)   1.066    0.147     0.996    1.028    1.005      0.156
+  gamma_offzeta  0.995 (0.036)   0.784    2.75      0.954    1.020    0.003      2.57
+  chi2_p2 vs law (60 cells; 0.1 % point 99.6)    35.9 | 176 | 29,432 | 180 | 10,235 | 249 | 394,360
+  chi2_p2 vs GUE                                 8,328 under H_full
+  chi2_p3 vs law (80 cells; 0.1 % point 124.8)   52.5 | 71 | 28,465 | 53 | 53 | 118 | 317,314
+  T1 level se per l: 0.0002-0.0005; Hotelling p under H_full 0.25-0.74 (5 draws); level under H_deg1 -0.0016 .. -0.027,
+     under H_GUE +0.002 .. +0.170, under H_k1 and H_k1p2 at most 0.0012 (the level does not see the repetitions).
+  T7 law: mean Sigma2 - GUE over the 15 curves +0.0312, +0.0541, +0.0666, +0.0627 at l = 3, 4, 5, 6 (se 0.0008-0.0014);
+     -0.0069 at 8, -0.103 at 10. Count above GUE + 3 x 0.0042 at l = 6: 15 of 15 under H_full; 0 under H_deg1.
+  So: H_deg1 at ~500 se (gamma_deg1), H_k1p2 at ~80 se (the doubled orbit of 2), H_w1p2 at ~300 se, H_offzeta at
+  ~27 se, H_k1p3 at ~35 se, all from between-curve readings that do not depend on the level.
+  Regression-matched contrasts of the law, split by traversal (registry_out.txt), e.g. |a_2| = 2 minus |a_2| = 1 at
+  l = 4, 6, 8, 10: +0.026, +0.074, +0.126, +0.142 (k = 1: +0.053 .. +0.147; k = 2: -0.025 .. -0.003);
+  2|N minus |a_2| = 1: -0.034, -0.031, -0.016, -0.015 (k = 1: 0, since W(1) = 1/2 in both; k = 2: -0.023 .. -0.003).
+  Theory's own uncertainty (not in the bands): finite-height terms of the recipe unknown; development level within
+  0.0015 at every l (20 curves); estimator bias not modelled (CUE 840 points: +0.010 +- 0.005 at l = 8, inconclusive;
+  zeros: none at the 0.001 level); numerics <= 6e-5 (validate.py).
+
+Decisions (thresholds fixed now; pass = |gamma - 1| <= 4 se; reject an alternative = gamma >= 5 se and gamma >= 0.5):
+ D1 level: H_full passes if p(T^2) >= 0.001 and |m(l)| <= 4 se at every l. If it fails with max|m| <= 0.002, this is
+    recorded as a level offset within the theory's allowance (with sign and l-shape), not a falsification.
+ D2 weights (primary): H_full passes on gamma_deg1 and gamma_A; H_deg1 rejected on gamma_deg1.
+ D3 doubled orbit (primary): H_full passes on gamma_k1p2 and gamma_k1; H_k1p2 and H_k1 rejected on them.
+ D4 first traversal: H_full passes on gamma_w1p2; H_w1p2 rejected.
+ D5 per-prime shape: chi2_p2 against the law below its 0.1 % point; against GUE and H_deg1 above it.
+ D6 less rigid than GUE: the T7 mean exceeds 5 se at l = 4 and 6 and lies within 4 se of the law there.
+ D7 sign: T8 holds at all five lengths.
+ Reported with their expected se, decision only as stated: gamma_k1p3, gamma_w1p3 (pass/reject as D3/D4, secondary),
+ gamma_offzeta (pass/reject as D3, secondary: the template full - offzeta varies between curves by 0.0005-0.003, 2-4 %
+ of the law's between-curve spread),
+ chi2_p3, the edge check, the completeness table, every coefficient.
+
+Every predicted cell and its reading:
+  level, 20 lengths .................................. T1 (D1)
+  between-curve amplitude (full, deg1) ............... T2 (D2)
+  repetitions k >= 2 (all, p = 2, p = 3) ............. T3 (D3; p = 3 secondary)
+  first traversal of 2 and 3 ......................... T4 (D4; p = 3 secondary)
+  off-diagonal L(Sym2 E) factor ...................... T5 (secondary)
+  indicator contrasts p = 2, 3 x 20 lengths .......... T6 (D5; p = 3 reported)
+  the 15 curves above GUE ............................ T7 (D6)
+  sign of |a_2| = 2 .................................. T8 (D7)
+  diagonal pieces d5_k, d7_k (p = 5, 7) .............. no reading
+  L(1, Sym2 E) values, sign of a_p, root number, rank  no reading (the law does not depend on them; report the
+                                                       residual means by w and by r)
+  CM curves .......................................... not in this round (pilot below)
+
+Falsifier, in one line: the law is falsified on F if the between-curve variation of the zeros' number variance is not
+carried by the weights (|gamma_deg1 - 1| > 4 se), or the second traversal of 2 is not at its predicted size
+(|gamma_k1p2 - 1| > 4 se), or the first traversal of 2 is not (|gamma_w1p2 - 1| > 4 se), or the p = 2 contrasts miss
+their shape (chi2_p2 beyond the 0.1 % point), or the level is off by more than 0.002.
+
+Development (20 curves, used; retrospective; dev_test_out.txt): level within 0.0015 at all 20 lengths; gamma_A
+1.002 +- 0.005; gamma_deg1 1.002 +- 0.005; gamma_k1 1.048 +- 0.025; gamma_k1p2 1.051 +- 0.034; gamma_w1p2 0.990 +- 0.008;
+gamma_offzeta 0.94 +- 0.10; chi2_p2 against the law 1.7 (diagonal covariance, 60 cells) against 725 for H_deg1. Curve
+[0,0,1,29,-29] (N = 1441, |a_2| = 2, |a_3| = 3): Sigma2(8) = 0.610, law 0.610, GUE 0.557, H_deg1 0.440.
+CM pilot (6 curves, j = 0 and 1728, used; cm_pilot_out.txt; additive primes as missing orbits, Sym2 bad factors from
+PARI): mean |measured - law| 0.0027 over 120 cells, against 0.0358 for H_deg1 and 0.0058 for H_k1.
+
+Order: commit this file, fresh_set.json, fresh_predictions.json and the scripts -> compute the zeros of F
+(deg2_zeros.py, chunks under 10 minutes) -> completeness table -> deg2_test.py with the registered sha256 -> report every
+reading, passed or failed.
+
+Commands (from the folder that holds the scripts; each under 10 minutes; repeat a zeros call until it prints "left 0"):
+  (ulimit -v 1500000; timeout 600 nice python -I deg2_zeros.py fresh_set.json fresh_zeros 0 1 540)
+  (ulimit -v 1500000; timeout 600 nice python -I deg2_zeros.py fresh_set.json fresh_zeros check)
+  (ulimit -v 1500000; timeout 600 nice python -I deg2_test.py fresh_predictions.json fresh_zeros fresh_readings.json \
+       --sha 9cadbca81e70bb95a6a3462893ccbadf10fe3cc8d08b4f5998af6deb139a4f5e)
+  Expected time: 138 curves x 10-18 s = 25-40 minutes of zeros on this machine (3-5 chunks); the test 1-2 minutes.
+
+Statuses: the law is a conjecture (ratios recipe; Bui-Keating-Smith / Smith for the Selberg class); its elliptic-curve
+local factors, the closed form of O_p, the factorisation through L(1 +- i eps, Sym2 E), the per-traversal decomposition,
+and "less rigid than GUE" are derived here (elementary); the numbers are computed; the development and CM numbers are
+retrospective.
