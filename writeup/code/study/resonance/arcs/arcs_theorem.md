@@ -1,4 +1,4 @@
-# Major arcs of the radial resonance of Gaussian primes: the axis zone (theorem), the Pythagorean rays (theorem under a hypothesis R_h that holds under GRH; unconditional GAP), the singular series as a sum over rays, the open minor arcs
+# Major arcs of the radial resonance of Gaussian primes: the axis zone (theorem), the Pythagorean rays (theorem given a cited zero-free region with growth bounds for Hecke L-functions with modulus; no GRH), the singular series as a sum over rays, the open minor arcs
 
 Folder: `scratchpad/arcs/`. Nothing in the repository was changed. Labels: **proved** (complete proof here from the
 cited statements), **literature (opened)** (statement quoted from a source opened in this session),
@@ -13,9 +13,9 @@ cited statements), **literature (opened)** (statement quoted from a source opene
 | Lemma 2: ζ ↦ Re(ζ w̄) mod h maps (ℤ[i]/h)^* onto (ℤ/h)^* with equal fibres; mean of e(−·/h) = μ(h)/φ(h); A_h = (4/π)μ(h)/φ(h) for every hypotenuse h (0 if h is not squarefree) | **proved**; checked h ≤ 145 |
 | Lemma 3: ∫G dA = W_V Φ_M X^{3/4} + O(X^{1/4}); Φ_M = e^{−iπ/4} + O_N(M^{−N}) for a cutoff ≡ 1 near 0 | **proved** (stationary phase); computed |
 | **Theorem A (axis zone, h = 1)**: Z_axis(X; M) = (4/π)·I(X; M) + o(X^{3/4}) | **proved, unconditional**, from Stucky's Theorem 1.1 (= Ricci's theorem at θ = 1) |
-| **Theorem B (Pythagorean ray, hypotenuse h)**: Z_u(X; M) = A_h u^m I(X; M) + o(X^{3/4}) | **proved assuming R_h** (Ricci–Stucky in the residue classes mod h, any exponent > 1/4) |
+| **Theorem B (Pythagorean ray, hypotenuse h)**: Z_u(X; M) = A_h u^m I(X; M) + o(X^{3/4}) | **proved assuming G_h** (Coleman 1990, Theorems 1 and 2 with modulus h: zero-free region and growth bounds; known here only from secondary quotations), through R_h, which is proved from G_h in [rh/rh_proof.md](rh/rh_proof.md) (refereed, [rh/referee/referee_rh.md](rh/referee/referee_rh.md)); no GRH |
 | Theorem B′: same with error O(X^{1/2} log² X) under GRH for the Hecke L-functions of ℚ(i) of modulus h | **proved under GRH** (explicit formula; constants in M not optimised) |
-| R_h for h > 1 unconditionally | **GAP**: not found in print. Published exponent for Hecke characters with non-trivial modulus: 5/24 (Coleman's zero density, as used by Panidapu–Thorner); needed: > 1/4; Ricci/Stucky reach 3/10 only for modulus 1 |
+| R_h for h > 1 | **proved up to G_h** ([rh/rh_proof.md](rh/rh_proof.md)): sectors of width x^(−θ) in residue classes for θ < 1/(2 + 8κ), κ the exponent of a pointwise bound for the Hecke L-functions in the full conductor: θ < 64/231 with Wu's bound (read), θ < 3/10 with Söhne's (secondary), θ < 1/(4 − 8δ) with Michel–Venkatesh (read). In print before: 5/24 (Panidapu–Thorner via Coleman's zero density). Not read: Coleman 1990 (the input G_h), Koval'chik 1974, Ricci's thesis: whether R_h is already in print is unknown |
 | Corollary 1: Σ_{rays, h ≤ H} A_h ξ^m = (16/π)·S_H, S_H → (π/4)c (the identity c = (4/π)Π(1 − 2cos 2mθ_p/(p−1)) is the sum over rays) | **proved** (algebra exact; convergence by the standard Perron + zero-free-region argument, sketched); computed S_{10⁶} − (π/4)c = 2.8·10⁻⁵ |
 | Corollary 2: the conjecture (smooth form) ⟺ the minor-arc statement (MA), given R_h for every h | **proved** (equivalence) |
 | (MA) itself | **open** (trivial bound O(X); GRH gives only O(X^{3/4} log X) for the full sum) |
@@ -454,3 +454,20 @@ zero-density estimate). The referee's analysis of the cited method: a Weyl-stren
 and one is in print for all Hecke characters (Michel–Venkatesh 2010); the other steps carry over with the character absorbed in
 the coefficients, with the same dependence on the mean-value lemma as Theorem A. So R_h holds at the level of a proof sketch; it
 is not a published result and is not claimed here as a theorem.
+
+
+## Second referee report: the hypothesis R_h (25 November 2026)
+
+R_h is no longer a gap of method. [rh/rh_proof.md](rh/rh_proof.md) proves it from two inputs: a pointwise bound for
+L(1/2 + it, ξ) in the full analytic conductor (Michel–Venkatesh, read; Wu, read, with an explicit exponent) and the
+zero-free region with growth bounds for Hecke L-functions with modulus (Coleman, Mathematika 37 (1990), Theorems 1 and 2;
+not opened: Theorem 2 is quoted word for word with the modulus in Sun–Zhang, arXiv 2008.09677, and Theorem 1 is described
+with the modulus in its zbMATH review). An independent referee ([rh/referee/referee_rh.md](rh/referee/referee_rh.md), own
+code) re-derived the exponent 1/(2 + 8κ), checked every lemma and found no failing step; R_h comes out in the exact form
+used in section 2 (norm ≤ x, sharp sector, fixed anchor, uniform in the anchor and in the width). Consequences for this note:
+- **Theorem B** is conditional on that citation, not on GRH. Theorem B′ remains the only version with a power saving.
+- **Section 5 (e)** (Ricci's Weyl bound for twisted L-functions) is not needed: any subconvex bound in the full conductor suffices.
+- **Section 3, the mean-value lemma of the cited proof** (Stucky, Lemma 4.2): false as printed, in both of its ranges (for
+  T ≤ M: c = 1 on the ideals generated by rational integers gives a factor 1.05·√N; for T > M: c = 1 on the ideals of one
+  norm). For the coefficients that occur in the proof it holds up to powers of the logarithm (rh_proof.md, Lemmas 5 and 6),
+  so the published theorem and Theorem A stand.
