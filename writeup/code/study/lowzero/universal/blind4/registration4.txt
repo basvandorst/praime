@@ -1,0 +1,115 @@
+Round 15x (degree 4), pre-registered: the one-point law of the zeros on 120 new primitive L-functions of degree 4
+(60 Sym^3 E balanced in root number, 40 genus-2 curves, 20 Rankin-Selberg products E1 x E2), and the watch item of round 151
+(the six Sym^3 with root number -1 read 0.11 +- 0.42).
+To be committed with predictions_blind4.json, testset4.json, constants4/, bz4_lib.py, bz4_zeros.py, bt4_test.py and this text
+before any zero of a test L-function is computed. Folder: scratchpad/universal/blind4/.
+
+STATE WHEN THIS WAS WRITTEN. No zero of any test L-function has been computed (zeros_blind4/ does not exist). Computed: the
+constants (Euler products, PARI L-values), lfuncheckfeq for all 120, root numbers, zeros of TIMING PROXIES only (excluded from
+the draw: Sym^3 of the N = 142 and N = 215 classes; the genus-2 curve of conductor 2981; Rankin-Selberg 11a x 14a, 14 x 19 and
+37a x 39a), and the dry runs on round 151's 30 degree-4 zero sets (round 151 is closed). Two pre-freeze corrections, before
+any test zero: (1) the curve classes were first keyed on non-minimal models (ellap at p = 3 differs on a non-minimal model):
+one duplicate of 11a entered the first draw; keys now use minimal models and the draw was redone (testset4_nonminimal_keys.json
+kept); (2) the Rankin-Selberg height was lowered from 80 to 60 after timing (superseded prediction file 9f04df66..., never
+registered).
+
+THE LAW (fact 2055). For primitive L of degree d, conductor Q, gamma shifts mu_j, root number eps,
+theta_L(t) = (t/2) ln(Q/pi^d) + sum_j Im lnGamma((1/2 + mu_j + it)/2):
+  G(r) = sum_{0<g<=T2} e^{2i theta_L(g)} r^{-ig} = -eps c_L (rho_L(r)/sqrt(ab)) T2/2pi + o(T),  c_L = B_L(1)/L(1, Ad L);
+  Hann weight sin^2(pi g/T2): half; band (T2/4, T2]: -eps c_L (3T2/4)/2pi.
+
+TEST SET (testset4.json; seeded rule SEED4 = 20261126, numpy default_rng(SEED4 + k) permutations of sorted lists; c0_curves.py,
+c2_genus2.py, c4_select.py):
+  Sym^3 E (60): semistable isogeny classes from the box a1, a3 in {0,1}, a2 in {-1,0,1}, |a4| <= 60, |a6| <= 150 (164 classes
+    with N <= 250, keyed on minimal models), minus every class used in round 1 or round 151 (tests and proxies) and the two
+    timing proxies. Memory decides the strata: PARI's initialisation to height 70 overflows a 1.1 GB stack at N = 185 (the
+    1.5 GB job cap), so
+      S70: N <= 150, T2 = 70: all 11 classes with w(E) = -1 (N 53-138) and 11 drawn with w = +1 (N 21-142);
+      S50: 150 < N <= 230, T2 = 50: 19 drawn of 26 with w = -1 (N 154-229) and 19 drawn of 35 with w = +1 (N 154-222).
+    Root number: eps(Sym^3 E) = w(E) for semistable E (w_inf(Sym^3) = -1 = w_inf(E), and at a multiplicative prime the local
+    root numbers agree); PARI's lfunsympow value equals w(E) for all 60, and the functional equation with the opposite sign
+    fails for all 60 (lfuncheckfeq -56..-62 against 0..+1). c by the direct product (exact local factors p <= 3000, first order
+    to 1e5, log-Cesaro, bias nu = 3); the exact route B/(L(1,Sym^2)L(1,Sym^4)L(1,Sym^6)) on N = 21, 38, 53 agrees to 0.10,
+    0.25, 0.22 %. c in [0.087, 4.952].
+  genus 2 (40): curves y^2 + h y = f, f in {-1,0,1}^7, h a 0/1-polynomial of degree <= 3; conductor from lfungenus2 (genus2red
+    can omit the 2-part), lfuncheckfeq <= -20, N <= 3000, one per L-function, primitive (mean |lambda_p|^2 over good
+    p <= 3000 in [0.75, 1.25]), all genus-2 L-functions of rounds 1 and 151 excluded: 84 qualify (+ the timing proxy);
+    40 drawn (N 1047-2917), T2 = 150. 26 of the 40 have eps = -1; two have c < 0 (c in [-0.535, 4.183]). c direct (exact
+    p <= 1000, first order to 5e4, nu = 2).
+  Rankin-Selberg E1 x E2 (20): semistable classes with N <= 60 (28 classes), coprime conductors, N1 N2 <= 1500, non-isogenous
+    (156 pairs; 11a x 14a excluded), 20 drawn (N1 N2 from 266 to 1482; conductor (N1 N2)^2 from 260,100 to 2,196,324), T2 = 60.
+    Built from local factors (good p: 1 - ab X + (p a^2 + p b^2 - 2p^2) X^2 - p^2 ab X^3 + p^4 X^4; p | N1: 1 - ab X + a^2 p X^2;
+    p | N2: 1 - ab X + b^2 p X^2), Gamma_C(s) Gamma_C(s-1), weight 3; eps by the functional equation: +1 for all 20
+    (lfuncheckfeq -59..-67; eps = -1 gives 0..+1). Ad = Sym^2 E1 + Sym^2 E2 + Sym^2 E1 x Sym^2 E2: c direct (exact p <= 3000,
+    first order to 1e5, nu = 3), c in [0.172, 3.844].
+  Accuracy of c (direct against exact or against P/3): 0.1-0.3 %, far below the noise.
+
+DROPPED / NOT POSSIBLE: Sym^3 at height 70 above N ~ 150 (memory, above); hence no 30 + 30 balance at height 70: the balance is
+  kept within each stratum. Nothing else dropped.
+
+COMPLETENESS RULE (bz4_lib.py), corrected after round 151: as round 151 (lfunzeros, 3 rounds of re-search of the 30 largest
+  unfolded gaps, duplicates removed; |drift| <= 0.2 and |mean(n - theta(g_n)/pi) - c_exp| <= 0.25), with the offset
+  c_exp = 1/2 + (poles) - m0/2 - A0/pi, A0 = the argument of L(1/2 + delta)/delta^m0 followed continuously along the real
+  axis from sigma = 12 (complex L: 150-point unwrap; real L: A0 = 0 under GRH, checked by the sign of L(1/2 + 1e-3)).
+  Verified (c5_rulecheck_out.txt) on the round-151 files: the two characters mod 17 that the old rule rejected are now
+  COMPLETE (A0 = +-1.6849, c_exp = -0.0363 and 1.0363 against mean r -0.0360 and 1.0364), and all 15 Sym^3 sets of round 151
+  stay COMPLETE. All 120 test L-functions are real (self-dual), where the old and the new rule coincide.
+
+NOISE (measured in round 151, Var/M; used for the EXPECTED errors only): Sym^3 along 0.479, across 0.504, Hann 0.464 per 3M/8,
+  lines 0.353 (along) / 0.350; genus 2 0.152, 0.175, Hann 0.295, lines 0.214 / 0.324; Rankin-Selberg (no data): the Sym^3
+  values. DECISIONS USE JACKKNIFE ERRORS OVER L-FUNCTIONS (leave one L out).
+
+READINGS AND DECISIONS (bt4_test.py; slopes b = sum Re(G conj pred)/sum |pred|^2 over the COMPLETE L; expected se from
+power_blind4.txt):
+  R1  all 120: PASS iff |b - 1| <= 3 se_jk. Expected se 0.026.
+  R2  Sym^3 with eps = -1 (30) and eps = +1 (30), and their difference. Expected se 0.121 and 0.084 (difference 0.147).
+      Verdict on the watch item: FLUCTUATION iff |b(-1) - 1| <= 3 se and b(-1)/se >= 3; EFFECT iff 1 - b(-1) > 4 se while
+      |b(+1) - 1| <= 3 se; otherwise UNDECIDED. Power: a true 0.11 lies 7.3 se from 1; a true 1 lies 8.3 se from 0.
+  R2s the four slopes per stratum (S70: eps -1 n = 11, se 0.180; eps +1 n = 11, se 0.119; S50: n = 19 each, se 0.161 and
+      0.116): reported, no decision (S70 repeats round 151's height and conductor range).
+  R3  genus 2 (40): PASS iff |b - 1| <= 3 se_jk; expected 0.028. R3s genus 2 by root number (26 with eps = -1): reported.
+  R4  Rankin-Selberg (20): PASS iff |b - 1| <= 3 se_jk; expected 0.094 (first test of this class).
+  R5  amplitude follows c: c_hat on [1, c - 1], jackknife: PASS iff |beta - 1| <= 3 se; H-c1 (beta = 0) rejected iff
+      beta/se >= 3. Expected se(beta) 0.036.
+  R6  lines r = 2, 1/2, 3, 1/3 pooled: PASS iff |b - 1| <= 3 se_jk; expected 0.031.
+  R7  Hann pooled: PASS iff |b - 1| <= 3 se_jk; expected 0.040.
+  R8  band (T2/4, T2]: all, Sym^3 eps = -1 (expected 0.146), eps = +1: reported. Registered interpretation: if R2 reads
+      EFFECT and the eps = -1 band slope is within 3 se of 1, the deficit is placed in the low part of the window. (Dry run
+      on round 151: the eps = -1 band reads -0.36 +- 0.19, so round 151's deficit was not at low height.)
+  R9  combined with the 30 degree-4 L of round 151: reported only (run bt4_test.py --dry for round 151 alone).
+  Every predicted cell per L (sharp, Hann, band, four lines, alternatives H0, H_noroot, H_c1, H_eps0) is in
+  predictions_blind4.json; the sharp cell enters R1-R5, the lines R6, Hann R7, band R8; the alternatives enter no decision
+  by themselves (H_eps0 = 0 for Sym^3 with eps = -1 is the "EFFECT" hypothesis of R2).
+
+FALSIFIER (one line). The law is falsified in degree 4 if the slope pooled over all complete new degree-4 L-functions lies outside
+1 +- max(4 se_jk, 0.10) (expected band 1 +- 0.103).
+
+DRY RUNS (dry/): constants and predictions for round 151's 30 degree-4 objects by the same code (dry/predictions_dry4.json,
+  sha256 1ddc51ee...): bt4_test.py --dry reproduces round 151 (all 0.914 +- 0.046, genus 2 0.917 +- 0.051, Sym^3 eps = -1
+  0.108 +- 0.230, eps = +1 0.988 +- 0.094, verdict UNDECIDED at n = 6; dry/bt4_test_dry_out.txt). The zero script on two
+  round-151 objects (Sym^3 N = 26, genus 2 N = 349) reproduces their zero lists exactly (max |diff| 0), stopping at a 10 s
+  budget and resuming (dry/bz4_dry_*.txt).
+
+HASHES (sha256; hashes4.txt):
+  predictions_blind4.json              e39d3eaaa4c54d438585c3c3a9c1e58581e3244ca5327c0be23853b6f4332467  (frozen 2026-11-25 16:52:39 UTC)
+  superseded (RS height 80)            9f04df66a6abd860d9b80c3f79ceefac7b1814037d8af37a94d0a02a2342818e
+  testset4.json                        1fc0247c3bd0b4f09311b8d93587bdbb2e2613ec9a6d04f85b4d10482e4a3264
+  bt4_test.py (FROZEN inside)          6092e4496efacebf95f6203e9c6e55dddea3430b883af58df55d32b212da98fa
+  bz4_zeros.py                         dfbe60fe204f565df0e4be6a0999eb5cafbbff7871c04800e6ab47d347641f22
+  bz4_lib.py                           2a73553b0724050da280ae38f595b32760634a7adf280d31fdb33d0a4c62aaf9
+  ../ulib.py                           4e45bc8965a137593491b18d93b81e9e4d718e361aa76d5d16aa524902938980
+  dry/predictions_dry4.json            1ddc51ee4754d7625c943151bb685a40ca0188874359df261fd3928978e79088
+
+COST. Manifest estimate 11,040 s = 3.1 CPU-hours (with a 1.3 safety factor on proxy timings: Sym^3 S70 2,152 s, S50 3,212 s,
+  genus 2 4,504 s, Rankin-Selberg 1,170 s); measured proxies suggest about 2.5 hours. About 20-25 runs of 540 s.
+
+COMMANDS (from scratchpad/universal/blind4/):
+  zeros (repeat until ALL DONE; one file per L-function in zeros_blind4/; resumable):
+    (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I bz4_zeros.py --budget 540)
+  test (refuses any prediction file whose sha256 is not e39d3eaa...):
+    (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I bt4_test.py)
+
+CAVEATS. (1) Degree 4 is recipe-level; the stationary-phase error is proved o(T) only for d <= 2 (fact 2056). (2) The Sym^3
+  strata differ in height (70 / 50) and conductor; the balance in root number is within each stratum. (3) Rankin-Selberg noise
+  is unmeasured (Sym^3 values assumed). (4) GRH assumed (zeros on the line; A0 = 0 for real L). (5) Constants are direct
+  products (0.1-0.3 %).
