@@ -1,0 +1,34 @@
+TEST B (registered zero files): 184 L-functions, 184 kept, heights 100-600, mean spacings 812
+completeness: max |N - theta/pi| 1.46, max gap 2.99, max eighth-mean 0.26, min gap 0.0122; excluded: none
+
+[Var(s)] per-prime coefficients (y = stat - ignored; OLS on [1, I(2|D) .. I(13|D)]; bootstrap se, 2000 resamples)
+   p                     2         3         5         7        11        13
+   measured       -0.01100  -0.01264  -0.01135  -0.01162  -0.00869  -0.00780
+   se              0.00042   0.00041   0.00049   0.00057   0.00069   0.00086
+   law            -0.01152  -0.01342  -0.01225  -0.01178  -0.00853  -0.00824   chi2(p=2,3,5)      8.4   gamma expected 1.000
+   law2           -0.01000  -0.01219  -0.01157  -0.01134  -0.00834  -0.00808   chi2(p=2,3,5)      7.1   gamma expected 0.905
+   slow           -0.01509  -0.01819  -0.01721  -0.01756  -0.01330  -0.01348   chi2(p=2,3,5)    420.6   gamma expected 1.354
+   bblm           -0.01413  -0.01729  -0.01655  -0.01702  -0.01297  -0.01317   chi2(p=2,3,5)    294.5   gamma expected 1.285
+   ignored        +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000   chi2(p=2,3,5)   2192.9   gamma expected 0.000
+   gamma (amplitude on the law pattern, p = 2,3,5) = 0.942 +- 0.020;  ratios c3/c2 1.150, c5/c2 1.032 (se 0.058, 0.062)
+   level: mean(stat - law) = +0.00322 +- 0.00020   (mean stat 0.15145)
+
+[<r~>] per-prime coefficients (y = stat - ignored; OLS on [1, I(2|D) .. I(13|D)]; bootstrap se, 2000 resamples)
+   p                     2         3         5         7        11        13
+   measured       +0.00223  +0.00333  +0.00453  +0.00444  +0.00297  +0.00407
+   se              0.00083   0.00078   0.00086   0.00099   0.00163   0.00139
+   law            +0.00253  +0.00355  +0.00402  +0.00497  +0.00435  +0.00476   chi2(p=2,3,5)      0.5   gamma expected 1.000
+   law2           +0.00227  +0.00335  +0.00396  +0.00501  +0.00447  +0.00488   chi2(p=2,3,5)      0.4   gamma expected 0.953
+   slow           +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000   chi2(p=2,3,5)     60.2   gamma expected 0.000
+   bblm           +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000   chi2(p=2,3,5)     60.2   gamma expected 0.000
+   ignored        +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000   chi2(p=2,3,5)     60.2   gamma expected 0.000
+   gamma (amplitude on the law pattern, p = 2,3,5) = 1.007 +- 0.130;  ratios c3/c2 1.494, c5/c2 2.034 (se 8.437, 12.115)
+   level: mean(stat - law) = -0.00207 +- 0.00038   (mean stat 0.61335)
+
+DECISIONS (B)
+ D1 Var amplitude: gamma_V = 0.942 +- 0.020; law passes by measurement if |gamma_V - 1| <= 4 se: True; within the theory band [0.85, 1.05]: True
+    slow-wave (dilation) comparator rejected if gamma_V < (1 + gamma_slow)/2 = 1.177 and gamma_slow - gamma_V >= 5 se: True
+    bad primes ignored rejected if gamma_V >= 5 se: True
+ D2 gap ratio: gamma_R = 1.007 +- 0.130; "no change" (dilation / effective CUE size / kernel change / ignored) rejected if gamma_R >= 5 se and > 0.5: True; law passes by measurement if |gamma_R - 1| <= 4 se: True; theory band [0.85, 1.25]: True; negative sign (scout) rejected if gamma_R >= 5 se: True
+ D3 effective-matrix-size law with the bad-prime constants (bblm) rejected if D2 rejects "no change", or if gamma_V < (1 + gamma_bblm)/2 = 1.143 and gamma_bblm - gamma_V >= 5 se: True
+ D4 levels (secondary): Var - law +0.00322 +- 0.00020 (expected +0.002..+0.004 from the formula's known overshoot; falsifier |.| > 0.008): True; r~ - law -0.00207 +- 0.00038 (expected -0.001..-0.004; falsifier |.| > 0.008): True
