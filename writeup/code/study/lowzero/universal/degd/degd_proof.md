@@ -500,6 +500,31 @@ Doubts:
    not proved here); the G2 leading term is stated with b, the first-order bracket only for b = 0.
 6. The genus-2 constants in `universal/` are direct products (not B/L(1, Ad)); they were not re-derived here.
 
+## Referee report (25 November 2026)
+
+An independent referee (own code in [referee/](referee/)) gave these verdicts. **Theorems as stated:** Lemmas 1–4, **G1** (exact
+explicit formula, forms (a)–(c); unconditional, needs Re μ_j ≥ 0), Lemma 5 (one term: A_d, φ₀, κ; the constants confirmed for
+d = 1…5, κ to 10⁻⁸–10⁻⁵), **G3** (no condition on μ), G3′, Corollary G3.1, **Lemma 6**, the per-q identity of Route A and its
+resonant part. **Heuristic, labelled as such:** the sum over q and Route B step 4. Independent checks: the functional equation
+with conjugations on complex characters mod 7 and on Sym² of 11a (10⁻¹⁶; the wrong conjugation fails by ≥ 0.7); G1 on new
+windows and twists (10⁻¹²–10⁻¹³; conj Λ on the resonant side fails by 9.9–18), including a low window where E₀ = 0.07 and 0.35
+so that its Weil form is really tested (10⁻¹¹); G3 and G3′ on Sym² of 11a (10⁻¹²–10⁻¹³; flipped ε fails by 8–10). Corrections,
+which override the text above where they differ:
+
+1. **G2, error E₀.** The proof of G2 quotes "E₀ ≪ Q^{−3/4}", which G1(c) gives only with the factor T^{1−3d/4}·log and only when
+   min Re μ_j > ¼. Fix: move the left line to σ₀ = −K and collect the trivial-zero residues (each Gaussian-small in the
+   distance of −Im μ_j from the window): E₀ ≪ T^{1−d(K+½)}·log T + Gaussian terms. No o(T) conclusion changes.
+2. **G2(c), wording.** "o(T) only for d ≤ 2; d = 3: O(T)" is a statement about the provable (triangle-inequality) bound on R,
+   not about R. Measured for Sym² of 11a on windows [20,60], [40,120], [80,240]: the sum of |leading terms| is 386, 1540, 6164,
+   the triangle bound of the correction 59, 121, 242, the actual |zeros − leading kernel| 0.73, 0.46, 0.16.
+3. **Lemma 6 needs less.** F_p(1) = 0 needs only unitarity at an unramified p, not Ramanujan; G_p has degree ≤ d − 1; the
+   parenthetical for d = 3 should read ω(p)·conj λ(p³) = 1 − 2|a|² + ω·ā³. b = Σ Im μ_j = 0 for every π in the class (central
+   character trivial on ℝ_{>0}), so the factor (n/Q)^{ib/d} is 1 and the first-order bracket holds throughout.
+4. **Corollary G2.2** is a theorem once the expansion lemma is written out (routine; not done). Both directions are correct.
+5. Smaller: in G1(a), when Re μ_j = ¼ take a line in (−½, 0) that avoids the poles; Route B step 2 should take σ₁ = 2;
+   Corollary G3.1 does not need Ramanujan (Rankin–Selberg mean square). In check_degd.py the thresholds in sections C–E are
+   looser than the agreement reached, and no window has E₀ large enough to test its explicit form (the referee's r3 does).
+
 ## 10. What a referee should check first
 
 1. Lemma 1–2: the definition of X with μ̄_j in the numerator, θ with the −((t+Im μ_j)/2)ln π terms, the strip (−m, 1+m), and that

@@ -1821,4 +1821,36 @@ assert abs(complex(G2055) - (-145.0272 - 1.1965j)) < 1e-3 and abs(G2055.real / (
 assert abs(G2055.real - (-380 / (2 * math.pi))) > 80                 # the constant 1 of the sum over all integers is excluded
 del tau2055, p2055, e2055
 
+# 2056, 2057: the explicit formula with the kernel X(1/2+it)^(-1) n^(-it) for a complex character (degree 1, non-self-dual), and the local factor G_p
+def lg2056(z):
+    z = np.asarray(z, complex); w = z + 12
+    s = (w - 0.5) * np.log(w) - w + 0.5 * math.log(2 * math.pi) + 1 / (12 * w) - 1 / (360 * w ** 3) + 1 / (1260 * w ** 5) - 1 / (1680 * w ** 7)
+    for k in range(12): s = s - np.log(z + k)
+    return s
+def th2056(t): t = np.asarray(t, float); return t / 2 * math.log(5) + lg2056((1.5 + 1j * t) / 2).imag - t / 2 * math.log(math.pi)    # chi mod 5 odd: mu = 1
+z2056 = np.sort(np.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'study', 'lowzero', 'universal', 'zeros', 'zeros_X5.npz'))['g'])
+assert len(z2056) == 905
+Z2056 = np.sum(H2052(z2056, 30.0, 36.0, 3.0) * np.exp(2j * th2056(z2056)))
+s2056 = np.ones(3001, bool); s2056[:2] = False
+for i in range(2, 55):
+    if s2056[i]: s2056[i * i::i] = False
+t2056 = np.arange(30.0 - 21.0, 36.0 + 21.0, 0.005); b2056 = H2052(t2056, 30.0, 36.0, 3.0) * np.exp(2j * th2056(t2056))
+d2056 = []
+for chi2_ in (1j, -1j):                                             # the character with chi(2) = i, and its conjugate
+    chi_ = {0: 0, 1: 1, 2: chi2_, 4: chi2_ ** 2, 3: chi2_ ** 3}; n_, c_ = [], []
+    for p_ in np.nonzero(s2056)[0].tolist():
+        pk_ = p_
+        while pk_ <= 3000: n_.append(pk_); c_.append(math.log(p_) * chi_[pk_ % 5]); pk_ *= p_
+    n_ = np.array(n_, float); I_ = 0.005 * (b2056[None, :] * np.exp(-1j * np.outer(np.log(n_), t2056))).sum(1)
+    d2056.append(abs(Z2056 + (1 / (2 * math.pi)) * np.sum(np.array(c_) / np.sqrt(n_) * I_)))
+assert d2056[0] < 1e-9 and d2056[1] > 1, d2056                      # Lambda_L on the resonant side, not its conjugate
+r2057 = np.random.default_rng(2057)
+for d_ in (2, 3, 4):                                                # F_p(1) = 0 and the coefficients of G_p = F_p/(1 - X), unitary Satake parameters
+    a_ = np.exp(2j * math.pi * r2057.random(d_)); e_ = [sum(np.prod(cc) for cc in __import__('itertools').combinations(a_, k)) for k in range(d_ + 1)]
+    h_ = [1.0 + 0j]
+    for k in range(1, d_ + 2): h_.append(sum((-1) ** (i + 1) * e_[i] * h_[k - i] for i in range(1, min(k, d_) + 1)))
+    F_ = [np.conj(h_[k]) * (-1) ** k * e_[k] for k in range(d_ + 1)]; G_ = np.cumsum(F_)[:-1]
+    assert abs(sum(F_)) < 1e-12 and abs(G_[0] - 1) < 1e-12 and abs(G_[1] + abs(h_[1]) ** 2 - 1) < 1e-12
+    assert abs(G_[-1] - (-1) ** (d_ + 1) * np.prod(a_) * np.conj(h_[d_])) < 1e-12
+
 print("all FACTS.md checks passed")
