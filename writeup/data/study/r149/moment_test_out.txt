@@ -1,0 +1,46 @@
+prediction file sha256 b674db97f04aeadf2ee19cc62dfa1ddd918a1ca0e54ea2e46e42191af6cdd5a6: MATCHES the registered hash
+characters 56, pairs 1540, triples 2000; zeta control yes
+
+C1 single L, second moment (theorem):   mean ratio 0.9973 +- 0.0012  (sd 0.0089, min 0.9744, max 1.0138)
+C2 single L, fourth moment (theorem):   mean ratio 0.9799 +- 0.0079  (sd 0.0592)
+C3 zeta * L(chi) (theorem, mixed swaps up to 26 %): mean ratio to recipe 0.9974 (sd 0.0252); to AFE diagonal 0.8490; gamma_diag 1.014 (1 = recipe, 0 = diagonal; naive se 0.020; zeta is common to all, so the se is optimistic)
+
+P1 pairs: pooled ratio measured/recipe 0.9950 +- 0.0030 (jackknife over characters); sd per pair 0.0540
+P2 pairs: slope of ln M on ln P_recipe 0.9966 +- 0.0033
+    comparator diag  pooled ratio 1.0072 +- 0.0030 (H_diag would read 1; recipe predicts 1.0123)
+    comparator lead  pooled ratio 1.4970 +- 0.0281 (H_lead would read 1; recipe predicts 1.5033)
+
+T1 triples, level (primary for the polynomial):
+   raw pooled ratio measured/recipe          0.9944 +- 0.0121   (sd per triple 0.175)
+   control-variate (minus sum of pair ratio excesses, beta = 1)  1.0059 +- 0.0077
+   expected under H_c (mean P_c/P_full):  full 1.0000  diag 1.1132  kirk 0.9833  no3 0.9804  ind 1.8039  lead 0.6406
+
+T2 three-body Euler factor (primary for the arithmetic): gamma_c = centred OLS slope of (ln M - z - ln P_c) on (ln P_full - ln P_c), z = sum of pair log-ratios
+   vs no3   gamma (CV) 0.9947 +- 0.0194   raw 1.0022 +- 0.0261   [H_full 1, H_no3 0; sd of (x_f - x_c) 0.291]
+   vs kirk  gamma (CV) 0.9947 +- 0.0190   raw 1.0018 +- 0.0259   [H_full 1, H_kirk 0; sd of (x_f - x_c) 0.298]
+   vs diag  gamma (CV) 1.0780 +- 0.2627   raw 1.0239 +- 0.3207   [H_full 1, H_diag 0; sd of (x_f - x_c) 0.022]
+   vs ind   gamma (CV) 1.0000 +- 0.0047   raw 0.9970 +- 0.0071   [H_full 1, H_ind 0; sd of (x_f - x_c) 1.300]
+   vs lead  gamma (CV) 1.0072 +- 0.0177   raw 1.0153 +- 0.0244   [H_full 1, H_lead 0; sd of (x_f - x_c) 0.356]
+
+T3 slope of ln M on ln P_full across triples:
+   raw 0.9969 +- 0.0064   CV 0.9995 +- 0.0043   (H_full 1; under H_c the expected slope is the slope of ln P_c on ln P_full: diag 1.005 kirk 1.123 no3 1.119 ind 0.147 lead 1.205)
+
+T4 comparator levels: mean of M/P_c (raw | CV) and sd of ln(M/P_c):
+   full  0.9944 +- 0.0121 | 1.0059 +- 0.0077   sd(ln) 0.164
+   diag  0.8936 +- 0.0105 | 0.9040 +- 0.0073   sd(ln) 0.166
+   kirk  1.1049 +- 0.0326 | 1.1176 +- 0.0317   sd(ln) 0.341
+   no3   1.1037 +- 0.0323 | 1.1164 +- 0.0313   sd(ln) 0.335
+   ind   2.7744 +- 0.4341 | 2.8040 +- 0.4263   sd(ln) 1.307
+   lead  1.7615 +- 0.0650 | 1.7812 +- 0.0677   sd(ln) 0.397
+
+T5 (secondary) by the p = 2 configuration of the triple (m: chi(2) = -1, p: +1, r: 2 | D):
+   mmm n =  151  predicted mean ln(P_full/P_no3) -0.560   measured mean (ln M - z - ln P_no3) -0.582
+   mmp n =  285  predicted mean ln(P_full/P_no3) +0.426   measured mean (ln M - z - ln P_no3) +0.418
+   mmr n =  364  predicted mean ln(P_full/P_no3) +0.014   measured mean (ln M - z - ln P_no3) +0.018
+   mpp n =  187  predicted mean ln(P_full/P_no3) +0.425   measured mean (ln M - z - ln P_no3) +0.399
+   mrp n =  449  predicted mean ln(P_full/P_no3) +0.034   measured mean (ln M - z - ln P_no3) +0.037
+   mrr n =  228  predicted mean ln(P_full/P_no3) +0.028   measured mean (ln M - z - ln P_no3) +0.022
+   ppp n =   36  predicted mean ln(P_full/P_no3) -0.585   measured mean (ln M - z - ln P_no3) -0.576
+   rpp n =  131  predicted mean ln(P_full/P_no3) +0.024   measured mean (ln M - z - ln P_no3) +0.042
+   rrp n =  119  predicted mean ln(P_full/P_no3) +0.024   measured mean (ln M - z - ln P_no3) +0.021
+   rrr n =   50  predicted mean ln(P_full/P_no3) +0.023   measured mean (ln M - z - ln P_no3) +0.021
