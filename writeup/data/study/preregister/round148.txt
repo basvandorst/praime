@@ -1,0 +1,149 @@
+Round 148, pre-registered: the swapped cross term between the zeros of two elliptic-curve
+L-functions, read with the phase-cancelling statistic of round 143, and the lines of the one-point spectrum.
+To be committed with the frozen prediction files and the test script before any X12 or any one-point line at xi != 0 is
+computed on the 138 fresh curves of round 144.
+When this file was written: on the 138 fresh zero sets (writeup/data/study/r144/fresh_zeros.npz) only the one-point sum
+G(0) = sum_{20 < g <= 400} e^{2i theta_E(g)} (sharp and Hann) was computed (allowed by the brief; reported below, NOT
+blind). No X12, no G(xi) at xi != 0, no window statistic. On the 20 development curves (used data) everything was
+computed (retrospective). Derivation and code: ecross/ (derivation.md, elib.py, s1_curves.py ... s7_power.py,
+validate.py, ecross_test.py).
+
+Why. Round 143 confirmed the swapped term between two Dirichlet L-functions (slope 1.0002 +- 0.0031); the review showed
+that its shape comes from "lines" (products of prime-number-theorem-in-progressions means, theorem) and that the
+conjecture is a zero-mean continuum. Round 144 put 138 elliptic curves' zeros on disk. In degree 2 a prime-side
+argument suggested that the one-point sums have no main term (a_p is not a function of a residue class), so that the
+cross term would vanish. The derivation (derivation.md sections 2-4) shows instead:
+ - the one-point sum is a prime sum with the GL(2) Voronoi kernel e(-2 sqrt(n/N)), which resonates at dual index 1;
+   the recipe gives sum_g e^{2i theta_E(g)} = -w c_E (T2 - T1)/2pi, c_E = B_E/L(1, Sym^2 E), and lines at every
+   xi = ln(a/b) with amplitude -w c_E rho(a/b)/sqrt(ab) (recipe-level; a prime number theorem for the resonance, not a
+   theorem). Measured (not blind): slope 0.989 +- 0.011 on all 158 curves, 0.9875 +- 0.0116 on the 138 fresh curves.
+ - the recipe's double-swap term is exactly the sum over rational detunings of the products of the two curves' lines
+   (proved from the recipe), = (1/4 pi^2) w1 w2 c1 c2 int |L(1 + iu, E1 x E2)|^2 A12(iu) K(u) du.
+ So the scout's "no term" hypothesis is refuted already by the one-point sums; what remains to test blind is (i) the
+lines at xi != 0 on fresh curves, (ii) the H - 1 part of the cross term, (iii) the zero-mean continuum (independence
+of the fluctuations of two different curves: shifted convolution sums of two Hecke eigenvalue sequences over primes).
+
+The law (recipe; derivation.md section 3). E1, E2 semistable, non-isogenous, conductors N_j, root numbers w_j,
+theta_j(t) = (t/2) ln N_j - t ln 2 pi + Im lnGamma(1 + it), K(u) = exp(-u^2/2 sigma^2):
+   X12 = (1/T) sum_{g1, g2} e^{2i theta1(g1) - 2i theta2(g2)} K(g2 - g1) w((g1+g2)/2)   (window W = [20, 396], T = 376),
+   E X12 = (1/4 pi^2) w1 w2 c1 c2 J12,  J12 = int H12(u) K(u) du,
+   H12(u) = prod_p sum_v rho1(p^v) rho2(p^v) p^{-|v|} p^{iuv} = |L(1 + iu, E1 x E2)|^2 A12(iu),
+   c_E = B_E/L(1, Sym^2 E), rho(p^v) = p^{|v|/2} S_p(v)/F_p(1/p), S_p(v) = sum_{m-h=v} lambda(p^m) mu_E(p^h) p^{-(m+h)/2}.
+ J from exact local factors for p <= 3000 and all bad primes, first-order lines (+ the constant second-order term) to
+ 1e5; numerical error below 1e-4 in units of the prediction (checks in s5_check_out.txt; independent recomputation in
+ validate_out.txt).
+One-point law and lines (recipe): G(ln r) = sum_{20 < g <= 400} e^{2i theta(g)} r^{-ig} = -w c rho(r)/sqrt(ab) * 380/2pi
+ + o(T), r = a/b in {1, 2, 1/2, 3, 1/3, 4, 1/4, 5, 1/5, 7, 1/7, 3/2, 2/3}; Hann taper: half.
+
+Hypotheses (parameter-free):
+  H1         the law (slopes 1; reversed-pairing and no-root coefficients 0; Im 0).
+  H0         no swapped term (X12 mean 0; no lines): the scout's hypothesis.  [already contradicted by G(0); kept]
+  H1-        the law with the opposite sign.
+  H1-noroot  the law without w1 w2 (and the lines without w).
+  H1-const   only the r = 1 line: H12 replaced by 1 (product of the two one-point laws).
+  H1-rev     lines paired r with 1/r (the p-lines with the opposite sign).
+  H1-half    the law at half its size.
+
+Frozen predictions (sha256):
+  pred_fresh.npz  ef45af2e11c905acbfb287dd8fd786322f1b29afe251d77e81f97369af765010  (138 curves, 9,453 pairs)
+  pred_dev.npz    25833cd6c2e9334db0fb9cc98e2a8235464dc4f42005ee4e3bf298bc4030c3e2  (validation only)
+  ecross_test.py  1e2f3a646bb7d9df09705a77561304220a91025531c3d30eb9a56e2cb2d05f2c  (proposer's copy; FROZEN_SHA inside; refuses other
+                  prediction files; its default zero paths must be made relative when it is committed)
+  Per pair and sigma = 0.5, 1.0: J, Jrev, pred, pred1 (H = 1), prednoroot, predrev; per curve: N, w, c, L(1, Sym^2),
+  B, the 13 line amplitudes (with and without w), the p = 2, 3 line coefficients (synthetic checks), J23.
+
+TEST: the 138 fresh curves of round 144 (fresh_set.json), zeros fresh_zeros.npz (deduplicated; all complete by round
+  144's rule, assumed here; no new completeness rule), one-point band (20, 400], X window [20, 396] (zeros are stored
+  to 401 and above; 6 s = 4.3 inside the top for sigma = 1), all 9,453 pairs i < j. Development (20 curves, 190
+  pairs): validation only, no decision.
+
+Statistic and errors: ecross_test.py (sigma = 0.5 primary, 1.0 secondary; t-grid 0.02; Gaussians of width
+  sigma/sqrt 2; theta by scipy loggamma). Errors: delete-one-curve jackknife (exact, via normal equations).
+
+Readings (fits with an intercept unless stated; "se" = the data's jackknife se):
+ One point:
+  O1   r = 1: slope of Re G (sharp) on the law; O1b Hann.                    [reported; NOT blind: already 0.9875 +- 0.0116]
+  O2   lines r != 1 pooled (12 lines x 138 curves): slope of Re G (sharp) on the law, no intercept.   [primary, blind]
+  O2b  the same, Hann; O2c [law, law without w]: the second coefficient (H1 0, H1-noroot 1).
+  O3   each line separately (12 slopes).
+  O4   Im G, all lines: mean (0).  O5 control frequencies xi = +-0.35, +-0.55, +-0.9, +-1.3: mean Re G (0) and rms.
+ Pairs:
+  X1   slope of Re X on the law; X1b through 0.                                [primary]
+  X2   Re X = a + b pred1 + c (pred - pred1): b (the r = 1 part), c (the H - 1 part).
+  X3   Re X = a + b pred1 + c (pred - pred1) + d (predrev - pred1): d (H1 0, H1-rev 1).
+  X4   Re X = a + b pred + c prednoroot: c (H1 0, H1-noroot 1).
+  X5   Re X - P0 on (pred - pred1), P0 = sigma sqrt(2pi) Re(Gw_i conj Gw_j)/T^2 the measured r = 1 product (Gw over
+       the window): the blind H - 1 coefficient.                               [primary]
+  X6   continuum: Re X - sum over the 13 registered r of the measured line products - (pred - their law products):
+       mean (H1 0; H0 and H1-const: -mean(pred - law products of the 13 lines) = -0.0055 (sigma 0.5), -0.0049 (1.0);
+       the 13 lines carry the law with correlation 0.955; expected se ~0.0015).
+  X7   Im X: mean and slope (0).   X8 mean of Re X (H1: mean of pred, 0.0120 at sigma 0.5).
+  X9   slope by w1 w2 = +1 / -1 and by |ln N2/N1| < 0.3, [0.3, 0.8), >= 0.8 (2,672 / 3,364 / 3,417 pairs).
+  X10  pairs with law < -0.02 (3,507 pairs at sigma 0.5): slope through 0.
+  All at sigma = 1.0 (secondary).
+
+Expected values (noise-free, from the frozen files) and expected se (noise model from the development pairs,
+conservative by about 30 %; decisions use the data's se), sigma = 0.5:
+  reading       se      H1     H0     H1-    noroot   const   rev     half
+  X1 slope      0.023   1      0      -1     0.178    0.395   0.148   0.5
+  X2 c (H - 1)  0.020   1      0      -1     0.232    0       -0.454  0.5
+  X3 d (rev)    0.015   0      0      0      0.109    0       1       0
+  X4 c (noroot) 0.014   0      0      0      1        -0.034  -0.007  0
+  X5 (H - 1)    0.043   1      0      -      0.248    0       -0.442  0.5
+  X8 mean       0.003   0.0120 0      -0.0120 0.0856  0.0024  0.0002  0.0060
+  O2 lines      0.009   1      0      -      -0.190   0       -       -
+  sigma = 1.0: X1 se 0.023 (const 0.579, rev 0.360, noroot 0.127); X5 se 0.047.
+ Development (retrospective, 190 pairs): X1 1.059 +- 0.050, X2 c 1.065 +- 0.092, X3 d 0.03 +- 0.11, X4 c 0.006 +- 0.051,
+ X5 1.066 +- 0.091, X6 -0.009 +- 0.006; lines O2 1.039 +- 0.022.
+ Dry runs (fresh design, synthetic zeros): Poisson: X1 0.007 +- 0.008, X5 0.007 +- 0.011, O2 0.005 +- 0.011, X6
+ -0.0052 +- 0.0015 (its H0 value); jittered Gram (r = 1 line only; seeds 7 / 11): X2 [1.076 +- 0.042 / 0.985 +- 0.036,
+ -0.002 +- 0.011 / 0.003 +- 0.011], X5 -0.002 +- 0.010 / 0.010 +- 0.010, O2 0.011 / 0.002 (+- 0.011); line-modulated Poisson (lines 2^a 3^b): exact expectation vs the frozen law
+ restricted to p = 2, 3: slope 1.0002, corr 0.99996 (sigma 0.5; 0.9997 at 1.0); the sampled synthetic X on its exact
+ expectation: 0.995 (sigma 0.5), 1.004 (1.0): the pipeline's conventions (pairing direction, normalisation, window) agree
+ with the frozen J end to end.
+ Power: H0 rejected at ~40 se (X1), H1-const at ~26 se (X1) and ~23 se (X5), H1-noroot at ~70 se (X4), H1-rev at ~65 se
+ (X3), H1-half at ~22 se (X1).
+
+Theory allowance (NOT in the bands): finite-height terms of the recipe and edge terms of the lines are unknown; the
+development readings run 3-7 % high (within 1-2 se). Allowance 2 %.
+
+Decisions (thresholds fixed now):
+ D1 (primary). H1 passes if |X1 - 1| <= 4 se and |X5 - 1| <= 4 se (sigma 0.5). If it fails with |X1 - 1| <= 0.02,
+    this is recorded as a lower-order term within the allowance, not a falsification.
+    H0, H1-, H1-const, H1-half rejected if X1 (and X5 where it differs) is more than 5 se from their values.
+ D2 (blind lines). The one-point lines at r != 1 hold if |O2 - 1| <= 4 se (or <= 0.02); H0 for the lines rejected if
+    O2 is more than 5 se from 0. Each O3 slope reported; none decides alone.
+ D3 (root numbers, direction). H1-noroot rejected if |X4 c - 1| > 5 se and |O2c - 1| > 5 se; H1-rev rejected if
+    |X3 d - 1| > 5 se. H1 requires |X4 c| <= 4 se and |X3 d| <= 4 se.
+ D4 (continuum, secondary). X6 within 4 se of 0. A failure means correlated fluctuations of two different curves
+    (a main term in shifted convolution sums of two Hecke eigenvalue sequences over primes) and is reported as such.
+ D5 (consistency, secondary). Im readings within 4 se of 0; X9 bins and X10 within 4 se of 1 each.
+ Reported in all cases: every reading at both sigma; O1 (not blind) with its pre-registration value.
+
+Every predicted cell and its reading:
+  X12 per pair, sigma 0.5 ............ X1-X10 (Im: X7)
+  X12 per pair, sigma 1.0 ............ the same, secondary
+  pred1, prednoroot, predrev ......... enter X2, X3, X4, X5 and the expected values
+  J, Jrev, H(0) per pair ............. no reading
+  line amplitudes per curve (13 r) ... O1 (r = 1, not blind), O2-O4 (r != 1), X5, X6
+  control frequencies ................ O5 (no law: 0)
+  p = 2, 3 coefficients, J23 ......... dry runs only, no reading
+  development pairs .................. validation only, no reading
+
+Falsifier, in one line: the cross term is falsified if on the 9,453 fresh pairs (sigma 0.5) the slope of Re X12 on the
+frozen law, or its blind H - 1 coefficient after removing the measured r = 1 product, lies more than 4 se from 1 (and
+more than 0.02), or if the pooled one-point lines at r != 1 lie more than 4 se from 1.
+
+Order: commit this file, the frozen files and ecross_test.py -> ecross_test.py all --design fresh (about one minute)
+-> report every reading, passed or failed.
+Command: (ulimit -v 1500000; timeout 600 nice python3 -I ecross_test.py all --design fresh --out run_fresh_data)
+
+Statuses: the one-point main term for GL(2) is recipe-level (a prime-number theorem for the Voronoi resonance; heuristic
+asymptotic of this kind in Iwaniec-Luo-Sarnak 2000 as quoted by Zhao 2006); the identity "cross term = sum of line
+products" is proved from the recipe; the zero-mean continuum is a conjecture; all numbers are computed.
+
+Registered state: derivation, scripts and frozen files are in writeup/code/study/lowzero/ecross/; the development zeros
+are packed in writeup/data/study/r148/dev_zeros.npz. The test script committed here differs from the proposer's copy only
+in its default zero paths (made relative); its sha256 is 093c63bf0ee7f700366e9f98d28508534e8a0b77c8ecafb5788103c1a864bfd6. Run from the repo copy on
+the development pairs it gives the draft's numbers (X1 1.0585 +- 0.0503, X5 1.0662 +- 0.0910, O2 1.0387 +- 0.0217).
+curves.npz (3 MB) is not committed; s1_curves.py rebuilds it.
