@@ -1,0 +1,110 @@
+== A. exponent of the large-values analysis
+PASS A(kappa=0.1250) = sup_grid 2.9985 vs 2+8kappa = 3.0000  [worst beta=0.750 (theory 1+4kappa=1.500), sigma=0.8332 (theory 0.6667)]
+PASS A(kappa=0.1667) = sup_grid 3.3311 vs 2+8kappa = 3.3333  [worst beta=1.666 (theory 1+4kappa=1.667), sigma=0.6998 (theory 0.7000)]
+PASS A(kappa=0.2000) = sup_grid 3.5960 vs 2+8kappa = 3.6000  [worst beta=1.798 (theory 1+4kappa=1.800), sigma=0.7223 (theory 0.7222)]
+PASS A(kappa=0.2400) = sup_grid 3.9178 vs 2+8kappa = 3.9200  [worst beta=1.960 (theory 1+4kappa=1.960), sigma=0.7448 (theory 0.7449)]
+PASS A(kappa=0.2490) = sup_grid 3.9880 vs 2+8kappa = 3.9920  [worst beta=1.996 (theory 1+4kappa=1.996), sigma=0.7493 (theory 0.7495)]
+PASS A(kappa=0.2500) = sup_grid 4.0000 vs 2+8kappa = 4.0000  [worst beta=2.000 (theory 1+4kappa=2.000), sigma=0.7500 (theory 0.7500)]
+PASS identity f(beta) = 2-8kappa+8kappa(1-4kappa)/(beta-4kappa)
+PASS f(1/2+2kappa) = 2+8kappa
+PASS 2beta/(beta-4kappa) = 2beta at beta = 1+4kappa (value 2+8kappa)
+PASS short factors (beta <= 0.05): sup A <= 2(1+0.05) = 2.1  [2.0720]
+PASS without the pointwise bound the sup is not below 4 (it grows like 2*beta_max: pointwise bound essential)  [16.000 at beta=8.000]
+PASS theta(kappa=1/6) = 1/(2+8kappa) = 3/10
+PASS theta(kappa=1/4) = 1/(2+8kappa) = 1/4
+PASS theta(kappa) > 1/4  <=>  kappa < 1/4 (kappa = 1/4 - delta)
+PASS agrees with referee scan at L=1, kappa=0.1667: 3.3311 vs 3.3327
+PASS agrees with referee scan at L=1, kappa=0.2400: 3.9178 vs 3.9182
+PASS agrees with referee scan at L=1, kappa=0.2500: 4.0000 vs 3.9983
+== B. mean-value lemma C' (Lemma 5)
+PASS C' holds: rational integers (counterexample), N=2500, M=10, T=1: LHS/bound = 2.560e-04
+PASS C' holds: rational integers (counterexample), N=2500, M=300, T=1: LHS/bound = 6.482e-03
+PASS C' holds: rational integers (counterexample), N=2500, M=5000, T=1: LHS/bound = 3.761e-02
+PASS   'Ricci C' as stated fails for the counterexample (M=5000,T=1): LHS/[(MT+N min(M,T))sum|c|^2] = 75.3 > 1
+PASS C' holds: rational integers (counterexample), N=2500, M=5000, T=4: LHS/bound = 4.756e-02
+PASS   'Ricci C' as stated fails for the counterexample (M=5000,T=4): LHS/[(MT+N min(M,T))sum|c|^2] = 24.6 > 1
+PASS C' holds: rational integers (counterexample), N=2500, M=100000, T=1: LHS/bound = 5.309e-02
+PASS   'Ricci C' as stated fails for the counterexample (M=100000,T=1): LHS/[(MT+N min(M,T))sum|c|^2] = 110.1 > 1
+PASS   Duke's conjectured bound sum (N(a)+qMT)|c(a)|^2 fails for the counterexample: LHS/RHS = 111.9
+PASS C' holds: Moebius on (N/2,N], N=2500, M=10, T=1: LHS/bound = 1.597e-04
+PASS C' holds: Moebius on (N/2,N], N=2500, M=300, T=1: LHS/bound = 4.134e-03
+PASS C' holds: Moebius on (N/2,N], N=2500, M=5000, T=1: LHS/bound = 2.131e-02
+PASS C' holds: Moebius on (N/2,N], N=2500, M=5000, T=4: LHS/bound = 5.519e-02
+PASS C' holds: Moebius on (N/2,N], N=2500, M=100000, T=1: LHS/bound = 3.011e-02
+PASS C' holds: divisor d_2 on (N/2,N], N=2500, M=10, T=1: LHS/bound = 1.625e-03
+PASS C' holds: divisor d_2 on (N/2,N], N=2500, M=300, T=1: LHS/bound = 3.354e-03
+PASS C' holds: divisor d_2 on (N/2,N], N=2500, M=5000, T=1: LHS/bound = 1.662e-02
+PASS C' holds: divisor d_2 on (N/2,N], N=2500, M=5000, T=4: LHS/bound = 4.831e-02
+PASS C' holds: divisor d_2 on (N/2,N], N=2500, M=100000, T=1: LHS/bound = 2.352e-02
+PASS C' holds: 1 on all ideals (N/2,N], N=2500, M=10, T=1: LHS/bound = 4.818e-03
+PASS C' holds: 1 on all ideals (N/2,N], N=2500, M=300, T=1: LHS/bound = 6.650e-03
+PASS C' holds: 1 on all ideals (N/2,N], N=2500, M=5000, T=1: LHS/bound = 2.404e-02
+PASS C' holds: 1 on all ideals (N/2,N], N=2500, M=5000, T=4: LHS/bound = 6.368e-02
+PASS C' holds: 1 on all ideals (N/2,N], N=2500, M=100000, T=1: LHS/bound = 3.425e-02
+PASS C' holds: random phases, primitive only, N=2500, M=10, T=1: LHS/bound = 1.972e-04
+PASS C' holds: random phases, primitive only, N=2500, M=300, T=1: LHS/bound = 4.491e-03
+PASS C' holds: random phases, primitive only, N=2500, M=5000, T=1: LHS/bound = 2.627e-02
+PASS C' holds: random phases, primitive only, N=2500, M=5000, T=4: LHS/bound = 6.331e-02
+PASS C' holds: random phases, primitive only, N=2500, M=100000, T=1: LHS/bound = 3.712e-02
+PASS C' holds: random phases, all ideals, N=2500, M=10, T=1: LHS/bound = 7.827e-05
+PASS C' holds: random phases, all ideals, N=2500, M=300, T=1: LHS/bound = 1.930e-03
+PASS C' holds: random phases, all ideals, N=2500, M=5000, T=1: LHS/bound = 1.165e-02
+PASS C' holds: random phases, all ideals, N=2500, M=5000, T=4: LHS/bound = 3.639e-02
+PASS C' holds: random phases, all ideals, N=2500, M=100000, T=1: LHS/bound = 1.606e-02
+PASS at M=1e5,T=1: LHS/[(M+N)T sum|c|^2] is 3.83 for Moebius (bounded) but 110.1 for the counterexample (the content weight is needed)
+PASS primitive ideals, N<=4000: min gap of x_a = 1.629e-04 >= 2/(pi N) = 1.592e-04
+PASS collapse identity at m=3, t=0.7
+PASS collapse identity at m=-17, t=2.3
+PASS collapse identity at m=41, t=-5.1
+== C. divisor moments with the content weight (Lemma 6)
+   Y=2000: sum d^2 cont/N = 775.10, sum d^2/N = 172.21, ratio 4.501, sum d^2 cont/N / (log Y)^5 = 0.0306
+   Y=8000: sum d^2 cont/N = 1603.22, sum d^2/N = 277.62, ratio 5.775, sum d^2 cont/N / (log Y)^5 = 0.0273
+   Y=30000: sum d^2 cont/N = 3055.85, sum d^2/N = 416.58, ratio 7.336, sum d^2 cont/N / (log Y)^5 = 0.0262
+   Y=60000: sum d^2 cont/N = 4202.19, sum d^2/N = 507.30, ratio 8.283, sum d^2 cont/N / (log Y)^5 = 0.0261
+PASS content weight costs at most a log factor: ratio(Y) <= 2 log Y for all Y tested  [4.50, 5.77, 7.34, 8.28]
+PASS product bound at Y=2000: 775.1 <= 180.81 * 172.2
+PASS product bound at Y=8000: 1603.2 <= 328.32 * 277.6
+PASS product bound at Y=30000: 3055.9 <= 569.48 * 416.6
+PASS product bound at Y=60000: 4202.2 <= 733.44 * 507.3
+PASS d_g submultiplicative on prime powers (g<=6, exponents<=12)
+== D. lattice points in polar boxes (Lemma 2)
+PASS polar box count <= (omega/2 + 1.12/r1)(r2^2-r1^2 + 2(r1+r2)) on 150 random boxes (max ratio 0.972)
+PASS arcsin(1/(sqrt2 r)) <= 1.111/r for r >= 2
+== E. angular cut-off (Lemma 1)
+PASS |g_k| <= min(beta-alpha, 1/(pi|k|)) min(1, (r/(pi|k|Delta))^r) for k <= 2000 and 1e4..1e6
+PASS psi = 1 on [alpha+Delta/2, beta-Delta/2], 0 outside [alpha-Delta/2, beta+Delta/2], 0<=psi<=1
+PASS Fourier coefficients of the convolved function match the closed form (|.|, k<60)
+== F. Gaussian norm weight (Lemma 3)
+PASS Mellin transform of V at s=(0.5+2j): rel.err 2.8e-28
+PASS Mellin transform of V at s=(1.2-0.7j): rel.err 1.5e-31
+PASS Mellin transform of V at s=(0.5+9j): rel.err 9.4e-15
+PASS P(Z >= y) <= exp(-y^2/2) for y in [0,12]
+== G. Heath-Brown identity on ideals of Z[i]
+PASS HB identity, X=14, J=2, sharp Moebius cut: max error on N a <= X^J = 6.2e-15
+PASS HB identity, X=14, J=2, smoothed Moebius cut: max error on N a <= X^J = 6.2e-15
+PASS HB identity, X=6, J=3, sharp Moebius cut: max error on N a <= X^J = 1.8e-14
+PASS HB identity, X=6, J=3, smoothed Moebius cut: max error on N a <= X^J = 3.0e-14
+PASS sum of Lambda over ideals of norm <= 220 is ~ 220 (prime ideal theorem scale)  [207.6]
+== H. characters mod q, units, infinity types
+PASS Phi(q) for q=2+1i: 4 (expected 4)
+PASS Phi(q) for q=5+0i: 16 (expected 16)
+PASS Phi(q) for q=3+0i: 8 (expected 8)
+PASS sum over units = 4*[chi(i) i^k = 1] for all chi(i) in mu_4 and |k| <= 8
+PASS conductor bound (N(q)(2+|k|/2+|t|)^2)^(1/4-d) <= 2 N(q)^(1/4) (1+|k|+|t|)^(1/2-2d)
+== I. Gaussian primes in residue classes in sectors of width c x^(-1/4), x = 1e7 (sanity check of the main term)
+   sector phi=+0.31 width 1.0x^(-1/4) orient +1: points 88912, sum Lambda 114110, main (2/pi) omega x = 113209, ratio 1.0080
+   sector phi=+0.77 width 1.0x^(-1/4) orient -1: points 88914, sum Lambda 113213, main (2/pi) omega x = 113209, ratio 1.0000
+   sector phi=+1.13 width 2.0x^(-1/4) orient +1: points 177824, sum Lambda 226972, main (2/pi) omega x = 226418, ratio 1.0025
+   sector phi=+2.40 width 1.0x^(-1/4) orient +1: points 88913, sum Lambda 114543, main (2/pi) omega x = 113209, ratio 1.0118
+   sector phi=-1.95 width 1.5x^(-1/4) orient -1: points 133375, sum Lambda 169894, main (2/pi) omega x = 169813, ratio 1.0005
+   sector phi=+3.00 width 4.0x^(-1/4) orient +1: points 355652, sum Lambda 454013, main (2/pi) omega x = 452835, ratio 1.0026
+   120 (sector, class) z-scores: mean +0.118, rms 0.627, max |z| 1.51
+PASS class sums mod 2+i and mod 5 agree with (2/pi) omega x / Phi(q): rms z in [0.5, 1.6], max |z| < 4.5
+PASS pooled sector sums agree with (2/pi) omega x: max |z| < 4  [+0.69, +0.00, +0.30, +1.01, +0.05, +0.45]
+== J. parameter bookkeeping
+PASS kappa=0.24: theta=0.252 admissible: (theta+2eps)A=0.9886<1-3Delta; short: 0.6044<1-3Delta; I_0 case
+PASS theta = 1/4 is admissible for every kappa < 1/4 (strict inequality with room)
+== K. large sieve (Gaussian majorant form) and Gallagher's inequality
+PASS sum_{|m|<=M} |sum_r b_r e(m x_r)|^2 <= e(sqrt(pi) M + 1/delta) sum|b_r|^2 (20 random cases)
+PASS Gallagher: |P(t0)|^2 <= int_{|t-t0|<=1/2} (|P|^2 + 2|P||P'|) (20 random Dirichlet polynomials)
+87 checks, 0 failed
