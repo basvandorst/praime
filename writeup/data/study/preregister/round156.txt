@@ -1,0 +1,67 @@
+REGISTRATION: automorphic chirp resonance along prime constellations, at shifted primes,
+and the full line spectrum on primes.  Frozen file: predictions_spectro.json
+sha256 7848335b687c2971a7fa3f1fa7b8b28c4d35021ce0c9e473c6412783b03adc0d   (freeze_sha256.txt; test_spectro.py refuses any other hash)
+
+HOLDOUT: primes in (3e7, 1e9].  Nothing was computed on it.  Every sum in this folder is on p < 3e7 (discovery range,
+looked at freely) or on integers (not primes) n < 3e7.
+
+1. HYPOTHESES (all with the label normalised |lambda(p)| <= 2; chirp e(-2 sqrt(n/N)); window Hann in v = sqrt n over
+   [sqrt 3e7, sqrt 1e9]; reading = smooth sum / (C * MT_unit), MT_unit = the constant-1 main term of round 153 (spectro_lib.main_term_unit))
+   H1 (twins, derived): sum over twin primes (p, p+2) of lambda(p) ln p ln(p+2) p^(-1/4) W e(-2 sqrt(p/N)) has constant
+      C_twinlo = prod_l L_l, L_l = (1/l) sum_{c mod l} f_l(c) R_l(c), f_l the twin density, R_l the per-class resonance.
+      For l !| N, R_l(0) = 1 + (l-1) rho_l, R_l(c != 0) = 1 - rho_l  ->  L_l = (1 - rho_l) * l(l-2)/(l-1)^2: C = 2 C2 * c.
+      Labels: 11a (N = 11), 15a (N = 15), A4 = 2cos 4 theta_p (N = 4), cubic -23 (N = 23; at l = 23 the support of lambda
+      changes the factor: C_twinlo = 2C2 c * 22/21, C_twinhi = 2C2 c * 20/21).  Same for the label on p + 2 (twinhi) and for
+      p with 2p + 1 prime (sg; C = 2C2 c, cubic: * 22/21).
+   H2 (shifted primes, derived): sum_p lambda(p+h) ln p (p+h)^(-1/4) W e(-2 sqrt((p+h)/N)) has constant
+      C_shift(h) = prod_l L_l with f_l = l/(l-1) [n != h mod l]; for l !| N: L_l = 1 + rho_l/(l-1) (l !| h), 1 - rho_l (l | h).
+      A4: C(2) = 0.7791, C(6) = 1.2466 (ratio 1.6 from the inert prime 3: rho_3 = -1/3); cubic -23: C(2) = C(6) = 0.8698.
+   H3 (lines on primes): sum_p lambda(p) ln p Hann(sqrt p) e(-2 sqrt(r p/N)) = c(r) MT(r) for every rational r = a/b with
+      cube-free b; c(r) = prod_l L_l(r) (lines_lib.py; good l: e_b = 0: lambda(l^ea) - chi lambda(l^(ea+2))/l, e_b = 1:
+      -chi lambda(l)/l, e_b = 2: chi/(l(l-1)), e_b >= 3: 0; bad l: measured exactly on integers).  Tested on A4 and on the
+      cubic -23: the 60 strongest lines each, 2 registered 'extra' lines (largest discovery deviations), 3 zero lines.
+   Alternatives (frozen per statistic in the json, as expected readings):
+      twins: factorised/independence (2C2 c / C: = 1 except the cubic 0.955, 1.050), no_resonance 0, integer_like_label
+             (2C2/C), no_twin_enhancement (c/C, ~0.757);
+      shifts: integer_like_label (1/C), prime_like (c/C), no_resonance 0.
+   ERRORS (fixed now): sigma_pred per reading = max(control rms, random model) on the discovery window, scaled to the holdout
+      window by the random-model integral of the weights (freeze_spectro.py). Lines: random-model sigma scaled the same way.
+      (Discovery: the control rms was 0.7-1.0 of the random model, so sigma_pred is conservative.)
+
+2. POWER (sigma_pred on the holdout)
+   twinlo: 11a 0.173, 15a 0.070, A4 0.064, cubic 0.106; pooled 0.042.  no_resonance is 24 pooled sigma away; no_twin_enhancement
+   5.8 pooled sigma; integer_like: 15a 8.7, A4 7.9, cubic 4.6 sigma each (11a: c = 0.966, not separable).
+   The cubic's 22/21 vs 20/21 asymmetry (derived) against factorisation: 0.4 sigma each: NOT testable here (reported only).
+   shifts: A4 shift2 0.026 (integer_like 1.284 is 11 sigma away), A4 shift6 0.024 (0.802: 8 sigma), cubic 0.049, 0.041.
+   lines: slope sigma 0.0050 (A4), 0.0062 (cubic).
+
+3. DECISIONS (fixed before the dry run was read; also in the json)
+   D1 primary: pooled twinlo reading (real parts, inverse variance, 4 labels) within 1 +- 3 sigma_pooled.
+   D2: over the 12 twin readings (twinlo, twinhi, sg x 4 labels, real and imaginary parts): chi2(derived) beats
+       no_resonance, integer_like_label, no_twin_enhancement by >= 25 wherever the predicted separation is >= 50.
+   D3: A4 shift2 and shift6 each within 3 sigma_pred of 1; chi2(integer_like) - chi2(derived) >= 25 on the 4 shift readings.
+   D4: line slopes (A4, cubic; 60 lines each) within 1 +- max(3 sigma, 0.02); the extra lines within 4 sigma of the
+       prediction; the zero lines |S| < 4 sigma.
+   D5: control frequencies reported (rms in units of sigma_pred), no decision (a decision of the form 'control rms within
+       [a, b] errors' cannot fail when the error is defined from the controls; here sigma_pred is fixed in advance instead).
+   FALSIFIER: pooled twinlo outside [0.80, 1.20], or A4 shift2 outside [0.90, 1.10], or a line slope outside [0.95, 1.05].
+
+4. DRY RUN (discovery range (0, 3e7], discovery windows, same code; NOT blind; out_test_dry.txt)
+   pooled twinlo 1.004 +- 0.081; twins chi2: derived 13.8 (24 numbers), factorised 13.2, no_resonance 466, integer_like 142,
+   no_twin_enhancement 46.7; shifts: A4 shift2 0.998 +- 0.056, shift6 1.009 +- 0.051, cubic 0.900 +- 0.104, 1.103 +- 0.087;
+   chi2 derived 3.8, integer_like 50.1; lines: slope A4 1.012 +- 0.010, cubic 0.996 +- 0.013; extra lines A4 205/26 dev 3.40,
+   5/9 dev 2.90, cubic 926/9 2.82, 277/2 2.45 (random-model sigma); zero lines all < 1.6 sigma.  Every decision passes.
+
+5. COMMANDS (from a scratch folder outside the repository, scripts in writeup/code/study/resonance/spectro/; each bounded; 97 chunks of 1e7; measured 31 s per chunk at 3e7 (dry run) and 18 s
+   at 1e9 (timing chunk (1e9, 1.01e9], outside the holdout, results discarded): about 35-45 min, i.e. 4-6 runs of 540 s)
+   (ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B test_spectro.py sums 540)   # repeat until ALL DONE
+   (ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B test_spectro.py read)
+   Memory per chunk: < 400 MB (two sieves of 1e7 and 2e7 bytes, two lattice label arrays of 1e7 float64).
+   PARI ellap at ~1e5 twin/Sophie-Germain primes per chunk and curve (the slowest part).
+
+6. SIDE RESULT, not registered (discovery only, p <= 3e6): conductor spectrometer (spectrometer.py, out_spectrometer_3e6*.txt,
+   out_spectrometer_3000000.json).  Input a(p) for p <= 3e6 only; matched filter over the predicted line comb r = a/b, b <= 4,
+   for every candidate N' in [2, 6000] and eps = +-1.  10 curves (11a1, 15a1, 27a1, 37a1, 43a1, 89a1, 389a1, 105 (c_A),
+   1053 (c_B), 5077a1): the argmax is the true (N, eps) in 10/10; z of the winner 10.5 (5077a1) to 46.0 (27a1), next best
+   z <= 22.1 (27a1 vs 108 = 4 N) and for 5077a1 7.4 (5075); c_hat/c_true within 0.95-1.05 (c_B 1.05, 15a1 0.975).
+   The runners-up are mostly multiples of N (4N, 9N, 8N) sharing a subcomb.  It is a bounded check, not a blind test.
