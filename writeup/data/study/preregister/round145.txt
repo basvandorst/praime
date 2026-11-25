@@ -1,0 +1,108 @@
+Round 145, pre-registered: moments of low zeros over all characters mod a prime q beyond the proved Gaussian range, read from primes alone (a measurement round).
+modulus, inside and beyond the mock-Gaussian range (Hughes-Rudnick 2003). Committed with predictions_frozen.json
+before any character value of the fresh moduli was computed. Development: ONE modulus, q = 10007 (pilot; used).
+Derivation and code: derivation.md, mock_sum.py (statistic), mock_test.py (predictions, readings), power.py,
+extrap_check.py, t1_power.py, validate_fft.py, validate_zeros.py.
+
+Why. Hughes-Rudnick prove that the m-th moment of the prime part of W_f over the q-2 non-principal characters mod a
+prime q is Gaussian when supp f-hat is inside (-2/m, 2/m) and conjecture that beyond it the moments follow U(N)
+(non-Gaussian). No numerical test of the region beyond was found. The pilot shows that at q ~ 1e4 the finite-q
+structure is O(1) relative to the N = infinity random-matrix values, so a pass/fail test of those values is NOT
+registered. Registered instead: (T0) the exact finite-q decomposition in the proven range; (T1) the conjectured
+Gaussian extension beyond the proof (kappa_3 up to s = 1, kappa_4 to s = 0.7) against the exact finite-q baseline;
+(T3) whether the deviation of the fourth cumulant from U(N) shrinks with q. Everything else: reported, no reading.
+
+Statistic. f-hat_s(u) = (1 - |u|/s)_+. For every non-principal chi mod q: P_s(chi) = W_f(chi) - Wbar_{a(chi)} =
+-(2/log q) sum_{n < q^s, q not| n} Lambda(n) n^-1/2 f-hat_s(log n/log q) Re chi(n) (explicit formula, checked against
+PARI zeros of all 248 characters mod 101 and 151 to 1.5e-8). One FFT of length q-1 per s (checked against direct
+sums, 200 characters, to 2e-14). kappa_m = population cumulants over the family (each character once), m = 2, 3, 4.
+
+Frozen predictions: reg/predictions_frozen.json, sha256(cells, json sort_keys) =
+a0ae8329685e326c09b1506a79e0a100888fcb6f364a8d6aa2dd03d23ae2eb99. Per (q, s), from primes only:
+  St_m  independent-phase (Steinhaus) cumulants, exact prime by prime                 (the diagonal: A = B as integers)
+  R_m   no-wrap deficit: tuples with 0 < |A - B| < q get the exact weight -1/(q-2)    (model R; derivation.md s. 3)
+  U_m   U(N), N -> infinity: U_2 = -int(|u|-1)_+ f-hat^2, U_3 = kappa_3^U, U_4 = kappa_4^U  (Toeplitz N = 300)
+  se_m_exp  expected delta-method se, scaled from the pilot;  Dpilot_m = S_m(pilot) - U_m;  D1L_m = Dpilot_m * 9.211/log q
+Measured: E_m = kappa_m - St_m;  S_m = E_m - R_m (the wrap-around part, |A - B| >= q: the only place where correlations
+of Lambda, Lambda*Lambda in progressions mod q enter, hence the only place the U(N) term can come from).
+
+Fresh moduli (fixed now; none of them has been run):
+  F3  = 30011, 30013, 30029, 30047          s = 0.3, 0.4, ..., 1.4
+  F5  = 100003, 100019, 100043, 100049      s = 0.3, ..., 1.4
+  F35 = 300007, 300017, 300023, 300043      s = 0.3, ..., 1.4
+  F6  = 1000003, 1000033, 1000037, 1000039  s = 0.3, ..., 1.0
+Commands (each < 1 min expected; machine 2 cores, 3.8 GB):
+  (ulimit -v 1500000; timeout 600 nice python -I mock_sum.py --q Q --sigmas <grid> --out fresh/qQ.npz)
+  validation: for the first modulus of each group rerun with --save-p into a scratch file, run validate_fft.py on it
+  (200 random characters; must PASS at 1e-8), then delete the file.
+  (ulimit -v 1500000; timeout 600 nice python -I mock_test.py read --pred reg/predictions_frozen.json --data fresh)
+mock_test.py read asserts that St_2 from the data file equals the frozen St_2 (same primes).
+
+Noise. The family is the whole population; the "se" is a model of the arithmetic q-to-q fluctuation: delta method on
+the family moments up to order 8 with n_eff = (q-1)/2 conjugate pairs (pilot: bootstrap over pairs agrees within
+~10 %). Checked on the data: within each group of 4 moduli, chi^2 of (S_m - group mean)/se over the T0 cells, reported;
+if chi^2/dof > 3 the se are rescaled by sqrt(chi^2/dof) for T1/T3 and this is reported.
+
+Readings and decisions (thresholds fixed now):
+ T0 exact baseline (theorem range). Cells: m = 2, s = 0.3..0.9; m = 3, s = 0.3..0.6; m = 4, s = 0.3, 0.4.
+    Prediction S_m = 0 (all 16 moduli). Pass: every |S/se| <= 4 and, per cell, sum of z^2 below its 0.1 % chi^2 point.
+    Pilot: |S/se| <= 0.3 in all these cells. A failure means the decomposition, the code, or the equidistribution of
+    the unbalanced wrap-around tuples is wrong; it is reported as such, not as a statement about zeros.
+ T1 Gaussian extension (conjecture; Hughes-Rudnick prove only s < 2/m). Cells: m = 3, s = 0.7, 0.8, 0.9, 1.0 (U(N):
+    kappa_3 = 0 exactly up to s = 1); m = 4, s = 0.5, 0.6, 0.7 (|U_4| <= 8e-6); m = 2, s = 1.0 (boundary).
+    H_RMT: S = 0.  H_lo (a lower-order term calibrated on the pilot, decaying like 1/log q): S = S_pilot * 9.211/log q.
+    Expected (pooled over 16, inverse-variance):          pooled se   H_lo     separation
+      m=3 s=0.7 / 0.8 / 0.9 / 1.0                         2.2e-5 / 3.4e-5 / 5.0e-5 / 7.0e-5   +5.2e-5 / +2.2e-4 / +6.8e-4 / +1.26e-3   2.3 / 6.4 / 13.5 / 18.1 se
+      m=4 s=0.5 / 0.6 / 0.7                               3e-6 / 6e-6 / 1.1e-5   -1e-6 / +3.7e-5 / +1.38e-4   - / 6.4 / 12.2 se
+      m=2 s=1.0                                           9.7e-5   +9.9e-4   10.3 se
+    (The pilot values S_pilot are themselves only 0.4-1.2 se; H_lo may be noise-calibrated.)
+    Decision per cell: H_RMT passes if |pooled S| <= 4 se and no group has |S_group| > 5 se_group. If H_RMT fails with
+    S > 0: compare the group values F3, F5, F35, F6: S*log q constant within 4 se -> recorded as a 1/log q lower-order
+    term (consistent with the q -> infinity conjecture); S not decreasing from F3 to F6 (S_F6 >= S_F3 at 4 se of the
+    difference) -> FALSIFIER of the Gaussian extension at accessible q (a structured term that does not decay).
+ T3 convergence direction, m = 4, s = 1.2, 1.3, 1.4 (moduli F3, F5, F35; log q = 10.31-12.61). Weighted fit
+    S_4 = alpha + beta/log q; alpha = the extrapolated wrap-around fourth cumulant.
+    H_conv (S_4 -> U_4 like 1/log q): alpha = U_4 = -0.02029, -0.03961, -0.06783.
+    H_stall (the pilot deviation persists): alpha = U_4 + Dpilot_4 = +0.00052, +0.00225, +0.00623.
+    Allowance for the extrapolation itself (theory side, not in the sampling band): the same fit applied to R_4,
+    which tends to 0, gives alpha_R = -0.0006, -0.0072, -0.0159 (s = 1.2, 1.3, 1.4; extrap_check_out.txt);
+    A(s) = max(|alpha_R(s)|, |alpha_R(1.1)| = 0.0037) = 0.0037, 0.0072, 0.0159.
+    Expected se(alpha) = 0.0033, 0.0046, 0.0064. t = (alpha - prediction)/sqrt(se^2 + A^2).
+    Decision per s: H_conv passes if |t_conv| <= 3; H_stall rejected if |t_stall| >= 4 (expected 4.2, 4.9, 4.3 when
+    H_conv is true). Both fail -> recorded "neither", with alpha. If H_stall passes and H_conv fails at all three s,
+    the deviation of kappa_4 from U(N) does not shrink over log q = 10.3-12.6: recorded as evidence against convergence
+    at the rate 1/log q (NOT a disproof of the q -> infinity conjecture, which allows slower convergence).
+ T2 (no reading; reported for every modulus): S_m, U_m, S_m/U_m for m = 2 and 3 at s = 1.1..1.4, m = 4 at s = 0.8..1.1,
+    and E_m against U_m; parity split (even/odd characters) of every cumulant; the mean <P>.
+    Reason for "no reading": the O(1/log q) terms of the 2-, 3-, 4-level densities for this family are not available
+    (the ratios-conjecture computation was not done); the pilot shows them at O(1) relative size: S_2 = 1.8-2.4 U_2
+    (s = 1.4-2.0), S_3 = 0.9-1.6 U_3 (s = 1.3-1.5) but 0.54 U_3 at s = 2, S_4 ~ 0 against U_4 = -0.068 (s = 1.4).
+
+Pilot values (q = 10007; development, all cells in pilot/pilot_read_out.txt):
+  T0 cells: |S/se| <= 0.3.   T1: S_3 = +0.00007, +0.00032, +0.00097, +0.00181 (s = 0.7..1.0; se 0.0005-0.0016);
+  S_4 = +0.00005, +0.00020 (s = 0.6, 0.7); S_2(1.0) = +0.0014 (se 0.0022).
+  T3 inputs: S_4 = +0.0005, +0.0023, +0.0062 at s = 1.2, 1.3, 1.4 (se 0.0026, 0.0037, 0.0050); U_4 as above.
+  For comparison only: E_4(s = 1.0) = -0.0184 equals R_4 = -0.0185, while U_4 = -0.0030.
+
+Theory's own uncertainty (kept out of the sampling bands):
+  T0: none beyond the uniform-share assumption for unbalanced wrap-around tuples (its fluctuation is inside se).
+  T1: unknown lower-order terms; H_RMT assumes they are below the pooled se (~1e-5..1e-4). This is an assumption.
+  T3: the 1/log q form; allowance A(s) from the deficit's own extrapolation; 1/log^2 q terms could exceed it.
+  Speed of convergence in q: unknown; nothing in this round assumes more than T3's 1/log q.
+
+Every predicted cell and its reading:
+  St_m (all cells) ............................... enters E_m; checked equal to the data file (assert)
+  R_m, U_m, T0 cells ............................. T0
+  T1 cells ....................................... T1
+  m = 4, s = 1.2-1.4 (F3, F5, F35) ................ T3
+  m = 4 at F6 (s <= 1.0), m = 2, 3 at s >= 1.1, m = 4 at s = 0.8-1.1 ... T2, no reading
+  D1L_m, Dpilot_m (JSON) .......................... inputs of H_lo / H_stall
+  Gaussian values (kappa_3 = kappa_4 = 0) .......... no reading (the diagonal is already far from them at finite q:
+                                                     pilot kappa_3/kappa_2^1.5 = -0.24 at s = 0.4)
+
+Falsifier, in one line: the exact finite-q decomposition fails in the proven range (T0); or a wrap-around third
+cumulant on (2/3, 1] that does not decrease from q ~ 3e4 to q ~ 1e6 (T1); T3 can record "no convergence at rate
+1/log q" but cannot falsify the q -> infinity conjecture.
+
+Order: commit this file and predictions_frozen.json -> mock_sum.py on the 16 fresh moduli -> validation subset ->
+noise check -> T0 -> T1 -> T3 -> T2. Report every reading, passed or failed.
