@@ -1,0 +1,64 @@
+=== one-point (my theta, my c_E, my rho) ===
+  O1 r=1 b20_400 [intercept, slope]                                 0.5254 +- 1.2695 (sw 1.2561)     0.9865 +- 0.0124 (sw 0.0122)
+  O2 lines r!=1 pooled b20_400                                      0.9869 +- 0.0075 (sw 0.0074)
+  O12 all 13 lines pooled b20_400                                   0.9871 +- 0.0059 (sw 0.0058)
+  Im G mean (13 lines) b20_400: -0.091, rms Re(G-law) r=1: 14.10
+  O1 r=1 b20_200 [intercept, slope]                                 0.3701 +- 0.8579 (sw 0.8486)     1.0085 +- 0.0182 (sw 0.0180)
+  O2 lines r!=1 pooled b20_200                                      0.9779 +- 0.0108 (sw 0.0108)
+  O12 all 13 lines pooled b20_200                                   0.9863 +- 0.0082 (sw 0.0082)
+  Im G mean (13 lines) b20_200: -0.106, rms Re(G-law) r=1: 9.63
+  O1 r=1 b200_400 [intercept, slope]                                0.1554 +- 1.1099 (sw 1.0981)     0.9667 +- 0.0202 (sw 0.0199)
+  O2 lines r!=1 pooled b200_400                                     0.9951 +- 0.0129 (sw 0.0128)
+  O12 all 13 lines pooled b200_400                                  0.9878 +- 0.0102 (sw 0.0101)
+  Im G mean (13 lines) b200_400: 0.016, rms Re(G-law) r=1: 12.37
+  per line slope (no intercept): 1/1:0.988 2/1:1.006 1/2:0.984 3/1:0.998 1/3:0.955 4/1:1.009 1/4:0.977 5/1:0.979 1/5:0.999 7/1:1.014 1/7:0.991 3/2:1.005 2/3:0.943
+=== c_E dependence of the r = 1 line (band 20-400) ===
+  amplitude ~ c_E = B/L(1,Sym2)    slope 0.9876 +- 0.0116  RSS 27244
+  amplitude ~ 1 (constant)         slope 1.3526 +- 0.0704  RSS 342846
+  amplitude ~ 1/L(1,Sym2)          slope 1.7257 +- 0.0501  RSS 144997
+  amplitude ~ B alone              slope 0.8154 +- 0.0315  RSS 174939
+  amplitude ~ c_E^2                slope 0.4169 +- 0.0179  RSS 136262
+  amplitude ~ sqrt c_E             slope 1.3028 +- 0.0328  RSS 92376
+  [c_E, 1/L(1,Sym2) - c_E]                                          1.0040 +- 0.0361 (sw 0.0354)     0.0341 +- 0.0741 (sw 0.0720)
+  [c_E, 1 - c_E]                                                    0.9863 +- 0.0233 (sw 0.0230)    -0.0029 +- 0.0420 (sw 0.0414)
+  power law amplitude ~ c^gamma: best gamma 1.01, 1-sigma range 0.98..1.04
+=== pairs (my X, frozen pred) ===
+  s0.5 X1 [a, slope]                                               -0.0018 +- 0.0012 (sw 0.0009)     0.9672 +- 0.0116 (sw 0.0106)
+  s0.5 X5 [a, H-1 coefficient]                                     -0.0019 +- 0.0012 (sw 0.0009)     0.9628 +- 0.0157 (sw 0.0142)
+  s0.5 X6 continuum mean (13 lines)                                -0.0011 +- 0.0010 (sw 0.0008)
+    corr(pred, law13) = 0.955 ; mean(pred - law13) = 0.0055
+  s0.5 Re X on measured 13-line products (no law)                   0.0039 +- 0.0014 (sw 0.0012)     1.0878 +- 0.0172 (sw 0.0154)
+  s0.5 Im X mean                                                   -0.0010 +- 0.0011 (sw 0.0009)
+  s0.5 X1 window 20-208                                            -0.0022 +- 0.0017 (sw 0.0014)     0.9834 +- 0.0185 (sw 0.0171)
+  s0.5 X1 window 208-396                                           -0.0014 +- 0.0021 (sw 0.0017)     0.9510 +- 0.0235 (sw 0.0219)
+  X1 slope without the k curves of largest jackknife influence:
+   top-5 curve influences on slope: N2555_0_0_1_2_m21(c=0.69):+0.0036 N2290_1_0_0_m5_5(c=1.94):+0.0026 N377_1_m1_0_m13_0(c=1.83):-0.0022 N1157_0_1_1_m3_m3(c=1.95):-0.0022 N1405_1_m1_0_1_m2(c=1.98):-0.0022
+     drop 5 most influential curves (8778 pairs)                   -0.0018 +- 0.0012 (sw 0.0010)     0.9669 +- 0.0107 (sw 0.0095)
+     drop 10 most influential curves (8128 pairs)                  -0.0021 +- 0.0012 (sw 0.0010)     0.9646 +- 0.0106 (sw 0.0092)
+     drop 10 pairs of largest |pred|                               -0.0018 +- 0.0012 (sw 0.0009)     0.9676 +- 0.0118 (sw 0.0108)
+     drop 100 pairs of largest |pred|                              -0.0017 +- 0.0012 (sw 0.0009)     0.9674 +- 0.0128 (sw 0.0116)
+   leverage share of top 10 / 100 / 1000 pairs: 0.023 0.134 0.591
+     subgroup both rank 0 (1225 pairs), slope through 0             0.9814 +- 0.0299 (sw 0.0256)
+     subgroup both rank >= 1 (3828 pairs), slope through 0          0.9530 +- 0.0139 (sw 0.0124)
+     subgroup rank 2 involved (1950 pairs), slope through 0         0.9512 +- 0.0252 (sw 0.0205)
+     subgroup both N < 1500 (2850 pairs), slope through 0           0.9674 +- 0.0179 (sw 0.0154)
+     subgroup both N >= 1500 (1891 pairs), slope through 0          0.9569 +- 0.0195 (sw 0.0164)
+     subgroup both c > 1.5 (1596 pairs), slope through 0            0.9709 +- 0.0165 (sw 0.0143)
+     subgroup both c < 1 (1653 pairs), slope through 0              0.9624 +- 0.0297 (sw 0.0251)
+   equal conductor: 9 pairs: ReX [-0.126 -0.21  -0.144 -0.157 -0.062  0.284  0.065 -0.15   0.037] pred [-0.086 -0.141 -0.044 -0.158 -0.079  0.225  0.128 -0.195  0.046]
+  s1.0 X1 [a, slope]                                               -0.0009 +- 0.0018 (sw 0.0014)     0.9671 +- 0.0139 (sw 0.0129)
+  s1.0 X5 [a, H-1 coefficient]                                     -0.0012 +- 0.0017 (sw 0.0013)     0.9691 +- 0.0197 (sw 0.0181)
+  s1.0 X6 continuum mean (13 lines)                                -0.0003 +- 0.0015 (sw 0.0012)
+    corr(pred, law13) = 0.978 ; mean(pred - law13) = 0.0049
+  s1.0 Re X on measured 13-line products (no law)                   0.0043 +- 0.0017 (sw 0.0014)     1.0233 +- 0.0092 (sw 0.0076)
+  s1.0 Im X mean                                                   -0.0012 +- 0.0017 (sw 0.0013)
+=== one-point subgroups (r = 1 and 13 lines pooled, band 20-400) ===
+   rank 0   ( 50 curves): r=1 slope 0.9837 +- 0.0257 ; 13 lines 0.9994 +- 0.0124
+   rank 1   ( 73 curves): r=1 slope 0.9905 +- 0.0135 ; 13 lines 0.9834 +- 0.0068
+   rank 2   ( 15 curves): r=1 slope 0.9694 +- 0.0422 ; 13 lines 0.9638 +- 0.0183
+   w=+1     ( 65 curves): r=1 slope 0.9817 +- 0.0228 ; 13 lines 0.9931 +- 0.0107
+   w=-1     ( 73 curves): r=1 slope 0.9905 +- 0.0135 ; 13 lines 0.9834 +- 0.0068
+   N<1500   ( 76 curves): r=1 slope 0.9945 +- 0.0164 ; 13 lines 0.9832 +- 0.0090
+   N>=1500  ( 62 curves): r=1 slope 0.9805 +- 0.0169 ; 13 lines 0.9914 +- 0.0073
+   c>1.5    ( 57 curves): r=1 slope 0.9951 +- 0.0124 ; 13 lines 0.9850 +- 0.0074
+   c<1      ( 58 curves): r=1 slope 1.0180 +- 0.0539 ; 13 lines 0.9956 +- 0.0125
