@@ -1,0 +1,152 @@
+Round 141, pre-registered: two spectra on the same orbits. The cross-correlation of the zeros of two different
+Dirichlet L-functions, prime by prime, and the Gram-lattice term of nearly equal conductors. To be committed with
+predictions_cross.json, predictions_cross_pairs.npz and swap_pred_NN.npz / swap_pred_NO.npz before any cross statistic
+of the fresh design was computed (commit order shows the order). When the predictions were made: the zeros of Fn (r138_Fn) were being computed for round
+138 and were not read; on the used real sets R120 + B + Dn (546 L-functions, 100-600) only NOISE of the cross
+covariances was computed (noise.py, noise2.py: the residual dispersion after the regression on the predictors and
+jackknife standard errors; no coefficient, amplitude or comparison with a prediction was printed or looked at).
+Disclosure: that residual dispersion (0.0039 per pair at w = 0.3, 0.003 at w >= 0.6, against a predicted spread of the
+law over pairs of 0.008 at w = 0.3 and 0.025-0.079 at w >= 0.6) already shows that the used pair covariances are linear
+in the registered predictors (residual variance 25 % of the predicted variance at w = 0.3, below 1.5 % at w >= 0.6); it
+does not fix any coefficient. Derivation and code in writeup/code/study/lowzero/cross/: derivation.md, crosslib.py, swaplib.py, readings.py,
+predict.py, leak.py, swap_run.py, rcross.py (the analysis), check.py (independent recomputation).
+
+Why. The physics picture: the zeros of L(s, chi) are the levels of a chaotic system whose periodic orbits are the prime
+powers, orbit p^m carrying the phase chi(p)^m. Two L-functions are two spectra on the SAME orbits with different
+phases. Rounds 117-136 tested one spectrum (the missing orbits p | k); the phases chi(p) never entered a one-function
+statistic (only |chi(p)|^2 does). A cross statistic is the first place where the phase of each orbit is visible.
+
+The law (derivation.md sections 2-4; the ratios recipe and the semiclassical diagonal sum give the same term;
+conjecture). chi_1 mod k1, chi_2 mod k2 primitive and distinct, psi = chi_1 conj(chi_2) (0 at p | k1 k2), eps = t2 - t1:
+  R12(t1, t2) = dbar_1 dbar_2 + (1/2pi^2) Re D_psi(-i eps) + R12_swap,  D_psi(z) = sum_n Lambda(n)^2 psi(n) n^(-1-z)
+  = (L'/L)'(1+z, psi) - sum_p ln^2 p psi(p)^2 p^(-2-2z)/(1 - psi(p) p^(-1-z))^2   (finite: psi is never principal).
+  Window counts in the common height t: dn_j(t) = #{gamma_j in (t, t+w]} - (theta_j(t+w) - theta_j(t))/pi;
+  Cov(dn_1, dn_2)(w) = (2/pi^2) sum_p sum_m Re[psi(p)^m] sin^2(m w ln p/2)/(m^2 p^m)
+                     = (1/pi^2) ln(|L(1,psi)| / sqrt(|L(1+iw,psi)| |L(1-iw,psi)|)) - (m >= 2 correction).
+  Real characters: prime p adds A_p(w) chi_1(p) chi_2(p) + B_p(w) 1[p not | k1k2]; A_p, B_p >= 0: characters that agree
+  at p give positively correlated counts, characters that disagree negatively correlated ones. Peaks of A_p: 0.104
+  (p = 2, w = 4.5), 0.068 (3), 0.040 (5), 0.029 (7); correlation coefficients up to 0.25, 0.16, 0.10, 0.07.
+  Swapped term: (1/4pi^2){(k1/phi(k1))(k2/phi(k2)) eps_1 conj(eps_2) e^(2i(theta_2(t2) - theta_1(t1))) H(eps) + c.c.},
+  H(eps) = L(1-i eps, psi) L(1+i eps, conj psi) A12(-i eps). Its phase drifts like (k2/k1)^(it): kept by the recipe only
+  for k1 = k2; at finite height it survives for nearly equal conductors (up to 0.046 per pair, rms 0.002-0.005 over the
+  3,080 near pairs of NN); for |D1| = |D2|
+  (opposite parity) it is exactly odd and adds 0 to equal-window covariances. It is the cross version of the
+  Bogomolny-Keating off-diagonal term and of the one-point Gram term (sum over zeros of e^(2i theta(gamma)) = -T/2pi + ...,
+  in print for zeta): two spectra locked to nearly the same Gram lattice.
+
+Hypotheses (parameter-free):
+  H_law    the law above, in its finite-range form on the registered grid (orbits n <= 300 with the exact grid averages
+           of the products of their cosines; leak.py): every amplitude reading has the expected value in the table.
+  H_indep  no cross-correlation (the zeros of distinct L-functions independent, the leading-order statement in print):
+           every amplitude 0.
+  H_flip   the diagonal term with the wrong sign: every amplitude -1.
+  H_abs    the orbits are shared but their phases are not: Cov = sum_p (A_p + B_p) 1[p not | k1k2]: gamma_p = 0,
+           gammaB_p large.
+  H_noswap the swapped term absent (for k1 != k2 it is what the recipe keeps as T -> infinity): gamma_sw = 0.
+
+Frozen predictions: predictions_cross.json (sha256 9b11030a6016e4f8dbd4b9929efc10535c2545221ba88b6e8fcf1cc8aa960376) with the per-prime tables A_T, B_T (finite grid), the expected
+readings of every design under every hypothesis; predictions_cross_pairs.npz (sha256 79fde4be378ce71b97f736f2a73b60f7ea63a9f2ef72a7f6128bbee600540f58) with, for every pair of NN
+and NO, the law FULL(w) (finite-range form, primes <= 2e5), REST(w) (primes > 7) and chi_1(p)chi_2(p) at 2, 3, 5, 7;
+swap_pred_NN.npz (sha256 43382b0203f5637a0e1e972b791efca4a9520e2ddf37171c730dfef0a68ce2ef), swap_pred_NO.npz (670c86fb5d1ec815017e952a32be2e15f4bd8c5f33e289d2091d6ad3fe6d3d1d) with the swapped term for the pairs with averaging factor F > 0.1
+(Euler product of H to 5e4, u-step 0.06; equal |D| pairs are exactly 0). OO (test O) predictions are regenerated by
+predict.py and swap_run.py OO before test O is run.
+
+DESIGN NN (primary, fresh): the 186 fundamental discriminants 1000 < |D| <= 1300 of round 138 (zeros r138_Fn, 100-600),
+  all 17,205 pairs. 3,080 pairs have F > 0.1 (the conductors are dense), 1,132 have F > 0.3.
+DESIGN NO (secondary, fresh pairs): Fn x the 546 used real sets (R120, B, Dn; 100-600), 101,556 pairs (134 with F > 0.1).
+DESIGN OO (optional, "zeros known, noise computed, statistic new"): the 546 used sets among themselves, 148,785 pairs.
+
+Data and completeness: as round 138 (N(t) - theta_chi(t)/pi on 200 heights in [100, 600] and at the ends, and the largest
+unfolded gap; a set with |N - theta/pi| > 1.5 or a gap > 3.0 is repaired with fixpairs.py or excluded with all its
+pairs, and reported). A missing zero changes dn of its set by -1 over a stretch of length w: it biases every pair of that
+set; the rule is applied before any statistic.
+
+Statistic per pair (new; fixed): w_k = 0.3 k (k = 1..16; 0.5-8.5 mean spacings at L = 10.3-11.1); t = 100 + 0.02 j,
+  t <= 600 - w; dn_j as above with theta_chi(t) = (t/2) ln(q/pi) + Im lnGamma((1/2 + a + it)/2), a = 0 for D > 0, 1 for
+  D < 0; C_ij(w) = mean_t dn_i(t) dn_j(t) (no mean subtraction).
+
+Readings (readings.py; per width an OLS over the pairs of C on [1, psi_2, psi_3, psi_5, psi_7, b_2, b_3, b_5, b_7, REST,
+SWAP], psi_p = chi_1(p)chi_2(p), b_p = psi_p^2; standard errors by the delete-one-L-function jackknife, which carries
+the dependence of pairs that share an L-function):
+ X1 (primary) per-prime amplitudes gamma_p = sum_k s_p(w_k) A_p(w_k)/sum_k A_p(w_k)^2, p = 2, 3, 5, 7.
+ X2 (primary) gamma_full: the pooled slope of C on FULL over pairs and widths (centred per width).
+ X3 shape: chi2_p over the 16 widths of s_p(w) - expected s_p(w) with the jackknife covariance, p = 2, 3 (the orbit
+    period ln p: the sin^2(w ln p/2) profile; p = 5 and 7 reported, no reading).
+ X4 the second traversal: gammaB_2, gammaB_3 (coefficients of b_p against B_p; the phase chi(p)^2 = 1 in both spectra).
+ X5 the other orbits: gamma_rest (coefficient of REST, primes > 7), and small_w (the slope on FULL at w = 0.3 and 0.6,
+    where orbits up to the Heisenberg range carry most of the spread).
+ X6 (secondary, the Gram-lattice term) gamma_sw: the coefficient of SWAP (mean over the widths). Expected 1 under H_law,
+    0 under H_noswap.
+ X7 level: the 16 intercepts (expected 0).
+
+Expected values and standard errors (expected readings: predict_out.txt; se: jackknife on used sets, noise only,
+noise_out.txt and noise2_out.txt; NN and NO from 186-function subsets of the used sets):
+  Design NN (17,205 pairs; se from two 186-function subsets of the used sets; z = |E(H_law) - E(H)|/se):
+    reading     E(H_law)  E(H_indep) E(H_flip) E(H_abs)   expected se      z vs indep   z vs flip
+    gamma_2     0.9998    0          -0.9998   0          0.0007-0.0008    ~1,300       ~2,600
+    gamma_3     0.9997    0          -0.9997   0          0.0011           ~900         ~1,800
+    gamma_5     1.0002    0          -1.0002   0          0.0018-0.0020    ~530         ~1,050
+    gamma_7     1.0001    0          -1.0001   0          0.0020-0.0021    ~490         ~980
+    gammaB_2    1.0041    0          -1.0041   6.41       0.008-0.009      ~120         (H_abs ~650)
+    gammaB_3    1.0063    0          -1.0063   9.15       0.015-0.016      ~65
+    gamma_rest  1.0010    0          -1.0010   0          0.0017           ~590
+    gamma_full  1.0000    0          -1.0000   0.024      0.0006-0.0007    ~1,600       ~3,200
+    small_w     1.0000    0          -1.0000   0.021      0.0017-0.0018    ~560
+    gamma_sw    1         (H_noswap 0)                    0.020-0.027 (scaled from the used sets by the sum of squares
+                                                          of the predictor, 0.56 on NN)            ~40 vs H_noswap
+    intercepts  0                                         ~1e-4 per width
+    per-width coefficients s_p(w): se 2-9e-5 against A_p(w) up to 0.104 (expected s_p(w) in predictions_cross.json,
+    expected_readings.NN.H_law.per_w_s).
+  Design NO (101,556 pairs): E(H_law) within 1e-4 of 1 for gamma_p, gamma_full, small_w; gammaB_2 1.0007, gammaB_3
+    1.0035. se from 186 x 360 subsets: gamma_2 0.0004, gamma_3 0.0007, gamma_5 0.0011, gamma_7 0.0011-0.0012,
+    gammaB_2 0.0045, gamma_rest 0.0009-0.0010, gamma_full 0.0003-0.0004; gamma_sw: only 134 near pairs (sum of squares
+    0.0064, se ~0.2): reported, no reading.
+  Design OO (148,785 pairs): se gamma_2 0.0004, gamma_3 0.0006, gamma_5 0.0010, gamma_7 0.0010, gammaB_2 0.0039,
+    gamma_rest 0.0008, gamma_full 0.0003, small_w 0.0008, gamma_sw 0.0146 (crude predictor).
+  Residual sd of the pair covariances after the regression (used sets, every design): 0.0039 at w = 0.3, 0.0029-0.0031
+  at w >= 0.6; the finite-range part of the law (in the predictions) has sd 0.0007-0.0016.
+  Dry runs: the readings on the law plus Gaussian noise of 0.003 per pair return every amplitude within 0.005 of E;
+  rcross.py NN on synthetic Poisson zeros returns every amplitude within 1.2 se of 0 (law rejected, independence not).
+
+Decisions (thresholds fixed now; the jackknife se of the data replaces the expected se):
+ D1 (primary falsifier) H_law passes if |gamma_p - E_p| <= 4 se for p = 2, 3, 5, 7, |gamma_full - E| <= 4 se, and chi2_2,
+    chi2_3 are below the 0.1 % point of chi2(16) (39.3); it is falsified otherwise.
+ D2 H_indep is rejected if gamma_full >= 5 se and gamma_2 >= 5 se; H_flip if gamma_full + 1 >= 5 se; H_abs if
+    gamma_2 >= 5 se and gamma_3 >= 5 se.
+ D3 (Gram-lattice term) H_law passes X6 if |gamma_sw - 1| <= 4 se; H_noswap is rejected if gamma_sw >= 5 se. The
+    swap predictor carries its own scale uncertainty (Euler product of H to 5e4: slope 0.956 against 2e5, which is
+    itself not converged): a failure with |gamma_sw - 1| <= 0.2 is recorded as within that allowance.
+ D4 The theory's own uncertainty is NOT in the bands. Computed: the finite-range terms move the amplitudes by <= 6e-4
+    (in the expected values); the prime cutoff of the pair predictions <= 1e-4 per pair; the Euler-product cutoff of H
+    scatters the swap predictions by about 10 % per pair. Not computed: lower-order terms of the ratios recipe beyond
+    the finite-range form. If D1 fails with every |gamma - E| <= 0.003 this is recorded as a finite-range offset (with its
+    sign and the primes involved), not as a falsification of the orbit law; likewise a failure of X3 with every
+    |s_p(w) - E s_p(w)| <= 0.003 max_w A_p(w) (3e-4 for p = 2, 2e-4 for p = 3; the per-width se are 2-9e-5, so X3
+    is sharper than the theory is known to be). Beyond these allowances the law fails.
+ Reported in all cases: every reading, the per-width coefficients, the intercepts, the completeness numbers.
+
+Every predicted cell and its reading:
+  per-prime amplitudes p = 2, 3, 5, 7 .................. X1 (and X3 for the shape at 2, 3)
+  the full law per pair (all primes) .................... X2, X5
+  even-m terms B_2, B_3 ................................. X4; B_5, B_7: reported, no reading
+  swapped (Gram-lattice) term, near-equal conductors .... X6 (NN; NO and OO reported)
+  equal-|D| pairs: swapped term exactly 0 ............... no reading (in X6 as zeros)
+  complex characters (phase law cos(m(phi_1 - phi_2)),
+    the root-number term of equal modulus and parity) .. no reading (no fresh complex sets; possible test on r121)
+  lagged windows, one-point Gram term ................... no reading
+
+Falsifier, in one line: the law is falsified on NN if the pair covariances of the counts do not carry each prime
+p = 2, 3, 5, 7 with the sign chi_1(p)chi_2(p) and the size A_p(w) (any |gamma_p - E_p| > 4 se beyond the 0.003
+allowance, or the p = 2 or 3 profile in w beyond the 0.1 % point), or the full law per pair at its size.
+
+Order: commit this file and the prediction files -> (Fn complete for round 138) -> completeness -> pair covariances ->
+readings (rcross.py NN, then NO; OO optional). Report every reading, passed or failed.
+
+Statuses: the cross two-point function is a conjecture (ratios recipe = semiclassical diagonal sum, derived here for
+two characters; the swapped term's constants are copied from the one-function case); the covariance formula, its
+closed form with L(1 +- iw, psi), the per-prime decomposition and sign, the finite-range form and the swapped-term window
+integral are derived here; the numbers are computed. In print (derivation.md section 9): the leading-order independence
+of distinct L-functions (Bogomolny-Leboeuf 1994 heuristically, Rudnick-Sarnak 1996, Liu-Ye 2002 rigorously for restricted
+support, Murty-Perelli 1999 as a conjecture); a ratios-conjecture derivation of the pair correlation of two different
+L-functions in an unpublished preprint (Conrey-Simons-Smolyarenko, not opened); the one-point Gram term for zeta
+(arXiv 1403.7126). No numerical test of the cross term on zeros was found.
