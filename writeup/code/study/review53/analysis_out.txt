@@ -1,0 +1,49 @@
+=== A. off-diagonal fraction (lambda = 1: recipe, 0: H_diag sharp) ===
+  CV  lambda = 0.948 +- 0.068   (mean P_diag/P_full 1.1132)
+  raw lambda = 1.050 +- 0.107   (mean P_diag/P_full 1.1132)
+  sharp (registered)                         mean P_c/P_full 1.1132 [1.072, 1.271]  W=[]   data/H_c (CV) 0.9036 +- 0.0073
+  smooth V^2, G=exp(w^2/0.5^2)               mean P_c/P_full 0.9001 [0.850, 1.000]  W=[-1.5958, 4.0, -5.3192]   data/H_c (CV) 1.1176 +- 0.0089
+  weight V (not squared), delta 0.5          mean P_c/P_full 1.1902 [1.121, 1.398]  W=[0.0, 4.0, 0.0]   data/H_c (CV) 0.8452 +- 0.0073
+  smooth V^2, G=exp(w^2/1.0^2)               mean P_c/P_full 0.9895 [0.948, 1.108]  W=[-0.7979, 1.0, -0.6649]   data/H_c (CV) 1.0166 +- 0.0081
+  weight V (not squared), delta 1.0          mean P_c/P_full 1.1325 [1.085, 1.303]  W=[0.0, 1.0, 0.0]   data/H_c (CV) 0.8883 +- 0.0073
+  smooth V^2, G=exp(w^2/2.0^2)               mean P_c/P_full 1.0468 [1.007, 1.182]  W=[-0.3989, 0.25, -0.0831]   data/H_c (CV) 0.9609 +- 0.0077
+  weight V (not squared), delta 2.0          mean P_c/P_full 1.1181 [1.076, 1.279]  W=[0.0, 0.25, 0.0]   data/H_c (CV) 0.8997 +- 0.0073
+  smooth V^2, G=exp(w^2/4.0^2)               mean P_c/P_full 1.0789 [1.038, 1.225]  W=[-0.1995, 0.0625, -0.0104]   data/H_c (CV) 0.9324 +- 0.0075
+  weight V (not squared), delta 4.0          mean P_c/P_full 1.1144 [1.073, 1.273]  W=[0.0, 0.0625, 0.0]   data/H_c (CV) 0.9026 +- 0.0073
+  sharp unbalanced theta 0.45                mean P_c/P_full 1.1380 [1.087, 1.312]  W=[]   data/H_c (CV) 0.8839 +- 0.0073
+  sharp unbalanced theta 0.40                mean P_c/P_full 1.2123 [1.129, 1.440]  W=[]   data/H_c (CV) 0.8298 +- 0.0074
+  sharp unbalanced theta 0.30                mean P_c/P_full 1.5095 [1.297, 2.065]  W=[]   data/H_c (CV) 0.6664 +- 0.0078
+  check: my sharp H_diag from frozen g vs frozen diag integral: max rel diff 3.6e-15
+=== B. lower-order terms ===
+  check: sum of |m| parts / frozen full: max rel 3.8e-15
+  |m| = 0 share of int P: median +0.803  [+0.343, +2.665]  sd 0.337
+  |m| = 1 share of int P: median +0.192  [-2.346, +0.476]  sd 0.378
+  |m| = 2 share of int P: median +0.032  [-0.142, +0.752]  sd 0.083
+  |m| = 3 share of int P: median +0.003  [-0.095, +0.043]  sd 0.011
+  amplitude of |m| = 1 terms: shape (centred slope, CV) 1.003 +- 0.018 ; from the level (CV) 0.925 +- 0.104
+  amplitude of |m| = 2 terms: shape (centred slope, CV) 1.022 +- 0.077 ; from the level (CV) 0.873 +- 0.167
+  amplitude of |m| = 3 terms: shape (centred slope, CV) 1.013 +- 0.650 ; from the level (CV) -1.344 +- 3.041
+  kirk x A3/prodAij (pairs-only lower order)     P_c/P_full mean 1.0379 sd(ln) 0.0848 | gamma (1 recipe, 0 alt) 1.014 +- 0.060 | level CV 0.9763 +- 0.0087 raw 0.9649 +- 0.0127
+  no3 x A3/prodAij (no three-body derivatives)   P_c/P_full mean 1.0380 sd(ln) 0.0924 | gamma (1 recipe, 0 alt) 1.015 +- 0.057 | level CV 0.9776 +- 0.0089 raw 0.9662 +- 0.0130
+  h(0) prod(L_j + 2 gamma) (|m| = 0 only)        P_c/P_full mean 0.8713 sd(ln) 0.3555 | gamma (1 recipe, 0 alt) 1.007 +- 0.018 | level CV 1.3088 +- 0.0488 raw 1.2943 +- 0.0469
+  drop |m| >= 2                                  P_c/P_full mean 0.9506 sd(ln) 0.0939 | gamma (1 recipe, 0 alt) 1.028 +- 0.067 | level CV 1.0684 +- 0.0097 raw 1.0562 +- 0.0152
+  lead h(0) prod L_j                             P_c/P_full mean 0.6406 sd(ln) 0.3564 | gamma (1 recipe, 0 alt) 1.007 +- 0.018 | level CV 1.7812 +- 0.0677 raw 1.7615 +- 0.0650
+=== C. thirds of [100, 1000] ===
+  [ 100, 400] triples raw 1.0228 +- 0.0254  CV 0.9965 +- 0.0144  gamma_no3 0.969 +- 0.030 | pairs 1.0092 +- 0.0090 | singles 1.0005 +- 0.0027 | fourth 1.0157 +- 0.0180
+  [ 400, 700] triples raw 0.9827 +- 0.0232  CV 0.9981 +- 0.0130  gamma_no3 1.003 +- 0.039 | pairs 0.9942 +- 0.0081 | singles 0.9989 +- 0.0035 | fourth 0.9805 +- 0.0202
+  [ 700,1000] triples raw 0.9844 +- 0.0288  CV 1.0230 +- 0.0195  gamma_no3 1.016 +- 0.053 | pairs 0.9842 +- 0.0089 | singles 0.9929 +- 0.0039 | fourth 0.9545 +- 0.0199
+=== D. subgroups and skewness ===
+  q1q2q3     0      n  667  raw 0.9999 +- 0.0185  CV 1.0123 +- 0.0110
+  q1q2q3     1      n  666  raw 0.9893 +- 0.0152  CV 1.0057 +- 0.0093
+  q1q2q3     2      n  667  raw 0.9939 +- 0.0189  CV 0.9998 +- 0.0136
+  n shared   0      n 1035  raw 1.0031 +- 0.0154  CV 1.0116 +- 0.0107
+  n shared   1      n  752  raw 0.9914 +- 0.0149  CV 1.0035 +- 0.0112
+  n shared   2      n  109  raw 0.9492 +- 0.0182  CV 0.9780 +- 0.0139
+  n shared   3      n  104  raw 0.9758 +- 0.0171  CV 0.9964 +- 0.0125
+  n neg D    0      n  166  raw 0.9904 +- 0.0302  CV 1.0121 +- 0.0273
+  n neg D    1      n  654  raw 1.0011 +- 0.0174  CV 1.0157 +- 0.0115
+  n neg D    2      n  884  raw 0.9819 +- 0.0131  CV 0.9948 +- 0.0095
+  n neg D    3      n  296  raw 1.0188 +- 0.0221  CV 1.0141 +- 0.0175
+  r3: mean 0.9944 median 0.9734 sd 0.1754 skew 1.64 ; CV quantity: mean 1.0059 median 0.9921 skew 1.30
+  pairs: mean 0.9950 median 0.9939 skew 0.30 ; singles: mean 0.9973 median 0.9973 skew -0.28
+  deleting one character moves raw level to [0.9896 (del 904), 0.9966 (del -983)]; CV [1.0038, 1.0080]
