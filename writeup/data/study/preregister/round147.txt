@@ -1,0 +1,141 @@
+Round 147, pre-registered: nearest-neighbour statistics of the zeros per prime dividing the conductor: the spacing variance and the gap ratio.
+conductor - the spacing variance and the gap ratio per missing prime.  To be committed with predictions_spacing.json
+(sha256 0c6501d00771fc91467d45562db555da561e1cd5e28d591408a76bb006f0adee) and spacing_test.py before any statistic of
+the test sets is computed.  State of the test sets when this file is committed: on r134_B, r136_Dn, r138_Fn (heights
+100-600) and r134_C, r138_Bp (600-1000) no mean and no per-prime coefficient of the spacing variance and no gap-ratio
+statistic of any kind was ever computed (repo grep: largest/smallest unfolded gaps for completeness only; round 138's
+triple/noise.py printed the residual sd of var(s) after the prime-indicator regression for B, Dn and C, noise only;
+Fn and Bp: completeness only).  The predictions read only the discriminant lists of these files.
+Derivation and code: derivation.md, lib/ (closure.py, gapcalc.py, fred.py, loadlibs.py), predlib.py, freeze.py,
+power.py, spacing_test.py.
+
+Why.  Rounds 115-116 found that each small prime dividing D lowers the spacing variance of the zeros by about 0.014;
+the size was never explained.  The effective-matrix-size law of Bogomolny-Bohigas-Leboeuf-Monastra (2006), applied to
+L(s, chi) with the bad-prime factors of Bogomolny-Keating (2013), shifts its constants by Lambda_S - Lambda =
+sum_{p|k} ln^2 p/(p-1), Q_S - Q = -sum_{p|k} ln^3 p/(p-1)^2.  Derived here (derivation.md sections 2-3): these shifts
+are exactly (L^2/2) x the variance and (L^3/6) x the third cumulant of the prime's explicit-formula density wave, and
+CUE(N_eff) at the orders where the law is defined is a random dilation of the sine process (checked for n = 2..5), so
+the law per prime is the slow-wave (dilation) limit, and it predicts NO change of the gap ratio (also not from the
+Q-term).  At L = 9-11 the 1/L expansion fails (the 1/L^4 term of R2 exceeds the 1/L^2 term at unit distance; N_eff ~ 2).
+The usable law is the same mechanism at finite wavelength.
+
+The law (H_law; derivation.md section 5; conjecture: local universality, Bogomolny-Keating's random-matrix method with
+the bad prime as short orbit): the zeros of L(s, chi_D) with p good are those with p missing, re-mapped by p's wave
+  y = x + dN_p(x),  dN_p(x) = (1/pi) arg(1 - p^(-1/2) e^(i(k x + phi))),  k = 2 pi ln p / L,  L = ln(|D| t/2 pi),
+phi uniform; everything else unchanged.  Gap statistics exact in the wave from the sine process's Janossy densities.
+It reproduces the exact Bogomolny-Keating per-prime change of the number variance to 1-3 % for windows >= 1 spacing
+(10-20 % low below 0.5) and the ratios-conjecture per-prime change of R3 to 11-31 % rms (L = 9.4-10.7).
+Predictions at L = 9.4 (missing minus present), p = 2, 3, 5, 7, 11, 13:
+  dVar(s) = -0.0126 -0.0144 -0.0136 -0.0121 -0.0097 -0.0087;   d<r~> = +0.0026 +0.0038 +0.0050 +0.0055 +0.0058 +0.0057.
+A missing prime LOWERS the spacing variance and RAISES the gap ratio.  Level (no bad prime): the same second-order
+formulas with the exact two-point function (known to overshoot the deviation from GUE by 15-30 %: zeta and R120).
+
+Hypotheses (all parameter-free; per-L-function values in the JSON):
+  H_law    the wave closure, sine base (frozen key 'law').
+  H_law2   its second-order form with the exact two-point change (key 'law2'): part of the theory's own uncertainty.
+  H_dil    slow waves only / effective CUE size per prime: the per-prime change is the dilation by the prime's density
+           (key 'slow': Var change 1.29-1.40 x the law's; <r~> unchanged).
+  H_bblm   BBLM's formula with Lambda_S, Q_S (key 'bblm'): Var = V0 - (2 Lambda_S/L^2 - 6 Q_S/L^3)(1 + V0) (the dilation
+           with variance -2 Lambda_S/L^2 and third cumulant -6 Q_S/L^3); <r~> unchanged.
+  H_0      bad primes ignored (key 'ignored').
+  H_neg    a missing prime lowers <r~> (the scout's reading of the Q-term).
+
+Tests.  Primary P: B (184 discriminants, 400 < |D| <= 700), Dn (181, 700-1000), Fn (186, 1000-1300), zeros
+100 <= gamma <= 600 (mean L 10.23, 10.68, 10.98; about 810-870 spacings per set).  Secondary S: C (181 = round 120's
+discriminants) and Bp (184 = B's discriminants), zeros 600 <= gamma <= 1000 (mean L 10.28, 11.13; 650-710 spacings).
+Group sizes for 2, 3, 5, 7, 11, 13: B 61 46 31 21 16 12; Dn 62 46 30 23 13 13; Fn 61 45 31 24 16 13;
+C 60 46 30 23 14 14; Bp 61 46 31 21 16 12.
+
+Data and completeness (spacing_test.py; decided before any statistic): zeros from the stored files (PARI lfunzeros).
+Per set: (a) |N(t) - (theta(t) - theta(0))/pi| <= 1.5 at 200 equally spaced heights of the band, ends included;
+(b) largest unfolded gap in the band <= 3.0; (c) the mean of N(t) - (theta(t) - theta(0))/pi over each eighth of the band
+(25 heights) within +-0.4 (used set R120: within +-0.23; one zero removed at random: 151/181 sets fail the quarter version,
+169/181 fail (a)); (d) no duplicate (smallest unfolded gap > 1e-6).  A flagged set is recomputed in the offending window
+with 4x finer subdivision (fixpairs.py) and reported; if still flagged it is excluded and reported.  The number of
+unfolded gaps < 0.1 per set is reported (no rule).
+
+Statistic per L-function: zeros in the band, u = (gamma/2pi) ln(|D| gamma/(2 pi e)), s = diff(u),
+Var = mean((s - mean s)^2); r~ = mean over consecutive pairs of min(s_n, s_n+1)/max(s_n, s_n+1).
+
+Readings (spacing_test.py; bootstrap 2000 resamples of L-functions, numpy default_rng(1371), of the deviation from the
+law; regression-matched predictions on the same sample):
+ T1 per-prime Var coefficients: OLS of (Var_i - ignored_i) on [1, I(2|D), ..., I(13|D)]; the same OLS on each variant.
+    gamma_V = sum_p w_p c_p l_p / sum_p w_p l_p^2 over p = 2, 3, 5 (c measured, l law, w = 1/se^2): H_law 1.
+ T2 the same for <r~>: gamma_R; H_law 1, H_dil = H_bblm = H_0 = 0, H_neg < 0.
+ T3 chi2 (3 dof, bootstrap covariance) of (c_2, c_3, c_5) against each variant, Var and <r~>: reported (see D3).
+ T4 levels (secondary): mean_i(Var_i - law_i), mean_i(r~_i - law_i).
+ T5 L-dependence (secondary): gamma_V(Bp) - gamma_V(B) (same discriminants, L 10.23 -> 11.13): H_law 0; no
+    L-dependence (per-prime changes as at L = 10.23) +0.16.
+ T6 p = 7, 11, 13 coefficients, and the ordering of the primes: reported, no reading.
+ Pooled readings: inverse-variance means of gamma over the tests of P, of S, and of all five.
+
+Expected values (noise model from the USED set R120 only: residual sd of data - law after the indicator regression
+0.00232 (Var) and 0.00474 (<r~>) at 744 spacings, scaled by sqrt(744/n), correlation -0.57; power.py):
+  per set, law coefficients p = 2, 3, 5 (Var | <r~>) and expected se:
+   B   -0.01152 -0.01342 -0.01225 (se 0.00035-0.00044) | +0.00253 +0.00355 +0.00402 (se 0.00071-0.00090)
+   Dn  -0.01051 -0.01176 -0.01146 (0.00034-0.00044)     | +0.00213 +0.00276 +0.00358 (0.00070-0.00089)
+   Fn  -0.00992 -0.01094 -0.01164 (0.00034-0.00042)     | +0.00195 +0.00237 +0.00375 (0.00069-0.00086)
+   C   -0.01145 -0.01242 -0.01223 (0.00039-0.00050)     | +0.00235 +0.00281 +0.00386 (0.00080-0.00101)
+   Bp  -0.00988 -0.01161 -0.01071 (0.00037-0.00047)     | +0.00193 +0.00270 +0.00306 (0.00076-0.00096)
+  gamma_V expected se per set 0.018-0.022; pooled P 0.011, S 0.015, all five 0.009.
+  gamma_V under   H_law 1 | H_law2 0.90 | H_dil 1.33 (P), 1.30 (S) | H_bblm 1.27 (P), 1.24 (S) | H_0 0.
+  gamma_R expected se per set 0.14-0.19; pooled P 0.088, S 0.130, all five 0.073.
+  gamma_R under   H_law 1 | H_law2 0.94 | H_dil = H_bblm = H_0 = 0 | H_neg < 0.
+  In se of the pooled P reading: H_dil +29.9, H_bblm +24.0, H_0 -90.9 (Var); "no change" -11.3 (<r~>).
+  Levels (law): Var 0.14822 0.14982 0.15109 0.14809 0.15161; <r~> 0.61541 0.61406 0.61319 0.61541 0.61277
+  (B Dn Fn C Bp); se of a set's level 0.00016-0.00018 (Var), 0.00032-0.00038 (<r~>).  H_bblm's and H_dil's Var
+  levels are 0.139-0.146 (key values in the JSON).
+Retrospective (USED set R120, same script, labelled so): gamma_V = 0.942 +- 0.018, gamma_R = 0.980 +- 0.114, levels
++0.0036 (Var) and -0.0015 (<r~>); every decision below passes there; H_dil at 25 se, H_bblm at 20 se (gamma_V
+1.306 expected), "no change" at 8.6 se.
+
+The theory's own uncertainty (NOT in the measurement bands): the closure is a conjecture checked against the
+conjectural two- and three-point functions only (errors there 1-3 %, 10-20 %, 11-31 %, derivation 5.2); four variants
+give the Var amplitude 0.90-1.00 of the law and the gap-ratio amplitude 0.94-1.17.  Stated: Var amplitude predicted to
+about +-10 % (band 0.85-1.05), gap-ratio amplitude to about +-20 % (band 0.85-1.25).  The pooled Var reading is 10x
+more precise than the theory: it cannot decide between H_law and H_law2, and it is not used to.  The prime ordering is
+inside the theory's uncertainty (no reading).  The level formula overshoots the deviation from GUE by 15-30 % (zeta,
+R120): expected data - law of +0.002 .. +0.004 (Var) and -0.001 .. -0.004 (<r~>).
+
+Decisions (thresholds fixed now; primary = pooled P):
+ D1 (spacing variance).  H_law passes if |gamma_V - 1| <= 4 se; if not, but gamma_V is inside the theory band
+    [0.85, 1.05], the result is recorded as "consistent at the theory's stated accuracy" with its value (not a
+    falsification); outside the band H_law's Var prediction is falsified.  H_dil is rejected if gamma_V <
+    (1 + gamma_dil)/2 and gamma_dil - gamma_V >= 5 se.  H_0 is rejected if gamma_V >= 5 se.
+ D2 (gap ratio; the reading that separates the law from slow waves / effective size).  "No change" (H_dil, H_bblm,
+    H_0) is rejected if gamma_R >= 5 se and gamma_R > 0.5.  H_neg is rejected if gamma_R >= 5 se.  H_law passes if
+    |gamma_R - 1| <= 4 se (theory band [0.85, 1.25] reported); H_law is falsified for the gap ratio if gamma_R < 0.5 or
+    gamma_R > 1.6 with |gamma_R - 1| > 4 se.
+ D3 (H_bblm, the effective-matrix-size law with the bad-prime constants).  Rejected if D2 rejects "no change", or if
+    gamma_V < (1 + gamma_bblm)/2 and gamma_bblm - gamma_V >= 5 se (gamma_bblm 1.27 for P).  The chi2 of its Var pattern
+    is reported, no decision (the law's own variants differ from each other by chi2 20-38 per set).
+ D4 (levels, secondary).  Recorded against the expected offsets above; the level formula is falsified only if
+    |mean(Var - law)| > 0.008 or |mean(r~ - law)| > 0.008.
+ D5 (L-dependence, secondary).  H_law passes if |gamma_V(Bp) - gamma_V(B)| <= 4 se; "no L-dependence of the
+    per-prime change" is rejected if (0.16 - difference) >= 5 se (expected se 0.028).
+ Error rates: for D1/D2 under the noise model, < 1e-4 each way between the law and the hypotheses rejected; the bootstrap
+ se replaces the model se in the decisions.  Every reading is also reported per set.
+
+Every predicted cell and its reading:
+  Var coefficients p = 2, 3, 5, per set ............. T1, T3 (D1; pooled P primary, S secondary)
+  <r~> coefficients p = 2, 3, 5, per set ............ T2, T3 (D2)
+  Var and <r~> coefficients p = 7, 11, 13 ............ no reading (reported)
+  levels of Var and <r~> ............................. T4 (D4, secondary)
+  L-dependence of the Var coefficients (B -> Bp) ..... T5 (D5, secondary)
+  L-dependence of the <r~> coefficients .............. no reading (expected se 0.24 on 0.31)
+  ordering of the primes ............................. no reading (inside the theory's uncertainty)
+  per-L-function values beyond the regressions ....... no reading
+  complex characters, higher spacing moments ......... no reading
+
+Falsifier, in one line: the law is falsified if the per-prime gap-ratio coefficients of the fresh sets do not carry a
+positive amplitude near the predicted one (gamma_R < 0.5 or > 1.6, beyond 4 se), or if the per-prime spacing-variance
+amplitude falls outside [0.85, 1.05] beyond 4 se; the effective-matrix-size / slow-wave reading is falsified if
+gamma_R >= 5 se or gamma_V is 5 se below its predicted 1.24-1.33.
+
+Order: commit this file, predictions_spacing.json and spacing_test.py -> completeness on B, Dn, Fn, C, Bp -> repairs
+(if any) -> statistics -> readings and decisions (spacing_test.py TEST --out result_TEST.json; spacing_test.py --pool
+...).  Report every reading, passed or failed.
+
+Registered state: predictions_spacing.json (sha256 0c6501d00771fc91467d45562db555da561e1cd5e28d591408a76bb006f0adee) and the
+test script are in writeup/code/study/lowzero/spacing/. The script committed here differs from the proposer's only in its
+zero-file path (made relative); its sha256 is bb80302ffe0af48df690845a3fc67d996b81dd1db788aba2c5eaced869351e57.
