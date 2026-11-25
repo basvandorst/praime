@@ -1,14 +1,14 @@
 """Round 136 (preregister/round136.txt): is the amplitude of the bad-prime off-diagonal term 1 (Bogomolny-Keating) or
 0.932 (round 134, test B)? The statistic of r134.py on a fresh test, against the frozen predictions of
 amp/predictions_alt.json; readings R1-R5, the level reading and the completeness of the zero sets.
-usage: r136.py C | Dn | Bp     (zeros: lzeros/r134_C.npz, lzeros/r136_Dn.npz, lzeros/r136_Bp.npz)"""
+usage: r136.py C | Dn | Bp     (zeros: lzeros/r134_C.npz, lzeros/r136_Dn.npz, lzeros/r138_Bp.npz)"""
 import os, sys, json, math
 import numpy as np
 from scipy.special import loggamma
 H = os.path.dirname(os.path.abspath(__file__)); ZD = os.path.join(H, '..', '..', '..', 'data', 'riemann', 'lzeros'); T = sys.argv[1]
 P = json.load(open(os.path.join(H, 'amp', 'predictions_alt.json'))); LS = P['l']; lo, hi = P[T]['height']; Q = P[T]['D']
 F = np.array(P[T]['full']); Dg = np.array(P[T]['diag']); FL = np.array(P[T]['full_LP3']); PR = (2, 3, 5, 7, 11, 13)
-Z = dict(np.load(sys.argv[2] if len(sys.argv) > 2 else os.path.join(ZD, ('r134_C.npz' if T == 'C' else 'r136_%s.npz' % T))))   # argv[2]: a synthetic set, for dry runs
+Z = dict(np.load(sys.argv[2] if len(sys.argv) > 2 else os.path.join(ZD, {'C': 'r134_C.npz', 'Bp': 'r138_Bp.npz'}.get(T, 'r136_%s.npz' % T))))   # argv[2]: a synthetic set, for dry runs
 def sigma2(g, q):
     u = g / (2 * math.pi) * np.log(q * g / (2 * math.pi * math.e)); v = []
     for l in LS:
