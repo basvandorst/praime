@@ -1,0 +1,149 @@
+Round 143, pre-registered: the swapped term between the zeros of two different L-functions, read with a statistic that cancels its phase.
+re-tested on pairs never used for it. To be committed with the frozen prediction files before any reserved zero set is
+read for this statistic. When this file was written: X12 had been computed on the used set r138_Fn only (review 46,
+retrospective, and again here for validation); on the reserved sets (r117 + r120, r134_B, r136_Dn, r134_C, r121) only the
+keys were read; no phase, no X12, no one-point sum, no completeness number was computed on them. A pilot on non-reserved
+complex zeros (lzeros/q7_k1.txt = chi_7(3,.), q13_k1.txt = chi_13(2,.), 6 pairs) was used to check the conventions.
+Derivation and code: swap2/ (derivation.md, hlib.py, freeze.py, check_exact.py, fn_validate.py, fn_onepoint.py,
+pilot_complex.py, complete_calib.py, noise_model.py, power.py, onepoint_expected.py, swap2_test.py).
+
+Why. Round 141 found that the diagonal cross term of two L-functions is a consequence of the explicit formula, and that
+the one conjectural term, the recipe's swapped term with the phase e^{2i(theta2(t2) - theta1(t1))} and the factor
+H12 = L(1 - iu, psi) L(1 + iu, conj psi) A12(-iu), failed its registered window reading because the predictor was
+computed wrongly. The review's phase-cancelling statistic X12 gave 1.004 +- 0.007 of the recipe on the 17,020 used pairs,
+retrospectively. This round tests it where it was never computed: 546 real L-functions among themselves (148,785 pairs),
+the same 181 at new heights, and 88 complex characters (both half-lines), where the root numbers enter.
+
+The law (conjecture: ratios recipe; derivation.md section 3). chi1 mod q1, chi2 mod q2 distinct primitive, parities a_j,
+kappa_j = q_j/phi(q_j), eps_j = tau(chi_j)/(i^a_j sqrt q_j), theta_j(t) = (t/2) ln(q_j/pi) + Im lnGamma((1/2 + a_j + it)/2),
+psi = chi1 conj chi2 (psi(p) = 0 for p | q1 q2), K(u) = exp(-u^2/2 sigma^2):
+   X12 = (1/T) sum_{g1, g2} e^{2i theta1(g1) - 2i theta2(g2)} K(g2 - g1)  (window-smoothed in the midpoint, swap2_test.py),
+   E X12 = (1/4 pi^2) kappa1 kappa2 eps1 conj(eps2) J12,  J12 = int H12(u) K(u) du,
+   H12(u) = prod_{p not | q1 q2} (1 - 2/p + y)/((1 - conj y)(1 - 1/p)^2), y = psi(p) p^{iu}/p.
+  One-sided functions: real chi_D (gamma > 0); complex chi (gamma > 0) and conj chi (the mirrored gamma < 0), eps(conj chi)
+  = conj eps(chi). Real pairs: eps1 conj eps2 = 1, J real. (chi, conj chi): eps_chi^2, psi = chi^2 (the zeros of one
+  L-function at +t against -t; no pole). J from the Euler product to 3e4 on u in [0, 6] step 0.05: within 7.7e-5 of PARI's
+  exact L(1 - iu, psi*) on 26 pairs (relative 4e-5); quadrature error < 2e-8.
+One-point law (theorem in substance, derivation.md section 2): sum_{T1 < g <= T2} e^{2i theta_chi(g)} = -eps kappa (T2 - T1)/2pi
+  + o(T); per function it equals the prime sum R_w = -(i^a/sqrt q) sum_n chi(n) Lambda(n) e(-n/q) w(2 pi n/q) to 0.2 % of
+  its size (Hann taper; Fn: rms |G - R| 0.23, slope 1.0000 +- 0.0001). Its readings are DATA CHECKS, with frozen values.
+
+Hypotheses (parameter-free):
+  H_law    the law above (all slope readings 1; Im readings 0; no-root coefficient 0).
+  H_half   the swapped term at half its size (slopes 0.5).
+  H_none   no swapped term (slopes 0): independent Gram modulations absent.
+  H_const  H12 replaced by 1: the product of the two one-point terms (independently modulated Gram lattices).
+  H_noroot (complex) the root-number factor eps1 conj(eps2) dropped.
+  H_conjJ  (complex) the other pairing convention, J -> conj J (differs only through Im J).
+
+Frozen predictions (sha256):
+  pred_OO.npz  884866caff9ef4af29a264889e93372ef3c00f0d911717006168ed47fba7c4a8  (OO, all 148,785 pairs; HI = its R120 block)
+  pred_C.npz   f1fa89eda1f1760f0cfabc0bfc6374a30c1ccf853ef1171601ffe1da2acd249a  (C: CC 15,400 incl. 88 (chi, conj chi); CR 10,560)
+  onepoint.npz 2ee4adf440443b4e78be7bf952852952525cb4e2f93374c1f90456c318bd905d  (laws and prime-side sums R, every function)
+  pred_FN.npz  75098b6ab49936d48b8ed899718228b5767d5c0c5e22ff52db8b7563cf6bac21  (validation on the used set only)
+  swap2_test.py 98495dad037a0d45e55ebfb062f3cd56011fec67a80b346fd37756cadb0d7e39 ; hlib.py 0857580563a3740e054b9a869d529f0836cc9176b239fddeeb02da5bbf90112f
+  For each pair and sigma = 0.5, 1.0: J, the law, H = 1, (complex) no-root and conj-J predictions, complex values.
+
+TEST OO (primary): 546 real L-functions, R120 (r117 + r120: 181, 100 <= |D| <= 400) + B (r134_B: 184, 400 < |D| <= 700) +
+  Dn (r136_Dn: 181, 700 < |D| <= 1000); X window [100, 594] (T = 494); one-point band (100, 600].
+TEST C (primary for complex characters): r121 (88 complex primitive characters, conductors 101-397, one per modulus,
+  zeros 100 <= |gamma| <= 500) -> 176 one-sided functions; plus 60 real from R120 (numpy default_rng(20261125), list in
+  freeze_manifest.json); X window [106, 494] (T = 388); pairs: all 15,400 among the 176 and all 10,560 complex x real.
+TEST HI (secondary): r134_C (R120's 181 at heights 600-1000); X window [600, 994]; same predictions as OO's R120 block.
+FN: the used set; run only as a validation of the pipeline (expected: the retrospective 1.0049 +- 0.0069); no decision.
+
+Data and completeness (decided now): real sets: round 138's rule on the band (N(t) - theta/pi at 200 heights within 1.5;
+largest unfolded gap <= 3.0). Complex sides (no zeros stored below 100): count from 100, centred, within 1.5; step statistic
+max_k |mean(s[:k]) - mean(s[k:])| <= 0.7 (k = 20..180 of 200); gap <= 3.0 (calibration: no false flag on 185 complete
+sets; a missing zero found in 93.5 %, a missing pair in 100 %). A flagged set (side) is excluded with all its pairs and
+reported; no repair after the statistic has been computed. Reported, not used to exclude: |G - R| (Hann) per function.
+
+Statistic and errors: swap2_test.py (sigma = 0.5 primary, 1.0 secondary; t-grid 0.02; Gaussians of width sigma/sqrt 2).
+Errors: delete-one-unit jackknife (unit = an L-function; a complex character's two sides form one unit), exact.
+
+Readings (pairs; fits with an intercept unless stated; "se" = the data's jackknife se):
+ R1  OO slope of Re X on the law.                                      [primary]
+ R2  OO Re X = a + b pred(H=1) + c (law - pred(H=1)): c, the H - 1 part. [primary]
+ R3  OO slope in bins of |ln(q2/q1)|: [0, 0.1), [0.1, 0.3), [0.3, 0.6), [0.6, 1.0), >= 1.0 (the term at unequal conductors).
+ R4  OO Im X: slope on the law (law 0) and mean (law 0).
+ R5  OO slope by parity: even-even, odd-odd, even-odd.
+ R6  OO pairs with law < -0.01: slope through 0 (the sign reversal; H_const predicts -0.54).
+ R7  OO slope through 0.
+ R1-R2 on HI.
+ C1  complex slope of X on the law, CC + CR (Re 1, Im 0).               [primary, complex]
+ C2  X = a + c1 law + c2 (no-root prediction): c2 (law 0, H_noroot 1).  [primary, complex]
+ C3  X = a + b (eps-phase x Re J part) + d (eps-phase x i Im J part): d (law 1, H_conjJ -1).
+ C4  (chi, conj chi) pairs: complex slope (law 1).
+ C5  complex x real pairs; C6 complex x complex without (chi, conj chi); C7 the H - 1 split on CC + CR.
+ All of R1-R7, C1-C7 also at sigma = 1.0 (secondary).
+Readings (one point; data checks):
+ P1  OO slope of Re G (sharp) on -kappa T/2pi; P1c the same with the Hann taper; P3 even/odd; P3b Re G 2pi/T on [1, kappa].
+ P2  OO slope of Re G_Hann on Re R_Hann (the explicit-formula check); P6 rms and max |G - R|.
+ P4  C complex slope of G (sharp) on -eps kappa T/2pi; P4b on -kappa T/2pi (no root number); P5 G_Hann on R_Hann.
+ The same on HI.
+
+Expected values (from the frozen files; power_*.json, onepoint_expected.json) and expected se (noise model from Fn,
+conservative by about 15 %; the decision uses the data's se):
+  reading                          se      H_law  H_half  H_none  H_const  H_noroot  H_conjJ
+  OO R1 (sigma 0.5)                0.004   1      0.5     0       0.155    -         -
+  OO R2 c (H - 1 part)             0.0035  1      0.5     0       0        -         -
+  OO R3 bins                       0.004-0.006  1  0.5    0       0.147-0.164
+  OO R6                            0.010   1      0.5     0       -0.537
+  OO R1 (sigma 1.0)                0.005   1      0.5     0       0.294
+  HI R1                            0.008   1      0.5     0       0.153
+  C1 (Re)                          0.0065  1      0.5     0       0.340    0.115     0.728
+  C2 c2                            0.004   0      0       0       -0.031   1         0.038
+  C3 d                             0.008-0.011  1  0.5    0       0.001    0.016     -1
+  C4 (chi, conj chi)               0.03    1      0.5     0       0.351    -0.027    0.768
+  C5 / C6                          0.008 / 0.007  1       0.5  0  0.376/0.308  0.172/0.067  0.777/0.687
+  One point, expected from the primes (no zero used): OO P1 0.9983, P1c 0.9950, P3 even 0.9993, odd 0.9974,
+  P3b (-0.011, -0.993); HI P1 1.0038, P1c 1.0040; C P4 1.0157 - 0.0023i, P4b 0.219; P2 and P5 exactly 1;
+  asymptotic law: 1 (P1, P4), 0 and -1 (P3b). Expected se: P1 ~0.003 (OO), P2 ~1e-4, P4 ~0.008.
+  Power: H_const at about 210 se (OO R1), H_half at 125, H_none at 250; H_noroot at about 130 se (C1) and 250 (C2);
+  H_conjJ at about 200 se (C3).
+
+Theory allowance (NOT in the bands): the recipe's finite-height error is unknown; known terms are below 2e-3 per pair
+and average to zero over pairs; precedent: the self two-point amplitude 0.998 +- 0.014 (round 136). Allowance 1 %.
+
+Decisions (thresholds fixed now):
+ D1 (primary, real). H_law passes if |R1 - 1| <= 4 se and |R2 c - 1| <= 4 se (OO, sigma 0.5). If it fails with
+    |R1 - 1| <= 0.01, this is recorded as a lower-order term within the allowance, not as a falsification of the
+    leading-order law. H_half, H_none, H_const rejected if R1 (and R2 c) are more than 5 se from their values.
+ D2 (primary, complex). H_law passes if |Re C1 - 1| <= 4 se, |Im C1| <= 4 se and |C2 c2| <= 4 se. H_noroot rejected if
+    |C2 c2 - 1| > 5 se; H_conjJ rejected if |C3 d + 1| > 5 se.
+ D3 (unequal conductors). The term is present at unequal conductors if every R3 bin is more than 5 se above its H_const
+    value; the law holds there if every bin is within 4 se of 1.
+ D4 (height). HI R1 within 4 se of 1.
+ D5 (mirror). C4 within 4 se of 1 and more than 5 se from 0 (secondary: expected se 0.03).
+ D6 (one point; data check, not a test of a conjecture). P2/P5 within 4 se of 1 and rms |G - R| <= 0.5; P1/P4 within
+    4 se of the asymptotic 1 is reported with the frozen prime-side value beside it; a failure of P2 means bad data or
+    a wrong convention, not a failure of a conjecture.
+ Reported in all cases: every reading at both sigma, the completeness numbers, exclusions, FN validation.
+
+Every predicted cell and its reading:
+  X12 per pair, OO, sigma 0.5 ........ R1, R2, R3, R5, R6, R7 (and R4 for Im)
+  X12 per pair, OO, sigma 1.0 ........ the same, secondary
+  X12 per pair, HI ................... R1, R2 (secondary)
+  X12 per pair, C (CC, CR) ........... C1-C7 (both sigma)
+  H(0) per pair ...................... no reading
+  alternative predictors (pred1, prednoroot, predconjJ) ... enter R2, C2, C3, C7 and the expected values
+  one-point law and R per function ... P1-P6
+  FN (used set) ...................... validation only, no reading
+  pilot pairs mod 7, 13 .............. no reading (convention check, disclosed)
+
+Falsifier, in one line: the swapped term is falsified if on OO (sigma 0.5) the slope of Re X12 on the frozen law, or
+its H - 1 coefficient, lies more than 4 se from 1 (and more than 0.01), or if on the complex design the complex slope
+lies more than 4 se from 1 or the no-root-number coefficient more than 4 se from 0.
+
+Order: commit this file, the frozen files and swap2_test.py -> swap2_test.py complete (report exclusions) -> onepoint
+-> x -> readings (one command: all; about one minute) -> report every reading, passed or failed.
+Command: (ulimit -v 1500000; timeout 600 nice python3 -I swap2_test.py all --designs OO,HI,C --out run_data)
+
+Statuses: the swapped term is a conjecture (ratios recipe; heuristically the Hardy-Littlewood correlation of the two
+progressions); its constant is anchored by the one-point theorem in the limit H = 1; the one-point law for L(s, chi) is
+derived here (the zeta case is Arias de Reyna's theorem), its per-function prime form is computed, not found in print;
+all numbers are computed.
+
+Registered state: the frozen prediction files are in writeup/code/study/lowzero/swap2/ (hashes in freeze_manifest.json
+and inside swap2_test.py). The test script committed here differs from the proposer's only in its default zero path
+(made relative); its sha256 is d77ca49d2bbd26802eecc705b4a0590f04b3d9620f3c4a357fd0690160dd9497.
