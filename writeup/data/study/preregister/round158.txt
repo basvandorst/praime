@@ -1,0 +1,63 @@
+REGISTRATION -- twin counts across residue classes: linear response to the class prime counts + Hardy-Littlewood remainder
+Frozen: 2026-11-25, before any twin count per class above 2e10 was made (twin class counts mod 210/2310/30030 exist only
+below 1e10 and at 1e12, 1e15; the fifty-seventh review's counts mod 420 end at 2e10).
+Scripts and frozen predictions: scratch folder twinclass/ (to be copied to writeup/code/study/twinclass/); count files
+fresh_S0.npz .. fresh_S8.npz (about 0.1 MB each) are produced by the run and hashed then.
+
+sha256 of the frozen files:
+  4d5f717166d256654f1d50d200be672ad580aeace93af631bdddc288c9ca1f5a  predictions_twinclass.json
+  6ce8aff99cd74d9e3ee8e7470ebd78e250e61090b7f6d63afd04719ecbfd6f55  predictions_dry.json
+  5d00268cb849676206e00a0c8359eed9ba09762d1ba8627f9e59bacd8b54675f  tcsieve.py
+  2747ca9b4044d5f467e410ae416858dac24e17a6ced0f8e2aff0d41699a59c31  measure.py
+  7e8eb30c618cfd20e5605cb2e4fb07803eb377d7c7c08f1220ee06a4990f3e43  fourpoint.py
+  ee872c4936d61063b4fc123945d915616ffff07e9bf0fb272014641f4a8219ac  test_twinclass.py
+
+Window: D = [2e10, 2e11) and nine sub-windows S_s = [2e10 (1+s), 2e10 (2+s)), s = 0..8; twins (n, n+2), n in the window.
+Stretches inside D used before for other statistics: [2.9e10, 3.24e10) (round 139, prime class tables), [1e11, 1.1e11)
+(round 64, twin gap laws), near 1.5e11 (round 140); no twin class count.
+Commands (from the folder; foreground; memory cap; one at a time):
+  for s in 0 1 2 3 4 5 6 7 8; do (ulimit -v 1000000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B tcsieve.py $((20000000000*(1+s))) 20000000000 fresh_S$s.npz 1); done   # about 65 s each (2e9 numbers at 1e11 took 6.5 s, 95 MB)
+  sha256sum fresh_S*.npz   # record
+  (ulimit -v 1000000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B test_twinclass.py)   # seconds; writes test_result.json
+test_twinclass.py refuses to run if the predictions or tcsieve.py, measure.py, fourpoint.py differ from these hashes.
+
+Law (heuristic, from Hardy-Littlewood; derivation.md): per admissible class b mod Q, X_b - E X_b = kappa Z_b + R_b with
+kappa = S(2) phi(Q)/(A_Q ln p) (round 155, class form), Z_b = primes of class b plus primes of class b+2 weighted by
+kappa; the HL moments give Var(kappa Z) from the pairs, Cov(X, kappa Z) from the triples (regression coefficient
+beta_HL = 1.000), and the remainder R from the four-point sums minus both: P_rem = P_X - 2 P_cov + P_Z.  The linear term is
+inside the four-point sums of rounds 42-43 (identity, derivation.md 1.3); the remainder's rigidity carries a ln^2 law,
+leading -ln^2(W/Q)/(2 ln^2 x) (c_Q H_Q = 1).  Seen: the spread deficit of rounds 41-44 sits entirely in R; in sub-windows
+R fits at every level; in the three seen decades the class deviations of R anti-correlate between sub-windows more than
+HL says (twins only; h = 4..12 do not).
+
+Decisions (fixed):
+  P1: beta: mean over S0..S8 of the across-class regression coefficient of X on kappa Z, mod 30030 (1485 classes), equals
+      mean beta_HL within 3 se, se = 1.17 * rms(nominal se)/3 (inflation 1.17 from 27 seen sub-windows); "independent"
+      (beta 0) and "one member" (beta 0.5) rejected iff more than 5 se away
+  P2: remainder at the fine level (30030 within 2310): mean over S0..S8 of measured/predicted within 3 * sqrt(2/1350)/3 of 1
+  P3: linear part: mean over S0..S8 of u2_Z(30030)/P_Z within 3 * 1.08 * sqrt(2/1484)/3 of 1
+  P4 (the open point): Z = (z_2310 + z_30030)/sqrt(2), z = (cross part measured - HL)/nominal sd of the remainder on D
+      (decade spread minus the count-weighted sum of the sub-window spreads).  Z <= -3: excess anti-correlation of twin
+      class deviations CONFIRMED (four-point remainder fails for twins in decade windows); Z >= -0.92: chance favoured;
+      otherwise OPEN
+  verdict: LAW CONFIRMED iff P1, P2, P3 pass; P4 is read separately with its three outcomes
+  reported only: ratios of u2_X and u2_R at levels 1-3 for D and each S_s (mod 210 from the closed form, +-0.01)
+
+Falsifier: if on the nine fresh sub-windows the class-level response coefficient misses beta_HL, or the fine-level
+remainder misses 1, or the linear part misses its predicted size, each by more than 3 errors, the decomposition
+"linear response + Hardy-Littlewood remainder" is falsified.
+
+Power (errors from the 27 seen sub-windows 1e7..1e10): P1 se 0.016, separation from beta = 0 about 60 se, from 0.5 about
+30 se; P2 se 0.0128, independence of X and Z predicts 1.81 (63 se); P3 se 0.0132, Poisson prime class counts predict
+1.84 (64 se).  P4: under HL Z ~ N(0,1); the seen twin excess A_twin gives E[Z] = -1.85 (mean of the seen z, -1.26 at
+2310 and -1.35 at 30030, selected data): P(Z <= -3) = 0.0013 under HL and 0.13 under A_twin; P(Z >= -0.92) = 0.82 under
+HL and 0.18 under A_twin. One fresh decade cannot decide P4 cleanly; three to four are needed.
+
+Comparator: round 43's four-point prediction of u2_X as registered (= P_X here without the two small corrections; it
+contains P_Z and P_rem). It predicts the same u2_X and the same cross part under HL, so P4 and the u2_X ratios are
+tests of the four-point law itself, not of the decomposition; P1-P3 are readings the comparator does not make, and they
+are tested against the independence model implicit in the chi2 noise of rounds 41-44.
+
+Dry run (test_twinclass.py --dry, the seen decade [1e8, 1e9), sub-windows of 1e8, predictions_dry.json): P1 1.0235 vs
+0.9991 +- 0.0162 (z 1.5) PASS; P2 0.9965 +- 0.0128 PASS; P3 0.9948 +- 0.0132 PASS; P4 z_2310 -1.26, z_30030 -2.23,
+Z -2.47 -> OPEN (that window is where the deficit was seen). test_dry.out.
