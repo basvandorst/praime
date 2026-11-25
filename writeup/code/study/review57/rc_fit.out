@@ -1,0 +1,49 @@
+h=2: closed form vs my enumeration of admissible classes, max |diff| over 95 characters = 1.50e-15
+h=4: closed form vs my enumeration of admissible classes, max |diff| over 95 characters = 1.66e-15
+cells 4715 x from 2.0002e+09 to 1.9995e+10 ; character regressors 95
+
+=== twins (h=2) full model: zeta + all 95 characters mod 420 free + 4 nuisance; WLS on 4715 cells
+  zeta  2.7625 +- 0.1174 (OLS)  +- 0.1205 (jackknife 40 blocks)   predicted 2S(h) = 2.6406
+  q7 cubic               re  +0.2776 +- 0.0715 (OLS) +- 0.0726 (jk)   predicted +0.2641
+  q7 cubic               im  -0.5675 +- 0.0711 (OLS) +- 0.0696 (jk)   predicted -0.4574
+  chi_-7                 re  +0.0677 +- 0.1014 (OLS) +- 0.1120 (jk)   predicted +0.0000
+  q5 odd pair            re  +0.1178 +- 0.0739 (OLS) +- 0.0662 (jk)   predicted -0.0000
+  q5 odd pair            im  +0.1410 +- 0.0712 (OLS) +- 0.0655 (jk)   predicted +0.0000
+  chi_5 (5.1 real even)  re  +0.9232 +- 0.1038 (OLS) +- 0.1058 (jk)   predicted +0.8802
+  chi_-3                 re  -0.0666 +- 0.1052 (OLS) +- 0.1355 (jk)   predicted +0.0000
+  chi_21 real            re  -0.5608 +- 0.0960 (OLS) +- 0.0958 (jk)   predicted -0.5281
+  q15 quartic            re  +0.0463 +- 0.0696 (OLS) +- 0.0728 (jk)   predicted -0.0000
+  q15 quartic            im  +0.9806 +- 0.0682 (OLS) +- 0.0718 (jk)   predicted +0.8802
+  chi_-4                 re  +0.0214 +- 0.1060 (OLS) +- 0.0944 (jk)   predicted +0.0000
+  largest null z: q=105 j=(0, 1, 2, 2) odd im +3.82; q=105 j=(0, 1, 1, 5) odd im -2.95; q=20 j=(1, 0, 1, 0) even re +2.87; q=5 j=(0, 0, 1, 0) odd im +1.98; q=12 j=(1, 1, 0, 0) even re -1.92; q=140 j=(1, 0, 2, 1) even re -1.80; q=21 j=(0, 1, 0, 2) odd re +1.71; q=140 j=(1, 0, 1, 4) even im +1.67
+  null chi2 p-value (OLS): 0.051
+  all 95 character coefs vs prediction: chi2 109.7 on 95 dof (OLS cov)
+  null set (74 coefs predicted 0): chi2 94.9 (OLS cov), 127.6 (jackknife cov, 235 blocks of ~20 cells)
+  loudness q in {5,7,15,21}                           1.0735 +- 0.0517 (OLS) +- 0.0609 (jk)  [zeta 2.7695]
+  loudness q in {35,105} (not in the registered fit)  0.8844 +- 0.1352 (OLS) +- 0.1428 (jk)  [zeta 2.7633]
+  loudness all present q | 105                        1.0511 +- 0.0483 (OLS) +- 0.0552 (jk)  [zeta 2.7701]
+  residual autocorrelation lags 1,2,3,5,10,50: -0.009 -0.006 -0.023 +0.006 -0.001 +0.003  (1/sqrt(n) = 0.015)
+    block-sum variance ratio m=8: 0.946    block-sum variance ratio m=64: 0.840    block-sum variance ratio m=512: 0.506
+
+=== cousins (h=4) full model: zeta + all 95 characters mod 420 free + 4 nuisance; WLS on 4715 cells
+  zeta  2.6845 +- 0.1165 (OLS)  +- 0.1070 (jackknife 40 blocks)   predicted 2S(h) = 2.6406
+  q7 cubic               re  +0.2615 +- 0.0709 (OLS) +- 0.0721 (jk)   predicted +0.2641
+  q7 cubic               im  +0.3529 +- 0.0706 (OLS) +- 0.0751 (jk)   predicted +0.4574
+  chi_-7                 re  -0.0248 +- 0.1007 (OLS) +- 0.1142 (jk)   predicted +0.0000
+  q5 odd pair            re  +0.0373 +- 0.0733 (OLS) +- 0.0774 (jk)   predicted -0.0000
+  q5 odd pair            im  +0.0638 +- 0.0707 (OLS) +- 0.0731 (jk)   predicted +0.0000
+  chi_5 (5.1 real even)  re  -0.8510 +- 0.1030 (OLS) +- 0.0993 (jk)   predicted -0.8802
+  chi_-3                 re  -0.0236 +- 0.1045 (OLS) +- 0.1091 (jk)   predicted +0.0000
+  chi_21 real            re  +0.5970 +- 0.0953 (OLS) +- 0.0961 (jk)   predicted +0.5281
+  q15 quartic            re  -0.9247 +- 0.0691 (OLS) +- 0.0703 (jk)   predicted -0.8802
+  q15 quartic            im  -0.0433 +- 0.0677 (OLS) +- 0.0565 (jk)   predicted -0.0000
+  chi_-4                 re  +0.1574 +- 0.1052 (OLS) +- 0.0965 (jk)   predicted +0.0000
+  largest null z: q=140 j=(1, 0, 1, 2) even im -2.28; q=105 j=(0, 1, 1, 3) odd im +2.24; q=140 j=(1, 0, 1, 5) odd im -1.95; q=28 j=(1, 0, 0, 1) even im -1.92; q=420 j=(1, 1, 2, 3) odd re +1.79; q=420 j=(1, 1, 2, 2) even re +1.64; q=84 j=(1, 1, 0, 2) even im +1.63; q=140 j=(1, 0, 1, 4) even re +1.63
+  null chi2 p-value (OLS): 0.871
+  all 95 character coefs vs prediction: chi2 84.7 on 95 dof (OLS cov)
+  null set (74 coefs predicted 0): chi2 60.5 (OLS cov), 86.3 (jackknife cov, 235 blocks of ~20 cells)
+  loudness q in {5,7,15,21}                           0.9943 +- 0.0514 (OLS) +- 0.0507 (jk)  [zeta 2.6807]
+  loudness q in {35,105} (not in the registered fit)  1.1066 +- 0.1303 (OLS) +- 0.0937 (jk)  [zeta 2.6887]
+  loudness all present q | 105                        1.0119 +- 0.0477 (OLS) +- 0.0428 (jk)  [zeta 2.6885]
+  residual autocorrelation lags 1,2,3,5,10,50: -0.030 -0.007 -0.028 -0.007 +0.017 +0.024  (1/sqrt(n) = 0.015)
+    block-sum variance ratio m=8: 0.877    block-sum variance ratio m=64: 0.676    block-sum variance ratio m=512: 0.572
