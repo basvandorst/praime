@@ -1,0 +1,35 @@
+PARI stack size set to 300000000 bytes, maximum size set to 300003328
+H5: Sato-Tate moments of a_p/sqrt(p) (USp(4): M2 = 1, M4 = 3, M6 = 14; E[e2] = 1, E[e2^2] = 2)
+  z-scores over 100 curves: M2 mean -0.57 sd 0.67 max|z| 2.06 ; M4 mean -0.18 sd 3.28 max|z| 31.64 ; M6 mean +0.54 sd 19.06 max|z| 188.38
+  e2 moments (30 < p <= 1000, 51 curves): E[e2] 0.933 +- 0.007 (range 0.837..1.084), E[e2^2] 1.852 (range 1.560..2.664)
+  the 8 lowest G/pred among eps = +1:
+    G2_N1069_26   c 0.445 ratio -0.012  M2 0.987 (z -0.9) M4 2.946 (z -0.6) M6 13.85 (z -0.7) E[e2] 0.997  [own<=1e5]
+    G2_N1109_4    c 1.713 ratio +0.410  M2 0.983 (z -1.2) M4 2.919 (z -0.9) M6 13.54 (z -2.3) E[e2] 0.977  [own<=1e5]
+    T4b_N909_10   c 2.535 ratio +0.649  M2 0.996 (z -0.3) M4 3.012 (z +0.1) M6 14.16 (z +0.8) E[e2] 0.980  [own<=1e5]
+    G2_N2722_18   c 1.975 ratio +0.732  M2 0.998 (z -0.1) M4 3.035 (z +0.4) M6 14.67 (z +3.3) E[e2] 0.909  [own<=1e5]
+    G2_N1047_0    c 2.250 ratio +0.734  M2 0.995 (z -0.3) M4 2.942 (z -0.7) M6 13.48 (z -2.6) E[e2] 0.996  [own<=1e5]
+    T4b_N349_8    c 0.574 ratio +0.745  M2 1.012 (z +0.8) M4 3.114 (z +1.3) M6 14.88 (z +4.3) E[e2] 0.966  [own<=1e5]
+    R_N1989_23    c 2.608 ratio +0.750  M2 0.987 (z -0.9) M4 2.915 (z -1.0) M6 13.37 (z -3.1) E[e2] 0.887  [own<=1e5]
+    T4b_N997_1    c 2.535 ratio +0.779  M2 0.991 (z -0.6) M4 2.992 (z -0.1) M6 14.09 (z +0.4) E[e2] 0.866  [own<=1e5]
+  eps+1: weighted regression of G/pred on zM4: slope -0.0005 +- 0.0131 (intercept 0.919)
+  eps+1: weighted regression of G/pred on zM2: slope +0.0113 +- 0.0333 (intercept 0.923)
+  eps+1: weighted regression of G/pred on zM6: slope -0.0001 +- 0.0027 (intercept 0.919)
+
+robustness (all 100, eps+1):
+  all 100  slope 0.9286 jk 0.0198 | bootstrap sd 0.0195, 2.5-97.5% [0.891, 0.968], P(b >= 1) = 0.0005 | weighted median ratio 0.910 | without 5 heaviest 0.929 +- 0.025 | clipped residuals 0.928
+  eps+1    slope 0.9174 jk 0.0197 | bootstrap sd 0.0197, 2.5-97.5% [0.878, 0.956], P(b >= 1) = 0.0000 | weighted median ratio 0.905 | without 5 heaviest 0.913 +- 0.025 | clipped residuals 0.918
+
+null noise from r = e^{-u}, u in [6, 9] (200 values): mean Var(Re) per curve 191.4 (sd 13.8); observed Re residual variance at r = 1: 120.3
+  slope error implied by the null noise: 0.0319 (jackknife 0.0198); deficit / null se = 2.24
+
+Sym^3 + RS pooled (n=95): 0.989 +- 0.043 ; Sym^3 eps+1 (n=39): 1.004 +- 0.053 ; genus 2 minus (Sym^3+RS): -0.061 +- 0.048 (-1.3 se)
+all degree 4 (n=195): 0.938 +- 0.018
+
+covariates (eps = +1 curves):
+  eps+1 2 | N                      yes n= 7 0.896 +- 0.039 | no n=30 0.924 +- 0.023
+  eps+1 central zero of order 2    yes n= 0 nan +- nan | no n=37 0.917 +- 0.020
+  eps+1 >= 2 bad primes            yes n=24 0.923 +- 0.025 | no n=13 0.902 +- 0.026
+  eps+1 c > 3                      yes n=14 0.936 +- 0.022 | no n=23 0.880 +- 0.039
+  eps+1 N > 1500                   yes n=13 0.901 +- 0.028 | no n=24 0.933 +- 0.028
+  eps+1 deg f = 5                  yes n=28 0.929 +- 0.027 | no n= 9 0.894 +- 0.022
+  m0 values eps+1: [0]  counts {0: 37}
