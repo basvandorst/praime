@@ -3,7 +3,7 @@ own Kronecker table (PARI), own window counts, own predictions, own regression a
 import math, os
 import numpy as np
 
-REPO = '/home/bas/praime'
+REPO = __import__('os').path.abspath(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), '..', '..', '..', '..'))
 ZFILE = os.path.join(REPO, 'writeup/data/riemann/lzeros/r138_Fn.npz')
 T1, T2, H = 100.0, 600.0, 0.02
 W = 0.3 * np.arange(1, 17)
