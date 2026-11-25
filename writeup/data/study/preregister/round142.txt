@@ -1,0 +1,151 @@
+Round 142, pre-registered: L'(rho, chi_D) at the zeros of real Dirichlet L-functions, and what the primes dividing
+the conductor do to it (a missing Euler factor = a missing orbit). To be committed with predictions_lprime.json before any
+L'-value of the fresh sets is computed.
+State when drafted: L' was computed only at the zeros of the dev set B (r134_B, 184 L-functions, 149,523 zeros,
+100 <= gamma <= 600); on B only noise was looked at (bootstrap se and residual scatter; lprime_test.py --noise-only ->
+noise_B_out.txt); no fitted coefficient, level or comparison with a prediction was computed or looked at on B. Disclosed:
+an earlier pilot (frontier scout, 24 Nov) looked at the k = -1 sums of 12 B L-functions (even D pooled 0.91 with the
+factor, odd 1.04). The k = 1 recipe polynomial was checked on 813 zeros of zeta below 1200 (ratio 0.9989). The machinery
+was validated end to end on synthetic values built on B's zero heights (synth_B_out.txt). R120, Dn and Fn: no L'-value
+exists. Derivation: derivation.md. Code: lprime_predict.py, lprime_values.py, lprime_test.py (self-contained).
+
+Why. The physics picture of rounds 117-138: zeros of L(s, chi) are levels of a chaotic system whose periodic orbits are the
+prime powers; p | q is a missing orbit; confirmed for the two- and three-point functions (rounds 134-138). The derivative
+at a zero is the next object: Pearce-Crump (arXiv 2606.25094, Conjecture 7, June 2026; no numerics) conjectures
+sum_{0<gamma<=T} 1/|L'(rho,chi)|^2 ~ (A_q/2pi) T, A_q = (6/pi^2) prod_{p|q} p/(p+1). No numerical test of any discrete
+moment or of the distribution of L'(rho, chi) with conductor primes was found in print (derivation.md, prior art).
+
+Laws (derivation.md; statuses there):
+  L1 (recipe, exact in L; conjecture: ratios/CFKRS, Conrey-Snaith 2007 sect. 7.1 with zeta -> zeta_q, t/2pi -> qt/2pi):
+     sum_{100<gamma<=600} |L'(rho)|^2 = int_100^600 m1(t) dt, 2pi m1/c_q = L^4/12 + (2/3)c0 L^3 + (c0^2+2c1) L^2
+     + (-2c0^3 + 10c0c1 - 2c2) L + 2c0^4 - 12c0^2 c1 + 14c1^2 + 16c0c2 - 20c3, c_j the Laurent coefficients of
+     zeta_q(1+s)/c_q, c_q = prod_{p|q}(1 - 1/p). Absolute: level and per-prime coefficients 0 in log.
+  L2 (Pearce-Crump; conjecture, leading order): per bad prime the k = -1 sum is multiplied by p/(p+1); first-order (1/L)
+     correction: none (LDM, (1+k)^2 = 0).
+  L3 (mean; derived here from the ratios pair correlation, first order): a bad prime raises mean(log|L'(rho)| - ln L) by
+     ln p ln(p/(p-1)) <1/L> (+0.048, +0.044, +0.035 for p = 2, 3, 5 at L = 10).
+  L4 (variance, kappa3, kappa4, k = +-1/2; leading order conjecture + first-order LDM term, heuristic): a bad prime removes
+     the cumulants of its Euler factor, kappa2 = Li2(1/p)/2 at leading order, corrected by -1.8667 (ln 2)/L (p = 2),
+     -0.9753 (ln 3)/L, -0.4961 (ln 5)/L (per unit, derivation.md 3.3).
+  L5 (within one L-function; heuristic, follows from L4's model): E[log|L'| - ln L | gamma] = const + sum_{p good}
+     (A_p + E_p), A_p = -ln|1 - chi(p) p^{-1/2-i gamma}|, E_p = -(2 ln p/L) Re[w/(1-w)], w = chi(p) p^{-1/2} e^{-i gamma ln p};
+     no dependence on gamma ln p for p | q.
+Hypotheses for the alternatives: H_none (no dependence on the conductor's primes beyond L); H_lead (leading order only,
+no 1/L term); H_half (half the predicted contrasts); H_Ponly (zeros part independent of the phase: E_p coefficient 0);
+H_kept (the orbit p | q kept: a bad prime has the phase signature of a good one).
+
+Frozen predictions: predictions_lprime.json (sha256 481798f25b05d3e788e64ef3a9ec673c759772803aec11408f51e3b9df361e24), made
+by lprime_predict.py from the discriminants and the heights only (zero-density weights, 48 Gauss nodes in t): for every
+L-function of B, R120, Dn, Fn: <ln L>, <1/L>, the bad primes, the per-L-function predicted shifts of cumulants 1-4 (ldm,
+lead, none), log moment factors k = -1, -1/2, 1/2, 1 (ldm, lead), S1_recipe / S1_none / S1_lead (k = 1 sums), Sm1_conj /
+Sm1_none (k = -1 sums), the tail constants. Regression-matched coefficients: frozen_coefficients.txt.
+
+TEST F3 (primary, fresh): R120 (181, 100 <= |D| <= 400; r117_part0-1 + r120_part0-1), Dn (181, 700 < |D| <= 1000;
+  r136_Dn), Fn (186, 1000 < |D| <= 1300; r138_Fn): 548 L-functions, zeros 100 <= gamma <= 600 (about 450,000 zeros),
+  pooled with one nuisance intercept per set; each set also reported alone (no decision). Groups (2,3,5,7,11,13) pooled:
+  183, 137, 91, 70, 43, 40. B is the dev set: not part of the test.
+
+Data and completeness (decided now): L'(1/2 + i gamma) by PARI lfun(lfuninit(lfuncreate(D), [1/2, 0, 605], 1), s, 1)
+  (lprime_values.py, realprecision 38; checked on B against mpmath's Hurwitz-zeta derivative to 4e-14 in log|L'| and
+  against a finite difference of PARI values to 3.5e-10: check_deriv_out.txt). A set is excluded, and reported, if
+  (a) the round-138 completeness rule fails (|N - theta/pi| > 1.5 on 200 heights or largest unfolded gap > 3.0), or
+  (b) any zero has |L(rho)|/|L'(rho)| > 1e-8, or (c) the stored heights differ from the zero file.
+
+Statistic per L-function i (zeros 100..600; L_j = ln(q gamma_j/2pi); y_j = log|L'(rho_j)| - ln L_j):
+  mu_i = mean y; v_i = var y (ddof 1); k3_i, k4_i = third central moment and fourth cumulant of y;
+  S1_i = sum |L'|^2; Sm1_i = sum min(|L'|^-2, 0.2^-2) (truncation registered; inactive on B: min |L'| = 0.202);
+  lm_{k,i} = ln mean(|L'|^{2k}/L_j^{k(k+2)}), k = -1/2, +1/2; per-zero regressors A_p, E_p (good p), cos/sin(gamma ln p)
+  (bad p), p = 2, 3, 5, 7.
+Design: X = [1, set intercepts, <ln L>_i, I(2|D), I(3|D), I(5|D), I(7|D), I(11|D), I(13|D)], nuisance and indicator
+  columns centred. Bootstrap: 2000 resamples of L-functions, numpy default_rng(20261125); "se" = bootstrap se on the data.
+
+Readings (lprime_test.py; decision primes p = 2, 3, 5; p = 7, 11, 13 reported, no reading):
+ T1 k = 1 recipe (absolute). Quasi-Poisson ratio regression E S1_i = S1_recipe_i exp(X_i beta): level beta_0 and beta_p,
+    predicted 0. Amplitude gamma_S1 against H_none: gamma = sum w (fit - none)(0 - none)/sum w none^2 (H_full 1, H_none 0).
+ T2 Pearce-Crump. Same regression for Sm1 with P_i = A_q (500/2pi) - tail term; gamma_PC (H_conj 1, H_none 0); level
+    (prediction 0 in log; no decision).
+ T3 mean. OLS of mu_i on X; gamma_M = amplitude of the regression-matched LDM coefficients against H_none.
+ T4 variance. OLS of v_i; gamma_V (LDM vs none) and gamma_1 (LDM vs lead: the amplitude of the 1/L term).
+ T5 within one L-function. Pooled regression with one intercept per L-function: coefficients of A_p, E_p (p = 2, 3, 5, 7),
+    cos/sin(gamma ln p) for bad p; and the squared amplitude of y at frequency ln p over the bad and the good L-functions,
+    divided by the floor at a control frequency (ln p + 0.1; ln 7 - 0.1) over the bad L-functions.
+ T6 (secondary) k3, k4, lm_{-1/2}, lm_{+1/2}: amplitudes against lead and none. T7 (reported) the tail fraction, the
+    levels of mu and v, the largest single |L'|^-2 term, p = 7, 11, 13.
+
+Frozen predicted coefficients, pooled F3 (regression-matched; p = 2, 3, 5 | 7, 11, 13), and expected se (B noise scaled
+by sqrt(184/548) = 0.58):
+  T3 mean   LDM  +0.0478 +0.0432 +0.0360 | +0.0295 +0.0230 +0.0201   se 0.0007 0.0007 0.0009; gamma_M se 0.009
+  T4 var    LDM  -0.1647 -0.0784 -0.0272 | -0.0113 +0.0007 +0.0023   se 0.0016 0.0015 0.0018; gamma_V se 0.009
+            lead -0.2927 -0.1824 -0.1071 | -0.0749 -0.0478 -0.0397   gamma_1 se 0.009
+  T1 S1     recipe 0 0 0 (level 0);  H_none +0.3146 +0.1178 +0.0230;  H_lead -0.3818 -0.2863 -0.2035 (level -0.64)
+            se 0.0007 0.0008 0.0013, level se 0.0004; gamma_S1 se 0.0024
+  T2 Sm1    conj 0 0 0;  H_none +0.3996 +0.2796 +0.1806   se 0.019 0.015 0.020; gamma_PC se 0.039; level se 0.009
+  T6 k3     LDM +0.0301 +0.0596 +0.0566, lead -0.1422 -0.0537 -0.0174   se 0.003 0.003 0.004
+     k4     LDM +0.1103 +0.0497 +0.0174, lead +0.0375 +0.0301 +0.0131   se 0.006 0.005 0.007
+     lm-1/2 LDM -0.1309 -0.0901 -0.0581, lead -0.1226 -0.0815 -0.0502   se 0.002 0.002 0.002
+     lm+1/2 LDM -0.0345 +0.0094 +0.0287, lead -0.1666 -0.0985 -0.0558   se 0.0004 0.0004 0.0006
+  T5 A_p 1, E_p 1 (P-only 0), cos/sin 0 (H_kept: squared amplitude as for a good prime); se A_2 0.003, E_2 0.014,
+     A_3 0.003, E_3 0.013, cos/sin 0.001; bad/floor se 0.03-0.05 (synthetic check: 0.7-0.85 instead of 1, the floor is a
+     rough normalisation; only the upper side is used), good/floor about 100 (se 15).
+Power (expected separations on F3, in expected se): gamma_M: H_none 106, H_half 53; gamma_V: H_none 109, H_half 54;
+  gamma_1: H_lead 115; gamma_S1: H_none 420, H_lead 600, H_half 210; gamma_PC: H_none 26, H_half 13; E_2: H_Ponly 70;
+  cos/sin vs H_kept: > 100; k3/k4/lm: 14-80 (lm-1/2 vs lead only 7). Both error rates < 1e-4 for every decision below
+  under Gaussian bootstrap errors.
+
+Theory's own uncertainty (NOT in the 4-se bands; stated separately and used as fixed allowances):
+  T1 recipe: error term O(t^{-1/2+eps}) unquantified at t = 100-600; zeta check 0.1 % (100-1200), 1.4 % (0-400).
+     Allowance: 0.01 on each beta_p, 0.02 on the level.
+  T2: the conjecture is leading order; LDM gives no 1/L term; second order unknown. Allowance 0.15 on gamma_PC.
+     The level of T2: no allowance known -> no decision.
+  T3: first order exact given the ratios two-point function; second order estimated -10 % (p = 2) to -18 % (p = 5).
+     Allowance 0.2 on gamma_M.
+  T4, T5 (E_p), T6: the LDM 1/L term overshoots the exact k = 1 correction by 15-25 % at L = 10. Allowance 0.35 on gamma_1
+     and on the E_p coefficients; 0.1 on the A_p coefficients.
+
+Decisions (thresholds fixed now; se = bootstrap se on F3):
+ D1 (k = 1 recipe with the conductor's primes, primary). Passes if |beta_p| <= 4 se + 0.01 for p = 2, 3, 5 and
+    |level| <= 4 se + 0.02; falsified otherwise. H_none rejected if gamma_S1 >= 5 se and >= 0.5.
+ D2 (Pearce-Crump factor, primary). Passes if |gamma_PC - 1| <= 4 se + 0.15; H_none (no factor) rejected if gamma_PC >= 5 se
+    and >= 0.5; the factor is falsified if gamma_PC + 4 se < 0.5 or gamma_PC - 4 se > 1.5.
+ D3 (mean shift, primary; new prediction). Passes if |gamma_M - 1| <= 4 se + 0.2; H_none rejected if gamma_M >= 5 se and
+    >= 0.5; falsified if gamma_M + 4 se < 0.5 or gamma_M - 4 se > 1.5.
+ D4 (variance). H_none rejected if gamma_V >= 5 se and >= 0.5; the missing-factor variance law falsified if
+    gamma_V + 4 se < 0.5. LDM passes if |gamma_1 - 1| <= 4 se + 0.35; H_lead rejected if gamma_1 >= 5 se and >= 0.5.
+ D5 (within one L-function). Passes if |A_p - 1| <= 4 se + 0.1 (p = 2, 3) and every cos/sin coefficient of a bad prime
+    2, 3, 5 is within 4 se of 0; H_kept rejected if bad/floor <= 1 + 4 se + 0.1 while good/floor >= 10 (p = 2, 3);
+    LDM's E_p passes if |E_p - 1| <= 4 se + 0.35 (p = 2, 3); H_Ponly rejected if E_p >= 5 se (p = 2, 3).
+ Reported in all cases: T6, T7, each set alone, every cell, the exclusions, the largest |L'|^-2 term.
+
+Every predicted cell and its reading:
+  k = 1 sums (level, p = 2, 3, 5) ............................ T1 / D1
+  k = 1, p = 7, 11, 13 ........................................ no reading (reported)
+  k = -1 factor p = 2, 3, 5 ................................... T2 / D2;  k = -1 level: no reading (reported)
+  mean shift p = 2, 3, 5 ...................................... T3 / D3;  p = 7, 11, 13: no reading
+  variance p = 2, 3, 5 (LDM, lead) ............................ T4 / D4;  p = 7, 11, 13: no reading
+  kappa3, kappa4, k = -1/2, +1/2 .............................. T6 (secondary, amplitudes reported, no decision)
+  within-function A_p, E_p, bad-prime phase, amplitudes ........ T5 / D5 (p = 7: reported)
+  left tail factor r_p(-3/2) = 0.463 (p = 2) .................. no reading (the y^3 regime is below |L'| = 0.2; not
+                                                                  reached: no |L'| < 0.202 among 149,523 zeros of B)
+  absolute mean and variance levels, N_eff .................... no reading (not predicted)
+  complex characters .......................................... no reading
+
+Falsifier, in one line: the conductor's primes act on L'(rho) as missing Euler factors with the recipe's lower-order
+terms; falsified if the k = 1 sums miss the zeta_q recipe (D1), or the k = -1 factor p/(p+1) (D2) or the first-order mean
+shift ln p ln(p/(p-1))/L (D3) is outside its band, or a bad prime leaves a phase signature (D5).
+
+Order: commit this file, predictions_lprime.json and the three scripts -> compute L' for R120, Dn, Fn (lprime_values.py,
+chunks < 10 min, about 105 min in total on the loaded machine; 14 ms per zero on B) -> lprime_test.py on F3 -> report every
+reading, passed or failed.
+Commands (folder lprime/; Z = writeup/data/riemann/lzeros; repeat each line until it prints "0 of N left"):
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I lprime_values.py vals_R120 $Z/r117_part0.npz $Z/r117_part1.npz $Z/r120_part0.npz $Z/r120_part1.npz --seconds 540)
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I lprime_values.py vals_Dn $Z/r136_Dn.npz --seconds 540)
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I lprime_values.py vals_Fn $Z/r138_Fn.npz --seconds 540)
+  (ulimit -v 1500000; timeout 600 nice .venv/bin/python -I lprime_test.py predictions_lprime.json R120:vals_R120:$Z/r117_part0.npz,$Z/r117_part1.npz,$Z/r120_part0.npz,$Z/r120_part1.npz Dn:vals_Dn:$Z/r136_Dn.npz Fn:vals_Fn:$Z/r138_Fn.npz --boot 2000)
+  and the same test line with one SET at a time (reported, no decision).
+
+Statuses: L1 conjecture (ratios/recipe; for zeta the k = 1 terms were verified by Milinovich with Gonek's method under RH);
+the zeta -> zeta_q adaptation and the closed form in Laurent coefficients are derived here (checked by an independent
+Cauchy-integral evaluation of the recipe and against Conrey-Snaith at q = 1). L2 published conjecture (no numerics).
+L3 derived here (Hadamard + ratios pair correlation; equals Landau-Gonek for the Euler part); not found in print.
+L4/L5: leading order = recipe/hybrid model (conjecture, known in substance); the LDM first-order term is a heuristic of
+this round, checked at first order against L3 and the exact k = 1 recipe. Numbers: computed.
