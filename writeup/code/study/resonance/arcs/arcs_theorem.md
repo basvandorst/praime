@@ -429,3 +429,28 @@ printed digits); S_1000 = 1.587324 from Pythagorean triples. All pass.
 - `series_conv.py`, `series_conv_out.txt` — S_H to 2·10⁶.
 - Sources opened (LaTeX, in their own folders): `../src_2008.11325/` (Stucky), `../src_1903.04005/` (Huang–Liu–Rudnick),
   `../src_2105.11093/` (Panidapu–Thorner), `../src_1307.5333/` (Watt).
+
+## Referee report (25 November 2026)
+
+An independent referee (own code in [referee/](referee/)) checked the note. **Confirmed as stated:** Lemma 1 (exact factorisation; in box
+coordinates G is a fixed smooth function up to O(m·X^(−1/4))), Lemma 2 (proved again for h = p, p², pq; brute force for h = 5, 13, 25,
+65, 85; the zone weight depends only on the class mod the ideal of norm h), Lemma 3, Theorem B (conditional on R_h), Theorem B′
+(under GRH; constants at sketch level), Corollary 1 (the Perron step needs the classical zero-free region for L(s, ψ_2m), not only
+L(1, ψ_2m) ≠ 0) and Corollary 2. check_arcs.py has 86 PASS lines, not 85.
+
+**Theorem A** is a correct deduction from the published sector theorem (Stucky, Q. J. Math. 72 (2021) 1357–1377, Theorem 1.1 with
+θ = 1, which is Ricci's theorem; hypotheses checked against the source: θ = 1 allowed, sector width c·x^(−1/4) admitted with room
+1/20, any anchor angle, sharp cutoffs, prime-power ideals; the theorem gives no rate). Corrections: the theorem is applied with a
+width depending on x, which its statement allows; each ideal has exactly one generator in the zone.
+**A caveat on the cited proof, reported by the referee and not verified further here:** in the cited paper the mean-value
+lemma for the case T ≤ M (attributed there to Ricci's thesis) is stated for arbitrary coefficients, and the referee gives a
+numerical counterexample to that generality (coefficients supported on rational integers); the proof uses it only for
+divisor-bounded coefficients, for which the referee expects the bound to hold but did not find it written. Theorem A is
+therefore "a theorem from the literature (Ricci; Stucky)", with this remark attached.
+
+**The gap R_h** (primes in a residue class in sectors of width x^(−1/4)): not found in print (in print: exponent 5/24 through a
+zero-density estimate). The referee's analysis of the cited method: a Weyl-strength bound is not needed; with a pointwise bound
+(m² + t²)^κ for the twisted Hecke L-functions the method reaches the exponent 1/(2 + 8κ), so any subconvex bound κ < 1/4 suffices,
+and one is in print for all Hecke characters (Michel–Venkatesh 2010); the other steps carry over with the character absorbed in
+the coefficients, with the same dependence on the mean-value lemma as Theorem A. So R_h holds at the level of a proof sketch; it
+is not a published result and is not claimed here as a theorem.
