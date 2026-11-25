@@ -1,0 +1,1067 @@
+{
+ "title": "Linearised explicit formula for prime patterns: frozen holdout test",
+ "frozen_on": "2026-11-25",
+ "discovery_range": "x <= 2e9 (pairs, triples, Sophie Germain pairs); prime sums (regressors) to 4e9",
+ "holdout_range": "x in (2e9, 2e10]; pair statistics computed on (2e9, 2e10], prime sums on (4e9, 4e10]",
+ "statistic": "Y(u) = (sum_{p<=x, pattern} prod ln(L_i(p)) - S x)/sqrt(x) on the grid u = ln X_k, X_k = floor(exp(k/2048)); regressors (theta(a x) - a x)/sqrt(x) and theta(a x, chi)/sqrt(x) for primitive chi of conductor <= 30; fit: differences of the series weighted by (ln x)^(-k/2), FFT (rectangular window), bins with 2 <= gamma <= 6000 (and 2..300), weighted least squares on real and imaginary parts with nuisance regressors (u, u^2, exp(-u/2), exp(-u), constant drift); noise variance per bin from the smoothed squared residuals (41 bins, 3 passes); errors from (X^T W X)^-1. Model 'all': zeta coefficient(s) free, one loudness factor for all predicted characters together, free coefficients for the null set 3.1, 4.1, 5.2, 7.1, 7.4, 8.1, 8.2, 11.1, 12.1, 9.1 (those not predicted present). Model 'cond': one loudness per conductor.",
+ "conjecture": "sum_{n<=x} prod_i Lambda(a_i n + b_i) = S x + S sum_i (1/a_i)[(psi(a_i x) - a_i x) + sum_{chi primitive} c_i(chi) psi(a_i x, chi)] + (terms not linear in the zeros), c_i(chi) = mean of conj(chi(a_i n + b_i)) over the admissible n mod cond(chi). Pairs (n, n+h): zeta coefficient 2 S(h); chi enters with 2 S(h) mu(q) conj(chi(h)) / prod_{p|q}(p-2) iff chi is even with odd squarefree conductor q coprime to h, else 0.",
+ "predictions_and_expected_errors": {
+  "h2/full/all | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.114
+  },
+  "h2/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0421
+  },
+  "h2/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.105
+  },
+  "h2/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1025
+  },
+  "h2/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.142
+  },
+  "h2/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1445
+  },
+  "h2/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0994
+  },
+  "h2/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1387
+  },
+  "h2/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1403
+  },
+  "h2/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0987
+  },
+  "h2/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0987
+  },
+  "h2/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0956
+  },
+  "h2/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0968
+  },
+  "h2/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1379
+  },
+  "h2/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1365
+  },
+  "h2/low/all | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.7714
+  },
+  "h2/low/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2385
+  },
+  "h2/full/cond | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.1142
+  },
+  "h2/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1168
+  },
+  "h2/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1334
+  },
+  "h2/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1638
+  },
+  "h2/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1732
+  },
+  "h2/full/cond | chi q=15 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0764
+  },
+  "h2/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.201
+  },
+  "h2/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.217
+  },
+  "h2/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1014
+  },
+  "h2/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2345
+  },
+  "h2/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.261
+  },
+  "h4/full/all | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.1149
+  },
+  "h4/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0421
+  },
+  "h4/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1058
+  },
+  "h4/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1033
+  },
+  "h4/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1433
+  },
+  "h4/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1453
+  },
+  "h4/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1002
+  },
+  "h4/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1398
+  },
+  "h4/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1411
+  },
+  "h4/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0997
+  },
+  "h4/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0993
+  },
+  "h4/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0967
+  },
+  "h4/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0975
+  },
+  "h4/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1384
+  },
+  "h4/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1376
+  },
+  "h4/full/cond | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.115
+  },
+  "h4/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1179
+  },
+  "h4/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1317
+  },
+  "h4/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1638
+  },
+  "h4/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1826
+  },
+  "h4/full/cond | chi q=15 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0764
+  },
+  "h4/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2023
+  },
+  "h4/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2114
+  },
+  "h4/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1011
+  },
+  "h4/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2376
+  },
+  "h4/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.26
+  },
+  "h6/full/all | zeta(a=1)": {
+   "predicted": 5.281294526774957,
+   "expected_sigma": 0.1596
+  },
+  "h6/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0419
+  },
+  "h6/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1472
+  },
+  "h6/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1435
+  },
+  "h6/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1984
+  },
+  "h6/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2013
+  },
+  "h6/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1388
+  },
+  "h6/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1939
+  },
+  "h6/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1962
+  },
+  "h6/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.138
+  },
+  "h6/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1379
+  },
+  "h6/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1339
+  },
+  "h6/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1353
+  },
+  "h6/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.192
+  },
+  "h6/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1908
+  },
+  "h6/full/cond | zeta(a=1)": {
+   "predicted": 5.281294526774957,
+   "expected_sigma": 0.1599
+  },
+  "h6/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0816
+  },
+  "h6/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0931
+  },
+  "h6/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1172
+  },
+  "h6/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1256
+  },
+  "h6/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1423
+  },
+  "h6/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1448
+  },
+  "h6/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1632
+  },
+  "h6/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1817
+  },
+  "h8/full/all | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.115
+  },
+  "h8/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0427
+  },
+  "h8/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.106
+  },
+  "h8/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1038
+  },
+  "h8/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1429
+  },
+  "h8/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1463
+  },
+  "h8/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1006
+  },
+  "h8/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1403
+  },
+  "h8/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1415
+  },
+  "h8/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0999
+  },
+  "h8/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0996
+  },
+  "h8/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0967
+  },
+  "h8/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.0979
+  },
+  "h8/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1389
+  },
+  "h8/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1383
+  },
+  "h8/full/cond | zeta(a=1)": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.1151
+  },
+  "h8/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1181
+  },
+  "h8/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1346
+  },
+  "h8/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1662
+  },
+  "h8/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1832
+  },
+  "h8/full/cond | chi q=15 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0771
+  },
+  "h8/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2055
+  },
+  "h8/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.215
+  },
+  "h8/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1019
+  },
+  "h8/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2343
+  },
+  "h8/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2624
+  },
+  "h10/full/all | zeta(a=1)": {
+   "predicted": 3.520863017849971,
+   "expected_sigma": 0.1324
+  },
+  "h10/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0502
+  },
+  "h10/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1222
+  },
+  "h10/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1193
+  },
+  "h10/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1653
+  },
+  "h10/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1674
+  },
+  "h10/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1152
+  },
+  "h10/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1616
+  },
+  "h10/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.163
+  },
+  "h10/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1147
+  },
+  "h10/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1148
+  },
+  "h10/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1114
+  },
+  "h10/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1123
+  },
+  "h10/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1604
+  },
+  "h10/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.159
+  },
+  "h10/full/cond | zeta(a=1)": {
+   "predicted": 3.520863017849971,
+   "expected_sigma": 0.1326
+  },
+  "h10/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.114
+  },
+  "h10/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1467
+  },
+  "h10/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1544
+  },
+  "h10/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1752
+  },
+  "h10/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1845
+  },
+  "h10/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0875
+  },
+  "h10/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2049
+  },
+  "h10/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2284
+  },
+  "h12/full/all | zeta(a=1)": {
+   "predicted": 5.281294526774957,
+   "expected_sigma": 0.1593
+  },
+  "h12/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0428
+  },
+  "h12/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1467
+  },
+  "h12/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1432
+  },
+  "h12/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1985
+  },
+  "h12/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2015
+  },
+  "h12/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1389
+  },
+  "h12/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1941
+  },
+  "h12/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1957
+  },
+  "h12/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1383
+  },
+  "h12/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1375
+  },
+  "h12/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1342
+  },
+  "h12/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1353
+  },
+  "h12/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1925
+  },
+  "h12/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.191
+  },
+  "h12/full/cond | zeta(a=1)": {
+   "predicted": 5.281294526774957,
+   "expected_sigma": 0.1593
+  },
+  "h12/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0818
+  },
+  "h12/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0934
+  },
+  "h12/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1174
+  },
+  "h12/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1261
+  },
+  "h12/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1418
+  },
+  "h12/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1483
+  },
+  "h12/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1638
+  },
+  "h12/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1807
+  },
+  "h30/full/all | zeta(a=1)": {
+   "predicted": 7.041726035699942,
+   "expected_sigma": 0.177
+  },
+  "h30/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0408
+  },
+  "h30/full/all | null 3.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1628
+  },
+  "h30/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1594
+  },
+  "h30/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2205
+  },
+  "h30/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2238
+  },
+  "h30/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1539
+  },
+  "h30/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2153
+  },
+  "h30/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2174
+  },
+  "h30/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.153
+  },
+  "h30/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1529
+  },
+  "h30/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1488
+  },
+  "h30/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1498
+  },
+  "h30/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2131
+  },
+  "h30/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2118
+  },
+  "h30/full/cond | zeta(a=1)": {
+   "predicted": 7.041726035699942,
+   "expected_sigma": 0.177
+  },
+  "h30/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0773
+  },
+  "h30/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0957
+  },
+  "h30/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1054
+  },
+  "h30/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1168
+  },
+  "h30/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.124
+  },
+  "h30/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1353
+  },
+  "h30/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1497
+  },
+  "SG/full/all | zeta(a=1)": {
+   "predicted": 1.3203236316937392,
+   "expected_sigma": 0.1203
+  },
+  "SG/full/all | zeta(a=2)": {
+   "predicted": 0.6601618158468696,
+   "expected_sigma": 0.0858
+  },
+  "SG/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.036
+  },
+  "SG/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1037
+  },
+  "SG/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1036
+  },
+  "SG/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1446
+  },
+  "SG/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.1434
+  },
+  "SG/full/cond | zeta(a=1)": {
+   "predicted": 1.3203236316937392,
+   "expected_sigma": 0.1203
+  },
+  "SG/full/cond | zeta(a=2)": {
+   "predicted": 0.6601618158468696,
+   "expected_sigma": 0.0857
+  },
+  "SG/full/cond | chi q=3 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0657
+  },
+  "SG/full/cond | chi q=4 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1149
+  },
+  "SG/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1115
+  },
+  "SG/full/cond | chi q=7 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1411
+  },
+  "SG/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.19
+  },
+  "SG/full/cond | chi q=12 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1079
+  },
+  "SG/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2052
+  },
+  "SG/full/cond | chi q=15 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1065
+  },
+  "SG/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2908
+  },
+  "SG/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.3036
+  },
+  "SG/full/cond | chi q=20 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.181
+  },
+  "SG/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1354
+  },
+  "SG/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.3404
+  },
+  "SG/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.376
+  },
+  "T026/full/all | zeta(a=1)": {
+   "predicted": 8.574745732839073,
+   "expected_sigma": 1.0062
+  },
+  "T026/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.09
+  },
+  "T026/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.9086
+  },
+  "T026/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2541
+  },
+  "T026/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2714
+  },
+  "T026/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8789
+  },
+  "T026/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2271
+  },
+  "T026/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2413
+  },
+  "T026/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.875
+  },
+  "T026/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8696
+  },
+  "T026/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8474
+  },
+  "T026/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8553
+  },
+  "T026/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2129
+  },
+  "T026/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2065
+  },
+  "T026/full/cond | zeta(a=1)": {
+   "predicted": 8.574745732839073,
+   "expected_sigma": 1.0062
+  },
+  "T026/full/cond | chi q=3 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.3253
+  },
+  "T026/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.319
+  },
+  "T026/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.4906
+  },
+  "T026/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.4967
+  },
+  "T026/full/cond | chi q=15 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1298
+  },
+  "T026/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5347
+  },
+  "T026/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5417
+  },
+  "T026/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.202
+  },
+  "T026/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5824
+  },
+  "T026/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.6482
+  },
+  "T046/full/all | zeta(a=1)": {
+   "predicted": 8.574745732839073,
+   "expected_sigma": 1.0149
+  },
+  "T046/full/all | all present chi (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.0905
+  },
+  "T046/full/all | null 4.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.9185
+  },
+  "T046/full/all | null Re 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2658
+  },
+  "T046/full/all | null Im 5.2": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2864
+  },
+  "T046/full/all | null 7.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8881
+  },
+  "T046/full/all | null Re 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2401
+  },
+  "T046/full/all | null Im 7.4": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2515
+  },
+  "T046/full/all | null 8.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8813
+  },
+  "T046/full/all | null 8.2": {
+   "predicted": 0.0,
+   "expected_sigma": 0.882
+  },
+  "T046/full/all | null 11.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.8559
+  },
+  "T046/full/all | null 12.1": {
+   "predicted": 0.0,
+   "expected_sigma": 0.863
+  },
+  "T046/full/all | null Re 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2288
+  },
+  "T046/full/all | null Im 9.1": {
+   "predicted": 0.0,
+   "expected_sigma": 1.2187
+  },
+  "T046/full/cond | zeta(a=1)": {
+   "predicted": 8.574745732839073,
+   "expected_sigma": 1.0153
+  },
+  "T046/full/cond | chi q=3 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.3271
+  },
+  "T046/full/cond | chi q=5 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.3214
+  },
+  "T046/full/cond | chi q=11 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.4955
+  },
+  "T046/full/cond | chi q=13 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5017
+  },
+  "T046/full/cond | chi q=15 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.1309
+  },
+  "T046/full/cond | chi q=17 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5419
+  },
+  "T046/full/cond | chi q=19 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5479
+  },
+  "T046/full/cond | chi q=21 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.2054
+  },
+  "T046/full/cond | chi q=23 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.5885
+  },
+  "T046/full/cond | chi q=29 (loudness)": {
+   "predicted": 1.0,
+   "expected_sigma": 0.6562
+  },
+  "T026/full/raw_chi3 | raw chi_-3": {
+   "predicted": -2.8582485776130246,
+   "expected_sigma": 0.9296
+  },
+  "T046/full/raw_chi3 | raw chi_-3": {
+   "predicted": 2.8582485776130246,
+   "expected_sigma": 0.9347
+  },
+  "h2/B/combs | zeta comb": {
+   "predicted": 2.6406472633874785,
+   "expected_sigma": 0.2442
+  },
+  "h2/B/combs | chi5 comb": {
+   "predicted": 0.8802157544624928,
+   "expected_sigma": 0.2185
+  },
+  "h2/B/combs | chi-3 comb": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2208
+  },
+  "h2/B/combs | chi-4 comb": {
+   "predicted": 0.0,
+   "expected_sigma": 0.2115
+  }
+ },
+ "alternatives": {
+  "zeta with factor 1 (coefficient S(h) instead of 2 S(h))": {
+   "h2 zeta": 1.3203236316937392
+  },
+  "zeta absent": {
+   "h2 zeta": 0.0
+  },
+  "no L-function lines": {
+   "loudness": 0.0
+  },
+  "proposer's original guess: chi_-3 (mod 3) heard by twins at the loudness of zeta": {
+   "h2 null 3.1": "+-2S = +-2.6406"
+  }
+ },
+ "decisions": {
+  "P1": "twins h=2, band [2,6000], model all: |beta_zeta - 2S(2)| <= 3 sigma AND |beta_zeta - S(2)| > 5 sigma",
+  "P2": "twins: |loudness - 1| <= 3 sigma AND loudness/sigma >= 5",
+  "P3": "twins: |beta(chi_-3)| <= 3 sigma AND min |beta(chi_-3) -+ 2S(2)| > 5 sigma",
+  "P4": "twins: chi^2 of the 13 null coefficients (with their covariance) <= 34.53 (99.9% quantile, 13 dof)",
+  "S1": "gaps 4, 6, 8, 10, 12, 30: zeta coefficient and loudness, all 12 |z| <= 3.5",
+  "S2": "Sophie Germain (n, 2n+1): zeta(a=1) = S, zeta(a=2) = S/2, loudness = 1, chi q=3 and q=4 loudness = 1: all |z| <= 3 and chi q=3 loudness/sigma >= 5",
+  "S3": "triples (0,2,6), (0,4,6): chi q=3 loudness |z| <= 3 and the raw chi_-3 coefficient has the predicted sign (-S3, +S3) at >= 2 sigma, both",
+  "S4": "twins, band [2,300]: zeta and loudness within 3 sigma (low power)",
+  "S5": "twins on the explicit zeros (combs of zeta, chi_5, chi_-3, chi_-4 zeros up to 2500), band [2,1900]: predictions 2S, 2S/3, 0, 0, all |z| <= 3",
+  "S6": "twins per conductor 5, 7, 15, 21: loudness 1 within 3 sigma",
+  "verdict": "PRIMARY CONFIRMED iff P1-P4 all pass; S1-S6 are reported separately"
+ },
+ "falsifier": "If on (2e9, 2e10] the twin (h=2) zeta coefficient misses 2S(2) = 2.6406 by more than 3 sigma, or the joint L-function loudness misses 1 by more than 3 sigma, or the mod-3 character coefficient of twins exceeds 3 sigma, the linearised explicit formula for prime pairs is falsified.",
+ "power": "expected sigma (holdout): zeta(h2) ~0.114, loudness ~0.042, chi_-3 ~0.105; separation from 'factor 1' ~11.6 sigma, from 'no L-function lines' ~23.8 sigma, from the chi_-3 = +-2S guess ~25.1 sigma; S3 sign tests have power about 0.85 each",
+ "hashes": {
+  "tz_counts.py": "86eb85f0fb79c71703469c854a6071cc990bc47ddf8d8c0fbaa9a92f4c86f2ca",
+  "sieve_core.py": "c701615ca99db5ca629dc6acd74a69884598d29a9847804009234ecb26592d1e",
+  "tzlib.py": "9b7c0d8a469ada764658e9ad99bc097d73aff835205cddd2037e715f6188e193",
+  "models.py": "d61395412b184b8afa45f82f60494fa12423abca5d842e209d3d7554d20c2b8b",
+  "theory.py": "53e0d45827c0a5cf61a2fcfaded2783e3b3161514bf23fe26b4ff9fc831da2ed",
+  "disc.npz": "c6ea7e48e88d0122170f9e942b3824550737200fb7be59c07fbdc7b5742d5dd8",
+  "/home/bas/praime/writeup/data/riemann/zeros_40000_flint.txt": "100e8091386fbf82515b7a221aa5a305b7d95e78e2de9a5aded520886879f85e",
+  "/home/bas/praime/writeup/data/riemann/lzeros/D5.txt": "da8e2c241a41b4b4554d7f9f3d6d8c345b4bf7e369ec555275bb927b7f0cb1cb",
+  "/home/bas/praime/writeup/data/riemann/lzeros/D-3.txt": "156d95b7a3f21b476c2387d2edd71c0155568427f952f064dfb114825fc28ce5",
+  "/home/bas/praime/writeup/data/riemann/lzeros/D-4.txt": "3f025a05951c778833791582f8b517b8865b8b7a6b347d42ac27c7eaa0af95b7"
+ }
+}

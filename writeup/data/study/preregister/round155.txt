@@ -1,0 +1,47 @@
+REGISTRATION -- linearised explicit formula for prime patterns (twin primes and the zeros of L-functions)
+Frozen: 2026-11-25, before any count above 2e9 of a pair, triple or Sophie Germain statistic was made.
+Scripts and frozen predictions: writeup/code/study/twinzeros/ (the jobs run in a scratch folder outside the repository; disc.npz, 85 MB, and hold.npz are not stored)
+
+sha256 of the frozen files:
+  f525b850ae0bbffdda8b2d9c63cb0c9f61521c81fb5456abe9134c958ed51f2c  predictions_twinzeros.json
+  cc5e7377959e8a8ec268f116a1be27177ed01463b956eb7d460f12573d2200b4  tz_test.py
+  86eb85f0fb79c71703469c854a6071cc990bc47ddf8d8c0fbaa9a92f4c86f2ca  tz_counts.py
+  c701615ca99db5ca629dc6acd74a69884598d29a9847804009234ecb26592d1e  sieve_core.py
+  9b7c0d8a469ada764658e9ad99bc097d73aff835205cddd2037e715f6188e193  tzlib.py
+  d61395412b184b8afa45f82f60494fa12423abca5d842e209d3d7554d20c2b8b  models.py
+  53e0d45827c0a5cf61a2fcfaded2783e3b3161514bf23fe26b4ff9fc831da2ed  theory.py
+  c6ea7e48e88d0122170f9e942b3824550737200fb7be59c07fbdc7b5742d5dd8  disc.npz
+  100e8091386fbf82515b7a221aa5a305b7d95e78e2de9a5aded520886879f85e  writeup/data/riemann/zeros_40000_flint.txt
+  da8e2c241a41b4b4554d7f9f3d6d8c345b4bf7e369ec555275bb927b7f0cb1cb  writeup/data/riemann/lzeros/D5.txt
+  156d95b7a3f21b476c2387d2edd71c0155568427f952f064dfb114825fc28ce5  writeup/data/riemann/lzeros/D-3.txt
+  3f025a05951c778833791582f8b517b8865b8b7a6b347d42ac27c7eaa0af95b7  writeup/data/riemann/lzeros/D-4.txt
+
+Holdout: pairs/triples/SG for p in (2e9, 2e10]; prime sums for (4e9, 4e10]; analysis window x in [2e9, 2e10].
+Commands (from the folder; foreground; memory cap):
+  (ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -B tz_counts.py hold 2e9 2e10 4e9 4e10)   # repeat until it prints DONE (about 3 runs; no -I here: tz_counts.py imports sieve_core.py from the folder)
+  sha256sum hold.npz   # record
+  (ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B tz_test.py)   # writes tz_test_result.json
+tz_test.py refuses to run if the JSON or any listed code/data file differs from these hashes.
+
+Conjecture: sum_{n<=x} prod_i Lambda(a_i n + b_i) = S x + S sum_i (1/a_i)[(psi(a_i x) - a_i x) + sum_{chi primitive} c_i(chi) psi(a_i x, chi)] + (terms not linear in the zeros), c_i(chi) = mean of conj(chi(a_i n + b_i)) over the admissible n mod cond(chi). Pairs (n, n+h): zeta coefficient 2 S(h); chi enters with 2 S(h) mu(q) conj(chi(h)) / prod_{p|q}(p-2) iff chi is even with odd squarefree conductor q coprime to h, else 0.
+
+Decisions (fixed): 
+  P1: twins h=2, band [2,6000], model all: |beta_zeta - 2S(2)| <= 3 sigma AND |beta_zeta - S(2)| > 5 sigma
+  P2: twins: |loudness - 1| <= 3 sigma AND loudness/sigma >= 5
+  P3: twins: |beta(chi_-3)| <= 3 sigma AND min |beta(chi_-3) -+ 2S(2)| > 5 sigma
+  P4: twins: chi^2 of the 13 null coefficients (with their covariance) <= 34.53 (99.9% quantile, 13 dof)
+  S1: gaps 4, 6, 8, 10, 12, 30: zeta coefficient and loudness, all 12 |z| <= 3.5
+  S2: Sophie Germain (n, 2n+1): zeta(a=1) = S, zeta(a=2) = S/2, loudness = 1, chi q=3 and q=4 loudness = 1: all |z| <= 3 and chi q=3 loudness/sigma >= 5
+  S3: triples (0,2,6), (0,4,6): chi q=3 loudness |z| <= 3 and the raw chi_-3 coefficient has the predicted sign (-S3, +S3) at >= 2 sigma, both
+  S4: twins, band [2,300]: zeta and loudness within 3 sigma (low power)
+  S5: twins on the explicit zeros (combs of zeta, chi_5, chi_-3, chi_-4 zeros up to 2500), band [2,1900]: predictions 2S, 2S/3, 0, 0, all |z| <= 3
+  S6: twins per conductor 5, 7, 15, 21: loudness 1 within 3 sigma
+  verdict: PRIMARY CONFIRMED iff P1-P4 all pass; S1-S6 are reported separately
+
+Falsifier: If on (2e9, 2e10] the twin (h=2) zeta coefficient misses 2S(2) = 2.6406 by more than 3 sigma, or the joint L-function loudness misses 1 by more than 3 sigma, or the mod-3 character coefficient of twins exceeds 3 sigma, the linearised explicit formula for prime pairs is falsified.
+
+Power: expected sigma (holdout): zeta(h2) ~0.114, loudness ~0.042, chi_-3 ~0.105; separation from 'factor 1' ~11.6 sigma, from 'no L-function lines' ~23.8 sigma, from the chi_-3 = +-2S guess ~25.1 sigma; S3 sign tests have power about 0.85 each
+
+Alternatives registered: zeta with factor 1 (coefficient S(h) instead of 2 S(h)) -> {'h2 zeta': 1.3203236316937392}; zeta absent -> {'h2 zeta': 0.0}; no L-function lines -> {'loudness': 0.0}; proposer's original guess: chi_-3 (mod 3) heard by twins at the loudness of zeta -> {'h2 null 3.1': '+-2S = +-2.6406'}
+
+Dry run (tz_test.py --dry, window 2e8..2e9 of the discovery range, same length in ln x): all 10 decisions PASS (tz_test_dry.out).
