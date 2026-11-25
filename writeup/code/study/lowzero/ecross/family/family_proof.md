@@ -39,9 +39,9 @@ W ∈ C_c^∞((1,2)) fixed, ∫H = T∫W.
 6. **One form (D).** For Δ (S₁₂(1) = ℂΔ) Petersson gives λ_Δ(n) exactly as a Kloosterman series. Its c = 1 term carries the
    amplitude 1/ω_Δ = 0.3521; the conjecture says c_Δ = B_Δ/L(1, Sym²Δ) = 2.3608. **The zeros of L(Δ) decide: computed slope
    1.016 (sharp) and 0.989 (Hann) on [20, 400] against c_Δ; 1/ω_Δ is excluded** (−21 against −145). Numerically 85 % of the
-   amplitude comes from moduli 5 ≤ c ≤ 60 at heights ≤ 400 (c growing with T). Consequence (proved, given the conjecture): no bound with more than
-   square-root cancellation for Σ_p S(p,1;c)·(oscillating weight), uniform in c ≤ T/6, can hold; ILS's Hypothesis S
-   (square-root cancellation) only gives O(T^{1+ε}) and does not decide. **Theorem E (proved):** the ratios conjecture for
+   amplitude comes from moduli 5 ≤ c ≤ 60 at heights ≤ 400 (c growing with T). Within the Petersson decomposition (not as a statement about primes: the same
+   split occurs for the sum over all integers, a theorem; see §9a) a bound beating the square-root scale uniformly in c ≤ T^{1+η}
+   would contradict the conjecture; the constant is the Hardy–Littlewood singular series of the resonance (§9a). **Theorem E (proved):** the ratios conjecture for
    L(s, f) in the t-aspect (two statements R1, R2 below) implies the one-point law for one form, error O(T^{1/2+ε}).
 7. **Δ data point (new, outside elliptic curves):** zeros of L(Δ) to 420 (431 zeros; complete: the exact explicit formula
    of Proposition 1, weight 12, holds to 2·10^{−12}); Σ_{20<γ≤400} e^{2iθ(γ)} = −145.03 − 1.20i against −c_Δ·380/2π = −142.78;
@@ -261,13 +261,13 @@ Hypothesis 4, = Hypothesis S of the journal version; opened): Σ_{p≤X, p≡a (
 bound X^δc^A with some δ < 3/4" (δ = 7/8 Vinogradov, δ = 3/4 from the density hypothesis). In our problem the c-th term is
 c^{−1}Σ_p ln p S(p,1;c)Φ_c(p), Φ_c ≈ p^{−½}(c/T)^{½}T^{½}e(2√p(±1/c − 1)): the analytic phase has frequency 1 ∓ 1/c, not 1/c,
 and the arithmetic weight is a Kloosterman sum. (a) If for some δ > 0, uniformly in c ≤ T/3,
-|Σ_p ln p S(p,1;c)Φ_c(p)| ≪ c^{½}x^{½−δ}sup_u √u|Φ_c(u)| (more than square-root cancellation), then Σ_{2≤c≤T/3}|c-th term| ≪
+|Σ_p ln p S(p,1;c)Φ_c(p)| ≪ c^{½}x^{−δ}sup_u √u|Φ_c(u)| (more than square-root cancellation; the exponent x^{½−δ} of the first version was the trivial bound, referee's correction; the range should be c ≤ T^{1+η}), then Σ_{2≤c≤T/3}|c-th term| ≪
 T^{1−2δ} and Z_Δ(H) = −(1/ω_Δ)∫H/2π + o(T) (under RH for the c = 1 remainder): **this contradicts the conjecture, since
 c_Δ = 2.3608 ≠ 0.3521 = 1/ω_Δ**. So the conjecture for Δ implies that no such bound holds. (b) Square-root cancellation
 (δ = 0, an "S-type" hypothesis) gives each c-term O(T^{ε}) and the sum O(T^{1+ε}): it neither proves nor refutes the law.
-Hence **no upper-bound hypothesis on Kloosterman–prime sums yields the one-form law**: the law is a main-term statement
-about primes in progressions to moduli c ≍ T ≍ √x weighted by S(p,1;c) — the Bombieri–Vinogradov/Elliott–Halberstam
-boundary, for individual moduli. GRH alone gives only the trivial bound (note §6(b), refereed).
+This holds **within the Petersson decomposition only** (referee's correction, §9a): the split over c is a property of the
+Kloosterman expansion of λ_Δ, not of primes, and in the Hardy–Littlewood decomposition an upper bound on the minor arcs
+would suffice. GRH alone gives only the trivial bound (note §6(b), refereed).
 
 **8.3 Theorem E (conditional; proved).** Let f be one form (any level, weight k), H as in §1. Assume, uniformly for complex
 α, γ with |α|, |γ| ≤ 2/log T, Re γ ≥ 1/log T, and smooth w supported in [T/2, 3T] with w^{(j)} ≪_j T^{−j}:
@@ -315,6 +315,39 @@ at x = 5·10⁴, 10⁵, 2·10⁵ (theorem: 1; this also checks the weight-k phas
 2.292 + 0.186i, 2.301 + 0.076i (law 2.361; c = 1 term 0.352).
 **Petersson and root numbers:** b1–b5 (§2). **Family averages:** §5 (c1, c2). **Identities:** a1–a8 (§2, §6).
 Totals: a 8/8, b 11/11, c 2/2, d 9/9 PASS (see the output files).
+
+## 9a. Referee report (25 November 2026) and what it adds
+
+An independent referee (own code in [referee/](referee/)) confirmed: Lemmas 1–6, the weight ω_f = 2π²/((k−1)·N·L(1, Sym²f)) (12
+digits on four curves), the root number ε_f = −i^k·λ_f(N)·√N (42 embeddings, both signs), **Theorem A (unconditional, exact; main
+term exactly −(1/2π)∫H)**, **Theorem B (GRH; T ≤ N^{1/3}(log N)^{−3})**, Proposition 5 (GRH for Sym²f), Theorem D for fixed ℓ, r,
+Proposition D′. Independent tests: N = 61, k = 4 from eigenform data: family sum/(−∫H/2π) = 0.86, 0.92, 1.15, 1.03 at T = 4, 6, 8,
+10; N = 10007, k = 4: family sum minus the predicted line sum ≤ 0.026 in ten (ℓ, r) cases at T = 6. Corrections:
+
+1. **Theorem C** needs |ĉ_χ| = |τ(χ)|²/φ(m) ≤ q₁/φ(m) and the gain (T ln m)^{−A} from integration by parts for the exceptional
+   character; with these the total is ≪ T^{1−A}. An exceptional zero is harmless (no stationary point for m ≥ 2).
+2. **Theorem E:** hypothesis (R2) is redundant. Under GRH the left line moves to −¼ with no zeros crossed and is the term E₀ of
+   Proposition 1 of the first note. So: **the ratios conjecture (R1, the one-over-one case of Conrey–Farmer–Zirnbauer, with
+   |α| ≤ 3/log T) and GRH for L(s, f) imply the one-point law.** This is the recipe written as a hypothesis.
+3. **§8.2** as first written used the trivial bound in place of square-root cancellation and drew a conclusion about primes
+   that holds only inside the Petersson decomposition (corrected above). For the sum over all integers (constant 1, a
+   theorem) the c = 1 term also carries exactly 1/ω_Δ = 0.352, and moduli 10 < c ≤ 60 carry the other 65 %.
+4. **Theorem D** should be stated in its uniform form −(1/2π)·Σ_m μ(m)c_m(ℓ)/(φ(m)√ℓ)·Ĥ(ln(rm²/ℓ)): at N = 10007 and r = ½ the
+   family value is as large as the main term at T = 6. Proposition 5 alone does not test c_f (c_f ≡ 1 also has mean 1); the
+   discriminating statements are Theorem D at ℓ = m², r = 1 and Proposition D′.
+5. Smaller points: for N | m the Kloosterman sum S(Np, 1; Nm) is exactly 0; Theorem B's range N^{1/3} comes from partial
+   summation, the explicit formula per character should give N^{½−ε}, and T ≈ N^{½} is the support-2 barrier of
+   Iwaniec–Luo–Sarnak; no assertion of check_family.py tests Theorems A, B or D directly (referee/r3_family.py and
+   referee/r6_largeN.py do).
+
+**The constant is a Hardy–Littlewood singular series (referee, level 1).** Expand Λ(n) ≈ Σ_q μ(q)c_q(n)/φ(q). By the twisted
+functional equation each sum Σ_n c_q(n)λ(n)·(kernel) resonates only at dual index q², with weight (φ(q)/q)·λ(q²) times the
+q = 1 value (computed for Δ: q = 2, 3, 5, 7: 10.866, 12.928, 12.689, 22.08 against 10.867, 12.933, 12.633, 22.24). So the
+constant is Σ_q μ(q)λ_f(q²)/q = Π_p (1 − λ_f(p²)/p) = c_f (for Δ: partial sums 1, 1.915, 2.250, 2.335, 2.356, 2.3595, 2.3605 at
+Q = 1, 10, …, 10⁶; c_Δ = 2.3608). The one-point law for one form is therefore the singular-series conjecture for the Voronoi
+resonance over primes: the major arcs give the constant, and what is open is a minor-arc bound o(x^{3/4}) (Zhao 2006 has
+x^{5/6}). It does not follow from GRH for Dirichlet L-functions: the classical main terms of primes in progressions, summed
+over the Petersson moduli, give 1/ω_Δ = 0.352, not 2.3608. Σ^h c_f at six further levels (k = 4, N = 61–151): mean 1.015.
 
 ## 10. Prior art (opened sources marked)
 

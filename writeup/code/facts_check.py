@@ -1791,4 +1791,34 @@ for co_, N_, w_, r_, win_ in (([0, 0, 1, -1, 0], 37, -1, 1.5, (9.0, 13.0, 2.5)),
     assert abs(left_ - w_ * right_) < 1e-9 and abs(left_ + w_ * right_) > 1, (N_, left_, right_)       # holds with the root number, fails with its sign flipped
 del a2052, n2052, c2052
 
+# 2054, 2055: the family average of the one-point sum (its two exact ingredients) and the one-point law for Delta
+for N_, k_, t_ in ((11, 2, 7.3), (1, 12, 31.0), (37, 4, 55.5)):     # int_0^inf u^(-1/2-it) J_(k-1)(4 pi sqrt(u/N)) du = (sqrt N/2pi) e^(-2i theta_f(t))
+    s_ = 1 - 2j * t_                                                  # by the Mellin transform of J_nu: 2^(s-1) Gamma((nu+s)/2)/Gamma((nu-s)/2+1)
+    lhs_ = (N_ / (16 * mpmath.pi ** 2)) ** (-0.5 - 1j * t_) * N_ / (8 * mpmath.pi ** 2) * 2 ** (s_ - 1) * mpmath.gamma((k_ - 1 + s_) / 2) / mpmath.gamma((k_ - 1 - s_) / 2 + 1)
+    th_ = t_ / 2 * mpmath.log(N_) - t_ * mpmath.log(2 * mpmath.pi) + mpmath.im(mpmath.loggamma(k_ / 2 + 1j * t_))
+    assert abs(lhs_ / (mpmath.sqrt(N_) / (2 * mpmath.pi) * mpmath.exp(-2j * th_)) - 1) < 1e-11, (N_, k_)
+for N_ in (11, 37, 61):                                              # the Kloosterman sum S(Np, 1; N) = sum over units x of e(x^-1/N) = -1
+    assert abs(sum(np.exp(2j * math.pi * pow(x, -1, N_) / N_) for x in range(1, N_)) + 1) < 1e-10
+X2055 = 30000                                                        # tau(n) from Delta = q (eta^3)^8, eta^3 = sum (-1)^k (2k+1) q^(k(k+1)/2)
+e2055 = np.zeros(X2055 + 1); k_ = 0
+while k_ * (k_ + 1) // 2 <= X2055: e2055[k_ * (k_ + 1) // 2] = (-1) ** k_ * (2 * k_ + 1); k_ += 1
+p2055 = e2055
+for _ in range(3): p2055 = np.convolve(p2055, p2055)[:X2055 + 1]
+tau2055 = np.concatenate(([0.0], p2055[:X2055]))
+assert [round(tau2055[n]) for n in (1, 2, 3, 4, 5, 6, 7)] == [1, -24, 252, -1472, 4830, -6048, -16744]
+s2055 = np.ones(X2055 + 1, bool); s2055[:2] = False
+for i in range(2, int(X2055 ** 0.5) + 1):
+    if s2055[i]: s2055[i * i::i] = False
+P2055 = np.nonzero(s2055)[0]; l2055 = tau2055[P2055] / P2055.astype(float) ** 5.5
+assert np.abs(l2055).max() < 2                                       # Deligne
+c2055 = float(np.prod(1 - (l2055 ** 2 - 1) / P2055))                  # prod_(p <= 30000) (1 - lambda(p^2)/p), slowly convergent
+assert abs(c2055 - 2.3585) < 5e-4 and abs(c2055 - 2.3608) < 5e-3
+z2055 = np.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'study', 'lowzero', 'ecross', 'family', 'delta_zeros.npy'))   # zeros of L(s, Delta), 0 < gamma <= 420 (PARI)
+assert len(z2055) == 431
+g2055 = z2055[(z2055 > 20) & (z2055 <= 400)]
+G2055 = sum(mpmath.exp(2j * (-x * mpmath.log(2 * mpmath.pi) + mpmath.im(mpmath.loggamma(6 + 1j * x)))) for x in g2055.tolist())
+assert abs(complex(G2055) - (-145.0272 - 1.1965j)) < 1e-3 and abs(G2055.real / (-2.36082 * 380 / (2 * math.pi)) - 1.0157) < 1e-3
+assert abs(G2055.real - (-380 / (2 * math.pi))) > 80                 # the constant 1 of the sum over all integers is excluded
+del tau2055, p2055, e2055
+
 print("all FACTS.md checks passed")
