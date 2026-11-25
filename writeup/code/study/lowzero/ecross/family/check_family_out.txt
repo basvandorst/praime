@@ -1,0 +1,106 @@
+PASS a1 S(Nn,1;Nm) = mu(N) S(n,Nbar;m)  max err 2.2e-13
+PASS a2 sum_a* S(la,b;m) = mu(m) c_m(l)  max err 4.9e-14
+PASS a3 (1/phi(m)) sum |K(a)|^2 <= m  max ratio 1.000
+PASS a4 Bessel Mellin transform (s = -2it, 1-2it, 0.6-2it)  max rel err 1.6e-21
+PASS a5 int u^{-1/2-it} J_{k-1}(4pi sqrt(u/(Nm^2))) du = (sqrt(N) m/2pi) e^{-2i theta_{Nm^2}(t)}  max rel err 3.6e-20
+PASS a6 |Gamma(a+iy)/Gamma(a+1-iy)| = 1/|a+iy|  max err 1.7e-21
+PASS a7 E_ST[lambda(p^e) S_p(v)]/(1-1/p) = family local factor mu(p^j)c_{p^j}(p^e)/(phi(p^j)p^{e/2}), e<=3, |v|<=4
+PASS a8 E_ST[1-lambda(p^2)/p]=1, E_ST[(1-lambda(p^2)/p) Z_p]=1-p^-2 (+O(p^-8)), E_ST[(1-lambda(p^2)/p)^2]=1+p^-2  means: 1 | 1 - 1/p**2 | 1 + p**(-2)
+section a: 8/8 PASS, 71s
+PARI stack size set to 800000000 bytes, maximum size set to 800002048
+  omega_Delta: Petersson series 2.840287375167500, from <D,D> 2.840287375167502, 2pi^2/(11 L(1,Sym^2)) 2.840287375197924, L(1,Sym^2 Delta) = 0.631792945721116
+PASS b1 omega_Delta three ways
+PASS b2 Petersson for Delta: omega lambda(n) = Delta_{12,1}(1,n)  max err 2.9e-15
+  N=7 k=4: forms (eps, L(1,Sym^2), omega) [(1, 0.803232, 1.170225)]; max |Petersson err| 5.8e-09, |root-number Petersson err| 6.6e-08 (m <= 600), 1s
+PASS b3 N=7 k=4: sum_f omega_f lam(n) = Delta(1,n) with omega_f = 2pi^2/((k-1) N L(1,Sym^2 f))
+PASS b4 N=7 k=4: sum_f omega_f eps_f lam(n) = -2pi N^-1/2 sum_m S(Nn,1;Nm)/m J_{k-1}(4pi sqrt(n/N)/m)
+  N=13 k=4: forms (eps, L(1,Sym^2), omega) [(-1, 3.049536, 0.165971), (1, 0.953747, 0.530679), (1, 1.449285, 0.34923)]; max |Petersson err| 2.8e-09, |root-number Petersson err| 5.4e-08 (m <= 600), 1s
+PASS b3 N=13 k=4: sum_f omega_f lam(n) = Delta(1,n) with omega_f = 2pi^2/((k-1) N L(1,Sym^2 f))
+PASS b4 N=13 k=4: sum_f omega_f eps_f lam(n) = -2pi N^-1/2 sum_m S(Nn,1;Nm)/m J_{k-1}(4pi sqrt(n/N)/m)
+  N=37 k=2: forms (eps, L(1,Sym^2), omega) [(1, 0.653479, 0.816387), (-1, 2.492262, 0.214059)]; max |Petersson err| 1.6e-04, |root-number Petersson err| 5.4e-04 (m <= 1500), 53s
+PASS b3 N=37 k=2: sum_f omega_f lam(n) = Delta(1,n) with omega_f = 2pi^2/((k-1) N L(1,Sym^2 f))
+PASS b4 N=37 k=2: sum_f omega_f eps_f lam(n) = -2pi N^-1/2 sum_m S(Nn,1;Nm)/m J_{k-1}(4pi sqrt(n/N)/m)
+  N=11 k=2: forms (eps, L(1,Sym^2), omega) [(1, 1.057599, 1.696742)]; max |Petersson err| 3.4e-04, |root-number Petersson err| 6.0e-04 (m <= 1500), 3s
+PASS b3 N=11 k=2: sum_f omega_f lam(n) = Delta(1,n) with omega_f = 2pi^2/((k-1) N L(1,Sym^2 f))
+PASS b4 N=11 k=2: sum_f omega_f eps_f lam(n) = -2pi N^-1/2 sum_m S(Nn,1;Nm)/m J_{k-1}(4pi sqrt(n/N)/m)
+  N=13 k=4 form 1 emb 0: i^k mu(N) lam(N) sqrt N = -1.000000, PARI root number (-1+0j)
+  N=13 k=4 form 2 emb 0: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+  N=13 k=4 form 2 emb 1: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+  N=37 k=2 form 1 emb 0: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+  N=37 k=2 form 2 emb 0: i^k mu(N) lam(N) sqrt N = -1.000000, PARI root number (-1+0j)
+  N=11 k=4 form 1 emb 0: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+  N=11 k=4 form 1 emb 1: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+  N=23 k=2 form 1 emb 0: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+  N=23 k=2 form 1 emb 1: i^k mu(N) lam(N) sqrt N = +1.000000, PARI root number (1+0j)
+PASS b5 root number formula
+section b: 11/11 PASS, 62s
+PARI stack size set to 1000000000 bytes, maximum size set to 1000001536
+  k=4 N=  7 #f= 1  sum omega=1.1702  M_pred=sum^h c_f=2.4231 (1+1/N=1.1429)  natural mean c_f=2.0706 (6/pi^2/(1-1/N)=0.7092)  sum^h eps c=+2.4231  sum^h c^2=5.0173  [0.1s]
+  k=4 N= 11 #f= 2  sum omega=0.9620  M_pred=sum^h c_f=1.0754 (1+1/N=1.0909)  natural mean c_f=1.0445 (6/pi^2/(1-1/N)=0.6687)  sum^h eps c=+1.0754  sum^h c^2=1.3234  [0.2s]
+  k=4 N= 13 #f= 3  sum omega=1.0459  M_pred=sum^h c_f=1.0319 (1+1/N=1.0769)  natural mean c_f=0.7138 (6/pi^2/(1-1/N)=0.6586)  sum^h eps c=+1.0528  sum^h c^2=1.3699  [0.5s]
+  k=4 N= 17 #f= 4  sum omega=0.9885  M_pred=sum^h c_f=1.3587 (1+1/N=1.0588)  natural mean c_f=0.7114 (6/pi^2/(1-1/N)=0.6459)  sum^h eps c=+1.1157  sum^h c^2=2.8476  [1.0s]
+  k=4 N= 19 #f= 4  sum omega=1.0007  M_pred=sum^h c_f=1.4379 (1+1/N=1.0526)  natural mean c_f=0.8709 (6/pi^2/(1-1/N)=0.6417)  sum^h eps c=+0.9034  sum^h c^2=2.8297  [0.9s]
+  k=4 N= 23 #f= 5  sum omega=0.9936  M_pred=sum^h c_f=0.9601 (1+1/N=1.0435)  natural mean c_f=0.7419 (6/pi^2/(1-1/N)=0.6356)  sum^h eps c=-0.0645  sum^h c^2=1.2433  [1.2s]
+  k=4 N= 29 #f= 7  sum omega=0.9981  M_pred=sum^h c_f=0.7797 (1+1/N=1.0345)  natural mean c_f=0.5649 (6/pi^2/(1-1/N)=0.6296)  sum^h eps c=-0.0628  sum^h c^2=0.8591  [1.9s]
+  k=4 N= 31 #f= 7  sum omega=1.0000  M_pred=sum^h c_f=1.1980 (1+1/N=1.0323)  natural mean c_f=0.7231 (6/pi^2/(1-1/N)=0.6282)  sum^h eps c=-0.2538  sum^h c^2=2.1202  [1.8s]
+  k=4 N= 37 #f= 9  sum omega=1.0000  M_pred=sum^h c_f=0.8108 (1+1/N=1.0270)  natural mean c_f=0.5398 (6/pi^2/(1-1/N)=0.6248)  sum^h eps c=+0.0775  sum^h c^2=1.0171  [3.5s]
+  k=4 N= 41 #f=10  sum omega=1.0003  M_pred=sum^h c_f=0.9746 (1+1/N=1.0244)  natural mean c_f=0.6433 (6/pi^2/(1-1/N)=0.6231)  sum^h eps c=-0.2592  sum^h c^2=1.4282  [4.7s]
+  k=4 N= 43 #f=10  sum omega=0.9999  M_pred=sum^h c_f=0.8653 (1+1/N=1.0233)  natural mean c_f=0.6378 (6/pi^2/(1-1/N)=0.6224)  sum^h eps c=-0.1096  sum^h c^2=1.0398  [4.0s]
+  k=4 N= 47 #f=11  sum omega=0.9997  M_pred=sum^h c_f=1.1606 (1+1/N=1.0213)  natural mean c_f=0.6835 (6/pi^2/(1-1/N)=0.6211)  sum^h eps c=-0.4801  sum^h c^2=2.0276  [4.5s]
+  k=2 N= 11 #f= 1  sum omega=1.6967  M_pred=sum^h c_f=1.6384 (1+1/N=1.0909)  natural mean c_f=0.9656 (6/pi^2/(1-1/N)=0.6687)  sum^h eps c=+1.6384  sum^h c^2=1.5820  [0.1s]
+  k=2 N= 37 #f= 2  sum omega=1.0304  M_pred=sum^h c_f=2.0418 (1+1/N=1.0270)  natural mean c_f=1.3316 (6/pi^2/(1-1/N)=0.6248)  sum^h eps c=+1.9477  sum^h c^2=4.8844  [0.3s]
+  k=2 N= 43 #f= 3  sum omega=1.0505  M_pred=sum^h c_f=1.0918 (1+1/N=1.0233)  natural mean c_f=0.8839 (6/pi^2/(1-1/N)=0.6224)  sum^h eps c=+0.9496  sum^h c^2=1.3348  [0.5s]
+  k=2 N= 53 #f= 4  sum omega=1.1246  M_pred=sum^h c_f=1.0997 (1+1/N=1.0189)  natural mean c_f=0.7443 (6/pi^2/(1-1/N)=0.6196)  sum^h eps c=+0.8866  sum^h c^2=1.5603  [1.4s]
+  k=2 N= 61 #f= 4  sum omega=0.8963  M_pred=sum^h c_f=0.7119 (1+1/N=1.0164)  natural mean c_f=0.7365 (6/pi^2/(1-1/N)=0.6181)  sum^h eps c=+0.2032  sum^h c^2=0.6386  [1.1s]
+  k=2 N= 67 #f= 5  sum omega=1.0748  M_pred=sum^h c_f=1.3409 (1+1/N=1.0149)  natural mean c_f=0.7730 (6/pi^2/(1-1/N)=0.6171)  sum^h eps c=+1.1287  sum^h c^2=2.5644  [1.5s]
+  k=2 N= 73 #f= 5  sum omega=0.9690  M_pred=sum^h c_f=0.9720 (1+1/N=1.0137)  natural mean c_f=0.7125 (6/pi^2/(1-1/N)=0.6164)  sum^h eps c=+0.6108  sum^h c^2=1.3450  [1.9s]
+  k=2 N= 79 #f= 6  sum omega=1.0533  M_pred=sum^h c_f=1.0931 (1+1/N=1.0127)  natural mean c_f=0.8015 (6/pi^2/(1-1/N)=0.6157)  sum^h eps c=+0.3313  sum^h c^2=1.4085  [1.8s]
+  k=2 N= 83 #f= 7  sum omega=1.0729  M_pred=sum^h c_f=0.9922 (1+1/N=1.0120)  natural mean c_f=0.6726 (6/pi^2/(1-1/N)=0.6153)  sum^h eps c=+0.3276  sum^h c^2=1.2265  [2.2s]
+  k=2 N= 89 #f= 7  sum omega=1.0345  M_pred=sum^h c_f=1.0666 (1+1/N=1.0112)  natural mean c_f=0.7075 (6/pi^2/(1-1/N)=0.6148)  sum^h eps c=+0.2953  sum^h c^2=1.3590  [2.3s]
+  k=2 N= 97 #f= 7  sum omega=1.0096  M_pred=sum^h c_f=1.0165 (1+1/N=1.0103)  natural mean c_f=0.6655 (6/pi^2/(1-1/N)=0.6143)  sum^h eps c=+0.5935  sum^h c^2=1.3662  [1.7s]
+  k=4, 10 levels: mean of sum^h c_f = 1.058 (sd 0.214); mean of natural mean c_f = 0.683 (limit 6/pi^2 = 0.608); mean sum omega = 1.003
+  k=2, 9 levels: mean of sum^h c_f = 1.043 (sd 0.155); mean of natural mean c_f = 0.744 (limit 6/pi^2 = 0.608); mean sum omega = 1.032
+PASS c1 sum_f omega_f = Delta(1,1) close to 1 (|.-1| < 0.15) at every level N >= 13
+PASS c2 harmonic mean of c_f, averaged over the levels, within 0.15 of the limit 1 (small levels: computed, not a test of the limit)  mean 1.051
+section c: 2/2 PASS, 39s
+PARI stack size set to 1000000000 bytes, maximum size set to 1000001536
+  Delta: L(1,Sym^2)=0.631792945721  B=1.4915509730  c_Delta=B/L=2.360822  direct prod_{p<=2e5}(1-lambda(p^2)/p)=2.360433  1/omega_Delta=0.352077
+PASS d1 c_Delta = B/L(1,Sym^2) agrees with the direct partial product (0.1%)
+  431 zeros of L(Delta) in (0,420] (7.2s); counts vs theta/pi: [(100, 59, 58.96), (200, 159, 159.36), (300, 277, 276.41), (400, 404, 404.27)]
+  window [20,400]: sharp (-145.03-1.2j)  Hann (-70.61-0.03j) | law -c T/2pi: -142.78 (Hann -71.39) | ratios 1.016, 0.989 | c=1 term only (1/omega): -21.29
+  window [20,140]: sharp (-40.56-0.25j)  Hann (-20.5-0.15j) | law -c T/2pi: -45.09 (Hann -22.54) | ratios 0.900, 0.909 | c=1 term only (1/omega): -6.72
+  window [140,260]: sharp (-45.43-6.53j)  Hann (-21.1+1.15j) | law -c T/2pi: -45.09 (Hann -22.54) | ratios 1.008, 0.936 | c=1 term only (1/omega): -6.72
+  window [260,400]: sharp (-59.04+5.58j)  Hann (-28.32+3.56j) | law -c T/2pi: -52.60 (Hann -26.30) | ratios 1.122, 1.077 | c=1 term only (1/omega): -7.84
+  window [60,230]: sharp (-63.43+0.65j)  Hann (-33.28-2.89j) | law -c T/2pi: -63.88 (Hann -31.94) | ratios 0.993, 1.042 | c=1 term only (1/omega): -9.53
+  window [230,380]: sharp (-57.38+2.75j)  Hann (-30.04+6.06j) | law -c T/2pi: -56.36 (Hann -28.18) | ratios 1.018, 1.066 | c=1 term only (1/omega): -8.41
+PASS d2 Delta one-point sum on [20,400] within 5% of -c_Delta T/2pi (sharp and Hann)
+PASS d3 Delta one-point sum excludes the c=1 Petersson amplitude 1/omega (off by > 20 x noise)
+  exact explicit formula, box [100,200] Delta=5: zeros (-39.841614-2.891362j)  primes (-39.841614-2.891362j)  |diff| 1.20e-12
+PASS d4 Proposition 1 (weight 12) zeros = primes on box [100,200]
+  exact explicit formula, box [250,330] Delta=6: zeros (-32.532332+6.460044j)  primes (-32.532332+6.460044j)  |diff| 2.38e-12
+PASS d4 Proposition 1 (weight 12) zeros = primes on box [250,330]
+  (simplified kernel t_n* = 2 pi sqrt n, phase -4 pi sqrt n + (k-1) pi/2: (-72.116-8.508j); its O(k^2/t) phase error is large for k = 12 at t < 60)
+  Hann [20,400]: zero side (-70.613-0.034j), prime side (leading stationary phase) (-70.461-0.132j), law -71.39
+PASS d5 Delta: zeros = leading-order prime side on Hann [20,400] within 0.5
+  lambda(p) rebuilt from the Kloosterman series (c <= 800): max err 4.7e-11
+    sum_{c<=  1}: (-10.608-0.016j)   (as fraction of the law -71.39: 0.149)
+    sum_{c<=  2}: (-10.472-0.341j)   (as fraction of the law -71.39: 0.147)
+    sum_{c<=  3}: (-10.489-0.745j)   (as fraction of the law -71.39: 0.147)
+    sum_{c<=  5}: (-11.675-0.348j)   (as fraction of the law -71.39: 0.164)
+    sum_{c<= 10}: (-17.11+0.243j)   (as fraction of the law -71.39: 0.240)
+    sum_{c<= 15}: (-24.971+0.492j)   (as fraction of the law -71.39: 0.350)
+    sum_{c<= 20}: (-33.183+1.144j)   (as fraction of the law -71.39: 0.465)
+    sum_{c<= 30}: (-47.549+1.264j)   (as fraction of the law -71.39: 0.666)
+    sum_{c<= 40}: (-60.887+2.733j)   (as fraction of the law -71.39: 0.853)
+    sum_{c<= 60}: (-72.192+3.485j)   (as fraction of the law -71.39: 1.011)
+    sum_{c<= 80}: (-72.95+3.418j)   (as fraction of the law -71.39: 1.022)
+    sum_{c<=120}: (-72.951+3.437j)   (as fraction of the law -71.39: 1.022)
+    sum_{c<=200}: (-72.951+3.437j)   (as fraction of the law -71.39: 1.022)
+    sum_{c<=800}: (-72.951+3.437j)   (as fraction of the law -71.39: 1.022)
+PASS d6 Kloosterman series reproduces lambda_Delta(p), p <= 5270
+PASS d6b c = 1 term gives 1/omega of the amplitude (within 10%), all c give the zero side (within 0.5)  c=1: -10.608 vs -10.647
+  x=5e+04: integers S/A = (0.992+0.056j) (theorem: 1);  prime powers S/A = (2.271+0.25j) (law: c_Delta = 2.361; c=1 term: 0.352)
+  x=1e+05: integers S/A = (0.996+0.041j) (theorem: 1);  prime powers S/A = (2.292+0.186j) (law: c_Delta = 2.361; c=1 term: 0.352)
+  x=2e+05: integers S/A = (0.998+0.029j) (theorem: 1);  prime powers S/A = (2.301+0.076j) (law: c_Delta = 2.361; c=1 term: 0.352)
+PASS d7 integer resonance constant (2 sqrt2/3) e^{-i(2k-1)pi/4} x^{3/4} for k = 12 (|S/A-1| < 0.04, decreasing)
+section d: 9/9 PASS, 19s
