@@ -85,6 +85,7 @@ def main():
             for a, b in wins:
                 new += [float(x) for x in pari.lfunzeros(L, [a, b], divz)]
             new = [x for x in new if x > 1e-6 and np.min(np.abs(g - x)) > 1e-7]
+            new = [x for i, x in enumerate(sorted(new)) if i == 0 or x - sorted(new)[i - 1] > 1e-7]   # overlapping windows return a zero twice (forty-ninth review)
             rounds.append({'divz': divz, 'windows': wins, 'added': new})
             if new:
                 g = np.sort(np.concatenate([g, new])); added += new

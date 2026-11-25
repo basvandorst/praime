@@ -3,7 +3,7 @@ rule may drop a few, var_test.py re-matches on the kept ones), the theory's own 
 expected measurement se (round 142's bootstrap se scaled by sqrt(zeros_142 / zeros_fresh)), and the power of each reading.
 usage: fresh_matched.py predictions_varlp.json
 """
-import sys, json, math
+import os, sys, json, math
 sys.dont_write_bytecode = True
 import numpy as np
 import importlib.util
