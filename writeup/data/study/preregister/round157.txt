@@ -1,0 +1,43 @@
+REGISTRATION, round 157: reading the conductor and the root number of an elliptic curve from its a(p) alone
+(a blind test of the line spectrum of the one-point law on primes, used as a detector).
+
+STATE WHEN THIS WAS WRITTEN. The method (spectrometer.py, round 156, side result) was run on ten curves only (11a1, 15a1, 27a1,
+37a1, 43a1, 89a1, 389a1, conductors 105, 1053, 5077a1), p <= 3e6, candidates N' <= 6000: 10 of 10 found. For the 40 test curves
+below nothing was computed except the conductor and a(p) for p <= 97 (used to keep one curve per isogeny class).
+A dry run of the blind script on 11a1 and 389a1 gives the discovery values again (z = 43.2 and 24.0).
+
+METHOD (unchanged; spectrometer_blind.py is spectrometer.py with the curves read from testset157.json, a time budget and its
+own output file; the diff is three blocks). Input: a(p), p <= 3e6, of an 'unknown' curve. lambda(p) = a(p)/sqrt p;
+S(alpha) = sum_{1e4 <= p <= 3e6} lambda(p) ln p Hann(sqrt p) e(-alpha sqrt p). For every candidate N' in [2, 6000] and
+eps = +-1: matched filter of S against the predicted lines alpha_r = 2 sqrt(r/N'), r = a/b, b <= 4, a <= 1500, with the weights
+c(r)/c of the one-point law (local factors from the a(l) of the data; the primes dividing N' treated as bad: multiplicative
+if a(l) = +-1, additive if a(l) = 0). Estimate: (N_hat, eps_hat) = the candidate with the largest z among the 11,998.
+The truth (PARI: ellglobalred, ellrootno, c = B/L(1, Sym^2)) is used only to score.
+
+TEST SET (testset157.py, seed 20261283; testset157.json): the box a1, a3 in {0,1}, a2 in {-1,0,1}, |a4| <= 20, |a6| <= 30;
+one curve per (conductor, a(p) for p <= 97); conductor <= 3000; the classes of the ten discovery curves excluded: 2,221
+classes, 521 with N <= 500 and 1,700 with 500 < N <= 3000. Drawn: 20 from each stratum (numpy default_rng permutation).
+Conductors: 33 45 52 75 94 160 176 240 270 272 300 300 304 336 344 363 402 405 462 492 | 594 670 685 711 931 986 1088 1396
+1436 1446 1558 1578 1634 1649 1760 2072 2358 2517 2548 2945. Many have additive reduction at 2 or 3 (the discovery set had
+two such curves); no curve is removed for that.
+
+sha256: testset157.json 11f3fe4e66212dd3aafe3d2e230184f63e2d3e7d289a29baad23ef10ac05fe67
+        spectrometer_blind.py 13b5e5ec77dfbcf407187a9d4608e00f768684816a3b9600380b93d7b18d9e06
+        spectro_lib.py 7637130bc4556d38dbea03e7663ed80f4ffa32bb5d5fe6f484f91ee88ad4c29a
+
+DECISIONS (fixed now)
+  D1 primary: (N_hat, eps_hat) = (N, eps) exactly for at least 30 of the 40 curves. FALSIFIER of the method: fewer than 20.
+     Chance level: 1/11,998 per curve.
+  D2: the true (N, eps) is among the three largest z for at least 34 of 40.
+  D3: the root number alone: z(N, eps_true) > 0 at the true conductor for at least 36 of 40.
+  D4: for the curves found, the median of |c_hat/c - 1| is at most 0.05.
+  Reported without decision: hits by stratum (N <= 500, N > 500) and by reduction type (semistable or not), z of the truth,
+  the runners-up (multiples and divisors of N are expected), and for every miss the rank of the truth and c.
+
+WHAT A PASS MEANS, AND WHAT IT DOES NOT. A pass shows that the rational lines of the one-point law (fact 2055; round 156,
+H3) carry enough of the bias between a(p) and the fractional part of 2 sqrt(rp/N) to identify N and eps from primes below
+3e6. It is a use of the law, not a further law; the conductor of a curve is known from its equation, and analytic tests
+that find N from the functional equation exist. Not searched yet: prior art for a detection of N on the prime side.
+
+COMMANDS (scratch folder holding the three files; each bounded, about 25-40 s per curve, about 25 minutes in total):
+  (ulimit -v 1200000; timeout 600 nice python -I -B spectrometer_blind.py 3e6 6000 all 520)   # repeat until ALL DONE
