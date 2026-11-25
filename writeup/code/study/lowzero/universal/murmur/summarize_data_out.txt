@@ -1,0 +1,50 @@
+chunk data_prime_1.npz levels 103 last N 2297
+chunk data_squarefree_1.npz levels 120 last N 1699
+Binned natural averages E[eps_f a_f(p)] = sum T / sum dim  (bin width 0.25 in y = p/N); err = standard error of the bin mean
+  y_mid | PRIME levels: data   err    M_prime  M_zub | SQUAREFREE levels: data   err    M_zub  M_prime
+  0.125 |         0.590  0.013    0.597  0.521 |             0.512  0.015  0.524    0.601
+  0.375 |         0.888  0.024    0.894  1.043 |             1.032  0.027  1.040    0.893
+  0.625 |         0.328  0.032    0.326  0.397 |             0.391  0.038  0.401    0.330
+  0.875 |        -0.894  0.039   -0.907 -1.282 |            -1.335  0.046 -1.314   -0.930
+  1.125 |         0.697  0.040    0.695  0.749 |             0.722  0.048  0.721    0.673
+  1.375 |         1.581  0.042    1.574  1.796 |             1.796  0.051  1.797    1.575
+  1.625 |         1.441  0.048    1.433  1.470 |             1.466  0.059  1.464    1.429
+  1.875 |         0.815  0.053    0.877  0.582 |             0.620  0.068  0.591    0.883
+  2.125 |         0.086  0.059    0.055 -0.670 |            -0.651  0.075 -0.681    0.047
+  2.375 |         0.932  0.065    0.928  0.860 |             0.803  0.076  0.849    0.922
+  2.625 |         1.342  0.070    1.335  1.672 |             1.674  0.084  1.671    1.335
+  2.875 |         1.119  0.075    1.084  1.449 |             1.441  0.088  1.448    1.083
+  3.125 |         0.463  0.078    0.546  0.786 |             0.775  0.096  0.784    0.545
+  3.625 |        -1.137  0.089   -1.066 -1.350 |            -1.441  0.106 -1.353   -1.068
+  4.125 |        -0.001  0.089   -0.022 -0.044 |            -0.005  0.109 -0.053   -0.029
+  4.625 |         1.872  0.088    1.841  2.298 |             2.233  0.110  2.297    1.840
+  5.125 |         1.705  0.098    1.712  1.960 |             1.884  0.119  1.958    1.710
+  5.625 |         0.848  0.102    0.845  0.617 |             0.669  0.123  0.615    0.844
+  6.125 |        -0.535  0.112   -0.483 -1.361 |            -1.425  0.135 -1.363   -0.484
+  6.625 |         0.918  0.118    0.863  1.234 |             1.152  0.141  1.234    0.863
+  7.125 |         0.655  0.124    0.540  1.113 |             1.267  0.154  1.111    0.538
+  7.625 |        -0.489  0.134   -0.434 -0.036 |             0.005  0.159 -0.036   -0.434
+  8.125 |        -1.568  0.140   -1.788 -1.771 |            -1.837  0.165 -1.773   -1.790
+  8.625 |        -3.323  0.148   -3.423 -3.932 |            -4.055  0.175 -3.935   -3.425
+  9.125 |        -1.509  0.143   -1.518 -1.657 |            -1.594  0.171 -1.661   -1.521
+  9.625 |         1.494  0.134    1.577  2.085 |             2.058  0.165  2.082    1.574
+  10.125 |         2.411  0.140    2.428  2.948 |             3.025  0.173  2.948    2.428
+  10.625 |         2.449  0.146    2.504  2.800 |             2.838  0.181  2.799    2.504
+  11.125 |         2.039  0.148    2.106  2.023 |             2.003  0.188  2.024    2.106
+  11.625 |         1.297  0.157    1.365  0.790 |             0.612  0.194  0.790    1.365
+
+prime     : 103 levels, total dim 16276; bins 48:  chi2 vs M_prime = 16.1,  chi2 vs M_zub = 907.6;  RMS(data-M_prime) = 0.069, RMS(data-M_zub) = 0.419
+squarefree: 120 levels, total dim 11288; bins 48:  chi2 vs M_prime = 605.7,  chi2 vs M_zub = 10.1;  RMS(data-M_prime) = 0.408, RMS(data-M_zub) = 0.065
+
+Transform of the data = natural-weight family average of the prime part of sum_gamma H(gamma) e^{2 i theta_f(gamma)} (times eps_f),
+divided by -int H/2pi; compare with the transform of the density and with the main term (r = 1 line):
+   t0=10.0 sigma=2.0: prime      data +0.5798-0.0079i   density transform +0.5820-0.0078i   main term 0.6079
+   t0=10.0 sigma=2.0: squarefree data +0.8327-0.0288i   density transform +0.8417-0.0091i   main term 0.8630
+   t0=14.0 sigma=2.0: prime      data +0.7014+0.0572i   density transform +0.6393+0.0077i   main term 0.6079
+   t0=14.0 sigma=2.0: squarefree data +0.9487+0.0510i   density transform +0.8948+0.0099i   main term 0.8630
+
+Binned transform (same as above but from bin means) with 1-sigma noise from the bin standard errors:
+   t0=10.0: prime      binned data +0.5327+0.0012i  +- 0.0188   binned model +0.5198-0.0090i
+   t0=10.0: squarefree binned data +0.7534-0.0100i  +- 0.0229   binned model +0.7573-0.0079i
+   t0=14.0: prime      binned data +0.6814+0.0610i  +- 0.0204   binned model +0.6764+0.0593i
+   t0=14.0: squarefree binned data +0.9269+0.0581i  +- 0.0247   binned model +0.9304+0.0587i
