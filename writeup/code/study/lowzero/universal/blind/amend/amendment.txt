@@ -1,0 +1,53 @@
+AMENDMENT to round 151 (blind test, predictions_blind.json sha256 c8a77047...): complete line mechanism for the product reading M1 (T5)
+Written before any reading of the test; computed only from predictions_blind.json (c_rho, eps_rho, field polynomials) and PARI field data;
+no file in zeros_blind/ was opened, listed or loaded. Numbers: amendment_products.json, sha256 710560ec39d16e89fe4c9e9d705784373a590ad46d956a69b135acc0dad65f5d.
+
+FORMULA. zeta_K = zeta L(rho). On the rho-zeros the weight e^{2i theta_K} = e^{2i theta_rho} e^{2i theta_zeta}. The degree-2 law of L(rho) gives the
+rho-zeros weighted by e^{2i theta_rho} a line at every rational r = a/b, density A_r r^{it} dt/2pi with A_r = -eps c rho(r)/sqrt(ab). The zeta
+factor is a chirp of frequency ln(t/2pi); it meets the line a/b at t = 2 pi b/a. Hence (recipe level, same status as the registered form)
+   M1 = sum_{all zeros of zeta_K} e^{2i theta_K} = sum_{a/b} A_{a/b} (1/2pi) int_0^T e^{2i theta_zeta(t)} (a/b)^{it} dt + M3,   M3 = 0 (unchanged).
+Stationary phase gives each line -eps c rho(a/b) e(-b/a)/a: the phase e(-b/a) is constant for fixed a only in its Ramanujan-sum part
+(mu(a)/phi(a) times the untwisted Mertens sum), so a = 2 (phase -1 for every odd b) and a = 3, 6 (real part -1/2, +1/2) add coherently to a = 1.
+Computed: all a <= 12, all b <= 1.25 a T/2pi + 3 (gcd 1), exact integrals on 300,001 points; c rho(r) from the true Artin local factors
+(L_p(rho) = zeta_{K,p}/zeta_p at every p, including ramified p), B(1) over p <= 2e5, L(1,Ad) = L(1,chi_d) L(1,rho) from h(d), h_K, R_K. Checks:
+c_rho reproduces the registered values to 1e-5; the four registered line amplitudes per field to <= 5e-6; the registered a = 1 value
+-c sum_{k<=47} rho(1/k) is reproduced exactly for all 30 fields; controls d = -23, -31 of round 1 give -44.7-8.2i, -22.1-1.0i (measured -57.6-5.7i,
+-22.0-15.4i; the registered a = 1 form gives -33.1, -15.9). For d = -239 (c_rho = 0) the product c rho(r) is taken analytically (F_3 cancels):
+only lines with 3 | ab survive.
+
+WHY THE REGISTERED FORM IS INCOMPLETE. It keeps only r = 1/k. The a = 2 lines alone are as large as a = 1 in several fields (d = -104: a=1 +5.6,
+a=2 +9.3; d = -116: +0.9, +7.7; d = -239: +11.1, +12.3).
+
+TRUNCATION. The a-series does not converge absolutely: the twisted (non-Ramanujan) parts behave like a random walk in a. Partial sums
+A <= 3, 6, 12, 18, 24, 30 are in the JSON; rms(S_30 - S_12) over the 30 fields = 5.3. This is added to the noise:
+sd_f = sqrt(kappa_prod M_K + 5.3^2), kappa_prod = 1 (registered), i.e. 24.9-27.1.
+
+PREDICTION. rms of the amended M1 over the 30 fields 13.5 (registered 8.9); correlation with the registered values 0.86.
+d = -239 (c_rho = 0): registered +10.1; amended +33.6+1.9i (A<=3: +28.0, A<=30: +31.9); sd 26.5. A primitive L with c = 0 still carries a product
+term because c rho(r) != 0 on the lines with 3 | ab.
+
+THE REGISTERED D8 UNDER THE AMENDED MECHANISM. b_D8 = sum M1 mech/sum mech^2 is expected at 1.24 +- 0.52 (bias +0.24 above 1), not 1.
+
+PROPOSED DECISION (D8a, added; D8 is kept and reported as registered).
+  b' = sum_f Re(M1_f) A_f / sum A_f^2, A_f = Re(amended M1_f); se' = sqrt(sum A_f^2 sd_f^2)/sum A_f^2 = 0.354.
+  PASS iff |b' - 1| <= 3 se' (band -0.06 to 2.06). H-prod0 (b' = 0) rejected iff b'/se' >= 3: expected 2.8 se, so it is underpowered.
+  If the registered a = 1 form were the truth, b' would be 0.54. Registered against amended is therefore separated by only 1.3 se;
+  the regression of Re M1 on [registered, amended - registered] has se 0.56 and 0.62.
+  This test cannot decide between the two forms. The amendment fixes the expected value and the d = -239 cell; it does not add power.
+  Secondary (no decision): the rho-zero part M1 - M3 (both printed by bt_test.py) against the same A_f, with sd = sqrt(M_rho).
+  Falsified if b' lies outside [-0.06, 2.06], or if b' < 0 at more than 3 se', i.e. the product term has the wrong sign.
+
+LEVEL-TYPE (prime-power) TERMS IN THE REGISTERED SET.
+No L of degree d >= 2 has Q equal to a perfect d-th power. T2 has squarefree N >= 3. T3 has Q = N^2 with d = 3. T4a has Q = N^3 with d = 4.
+T4b has N from 349 to 997, none a fourth power. zeta_K has Q = |d|, no cube. T5g has Q = 23^2 and 31^2 with d = 4.
+Exceptions:
+  T5 d = -484: L(rho) has degree 2 and Q = 22^2. Its n = p^2 terms have kernel e(-p/11). Prime-power term in the Artin reading R (D10):
+  -0.20+1.15i, against a law value of -94.4 and sd 6.6. Negligible.
+  T1 (degree 1): the exact Gonek-lemma prime side -i^a q^{-1/2} sum_{n<=qT/2pi} Lambda(n) chi(n) e(-n/q) is a theorem-level finite-T value.
+    Per character: amendment_products.json, level_type.T1_exact_prime_side; the root numbers are checked against the registered ones for all 40.
+    The prime-power part (k >= 2) alone shifts the pooled T1 slope by +0.014. Primes and prime powers together give exact/law = 1.0040 - 0.0084i.
+    Expected D1 for T1: 1.004. Expected D7: Im = -0.008, inside 3 se_im = 0.039.
+    Individual cells deviate from the asymptotic law by a median of 1.2 and a maximum of 3.2 registered sd_along. In round 1 the measured sums
+    matched the exact prime side to 1 % on four characters. Proposed secondary T1 reading: the slope on the exact prime side.
+  T5g product phase and the pairs: coherent line subseries exist only at b = 23 m^2 or 31 m^2 (b = N_2 m^2 for pairs). Size < 1.
+  The registered value 0 stands.
