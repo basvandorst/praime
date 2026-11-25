@@ -1,0 +1,124 @@
+Round 150, pre-registered: the maximum and the frozen partition function of |L(1/2+it, chi_D)| on intervals
+of length 2 pi, per prime dividing the conductor: which arithmetic factor freezes, and whether the missing prime acts
+by removal or by addition.  To be committed with predictions_freeze.json (sha256
+83c24b307b40d398b6a6be82aa6866863145448e4a87b14a6ae3a40bd02abfdb), test_set.json (sha256
+d2962f2b03e23d858952281bad41eba50ff77d18df27e1bc534259697b1578e6) and freeze_test.py (sha256 in the proposer's
+report; a copy with only its paths made relative is to be hashed again at commit), before any value of a test
+character is computed.  State of the test set when this file is committed: no L-value, zero or statistic of any of
+its 240 characters (fundamental D, 1500 < |D| <= 2400) was ever computed in the repository (to be confirmed by a
+repo grep at commit).  The predictions read only the discriminant list.
+Values: moment_values.py UNCHANGED (writeup/code/study/lowzero/moment3/, sha256
+a2f4c8630c1a33bc04439d0b785417f527f3e332a8fcf92caed9ca17172e9de5), |L(1/2+it)| at t = 100 + k/20, k = 0..18000,
+PARI lfun at realprecision 19; about 25-35 s per character here, 240 characters about 2 CPU-hours (resumable runs
+of 540 s).  Derivation and code: derivation.md, freeze_predict.py, freeze_test.py, power.py, theory_check.py;
+development: dev_closure2.py, refine_check.py, dryrun_*.
+
+Why.  The Fyodorov-Hiary-Keating picture treats ln|L| on an interval of length 2 pi as a log-correlated field with
+one branching step per prime; a prime dividing the conductor is a missing step.  For zeta, Fyodorov-Keating (2014)
+put the arithmetic factor a(x) into the high-point measure and left open how arithmetic enters the maximum.  For
+L(s, chi_D) the missing prime p gives a sharp per-prime question.  Theorem (second moment with lower-order terms):
+the mean square changes per missing prime by R_p = (1 - 1/p)(1 + 2 ln p/((p-1)L')), L' = L + 2 gamma +
+2 sum_{l|q, l!=p} ln l/(l-1).  Theorem (twisted second moment): multiplying |L| by its Euler factor |E_p| ("removal")
+reproduces R_p exactly, while dividing an L-function without p by an independent Euler factor ("addition", the GHK
+splitting) gives 1 - 1/p exactly and misses the lower-order term (development check: 1.000 +- 0.002 for both
+statements, every p).  In the frozen phase nothing is known.
+
+Hypotheses (per-prime coefficients 'p missing minus p present'; regression-matched numbers in the JSON):
+  H_crit   frozen with the exact critical factor: M shifts by (1/2) ln R_p, ln Z_b by b ln R_p (b > 1), slope32 =
+           ln Z_3 - ln Z_2 by ln R_p.  p = 2, 3, 5, 7 at L = 11.89: M -0.302 -0.167 -0.086 -0.057;
+           ln Z_3 -1.809 -1.004 -0.517 -0.341; slope32 -0.603 -0.335 -0.172 -0.114.
+  H_lead   frozen with the leading factor 1 - 1/p (FK's a(1) per prime): M -0.347 -0.203 -0.112 -0.077;
+           ln Z_3 -2.079 -1.216 -0.669 -0.463; slope32 -0.693 -0.406 -0.223 -0.154.
+  H_naive  not frozen, quenched = annealed (the 2b-th moment factor): ln Z_3 -4.644 -2.921 -1.726 -1.236;
+           slope32 -2.160 -1.417 -0.874 -0.640; M: no finite value.
+  H_spread not frozen, uniform Gibbs measure on the interval: ln Z_3 -3.791 -2.908 -1.694 -1.235; slope32 -1.782
+           -1.413 -0.864 -0.639; M -1.071 -0.861 -0.593 -0.475.
+  H_0      no dependence: 0.
+  H_W      (relational) removal closure: c_p = r_p, the mean removal contrast of the test characters with p not | D.
+  H_G      (relational) addition / GHK closure: c_p = a_p, the mean addition contrast of those with p | D.
+
+Test set: 240 fundamental discriminants, 1500 < |D| <= 2400, distinct |D|, seeded (test_set.py: default_rng(20261125
++ 1500) permutation; passes for 7, 5, 3, 2 to 56, 64, 80, 96; fill coprime to 210).  Groups for 2, 3, 5, 7, 11, 13:
+96 81 64 56 17 16; 30 coprime to 210; 118 negative.  Disjoint from round 149's reserved 56 and dev 8 and from this
+proposal's 24 development characters (1300 < |D| <= 1500).  Mean L = 11.89 (11.64-12.11).
+
+Statistics (freeze_test.py; fixed): 143 intervals [100 + 2 pi j, 100 + 2 pi (j+1)); per interval M = max ln|L| (grid
+maximum refined by a parabola, or the exact interval end by quadratic interpolation: error -2e-5 +- 6e-5 against PARI
+on a step of 0.0025), Z_b = (1/2 pi) int |L|^(2b), b = 0.5, 1, 1.5, 2, 3; per character the means over intervals,
+slope32, varM (variance of M over intervals), lnEZ_1, lnEZ_2 (ln of the interval mean of Z_1, Z_2).  c_p: OLS on
+[1, ln q - mean, I(p|D), p = 2, 3, 5, 7, 11, 13].  r_p, a_p: surgery means (definitions in the script).  Bootstrap
+2000 resamples of characters, default_rng(149150); weights w from the bootstrap variances.
+Completeness (before any statistic): file present, 18001 finite values in [0, 1e6], sha256 as in the values
+manifest, and mean square over [100, 1000] / theorem main term in [0.85, 1.15] (development: 0.997 +- 0.008); a
+failing character is recomputed once, then excluded and reported.
+
+Readings:
+ C1 (control, theorem T1)  amplitude of the lnEZ_1 coefficients on ln R_p: 1 (leading factor alone: 1.165).
+ C2 (control, theorem T2)  removal ratio of the mean square / twisted-moment value, per p: 1.
+ C4 (control, theorem T2)  addition ratio x (1 - 1/p), per p: 1.
+ C3 (control, Littlewood + GRH)  mean ln|L| coefficients: 0.
+ T1 (primary)  gamma_M = sum_p w (c - r)(a - r) / sum_p w (a - r)^2 for the mean of M:  H_W 0, H_G 1.
+ T2  the same for ln Z_3 (co-primary), var M, ln Z_1.5, ln Z_2 (secondary); ln Z_0.5, ln Z_1, slope32, lnEZ_2
+     reported without a decision.
+ T3 (secondary)  amplitudes of the M and ln Z_3 coefficients on the H_crit pattern: H_crit 1, H_lead 1.165, H_0 0.
+ T4 (freezing)  amplitude of the slope32 coefficients on the H_crit pattern: frozen 1, H_lead 1.17, H_naive 3.78,
+     H_spread 3.30 (values for the test weights are printed by the script).
+ Reported, no reading: per-prime c, r, a for every statistic; p = 11, 13 coefficients; (1/b) c_p(b) profiles.
+
+Expected (development, 32 characters, same script, labelled DRY RUN; power.py for n = 240):
+  dev: gamma_M 0.50 +- 0.29, gamma_lnZ3 0.53 +- 0.33, gamma_varM -0.02 +- 0.12, gamma_lnEZ2 0.10 +- 0.06;
+       A_crit(M) 1.04 +- 0.08, A_crit(ln Z_3) 0.97 +- 0.06, A_crit(slope32) 1.10 +- 0.09; C1 0.993 +- 0.015;
+       C2 1.0054 1.0012 0.9987 1.0004; C4 0.996 1.003 0.999 0.999; C3 |c| <= 0.002.
+  n = 240: se(gamma_M) 0.070, se(gamma_lnZ3) 0.078, se(gamma_varM) 0.034; se(A_crit M) 0.022, (ln Z_3) 0.018,
+       (slope32) 0.024.  H_W against H_G: 14, 13, 29 se apart; a halfway truth (0.5) would be about 7 se from both.
+  Random-model dry runs (synth.py, 160 synthetic characters per world, CUE fine structure + exact Euler factors of
+  p <= 31): the script recovers c_p = r_p (|c - r| <= 0.01 for M) in both worlds; both worlds FAIL C2 (0.91-0.96):
+  these models lack the lower-order term, so they are pipeline checks only.
+
+The theory's own uncertainty (NOT in the measurement bands):
+  H_crit is a many-cycle, exponential-tail formula; p = 2 turns only 0.7 times per interval and N is about 12.
+  Development removal amplitudes on the crit pattern: 0.94 (M), 0.79 (ln Z_1.5), 0.84 (ln Z_2), 0.89 (ln Z_3),
+  0.99 (slope32).  Bands: crit M [0.92, 1.08], crit ln Z_3 [0.85, 1.10], frozen slope32 [0.90, 1.20].  In a GHK
+  random world the finite-interval effect alone gives A_crit(M) = 1.00, so T3 tests the formula, not the
+  mechanism; the mechanism is T1/T2.  H_W: removal is exact for M under the wave closure and differs for ln Z_b by
+  the warp Jacobian (second order, |.| <~ 0.005); band |gamma| <= 0.15.
+
+Decisions (thresholds now; se = bootstrap):
+ C1-C4 must pass (|value - 1| <= max(4 se, 0.01); C3 |c| <= 4 se); a failed control is reported and every
+    reading is then flagged as conditional on it.
+ D1 (T1, M)  H_W passes if |gamma_M| <= 4 se; recorded "consistent at the theory accuracy" if inside [-0.15, 0.15];
+    falsified if |gamma_M| > 5 se and outside the band.  H_G rejected if 1 - gamma_M >= 5 se and gamma_M < 0.5;
+    passes if |gamma_M - 1| <= 4 se.
+ D2 (T2)  the same for ln Z_3 (co-primary) and for var M, ln Z_1.5, ln Z_2 (secondary).
+ D3 (T3)  H_crit passes if |A - 1| <= 4 se or A inside its band; falsified if A is outside the band by more than
+    4 se.  H_lead rejected if (1.165 - A) >= 5 se and A < 1.08; H_0 rejected if A >= 5 se.
+ D4 (T4)  frozen passes if A(slope32) is in [0.90 - 4 se, 1.20 + 4 se]; H_naive and H_spread rejected if
+    (E_h - A) >= 5 se and A < (1.20 + E_h)/2.
+ Error rates under the development noise: < 1e-6 each way for D1/D2 between H_W and H_G; D4 > 90 se.
+
+Every predicted cell and its reading:
+  M coefficients p = 2, 3, 5, 7 ............. T1 (relational), T3 (absolute; secondary)
+  ln Z_3 coefficients ....................... T2 (co-primary), T3
+  var M coefficients ........................ T2 (secondary; no absolute prediction)
+  ln Z_1.5, ln Z_2 coefficients ............. T2 (secondary), absolute values reported
+  slope32 coefficients ...................... T4 (freezing)
+  ln Z_0.5, ln Z_1 coefficients ............. no reading (high temperature / critical: restatements of the variance)
+  lnEZ_1 coefficients, removal/addition ratios C1, C2, C4 (controls, theorem)
+  lnEZ_2 (annealed fourth moment) ........... no reading (theorem-grade, Topacogullari; reported)
+  mean ln|L| ................................ C3 (control)
+  p = 11, 13 coefficients; levels ........... no reading
+  moments of moments k >= 2 ................. no reading (annealed, spike-dominated; see derivation section 5)
+
+Falsifier, in one line: the removal closure is falsified for the extremes if gamma_M (or gamma_lnZ3) is more than
+5 se from 0 and outside [-0.15, 0.15]; the GHK closure is falsified if it is 5 se below 1; freezing at the critical
+factor is falsified if the frozen slope's amplitude leaves [0.90, 1.20] by more than 4 se.
+
+Order: commit this file, predictions_freeze.json, test_set.json, freeze_test.py -> values (moment_values.py
+OUTDIR --set test_set.json test) -> completeness -> freeze_test.py OUTDIR test_set.json test predictions_freeze.json
+result.json --sha 83c24b30... -> report every reading, passed or failed.
+
+Registered state: derivation, scripts, the test set and the frozen predictions are in writeup/code/study/lowzero/freeze/
+(freeze_test.py, predictions_freeze.json and test_set.json unchanged from the proposer's copies: the sha256 values above
+hold); values are computed with writeup/code/study/lowzero/moment3/moment_values.py (unchanged, sha256 a2f4c863...).
+The values of the 24 extra development characters are not committed (3.5 MB); the command in the derivation rebuilds
+them into freeze/dev_extra_values. Only development scripts had a path made relative.
