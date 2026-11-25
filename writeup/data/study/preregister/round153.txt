@@ -1,0 +1,27 @@
+Round 153, pre-registered: the prime side of the one-point law on primes only (no zeros), fifteen elementary cases,
+and the Pythagorean rays in the Gaussian primes.
+
+Claim tested (conjecture): for each case of primeside.md section 1,
+    S_W = sum_p a(p) ln p p^(-1/2+1/(2d)) e(-d (p/Q)^(1/d)) W(p^(1/d))  =  MT_W - PP_W + noise,
+MT_W the main term with K = eps c e^{-i(phi0+pi/4)} (2 sqrt d/(d+1)) Q^(-1/(2d)) and the first-order factor (1 - i kappa/t),
+PP_W the prime-power term (lambda-Lambda rule), W a Hann window in v = p^(1/d) over the range.
+Ranges (fresh, never computed): (3e7, 1e9] for A4 A8 A12 A16 A20 B6 B12 C23 C31 C47a C47b; (3e7, 3e8] for D11a D37a E11a;
+(3e5, 2e6] for DD.  Seen (dry run): x <= 2e7 (A to 2e7 and C23 to 3e7 were seen before this round).
+Alternatives: constant 1 (reading 1/c), no effect (0), no prime-power term.
+Errors: rms of 8 control frequencies per series (measured on the fresh primes); pooled errors scaled by sqrt(chi2/dof) > 1.
+Decisions (thresholds in decisions.json, fixed here): pooled slope in 1 +- 0.05 and within 3 errors; each family within 3 errors;
+<= 1 series beyond 3 errors; Delta chi2 >= 25 against constant 1 and against no effect; control rms in [0.6, 1.6];
+Pythagorean windows pooled amplitude within 4 errors of 1; 7+24i, 24+7i and 7 control angles within 4 sd of the ray model.
+Every predicted cell gets a reading or "no reading (range not covered)" (ps_test.py).
+Falsifier (one line): pooled smooth slope outside 1 +- 0.10, or chi2(law) > chi2(constant 1).
+Scripts: ps_lib.py, ps_constants.py, ps_sums.py, ps_freeze.py, ps_test.py (refuses any other hash).
+
+Frozen: predictions_primeside.json, sha256 63e00dc97e51d856504b15f50b7d96ae6d63819d7082e8c1b3e3dc414e56c790 (ps_test.py carries it
+and refuses any other file). Folder: writeup/code/study/resonance/primeside/ (primeside.md: statements, constants, derivations).
+Dry run on the SEEN range x <= 2e7 (not blind; dry_test_out.txt): pooled smooth slope over 15 series 0.9887 +- 0.0118
+(chi2/dof 0.55); families: Q(i) 0.995 +- 0.020, Q(sqrt -3) 0.987 +- 0.031, dihedral 0.973 +- 0.035, non-CM and degree 3
+0.996 +- 0.053; chi2 on 30 readings: law 15.9, constant 1 1683.8, no effect 7069.0; Pythagorean windows pooled amplitude
+1.0024 +- 0.0179; every draft decision passes. The thresholds of decisions.json were written before these readings were
+made and are kept unchanged. Of the dry-run cases only A4, A8, A12 (to 2e7) and C23 (to 3e7) had been looked at before.
+No sum on the fresh range existed when this was committed (no file sums_fresh.jsonl).
+Order: commit this file with the frozen predictions and scripts -> ps_sums.py fresh (bounded runs) -> ps_test.py fresh.
