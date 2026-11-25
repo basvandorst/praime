@@ -1,0 +1,28 @@
+L-functions kept 363; excluded [(197, 'completeness 1.37 3.01'), (-395, 'completeness 1.56 2.25')]; zeros used 247489; max |L|/|L'| 6.2e-14
+groups (2,3,5,7,11,13): [121, 92, 60, 44, 30, 26]
+
+variance reading     p:         2         3         5         7        11        13
+bootstrap se              0.00226   0.00244   0.00286   0.00299   0.00454   0.00406
+fit                      -0.19428  -0.10691  -0.04983  -0.03157  -0.01625  -0.00894
+pred 3pt   (matched)     -0.19647  -0.10830  -0.05297  -0.03377  -0.01782  -0.01339   z: +1.0 +0.6 +1.1 +0.7 +0.3 +1.1
+pred ldm   (matched)     -0.16968  -0.08235  -0.03071  -0.01360  -0.00293  +0.00036   z: -10.9 -10.1 -6.7 -6.0 -2.9 -2.3
+pred lead  (matched)     -0.29325  -0.18430  -0.10629  -0.07626  -0.04526  -0.03759   z: +43.7 +31.8 +19.7 +15.0 +6.4 +7.1
+pred none  (matched)     +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000   z: -85.9 -43.9 -17.4 -10.6 -3.6 -2.2
+
+power: |pred_3pt - pred_h| / se (p = 2, 3, 5, 7):
+  vs ldm   11.8 10.7 7.8 6.8
+  vs lead  42.8 31.2 18.6 14.2
+  vs none  86.9 44.4 18.5 11.3
+amplitude gamma (0 = leading order, 1 = three-point), p = 2, 3, 5: se 0.0175, reading 1.0270
+amplitude gamma_L (0 = round-142 heuristic LDM, 1 = three-point), p = 2, 3, 5: se 0.0560, reading 0.9127
+
+mean reading (secondary; two-point law) se 0.00116 0.00122 0.00131 0.00145 0.00219 0.00219
+pred 3pt (matched)      +0.04154  +0.03691  +0.02829  +0.02346  +0.01573  +0.01392
+fit                     +0.04073  +0.03633  +0.02749  +0.02378  +0.01509  +0.01261
+
+DECISIONS (round_draft.txt)
+  V1 every p in 2,3,5,7: |fit - pred_3pt| <= 4 se: True  (z = +1.0 +0.6 +1.1 +0.7)
+  V2 amplitude gamma = 1.027 +- 0.018, |gamma - 1| <= 4 se: True
+  V3 leading order rejected (gamma >= 5 se and >= 0.5): True
+  V4 round-142 heuristic rejected (gamma_L >= 5 se and >= 0.5): True  (gamma_L = 0.913 +- 0.056)
+  FALSIFIER (p = 2 or 3 off by more than 6 se, or |gamma - 1| > 6 se): False
