@@ -1,0 +1,19 @@
+NC 10000: 1280 prime powers
+w=0.3: var real 0.279, var syn 0.131, var rem 0.147, corr(real, syn) 0.686  [3s]
+w=4.8: var real 0.368, var syn 0.246, var rem 0.122, corr(real, syn) 0.813  [52s]
+real                                     g2 +0.9992(0.0009) g3 +0.9978(0.0011) g5 +1.0002(0.0020) g7 +0.9999(0.0023) gammaB_2 +0.9997(0.0086) grest +1.0018(0.0017) gfull +0.9996(0.0004) small_w +1.0003(0.0014) gsw +0.5172(0.0219)
+    icpt mean -2.24e-04; residual sd per pair (w=0.3, 4.8): 0.0039 0.0032
+synthetic (explicit formula, n <= NC)    g2 +0.9992(0.0006) g3 +0.9986(0.0009) g5 +1.0005(0.0017) g7 +0.9994(0.0017) gammaB_2 +1.0084(0.0072) grest +1.0054(0.0014) gfull +0.9998(0.0002) small_w +1.0026(0.0011) gsw +0.0979(0.0171)
+    icpt mean -2.39e-04; residual sd per pair (w=0.3, 4.8): 0.0027 0.0022
+remainder x remainder                    g2 +0.0001(0.0004) g3 -0.0005(0.0005) g5 -0.0007(0.0008) g7 +0.0008(0.0011) gammaB_2 -0.0085(0.0040) grest -0.0037(0.0010) gfull -0.0001(0.0003) small_w -0.0023(0.0009) gsw +0.4206(0.0172)
+    icpt mean +4.65e-06; residual sd per pair (w=0.3, 4.8): 0.0030 0.0022
+2 x cross syn-rem                        g2 -0.0001(0.0004) g3 -0.0003(0.0005) g5 +0.0004(0.0006) g7 -0.0003(0.0007) gammaB_2 -0.0001(0.0014) grest +0.0000(0.0003) gfull -0.0001(0.0002) small_w -0.0000(0.0003) gsw -0.0013(0.0028)
+    icpt mean +9.76e-06; residual sd per pair (w=0.3, 4.8): 0.0003 0.0004
+Traceback (most recent call last):
+  File "/tmp/claude-1000/-home-bas-praime/cefd83bb-5f73-4214-8643-71446ff43106/scratchpad/review141/s6_synth.py", line 59, in <module>
+    sh = [pr(m, k).var() / pr(m2, k).var() for k in (0, 1, 8, 15)]
+                           ~~^^^^^^^
+  File "/tmp/claude-1000/-home-bas-praime/cefd83bb-5f73-4214-8643-71446ff43106/scratchpad/review141/s6_synth.py", line 57, in pr
+    Xa = X[I[sel]][:, mask]; Xb = X[J[sel]][:, mask]
+         ~~~~~~~~~^^^^^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 549. MiB for an array with shape (17980, 4000) and data type float64
