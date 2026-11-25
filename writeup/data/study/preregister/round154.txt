@@ -1,0 +1,39 @@
+Pre-registration: consecutive primes and non-abelian (Frobenius) labels.
+
+Claim tested (conjecture H0, derived in consec.md section 2.3 from Hardy-Littlewood / LOS):
+  Conditional on the abelian (congruence) part of the labels, the non-abelian parts of the labels of p_n and p_(n+k) are
+  independent with their Chebotarev / Sato-Tate laws, for k = 1, 2, 3, for every gap and every order in 1/log x
+  (null N2 = LOS on the abelian part x independent draws inside the fibres).  No alternative H1 is derived.
+Label systems (consec.md section 1): C23, C31 (S3), C47 (D5), C39 (D4), G (sectors of Gaussian-prime angles),
+  E37s (sign of a_p, 37a1), E37m2 (a_p mod 2), E37m3 (a_p mod 3).
+Discovery (seen): all primes < 1e8.  Holdout (never computed; nothing above 1e8 has been sieved or labelled):
+  main: (1e8, 1e9]  for C23 C31 C47 C39 G      (45,086,079 primes)
+  ec:   (1e8, 4e8]  for E37s E37m2 E37m3       (15,574,871 primes; pi(4e8) taken from tables, not computed)
+Frozen: predictions_consec.json, sha256 f3e3599d43a6d5d9e73eefa1a46a1a96686ca88c58b3ce07623188096b4f3cb1
+  (consec_test.py carries the hash and refuses any other file; checked).
+Decisions (thresholds inside predictions_consec.json, fixed before any holdout computation):
+  D1a pooled contingency chi^2 inside fibres, k = 1..3: pass p >= 1e-3; FALSIFIER p < 1e-5
+  D1b every fibre-interaction cell |z| < 4.5; FALSIFIER any |z| >= 5
+  D1c within part of per-block (1e4) fibre tables: pooled within 4 errors of 1, each within 4.5; FALSIFIER pooled > 5 errors
+  D2 gap-conditioned chi^2 p >= 1e-3, gap = 0 mod q contrasts |z| < 4;  D3 neighbour abelian datum |z| < 4.5;
+  D4 runs p >= 1e-3;  D5 triples p >= 1e-3;  D6 dispersion at H = 1e2, 1e3: R = 1 within 4 errors (each and pooled)
+  H0 stands if all pass; falsified only by the D1 falsifiers; other failures = open anomalies.
+Secondary (known laws, reported, not in the verdict): b_k / LOS in [0.6, 1.5]; abelian within part vs 1 + 2 rho_1 (LOS);
+  column law (Montgomery-Soundararajan d = 1, Bui-Keating-Smith d >= 2, local) at H = 1e5, 1e6 within 4 sqrt(err^2 + 0.03^2).
+Watch items (discovery, all < 4 sd): W1 C31 runs, W2 C23 triple, W3 E37m3 lag-2 f0f0, W4 G sector-2 runs; real-effect vs
+  fluctuation predictions in predictions_consec.json.
+Power: a non-abelian correlation |r| >= 1.5e-3 (C23-type; 1/30 of the abelian b_1) gives 5 sd.
+Dry run on the discovery range (not blind; test_dry_out.txt): every decision passes, H0 stands.
+
+Order (all jobs: (ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B ...), one at a time,
+in a scratch folder outside the repository; scripts and frozen predictions in writeup/code/study/consec/):
+  0. commit/register this file, predictions_consec.json and all scripts (consec_lib.py consec_tables.py consec_analyze.py
+     consec_test.py consec_null.py consec_bks.py consec_freeze.py consec_fulltable.py consec_report.py) before step 1
+  1. consec_tables.py hold_main 1e8 1e9 --cases C23,C31,C47,C39,G      repeat until "all segments done" (180 segments,
+     about 2-3 s each, about 8 min in total)
+  2. consec_tables.py hold_ec 1e8 4e8 --cases E37                       repeat until "all segments done" (60 segments,
+     about 20-25 s each, 3 runs of 540 s)
+  3. consec_analyze.py hold_main readings_hold_main.json ; consec_analyze.py hold_ec readings_hold_ec.json
+  4. consec_test.py hold readings_hold_main.json readings_hold_ec.json test_hold_out.json
+  5. (descriptive) consec_fulltable.py hold_main 1e8 1e9 ; consec_fulltable.py hold_ec 1e8 4e8 ; consec_report.py on both
+Disk: about 35 MB of segment files for the holdout (compressed npz); delete after the round.
