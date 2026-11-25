@@ -1,0 +1,82 @@
+Round 15x (DRAFT for registration): the one-point law of the zeros for L-functions of degree 1 to 4, blind, and the
+finite-height secondary term of products.
+To be committed with frozen prediction files (sha256 below, to be filled) and the test script before any zero of the
+L-functions listed under TEST is computed. Source folder: scratchpad/universal/ (general_law.md, ulib.py, s1_constants.py,
+s1b_sym2_level1.py, s2_freeze.py, s3_zeros.py, s4_sums.py, s5_extra.py, validate.py).
+
+Why. Round 148 found, on 158 elliptic curves, sum_{T1<g<=T2} e^{2i theta_E(g)} = -w c_E (T2-T1)/2pi, c_E = B_E/L(1,Sym^2 E).
+general_law.md derives the same law for every primitive L-function by the same recipe steps, none of which uses the
+degree:  sum e^{2i theta_L(g)} = -eps_L c_L (T2-T1)/2pi + o(T),  c_L = lim F_L(1+x)/x = B_L(1)/L(1, Ad L),
+F_L(s) = sum conj(lambda(n)) mu_L(n) n^-s, lines at r = a/b with factors rho_L(r)/sqrt(ab); c_L = 0 for products.
+Degree 1 is a theorem (c = q/phi(q), checked here with complex characters). A first test (this folder, predictions frozen
+before any zero was computed, sha256 946e1e3a1436dd78e87fb53bccded7ec1b93d46a27364d2622ce3668af3bdf38) gave on 20 primitive
+L-functions (degrees 1, 2, 3, 4): pooled slope 0.985 +- 0.021; per family GL1 0.997 +- 0.033 (phase of -eps within 1-2 deg),
+GL2 level 1 (weights 12-26) 0.963 +- 0.036, S3 Artin 1.035 +- 0.057, Sym^2 E 0.936 +- 0.068, genus 2 1.31 +- 0.39; lines
+r = 2, 1/2, 3, 1/3 pooled 0.981 +- 0.015. Products: X1(13) 0 within 2 se and its half-phase reading 1.05 +- 0.23 (pass);
+zeta_K for d = -23 NOT 0 (-62.1 against 0, 3.2 block se), d = -31 -25.4 (1.2 se). Post hoc a mechanism was found
+(general_law.md section 6.3): a degree-1 factor's chirp meets the lines r = 1/k of the other factor with aligned phases,
+giving the finite-height term -c_rho sum_{k<=T/2pi} rho_rho(1/k) (o(T), but large at T = 300 when small primes do not
+split), and -psi_rho(T/2pi) for the zeta phase alone (measured +11.5 against +12.0). This round tests the law blind on
+new L-functions in every degree and registers the product mechanism.
+
+The law (frozen form). L primitive, analytic normalisation, Q conductor, mu_j gamma shifts, eps root number (PARI
+lfunrootres; Lambda(s) = eps conj-Lambda(1-s)); theta_L(t) = (t/2) ln(Q/pi^d) + sum_j Im lnGamma((1/2 + mu_j + it)/2):
+   G(r) = sum_{0 < g <= T2} e^{2i theta_L(g)} r^{-ig} = -eps c_L (rho_L(r)/sqrt(ab)) T2/2pi + o(T)   (rho(1) = 1),
+   Hann weight sin^2(pi g/T2): half.  c_L: B_L(1)/L(1, Ad) where PARI gives L(1, Ad) (Sym^2, Sym^4, Sym^6 of E; Artin; level-1
+   Sym^2 built with exact coefficients), else the direct product (exact local factors p <= 3000, first order to 1e5,
+   log-Cesaro, bias nu/(sqrt P ln P)); accuracy 0.1 % (the two routes agree to 0.06 % in this folder).
+Products (registered mechanism): for zeta_K = zeta L(rho) (K a non-normal cubic field):
+   M1 = sum_{all zeros of zeta_K} e^{2i theta_K(g)} = -c_rho sum_{k <= T2/2pi} rho_rho(1/k) + o(T^{1/2+eps}),
+   M2 = sum_{rho zeros} e^{2i theta_zeta(g)} = -psi_rho(T2/2pi) + O(T^{1/2} log^2 T),
+   M3 = sum_{zeta zeros} e^{2i theta_K(g)} = small (degree-2 chirp, no alignment).
+For L(E1) L(E2) (two curves, union of zeros, phase theta_1 + theta_2): 0 (degree-2 chirps only).
+
+Hypotheses.
+  H1        the law (all slopes 1, Im 0), lines with rho_L, products by the mechanism.
+  H0        no main term (slopes 0).
+  H-noroot  -c T/2pi without eps (distinguishes eps = -1 and complex eps).
+  H-conj    -conj(eps) c T/2pi (the wrong dual).
+  H-c1      c_L = 1 for every L (amplitude does not follow B/L(1, Ad)).
+  H-prod0   products: M1 = 0 (the recipe's leading order only).
+
+TEST (none of these zeros computed when this is registered):
+  T1 degree 1: 40 primitive complex characters chi mod q, 8 <= q <= 60, order >= 3 (both chi and conj chi), T2 = 1000.
+     Phase test: arg G against arg(-eps q/phi(q)).
+  T2 degree 2: 30 newforms with RATIONAL coefficients (integer a_n: PARI's zero finder fails for embedded irrational
+     coefficients, section 6.4), weights 4-12, levels 2-60, both root numbers, T2 = 500; c by the Sym^2 built in arithmetic
+     normalisation (lfuncheckfeq <= -30 required) and the Petersson relation where level 1.
+  T3 degree 3: Sym^2 E for 30 semistable curves of conductor 20-300 not used here (not 11a, 14a, 15a, 17a, 19a, 37a),
+     T2 = 200; c = B/(L(1,Sym^2 E) L(1,Sym^4 E)).
+  T4 degree 4: (a) Sym^3 E for 15 semistable curves of conductor <= 100 (Ad = Sym^2 + Sym^4 + Sym^6, all from lfunsympow),
+     T2 = 120; (b) 15 genus-2 curves of conductor < 1000 with mean |lambda_p|^2 (p <= 1e5) within 0.05 of 1 (primitive),
+     not 249, 277, T2 = 150.
+  T5 products: zeta_K for 30 non-normal cubic fields with -500 < d < 0 not -23, -31, T2 = 300 (zeros of zeta and of
+     L(rho) by lfundiv, matched to 1e-6), readings M1, M2, M3; 10 pairs L(E1)L(E2) (union of the zero lists of round 144,
+     phase theta_1 + theta_2), predicted 0.
+Completeness (rule of this folder, s3_zeros.py): lfunzeros at the default subdivision, then the 30 largest unfolded gaps
+  re-searched with divz = 64 (256 above 2.2 spacings), up to 3 rounds; duplicates (< 1e-7) removed; a set is complete if
+  |drift| <= 0.2 (first vs last 15 % of n - theta(g_n)/pi) and |n - theta(T2)/pi - offset| <= 1. Sets that fail are
+  excluded and listed (no replacement).
+
+Readings and decisions (per family; se from 6 blocks of equal t-length and, as a check, from 40 Hann control
+frequencies xi in +-[0.06, 1.4]):
+  R1 pooled slope of Re(G conj pred) on |pred|^2:  H1 passes if within 3 se of 1; H0 rejected if > 5 se from 0.
+  R2 per family the coefficient of -eps(c_L - 1)T2/2pi beside -eps T2/2pi (does the amplitude follow c_L?): 1 under H1, 0 under H-c1.
+  R3 degree 1 and 2: root-number coefficient (regression on [-eps c, -c]); 1, 0 under H1.
+  R4 lines r = 2, 1/2, 3, 1/3, 4, 1/4, 3/2, 2/3: pooled slope 1.
+  R5 products: slope of M1 on its mechanism value (H1: 1, H-prod0: 0); M2 on -psi_rho (1); mean of M3 (0).
+  R6 Im G/|pred| mean 0.
+
+Expected power (noise model from this folder: kappa_re = 0.077, kappa_im = 0.21 of the number of zeros M; registered
+  conservatively as 0.25 M): T1 se 0.015 in slope and 0.8 deg in phase; T2 (30 forms, |c| ~ 1, M ~ 900) se ~ 0.03; T3 (30
+  curves, c ~ 1.5) se ~ 0.035; T4a/b se ~ 0.1 each (degree 4 is the weakest; T2 = 300 would halve it at 8 times the cost);
+  T5 M1: mechanism values ~ +-20 per field, noise ~ 24 (no rigidity for products: random-phase sqrt(M)), slope se ~ 0.25
+  with 30 fields (decides H1 against H-prod0 at about 4 se).
+Cost (timings of this folder on the shared 2-core machine): lfunzeros degree 1 to 1000: 20 s; degree 2 (rational) to 500:
+  40 s; Sym^2 E to 200: 15-50 s; Sym^3 E to 120: about 60 s (to be timed); genus 2 to 150: about 60 s; constants
+  20-90 s per L. Total about 3 hours of single-core time, in jobs of <= 600 s.
+
+Caveats registered in advance: (1) the law is recipe-level for d >= 2 (degree 1 is a theorem); (2) c_L of genus-2 curves
+  depends on the direct product (0.1 %); (3) the product mechanism was found on Z23/Z31 (post hoc) and is registered here
+  for the first time; (4) PARI's lfunzeros failed on non-integer-coefficient L-functions (embedded irrational forms,
+  nebentypus forms: 29 zeros to height 100 where 107 exist), so those classes are not in this test; (5) GRH assumed.
