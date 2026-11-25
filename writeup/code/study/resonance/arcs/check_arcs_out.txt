@@ -1,0 +1,159 @@
+== A. algebra (Lemma 2)
+PASS h=1: 4 primitive w with |w|=h (expected 4*2^omega = 4)
+PASS h=1: all 4 w: image (Z/h)^*, equal fibres 1, mean e(-r/h) = mu/phi = +1.000000
+PASS h=5: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=5: all 8 w: image (Z/h)^*, equal fibres 4, mean e(-r/h) = mu/phi = -0.250000
+PASS h=13: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=13: all 8 w: image (Z/h)^*, equal fibres 12, mean e(-r/h) = mu/phi = -0.083333
+PASS h=17: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=17: all 8 w: image (Z/h)^*, equal fibres 16, mean e(-r/h) = mu/phi = -0.062500
+PASS h=25: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=25: all 8 w: image (Z/h)^*, equal fibres 20, mean e(-r/h) = mu/phi = +0.000000
+PASS h=29: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=29: all 8 w: image (Z/h)^*, equal fibres 28, mean e(-r/h) = mu/phi = -0.035714
+PASS h=37: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=37: all 8 w: image (Z/h)^*, equal fibres 36, mean e(-r/h) = mu/phi = -0.027778
+PASS h=65: 16 primitive w with |w|=h (expected 4*2^omega = 16)
+PASS h=65: all 16 w: image (Z/h)^*, equal fibres 48, mean e(-r/h) = mu/phi = +0.020833
+PASS h=85: 16 primitive w with |w|=h (expected 4*2^omega = 16)
+PASS h=85: all 16 w: image (Z/h)^*, equal fibres 64, mean e(-r/h) = mu/phi = +0.015625
+PASS h=125: 8 primitive w with |w|=h (expected 4*2^omega = 8)
+PASS h=125: all 8 w: image (Z/h)^*, equal fibres 100, mean e(-r/h) = mu/phi = +0.000000
+PASS h=145: 16 primitive w with |w|=h (expected 4*2^omega = 16)
+PASS h=145: all 16 w: image (Z/h)^*, equal fibres 112, mean e(-r/h) = mu/phi = +0.008929
+== B. identity (Corollary 1), m = 4
+PASS ray enumeration = multiplicative formula for every h <= 10000 (max diff 6.3e-17)
+PASS every ray term is real (sum over w and conj w): max imag 0.0e+00
+== C. Fresnel factor and closed form
+   Phi_M (M=1) = +0.7210808868 -0.6590510612i   |Phi_M - e^(-i pi/4)| = 5.00e-02
+   Phi_M (M=2) = +0.7076859598 -0.7062597362i   |Phi_M - e^(-i pi/4)| = 1.03e-03
+   Phi_M (M=3) = +0.7071233759 -0.7070940449i   |Phi_M - e^(-i pi/4)| = 2.09e-05
+PASS Phi_3 = e^(-i pi/4) to 1e-4 (errors 5e-2, 1e-3, 2e-5 at M = 1, 2, 3: faster than any power)
+   W_V = (1/2) int v^(-1/4) V(v) dv = 0.4235884416
+   int G dA (m=4): quadrature in (t,y) 53296.86 -53230.17i; in (r,y) 53296.86 -53230.17i; closed form W_V Phi_M X^3/4 = 53264.68 -53262.47i
+PASS int G dA = W_V Phi_M X^(3/4) (1 + O(M^2 X^-1/2)): rel. diff m=4 6.1e-04, m=0 9.2e-06
+PASS two quadratures of int G dA agree (rel 8.3e-15, 8.6e-15)
+== D. Gaussian primes with N z <= 10000000
+   1328947 Gaussian prime elements with Re z > 0 (1 s)
+   partial singular series: S_10=1.421600 S_100=1.567841 S_1000=1.587324 S_10000=1.587387; product p<=1e7: 1.591505; (pi/4) c_exact = 1.591567
+PASS S_(h<=10^4) = 1.58739 vs prod_(p<=10^7) = 1.59150 (|diff| 4.1e-03 < 0.01)
+PASS product to 10^7 vs (pi/4) c_exact: diff 6.2e-05
+   zone axis    h=  1 A_h=+1.27324: 106950 primes, 100 rays (h'<=1000) in reach (8 s)
+   zone 3+4i    h=  5 A_h=-0.31831: 106912 primes, 101 rays (h'<=1000) in reach (15 s)
+   zone 4+3i    h=  5 A_h=-0.31831: 106912 primes, 101 rays (h'<=1000) in reach (23 s)
+   zone 5+12i   h= 13 A_h=-0.10610: 106877 primes, 103 rays (h'<=1000) in reach (30 s)
+   zone 12+5i   h= 13 A_h=-0.10610: 106877 primes, 103 rays (h'<=1000) in reach (38 s)
+   zone 8+15i   h= 17 A_h=-0.07958: 106788 primes, 105 rays (h'<=1000) in reach (45 s)
+   zone 15+8i   h= 17 A_h=-0.07958: 106788 primes, 105 rays (h'<=1000) in reach (53 s)
+   zone 7+24i   h= 25 A_h=+0.00000: 106981 primes, 103 rays (h'<=1000) in reach (60 s)
+   zone 24+7i   h= 25 A_h=+0.00000: 106981 primes, 103 rays (h'<=1000) in reach (67 s)
+   zone 20+21i  h= 29 A_h=-0.04547: 107054 primes, 97 rays (h'<=1000) in reach (75 s)
+   zone 21+20i  h= 29 A_h=-0.04547: 107054 primes, 97 rays (h'<=1000) in reach (82 s)
+
+Z = zone sum over Gaussian prime elements without the inert primes q = 3 mod 4 (these lie on the axis; listed below)
+own = theorem's main term A_h u^m int G dA;  nb = heuristic contribution of the other rational rays in reach (h' <= 1000)
+zone      m      Z                        own (theorem)            nb (h'<=1000)        sd   (Z-own)/sd (Z-own-nb)/sd  nb cuts 100/300/1000 (in sd)
+axis      4      66816    -65624i       67860    -67775i       1004     -936i   2395    1.00    1.55       0.00 0.39 0.57
+axis      0      66773    -65516i       67818    -67816i       1053     -978i   2395    1.05    1.63       0.00 0.41 0.60
+3+4i      4      29464     -6410i       23414     -5167i       4729     -951i   2399    2.57    0.56       1.29 1.61 2.01
+3+4i      0     -20930    +21935i      -16955    +16954i      -3651    +3544i   2399    2.66    0.61       1.37 1.71 2.12
+4+3i      4       5094    -29568i        5196    -23407i       1104    -4774i   2399    2.57    0.77       1.32 1.63 2.04
+4+3i      0     -20930    +21935i      -16955    +16954i      -3651    +3544i   2399    2.66    0.61       1.37 1.71 2.12
+5+12i     4       7846     +8592i        5695     +5608i       3809    +3149i   2400    1.53    0.69       2.14 2.24 2.06
+5+12i     0      -9374     +8165i       -5652     +5651i      -3709    +3657i   2400    1.87    0.48       2.25 2.35 2.17
+12+5i     4      -8135     -9499i       -5600     -5702i      -3067    -3783i   2400    1.90    0.22       2.12 2.21 2.03
+12+5i     0      -9374     +8165i       -5652     +5651i      -3709    +3657i   2400    1.87    0.48       2.25 2.35 2.17
+8+15i     4      10730     +4063i        5528     +2318i       4528    +2620i   2398    2.29    0.46       1.46 2.19 2.18
+8+15i     0      -8027     +8837i       -4239     +4239i      -3990    +3979i   2398    2.48    0.27       1.54 2.34 2.35
+15+8i     4      -5153    -10436i       -2311     -5531i      -2679    -4638i   2398    2.36    0.13       1.53 2.24 2.23
+15+8i     0      -8027     +8837i       -4239     +4239i      -3990    +3979i   2398    2.48    0.27       1.54 2.34 2.35
+7+24i     4       2027     +6398i           0        -0i       2834    +5695i   2399    2.80    0.45       2.06 2.83 2.65
+7+24i     0      -5552     +3950i           0        +0i      -4619    +4855i   2399    2.84    0.54       2.18 3.00 2.79
+24+7i     4      -5130     -4023i           0        +0i      -5946    -2574i   2399    2.72    0.69       2.09 2.89 2.70
+24+7i     0      -5552     +3950i           0        +0i      -4619    +4855i   2399    2.84    0.54       2.18 3.00 2.79
+20+21i    4       8358     -7253i        2648     -2173i       6847    -5120i   2401    3.18    0.47       4.24 4.05 3.56
+20+21i    0      -7522     +8716i       -2422     +2422i      -5919    +6647i   2401    3.37    0.37       4.38 4.18 3.71
+21+20i    4       5884     -9357i        2176     -2645i       4147    -7223i   2401    3.19    0.28       4.10 3.91 3.47
+21+20i    0      -7522     +8716i       -2422     +2422i      -5919    +6647i   2401    3.37    0.37       4.38 4.18 3.71
+
+inert primes (z = q = 3 mod 4, on the axis) in the axis zone: 1645 (real, same for m = 0, 4; subtracted above)
+   axis m=4: with the inert primes Z = 68461 -65624i, (Z - own)/sd = 0.93
+   axis m=0: with the inert primes Z = 68418 -65516i, (Z - own)/sd = 0.99
+controls (4 frequencies x 2 m x 11 zones): rms/sd real 0.89, imag 0.74
+PASS control sums are noise-sized (rms/sd within [0.5, 2])
+PASS axis zone: Z within 4 sd of the theorem's main term (unconditional case h = 1)
+PASS zone axis m=4: |Z - (own + nb)| = 1.55 sd <= 4 (heuristic overlap model)
+PASS zone axis m=0: |Z - (own + nb)| = 1.63 sd <= 4 (heuristic overlap model)
+PASS zone 3+4i m=4: |Z - (own + nb)| = 0.56 sd <= 4 (heuristic overlap model)
+PASS zone 3+4i m=0: |Z - (own + nb)| = 0.61 sd <= 4 (heuristic overlap model)
+PASS zone 4+3i m=4: |Z - (own + nb)| = 0.77 sd <= 4 (heuristic overlap model)
+PASS zone 4+3i m=0: |Z - (own + nb)| = 0.61 sd <= 4 (heuristic overlap model)
+PASS zone 5+12i m=4: |Z - (own + nb)| = 0.69 sd <= 4 (heuristic overlap model)
+PASS zone 5+12i m=0: |Z - (own + nb)| = 0.48 sd <= 4 (heuristic overlap model)
+PASS zone 12+5i m=4: |Z - (own + nb)| = 0.22 sd <= 4 (heuristic overlap model)
+PASS zone 12+5i m=0: |Z - (own + nb)| = 0.48 sd <= 4 (heuristic overlap model)
+PASS zone 8+15i m=4: |Z - (own + nb)| = 0.46 sd <= 4 (heuristic overlap model)
+PASS zone 8+15i m=0: |Z - (own + nb)| = 0.27 sd <= 4 (heuristic overlap model)
+PASS zone 15+8i m=4: |Z - (own + nb)| = 0.13 sd <= 4 (heuristic overlap model)
+PASS zone 15+8i m=0: |Z - (own + nb)| = 0.27 sd <= 4 (heuristic overlap model)
+PASS zone 7+24i m=4: |Z - (own + nb)| = 0.45 sd <= 4 (heuristic overlap model)
+PASS zone 7+24i m=0: |Z - (own + nb)| = 0.54 sd <= 4 (heuristic overlap model)
+PASS zone 24+7i m=4: |Z - (own + nb)| = 0.69 sd <= 4 (heuristic overlap model)
+PASS zone 24+7i m=0: |Z - (own + nb)| = 0.54 sd <= 4 (heuristic overlap model)
+PASS zone 20+21i m=4: |Z - (own + nb)| = 0.47 sd <= 4 (heuristic overlap model)
+PASS zone 20+21i m=0: |Z - (own + nb)| = 0.37 sd <= 4 (heuristic overlap model)
+PASS zone 21+20i m=4: |Z - (own + nb)| = 0.28 sd <= 4 (heuristic overlap model)
+PASS zone 21+20i m=0: |Z - (own + nb)| = 0.37 sd <= 4 (heuristic overlap model)
+pooled amplitude of the Pythagorean zones (m=4, Z regressed on the overlap model): 1.0142 +- 0.0477
+PASS pooled Pythagorean amplitude within 4 errors of 1
+== F. neighbour cross-talk |nb|/|own| (h' <= 1000) as X grows, M = 3, same V (no primes involved)
+   axis    X=1e7: 100 rays, |nb|/X^(3/4) = 0.0077, |nb|/|own| = 0.014 | X=1e9:  30 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000 | X=1e11:   0 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000 | X=1e13:   0 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000
+   3+4i    X=1e7: 101 rays, |nb|/X^(3/4) = 0.0271, |nb|/|own| = 0.201 | X=1e9:  32 rays, |nb|/X^(3/4) = 0.0016, |nb|/|own| = 0.012 | X=1e11:  10 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000 | X=1e13:   0 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000
+   5+12i   X=1e7: 103 rays, |nb|/X^(3/4) = 0.0278, |nb|/|own| = 0.618 | X=1e9:  37 rays, |nb|/X^(3/4) = 0.0021, |nb|/|own| = 0.046 | X=1e11:  13 rays, |nb|/X^(3/4) = 0.0001, |nb|/|own| = 0.001 | X=1e13:   6 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000
+   20+21i  X=1e7:  97 rays, |nb|/X^(3/4) = 0.0481, |nb|/|own| = 2.496 | X=1e9:  35 rays, |nb|/X^(3/4) = 0.0009, |nb|/|own| = 0.048 | X=1e11:  12 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.002 | X=1e13:   5 rays, |nb|/X^(3/4) = 0.0000, |nb|/|own| = 0.000
+   7+24i   X=1e7: 103 rays, |nb|/X^(3/4) = 0.0358 | X=1e9:  38 rays, |nb|/X^(3/4) = 0.0037 | X=1e11:  15 rays, |nb|/X^(3/4) = 0.0001 | X=1e13:   6 rays, |nb|/X^(3/4) = 0.0000
+== E. Re(z conj w) mod h for Gaussian primes in the flat part of the zone (|s| <= M sqrt t, N in [0.05X, X])
+   3+4i    h=  5: 53496 primes, residues not coprime to h: 0; chi2 = 0.6 on 3 dof (z = -0.98); mean e(-r/h) = -0.2510 -0.0019i vs mu/phi = -0.2500 (sd 0.0031)
+PASS 3+4i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 3+4i: uniform on (Z/h)^* (chi2 z-score -0.98)
+PASS 3+4i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   4+3i    h=  5: 53496 primes, residues not coprime to h: 0; chi2 = 0.6 on 3 dof (z = -0.98); mean e(-r/h) = -0.2510 -0.0019i vs mu/phi = -0.2500 (sd 0.0031)
+PASS 4+3i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 4+3i: uniform on (Z/h)^* (chi2 z-score -0.98)
+PASS 4+3i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   5+12i   h= 13: 53586 primes, residues not coprime to h: 0; chi2 = 5.6 on 11 dof (z = -1.14); mean e(-r/h) = -0.0829 -0.0011i vs mu/phi = -0.0833 (sd 0.0031)
+PASS 5+12i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 5+12i: uniform on (Z/h)^* (chi2 z-score -1.14)
+PASS 5+12i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   12+5i   h= 13: 53586 primes, residues not coprime to h: 0; chi2 = 5.6 on 11 dof (z = -1.14); mean e(-r/h) = -0.0829 -0.0011i vs mu/phi = -0.0833 (sd 0.0031)
+PASS 12+5i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 12+5i: uniform on (Z/h)^* (chi2 z-score -1.14)
+PASS 12+5i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   8+15i   h= 17: 53532 primes, residues not coprime to h: 0; chi2 = 4.2 on 15 dof (z = -1.97); mean e(-r/h) = -0.0600 -0.0026i vs mu/phi = -0.0625 (sd 0.0031)
+PASS 8+15i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 8+15i: uniform on (Z/h)^* (chi2 z-score -1.97)
+PASS 8+15i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   15+8i   h= 17: 53532 primes, residues not coprime to h: 0; chi2 = 4.2 on 15 dof (z = -1.97); mean e(-r/h) = -0.0600 -0.0026i vs mu/phi = -0.0625 (sd 0.0031)
+PASS 15+8i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 15+8i: uniform on (Z/h)^* (chi2 z-score -1.97)
+PASS 15+8i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   7+24i   h= 25: 53528 primes, residues not coprime to h: 0; chi2 = 6.2 on 19 dof (z = -2.07); mean e(-r/h) = +0.0009 -0.0007i vs mu/phi = +0.0000 (sd 0.0031)
+PASS 7+24i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 7+24i: uniform on (Z/h)^* (chi2 z-score -2.07)
+PASS 7+24i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   24+7i   h= 25: 53528 primes, residues not coprime to h: 0; chi2 = 6.2 on 19 dof (z = -2.07); mean e(-r/h) = +0.0009 -0.0007i vs mu/phi = +0.0000 (sd 0.0031)
+PASS 24+7i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 24+7i: uniform on (Z/h)^* (chi2 z-score -2.07)
+PASS 24+7i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   20+21i  h= 29: 53776 primes, residues not coprime to h: 0; chi2 = 11.6 on 27 dof (z = -2.10); mean e(-r/h) = -0.0378 -0.0022i vs mu/phi = -0.0357 (sd 0.0031)
+PASS 20+21i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 20+21i: uniform on (Z/h)^* (chi2 z-score -2.10)
+PASS 20+21i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   21+20i  h= 29: 53776 primes, residues not coprime to h: 0; chi2 = 11.6 on 27 dof (z = -2.10); mean e(-r/h) = -0.0378 -0.0022i vs mu/phi = -0.0357 (sd 0.0031)
+PASS 21+20i: Re(z conj w) is never 0 mod a prime factor of h
+PASS 21+20i: uniform on (Z/h)^* (chi2 z-score -2.10)
+PASS 21+20i: mean e(-r/h) within 4 sd of mu(h)/phi(h)
+   lattice points in the 3+4i flat zone: residues 0..4 of 3a+4b mod 5: shares [0.20003 0.19999 0.19999 0.19999 0.2    ]
+PASS lattice points: 3a + 4b mod 5 uniform on all five residues (including 0)
+time 140 s
+ALL CHECKS PASSED
