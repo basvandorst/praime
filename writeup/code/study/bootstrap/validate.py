@@ -104,4 +104,19 @@ tot = lambda w, lo, hi: sum(v for x, v in w if lo <= x <= hi)
 ok(abs(tot(ws[1], 1.9, 2.1) - 1.003) < 1e-3 and abs(tot(ws[3], 1.9, 2.1) - 1.0001) < 1e-4 and abs(tot(ws[2], 2.9, 3.1) - 1.197) < 1e-3 and abs(tot(ws[3], 2.9, 3.1) - 1.005) < 1e-3, 'relaxed weights')
 ok(all(1.99 < x < 2.04 or 2.99 < x < 3.05 for w in ws for x, _ in w), 'weights sit at 2 and 3')
 ok('conductor 0.99999839' in t, 'relaxed conductor')
+t = rd('relaxed_fields_out.txt')
+def col(k):
+    return {float(m.group(1)): (float(m.group(2)), m.group(3)) for m in re.finditer(r'kappas %s X=(\S+)\s+N=\d+: lambda \S+ conductor (\S+) .*?centre\(weight\): (.*)' % k, t)}
+z = col('0')
+ok(z[3.0][0] == 0.9999677 and z[4.0][0] == 0.9999984 and all(abs(z[X][0] - 1) < 5e-8 for X in (5.0, 6.0, 7.0, 8.0)), 'convex, zeta')
+ok(z[8.0][1].split() == ['2.000(1.00)', '3.000(1.00)', '5.000(1.00)', '7.000(1.00)'], 'convex, zeta weights')
+c = col('01'); vals = [c[X][0] for X in (4.0, 6.0, 8.0, 10.0, 12.0, 14.0)]
+ok([round(x, 5) for x in vals] == [2.97588, 2.98099, 2.98117, 2.98123, 2.98124, 2.98126] and vals == sorted(vals) and vals[-1] < 2.9921, 'convex, Gamma_C')
+ok(c[14.0][1].split() == ['3.244(1.65)', '6.259(1.92)', '8.862(0.65)'], 'convex, Gamma_C weights')
+c = col('00'); vals = [c[X][0] for X in (4.0, 6.0, 8.0, 10.0, 12.0, 14.0)]
+ok([round(x, 5) for x in vals] == [4.96578, 4.97863, 4.98386, 4.98476, 4.98480, 4.98485] and c[14.0][1].split() == ['4.320(1.83)', '9.224(2.30)'], 'convex, Gamma_R^2')
+c = col('001'); vals = [c[X][0] for X in (6.0, 8.0, 10.0, 12.0, 14.0)]
+ok([round(x, 4) for x in vals] == [22.5288, 22.5523, 22.5664, 22.5852, 22.5953] and c[14.0][1].split() == ['6.206(2.82)'], 'convex, cubic complex')
+c = col('000'); vals = [c[X][0] for X in (6.0, 8.0, 10.0, 12.0, 14.0)]
+ok([round(x, 4) for x in vals] == [46.5468, 48.0437, 48.1272, 48.1324, 48.1486] and c[14.0][1].split() == ['8.931(4.21)'], 'convex, cubic real')
 print('all %d checks passed' % n)

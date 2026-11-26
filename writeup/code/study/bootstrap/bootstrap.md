@@ -193,12 +193,33 @@ Statement wanted: the primes are the only positive Beurling system whose form (R
 - **Counterexample search** (the prover's linear program over absolutely continuous prime densities capped at 50, heights up to 60 on a grid): the best smallest value of Re Ξ′/Ξ on the line stayed negative (−1.1·10⁻³ to −3.7·10⁻⁴), creeping to 0 as the family grows, with the mass concentrating in peaks. No second feasible system was found.
 - **Literature** (one search; main sources on positivity criteria not read): nothing found that derives a functional equation from positivity; no discrete Beurling system with a zeta function meromorphic in the plane, beyond the arithmetic ones.
 
+## 5e. The convex version across signatures: sharp in degree 1 only (26 November 2026, night)
+
+Let the multiplicities be any real numbers ≥ 0 (a positive prime measure). The form is linear in the measure, so the smallest conductor that admits any such measure at support X is the optimum of a concave problem; cutting planes with a linear program give the global optimum on a grid ([relaxed_fields.py](relaxed_fields.py), [relaxed_fields_out.txt](relaxed_fields_out.txt); geometric grid of ratio 1.004 plus the integers, Fourier basis, float64). Each value is a lower bound, under GRH, for the discriminant of every field of that signature, up to the grid and the rounding (not certified).
+
+| Gamma factor (smallest discriminant) | X = 4 | 6 | 8 | 10 | 12 | 14 | where the weight sits at X = 14 |
+|---|---|---|---|---|---|---|---|
+| Γ_R(s) (1) | 0.9999984 | 1.0000000 | 1.0000000 | | | | at X = 8: 2.000, 3.000, 5.000, 7.000, each with weight 1.00 |
+| Γ_R(s)Γ_R(s+1) (3) | 2.97588 | 2.98099 | 2.98117 | 2.98123 | 2.98124 | 2.98126 | 3.244 (1.65), 6.259 (1.92), 8.862 (0.65) |
+| Γ_R(s)² (5) | 4.96578 | 4.97863 | 4.98386 | 4.98476 | 4.98480 | 4.98485 | 4.320 (1.83), 9.224 (2.30) |
+| Γ_R(s)²Γ_R(s+1) (23) | | 22.5288 | 22.5523 | 22.5664 | 22.5852 | 22.5953 | 6.206 (2.82) |
+| Γ_R(s)³ (49) | | 46.5468 | 48.0437 | 48.1272 | 48.1324 | 48.1486 | 8.931 (4.21) |
+
+For Γ_R(s) the runs at X ≥ 5 stopped at the round limit with the optimum equal to 1 within 5·10⁻⁸ (X = 3: 0.9999677).
+
+Reading.
+- **Degree 1 is sharp.** Without asking for integers, the convex program returns the primes with weight 1.00 and the conductor 1. So in the convex version too, nothing beats the primes at these supports; integrality of the multiplicities comes out, it is not put in.
+- **Degree 2 and 3 are not sharp.** The optimum levels off below the smallest discriminant (2.9813 against 3; 4.9848 against 5), with non-integer weights at non-integer positions. The statement of section 5 for quadratic fields therefore depends on whole-number multiplicities: with them the searches head for 3 and 5, without them a non-arithmetic measure does better.
+- **Order of the bounds for imaginary quadratic fields:** 2.966 (one positive kernel, no local correction, in print) < 2.9813 (all kernels of support log 14 against all positive measures, here) < 2.9921 (local corrections over arithmetic splitting types, in print) < 3.
+- **The extremal function.** At the optimum the ground state ψ of the form has ĝ = |ψ̂|² ≥ 0 and c_g(x) = Σ_k log x·x^(−k/2)·2g(k log x) ≥ 0 for every x, with equality on the support of the optimal measure (the first-order condition of the concave problem, for a simple smallest eigenvalue). For the zeta datum this is the ground state studied by Connes and Consani, up to the small shift of the points at a finite support: it is the dual solution of a convex program whose primal solution is the primes. Global uniqueness in the convex version, together with "no positive measure is admitted below conductor 1", is equivalent to: this optimum tends to 0 as the support grows. Measured: 3.2·10⁻⁵, 1.6·10⁻⁶, below 5·10⁻⁸ at X = 3, 4, 5.
+
 ## 6. Size of the result
 
 - Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants (Odlyzko, Serre, Poitou, Diaz y Diaz) with one fixed positive kernel and the worst splitting type per prime.
 - Comparison: our values at support log 8 (2.9995 and 4.9911) lie above the printed bounds with local corrections (2.9921 and 4.9640). Ours are values found by a search over a larger class (real positions) with a short support, theirs are proved bounds with a long kernel; the two are not the same quantity, and ours is an upper bound for q_min(L).
 - New here, as far as the search went: the prime side as the unknown of an optimisation; primes returned from no input; the role of the pole and of positive weights; the smallest-conductor reading with quadratic fields.
 - Proved, refereed once inside the repo (no failing step; two consequences of 5b reworded, small repairs in the proof of Theorem C): the price of a finite edit (section 5b, under RH); a feasible system is determined by its spectrum; thin changes of the primes are never feasible unless trivial (section 5c, RH not assumed).
+- The convex version (section 5e): the positivity bound is sharp in degree 1, where it returns the primes with weight 1, and not in degrees 2 and 3.
 - Global uniqueness: not proved. Proved (refereed once inside the repo): it holds among systems whose completed zeta function is entire of finite order with finitely many zeros off the line (section 5d), and a converse theorem for Beurling zeta functions without a functional equation.
 - The numerical statements are search results at small supports (X ≤ 14). Degree 3 was run once and has not converged.
 
