@@ -1,0 +1,80 @@
+PARI stack size set to 300000000 bytes, maximum size set to 300003328
+== A. class numbers and local factors
+A1   ok   own count of reduced forms = qfbhclassno for 3 <= D <= 1500 (0 bad)
+A2   ok   8000 cases (D <= 4000, ell = 2,3,5,7): xi*F = ell^-e (chi-1)/(1-chi/ell); Martin explicit xi = class-number xi
+A3   ok   73656 cases: every prime of Q divides Delta_0 and not f_0 (D = Q(4p - s^2 Q))
+== B. local means at ell | M = N/Q (exact enumeration with enclosure)
+B1   ok   324 cases (ell = 2,3,5,7; Q units at ell; s = 0..8): mean of xi*F over p in Z_ell^x = -ell^2/(ell^2-1) (ell !| s), -ell/(ell+1) (ell | s); enclosure width <= 2.0e-03
+== C. trace of T_p W_Q on S_k^new(N): Martin's class-number formula against PARI
+C1   ok   2344 triples (N in 6,10,14,15,21,30,42; k = 2,4; all Q | N; primes p <= 150): exact
+C2   ok   588 triples (N = 30, 42, 70; k = 2, 4; Q > 1; p < 60): formula = trace(W_Q T_p) from mfatkininit
+C3   ok   340 cases (N in 30,42,66,70,78,105; k = 2,4): tr W_Q (ell = 1) and tr(T_p | eigenspace) = 2^-w sum_Q eps(Q) tr(T_p W_Q) against PARI orbits
+C4   ok   1424 cases: tr(T_p W_Q0 | S^new(mq)) = Leg_Q0(p) - tr(T_p W_Q0 | S^new(m)) exactly (Q0 | m, 4 p Q0 < q^2)
+== D. densities
+D1   ok   D^(N,1) = (-1)^(k/2) M^(N) (formula (2.1)) on 1600 points, max diff 5.9e-14
+D2   ok   below y = 1/(4M) the W_Q density is (-1)^(k/2+w(M)) (2pi/(k-1)) pi(Q) sqrt(y/M) + 12 kappa(N) mu(M) y [k=2]; max diff 1.3e-15
+     y        D_q(2q)    D_N(2q)         ++         +-         -+         --    D_q(3q)    D_N(3q)         ++         +-         -+         --
+    0.05     -0.2065    -0.9074    -1.1140     1.1140     0.7009    -0.7009    -0.0888    -0.9733    -1.0621     1.0621     0.8844    -0.8844
+    0.10     -0.9950    -0.5804    -1.5754     1.5754    -0.4147     0.4147    -0.0224    -0.8492    -0.8716     0.8716     0.8268    -0.8268
+    0.20      0.8270     0.5851     1.4121    -1.4121     0.2418    -0.2418    -0.3096    -0.1466    -0.4562     0.4562    -0.1630     0.1630
+    0.50     -0.7190    -1.7132    -2.4323     2.4323     0.9942    -0.9942     0.7049    -0.6833     0.0217    -0.0217     1.3882    -1.3882
+    1.00     -2.4248     2.3662    -0.0586     0.0586    -4.7909     4.7909    -0.0939     3.1109     3.0170    -3.0170    -3.2048     3.2048
+    1.50      1.4401    -1.2734     0.1667    -0.1667     2.7135    -2.7135     0.6124    -2.2999    -1.6875     1.6875     2.9123    -2.9123
+    2.00     -0.4575     1.9239     1.4664    -1.4664    -2.3815     2.3815     0.1157    -0.8318    -0.7161     0.7161     0.9475    -0.9475
+    3.00     -2.7739    -2.2909    -5.0649     5.0649    -0.4830     0.4830    -1.0117    -0.7569    -1.7686     1.7686    -0.2548     0.2548
+D3   ok   table printed (k = 2; eigenspace (e1, eq) density = eq D_q + e1 eq D_N; columns ++,+-,-+,-- = (e_p1, e_q))
+     Martin Fig. pq-profile3000 (levels 6000..12000), predicted M^eps(l/X; 2) and M^eps/4:
+     l =  250: (++,--,+-,-+) = -0.826 -0.967  0.826  0.967 ; /4 = -0.207 -0.242  0.207  0.242
+     l =  800: (++,--,+-,-+) = -1.442  0.115  1.442 -0.115 ; /4 = -0.360  0.029  0.360 -0.029
+     l = 2000: (++,--,+-,-+) =  1.063 -0.523 -1.063  0.523 ; /4 =  0.266 -0.131 -0.266  0.131
+     l = 3700: (++,--,+-,-+) = -1.375 -1.885  1.375  1.885 ; /4 = -0.344 -0.471  0.344  0.471
+     l = 4000: (++,--,+-,-+) = -1.496 -1.802  1.496  1.802 ; /4 = -0.374 -0.451  0.374  0.451
+     l = 5500: (++,--,+-,-+) = -1.207 -0.841  1.207  0.841 ; /4 = -0.302 -0.210  0.302  0.210
+D4   ok   Martin figure comparison printed (readings of the figure: see note)
+== E. discovery numerics (declared: seen data), weight 2, all p <= 4N, 16 windows of y = p/N
+E0   ok   484 values t_Q(p) (N = 202, 201, 10006; all Q): vectorised = exact formula, max diff 7.3e-12
+     N = 10006 = 2*5003: dim 416, eigenspace dims [97, 111, 118, 90], 4203 primes, 11 s
+     N = 10018 = 2*5009: dim 417, eigenspace dims [107, 101, 116, 93], 4207 primes, 11 s
+     N = 10022 = 2*5011: dim 418, eigenspace dims [98, 111, 121, 88], 4208 primes, 12 s
+     N = 9993 = 3*3331: dim 555, eigenspace dims [147, 130, 160, 118], 4198 primes, 11 s
+     N = 10029 = 3*3343: dim 557, eigenspace dims [137, 141, 160, 119], 4211 primes, 11 s
+     N = 10041 = 3*3347: dim 557, eigenspace dims [131, 148, 147, 131], 4217 primes, 11 s
+     type 2q (levels [10006, 10018, 10022]): errors c_T = 0.67 x SE (eigenspaces), 0.54 x SE (antisymmetric parts)
+       eigenspaces, 192 terms: chi2 own 254.4; W_N-only 1714.1; other eigenspace densities (1, 1) 9162, (1, -1) 9572, (-1, 1) 9065, (-1, -1) 9134
+       antisymmetric parts (t_q + e1 t_N)/dim, 96 terms: chi2 own 87.1; W_N-only 1522.0
+       symmetric parts (t_1 + e1 t_p1)/dim: rms of window means 0.435; mean correlation between levels (e1 = +1, -1): -0.22, 0.59
+       eps (1, 1)   data : -0.15 -1.22 -0.77  0.00 -2.71 -0.24  0.38  0.85  4.09  0.68 -2.74 -4.60 -4.09 -0.12  2.51  3.14
+       eps (1, 1)   model: -0.09 -1.21 -0.97 -0.25 -2.81 -0.45  0.58  1.25  4.06  0.60 -2.69 -4.50 -4.18  0.11  2.21  3.63
+       eps (1, -1)  data :  0.10  1.06  0.96  0.54  2.65  0.32 -0.29 -1.38 -3.87 -0.60  2.81  4.41  3.97 -0.13 -2.40 -3.19
+       eps (1, -1)  model:  0.09  1.13  0.91  0.23  2.63  0.42 -0.55 -1.17 -3.80 -0.56  2.51  4.20  3.91 -0.10 -2.06 -3.40
+       eps (-1, 1)  data :  0.11  1.78  1.32 -2.37 -1.21  2.65  2.19 -1.08 -2.52  1.36  2.08  0.26  0.01  2.41  1.36 -1.47
+       eps (-1, 1)  model:  0.16  1.52  1.00 -2.08 -0.87  2.41  1.67 -0.64 -1.88  0.84  1.71  0.54 -0.18  1.68  0.98 -0.73
+       eps (-1, -1) data : -0.20 -1.79 -1.22  2.45  0.74 -2.77 -1.95  0.46  1.77 -0.48 -1.05 -0.65 -0.74 -1.02 -1.02  0.82
+       eps (-1, -1) model: -0.21 -1.99 -1.32  2.72  1.13 -3.16 -2.19  0.83  2.46 -1.10 -2.24 -0.71  0.23 -2.20 -1.29  0.96
+     type 3q (levels [9993, 10029, 10041]): errors c_T = 0.74 x SE (eigenspaces), 0.74 x SE (antisymmetric parts)
+       eigenspaces, 192 terms: chi2 own 221.0; W_N-only 687.8; other eigenspace densities (1, 1) 9065, (1, -1) 9566, (-1, 1) 8552, (-1, -1) 8175
+       antisymmetric parts (t_q + e1 t_N)/dim, 96 terms: chi2 own 73.7; W_N-only 364.0
+       symmetric parts (t_1 + e1 t_p1)/dim: rms of window means 0.315; mean correlation between levels (e1 = +1, -1): 0.54, 0.77
+       eps (1, 1)   data : -0.75 -0.98  0.41  2.23 -1.56 -2.85 -0.98 -1.03  0.17 -0.05 -1.30 -1.45 -0.31  0.97  3.12  3.60
+       eps (1, 1)   model: -0.71 -1.01  0.49  2.24 -1.45 -2.88 -1.32 -0.86  0.33 -0.18 -1.14 -1.60  0.26  1.78  2.74  3.47
+       eps (1, -1)  data :  0.68  1.04 -0.34 -2.44  1.52  2.77  1.51  0.88 -0.97  0.26  1.18  1.43 -0.34 -2.12 -2.80 -3.15
+       eps (1, -1)  model:  0.70  1.00 -0.48 -2.22  1.44  2.85  1.31  0.86 -0.33  0.18  1.13  1.58 -0.26 -1.77 -2.71 -3.44
+       eps (-1, 1)  data :  0.35  0.76  0.24 -1.66 -0.27  1.54  2.98  1.75  1.09  2.65  1.97  0.24  0.10 -0.33 -1.13 -3.77
+       eps (-1, 1)  model:  0.34  0.64  0.35 -1.57 -0.08  1.39  2.61  1.66  0.64  2.05  1.96  0.67  0.66 -0.07 -1.75 -3.88
+       eps (-1, -1) data : -0.45 -0.73 -0.47  1.79 -0.27 -1.69 -2.57 -2.45 -1.03 -2.20 -1.99 -1.21 -1.50  0.76  2.91  4.78
+       eps (-1, -1) model: -0.43 -0.82 -0.44  1.99  0.11 -1.76 -3.31 -2.11 -0.81 -2.60 -2.49 -0.85 -0.84  0.09  2.22  4.92
+E1   ok   in-sample: chi2 own <= 2 per term (eigenspaces 192 terms, antisymmetric parts 96 terms) for both types
+E2   ok   every alternative worse by >= 300 (eigenspaces) and the W_N-only antisymmetric model by >= 150
+     symmetric parts at N ~ 1e3 (2q): rms 1.455 (N ~ 1e4: 0.435; ratio 0.30, N^(-1/2) scaling would give 0.32)
+     symmetric parts at N ~ 1e3 (3q): rms 1.202 (N ~ 1e4: 0.315; ratio 0.26, N^(-1/2) scaling would give 0.32)
+E3   ok   decay of the symmetric parts printed (reported, not a check of a claim)
+== F. predictions (frozen before any test-level data)
+     blind: {'2q': [20018, 20074, 20078, 20122, 20134, 20138, 20158, 20182, 20186, 20198], '3q': [20037, 20067, 20073, 20103, 20109, 20127, 20157, 20199, 20211, 20283]}  sha256 b9aa428ce991e062cacfda8510e2be48216c77f1259c1c194eccfb082deccc91
+       type 2q: expected separation (sum (own - alt)^2 / sigma^2): W_N-only 4970; other eigenspaces 29455, 31726, 30834, 28746; antisymmetric W_N-only 4843
+       type 3q: expected separation (sum (own - alt)^2 / sigma^2): W_N-only 1640; other eigenspaces 28912, 31451, 28368, 25775; antisymmetric W_N-only 1006
+     dry: {'2q': [10006, 10018, 10022], '3q': [9993, 10029, 10041]}  sha256 6b0f27e7b171a46bffd48eed5d0b2fb92aa9a4e1f8a144cc6e177e5147053eba
+       type 2q: expected separation (sum (own - alt)^2 / sigma^2): W_N-only 1471; other eigenspaces 8676, 9705, 9642, 8291; antisymmetric W_N-only 1424
+       type 3q: expected separation (sum (own - alt)^2 / sigma^2): W_N-only 500; other eigenspaces 8733, 9561, 8727, 7700; antisymmetric W_N-only 304
+F1   ok   predictions written (blind levels: none of 30030-30530, 2*10007, 3*6673, 6*3343, 5*4003, 9998, 9987, 9978)
+F2   ok   regenerated predictions files have the sha256 registered in al_blind_test.py (byte-for-byte reproducible)
+18 checks, 0 failed  (179 s)
