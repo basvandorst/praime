@@ -164,4 +164,43 @@ pos = re.findall(r'deg\s+(\d+): non-positive values on u = k/100, k <= 380: (\d+
 ok([p[0] for p in pos] == ['8', '24', '48'] and all(p[1] == '0' and float(p[2]) > 0 for p in pos), 'certificates: g > 0 on the sampled grid')
 ok('= 2.788432137 ' in t and t.count('4.212556303e-19') == 2 and 'W/(2 pi g(0)) = 1.510725776e-19' in t and 'W/g(0) = 9.492169997e-19' in t and 2.7884318 < 2.788432137 < 2.7884322 and 4.212556303e-19 <= 4.2125564e-19 and 1 - 4.212556303e-19/4.2125564e-19 < 3e-8 and 1.510725776e-19 <= 1.5107258e-19 and optA[40] < 9.492169997e-19, 'Johns Part I Table 1, row J = 10, rebuilt')
 ok(abs(2.37581468402e-26 - 2.376e-26) < 1e-29 and 1 - exp(-2.376e-26) < 2.4e-26, 'certified bound as conductor')
+# section 5g: traps for the double zeros
+RN = {2: 3.334e-13, 3: 1.448e-12, 4: 7.274e-12, 5: 1.278e-11, 7: 2.189e-10, 8: 2.248e-9, 9: 5.051e-9, 11: 2.713e-8, 13: 3.653e-7, 16: 1.230e-4, 17: 2.896e-4, 19: 1.691e-3}
+WN = {2: 0.490, 3: 0.634, 4: 0.346, 5: 0.719, 7: 0.735, 8: 0.244, 9: 0.366, 11: 0.723, 13: 0.711, 16: 0.173, 17: 0.687, 19: 0.676}
+L2 = {2: 0.980, 3: 1.269, 4: 0.693, 5: 1.440, 7: 1.471, 8: 0.490, 9: 0.732, 11: 1.446, 13: 1.423, 16: 0.347, 17: 1.374, 19: 1.351}
+OURS = {2: 3.03e-13, 3: 1.315e-12, 4: 6.61e-12, 5: 1.162e-11, 7: 1.99e-10, 8: 2.043e-9, 9: 4.591e-9, 11: 2.464e-8, 13: 3.321e-7, 16: 1.118e-4, 17: 2.632e-4, 19: 1.537e-3}
+t = rd('theory/zeros/traps/d3_summary.out')
+d3 = {int(a): (float(b), float(c), int(d)) for a, b, c, d in re.findall(r'k\s+\d+ n\s+(\d+) eta.*?R_k <= (\S+)\s+weight >= (\S+).*?intervals (\d+)', t)}
+ok(sorted(d3) == sorted(RN) and all(d3[m][0] <= RN[m] and RN[m]/d3[m][0] - 1 < 1e-3 for m in RN), 'traps: certified radii as in the table (rounded up)')
+ok(all(0 <= d3[m][1] - WN[m] < 1e-3 for m in RN) and 3377 <= min(d[2] for d in d3.values()) and max(d[2] for d in d3.values()) <= 3501, 'traps: certified weights, interval counts')
+import json
+for k in range(1, 13):
+    c = json.load(open(os.path.join(here, 'theory', 'zeros', 'traps', 'trapcert_k%d.json' % k)))
+    ok(c['i_sturm_roots'] == 0 and float(c['R_k_upper']) <= RN[int(c['n_k'])] and float(c['ii_margin'].split(' ')[0].lstrip('[')) > 2.3e-26, 'trap certificate k=%d: Sturm count, margin, radius' % k)
+t = rd('trapcert_check_out.txt')
+rows = [[x.strip() for x in l.split('|')] for l in t.splitlines() if re.match(r'\s*\d+ \|', l)]
+ok(len(rows) == 12 and 'W(gt) = 2.3758146840150069404e-26' in t and all(float(r[2]) < 1e-29 and float(r[3]) > 2.3e-26 and abs(float(r[3])/(float(r[4])*1e-26) - 1) < 1e-6 and r[5] == '0' for r in rows), 'trap certificates, own code: prime sum, margin, no real root')
+ok(all(float(r[6]) < 0 and float(r[7]) < 0 and float(r[8]) > 0 and r[9] == '0' and float(r[10]) < 0 for r in rows), 'trap certificates, own code: w <= 0 at the endpoints and on the grid outside, w > 0 at log n')
+ok(all(0 < float(r[11]) <= RN[int(r[1])] and 0 < -float(r[12]) <= RN[int(r[1])] for r in rows), 'trap certificates, own code: endpoints within the certified radius')
+t = rd('trap_check_d24_out.txt')
+rows = [[x.strip() for x in l.split('|')] for l in t.splitlines() if re.match(r'\s*\d+ \|', l)]
+ok(len(rows) == 12 and all(abs(float(r[14])/OURS[int(r[1])] - 1) < 1e-3 and OURS[int(r[1])] < RN[int(r[1])] and abs(float(r[7])) < 1e-9 and 'outside (a,b): 0' in r[11] and 'roots of B_g - eta B_h with s >= 0: 0' in r[16] for r in rows), 'traps at degree 48, own code: radii of the table, KKT identity, one component')
+offs = {2: 2.3e-25, 3: 4.5e-24, 4: 1.2e-22, 5: 3.5e-22, 7: 9.2e-20, 8: 9.3e-18, 9: 4.5e-17, 11: 1.2e-15, 13: 2.3e-13, 16: 3.0e-8, 17: 1.8e-7, 19: 7.9e-6}
+ok(all(abs(float(r[2])/offs[int(r[1])] - 1) < 0.05 for r in rows) and all(abs(float(r[4]) - L2[int(r[1])]) < 5.1e-4 for r in rows), 'traps at degree 48: offsets u_k - log n and 2 Lambda/sqrt n')
+tr = [l for l in rd('theory/zeros/traps/traps.out').splitlines() if l.startswith('deg')]
+agent = {int(m.group(1)): float(m.group(2)) for m in (re.search(r'deg 48 k\s+\d+ n\s+(\d+) .*?x2: R=(\S+)', l) for l in tr) if m}
+ok(len(tr) == 78 and all(re.search(r'x2: R=\S+ lb/mu=\S+ extra=0', l) for l in tr) and all(abs(agent[m]/OURS[m] - 1) < 2e-3 for m in OURS), 'traps: 78 pairs, one interval each at 2 eta_0; agent and own radii agree at degree 48')
+ok(sum(1 for l in tr if re.search(r'\| x2:[^|]*logs\[', l)) == 4, 'traps: 4 of 78 intervals hold a second integer')
+t = rd('trap_check_d4_out.txt')
+rows = [[x.strip() for x in l.split('|')] for l in t.splitlines() if re.match(r'\s*\d+ \|', l)]
+ok([r[14] for r in rows] == ['0.0437', '0.1563'], 'traps at degree 8, own code')
+d2 = rd('theory/zeros/traps/d2.out')
+k1 = re.findall(r'\n\s+(\d+)\s+2\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)', d2.split('k = 2')[0])
+ok([('%.1e' % float(x[7])) for x in k1] == ['2.1e-01', '4.4e-02', '1.4e-02', '3.8e-03', '4.2e-04', '8.1e-05', '2.3e-05', '2.0e-06', '2.1e-08', '1.6e-09', '9.5e-11', '3.0e-13'] and k1[-1][6] == '1.414214' and abs(float(k1[-1][1])/float(k1[-1][3]) - 9.55) < 0.01, 'trap radius around log 2 per degree; ratio sqrt 2; offset 9.55 lambda')
+g2 = {int(x[0]): float(x[2]) for x in k1}
+ok(abs(g2[4] - 1.3508) < 1e-4 and abs(g2[12] - 1.0929) < 1e-4 and abs(g2[20] - 1.05640) < 1e-5 and abs(g2[48] - 1.055894) < 1e-6 and abs(float(k1[1][7]) - 0.0437) < 1e-4 and '8   3   2.7590e-02  9.63483517e-02  3.7072e-04  1.2870e-01  7.1638e-02  1.796545   1.5629e-01' in d2, 'curvature at the node 2; agent radii at degree 8')
+g6 = {int(a): float(b) for a, b in re.findall(r'\n\s+(\d+)\s+(\S+e-\d+)\s+\S+\s+\S+\s+2\.\d+', d2.split('D2b')[1])}
+ok([('%.2e' % g6[d]) for d in (36, 40, 44, 48)] == ['3.66e-07', '3.51e-07', '3.40e-07', '3.33e-07'] and g6[36] - g6[40] > g6[40] - g6[44] > g6[44] - g6[48] > 0, 'g(log 6) stays positive, steps shrink')
+t = rd('theory/zeros/moments.out')
+ok("G''''(0)=945.65381  B(i/2)=2.2401958 pole=1.1200979" in t and "d=24" in t and abs(1.1200979 - 1.120099144) > 1e-6, 'moments and pole term of the optima; differs from the Part II function')
 print('all %d checks passed' % n)

@@ -307,6 +307,60 @@ Proof in three lines: the window leaves g(0) unchanged, so only two terms of W m
 
 **Status.** The target is not our result. It is claimed in Part II, not refereed. Ours here: two independent numerical tests of the extremal function (two codes, costs 1.8·10⁻⁹ and −7·10⁻¹¹), the duality and the truncation lemma for compact supports with the explicit rate 194/M², a partial referee read, the observation that the prime-power structure is not needed (also theirs: their prime measure is arbitrary), and our own certified bound 2.376·10⁻²⁶ with the best polynomial at each degree up to 48 (computer-assisted, one code; costs rechecked by a second code).
 
+## 5g. The double zeros and the prime powers: a trap that holds at every higher degree (26 November 2026, night)
+
+**Status.** That the double zeros of the best polynomial converge to the prime powers as the degree grows is **not proved**. It is not in print either: Johns, Part II (sections 1.5 and 9.4) lists the convergence of the fixed-node family of Part I as open, and in the neighbouring fields (sphere packing, conformal bootstrap) the same statement about roots is numerical or conjectural in every source read ([theory/zeros/gate_report.md](theory/zeros/gate_report.md)). Proved here: a lemma that confines the zeros at **all** higher degrees once one test function of one degree is known. Computed with it: intervals around the first twelve prime powers that hold for every degree ≥ 48.
+
+Notation: V_d = functions h with transform Ξ(t)²·B_h(t), B_h an even polynomial of degree ≤ 2d in t; cone C_d = {h ∈ V_d: h ≥ 0, B_h ≥ 0}; W(h) = 2·Σ Λ(n)·n^(−1/2)·h(log n); λ_d = min of W over C_d with h(0) = 1; G_d = a minimiser. Degree 48 in section 5f is d = 24.
+
+**The optimum is a quadrature formula for the primes** (proved; [theory/zeros/zeros_trap.md](theory/zeros/zeros_trap.md), Theorem 2.2; finite-dimensional duality with the two points at infinity, Slater point Φ∗Φ + ε·g_d). For even d there are points u_i > 0 with weights μ_i > 0, points t_i with weights ν_i > 0 and α ≥ 0 with
+
+`W(h) = λ_d·h(0) + Σ μ_i·h(u_i) + Σ ν_i·B_h(t_i) + α·b_d(h) for every h in V_d`
+
+and every minimiser G_d has a double zero at every u_i. So the double zeros are the nodes of a formula that reproduces the sum over the prime powers on a (d + 1)-dimensional space, with one fixed node at 0 of weight λ_d. The shape is known from sphere packing (Cohn and Gonçalves 2019, Proposition 5.1). Computed for d ≤ 24: ν = 0, α = 0, d/2 nodes, weights μ_k = 2Λ(n_k)/√n_k to 10 digits for the older nodes.
+
+**Trap lemma** (proved; same file, Lemma 3.1). Let w ∈ V_d′ with B_w ≤ 0 on the real line and W(w) > 0. Then for every d ≥ d′ and every minimiser G_d, the set S = {u > 0: w(u) > 0} contains a double zero of G_d, and the weights of the formula satisfy μ_d(S) ≥ (W(w) − λ_d·w(0))/sup_S w > 0.
+
+Proof. Put w into the formula of degree d. The term λ_d·w(0) is ≤ 0, because −w has a non-negative transform, so |w| ≤ −w(0). The ν-term is ≤ 0 by B_w ≤ 0, and the α-term is ≤ 0. So Σ μ_i·w(u_i) ≥ W(w) > 0, and some node lies where w > 0. ∎
+
+The mechanism is that of Cohn and Kumar 2009 (Proposition 4.3 and Lemma 4.4, where it localises the vectors of a lattice); a statement for the optima of every higher degree was not found in the sources read, and three named books on moment problems were not read, so no claim of novelty.
+
+**How it is used.** Take gt in C_d′ with small cost kt = W(gt), h ∈ V_d′, and w = η·h − gt. The conditions are η·B_h ≤ B_gt and η·W(h) > kt. With gt = G_d′ and h = h_k, the function of V_d′ that is 1 at the node u_k and vanishes doubly at the other nodes (top coefficient 0), W(h_k) = μ_k + λ_d′·h_k(0), the threshold is η₀ = λ_d′/W(h_k), and for η = 2η₀ the set S is one small interval around u_k of half-width about (2η/G_d′″(u_k))^(1/2). In words: a zero of every later optimum must sit where the cost-λ function G_d′ is smaller than about 2λ; near a double zero that is a window of width about √λ.
+
+**The traps at degree 48** (three codes for the numbers: the proof agent's [theory/zeros/trap2_d24.out](theory/zeros/trap2_d24.out) and the compute agent's [theory/zeros/traps/traps.out](theory/zeros/traps/traps.out), both with the Bessel closed form, and ours from the zero side, [trap_check.py](trap_check.py), [trap_check_d24_out.txt](trap_check_d24_out.txt); certificates: [theory/zeros/traps/trapcert.py](theory/zeros/traps/trapcert.py), [d3_summary.out](theory/zeros/traps/d3_summary.out)).
+
+| n | u_k − log n at degree 48 | radius of S around log n, η = 2η₀ (numerical, our code) | certified radius R_n | certified weight in the trap ≥ | 2Λ(n)/√n |
+|---|---|---|---|---|---|
+| 2 | 2.3·10⁻²⁵ | 3.03·10⁻¹³ | 3.334·10⁻¹³ | 0.490 | 0.980 |
+| 3 | 4.5·10⁻²⁴ | 1.315·10⁻¹² | 1.448·10⁻¹² | 0.634 | 1.269 |
+| 4 | 1.2·10⁻²² | 6.61·10⁻¹² | 7.274·10⁻¹² | 0.346 | 0.693 |
+| 5 | 3.5·10⁻²² | 1.162·10⁻¹¹ | 1.278·10⁻¹¹ | 0.719 | 1.440 |
+| 7 | 9.2·10⁻²⁰ | 1.99·10⁻¹⁰ | 2.189·10⁻¹⁰ | 0.735 | 1.471 |
+| 8 | 9.3·10⁻¹⁸ | 2.043·10⁻⁹ | 2.248·10⁻⁹ | 0.244 | 0.490 |
+| 9 | 4.5·10⁻¹⁷ | 4.591·10⁻⁹ | 5.051·10⁻⁹ | 0.366 | 0.732 |
+| 11 | 1.2·10⁻¹⁵ | 2.464·10⁻⁸ | 2.713·10⁻⁸ | 0.723 | 1.446 |
+| 13 | 2.3·10⁻¹³ | 3.321·10⁻⁷ | 3.653·10⁻⁷ | 0.711 | 1.423 |
+| 16 | 3.0·10⁻⁸ | 1.118·10⁻⁴ | 1.230·10⁻⁴ | 0.173 | 0.347 |
+| 17 | 1.8·10⁻⁷ | 2.632·10⁻⁴ | 2.896·10⁻⁴ | 0.687 | 1.374 |
+| 19 | 7.9·10⁻⁶ | 1.537·10⁻³ | 1.691·10⁻³ | 0.676 | 1.351 |
+
+**Theorem (computer-assisted, one code for the interval part; not refereed).** For every degree ≥ 48 and every best polynomial of that degree, the function g has a double zero within R_n of log n for each of the twelve prime powers n = 2, 3, 4, 5, 7, 8, 9, 11, 13, 16, 17, 19, with R_n as in the table, and the quadrature weight of the zeros in that window is at least the value in the fifth column. What the certificate proves for each n, with gt the certified function of section 5f, h a rational rounding of h_k minus Φ∗Φ/1000, and a rational η close to 2η₀: B_gt − η·B_h has no real root (exact Sturm count); η·W(h) > W(gt) (balls); gt − η·h > 0 on [0, a] and [b, 6] (Taylor models, about 3400 intervals, 800 bits) and beyond 6 (Bessel asymptotics); R_n ≥ the distance from log n to a and to b. Assumed: the lemma (proved above), the membership of gt in the cone (the certificate of 5f), the closed Bessel form, DLMF 10.40.10, the ball arithmetic of arb, sympy's root count.
+
+**The certificates checked with separate code** ([trapcert_check.py](trapcert_check.py), [trapcert_check_out.txt](trapcert_check_out.txt); zero side, no Bessel functions; numerical, not a second proof). For each of the twelve: our prime sum W(h) agrees with the ball in the file; η·W(h) − W(gt) > 0 with the stated margin; B_gt − η·B_h has no root with t² ≥ 0; w ≤ 0 at the stated endpoints a and b and w > 0 at log n; and w ≤ 0 at every grid point u = i/200 ≤ 3.8 outside (a, b).
+
+**Traps from lower degrees** (numerical; [theory/zeros/traps/d2.out](theory/zeros/traps/d2.out), [theory/zeros/traps/traps.out](theory/zeros/traps/traps.out)). The same construction at each degree 4K = 4, …, 48 gives one interval for each of the 78 pairs (degree, node) at η = 2η₀. For the node at 2 the radius around log 2, valid for all higher degrees, is 0.21, 0.044, 0.014, 3.8·10⁻³, 4.2·10⁻⁴, 8.1·10⁻⁵, 2.3·10⁻⁵, 2.0·10⁻⁶, 2.1·10⁻⁸, 1.6·10⁻⁹, 9.5·10⁻¹¹, 3.0·10⁻¹³ at degrees 4, 8, …, 48. The half-width divided by (2λ/(μ_k·G″(u_k)))^(1/2) tends to √2 = 1.414214, and the offset u_k − log n_k itself is far smaller, about 9.55·λ for n = 2. In 4 of the 78 cases the interval of the newest node is wide and holds a second integer (degree 12: e^u = 4.357, holds log 5; degrees 24, 28, 40 likewise), so "the k-th zero stays at the k-th prime power" is a statement about the older nodes. Our own run at degree 8 ([trap_check_d4_out.txt](trap_check_d4_out.txt)): radius 0.0437 around log 2 and 0.156 around log 3, the same as the agent's 0.0437 and 0.156.
+
+**What convergence still needs** ([theory/zeros/zeros_trap.md](theory/zeros/zeros_trap.md), sections 4 and 5).
+
+- Proved: if g ≥ 0 has cost W(g) with g(0) = 1, then g(log n) ≤ √n·W(g)/(2Λ(n)) at every prime power, and if g″ ≥ m > 0 on a window around log n the minimum of g in the window is within (√n·W(g)/(Λ(n)·m))^(1/2) of log n.
+- Proved under three hypotheses: (A) λ_d → 0, (B) a curvature bound G_d″ ≥ m > 0 near log n, uniform in d, (C) a zero in the window (one trap gives it). Then the zero converges to log n at rate λ_d^(1/2).
+- (A) is open for the polynomial family. It follows if infinitely many members of the fixed-node family of Johns, Part I lie in the cone with the growth bound of its Conjecture 6.1(b) (proved implication; certified there for five members only). Theorem 1 of Part II does not give (A): its function is not a limit of polynomials with the positivity kept, as far as is known.
+- Without (A): a trap in every window around log n would give a zero in every window at all high degrees. Whether such traps exist for every window is a uniqueness statement for positive solutions of the explicit formula on this test class. It is proved only for finite perturbations of the prime measure; the open part is about measures that grow.
+- Proved: the transforms of the minimisers form a normal family in the strip |Im t| < 1/2 (because G_d ≥ 0), so subsequences of G_d converge uniformly, and if λ_d → 0 every limit vanishes at every log of a prime power.
+- Computed: G_d″(u_k) settles for the early nodes (n = 2: 1.3508, 1.0929, 1.05640, 1.055894 at degrees 4, 12, 20, 48) and still drifts down for n ≥ 7; the fourth moment G_d⁗(0) tends to 945.65 and the pole term to 1.1200979 ([theory/zeros/moments.out](theory/zeros/moments.out)).
+
+**The limit is not the function of Part II** (numerical, no proof). The pole term of the best polynomials tends to 1.1200979; that of the Part II function is 1.120099144 (section 5f). The best polynomial stays positive at log 6: g(log 6) = 3.66, 3.51, 3.40, 3.33·10⁻⁷ at degrees 36 to 48, with shrinking steps, while the Part II function vanishes at every integer. So the extremal function of this problem is not unique, if the limit exists: one vanishes at the prime powers only, one at all integers. Part II says the same of its own function and the fixed-node family (section 9.4(3)).
+
 ## 6. Size of the result
 
 - Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants (Odlyzko, Serre, Poitou, Diaz y Diaz) with one fixed positive kernel and the worst splitting type per prime.
@@ -317,11 +371,12 @@ Proof in three lines: the window leaves g(0) unchanged, so only two terms of W m
 - The convex version (section 5e): the positivity bound is sharp in degree 1, where it returns the primes with weight 1, and not in degrees 2 and 3. Degrees 1 and 2 are in Johns, Part I and II, with certified bounds; our numbers agree with theirs (section 5f).
 - Global uniqueness: not proved by us; claimed in Johns, Part II. Proved here (refereed once inside the repo; the integer-weight case is also Theorem 3.11 of Johns, Part I): it holds among systems whose completed zeta function is entire of finite order with finitely many zeros off the line (section 5d), and a converse theorem for Beurling zeta functions without a functional equation.
 - Our own certified bound for the convex optimum in degree 1 (section 5f): W(g)/g(0) ≤ 2.376·10⁻²⁶ with an explicit polynomial of degree 48, computer-assisted with one code, costs rechecked by a second code. Weaker than the bound in print (10⁻¹⁰⁶⁰), independent of it. Not found in Part I by a keyword search (its family has the zeros placed at the prime powers by construction): the best polynomial at each degree places its double zeros near the prime powers by itself, one more per four degrees, and they converge to the prime powers.
+- The double zeros (section 5g): convergence to the prime powers is not proved, here or in print. Proved: a trap lemma (the mechanism is Cohn and Kumar's) that confines the zeros at every higher degree. Computer-assisted with it: for every degree ≥ 48 the best polynomial has a double zero within 3.4·10⁻¹³ of log 2, …, within 1.7·10⁻³ of log 19 (twelve prime powers; one code for the interval part, checked numerically by a second).
 - The numerical statements are search results at small supports (X ≤ 14). Degree 3 was run once and has not converged.
 
 ## 7. Open points
 
-1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4, 5 and 7 there, and its four computer-assisted inputs); a referee for [theory/convex/convex_limit.md](theory/convex/convex_limit.md). Also open: a second interval proof that g > 0 for our own certificates (section 5f; one code so far), and a proof that the best polynomial of degree 4K has its K double zeros at the first K prime powers in the limit.
+1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4, 5 and 7 there, and its four computer-assisted inputs); a referee for [theory/convex/convex_limit.md](theory/convex/convex_limit.md). Also open: a second interval proof that g > 0 for our own certificates (section 5f; one code so far). Convergence of the double zeros to the prime powers (section 5g): open are λ_d → 0 for the polynomial family, a curvature bound uniform in the degree, and traps in every window (a uniqueness statement on the test class Ξ²·polynomials); also a referee for [theory/zeros/zeros_trap.md](theory/zeros/zeros_trap.md), a second interval code for the twelve traps, and the three unread books named in [theory/zeros/gate_report.md](theory/zeros/gate_report.md).
 2. The exact rate of q_min(L) → d, and the comparison with the published GRH discriminant bounds.
 3. Cubic and quartic Gamma factors: does the minimum equal the smallest discriminant (23, 49, 117, 125, …)? The one cubic run reaches 22.63 at X = 14.
 4. A high-precision scan stage, to continue section 3.3 beyond 11.
@@ -329,4 +384,4 @@ Proof in three lines: the window leaves g(0) unchanged, so only two terms of W m
 
 ## 8. Validation
 
-[validate.py](validate.py) reads the output files and checks every number quoted in sections 1 to 5b and in the tables and results of sections 5e and 5f (literature values excepted); 115 checks.
+[validate.py](validate.py) reads the output files and checks every number quoted in sections 1 to 5b and in the tables and results of sections 5e, 5f and 5g (literature values excepted); 141 checks.
