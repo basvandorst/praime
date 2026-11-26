@@ -112,7 +112,7 @@ Why a minimiser should be arithmetic (heuristic). At L = ∞ a system is feasibl
 
 At X = 4 and 6 the best system is empty; at X = 14 the points are 5.940, 5.940, 7.334. The value rises, stays below 23, and from X = 6 on lies above the printed bound without local corrections (22.27). The points are not yet near 5, 7, 8. So degree 3 is consistent with the limit 23 and does not show it.
 
-## 5b. The price of an edit (proved under RH, for L = ∞; proof below, not refereed)
+## 5b. The price of an edit (proved under RH, for L = ∞; refereed once, see [theory/referee_report.md](theory/referee_report.md))
 
 Let P come from the primes by removing a finite set R of primes and adding a finite multiset S of real points > 1. Put
 
@@ -122,8 +122,12 @@ Let P come from the primes by removing a finite set R of primes and adding a fin
 
 - Removing one prime p: `q* = p^(2/(√p + 1))` (1.776 for p = 2, 2.235 for p = 3, 2.908 for p = 7).
 - Adding one point x: `q* = x^(2/(√x − 1))` (11.85 for x = 6).
-- If the logarithms of the points involved are linearly independent over Q, the prices add: `log q* = Σ_R 2 log p/(√p + 1) + Σ_S 2 log x/(√x − 1)`.
-- Consequences: every finite edit needs a conductor above 1, so among finite edits the primes are the strict minimum; moving a prime by any amount, however small, costs the price of removing it plus the price of adding the new point (48.3 for 2 → 2.1): at L = ∞ the cost is not continuous in the position. At a finite support it is continuous, which is the pinning of section 3.2. Edits far out are cheap: both prices tend to 1 as p or x grows.
+- If the logarithms of the points involved are linearly independent over Q, the prices add: `log q* = Σ_R 2 log p/(√p + 1) + Σ_S 2 log x/(√x − 1)`. With dependent logarithms the price can be lower than the sum.
+- Consequences.
+  - Every finite edit needs a conductor above 1, so among finite edits the primes are the strict minimum. Reason: h_P is an almost periodic function with mean 0; if inf h_P were 0, then h_P ≡ 0, the two prime sides would agree, and the edit would be empty.
+  - Moving a prime p to x costs the price of removing p plus the price of adding x whenever log x/log p is irrational (48.3 for 2 → 2.1), however small the move. For a rational ratio m/n with m odd the cost is a little lower (2 → 2^(11/10): 2 inf h = −3.8577 against the sum −3.8601; referee's computation). Either way, at L = ∞ the cost does not tend to 1 as the move shrinks. At a finite support it does, which is the pinning of section 3.2.
+  - Edits far out are cheap: both prices tend to 1 as p or x grows.
+- RH enters in steps (2) and (5) of the proof (the zero sum runs over real ordinates).
 
 Proof. (1) Q_P(f) = Q_ζ(f) + (C_ζ − C_P)(g), where C is the prime-side sum of section 2. (2) Under RH, Q_ζ(f) = Σ_γ |f̂(γ)|² ≥ 0. (3) For a point x, Σ_k log x·x^(−k/2)·2g(k log x) = (1/π)∫ |f̂(t)|² c(x, t) dt, because 2g(u) = (1/π)∫ |f̂(t)|² cos(tu) dt and Σ_k x^(−k(1/2 + it)) = 1/(x^(1/2 + it) − 1). So (C_ζ − C_P)(g) = (1/π)∫ |f̂|² h_P dt. (4) ‖f‖² = (1/2π)∫ |f̂|² dt. Hence Q_P(f)/‖f‖² ≥ 2 inf h_P. (5) Equality in the limit: h_P is continuous; choose t₀ that is not the ordinate of a zero with h_P(t₀) < inf h_P + ε, and f(u) = φ(u/T) cos(t₀u) with φ smooth of compact support; as T → ∞, |f̂|² concentrates at ±t₀ and Σ_γ |f̂(γ)|²/‖f‖² → 0. (6) For one point, Re[1/(√x·e^(iθ) − 1)] has minimum −1/(√x + 1) at θ = π and maximum 1/(√x − 1) at θ = 0; with independent logarithms the phases are jointly dense (Kronecker), so the extremes add.
 
@@ -141,12 +145,12 @@ All values lie above their limit and fall with the support. Only "remove 2" is c
 
 What this does not settle: systems that differ from the primes in infinitely many points (the global conjecture).
 
-## 5c. What can be proved (proofs in [theory/proofs.txt](theory/proofs.txt); referee report pending)
+## 5c. What can be proved (proofs in [theory/proofs.txt](theory/proofs.txt); refereed once: no failing step, corrections listed at the end of that file)
 
 Call a system P *feasible* if its form (Riemann datum, q = 1) is positive for every support. By Bochner–Schwartz the form is then the Fourier transform of a positive measure μ_P, the spectrum of P (for the primes under RH: the zeta zeros).
 
 - **Theorem A.** If P and Q are feasible and μ_P ≥ μ_Q, then P = Q. So a feasible system is determined by its spectrum, and no feasible system other than the primes has all zeta zeros in its spectrum. (Idea: the two prime sides agree near 0, so the positive measure μ_P − μ_Q has a Fourier transform that vanishes near 0, hence is 0.)
-- **Theorem C (RH not assumed).** If P differs from the primes by a thin change and P is feasible, then RH holds and P is the set of primes. Thin: the change ν of the prime side is Φ′ + ρ with ∫ over [−T, T] of |Φ| + |ρ| equal to o(T). Examples: a changed set S with Σ_(x ∈ S, x ≤ X) log x/√x = o(log X), in particular any finite edit; moving every prime p by o(√p).
+- **Theorem C (RH not assumed).** If P differs from the primes by a thin change and P is feasible, then RH holds and P is the set of primes. Thin: the change ν of the prime side is Φ′ + ρ with ∫ over [−T, T] of |Φ| + |ρ| equal to o(T). Examples: a changed set S with Σ_(x ∈ S, x ≤ X) log x/√x = o(log X), in particular any finite edit; moving every prime p by o(√p) (all moved points staying above 1).
 - **Proposition.** A feasible system satisfies ψ_P(x) ~ x and its zeta function (s − 1)ζ_P(s) has no zero in Re s > 1/2. The prime ideal norms of a number field other than Q are not feasible for the Riemann datum.
 - **Open.** Whether the primes are the only feasible system. Another one would have to drop at least one zeta zero from its spectrum and differ from the primes in about √X/log X points up to X. Uniqueness does not follow from RH and does not imply it; it is a converse theorem with positivity in place of the functional equation (nearest known: Hamburger 1921 for ordinary Dirichlet series).
 
@@ -160,7 +164,7 @@ Two finite-level facts from the same work (their code: Legendre basis, [theory/w
 - Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants (Odlyzko, Serre, Poitou, Diaz y Diaz) with one fixed positive kernel and the worst splitting type per prime.
 - Comparison: our values at support log 8 (2.9995 and 4.9911) lie above the printed bounds with local corrections (2.9921 and 4.9640). Ours are values found by a search over a larger class (real positions) with a short support, theirs are proved bounds with a long kernel; the two are not the same quantity, and ours is an upper bound for q_min(L).
 - New here, as far as the search went: the prime side as the unknown of an optimisation; primes returned from no input; the role of the pole and of positive weights; the smallest-conductor reading with quadratic fields.
-- Proofs written, referee pending: the price of a finite edit (section 5b, under RH); a feasible system is determined by its spectrum; thin changes of the primes are never feasible unless trivial (section 5c, RH not assumed).
+- Proved, refereed once inside the repo (no failing step; two consequences of 5b reworded, small repairs in the proof of Theorem C): the price of a finite edit (section 5b, under RH); a feasible system is determined by its spectrum; thin changes of the primes are never feasible unless trivial (section 5c, RH not assumed).
 - Not shown: the global statement. Uniqueness among all systems is a search result. The supports are small (X ≤ 14). Degree 3 was run once and has not converged.
 
 ## 7. Open points
