@@ -1,0 +1,53 @@
+== A: identities
+[ok] A0 vectorised Jacobi = gmpy2.jacobi (4000 random pairs): 
+[ok] A0b vectorised Kronecker = gmpy2.kronecker (random discriminants): 
+[ok] A1 H(D) = (sqrt D/pi) sum_m m^-1 L(1,(-D/m^2 | .)) for all D <= 1500: 750 discriminants, max |diff| = 1.4e-14
+[ok] A2 PARI qfbhclassno = brute-force reduced forms, D <= 500: max diff 0.0e+00
+[ok] A3 T(m,n;p) is periodic in p modulo 2nm^2: 9360 tests
+[ok] A4 chi_q(4x - c) = sum_psi ahat(psi) psi(x) on units (q odd squarefree, (q, c) = 1): 
+[ok] A5 |ahat(psi_0)| = 1/phi(q) and |ahat(psi)| <= sqrt(q)/phi(q) (15 moduli, r = 1,2,4,5,7): 
+[ok] A6 l | c: ahat(psi) = [psi = Legendre] (the case l | r and r = 0): 
+== B: main term
+[ok] B1 local factor sum_{i,j} e_l(i,j) l^(-i-j) = E_l(r) (T5 closed forms), l <= 13, r = 0..6: max |diff| 2.5e-06 (rigorous i-tail bound)
+[ok] B2 closed forms e_l(0, j) = 1, -1/(l-1), 1 - 1/(l-1) (l not dividing 2rN), 1, 0, 1 (l | r): 
+[ok] B3 r=0: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 1.63965, E(r) 1.64493 = zeta(2)(1-N^-2) 1.64493; principal n only 1.63965
+[ok] B3 r=1: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 0.61419, E(r) 0.61513, nu'(r) 0.61513; principal n only 1.63892
+[ok] B3 r=2: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 1.22766, E(r) 1.23027, nu'(r) 1.23027; principal n only 1.64012
+[ok] B3 r=3: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 0.73673, E(r) 0.73816, nu'(r) 0.73816; principal n only 1.63830
+[ok] B3 r=4: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 1.22779, E(r) 1.23027, nu'(r) 1.23027; principal n only 1.64012
+[ok] B3 r=5: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 0.64644, E(r) 0.64751, nu'(r) 0.64751; principal n only 1.63876
+[ok] B3 r=6: sum_(m<=40, n<=2e4) e(m,n)/(mn) = E(r): sum 1.47277, E(r) 1.47632, nu'(r) 1.47632; principal n only 1.64002
+[ok] B4 r=1: principal-only sum differs from E(r) (non-principal n carry main term): diff +1.0238, tolerance 0.0212
+[ok] B4 r=2: principal-only sum differs from E(r) (non-principal n carry main term): diff +0.4099, tolerance 0.0212
+[ok] B4 r=3: principal-only sum differs from E(r) (non-principal n carry main term): diff +0.9001, tolerance 0.0212
+[ok] B4 r=4: principal-only sum differs from E(r) (non-principal n carry main term): diff +0.4099, tolerance 0.0212
+[ok] B4 r=5: principal-only sum differs from E(r) (non-principal n carry main term): diff +0.9912, tolerance 0.0212
+[ok] B4 r=6: principal-only sum differs from E(r) (non-principal n carry main term): diff +0.1637, tolerance 0.0212
+[ok] B5 r=0: principal-only sum = full sum (ahat(psi_0) = 0 for c = 0): 
+== C: truncation of the Dirichlet series, N = 10007
+   max |truncated - L*| over 120 (p, r): {'N^0.5': '5.06e-01', 'N^0.75': '1.67e-01', 'N^(7/8)': '8.33e-02', 'N^1': '3.87e-02', 'N^1.1': '2.07e-02'}
+[ok] C1 max truncation error * sqrt(M) is non-increasing for M = N^0.75, N^(7/8), N, N^1.1 (square-root decay or better): N^0.75:5.28 N^(7/8):4.68 N^1:3.88 N^1.1:3.27; max ratio to the Polya-Vinogradov shape 0.0097 (that bound is > 1, i.e. vacuous, at this size)
+[ok] C2 truncation error <= Burgess r=2 shape 2^w(f) M^(-1/2) |D0|^(3/16) (constant 1, empirical): max ratio 0.090
+[ok] C3 r=0: log-weighted mean over all 1033 p in (N,2N] of the series truncated at M = N^(7/8) vs E(r): mean 1.6305, E(r) 1.6449, z -0.50; mean |truncation error| 0.0189
+[ok] C4 r=0: log-weighted mean of L*(D_r(p)) over 1033 primes in (N,2N] vs E(r): mean 1.6434, E(r) 1.6449, z -0.05 (naive sd)
+[ok] C3 r=1: log-weighted mean over all 1033 p in (N,2N] of the series truncated at M = N^(7/8) vs E(r): mean 0.6158, E(r) 0.6151, z +0.09; mean |truncation error| 0.0070
+[ok] C4 r=1: log-weighted mean of L*(D_r(p)) over 1033 primes in (N,2N] vs E(r): mean 0.6177, E(r) 0.6151, z +0.35 (naive sd)
+[ok] C3 r=2: log-weighted mean over all 1033 p in (N,2N] of the series truncated at M = N^(7/8) vs E(r): mean 1.2222, E(r) 1.2303, z -0.45; mean |truncation error| 0.0102
+[ok] C4 r=2: log-weighted mean of L*(D_r(p)) over 1033 primes in (N,2N] vs E(r): mean 1.2266, E(r) 1.2303, z -0.20 (naive sd)
+== D: shifted-prime character sums, N = 10007, J = (N, 2N]
+[ok] D1 range (ii), r=1: |S_q - ahat(psi0) theta|/theta small for odd squarefree q <= 31: max 0.0167; sqrt(log x / x) = 0.0303
+[ok] D1 range (ii), r=2: |S_q - ahat(psi0) theta|/theta small for odd squarefree q <= 31: max 0.0297; sqrt(log x / x) = 0.0303
+[ok] D2 multiplicative large sieve on J: sum_(d<=128) d/phi(d) sum* |S(psi)|^2 <= (|J| - 1 + Q^2) sum log^2 p: lhs/rhs = 0.094
+[ok] D3 r=1, Q=16: chain L1 <= L2 <= L3 = L4 <= L5 <= L6 of step U5: L1/theta 0.0147, L3 0.0289, L5 0.0321, L6 0.3788; Q^-1/2+(Q/x)^1/2 = 0.290
+[ok] D3 r=1, Q=32: chain L1 <= L2 <= L3 = L4 <= L5 <= L6 of step U5: L1/theta 0.0091, L3 0.0344, L5 0.0424, L6 0.3372; Q^-1/2+(Q/x)^1/2 = 0.233
+[ok] D3 r=1, Q=64: chain L1 <= L2 <= L3 = L4 <= L5 <= L6 of step U5: L1/theta 0.0047, L3 0.0474, L5 0.0601, L6 0.3245; Q^-1/2+(Q/x)^1/2 = 0.205
+[ok] D3 r=0, Q=16: sum (1/q)|S(chi_q)| <= (sum q^-2)^1/2 ((|J|-1+4Q^2) sum log^2 p)^1/2: L1/theta 0.0028, bound/theta 0.3671
+[ok] D3 r=0, Q=32: sum (1/q)|S(chi_q)| <= (sum q^-2)^1/2 ((|J|-1+4Q^2) sum log^2 p)^1/2: L1/theta 0.0042, bound/theta 0.3013
+[ok] D3 r=0, Q=64: sum (1/q)|S(chi_q)| <= (sum q^-2)^1/2 ((|J|-1+4Q^2) sum log^2 p)^1/2: L1/theta 0.0043, bound/theta 0.2890
+[ok] D4 range (iii), r=0: sum_(q~Q) |S_q|/q <= theta (Q^-1/2 + (Q/x)^1/2), 32 <= Q < N^(7/8): A(Q)/theta 32:0.0042 64:0.0043 128:0.0051 256:0.0050 512:0.0053 1024:0.0059 2048:0.0038
+[ok] D4 range (iii), r=1: sum_(q~Q) |S_q|/q <= theta (Q^-1/2 + (Q/x)^1/2), 32 <= Q < N^(7/8): A(Q)/theta 32:0.0091 64:0.0047 128:0.0043 256:0.0041 512:0.0049 1024:0.0051 2048:0.0034
+[ok] D4 range (iii), r=2: sum_(q~Q) |S_q|/q <= theta (Q^-1/2 + (Q/x)^1/2), 32 <= Q < N^(7/8): A(Q)/theta 32:0.0076 64:0.0051 128:0.0037 256:0.0046 512:0.0044 1024:0.0049 2048:0.0033
+[ok] D5 range (iv) (empirical, not used): r=0, 300 conductors near N and N^1.1: max|S_q| / sqrt(theta log theta): 3.08; max|S_q|/theta = 0.0938
+[ok] D5 range (iv) (empirical, not used): r=1, 300 conductors near N and N^1.1: max|S_q| / sqrt(theta log theta): 2.93; max|S_q|/theta = 0.0892
+run time 33 s
+46 checks, 0 failed
