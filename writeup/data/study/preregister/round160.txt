@@ -1,0 +1,29 @@
+REGISTRATION, round 160: the murmuration density of weight-2 newforms at PRIME levels (natural weights).
+
+STATEMENT (derived in writeup/code/study/lowzero/universal/murmur/murmur_gate.md, section 3.4, by averaging the one-point law
+with its lines over prime levels; its line amplitudes also follow from fact 2054 with Hecke twists): for N prime,
+  E_N[eps_f a_f(p)] = sum_f eps_f a_f(p) / dim  ->  M_prime(y) = 2 pi sqrt(y) - 12 y + (12/pi) sum_{1 <= r <= 2 sqrt y} nu'(r) sqrt(4y - r^2),
+  y = p/N, nu'(r) = sum over the squarefree delta | r of c(delta) (densities.py, M_prime). No parameter is fitted.
+  Zubrilina's density M_zub (Theorem 1 of arXiv 2310.07681) is for squarefree levels; a footnote there says that densities
+  differ between families of levels. The prime-level formula was not found in the sources read so far (a second gate is running).
+
+STATE WHEN THIS WAS WRITTEN. Seen (not blind): the 103 prime levels 1500 <= N <= 2297 with p <= 12 N (chi2 16 on 48 bins for
+M_prime, 908 for M_zub) and 120 squarefree levels. Nothing was computed at any level above 2297.
+
+TEST. All prime levels 2300 <= N <= 3200, every prime p <= 12 N, p != N; data from the class-number form of the trace formula
+(trace_density_data.py, validated against PARI on 1,014 pairs: trace_validate.py); 48 bins of width 0.25 in y; errors = the
+standard error of the bin mean over (N, p), as in summarize_data.py. Code unchanged, sha256:
+  31692be57baed544779117d997c13f25997660575b15468181482ed0a2e4057d  densities.py
+  800c4cb20a0029bb3c366c3168f1287e1e10628008e797313a58d5ad63adfd7e  trace_density_data.py
+  80b3a7efe53ee1e5a3b4b5fb7c5399b3d27cf1a09ecb81f7ea1d755f5a4d2655  summarize_data.py
+
+DECISIONS (fixed now)
+  D1: chi2 of the data against M_prime on the 48 bins is at most 84.0 (the 99.9 % quantile for 48 degrees of freedom).
+  D2: chi2 against M_zub is at least 5 times the chi2 against M_prime (seen: 57 times).
+  D3: the rms of (data - M_prime) over the bins is at most 0.10 (seen 0.069; M_zub 0.42).
+  FALSIFIER: chi2 against M_prime above 84.0, or M_zub fitting better than M_prime.
+  Reported: the same at the first 24 bins (y <= 6) and the last 24.
+
+COMMANDS (scratch folder; bounded; repeat the first until it prints that all levels are done):
+  BUDGET=520 (ulimit -v 1200000; timeout 600 nice python -I -B trace_density_data.py prime 2300 3200 12 data_prime_hold.npz)
+  (ulimit -v 1200000; timeout 300 nice python -I -B summarize_data.py)   # reads the chunk files of the folder
