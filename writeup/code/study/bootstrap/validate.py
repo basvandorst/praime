@@ -138,4 +138,6 @@ ok(all(abs(cmpv[x][0] - v) < 6e-6*max(1, v/1e-3) for x, v in [(1.02, 0.99637), (
 tr = [float(x) for x in re.findall(r'X=\S+\s+(\S+e-\d+)\n', t.split('truncated magic function')[1] + '\n')]
 ok([('%.1e' % x) for x in tr] == ['1.9e-02', '1.1e-02', '7.6e-03', '4.2e-03', '1.8e-03', '6.8e-04', '1.5e-04', '3.6e-05'] and tr == sorted(tr, reverse=True), 'truncation table')
 ok(abs(5*exp(-2*pi*4.83e-4) - 4.9848) < 1e-4 and abs(5*exp(-2*pi*1.64e-5) - 4.9995) < 1e-4 and abs(3*exp(-2*pi*9.99e-4) - 2.9812) < 1e-4 and abs(3*exp(-2*pi*1.50e-4) - 2.9972) < 1e-4, 'Johns Prop 5.11 as conductors')
+t = rd('riemann_kernel_cost_out.txt')
+ok('W(g)/g(0) = 0.0751971327' in t and 'g(0) = 0.319751812' in t and '= 16.16596749   quadrature: 16.16596749   12 c1 = 193.992' in t and abs(exp(-0.0751971327) - 0.9276) < 5e-5 and abs(2*pi*1.4291572e-1060/8.98e-1060 - 1) < 1e-3, 'Riemann kernel cost, truncation constant')
 print('all %d checks passed' % n)

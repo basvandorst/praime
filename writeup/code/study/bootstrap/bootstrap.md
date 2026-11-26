@@ -220,7 +220,7 @@ Reading.
 
 Target: the optimum λ*(L) of the convex version (section 5e; conductor e^(−λ*)) tends to 0 as the support L grows. We did not prove it. It is claimed in print, and we tested the claimed extremal function with our own code.
 
-**Duality (standard; the proof for compact supports is not written here).** λ*(L) is the smallest value of W(g)/g(0) over functions g on [−L, L] with non-negative Fourier transform and c_g ≥ 0, where W is the pole and Gamma part of the form (section 2 with no prime terms, q = 1). λ*(L) does not increase with L, and λ*(L) ≥ 0 under RH. So the target says: there are such g with W(g)/g(0) as small as we like.
+**Duality (proved; [theory/convex/convex_limit.md](theory/convex/convex_limit.md), section 2; not refereed).** λ*(L) is the smallest value of W(g)/g(0) over functions g on [−L, L] with non-negative Fourier transform and c_g ≥ 0, where W is the pole and Gamma part of the form (section 2 with no prime terms, q = 1). λ*(L) does not increase with L, and λ*(L) ≥ 0 under RH. The limit of λ*(L) equals the largest log(1/q) over all systems that are feasible at conductor q, and equals 2π times the optimum κ*_OPS of Johns' program in his classical cone (g ≥ 0 everywhere; his main cone asks g ≥ 0 only from log 2 on). So the target says: there are such g with W(g)/g(0) as small as we like.
 
 **The prime-power structure is not needed** (computed; [relaxed_k1.py](relaxed_k1.py), [relaxed_k1_out.txt](relaxed_k1_out.txt)). With any positive measure on the prime side (only the k = 1 term, so c_g ≥ 0 becomes g ≥ 0), the program returns the same optimum, 3.2·10⁻⁵, 1.6·10⁻⁶, 1.0·10⁻⁷ at X = 3, 4, 5, and the weights of the explicit formula: 1.000 at 2 and 3, and 0.50 at 4 (X = 5: 0.507; X = 6: 0.500). The dual solution at X = 7.5 ([relaxed_dual.py](relaxed_dual.py), [relaxed_dual_out.txt](relaxed_dual_out.txt); float64, not converged below 10⁻⁸) falls from 1 at x = 1 to 0 at x = 2, with bumps of height 1.6·10⁻³, 4.5·10⁻⁵, 2.5·10⁻⁶ between 2–3, 3–4, 4–5, and touches 0 at 2, 3, 4, 5, 7.
 
@@ -264,9 +264,21 @@ So the printed function behaves as claimed to the accuracy of the test (about 10
 |---|---|---|---|---|---|---|---|---|
 | W(g·w_L)/g(0) | 1.9·10⁻² | 1.1·10⁻² | 7.6·10⁻³ | 4.2·10⁻³ | 1.8·10⁻³ | 6.8·10⁻⁴ | 1.5·10⁻⁴ | 3.6·10⁻⁵ |
 
-The bound falls like 1/L² (this window is crude; the true optimum at X = 3, 4, 5 is 3.2·10⁻⁵, 1.6·10⁻⁶, 1.0·10⁻⁷). So: if Theorem 1 of Part II holds, then λ*(L) → 0 (with RH for λ* ≥ 0). From Part I, Theorem C alone, with the same window: lim sup λ*(L) ≤ 2π·1.43·10⁻¹⁰⁶⁰, if that certificate is correct.
+The bound falls like 1/L² (this window is crude; the true optimum at X = 3, 4, 5 is 3.2·10⁻⁵, 1.6·10⁻⁶, 1.0·10⁻⁷).
 
-**Status.** The target is not our result. It is claimed in Part II, not refereed. Our contribution here is the independent numerical test of the extremal function, the observation that the prime-power structure is not needed (also theirs: their prime measure is arbitrary), and the truncation table.
+**Truncation lemma (proved; [theory/convex/convex_limit.md](theory/convex/convex_limit.md), section 3; the computation below rechecked by hand).** Let g ≥ 0 be even and continuous with ĝ ≥ 0 and W(g) finite, and let k(x) = 1 − (3/2)x² + (3/4)|x|³ for |x| ≤ 1, (2 − |x|)³/4 for 1 ≤ |x| ≤ 2, 0 beyond (the cubic B-spline; its transform is a fourth power of sin(t/2)/(t/2), so it is ≥ 0). Then g_M(u) = g(u)·k(2u/M) is doubly positive with support [−M, M], g_M(0) = g(0), and
+
+`W(g_M) ≤ W(g) + (12/M²)·∫₀^∞ u²·e^(−u/2)·g(u)/(1 − e^(−2u)) du ≤ W(g) + 12·c₁·g(0)/M², c₁ = 7ζ(3) + π³/4 = 16.166, 12·c₁ = 193.99`
+
+Proof in three lines: the window leaves g(0) unchanged, so only two terms of W move; the pole term 4∫g·cosh(u/2) can only fall, because g ≥ 0 and k ≤ 1; the Gamma term rises by 2∫e^(−u/2)·g·(1 − k)/(1 − e^(−2u)), and 1 − k(x) ≤ (3/2)x², g ≤ g(0). The constant is ∫₀^∞ u²e^(−u/2)/(1 − e^(−2u)) du = Σ_j 16/(4j + 1)³ ([riemann_kernel_cost_out.txt](riemann_kernel_cost_out.txt)). Consequences:
+
+1. If Theorem 1 of Part II holds, then λ*(M) ≤ 194/M² for every support [−M, M], so λ*(M) → 0. (λ* ≥ 0 needs RH.) This step uses only that their function is doubly positive with cost 0; it does not use their uniqueness theorem.
+2. From Part I, Theorem C alone (computer-assisted there, not rechecked by us): λ*(M) ≤ 2π·1.43·10⁻¹⁰⁶⁰ + 194/M², so lim λ*(M) ≤ 8.98·10⁻¹⁰⁶⁰.
+3. With nothing from the preprints but the idea (Ξ² kills the zero side): the function with transform Ξ(t)² is doubly positive, because Riemann's kernel Φ is positive, and its cost is 0.0751971 ([riemann_kernel_cost.py](riemann_kernel_cost.py); two formulas agree, numerical). So λ*(M) ≤ 0.0752 + 194/M²: no positive system is feasible below conductor e^(−0.0752) = 0.9276. This is unconditional up to a certified evaluation of one integral.
+
+**Referee read of Part II** (by an agent, bounded; [theory/convex/convex_limit.md](theory/convex/convex_limit.md), section 4). Sections 3 and 8 (the reduction to a function of the Gamma factor alone, and the assembly of Theorem 1) were checked step by step: no failing step. Theorem 6.1 (every a_n > 0) was checked line by line. An independent numerical rebuild of F from the formula for x > 1 gave F ≥ 0 on [0, 150], zeros at the first four zeta zeros, and cost −7·10⁻¹¹ (relative). Not checked by anyone here: section 4 (the automorphic input), Theorem 5.4(b), section 7 (positivity of H at large height), and the four computer-assisted inputs.
+
+**Status.** The target is not our result. It is claimed in Part II, not refereed. Ours here: two independent numerical tests of the extremal function (two codes, costs 1.8·10⁻⁹ and −7·10⁻¹¹), the duality and the truncation lemma for compact supports with the explicit rate 194/M², a partial referee read, and the observation that the prime-power structure is not needed (also theirs: their prime measure is arbitrary).
 
 ## 6. Size of the result
 
@@ -281,7 +293,7 @@ The bound falls like 1/L² (this window is crude; the true optimum at X = 3, 4, 
 
 ## 7. Open points
 
-1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4 to 7 there), and a rigorous truncation lemma that carries the extremal function to compact supports (section 5f gives numbers only).
+1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4, 5 and 7 there, and its four computer-assisted inputs); a referee for [theory/convex/convex_limit.md](theory/convex/convex_limit.md).
 2. The exact rate of q_min(L) → d, and the comparison with the published GRH discriminant bounds.
 3. Cubic and quartic Gamma factors: does the minimum equal the smallest discriminant (23, 49, 117, 125, …)? The one cubic run reaches 22.63 at X = 14.
 4. A high-precision scan stage, to continue section 3.3 beyond 11.
