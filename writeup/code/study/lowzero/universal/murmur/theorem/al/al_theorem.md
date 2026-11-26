@@ -279,3 +279,27 @@ eigenspace functions as ±D_q ± D_N.
 Levels 2q for the ten primes q > 10000 other than 10007 (20018 … 20198) and 3q for the ten primes q > 6666.7 other than
 6673 (20037 … 20283); weight 2; p ≤ 4N; 16 windows; four eigenspaces; own density against W_N-only and the other three
 eigenspace densities; odd parts against W_N-only. Decisions, hashes, commands: `registration.txt`.
+
+
+## Referee report (26 November 2026)
+
+An independent referee (own code in [referee/](referee/)). **Verdicts.** Theorem A: proved (no hypothesis for windows of
+relative length at least (log N)^(−B); under GRH for short windows). Theorem B(i), the part odd in ε_q, and B(iii), the
+dimensions of the eigenspaces: proved, no hypothesis. Theorem B(ii) and Lemma T: proved under GRH for Dirichlet
+L-functions, **but only with an error o(1) (a power of log N), not with the stated saving N^(−1/50)**: the step quoted from
+the one-level note carries an error (log N)^(−A−2) for each pair (p, s), from the truncation over smooth numbers, so the
+bound "≪ N^(2−1/50)" does not follow; B(ii) should read O((log N)^(−A) + N^(−1/50)·h^(−1) + N^(−1/2)). The limits
+ε_q·D_q + ε₁ε_q·D_N stand under GRH. **Read lines 67, 198–201, 213 and 215 with this correction.**
+- The trace formula (Martin's Proposition 5.5) checked against PARI in 1,620 cases (eight levels, weights 2 and 4, every
+  divisor Q > 1, primes p ≤ 100), 0 failures; the term for weight 2 is μ(M)(p + 1), which gives −24y for N = 2q.
+- The local factor at ℓ | M recomputed by enumeration in 119 cases (ℓ = 2, 3, 5): −ℓ²/(ℓ² − 1) or −ℓ/(ℓ + 1); the
+  2-adic case redone by hand.
+- The scale p/Q: at the level 20206 = 2·10103 (not used elsewhere), t_q/dim against D_q gives χ² 2.9 on 16 windows and
+  t_N/dim against D_N 6.6; with the scale p/N instead: 649; with +24y instead of −24y: 1.5·10⁶.
+- The part predicted to vanish: its level-coherent piece sits only in (t₁ − t_(p₁))/dim, with rms 1.23, 0.39, 0.29 at
+  N ≈ 10³, 10⁴, 2·10⁴ (ratios 0.31 and 0.74 against 0.32 and 0.71 for N^(−1/2)); consistent with Lemma T, no sign of a
+  missing term of fixed size.
+- The transfer to Martin's average over the levels (lines 102–105) is the right integral and holds under GRH plus his
+  Conjecture 1.10; it is not a proof of the conjecture, as the note says.
+- Slips: the registration text was not in this folder at review time (added now as registration_as_frozen.txt); the
+  remark on line 215 rests on the unproved rate.

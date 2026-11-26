@@ -1,0 +1,62 @@
+REGISTRATION, round [number to be assigned]: murmurations on ATKIN-LEHNER EIGENSPACES at ONE squarefree level N = p1 q
+(p1 = 2, 3), weight 2, natural weights (al_theorem.md, Theorems A and B; Martin, arXiv 2409.02338, Conjecture 1.10).
+
+STATEMENT. For N = p1 q, sign vector eps = (e1, eq) at (p1, q), E^eps(p) = (1/#eigenspace) sum_{f new, w_p1 = e1, w_q = eq} a_f(p).
+  Model (own): E^eps -> eq D_q(y) + e1 eq D_N(y), y = p/N, window means over primes p (weights log p), where
+  D_N = -M_2^(N) of murmurations_one_level.md (refereed) and D_q = the W_q-density (al_theorem.md (1.1), Q = q, M = p1):
+  D_q(y) = (12 kappa(N)/pi) [ -E(0) sqrt(y/p1) - (1/p1) sum_{1<=s<2 sqrt(p1 y)} E(s) sqrt(4 p1 y - s^2) ] - 12 kappa(N) y,
+  E(0) = zeta(2)(1 - q^-2)(-(p1-1)/p1), E(s) = nu'(s) e_new(s)/(e_p1(s) e_q(s)), e_new(s) = -p1^2/(p1^2-1) (p1 !| s),
+  -p1/(p1+1) (p1 | s). No parameter is fitted. Status: the odd part in eq ((t_q + e1 t_N)/dim) is a theorem without
+  hypothesis (Theorem B(i)); each eigenspace separately needs Lemma T (the even part (t_1 + e1 t_p1)/dim -> 0), proved
+  under GRH for Dirichlet L-functions only. Exact dimensions of the eigenspaces are used (Martin Prop. 5.5 with l = 1).
+  Comparators: (a) W_N-only: E^eps -> e1 eq D_N (the eigenspace carries only the global root-number murmuration);
+  (b) the densities of the three other eigenspaces (normalised with the own eigenspace dimension).
+
+STATE WHEN THIS WAS WRITTEN. Seen (discovery, declared): levels 2*5003, 2*5009, 2*5011, 3*3331, 3*3343, 3*3347 (all p <= 4N;
+these were W_N discovery levels of round 163); small levels 2*{503,509,521}, 3*{337,347,349} (symmetric parts only);
+validation levels 202, 201 and PARI levels <= 105. Disclosures: (1) a timing run computed all traces at N = 20481 = 3*6827
+(not a test level) and printed only the time; (2) the decision thresholds were changed once, before any test-level data,
+from absolute numbers to per-term/per-level numbers (the first dry-run read failed only because absolute thresholds made for
+10 levels were applied to 3); predictions were regenerated (new hashes below); the dry-run data file state_dry.json was
+counted under the first hash (its content does not depend on the predictions file). Nothing was computed at any test level.
+
+TEST. Type 2q: N = 2q for the ten primes q > 10000 other than 10007:
+  20018 20074 20078 20122 20134 20138 20158 20182 20186 20198
+Type 3q: N = 3q for the ten primes q > 20000/3 other than 6673:
+  20037 20067 20073 20103 20109 20127 20157 20199 20211 20283
+(no level in 30030-30530; none of 2*10007, 3*6673, 6*3343, 5*4003, 9998, 9987, 9978.)
+Every prime p <= 4N, p !| N; t_Q(p) for Q = 1, p1, q, N from Martin's Proposition 5.5 (validated exactly against PARI:
+al_check.py C1-C3, 3,272 cases); E^eps(p) = (t_1 + e1 t_p1 + eq t_q + e1 eq t_N)/(4 dim^eps); odd parts (t_q + e1 t_N)/dim;
+even parts (t_1 + e1 t_p1)/dim; window means with weights log p over the 16 windows (0, 0.25], ..., (3.75, 4] of y = p/N.
+Predictions (model evaluated at each prime with the exact level constants and dimensions, then window-averaged) and errors
+sigma_{T,eps,w} are frozen in predictions_blind.json. Errors: per type one scale c_T x the rms single-value standard error of
+the discovery levels, c_T from the scatter of the residuals BETWEEN the three discovery levels (c_T = 0.67 (2q), 0.74 (3q);
+odd parts 0.54, 0.74); not scaled down for the larger N.
+
+DECISIONS (fixed now; per type; n_lev = 10 levels; eigenspaces 640 terms, odd parts 320 terms)
+  D1: chi2(own) over the four eigenspaces <= 2.0 x 640 = 1280.
+  D2: for each comparator (W_N-only and the three other eigenspace densities): chi2_alt - chi2_own >= 100 x n_lev = 1000
+      AND chi2_alt > 1280.
+  D3: odd parts: chi2(own) <= 2.0 x 320 = 640 AND chi2(W_N-only odd model e1 t_N/dim) - chi2(own) >= 50 x n_lev = 500.
+  VERDICT PASS iff D1, D2, D3 hold for both types. FALSIFIER: any of them failing.
+  Reported, no decision: rms(data - own); rms of the even parts (discovery: 0.435 (2q), 0.315 (3q) at N ~ 1e4; an
+  N^(-1/2) decay would give about 0.31, 0.22 at N ~ 2e4).
+  Expected from the predictions alone (sum (own - alt)^2/sigma^2, no data): W_N-only 4970 (2q), 1640 (3q); other eigenspaces
+  25775-31726; odd parts W_N-only 4843 (2q), 1006 (3q). Smallest margin: 3q W_N-only (1640 expected against 1000 required).
+  Dry run (discovery levels, in-sample, 3 levels: 192 / 96 terms, same per-term and per-level rules): eigenspaces chi2 own
+  254.4 (2q), 221.0 (3q); W_N-only 1714.1, 687.8; other eigenspaces 9162/9572/9065/9134 and 9065/9566/8552/8175; odd parts
+  87.1 / 1522.0 (2q), 73.7 / 364.0 (3q); VERDICT PASS. The dry run (al_blind_test.py, pure-Python code path) reproduces the
+  numbers of al_check.py section E (numpy code path) to all printed digits.
+
+FILES (folder /tmp/claude-1000/-home-bas-praime/86d93f3a-2189-4d59-981e-63b2fd6b59ef/scratchpad/al_thm/), sha256:
+  b9aa428ce991e062cacfda8510e2be48216c77f1259c1c194eccfb082deccc91  predictions_blind.json
+  6b0f27e7b171a46bffd48eed5d0b2fb92aa9a4e1f8a144cc6e177e5147053eba  predictions_dry.json
+  6e9d7f8c1130e84ed5fb230ea330bf8ab1a4cf882b45797de3fd91ae5bc72a9f  al_blind_test.py  (refuses a predictions file with another hash; tested)
+  5e55f731fb30dfc3ee41fac213515389267cb1933c9dcaad88ec84378fc9645a  al_check.py       (re-creates both predictions files byte for byte: F2)
+
+COMMANDS (in the folder; one job at a time; about 60 s per level (timed at N = 20481), 20 levels = about 20 min in
+3 runs; max RSS about 130 MB):
+  (export BUDGET=480; ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B al_blind_test.py count blind)
+      # repeat until it prints 'all levels done' (state in state_blind.json, resumable after a timeout)
+  (ulimit -v 1200000; timeout 300 nice /home/bas/praime/.venv/bin/python -I -B al_blind_test.py read blind)
+  Dry run (done, 72 s): ... count dry, then ... read dry.
