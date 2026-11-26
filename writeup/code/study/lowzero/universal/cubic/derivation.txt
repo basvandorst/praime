@@ -1,0 +1,36 @@
+Murmuration density of S3 cubic fields: derivation (labels: proved / derived = exact algebra / heuristic / conjecture / computed)
+
+0. Object. K an S3 cubic field, L(s, rho_K) = zeta_K/zeta, degree 2, conductor N = |D|, root number +1, nebentypus chi_D, a_K(p) = #roots - 1.
+   Normalisation: m(y) = E_K[sqrt|D| a_K(p)] at y = p/|D| (p unramified), fields X <= |D| < 2X of one sign, X -> oo. [definition]
+1. Kernel. The dictionary of murmur_gate.md 3.1 (line rho with amplitude A <-> 2 pi A sqrt(rho) K(4 pi sqrt(rho y)) in m) needs
+   int_0^oo u^s K(u) du = (4 pi)^s gamma(1/2+s/2)/gamma(1/2-s/2): Gamma_C (D<0): K = J_0; Gamma_R^2 (D>0): K = -Y_0 + (2/pi) K_0
+   (4^s G((1+s)/4)^2/G((1-s)/4)^2 = 2^s G((1+s)/2)^2 (1 - sin(pi s/2))/pi). [derived; computed: Mellin-Barnes vs direct, 8 cases, <= 2e-12, kcheck_out.txt]
+2. Per-field lines. HL sieve at l with the exact dual of fact 2056(ii): F_l(v) = (l/(l-1)) sum_{h>=max(0,-v)} mu_L(l^h) lam(l^(v+h)) l^-h
+   (LL normalisation, = l^{v/2} x A-normalisation). Good l: equals lam_v - chi lam_{v+2}/l, -chi lam_1/l, chi/(l(l-1)) (Voronoi with chi(q);
+   for chi(l) = -1 only with conj(lam) on the dual side, automatic here since a_K is real). Ramified: (1^2 1): 1 (v>=0), -1/(l-1) (v=-1);
+   (1^3): l/(l-1) (v=0). [per-field law: conjecture (fact 2055 + HL); the local identities: derived, sympy local_out.txt]
+3. Family average at l, Bhargava masses 1/6, 1/2, 1/3, 1/l, 1/l^2 (all l, incl. 2, 3): b_l(-1) = -l/((l-1)(l^2+l+1)), b_l(0) = l^3/(l^3-1),
+   b_l(1) = 0, b_l(v>=2) = [s(v) + (1 - s(v-1))/l]/(1 + 1/l + 1/l^2), s(v) = #{2i+3j = v}, b_l(v<=-2) = 0. Hence A(1) = E[c_K] = zeta(3) and
+   D(s) = sum B(rho) rho^-s = zeta(3) zeta(2s) zeta(3s) prod_l [1 - (l^-3s + l^-4s)/l + (l^-s + l^-5s - l^s)/l^2],  B = A sqrt(rho). [derived]
+   Largest |A|: 1: 1.2021; 4: 0.4508; 1/2: -0.4250; 9: 0.3562; 1/3: -0.2313; 25: 0.2308; 8: 0.2125; 49: 0.1682; 27: 0.1542; 16, 64: 0.1503.
+   (A(l^v) for l -> oo tends to zeta(3) l^{-v/2}: the squares and cubes do not decay in B.) [computed, lines_out.txt]
+4. Prime squares. The line sum is the density of Lambda(n) lam(n) (as in GL(2), where Zubrilina's density = line sum with no square term);
+   E[lam(p^2)] = 1 gives +1/(2 sqrt y), so m = line sum - 1/(2 sqrt y). Exact consistency: the line sum's y^-1/2 coefficient is
+   zeta(3/2) H(1/2)/2 = 1/2 because H_l(l^-1/2) = 1 - l^-3/2: no 1/sqrt p bias survives at fixed p (Davenport-Heilbronn). [derived; the choice: heuristic]
+5. Small y. Pole of zeta(3s) at 1/3: m ~ c y^-1/3, c = (2 pi/3) zeta(2/3) H(1/3) kappa(1/3), H(1/3) = zeta(3)/(zeta(2) zeta(5/3)):
+   c = -1.024947344 (D<0), -1.775260875 (D>0) = (5/6)(K/C)(12 zeta(3)) 4 zeta(1/3)/(5 Gamma(2/3)^3 zeta(5/3)) exactly (functional equation at 1/3),
+   i.e. the Roberts / Taniguchi-Thorne secondary term with its local factor p^(-1/3), read at p = yX; the sign ratio sqrt 3 comes from the kernels.
+   [derived; TT local densities and constants as read in arXiv 1102.2914 Sec. 1, 6.2]
+6. Poisson in the squares: B = (squares) * w, w(a/b) = zeta(3) mu(b) b^-2 omega(a), omega(l^v) from h_l(X)/(1-X^3).
+   int_0^y m = 2 pi zeta(3) sum_{a/b} w C(a y/b) b/a - sqrt y,  C_-(Z) = sqrt Z/2pi - Z/2 + (1/2pi) sum_{k<2 sqrt Z} sqrt(4Z - k^2),
+   C_+(Z) = sqrt Z/2pi + (Z ln Z - Z + L(Z))/pi, L(Z) = lim [sum_{k<=N} (sqrt(k^2+4Z) - sqrt((k^2-4Z)_+))/2 - 2Z ln N]. [derived; computed vs direct series 1e-6]
+   Hence inverse-square-root spikes c(y0)/sqrt|y - y0| at y0 = k^2 b/(4a): from the right for D<0, from the left for D>0.
+   c(n^2/4) = zeta(3) sum_j omega(j^2)/j = 1 exactly for every n; others: 0.401 (1/8, 9/8), 0.200 ((2k+1)^2/32), 0.198 (1/12, 1/3, 4/3, 25/12), -0.143 (1/16, 9/16).
+7. Table: m_table.txt (bins of width 0.01, 0 < y <= 3, both signs; numerical error <= 0.004 at width 0.05).
+8. Conjectural steps: the per-field law with lines; the interchange of the family average with the limit and the infinite product over l;
+   Davenport-Heilbronn local densities used at all l at once and at the prime p ~ |D| (far beyond Bhargava-Taniguchi-Thorne uniformity);
+   the square term (4); the finite-X factor at small y (9). Exact: 1-3, 5, 6 given 2.
+9. Discovery (5000 <= |D| < 10000; 791 / 204 fields): chi2 (60 bins, diagonal) 130 / 108 against 1905 / 702 for zero; amplitude 1.107 +- 0.029 / 1.269 +- 0.060.
+   The excess sits at y <= 0.2 (1.253 +- 0.037 / 1.594 +- 0.089) and equals within 1.3 / 0.8 sigma the factor 1/(1+eps') = 1.300 / 1.667 by which the
+   Roberts secondary term lowers the field count (791 vs 798.1 predicted, 204 vs 207.0); on y in (0.4, 3]: 1.042 +- 0.037 / 1.189 +- 0.072.
+   The crossover between the two regimes (0.2 < y < 0.4) is read off the data, not derived. [computed; finite-X reading: heuristic]
