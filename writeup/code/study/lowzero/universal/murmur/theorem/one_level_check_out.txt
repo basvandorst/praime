@@ -1,0 +1,64 @@
+PARI stack size set to 300000000 bytes, maximum size set to 300003328
+PASS A1 brute-force Hurwitz numbers (reduced forms, weights 1/2, 1/3) = PARI qfbhclassno, D <= 800  400 values
+PASS A2 U1: H(D) = sum_{m in M(D)} h'(-D/m^2), h' = 2h/w from own counts of primitive reduced forms, D <= 3000  1500 discriminants, exact
+PASS A3 class number formula for orders h'(Delta) = sqrt|Delta| L(1, xi_Delta)/pi, xi = Kronecker (Delta/.), L(1) = -(1/q) sum xi(a) psi(a/q), every Delta = -D/m^2, D <= 1200  947 discriminants, max |diff| 1.4e-14
+PASS A4 squarefree N (all N <= 130 and ten with 3-6 prime factors, up to 39270), all p < 400, p !| N, all r: N divides the fundamental discriminant Delta_0 of -D, l !| f_0 and F_l(D) = 1 for l | N, every m in M(D) prime to N, v_2(Delta_0) in {2, 3} for even N  28671 cases, v_2 seen [2, 3]
+PASS A5 T(m,n;p) = 0 when (n, N) > 1  12406 cases
+PASS A5 T(m,n;.) periodic modulo n m^2 (the period 2 n m^2 of the earlier note is not needed)  39984 tests
+PASS A5 factorisation T(m,n;p) = (-N/q) chi_q(4p - r^2 N) T(m,n'';p) (r = 0: chi_q(p)), (n'' m^2, q) = 1, random squarefree N < 400 and 2310, 4290, 39270, 9978, 9998  39984 tests
+PASS A6 chi_l(4x - c) = sum_psi ahat(psi) psi(x) on units; ahat(psi_0) = -(-c/l)/(l-1), |ahat(psi)| <= sqrt(l)/(l-1) (l !| c); ahat = [psi = Legendre] (l | c); composite q: mean = prod of local ahat(psi_0) (exact)  522 cases (l < 62, c = r^2 N, N up to 2310), max |ahat|(l-1)/sqrt(l) over psi != psi_0: 1.000
+PASS A7 sum_{n<=X} n/phi(n) <= (zeta(2)zeta(3)/zeta(6)) X (X <= 65536) and phi(d) Q^(1/2) w_d <= 2 zeta(2)zeta(3)/zeta(6) = 3.8872 (Q = 2..2^14, all d <= 2Q)  max phi(d) Q^(1/2) w_d = 1.4081
+     [section A: 1 s]
+PASS B1 local means E_l^(N)(r) over p in Z_l^x by exact enumeration of p mod l^J (rigorous enclosure): = 1 for l | N (l = 2 included), = l^2/(l^2-1) (l | r, r = 0 included) or 1 - u_l (l !| r) for l !| N  528 cases (l = 2, 3, 5, 7; levels (19, 23, 9973, 10009, 26, 9998, 21, 9987, 42, 9978, 35, 2310); r = 0..10), enclosure width <= 1.9e-06 []
+PASS B2 U6 local coefficients e_l(i,j) (exact, l = 3, 5, 7): [i=j=0] for l | N; e(0,odd) = -1/(l-1), e(0,even>=2) = (l-2)/(l-1), e(i,0) = l/(l^(2i)(l-1)) for l !| 2rN; and sum_{i,j} e_l(i,j) l^(-i-j) = E_l^(N)(r) within a rigorous tail  147 cases (levels 19, 9973, 26, 21, 42, 35, 2310; r = 0..6) []
+     [section B: 37 s]
+PASS C1 trace formula sum_f eps_f sqrt(p) lambda_f(p) = H(4pN)/2 + (-1)^(k/2-1) sum_r U_{k-2} H(4pN - r^2N^2) - delta_{k,2}(p+1) on S_2^new(N), N = 23, 46, 69, 78, all primes p <= 500, p !| N  372 pairs, exact rationals (PARI trace forms of the new space)
+PASS C1 trace formula sum_f eps_f sqrt(p) lambda_f(p) = H(4pN)/2 + (-1)^(k/2-1) sum_r U_{k-2} H(4pN - r^2N^2) - delta_{k,2}(p+1) on S_4^new(N), N = 23, 46, 69, 78, all primes p <= 250, p !| N  204 pairs, exact rationals (PARI trace forms of the new space)
+PASS C1 trace formula sum_f eps_f sqrt(p) lambda_f(p) = H(4pN)/2 + (-1)^(k/2-1) sum_r U_{k-2} H(4pN - r^2N^2) - delta_{k,2}(p+1) on S_6^new(N), N = 23, 46, 69, 78, all primes p <= 120, p !| N  112 pairs, exact rationals (PARI trace forms of the new space)
+PASS C2 old forms contribute 0: Tr(T_p W_N) on S_k(Gamma_0(N)) = on S_k^new(N), N = 46, 69, 78 (k = 2), 46, 69 (k = 4)  95 traces
+PASS C3 root number (lfunrootres) = (-1)^(k/2) w_N(f), a_f(q) = -q^(k/2-1) w_q(f) for q | N (rational newforms)  11 newforms
+PASS C4 dimensions: S_2^new(N) = 0 for N = 6, 10, 22; |dim S_k^new(N) - (k-1) phi(N)/12| <= 2^(omega(N)+1) for squarefree N <= 3000, k = 2, 4; at N = 701569 = 11*23*47*59 the deviation is 25/3 > 2^(omega-1) = 8  max |dev|/2^omega (N <= 3000): k=2 0.500, k=4 0.250; N = 701569: 25/3
+     [section C: 17 s]
+PASS D1 C0 = prod_l (1 - u_l) = nu'(1) = 0.615132657 (primes < 1e6; tail < 1e-12); nu'(r) = C0 prod_{l|r} (l^2/(l^2-1))/(1-u_l)
+PASS D2 (12/pi) kappa(N) E^(N)(0) = 2 pi prod_{q|N}(1 + 1/q), E^(N)(0) = zeta(2) prod_{q|N}(1 - q^-2)
+PASS D3 special case N = q prime: max_{y<=6} |M^(q) - M_k| <= 10/q at q = 1000003 (k = 2, 4)  3.35e-06
+PASS D4 special case N = 2q: M^(2q) = 3 pi sqrt y - 24 y + (24/pi) sum_r nu'(r) c_2(r) sqrt(4y - r^2) + O(1/q), c_2 = 3/2 (r odd), 3/4 (r even); max dev at q = 1000003, y <= 6  4.01e-06
+     table k = 2 (q -> infinity):  y =     0.10     0.20     0.50     1.00     2.00
+     q      0.7869   0.4099   0.7925  -1.6471   0.5008
+     2q     0.5804  -0.5851   1.7132  -2.3662  -1.9239
+     3q     0.8492   0.1466   0.6833  -3.1109   0.8318
+     6q     0.3738  -1.5801   2.1640  -3.8991  -1.8326
+     zub    0.7829   0.1093   1.0077  -2.3039   0.0040
+     table k = 4:
+     q      0.6623   0.9366   0.6977   2.0944   0.8652
+     2q     0.9935   1.4050  -0.1282   3.1416   2.8519
+     3q     0.8831   1.2489   0.7215   2.7925   0.5944
+     6q     1.3246   1.8733  -0.7975   4.1888   3.3783
+     zub    0.8288   1.1721   0.5314   2.6209   1.3008
+     q   kappa 1.0000  prod(1+1/q) 1.0000  kappa*nu_N(1..4) 0.61513 1.23027 0.73816 1.23027
+     2q  kappa 2.0000  prod(1+1/q) 1.5000  kappa*nu_N(1..4) 1.84540 1.84540 2.21448 1.84540
+     3q  kappa 1.5000  prod(1+1/q) 1.3333  kappa*nu_N(1..4) 0.98421 1.96842 0.98421 1.96842
+     6q  kappa 3.0000  prod(1+1/q) 2.0000  kappa*nu_N(1..4) 2.95264 2.95264 2.95264 2.95264
+PASS D5 Proposition (average): per prime l < 1000, exactly: mean factors (l e_l + 1)/(l + 1) = her A, B; ratio = her nu(r); beta/2pi, gamma/12, alpha/2pi factors  alpha = 3.965411, beta = 7.862553, gamma = 17.034753
+PASS D5 sum_{N<=3e5 squarefree} phi(N) M^(N)(y) / sum phi(N) = M_zub(y), y = 0.1, 0.5, 1, 2, 3.3  0.1: 0.7829/0.7829; 0.5: 1.0077/1.0077; 1.0: -2.3039/-2.3039; 2.0: 0.0041/0.0040; 3.3: 0.1453/0.1453
+PASS D6 (repair "eps <= 1") kappa(N)/kappa(S) in [1, e^(1.5 eps)], prod(1+1/q) ratio in [1, e^eps], nu_N/nu_S in [1, e^eps], squarefree N <= 2e5, S = prime factors <= 4  max eps here 0.570; eps > 1 occurs, e.g. N = prod of primes 5..127: eps = 1.024
+     [section D: 3 s]
+PASS E0 levels 9973, 2*4999, 3*3329, 6*1663: of the four types, not used in the earlier notes or by their referees, outside 30030..30530
+PASS E1 level 9973 (q, dim 830, 4194 primes p <= 4N): chi2 on 16 windows (single-value s.e.) own 3.7; others zub 26.0, type_2q 311.7, type_3q 85.3, type_6q 588.9
+     data 0.645 0.864 0.399 -0.956 0.782 1.600 1.587 0.890 0.219 0.739 1.406 1.151 0.210 -0.105 -0.890 -2.422
+     q mean L*(D_r) / prediction: r=0 1.6507/1.6449 (z +0.40); r=1 0.6152/0.6151 (z +0.02); r=2 1.2243/1.2303 (z -0.55); r=3 0.7415/0.7382 (z +0.42)
+PASS E1 level 9998 (2q, dim 417, 4201 primes p <= 4N): chi2 on 16 windows (single-value s.e.) own 6.3; others zub 118.3, type_q 174.2, type_3q 251.9, type_6q 103.7
+     data 0.121 1.435 1.071 -0.995 0.886 1.718 0.622 -1.560 -2.943 0.587 2.900 2.164 2.132 0.690 -0.737 -2.303
+     2q mean L*(D_r) / prediction: r=0 1.2339/1.2337 (z +0.03); r=1 0.9230/0.9227 (z +0.06); r=2 0.9242/0.9227 (z +0.24); r=3 1.1018/1.1072 (z -0.44)
+PASS E1 level 9987 (3q, dim 555, 4196 primes p <= 4N): chi2 on 16 windows (single-value s.e.) own 6.1; others zub 59.0, type_q 76.0, type_2q 347.4, type_6q 430.0
+     data 0.589 0.808 -0.066 -1.948 0.637 2.244 2.366 1.067 -0.058 1.273 1.795 1.363 0.255 -0.648 -3.192 -3.823
+     3q mean L*(D_r) / prediction: r=0 1.4609/1.4622 (z -0.12); r=1 0.6561/0.6561 (z -0.03); r=2 1.3120/1.3123 (z -0.03); r=3 0.6600/0.6561 (z +0.84)
+PASS E1 level 9978 (6q, dim 277, 4193 primes p <= 4N): chi2 on 16 windows (single-value s.e.) own 6.6; others zub 218.8, type_q 305.3, type_2q 90.9, type_3q 284.9
+     data -0.291 1.716 1.018 -2.086 1.800 3.027 1.759 -0.211 -4.069 0.205 3.066 2.633 2.393 0.493 -1.521 -4.717
+     6q mean L*(D_r) / prediction: r=0 1.0983/1.0966 (z +0.32); r=1 0.9843/0.9842 (z +0.01); r=2 0.9851/0.9842 (z +0.18); r=3 0.9822/0.9842 (z -0.29)
+PASS E2 log-weighted means over p <= 4N of L*(D_r(p)) = pi H(D_r)/sqrt(D_r) equal E^(N)(0), nu_N(1..3) (|z| < 4)  max |z| 0.84
+PASS E3 U2 at the level 9998: truncation error of sum_m m^-1 sum_{n<=M} xi(n)/n falls with M, and the mean over the 1032 primes in (N, 2N] of the series cut at N^(7/8) matches the local prediction  r=0: rms error N^(1/2) 0.1141, N^(3/4) 0.0385, N^(7/8) 0.0218; mean of the series cut at N^(7/8) 1.2253 vs 1.2337 (z -0.48) | r=1: rms error N^(1/2) 0.0587, N^(3/4) 0.0187, N^(7/8) 0.0104; mean of the series cut at N^(7/8) 0.9143 vs 0.9227 (z -0.79)
+PASS E3 U2 at the level 9978: truncation error of sum_m m^-1 sum_{n<=M} xi(n)/n falls with M, and the mean over the 1026 primes in (N, 2N] of the series cut at N^(7/8) matches the local prediction  r=0: rms error N^(1/2) 0.0773, N^(3/4) 0.0249, N^(7/8) 0.0147; mean of the series cut at N^(7/8) 1.0944 vs 1.0966 (z -0.22) | r=1: rms error N^(1/2) 0.0596, N^(3/4) 0.0188, N^(7/8) 0.0116; mean of the series cut at N^(7/8) 0.9838 vs 0.9842 (z -0.05)
+     [section E: 23 s]
+run time 82 s
+32 checks, 0 failed
