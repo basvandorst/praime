@@ -1888,4 +1888,14 @@ for N_ in (400, 1600, 6400):                                        # c = 1 on (
     f2058.append(L_ / ((10 * N_ * 1 + N_ * 1) * K_))                # against (MT + N min(M, T)) sum |c|^2
 assert f2058[0] > 15 and f2058[1] / f2058[0] > 1.8 and f2058[2] / f2058[1] > 1.8, f2058   # grows like sqrt N: the unweighted form fails
 
+# 2060: the constants of the prime-level murmuration density: nu'(1) and M_2 at y = 0.2 (below the first corner at y = 1/4)
+s2060 = np.ones(200001, bool); s2060[:2] = False
+for i in range(2, 448):
+    if s2060[i]: s2060[i * i::i] = False
+p2060 = np.nonzero(s2060)[0][1:].astype(float)                      # odd primes below 2e5
+nu2060 = (2 / 3) * float(np.prod(1 - 1 / ((p2060 - 1) * (p2060 ** 2 - 1))))
+assert abs(nu2060 - 0.615133) < 2e-6, nu2060
+assert abs(2 * math.pi * math.sqrt(0.2) - 12 * 0.2 - 0.410) < 5e-4                    # M_2(0.2), no corner term yet
+assert abs(float(np.prod(p2060 ** 2 / (p2060 ** 2 - 1))) * (4 / 3) - math.pi ** 2 / 6) < 1e-5   # the r = 0 mean is zeta(2)
+
 print("all FACTS.md checks passed")

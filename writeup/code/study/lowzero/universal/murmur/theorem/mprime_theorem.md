@@ -243,3 +243,30 @@ Miller–Montague) have harmonic weights. A natural-weight density for **one fix
 found in print**; Theorem 2's method is Zubrilina's (trace formula + class-number averages) with the roles of N and p exchanged
 (characters of the linear form r²N − 4p in the prime p instead of characters in N), which is why GRH for quadratic characters and
 primes in progressions replace her Burgess/Pólya–Vinogradov step.
+
+
+## Referee report (26 November 2026)
+
+An independent referee (own code in [referee/](referee/)) re-derived the heart of the proof before reading it. **Verdict:
+Theorem 2 is proved, given GRH for Dirichlet L-functions; no failing step, no hidden hypothesis.** Theorem 1 and Corollary 3
+are sound (Corollary 3 is a subtraction, not circular, and not an independent proof of step (b)). Proposition 4 was not
+recomputed.
+- **Local means**, by exact enumeration with other code (p mod ℓ^J, N ≡ 1 and 7 mod 8): 2/3 and 4/3 at ℓ = 2; 15/16 and 9/8
+  at ℓ = 3; 95/96 and 25/24 at ℓ = 5; F_N = 1 exactly. Their product is ν′(r).
+- **The cut of the Euler product**: z = N^(δ/(5(A+1)·log log N)), expansion over z-smooth n, only n ≤ N^(δ/5) kept (moduli
+  ≤ 16N^(4δ/5)), the tail by Rankin's trick for each discriminant separately: checked. With log z ≍ √(log N) both errors
+  become exp(−c√(log N)), better than the stated (log N)^(−A).
+- **The trace formula** T1 checked exactly, with root numbers from the functional equation, for every prime p ≤ 4N at
+  k = 2 (N = 167, 173, 197), k = 4 (29, 31), k = 6 (17), k = 8 (19), k = 14 (11) and k = 12 (13, 17: old forms
+  contribute 0).
+- **Which GRH**: real primitive characters of conductor ≤ 4(Y+1)N² and all characters to moduli ≤ 16N^(4δ/5); no L(s, f),
+  no L(s, Sym² f), no lower bound for L(1, χ).
+- **One level, not used by the author** (N = 30011, all primes p ≤ 4N, 16 windows): χ² 3.2 against M_2 and 70.5 against the
+  density of squarefree levels; weight 4: 1.5 and 388.8; at N = 30029: 4.0 and 69.5, 1.8 and 410.2. The errors are the
+  scatter of single values, not calibrated: the gap between the two densities is what counts.
+- **Slips to repair, none affecting the theorem**: line 77: the range of Q_ℓ is 1 ≤ Q_ℓ ≤ (ℓ+1)/(ℓ−1), not [1 − 1/ℓ,
+  1 + 2/ℓ] (used only for ℓ > z); line 139: the primes p ≤ ℓ cost O(τ(ℓ)·ℓ·√N·log N); lines 221–225: the reason given for
+  the low χ² is unproved; lines 90 and 109: bounds true but loose.
+- **Prior art**: Zubrilina (arXiv 2310.07681) and its correction (2609.29631) average over squarefree levels; Cowan
+  (2408.12723) has a fixed prime level under GRH with harmonic weights. A fixed prime level with natural weights was not
+  found. The method is Zubrilina's with the roles of the level and the prime exchanged.
