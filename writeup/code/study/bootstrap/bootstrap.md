@@ -2,9 +2,9 @@
 
 **In short.** Weil's explicit formula turns the Riemann hypothesis into the statement that a quadratic form is positive. We keep the Gamma factor and the pole, and make the prime side unknown: any set of real numbers x > 1 with the weights of an Euler product. Three findings, all numerical.
 
-1. Started with no primes, the search returns 2, 3, 5, 7 to 15 digits or more, and 11 to 7 digits. Each prime is pinned more tightly as the support grows (2 within 10⁻³⁸ at support log 11).
-2. The mechanism is the pole. Without a pole (Dirichlet L-functions), or when Euler factors with a minus sign are allowed, positivity pins nothing.
-3. With a pole there is a variational form: over all positive prime systems, the smallest conductor that keeps the form positive tends to 1 for Γ_R(s), to 3 for Γ_R(s)Γ_R(s+1) and to 5 for Γ_R(s)², the smallest discriminants; the minimiser tends to the norms of the prime ideals of Q, Q(√−3) and Q(√5).
+1. Started with no primes, the search returns 2, 3, 5, 7 to 15 digits or more, and 11 to 7 digits. Each prime, moved alone, is pinned more tightly as the support grows (2 + 10⁻³⁸ fails at support log 11).
+2. The mechanism is the pole. Without a pole (three Dirichlet data tried), or when Euler factors with a minus sign are allowed, positivity did not pin the points.
+3. With a pole there is a variational form: every prime system has a smallest conductor that keeps the form positive. The smallest value found over all positive systems is 1 for Γ_R(s); for Γ_R(s)Γ_R(s+1) and Γ_R(s)² it rises with the support and stays below 3 and 5, the smallest discriminants, and from support log 10 on the best systems found sit near the prime ideal norms of Q(√−3) and Q(√5). That these are the limits is a conjecture.
 
 Status of each statement: computed (best found by a search), not proved. The first step (one prime, one support) is in print: Connes and Consani 2021.
 
@@ -12,7 +12,7 @@ Status of each statement: computed (best found by a search), not proved. The fir
 
 - Connes and Consani, *Spectral triples and ζ-cycles*, arXiv 2106.01715, section 2.3: at support log 3, with the one prime 2 replaced by a real p, positivity fails at p = 1.9999 and at p = 2.0005. Section 2.2: the archimedean part alone loses positivity just past support log 2. They move one prime at one support. Our matrix reproduces their numbers ([cc_check_out.txt](cc_check_out.txt)): smallest eigenvalue at support log 3: 5.68·10⁻⁸ (theirs: below 6·10⁻⁸); at support log 11: 2.93·10⁻⁴⁸ with 97 basis functions and still falling (theirs: 2.389·10⁻⁴⁸); negative at 1.9999 and at 2.0005.
 - Discriminant bounds from the explicit formula (Odlyzko; Serre; Poitou, *Sur les petits discriminants*, 1977; Diaz y Diaz, *Tables minorant la racine n-ième du discriminant*, 1980). They fix one kernel F ≥ 0 and, as a "local correction", take for each small prime the splitting type with the smallest contribution. Printed bounds for |d|: imaginary quadratic 2.9657 without and 2.9921 with local corrections; real quadratic 4.9436 and 4.9640 (Diaz y Diaz, Tables 4 and 3; Odlyzko's GRH table: 2.962 and 4.951). So the minimum over splitting types, prime by prime at integer positions, is in print. Odlyzko 1990 lists the optimal kernel (Problem 2.2) and the share of the prime ideals (Problem 6.1) as open.
-- Not found in print (two prior-art searches of 26 November 2026, about 60 pages opened; the sources in section 7 were not read): all primes free together at real positions, primes found from no input, the pinning as a function of the support, the role of the pole, the smallest conductor over all positive systems with the full quadratic form, its convergence to the smallest discriminant, prime ideal norms recovered as the minimiser.
+- Not found in print (two prior-art searches of 26 November 2026, about 60 pages opened; the sources in section 7 were not read): all primes free together at real positions, primes found from no input, the pinning as a function of the support, the role of the pole, the smallest conductor over all positive systems with the full quadratic form, and the questions whether it converges to the smallest discriminant and whether the minimiser tends to the prime ideal norms.
 
 ## 2. Set-up (derived; checked numerically)
 
@@ -26,9 +26,9 @@ The last sum runs over the points x > 1 of the unknown system, each with a sign 
 
 - Derivation of A_κ: Gauss's formula ψ(z) = −γ + ∫₀^∞ (e^(−t) − e^(−zt))/(1 − e^(−t)) dt at z = (1/2 + κ)/2 + it/2, integrated against the Fourier transform of g, then t = 2u.
 - For the true primes and the Riemann datum, Q(f) = Σ_γ |f̂(γ)|² (Guinand–Weil), which is ≥ 0 under RH. Check ([ef_check_out.txt](ef_check_out.txt)): with a Gaussian g the two sides agree to 27 digits.
-- Basis: e^(iπku/a), |k| ≤ N. The matrix is real symmetric, with entries in closed form in terms of 4(N + 1) one-dimensional integrals ([weil.py](weil.py)). A negative eigenvalue of this finite matrix proves that the form is not positive (Rayleigh–Ritz); a positive matrix proves nothing. So "pinned within" below is a rigorous outer statement (up to rounding), and "feasible" means "no negative eigenvalue in this basis".
+- Basis: e^(iπku/a), |k| ≤ N. The matrix is real symmetric, with entries in closed form in terms of 4(N + 1) one-dimensional integrals ([weil.py](weil.py)). A negative eigenvalue of this finite matrix proves that the form is not positive (Rayleigh–Ritz); a positive matrix proves nothing. So "pinned within" below is an outer statement that holds up to rounding and quadrature error (no interval arithmetic), and "feasible" means "no negative eigenvalue in this basis". A larger basis can only lower every eigenvalue: for a fixed system the true smallest eigenvalue is below ours, and the true smallest conductor q*(P) is above ours.
 - **Conductor shift (exact).** The conductor enters as (log q)·g(0) = (log q)·‖f‖². So λ_min(P; q) = λ_min(P; 1) + log q. A system P is feasible for exactly the conductors q ≥ q*(P, L) = exp(−λ_min(P; 1)).
-- **A minus-sign point near 1 is a conductor (exact).** (1 + x^(−s))^(−m) → 2^(−m)·x^(ms/2) as x → 1: m such points act as a conductor x^m.
+- **A minus-sign point near 1 acts as a conductor (in the limit x → 1).** Exactly, (1 + x^(−s))^(−m) = 2^(−m)·x^(ms/2)·cosh(s·log x/2)^(−m); as x → 1 the last factor tends to 1, so m such points act as a conductor x^m.
 
 ## 3. Results for the Riemann datum (Γ_R(s), pole, q = 1, positive weights)
 
@@ -38,6 +38,8 @@ The last sum runs over the points x > 1 of the unknown system, each with a sign 
 |---|---|---|
 | 3 | −0.416 | one point: only x = 2.00; two points: (2.00, y) with y ≥ 2.96 (weight zero at the edge) |
 | 4 | −0.704 | only (2.00, 3.00); best single point −0.24; best three points −0.007 |
+
+These are values at N = 12; in the reviewer's converged basis the empty system at X = 3 has −0.430. The signs do not change.
 
 **3.2 Pinning** ([pins.py](pins.py), [pins_out.txt](pins_out.txt); high precision). One prime moved by ±10^(−k), the others at their true values: the largest shift exponent k at which the matrix still has a negative eigenvalue.
 
@@ -69,14 +71,14 @@ The prime powers 4, 8, 9 are not points: they come with 2 and 3. Limits: beyond 
 
 ## 4. The pole is the mechanism (negative results)
 
-- **Dirichlet data, no pole** ([datum.py](datum.py), [datum_out.txt](datum_out.txt), [characters_check_out.txt](characters_check_out.txt)). For (q, κ) = (4, 1), (3, 1), (5, 0) the same search, with signs free, returns systems such as one point 1.66 with sign − (support 9, smallest eigenvalue +0.05): nothing like the character. The true characters are feasible but sit on the edge (χ₋₄ at support 9: 7.3·10⁻⁹). Reason: with no pole to cancel, a few minus-sign points near 1 act as extra conductor (section 2), and for q above 9.3 (odd) or 215 (even) the empty system is positive for every support, since then (log(q/π) + Re ψ((1/2 + κ)/2 + it/2)) ≥ 0 for all t.
-- **Riemann datum with signs free** (same output file): at support 3 the pair (1.24 with sign −, 1.98 with sign +) is feasible with margin 0.18. Positive weights are needed for section 3.
+- **Dirichlet data, no pole** ([datum.py](datum.py), [datum_out.txt](datum_out.txt), [characters_check_out.txt](characters_check_out.txt)). For (q, κ) = (4, 1), (3, 1), (5, 0) the same search, with signs free, returns systems such as one point 1.66 with sign − (support 9, smallest eigenvalue +0.05): nothing like the character. The true characters are feasible but sit on the edge (χ₋₄ at support 9: 7.3·10⁻⁹). A reason in the same direction: with no pole to cancel, minus-sign points can supply extra conductor (section 2; the points returned lie between 1.4 and 2.9, not near 1). And for a large conductor nothing is needed at all: for q above 9.305 (parity κ = 1) or 215.33 (κ = 0) the empty system is positive for every support, since log(q/π) + Re ψ((1/2 + κ)/2 + it/2) ≥ 0 for all t (the minimum is at t = 0). The three data tried lie below these thresholds, and there the empty system does fail.
+- **Riemann datum with signs free** (same output file): at support 3 the pair (1.24 with sign −, 1.98 with sign +) is feasible with margin 0.18 (N = 12; 0.167 in the reviewer's converged basis). Positive weights are needed for section 3.
 
 ## 5. The smallest conductor (positive weights, pole)
 
 By the conductor shift, q*(P, L) = exp(−λ_min(P; 1)) is the smallest conductor that admits P at support L, and q_min(L) = min over P is the smallest conductor that admits any positive system. q_min(L) can only grow with L. A number field with ζ_K of this Gamma factor is feasible at its discriminant under GRH, so q_min(L) ≤ the smallest discriminant.
 
-Search ([conductor.py](conductor.py), [conductor_out.txt](conductor_out.txt)): greedy addition of points and joint maximisation, continued from one support to the next. "Found" is an upper bound for q_min(L).
+Search ([conductor.py](conductor.py), [conductor_out.txt](conductor_out.txt)): greedy addition of points and joint maximisation, continued from one support to the next. "Found" is the value of one system in our truncated basis: a better optimiser can find a lower value, and a larger basis raises the value of a given system (the X = 6 optimum is 2.995103 in the reviewer's basis of 56 Legendre polynomials, against 2.994999 here). So the entries are estimates of q_min(L), not bounds.
 
 | X | Γ_R(s): q found, points | Γ_R(s)Γ_R(s+1): q found, points | Γ_R(s)²: q found, points |
 |---|---|---|---|
@@ -96,9 +98,20 @@ True systems, and a search started 1 % away from them ([conductor_true.py](condu
 
 Reading.
 - Each true system needs a conductor that rises to its discriminant.
-- The free search goes to the smallest discriminant of its Gamma factor from anywhere we started, also from the prime ideals of Q(i) or Q(√2). Its points approach the prime ideal norms of that field: 3 (ramified), 4 (2 inert), 7 and 7 (split) for Q(√−3); 4 (2 inert) and 5 (ramified) for Q(√5).
+- The free search went to the smallest discriminant of its Gamma factor in the greedy runs and from the four perturbed starts of the table, also from the prime ideals of Q(i) or Q(√2) (two of the X = 12 runs ended slightly above the discriminant, i.e. worse than the known true system). Its points approach the prime ideal norms of that field: 3 (ramified), 4 (2 inert), 7 and 7 (split) for Q(√−3); 4 (2 inert) and 5 (ramified) for Q(√5).
 - At a finite support the optimum is not arithmetic (2.9995 at X = 8 with 3.002, 3.996, 6.83) and approaches the field as the support grows. The values 3.000014 and 5.000372 lie above the discriminant: there the search is worse than the known true system.
-- The rational primes are the case of degree 1: among positive prime systems, the primes are the system of smallest conductor for Γ_R(s) with a pole, and that conductor is 1.
+- The rational primes are the case of degree 1: in the searches (supports up to log 8) the primes are the system of smallest conductor for Γ_R(s) with a pole, and that conductor is 1.
+
+**Independent review with a stronger optimiser** ([review/adversary_report.md](review/adversary_report.md); own code, Legendre basis, 217 restarts of differential evolution plus Nelder–Mead, up to 7 free points):
+
+| X | best q, Γ_R(s)Γ_R(s+1) | points | ours |
+|---|---|---|---|
+| 4 | 2.975898 | a triple point near 3.40–3.44 | 2.976788 |
+| 6 | 2.995103 | 3.02325, 3.93619 | 2.994999 |
+| 8 | 2.999174 | 3.00341, 3.99195, 7.256, 7.326, 7.348, 7.384 | 2.999540 |
+| 10 | 2.999784 | 3.00086, 3.99811, 7.0141, 7.0150, 9.1138 | stuck at 3.0016 |
+
+So our values at X = 4 and 8 were not the minima. The better values still rise with the support and stay below 3. The best systems at small supports contain repeated or clustered points; the approach to 3, 4, 7, 7 is visible only from X = 10 on. For the zeta datum the reviewer found no system with smallest eigenvalue above 10⁻⁶ at supports log 4 and log 6 (up to 8 points, 115 restarts).
 
 **Conjecture (ours, numerical evidence only).** For Γ_R(s) with a simple pole, q_min(L) → 1 and every sequence of minimisers tends to the primes; for the two quadratic Gamma factors q_min(L) → 3 and 5 with minimisers tending to the prime ideal norms of Q(√−3) and Q(√5).
 
@@ -158,6 +171,17 @@ Two finite-level facts from the same work (their code: Legendre basis, [theory/w
 
 - The empty system is positive up to support X = 2.1027 (theirs). Ours: 2.1151, 2.1092, 2.1071 with N = 20, 40, 60, falling towards it. So every feasible system has a point below 2.11: positivity forces a first prime.
 - The primes up to p_n without p_(n+1) fail just past p_(n+1): at 1.05·p_(n+1) the smallest eigenvalue is −0.012, −0.050, −0.086, −0.122, −0.109 (±0.001) for p_(n+1) = 3, 5, 7, 11, 13. So positivity forces the next prime, each time.
+
+## 5d. The global statement: where the proof stands (26 November 2026, evening)
+
+Statement wanted: the primes are the only positive Beurling system whose form (Riemann datum, q = 1) is positive for every support. Not proved. What we have:
+
+- **Convex version, computed** ([relaxed.py](relaxed.py), [relaxed_out.txt](relaxed_out.txt)). If the multiplicities may be any real numbers ≥ 0 (weights on a grid of step 0.01), the form is linear in the weights and the largest smallest eigenvalue is a concave problem; cutting planes with a linear program give the global optimum on the grid: 7.0·10⁻⁴, 3.2·10⁻⁵, 1.8·10⁻⁵, 1.6·10⁻⁶ at X = 2.5, 3, 3.5, 4 (the primes alone: 5.7·10⁻⁸ at X = 3). The weights sit at 2.00–2.01 (total 1.003 at X = 3, 1.0001 at X = 4) and 3.00–3.04 (total 1.197 at X = 3.5, 1.005 at X = 4). So at a finite support the optimum is slightly off the primes and its conductor is slightly below 1 (0.9999984 at X = 4); the values fall with the support. Uniqueness, if true, is a statement about the limit.
+- **Reduction (ours; the proofs are being written and are not refereed).**
+  1. Feasible ⟺ Ξ_P′/Ξ_P has non-negative real part on Re s > 1/2, with Ξ_P = ½·s(s − 1)·π^(−s/2)·Γ(s/2)·ζ_P(s) (for ζ: Lagarias's criterion).
+  2. A Beurling zeta function with Riemann's functional equation is ζ. Proof idea: the functional equation makes the measure τ = r·δ₀ + Σ aₙ(δ_νₙ + δ_−νₙ) on the Beurling integers its own Fourier transform; pair it with the triangle (1 − |x|)₊, whose transform sinc²(πξ) is ≥ 0 and vanishes exactly at the nonzero integers: r = r + 2Σ aₙ sinc²(πνₙ), so every Beurling integer is an integer; a self-dual measure on Z is a multiple of the Dirac comb. This may be Ryavec's theorem (Rocky Mountain J. Math. 5 (1975) 623–627, not read); Beurling 1951 (Ark. Mat. 1, not read) characterises ζ by growth without a functional equation.
+  3. So the global statement is equivalent to: positivity forces the functional equation, i.e. the spectrum of a feasible system is a sum of point masses with integer weights.
+  4. Positivity alone cannot give step 3: an entire function with all zeros on or to the left of the line also has Re Ξ′/Ξ ≥ 0 on the right. The arithmetic of the prime side must exclude a continuous spectrum and zeros to the left; a counterexample would be a Beurling zeta function of exactly that kind. None is known (literature search: no discrete Beurling system with a zeta function meromorphic in the plane, beyond the arithmetic ones, was found; the main sources on positivity criteria were not read).
 
 ## 6. Size of the result
 

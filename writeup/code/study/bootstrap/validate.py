@@ -96,4 +96,12 @@ xs = [float(x) for x in re.findall(r'positive up to X = (\S+)', t)]
 ok(xs == [2.11508, 2.10917, 2.10709] and xs[-1] > 2.1027 and xs[-1] < 2.11, 'empty system threshold')
 last = [float(l.split()[-1]) for l in t.strip().split('\n')[3:]]
 ok(all(abs(x - y) < 1e-3 for x, y in zip(last, [-0.012, -0.050, -0.086, -0.122, -0.109])), 'next prime forced')
+t = rd('relaxed_out.txt')
+lam = [float(x) for x in re.findall(r'max lambda_min over real weights = (\S+)', t)]
+ok(lam == [7.009e-04, 3.248e-05, 1.808e-05, 1.612e-06] and lam == sorted(lam, reverse=True), 'relaxed optimum')
+ws = [eval(l.split('weight):')[1]) for l in t.split('\n') if 'weight):' in l]
+tot = lambda w, lo, hi: sum(v for x, v in w if lo <= x <= hi)
+ok(abs(tot(ws[1], 1.9, 2.1) - 1.003) < 1e-3 and abs(tot(ws[3], 1.9, 2.1) - 1.0001) < 1e-4 and abs(tot(ws[2], 2.9, 3.1) - 1.197) < 1e-3 and abs(tot(ws[3], 2.9, 3.1) - 1.005) < 1e-3, 'relaxed weights')
+ok(all(1.99 < x < 2.04 or 2.99 < x < 3.05 for w in ws for x, _ in w), 'weights sit at 2 and 3')
+ok('conductor 0.99999839' in t, 'relaxed conductor')
 print('all %d checks passed' % n)
