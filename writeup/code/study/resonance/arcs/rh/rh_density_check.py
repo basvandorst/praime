@@ -15,6 +15,9 @@ Sections
   E  ideal arithmetic of Z[i] used in the bookkeeping
   F  sanity only: Gaussian primes in classes mod 2+i and mod 5 in sectors, N z <= 1e7; sizes of Psi(xi)
   G  illustration (heuristic, placeholder constants): VK region vs classical region in the zero sum
+  H  the inequalities repaired after the referee report: consequence (a) of Lemma PF (neighbouring windows);
+     (T1)-(T3) of section 4.3 (divisor sums, r0 <= d, the dyadic tail bound for all Y >= 100); the bound (Gamma)
+     of Lemma DI on -1/2 <= Re w <= 2 through the shift Gamma(w) = Gamma(w+1)/w, and (C3)(iii); the block sum of 5
 """
 import math, cmath, random, time
 from fractions import Fraction as Fr
@@ -736,5 +739,278 @@ for lx in [1e3, 1e9, 1e15, 1e18, 1e21, 1e24]:
     print("   log x = %.0e: VK %+.3e   classical %+.3e" % (lx, g_vk(lx), g_cl(lx)))
 check("illustration: eta = c(log x)^{-2/3}(loglog x)^{-1/3}: bound/x -> 0; eta = c/log x: bound/x -> infinity",
       g_vk(1e24) < g_vk(1e21) < 0 and g_cl(1e24) > g_cl(1e21) > 0)
+
+# ---------------------------------------------------------------- H. repaired inequalities
+hdr("H. inequalities repaired after the referee report")
+T_H = time.time()
+
+
+# H1. consequence (a) of Lemma PF --------------------------------------------------------------------------------
+# The proof uses only that every window {|gamma - T| <= 1} holds at most the stated number of zeros, so the actual
+# window counts of a synthetic ordinate set may stand in for ZC(T). Both signs eps = +1, -1 (reflect the ordinates).
+def ZCf(Nf, k, T):
+    return 1.25 * math.log(Nf) + 2.5 * math.log(abs(k) + abs(T) + 2) + 3.35
+
+
+def wcount(gs, T):
+    return int(np.count_nonzero(np.abs(gs - T) <= 1.0))
+
+
+def pf_case(gs, n, T=None, rng_=None):
+    """choose T in [n, n+1] at distance >= 1/(2 Z_n + 2) from every ordinate (Z_n = window count at n + 1/2);
+    return (T found?, S = sum_{|gamma-T|<1} 1/|T-gamma|, new bound, old bound, some near zero outside [n-1/2, n+3/2]?)"""
+    Zn = wcount(gs, n + 0.5)
+    r = 1.0 / (2 * Zn + 2)
+    if T is None:
+        grid = np.linspace(n, n + 1, 2001)
+        dmin = np.min(np.abs(grid[:, None] - gs[None, :]), axis=1) if len(gs) else np.full(len(grid), 9.0)
+        good = np.nonzero(dmin >= r)[0]
+        if len(good) == 0:
+            return False, 0.0, 0.0, 0.0, False
+        T = float(grid[good[rng_.randrange(len(good))]])
+    near = gs[np.abs(gs - T) < 1]
+    S = float(np.sum(1.0 / np.abs(T - near)))
+    new = Zn * (2 * Zn + 2) + 2 * (wcount(gs, n - 0.5) + wcount(gs, n + 1.5))
+    old = Zn * (2 * Zn + 2)
+    outside = bool(np.any((near < n - 0.5) | (near > n + 1.5)))
+    return True, S, new, old, outside
+
+
+rngH = random.Random(20261126)
+ok_found = ok_new = True
+n_cases = n_outside = n_oldfail = 0
+worst_ratio = 0.0
+for trial in range(300):
+    cents = [rngH.uniform(-14, 14) for _ in range(rngH.randint(3, 30))]
+    gs0 = np.array([c + rngH.uniform(-0.3, 0.3) for c in cents for _ in range(rngH.randint(1, 3))])
+    for eps_sign in (1, -1):
+        gs = eps_sign * gs0
+        for n in range(1, 12):
+            found, S, new, old, outside = pf_case(gs, n, rng_=rngH)
+            ok_found &= found
+            if not found:
+                continue
+            n_cases += 1
+            ok_new &= S <= new * (1 + 1e-12)
+            if new > 0:
+                worst_ratio = max(worst_ratio, S / new)
+            n_outside += outside
+            n_oldfail += S > old
+check("Lemma PF (a): T_n in [n, n+1] at distance >= 1/(2Z_n+2) from all ordinates exists (both signs, %d cases)" % n_cases, ok_found)
+check("Lemma PF (a): sum_{|gamma-T_n|<1} 1/|T_n-gamma| <= Z_n(2Z_n+2) + 2(ZC(n-1/2) + ZC(n+3/2)) (window counts as ZC)",
+      ok_new, "max ratio %.3f; cases with a zero at |gamma-T_n|<1 outside [n-1/2, n+3/2]: %d of %d; old bound exceeded: %d"
+      % (worst_ratio, n_outside, n_cases, n_oldfail))
+# negative control: one zero at n - 0.6 (outside [n-1/2, n+3/2]), T_n = n: the old bound Z_n(2Z_n+2) = 0 fails
+_, S_nc, new_nc, old_nc, out_nc = pf_case(np.array([3 - 0.6]), 3, T=3.0)
+check("Lemma PF (a), negative control {n - 0.6}, T_n = n: old bound fails, new bound holds", S_nc > old_nc and S_nc <= new_nc and out_nc,
+      "S = %.4f, old %.1f, new %.1f" % (S_nc, old_nc, new_nc))
+# second line of (a): with ZC(.) <= ZC(n+3/2) <= 4.6 l, the first line is <= 60 l^2 + C_PF l, l = log(Nf(|k|+n+4))
+ok_l = True
+worst_l = 0.0
+for Nf in [1, 2, 5, 13, 100, 10 ** 4, 10 ** 8]:
+    for k in [0, 1, 3, 10, 100, 10 ** 4, 10 ** 6]:
+        for n in [1, 2, 3, 5, 10, 100, 10 ** 4, 10 ** 6]:
+            ell = math.log(Nf * (abs(k) + n + 4))
+            Zn = ZCf(Nf, k, n + 0.5)
+            first = Zn * (2 * Zn + 2) + 2 * (ZCf(Nf, k, n - 0.5) + ZCf(Nf, k, n + 1.5))
+            ok_l &= ell > 1.6 and ZCf(Nf, k, n + 1.5) <= 4.6 * ell and first <= 60 * ell ** 2
+            worst_l = max(worst_l, first / ell ** 2)
+check("Lemma PF (a), second line: ZC(n+3/2) <= 4.6 l and Z_n(2Z_n+2) + 2(ZC(n-1/2)+ZC(n+3/2)) <= 60 l^2 (grid Nf, k, n)", ok_l,
+      "max first-line/l^2 = %.2f" % worst_l)
+
+# H2. (T1) and (T2) of section 4.3 on a complete range -----------------------------------------------------------
+NT = 10 ** 6
+
+
+def conv(f, g):
+    """Dirichlet convolution (f*g)(n), n <= NT."""
+    out = np.zeros(NT + 1, dtype=np.int64)
+    for m in range(1, NT + 1):
+        fm = int(f[m])
+        if fm:
+            out[m::m] += fm * g[1:NT // m + 1]
+    return out
+
+
+one = np.ones(NT + 1, dtype=np.int64)
+one[0] = 0
+dj = {1: one}
+for j in range(2, 5):
+    dj[j] = conv(dj[j - 1], one)
+uu = np.arange(1, NT + 1, dtype=np.float64)
+lg = np.log(uu)
+harm = np.cumsum(1.0 / uu)
+check("(T1) sum_{m<=u} 1/m <= 1 + log u for every integer u <= 1e6", bool(np.all(harm <= 1 + lg + 1e-12)),
+      "max excess %.3e" % float(np.max(harm - 1 - lg)))
+ok_t1 = True
+info = []
+for j in range(1, 5):
+    cs = np.cumsum(dj[j][1:]).astype(np.float64)
+    rhs = uu * (1 + lg) ** (j - 1)
+    ok_t1 &= bool(np.all(cs <= rhs * (1 + 1e-12)))
+    info.append("j=%d max ratio %.3f" % (j, float(np.max(cs / rhs))))
+check("(T1) induction: sum_{n<=u} d_j(n) <= u(1+log u)^(j-1), j = 1..4, every integer u <= 1e6 (so every real u in [1, 1e6+1))",
+      ok_t1, "; ".join(info))
+ok_d4 = all(int(dj[4][n]) == d4(n) for n in range(1, 3001)) and all(int(dj[4][n]) == d4(n) for n in rngH.sample(range(3001, NT + 1), 300))
+check("d_4 = 1*1*1*1 by convolution agrees with the factorisation formula prod C(e+3,3) (n <= 3000 and 300 random n <= 1e6)", ok_d4)
+dd = conv(dj[2], dj[2])
+check("d * d = d_4 for n <= 1e6", bool(np.array_equal(dd, dj[4])))
+del dd
+# r0 by counting lattice points: ideals of norm n <-> a + bi with a >= 1, b >= 0
+Rr = math.isqrt(NT)
+norms = []
+for a in range(1, Rr + 1):
+    bmax = math.isqrt(NT - a * a)
+    norms.append(a * a + np.arange(0, bmax + 1, dtype=np.int64) ** 2)
+r0b = np.bincount(np.concatenate(norms), minlength=NT + 1).astype(np.int64)
+del norms
+chiv = np.zeros(NT + 1, dtype=np.int64)
+chiv[1::4] = 1
+chiv[3::4] = -1
+check("r0 = 1 * chi_-4 (lattice count) for n <= 1e6", bool(np.array_equal(r0b, conv(chiv, one))))
+check("(T2) r0(n) <= d(n) for every n <= 1e6", bool(np.all(r0b[1:] <= dj[2][1:])))
+ok_pp = True
+for p in range(2, 1001):
+    if all(p % q for q in range(2, math.isqrt(p) + 1)):
+        e, pe = 1, p
+        while pe <= NT:
+            want = 1 if p == 2 else (e + 1 if p % 4 == 1 else (1 if e % 2 == 0 else 0))
+            ok_pp &= int(r0b[pe]) == want
+            e += 1
+            pe *= p
+ok_mult = all(int(r0b[m * n]) == int(r0b[m]) * int(r0b[n]) for m, n in
+              ((rngH.randint(1, 1000), rngH.randint(1, 1000)) for _ in range(3000)) if math.gcd(m, n) == 1)
+check("(T2) r0(2^e) = 1, r0(p^e) = e+1 (p = 1 mod 4), 1 or 0 (p = 3 mod 4, e even/odd), p <= 1000; r0 multiplicative (random pairs)",
+      ok_pp and ok_mult)
+rr = conv(r0b, r0b)
+check("(T2) (r0*r0)(n) <= d_4(n) for every n <= 1e6", bool(np.all(rr[1:] <= dj[4][1:])))
+csr = np.cumsum(rr[1:]).astype(np.float64)
+check("(T2) sum_{Na<=u} d(a) = sum_{n<=u} (r0*r0)(n) <= u(1+log u)^3 for every integer u <= 1e6", bool(np.all(csr <= uu * (1 + lg) ** 3)),
+      "max ratio %.3f" % float(np.max(csr / (uu * (1 + lg) ** 3))))
+# sum_{Na=n} d(a) by factorising every ideal of norm <= 22000 (independent of the convolution identity)
+NMAXT = 22000
+dsum_big = np.zeros(NMAXT + 1, dtype=np.int64)
+for (a, b, n) in ideal_gens(NMAXT):
+    fac = gauss_factor(a, b)
+    dsum_big[n] += int(np.prod([e + 1 for _, e, _ in fac])) if fac else 1
+check("(T2) sum_{Na=n} d(a) (ideal factorisation) = (r0*r0)(n) for n <= 22000", bool(np.array_equal(dsum_big[1:], rr[1:NMAXT + 1])))
+del dj, rr, csr, r0b, chiv, one, uu, lg, harm
+
+
+# H3. (T3): the dyadic tail bound for every Y >= 100 ----------------------------------------------------------------
+def log_tj(j, L):
+    return (1 + j / 2) * math.log(2) + np.log(L) + L / 2 + 3 * np.log(1 + (j + 1) * math.log(2) + L + 2 * np.log(L)) - 2.0 ** j * L ** 2
+
+
+def dlog_tj(j, L):
+    return 0.5 + 1 / L + 3 * (1 + 2 / L) / (1 + (j + 1) * math.log(2) + L + 2 * np.log(L)) - 2.0 ** (j + 1) * L
+
+
+Lg = np.linspace(4.0, 200.0, 200001)
+ok_mono = all(bool(np.all(dlog_tj(j, Lg) <= 0.5 + 0.25 + 0.9 - 2.0 ** (j + 1) * Lg)) and bool(np.all(dlog_tj(j, Lg) < 0))
+              and bool(np.all(np.diff(log_tj(j, Lg)) < 0)) for j in range(0, 25))
+check("(T3) t_j(L) decreasing on L >= 4 (derivative formula <= 1.65 - 2^(j+1) L < 0, and on a grid of 2e5 points), j = 0..24", ok_mono)
+Lh = Lg[Lg >= math.log(100)]
+rat = max(float(np.max(log_tj(j + 1, Lh) - log_tj(j, Lh))) for j in range(0, 24))
+rb = math.sqrt(2) * (1 + math.log(2) / (1 + math.log(100))) ** 3 * math.exp(-math.log(100) ** 2)
+check("(T3) t_(j+1)/t_j <= sqrt2 (1 + log2/(1+L))^3 e^(-L^2) <= 1.3e-9 for L >= log 100", math.exp(rat) <= rb * (1 + 1e-9) and rb <= 1.3e-9,
+      "max ratio %.3e, bound %.3e" % (math.exp(rat), rb))
+t0_100 = math.exp(float(log_tj(0, np.array([math.log(100)]))[0]))
+L100 = math.log(100)
+check("(T3) t_0(log 100) = 2*10*L(1 + log2 + L + 2 log L)^3 e^(-L^2) = 4.642e-5 (base 9.3527, L^2 = 21.2076)",
+      abs(t0_100 - 4.642e-5) < 5e-9 and abs(1 + math.log(2) + L100 + 2 * math.log(L100) - 9.3527) < 1e-4 and abs(L100 ** 2 - 21.2076) < 1e-4,
+      "t_0 = %.6e" % t0_100)
+
+
+def dyadic_bound(Y):
+    L = math.log(Y)
+    return sum(math.exp(float(log_tj(j, np.array([L]))[0])) for j in range(0, 40))
+
+
+Ygrid = np.concatenate([np.linspace(100, 1000, 901), np.logspace(3, 300, 600)])
+bvals = np.array([dyadic_bound(Y) for Y in Ygrid])
+check("(T3) sum_j t_j(log Y) <= 4.7e-5 for Y in [100, 1e300] (1501 points) and non-increasing in Y",
+      bool(np.all(bvals <= 4.7e-5)) and bool(np.all(np.diff(bvals) <= 0)), "max %.4e at Y = %.0f" % (bvals.max(), Ygrid[bvals.argmax()]))
+check("(T3) the closed form equals the dyadic sum tail_bound of section B (Y = 100, 1e3, 1e6)",
+      all(abs(dyadic_bound(Y) - tail_bound(Y)) <= 1e-12 * tail_bound(Y) + 1e-300 for Y in [100.0, 1e3, 1e6]))
+ok_true = True
+info = []
+for Y in [100.0, 150.0, 200.0, 300.0]:
+    Y1 = Y * math.log(Y) ** 2
+    nn = np.arange(int(Y1) + 1, NMAXT + 1)
+    direct = float(np.sum(dsum_big[nn] * nn ** -0.5 * np.exp(-nn / Y)))
+    rem = sum(2 * (2 ** j * NMAXT) ** 0.5 * (1 + math.log(2 ** (j + 1) * NMAXT)) ** 3 * math.exp(-(2 ** j) * NMAXT / Y) for j in range(0, 60))
+    ok_true &= direct + rem <= dyadic_bound(Y) <= 1e-4
+    info.append("Y=%g: tail %.2e (+rem %.1e) <= %.2e" % (Y, direct, rem, dyadic_bound(Y)))
+check("(T3) true tail sum_{Na>Y1} d(a) Na^(-1/2) e^(-Na/Y) (ideals to 22000, remainder by (T2)) <= dyadic bound <= 1e-4",
+      ok_true, "; ".join(info))
+del dsum_big
+
+# H4. the bound (Gamma) of Lemma DI, through the shift; (C3)(i), (iii) ----------------------------------------------
+mp.mp.dps = 20
+vg = np.concatenate([np.linspace(0, 0.95, 20), np.linspace(1, 10, 91), np.linspace(11, 100, 90), [150.0, 300.0, 500.0]])
+avals = [round(-0.5 + 0.05 * i, 10) for i in range(51)]
+wG = wHi = wLo = wSh = 0.0
+for a in avals:
+    for v0 in vg:
+        for v in (float(v0), -float(v0)):
+            if a == 0 and v == 0:
+                continue          # the pole w = 0
+            w = mp.mpc(a, v)
+            g = abs(mp.gamma(w))
+            av = abs(v)
+            dec = mp.e ** (-mp.pi * av / 2)
+            if a >= 0.5:
+                wHi = max(wHi, float(g / (mp.sqrt(2 * mp.pi) * mp.e ** (1 / (12 * mp.mpf(a))) * abs(w) ** (mp.mpf(a) - 0.5) * dec)))
+            if av >= 1:
+                wG = max(wG, float(g / (10 * mp.mpf(av) ** 1.5 * dec)))
+                if a < 0.5:
+                    wLo = max(wLo, float(g / (mp.mpf(5.34) * dec)))
+            if a < 0.5:
+                wSh = max(wSh, float(abs(mp.gamma(w) - mp.gamma(w + 1) / w) / g))
+check("(Gamma) |Gamma(a+iv)| <= sqrt(2pi) e^(1/(12a)) |w|^(a-1/2) e^(-pi|v|/2), 1/2 <= a <= 2, all v on the grid", wHi <= 1,
+      "max ratio %.4f" % wHi)
+check("(Gamma) shifted case: |Gamma(a+iv)| <= 5.34 e^(-pi|v|/2) for -1/2 <= a < 1/2, |v| >= 1 (via Gamma(w) = Gamma(w+1)/w)", wLo <= 1,
+      "max ratio %.4f" % wLo)
+check("(Gamma) |Gamma(a+iv)| <= 10 |v|^(3/2) e^(-pi|v|/2) for -1/2 <= a <= 2, 1 <= |v| <= 500 (51 x 368 grid)", wG <= 1,
+      "max ratio %.4f" % wG)
+check("(C3)(i) shift Gamma(w) = Gamma(w+1)/w on -1/2 <= Re w < 1/2 (relative error)", wSh < 1e-15, "max %.1e" % wSh)
+shape = float(abs(mp.gamma(mp.mpc(2, 1e4))) * mp.e ** (mp.pi * 1e4 / 2) / mp.mpf(1e4) ** 1.5)
+nc_g = float(abs(mp.gamma(mp.mpc(2, 100))) * mp.e ** (mp.pi * 50))
+check("(Gamma) shape: at Re w = 2, |Gamma| e^(pi|v|/2)/|v|^(3/2) -> sqrt(2 pi); negative control: 10 e^(-pi|v|/2) without |v|^(3/2) fails at 2+100i",
+      abs(shape - math.sqrt(2 * math.pi)) < 1e-3 and nc_g > 10, "ratio at v=1e4: %.5f; |Gamma(2+100i)| e^(50 pi) = %.1f" % (shape, nc_g))
+ok_cm = True
+for y in [0.3, 1.7]:
+    for c in [0.5, 2.0]:
+        val = mp.quad(lambda v: mp.gamma(mp.mpc(c, v)) * mp.power(y, -mp.mpc(c, v)), [-80, -20, -5, 0, 5, 20, 80]) / (2 * mp.pi)
+        ok_cm &= abs(val - mp.e ** (-y)) < 1e-12
+check("(C3)(iii) Cahen-Mellin e^(-y) = (1/2 pi i) int_(c) Gamma(w) y^(-w) dw (y = 0.3, 1.7; c = 1/2, 2)", ok_cm)
+check("(C3)(i) Gamma(1) = 1 and residue of Gamma at 0 equals 1", mp.gamma(1) == 1 and abs(mp.mpf("1e-12") * mp.gamma(mp.mpf("1e-12")) - 1) < 1e-11)
+
+# H5. blocks in 1 - sigma (section 5): 2^(A(j+1)/log x) and the block sum -------------------------------------------
+ok_bl = True
+for kap in [0.01, 0.1, 1 / 6, 103 / 512, 0.2499]:
+    A = 2 + 8 * kap
+    for lx in [4.0, 5.0, 10.0, 50.0, 100.0, 1e3, 1e4, 1e6]:
+        jmax = math.floor(lx / A)
+        ok_bl &= 2 ** (A * (jmax + 1) / lx) <= 4
+        for lam in [0.05, 0.9 / A, 0.999 / A]:
+            if lam * lx > 700:
+                continue
+            M = math.ceil(math.exp(lam * lx))
+            dp = 1 - lam * A
+            for j in range(0, jmax + 1, max(1, jmax // 40)):
+                lhs_b = A * (j + 1) / lx * math.log(M)
+                rhs_b = A * (j + 1) / lx * math.log(2) + (1 - dp) * (j + 1)
+                ok_bl &= lhs_b <= rhs_b + 1e-9
+            ok_bl &= math.log(M) <= lx and lx ** 3 + 4 <= 2 * lx ** 3
+check("blocks: M^(A(j+1)/log x) <= 2^(A(j+1)/log x) e^((1-delta')(j+1)), and 2^(A(j+1)/log x) <= 4 for j <= log x/A (grid)", ok_bl)
+ok_gs = True
+for dp in [1e-3, 0.01, 0.1, 0.5, 1.0]:
+    for etaL in np.linspace(0, 300, 601):
+        j0 = math.floor(etaL)
+        ok_gs &= math.exp(-dp * j0) / (1 - math.exp(-dp)) <= (2 * math.e / dp) * math.exp(-dp * etaL) * (1 + 1e-12)
+check("blocks: sum_{j >= floor(eta L)} e^(-delta' j) <= (2e/delta') e^(-delta' eta L) (grid delta', eta L)", ok_gs)
+print("   section H: %.1f s" % (time.time() - T_H))
 
 print("\n%d checks, %d failed  (%.1f s)" % (NCHK, NFAIL, time.time() - T_START))

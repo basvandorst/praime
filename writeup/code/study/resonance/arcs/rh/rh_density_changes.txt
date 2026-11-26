@@ -1,0 +1,39 @@
+Changes from writeup/code/study/resonance/arcs/rh/rh_density.md (568 lines) to rh_density.md here (683 lines).
+Line numbers are those of the new file. Hunks in order of the unified diff:
+
+@@ 43    Verdict table, row §4: Theorem D proved from (C1)-(C4) (was (C1)-(C3)); "(C4) only through Lemma ZC". [slip 5]
+@@ 103   (C3) restated in the form used: (i) poles 0,-1,-2,... simple, no zeros, Gamma(1) = 1, shifts Gamma(z+1) = zGamma(z),
+         psi(z+1) = psi(z) + 1/z; (ii) Binet for log Gamma and psi on Re z > 0 only, 0 <= g <= t/12; (iii) Cahen-Mellin;
+         a sentence that Re z <= 0 is reached only through (i). [slip 3]
+@@ 135   Lemma S(c) proof: "((C3)(i))" added after the psi shift. [slip 3, reference only]
+@@ 167   Lemma PF, consequence (a), rewritten with proof: ZC(T) defined; a height for each sign (T_n, T_n'); the zeros
+         with |gamma - T| < 1 outside [n-1/2, n+3/2] (at most ZC(n-1/2) + ZC(n+3/2), each at distance > 1/2) add
+         2(ZC(n-1/2) + ZC(n+3/2)); second line <= (60 + C_PF) log^2(Nf(|k|+n+4)). Consequence (b) unchanged. [slip 1]
+@@ 251   Lemma DI proof: cites (C3)(iii) and (C3)(i); new display (Gamma): |Gamma(a+iv)| <= 10|v|^{3/2}e^{-pi|v|/2} on
+         -1/2 <= a <= 2, |v| >= 1, proved from Binet for a >= 1/2 (constant 9.91) and via Gamma(w) = Gamma(w+1)/w for
+         a < 1/2 (constant 5.34); the horizontal segments and the absolute convergence on Re w = 1/2 - beta written
+         out with (C6). Statement of Lemma DI unchanged. [slip 3]
+@@ 276   Section 4.3: "computed" facts replaced by proofs. (T1) sum_{n<=u} d_4(n) <= u(1+log u)^3 by induction over d_j
+         from sum 1/m <= 1 + log u; (T2) sum_{Na=n} d(a) = (r0*r0)(n) <= d_4(n) from r0 <= d (splitting law, prime
+         powers); (T3) dyadic tail T(Y) <= 4.7e-5 for every Y >= 100 (block bounds t_j(L) decreasing, ratio
+         <= 1.3e-9, t_0(log 100) = 4.642e-5). The 1e-4 used downstream stands; J+1 <= 2 log Y1 now derived. [slip 2]
+@@ 344   Section 4.5: "the shift (C3)(i) and" added before Lemma S(b). [slip 3, reference only]
+@@ 394   Lemma EF proof: truncation at Im s = T_n and -T_n'; horizontal integrals bounded explicitly by
+         (9/2)(60 + C_PF) x^2 e^{(4-n^2)/2H^2} log^2(Nf(|k|+n+4)) -> 0, from the new consequence (a). [slip 1]
+@@ 438   Section 5, blocks in 1 - sigma: 2^A replaced by 2^{A(j+1)/log x}; Theorem D applied at
+         sigma_j = 1 - (j+1)/log x >= 1/2 (x large); 2^{A(j+1)/log x} <= 4 on the blocks meeting [sigma1, 1 - eta];
+         block <= 8eC(log x)^30 x e^{-delta' j}; sum over j >= floor(eta log x) <= 16e^2 C x(log x)^30
+         e^{-delta' eta log x}/delta' (was "<<", same order). [slip 4]
+@@ 514   Section 8 table: (C1) row adds Lemma DI / Theorem D; (C3) row renamed and adds Lemma DI, section 4.5, Theorem D;
+         (C4) row adds Theorem D (window counts) and Lemma PF; new row "splitting law of Z[i]" for (T2). [slip 5]
+@@ 529   "and the splitting law of Z[i]" added to the classical-facts sentence.
+@@ 555   Section 10 header: 122 checks, 0 failed, 145 s (was 93, 182 s); bullets B and E say the tail and the divisor
+         facts are proved in 4.3 and only tested here; new bullet "section H" with the results of the new tests.
+@@ 657   Referee section: the list of five slips removed; one sentence keeps "not opened by the referee"; new paragraph
+         "Corrections after the referee report" with line references.
+
+rh_density_check.py: docstring lists section H; all 93 earlier checks unchanged (sections A-G give identical output);
+section H adds 29 checks: Lemma PF (a) on 6600 synthetic ordinate sets plus a negative control and the second line;
+(T1), (T2) at every integer up to 1e6 (r0 by lattice count, convolutions), the identity by factorising ideals to
+22000; (T3) monotonicity, ratio, value at Y = 100, bound on Y in [100, 1e300], true tail for Y = 100..300; (Gamma) on
+a 51 x 368 grid with both intermediate bounds, the shift, the shape at Re w = 2, Cahen-Mellin; block inequalities.

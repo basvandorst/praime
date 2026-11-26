@@ -121,4 +121,36 @@ PASS sanity: max |Psi(xi)| over the nontrivial family |k|<=200 is <= 1e-2 x
    log x = 1e+24: VK -1.133e+05   classical +7.200e+02
 PASS illustration: eta = c(log x)^{-2/3}(loglog x)^{-1/3}: bound/x -> 0; eta = c/log x: bound/x -> infinity
 
-93 checks, 0 failed  (182.1 s)
+=== H. inequalities repaired after the referee report ===
+PASS Lemma PF (a): T_n in [n, n+1] at distance >= 1/(2Z_n+2) from all ordinates exists (both signs, 6600 cases)
+PASS Lemma PF (a): sum_{|gamma-T_n|<1} 1/|T_n-gamma| <= Z_n(2Z_n+2) + 2(ZC(n-1/2) + ZC(n+3/2)) (window counts as ZC) | max ratio 0.821; cases with a zero at |gamma-T_n|<1 outside [n-1/2, n+3/2]: 1249 of 6600; old bound exceeded: 279
+PASS Lemma PF (a), negative control {n - 0.6}, T_n = n: old bound fails, new bound holds | S = 1.6667, old 0.0, new 2.0
+PASS Lemma PF (a), second line: ZC(n+3/2) <= 4.6 l and Z_n(2Z_n+2) + 2(ZC(n-1/2)+ZC(n+3/2)) <= 60 l^2 (grid Nf, k, n) | max first-line/l^2 = 47.29
+PASS (T1) sum_{m<=u} 1/m <= 1 + log u for every integer u <= 1e6 | max excess 0.000e+00
+PASS (T1) induction: sum_{n<=u} d_j(n) <= u(1+log u)^(j-1), j = 1..4, every integer u <= 1e6 (so every real u in [1, 1e6+1)) | j=1 max ratio 1.000; j=2 max ratio 1.000; j=3 max ratio 1.000; j=4 max ratio 1.000
+PASS d_4 = 1*1*1*1 by convolution agrees with the factorisation formula prod C(e+3,3) (n <= 3000 and 300 random n <= 1e6)
+PASS d * d = d_4 for n <= 1e6
+PASS r0 = 1 * chi_-4 (lattice count) for n <= 1e6
+PASS (T2) r0(n) <= d(n) for every n <= 1e6
+PASS (T2) r0(2^e) = 1, r0(p^e) = e+1 (p = 1 mod 4), 1 or 0 (p = 3 mod 4, e even/odd), p <= 1000; r0 multiplicative (random pairs)
+PASS (T2) (r0*r0)(n) <= d_4(n) for every n <= 1e6
+PASS (T2) sum_{Na<=u} d(a) = sum_{n<=u} (r0*r0)(n) <= u(1+log u)^3 for every integer u <= 1e6 | max ratio 1.000
+PASS (T2) sum_{Na=n} d(a) (ideal factorisation) = (r0*r0)(n) for n <= 22000
+PASS (T3) t_j(L) decreasing on L >= 4 (derivative formula <= 1.65 - 2^(j+1) L < 0, and on a grid of 2e5 points), j = 0..24
+PASS (T3) t_(j+1)/t_j <= sqrt2 (1 + log2/(1+L))^3 e^(-L^2) <= 1.3e-9 for L >= log 100 | max ratio 1.075e-09, bound 1.236e-09
+PASS (T3) t_0(log 100) = 2*10*L(1 + log2 + L + 2 log L)^3 e^(-L^2) = 4.642e-5 (base 9.3527, L^2 = 21.2076) | t_0 = 4.642405e-05
+PASS (T3) sum_j t_j(log Y) <= 4.7e-5 for Y in [100, 1e300] (1501 points) and non-increasing in Y | max 4.6424e-05 at Y = 100
+PASS (T3) the closed form equals the dyadic sum tail_bound of section B (Y = 100, 1e3, 1e6)
+PASS (T3) true tail sum_{Na>Y1} d(a) Na^(-1/2) e^(-Na/Y) (ideals to 22000, remainder by (T2)) <= dyadic bound <= 1e-4 | Y=100: tail 7.56e-09 (+rem 1.4e-90) <= 4.64e-05; Y=150: tail 1.83e-10 (+rem 9.5e-59) <= 1.50e-06; Y=200: tail 1.13e-11 (+rem 8.0e-43) <= 1.06e-07; Y=300: tail 1.59e-13 (+rem 6.7e-27) <= 1.89e-09
+PASS (Gamma) |Gamma(a+iv)| <= sqrt(2pi) e^(1/(12a)) |w|^(a-1/2) e^(-pi|v|/2), 1/2 <= a <= 2, all v on the grid | max ratio 0.9592
+PASS (Gamma) shifted case: |Gamma(a+iv)| <= 5.34 e^(-pi|v|/2) for -1/2 <= a < 1/2, |v| >= 1 (via Gamma(w) = Gamma(w+1)/w) | max ratio 0.4741
+PASS (Gamma) |Gamma(a+iv)| <= 10 |v|^(3/2) e^(-pi|v|/2) for -1/2 <= a <= 2, 1 <= |v| <= 500 (51 x 368 grid) | max ratio 0.3548
+PASS (C3)(i) shift Gamma(w) = Gamma(w+1)/w on -1/2 <= Re w < 1/2 (relative error) | max 1.7e-21
+PASS (Gamma) shape: at Re w = 2, |Gamma| e^(pi|v|/2)/|v|^(3/2) -> sqrt(2 pi); negative control: 10 e^(-pi|v|/2) without |v|^(3/2) fails at 2+100i | ratio at v=1e4: 2.50663; |Gamma(2+100i)| e^(50 pi) = 2506.8
+PASS (C3)(iii) Cahen-Mellin e^(-y) = (1/2 pi i) int_(c) Gamma(w) y^(-w) dw (y = 0.3, 1.7; c = 1/2, 2)
+PASS (C3)(i) Gamma(1) = 1 and residue of Gamma at 0 equals 1
+PASS blocks: M^(A(j+1)/log x) <= 2^(A(j+1)/log x) e^((1-delta')(j+1)), and 2^(A(j+1)/log x) <= 4 for j <= log x/A (grid)
+PASS blocks: sum_{j >= floor(eta L)} e^(-delta' j) <= (2e/delta') e^(-delta' eta L) (grid delta', eta L)
+   section H: 13.8 s
+
+122 checks, 0 failed  (144.7 s)

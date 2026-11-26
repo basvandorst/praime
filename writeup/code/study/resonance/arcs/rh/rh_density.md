@@ -40,7 +40,7 @@ Read sources give κ = 103/512 + ε and **θ < 64/231 = 0.27706**. With Söhne's
 |---|---|---|
 | §2 | classical facts (C1)–(C7) and where their uniformity in k comes from; Lemma S (Γ, ψ with explicit constants), Lemma ZC (zeros in a unit box), Lemma PF (partial fractions) | (C1)–(C7) **classical**; Lemmas S, ZC, PF **proved** from them; computed (§B, §C) |
 | §3 | zero-free region for the family, uniform in k; the exceptional zero | **proved** from (i) [**quoted (secondary)**] + (C4) + compactness |
-| §4 | zero density N_q(σ; M, T₀) ≤ C T₀ M^{(2+8κ)(1−σ)}(log M)^{27}, all 1/2 ≤ σ ≤ 1 (Theorem D) | **proved** from P_κ, Lemmas 5, 6, 7 of rh_proof.md, (C1)–(C3), (C6), (C7); no zero-free region |
+| §4 | zero density N_q(σ; M, T₀) ≤ C T₀ M^{(2+8κ)(1−σ)}(log M)^{27}, all 1/2 ≤ σ ≤ 1 (Theorem D) | **proved** from P_κ, Lemmas 5, 6, 7 of rh_proof.md, (C1)–(C4), (C6), (C7) ((C4) only through Lemma ZC); no zero-free region |
 | §5 | explicit formula with the log-Gaussian weight; the bound for the zero sum is o(x) when θ(2 + 8κ) < 1 and ≥ x when θ(2 + 8κ) > 1 | **proved** from Theorem D, §3, Lemma 3 of rh_proof.md |
 | §6 | removal of the smoothings | **proved in rh_proof.md** (§5, Steps 1–4; hypotheses checked: the same) |
 | §7 | Theorem 1′ with explicit θ | **proved**; exponent arithmetic computed (§A) |
@@ -100,9 +100,16 @@ A_𝔣 := √(|d_K| N𝔣)/(2π) = √(N𝔣)/π.
   classical). Λ(s, ξ*) = e^{a + bs} Π_ρ (1 − s/ρ)e^{s/ρ} over the zeros of Λ (the nontrivial zeros of L, 0 ≤ β ≤ 1).
   *Uniformity:* only identities derived from it are used (Re b = −Σ Re 1/ρ, and differences in which b cancels); no
   constant from (C2) enters a bound.
-- **(C3) Binet/Stirling** (Whittaker–Watson §12.31–12.33 — classical). For Re z > 0:
+- **(C3) Γ and ψ: the shift, Binet/Stirling, Cahen–Mellin** (Whittaker–Watson Ch. XII, Binet §12.31–12.33 —
+  classical). In the form used:
+  (i) Γ is meromorphic on ℂ without zeros, its poles are exactly 0, −1, −2, …, all simple, Γ(1) = 1 (so the residue
+  at 0 is 1), and Γ(z + 1) = zΓ(z), ψ(z + 1) = ψ(z) + 1/z for z ∉ {0, −1, −2, …};
+  (ii) for Re z > 0 (principal branch of log z, the branch of log Γ that is real on (0, ∞)):
   log Γ(z) = (z − 1/2)log z − z + (1/2)log 2π + μ(z), μ(z) = ∫₀^∞ g(t)e^{−zt}dt/t, and
-  ψ(z) = Γ'/Γ(z) = log z − 1/(2z) − ∫₀^∞ g(t)e^{−zt}dt, with g(t) = 1/(e^t − 1) − 1/t + 1/2, 0 ≤ g(t) ≤ t/12.
+  ψ(z) = Γ'/Γ(z) = log z − 1/(2z) − ∫₀^∞ g(t)e^{−zt}dt, with g(t) = 1/(e^t − 1) − 1/t + 1/2, 0 ≤ g(t) ≤ t/12;
+  (iii) e^{−y} = (1/2πi)∫_{(c)} Γ(w)y^{−w}dw for y > 0 and c > 0 (Mellin inversion of Euler's integral for Γ).
+  Formula (ii) is used only on Re z > 0; on Re z ≤ 0, Γ and ψ enter only through the shifts in (i) (Lemma S(c), the
+  bound (Γ) in Lemma DI, §4.5, Lemma EF).
   *Uniformity:* statements about the single functions Γ, ψ on half-planes; k enters as the shift z = s + |k|/2.
 - **(C4) Non-vanishing on Re s = 1** (Hecke; e.g. Lang, *Algebraic Number Theory*, Ch. XV; Narkiewicz, *Elementary and
   Analytic Theory of Algebraic Numbers*, Ch. 7 — classical). L(1 + it, ξ*) ≠ 0 (3–4–1 inequality
@@ -125,7 +132,7 @@ Proof. (a) |ψ(z) − log z| ≤ 1/(2|z|) + ∫₀^∞ (t/12)e^{−t Re z}dt = 1
 log|Γ(a+iv)| ≤ (a − 1/2)log|a + iv| − π|v|/2 + (1/2)log 2π + 1/6 ≤ (1/2)log(1 + |v|) − π|v|/2 + 1.086, and
 (1 + |v|)^{1/2}e^{−(π/2 − 1)|v|} ≤ 1 (its log has derivative 1/(2(1+v)) − 0.5708 < 0); e^{1.086} < 3.
 (c) If Re z ≥ 1/2: (a) and |log z| ≤ |log|z|| + π/2 ≤ log(|z| + 3) + π/2 (|z| ≥ 1/2), total ≤ log(|z| + 3) + 2.91.
-Otherwise ψ(z) = ψ(z + 1) − 1/z with Re(z + 1) ≥ 3/4 and |1/z| ≤ 4, total ≤ log(|z| + 3) + log(4/3) + 2.91 + 4. ∎
+Otherwise ψ(z) = ψ(z + 1) − 1/z ((C3)(i)) with Re(z + 1) ≥ 3/4 and |1/z| ≤ 4, total ≤ log(|z| + 3) + log(4/3) + 2.91 + 4. ∎
 (Computed, §B: sup |ψ − log| = 1.27 on a grid; sup (|ψ(z)| − log(|z| + 3)) = 3.05 ≤ 8 on a grid; sup |Γ(a+iv)|e^{|v|}
 = 1.97; 0 ≤ g ≤ t/12 at 60 digits; |μ| ≤ 1/(12 Re z).)
 
@@ -157,8 +164,27 @@ zeros with n ≤ |γ − t| < n + 1 are ≤ 2·ZC(|t| + n + 1), so they contribu
 ≤ (9/2)Σ_n ZC(|t| + n + 1)/n² ≪ log(N𝔣(|k| + |t| + 3)); for |γ − t| < 1, |1/(s₁ − ρ)| ≤ 1 and there are ≤ ZC(t)
 of them. ∎ *Uniformity in k:* Lemma ZC and Lemma S only.
 
-Consequences used in §5 (proved): (a) for each n ≥ 1 there is T_n ∈ [n, n + 1] with |T_n − γ| ≥ 1/(2Z_n + 2) for every
-zero, Z_n := ZC(n + 1/2), hence |L'/L(σ + iT_n)| ≤ Z_n(2Z_n + 2) + C_PF log(N𝔣(|k| + n + 4)) on −1/4 ≤ σ ≤ 2;
+Consequences used in §5 (proved). Write ZC(T) := 1.25 log N𝔣 + 2.5 log(|k| + |T| + 2) + 3.35 for the bound of
+Lemma ZC; it depends on T only through |T| and increases with |T|.
+(a) For each n ≥ 1 and each sign ε ∈ {+1, −1} there is T ∈ [n, n + 1] such that t := εT satisfies |t − γ| ≥ 1/(2Z_n + 2)
+for every zero, Z_n := ZC(n + 1/2); write T_n := T for ε = +1 and T_n' := T for ε = −1. For these t and −1/4 ≤ σ ≤ 2,
+
+    |L'/L(σ + it, ξ*)| ≤ Z_n(2Z_n + 2) + 2(ZC(n − 1/2) + ZC(n + 3/2)) + C_PF log(N𝔣(|k| + n + 4))
+                      ≤ (60 + C_PF)·log²(N𝔣(|k| + n + 4)).
+
+Proof. Take ε = +1; for ε = −1 replace every ordinate window [a, b] below by [−b, −a] (ZC depends on |T| only, so the
+counts are the same). The zeros with γ ∈ [n − 1/2, n + 3/2] satisfy |γ − (n + 1/2)| ≤ 1, so there are at most Z_n of
+them (with multiplicity). Put r := 1/(2Z_n + 2). The open intervals (γ − r, γ + r) around their ordinates have total
+length ≤ 2rZ_n = Z_n/(Z_n + 1) < 1, so some T ∈ [n, n + 1] lies in none of them: |T − γ| ≥ r for these zeros; every
+other zero has γ < n − 1/2 or γ > n + 3/2, hence |T − γ| > 1/2 ≥ r. Apply Lemma PF at s = σ + iT (|T| ≥ 1). The zeros
+with |γ − T| < 1 have γ ∈ (n − 1, n + 2) and are of two kinds. (α) γ ∈ [n − 1/2, n + 3/2]: at most Z_n of them, each with
+|1/(s − ρ)| ≤ 1/|T − γ| ≤ 2Z_n + 2. (β) γ ∈ (n − 1, n − 1/2) ∪ (n + 3/2, n + 2): such zeros can occur, since the window
+(T − 1, T + 1) leaves [n − 1/2, n + 3/2] unless T = n + 1/2. The first ones satisfy |γ − (n − 1/2)| < 1/2, the second
+ones |γ − (n + 3/2)| < 1/2, so there are at most ZC(n − 1/2) + ZC(n + 3/2) of them; each has |T − γ| > 1/2 (T ∈ [n, n + 1]),
+so |1/(s − ρ)| < 2. Lemma PF adds C_PF log(N𝔣(|k| + T + 3)) ≤ C_PF log(N𝔣(|k| + n + 4)). This is the first line. For the
+second, put ℓ := log(N𝔣(|k| + n + 4)) ≥ log 5 > 1.6. Every ZC(·) above is ≤ ZC(n + 3/2) ≤ 2.5ℓ + 3.35 ≤ 4.6ℓ (use
+1.25 log N𝔣 ≤ 2.5 log N𝔣 and 3.35 ≤ 2.1ℓ), so the first line is ≤ 2Z² + 6Z + C_PF ℓ with Z := 4.6ℓ, that is
+≤ (42.32 + 27.6/1.6 + C_PF/1.6)ℓ² ≤ (60 + C_PF)ℓ². ∎
 (b) |L'/L(1, ξ*)| ≤ Σ_{|γ|<1} 1/|1 − ρ| + C_PF log(N𝔣(|k| + 3)).
 
 ## 3. The zero-free region for the family (proved from (Z), (C4) and compactness)
@@ -222,17 +248,63 @@ c_X(𝔞) := Σ_{𝔡|𝔞, N𝔡≤X} μ(𝔡). Then L(s, ξ)M_X(s, ξ) = Σ_�
     e^{−1/Y} + Σ_{N𝔞>X} c_X(𝔞)ξ(𝔞)N𝔞^{−ρ}e^{−N𝔞/Y}
         = (1/2π) ∫_ℝ L(1/2 + i(γ+v), ξ) M_X(1/2 + i(γ+v), ξ) Γ(1/2 − β + iv) Y^{1/2−β+iv} dv =: I(ρ).
 
-Proof. e^{−y} = (1/2πi)∫_{(2)} Γ(w)y^{−w}dw; on Re w = 2 the series Σ|c_X(𝔞)|N𝔞^{−β−2} converges, so the left side is
-(1/2πi)∫_{(2)} L(ρ + w, ξ)M_X(ρ + w, ξ)Γ(w)Y^w dw. Move to Re w = 1/2 − β ∈ [−1/2, 0): L(·, ξ) is entire (ξ ≠ 1, (C1)),
-M_X is entire, Γ has in −1/2 ≤ Re w ≤ 2 only the pole w = 0, whose residue L(ρ)M_X(ρ) = 0; the horizontal segments
-vanish by (C6) and |Γ(w)| ≪ e^{−π|Im w|/2}·|Im w|^{3/2} (Stirling, (C3)). ∎
+Proof. e^{−y} = (1/2πi)∫_{(2)} Γ(w)y^{−w}dw ((C3)(iii)); on Re w = 2 the series Σ|c_X(𝔞)|N𝔞^{−β−2} converges, so the
+left side is (1/2πi)∫_{(2)} L(ρ + w, ξ)M_X(ρ + w, ξ)Γ(w)Y^w dw. Move to Re w = 1/2 − β ∈ [−1/2, 0): L(·, ξ) is entire
+(ξ ≠ 1, (C1)), M_X is entire, Γ has in −1/2 ≤ Re w ≤ 2 only the pole w = 0 ((C3)(i)), whose residue L(ρ)M_X(ρ) = 0.
+The horizontal segments vanish, and the integral on Re w = 1/2 − β converges absolutely, by (C6) and the bound
+
+    (Γ)  |Γ(a + iv)| ≤ 10|v|^{3/2}e^{−π|v|/2}   for −1/2 ≤ a ≤ 2, |v| ≥ 1.
+
+Proof of (Γ). Let w = a + iv. (1/2 ≤ a ≤ 2.) By (C3)(ii), log|Γ(w)| = Re log Γ(w) = (a − 1/2)log|w| − v·arg w − a
++ (1/2)log 2π + Re μ(w), with |μ(w)| ≤ ∫₀^∞ e^{−at}dt/12 = 1/(12a) ≤ 1/6 (g(t)/t ≤ 1/12) and
+v·arg w = |v|arctan(|v|/a) = |v|(π/2 − arctan(a/|v|)) ≥ π|v|/2 − a. Hence
+
+    |Γ(a + iv)| ≤ √(2π) e^{1/(12a)} |w|^{a−1/2} e^{−π|v|/2}   (1/2 ≤ a ≤ 2, v ∈ ℝ),
+
+and, for |v| ≥ 1, |w|^{a−1/2} ≤ |w|^{3/2} ≤ (5v²)^{3/4} (|w| ≥ |v| ≥ 1, |w|² ≤ 4 + v² ≤ 5v²), so
+|Γ(w)| ≤ √(2π)e^{1/6}5^{3/4}|v|^{3/2}e^{−π|v|/2} ≤ 9.91|v|^{3/2}e^{−π|v|/2}. (−1/2 ≤ a < 1/2.) Binet's formula is not
+available here; by (C3)(i), Γ(w) = Γ(w + 1)/w with Re(w + 1) = a + 1 ∈ [1/2, 3/2). The display above for w + 1, with
+0 ≤ a + 1/2 < 1 and 1 ≤ |w + 1| ≤ (√13/2)|v| (|w + 1|² ≤ 9/4 + v² ≤ (13/4)v²), gives |Γ(w + 1)| ≤ √(2π)e^{1/6}(√13/2)|v|
+e^{−π|v|/2}; dividing by |w| ≥ |v| gives |Γ(w)| ≤ √(2π)e^{1/6}(√13/2)e^{−π|v|/2} ≤ 5.34e^{−π|v|/2}. Both cases give (Γ).
+Use of (Γ). On a horizontal segment Im w = ±V (V ≥ 1, 1/2 − β ≤ Re w ≤ 2) one has 1/2 ≤ Re(ρ + w) ≤ 3, so
+|L(ρ + w, ξ)| ≪_ξ (2 + |γ| + V)^C by (C6) for ξ* and the finitely many Euler factors |1 − ξ*(𝔭)N𝔭^{−ρ−w}| ≤ 2;
+|M_X(ρ + w, ξ)| ≤ Σ_{N𝔞≤X}N𝔞^{−1/2} and |Y^w| ≤ Y². With (Γ) the integrand is ≪ (2 + |γ| + V)^C V^{3/2}e^{−πV/2} → 0;
+on the line Re w = 1/2 − β the same bounds hold for |v| ≥ 1, and Γ is continuous on |v| ≤ 1 there (Re w ≠ 0). ∎
 (Computed, §D: the identity in the form "sum = L M + line Re w = −1/4" holds to 10⁻⁸ for L(s, χ_{−4}) at its first zero
 1/2 + 6.0209489046976i and at s₀ = 0.8 + 3i, X = 10, Y = 30.)
 
-**4.3 Classification (proved).** Let Y ≥ 100, Y₁ := Y(log Y)², X ≤ Y. Tail: since Σ_{N𝔞 ≤ u} d(𝔞) ≤ Σ_{n≤u} d₄(n)
-≤ u(1 + log u)³ (Σ_{N𝔞=n} d(𝔞) = (r₀ ∗ r₀)(n) ≤ d₄(n), r₀(n) = #{𝔞 : N𝔞 = n} ≤ d(n); computed §E), dyadic blocks give
-Σ_{N𝔞>Y₁} d(𝔞)N𝔞^{−1/2}e^{−N𝔞/Y} ≤ 10⁻⁴ (computed for 10² ≤ Y ≤ 10¹², the bound is decreasing; §B); and
-e^{−1/Y} ≥ 0.99. Levels U_j := 2^j X, 0 ≤ j ≤ J, J minimal with 2^{J+1}X ≥ Y₁ (J + 1 ≤ 2 log Y₁), pieces
+**4.3 Classification (proved).** Let Y ≥ 100, Y₁ := Y(log Y)², X ≤ Y. Tail: the facts (T1)–(T3) below give
+
+    𝒯(Y) := Σ_{N𝔞>Y₁} d(𝔞)N𝔞^{−1/2}e^{−N𝔞/Y} ≤ 4.7·10⁻⁵ ≤ 10⁻⁴   for every real Y ≥ 100,
+
+and e^{−1/Y} ≥ 1 − 1/Y ≥ 0.99. Here d(𝔞) is the number of ideals dividing 𝔞, r₀(n) := #{𝔞 : N𝔞 = n}, and
+d_j := 1 ∗ ⋯ ∗ 1 (j factors, Dirichlet convolution), so d₁ = 1, d₂ = d, d₄ = d ∗ d.
+- (T1) Σ_{n≤u} d₄(n) ≤ u(1 + log u)³ for real u ≥ 1. Proof: by induction on j, Σ_{n≤u} d_j(n) ≤ u(1 + log u)^{j−1} for
+  u ≥ 1. For j = 1 the sum is ⌊u⌋ ≤ u. If it holds for j, then, since d_{j+1} = d_j ∗ 1 and u/m ≥ 1 for m ≤ u,
+  Σ_{n≤u} d_{j+1}(n) = Σ_{m≤u} Σ_{l≤u/m} d_j(l) ≤ Σ_{m≤u} (u/m)(1 + log(u/m))^{j−1} ≤ u(1 + log u)^{j−1} Σ_{m≤u} 1/m
+  ≤ u(1 + log u)^j, because Σ_{m≤u} 1/m ≤ 1 + ∫₁^u dt/t = 1 + log u (1/m ≤ ∫_{m−1}^m dt/t for m ≥ 2). Take j = 4.
+- (T2) Σ_{N𝔞=n} d(𝔞) = (r₀ ∗ r₀)(n) ≤ d₄(n), hence Σ_{N𝔞≤u} d(𝔞) ≤ Σ_{n≤u} d₄(n) ≤ u(1 + log u)³ for u ≥ 1.
+  Proof: by unique factorisation of ideals, d(𝔞) is the number of pairs (𝔟, 𝔠) with 𝔟𝔠 = 𝔞, and N(𝔟𝔠) = N𝔟·N𝔠, so
+  Σ_{N𝔞=n} d(𝔞) = #{(𝔟, 𝔠) : N𝔟·N𝔠 = n} = Σ_{ab=n} r₀(a)r₀(b). Next r₀ ≤ d: by the splitting law of ℤ[i] (classical:
+  (2) = (1 + i)², a prime p ≡ 1 (mod 4) is 𝔭𝔭̄ with 𝔭 ≠ 𝔭̄ of norm p, a prime p ≡ 3 (mod 4) is inert, of norm p²) and
+  unique factorisation, r₀ is multiplicative with r₀(2^e) = 1, r₀(p^e) = e + 1 for p ≡ 1 (mod 4) (the ideals 𝔭^a𝔭̄^{e−a},
+  0 ≤ a ≤ e), and r₀(p^e) = 1 or 0 for p ≡ 3 (mod 4) as e is even or odd. So r₀(p^e) ≤ e + 1 = d(p^e), r₀(n) ≤ d(n), and,
+  as r₀ ≥ 0, (r₀ ∗ r₀)(n) ≤ (d ∗ d)(n) = d₄(n). The last claim is (T1) summed.
+- (T3) Dyadic blocks. Put L := log Y ≥ log 100 > 4.6, so Y₁/Y = L² and Y₁ = L²e^L. Split N𝔞 > Y₁ into the blocks
+  (2^jY₁, 2^{j+1}Y₁], j ≥ 0. On block j, N𝔞^{−1/2} < (2^jY₁)^{−1/2}, e^{−N𝔞/Y} < e^{−2^jL²}, and Σ d(𝔞) over the block is
+  ≤ 2^{j+1}Y₁(1 + log(2^{j+1}Y₁))³ by (T2). Hence
+
+      𝒯(Y) ≤ Σ_{j≥0} t_j(L),   t_j(L) := 2^{1+j/2} L e^{L/2} (1 + (j + 1)log 2 + L + 2 log L)³ e^{−2^j L²}.
+
+  Each t_j decreases on L ≥ 4: d/dL log t_j(L) = 1/2 + 1/L + 3(1 + 2/L)/(1 + (j + 1)log 2 + L + 2 log L) − 2^{j+1}L
+  ≤ 1/2 + 1/4 + 9/10 − 8 < 0 (the denominator is ≥ 1 + L ≥ 5). The ratios are tiny: for L ≥ log 100,
+  t_{j+1}/t_j = √2·(1 + log 2/(1 + (j + 1)log 2 + L + 2 log L))³·e^{−2^j L²} ≤ √2(1 + log 2/(1 + L))³e^{−L²}
+  ≤ √2(1.124)³e^{−21.2} ≤ 1.3·10⁻⁹. So 𝒯(Y) ≤ t_0(log Y)(1 + 2·10⁻⁹) ≤ t_0(log 100)(1 + 2·10⁻⁹) for every Y ≥ 100, and
+  t_0(log 100) = 2·10·L(1 + log 2 + L + 2 log L)³e^{−L²} with L = log 100 = 4.6052: 1 + log 2 + L + 2 log L = 9.3527,
+  L² = 21.2076, t_0 = 92.10·818.1·6.161·10⁻¹⁰ = 4.642·10⁻⁵. Therefore 𝒯(Y) ≤ 4.7·10⁻⁵.
+
+Levels U_j := 2^j X, 0 ≤ j ≤ J, J minimal with 2^{J+1}X ≥ Y₁ (J + 1 = ⌈log₂(Y₁/X)⌉ < log₂Y₁ + 1 ≤ 2 log Y₁, as X ≥ 1 and
+log Y₁ > 7), pieces
 P_j(ρ) := Σ_{U_j<N𝔞≤min(2U_j, Y₁)} c_X(𝔞)ξ(𝔞)N𝔞^{−ρ}e^{−N𝔞/Y}. By Lemma DI, Σ_j|P_j(ρ)| + |I(ρ)| ≥ 0.98. Call ρ
 **type II** if |I(ρ)| ≥ 1/2; otherwise Σ_j|P_j(ρ)| ≥ 0.48 and ρ is **type I at level U_j** for the least j with
 |P_j(ρ)| ≥ δ_I := 1/(5 log Y₁) (0.48/(J + 1) ≥ δ_I).
@@ -269,7 +341,7 @@ and Y₁^{2−2σ} ≤ Y^{2−2σ}(log Y)² for σ ≥ 1/2. (Computed, §D: Lemm
 N𝔞^{−σ} on (U, u], conductor 2 + i, and their log-derivatives — with LHS/bound ≤ 0.056; partial summation and Gallagher
 with multiplicity on 300 resp. 20 random cases.)
 
-**4.5 Type II zeros (proved; P_κ, Lemmas 5, 6 of rh_proof.md).** For σ ≤ β < 1, Lemma S(b) gives
+**4.5 Type II zeros (proved; P_κ, Lemmas 5, 6 of rh_proof.md).** For σ ≤ β < 1, the shift (C3)(i) and Lemma S(b) give
 |Γ(1/2 − β + iv)| = |Γ(3/2 − β + iv)|/|1/2 − β + iv| ≤ 3e^{−|v|}/(σ − 1/2), and Y^{1/2−β} ≤ Y^{1/2−σ}. By P_κ for ξ*
 and |1 − ξ*(𝔭)N𝔭^{−1/2−iu}| ≤ 2: |L(1/2 + iu, ξ)| ≤ 2^{ω(q)}C_q(2 + |k| + |u|)^{2κ}
 ≤ 2^{ω(q)}C_q(4M + T₀ + 5)^{2κ}(1 + |v|)^{2κ} for u = γ + v, |γ| ≤ T₀, |k| ≤ 4M + 3. With Cauchy–Schwarz and
@@ -319,8 +391,11 @@ formula continues meromorphically, and V(u) = (1/2πi)∫_{(c)}Ṽ(s)u^{−s}ds 
     |R(ξ*)| ≤ log x + 2|log A_𝔣| + 2 log(|k| + 4) + 20 + |L'/L(1, ξ̄*)| + C x^{−1/4} H log(N𝔣(|k| + H + 3)),
 
 the sum over the nontrivial zeros with multiplicity, absolutely convergent.
-Proof. Lemma 3 and Fubini give Ψ(ξ*) = (1/2πi)∫_{(2)}Ṽ(s)(−L'/L)(s, ξ*)ds. Truncate at ±T_n (consequence (a) of
-Lemma PF) and move to Re s = −1/4; the horizontal integrals are ≤ x²e^{(4 − T_n²)/2H²}·O(log²(N𝔣(|k| + n + 4))) → 0.
+Proof. Lemma 3 and Fubini give Ψ(ξ*) = (1/2πi)∫_{(2)}Ṽ(s)(−L'/L)(s, ξ*)ds. Truncate at Im s = T_n and
+Im s = −T_n' (consequence (a) of Lemma PF) and move to Re s = −1/4. On these horizontal segments |Ṽ(s)| =
+x^σe^{(σ² − T²)/2H²}/|s| ≤ x²e^{(4 − n²)/2H²} (T ∈ {T_n, T_n'} ⊂ [n, n + 1], |s| ≥ 1), and the second line of consequence (a)
+bounds |L'/L|; the segments have length 9/4, so the two horizontal integrals are together
+≤ (9/2)(60 + C_PF)·x²e^{(4 − n²)/2H²}·log²(N𝔣(|k| + n + 4)) → 0 as n → ∞.
 Poles in −1/4 < Re s < 2: the nontrivial zeros ρ (0 < β < 1: Euler product, (C4), and Λ(it) = WΛ(1 − it) ≠ 0), with
 residue −Ṽ(ρ) each; s = 0. Trivial zeros −|k|/2 − n lie in Re s > −1/4 only for k = 0, n = 0. From (C1):
 L'/L(s, ξ*) = −2 log A_𝔣 − ψ(s + |k|/2) − ψ(1 − s + |k|/2) − L'/L(1 − s, ξ̄*). If k ≠ 0, L(0, ξ*) ≠ 0 and the residue
@@ -361,8 +436,15 @@ gives nothing, so θ(2 + 8κ) < 1 is exactly the condition under which this argu
 truth of the asymptotic).
 
 **Blocks in 1 − σ.** The integral above is the same as cutting 1 − β into blocks [j/log x, (j + 1)/log x): on a block
-x^β ≤ x e^{−j} and the count is ≤ N(1 − (j + 1)/log x) ≤ C(T₀ + 4)(log M)^{27}2^A e^{(1−δ')(j+1)}, so the block contributes
-≤ C''(log x)^{30}x e^{−δ'j}, and the blocks j ≥ ⌊η log x⌋ sum to ≪ x(log x)^{30}e^{−δ'η log x}/δ'. A **dyadic** cut
+x^β ≤ x e^{−j}. The blocks that meet [σ₁, 1 − η] have j/log x ≤ 1 − σ₁ = 1/A; for them σ_j := 1 − (j + 1)/log x
+≥ σ₁ − 1/log x ≥ 1/2 (x large: log x ≥ (1 + 4κ)/(2κ)), so Theorem D applies at σ_j, and with
+M^{A(1−σ_j)} = (M^A)^{(j+1)/log x} ≤ (2^A x^{1−δ'})^{(j+1)/log x} the count is
+≤ N(σ_j) ≤ C(T₀ + 4)(log M)^{27}·2^{A(j+1)/log x}·e^{(1−δ')(j+1)}. Here A(j + 1)/log x ≤ 1 + A/log x ≤ 2, so
+2^{A(j+1)/log x} ≤ 4 (log x ≥ 4 > A). With T₀ + 4 ≤ 2(log x)³ and log M ≤ log x (M ≤ 2x^λ, λ < 1/2, log x ≥ 4), the block contributes
+≤ x e^{−j}·8C(log x)^{30}e^{(1−δ')(j+1)} ≤ 8eC(log x)^{30}x e^{−δ'j}. A zero with 1 − β ≥ η lies in a block with
+(j + 1)/log x > η, so j ≥ j₀ := ⌊η log x⌋ > η log x − 1, and, with 1 − e^{−δ'} ≥ δ'/(1 + δ') ≥ δ'/2 (δ' ≤ 1),
+Σ_{j≥j₀} e^{−δ'j} = e^{−δ'j₀}/(1 − e^{−δ'}) ≤ (2e/δ')e^{−δ'η log x}: the blocks sum to
+≤ 16e²C x(log x)^{30}e^{−δ'η log x}/δ', the bound of the integral version. A **dyadic** cut
 1 − β ∈ (2^{−i−1}, 2^{−i}] is too coarse: there x^β ≤ x^{1 − 2^{−i−1}} while the count is only bounded by
 N(1 − 2^{−i}) ≪ M^{A 2^{−i}}, and the product x·(M^{2A}/x)^{2^{−i−1}} needs M^{2A} < x, i.e. θ < 1/(2A): half the
 exponent is lost. So the decomposition must have width O(1/log x) in 1 − σ (equivalently, the Stieltjes integral).
@@ -429,10 +511,11 @@ with 𝔣₀ = O and fixed q, κ = 1/6 + ε and **θ < 3/10** — quoted (second
 | Lemma 7 (Gallagher) | Theorem D, type I | proved in rh_proof.md (refereed); F a finite Dirichlet polynomial |
 | Steps 1–4 of rh_proof.md §5 | §6 | proved in rh_proof.md (refereed); hypotheses the same (θ + 2ε < 1/2) |
 | Lemmas S, ZC, PF, DI, ZFR (deduction), EF; Theorem D; Proposition 5.2; (★★); Theorem 1′ | §2–§7 | **proved here** |
-| (C1) Hecke's functional equation, factor Γ(s + \|k\|/2), \|W\| = 1 | Lemmas ZC, PF, EF | classical (Hecke; Neukirch VII §8; IK §3.8), not re-opened; computed check (§C) |
+| (C1) Hecke's functional equation, factor Γ(s + \|k\|/2), \|W\| = 1 | Lemmas ZC, PF, EF; Lemma DI (L(s, ξ) entire), hence Theorem D | classical (Hecke; Neukirch VII §8; IK §3.8), not re-opened; computed check (§C) |
 | (C2) Hadamard product | Lemmas ZC, PF | classical (Davenport Ch. 12; IK Thm 5.6), not re-opened; identities only |
-| (C3) Binet/Stirling | Lemma S | classical (Whittaker–Watson §12.3), not re-opened; constants computed (§B) |
-| (C4) L(1 + it, ξ) ≠ 0 | Lemma ZC (Λ(0) ≠ 0), Lemma ZFR (compact part), Lemma EF | classical (Hecke; Lang Ch. XV; Narkiewicz Ch. 7), not re-opened |
+| (C3) Γ and ψ: the shift Γ(z + 1) = zΓ(z) and the poles, Binet/Stirling on Re z > 0, Cahen–Mellin | Lemma S; Lemma DI (bound (Γ) on −1/2 ≤ Re w ≤ 2, through the shift) and §4.5, hence Theorem D; Lemma EF | classical (Whittaker–Watson Ch. XII), not re-opened; constants computed (§B, §H) |
+| (C4) L(1 + it, ξ) ≠ 0 | Lemma ZC (Λ(0) ≠ 0), hence **Theorem D** (the window counts Z₁ in §4.1, §4.4, §4.5) and Lemma PF; Lemma ZFR (compact part), Lemma EF | classical (Hecke; Lang Ch. XV; Narkiewicz Ch. 7), not re-opened |
+| splitting law of ℤ[i] ((2) = (1 + i)², p ≡ 1 (mod 4) split, p ≡ 3 (mod 4) inert) | (T2) in §4.3, hence Theorem D | classical, not re-opened; r₀ = 1 ∗ χ_{−4} and r₀ ≤ d computed (§E, §H) |
 | (C5) prime number theorem for ζ and L(s, χ_{−4}) | main term (Step 3) | classical (Davenport Ch. 18, 20), not re-opened |
 | (C6) polynomial growth in vertical strips, per character | Lemma DI (contour shift) | classical (Rademacher 1959; IK §5.1), not re-opened; qualitative only |
 | P_κ: Wu, Theorem 1.1 | Theorem D, type II | quoted (checked): statement and the definition of C(χ) read (LaTeX) by the referee and here |
@@ -443,7 +526,7 @@ with 𝔣₀ = O and fixed q, κ = 1/6 + ε and **θ < 3/10** — quoted (second
 | Coleman's Theorem 1 (growth), bounds for 1/L | — | **no longer used** |
 
 The only secondary quotation left that Theorem 1′ with θ < 64/231 (hence R_h) depends on is Coleman's Theorem 2 as
-quoted verbatim by Sun–Zhang. The textbook facts (C1)–(C6) are "classical, not re-opened"; that is a separate
+quoted verbatim by Sun–Zhang. The textbook facts (C1)–(C6) and the splitting law of ℤ[i] are "classical, not re-opened"; that is a separate
 category from "secondary", and their uniformity in k is not quoted but derived in §2.
 
 ## 9. Generality (remark, without proof; heuristic)
@@ -469,7 +552,7 @@ Steps that use K = ℚ(i):
   ZC constant change. Wu's exponent does not depend on the field, so the same θ < 1/(2 + 8κ), κ = 103/512, is expected
   for every imaginary quadratic field and every fixed modulus — not proved here.
 
-## 10. Numerical verification (`rh_density_check.py`; output `rh_density_check_out.txt`: 93 checks, 0 failed, 182 s on the shared machine)
+## 10. Numerical verification (`rh_density_check.py`; output `rh_density_check_out.txt`: 122 checks, 0 failed, 145 s on the shared machine)
 
 - **§A exponent.** For κ ∈ {0.02, 0.06, 1/8, 1/6, 0.2, 103/512, 0.24, 1/4}: with X = M, Y = M^{1+4κ} the sup over σ of
   min(trivial, detection)/(1 − σ) equals 2 + 8κ to 10⁻⁹; the minimum over (X, Y) = (M^a, M^b), a ∈ [0.5, 1.5],
@@ -478,7 +561,8 @@ Steps that use K = ℚ(i):
 - **§B constants.** Binet 0 ≤ g ≤ t/12; |ψ − log| ≤ 1.27 (≤ 4/3); |ψ(z)| − log(|z| + 3) ≤ 3.05 (≤ 8) for Re z ≥ −1/4,
   |z| ≥ 1/4; |μ| ≤ 1/(12 Re z); |Γ(a + iv)|e^{|v|} ≤ 1.97 (≤ 3);
   Re 1/(s₁ − ρ) ≥ 0.4; −ζ_K'/ζ_K(2) = 0.4809, (5/4): 3.2769; ZC constant 1.67 ≤ 3.35; ∫(1 + |v|)e^{−|v|} = 4;
-  ∫(1/2)e^{−T/2}(T + 3) = 5; 2 + 2/(e − 1) = 3.164; 2 + (log 2)²/2 = 2.240; mollified tail ≤ 4.6·10⁻⁵ for Y ≥ 100.
+  ∫(1/2)e^{−T/2}(T + 3) = 5; 2 + 2/(e − 1) = 3.164; 2 + (log 2)²/2 = 2.240; the dyadic tail bound ≤ 4.6·10⁻⁵ on 10² ≤ Y ≤ 10¹²
+  (proved for all Y ≥ 100 in §4.3 (T3); tested further in §H).
 - **§C functional equation and zeros.** Root numbers from the theta split at two split points and three values of s:
   |W| = 1 to 10⁻¹² and W constant to ≤ 7.5·10⁻¹⁵ for 10 characters (q = 1: k = 4, 8, −12, W = 1; conductor 2 + i: k = −1, 1, 2, 3,
   5, 6, 9; e.g. W = 0.6 + 0.8i for k = 2). Negative controls fail as they must (Γ(s + |k|); k ≢ k_χ; an imprimitive
@@ -489,7 +573,8 @@ Steps that use K = ℚ(i):
   Gallagher with multiplicity (20 clustered sets); Lemma 5 for the type-I vectors (≤ 0.056) and the mollifier pieces
   (≤ 0.104), conductor 2 + i, χ₁ in the coefficients, M ∈ {1, 10, 100}.
 - **§E ideal arithmetic.** r₀(n) = Σ_{d|n}χ_{−4}(d); Σ_{N𝔞=n}d(𝔞) = (r₀ ∗ r₀)(n) ≤ d₄(n) (n ≤ 3000);
-  Σ_{n≤u}d₄(n) ≤ u(1 + log u)³ (u ≤ 10⁵); Σ_{N𝔞=n}Λ(𝔞) = Λ(n)(1 + χ_{−4}(n)) (n ≤ 3000).
+  Σ_{n≤u}d₄(n) ≤ u(1 + log u)³ (u ≤ 10⁵); Σ_{N𝔞=n}Λ(𝔞) = Λ(n)(1 + χ_{−4}(n)) (n ≤ 3000). (The first three are
+  proved in §4.3 (T1), (T2); here and in §H they are tests.)
 - **§F sanity only (not evidence for θ).** All 2,759,572 Gaussian prime-power elements with N z ≤ 1.04·10⁷:
   ψ_K(10⁷)/10⁷ = 0.99987; 48 sectors (6 anchors, widths x^{−1/4}, 2x^{−1/4}, 4x^{−1/4}, x^{−0.27}, both orientations):
   Λ-sum/((2/π)ωx) between 0.9880 and 1.0141, mean 1.0006; 960 sector–class pairs (4 classes mod 2 + i, 16 mod 5):
@@ -497,6 +582,18 @@ Steps that use K = ℚ(i):
   (H = (log x)²): max over the nontrivial family |k| ≤ 200 of |Ψ(ξ)| is 4.4–5.5·√x = 1.4–1.7·10⁻³x; the element sums
   vanish for k ≢ k_χ (mod 4).
 - **§G** illustration of VK vs classical width (heuristic, placeholder constants).
+- **§H the repaired inequalities** (tests of proved statements, not their proofs). Consequence (a) of Lemma PF on 6600
+  synthetic ordinate sets (both signs, window counts in place of ZC): T_n exists, the new bound holds (max ratio 0.82);
+  in 1249 cases a zero with |γ − T_n| < 1 lies outside [n − 1/2, n + 3/2], and in 279 cases the old bound Z_n(2Z_n + 2)
+  is exceeded (negative control {n − 0.6}: 1.67 against 0); the second line (≤ 47.3ℓ² on a grid of N𝔣, k, n).
+  (T1) for d₁, …, d₄ and Σ_{m≤u}1/m ≤ 1 + log u at every integer u ≤ 10⁶ (hence every real u ∈ [1, 10⁶ + 1)); d ∗ d = d₄;
+  (T2): r₀ = 1 ∗ χ_{−4}, r₀ ≤ d, (r₀ ∗ r₀) ≤ d₄ and Σ_{N𝔞≤u}d(𝔞) ≤ u(1 + log u)³ for n, u ≤ 10⁶, the prime-power values
+  of r₀, and Σ_{N𝔞=n}d(𝔞) = (r₀ ∗ r₀)(n) by factorising every ideal of norm ≤ 22000. (T3): t_j decreasing (j ≤ 24,
+  L ∈ [4, 200]), ratios ≤ 1.08·10⁻⁹ ≤ 1.3·10⁻⁹, t₀(log 100) = 4.642·10⁻⁵, Σ_j t_j(log Y) ≤ 4.7·10⁻⁵ on Y ∈ [100, 10³⁰⁰];
+  the true tail (7.6·10⁻⁹ at Y = 100) is below the bound for Y = 100, 150, 200, 300. (Γ) on −1/2 ≤ Re w ≤ 2,
+  1 ≤ |Im w| ≤ 500 (51 × 368 points): max ratio 0.355; the two intermediate bounds 0.959 and 0.474; the shift to 10⁻²⁰;
+  |Γ(2 + iv)|e^{π|v|/2}/|v|^{3/2} → √(2π) (the power 3/2 is needed at Re w = 2); Cahen–Mellin to 10⁻¹². Blocks of §5:
+  2^{A(j+1)/log x} ≤ 4 and the geometric sum on grids.
 
 ## 11. Sources: what was tried, what opened
 
@@ -560,9 +657,27 @@ inequality; the zeros with |γ| > T₀ cost e^(−(log x)²/2) by the zero count
 suffices; the exceptional zero affects only the characters of type 0 and costs a relative x^(β₁−1). Lemma ZC tested on PARI
 Hecke characters with k = 400, 1000, 401, −999 (largest window count 0.22 of the bound; zero counts 70, 86, 83, 99 against
 main terms 70.1, 85.5, 83.7, 99.1); Lemma EF tested at k = 12 and 100 (agreement 1.4·10⁻⁷ and 1.1·10⁻⁶).
-Slips to repair, none affecting the theorem: (1) lines 160–161: zeros with |γ − T_n| < 1 outside [n − ½, n + 3/2] need the
-neighbouring window counts added; (2) lines 233–234: three facts labelled "computed" are used for all arguments and need
-their one-line proofs (Σ_(n≤u) d₄(n) ≤ u(1 + log u)³ by induction; (r₀∗r₀) ≤ d₄ from r₀ ≤ d; the tail bound for all
-Y ≥ 100 by a dyadic estimate); (3) line 228: the decay of Γ(w) for Re w < 0 needs the shift Γ(w) = Γ(w + 1)/w; (4) line
-364: 2^A should read 2^(A(j+1)/log x); (5) the table of §8 should list (C4) for Theorem D. Not opened by the referee:
-Coleman's text and the textbook facts.
+The referee listed five slips, none affecting the theorem; they are repaired in the text above. Not opened by the
+referee: Coleman's text and the textbook facts.
+
+**Corrections after the referee report.** (1) Consequence (a) of Lemma PF (lines 167–187) now chooses a height for
+each sign (T_n and T_n') and counts the zeros with |γ − T| < 1 that lie outside [n − 1/2, n + 3/2]: at most
+ZC(n − 1/2) + ZC(n + 3/2) of them, each at distance > 1/2, so the bound gains the term 2(ZC(n − 1/2) + ZC(n + 3/2)) and a
+second line ≤ (60 + C_PF)log²(N𝔣(|k| + n + 4)); the horizontal integrals of Lemma EF are redone with it (lines
+394–398), with the same conclusion. (2) §4.3 (lines 276–307) proves the three facts that were labelled computed: (T1)
+Σ_{n≤u}d₄(n) ≤ u(1 + log u)³ for real u ≥ 1, by induction on the number of factors from Σ_{m≤u}1/m ≤ 1 + log u; (T2)
+Σ_{N𝔞=n}d(𝔞) = (r₀ ∗ r₀)(n) ≤ d₄(n), from r₀ ≤ d (splitting law of ℤ[i], values at prime powers); (T3)
+𝒯(Y) ≤ 4.7·10⁻⁵ for every Y ≥ 100, by dyadic blocks, monotonicity of each block bound in log Y, a ratio ≤ 1.3·10⁻⁹
+between blocks and the value 4.642·10⁻⁵ at Y = 100; the constant 10⁻⁴ used downstream is unchanged, and J + 1 ≤ 2 log Y₁
+is derived (lines 306–307). (3) (C3) (lines 103–113) is stated in the form used: poles and shift relations of Γ and ψ,
+Binet's formulas on Re z > 0 only, and Cahen–Mellin; the proof of Lemma DI (lines 251–272) proves the bound (Γ),
+|Γ(a + iv)| ≤ 10|v|^{3/2}e^{−π|v|/2} for −1/2 ≤ a ≤ 2, |v| ≥ 1, through Γ(w) = Γ(w + 1)/w when a < 1/2, and writes out
+the horizontal segments; the uses of the shift are marked at lines 135 and 344. (4) The block paragraph of §5 (lines
+438–447) has 2^{A(j+1)/log x} in place of 2^A, bounds it by 4 on the blocks that meet [σ₁, 1 − η] (where Theorem D
+applies at σ_j = 1 − (j + 1)/log x ≥ 1/2 for x large), and redoes the sum: ≤ 16e²C x(log x)^{30}e^{−δ'η log x}/δ', as in
+the integral version. (5) (C4) is listed among the inputs of Theorem D in the table of §8 (line 517) and in the table of
+the Verdict (line 43); the §8 rows of (C1) and (C3) (lines 514, 516) now also name Lemma DI, and a row for the splitting
+law of ℤ[i], used in (T2), is added (line 518; also line 529). §10 (lines 555, 564–565, 576–577, 585–596) and section H
+of rh_density_check.py test the repaired inequalities (122 checks, 0 failed).
+No statement of a theorem or lemma changed except consequence (a) of Lemma PF (the added term, the second line, both
+signs); (C3) is restated as a list of classical facts.
