@@ -167,3 +167,29 @@ O(‖G‖hN(log N)^(−A)). ∎ With the assembly of mprime_theorem.md (G₀(v) 
   M = N^(7/8): observed 0.083 for the worst of 120 samples); they were replaced by the scale-free tests C1 (decay) and C3 (mean
   over all p). The proof uses no numerical constant from these tests.
 - **Prior art:** as in mprime_theorem.md §10; no new search was made.
+
+
+## Referee report (26 November 2026)
+
+An independent referee (own code in [referee_uncond/](referee_uncond/)), asked to assume the proof wrong and to attack the
+two places most likely to break (weights of long period in the Siegel–Walfisz range; the bilinear structure of the large
+sieve). **Verdict: proved unconditionally, given the quoted classical inputs (Burgess's bound with r = 2 for any modulus,
+Siegel–Walfisz, the multiplicative large sieve, the prime number theorem with de la Vallée Poussin's error, the class-number
+formula for orders) and the refereed steps T1, T2, T5 of mprime_theorem.md; no failing step, no hidden hypothesis.**
+- The moduli in the Siegel–Walfisz range stay a power of log N because of the cut made for each p before any average
+  (line 93: every n whose 2-part or odd square part exceeds (log N)^(A+3) is dropped, at a pointwise cost log M/L); the
+  remaining periods are polylogarithmic.
+- In the large sieve the sequence a_p does not depend on the conductor q (W depends on q only through a sign); the factor
+  φ(K)^(1/2) comes from Cauchy–Schwarz over the classes mod K and is polylogarithmic; imprimitive ψ and ψ₀ are accounted for.
+- Checked with other code: the class-number formula for orders on 300 discriminants (2·10⁻¹⁴); the factorisation of U4 in
+  23,705 random cases; the main-term double series against ζ(2), ν′(1), ν′(2), ν′(3) (1.64493, 0.61488, 1.22888, 0.73798
+  against 1.64493, 0.61513, 1.23027, 0.73816; the gap is the tail in m); at the level 20011, all 1,942 primes in (N, 2N]:
+  the means by conductor block follow the local prediction (q = 1: +0.8201 against +0.8193; 1 < q ≤ 32: −0.2080 against
+  −0.2075; every block above 32 at most 0.003).
+- Slips, none affecting the theorem: lines 68–70: the truncation error is N^(−1/16+o(1)), not N^(−1/32+o(1)) (Burgess
+  applies to every divisor; the split is unnecessary); lines 67–68: N divides the fundamental discriminant, so the
+  conductor is never small (worth stating); line 81: the period is already n·m²; line 107: the term "p | q" is empty for
+  r ≥ 1.
+- Not opened by the referee: Burgess 1963, the large-sieve source, Walfisz, Cox. No new prior-art search; averages of
+  L(1, χ) over shifted primes by the large sieve are classical, and for prime-power levels an unconditional statement of
+  this kind is in print (arXiv 2603.25564).
