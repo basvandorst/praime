@@ -141,12 +141,26 @@ All values lie above their limit and fall with the support. Only "remove 2" is c
 
 What this does not settle: systems that differ from the primes in infinitely many points (the global conjecture).
 
+## 5c. What can be proved (proofs in [theory/proofs.txt](theory/proofs.txt); referee report pending)
+
+Call a system P *feasible* if its form (Riemann datum, q = 1) is positive for every support. By Bochner–Schwartz the form is then the Fourier transform of a positive measure μ_P, the spectrum of P (for the primes under RH: the zeta zeros).
+
+- **Theorem A.** If P and Q are feasible and μ_P ≥ μ_Q, then P = Q. So a feasible system is determined by its spectrum, and no feasible system other than the primes has all zeta zeros in its spectrum. (Idea: the two prime sides agree near 0, so the positive measure μ_P − μ_Q has a Fourier transform that vanishes near 0, hence is 0.)
+- **Theorem C (RH not assumed).** If P differs from the primes by a thin change and P is feasible, then RH holds and P is the set of primes. Thin: the change ν of the prime side is Φ′ + ρ with ∫ over [−T, T] of |Φ| + |ρ| equal to o(T). Examples: a changed set S with Σ_(x ∈ S, x ≤ X) log x/√x = o(log X), in particular any finite edit; moving every prime p by o(√p).
+- **Proposition.** A feasible system satisfies ψ_P(x) ~ x and its zeta function (s − 1)ζ_P(s) has no zero in Re s > 1/2. The prime ideal norms of a number field other than Q are not feasible for the Riemann datum.
+- **Open.** Whether the primes are the only feasible system. Another one would have to drop at least one zeta zero from its spectrum and differ from the primes in about √X/log X points up to X. Uniqueness does not follow from RH and does not imply it; it is a converse theorem with positivity in place of the functional equation (nearest known: Hamburger 1921 for ordinary Dirichlet series).
+
+Two finite-level facts from the same work (their code: Legendre basis, [theory/wform.py](theory/wform.py)), checked with our Fourier matrix ([empty_check.py](empty_check.py), [empty_check_out.txt](empty_check_out.txt)):
+
+- The empty system is positive up to support X = 2.1027 (theirs). Ours: 2.1151, 2.1092, 2.1071 with N = 20, 40, 60, falling towards it. So every feasible system has a point below 2.11: positivity forces a first prime.
+- The primes up to p_n without p_(n+1) fail just past p_(n+1): at 1.05·p_(n+1) the smallest eigenvalue is −0.012, −0.050, −0.086, −0.122, −0.109 (±0.001) for p_(n+1) = 3, 5, 7, 11, 13. So positivity forces the next prime, each time.
+
 ## 6. Size of the result
 
 - Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants (Odlyzko, Serre, Poitou, Diaz y Diaz) with one fixed positive kernel and the worst splitting type per prime.
 - Comparison: our values at support log 8 (2.9995 and 4.9911) lie above the printed bounds with local corrections (2.9921 and 4.9640). Ours are values found by a search over a larger class (real positions) with a short support, theirs are proved bounds with a long kernel; the two are not the same quantity, and ours is an upper bound for q_min(L).
 - New here, as far as the search went: the prime side as the unknown of an optimisation; primes returned from no input; the role of the pole and of positive weights; the smallest-conductor reading with quadratic fields.
-- Proved under RH (short, not refereed): the price of a finite edit (section 5b), which makes the primes the strict minimum among finite edits.
+- Proofs written, referee pending: the price of a finite edit (section 5b, under RH); a feasible system is determined by its spectrum; thin changes of the primes are never feasible unless trivial (section 5c, RH not assumed).
 - Not shown: the global statement. Uniqueness among all systems is a search result. The supports are small (X ≤ 14). Degree 3 was run once and has not converged.
 
 ## 7. Open points

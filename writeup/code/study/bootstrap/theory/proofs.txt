@@ -1,0 +1,124 @@
+PROOFS FOR "FEASIBLE BEURLING SYSTEMS"            (scratch: /tmp/claude-1000/bootstrap_theory/)
+
+Conventions.  P = multiset of reals > 1 with finitely many points in (1, X] for every X
+(needed for C_P to be a Radon measure).  w_k(x) = log x * x^(-k/2).
+C_P = sum_{x in P, k>=1} w_k(x) (delta_{k log x} + delta_{-k log x}).
+Test functions g in C_c^oo(R);  f~(u) = conj f(-u);  g^(t) = int g(u) e^{itu} du.
+A as in the question.  Its archimedean part equals arch(g) = (1/2pi) int g^(t) a(t) dt,
+a(t) = Re psi(1/4 + it/2) - log pi = O(log(2+|t|))  (Gauss' integral for psi with t = 2u;
+checked numerically in check_form.py).  So A = 2cosh(u/2) du + (tempered distribution).
+D_P = A - C_P.  Feasible: D_P(f*f~) >= 0 for all f in C_c^oo.
+Zeta zeros: rho = 1/2 + i gamma, multiplicity m_gamma; mu_0 = sum m_gamma delta_gamma (under RH).
+
+------------------------------------------------------------------------------------------
+0. Inputs (KNOWN)
+ (K1) Bochner-Schwartz: a positive-definite T in D'(R) is tempered and T(g) = int g^ dmu for a
+      unique positive tempered measure mu (Schwartz, Theorie des distributions, ch. VII
+      thm XVIII; Gelfand-Vilenkin vol. 4, ch. II).  Write mu_P for D_P.
+ (K2) Weil explicit formula: for g in C_c^oo, D_primes(g) = sum_rho m_rho g^(gamma_rho)
+      (Weil 1952; Bombieri, Rend. Lincei 2000).  Under RH: D_primes = FT of mu_0 >= 0.
+ (K3) Wiener-Ikehara (Korevaar, Tauberian theory, ch. III).
+
+------------------------------------------------------------------------------------------
+1. Lemma 1 (comb determines system).  C_P = C_Q  =>  P = Q.
+ The atom of C_P at u > 0 is e^{-u/2} Lam_P(e^u), Lam_P(y) = sum_{k>=1} N_P(y^{1/k}) (log y)/k,
+ N_P = multiplicity.  If P != Q let y0 = min{y : N_P(y) != N_Q(y)} (exists: the set is a
+ subset of the locally finite P u Q).  Points y0^{1/k}, k>=2, are smaller, so N_P = N_Q there;
+ Lam_P(y0) = Lam_Q(y0) then gives N_P(y0) = N_Q(y0), contradiction.  []
+
+2. Lemma 2 (D_primes tempered <=> RH).
+ (<=) (K2) and N(T) = O(T log T).
+ (=>) arch part is tempered, so T := 2cosh(u/2)du - C_primes is tempered.  Take chi in C^oo,
+ chi = 0 on (-oo,1/2], 1 on [1,oo).  chi*T is tempered with support in [1/2,oo), so
+ L(w) = <chi T, rho(u) e^{-wu}> (rho = 1 on [0,oo)) is holomorphic on Re w > 0.  For
+ Re w > 1/2 each piece converges absolutely (cut off at R, let R -> oo):
+   L(w) = 1/(w-1/2) + zeta'/zeta(w+1/2) + E(w),   E holomorphic on Re w > -1/2
+ (E = 1/(w+1/2) + compactly supported corrections from chi and from n = 2).
+ Hence zeta'/zeta(s) + 1/(s-1) continues holomorphically to Re s > 1/2; a zero of zeta
+ with Re > 1/2 would be a pole.  So RH.  []
+ Same argument for any P (Prop 5 below).
+
+3. Theorem A (antichain).  P, Q feasible and mu_P >= mu_Q  =>  P = Q.
+ nu := C_Q - C_P = D_P - D_Q on C_c^oo; nu is a signed Radon measure; by (K1) it extends to
+ S' with nu(g) = int g^ d(mu_P - mu_Q).  Let a = log min(P u Q) > 0; supp nu c {|u| >= a}.
+ Take psi in C_c^oo((-a/2,a/2)), psi != 0, h = psi*psi~ (support in a compact subset of
+ (-a,a)), g(u) = h(u) e^{-i t0 u}.  Then g^(t) = |psi^(t - t0)|^2 and nu(g) = 0, so
+   int |psi^(t - t0)|^2 d(mu_P - mu_Q)(t) = 0   for every t0.
+ sigma := mu_P - mu_Q >= 0 and psi^ is entire and nonzero (zero set Z countable), so sigma
+ lives on t0 + Z for every t0; two shifts with disjoint t0 + Z give sigma = 0.  Then
+ D_P = D_Q, C_P = C_Q, Lemma 1.  []
+ Corollary: under RH, a feasible P with mu_P({gamma}) >= m_gamma for every zero is the primes.
+
+4. Theorem C (thin changes are rigid; RH not assumed).
+ Let nu = C_primes - C_P = Phi' + rho, Phi in L^1_loc, rho a signed Radon measure, with
+   M(T) := int_{-T}^{T} |Phi| du + |rho|([-T,T]) = o(T).
+ If P is feasible, then RH holds and P = primes.
+ Proof.  (i) M(T) = o(T) => nu tempered.  D_primes = D_P + nu tempered => RH (Lemma 2).
+ (ii) Under RH, sigma := mu_P - mu_0 is a signed Radon measure with nu(g) = int g^ dsigma.
+ Fix gamma* in R, phi in C_c^oo, 0<=phi<=1, phi(0)=1, supp in [-1,1]; phi_T(t) = phi(T(t-gamma*)).
+ Dominated convergence: int phi_T dsigma -> sigma({gamma*}).  phi_T = g_T^ with
+ g_T(u) = e^{-i gamma* u} phv(u/T)/(2 pi T), phv(v) = int phi(s) e^{-isv} ds, |phv|,|phv'| <=
+ C(1+|v|)^-3.  |nu(g_T)| <= int |g_T'||Phi| + int |g_T| d|rho|
+   <= (C(1+|gamma*|)/T) sum_j (1+j)^-3 M((j+1)T) -> 0   (use M(R) <= eta R + C_eta).
+ So sigma has no atoms.  (iii) Zeros are discrete; for bounded E,
+ sigma(E) = mu_P(E \ Z) + sum_{gamma in E n Z} sigma({gamma}) = mu_P(E \ Z) >= 0.
+ So mu_P >= mu_0; Theorem A with Q = primes.  []
+ Special cases (check M(T) = o(T)):
+  (a) S = multiset difference P vs primes, sum_{x in S, x<=X} log x/sqrt x = o(log X):
+      |nu|([-T,T]) <= C + 4 sum_{x in S, x<=e^T} log x/sqrt x  (2 log x/(sqrt x - 1) <=
+      4 log x/sqrt x for x>=4).  Includes the summable case of the question.
+  (b) moves p -> p e^{eta_p}, sup|eta_p| < oo, sum_{p<=X} |eta_p| log p/sqrt p = o(log X):
+      delta_a - delta_b = (1_[a,b))', so Phi = sum_p sum_k w_k(p) 1[k log p, k log p + k eta_p)
+      (+ mirror), int|Phi| <= C sum |eta_p| log p/sqrt p; weight changes |w_k(p) - w_k(p e^eta)|
+      <= C|eta|(1 + k log p) p^{-k/2} go into rho.  Additive moves delta_p = o(sqrt p) qualify
+      (sum_{p<=X} (log p/p)(delta_p/sqrt p) = o(log X)).
+ Sharpness: if RH and P != primes is feasible, Theorem A gives a zero with sigma({gamma}) < 0,
+ so by (ii) limsup M(T)/T > 0; for (a): limsup (log X)^-1 sum_{S, x<=X} log x/sqrt x > 0.
+ Multiple zeros: never used (only discreteness of Z).
+
+5. Proposition (what feasibility forces).  P feasible =>
+ (i) psi_P(X) = O(X): D_P tempered => |D_P(phi(.-T))| <= C(1+|T|)^m; phi >= 0, phi >= 1 on
+     [0,1] gives sum_{T <= k log x <= T+1} w_k(x) <= C e^{T/2}.
+ (ii) Lemma 2's argument: zeta_P'/zeta_P + 1/(s-1) is holomorphic on Re s > 1/2, so
+     (s-1) zeta_P(s) = exp(int ...) is holomorphic and zero-free there ("RH for zeta_P").
+ (iii) Wiener-Ikehara (Lam_P >= 0): psi_P(x) ~ x.
+ (iv) mu_P([t0-d, t0+d]) = O(log(2+|t0|)): test D_P = A on h e^{-it0u} as in Thm A; the pole
+     term is bounded, arch = (1/2pi) int h^(t - t0) a(t) dt = O(log(2+|t0|)), h^ >= c > 0 near 0.
+ (v) Example: the norms of prime ideals of a number field K != Q (degree n >= 2) are not
+     feasible: by (ii) GRH for zeta_K holds, Weil's formula for zeta_K gives
+     mu_{P_K} = (zeros of zeta_K) + (1/2pi)[(1-r1) a(t) - r2 a_C(t) - log|d_K|] dt, whose
+     absolutely continuous part tends to -oo (a, a_C ~ log|t|); it is not >= 0.
+
+6. Herglotz form (HEURISTIC, not written out): feasibility <=> xi_P'/xi_P (xi_P = s(s-1)
+ pi^{-s/2} Gamma(s/2) zeta_P(s)/2) continues to Re s > 1/2 with Re >= 0; mu_P is its boundary
+ measure.  For zeta this is Lagarias' criterion (Acta Arith. 89 (1999) 217-234).  Any Beurling
+ zeta with Riemann's functional equation, xi_P of order 1 and all zeros on the line would be
+ feasible (Hadamard: Re xi'/xi = sum Re 1/(s-rho) > 0); none other than zeta is known to me.
+
+------------------------------------------------------------------------------------------
+7. Finite level (COMPUTED; floating point, Rayleigh-Ritz on Legendre polynomials of degree <40)
+ Code: wform.py (form), check_form.py (agrees with 100 zeta zeros to 4e-14 absolute),
+ certify.py (negative Rayleigh quotients re-evaluated on the Fourier side; agree to 1e-3 rel.).
+ Ritz values are upper bounds for the true eigenvalues, so a negative value certifies
+ infeasibility (up to rounding); lambda_min(L) is non-increasing in L (translation invariance).
+ * empty2.py: A is p.d. at level L iff L < L_empty = 0.743204 (N=30/40/50: .743210/.7432058/
+   .7432042); lambda_min(A, log 2) = 1.329e-3 > 0.  certify.py: A(f*f~)/|f|^2 = -2.54e-3 at L=0.745.
+   => (mollify the polynomial f: it has finite norm int |f^|^2 log(2+|t|), so A fails at every
+   level > 0.745) every feasible system has min P <= e^0.745 = 2.1066; bisection: <= 2.1027.
+   (#S(X) = o(sqrt X/log X) implies the hypothesis of 4(a), by partial summation.)
+ * single.py, single2.py: {x} stays feasible up to 3.049 for x = 2; up to <= 2.53 for
+   |x/2-1| >= 1e-3; up to 2.04 (x=1.95), 1.35 (x=1.05).
+ * greedy.py, greedy2.py: one-point extensions of {2}, {2,3}, {2,3,5} on grids of step
+   0.04-0.05: x = 3, 5, 7 survive beyond x e^{0.52}, x e^{0.14}, x e^{0.054} (the last two capped
+   by the scan range); every other grid point dies by x e^{0.033} (step 2; worst case a double
+   point at 2), x e^{0.0122} (step 3), x e^{0.0087} (step 4).
+ * boot.py, bootchk.py: true truncated {p <= p_n} becomes infeasible at
+   p_{n+1} * (1.016, 1.006, 1.006, 1.006, 1.005, 1.003, 1.006) for n = 1..7 (negative at +0.01).
+ * pert.py: moving p -> p(1+eps) in the true truncated system is detected at the level L where
+   eps = -lambda_k(L)/(d lambda_k/d eps) (k=1 for eps<0, k=2 for eps>0); first-order prediction
+   vs. observed: p=2 within 4% for |eps| <= 1e-3; p=3 within 10% for |eps| <= 1e-4.
+ * mpdecay.py, mpdecay2.py (wform_mp.py, 60-260 digits): lambda_min of true truncated form:
+   L=0.5: 3.34e-2; 1.0: 9.38e-7; 1.5: 3.76e-15 (N=60); 2.0: 5.95e-30 (N=120, still decreasing
+   slowly with N).  -ln(lambda)/L^2 = 13.6, 13.9, 14.8, 16.9 (not constant); -ln(lambda)/(2 pi L e^L)
+   = 0.66, 0.81, 0.79, 0.73.  HEURISTIC: f^ of type L/2 can vanish at all zeros up to height
+   ~2 pi e^{L+1}, giving log(1/lambda) of order L e^L.

@@ -91,4 +91,9 @@ for k, w in want.items():
 for p_ in (2, 3, 7): ok(abs(-2*log(p_)/(sqrt(p_) + 1) - want['remove %d' % p_][1]) < 1e-4 and abs(p_**(2/(sqrt(p_) + 1)) - want['remove %d' % p_][2]) < 1e-3, 'closed form remove')
 ok(abs(-2*log(6)/(sqrt(6) - 1) - want['add 6'][1]) < 1e-4 and abs(6**(2/(sqrt(6) - 1)) - 11.849) < 2e-3, 'closed form add')
 ok(abs(-2*log(2)/(sqrt(2) + 1) - 2*log(2.1)/(sqrt(2.1) - 1) - want['move 2 to 2.1'][1]) < 2e-3, 'prices add')
+t = rd('empty_check_out.txt')
+xs = [float(x) for x in re.findall(r'positive up to X = (\S+)', t)]
+ok(xs == [2.11508, 2.10917, 2.10709] and xs[-1] > 2.1027 and xs[-1] < 2.11, 'empty system threshold')
+last = [float(l.split()[-1]) for l in t.strip().split('\n')[3:]]
+ok(all(abs(x - y) < 1e-3 for x, y in zip(last, [-0.012, -0.050, -0.086, -0.122, -0.109])), 'next prime forced')
 print('all %d checks passed' % n)
