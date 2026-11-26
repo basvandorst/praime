@@ -1,0 +1,29 @@
+PASS A1 S(Nn,1;Nm) = -S(n,Nbar;m), N in {5,7,11}, m <= 25, n <= 12  max dev 1.0e-12
+PASS A2 S(Na,1;N^2 m') = 0 for N not dividing a  max |S| 1.1e-13
+PASS A3 sum_{a mod m, (a,m)=1} S(la,b;m) = mu(m) c_m(l), m <= 30, l <= 20  max dev 3.3e-12
+PASS A4 Weil bound |S(a,b;c)| <= tau(c) (a,b,c)^(1/2) c^(1/2), c <= 120, a, b <= 8  max ratio 1.000
+PASS B1 mu(dg) c_dg(s^2 g^2)/phi(dg) = mu(g)/phi(d) (exact)  2430 cases
+PASS B2 A_nat(s,d) = sum_{t/m=s/d} mu(m)c_m(t^2)/(phi(m)t^2) = (6/pi^2) s^-2 w(d), 13 pairs, g <= 3000  max rel dev 3.1e-06 (tail ~ 1/G)
+PASS B3 A_nat(1,4) = 0 (d not squarefree)
+PASS C1 nu'(r) (divisor-sum definition) = prod_{l!|r}(1-u_l) prod_{l|r} l^2/(l^2-1), r <= 60  max rel dev 2.2e-16; C0 = 0.615132657, nu'(1) = 0.615132657
+PASS C2 local identities (zeta(2), c(delta), nu' factors, local mean) for all p < 1000 (exact)
+PASS C3 prod_p p^2/(p^2-1) = zeta(2) = pi^2/6  1.644933955
+PASS D0 |J_nu(x)| <= min(1, (x/2)^nu/nu!) <= x/2 and |J_nu'(x)| <= 1 (nu = 1,3,5,9,13; 0 < x <= 300)  max ratio 1.0000
+PASS D1 sum_s J_{k-1}(xs)/s = Poisson closed form (k = 2, 4; 7 values of x; s <= 4e5)  max dev 1.9e-08
+PASS D2 sum_{(s,d)=1} J_1(cs)/s = sum_{e|d} mu(e)/e F_0(ce) (Moebius + Poisson), 24 cases  max dev 1.1e-08
+PASS D3 Bessel form (d <= 2e4, s-sums exact) = closed form M_prime at y = 0.3, 1.3, 3.7, 7.9  max dev 3.8e-04
+PASS E1 brute-force Hurwitz H(D) = PARI qfbhclassno, D <= 3000  1500 values
+PASS E2 H(D) = h'(D0) f0 prod_{l^a||f0} [(1 - chi(l)/l) sum_{j<a} l^-j + l^-a] (exact)  1500 values
+PASS E3 local means E_l(r) over p in Z_l^x: 2/3 | 4/3 (l=2, r odd|even), l^2/(l^2-1) (l|r), 1-u_l (l!|r), 1 (l=N)  208 cases (l = 2,3,5,7; 4 levels; r = 0..12), enclosure width <= 1.5e-05
+PASS F1 trace formula (k = 2) = sum_f eps_f sqrt(p) lambda_f(p) from PARI trace forms, levels (11, 37, 43, 61, 101, 163)  918 pairs (N, p)
+PASS F2 trace formula (k = 4) = sum_f eps_f sqrt(p) lambda_f(p) from PARI trace forms, levels (11, 13, 23, 61)  376 pairs (N, p)
+PASS F3 dim S_2(Gamma_0(N)) = (N+1)/12 - nu_2/4 - nu_3/3 for primes 5 <= N < 2000; |12 dim/N - 1| <= 14/N  max N|12dim/N-1| = 13.00
+PASS G1 one level N = 10007, k = 2: window means (h = 0.50, y <= 12) of eps_f sqrt(p) lambda_f(p) vs M_k  chi2 6.1 on 24 windows (Zubrilina squarefree-level density: 31.9), rms 0.228, 11307 primes
+PASS G2 one level N = 10007, k = 4: window means (h = 0.50, y <= 12) of eps_f sqrt(p) lambda_f(p) vs M_k  chi2 3.4 on 24 windows (Zubrilina squarefree-level density: 108.8), rms 0.077, 11307 primes
+PASS G3 N = 10007: mean over primes p of pi H(D_r)/sqrt(D_r) = zeta(2), nu'(1), nu'(2), nu'(3) (r = 0..3)  z-scores -0.26, 0.20, 0.44, -0.31
+PASS G1 one level N = 100003, k = 2: window means (h = 0.25, y <= 4) of eps_f sqrt(p) lambda_f(p) vs M_k  chi2 2.1 on 16 windows (Zubrilina squarefree-level density: 194.5), rms 0.045, 33859 primes
+PASS G2 one level N = 100003, k = 4: window means (h = 0.25, y <= 4) of eps_f sqrt(p) lambda_f(p) vs M_k  chi2 5.1 on 16 windows (Zubrilina squarefree-level density: 1252.5), rms 0.031, 33859 primes
+PASS G3 N = 100003: mean over primes p of pi H(D_r)/sqrt(D_r) = zeta(2), nu'(1), nu'(2), nu'(3) (r = 0..3)  z-scores 0.64, -0.48, -0.26, -0.11
+PASS H1 round-160 blind data (110 prime levels 2300-3200): rms(data - M_2 bin integral) <= 0.10  rms 0.058, chi2 16.8 on 48 bins
+PASS H2 this note's M_2 (bin integral) = the registered model sampled at the primes, per bin  max dev 0.0118
+28 checks, 0 failed
