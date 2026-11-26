@@ -74,4 +74,21 @@ for name, vals in (('Q(sqrt-3)', (2.998013, 2.999988, 3.0, 3.0)), ('Q(i)     ', 
     ok(got == list(vals), name)
 for name, q in (('Q(sqrt-3)', 3.000014), ('Q(i)     ', 3.000071), ('Q(sqrt 5)', 4.997769), ('Q(sqrt 2)', 5.000372)):
     ok(re.search(re.escape(name) + r' d=\d+ X=12 .*maximised: conductor %.6f' % q, t) is not None, name + ' search')
+t = rd('conductor_cubic_out.txt')
+got = [float(x) for x in re.findall(r'smallest conductor found (\S+)', t)]
+ok([round(x, 4) for x in got] == [21.0020, 22.5285, 22.5525, 22.5935, 22.5983, 22.6300] and got == sorted(got) and got[-1] < 23 and got[1] > 22.27, 'cubic')
+ok(t.strip().split('\n')[-1].split('points:')[1].split() == ['5.94013', '5.94014', '7.33387'], 'cubic points')
+# 5b
+from math import log, sqrt
+t = rd('edit_cost_out.txt')
+rows = {m.group(1).strip(): ([float(x) for x in m.group(2).split()], float(m.group(3)), float(m.group(4))) for m in re.finditer(r'(.{14}) lambda_min at X = 8, 16, 32, 64: (.*?)   limit 2 inf h = (\S+)   conductor exp\(-limit\) = (\S+)', t)}
+want = {'remove 2': ([-0.5409, -0.5563, -0.5629, -0.5664], -0.5742, 1.776), 'remove 3': ([-0.6343, -0.7310, -0.7452, -0.7643], -0.8042, 2.235),
+        'remove 7': ([-0.4030, -0.7354, -0.7355, -0.8811], -1.0675, 2.908), 'add 6': ([-0.6177, -0.7315, -0.7315, -1.1923], -2.4723, 11.849),
+        'move 2 to 2.1': ([-0.5879, -1.0625, -1.3723, -1.8119], -3.8780, 48.330)}
+for k, w in want.items():
+    ok(rows[k] == w, 'edit ' + k)
+    ok(all(a >= b for a, b in zip(rows[k][0], rows[k][0][1:])) and rows[k][0][-1] > rows[k][1], 'falls towards the limit: ' + k)
+for p_ in (2, 3, 7): ok(abs(-2*log(p_)/(sqrt(p_) + 1) - want['remove %d' % p_][1]) < 1e-4 and abs(p_**(2/(sqrt(p_) + 1)) - want['remove %d' % p_][2]) < 1e-3, 'closed form remove')
+ok(abs(-2*log(6)/(sqrt(6) - 1) - want['add 6'][1]) < 1e-4 and abs(6**(2/(sqrt(6) - 1)) - 11.849) < 2e-3, 'closed form add')
+ok(abs(-2*log(2)/(sqrt(2) + 1) - 2*log(2.1)/(sqrt(2.1) - 1) - want['move 2 to 2.1'][1]) < 2e-3, 'prices add')
 print('all %d checks passed' % n)

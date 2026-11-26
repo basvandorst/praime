@@ -11,7 +11,8 @@ Status of each statement: computed (best found by a search), not proved. The fir
 ## 1. What is in print
 
 - Connes and Consani, *Spectral triples and ζ-cycles*, arXiv 2106.01715, section 2.3: at support log 3, with the one prime 2 replaced by a real p, positivity fails at p = 1.9999 and at p = 2.0005. Section 2.2: the archimedean part alone loses positivity just past support log 2. They move one prime at one support. Our matrix reproduces their numbers ([cc_check_out.txt](cc_check_out.txt)): smallest eigenvalue at support log 3: 5.68·10⁻⁸ (theirs: below 6·10⁻⁸); at support log 11: 2.93·10⁻⁴⁸ with 97 basis functions and still falling (theirs: 2.389·10⁻⁴⁸); negative at 1.9999 and at 2.0005.
-- Not found in print (prior-art search of 26 November 2026, about 30 pages opened; the sources listed in section 7 were not read): all primes free together, primes found from no input, the pinning as a function of the support, other Gamma factors, the smallest-conductor form.
+- Discriminant bounds from the explicit formula (Odlyzko; Serre; Poitou, *Sur les petits discriminants*, 1977; Diaz y Diaz, *Tables minorant la racine n-ième du discriminant*, 1980). They fix one kernel F ≥ 0 and, as a "local correction", take for each small prime the splitting type with the smallest contribution. Printed bounds for |d|: imaginary quadratic 2.9657 without and 2.9921 with local corrections; real quadratic 4.9436 and 4.9640 (Diaz y Diaz, Tables 4 and 3; Odlyzko's GRH table: 2.962 and 4.951). So the minimum over splitting types, prime by prime at integer positions, is in print. Odlyzko 1990 lists the optimal kernel (Problem 2.2) and the share of the prime ideals (Problem 6.1) as open.
+- Not found in print (two prior-art searches of 26 November 2026, about 60 pages opened; the sources in section 7 were not read): all primes free together at real positions, primes found from no input, the pinning as a function of the support, the role of the pole, the smallest conductor over all positive systems with the full quadratic form, its convergence to the smallest discriminant, prime ideal norms recovered as the minimiser.
 
 ## 2. Set-up (derived; checked numerically)
 
@@ -103,20 +104,59 @@ Reading.
 
 Why a minimiser should be arithmetic (heuristic). At L = ∞ a system is feasible at conductor q when its "zero measure" plus the constant density (log q)/2π is a positive measure. Lowering q until this fails leaves a measure with no slack between its atoms: a pure point measure, which is what a zeta function with all zeros on the line has. This is the shape of an extremal solution in a linear program, but the set of prime systems is not convex, so it is not a proof.
 
+**Degree 3, one run** ([conductor_cubic_out.txt](conductor_cubic_out.txt)). Gamma factor Γ_R(s)²Γ_R(s+1) (one real, one complex place; the smallest discriminant is 23, the field of x³ − x − 1, whose first prime ideal norms are 5, 7, 8).
+
+| X | 4 | 6 | 8 | 10 | 12 | 14 |
+|---|---|---|---|---|---|---|
+| q found | 21.0020 | 22.5285 | 22.5525 | 22.5935 | 22.5983 | 22.6300 |
+
+At X = 4 and 6 the best system is empty; at X = 14 the points are 5.940, 5.940, 7.334. The value rises, stays below 23, and from X = 6 on lies above the printed bound without local corrections (22.27). The points are not yet near 5, 7, 8. So degree 3 is consistent with the limit 23 and does not show it.
+
+## 5b. The price of an edit (proved under RH, for L = ∞; proof below, not refereed)
+
+Let P come from the primes by removing a finite set R of primes and adding a finite multiset S of real points > 1. Put
+
+`h_P(t) = Σ_(p ∈ R) c(p, t) − Σ_(x ∈ S) c(x, t)`,  `c(x, t) = Re[ log x / (x^(1/2 + it) − 1) ]`.
+
+**Statement.** Under RH, the infimum of Q_P(f)/‖f‖² over all compactly supported f equals 2·inf_t h_P(t). So the smallest conductor that admits P is `q*(P) = exp(−2·inf_t h_P(t))`.
+
+- Removing one prime p: `q* = p^(2/(√p + 1))` (1.776 for p = 2, 2.235 for p = 3, 2.908 for p = 7).
+- Adding one point x: `q* = x^(2/(√x − 1))` (11.85 for x = 6).
+- If the logarithms of the points involved are linearly independent over Q, the prices add: `log q* = Σ_R 2 log p/(√p + 1) + Σ_S 2 log x/(√x − 1)`.
+- Consequences: every finite edit needs a conductor above 1, so among finite edits the primes are the strict minimum; moving a prime by any amount, however small, costs the price of removing it plus the price of adding the new point (48.3 for 2 → 2.1): at L = ∞ the cost is not continuous in the position. At a finite support it is continuous, which is the pinning of section 3.2. Edits far out are cheap: both prices tend to 1 as p or x grows.
+
+Proof. (1) Q_P(f) = Q_ζ(f) + (C_ζ − C_P)(g), where C is the prime-side sum of section 2. (2) Under RH, Q_ζ(f) = Σ_γ |f̂(γ)|² ≥ 0. (3) For a point x, Σ_k log x·x^(−k/2)·2g(k log x) = (1/π)∫ |f̂(t)|² c(x, t) dt, because 2g(u) = (1/π)∫ |f̂(t)|² cos(tu) dt and Σ_k x^(−k(1/2 + it)) = 1/(x^(1/2 + it) − 1). So (C_ζ − C_P)(g) = (1/π)∫ |f̂|² h_P dt. (4) ‖f‖² = (1/2π)∫ |f̂|² dt. Hence Q_P(f)/‖f‖² ≥ 2 inf h_P. (5) Equality in the limit: h_P is continuous; choose t₀ that is not the ordinate of a zero with h_P(t₀) < inf h_P + ε, and f(u) = φ(u/T) cos(t₀u) with φ smooth of compact support; as T → ∞, |f̂|² concentrates at ±t₀ and Σ_γ |f̂(γ)|²/‖f‖² → 0. (6) For one point, Re[1/(√x·e^(iθ) − 1)] has minimum −1/(√x + 1) at θ = π and maximum 1/(√x − 1) at θ = 0; with independent logarithms the phases are jointly dense (Kronecker), so the extremes add.
+
+Check at finite supports ([edit_cost.py](edit_cost.py), [edit_cost_out.txt](edit_cost_out.txt)). The smallest eigenvalue must fall towards 2 inf h as the support grows:
+
+| edit | λ_min at X = 8, 16, 32, 64 | limit 2 inf h | q* |
+|---|---|---|---|
+| remove 2 | −0.5409, −0.5563, −0.5629, −0.5664 | −0.5742 | 1.776 |
+| remove 3 | −0.6343, −0.7310, −0.7452, −0.7643 | −0.8042 | 2.235 |
+| remove 7 | −0.4030, −0.7354, −0.7355, −0.8811 | −1.0675 | 2.908 |
+| add 6 | −0.6177, −0.7315, −0.7315, −1.1923 | −2.4723 | 11.849 |
+| move 2 to 2.1 | −0.5879, −1.0625, −1.3723, −1.8119 | −3.8780 | 48.330 |
+
+All values lie above their limit and fall with the support. Only "remove 2" is close to its limit at X = 64; the others need the resolution of a larger support.
+
+What this does not settle: systems that differ from the primes in infinitely many points (the global conjecture).
+
 ## 6. Size of the result
 
-- Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants under GRH (Odlyzko, Serre, Poitou), which fix a test function and drop or insert the known primes.
+- Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants (Odlyzko, Serre, Poitou, Diaz y Diaz) with one fixed positive kernel and the worst splitting type per prime.
+- Comparison: our values at support log 8 (2.9995 and 4.9911) lie above the printed bounds with local corrections (2.9921 and 4.9640). Ours are values found by a search over a larger class (real positions) with a short support, theirs are proved bounds with a long kernel; the two are not the same quantity, and ours is an upper bound for q_min(L).
 - New here, as far as the search went: the prime side as the unknown of an optimisation; primes returned from no input; the role of the pole and of positive weights; the smallest-conductor reading with quadratic fields.
-- Not shown: any theorem. Uniqueness is a search result. The supports are small (X ≤ 13.5). Degree 3 and higher were not run.
+- Proved under RH (short, not refereed): the price of a finite edit (section 5b), which makes the primes the strict minimum among finite edits.
+- Not shown: the global statement. Uniqueness among all systems is a search result. The supports are small (X ≤ 14). Degree 3 was run once and has not converged.
 
 ## 7. Open points
 
 1. A proof or a counterexample for the conjecture in degree 1 (is there a positive Beurling system, other than the primes, whose form is positive at conductor ≤ 1 for every support?).
 2. The exact rate of q_min(L) → d, and the comparison with the published GRH discriminant bounds.
-3. Cubic and quartic Gamma factors: does the minimum equal the smallest discriminant (23, 49, 117, 125, …)?
+3. Cubic and quartic Gamma factors: does the minimum equal the smallest discriminant (23, 49, 117, 125, …)? The one cubic run reaches 22.63 at X = 14.
 4. A high-precision scan stage, to continue section 3.3 beyond 11.
-5. Sources not read by the prior-art search: Bombieri 2000; Yoshida 1992; Burnol; Connes–Consani, Selecta 2021 (arXiv 2006.13771); Connes–Consani–Moscovici, arXiv 2310.18423 and 2511.22755; Ryavec 1975; Kaczorowski–Perelli on general frequencies; Kurasov–Sarnak; Olevskii–Ulanovskii; Hilberdink–Lapidus; full texts of arXiv 2611.13129, 2608.24827, 2605.20224.
+5. Sources not read by the prior-art searches: Serre 1975; Poitou's Bourbaki talk; Mestre 1986; Booker 2006; Jones–Roberts (arXiv 1610.01228, smallest Artin conductors) and Dixit (arXiv 1905.04193, general Dirichlet series with positive coefficients), abstracts only; Miller 2002 and Bober et al. 2015 (highest lowest zero), abstracts only; Bochner–Chandrasekharan 1956; Bombieri 2000; Yoshida 1992; Burnol; Connes–Consani, Selecta 2021 (arXiv 2006.13771); Connes–Consani–Moscovici, arXiv 2310.18423 and 2511.22755; Ryavec 1975; Kaczorowski–Perelli on general frequencies; Kurasov–Sarnak; Olevskii–Ulanovskii; Hilberdink–Lapidus; full texts of arXiv 2611.13129, 2608.24827, 2605.20224.
 
 ## 8. Validation
 
-[validate.py](validate.py) reads the output files and checks every number quoted in sections 1 to 5.
+[validate.py](validate.py) reads the output files and checks every number quoted in sections 1 to 5b (literature values excepted).
