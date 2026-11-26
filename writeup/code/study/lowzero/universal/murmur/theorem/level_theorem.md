@@ -206,3 +206,25 @@ Expected Δχ² from the predictions alone (Σ(own − alternative)²/σ²): sma
 average over squarefree levels; Cowan 2408.12723 (fixed prime level, harmonic weights; read in an earlier gate). A density for
 one fixed composite squarefree level, and the identification of Zubrilina's constants as averages of per-level factors, were
 **not found in print**.
+
+
+## Referee report (26 November 2026)
+
+An independent referee (own code in [referee_level/](referee_level/)). **Verdict: Theorem 5 is proved, given GRH for
+Dirichlet L-functions; no failing step.** Quoted and not proved here: the trace formula (checked exactly at 1,644 triples
+(N, k, p): 18 levels with up to three prime factors, weights 2 to 12, levels with old forms included) and the dimension of
+the new space up to O(2^ω). Old forms contribute exactly 0 (W_N permutes the lines g(dz) without a fixed line). Local
+factors recomputed by enumeration in 396 cases (ℓ = 2, 3, 5, 7; eleven levels): 1 at every prime dividing N, the generic
+mean otherwise; for even N the valuation of D at 2 is 2 or 3 and the factor is still 1, as the note says. The error is
+uniform in N. Part (b): Zubrilina's constants from her source equal the φ-weighted averages to 7 digits. Own levels not
+used by the author (2·10007, 3·6673, 6·3343, 5·4003): χ² 17.3, 21.5, 17.7, 14.1 for the level's own density against 435
+to 1,623 for the prime-level density (72 for 5q) and 91 to 1,063 for the average over all levels.
+**Prior art missed by the note:** arXiv 2603.25564, *Murmurations in the depth aspect*: one level at a time, N = ℓ^(2a+1)
+with ℓ fixed and a → ∞, natural weights, mean over primes p with p/N in a fixed interval, by the Eichler–Selberg trace
+formula, UNCONDITIONALLY with error (log N)^(−C) (a Bombieri–Vinogradov variant for square moduli and a mean-value bound
+for real characters). So the method "one level, average over the primes" is in print for prime-power levels; the densities
+M^(N) of squarefree levels and their average (part (b)) are not in it. It also suggests how to remove GRH here.
+**Slips to repair:** line 33: the statement needs dim > 0 (N = 6, 10, 22 have no newforms of weight 2); line 41: "ε ≤ 1"
+is false in general (write e^(O(ε))); lines 17–18: "explains the footnote" should be "suggests" (her footnote is about
+non-squarefree levels); line 119: the deviation bound 2^(ω−1) fails beyond N = 3000 (N = 701,569: 25/3 against 8); only
+O(2^ω) is used.
