@@ -28,7 +28,7 @@ The density M_k^(N) is defined in Section 2 (formula (2.1)).
 
 **Theorem.** Fix k ≥ 2 even, Y ≥ 1, A ≥ 1.
 
-(a) *(no hypothesis)* For every B ≥ 0, uniformly for squarefree N with H_k(N) ≠ ∅, 0 ≤ y₀ ≤ Y and (log N)^(−B) ≤ h ≤ 1,
+(a) *(no hypothesis)* For every B ≥ 0, uniformly for squarefree N ≥ N₀(Y, B) with H_k(N) ≠ ∅ (N₀ large enough for every window to contain a prime not dividing N), 0 ≤ y₀ ≤ Y and (log N)^(−B) ≤ h ≤ 1,
 
     ⟨E_N⟩_J = (1/h) ∫_{y₀}^{y₀+h} M_k^(N)(y) dy + O_{k,Y,A,B}((log N)^(−A)).
 
@@ -66,7 +66,7 @@ U_{k−2} is the Chebyshev polynomial of the second kind; each r-term vanishes a
 class number H(4pN − r²N²) when ℓ ∤ N (Lemma 4); at every prime q | N that mean is exactly 1 (Lemma 3), which removes
 e_q(r) from ν′(r); κ(N) is the ratio N/(12·dim/(k−1)) of the normalisations; for r = 0 the Euler product is
 ζ(2)Π_{q|N}(1 − q^(−2)) and (12/π)κ(N)ζ(2)Π(1 − q^(−2)) = 2π π(N) (checked D2). This local recipe (the factors e_ℓ(r)
-and the factor 1 at q | N) is in print as a step inside a theorem averaged over levels (Cardi, Section 7); what is
+and the factor 1 at q | N) is in print as a step inside a theorem averaged over levels (Cardi, arXiv 2607.08982, §5; see Section 7 below); what is
 proved here is the statement at one fixed level.
 
 **How M_k^(N) depends on N (proved; repaired).** M_k^(N) depends on N only through the set P(N) of its prime factors.
@@ -76,7 +76,7 @@ r that occurs (r < 2√(Y+1)), −log(1 − 1/q) ≤ 1.5/q, log(1 + 1/q) ≤ 1/q
 
     M_k^(N)(y) = M_k^(S)(y) + O_{k,Y}(κ(S)·ε·e^(3ε))   on [0, Y],
 
-M_k^(S) being (2.1) for the level Π_{q∈S} q. ε is not bounded in general (for N = 5·7·11·…·127, ε = 1.03; checked D6),
+M_k^(S) being (2.1) for the level Π_{q∈S} q. ε is not bounded in general (for N = 5·7·11·…·127, ε = 1.02; checked D6),
 so the error is e^(O(ε))-type; for ε ≤ 1 it is O(κ(S)ε). In particular N = mq with m fixed and q → ∞ gives M^(N) → M^(m)
 uniformly on [0, Y]. Always 1 ≤ κ(N) ≪ log log N and C₀ ≤ ν_N(r) ≤ ζ(2), so M_k^(N) = O_{k,Y}(log log N).
 
@@ -245,7 +245,7 @@ O(‖G‖log²N) for a sum with a single term T(m, n; p) (|T| ≤ 1); both are O
 
 **6.1 Large m (U3; proved).** |L(1, ξ_Δ)| ≤ L(1, χ)Π_{ℓ|f}(1 + 1/ℓ) ≤ (log|Δ₀| + 2)·σ(f)/f ≪ log N·log log N
 (L(1, χ) ≤ log q + 2 by partial summation: |Σ_{n≤q}χ(n)/n| ≤ 1 + log q and |Σ_{n>q}χ(n)/n| ≤ q·(1/q)). The number of p ∈ J
-with m² | 4p − r²N is ≤ 4hN/m² + 1 (one class mod m²/4 at most). Hence the terms m > m₀ of L*(D_r(p)), summed over p with
+with m² | 4p − r²N is ≤ 4hN/m² + 1 (at most one class mod m² for odd m, mod m²/4 for even m). Hence the terms m > m₀ of L*(D_r(p)), summed over p with
 log p·|G|, are ≪ ‖G‖ log²N log log N·(hN/m₀² + log N) = O(‖G‖hN(log N)^(−A)).
 
 **6.2 Truncation at M for every p (U2; proved from Burgess; repaired).** *Quoted (Burgess, r = 2, any modulus):* for χ
@@ -555,7 +555,7 @@ exchanged; the unconditional large-sieve treatment as in 2603.25564), the local 
 
 ## 8. Open
 
-- **Shorter windows without GRH: NOT closed.** 6.2–6.6 hold for h ≥ N^(−1/8+δ) (M = N^(7/8)); with Burgess r = 3 (any
+- **Shorter windows without GRH: NOT closed.** 6.1–6.4, 6.6 and 6.7 hold for h ≥ N^(−1/8+δ) (M = N^(7/8)); with Burgess r = 3 (any
   modulus, M = N^(2/3+δ)) for h ≥ N^(−1/3+2δ); with Burgess for all r on real characters (odd part of Δ₀ squarefree, the
   2-part split mod 8; a sketch, not written out) for h ≥ N^(−1/2+2δ). The obstacle is 6.5 alone: primes in progressions to
   moduli ≤ (log N)^B in intervals of length hN ≤ N^(1−η) (Huxley-type results; not opened).
@@ -582,3 +582,18 @@ discriminants of a squarefree level, the factorisation and the large-sieve weigh
 coefficients e_ℓ(i, j) by exact enumeration (B1–B2); C trace formula at N = 23, 46, 69, 78 against PARI for k = 2, 4, 6, old
 forms, root numbers, dimensions (C1–C4); D Euler products, special cases, the Proposition, the repaired ε-comparison
 (D1–D6); E one level of each type below 10⁴ (E0–E3). Final line of `one_level_check_out.txt`: **32 checks, 0 failed**.
+
+
+## Final referee report (26 November 2026)
+
+An independent referee (own code in [referee_merged/](referee_merged/)) checked what the merge added: the extension of the
+proof without hypothesis from prime to squarefree levels, and the repairs. **Verdict: part (a), no hypothesis, proved;
+part (b), GRH for Dirichlet L-functions, proved; both on the quoted inputs of section 4; no failing step, no hidden
+hypothesis; all twelve repairs present and correct.** Verified: for even N (5,700 cases: N = 2q, 6q, 30q, 13#, 17#) N
+divides Δ₀ and v₂(Δ₀) is 2 for r odd, 3 for r even; m = 2 never occurs (−D/4 ≡ 2 or 3 mod 4), so no order of even
+conductor enters and the factor at 2 is 1; T(m, n; p) = 0 whenever gcd(n, N) > 1 (124,860 cases); the local coefficients
+at every ℓ | N are [i = j = 0] exactly; no constant depends on the number of prime factors of N (at the level 17# =
+510,510 the class-number means follow the level's own prediction at z = +0.5 to +0.8 and miss the prime-level one by 87
+to 243 errors); the constants α, β, γ = 3.965411, 7.862553, 17.034753; the chain at the even levels 2·10007 and 6·3343,
+by conductor block (2 ≤ q ≤ 32: −0.3098 ± 0.0078 against −0.3141). Five small slips were found (a numeric value, a
+citation, the case of an empty window for bounded N, two wordings); they are corrected in the text above.
