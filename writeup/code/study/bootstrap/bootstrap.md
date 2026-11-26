@@ -278,7 +278,34 @@ Proof in three lines: the window leaves g(0) unchanged, so only two terms of W m
 
 **Referee read of Part II** (by an agent, bounded; [theory/convex/convex_limit.md](theory/convex/convex_limit.md), section 4). Sections 3 and 8 (the reduction to a function of the Gamma factor alone, and the assembly of Theorem 1) were checked step by step: no failing step. Theorem 6.1 (every a_n > 0) was checked line by line. An independent numerical rebuild of F from the formula for x > 1 gave F ≥ 0 on [0, 150], zeros at the first four zeta zeros, and cost −7·10⁻¹¹ (relative). Not checked by anyone here: section 4 (the automorphic input), Theorem 5.4(b), section 7 (positivity of H at large height), and the four computer-assisted inputs.
 
-**Status.** The target is not our result. It is claimed in Part II, not refereed. Ours here: two independent numerical tests of the extremal function (two codes, costs 1.8·10⁻⁹ and −7·10⁻¹¹), the duality and the truncation lemma for compact supports with the explicit rate 194/M², a partial referee read, and the observation that the prime-power structure is not needed (also theirs: their prime measure is arbitrary).
+**Our own certificates: the best polynomial at each degree** (computed by an agent, [theory/convex/certs/README.md](theory/convex/certs/README.md); every cost recomputed with separate code, [cert_check.py](cert_check.py), [cert_check_out.txt](cert_check_out.txt)). The family is ĝ(t) = Ξ(t)²·B(t), B an even polynomial with B ≥ 0. Then g = B(i·d/du)(Φ∗Φ), the zero side vanishes, and W(g) = 2·Σ Λ(n)·n^(−1/2)·g(log n). Johns, Part I uses the member with double zeros exactly at the logs of the first J prime powers (degree 4J). Here B is optimised at each degree, in two classes: A (g ≥ 0) and E (only the Euler sums Σ_k x^(−k/2)·g(k·log x) ≥ 0).
+
+- Parity rule (proved, two lines): for large u, g(u) = B(2πi·e^u)·(Φ∗Φ)(u)·(1 + o(1)), so g ≥ 0 needs (−1)^d·b_d ≥ 0 for the top coefficient b_d of t^(2d), and B ≥ 0 needs b_d ≥ 0. For odd d this forces b_d = 0: degree 4k + 2 gives the same optimum as degree 4k. (The divisor-weighted closed form of this family and the sign (−1)^d of its leading term are Lemma 4.6 of Part I.)
+- Optimum of W(g)/g(0) at each degree (numerical optimum of a convex problem: multipliers positive, stationarity residual below 10⁻⁴⁰; not interval-certified), and the certified bound (next item):
+
+| degree of B | class A, optimum | class A, certified bound | class E, optimum |
+|---|---|---|---|
+| 0 | 7.5197·10⁻² | | 7.5197·10⁻² |
+| 4 | 6.1940·10⁻³ | 6.19402005455·10⁻³ | 6.1424·10⁻³ |
+| 8 | 3.7072·10⁻⁴ | 3.70719233613·10⁻⁴ | 7.5310·10⁻⁵ |
+| 12 | 4.6462·10⁻⁵ | 4.64624013887·10⁻⁵ | 1.2559·10⁻⁷ |
+| 16 | 3.5892·10⁻⁶ | 3.58920272265·10⁻⁶ | 8.9013·10⁻¹⁴ |
+| 20 | 4.4383·10⁻⁸ | 4.43833859341·10⁻⁸ | 5.9355·10⁻¹⁸ |
+| 24 | 1.7045·10⁻⁹ | 1.70453120117·10⁻⁹ | 4.7813·10⁻²⁵ |
+| 28 | 1.3525·10⁻¹⁰ | 1.35254770865·10⁻¹⁰ | 1.1538·10⁻²⁹ |
+| 32 | 1.0769·10⁻¹² | 1.07689720773·10⁻¹² | 4.4835·10⁻³⁷ |
+| 36 | 1.1216·10⁻¹⁶ | 1.12161611521·10⁻¹⁶ | |
+| 40 | 6.8535·10⁻¹⁹ | 6.85355154306·10⁻¹⁹ | |
+| 44 | 2.3313·10⁻²¹ | 2.33130821521·10⁻²¹ | |
+| 48 | 2.3758·10⁻²⁶ | 2.37581468402·10⁻²⁶ | |
+
+- Structure of the optimum (computed, [theory/convex/certs/decay.out](theory/convex/certs/decay.out), [report.txt](theory/convex/certs/report.txt)). At degree 4K the function g (class A) or the Euler sum (class E) has exactly K double zeros. In class A they sit just above the first K prime powers and move onto them as the degree grows: e^u = 2.0722 at degree 4; 2.0057, 3.0839 at degree 8; 2.000067, 3.00175, 4.0445, 5.0923 at degree 16; at degree 48 the first nine are 2, 3, 4, 5, 7, 8, 9, 11, 13 to 10 digits, then 16.0000005, 17.000003, 19.00015. In class E they sit at the first K primes only. No zero ever sits at 6, 10 or 12. B has no real root at any degree, so the condition ĝ ≥ 0 acts only through the parity rule. The remaining cost is carried by the first prime power without a zero (n = 23 carries 99.9 % at degree 48). So each four degrees buy one more prime power, in order, and the positions come out of the optimisation, not in.
+- Certificates (computer-assisted, one code, [theory/convex/certs/certify.py](theory/convex/certs/certify.py), ball arithmetic at 800 bits; not refereed). For each degree 4, 8, …, 48 a polynomial B with rational coefficients is stored in `theory/convex/certs/certificate_A_d*.json`, with: B > 0 on the real line (exact Sturm count); g > 0 on [0, U] with U = 5 (U = 6 from degree 36 on; Taylor models on up to 3524 intervals) and beyond U (Bessel asymptotics with the remainder bound DLMF 10.40.10); W(g)/g(0) inside a ball whose upper end, rounded up to 12 digits, is the bound in the table (the strings `certified_upper_bound` in those files are rounded to nearest and must not be quoted as bounds). Assumed: the closed form of Φ∗Φ as a sum of K₀ and K₁ terms (derived there; agrees with direct quadrature to 25 digits), the ball arithmetic of arb, sympy's root count. With the truncation lemma: **λ\*(M) ≤ 2.376·10⁻²⁶ + 194/M²**, so the limit of the smallest conductor is at least 1 − 2.4·10⁻²⁶, from our own computation alone. Part I's certificate is far stronger (10⁻¹⁰⁶⁰); the point of ours is that it is independent of their code.
+- Recheck with separate code ([cert_check.py](cert_check.py): nothing of the agent's code, no Bessel functions; g and W from the zero side by Gauss–Legendre quadrature of Ξ(t)²·B(t), 48000 nodes, 520 bits). For B = 1: W/g(0) = 0.075197132697534236812 from the zero side and from the prime sum, the same 20 digits as the agent. For the twelve stored polynomials: the zero side and the prime sum agree to 85 digits or better, and both agree with the centre of the certified ball to all 20 digits printed. B has no root with t² ≥ 0 (own root finder). Class E optima to degree 32: the same costs to 20 digits. For degrees 8, 24 and 48, g > 0 at all 381 grid points u = k/100, k ≤ 380 (a sample, not a proof; beyond u = 3.8 the values of g are below the working precision). Not rechecked by separate code: the interval proof that g > 0 everywhere, the optimality of the optima, and the constraint of class E.
+- A row of Part I's Table 1 rebuilt from scratch (same script). The member J = 10 (double zeros at the logs of 2, 3, 4, 5, 7, 8, 9, 11, 13, 16; a 20 × 20 linear system) has ∫Ξ²P = 2.788432137 (Part I: between 2.7884318 and 2.7884322), W = 4.212556303·10⁻¹⁹ (Part I, rounded up: 4.2125564·10⁻¹⁹) and W/∫ = 1.510725776·10⁻¹⁹ (Part I: κ₁₀ ≤ 1.5107258·10⁻¹⁹). In our units this is W/g(0) = 9.4922·10⁻¹⁹; the optimum at the same degree 40 is 6.8535·10⁻¹⁹, lower, as it must be. So their functional and ours agree to 8 digits at the level 10⁻¹⁹.
+- Decay (computed, twelve degrees; no proof). Class A: log₁₀ of the optimum ≈ 1.74 − 1.15·n, n the first prime power without a zero (rms 0.69). No stall up to degree 48. This is evidence that the infimum over the family is 0, as Part II claims; it is not a proof.
+
+**Status.** The target is not our result. It is claimed in Part II, not refereed. Ours here: two independent numerical tests of the extremal function (two codes, costs 1.8·10⁻⁹ and −7·10⁻¹¹), the duality and the truncation lemma for compact supports with the explicit rate 194/M², a partial referee read, the observation that the prime-power structure is not needed (also theirs: their prime measure is arbitrary), and our own certified bound 2.376·10⁻²⁶ with the best polynomial at each degree up to 48 (computer-assisted, one code; costs rechecked by a second code).
 
 ## 6. Size of the result
 
@@ -289,11 +316,12 @@ Proof in three lines: the window leaves g(0) unchanged, so only two terms of W m
 - Proved, refereed once inside the repo (no failing step; two consequences of 5b reworded, small repairs in the proof of Theorem C): the price of a finite edit (section 5b, under RH); a feasible system is determined by its spectrum; thin changes of the primes are never feasible unless trivial (section 5c, RH not assumed).
 - The convex version (section 5e): the positivity bound is sharp in degree 1, where it returns the primes with weight 1, and not in degrees 2 and 3. Degrees 1 and 2 are in Johns, Part I and II, with certified bounds; our numbers agree with theirs (section 5f).
 - Global uniqueness: not proved by us; claimed in Johns, Part II. Proved here (refereed once inside the repo; the integer-weight case is also Theorem 3.11 of Johns, Part I): it holds among systems whose completed zeta function is entire of finite order with finitely many zeros off the line (section 5d), and a converse theorem for Beurling zeta functions without a functional equation.
+- Our own certified bound for the convex optimum in degree 1 (section 5f): W(g)/g(0) ≤ 2.376·10⁻²⁶ with an explicit polynomial of degree 48, computer-assisted with one code, costs rechecked by a second code. Weaker than the bound in print (10⁻¹⁰⁶⁰), independent of it. Not found in Part I by a keyword search (its family has the zeros placed at the prime powers by construction): the best polynomial at each degree places its double zeros near the prime powers by itself, one more per four degrees, and they converge to the prime powers.
 - The numerical statements are search results at small supports (X ≤ 14). Degree 3 was run once and has not converged.
 
 ## 7. Open points
 
-1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4, 5 and 7 there, and its four computer-assisted inputs); a referee for [theory/convex/convex_limit.md](theory/convex/convex_limit.md).
+1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4, 5 and 7 there, and its four computer-assisted inputs); a referee for [theory/convex/convex_limit.md](theory/convex/convex_limit.md). Also open: a second interval proof that g > 0 for our own certificates (section 5f; one code so far), and a proof that the best polynomial of degree 4K has its K double zeros at the first K prime powers in the limit.
 2. The exact rate of q_min(L) → d, and the comparison with the published GRH discriminant bounds.
 3. Cubic and quartic Gamma factors: does the minimum equal the smallest discriminant (23, 49, 117, 125, …)? The one cubic run reaches 22.63 at X = 14.
 4. A high-precision scan stage, to continue section 3.3 beyond 11.
@@ -301,4 +329,4 @@ Proof in three lines: the window leaves g(0) unchanged, so only two terms of W m
 
 ## 8. Validation
 
-[validate.py](validate.py) reads the output files and checks every number quoted in sections 1 to 5b (literature values excepted).
+[validate.py](validate.py) reads the output files and checks every number quoted in sections 1 to 5b and in the tables and results of sections 5e and 5f (literature values excepted); 115 checks.

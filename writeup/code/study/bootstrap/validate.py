@@ -140,4 +140,28 @@ ok([('%.1e' % x) for x in tr] == ['1.9e-02', '1.1e-02', '7.6e-03', '4.2e-03', '1
 ok(abs(5*exp(-2*pi*4.83e-4) - 4.9848) < 1e-4 and abs(5*exp(-2*pi*1.64e-5) - 4.9995) < 1e-4 and abs(3*exp(-2*pi*9.99e-4) - 2.9812) < 1e-4 and abs(3*exp(-2*pi*1.50e-4) - 2.9972) < 1e-4, 'Johns Prop 5.11 as conductors')
 t = rd('riemann_kernel_cost_out.txt')
 ok('W(g)/g(0) = 0.0751971327' in t and 'g(0) = 0.319751812' in t and '= 16.16596749   quadrature: 16.16596749   12 c1 = 193.992' in t and abs(exp(-0.0751971327) - 0.9276) < 5e-5 and abs(2*pi*mpf('1.4291572e-1060')/mpf('8.98e-1060') - 1) < mpf('1e-3'), 'Riemann kernel cost, truncation constant')
+t = rd('cert_check_out.txt')
+ok('B = 1: g(0) = 0.319751811961621  pole = 0.5' in t and t.count('W/g(0) = 0.075197132697534236812') == 2, 'certificates: B = 1, zero side and prime side')
+rows = [l.split('|') for l in t.split('class A certificates')[1].split('class E optima')[0].splitlines() if re.match(r'\s*\d+ \|', l)]
+bounds = {4: '6.19402005455e-3', 8: '3.70719233613e-4', 12: '4.64624013887e-5', 16: '3.58920272265e-6', 20: '4.43833859341e-8', 24: '1.70453120117e-9', 28: '1.35254770865e-10', 32: '1.07689720773e-12', 36: '1.12161611521e-16', 40: '6.85355154306e-19', 44: '2.33130821521e-21', 48: '2.37581468402e-26'}
+ok(len(rows) == 12 and all(mpf(r[1]) == mpf(r[2]) and mpf(r[3]) < mpf('1e-80') and int(r[5]) == 0 for r in rows), 'certificates class A: zero side = prime side, B without real root')
+ok(all(mpf(r[1]) <= mpf(bounds[int(r[0])]) and mpf(bounds[int(r[0])])/mpf(r[1]) - 1 < mpf('1e-10') for r in rows), 'certificates class A: recomputed cost below the certified bound, equal to 10 digits')
+import json
+balls = {}
+for d in range(2, 25, 2):
+    c = json.load(open(os.path.join(here, 'theory', 'convex', 'certs', 'certificate_A_d%d.json' % d)))
+    m = re.match(r'\[(\S+) \+/- (\S+)\]', c['cost_over_g0']); balls[2*d] = (mpf(m.group(1)), mpf(m.group(2)), int(c['B_roots_in_s>=0']), int(c['intervals_[0,U]']), c['U'])
+ok(len(balls) == 12 and all(abs(mpf(r[1])/balls[int(r[0])][0] - 1) < mpf('1e-18') for r in rows) and all(b[0] + b[1] <= mpf(bounds[d]) and mpf(bounds[d])/(b[0] + b[1]) - 1 < mpf('1e-10') and b[2] == 0 for d, b in balls.items()), 'certificates class A: recomputed cost = ball centre; table bound = ball rounded up')
+ok(max(b[3] for b in balls.values()) == 3524 and [balls[d][4] for d in range(4, 49, 4)] == ['5']*8 + ['6']*4, 'certificates: interval counts and U')
+dc = rd('theory/convex/certs/decay.out')
+optA = {int(a): float(b) for a, b in re.findall(r'\n\s*(\d+)\s+\d+ \| (\S+)\s+\|', dc.split('class E')[0])}
+optE = {int(a): float(b) for a, b in re.findall(r'\n\s*(\d+)\s+\d+ \| (\S+)\s+\|', dc.split('\nclass E   (deg')[1])}
+ok([('%.4e' % optA[d]) for d in range(0, 49, 4)] == ['7.5197e-02', '6.1940e-03', '3.7072e-04', '4.6462e-05', '3.5892e-06', '4.4383e-08', '1.7045e-09', '1.3525e-10', '1.0769e-12', '1.1216e-16', '6.8535e-19', '2.3313e-21', '2.3758e-26'] and all(optA[d] < float(bounds[d]) for d in bounds), 'optimum per degree, class A (below the certified bound)')
+rowsE = [l.split('|') for l in t.split('class E optima')[1].split('sampled positivity')[0].splitlines() if re.match(r'\s*\d+ \|', l)]
+ok(len(rowsE) == 8 and all(abs(float(r[1])/optE[int(r[0])] - 1) < 1e-12 and mpf(r[1]) == mpf(r[2]) for r in rowsE) and [('%.4e' % optE[d]) for d in range(4, 33, 4)] == ['6.1424e-03', '7.5310e-05', '1.2559e-07', '8.9013e-14', '5.9355e-18', '4.7813e-25', '1.1538e-29', '4.4835e-37'], 'optimum per degree, class E: cost recomputed')
+ok('2.072189606' in dc and '2.005724955, 3.083922359' in dc and '2.000066576, 3.001754992, 4.044541305, 5.092273215' in dc and '2, 3, 4, 5, 7, 8, 9, 11, 13, 16.00000048, 17.00000307, 19.00014963' in dc and 'deg 48: n=23 99.9%' in dc and 's = -1.149, a = 1.74, rms 0.688' in dc, 'touch points, cost carrier and decay fit')
+pos = re.findall(r'deg\s+(\d+): non-positive values on u = k/100, k <= 380: (\d+); smallest g/g\(0\) = (\S+) at', t)
+ok([p[0] for p in pos] == ['8', '24', '48'] and all(p[1] == '0' and float(p[2]) > 0 for p in pos), 'certificates: g > 0 on the sampled grid')
+ok('= 2.788432137 ' in t and t.count('4.212556303e-19') == 2 and 'W/(2 pi g(0)) = 1.510725776e-19' in t and 'W/g(0) = 9.492169997e-19' in t and 2.7884318 < 2.788432137 < 2.7884322 and 4.212556303e-19 <= 4.2125564e-19 and 1 - 4.212556303e-19/4.2125564e-19 < 3e-8 and 1.510725776e-19 <= 1.5107258e-19 and optA[40] < 9.492169997e-19, 'Johns Part I Table 1, row J = 10, rebuilt')
+ok(abs(2.37581468402e-26 - 2.376e-26) < 1e-29 and 1 - exp(-2.376e-26) < 2.4e-26, 'certified bound as conductor')
 print('all %d checks passed' % n)
