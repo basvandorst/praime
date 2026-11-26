@@ -296,3 +296,13 @@ check2_out.txt: Cor. 4.2 value 1 - c for zeta (c = 0.3, 0.77, 1).
 twist_check_out.txt: Prop. T on a non-self-dual example, agreement 5e-16.
 lemmaG_check_out.txt: F F2 = G2 at five points; int G2 D = 0 to 1e-14 for the example; D changes sign.
 lp_ac2_out.txt, cont1.py: continuous relaxation experiments (Sec. 7).
+
+
+## 9. Corrections after the referee report ([referee_report.md](referee_report.md); no failing step found)
+
+1. Theorem E: add the hypothesis that zeta_P converges in some half-plane (Landau's theorem with a_n >= 0 and finite order then gives absolute convergence on Re s > 1).
+2. Theorem 1, part (b): Fubini is applied to the symmetrised kernel w/(w^2 + t'^2), not to each half-kernel.
+3. Remark after Lemma G: the two inequalities are swapped (triangle: alpha + beta >= 0; F2: -alpha - beta >= 0). Not used in the proof.
+4. R7 (ii): zeros of Xi_P, counted with multiplicity.
+5. The open cases: G3 reads "Xi_P meromorphic of finite order with poles" (missing trivial zeros, or poles of zeta_P in Re s < 1/2 away from -2k, shape zeta(s)/(1 - 2^(-s))). G2 reads "Xi_P entire of finite order and Lambda_P(1-s)/Lambda_P(s) not polynomially bounded on any half-plane Re s >= c'"; that this means positive exponential type and a positive density of left zeros is heuristic.
+6. The LP experiment used a cap d <= 50 on the density and a finite t-grid.
