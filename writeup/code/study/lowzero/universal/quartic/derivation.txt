@@ -1,0 +1,52 @@
+Murmuration density of S4 quartic fields: derivation (labels: proved / derived = exact algebra / heuristic / conjecture / computed)
+
+0. Object [proved, standard]. K an S4 quartic field, L(s, rho_K) = zeta_K/zeta: degree 3, conductor |D|, root number +1, det rho = sign character
+   = chi_D (the quadratic resolvent Q(sqrt D); the cubic resolvent has the same discriminant class), a_K(p) = #roots - 1 (trace of the standard
+   representation). Gamma factor from rho(complex conjugation): r2 = 0: Gamma_R(s)^3 (mu = 000); r2 = 1 (D < 0): Gamma_R(s)^2 Gamma_R(s+1) (001);
+   r2 = 2: Gamma_R(s) Gamma_R(s+1)^2 (011). Three families, fields X <= |D| < 2X of one signature.
+1. Kernel and normalisation [derived]. Dictionary of murmur_gate.md 3.1 in degree d: E[sqrt p lambda(p)] = M(p/Q) with M(y) = sum_rho A(rho) K(rho y),
+   int_0^oo z^(w-1) K(z) dz = prod_j Gamma_R(1/2+w+mu_j)/Gamma_R(1/2-w+mu_j). Statistic m(y) = E[sqrt|D| a_K(p)] = M(y)/sqrt y = sum_rho B(rho) k(rho y),
+   B = A sqrt rho, k(z) = z^(-1/2) K(z), Mellin transform Kt(w) = prod_j Gamma_R(w+mu_j)/Gamma_R(1-w+mu_j). k is bounded up to logs at 0 (poles of Kt
+   at w = 0 of order #{mu_j = 0} = 3, 2, 1) and by stationary phase k(z) ~ C z^(-1/6) cos(6 pi z^(1/3) + phi): m is O(1) at small y and its
+   oscillation decays like y^(-1/6); the O(1) oscillating normalisation is y^(1/6) m = E[|D|^(1/3) p^(1/6) a_K(p)]; natural variable u = y^(1/3).
+   Checked: Meijer-G form 2 G^{3,0}_{0,6}((pi^3 z)^2 | a; 1-a), a_j = (1/2+mu_j)/2, against the Mellin-Barnes integral on Re w = 0.1, 18 cases,
+   <= 9.4e-7; degree-2 version = 2 pi J_0 and 2 pi(-Y_0 + (2/pi)K_0) of round 161 exactly (kcheck4_out.txt). [computed]
+2. Per-field lines [per-field law: conjecture (fact 2055 with lines, method of round 161); local identities derived]. F_l(v) = (l/(l-1)) sum_h
+   mu_L(l^h) lam(l^(v+h)) l^(-h); generating function sum_v F_l(v) X^v = (l/(l-1)) L_l^(-1)(1/(lX)) L_l(X) for every type (checked numerically, all
+   11 types). Local polynomials 1/L_l: (1111) (1-X)^3, (211) (1-X)^2(1+X), (22) (1+X)^2(1-X), (31) 1-X^3, (4) 1+X+X^2+X^3, (1^2 11) (1-X)^2,
+   (1^2 2) 1-X^2, (1^2 1^2) 1-X, (2^2) 1+X, (1^3 1) 1-X, (1^4) 1. Lines rho with v_l >= -3 per field; on average v_l >= -1.
+3. Family average [derived; Bhargava masses 1/24, 1/4, 1/8, 1/3, 1/4, 1/(2l), 1/(2l), 1/(2l^2), 1/(2l^2), 1/l^2, 1/l^3, total 1+1/l+2/l^2+1/l^3, all l]:
+   E_l(X) = sum_v b_l(v) X^v = b_l(0) (1 - X^2/l) h_l(X) / ((1-X^2)(1-X^3)(1-X^4)),  b_l(0) = 1/(1 + l^-2 - l^-3 - l^-4),
+   h_l(X) = 1 - X^-1/l^2 + X^2/l - X^4/l - X^5/l + X^5/l^2 - X^6/l + X^7/l^2   (sympy, v = -1..20: local4.py, local4b.py), so
+   D(s) = sum B(rho) rho^-s = A1 zeta(2s) zeta(3s) zeta(4s) prod_l (1 - l^(-1-2s)) h_l(l^-s),  A1 = E[c_K] = prod_l (1 + l^-2 - l^-3 - l^-4)^-1 = 0.821902
+   (the inverse of Bhargava's Euler product). b_l: v=-1: -l^2/((l-1)(l^3+l^2+2l+1)); v=1: -l/(l^3+l^2+2l+1); v=2: l^2(l+1)/(...); v=3: l(l^2+l-1)/(...).
+   Largest |A(rho)| = |B|/sqrt(rho): 1: 0.822; 4: 0.308; 1/2: -0.291; 9: 0.244; 16: 0.231; 8: 0.182; 1/3: -0.158; 27: 0.129. Squares, cubes and fourth
+   powers do not decay in B (b_l(2), b_l(3) -> 1, b_l(4) -> 2).
+4. Prime powers [derived]. Squares: E[sum alpha^2] = Frobenius-Schur indicator = 1 gives M = 1/2, i.e. -1/(2 sqrt y) in m; cubes: E[sum alpha^3] = 1
+   gives (1/3)(yX)^(-1/6) -> 0: no cube term at the conductor scale. Res_{s=1/2} D = 1/2 exactly, since sum_v F_l(v) l^(-v/2) = l/(l-1) for every
+   type: the y^(-1/2) terms cancel, as E[a_K(p)] = (1/p + 1/p^2)/Z_p at fixed p requires (no p^(-1/2) bias). The identity is per type, so it survives
+   any change of the local frequencies (finite-X models below).
+5. Small y [derived given 3]. m(y) = c3 y^(-1/3) + c4 y^(-1/4) + O(log^2), poles of zeta(3s), zeta(4s): c3 = (1/3) A1 zeta(2/3) zeta(4/3) Q(1/3) Kt(1/3)
+   = -9.2985 (r2=0), -5.3685 (r2=1), -3.0995 (r2=2) (ratio 3 : sqrt3 : 1 from Kt); c4 = +14.534, +6.020, +2.494; they nearly cancel for y < 0.25.
+   Reading (heuristic, as in round 161): c3 <-> an X^(5/6) secondary term with a p^(-1/3) root-count bias, c4 <-> an X^(3/4) term with p^(-1/4).
+   Shankar-Tsimerman (arXiv 2503.02381, read through a summary of the HTML) prove X + X^(5/6) for S4-families with archimedean masses M_i = M, sqrt3 M, M
+   (and M, sqrt3 M, M/3 for the Hasse-invariant part): their signature dependence does not match 3 : sqrt3 : 1 for any combination (r2=1 vs r2=0):
+   UNRESOLVED (either the identification of 5 or our reading of their constants is wrong); not used in any decision.
+6. Spikes [heuristic, stationary phase; not checked numerically]: the cube lines r n^3 have phase linear in n, so inverse-square-root singularities sit at
+   u = k/(3 r^(1/3)) (main ones u = k/3, k/6); squares and fourth powers (phase n^(2/3), n^(4/3)) give no singularity. Bin edges at odd multiples of 1/24
+   in u avoid u in (1/12)Z.
+7. Numerics [computed]. M1(y) = int_0^y m by Mellin-Barnes on Re w = 0.3 (between the poles 1/4 and 1/3): residues at 1/2 (cancels the squares exactly)
+   and 1/3, contour integral to T = 1500 with Euler-Maclaurin zeta and the Euler product to 10^4 accelerated by 1/zeta(2-w); bin error |T1500 - T750| <= 3.1e-3.
+   Cross-check: the same code with the round-161 Dirichlet series reproduces its tail constants (-1.024947, -1.775261) and its table to rms 0.018 / 0.014
+   (max 0.06) on the 73 bins of width 0.03 whose edges avoid the listed spikes (bins touching spikes differ by up to 0.6: contour truncation, edges on spikes).
+8. Finite X [computed on discovery, 5000 <= |D| < 20000: 41 / 685 / 419 fields for r2 = 0 / 1 / 2]. Field counts are 0.11, 0.30, 0.37 of Bhargava's
+   main term; the local types at l <= 13 are far from the masses (types with roots depleted, (31) and (4) enriched). The limit density gives the
+   shape (correlation 0.94 / 0.96 over 20 bins with u in (7/24, 47/24]) but not the size: amplitude 1.42 +- 0.05 / 1.46 +- 0.07 (diagonal weights),
+   1.037 +- 0.018 / 1.086 +- 0.034 (GLS, full jackknife covariance), shape chi2 187 / 76 on 20 bins: the deviation is not a rescaling. Halves of the
+   range give the same amplitude (no visible X-trend). Replacing the masses at l <= L0 by the observed type frequencies (independent over l):
+   amplitude 1.03 / 1.11 (L0 = 7), 0.975 / 1.033 (13), 0.92 / 1.00 (23), 0.87 / 0.96 (47) - it drifts with L0; the joint distribution at l <= 7 gives
+   1.12 / 1.18: correlations across l matter (a two-component, main + secondary, structure is the likely reason; its local densities are not known here).
+   Small y (u < 7/24): data/limit 1.79 / 1.39 / 1.99 against the count factor N_main/N = 3.33 / 2.72 / 9.27: the round-161 rule fails here.
+9. Status. Conjecture: the per-field law with lines; independence of the local factors; Bhargava masses used at all l at once and at p ~ |D|;
+   the interchange of limits; the prime-square term. Exact: 2-5 given the law; 1 (kernels), 7 (numerics, computed). No fitted parameter in the limit
+   density. The finite-X behaviour is not predicted (8 is empirical).
