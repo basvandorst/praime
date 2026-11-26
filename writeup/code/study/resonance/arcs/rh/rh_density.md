@@ -547,3 +547,22 @@ API metadata), `dl_koval/` (empty), `dl_maknys/` (Springer landing page), `dl_bb
 
 - `rh_density.md` (this file), `rh_density_check.py`, `rh_density_check_out.txt`
 - downloads: `dl_coleman/`, `dl_sohne/`, `dl_koval/`, `dl_maknys/`, `dl_bb/`, `dl_2111/`; prototypes: `proto/`
+
+
+## Referee report (26 November 2026)
+
+An independent referee (own code in [referee2/](referee2/)) re-derived Theorem D by the classical detection argument before
+reading the proof and obtained the same exponent (2 + 8κ)(1 − σ) for both classes of zeros, with X = M and Y = M^(1+4κ).
+**Verdict: proved, given Coleman's Theorem 2 as quoted (with the generality of Doubt 1) and the pointwise bound P_κ; no
+failing step.** Checked: only two coefficient vectors occur (the mollifier, and 1∗μ_(≤X) with |c| ≤ d), no squaring or
+powering; the sum over m is inside the mean value for both classes; zeros are counted with multiplicity through Gallagher's
+inequality; the zeros with |γ| > T₀ cost e^(−(log x)²/2) by the zero count alone; the block width 1/log x is needed and
+suffices; the exceptional zero affects only the characters of type 0 and costs a relative x^(β₁−1). Lemma ZC tested on PARI
+Hecke characters with k = 400, 1000, 401, −999 (largest window count 0.22 of the bound; zero counts 70, 86, 83, 99 against
+main terms 70.1, 85.5, 83.7, 99.1); Lemma EF tested at k = 12 and 100 (agreement 1.4·10⁻⁷ and 1.1·10⁻⁶).
+Slips to repair, none affecting the theorem: (1) lines 160–161: zeros with |γ − T_n| < 1 outside [n − ½, n + 3/2] need the
+neighbouring window counts added; (2) lines 233–234: three facts labelled "computed" are used for all arguments and need
+their one-line proofs (Σ_(n≤u) d₄(n) ≤ u(1 + log u)³ by induction; (r₀∗r₀) ≤ d₄ from r₀ ≤ d; the tail bound for all
+Y ≥ 100 by a dyadic estimate); (3) line 228: the decay of Γ(w) for Re w < 0 needs the shift Γ(w) = Γ(w + 1)/w; (4) line
+364: 2^A should read 2^(A(j+1)/log x); (5) the table of §8 should list (C4) for Theorem D. Not opened by the referee:
+Coleman's text and the textbook facts.
