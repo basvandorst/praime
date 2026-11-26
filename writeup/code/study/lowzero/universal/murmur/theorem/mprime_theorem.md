@@ -1,5 +1,9 @@
 # The murmuration density of one prime level with natural weights: a theorem given fact 2047
 
+**Corrected copy (26 November 2026).** The four slips of the referee report (end of this note) are repaired in place, each
+marked **[repair n]** with its short proof. No statement of a theorem, proposition or corollary changed; one
+error term inside a proof became smaller (T3, T5). The extension to fixed squarefree levels is in `level_theorem.md`.
+
 Folder: `scratchpad/mprime_thm/` (nothing in the repository was changed). Check script: `mprime_check.py`, output
 `mprime_check_out.txt`. Labels: **proved** (written out here), **quoted** (exact reference; "read" = I opened the text,
 "not opened" = cited from memory or from an earlier note), **checked** (a numbered assertion of the script),
@@ -74,9 +78,13 @@ r²N = 4p is impossible. **Checked:** F1 (k = 2, ε_f = a_f(N): 918 pairs (N, p)
 H(D) = Σ_{g|f₀} h′(Δ₀g²), the class number of orders h′(Δ₀g²) = h′(Δ₀)·g·Π_{ℓ|g}(1 − χ(ℓ)/ℓ) (Cox, *Primes of the form
 x² + ny²*, Cor. 7.28; not opened) and Dirichlet's formula h′(Δ₀) = √|Δ₀|·L(1, χ)/π (h′ = 2h/w) give
 
-    H(D) = (√D/π)·L*(D),  L*(D) := L(1, χ)·Π_{ℓ^a ∥ f₀} Q_ℓ,  Q_ℓ := (1 − χ(ℓ)/ℓ)Σ_{j<a}ℓ^{−j} + ℓ^{−a} ∈ [1 − 1/ℓ, 1 + 2/ℓ].
+    H(D) = (√D/π)·L*(D),  L*(D) := L(1, χ)·Π_{ℓ^a ∥ f₀} Q_ℓ,  Q_ℓ := (1 − χ(ℓ)/ℓ)Σ_{j<a}ℓ^{−j} + ℓ^{−a} ∈ [1, (ℓ+1)/(ℓ−1)).
 
 **Checked:** E1 (brute-force reduced forms = PARI qfbhclassno, D ≤ 3000), E2 (H(D) = h′(Δ₀)f₀ΠQ_ℓ exactly, D ≤ 3000).
+**[repair 1] Range of Q_ℓ (proved).** For a ≥ 1, with S_a := Σ_{j<a}ℓ^{−j} = (1 − ℓ^{−a})ℓ/(ℓ−1): χ(ℓ) = 1 gives
+Q_ℓ = (1 − 1/ℓ)S_a + ℓ^{−a} = 1; χ(ℓ) = 0 gives Q_ℓ = S_a + ℓ^{−a} = (ℓ − ℓ^{−a})/(ℓ−1) ∈ [1, ℓ/(ℓ−1)); χ(ℓ) = −1 gives
+Q_ℓ = (ℓ + 1 − 2ℓ^{−a})/(ℓ−1) ∈ [1, (ℓ+1)/(ℓ−1)). So 1 ≤ Q_ℓ < (ℓ+1)/(ℓ−1) = 1 + 2/(ℓ−1) (the earlier upper bound 1 + 2/ℓ fails,
+e.g. ℓ = 2, χ(2) = −1, a = 2: Q₂ = 5/2). Only Q_ℓ = 1 + O(1/ℓ) is used, in T3 for ℓ > z; it holds.
 Local form (proved): F_ℓ(D) := Q_ℓ/(1 − χ(ℓ)/ℓ) = Σ_{j<a}ℓ^{−j} + ℓ^{−a}/(1 − χ(ℓ)/ℓ) = Σ_{j≥0} c_{ℓ,j}(D)ℓ^{−j} with
 c_{ℓ,j} = 1 (j < a), χ(ℓ)^{j−a} (j ≥ a), so |c_{ℓ,j}| ≤ 1; c_{ℓ,j}(D) depends only on D mod ℓ^{2j+2} (ℓ odd) and mod 2^{2j+6}
 (ℓ = 2): if ℓ^{2j+2} | D (2^{2j+4} | D) then a > j and c = 1; otherwise v_ℓ(D) ≤ 2j+1 (≤ 2j+3), and v_ℓ(D), a and χ(ℓ) are
@@ -87,9 +95,10 @@ mod q (Davenport, *Multiplicative Number Theory*, ch. 20, (13)–(14) for ψ; no
 family_proof, Theorem B). By partial summation Σ_ℓ χ(ℓ)ℓ^{−s} converges locally uniformly on Re s > ½, so it equals
 log L(s, χ) − Σ_{ℓ, j≥2} χ(ℓ)^j/(jℓ^{js}) there (identity on Re s > 1; L ≠ 0 on Re s > ½), and Σ_{ℓ>z}χ(ℓ)/ℓ ≪ z^{−1/2}log²(qz).
 Hence L(1, χ) = Π_{ℓ≤z}(1 − χ(ℓ)/ℓ)^{−1}·exp(O(z^{−1/2}log²(qz) + 1/z)) (the j ≥ 2 terms give 1/z). With ω(f₀) ≤ log D and Q_ℓ = 1 + O(1/ℓ),
-Π_{ℓ|f₀, ℓ>z}Q_ℓ = exp(O(log D/z)). So, with P_z(D) := Π_{ℓ≤z}F_ℓ(D) ≪ (log z)³, uniformly for D ≤ 4(Y+1)N²:
+Π_{ℓ|f₀, ℓ>z}Q_ℓ = exp(O(log D/z)). So, with P_z(D) := Π_{ℓ≤z}F_ℓ(D) ≪ log z (**[repair 4a]**, proved: |c_{ℓ,j}| ≤ 1 below gives 0 < F_ℓ(D) ≤ Σ_j ℓ^{−j} =
+(1 − 1/ℓ)^{−1}, and Π_{ℓ≤z}(1 − 1/ℓ)^{−1} ≪ log z by Mertens; the earlier (log z)³ was true but loose), uniformly for D ≤ 4(Y+1)N²:
 
-    L*(D) = P_z(D) + O((log z)³·[z^{−1/2}log²(Nz) + log N/z]).
+    L*(D) = P_z(D) + O((log z)·[z^{−1/2}log²(Nz) + log N/z]).
 
 **T4 (proved).** P_z(D) = Σ_{P⁺(n)≤z} β_D(n)/n, β_D(n) := Π_{ℓ^j∥n} c_{ℓ,j}(D), |β_D(n)| ≤ 1, and β_D(n) depends only on
 D mod Q(n) := Π_{ℓ^j∥n} ℓ^{2j+2}·16^{[2|n]} ≤ 16n⁴. Rankin with σ = 1/log z: Σ_{n>L, P⁺(n)≤z} 1/n ≤ L^{−σ}Π_{ℓ≤z}(1 − ℓ^{σ−1})^{−1}
@@ -106,7 +115,9 @@ D mod Q(n) := Π_{ℓ^j∥n} ℓ^{2j+2}·16^{[2|n]} ≤ 16n⁴. Rankin with σ =
 - ℓ = 2, r odd: −D ≡ 1 − 4 ≡ 5 (mod 8), F₂ = (1 + ½)^{−1} = 2/3. ℓ = 2, r = 2r′: −D = 4Δ′; r′ even: Δ′ uniform on ℤ₂^×, F₂ = 1
   (Δ′ ≡ 3 (4)), 2 (Δ′ ≡ 1 (8)), 4/3 (Δ′ ≡ 5 (8)): mean 4/3. r′ odd: −D = 8w, w uniform on ℤ₂; F₂(8·odd) = 1 and F₂(4Δ₁) = 1 + F₂(Δ₁)/2
   give the mean ½ + ½(1 + I/2) with I := mean of F₂(4w′) = 7/6 + I/8, I = 4/3; mean 4/3.
-- Hence E(r) := Π_{ℓ≠N}E_ℓ(r) = ν′(r)·(1 + O(N^{−2})) for 1 ≤ r < N, and E(0) = (4/3)Π_{ℓ odd, ≠N} ℓ²/(ℓ²−1) = ζ(2)(1 − N^{−2}).
+- Hence E(r) := Π_{ℓ≠N}E_ℓ(r) = ν′(r)/(1 − u_N) = ν′(r)·(1 + O(N^{−3})) for 1 ≤ r < N, and E(0) = (4/3)Π_{ℓ odd, ≠N} ℓ²/(ℓ²−1) = ζ(2)(1 − N^{−2}).
+  **[repair 4b]** (proved): for N ∤ r the product ν′(r) contains the factor 1 − u_N at ℓ = N, which E(r) replaces by E_N = 1;
+  u_N = 1/((N−1)²(N+1)) ≍ N^{−3}. The earlier O(N^{−2}) was true but loose; nothing downstream changes.
 **Checked E3:** 208 cases (ℓ = 2, 3, 5, 7; N = 10007, 100003, 13 and N = ℓ; r = 0…12), exact enumeration of p mod ℓ^J with a
 rigorous enclosure of the undetermined residues (width ≤ 1.5·10⁻⁵).
 
@@ -128,7 +139,7 @@ T1 and T2 give
 E_N(p) = (1 + O(1/N))·{(12/((k−1)π))[√y_p L*(D₀) + (−1)^{k/2−1}Σ_r U_{k−2}(r/(2√y_p))√(4y_p − r²) L*(D_r)] − δ_{k,2}·12(y_p + 1/N)}.
 Apply the key lemma with G₀(v) = √v and G_r(v) = 2√v·sin((k−1)θ_r(v)) for v > r²/4 (cos θ_r = r/(2√v); this equals
 U_{k−2}(r/(2√v))√(4v − r²)), G_r = 0 otherwise: continuous, ‖G_r‖ ≪_k √(Y+1). Σ_{p∈J}log p·p/N = ∫_J u/N du + O(√N log²N).
-With E(0)·12/π = 2π and E(r) = ν′(r)(1 + O(N^{−2})), the window mean is (1/h)∫M_k + O((log N)^{−A}). ∎ (Theorem 2)
+With E(0)·12/π = 2π(1 − N^{−2}) and E(r) = ν′(r)(1 + O(N^{−3})), the window mean is (1/h)∫M_k + O((log N)^{−A}). ∎ (Theorem 2)
 
 ## 3. Step (a): proof of Theorem 1 (proved, given GRH for characters mod m ≤ N^θ)
 
@@ -136,7 +147,11 @@ With E(0)·12/π = 2π and E(r) = ν′(r)(1 + O(N^{−2})), the window mean is 
    Iwaniec–Kowalski Prop. 14.5, not opened) gives √N Σ^h ε_fλ_f(n) = −2π Σ_{m≥1} S(Nn, 1; Nm) m^{−1} J_{k−1}(4π√(n/N)/m)
    (family_proof Lemma 2, refereed). S(Nn, 1; Nm) = −S(n, N̄; m) for (m, N) = 1 (ILS (157); checked A1) and S(Nn, 1; Nm) = 0 for
    N | m (proved: x = x₀ + N^{j−1}t kills the sum; checked A2). For p ∈ J with p > ℓ: λ_f(ℓ)λ_f(p) = λ_f(ℓp), so
-   √N Σ^h ε_fλ_f(ℓ)λ_f(p) = 2π Σ_{(m,N)=1} S(ℓp, N̄; m) m^{−1} J_{k−1}(4π√(ℓp/N)/m). (Primes p ≤ ℓ cost O(ℓ log N) = o(hN).)
+   √N Σ^h ε_fλ_f(ℓ)λ_f(p) = 2π Σ_{(m,N)=1} S(ℓp, N̄; m) m^{−1} J_{k−1}(4π√(ℓp/N)/m). (**[repair 2]** Primes p ≤ ℓ, proved: by Deligne |λ_f(ℓ)λ_f(p)| ≤ 2τ(ℓ), and Σ^h_f 1 = 1 + O(N^{−1}) (the Petersson formula of
+   this step with n = 1 and no twist, Weil and |J_{k−1}(x)| ≤ x/2 for the c ≡ 0 (N) terms), so each such p costs
+   ≤ 2τ(ℓ)√N(1 + O(N^{−1}))·log p·sup|g|; in total O(‖g‖τ(ℓ)ℓ√N log N). Divided by Σ_{p∈J}log p ≫ hN ≥ N^{1/2+2θ} this is
+   O(‖g‖N^{η−2θ+ε}) ≤ O(‖g‖N^{−θ/2}) since η < θ: inside the stated error. The earlier "O(ℓ log N)" omitted the factor
+   τ(ℓ)√N.)
 2. *Tail m > M₀ := N^θ (proved).* Weil |S(a, b; m)| ≤ τ(m)(a, b, m)^{1/2}m^{1/2} (quoted, IK Cor. 11.12, not opened; checked A4;
    here (ℓp, N̄, m) = 1) and |J_{k−1}(x)| ≤ x/2 (DLMF 10.14.1, 10.14.4, not opened; checked D0): ≪ √(ℓ(Y+1)) M₀^{−1/2}log M₀ per p.
 3. *Head m ≤ M₀ (proved).* p > M₀ for all but O(M₀) primes, so K(p) := S(ℓp, N̄; m) is a function on (ℤ/m)^×, |K| ≤ τ(m)√m.
@@ -221,8 +236,13 @@ E1–E3 Hurwitz numbers, the product formula, local means E_ℓ(r); F1–F3 trac
 G1–G3 **one prime level, no average over N** (N = 10007, p ≤ 12N, h = ½: χ² 6.1 on 24 windows for M_2 against 31.9 for
 Zubrilina's squarefree density; N = 100003, p ≤ 4N, h = ¼: χ² 2.1 on 16 against 194.5; k = 4: 3.4 vs 108.8 and 5.1 vs 1252.5;
 means of πH(D_r)/√D_r over primes: z-scores |z| ≤ 0.64 against ζ(2), ν′(1), ν′(2), ν′(3)); the χ² are below the number of
-windows because the residues of p mod small q are equidistributed better than random sampling (T6), so the per-prime scatter
-overstates the error; H1–H2 the blind round-160 file (rms 0.058 against this note's M_2; M_2 = the registered model to 0.012).
+windows, i.e. the per-prime scatter overstates the error of a window mean. **[repair 3]** The reason is NOT proved (T6 gives
+only an upper bound O(√N log²N) per residue class, no better than independent sampling). Measured instead: the scatter of
+window means BETWEEN levels is about 0.53 times the single-value standard error (20 squarefree levels near 10⁴:
+`level_thm/level_check.py`, section E). A heuristic (not proved): most of the variance of L*(D(p)) comes from the local factors
+at small ℓ, i.e. from p mod small moduli, and the class counts of consecutive primes fluctuate like √x/log x under GRH and LI
+(Rubinstein–Sarnak 1994, not opened), less than the √(x/log x) of independent sampling. So these χ² compare the two densities
+and are not calibrated goodness-of-fit values; H1–H2 the blind round-160 file (rms 0.058 against this note's M_2; M_2 = the registered model to 0.012).
 Final line of `mprime_check_out.txt`: **28 checks, 0 failed** (run time about 2.5 min, PARI stack 300 MB).
 
 ## 10. Sources
@@ -264,7 +284,7 @@ recomputed.
 - **One level, not used by the author** (N = 30011, all primes p ≤ 4N, 16 windows): χ² 3.2 against M_2 and 70.5 against the
   density of squarefree levels; weight 4: 1.5 and 388.8; at N = 30029: 4.0 and 69.5, 1.8 and 410.2. The errors are the
   scatter of single values, not calibrated: the gap between the two densities is what counts.
-- **Slips to repair, none affecting the theorem**: line 77: the range of Q_ℓ is 1 ≤ Q_ℓ ≤ (ℓ+1)/(ℓ−1), not [1 − 1/ℓ,
+- **Slips to repair, none affecting the theorem** (all four repaired in place above: [repair 1]–[repair 4b]): line 77: the range of Q_ℓ is 1 ≤ Q_ℓ ≤ (ℓ+1)/(ℓ−1), not [1 − 1/ℓ,
   1 + 2/ℓ] (used only for ℓ > z); line 139: the primes p ≤ ℓ cost O(τ(ℓ)·ℓ·√N·log N); lines 221–225: the reason given for
   the low χ² is unproved; lines 90 and 109: bounds true but loose.
 - **Prior art**: Zubrilina (arXiv 2310.07681) and its correction (2609.29631) average over squarefree levels; Cowan

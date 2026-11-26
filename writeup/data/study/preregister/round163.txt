@@ -1,0 +1,55 @@
+REGISTRATION, round [number to be assigned]: the murmuration density of weight-2 newforms at ONE FIXED SQUAREFREE LEVEL
+(natural weights), four families of levels N = q, 2q, 3q, 6q.
+
+STATEMENT (level_theorem.md, Theorem 5; proved given fact 2047 = GRH for Dirichlet L-functions only): for N squarefree,
+  E_N(p) = sum_{f new of level N} eps_f a_f(p) / dim S_2^new(N)  ->  M^(N)(y),   y = p/N, window means over primes p,
+  M^(N)(y) = 2 pi pi(N) sqrt(y) - 12 kappa(N) y + (12/pi) kappa(N) sum_{1 <= r < 2 sqrt y} nu_N(r) sqrt(4y - r^2),
+  kappa(N) = N/phi(N), pi(N) = prod_{q|N}(1 + 1/q), nu_N(r) = nu'(r) / prod_{q|N} e_q(r), e_q(r) = q^2/(q^2-1) if q | r,
+  1 - 1/((q-1)^2(q+1)) if not. No parameter is fitted. For q -> infinity the four types have kappa = 1, 2, 3/2, 3 and
+  pi = 1, 3/2, 4/3, 2. Comparators for every type: the prime-level density M_prime (Theorem 2 = type q), Zubrilina's density
+  M_zub (arXiv 2310.07681, squarefree levels averaged; level_theorem.md Prop. 6: it is the dimension-weighted average of the
+  M^(N)), and the densities of the other three types.
+
+STATE WHEN THIS WAS WRITTEN. Seen (discovery, declared): 20 levels near 1e4, 5 per type (q = 10007, 10009, 10037, 10039, 10061;
+2q with q = 5003, 5009, 5011, 5021, 5023; 3q with q = 3331, 3343, 3347, 3359, 3361; 6q with q = 1669, 1693, 1697, 1699, 1709),
+p <= 4N. Earlier sessions: prime levels 1500-3200 (round 160), 10007 and 100003 (mprime_check.py), 30011 and 30029 (referee);
+squarefree levels 1500-1699 (round 160 gate). Disclosure: a timing run summed class numbers at N = 30066 (= 6 * 5011, a test
+level) for p in [3N, 3N + 3000]; only the time was printed, no value was looked at or compared. Nothing else was computed at
+any test level.
+
+TEST. Type T in {q, 2q, 3q, 6q}, m = 1, 2, 3, 6: the levels N = m q for the first 10 primes q > 30030/m (q != 2, 3):
+  q : 30047 30059 30071 30089 30091 30097 30103 30109 30113 30119
+  2q: 30034 30062 30106 30122 30146 30154 30166 30182 30202 30214
+  3q: 30111 30117 30183 30201 30207 30237 30273 30279 30297 30309
+  6q: 30054 30066 30126 30138 30234 30306 30354 30462 30486 30522
+Every prime p <= 4N with p !| N; data T(p) = H(4pN)/2 + sum_{r>=1, r^2 N<4p} H(4pN - r^2 N^2) - (p+1) (Skoruppa-Zagier for
+squarefree N, validated exactly against PARI on 1,386 pairs at 28 (level, weight) pairs: level_check.py C1-C3), divided by
+mfdim([N,2],0); window means with weights log p over the 16 windows (0, 0.25], ..., (3.75, 4] of y = p/N. Predictions per level
+and window (own = M^(N) evaluated at each prime with the exact dimension and the exact p + 1; comparators evaluated at the same
+primes) and the errors sigma_{T,w} are frozen in predictions_blind.json. Errors: the scatter BETWEEN the discovery levels
+(per-type scale x pooled window shape; 0.53 x the single-value standard error), not scaled down for the larger N.
+
+DECISIONS (fixed now; per type, chi2 = sum over 10 levels x 16 windows = 160 terms of ((data - model)/sigma_{T,w})^2)
+  D1: chi2 against the own density M^(N) is at most 256.
+  D2: for each of the four alternatives (three other types and M_zub; for types 2q, 3q, 6q the type-q density is M_prime):
+      chi2_alt - chi2_own >= 100 AND chi2_alt > 256.
+  VERDICT PASS iff D1 and D2 hold for all four types. FALSIFIER: any type with chi2_own > 256, or any alternative within 100 of
+  the own density (or better than it).
+  Reported, no decision: chi2 on the first and last 8 windows; rms(data - own) per type.
+  Expected from the predictions alone (sum (own - alt)^2/sigma^2, no data): smallest separations 680 (M_zub, type q),
+  closest type densities 1603 (q-density at type 3q), 2000 (2q-density at type 6q), 2884 (3q-density at type q); with
+  calibrated errors chi2_own ~ 160 or less (less if the errors shrink with N).
+  Dry run (discovery levels, in-sample, 80 terms per type, same thresholds): own 57.2 / 88.8 / 65.3 / 84.6 (q / 2q / 3q / 6q);
+  smallest alternative 364.4 (M_zub, q), 1895.0 (M_zub, 2q), 687.9 (M_zub, 3q), 1176.8 (2q-density, 6q); VERDICT PASS.
+
+FILES (scratch folder level_thm/), sha256:
+  2f67dc3a2f7fcf86327029c9a0db964cc0bbd21fb11a2fa0d6c6cd27f568a929  predictions_blind.json
+  99ae368442fa4875b43509487a95bc4993b3045aa1024ea2e9f3dce518ab97db  predictions_dry.json
+  741bba7cc8bed85d956a7fe120eb7eb4ab262b44005a8313a0b216b5876a3082  blind_test.py   (refuses a predictions file with another hash)
+  8e964184f4e5f9b1d54631820500c18bae8e00d60becdd4b05aedbb4053e6087  level_check.py  (re-creates both predictions files byte for byte: E3)
+
+COMMANDS (in the folder; bounded; one job at a time; about 10-20 min in total at 15-30 s per level, 2-3 runs; < 400 MB):
+  (export BUDGET=540; ulimit -v 1200000; timeout 600 nice /home/bas/praime/.venv/bin/python -I -B blind_test.py count blind)
+      # repeat until it prints 'all levels done' (state in state_blind.json, resumable after a timeout)
+  (ulimit -v 1200000; timeout 300 nice /home/bas/praime/.venv/bin/python -I -B blind_test.py read blind)
+  Dry run (done, 93 s): ... count dry, then ... read dry.
