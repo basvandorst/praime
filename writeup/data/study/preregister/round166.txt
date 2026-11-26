@@ -1,0 +1,34 @@
+REGISTRATION, round 166: MAASS ISLANDS WITH GENUINE ANGLES (point masses), and the LEFT-EDGE LAW.
+
+BACKGROUND (round 165, results in writeup/data/study/maass/, not yet written up). With one MEASURE on the Satake angle per
+prime (convex problem) the first eigenvalue of each parity is isolated at supports 8, 16, 32 and the true forms pass, but
+for odd forms everything above r = 12.2 stays feasible; the optimal measures there are mixtures (two separated atoms at
+p = 2), not Euler products. Only L(f) and Sym^2 are active; Sym^3, Sym^4 and twists by six real characters are slack.
+
+STATEMENT. Point-mass problem: every prime p <= X carries ONE angle theta_p; t_pm(r) = max over the angles of the smallest
+eigenvalue of the truncated forms of L(f) and L(Sym^2 f) per unit conductor exponent (code: bootstrap/maass/pm.py, branch
+and bound with shared cuts; lower bound = value at a point, upper bound = convex problem on the remaining boxes, gap 2e-3).
+F_X = { r : t_pm(r) >= -0.002 }.
+  LEFT-EDGE LAW (ours): every connected component of F_X begins at a true eigenvalue of that parity.
+  ISLANDS: as X grows the components shrink towards the eigenvalues.
+
+STATE WHEN THIS WAS WRITTEN (declared). Seen: (1) all of round 165 (convex curves at X = 8, 16, 32; components at X = 16:
+odd {9.55} and [12.20, 20]; even {13.80}, [17.70, 17.90], [19.35, 19.40]). (2) Point mass at p = 2 only, odd, X = 8, eight
+values of r. (3) pm.py, odd, X = 8, r = 13.0, 13.5, ..., 17.0: t_pm = +0.138, +0.189, +0.194, +0.113, +0.027, -0.018,
+-0.011, +0.049, +0.102. Nothing else: no pm.py run at X = 16 or 32, none for even parity.
+Answer key: writeup/data/study/maass/lmfdb_key.json (Booker-Strombergsson-Venkatesh files; 10 forms with r < 20; the
+eleventh, r = 20.1067, from one LMFDB response). I have seen the key.
+
+TEST. pm.py, kmax = 2, X = 16: r = 9.0, 9.1, ..., 20.0 for both parities. Then X = 32 on the same grid as far as the
+budget allows (order: r ascending; reported up to where it got, by 05:00 UTC, 27 November 2026).
+A grid point counts as feasible if the upper bound t_upper >= -0.002 (so an unfinished branch and bound counts against us).
+
+DECISIONS at the largest completed X, per parity, for components that begin at r > 9.05 (the grid starts at 9.0):
+  E1 (left-edge law): for every component, the distance from its first grid point to the nearest true eigenvalue of that
+      parity at or above (first grid point - 0.1) is at most 0.1.  One component that begins elsewhere = FAIL.
+  E2 (truth feasible; a check of the code): the grid point at or just above every true eigenvalue is feasible.
+  E3 (shrinking): the number of feasible grid points at X = 16 is smaller than in the convex problem at X = 16
+      (round 165), and at X = 32 smaller than at X = 16.
+  E4 (Hecke eigenvalues at the left edges): at the first grid point of each component, a_2 and a_3 of the best point are
+      within 0.1 of the true form's values.
+Secondary: the list of components; the forms active; verification of the best points against Sym^3 and Sym^4.

@@ -17,21 +17,42 @@ def types(r, eps, kmax=4):
     if kmax >= 4: T.append(('S4', [0, 2j*r, -2j*r, 4j*r, -4j*r], 4, lambda ph: 1 + 2*np.cos(2*ph) + 2*np.cos(4*ph)))
     return T
 
+def types_hol(kappa, kmax=4):
+    """Holomorphic weight kappa (real parameter), level 1: Gamma_C(s + mu) = Gamma_R(s + mu) Gamma_R(s + mu + 1)."""
+    h = (kappa - 1)/2
+    T = [('f',  [h, h + 1], 1, lambda ph: 2*np.cos(ph))]
+    if kmax >= 2: T.append(('S2', [1, 2*h, 2*h + 1], 2, lambda ph: 1 + 2*np.cos(2*ph)))
+    if kmax >= 3: T.append(('S3', [3*h, 3*h + 1, h, h + 1], 3, lambda ph: 2*np.cos(ph) + 2*np.cos(3*ph)))
+    if kmax >= 4: T.append(('S4', [0, 2*h, 2*h + 1, 4*h, 4*h + 1], 4, lambda ph: 1 + 2*np.cos(2*ph) + 2*np.cos(4*ph)))
+    return T
+
 class Problem:
-    def __init__(self, r, eps, X, J=61, kmax=4, N=None, margin=12.0):
+    def __init__(self, r, eps, X, J=61, kmax=4, N=None, margin=12.0, hol=False, th=None, T=None, bad=False):
         self.r = r; self.eps = eps; self.X = X
         a = np.log(X)/2
-        self.N = N or max(16, int(np.ceil(a*(kmax*r + margin)/np.pi)))
-        self.B = B = Basis(X, self.N, maxfreq=kmax*r)
-        self.T = types(r, eps, kmax)
-        self.A = [B.arch(k) for (_, k, _, _) in self.T]
-        self.th = np.linspace(0, np.pi, J)
+        maxfreq = 0.0 if hol else kmax*r
+        self.N = N or max(16, int(np.ceil(a*(maxfreq + margin)/np.pi)))
+        self.B = B = Basis(X, self.N, maxfreq=maxfreq)
+        self.T = T if T is not None else (types_hol(r, kmax) if hol else types(r, eps, kmax))
+        self.T = [tuple(x)[:4] + ((x[4] if len(x) > 4 else 0.0),) for x in self.T]      # (name, kappas, k, weight, log of the fixed part of the conductor)
+        self.A = [B.arch(x[1]) + x[4]*2*a*np.eye(B.n) for x in self.T]
+        self.th = np.linspace(0, np.pi, J) if th is None else np.asarray(th, float)
         self.pp = [(p, m) for p in primerange(2, int(X) + 1) for m in range(1, 60) if m*np.log(p) <= 2*a - 1e-9]
         self.primes = sorted({p for p, m in self.pp})
         self.Spm = np.array([B.S(m*np.log(p))[0] for p, m in self.pp])          # (n_pp, n, n)
         # c[T][i_pp, j] = c_T(m theta_j) log p p^(-m/2)
-        self.c = [np.array([cf(m*self.th)*np.log(p)*p**(-m/2) for p, m in self.pp]) for (_, _, _, cf) in self.T]
+        # a weight function with attribute .pm is called as cf.pm(m, grid) (weights that are not functions of m*theta)
+        self.c = [np.array([(cf.pmp(p, m, self.th) if hasattr(cf, 'pmp') else cf.pm(m, self.th) if hasattr(cf, 'pm') else cf(m*self.th))*np.log(p)*p**(-m/2) for p, m in self.pp]) for cf in (x[3] for x in self.T)]
         self.pidx = np.array([self.primes.index(p) for p, m in self.pp])
+        self.nbad = 0
+        if bad:
+            # two more columns per prime: the Steinberg local factors (1 -+ p^(-1/2-s))^(-1) of a newform of squarefree
+            # level at a prime dividing the level; Sym^k has (1 - (+-1)^k p^(-k/2-s))^(-1).  Columns: sign +, sign -.
+            self.nbad = 2
+            for iT, k in enumerate(x[2] for x in self.T):
+                extra = np.array([[sg**(k*m)*p**(-k*m/2)*np.log(p)*p**(-m/2) for sg in (1, -1)] for p, m in self.pp])
+                self.c[iT] = np.hstack([self.c[iT], extra])
+            self.th = np.concatenate([self.th, [np.nan, np.nan]])
     def forms(self, w):
         """w: (n_primes, J) measures.  Returns list of matrices H_T = A_T - P_T(w)."""
         out = []
@@ -41,13 +62,14 @@ class Problem:
         return out
     def mineigs(self, w):
         two_a = 2*self.B.a
-        return [np.linalg.eigvalsh(H)[0]/(two_a*k) for H, (_, _, k, _) in zip(self.forms(w), self.T)]
+        return [np.linalg.eigvalsh(H)[0]/(two_a*x[2]) for H, x in zip(self.forms(w), self.T)]
     def cut(self, iT, v):
         s = np.einsum('j,ijk,k->i', v, self.Spm, v)                               # (n_pp,)
         row = np.zeros((len(self.primes), len(self.th)))
         np.add.at(row, self.pidx, self.c[iT]*s[:, None])
         return float(v @ self.A[iT] @ v), row.ravel()
-    def solve(self, tol=1e-7, rounds=400, ncut=4, verbose=False):
+    def solve(self, tol=1e-7, rounds=400, ncut=4, verbose=False, mask=None):
+        """mask: optional (n_primes, J) array of 0/1; a measure may only use the columns with mask 1."""
         nP, J = len(self.primes), len(self.th); two_a = 2*self.B.a
         rhs, rows, tk = [], [], []
         for iT, A in enumerate(self.A):
@@ -60,7 +82,7 @@ class Problem:
         for rd in range(rounds):
             Aub = np.hstack([np.array(rows), np.array(tk)[:, None]])
             res = linprog(cost, A_ub=Aub, b_ub=np.array(rhs), A_eq=Aeq, b_eq=np.ones(nP),
-                          bounds=[(0, 1)]*(nP*J) + [(-50, 50)], method='highs')
+                          bounds=([(0, 1)]*(nP*J) if mask is None else [(0, float(m)) for m in np.asarray(mask).ravel()]) + [(-50, 50)], method='highs')
             if res.status != 0: raise RuntimeError(res.message)
             w = res.x[:-1].reshape(nP, J); t = res.x[-1]
             lam = np.inf; added = 0
@@ -74,9 +96,16 @@ class Problem:
             if added == 0: break
         self.w = w
         return lam, t, rd
+    def ap(self, w=None):
+        """Mean of a_p per prime (Steinberg columns count as +-p^(-1/2)) and the weight on the Steinberg columns."""
+        w = self.w if w is None else w; out = []
+        for i, p in enumerate(self.primes):
+            vals = 2*np.cos(self.th)
+            if self.nbad: vals = np.concatenate([vals[:-2], [p**-0.5, -p**-0.5]])
+            out.append((p, float(w[i] @ vals), float(w[i][-2:].sum()) if self.nbad else 0.0))
+        return out
     def summary(self, w=None):
-        w = self.w if w is None else w
-        return ' '.join('%d:%+.3f' % (p, float(w[i] @ (2*np.cos(self.th)))) for i, p in enumerate(self.primes))
+        return ' '.join('%d:%+.3f%s' % (p, a, '[bad %.2f]' % b if b > 1e-6 else '') for p, a, b in self.ap(w))
 
 if __name__ == '__main__':
     eps = int(sys.argv[1]); X = float(sys.argv[2]); kmax = int(sys.argv[4]) if len(sys.argv) > 4 else 4
