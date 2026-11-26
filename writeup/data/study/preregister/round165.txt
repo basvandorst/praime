@@ -1,0 +1,50 @@
+REGISTRATION, round 165: MAASS ISLANDS. The Laplace spectrum of the modular surface and the Hecke eigenvalues of its
+Maass forms as the feasible points of Weil positivity (level 1; input: the primes, the Gamma factors, nothing else).
+
+STATEMENT (hypothesis, ours as far as known tonight; a literature check is running and its verdict is not in yet).
+  Data: a real spectral parameter r > 0, a parity eps in {0, 1}, the primes p <= X.
+  Unknown: for each prime p a probability measure mu_p on the Satake angle theta in [0, pi] (a_p = 2 cos theta).
+  Forms (truncated Weil quadratic forms on test functions supported in [-a, a], X = e^(2a), conductor 1, no pole):
+    L(f):       Gamma_R(s+eps+ir) Gamma_R(s+eps-ir),                         weight at p^m: <2 cos m theta> log p
+    L(Sym^2 f): Gamma_R(s) Gamma_R(s+2ir) Gamma_R(s-2ir),                    <1 + 2 cos 2m theta> log p
+    L(Sym^3 f): Gamma_R(s+eps+-3ir) Gamma_R(s+eps+-ir),                      <2 cos m theta + 2 cos 3m theta> log p
+    L(Sym^4 f): Gamma_R(s) Gamma_R(s+-2ir) Gamma_R(s+-4ir),                  <1 + 2 cos 2m theta + 2 cos 4m theta> log p
+  t*(r) = the largest t for which all four forms are >= 0 with conductor e^(-kt) for Sym^k (k = 1 for f); q*(r) = e^(-t*).
+  For a true Maass form with real angles and GRH for its four L-functions, t*(r) >= 0 at every support.
+  CLAIM: t*(r) < 0 (so q* > 1) away from the true eigenvalues; the feasible set shrinks to them as X grows; at a true
+  eigenvalue the optimal measures sit at the true Hecke eigenvalues.
+  Code: writeup/code/study/bootstrap/maass/engine.py, maass.py (float64, Kelley cutting planes + HiGHS LP, J = 61 angles).
+
+STATE WHEN THIS WAS WRITTEN (declared). Seen: (1) a crude bound (L(f x f), primes dropped, kernel sinc^4): negative for
+r <= 6, positive for r >= 8. (2) Four points of the full problem, eps = 1, X = 8: t* = -1.610 (r = 3), -0.787 (r = 6),
+-0.0003 (r = 9.5337), -0.104 (r = 11); at r = 9.5337 the means of a_p were -1.067, -0.455, -0.288, -0.769 for p = 2, 3,
+5, 7. (3) Engine check on zeta and chi_-4 against ../weil.py. Nothing else was computed: no other r, no eps = 0, no X > 8.
+Known to me from memory, not looked up: odd eigenvalues near 9.5337, 12.1730, 14.3585, 16.1381, 16.6443; even near
+13.7798, 17.7386; a_p of the first form near -1.0683, -0.4562, -0.2907, -0.7449. The answer key is the LMFDB list
+(level 1, weight 0), fetched by an agent that does not see the scan.
+
+TEST. kmax = 4, J = 61, solver tolerance 1e-7.
+  X = 8 and X = 16: r = 1.00, 1.05, ..., 20.00, both parities.
+  X = 32: r = 1.0, 1.1, ..., 20.0, both parities; the multiples of 0.5 first. If the budget (06:00 UTC, 27 November
+  2026) runs out, the completed part is reported and named.
+  Feasible set F_X = { r : t*(r) >= -0.002 } (0.002 = allowance for the angle grid; t* was -0.0003 at the pilot point).
+
+DECISIONS (primary), each per parity, at the largest completed X.
+  D1 (no feasible point below the first eigenvalue): t* < -0.002 for every grid r below r_1(parity) - 0.3.
+  D2 (every true eigenvalue is feasible): every LMFDB eigenvalue r_j <= 15 has a grid point within 0.05 with t* >= -0.002.
+  D3 (islands): the true eigenvalues r_j <= 15 lie in pairwise different connected components of F_X, and every
+      component of F_X below r = 15 contains a true eigenvalue.
+  D4 (peaks, weaker than D3): t*(r) has a strict local maximum within 0.1 of every true eigenvalue r_j <= 15.
+  D5 (Hecke eigenvalues): at the grid point nearest to each r_j <= 15, the means of a_p for p = 2, 3, 5, 7 are within
+      0.05 of the LMFDB values (16 numbers for the forms known to me; a number drawn uniformly from [-2, 2] passes one
+      such test with chance 0.05).
+  Reading: D1, D2, D5 pass and D3 passes = the strong claim holds at this support. D3 fails, D4 passes = peaks without
+  isolation at this support. D2 or D5 fails = the claim is wrong or the code is (the truth must be feasible under GRH).
+
+SECONDARY (reported, no decision): the width of each island at X = 8, 16, 32; the dependence on kmax (1, 2, 3, 4) at
+X = 16; sensitivity to J (121) and to the basis size at the islands; the active forms per region.
+
+CONTROL with an exact answer (run after the test, same code): holomorphic forms of level 1 with the weight kappa as a
+real parameter, Gamma factors Gamma_C(s+(kappa-1)/2); Sym^2: Gamma_R(s+1) Gamma_C(s+kappa-1); Sym^3: Gamma_C(s+3(kappa-1)/2)
+Gamma_C(s+(kappa-1)/2); Sym^4: Gamma_R(s) Gamma_C(s+kappa-1) Gamma_C(s+2kappa-2). Truth: cusp forms at kappa = 12, 16,
+18, 20, 22, 26 (one each), none below 12 and none at 14; a_2 of Delta = -24/2^(11/2) = -0.5303.
