@@ -119,4 +119,23 @@ c = col('001'); vals = [c[X][0] for X in (6.0, 8.0, 10.0, 12.0, 14.0)]
 ok([round(x, 4) for x in vals] == [22.5288, 22.5523, 22.5664, 22.5852, 22.5953] and c[14.0][1].split() == ['6.206(2.82)'], 'convex, cubic complex')
 c = col('000'); vals = [c[X][0] for X in (6.0, 8.0, 10.0, 12.0, 14.0)]
 ok([round(x, 4) for x in vals] == [46.5468, 48.0437, 48.1272, 48.1324, 48.1486] and c[14.0][1].split() == ['8.931(4.21)'], 'convex, cubic real')
+t = rd('relaxed_k1_out.txt')
+lam = [float(x) for x in re.findall(r'lambda (\S+) \(LP', t)]
+ok([('%.1e' % x) for x in lam[:3]] == ['3.2e-05', '1.6e-06', '9.9e-08'] and '4.004(0.507)' in t and '4.000(0.500)' in t and '2.000(1.000) 3.000(1.000)' in t, 'k=1 class: same optimum, von Mangoldt weights')
+t = rd('relaxed_dual_out.txt')
+gv = {float(m.group(1)): float(m.group(2)) for m in re.finditer(r'x=(\S+)\s+g\(log x\)/g\(0\) =\s+(\S+)', t)}
+ok(abs(gv[2.504] - 1.586e-3) < 1e-6 and abs(gv[3.502] - 4.499e-5) < 1e-8 and abs(gv[4.503] - 2.488e-6) < 1e-9 and abs(gv[6.0] - 2.264e-7) < 1e-10 and all(abs(gv[x]) < 1e-9 for x in (2.0, 3.0, 4.0, 5.0, 7.0)), 'dual solution: bumps and zeros')
+t = rd('magic_check_out.txt')
+ours = [float(x) for x in re.search(r'a_1..a_5 \(ours\)  : (.*)', t).group(1).split()]; theirs = [float(x) for x in re.search(r'a_1..a_5 \(paper\) : (.*)', t).group(1).split()]
+ok(all(abs(a/b - 1) < 6e-9 for a, b in zip(ours, theirs)), 'magic function: coefficients a_1..a_5')
+m = re.search(r'pole term / g\(0\) = (\S+)\s+archimedean term / g\(0\) = (\S+)\s+W\(g\)/g\(0\) = (\S+)', t)
+ok(m.group(1) == '1.120099144' and m.group(2) == '-1.120099143' and abs(float(m.group(3))) < 2e-9, 'magic function: W = 0 to 2e-9')
+ok(abs(float(re.search(r'min over t in \[0, 60\] \(step 0.1\): (\S+)', t).group(1))) < 1e-11, 'magic function: transform >= 0')
+zs = [(float(a), float(b), float(c)) for a, b, c in re.findall(r'zero \S+ : (\S+)\s+midpoints -1, \+1: (\S+) (\S+)', t)]
+ok(len(zs) == 10 and max(abs(z[0]) for z in zs) < 2.4e-10 and zs[0][1:] == (1.562e-03, 5.690e-04), 'magic function: transform vanishes at ten zeros')
+cmpv = {float(a): (float(b), float(c)) for a, b, c in re.findall(r'x=(\S+)\s+(\S+e[-+]\d+)\s+(\S+e[-+]\d+)\n', t)}
+ok(all(abs(cmpv[x][0] - v) < 6e-6*max(1, v/1e-3) for x, v in [(1.02, 0.99637), (1.327, 0.46193), (1.502, 0.18325)]) and abs(cmpv[2.504][0] - 1.561e-3) < 1e-6 and all(abs(cmpv[x][0]/cmpv[x][1] - 1) < 0.02 for x in (1.02, 1.1, 1.201, 1.327, 1.502, 1.748, 2.504)), 'magic function against our dual solution')
+tr = [float(x) for x in re.findall(r'X=\S+\s+(\S+e-\d+)\n', t.split('truncated magic function')[1] + '\n')]
+ok([('%.1e' % x) for x in tr] == ['1.9e-02', '1.1e-02', '7.6e-03', '4.2e-03', '1.8e-03', '6.8e-04', '1.5e-04', '3.6e-05'] and tr == sorted(tr, reverse=True), 'truncation table')
+ok(abs(5*exp(-2*pi*4.83e-4) - 4.9848) < 1e-4 and abs(5*exp(-2*pi*1.64e-5) - 4.9995) < 1e-4 and abs(3*exp(-2*pi*9.99e-4) - 2.9812) < 1e-4 and abs(3*exp(-2*pi*1.50e-4) - 2.9972) < 1e-4, 'Johns Prop 5.11 as conductors')
 print('all %d checks passed' % n)

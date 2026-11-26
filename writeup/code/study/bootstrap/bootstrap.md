@@ -8,11 +8,14 @@
 
 Status of each statement: computed (best found by a search), not proved. The first step (one prime, one support) is in print: Connes and Consani 2021.
 
+**Correction (26 November 2026, late): prior art.** Two preprints of October 2026 (N. Johns, Zenodo; produced by AI agents, not refereed) treat the same problem in its convex form: all pairs of positive measures that solve the explicit formula with the Gamma factor and pole of ζ. They contain the smallest-conductor reading, the statement that the optimum is exactly conductor 1, certified values for Q(√5) and Q(√−3) that agree with ours, and a claimed proof with an explicit extremal function. Our two prior-art searches missed them. Sections 5d and 5e are therefore not new; section 5f says what is theirs, what we checked ourselves, and what we did not find there.
+
 ## 1. What is in print
 
 - Connes and Consani, *Spectral triples and ζ-cycles*, arXiv 2106.01715, section 2.3: at support log 3, with the one prime 2 replaced by a real p, positivity fails at p = 1.9999 and at p = 2.0005. Section 2.2: the archimedean part alone loses positivity just past support log 2. They move one prime at one support. Our matrix reproduces their numbers ([cc_check_out.txt](cc_check_out.txt)): smallest eigenvalue at support log 3: 5.68·10⁻⁸ (theirs: below 6·10⁻⁸); at support log 11: 2.93·10⁻⁴⁸ with 97 basis functions and still falling (theirs: 2.389·10⁻⁴⁸); negative at 1.9999 and at 2.0005.
 - Discriminant bounds from the explicit formula (Odlyzko; Serre; Poitou, *Sur les petits discriminants*, 1977; Diaz y Diaz, *Tables minorant la racine n-ième du discriminant*, 1980). They fix one kernel F ≥ 0 and, as a "local correction", take for each small prime the splitting type with the smallest contribution. Printed bounds for |d|: imaginary quadratic 2.9657 without and 2.9921 with local corrections; real quadratic 4.9436 and 4.9640 (Diaz y Diaz, Tables 4 and 3; Odlyzko's GRH table: 2.962 and 4.951). So the minimum over splitting types, prime by prime at integer positions, is in print. Odlyzko 1990 lists the optimal kernel (Problem 2.2) and the share of the prime ideals (Problem 6.1) as open.
-- Not found in print (two prior-art searches of 26 November 2026, about 60 pages opened; the sources in section 7 were not read): all primes free together at real positions, primes found from no input, the pinning as a function of the support, the role of the pole, the smallest conductor over all positive systems with the full quadratic form, and the questions whether it converges to the smallest discriminant and whether the minimiser tends to the prime ideal norms.
+- N. Johns, *Positive solutions of the explicit formula for ζ(s): near-criticality and uniqueness* (Part I, Zenodo, doi 10.5281/zenodo.23197915, version 1.4, October 2026) and *Sharpness and uniqueness for positive solutions of the explicit formula for ζ(s)* (Part II, doi 10.5281/zenodo.23238100, version 1.3, October 2026). Found by the third search (26 November 2026, late). They pose the linear program over all pairs of positive measures (zero side, prime side) with ζ's archimedean data, prove the duality with the smallest conductor, and state the sharpness (optimum = conductor 1) and the uniqueness of ζ's pair, first as conjectures (Part I), then as theorems (Part II). Details and what we read: section 5f.
+- Not found in print by the first two searches (about 60 pages opened; the sources in section 7 were not read), and not found in the two Johns preprints by a keyword search (they were not read in full): primes found from no input by a search on the prime side, the pinning as a function of the support, the role of the pole, the price of a finite edit, the Euler-product class with whole-number multiplicities and its link to the prime ideal norms of quadratic fields, cubic Gamma factors. In print there, and so not new here: the smallest conductor over all positive measures, its value 1 for ζ, and the fact that it is below the discriminant for Q(√5) and Q(√−3).
 
 ## 2. Set-up (derived; checked numerically)
 
@@ -174,7 +177,7 @@ Two finite-level facts from the same work (their code: Legendre basis, [theory/w
 
 ## 5d. The global statement: where the proof stands (26 November 2026, evening)
 
-Statement wanted: the primes are the only positive Beurling system whose form (Riemann datum, q = 1) is positive for every support. Not proved. What we have:
+Statement wanted: the primes are the only positive Beurling system whose form (Riemann datum, q = 1) is positive for every support. Not proved by us. A proof is claimed in Johns, Part II (Theorem 2, for all positive measures; not refereed; see section 5f). Item 4 below (integer weights) is Theorem 3.11 of Johns, Part I, by the same route. What we have:
 
 - **Convex version, computed** ([relaxed.py](relaxed.py), [relaxed_out.txt](relaxed_out.txt)). If the multiplicities may be any real numbers ≥ 0 (weights on a grid of step 0.01), the form is linear in the weights and the largest smallest eigenvalue is a concave problem; cutting planes with a linear program give the global optimum on the grid: 7.0·10⁻⁴, 3.2·10⁻⁵, 1.8·10⁻⁵, 1.6·10⁻⁶ at X = 2.5, 3, 3.5, 4 (the primes alone: 5.7·10⁻⁸ at X = 3). The weights sit at 2.00–2.01 (total 1.003 at X = 3, 1.0001 at X = 4) and 3.00–3.04 (total 1.197 at X = 3.5, 1.005 at X = 4). So at a finite support the optimum is slightly off the primes and its conductor is slightly below 1 (0.9999984 at X = 4); the values fall with the support. Uniqueness, if true, is a statement about the limit.
 - **Proved so far** (full proofs in [theory/global/global.md](theory/global/global.md); refereed once inside the repo, [report](theory/global/referee_report.md): no failing step, corrections listed in section 9 of the proof file; none of these uses that the multiplicities are integers).
@@ -213,19 +216,72 @@ Reading.
 - **Order of the bounds for imaginary quadratic fields:** 2.966 (one positive kernel, no local correction, in print) < 2.9813 (all kernels of support log 14 against all positive measures, here) < 2.9921 (local corrections over arithmetic splitting types, in print) < 3.
 - **The extremal function.** At the optimum the ground state ψ of the form has ĝ = |ψ̂|² ≥ 0 and c_g(x) = Σ_k log x·x^(−k/2)·2g(k log x) ≥ 0 for every x, with equality on the support of the optimal measure (the first-order condition of the concave problem, for a simple smallest eigenvalue). For the zeta datum this is the ground state studied by Connes and Consani, up to the small shift of the points at a finite support: it is the dual solution of a convex program whose primal solution is the primes. Global uniqueness in the convex version, together with "no positive measure is admitted below conductor 1", is equivalent to: this optimum tends to 0 as the support grows. Measured: 3.2·10⁻⁵, 1.6·10⁻⁶, below 5·10⁻⁸ at X = 3, 4, 5.
 
+## 5f. The convex optimum tends to 0: in print since October 2026, and our own check (26 November 2026, late)
+
+Target: the optimum λ*(L) of the convex version (section 5e; conductor e^(−λ*)) tends to 0 as the support L grows. We did not prove it. It is claimed in print, and we tested the claimed extremal function with our own code.
+
+**Duality (standard; the proof for compact supports is not written here).** λ*(L) is the smallest value of W(g)/g(0) over functions g on [−L, L] with non-negative Fourier transform and c_g ≥ 0, where W is the pole and Gamma part of the form (section 2 with no prime terms, q = 1). λ*(L) does not increase with L, and λ*(L) ≥ 0 under RH. So the target says: there are such g with W(g)/g(0) as small as we like.
+
+**The prime-power structure is not needed** (computed; [relaxed_k1.py](relaxed_k1.py), [relaxed_k1_out.txt](relaxed_k1_out.txt)). With any positive measure on the prime side (only the k = 1 term, so c_g ≥ 0 becomes g ≥ 0), the program returns the same optimum, 3.2·10⁻⁵, 1.6·10⁻⁶, 1.0·10⁻⁷ at X = 3, 4, 5, and the weights of the explicit formula: 1.000 at 2 and 3, and 0.50 at 4 (X = 5: 0.507; X = 6: 0.500). The dual solution at X = 7.5 ([relaxed_dual.py](relaxed_dual.py), [relaxed_dual_out.txt](relaxed_dual_out.txt); float64, not converged below 10⁻⁸) falls from 1 at x = 1 to 0 at x = 2, with bumps of height 1.6·10⁻³, 4.5·10⁻⁵, 2.5·10⁻⁶ between 2–3, 3–4, 4–5, and touches 0 at 2, 3, 4, 5, 7.
+
+**What is in the two Johns preprints** (read by us: Part I, abstract, section 1, Theorem 3.11 with the idea of its proof, Propositions 5.5 and 5.11; Part II, abstract, section 1, Lemma 3.2, Proposition 3.3, Theorems 6.1 and 6.2, Corollary 8.2. Not read: the proofs in sections 4 to 7 of Part II and most proofs of Part I. Their F is our ĝ/2π, their F̂(log x/2π) is our g(log x), their κ* is λ*/2π).
+
+| their statement | status given there | relation to this note |
+|---|---|---|
+| Part I, Theorem A: positive pairs exist ⟺ κ* ≥ 0; smallest conductor q_min = e^(−2πκ*) | proved | the conductor shift and the convex version of sections 5d, 5e |
+| Part I, Conjecture S: κ* ≤ 0 (q_min ≥ 1) | conjecture in Part I | the target of this section |
+| Part I, Theorem C: κ* ≤ 1.43·10⁻¹⁰⁶⁰, certificate Ξ(t)²·P(t²) with zeros at the first 111 prime powers | computer-assisted, unconditional | our measured 3.2·10⁻⁵ … below 5·10⁻⁸ are values at short supports |
+| Part I, Proposition 5.11: Q(√5): 1.64·10⁻⁵ ≤ κ* ≤ 4.83·10⁻⁴; Q(√−3): 1.50·10⁻⁴ ≤ κ* ≤ 9.99·10⁻⁴ (critical conductors in [4.9848, 4.9995] and [2.9812, 2.9972]) | computer-assisted | section 5e: 4.98485 and 2.98126 at support log 14, rising; "degree 2 is not sharp" is theirs, certified |
+| Part I, Theorem 3.11: zero measure atomic with integer weights ⟹ q ≥ 1, and at q = 1 the pair is ζ's (exponential lift, Fejér kernel, Hamburger) | proved | Lemma G, Theorem E, Corollary F of section 5d |
+| Part II, Theorem 1: an explicit F = Ξ²H with F ≥ 0, F̂ ≥ 0, F̂ = 0 at log n/2π for every integer n ≥ 2, A(F) = 0; hence κ* ≤ 0 | proof given, partly computer-assisted; "not yet checked by a human expert" | proves the target (with a truncation, below) |
+| Part II, Theorem 2: every positive pair is ζ's pair | follows from Theorem 1 and a support theorem of Part I | the global statement of section 5d, in the larger class |
+| Part II, Corollary 3 and 8.2: RH ⟺ the optimum is exactly 0 | same | λ*(L) ≥ 0 needs RH; λ* → 0 from above is equivalent to RH plus sharpness |
+
+The extremal function is explicit (Part II, Theorem 4). With S(m, n; c) the Kloosterman sum and a dot for the derivative with respect to the order:
+
+`a_n = n·Σ_c (1/c)·[S(1,n;c)·J̇₂(4π√n/c) − S(−1,n;c)·İ₂(4π√n/c)] + δ_(n,1)/4`
+
+`G(x) = C·sin²(πx)·√x·Σ_n a_n·K₀(4π√(nx)) (x > 1), G(1) = C/(32π²), C = 880.6617`
+
+`g(log x) = Σ_m d(m)·m^(−1/2)·G(mx) (x ≥ 1; d = number of divisors)`
+
+**Our check of this function** (numerical, float64, own code: [magic_check.py](magic_check.py), [magic_check_out.txt](magic_check_out.txt)). We computed the a_n from the formula (Kloosterman sums to c = 400 for n ≤ 5), built g, and applied our own functional W of section 2.
+
+| test | result |
+|---|---|
+| a₁ … a₅ against the printed table | agree to 5·10⁻⁹ relative (4581.370532 against 4581.370553) |
+| W(g)/g(0) | pole part 1.120099144, Gamma part −1.120099143, sum 1.8·10⁻⁹ |
+| cosine transform of g on 0 ≤ t ≤ 60 (step 0.1), relative to its value at 0 | smallest value −9·10⁻¹² (rounding) |
+| the same at the first ten zeta zeros | at most 2.4·10⁻¹⁰ in size (14.1347: 2.4·10⁻¹⁰; one unit to either side: 1.6·10⁻³ and 5.7·10⁻⁴) |
+| g ≥ 0, zero at every integer ≥ 2 | by the formula, given a_n > 0 (their Theorem 6.1, proof read: the term c = 1 dominates) |
+| against the dual solution of our own program (support log 7.5) | g(log x)/g(0) at x = 1.02, 1.33, 1.50, 2.50: 0.99637, 0.46193, 0.18325, 1.561·10⁻³ against 0.9964, 0.4603, 0.1821, 1.586·10⁻³ |
+
+So the printed function behaves as claimed to the accuracy of the test (about 10⁻⁹): it is doubly positive, its transform vanishes at the zeta zeros, and its cost is 0. This is a numerical test of the final formula, not a check of the proof. One difference: their function vanishes at every integer ≥ 2, the dual solution of our finite program does not vanish at 6 (2.3·10⁻⁷ there); the extremal function at a finite support is not unique.
+
+**From the extremal function to compact supports** (numerical; same script). Multiply g by the window w_L = (v∗v)/(v∗v)(0), v(u) = (1 − (2u/L)²)₊. The window is ≥ 0 with transform ≥ 0, so g·w_L is doubly positive with support [−L, L], and W(g·w_L)/g(0) is an upper bound for λ*(L):
+
+| X = e^L | 3 | 4 | 5 | 8 | 20 | 100 | 10⁴ | 10⁸ |
+|---|---|---|---|---|---|---|---|---|
+| W(g·w_L)/g(0) | 1.9·10⁻² | 1.1·10⁻² | 7.6·10⁻³ | 4.2·10⁻³ | 1.8·10⁻³ | 6.8·10⁻⁴ | 1.5·10⁻⁴ | 3.6·10⁻⁵ |
+
+The bound falls like 1/L² (this window is crude; the true optimum at X = 3, 4, 5 is 3.2·10⁻⁵, 1.6·10⁻⁶, 1.0·10⁻⁷). So: if Theorem 1 of Part II holds, then λ*(L) → 0 (with RH for λ* ≥ 0). From Part I, Theorem C alone, with the same window: lim sup λ*(L) ≤ 2π·1.43·10⁻¹⁰⁶⁰, if that certificate is correct.
+
+**Status.** The target is not our result. It is claimed in Part II, not refereed. Our contribution here is the independent numerical test of the extremal function, the observation that the prime-power structure is not needed (also theirs: their prime measure is arbitrary), and the truncation table.
+
 ## 6. Size of the result
 
 - Known before: positivity pins one prime at one support (Connes–Consani); explicit-formula lower bounds for discriminants (Odlyzko, Serre, Poitou, Diaz y Diaz) with one fixed positive kernel and the worst splitting type per prime.
 - Comparison: our values at support log 8 (2.9995 and 4.9911) lie above the printed bounds with local corrections (2.9921 and 4.9640). Ours are values found by a search over a larger class (real positions) with a short support, theirs are proved bounds with a long kernel; the two are not the same quantity, and ours is an upper bound for q_min(L).
-- New here, as far as the search went: the prime side as the unknown of an optimisation; primes returned from no input; the role of the pole and of positive weights; the smallest-conductor reading with quadratic fields.
+- In print before us (Johns, October 2026, not refereed; found on 26 November, late): the prime side and the zero side as unknown positive measures, the smallest-conductor reading, its value 1 for ζ with an explicit extremal function, and positive slack for Q(√5) and Q(√−3).
+- Not found there by a keyword search (the preprints were not read in full): primes returned from no input by a search on the prime side; the pinning table; the role of the pole; the price of an edit; whole-number multiplicities and the prime ideal norms of quadratic fields; cubic Gamma factors.
 - Proved, refereed once inside the repo (no failing step; two consequences of 5b reworded, small repairs in the proof of Theorem C): the price of a finite edit (section 5b, under RH); a feasible system is determined by its spectrum; thin changes of the primes are never feasible unless trivial (section 5c, RH not assumed).
-- The convex version (section 5e): the positivity bound is sharp in degree 1, where it returns the primes with weight 1, and not in degrees 2 and 3.
-- Global uniqueness: not proved. Proved (refereed once inside the repo): it holds among systems whose completed zeta function is entire of finite order with finitely many zeros off the line (section 5d), and a converse theorem for Beurling zeta functions without a functional equation.
+- The convex version (section 5e): the positivity bound is sharp in degree 1, where it returns the primes with weight 1, and not in degrees 2 and 3. Degrees 1 and 2 are in Johns, Part I and II, with certified bounds; our numbers agree with theirs (section 5f).
+- Global uniqueness: not proved by us; claimed in Johns, Part II. Proved here (refereed once inside the repo; the integer-weight case is also Theorem 3.11 of Johns, Part I): it holds among systems whose completed zeta function is entire of finite order with finitely many zeros off the line (section 5d), and a converse theorem for Beurling zeta functions without a functional equation.
 - The numerical statements are search results at small supports (X ≤ 14). Degree 3 was run once and has not converged.
 
 ## 7. Open points
 
-1. A proof or a counterexample for the conjecture in degree 1 (is there a positive Beurling system, other than the primes, whose form is positive at conductor ≤ 1 for every support?).
+1. The conjecture in degree 1 (no positive system other than the primes at conductor ≤ 1) is claimed as a theorem in Johns, Part II. Open for us: an independent check of that proof (sections 4 to 7 there), and a rigorous truncation lemma that carries the extremal function to compact supports (section 5f gives numbers only).
 2. The exact rate of q_min(L) → d, and the comparison with the published GRH discriminant bounds.
 3. Cubic and quartic Gamma factors: does the minimum equal the smallest discriminant (23, 49, 117, 125, …)? The one cubic run reaches 22.63 at X = 14.
 4. A high-precision scan stage, to continue section 3.3 beyond 11.
