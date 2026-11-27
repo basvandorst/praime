@@ -231,6 +231,13 @@ true('all ten: a_2, a_3 within 0.02', worst <= 0.02 and max(five[i] for i in (0,
 allp = cc(C[16])[:3] + cc(MO) + cc(ME)
 true('ten pieces, each at most 0.05 long, one eigenvalue each', len(allp) == 10 and all(b - a <= 0.0501 for a, b in allp) and all(sum(1 for f in key if f['r'] < 20 and a - 0.011 <= f['r'] <= b + 0.011) == 1 for a, b in allp))
 
+# --- section 8f: the certificate note (its own validation is theory/validate_exact3.py; here: the quoted numbers are those of the note)
+ex3 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'exact3.md')).read()
+true('exact3: own validation passed', '156 checks, 0 failed' in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'validate_exact3_out.txt')).read())
+for frag in ['| 8 | [5.136, 5.137]·10⁻⁷ | 3.082·10⁻⁶ |', '| 12 | [7.479, 7.480]·10⁻¹¹ | 4.488·10⁻¹⁰ |', '| 16 | [1.510, 1.511]·10⁻¹⁷ | 9.062·10⁻¹⁷ |', '| 22 | [6.349, 6.350]·10⁻²³ | 3.810·10⁻²² |', 'B = 1 gives the bound 2.740045']:
+    true('exact3 table row', frag in ex3)
+true('exact3 tail bound quoted', '10⁻²⁹⁷' in ex3 and '600' in ex3)
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)

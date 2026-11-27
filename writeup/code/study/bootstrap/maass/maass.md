@@ -199,6 +199,16 @@ VERDICT of round 171 as registered: M1, M2, M3 pass for both parities; the added
 
 **The spectrum below 20.** Rounds 165, 168 and 171 together, at support 16 (the primes 2, 3, 5, 7, 11, 13): on the grids, {t* ≥ −0.002} consists of ten pieces, of length at most 0.05, one at each of the ten eigenvalues of the modular surface below 20, and each piece returns a₂ and a₃ of its form within 0.02. Caveats: a grid of step 0.01 (0.05 below r = 9 and, for even forms, below 13) cannot exclude a feasible piece narrower than the step; from the fourth form on, the Hecke eigenvalues of the forms below (for p ≤ 13) enter from the answer key, not from the bootstrap's own output; float64; and the hypotheses of section 10.
 
+## 8f. A certificate for conductor 3 ([theory/exact3.md](theory/exact3.md); computer-assisted, one code; referee's report pending when this was written)
+
+For the odd character problem at infinite support (positivity required for every smooth test function of compact support) a proof agent turned the numerical exactness into a bound with no hypothesis on zeros.
+
+- **Lemma (proved there).** Let Ξ_χ(t) = Λ(1/2 + it, χ₋₃) and ĝ = Ξ_χ² · B with B an even polynomial, B ≥ 0. Then (log 3) g(0) + A₁(g) = 2 Σ_n χ(n) Λ(n) n^(−1/2) g(log n) exactly, wherever the zeros of L(s, χ₋₃) lie: Λ·Λ′·B is entire and odd under s ↦ 1 − s, so its integral over a vertical line vanishes.
+- **Consequence.** A family of local measures that is feasible at conductor q satisfies log q ≥ log 3 − 2·Defect(g)/g(0), where Defect(g) = Σ_p [P_p(χ(p)) − min over [−1, 1] of P_p] and P_p(x) = Σ_m x^m log p · p^(−m/2) g(m log p).
+- **Certified** (ball arithmetic at 600 bits; the primes above 400 bounded by 10⁻²⁹⁷): the smallest admissible conductor is at least 2.7400 with B = 1, 3 − 3.1·10⁻⁶ at degree 8, 3 − 4.5·10⁻¹⁰ at degree 12, 3 − 9.1·10⁻¹⁷ at degree 16 and **3 − 3.81·10⁻²²** at degree 22.
+- Under the Riemann hypothesis for L(s, χ₋₃) the character itself is feasible at 3, so the value lies in [3 − 3.81·10⁻²², 3]. That it equals 3 needs Defect → 0 along a sequence of polynomials; this is not proved (the defect stalls at degrees 18 and 20 and falls again at 22).
+- Status: one code and one author; 156 checks of its own ([theory/validate_exact3.py](theory/validate_exact3.py)); not yet refereed; no literature search for this lemma. The same construction for ζ is section 5f of [../bootstrap.md](../bootstrap.md) (in print: Johns).
+
 ## 9. The review of round 165 ([review/review.md](review/review.md))
 
 An adversarial agent recomputed the problem with its own code (Legendre basis, the form in x-space, an exact moment formulation without an angle grid, its own barrier solver).
@@ -229,7 +239,7 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 
 ## 11. Open points
 
-1. A proof of exactness in the simplest case (odd real characters, conductor 3): a test function with non-negative transform that vanishes at the zeros of L(s, χ₋₃), whose local polynomial Σ_m g(m log p) p^(−m/2) x^m is minimal on [−1, 1] at x = χ₋₃(p) for every p.
+1. Exactness for conductor 3: section 8f gives 3 − 3.81·10⁻²² (computer-assisted, not refereed); open: that the defect tends to 0, a referee, a second code, and the same certificates for conductor 5, weight 12 and the first Maass form.
 2. Whether the levels 11 and 37 are reached exactly as the support grows (10.995 and 36.91 at support 32 with whole-number a_p), and the levels 5, 3, 2 at weights 4, 6, 8.
 3. Rounds 166 and 169 are incomplete. The sequential bootstrap of round 171 takes the Hecke eigenvalues of the earlier forms from the answer key; a self-contained chain, which feeds in its own output, was not run. Eigenvalues above 20 and a finer grid were not run.
 4. Interval arithmetic for the infeasibility statements; a second code for sections 3, 4, 7 and 8 (the review covered round 165 at support 8 only).
@@ -238,4 +248,4 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 
 ## 12. Validation
 
-[validate.py](validate.py) reads the data files and checks every number quoted in sections 3 to 8e (literature values and the review's own numbers of section 9 excepted).
+[validate.py](validate.py) reads the data files and checks every number quoted in sections 3 to 8e (literature values and the reviews' own numbers excepted); for section 8f it checks that the quoted numbers are those of [theory/exact3.md](theory/exact3.md), whose own validation is [theory/validate_exact3.py](theory/validate_exact3.py).
