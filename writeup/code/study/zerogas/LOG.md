@@ -223,3 +223,24 @@ Nothing here is a claim until it is promoted (registration, independent check, l
   0.28837); the denominators agree with 1 - max(0, 2k - N)/(N k) (0.967, 0.943, 0.924, 0.908, 0.904 for k = 6..10).
 - Lesson: the formula is exact at finite size; the 3.3 was noise. What remains for a theorem is to write the proof of
   B(a, b) = min(N, a) + min(N, b) - min(N, a + b) in full (hook characters) and have it refereed.
+
+## Loop 16. Connecting a dot: the 0.94 of round 147 ([loop16.py](loop16.py)).
+- The repo's round 147 (STUDY.md) modelled a prime's effect on zero spacings by the "wave closure": the zeros with p are
+  the zeros without p, shifted by p's wave, the rest independent of the wave. Measured amplitude of the spacing-variance
+  drop against that closure: 0.940 +- 0.011 (913 L-functions, L = 10.2 to 11.1), "not 1", unexplained; the review found
+  the base spectrum is not independent of the wave (+-4 %).
+- Reasoning: loops 4-15 say exactly how it is not independent: the zeros follow a wave of frequency u with a coefficient
+  below 1. For spacings the relevant coefficient is c'(u): the regression of 1 - s_n = S(x_{n+1}) - S(x_n) on the wave
+  difference W(x_{n+1}) - W(x_n). If S = (base) + W with Cov(base differences, wave differences) = -(1 - c') Var, then
+      Var(s with p) - Var(s without p) = Var(wave difference) (2 c' - 1),   closure: c' = 1.
+  So the amplitude against the closure should be the average of 2 c'(u) - 1 over the powers of p, weighted by their
+  share of the wave-difference variance, with c' from random matrices (the powers of one prime are handled jointly by
+  the closure's own map, so no arithmetic term here).
+- Prediction (before the run): c'(u) from Haar matrices (N = 400); at L = 10.5 the predicted amplitude for p = 2, 3, 5
+  lies between 0.92 and 0.97 (hand estimate 0.94 to 0.96), against the measured 0.940 +- 0.011.
+- Result of loop 16: c'(u) from matrices is 1.01 to 1.03 for u < 0.4 (0.99 at 0.41, 0.94 at 0.49, 0.83 at 0.57): for
+  neighbouring zeros the response is full, even slightly above 1. Predicted amplitude against the closure: 1.018 to 1.023
+  at L = 10.2 to 11.1. The prediction FAILS (I had said 0.92 to 0.97); the measured 0.940 +- 0.011 is not explained.
+- Lesson: my hand estimate used the coefficient for the position of a zero (c < 1) where the coefficient for the
+  DIFFERENCE of neighbouring positions was needed. The deficit of c comes from far pairs (modes beyond the matrix size),
+  not from neighbours. Spacings follow the wave fully; positions do not. Round 147's 0.94 stays open.
