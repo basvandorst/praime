@@ -12,7 +12,8 @@
 # to float64): every such L-function has a zero with |gamma| < T.  Kelley cutting planes + LP (HiGHS).
 import os, sys, time, numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'maass'))
-from engine import Basis
+from engine import Basis, EULER
+EULER_LOGPI = EULER + np.log(np.pi)
 from scipy.optimize import linprog
 from sympy import primerange
 
@@ -54,19 +55,22 @@ class Gap:
         for i in range(nP): Aeq[1 + i, nk + 1 + i*J: nk + 1 + (i + 1)*J] = 1
         cost = np.zeros(nv); cost[-1] = -1
         bnd = [(0, 1 if nu_mask is None or nu_mask[i] else 0) for i in range(nk)] + [(0, lmax)] + [(0, 1)]*(nP*J) + [(-50, 50)]
-        rows = []
+        rows = []; self.cuts = []
         nu = np.array([b[1] for b in bnd[:nk]], float); nu /= nu.sum(); l = 0.0; sig = np.ones((nP, J))/J; t = np.inf
         for rd in range(rounds):
             H = self.assemble(nu, l, sig); ev, V = np.linalg.eigh(H); er, U = np.linalg.eigh(self.G(H, T))
             lam = min(ev[0]/two_a, er[0]/(two_a*T*T))
             if lam >= t - tol: break
             for i in range(ncut):
-                if rd == 0 or ev[i]/two_a < t - tol: rows.append(np.concatenate([-self.row(V[:, i]), [two_a]]))
-                if rd == 0 or er[i]/(two_a*T*T) < t - tol: rows.append(np.concatenate([-self.row(U[:, i], T), [two_a*T*T]]))
-            res = linprog(cost, A_ub=np.array(rows), b_ub=np.zeros(len(rows)), A_eq=Aeq, b_eq=np.ones(1 + nP), bounds=bnd, method='highs')
+                if rd == 0 or ev[i]/two_a < t - tol: rows.append(np.concatenate([-self.row(V[:, i]), [two_a]])); self.cuts.append(('H', V[:, i].copy()))
+                if rd == 0 or er[i]/(two_a*T*T) < t - tol: rows.append(np.concatenate([-self.row(U[:, i], T), [two_a*T*T]])); self.cuts.append(('G', U[:, i].copy()))
+            for method in ('highs', 'highs-ds', 'highs-ipm'):          # fallbacks added after HiGHS status 15 in round 175
+                res = linprog(cost, A_ub=np.array(rows), b_ub=np.zeros(len(rows)), A_eq=Aeq, b_eq=np.ones(1 + nP), bounds=bnd, method=method)
+                if res.status == 0: break
             if res.status != 0: raise RuntimeError(res.message)
             x = res.x; nu = x[:nk]; l = x[nk]; sig = x[nk + 1:-1].reshape(nP, J); t = x[-1]
         self.nu, self.l, self.sig, self.rows = nu, l, sig, rows
+        self.dual = -res.ineqlin.marginals if rows else None      # multipliers y >= 0 of the cuts (sum y*scale = 1)
         return lam, t, rd
     def describe(self):
         fmt = lambda k: ('%g' % k.real) if k.imag == 0 else ('%g%+gi' % (k.real, k.imag))
