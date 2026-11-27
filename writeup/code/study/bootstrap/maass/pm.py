@@ -2,7 +2,8 @@
 # t_pm(r) = max over angles (theta_p)_{p <= X} of min over forms of the smallest eigenvalue (per unit conductor exponent).
 # Branch and bound: a node is a window of angles per prime; its upper bound is the convex problem with the measures
 # restricted to the windows (cuts are shared between nodes); its lower bound is the value at one point of the box.
-# Usage: pm.py <eps> <X> <r_lo> <r_hi> <step> [kmax] [maxnodes]     (eps = 2: holomorphic weight as parameter)
+# Usage: pm.py <eps> <X> <r_lo> <r_hi> <step> [kmax] [maxnodes] [sign]     (eps = 2: holomorphic weight as parameter;
+# sign: stop as soon as the sign of t_pm against -0.002 is decided)
 import sys, json, os, time, heapq, numpy as np
 from scipy.optimize import linprog
 from maass import Problem
@@ -47,13 +48,14 @@ class PM:
     def solve(self, gap=2e-3, maxnodes=400, stop_at_sign=False):
         P = self.P; root = [(0, self.J - 1)]*self.nP
         t, w = self.relax(root); best = -np.inf; best_th = None; heap = [(-t, 0, root, w)]; cnt = 1; nodes = 1
+        if stop_at_sign and t < -0.002: return -np.inf, t, np.array([float(w[i] @ P.th) for i in range(self.nP)]), 1      # the convex problem is infeasible already
         while heap:
             negt, _, win, w = heapq.heappop(heap); t = -negt
             if t <= best + gap: heap = []; ub = max(t, best); break
             th = np.array([float(w[i] @ P.th) for i in range(self.nP)])
             v = self.point(th)
             if v > best: best, best_th = v, th
-            if stop_at_sign and (best >= 0 or t < 0): ub = t; break
+            if stop_at_sign and (best >= -0.002 or t < -0.002): ub = t; break      # the sign of t_pm against -0.002 is decided
             if t <= best + gap: ub = t; break
             if nodes >= maxnodes: ub = t; break
             spread = [float(np.sqrt(max(0.0, w[i] @ (P.th - th[i])**2))) + 1e-3*(win[i][1] - win[i][0])/self.J for i in range(self.nP)]
@@ -73,15 +75,15 @@ class PM:
 if __name__ == '__main__':
     eps = int(sys.argv[1]); X = float(sys.argv[2]); lo, hi, step = map(float, sys.argv[3:6])
     kmax = int(sys.argv[6]) if len(sys.argv) > 6 else 2; maxnodes = int(sys.argv[7]) if len(sys.argv) > 7 else 400
-    hol = eps == 2
+    hol = eps == 2; sign = len(sys.argv) > 8 and sys.argv[8] == 'sign'
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', 'data', 'study', 'maass', 'pm_%s_X%g_k%d.jsonl' % ('hol' if hol else 'eps%d' % eps, X, kmax))
     done = set()
     if os.path.exists(out):
         for line in open(out): done.add(round(json.loads(line)['r'], 4))
     for r in [round(lo + i*step, 4) for i in range(int(round((hi - lo)/step)) + 1)]:
         if r in done: continue
-        t0 = time.time(); S = PM(r, 0 if hol else eps, X, kmax=kmax, hol=hol); best, ub, th, nodes = S.solve(maxnodes=maxnodes)
-        rec = dict(r=r, eps=eps, X=X, kmax=kmax, t_point=best, t_upper=ub, nodes=nodes, secs=round(time.time() - t0, 1), primes=S.P.primes,
+        t0 = time.time(); S = PM(r, 0 if hol else eps, X, kmax=kmax, hol=hol); best, ub, th, nodes = S.solve(maxnodes=maxnodes, stop_at_sign=sign)
+        rec = dict(r=r, eps=eps, X=X, kmax=kmax, mode='sign' if sign else 'full', t_point=best if np.isfinite(best) else None, t_upper=ub, nodes=nodes, secs=round(time.time() - t0, 1), primes=S.P.primes,
                    ap=[float(2*np.cos(x)) for x in th], cuts=len(S.rows))
         with open(out, 'a') as fh: fh.write(json.dumps(rec) + '\n')
         print('r %.4f: point-mass t in [%+.5f, %+.5f], %d nodes, %.0fs, a_p %s' % (r, best, ub, nodes, rec['secs'], ' '.join('%d:%+.3f' % (p, a) for p, a in zip(S.P.primes, rec['ap']))), flush=True)

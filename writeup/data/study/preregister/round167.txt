@@ -1,0 +1,31 @@
+REGISTRATION, round 167: THE SAME POSITIVITY PROBLEM ON SL(3,Z) (Maass forms of level 1 on GL(3), two spectral parameters).
+
+STATEMENT. Data: (l1, l2) with l1 >= l2 >= 0, Gamma factor Gamma_R(s + i l1) Gamma_R(s + i l2) Gamma_R(s - i(l1 + l2)).
+Unknown: for each prime p <= X a probability measure on the conjugacy classes of SU(3) (grid of 30 x 30 angles modulo
+permutations). Forms: L(F) (not self-dual: complex test functions, Hermitian matrix; weight tau_m = sum of the m-th powers
+of the Satake parameters) and L(Ad F) = L(F x F~)/zeta (Gamma_R(s)^2 prod_d Gamma_R(s +- i d), d = l1 - l2, 2 l1 + l2,
+l1 + 2 l2; weight |tau_m|^2 - 1; no pole; conductor exponent 2). t*(l1, l2) as in round 165; feasible = t* >= -0.002.
+Code: bootstrap/maass/gl3.py (own Hermitian engine; agrees with engine.py on two self-dual data to 1e-14).
+Hypothesis (as in rounds 165-166): the lowest forms lie on the edge of the feasible set, and the optimum there returns
+their Hecke eigenvalues.
+
+STATE WHEN THIS WAS WRITTEN (declared). Seen: gl3_truth.py at X = 8 for the eight forms of smallest Laplace eigenvalue (all
+pass: F between 1e-10 and 3e-5, Ad between 0.27 and 1.9; with conjugated coefficients seven of eight fail). No solve of the
+unknown-measure problem on GL(3) has been run. Answer key: writeup/data/study/maass/gl3_key.json (1,050 forms from the
+data repository of Farmer-Koutsoliotas-Lemurell-Roberts, orientation fixed by a functional-equation test of the reader
+agent); I have seen its eight lowest entries. Known from the literature (reader's report): Miller's region ends near radius
+9.3; the five lowest forms lie 0.13 to 0.52 from the region FKL exclude assuming |a_p| <= 3.
+
+TEST. X = 8 (primes 2, 3, 5, 7), convex problem.
+  Coarse grid: l1 = 0, 0.5, ..., 20; l2 = 0, 0.5, ..., l1.
+  Local grids: around each of the five forms of smallest Laplace eigenvalue, the 9 x 9 points with step 0.1 centred at the
+  form's parameters rounded to 0.1 (points with l2 < 0 or l2 > l1 dropped), and the form's exact parameters.
+DECISIONS.
+  G1 (truth feasible; a check): t* >= -0.002 at the exact parameters of the five forms.
+  G2 (edge): each of the five forms has an infeasible point of its local grid within distance 0.2.
+  G3 (nothing far below the first form): every coarse point with l1^2 + l1 l2 + l2^2 <= 180 is infeasible
+      (the lowest form has 239.3).
+  G4 (Hecke eigenvalues): at the exact parameters of the three lowest forms, |mean a_2 - true a_2| <= 0.1 (complex).
+Secondary: the picture of the feasible set against the 1,050 forms; the smallest l1^2 + l1 l2 + l2^2 on the feasible set;
+the share of the forms with Laplace eigenvalue below 400 within 0.5 of the boundary.
+If the budget (05:30 UTC, 27 November 2026) runs out, the local grids come first, then the coarse grid in order of l1.
