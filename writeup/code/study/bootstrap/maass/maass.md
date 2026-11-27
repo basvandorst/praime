@@ -7,7 +7,9 @@
 3. **Maass forms of SL(2,ℤ), eigenvalue as a real number.** Nothing is feasible below the first eigenvalue of each parity. At support 16 six of the ten eigenvalues below 20 (9.53, 12.17, 13.78, 14.36, 17.74, 19.42) each lie in their own feasible piece, with no piece that holds no eigenvalue; five of them return a₂ and a₃ to 0.01 or better. The four odd eigenvalues above 15.9 lie in one stretch that stays feasible.
 4. **SL(3,ℤ).** One of the five lowest forms, (13.5966, 4.7647), lies on the edge of the feasible set and returns its a₂ within 0.011; the others do not.
 
-Four rounds were registered before their runs (165, 166, 167, 168). Their strong claims (islands at every eigenvalue, every low form on the edge) failed as registered; sections 5 to 8 give each verdict. In print: the positivity method with local corrections and bounds that come close (r > 7.2, conductor > 10.323, weight near 11). Not found in print by two searches: that the bound is exact when the local data are tied to one measure per prime and the test function is optimised, and that the optimum is the local data of the extremal form.
+5. **Weight 2 with whole-number a_p.** The smallest admissible level is 10.995, with a₂, a₃, a₅, a₇ = −2, −1, 1, −2 (the elliptic curve of conductor 11); with root number −1 it is 36.91, with −2, −3, −2, −1 (the curve 37a).
+
+Five rounds were registered before their runs (165 to 168 and 170). Their strong claims (islands at every eigenvalue, every low form on the edge) failed as registered; sections 5 to 8 give each verdict. In print: the positivity method with local corrections and bounds that come close (r > 7.2, conductor > 10.323, weight near 11). Not found in print by two searches: that the bound is exact when the local data are tied to one measure per prime and the test function is optimised, and that the optimum is the local data of the extremal form.
 
 ## 1. What is in print
 
@@ -138,6 +140,31 @@ VERDICT of round 168 as registered: H1 pass; H2, H3, H4 fail (all failures above
 
 **Together, at support 16** (primes up to 13): of the ten eigenvalues below 20, six are isolated (9.53, 12.17, 13.78, 14.36, 17.74, 19.42), each in its own piece, with no piece that holds no eigenvalue; the four odd ones above 15.9 lie in one remaining stretch.
 
+## 8b. Round 170: weight 2 with whole-number a_p — conductors 11 and 37 ([round170.txt](../../../../data/study/preregister/round170.txt), [integral.py](integral.py))
+
+Registered before its run (commit 5f673abf). The problem of section 4 at weight 2 (four forms, Steinberg columns), with the measure at each prime restricted to the angles for which √p · 2 cos θ is a whole number (the a_p of a rational newform; Hasse's bound). Smallest admissible level ([integral_out.txt](../../../../data/study/maass/integral_out.txt)):
+
+| support | no condition at the centre | with the central zero |
+|---|---|---|
+| 8 | 10.947 | 36.260 |
+| 16 | 10.992 | 36.710 |
+| 32 | 10.995 | 36.906 |
+| first rational newform | level 11 | level 37 (root number −1) |
+
+- Optimum at support 32, weight of the largest atom in brackets: a₂, a₃, a₅, a₇ = −2 (1.00), −1 (0.99), +1 (0.98), −2 (0.98), the values of the elliptic curve of conductor 11. With the central zero: −2 (1.00), −3 (1.00), −2 (0.89), −1 (0.73), the values of the curve 37a.
+- At the larger primes of the support the optimum is not the curve's (a₁₃ = 5 or 6 against 4; a₁₉ = −2 against 0): the measures there are still mixtures and the bound stays 0.05 % and 0.25 % below 11 and 37.
+- Without the restriction the bounds were 10.936 and 34.76 (sections 4 and 8). In print: conductor > 10.323 with one test function and the same restriction at p = 2, 3 (Mestre 1986).
+
+VERDICT of round 170 as registered: I1 pass (10.992 and 10.995 lie in [10.95, 11.0005]; the four a_p as predicted). I2 pass at support 32 (36.906 in [36.8, 37.005]; the four a_p as predicted), not at support 16 (36.710; a₇ = 0 or +1).
+
+## 8c. Beyond the first object: prescribed values (not registered; [chars_cond.py](chars_cond.py), [chars_depth.py](chars_depth.py))
+
+Real characters again, support 40, with the values at the first k primes prescribed and one measure at the others. The bound is compared with the smallest conductor of a real primitive character of the same parity that has the prescribed values.
+
+- **Values at 2 and 3 prescribed** ([chars_cond_out.txt](../../../../data/study/maass/chars_cond_out.txt)): the bound is exact (ratio 1.00000, the whole character returned at 11 or 12 of the 12 primes) in 8 of the 18 cases, namely conductors 3, 4, 7, 8 (odd) and 5, 8, 12, 13 (even); 16.995 against 17 in one more; and far below in the other nine (4.98 against 19, 5.07 against 24, 7.28 against 21, 6.30 against 11, …, 68.9 against 73).
+- **Depth** ([chars_depth_out.txt](../../../../data/study/maass/chars_depth_out.txt)): for each fundamental discriminant D with |D| ≤ 44, the smallest k at which the bound reaches 0.9999·|D|: k = 0 for −3 and 5; 1 for −4, −7, 8; 2 for −8, 12, 13; 3 for −11, −15, 24; 4 for −20, 21; 5 for −24; 6 for 17 and −23; not reached with k ≤ 6 for the thirteen others (for example −19: 18.91; 28: 27.91; 37: 36.99; −43: 19.7).
+- Reading: exactness is a property of the first object. A later one becomes extremal once enough of its local data are prescribed, and then the rest of its data is returned; how much is needed varies from one character to the next. This is the same picture as the Maass forms above 15.9.
+
 ## 9. The review of round 165 ([review/review.md](review/review.md))
 
 An adversarial agent recomputed the problem with its own code (Legendre basis, the form in x-space, an exact moment formulation without an angle grid, its own barrier solver).
@@ -164,7 +191,7 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 ## 11. Open points
 
 1. A proof of exactness in the simplest case (odd real characters, conductor 3): a test function with non-negative transform that vanishes at the zeros of L(s, χ₋₃), whose local polynomial Σ_m g(m log p) p^(−m/2) x^m is minimal on [−1, 1] at x = χ₋₃(p) for every p.
-2. Whether the levels 11, 5, 3, 2 and 37 are reached exactly as the support grows, or with genuine angles.
+2. Whether the levels 11 and 37 are reached exactly as the support grows (10.995 and 36.91 at support 32 with whole-number a_p), and the levels 5, 3, 2 at weights 4, 6, 8.
 3. Round 166 is incomplete; round 169 (central zero and genuine angles together on the stretch above 15.9) was running when this was written.
 4. Interval arithmetic for the infeasibility statements; a second code for sections 3, 4, 7 and 8 (the review covered round 165 at support 8 only).
 5. SL(3,ℤ) with genuine conjugacy classes, larger support, and the forms of the key beyond the five lowest.
@@ -172,4 +199,4 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 
 ## 12. Validation
 
-[validate.py](validate.py) reads the data files and checks every number quoted in sections 3 to 8 (literature values and the review's own numbers of section 9 excepted).
+[validate.py](validate.py) reads the data files and checks every number quoted in sections 3 to 8c (literature values and the review's own numbers of section 9 excepted).

@@ -170,6 +170,37 @@ for f in [x for x in key if x['r'] < 20]:
     five.append(max(abs(got[2] - f['ap']['2']), abs(got[3] - f['ap']['3'])))
 true('five of the six isolated forms return a_2, a_3 within 0.01', sorted(five)[:5][-1] <= 0.01 and sorted(five)[5] > 0.2)
 
+# --- section 8b: round 170 (whole-number a_p)
+it = txt('integral_out.txt').splitlines(); true('integral: 6 lines', len(it) == 6)
+lev = [float(re.search(r'smallest level ([\d.]+)', l).group(1)) for l in it]
+for got, want in zip(lev, [10.947, 10.992, 10.995, 36.260, 36.710, 36.906]): check('integral level', got, want, 6e-4)
+def top(line, p):
+    m = re.search(r' %d:(\S+)' % p, line.split('a_p(weight):')[1]); best = max(re.findall(r'([+-]\d+)S?\(([\d.]+)\)', m.group(1)), key=lambda x: float(x[1])); return int(best[0]), float(best[1])
+for line, wants in [(it[2], [(-2, 1.00), (-1, 0.99), (1, 0.98), (-2, 0.98)]), (it[5], [(-2, 1.00), (-3, 1.00), (-2, 0.89), (-1, 0.73)])]:
+    for p, (a, w) in zip((2, 3, 5, 7), wants): g = top(line, p); true('integral a_%d' % p, g[0] == a and abs(g[1] - w) < 0.006)
+E11 = pari.mfcoefs(pari.mfeigenbasis(pari.mfinit([11, 2, 1], 0))[0], 20); true('11a', [int(E11[p]) for p in (2, 3, 5, 7, 13, 19)] == [-2, -1, 1, -2, 4, 0])
+E37 = [pari.mfcoefs(F, 8) for F in pari.mfeigenbasis(pari.mfinit([37, 2, 1], 0))]; true('37a', any([int(c[p]) for p in (2, 3, 5, 7)] == [-2, -3, -2, -1] for c in E37))
+true('a_13, a_19 at support 32 are not the curve\'s', top(it[2], 13)[0] in (5, 6) and top(it[2], 19)[0] == -2)
+check('0.05 percent', 100*(1 - lev[2]/11), 0.05, 0.006); check('0.25 percent', 100*(1 - lev[5]/37), 0.25, 0.006)
+true('I2 fails at support 16 on a_7', top(it[4], 7)[0] in (0, 1))
+check('unrestricted bounds', float(re.search(r'weight 2 X 16 .*?smallest level ([\d.]+)', lv).group(1)), 10.936, 6e-4)
+
+# --- section 8c: prescribed values
+cl = txt('chars_cond_out.txt').splitlines(); true('18 cases', len(cl) == 18)
+ratio = [float(re.search(r'ratio ([\d.]+)', l).group(1)) for l in cl]; cond = [int(re.search(r'conductor (\d+)', l).group(1)) for l in cl]; mt = [int(re.search(r'matched at (\d+) of 12', l).group(1)) for l in cl]
+ex = [(c, m) for r_, c, m in zip(ratio, cond, mt) if r_ > 0.99999]
+true('8 exact cases', sorted(c for c, m in ex) == sorted([3, 4, 7, 8, 5, 8, 12, 13]) and all(m >= 11 for c, m in ex))
+true('17 nearly', any(c == 17 and abs(float(re.search(r'bound ([\d.]+)', l).group(1)) - 16.995) < 6e-4 for c, l in zip(cond, cl)))
+true('nine far below', sum(1 for r_ in ratio if r_ < 0.95) == 9)
+for c, want in [(19, 4.98), (24, 5.07), (21, 7.28), (11, 6.30), (73, 68.9)]:
+    l = [x for x, cc_ in zip(cl, cond) if cc_ == c][0]; check('cond bound %d' % c, float(re.search(r'bound ([\d.]+)', l).group(1)), want, 0.06 if c == 73 else 6e-3)
+dl = txt('chars_depth_out.txt').splitlines(); true('29 discriminants up to 44', len(dl) == 29)
+depth = {int(re.match(r'D =\s*(-?\d+)', l).group(1)): re.search(r'k = (\w+)', l).group(1) for l in dl}
+want = {'0': [-3, 5], '1': [-4, -7, 8], '2': [-8, 12, 13], '3': [-11, -15, 24], '4': [-20, 21], '5': [-24], '6': [17, -23]}
+true('depth table', all(sorted(D for D, k in depth.items() if k == kk) == sorted(v_) for kk, v_ in want.items()) and sum(1 for k in depth.values() if k == 'None') == 13)
+for D_, want_ in [(-19, 18.91), (28, 27.91), (37, 36.99), (-43, 19.7)]:
+    l = [x for x in dl if re.match(r'D =\s*%d:' % D_, x)][0]; check('depth last value %d' % D_, float(re.findall(r'k=6: ([\d.]+)', l)[0]), want_, 0.06 if D_ == -43 else 6e-3)
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
