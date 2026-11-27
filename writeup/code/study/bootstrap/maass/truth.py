@@ -4,11 +4,11 @@
 import sys, json, os, numpy as np
 from maass import Problem
 key = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', 'data', 'study', 'maass', 'lmfdb_key.json')))
-X = float(sys.argv[1]); rmax = float(sys.argv[2]) if len(sys.argv) > 2 else 20.0
+X = float(sys.argv[1]); rmax = 20.0
 for f in key:
     if f['r'] > rmax or not f['ap']: continue
     eps = 1 if f['parity'] == 'odd' else 0
-    P = Problem(f['r'], eps, X, J=3)
+    P = Problem(f['r'], eps, X, J=3, center=(eps == 1 and 'center' in sys.argv))
     th = {int(p): np.arccos(a/2) for p, a in f['ap'].items()}
     two_a = 2*P.B.a; out = []
     for A, (name, _, k, cf, _q) in zip(P.A, P.T):

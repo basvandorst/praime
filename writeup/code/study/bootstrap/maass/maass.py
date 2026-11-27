@@ -27,7 +27,7 @@ def types_hol(kappa, kmax=4):
     return T
 
 class Problem:
-    def __init__(self, r, eps, X, J=61, kmax=4, N=None, margin=12.0, hol=False, th=None, T=None, bad=False):
+    def __init__(self, r, eps, X, J=61, kmax=4, N=None, margin=12.0, hol=False, th=None, T=None, bad=False, center=False):
         self.r = r; self.eps = eps; self.X = X
         a = np.log(X)/2
         maxfreq = 0.0 if hol else kmax*r
@@ -36,6 +36,10 @@ class Problem:
         self.T = T if T is not None else (types_hol(r, kmax) if hol else types(r, eps, kmax))
         self.T = [tuple(x)[:4] + ((x[4] if len(x) > 4 else 0.0),) for x in self.T]      # (name, kappas, k, weight, log of the fixed part of the conductor)
         self.A = [B.arch(x[1]) + x[4]*2*a*np.eye(B.n) for x in self.T]
+        if center:
+            # central zero: an odd Maass form has root number -1, so L(1/2, f) = 0 and Q_f(phi) >= |int phi|^2
+            # (found by the review of round 165).  In the basis exp(i pi k u/a), int phi_k = 2a for k = 0 and 0 otherwise.
+            self.A[0] = self.A[0].copy(); self.A[0][self.N, self.N] -= (2*a)**2
         self.th = np.linspace(0, np.pi, J) if th is None else np.asarray(th, float)
         self.pp = [(p, m) for p in primerange(2, int(X) + 1) for m in range(1, 60) if m*np.log(p) <= 2*a - 1e-9]
         self.primes = sorted({p for p, m in self.pp})

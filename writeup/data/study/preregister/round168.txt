@@ -1,0 +1,25 @@
+REGISTRATION, round 168: ODD MAASS FORMS WITH THE CENTRAL ZERO (the constraint found by the review of round 165).
+
+STATEMENT. An odd Maass form of SL(2,Z) has root number -1, so L(1/2, f) = 0 and, under GRH, Q_f(phi) >= |int phi|^2.
+Convex problem of round 165 (one measure on the Satake angle per prime; forms L(f) and Sym^2, the only ones that were ever
+active) with L(f) replaced by Q_f - |int phi|^2. Code: maass.py (center=True), scan.py ... center. t*(r) and
+F_X = { r : t* >= -0.002 } as before.
+CLAIM: with this constraint the feasible set of the odd problem consists of islands at the true odd eigenvalues.
+
+STATE WHEN THIS WAS WRITTEN (declared). Seen: the review's own computation at X = 8 (review/review.md, finding 1): t* < 0 on
+[11.5, 15.75] except +7e-6 at 12.1730 and +4e-4 at 14.3585; t*(13.0) = -0.051, t*(12.5) = -0.024; feasible again on
+[16.0, 20] at X = 8. Mine: truth.py with the central zero at X = 8 (the seven odd forms pass: L(f) between -1.5e-15 and
+3e-7). No scan of mine with the constraint; nothing at X = 16 or 32 from anyone.
+
+TEST. scan.py 1 X 9 20 0.01 2 61 center: r = 9.00, 9.01, ..., 20.00, odd parity, X = 8, then X = 16; X = 32 on
+r = 12.00, ..., 20.00 if the budget allows (reported up to where it got by 04:30 UTC, 27 November 2026).
+Answer key: the seven odd forms with r < 20 of lmfdb_key.json (9.5337, 12.1730, 14.3585, 16.1381, 16.6443, 18.1809, 19.4847).
+
+DECISIONS at X = 16 (X = 8 and 32 reported the same way):
+  H1 (truth feasible; a check): truth.py with the central zero: L(f) and Sym^2 >= -1e-9 for the seven forms.
+  H2 (no false island): every grid point with t* >= -0.002 lies within 0.03 of a true odd eigenvalue.
+  H3 (every eigenvalue shows): for each of the seven eigenvalues, the largest t* over the grid points within 0.02 is >= -0.02,
+      and it is the largest t* within 0.2.
+  H4 (Hecke eigenvalues): at the grid point nearest to each eigenvalue, a_2 and a_3 are within 0.05 of the true values.
+Expected weak spot (declared): at X = 8 the review saw [16.0, 20] feasible, so H2 should fail at X = 8 above 16; the claim
+is that it holds at X = 16 or 32.
