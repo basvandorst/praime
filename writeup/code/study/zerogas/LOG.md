@@ -204,3 +204,22 @@ Nothing here is a claim until it is promoted (registration, independent check, l
 - NOT OPENED (refused by the publisher's site): three papers of Fujii (Proc. Japan Acad. 66 (1990) "On a theorem of
   Landau II", "An additive theory of the zeros"; ASPM 21 (1992)), the most likely places for sums of S(gamma) x^(i gamma).
   Until they are read, (A) is "not found", not "new".
+
+## Loop 15. An exact formula at finite matrix size ([loop15.py](loop15.py)).
+- Derivation (by hand). For Haar unitary N x N, rho_j = sum_n exp(-2 pi i j x_n/N). Exactly, S(x_n) = const + sum_{j != 0}
+  rho_j exp(2 pi i j x_n/N)/(2 pi i j) (the Fourier series of the staircase at a jump), so
+      sum_n S(x_n) W_k(x_n) = N |rho_k|^2/(2 pi^2 k^2) - (1/(2 pi^2 k)) sum_{j != 0, -k} B(j, k)/j,   B(a, b) = E rho_a rho_b conj(rho_{a+b}).
+  With B(a, b) = min(N, a) + min(N, b) - min(N, a + b) for a, b > 0 (hook characters; for a, b <= N it is max(0, a + b - N)),
+  E|rho_k|^2 = k and sum_n W_k(x_n)^2 = 2N|s|^2 + 2 Re s^2 conj(rho_2k), for 1 <= k <= N:
+      c_N(k) = [ 1 - ((N + k)(H_{N+k} - H_N) - (N - k)(H_N - H_{N-k}))/N ] / [ 1 - max(0, 2k - N)/(N k) ],
+  H the harmonic numbers, c defined as the ratio of the two expectations. As N grows it tends to the curve of loop 9.
+- Prediction (before the run): simulation at N = 6, 10, 16 (40,000 matrices each) agrees with c_N(k) for every k <= N
+  within 3 standard errors; at these sizes c_N differs visibly from the limit curve.
+- Result of loop 15. N = 6 (40,000 matrices): k = 1..6: 0.97232, 0.88767, 0.74287, 0.57213, 0.22003, -0.38788 against the exact
+  35/36, 559/630, 1243/1680, 3919/6930, 229/1008, -4247/11550 (= 0.97222, 0.88730, 0.73988, 0.56551, 0.22718, -0.36771);
+  largest |z| 2.4; at k = 4 the limit curve (0.51483) is 16 standard errors away, the exact formula 1.8. N = 16: largest
+  |z| 1.8. N = 10: one point at z = -3.3 (k = 8), so the registered "every k within 3" FAILS in that run; repeated with
+  200,000 matrices ([loop15b.py](loop15b.py)): all ten k within 2.3 standard errors (k = 8: 0.28812 +- 0.00336 against
+  0.28837); the denominators agree with 1 - max(0, 2k - N)/(N k) (0.967, 0.943, 0.924, 0.908, 0.904 for k = 6..10).
+- Lesson: the formula is exact at finite size; the 3.3 was noise. What remains for a theorem is to write the proof of
+  B(a, b) = min(N, a) + min(N, b) - min(N, a + b) in full (hook characters) and have it refereed.
