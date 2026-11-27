@@ -302,3 +302,19 @@ Nothing here is a claim until it is promoted (registration, independent check, l
   self-consistently the waves are evaluated at the solved positions, and that non-linearity already produces the
   locking between p and p^2. Adding the term counts it twice. Rule for rebuilding: the matrix curve only. With it the
   zeros of zeta are rebuilt to 0.0346, the eigenvalues of random matrices (loop 18) to 0.036: the same number.
+
+## Loop 21. One curve for both worlds? The error of rebuilding against the cut ([loop21.py](loop21.py), [loop19.py](loop19.py) matrix mode)
+- Prediction (before the run): with the matrix curve alone, the rms error of a rebuilt zero of zeta equals that of a
+  rebuilt eigenvalue of a Haar matrix (N = 200) at every cut u = 0.3, 0.5, 0.7, 0.9, 1.0, 1.1 within 10 %; and beyond
+  u = 0.9 the error keeps falling in both (the modes above the size still help, with negative coefficients).
+- Result of loop 21 (rms error of a rebuilt position in mean spacings; matrix curve alone, nothing fitted):
+      cut u      0.3      0.5      0.7      0.9      1.0      1.1
+      matrices   0.1636   0.0849   0.0493   0.0358   0.0408   0.0466     (N = 200, 60 matrices)
+      zeta       0.1634   0.0866   0.0493   0.0346   0.0380   0.0456     (zeros 80,001..100,000)
+  First part of the prediction holds: the two agree within 4 % at every cut (within 10 % was registered). Second part
+  FAILS in both worlds alike: beyond u = 0.9 the error rises again.
+- Lesson: the best cut is u = 0.90, exactly where c(u) crosses zero. Modes beyond it, like the arithmetic term in loop 20,
+  are already produced by the non-linear solve; adding them with their (negative) regression coefficients counts them
+  twice. And the main point: zero by zero, zeta is rebuilt from its primes as a random unitary matrix is rebuilt from its
+  traces, with the same error at every cut.
+- (The second size for loop 17, N = 120, ran out of time and was dropped; the lowest band of loop 17 stays at 0.956 +- 0.018.)
