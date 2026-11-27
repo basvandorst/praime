@@ -318,3 +318,22 @@ Nothing here is a claim until it is promoted (registration, independent check, l
   twice. And the main point: zero by zero, zeta is rebuilt from its primes as a random unitary matrix is rebuilt from its
   traces, with the same error at every cut.
 - (The second size for loop 17, N = 120, ran out of time and was dropped; the lowest band of loop 17 stays at 0.956 +- 0.018.)
+
+## Loop 22. A character: L(s, chi_-4) ([loop22.py](loop22.py))
+- Prediction: zeros of L(s, chi_-4) up to height 3,000, rebuilt from chi(n) Lambda(n) for n below the cut with the same
+  curve c(u), u = ln n / ln(4t/2 pi): rms error within 15 % of the universal 0.085, 0.049, 0.035 at cuts 0.5, 0.7, 0.9.
+- Result of loop 22 (16 s): first run 0.122, 0.068, 0.043: a BUG of mine (the cut was fixed at the start of the window, so
+  higher zeros lost terms). Fixed (every zero uses the prime powers with its own u below the cut): 0.0759, 0.0421, 0.0281.
+- Validation (same fix applied to zeta, loop19.py): zeta at the same height (zeros 501..1500): 0.0802, 0.0444, 0.0311; zeros
+  5,001..8,000: 0.0814, 0.0464, 0.0323; zeros 80,001..100,000: 0.0844, 0.0483, 0.0345 (was 0.0866, 0.0493, 0.0346).
+  The character is 5 %, 5 %, 10 % below zeta at equal height: prediction (within 15 %) holds against the right comparator.
+- Lesson: validate a surprising number against the nearest comparable case before reasoning about it; the first
+  "character effect" was my cut. The local layer enters only as chi(n) on each wave; the curve c(u) is unchanged.
+
+## Loop 23. Does the matrix size play the role of the height here? (seconds)
+- Prediction: small matrices (N = 10, 20) give lower errors, as zeta does at lower height.
+- Result: N = 10: 0.0743, 0.0441, 0.0360; N = 20: 0.0794, 0.0468, 0.0359; N = 200: 0.0849, 0.0493, 0.0358 (cuts 0.5, 0.7, 0.9).
+  Partly: at cuts 0.5 and 0.7 both fall with size, but zeta at L = 9.3 (0.0844, 0.0483) sits at the large-N values, not at
+  N = 10; at cut 0.9 matrices stay at 0.036 while zeta falls to 0.031 at low height.
+- Lesson: for this error the height is not "N = L": zeta has many prime powers below any cut even at small L, a small
+  matrix has few modes. The dictionary size = ln(t/2 pi) is not exact for every quantity.

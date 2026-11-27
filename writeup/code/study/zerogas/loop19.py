@@ -8,7 +8,7 @@ g = np.loadtxt('/home/bas/praime/writeup/data/riemann/odlyzko_zeros1.txt')[lo:hi
 theta = lambda t: t/2*np.log(t/(2*np.pi)) - t/2 - np.pi/8 + 1/(48*t) + 7/(5760*t**3)
 idx = np.arange(lo + 1, hi + 1).astype(float)
 # prime powers used: u = ln n / L(t) < ucut at the START of the window (so every zero has them below ucut)
-Lmin = np.log(g[0]/(2*np.pi)); nmax = int(np.exp(ucut*Lmin)); terms = []
+Lmax = np.log(g[-1]/(2*np.pi)); nmax = int(np.exp(ucut*Lmax)); terms = []     # every zero uses the prime powers with its own u below the cut
 for p in primerange(2, nmax + 1):
     m = 1
     while p**m <= nmax:
@@ -23,6 +23,7 @@ def Spred(y):
         C = (cth(U.ravel()).reshape(U.shape) + NU[None, :]/Ly)/(1 + DE[None, :]/Ly)
         if MODE == 'plain': C = np.ones_like(U)
         if MODE == 'matrix': C = cth(U.ravel()).reshape(U.shape)
+        C = np.where(U < ucut, C, 0.0)
         out[i:i + 2000] = -((np.sin(np.outer(yy, F))*C) @ A)
     return out
 def solve_smooth(v, y):                       # theta(y)/pi + 1 = v
