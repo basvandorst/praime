@@ -275,6 +275,21 @@ check('173 third form, p <= 7', max(abs(f3[2]['ap'][p] - k20[2]['ap'][p]) for p 
 fe73 = sorted((d['eps'], d['r']) for d in c2 if d['t_lp'] >= -0.002)
 true('173: no piece anywhere else', all(any((f['parity'] == 'odd') == (e == 1) and f['r'] - 0.02 <= r <= f['r'] + 0.1 for f in k20) for e, r in fe73))
 
+# --- section 8i: round 174
+f4 = json.load(open(os.path.join(D, 'chain3_X16_found.json'))); c3 = [json.loads(l) for l in open(os.path.join(D, 'chain3_X16.jsonl'))]; true('174: 13 forms, 905 points', len(f4) == 13 and len(c3) == 905)
+allkey = [f for f in key if f['r'] < 20] + k20
+tab74 = [(9.53443, 9.53370, 0.0007, 0.0005), (12.17376, 12.17301, 0.0008, 0.0005), (13.77916, 13.77975, -0.0006, 0.0007), (14.35814, 14.35851, -0.0004, 0.0004), (16.13659, 16.13807, -0.0015, 0.0022), (16.64338, 16.64426, -0.0009, 0.0011),
+         (17.73718, 17.73856, -0.0014, 0.0056), (18.17935, 18.18092, -0.0016, 0.0008), (19.42290, 19.42348, -0.0006, 0.0021), (19.48123, 19.48471, -0.0035, 0.0158), (20.12594, 20.10669, 0.0192, 0.0067), (21.31479, 21.31580, -0.0010, 0.0017), (21.45556, 21.47906, -0.0235, 0.75)]
+e_r = []; e_a = []; e_23 = []
+for g, f, (rh, rt, err, ea) in zip(f4, allkey, tab74):
+    true('174 parity and order', (f['parity'] == 'odd') == (g['eps'] == 1)); check('174 r^', g['r'], rh, 6e-6); check('174 true', f['r'], rt, 6e-6); check('174 err', g['r'] - f['r'], err, 6e-5)
+    m = max(abs(g['ap'][p] - f['ap'][p]) for p in '2357'); check('174 a_p', m, ea, 6e-3 if ea > 0.1 else 6e-5); e_r.append(abs(g['r'] - f['r'])); e_a.append(m); e_23.append(max(abs(g['ap'][p] - f['ap'][p]) for p in '23'))
+true('174: twelve within 0.02, ten within 0.0016', max(e_r[:12]) <= 0.02 and sorted(e_r)[9] <= 0.0016); check('174: a_p p <= 7, first twelve', max(e_a[:12]), 0.016, 6e-4)
+check('174 Q1: tenth a_2', e_23[9], 0.013, 6e-4); true('174: nine within 0.0016 and 0.0014', max(e_r[:9]) <= 0.0016 and max(e_23[:9]) <= 0.0014); check('174: 21.3158 a_2, a_3', e_23[11], 0.0017, 6e-5); check('174 Q2 a_p', e_a[10], 0.007, 6e-4)
+fe74 = [(d['eps'], d['r']) for d in c3 if d['t_lp'] >= -0.002]
+true('174: no piece anywhere else', all(any((f['parity'] == 'odd') == (e == 1) and f['r'] - 0.03 <= r <= f['r'] + 0.1 for f in allkey) for e, r in fe74))
+true('174: thirteenth piece begins before the eigenvalue', min(r for e, r in fe74 if e == 1 and r > 21) < 21.479)
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
