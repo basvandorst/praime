@@ -96,3 +96,54 @@ Nothing here is a claim until it is promoted (independent check, literature chec
   part of the exponent shift). The pooled composite slope sits 1.5 % below 1 at every t (same zeros, so not independent):
   either noise (1.5 to 2 errors) or a next-order term; kappa(pq) is a difference of two nearly equal numbers, so a
   0.1 % correction of b_n would do it. Open.
+
+## Loop 5. One family for both worlds? Spacing variance of zeta's flowed zeros against flowed matrices ([loop5.py](loop5.py))
+- Conjecture (ours): in the scaling tau = t ln^2(T/2 pi)/4 the zeros of H_t near height T have the local statistics of
+  Haar matrices flowed to tau = t N^2 (a one-parameter family from the sine process, tau = 0, to the lattice).
+- Prediction (before the run): zeros 6,000..10,000 at t = 0.05, 0.1, 0.2, 0.3, 0.45, 0.6 (tau = t <L^2>/4, about 0.6 to 7.7):
+  the variance of the unfolded spacings equals that of flowed matrices (N = 100, 400 matrices) at the same tau within
+  10 % at every t. (At t = 0 zeta is known to sit a little below 0.180 at this height; I expect the same few per cent.)
+- Result of loop 5: FAILS. Spacing variance, zeta / matrices: 0.1565 / 0.1796 at t = 0 (ratio 0.871), then 0.871, 0.866,
+  0.848, 0.824, 0.778, 0.720 at tau = 0.64 ... 7.7. Zeta at this height (L = 7) is 13 % below the sine process before any
+  flow, and the ratio drifts further.
+- Lesson: at L = 7 the scaling limit is not reached (the primes are few and discrete: u = 0.10 for p = 2); this run does
+  not test the conjecture. The test must be made where zeta is close to the sine process: Odlyzko's zeros near 10^12
+  (L = 24.5). In unfolded units both worlds obey the same equation, dx_k/dtau = (1/(2 pi^2)) sum_{j != k} 1/(x_k - x_j).
+
+## Loop 6. The same at height 10^12, 10^21, 10^22 ([loop6.py](loop6.py))
+- Method: blocks of 3,333 consecutive zeros from each of Odlyzko's three tables (9 blocks), unfolded, moved by
+  dx/dtau = (1/(2 pi^2)) [sum 1/(x_k - x_j) + ln((b - x_k)/(x_k - a))] (the zeros outside the block as a uniform
+  continuum), statistics on the middle 60 % of each block. Matrices: N = 200, flowed exactly (loop 3's method).
+- Prediction (before the run): spacing variance of zeta at tau = 0.5, 1, 2, 4 equals the matrix value within 3 pooled
+  standard errors (errors from the scatter of the 9 blocks); and the amplitude of the line of p = 2, 3, 5 in the middle
+  zeros falls by exp(-tau u (1 - u)), u = ln p / L, within 3 errors at tau = 4.
+- Result of loop 6 (9 blocks of 3,333 zeros, middle 2,000 of each; matrices N = 200, 150 matrices):
+      tau    spacing variance: zeta        matrices            z       line of p = 2, 3, 5 relative to tau = 0 (predicted)
+      0      0.1779 +- 0.0019              0.1772 +- 0.0016    +0.3
+      0.5    0.1397 +- 0.0014              0.1393 +- 0.0012    +0.2    0.9918 (0.9905)   0.9854 (0.9852)   0.9786 (0.9787)
+      1      0.1130 +- 0.0011              0.1129 +- 0.0010    +0.1    0.9836 (0.9811)   0.9711 (0.9705)   0.9577 (0.9579)
+      2      0.0770 +- 0.0007              0.0772 +- 0.0007    -0.2    0.9678 (0.9625)   0.9432 (0.9420)   0.9174 (0.9176)
+      4      0.0388 +- 0.0004              0.0393 +- 0.0004    -1.0    0.9373 +- 0.013 (0.9266)   0.8901 (0.8877)   0.8420 (0.8426)
+  Both predictions hold: at every tau the zeros of zeta and the eigenvalues of Haar matrices have the same spacing
+  variance (largest difference 1.0 error), and the lines of 2, 3, 5 fall by exp(-tau u (1 - u)) (all within 0.8 errors).
+- Lesson: where zeta is close to the sine process (L = 24 to 49), the flow takes zeta and matrices through the same
+  one-parameter family, from the sine process to the lattice. The conjecture survives its first real test. (The block
+  edges are treated as a continuum; only the middle 60 % is read.)
+
+## Reports of the two agents (27 November 2026)
+- Compute agent (own flow code with a block-multipole force, all zeros below the M-th and their mirrors, M = 12,000 and
+  30,000; code in [agent_zeta/](agent_zeta/)): with a smooth taper over the window the noise is 1e-3 against amplitudes of
+  10 to 680, so the test is nearly exact. At t = 0.4: primes 2..13 within 1e-5 of the prediction, composites 6, 10, 12, 14,
+  15, 21 within 4e-5 (errors 2e-5 to 5e-5). Pooled composite slope - 1: (-1 +- 5)e-6 at t = 0.2 and (-5 +- 3)e-6 at t = 0.4
+  (M = 30,000); at t = 0.6 it is (-11 +- 3)e-6, a term of order 1/T (it halves from M = 12,000 to 30,000 and vanishes when
+  L is taken at each zero's starting height; post hoc). No lines at rationals. Rigid shift per unit t: -pi/8 + 7/(8 gamma).
+  So the 1.5 % deficit of my loop 4 was my sharp window, not a next-order term.
+- Prior-art agent (Rodgers-Tao, Polymath 15, Dobner, Kabluchko, Hall-Ho, Hall-Ho-Jalowy-Kabluchko, Ki-Kim-Lee,
+  Csordas-Smith-Varga, Newman 1976 read in full; Zenodo, GitHub searched): (A) the limit law K_tau(u): NOT FOUND; its
+  first term is Rodgers-Tao's factor K_{t,n} squared (arXiv 1801.05914, p. 17). (B) The series sum b_n n^-s is Polymath's
+  and Dobner's; Polymath section 8.1 notes that b_n is not multiplicative for t != 0; the lines at composites and the
+  cluster weights as a law: NOT FOUND (the parts are elementary). The Curie-Weiss reading for polynomials is Kabluchko
+  (arXiv 2203.05533) and Newman 1976; for primes not found. (C) an exact finite-N second moment of the flowed power
+  sums and local statistics at t ~ 1/N^2 or 1/log^2 T: NOT FOUND; Rodgers-Tao p. 27 name this time scale but compute no
+  statistics; Polymath Remark 1.6 expects a "liquid" below exp(C/t). NOT OPENED: the Polymath wiki and blog threads,
+  the original papers of Landau, Gonek, Diaconis-Shahshahani. So "not found", with those unopened.
