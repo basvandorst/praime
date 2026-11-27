@@ -4,12 +4,12 @@
 
 1. **Real characters.** The smallest conductor that keeps the form positive is 2.9999999996 (odd, support 14) and 4.9999999994 (even, support 24), and the optimum is the character mod 3, mod 5 at the primes of the support (the last prime excepted), with 0 at the ramified prime. At support 8 the optimum is not yet the character (2.9999977, 4.99989).
 2. **Level 1, weight as a real number.** Nothing is feasible below weight 12; at 12 the optimum is τ(p)/p^(11/2) for p = 2, 3, 5, 7 to 3 decimals at support 16. With root number −1, weight 14 is excluded and the first feasible weight is 18.00, with the Hecke eigenvalues of the weight-18 form within 0.01 at support 16.
-3. **Maass forms of SL(2,ℤ), eigenvalue as a real number.** Nothing is feasible below the first eigenvalue of each parity. At support 16, on a grid of step 0.01 and with the allowance t* ≥ −0.002, six of the ten eigenvalues below 20 (9.53, 12.17, 13.78, 14.36, 17.74, 19.42) each lie in their own feasible piece, and no piece on the grid holds no eigenvalue; five of them return a₂ and a₃ to 0.01 or better. The four odd eigenvalues above 15.9 lie in one stretch that stays feasible.
+3. **Maass forms of SL(2,ℤ), eigenvalue as a real number.** Nothing is feasible below the first eigenvalue of each parity. At support 16 (primes up to 13), on a grid of step 0.01 and with the allowance t* ≥ −0.002: with parity and root number alone, six of the ten eigenvalues below 20 are isolated and the four odd ones above 15.9 lie in one feasible stretch; when the forms already found are used as constraints on the next one (their Rankin–Selberg products, round 171), the feasible set consists of ten pieces of length at most 0.05, one at each eigenvalue, and each returns a₂ and a₃ of its form within 0.02.
 4. **SL(3,ℤ).** One of the five lowest forms, (13.5966, 4.7647), lies within 0.035 of the edge of the feasible set (t* = +0.0016 there) and its a₂ is returned within 0.011; the others do not.
 
 5. **Weight 2 with whole-number a_p.** The smallest admissible level is 10.995, with a₂, a₃, a₅, a₇ = −2, −1, 1, −2 (the elliptic curve of conductor 11); with root number −1 it is 36.91, with −2, −3, −2, −1 (the curve 37a).
 
-Five rounds were registered before their runs (165 to 168 and 170). Their strong claims (islands at every eigenvalue, every low form on the edge) failed as registered; sections 5 to 8 give each verdict. In print: the positivity method with local corrections and bounds that come close (r > 7.2, conductor > 10.323, weight near 11). Not found in print by two searches: that the bound is exact when the primes are given, the local data are the unknown and the test function is optimised, and that the optimum is the local data of the extremal form. Two reviews with their own codes reproduced the numbers and corrected the note (section 9).
+Seven rounds were registered before their runs (165 to 171). The first strong claims (islands at every eigenvalue from L(f) and Sym² alone, every low form of SL(3,ℤ) on the edge) failed as registered; rounds 170 and 171 passed; sections 5 to 8e give each verdict. In print: the positivity method with local corrections and bounds that come close (r > 7.2, conductor > 10.323, weight near 11). Not found in print by two searches: that the bound is exact when the primes are given, the local data are the unknown and the test function is optimised, and that the optimum is the local data of the extremal form. Two reviews with their own codes reproduced the numbers and corrected the note (section 9).
 
 ## 1. What is in print
 
@@ -167,6 +167,38 @@ Real characters again, support 40, with the values at the first k primes prescri
 - **Depth** ([chars_depth_out.txt](../../../../data/study/maass/chars_depth_out.txt)): for each fundamental discriminant D with |D| ≤ 44, the smallest k at which the bound reaches 0.9999·|D|: k = 0 for −3 and 5; 1 for −4, −7, 8; 2 for −8, 12, 13; 3 for −11, −15, 24; 4 for −20, 21; 5 for −24; 6 for 17 and −23; not reached with k ≤ 6 for the thirteen others (for example −19: 18.91; 28: 27.91; 37: 36.99; −43: 19.7).
 - Reading: exactness is a property of the first object. A later one becomes extremal once enough of its local data are prescribed, and then the rest of its data is returned; how much is needed varies from one character to the next. This is the same picture as the Maass forms above 15.9.
 
+## 8d. Round 169: central zero and genuine angles together ([round169.txt](../../../../data/study/preregister/round169.txt))
+
+Registered (commit a019323f). [pm.py](pm.py) with the central zero, odd parity, support 16, r = 15.9, 16.0, …; stopped by its time limit at 18.3 (25 of 42 points, 3,268 s; [pm_eps1_X16_k2_center.jsonl](../../../../data/study/maass/pm_eps1_X16_k2_center.jsonl)).
+
+- 15.9 to 16.6 (8 points): infeasible (upper bounds −0.032 to −0.0025). The convex problem of round 168 was feasible from 15.93 on.
+- 16.7 to 18.3 (17 points): feasible. The best point at 16.7 has a₂, a₃ = −1.53, +0.95 (the form at 16.6443 has −1.540, +0.977): the piece that begins at 16.64 runs on to the right.
+
+VERDICT of round 169 as registered: K1 fails (feasible grid points up to 18.3 that are farther than 0.1 from every eigenvalue); incomplete above 18.3. Genuine angles alone do not close the stretch at support 16.
+
+## 8e. Round 171: the sequential bootstrap — all ten eigenvalues below 20 ([round171.txt](../../../../data/study/preregister/round171.txt), [mixed_scan.py](mixed_scan.py), [decide171.py](decide171.py))
+
+Registered (commit 6ae98af0, the pilot with four known forms declared; even parity added before its run, commit 470dcca9). The forms found so far are used as constraints on the next one. For a known form g and the unknown form f, L(f × g) has Gamma factor Γ_R(s + d ± i(r + r_g)) Γ_R(s + d ± i(r − r_g)) (d = 0 for equal parities, 1 otherwise), conductor 1, no pole, and the weight (2 cos mθ_p)(2 cos mθ_p(g)) log p at p^m, which is linear in the unknown measure of f. Problem at each r: L(f) (with the central zero for odd f), Sym², and L(f × g) for every true form g of either parity with r_g ≤ r − 0.05; the Hecke eigenvalues of g are taken from the answer key. Convex problem, support 16, step 0.01.
+
+- **Truth passes** ([mixed_truth_out.txt](../../../../data/study/maass/mixed_truth_out.txt)): for the seven odd forms every form of the problem, including up to nine Rankin–Selberg forms, has smallest eigenvalue ≥ −2.6·10⁻¹⁴.
+- **Odd, r = 15.90 to 20.00** ([decide171_odd_out.txt](../../../../data/study/maass/decide171_odd_out.txt)): the feasible set is [16.14, 16.18], [16.65, 16.69], [18.18, 18.23], [19.49, 19.53] (21 grid points; 408 in round 168), against the eigenvalues 16.1381, 16.6443, 18.1809, 19.4847.
+- **Even, r = 13.00 to 20.00** ([decide171_even_out.txt](../../../../data/study/maass/decide171_even_out.txt)): the feasible set is {13.78}, {17.74}, {19.43} (3 grid points; 39 without the Rankin–Selberg forms), against 13.7798, 17.7386, 19.4235.
+- **Hecke eigenvalues at the first feasible grid point of each piece:**
+
+| eigenvalue | a₂ found | true | a₃ found | true |
+|---|---|---|---|---|
+| 16.1381 | +1.156 | +1.162 | −1.279 | −1.282 |
+| 16.6443 | −1.539 | −1.540 | +0.973 | +0.977 |
+| 18.1809 | +0.374 | +0.374 | +0.101 | +0.102 |
+| 19.4847 | −1.681 | −1.700 | −0.610 | −0.615 |
+| 13.7798 | +1.549 | +1.549 | +0.247 | +0.247 |
+| 17.7386 | −0.767 | −0.765 | −0.975 | −0.978 |
+| 19.4235 | −0.686 | −0.693 | +1.563 | +1.562 |
+
+VERDICT of round 171 as registered: M1, M2, M3 pass for both parities; the added prediction (the piece at 17.74 shorter than 0.1) holds: it is one grid point.
+
+**The spectrum below 20.** Rounds 165, 168 and 171 together, at support 16 (the primes 2, 3, 5, 7, 11, 13): on the grids, {t* ≥ −0.002} consists of ten pieces, of length at most 0.05, one at each of the ten eigenvalues of the modular surface below 20, and each piece returns a₂ and a₃ of its form within 0.02. Caveats: a grid of step 0.01 (0.05 below r = 9 and, for even forms, below 13) cannot exclude a feasible piece narrower than the step; from the fourth form on, the Hecke eigenvalues of the forms below (for p ≤ 13) enter from the answer key, not from the bootstrap's own output; float64; and the hypotheses of section 10.
+
 ## 9. The review of round 165 ([review/review.md](review/review.md))
 
 An adversarial agent recomputed the problem with its own code (Legendre basis, the form in x-space, an exact moment formulation without an angle grid, its own barrier solver).
@@ -190,20 +222,20 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 - **New here, as far as two searches found** (numerical; nothing proved):
   1. with the primes given and one measure per prime, the bound is exact to 9 digits for the two smallest real characters (from support 14 and 24 on) and to the grid for the first cusp form of level 1 of each sign (weights 12 and 18) and the first Maass form of each parity;
   2. the optimum is the local data of that form: the values of the character, τ(p), Hecke eigenvalues to 2–4 digits;
-  3. for Maass forms of SL(2,ℤ) the feasible set at support 16 separates six of the ten eigenvalues below 20 into single pieces, once the parity and the root number are put in;
+  3. for Maass forms of SL(2,ℤ) the feasible set at support 16 separates six of the ten eigenvalues below 20 into single pieces once the parity and the root number are put in, and all ten once the forms below are used as constraints (round 171);
   4. on SL(3,ℤ) one of the five lowest forms lies within 0.035 of the edge and its a₂ is returned within 0.011.
-- **What it is not.** Not a proof of anything about L-functions: feasibility of the true objects assumes the Riemann hypothesis of every L-function used (L(χ), L(f), Sym², and Sym³, Sym⁴, the adjoint, L(f × g) where they enter) and real Satake angles (a theorem of Deligne for holomorphic forms; for the Maass forms of the key it was checked on the data, |a_p| ≤ 1.74). Not exact above level 1 at the supports reached (10.94 against 11, 34.8 against 37). Not a set of islands for the odd forms above 15.9 at support 16. The registered claims in their strong forms failed: D2, D3, D4 (odd), D5 (odd), G2, G4, H2, H3, H4.
+- **What it is not.** Not a proof of anything about L-functions: feasibility of the true objects assumes the Riemann hypothesis of every L-function used (L(χ), L(f), Sym², and Sym³, Sym⁴, the adjoint, L(f × g) where they enter) and real Satake angles (a theorem of Deligne for holomorphic forms; for the Maass forms of the key it was checked on the data, |a_p| ≤ 1.74). Not exact above level 1 at the supports reached (10.94 against 11, 34.8 against 37). Not a set of islands for the odd forms above 15.9 at support 16 without the sequential constraints. The registered claims in their strong forms failed: D2, D3, D4 (odd), D5 (odd), G2, G4, H2, H3, H4, K1; passed: D1, G1, G3, H1, I1, I2 (support 32), M1, M2, M3 and the two weight controls.
 - **Why it may matter.** A bound that is exact, with the extremal object as its optimum, is the situation of the Cohn–Elkies bound in dimensions 8 and 24 and of Johns' statement for ζ. If it holds in general for "the first form of each archimedean type", it is a converse theorem in which positivity replaces the functional equations of twists; and the method is a way to compute first eigenvalues and Hecke eigenvalues from the primes and the Gamma factor alone.
 
 ## 11. Open points
 
 1. A proof of exactness in the simplest case (odd real characters, conductor 3): a test function with non-negative transform that vanishes at the zeros of L(s, χ₋₃), whose local polynomial Σ_m g(m log p) p^(−m/2) x^m is minimal on [−1, 1] at x = χ₋₃(p) for every p.
 2. Whether the levels 11 and 37 are reached exactly as the support grows (10.995 and 36.91 at support 32 with whole-number a_p), and the levels 5, 3, 2 at weights 4, 6, 8.
-3. Round 166 is incomplete; round 169 (central zero and genuine angles together on the stretch above 15.9) was running when this was written.
+3. Rounds 166 and 169 are incomplete. The sequential bootstrap of round 171 takes the Hecke eigenvalues of the earlier forms from the answer key; a self-contained chain, which feeds in its own output, was not run. Eigenvalues above 20 and a finer grid were not run.
 4. Interval arithmetic for the infeasibility statements; a second code for sections 3, 4, 7 and 8 (the review covered round 165 at support 8 only).
 5. SL(3,ℤ) with genuine conjugacy classes, larger support, and the forms of the key beyond the five lowest.
 6. Sources not opened by the prior-art searches (section 1).
 
 ## 12. Validation
 
-[validate.py](validate.py) reads the data files and checks every number quoted in sections 3 to 8c (literature values and the review's own numbers of section 9 excepted).
+[validate.py](validate.py) reads the data files and checks every number quoted in sections 3 to 8e (literature values and the review's own numbers of section 9 excepted).

@@ -206,6 +206,31 @@ true('max |a_p| of the key forms in truth_out <= 1.74', max(float(re.search(r'ma
 for r_, want in [(9.54, -0.0013), (12.17, -0.0006), (14.36, -0.0002)]: check('t* at the island grid points', at(C[16], r_)['t_lp'], want, 6e-5)
 check('x_7 at support 8, odd', float(re.search(r'kappa 1 X 8:.*? 7:([+-][\d.]+)', txt('chars_precise_out.txt')).group(1)), 0.9185, 6e-5)
 
+# --- section 8d: round 169
+p9 = rows('pm_eps1_X16_k2_center.jsonl'); true('169: 25 points', len(p9) == 25); check('169 seconds', sum(d['secs'] for d in p9), 3268, 1)
+inf9 = [d for d in p9 if d['t_upper'] < -0.002]; true('169 infeasible 15.9-16.6', [round(d['r'], 1) for d in inf9] == [15.9, 16.0, 16.1, 16.2, 16.3, 16.4, 16.5, 16.6])
+check('169 smallest upper', min(d['t_upper'] for d in inf9), -0.032, 6e-4); check('169 largest upper', max(d['t_upper'] for d in inf9), -0.0025, 6e-5)
+fe9 = [d for d in p9 if d['t_upper'] >= -0.002]; true('169 feasible 16.7-18.3 (17)', len(fe9) == 17 and abs(fe9[0]['r'] - 16.7) < 1e-9 and abs(fe9[-1]['r'] - 18.3) < 1e-9)
+check('169 a_2', fe9[0]['ap'][0], -1.53, 6e-3); check('169 a_3', fe9[0]['ap'][1], 0.95, 6e-3)
+true('168 convex feasible from 15.93', abs(min(d['r'] for d in C[16] if d['r'] > 15 and d['t_lp'] >= -0.002) - 15.93) < 1e-9)
+
+# --- section 8e: round 171
+mt_ = txt('mixed_truth_out.txt').splitlines(); true('171 truth: 7 odd forms', len(mt_) == 7 and min(float(x) for l in mt_ for x in re.findall(r' ([+-]\d\.\de[+-]\d\d)', l)) >= -2.6e-14)
+true('171 truth: up to nine known forms', max(int(re.search(r'(\d+) known forms', l).group(1)) for l in mt_) == 9)
+MO = rows('mixed_eps1_X16.jsonl'); ME = rows('mixed_eps0_X16.jsonl'); true('171 grids', len(MO) == 411 and len(ME) == 701)
+true('171 odd pieces', cc(MO) == [[16.14, 16.18], [16.65, 16.69], [18.18, 18.23], [19.49, 19.53]]); true('171 even pieces', cc(ME) == [[13.78, 13.78], [17.74, 17.74], [19.43, 19.43]])
+true('171 counts', sum(d['t_lp'] >= -0.002 for d in MO) == 21 and sum(d['t_lp'] >= -0.002 for d in ME) == 3 and sum(1 for d in C[16] if d['r'] >= 15.899 and d['t_lp'] >= -0.002) == 408 and sum(d['t_lp'] >= -0.002 for d in E16) == 39)
+tab = [(16.1381, MO, 1.156, 1.162, -1.279, -1.282), (16.6443, MO, -1.539, -1.540, 0.973, 0.977), (18.1809, MO, 0.374, 0.374, 0.101, 0.102), (19.4847, MO, -1.681, -1.700, -0.610, -0.615),
+       (13.7798, ME, 1.549, 1.549, 0.247, 0.247), (17.7386, ME, -0.767, -0.765, -0.975, -0.978), (19.4235, ME, -0.686, -0.693, 1.563, 1.562)]
+worst = 0
+for rj, M, a2, t2, a3, t3 in tab:
+    f = min(key, key=lambda f: abs(f['r'] - rj)); d = [x for x in M if x['r'] >= rj - 0.005 and x['t_lp'] >= -0.002][0]; got = dict(zip(d['primes'], d['mean_ap']))
+    check('171 a_2 %g' % rj, got[2], a2, 6e-4); check('171 a_3 %g' % rj, got[3], a3, 6e-4); check('171 true a_2', f['ap']['2'], t2, 6e-4); check('171 true a_3', f['ap']['3'], t3, 6e-4)
+    worst = max(worst, abs(got[2] - f['ap']['2']), abs(got[3] - f['ap']['3']))
+true('all ten: a_2, a_3 within 0.02', worst <= 0.02 and max(five[i] for i in (0, 1, 2, 3)) <= 0.02)
+allp = cc(C[16])[:3] + cc(MO) + cc(ME)
+true('ten pieces, each at most 0.05 long, one eigenvalue each', len(allp) == 10 and all(b - a <= 0.0501 for a, b in allp) and all(sum(1 for f in key if f['r'] < 20 and a - 0.011 <= f['r'] <= b + 0.011) == 1 for a, b in allp))
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
