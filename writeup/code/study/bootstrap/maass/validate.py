@@ -302,6 +302,7 @@ true('four primes: six within 0.003, nine within 0.016', max(ex_[:6]) <= 0.00302
 for i, want in [(9, 19.456), (10, 20.158), (12, 21.401)]: check('four primes: misses', fx[i]['r'], want, 6e-4); true('off by more than 0.02', ex_[i] > 0.02)
 
 r12 = open(os.path.join(th_, 'referee_report12.md')).read(); true('referee12 numbers', all(x in r12 for x in ['4.08533', '8.78443e−3', '3.69306e−8', 'no failing step']))
+true('referee12: 13.5531', '13.5531' in r12)
 
 # --- END
 if __name__ == '__main__':

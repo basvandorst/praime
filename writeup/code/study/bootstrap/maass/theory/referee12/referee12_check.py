@@ -210,7 +210,7 @@ check("Re psi'(0.3+0.6i) < 0 and Re psi'(0.3+50i) < 0", mp.re(mp.psi(1, mp.mpf('
 # ================================================================== 4. an unconditionally feasible family (uniform d theta/pi)
 print('== 4. uniform measure: <2 cos m theta> = 0, Q = A^(k)(g) >= 0 once psi(k/2) >= log 2 pi', flush=True)
 ku = 2*mp.findroot(lambda x: mp.digamma(x) - mp.log(2*mp.pi), 6.8)
-check('kappa_u = 2 psi^{-1}(log 2 pi) = 13.59', abs(ku - mp.mpf('13.59')) < mp.mpf('0.01'), mp.nstr(ku, 10))
+check('kappa_u = 2 psi^{-1}(log 2 pi) = 13.5531 (psi(kappa_u/2) - log 2pi = 0)', abs(ku - mp.mpf('13.5531')) < mp.mpf('1e-4') and abs(mp.digamma(ku/2) - mp.log(2*mp.pi)) < mp.mpf(10)**-50, mp.nstr(ku, 10))
 check('uniform measure: (1/pi) int_0^pi 2 cos(m theta) d theta = 0, m = 1..6', all(abs(mp.quad(lambda th: 2*mp.cos(m*th), [0, mp.pi])/mp.pi) < mp.mpf(10)**-50 for m in range(1, 7)))
 worst = min(mp.re(mp.digamma(mp.mpf(x)+1j*mp.mpf(y))) - mp.digamma(mp.mpf(x)) for x in ['0.3', '1', '3', '6.8'] for y in [mp.mpf(k)/4 for k in range(1, 400)])
 check('Re psi(x+iy) >= psi(x) (sample; termwise (n+x)/((n+x)^2+y^2) <= 1/(n+x))', worst >= 0, mp.nstr(worst, 3))
