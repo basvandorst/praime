@@ -1,5 +1,21 @@
 # A certified Lieb–Oxford bound from the Lewin–Lieb–Seiringer reduction
 
+**Status (27 November 2026, after the referee's report, [referee/referee_report.md](referee/referee_report.md)): correct, but NOT the best
+rigorous value.** The referee found no failing step (own code for Psi, g and J; 0 violations of the certified upper bounds in a
+cell-by-cell attack on every ball cell and every 4th sphere cell; rounding checked at 50 digits). But it found prior art that our
+searches missed: Ye Li, *Improvement on the Lieb-Oxford Bound*, Phys. Rev. A, published 25 November 2026 (DOI 10.1103/mqsm-pwgn),
+claims C = 1.5342 (1.5448 with a signed nu, 1.5342 with a further correction term to the Lewin–Lieb–Seiringer argument), with a
+public repository of rational certificates and an exact verifier; the referee saw the abstract, README and verifier source through
+summaries only, did not read the paper (paywalled) and did not run the verifier. So the sentences below that call 1.68 the best
+proved value, or say nothing else was found in print, are out of date: the bounds here (1.604335, 1.597856) are an independent,
+weaker, computer-assisted result by a simpler route (f = g of Lemma 10 only). The May 2026 document claiming about 1.640 is
+still unreachable.
+Corrections from the referee to statements below: (1) the float cross-check of Theorem B, J = 1.37702062 and c = 1.59785372, is
+an artefact of the linear-grid trapezoid rule; the values of the method are J = 1.3770192 (+-2e-9) and c = 1.5978532, so the
+certified J lies 6.2e-6 (4.5e-6 relative) above it; (2) kappa_mu in section 6 is 0.031770351651336 (at b = 0.5703437), as in the
+code, not 0.0319135871783; (3) section 10 lists files that are not in the repository (out_*.txt, meas_K12.json, explore*.py), and
+make_combined.py contains a scratch path.
+
 Status labels: **[cited]** taken from Lewin–Lieb–Seiringer, *Improved Lieb–Oxford bound on the indirect and exchange
 energies*, Lett. Math. Phys. 112 (2022), arXiv 2203.12473v3 (read in full, LaTeX source v07); equation numbers are
 the paper's. **[proved]** proved in this note by hand or by exact symbolic computation (sympy, exact rationals).
@@ -161,7 +177,7 @@ b^2 (12 a^2 u^2 + 12 a u b r + 2 b^2 r^2)/(4rq), u = q - b, for piece III.
  most r t b^3 max(1, b/q). Sum over pairs: Psi/a^3 <= Lambda(b) + t * (window terms), Lambda(b) =
  sum_k mu_k L_{rho_k}(b) = b^3 (1 - b V_mu(b e1)) (this is (53)). Windows are grouped by q and merged; on every
  cluster sup Lambda + C_cluster/R < kappa_mu (certified), so g(a) <= kappa_mu a^3 for a >= R and S3 <= kappa_mu/R,
- kappa_mu = sup Lambda = 0.0319135871783 (certified enclosure width 2e-15).
+ kappa_mu = sup Lambda = 0.031770351651336 (corrected after the referee; the code has this value).
 
 **Numbers (out_K48.txt; same in lo_certify_output.txt).** 48 atoms, 95 pairs with c != 0, 10101 a-intervals
 (ratio 1 + 3e-3 below a = 1/4, 1 + 1e-3 above, up to R = 600), 372438 bisections, maximal relative
