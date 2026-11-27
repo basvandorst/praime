@@ -1,0 +1,23 @@
+REGISTRATION, round 172: THE SELF-CONTAINED CHAIN. Round 171 without the answer key: every form used as a constraint is
+the bootstrap's own output (its eigenvalue estimate and its a_p for p <= 13), and errors are allowed to propagate.
+
+PROCEDURE (maass/chain.py; support 16; forms L(f) (central zero for odd f), Sym^2, and L(f x g) for every form g FOUND
+so far with r_g <= r - 0.05). Grid points are processed in ascending r, both parities. Where rounds 165 and 168 (which
+use no key) found {t* >= -0.002} empty, nothing is recomputed (more constraints cannot make a point feasible); so the
+scan covers: odd 9.50-9.58, 12.13-12.23, 14.31-14.41 and 15.90-20.00; even 13.74-13.82, 17.65-17.98, 19.28-19.47
+(step 0.01). When a feasible piece begins at a grid point r0 (previous grid point infeasible), a form is recorded:
+  estimate r^ = the smallest r in [r0 - 0.01, r0] with t* >= -0.0005 (bisection, 10 steps, angle grid J = 121) if
+  t*(r0) >= -0.0005, otherwise the maximiser of t* on [r0 - 0.01, r0 + 0.01] (ternary search, 12 steps);
+  a^_p = the means of 2 cos theta of the optimal measures at r^, p = 2, ..., 13.
+The key is read only at the end, for the comparison.
+
+STATE WHEN THIS WAS WRITTEN (03:25 UTC, 27 November 2026). Seen: all of rounds 165-171 (with the key's Hecke eigenvalues
+the ten eigenvalues appear as ten pieces). Not seen: any run in which a form found by the bootstrap is fed back.
+
+DECISIONS.
+  N1: the chain records exactly ten forms below 20, and each r^ is within 0.01 of a true eigenvalue of the same parity
+      (all ten true eigenvalues hit once).
+  N2: a^_2 and a^_3 of each recorded form are within 0.02 of the true values.
+  N3: no feasible grid point outside [r_j - 0.02, r_j + 0.15] of a true eigenvalue r_j of that parity.
+Expected weak spot (declared): the true forms pass the Rankin-Selberg forms of nearby forms by margins as small as 1e-6
+(mixed_truth_out.txt), so an error of 0.01 in a fed-back a_p may push a true form below -0.002, and a form may be missed.
