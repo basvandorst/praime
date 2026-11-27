@@ -1,0 +1,64 @@
+REGISTRATION, round 175: THE HIGHEST LOWEST ZERO with the primes given (27 November 2026, about 09:40 UTC).
+
+QUESTION (in print). How far from the real axis can the first zero of an entire L-function lie?
+  Miller (Duke 2002, Thm 1.1): cuspidal GL(n), real archimedean type: a zero with |gamma| < 14.1347 (test functions
+  supported in [-log 2, log 2], no prime terms, no Ramanujan).  Bober, Conrey, Farmer, Fujii, Koutsoliotas, Lemurell,
+  Rubinstein, Yoshida (JNT 2015, Thm 2.1; GRH, Re mu >= 0): a zero in every interval of length 45.3236; a numerical
+  degree-4 example with first zero 14.496; "we do not have a conjecture" for the supremum, a remark that an unpublished
+  preprint suggests gaps < 36.  Kuhn, Robles, Zaharescu (JMAA 2017): 41.54 (not read in full).  LMFDB remarks (data, no
+  proof) that Delta, first zero 9.2224, is highest among primitive algebraic L-functions of degree 2.
+  Our literature check of today did not find: a bound below 14.13 for all entire L-functions of real type; Delta as an
+  extremal object beyond degree 2; any bound that optimises over local data at the primes.
+
+STATEMENT (ours).  Degree-free convex problem, code writeup/code/study/bootstrap/gap/gap.py.  Divide Weil's explicit
+formula of an L-function of degree d by d.  Unknown: a probability measure nu on the Gamma shifts kappa (Gamma_R(s+kappa),
+the set closed under conjugation), l = (log N)/d >= 0, and for every prime p <= X a probability measure on the angle
+theta in [0, pi] with c(p^m)/(d log p) = <cos(m theta)> (Ramanujan |alpha| <= 1 at the primes p <= X; real coefficients,
+which is no restriction: pass to L times its conjugate).  Constraints on test functions supported in [-a, a], X = e^(2a):
+H >= 0 (zeros real: GRH) and G_T = Q(psi') - T^2 Q(psi) >= 0 for psi vanishing at the ends (no zero in (-T, T)).
+t*(T) = the largest t with H >= t 2a and G_T >= t 2a T^2.  If t*(T) < 0 at some support, then under GRH and Ramanujan at
+the primes p <= X every L-function of the class has a zero with |gamma| < T.
+  CLASS R (real type): kappa real >= 0, entire, N >= 1.   CLASS C: Re kappa >= 0, Im kappa free, entire, N >= 1 (a zero-
+  free interval at any height is covered by shifting Im kappa: for class C the statement is a zero in every interval of
+  length 2T).
+  HYPOTHESIS R: the supremum of the lowest zero over class R is the first zero of Delta, 9.2224, and the optimal data are
+  those of Delta (level 1, shifts 11/2 and 13/2, the angles of tau(p)).
+  HYPOTHESIS C: the supremum over class C is below 17 (gaps below 34).
+
+STATE WHEN THIS WAS WRITTEN (declared).  Pilot code in the session scratch folder (same forms; shift grids real 0..4 and
+0..16 step 0.25, complex Re in {0, 1} or {0, 0.5, 1, 2}, Im 0..24 step 0.5; local data on a grid in the disk).  Seen:
+  controls with fixed data: zeta 14.1347, Delta 9.2224/9.2225, character mod 3 8.0397/8.0416 at X = 4, 8, 16, 32;
+  class R, X = 4: t* > 0 at T = 8, 8.5, 9; t* = -0.011 at 9.5.   X = 8: t* = +3.6e-8 at 9.2, +9.1e-9 at 9.2224,
+  -5.7e-4 at 9.23, -2.8e-3 at 9.25, -8.8e-3 at 9.3 (new code, shifts to 30), -0.032 at 9.5.  At X = 8, T = 9.2224 the
+  optimizer returned shifts 5.75 and 6.25 (weights 0.52, 0.48), l = 0, angle at p = 2 near 1.83 (Delta: 1.839).
+  class C (Re in {0,1}), X = 4: t* = 0 at T <= 16, -0.028 at 18.   X = 8: t* = 0 at 14, 14.5, 15, 15.5, 16; -0.020 at 17.
+  Nothing at X = 16 or beyond (one run was started and stopped before it printed a value).
+Not seen: any value with the shift grids below; any dual certificate.
+Also seen today (pilots of two other ideas, both negative, not part of this round): smallest level with a central zero
+of order 2 and 3: 239.1 and 3161.8 at X = 128 (truth 389 and 5077); smallest discriminants with one form zeta_K/zeta:
+22.86 (truth 23), 48.61 (49), 115.6 (117), 268.4 (275), 696 (725), 1568 (1609), 4311 (4511), 13014 (14641) at X = 32.
+
+TEST.  gap.py, one T per process, solver tolerance 1e-9, 97 angles, basis N = max(16, ceil(a (Im_max + 40)/pi)).
+  Shift grids: class R: 0, 0.25, ..., 30.  Class C: Re in {0, 0.5, 1, 2, 4, 8}, Im = 0, 0.5, ..., 30.
+  A point counts as INFEASIBLE if t* < -1e-6, as FEASIBLE if t* >= -1e-6.
+  Class R: X = 8, 16, 32; T = 9.2224, 9.225, 9.23, 9.24, 9.26, 9.3, 9.5, 10, 12, 14.
+  Class C: X = 4, 8, 16; T = 14, 14.5, 15, 15.5, 16, 16.5, 17, 18, 20, 22.661.  X = 32 if it runs within 30 minutes a point.
+
+DECISIONS.
+  G1 (code check, can fail): class R, every X: T = 9.2224 is feasible (Delta is in the class).  Class C: T = 14 is
+      feasible at every X (zeta-like data are excluded, but the degree-4 example of Bober et al. has first zero 14.496).
+  G2 (the bound): class R at X = 16 and X = 32: T = 9.24 and every larger T on the list is infeasible.
+  G3 (sharpness): class R at X = 32: T = 9.225 is infeasible.  (At X = 8 the pilot saw 9.23 infeasible; 9.225 not seen.)
+  G4 (the extremal object): class R, X = 16, T = 9.2224: mean shift within 0.25 of 6, l < 0.01, <cos theta_2> within
+      0.02 of -0.2652 and <cos theta_3> within 0.03 of +0.2994 (tau(p)/(2 p^(11/2)) for p = 2, 3).
+  G5 (class C): T = 17 and every larger T on the list is infeasible at X = 8 and at X = 16; the feasible points form an
+      initial segment of the list at every X (no feasible T above an infeasible one), and the largest feasible T does not
+      increase with X.
+  G6 (grid edges): at every feasible optimum the measure nu puts weight < 0.01 on shifts with Re kappa = 8 (class C),
+      on Im kappa >= 29, and on real shifts >= 29: the grid does not cut the optimum.
+  Reading: G1 fails = the code is wrong.  G2 passes = a bound 9.24 for all entire L-functions of real type, conditional
+  on GRH and Ramanujan at p <= 31, numerical until a certificate exists.  G3 and G4 pass = evidence that Delta is the
+  extremal object and the bound is sharp.  G5 passes = gaps below 34 in class C (against 41.54 in print), numerical.
+SECONDARY (no decision): the largest feasible T per X in class C to 0.1; the optimal measures in class C; a dual
+certificate (one explicit test function, checked in ball arithmetic) for T = 9.24 (class R) and T = 17 (class C); the
+largest first zero among entire real-type rows of the LMFDB data as an independent check.
