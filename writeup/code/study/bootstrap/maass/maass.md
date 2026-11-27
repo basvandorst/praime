@@ -223,7 +223,7 @@ Registered (commit 649ab761). Round 171 without the answer key: every form used 
 
 VERDICT of round 172 as registered: N1 pass, N2 fail (one form, by 0.002), N3 pass.
 
-## 8f. A certificate for conductor 3 ([theory/exact3.md](theory/exact3.md); computer-assisted, one code; referee's report pending when this was written)
+## 8f. A certificate for conductor 3 ([theory/exact3.md](theory/exact3.md); computer-assisted; refereed once: no failing step, [theory/referee_report.md](theory/referee_report.md))
 
 For the odd character problem at infinite support (positivity required for every smooth test function of compact support) a proof agent turned the numerical exactness into a bound with no hypothesis on zeros.
 
@@ -231,7 +231,8 @@ For the odd character problem at infinite support (positivity required for every
 - **Consequence.** A family of local measures that is feasible at conductor q satisfies log q ≥ log 3 − 2·Defect(g)/g(0), where Defect(g) = Σ_p [P_p(χ(p)) − min over [−1, 1] of P_p] and P_p(x) = Σ_m x^m log p · p^(−m/2) g(m log p).
 - **Certified** (ball arithmetic at 600 bits; the primes above 400 bounded by 10⁻²⁹⁷): the smallest admissible conductor is at least 2.7400 with B = 1, 3 − 3.1·10⁻⁶ at degree 8, 3 − 4.5·10⁻¹⁰ at degree 12, 3 − 9.1·10⁻¹⁷ at degree 16 and **3 − 3.81·10⁻²²** at degree 22.
 - Under the Riemann hypothesis for L(s, χ₋₃) the character itself is feasible at 3, so the value lies in [3 − 3.81·10⁻²², 3]. That it equals 3 needs Defect → 0 along a sequence of polynomials; this is not proved (the defect stalls at degrees 18 and 20 and falls again at 22).
-- Status: one code and one author; 156 checks of its own ([theory/validate_exact3.py](theory/validate_exact3.py)); not yet refereed; no literature search for this lemma. The same construction for ζ is section 5f of [../bootstrap.md](../bootstrap.md) (in print: Johns).
+- **Referee** (a second agent told to assume the proof wrong; its own mpmath code, g by Fourier inversion with Ξ from the L-function itself): no failing step in the lemma, in the passage from compactly supported test functions to g (the approximants decay like e^(−2|u|), uniformly), in the signs or in the direction of the inequality; all twelve rows of the table reproduced (B = 1: 2.74004536; degree 8: 3 − 3.0817·10⁻⁶; degree 22: 3 − 3.8095·10⁻²²); a negative control (the kernel of χ₋₄ in the formula of χ₋₃) gives the sum over the zeros as it must. One gap in rigour in the routine that bounds a minimum (a branch that does not occur in the certificates; repair requested), and six phrasings stronger than proved, among them: the lemma is the classical explicit formula applied to this kernel, and **without the Riemann hypothesis for L(s, χ₋₃) it is not known that any family is feasible at all**, so the unconditional statement is a lower bound for an infimum that may be over the empty set.
+- Status: the interval certificates are one code; the numbers are confirmed by a second code without intervals; no literature search for this lemma. The same construction for ζ is section 5f of [../bootstrap.md](../bootstrap.md) (in print: Johns).
 
 ## 9. The review of round 165 ([review/review.md](review/review.md))
 
@@ -263,7 +264,7 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 
 ## 11. Open points
 
-1. Exactness for conductor 3: section 8f gives 3 − 3.81·10⁻²² (computer-assisted, not refereed); open: that the defect tends to 0, a referee, a second code, and the same certificates for conductor 5, weight 12 and the first Maass form.
+1. Exactness for conductor 3: section 8f gives 3 − 3.81·10⁻²² (computer-assisted, refereed once); open: that the defect tends to 0, a second interval code, and the same certificates for conductor 5 (requested), weight 12 and the first Maass form.
 2. Whether the levels 11 and 37 are reached exactly as the support grows (10.995 and 36.91 at support 32 with whole-number a_p), and the levels 5, 3, 2 at weights 4, 6, 8.
 3. Rounds 166 and 169 are incomplete. The chain of round 172 solved only the grid points that rounds 165 and 168 left feasible, at one support and one grid; a second code, a finer grid, eigenvalues above 20, levels above 1 and the same chain on SL(3,ℤ) were not run.
 4. Interval arithmetic for the infeasibility statements; a second code for sections 3, 4, 7 and 8 (the review covered round 165 at support 8 only).
