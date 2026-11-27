@@ -262,6 +262,19 @@ ex5 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'e
 true('exact5: own validation passed', '137 checks, 0 failed' in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'validate_exact5_out.txt')).read())
 true('exact5 rows', all(x in ex5 for x in ['2.207·10⁻⁶', '1.148·10⁻⁹', '2.764·10⁻¹⁴']))
 
+# --- section 8h: round 173 (blind prediction above 20)
+k20 = json.load(open(os.path.join(D, 'key_above20.json'))); true('key above 20: four forms', [round(f['r'], 4) for f in k20] == [20.1067, 21.3158, 21.4791, 22.1947] and [f['parity'] for f in k20] == ['odd', 'even', 'odd', 'odd'])
+f3 = json.load(open(os.path.join(D, 'chain2_X16_found.json'))); true('173: three forms', len(f3) == 3)
+c2 = [json.loads(l) for l in open(os.path.join(D, 'chain2_X16.jsonl'))]; true('173: 400 grid points', len(c2) == 400)
+tab73 = [(20.15542, 1, 20.10669, 0.049, 0.855, 0.859, 0.171, 0.187), (21.31979, 0, 21.31580, 0.004, 1.287, 1.288, 1.237, 1.252), (21.47667, 1, 21.47906, -0.002, -0.377, -0.656, -0.299, 0.226)]
+for g, f, (rh, e, rt, err, a2, t2, a3, t3) in zip(f3, k20, tab73):
+    check('173 r^', g['r'], rh, 6e-6); true('173 parity', g['eps'] == e); check('173 true', f['r'], rt, 6e-6); check('173 err', g['r'] - f['r'], err, 6e-4)
+    check('173 a_2', g['ap']['2'], a2, 6e-4); check('173 true a_2', f['ap']['2'], t2, 6e-4); check('173 a_3', g['ap']['3'], a3, 6e-4); check('173 true a_3', f['ap']['3'], t3, 6e-4)
+check('173 t*(20.10)', [d['t_lp'] for d in c2 if d['eps'] == 1 and abs(d['r'] - 20.10) < 1e-9][0], -0.014, 6e-4)
+check('173 third form, p <= 7', max(abs(f3[2]['ap'][p] - k20[2]['ap'][p]) for p in '2357'), 0.74, 6e-3); check('173 second form, a_2, a_3', max(abs(f3[1]['ap'][p] - k20[1]['ap'][p]) for p in '23'), 0.015, 6e-4)
+fe73 = sorted((d['eps'], d['r']) for d in c2 if d['t_lp'] >= -0.002)
+true('173: no piece anywhere else', all(any((f['parity'] == 'odd') == (e == 1) and f['r'] - 0.02 <= r <= f['r'] + 0.1 for f in k20) for e, r in fe73))
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
