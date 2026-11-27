@@ -1,0 +1,148 @@
+== (A) theta function of the even character
+PASS theta0(1/x) = x^(1/2) theta0(x) at x=0.07  rel 1.23e-48
+PASS theta0(1/x) = x^(1/2) theta0(x) at x=0.25  rel 0.0
+PASS theta0(1/x) = x^(1/2) theta0(x) at x=0.769231  rel 1.66e-51
+PASS theta0(1/x) = x^(1/2) theta0(x) at x=2.3  rel 0.0
+PASS negative: x^(3/2) law (odd type) fails for chi_5
+PASS Gauss sum tau(chi_5) = sqrt5 (root number +1)  (2.2360679774997896964 + 1.3363823550460978231e-51j)
+PASS chi_5 even: chi(-1)=chi(4)=+1, and sum_a chi(a)=0 (no n=0 term, no pole)
+PASS Im Lambda(1/2+it) = 0 at t=3.3  Re 0.38223348
+PASS Im Lambda(1/2+it) = 0 at t=47.1  Re 1.7053068e-16
+PASS Mellin int theta0 x^(s/2) dx/x = Lambda(s) at s=(2.0 + 1.0j)  rel 2.74e-33
+PASS Mellin int theta0 x^(s/2) dx/x = Lambda(s) at s=(0.5 + 3.0j)  rel 1.73e-34
+PASS Mellin int theta0 x^(s/2) dx/x = Lambda(s) at s=(-1.5 + 0.7j)  rel 6.06e-37
+PASS Lambda(1e-15) finite, = Lambda(1) = 2 log golden ratio to O(1e-15) (pole of Gamma_R cancelled by L(0)=0)  7.53e-17
+PASS L(0, chi_5) = 0
+PASS mpmath L(1/2+it, chi5) = arb L at t=0.7  7.56e-51
+PASS mpmath L(1/2+it, chi5) = arb L at t=37.3  1.07e-49
+PASS mpmath L(1/2+it, chi5) = arb L at t=99.1  2.27e-49
+PASS mpmath L(1/2+it, chi5) = arb L at t=149.9  3.53e-49
+== nodes of the trapezoid rule
+M = 510 Xi5(T)^2 = 9.91e-110 time 31.6
+== (B) Lemma 1 and the archimedean term
+g(0) [B=1] = 0.619344802137630527044094830781
+PASS trapezoid step h vs 2h agree for g(0) (aliasing g(10) tiny)  0.0
+PASS truncation: Xi5(160)^2 B < 1e-90
+PASS Lemma 1, B=1: (log5) g(0) + A_0(g) - 2 sum chi Lambda n^-1/2 g(log n) = 0  residual -1.34e-51, g(0)=0.6193448021
+PASS A_0 u-form (constants -(gamma+log pi), 2e^{-2u}g(0), kernel e^{-u/2}) = Fourier side (1/2pi) int ghat Omega  A0 = -1.3990331293812405699, diff 4.12e-39
+PASS g(0) Gauss-Legendre = g(0) trapezoid  3.01e-42
+PASS Lemma 1, B=t^2  residual -2.14e-50, scale 1.7908
+PASS Lemma 1, B=1 - t^2/10  residual 1.34e-51, scale 0.47314
+PASS Lemma 1, B=(t^2-44.2)^2  residual 4.11e-48, scale 1066.2
+PASS Lemma 1, B=t^6 - 3 t^2  residual 3.42e-49, scale 181.72
+PASS negative control: kernel e^{-3u/2} (kappa=1) instead of e^{-u/2} gives a nonzero residual  0.4292830416
+control chi8 kernel in chi5 formula: residual = 0.0008202375975824981042439742  g8(0) = 1.644873446
+PASS negative control: kernel Xi_{chi8}^2 does NOT give zero in chi_5 formula
+PASS chi8 kernel in its own formula (log 8, chi8 primes) gives 0  2.94e-50
+zeros of L(s,chi5) with 0<gamma<=62 found by sign change: 28  first 6.64845334472771
+PASS zero count up to 30: sign changes 11 = argument principle 11.0
+PASS zero count up to 62: sign changes 28 = argument principle 28.0
+first zeros of L(s,chi5): ['6.64845334473', '9.83144443289', '11.9588456261']
+PASS control residual = sum over zeros of L(chi5) of Xi_8(gamma)^2 (both signs of gamma)  sum 0.00082023759758249810424, diff 3.7e-42
+PASS B = 1 + t^2/7: g(0) = 0.87517073609894 (note: 0.875) and Lemma 1  g(0) 0.87517073609894305955, residual -8.69e-51
+PASS compact f=(1-(u/a)^2)^8, a=1.2: Q_{chi5,5}(f) = sum over zeros |fhat|^2 > 0 (sign and normalisation of Q)  Q 0.0259012896181112, zero side (gamma<62) 0.0259012896181112, g(0) 0.519666
+   same f at q = 4.9: Q = 0.01540262226 (4.9 lies below the B=1 bound 4.9058; this f is no witness, g_B approximants are)
+PASS Omega(0) = -log pi + psi(1/4) = -log pi - gamma - pi/2 - 3 log 2  -5.37218341922567
+PASS Omega(t) increasing on a grid of [0, 200] (so Omega >= Omega(0))
+   trivial family delta_0 feasible at q >= exp(-Omega(0)) = 215.332516 ; odd case exp(log pi - psi(3/4)) = 9.305361744
+PASS A_0(g)/g(0) >= Omega(0) for B=1 and for the compact f  -2.2588922 -1.7926904
+PASS Q_{delta_0, q=215.4}(f) >= 0 for the compact f (delta_0 family: no prime sum)  1.8603049
+== (C) closed form of phi*phi
+PASS phi*phi closed form (4 e^{w/2} sum chi d(N) K0) = Fourier inversion at w=0.37  diff 1.34e-51, value 0.50749033
+PASS phi*phi closed form (4 e^{w/2} sum chi d(N) K0) = Fourier inversion at w=-0.8  diff 2.0e-51, value 0.238371
+PASS phi*phi closed form (4 e^{w/2} sum chi d(N) K0) = Fourier inversion at w=1.9459  diff 3.45e-52, value 0.0006672852
+PASS phi*phi closed form (4 e^{w/2} sum chi d(N) K0) = Fourier inversion at w=2.5649  diff 3.82e-52, value 3.5688689e-7
+PASS (phi*phi)'' via p_2 = 1/4+z^2, q_2 = -z = Fourier of -t^2 Xi^2 at w=0.37  diff 2.67e-51
+PASS (phi*phi)'' via p_2 = 1/4+z^2, q_2 = -z = Fourier of -t^2 Xi^2 at w=1.0986  diff 2.0e-50
+PASS recurrence D^1[z^(1/2) K0] = z^(1/2)(p K0 + q K1)  p=1/2 q=-z
+PASS recurrence D^2[z^(1/2) K0] = z^(1/2)(p K0 + q K1)  p=z**2 + 1/4 q=-z
+PASS recurrence D^3[z^(1/2) K0] = z^(1/2)(p K0 + q K1)
+PASS recurrence D^4[z^(1/2) K0] = z^(1/2)(p K0 + q K1)
+== (D,E) Defect and the bound
+deg  0: g(0)=0.619344802138  Defect/g(0)=0.009512241947  5-bound=0.09422330277  shares: 5:0.0095, 11:1.03e-5, 19:4.15e-10
+PASS deg 0: Defect/g(0) in table interval [9.512e-3, 9.513e-3]  0.009512241947
+PASS deg 0: 5 - bound <= table value 9.423e-2 (table is a valid rounding up)  0.09422330277
+PASS deg 0: largest share p=5 then 11  [5, 11, 19]
+PASS deg 0: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 0: g(log 2), g(log 3) > 0  0.49118 0.15616
+   parity: carrier 11, chi5 = 1, (-1)^D = 1
+PASS deg 0: carrier class chi5(p) = (-1)^D holds except at deg 18
+PASS deg 0: Lemma 1 residual  -1.34e-51
+PASS deg 0: B > 0 on a grid t in [0,200]
+deg  2: g(0)=0.674172984149  Defect/g(0)=0.00159352478  5-bound=0.01590988154  shares: 7:0.00159, 13:5.02e-6, 17:5.89e-8
+PASS deg 2: Defect/g(0) in table interval [1.593e-3, 1.594e-3]  0.00159352478
+PASS deg 2: 5 - bound <= table value 1.591e-2 (table is a valid rounding up)  0.01590988154
+PASS deg 2: largest share outside p=5 at p=7  [7, 13, 17]
+PASS deg 2: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 2: g(log 2), g(log 3) > 0  0.43632 0.1047
+   parity: carrier 7, chi5 = -1, (-1)^D = -1
+PASS deg 2: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg  4: g(0)=0.692787148448  Defect/g(0)=7.348632797e-5  5-bound=0.00073480928  shares: 11:7.34e-5, 19:4.9e-8, 29:1.03e-12
+PASS deg 4: Defect/g(0) in table interval [7.348e-5, 7.349e-5]  7.348632797e-5
+PASS deg 4: 5 - bound <= table value 7.349e-4 (table is a valid rounding up)  0.00073480928
+PASS deg 4: largest share outside p=5 at p=11  [11, 19, 29]
+PASS deg 4: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 4: g(log 2), g(log 3) > 0  0.41496 0.089401
+   parity: carrier 11, chi5 = 1, (-1)^D = 1
+PASS deg 4: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg  6: g(0)=0.69756600996  Defect/g(0)=8.372367968e-6  5-bound=8.372297871e-5  shares: 13:7.68e-6, 17:6.85e-7, 23:3.53e-9
+PASS deg 6: Defect/g(0) in table interval [8.372e-6, 8.373e-6]  8.372367968e-6
+PASS deg 6: 5 - bound <= table value 8.373e-5 (table is a valid rounding up)  8.372297871e-5
+PASS deg 6: largest share outside p=5 at p=13  [13, 17, 23]
+PASS deg 6: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 6: g(log 2), g(log 3) > 0  0.40969 0.085935
+   parity: carrier 13, chi5 = -1, (-1)^D = -1
+PASS deg 6: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg  8: g(0)=0.699707121391  Defect/g(0)=2.206347658e-7  5-bound=2.206347171e-6  shares: 19:2.21e-7, 5:6.48e-11, 29:5.69e-11
+PASS deg 8: Defect/g(0) in table interval [2.206e-7, 2.207e-7]  2.206347658e-7
+PASS deg 8: 5 - bound <= table value 2.207e-6 (table is a valid rounding up)  2.206347171e-6
+PASS deg 8: largest share outside p=5 at p=19  [19, 5, 29]
+PASS deg 8: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 8: g(log 2), g(log 3) > 0  0.40734 0.084396
+   parity: carrier 19, chi5 = 1, (-1)^D = 1
+PASS deg 8: carrier class chi5(p) = (-1)^D holds except at deg 18
+PASS deg 8: Lemma 1 residual  0.0
+PASS deg 8: B > 0 on a grid t in [0,200]
+deg 10: g(0)=0.700206322172  Defect/g(0)=8.227547724e-9  5-bound=8.227547656e-8  shares: 23:7.27e-9, 5:5.41e-10, 19:4.15e-10
+PASS deg 10: Defect/g(0) in table interval [8.227e-9, 8.228e-9]  8.227547724e-9
+PASS deg 10: 5 - bound <= table value 8.228e-8 (table is a valid rounding up)  8.227547656e-8
+PASS deg 10: largest share outside p=5 at p=23  [23, 5, 19]
+PASS deg 10: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 10: g(log 2), g(log 3) > 0  0.4068 0.084037
+   parity: carrier 23, chi5 = -1, (-1)^D = -1
+PASS deg 10: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg 12: g(0)=0.700444282477  Defect/g(0)=1.1475671e-10  5-bound=1.147567099e-9  shares: 29:9.06e-11, 31:2.41e-11, 41:6.53e-15
+PASS deg 12: Defect/g(0) in table interval [1.147e-10, 1.148e-10]  1.1475671e-10
+PASS deg 12: 5 - bound <= table value 1.148e-9 (table is a valid rounding up)  1.147567099e-9
+PASS deg 12: largest share outside p=5 at p=29  [29, 31, 41]
+PASS deg 12: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 12: g(log 2), g(log 3) > 0  0.40654 0.083866
+   parity: carrier 29, chi5 = 1, (-1)^D = 1
+PASS deg 12: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg 14: g(0)=0.700551543848  Defect/g(0)=1.918084286e-13  5-bound=1.918084286e-12  shares: 37:1.9e-13, 43:1.79e-15, 47:5.65e-17
+PASS deg 14: Defect/g(0) in table interval [1.918e-13, 1.919e-13]  1.918084286e-13
+PASS deg 14: 5 - bound <= table value 1.919e-12 (table is a valid rounding up)  1.918084286e-12
+PASS deg 14: largest share outside p=5 at p=37  [37, 43, 47]
+PASS deg 14: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 14: g(log 2), g(log 3) > 0  0.40642 0.083789
+   parity: carrier 37, chi5 = -1, (-1)^D = -1
+PASS deg 14: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg 16: g(0)=0.700601321321  Defect/g(0)=2.763292933e-15  5-bound=2.763292933e-14  shares: 41:2.76e-15, 59:1.49e-21, 61:2.3e-22
+PASS deg 16: Defect/g(0) in table interval [2.763e-15, 2.764e-15]  2.763292933e-15
+PASS deg 16: 5 - bound <= table value 2.764e-14 (table is a valid rounding up)  2.763292933e-14
+PASS deg 16: largest share outside p=5 at p=41  [41, 59, 61]
+PASS deg 16: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 16: g(log 2), g(log 3) > 0  0.40637 0.083753
+   parity: carrier 41, chi5 = 1, (-1)^D = 1
+PASS deg 16: carrier class chi5(p) = (-1)^D holds except at deg 18
+deg 18: g(0)=0.700601321319  Defect/g(0)=2.763292373e-15  5-bound=2.763292373e-14  shares: 41:2.76e-15, 59:1.49e-21, 61:2.3e-22
+PASS deg 18: Defect/g(0) in table interval [2.763e-15, 2.764e-15]  2.763292373e-15
+PASS deg 18: 5 - bound <= table value 2.764e-14 (table is a valid rounding up)  2.763292373e-14
+PASS deg 18: largest share outside p=5 at p=41  [41, 59, 61]
+PASS deg 18: Defect_2, Defect_3 negligible (< 1e-40 g(0))  0.0 0.0
+PASS deg 18: g(log 2), g(log 3) > 0  0.40637 0.083753
+   parity: carrier 41, chi5 = 1, (-1)^D = -1
+PASS deg 18: carrier class chi5(p) = (-1)^D holds except at deg 18
+PASS B=1: bound in [4.905776, 4.905777) (note: q >= 4.905776, 4.9057)  4.905776697
+time 122.2
+114 checks, 0 failed

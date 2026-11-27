@@ -290,6 +290,17 @@ fe74 = [(d['eps'], d['r']) for d in c3 if d['t_lp'] >= -0.002]
 true('174: no piece anywhere else', all(any((f['parity'] == 'odd') == (e == 1) and f['r'] - 0.03 <= r <= f['r'] + 0.1 for f in allkey) for e, r in fe74))
 true('174: thirteenth piece begins before the eigenvalue', min(r for e, r in fe74 if e == 1 and r > 21) < 21.479)
 
+# --- additions: referee of exact5, weight-12 certificate, four-prime chain
+th_ = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory')
+r5 = open(os.path.join(th_, 'referee_report5.md')).read(); true('referee5 numbers', '215.33' in r5 and '9.305' in r5 and '2.206347171' in r5)
+check('8 pi e^(gamma + pi/2)', 8*math.pi*math.exp(0.5772156649015329 + math.pi/2), 215.33, 6e-3)
+ex12 = open(os.path.join(th_, 'exact12.md')).read(); true('exact12: own validation', '88 checks, 0 failed' in open(os.path.join(th_, 'validate_exact12_out.txt')).read())
+true('exact12 numbers', all(x in ex12 for x in ['3.694·10⁻⁸', '8.8·10⁻³', '−0.268', '−0.265']) and ('7.91' in ex12))
+fx = json.load(open(os.path.join(D, 'chainx_X8_found.json'))); true('four-prime chain: 13 forms, right parities', len(fx) == 13 and all((f['parity'] == 'odd') == (g['eps'] == 1) for g, f in zip(fx, allkey)))
+ex_ = [abs(g['r'] - f['r']) for g, f in zip(fx, allkey)]
+true('four primes: six within 0.003, nine within 0.016', max(ex_[:6]) <= 0.00302 and max(ex_[:9]) <= 0.0162); check('four primes: 21.3158', fx[11]['r'], 21.3154, 6e-5)
+for i, want in [(9, 19.456), (10, 20.158), (12, 21.401)]: check('four primes: misses', fx[i]['r'], want, 6e-4); true('off by more than 0.02', ex_[i] > 0.02)
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
