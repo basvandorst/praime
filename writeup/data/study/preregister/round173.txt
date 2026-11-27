@@ -1,0 +1,21 @@
+REGISTRATION, round 173: A BLIND PREDICTION. The self-contained chain of round 172 continued above r = 20.
+
+PROCEDURE. chain.py's rule, started from the ten forms that round 172 recorded (chain_X16_found.json, the chain's own
+output), support 16, every grid point r = 20.01, 20.02, ..., 22.00 for both parities (no earlier scan exists above 20, so
+nothing is skipped). One change of the recording rule, made because of round 172's N2: the estimate is always the left
+crossing of t* = -0.0005 when t* reaches -0.0005 anywhere in the first three grid points of a piece (bisection between
+the last infeasible grid point and the first point with t* >= -0.0005); otherwise the maximiser as before.
+Code: maass/chain2.py. Output: a list of predicted eigenvalues in (20, 22] with parity and a^_p for p <= 13.
+
+STATE WHEN THIS WAS WRITTEN (03:56 UTC, 27 November 2026). What I know about the spectrum above 20: the answer key
+(lmfdb_key.json) has one entry there, r = 20.1067 (odd), without Hecke eigenvalues; from memory, not looked up, an even
+eigenvalue near 21.3 and odd ones near 21.5 and 22.2 (unsure). No Hecke eigenvalue of any form above 20 has been seen by
+me. The comparison key will be fetched after the run by an agent that does not see the predictions
+(Booker-Strombergsson-Venkatesh files, forms with 20 < r <= 22.2).
+
+DECISIONS.
+  P1: every recorded form lies within 0.02 of a true eigenvalue of its parity, and every true eigenvalue in
+      (20.02, 21.9) is recorded once.
+  P2: for every recorded form, a^_2 and a^_3 are within 0.05 of the true values.
+Expected weak spot (declared): the support may be too small at this height (pieces grow longer with r; two true
+eigenvalues of one parity closer than a piece's length would merge).
