@@ -190,3 +190,17 @@ Nothing here is a claim until it is promoted (registration, independent check, l
   only when |ln n - ln n'| > 1/27,000, that is for n below about 4,000: exactly where the residual starts to rise
   (u = 0.9 is n = 4,278). Beyond that, single-wave coefficients cannot simply be added. The 4.8 % is an upper bound set
   by the window, not by the law. Test: a longer window should move the turning point up.
+
+## Literature check of the response law (27 November 2026, one agent; arXiv, journals, Zenodo, GitHub, ResearchGate, viXra)
+- (A) c(u) = 1 - (1+u) ln(1+u) - (1-u) ln(1-u): NOT FOUND. Closest read: the power spectrum of level displacements
+  (Riser-Kanzieper, arXiv 2209.04723), a two-point quantity in the level index. Bogomolny-Keating 2013 and Conrey-Snaith
+  2008 average over a window, so a sum at a fixed frequency, sum_gamma S(gamma) n^(i gamma), is not among their formulas.
+- The bispectrum: the vanishing for a + b <= N is in print (Hughes-Rudnick, math/0206289, Thm 7). The value
+  max(0, a + b - N) was not found printed; it follows in a few lines from hook characters (exact at finite N for a, b <= N).
+- (B) the arithmetic term: KNOWN IN SUBSTANCE. It is Landau's formula sum_{gamma <= T} X^rho = -(T/2 pi) Lambda(X) + O(log T)
+  applied term by term to the prime sum for S; ours is the bookkeeping and the regression framing.
+- (C) the variance fractions: not found as numbers; expected in substance from Selberg's variance and the splitting of
+  Gonek-Hughes-Keating.
+- NOT OPENED (refused by the publisher's site): three papers of Fujii (Proc. Japan Acad. 66 (1990) "On a theorem of
+  Landau II", "An additive theory of the zeros"; ASPM 21 (1992)), the most likely places for sums of S(gamma) x^(i gamma).
+  Until they are read, (A) is "not found", not "new".
