@@ -1,0 +1,203 @@
+Validation of the round-175 dual certificates (class R).  python-flint arb, 128 bits.
+
+=== certificate T = 9.23 ===
+A. exact sum-of-squares form
+  exact rational vectors read from gap_cert_rational_T9.23.json
+  rank: 8 vectors s_i (P_H), 6 vectors r_j (Z P_G Z')
+  largest denominator: 2^93 (r_j: dyadic float times rationals with denominator 47 from the projection)
+  [ok] rational P_H = sum s_i s_i' reproduces the file matrix (max diff 1.6e-17)
+  [ok] rational W = sum r_j r_j' reproduces Z P_G Z' (max diff 9.8e-19)
+  [ok] every r_j satisfies sum_k (-1)^k r_jk = 0 exactly (psi_j(+-a) = 0) 
+  [ok] T is the exact rational 9.23 
+  sha256 of gap_cert_rational_T9.23.json: 6f3969d43271dede
+B. closed form of G against a direct autocorrelation (float, independent route)
+  [ok] G(0.0000): closed form -2.874453107264e-02, direct -2.874453107264e-02 
+  [ok] G(0.6931): closed form -2.077824895701e-03, direct -2.077824895701e-03 
+  [ok] G(1.0986): closed form 7.691859050322e-06, direct 7.691859050474e-06 
+  [ok] G(1.6094): closed form -4.034469227985e-05, direct -4.034469227986e-05 
+  [ok] G(2.5000): closed form -6.618226763545e-04, direct -6.618226763545e-04 
+  [ok] (G(u)-G(0))/u, sinc form = difference quotient at u = 0.3 
+  [ok] (G(u)-G(0))/u, sinc form = difference quotient at u = 1.1 
+  [ok] (G(u)-G(0))/u, sinc form = difference quotient at u = 2.9 
+  [ok] G(2a) = 0 (support edge; exact by the closed form: (2a-2a)A + sum b_k sin(2 pi k)) 
+C. certified c0, prime values, prime maxima (Ramanujan |alpha| <= 1)
+  c0 = G(0) = [-0.0287445310727, -0.0287445310726]
+  [ok] c0 < 0 
+  [ok] c0 agrees with cert.py (-2.874453e-02) 
+  p =  2: m <= 4, G(log p) = [-0.00207783, -0.00207782];  max_theta P_p in [0.0017319149, 0.0017319150] (149 boxes)
+  p =  3: m <= 3, G(log p) = [0.00000769185, 0.00000769186];  max_theta P_p in [0.000012124705, 0.000012124706] (107 boxes)
+  p =  5: m <= 2, G(log p) = [-0.0000403447, -0.0000403446];  max_theta P_p in [0.000052885327, 0.000052885328] (89 boxes)
+  p =  7: m <= 1, G(log p) = [2.56993E-14, 2.56994E-14];  max_theta P_p in [3.7802912E-14, 3.7802913E-14] (1 boxes)
+  p = 11: m <= 1, G(log p) = [1.31176E-14, 1.31177E-14];  max_theta P_p in [1.8967908E-14, 1.8967909E-14] (1 boxes)
+  p = 13: m <= 1, G(log p) = [-3.51229E-15, -3.51228E-15];  max_theta P_p in [4.9971973E-15, 4.9971974E-15] (1 boxes)
+  p = 17: m <= 1, G(log p) = [-5.94542E-15, -5.94541E-15];  max_theta P_p in [8.1708472E-15, 8.1708473E-15] (1 boxes)
+  p = 19: m <= 1, G(log p) = [-2.49753E-15, -2.49752E-15];  max_theta P_p in [3.3741534E-15, 3.3741536E-15] (1 boxes)
+  p = 23: m <= 1, G(log p) = [4.50843E-16, 4.50844E-16];  max_theta P_p in [5.8951866E-16, 5.8951867E-16] (1 boxes)
+  p = 29: m <= 1, G(log p) = [-3.72048E-17, -3.72047E-17];  max_theta P_p in [4.6527584E-17, 4.6527585E-17] (1 boxes)
+  p = 31: m <= 1, G(log p) = [3.82565E-8, 3.82566E-8];  max_theta P_p in [4.7190450E-8, 4.7190452E-8] (1 boxes)
+  sum of prime maxima <= 0.0017969722
+D. certified sup of F(kappa) = A_kappa(G)
+  partition of [0, 2a] into 4096 pieces: sup|h| <= 0.3061; M2(0) = 0.15133, M2(-1/2) = 0.25512
+  tail: h <= -2.8393e-02 on [0, 0.2115], |h| <= 0.3061 on [0.2115, 2a]  =>  F decreasing on [11.660, oo); grid to 12
+  [ok] tail argument: F'(kappa) < 0 for kappa >= K1 = 11.660 
+  kappa in [0, 12]: 411 integrals (26 refinements), 12s
+  sup_{kappa >= 0} F in [-0.002725381640, -0.002725381577], attained near kappa = 5.873779
+  [ok] sup F agrees with cert.py's grid value -2.725383e-03 within 1e-6 
+  extension kappa in [-1/2, 0]: sup F <= -0.047279667 (at 0.0000; F(-1/2) = [-0.052247255, -0.052247254]), 23 integrals, 1s
+E. the certificate
+  B = sup F + sum_p max P_p  in  [-0.00092840948, -0.00092840941]
+  [ok] B < 0 and c0 < 0: THEOREM CERTIFIED for T0 = 9.23 
+  [ok] B agrees with cert.py (-9.284105e-04) within 1e-6 
+  with kappa allowed in (-1/2, oo): B <= -0.00092840941
+  extension to real kappa > -1/2: certified (the sup over [-1/2, 0] is below the sup over [0, oo))
+  conductor slack: the bound holds for log N/d > -0.0322986 (N >= 1 is more than enough)
+F. which Ramanujan hypotheses are used
+  Ramanujan only at [2, 3, 5]  |alpha_j(p)| <= p       at the other p <= 31:  B <= -0.000926993  -> certified
+  Ramanujan only at [2, 3, 5]  |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000928193  -> certified
+  Ramanujan only at [2, 5]     |alpha_j(p)| <= p       at the other p <= 31:  B <= -0.000628205  -> certified
+  Ramanujan only at [2, 5]     |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000878716  -> certified
+  Ramanujan only at [2, 3]     |alpha_j(p)| <= p       at the other p <= 31:  B <= 0.000107499  -> fails
+  Ramanujan only at [2, 3]     |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000755778  -> certified
+  Ramanujan only at [2]        |alpha_j(p)| <= p       at the other p <= 31:  B <= 0.000406286  -> fails
+  Ramanujan only at [2]        |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000706300  -> certified
+  Ramanujan only at [3, 5]     |alpha_j(p)| <= p       at the other p <= 31:  B <= 0.0114905  -> fails
+  Ramanujan only at [3, 5]     |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= 0.00218415  -> fails
+  Ramanujan only at []         |alpha_j(p)| <= p       at the other p <= 31:  B <= 0.0128238  -> fails
+  Ramanujan only at []         |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= 0.00240605  -> fails
+  [ok] Ramanujan at [2, 5] and the trivial bound |alpha| <= p at the other p <= 31 suffice 
+  [ok] no Ramanujan at all (|alpha_j(p)| <= p for every p) is NOT enough with this certificate 
+  uniform relaxation: |alpha_j(p)| <= R for all p <= 31 is enough for R <= 1.155999 (certified at R = 1.155999)
+  [ok] uniform R = 1.155999 certified 
+  only p = 2 relaxed (|alpha| <= 1 at the others): |alpha_j(2)| <= 1.159093 is enough
+  only p = 3 relaxed (|alpha| <= 1 at the others): |alpha_j(3)| <= 3.000000 is enough
+  only p = 5 relaxed (|alpha| <= 1 at the others): |alpha_j(5)| <= 4.747516 is enough
+  time for this certificate: 13s
+G. second route (float): the Fourier side  A_kappa(G) = (1/pi) int_0^oo Ghat_sym(t) [-log pi + Re psi((1/2+kappa+it)/2)] dt
+  [ok] Ghat_sym = 4 sin^2(at) Qs at t = 2500.3 (rational form used for tails) 
+  [ok] c0 by Fourier: -2.8744531072638e-02 vs certified -2.8744531072638e-02 
+  [ok] G(log 2) by Fourier inversion -2.077824895699e-03 vs closed form -2.077824895701e-03 
+  [ok] G(log 3) by Fourier inversion 7.691859049960e-06 vs closed form 7.691859050322e-06 
+  [ok] F(0.0000) by Fourier -4.727967509968e-02 vs u-integral -4.727967509968e-02 
+  [ok] F(1.0000) by Fourier -3.385241288054e-02 vs u-integral -3.385241288054e-02 
+  [ok] F(5.5000) by Fourier -2.829871581737e-03 vs u-integral -2.829871581738e-03 
+  [ok] F(5.8738) by Fourier -2.725381639036e-03 vs u-integral -2.725381639037e-03 
+  [ok] F(6.5000) by Fourier -2.977030837199e-03 vs u-integral -2.977030837200e-03 
+  [ok] F(20.0000) by Fourier -3.000191030090e-02 vs u-integral -3.000191030090e-02 
+  [ok] Ghat_sym >= 0 on [T, 400] (sampled 4e5 points; holds by construction) (min 2.26e-20)
+  Ghat_sym on [0, T]: min -2.0605e-01 at t = 7.0060 (negative: the test function is not positive-definite)
+H. explicit formula against zeros computed by PARI (checks the normalisation of every term)
+PARI stack size set to 300000000 bytes, maximum size set to 300003328
+  [ok] Delta: 982 zeros in (0, 800]; divz=32 gives 982 (same values to 1e-12: True); Riemann-von Mangoldt main term 982.31 
+  Delta: sum over zeros to 800: -2.2143706156e-03; tail (smooth 6.655e-08, resonance n=32 -1.358e-09) -> -2.2143054222e-03;  W(G) from c0, F, primes: -2.2143054076e-03;  diff -1.46e-11
+  [ok] Delta: explicit formula holds within 1e-9 (|W| = 2.21e-03; the tail correction is 6.5e-08) 
+  [ok] Delta: without the n = 32 resonance term the agreement is worse 
+  Delta: first zero 9.222379, 2 Ghat_sym(first zero) = -2.216507e-03; W(G)/2 = -1.107153e-03 <= B: True
+  [ok] Delta is consistent with the certificate (W/2 <= B; its zero 9.2224 lies inside (-T, T)) 
+PARI stack size set to 300000000 bytes, maximum size set to 300003328
+  [ok] chi_-3: 630 zeros in (0, 800]; divz=32 gives 630 (same values to 1e-12: True); Riemann-von Mangoldt main term 629.79 
+  chi_-3: sum over zeros to 800: -7.0747828437e-02; tail (smooth 3.953e-08, resonance n=32 -6.974e-10) -> -7.0747789603e-02;  W(G) from c0, F, primes: -7.0747789647e-02;  diff 4.32e-11
+  [ok] chi_-3: explicit formula holds within 1e-9 (|W| = 7.07e-02; the tail correction is 3.9e-08) 
+  [ok] chi_-3: without the n = 32 resonance term the agreement is worse 
+
+=== certificate T = 9.225 ===
+A. exact sum-of-squares form
+  exact rational vectors read from gap_cert_rational_T9.225.json
+  rank: 9 vectors s_i (P_H), 7 vectors r_j (Z P_G Z')
+  largest denominator: 2^97 (r_j: dyadic float times rationals with denominator 47 from the projection)
+  [ok] rational P_H = sum s_i s_i' reproduces the file matrix (max diff 1.0e-17)
+  [ok] rational W = sum r_j r_j' reproduces Z P_G Z' (max diff 5.4e-19)
+  [ok] every r_j satisfies sum_k (-1)^k r_jk = 0 exactly (psi_j(+-a) = 0) 
+  [ok] T is the exact rational 9.225 
+  sha256 of gap_cert_rational_T9.225.json: ab0903e7d354ecdb
+B. closed form of G against a direct autocorrelation (float, independent route)
+  [ok] G(0.0000): closed form -2.761853730648e-02, direct -2.761853730648e-02 
+  [ok] G(0.6931): closed form -2.104636610383e-03, direct -2.104636610383e-03 
+  [ok] G(1.0986): closed form 8.734971488017e-07, direct 8.734971487898e-07 
+  [ok] G(1.6094): closed form 4.243072928213e-17, direct 6.938893903907e-17 
+  [ok] G(2.5000): closed form -4.884871659837e-04, direct -4.884871659837e-04 
+  [ok] (G(u)-G(0))/u, sinc form = difference quotient at u = 0.3 
+  [ok] (G(u)-G(0))/u, sinc form = difference quotient at u = 1.1 
+  [ok] (G(u)-G(0))/u, sinc form = difference quotient at u = 2.9 
+  [ok] G(2a) = 0 (support edge; exact by the closed form: (2a-2a)A + sum b_k sin(2 pi k)) 
+C. certified c0, prime values, prime maxima (Ramanujan |alpha| <= 1)
+  c0 = G(0) = [-0.0276185373065, -0.0276185373064]
+  [ok] c0 < 0 
+  [ok] c0 agrees with cert.py (-2.761854e-02) 
+  p =  2: m <= 4, G(log p) = [-0.00210464, -0.00210463];  max_theta P_p in [0.0018952438, 0.0018952439] (143 boxes)
+  p =  3: m <= 3, G(log p) = [8.73497E-7, 8.73498E-7];  max_theta P_p in [0.0000010662781, 0.0000010662782] (83 boxes)
+  p =  5: m <= 2, G(log p) = [6.29259E-17, 6.29260E-17];  max_theta P_p in [7.0595587E-17, 1.9052265E-16] (1 boxes)
+  p =  7: m <= 1, G(log p) = [-3.45863E-16, -3.45862E-16];  max_theta P_p in [5.0875394E-16, 5.0875396E-16] (1 boxes)
+  p = 11: m <= 1, G(log p) = [-3.05894E-18, -3.05893E-18];  max_theta P_p in [4.4231695E-18, 4.4231696E-18] (1 boxes)
+  p = 13: m <= 1, G(log p) = [-9.67527E-17, -9.67526E-17];  max_theta P_p in [1.3765757E-16, 1.3765758E-16] (1 boxes)
+  p = 17: m <= 1, G(log p) = [3.53506E-17, 3.53507E-17];  max_theta P_p in [4.8582776E-17, 4.8582778E-17] (1 boxes)
+  p = 19: m <= 1, G(log p) = [5.47460E-17, 5.47461E-17];  max_theta P_p in [7.3962026E-17, 7.3962027E-17] (1 boxes)
+  p = 23: m <= 1, G(log p) = [-3.07998E-17, -3.07997E-17];  max_theta P_p in [4.0273529E-17, 4.0273531E-17] (1 boxes)
+  p = 29: m <= 1, G(log p) = [-5.08540E-17, -5.08539E-17];  max_theta P_p in [6.3597094E-17, 6.3597096E-17] (1 boxes)
+  p = 31: m <= 1, G(log p) = [5.02017E-13, 5.02018E-13];  max_theta P_p in [6.1925118E-13, 6.1925120E-13] (1 boxes)
+  sum of prime maxima <= 0.0018963102
+D. certified sup of F(kappa) = A_kappa(G)
+  partition of [0, 2a] into 4096 pieces: sup|h| <= 0.3062; M2(0) = 0.15087, M2(-1/2) = 0.25385
+  tail: h <= -2.7369e-02 on [0, 0.2158], |h| <= 0.3062 on [0.2158, 2a]  =>  F decreasing on [11.589, oo); grid to 12
+  [ok] tail argument: F'(kappa) < 0 for kappa >= K1 = 11.589 
+  kappa in [0, 12]: 411 integrals (26 refinements), 11s
+  sup_{kappa >= 0} F in [-0.002101565611, -0.002101565549], attained near kappa = 5.873779
+  [ok] sup F agrees with cert.py's grid value -2.101567e-03 within 1e-6 
+  extension kappa in [-1/2, 0]: sup F <= -0.045377503 (at 0.0000; F(-1/2) = [-0.049885314, -0.049885313]), 23 integrals, 1s
+E. the certificate
+  B = sup F + sum_p max P_p  in  [-0.00020525545, -0.00020525538]
+  [ok] B < 0 and c0 < 0: THEOREM CERTIFIED for T0 = 9.225 
+  [ok] B agrees with cert.py (-2.052565e-04) within 1e-6 
+  with kappa allowed in (-1/2, oo): B <= -0.00020525538
+  extension to real kappa > -1/2: certified (the sup over [-1/2, 0] is below the sup over [0, oo))
+  conductor slack: the bound holds for log N/d > -0.00743179 (N >= 1 is more than enough)
+F. which Ramanujan hypotheses are used
+  Ramanujan only at [2, 3, 5]  |alpha_j(p)| <= p       at the other p <= 31:  B <= -0.000205255  -> certified
+  Ramanujan only at [2, 3, 5]  |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000205255  -> certified
+  Ramanujan only at [2, 5]     |alpha_j(p)| <= p       at the other p <= 31:  B <= -0.000181302  -> certified
+  Ramanujan only at [2, 5]     |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000201244  -> certified
+  Ramanujan only at [2, 3]     |alpha_j(p)| <= p       at the other p <= 31:  B <= -0.000205255  -> certified
+  Ramanujan only at [2, 3]     |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000205255  -> certified
+  Ramanujan only at [2]        |alpha_j(p)| <= p       at the other p <= 31:  B <= -0.000181302  -> certified
+  Ramanujan only at [2]        |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= -0.000201244  -> certified
+  Ramanujan only at [3, 5]     |alpha_j(p)| <= p       at the other p <= 31:  B <= 0.0129144  -> fails
+  Ramanujan only at [3, 5]     |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= 0.00315571  -> fails
+  Ramanujan only at []         |alpha_j(p)| <= p       at the other p <= 31:  B <= 0.0129384  -> fails
+  Ramanujan only at []         |alpha_j(p)| <= sqrt(p) at the other p <= 31:  B <= 0.00315972  -> fails
+  [ok] Ramanujan at [2] and the trivial bound |alpha| <= p at the other p <= 31 suffice 
+  [ok] no Ramanujan at all (|alpha_j(p)| <= p for every p) is NOT enough with this certificate 
+  uniform relaxation: |alpha_j(p)| <= R for all p <= 31 is enough for R <= 1.036555 (certified at R = 1.036555)
+  [ok] uniform R = 1.036555 certified 
+  only p = 2 relaxed (|alpha| <= 1 at the others): |alpha_j(2)| <= 1.036574 is enough
+  only p = 3 relaxed (|alpha| <= 1 at the others): |alpha_j(3)| <= 3.000000 is enough
+  only p = 5 relaxed (|alpha| <= 1 at the others): |alpha_j(5)| <= 5.000000 is enough
+  time for this certificate: 13s
+G. second route (float): the Fourier side  A_kappa(G) = (1/pi) int_0^oo Ghat_sym(t) [-log pi + Re psi((1/2+kappa+it)/2)] dt
+  [ok] Ghat_sym = 4 sin^2(at) Qs at t = 2500.3 (rational form used for tails) 
+  [ok] c0 by Fourier: -2.7618537306482e-02 vs certified -2.7618537306482e-02 
+  [ok] G(log 2) by Fourier inversion -2.104636610383e-03 vs closed form -2.104636610383e-03 
+  [ok] G(log 3) by Fourier inversion 8.734971487235e-07 vs closed form 8.734971488017e-07 
+  [ok] F(0.0000) by Fourier -4.537751100015e-02 vs u-integral -4.537751100015e-02 
+  [ok] F(1.0000) by Fourier -3.251597199479e-02 vs u-integral -3.251597199479e-02 
+  [ok] F(5.5000) by Fourier -2.204039392702e-03 vs u-integral -2.204039392702e-03 
+  [ok] F(5.8738) by Fourier -2.101565610691e-03 vs u-integral -2.101565610691e-03 
+  [ok] F(6.5000) by Fourier -2.348282857972e-03 vs u-integral -2.348282857972e-03 
+  [ok] F(20.0000) by Fourier -2.868203599030e-02 vs u-integral -2.868203599030e-02 
+  [ok] Ghat_sym >= 0 on [T, 400] (sampled 4e5 points; holds by construction) (min 1.45e-23)
+  Ghat_sym on [0, T]: min -2.0510e-01 at t = 7.0036 (negative: the test function is not positive-definite)
+H. explicit formula against zeros computed by PARI (checks the normalisation of every term)
+  [ok] Delta: 982 zeros in (0, 800]; divz=32 gives 982 (same values to 1e-12: True); Riemann-von Mangoldt main term 982.31 
+  Delta: sum over zeros to 800: -7.6114061488e-04; tail (smooth 6.895e-09, resonance n=32 -1.408e-10) -> -7.6113386020e-04;  W(G) from c0, F, primes: -7.6113385868e-04;  diff -1.51e-12
+  [ok] Delta: explicit formula holds within 1e-9 (|W| = 7.61e-04; the tail correction is 6.8e-09) 
+  [ok] Delta: without the n = 32 resonance term the agreement is worse 
+  Delta: first zero 9.222379, 2 Ghat_sym(first zero) = -7.614472e-04; W(G)/2 = -3.805669e-04 <= B: True
+  [ok] Delta is consistent with the certificate (W/2 <= B; its zero 9.2224 lies inside (-T, T)) 
+  [ok] chi_-3: 630 zeros in (0, 800]; divz=32 gives 630 (same values to 1e-12: True); Riemann-von Mangoldt main term 629.79 
+  chi_-3: sum over zeros to 800: -6.8235670708e-02; tail (smooth 4.096e-09, resonance n=32 -7.226e-11) -> -6.8235666684e-02;  W(G) from c0, F, primes: -6.8235666689e-02;  diff 4.48e-12
+  [ok] chi_-3: explicit formula holds within 1e-9 (|W| = 6.82e-02; the tail correction is 4.0e-09) 
+  [ok] chi_-3: without the n = 32 resonance term the agreement is worse 
+
+SUMMARY
+  T0 = 9.23: c0 <= -0.0287445, sup F <= -0.0027253815 (kappa ~ 5.8738), sum_p max P_p <= 0.0017969722, B <= -0.00092840941; Ramanujan needed only at [2, 5]
+  T0 = 9.225: c0 <= -0.0276185, sup F <= -0.0021015655 (kappa ~ 5.8738), sum_p max P_p <= 0.0018963102, B <= -0.00020525538; Ramanujan needed only at [2]
+total time 203s
+80 checks, 0 failed
