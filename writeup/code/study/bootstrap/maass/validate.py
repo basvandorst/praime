@@ -301,6 +301,8 @@ ex_ = [abs(g['r'] - f['r']) for g, f in zip(fx, allkey)]
 true('four primes: six within 0.003, nine within 0.016', max(ex_[:6]) <= 0.00302 and max(ex_[:9]) <= 0.0162); check('four primes: 21.3158', fx[11]['r'], 21.3154, 6e-5)
 for i, want in [(9, 19.456), (10, 20.158), (12, 21.401)]: check('four primes: misses', fx[i]['r'], want, 6e-4); true('off by more than 0.02', ex_[i] > 0.02)
 
+r12 = open(os.path.join(th_, 'referee_report12.md')).read(); true('referee12 numbers', all(x in r12 for x in ['4.08533', '8.78443e−3', '3.69306e−8', 'no failing step']))
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
