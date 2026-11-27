@@ -3,14 +3,14 @@
 # Branch and bound: a node is a window of angles per prime; its upper bound is the convex problem with the measures
 # restricted to the windows (cuts are shared between nodes); its lower bound is the value at one point of the box.
 # Usage: pm.py <eps> <X> <r_lo> <r_hi> <step> [kmax] [maxnodes] [sign]     (eps = 2: holomorphic weight as parameter;
-# sign: stop as soon as the sign of t_pm against -0.002 is decided)
+# sign: stop as soon as the sign of t_pm against -0.002 is decided; center: with the central zero of an odd form)
 import sys, json, os, time, heapq, numpy as np
 from scipy.optimize import linprog
 from maass import Problem
 
 class PM:
-    def __init__(self, r, eps, X, kmax=2, J=241, hol=False):
-        self.P = P = Problem(r, eps, X, kmax=kmax, J=J, hol=hol)
+    def __init__(self, r, eps, X, kmax=2, J=241, hol=False, center=False):
+        self.P = P = Problem(r, eps, X, kmax=kmax, J=J, hol=hol, center=center)
         self.nP = len(P.primes); self.J = J; self.two_a = 2*P.B.a
         self.rows, self.rhs, self.tk = [], [], []
         for iT, A in enumerate(P.A):
@@ -75,14 +75,14 @@ class PM:
 if __name__ == '__main__':
     eps = int(sys.argv[1]); X = float(sys.argv[2]); lo, hi, step = map(float, sys.argv[3:6])
     kmax = int(sys.argv[6]) if len(sys.argv) > 6 else 2; maxnodes = int(sys.argv[7]) if len(sys.argv) > 7 else 400
-    hol = eps == 2; sign = len(sys.argv) > 8 and sys.argv[8] == 'sign'
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', 'data', 'study', 'maass', 'pm_%s_X%g_k%d.jsonl' % ('hol' if hol else 'eps%d' % eps, X, kmax))
+    hol = eps == 2; sign = 'sign' in sys.argv; center = 'center' in sys.argv
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..', 'data', 'study', 'maass', 'pm_%s_X%g_k%d%s.jsonl' % ('hol' if hol else 'eps%d' % eps, X, kmax, '_center' if center else ''))
     done = set()
     if os.path.exists(out):
         for line in open(out): done.add(round(json.loads(line)['r'], 4))
     for r in [round(lo + i*step, 4) for i in range(int(round((hi - lo)/step)) + 1)]:
         if r in done: continue
-        t0 = time.time(); S = PM(r, 0 if hol else eps, X, kmax=kmax, hol=hol); best, ub, th, nodes = S.solve(maxnodes=maxnodes, stop_at_sign=sign)
+        t0 = time.time(); S = PM(r, 0 if hol else eps, X, kmax=kmax, hol=hol, center=center); best, ub, th, nodes = S.solve(maxnodes=maxnodes, stop_at_sign=sign)
         rec = dict(r=r, eps=eps, X=X, kmax=kmax, mode='sign' if sign else 'full', t_point=best if np.isfinite(best) else None, t_upper=ub, nodes=nodes, secs=round(time.time() - t0, 1), primes=S.P.primes,
                    ap=[float(2*np.cos(x)) for x in th], cuts=len(S.rows))
         with open(out, 'a') as fh: fh.write(json.dumps(rec) + '\n')
