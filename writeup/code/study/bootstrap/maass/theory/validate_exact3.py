@@ -165,10 +165,10 @@ def poly_min_lower(a, maxint=200000):
             c = (l + r)/2; rad = (r - l)/2
             Pc = peval(a, c); dc = peval(a1, c); m = peval(a2, I).lower()
             best_upper = min(best_upper, Pc.upper())
-            if m > 0 and abs(dc/m).upper() <= rad:
-                lb = (Pc - dc*dc/(2*m)).lower()                 # interior minimum of the convex model
+            if m > 0 and abs(dc/m).lower() >= rad:
+                lb = min((Pc + s*dc*rad + m*rad*rad/2).lower() for s in (-1, 1))   # model minimiser surely outside: an end
             elif m > 0:
-                lb = min((Pc + s*dc*rad + m*rad*rad/2).lower() for s in (-1, 1))   # model minimum at an end
+                lb = (Pc - dc*dc/(2*m)).lower()                 # global minimum of the convex model (always valid)
             else:
                 lb = (Pc - abs(dc)*rad + m*rad*rad/2).lower()
             if lb < best_upper - tol and (r - l) > wmin:
@@ -300,7 +300,7 @@ def sec_B(degs):
         t = time.time()
         r = certify(bc, NC=meta.get('NC', 400), prec=meta.get('prec', 600))
         g0 = r['g0']; ratio = arb(r['ratio_upper'])
-        low = sum((max(arb(0), w) for (v, w) in r['per'].values()), arb(0))/g0     # sum of lower bounds of the Defect_p
+        low = (sum((max(arb(0), w) for (v, w) in r['per'].values()), arb(0)) - arb(r['tail']))/g0   # lower bound: minus the tail
         gap = 3 - arb(r['bound_lower'])                                            # upper bound for 3 - q*
         top = sorted(r['per'].items(), key=lambda kv: -float(kv[1][0].mid()))
         signs = ''.join('+' if x > 0 else '-' for x in bc)
@@ -340,6 +340,8 @@ def sec_C(rows):
             check('deg %d: largest share outside 3 at p = %d with chi(p) = +1 = (-1)^8 (degree-16 pattern)' % (deg, p), chi(p) == 1)
         else:
             check('deg %d: largest share outside 3 at p = %d with chi(p) = (-1)^D = %+d' % (deg, p, (-1)**D), chi(p) == (-1)**D)
+    x0 = float((rows[0]['gv'][4]/rows[0]['g0']).mid()); x2 = float((rows[0]['gv'][2]/rows[0]['g0']).mid())/2**0.5
+    check('deg 0: g(log 4)/g(0) = +0.0118 and g(log 2)/(sqrt2 g(0)) = 0.26', abs(x0 - 0.0118) < 0.00005 and abs(x2 - 0.26) < 0.005, '%.5f %.4f' % (x0, x2))
     r = rows[16]; ctx.prec = 600
     want = {2: (0.219, 0.0006), 3: (9e-16, 0.6e-16), 4: (-0.0036, 0.00005), 5: (9e-15, 0.6e-15), 7: (-6e-24, 0.6e-24)}
     for n, (v, tol) in want.items():

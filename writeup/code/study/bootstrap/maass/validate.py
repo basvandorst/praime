@@ -233,7 +233,7 @@ true('ten pieces, each at most 0.05 long, one eigenvalue each', len(allp) == 10 
 
 # --- section 8f: the certificate note (its own validation is theory/validate_exact3.py; here: the quoted numbers are those of the note)
 ex3 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'exact3.md')).read()
-true('exact3: own validation passed', '156 checks, 0 failed' in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'validate_exact3_out.txt')).read())
+true('exact3: own validation passed', '157 checks, 0 failed' in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'validate_exact3_out.txt')).read())
 for frag in ['| 8 | [5.136, 5.137]·10⁻⁷ | 3.082·10⁻⁶ |', '| 12 | [7.479, 7.480]·10⁻¹¹ | 4.488·10⁻¹⁰ |', '| 16 | [1.510, 1.511]·10⁻¹⁷ | 9.062·10⁻¹⁷ |', '| 22 | [6.349, 6.350]·10⁻²³ | 3.810·10⁻²² |', 'B = 1 gives the bound 2.740045']:
     true('exact3 table row', frag in ex3)
 true('exact3 tail bound quoted', '10⁻²⁹⁷' in ex3 and '600' in ex3)
@@ -257,6 +257,10 @@ check('172 a_2, a_3 first nine', max(errs_a[:9]), 0.0014, 6e-5); check('172 tent
 fe72 = [d for d in ch if d['t_lp'] >= -0.002]; true('172: 28 feasible points', len(fe72) == 28)
 true('172 N3', all(any(f['r'] - 0.02 - 1e-9 <= d['r'] <= f['r'] + 0.15 + 1e-9 for f in key if f['r'] < 20 and (f['parity'] == 'odd') == (d['eps'] == 1)) for d in fe72))
 true('172 last piece [19.48, 19.53]', sorted(d['r'] for d in fe72 if d['eps'] == 1 and d['r'] > 19)[0] == 19.48 and sorted(d['r'] for d in fe72 if d['eps'] == 1)[-1] == 19.53)
+
+ex5 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'exact5.md')).read()
+true('exact5: own validation passed', '137 checks, 0 failed' in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'theory', 'validate_exact5_out.txt')).read())
+true('exact5 rows', all(x in ex5 for x in ['2.207·10⁻⁶', '1.148·10⁻⁹', '2.764·10⁻¹⁴']))
 
 # --- END
 if __name__ == '__main__':
