@@ -2,14 +2,14 @@
 
 **In short.** Weil's explicit formula turns the Riemann hypothesis of an L-function into the statement that a quadratic form is positive. Here the primes are given and the local data are unknown: one probability measure per prime, on the value χ(p) of a real character or on the Satake angle of a form on GL(2) or GL(3). The only other input is the archimedean factor (and, for odd forms, the root number). All findings are numerical (float64, primes below 40 at most); nothing is proved.
 
-1. **Real characters.** The smallest conductor that keeps the form positive is 2.9999999996 (odd) and 4.9999999994 (even), and the optimum is the character mod 3, mod 5 at every prime of the support, with 0 at the ramified prime.
-2. **Level 1, weight as a real number.** Nothing is feasible below weight 12; at 12 the optimum is τ(p)/p^(11/2) for p = 2, 3, 5, 7 to 3 decimals. With root number −1, weight 14 is excluded and the first feasible weight is 18.00, again with its Hecke eigenvalues.
-3. **Maass forms of SL(2,ℤ), eigenvalue as a real number.** Nothing is feasible below the first eigenvalue of each parity. At support 16 six of the ten eigenvalues below 20 (9.53, 12.17, 13.78, 14.36, 17.74, 19.42) each lie in their own feasible piece, with no piece that holds no eigenvalue; five of them return a₂ and a₃ to 0.01 or better. The four odd eigenvalues above 15.9 lie in one stretch that stays feasible.
-4. **SL(3,ℤ).** One of the five lowest forms, (13.5966, 4.7647), lies on the edge of the feasible set and returns its a₂ within 0.011; the others do not.
+1. **Real characters.** The smallest conductor that keeps the form positive is 2.9999999996 (odd, support 14) and 4.9999999994 (even, support 24), and the optimum is the character mod 3, mod 5 at the primes of the support (the last prime excepted), with 0 at the ramified prime. At support 8 the optimum is not yet the character (2.9999977, 4.99989).
+2. **Level 1, weight as a real number.** Nothing is feasible below weight 12; at 12 the optimum is τ(p)/p^(11/2) for p = 2, 3, 5, 7 to 3 decimals at support 16. With root number −1, weight 14 is excluded and the first feasible weight is 18.00, with the Hecke eigenvalues of the weight-18 form within 0.01 at support 16.
+3. **Maass forms of SL(2,ℤ), eigenvalue as a real number.** Nothing is feasible below the first eigenvalue of each parity. At support 16, on a grid of step 0.01 and with the allowance t* ≥ −0.002, six of the ten eigenvalues below 20 (9.53, 12.17, 13.78, 14.36, 17.74, 19.42) each lie in their own feasible piece, and no piece on the grid holds no eigenvalue; five of them return a₂ and a₃ to 0.01 or better. The four odd eigenvalues above 15.9 lie in one stretch that stays feasible.
+4. **SL(3,ℤ).** One of the five lowest forms, (13.5966, 4.7647), lies within 0.035 of the edge of the feasible set (t* = +0.0016 there) and its a₂ is returned within 0.011; the others do not.
 
 5. **Weight 2 with whole-number a_p.** The smallest admissible level is 10.995, with a₂, a₃, a₅, a₇ = −2, −1, 1, −2 (the elliptic curve of conductor 11); with root number −1 it is 36.91, with −2, −3, −2, −1 (the curve 37a).
 
-Five rounds were registered before their runs (165 to 168 and 170). Their strong claims (islands at every eigenvalue, every low form on the edge) failed as registered; sections 5 to 8 give each verdict. In print: the positivity method with local corrections and bounds that come close (r > 7.2, conductor > 10.323, weight near 11). Not found in print by two searches: that the bound is exact when the local data are tied to one measure per prime and the test function is optimised, and that the optimum is the local data of the extremal form.
+Five rounds were registered before their runs (165 to 168 and 170). Their strong claims (islands at every eigenvalue, every low form on the edge) failed as registered; sections 5 to 8 give each verdict. In print: the positivity method with local corrections and bounds that come close (r > 7.2, conductor > 10.323, weight near 11). Not found in print by two searches: that the bound is exact when the primes are given, the local data are the unknown and the test function is optimised, and that the optimum is the local data of the extremal form. Two reviews with their own codes reproduced the numbers and corrected the note (section 9).
 
 ## 1. What is in print
 
@@ -20,7 +20,7 @@ Five rounds were registered before their runs (165 to 168 and 170). Their strong
 
 ## 2. Set-up (derived; checked numerically)
 
-Test functions f live on [−a, a] in u = log x; X = e^(2a) is the support; g(w) = ∫ f(v + w) f̄(v) dv. For an L-function with Gamma factor ∏ᵢ Γ_R(s + κᵢ) (the κᵢ complex, closed under conjugation), conductor q, no pole, and −L′/L = Σ c(n) n^(−s):
+Test functions f live on [−a, a] in u = log x; X = e^(2a) is the support; g(w) = ∫ f(v + w) f̄(v) dv. For an L-function with Gamma factor ∏ᵢ Γ_R(s + κᵢ) (the κᵢ complex), conductor q, no pole, and −L′/L = Σ c(n) n^(−s):
 
 `Q(f) = (log q) g(0) + Σᵢ A_κᵢ(g) − Σ_n n^(−1/2) [c(n) g(log n) + c̄(n) g(−log n)]`
 
@@ -32,7 +32,7 @@ Test functions f live on [−a, a] in u = log x; X = e^(2a) is the support; g(w)
   - real character: x ∈ [−1, 1], weight x^m log p (x = 0: ramified);
   - GL(2), angle θ ∈ [0, π]: L(f): 2 cos mθ; Sym²: 1 + 2 cos 2mθ; Sym³: 2 cos mθ + 2 cos 3mθ; Sym⁴: 1 + 2 cos 2mθ + 2 cos 4mθ;
   - GL(3), conjugacy class of SU(3) with eigenvalues e^(iφⱼ): L(F): τ_m = Σⱼ e^(imφⱼ); adjoint: |τ_m|² − 1.
-- **The optimum.** t* = the largest t such that every form of the problem is ≥ 0 with conductor e^(−kt) (k = 1 for the standard L-function, k for Sym^k, 2 for the adjoint). q* = e^(−t*) is the smallest admissible conductor; at level 1 the test is the sign of t*. All constraints are linear in the measures, so t* is the value of a convex problem (Kelley cutting planes with an LP, HiGHS). By minimax it equals the conductor bound "with local corrections" optimised over all test functions against the worst local data that are consistent across the powers of a prime.
+- **The optimum.** t* = the largest t such that every form of the problem is ≥ 0 with conductor e^(−kt) (k = 1 for the standard L-function, k for Sym^k, 2 for the adjoint). q* = e^(−t*) is the smallest admissible conductor; at level 1 the test is the sign of t*. All constraints are linear in the measures, so t* is the value of a convex problem (Kelley cutting planes with an LP, HiGHS). By minimax it equals the conductor bound "with local corrections" optimised over all positive combinations of test functions (the dual optimum has rank at least 2 in each parity block, so one test function does not attain it; second review) against the worst local data.
 - **Root number.** For an odd Maass form or a holomorphic form with root number −1 the L-function vanishes at 1/2, so Q_f(φ) ≥ |∫φ|²; sections 3 to 7 do not use this, section 8 does.
 - Gamma factors used. Maass form of SL(2,ℤ), parameter r, parity ε: L(f): Γ_R(s+ε±ir); Sym²: Γ_R(s)Γ_R(s±2ir); Sym³: Γ_R(s+ε±3ir)Γ_R(s+ε±ir); Sym⁴: Γ_R(s)Γ_R(s±2ir)Γ_R(s±4ir). Holomorphic weight κ, with Γ_C(s) = Γ_R(s)Γ_R(s+1): L(f): Γ_C(s+(κ−1)/2); Sym²: Γ_R(s+1)Γ_C(s+κ−1); Sym³: Γ_C(s+3(κ−1)/2)Γ_C(s+(κ−1)/2); Sym⁴: Γ_R(s)Γ_C(s+κ−1)Γ_C(s+2κ−2). SL(3,ℤ), parameters (λ₁, λ₂, λ₃ = −λ₁−λ₂): L(F): ∏ Γ_R(s+iλⱼ); adjoint: Γ_R(s)² ∏_d Γ_R(s±id), d = λ₁−λ₂, 2λ₁+λ₂, λ₁+2λ₂.
 - **Checks of the set-up** (computed): the engine reproduces the eigenvalues of [../weil.py](../weil.py) for ζ and is positive for χ₋₄; every true form in the answer keys passes every form at supports 8, 16, 32 (sections 4, 5, 7); the SL(3) forms fail when their coefficients are conjugated.
@@ -47,10 +47,11 @@ One form, Γ_R(s + κ), no pole, one measure on [−1, 1] per prime. Smallest ad
 | 14 | 2.9999999996 | 4.9999998848 |
 | 24 | (LP failed at this tolerance) | 4.9999999994 |
 
-The optimal measures are point masses ([chars_out.txt](../../../../data/study/maass/chars_out.txt), support 40): odd: −1, 0, −1, +1, −1, +1, −1, +1, −1, −1, +1, +1 at p = 2, 3, …, 37, the character mod 3; even: −1, −1, 0, −1, +1, −1, −1, +1, −1, +1, +1 at p = 2, …, 31, the character mod 5 (the last prime of the support, 37, is at −0.94 against −1).
+From support 14 (odd) and 24 (even) on, the optimal measures are point masses ([chars_out.txt](../../../../data/study/maass/chars_out.txt), support 40): odd: −1, 0, −1, +1, −1, +1, −1, +1, −1, −1, +1, +1 at p = 2, 3, …, 37, the character mod 3; even: −1, −1, 0, −1, +1, −1, −1, +1, −1, +1, +1 at p = 2, …, 31, the character mod 5 (the last prime of the support, 37, is at −0.94 against −1).
 
 - This changes finding 2 of [../bootstrap.md](../bootstrap.md) ("without a pole positivity did not pin the points"): that search left the positions free; with the primes given and one measure per prime the Dirichlet case is pinned.
-- It also locates the loss in the unstructured problem (2.981 and 4.985): there the weights at p and p² are independent. Tying them to one measure removes the gap.
+- At support 8 the optimum is not the character: a measure that is not a point mass does better by 6.3·10⁻⁷ (odd) and 2.0·10⁻⁵ (even) in log q, and at support 14 (even) by 2.0·10⁻⁸ (second review, with a dual bound; our 0.9185 at p = 7 shows the same). The second review's values with exact moments instead of a grid: 2.9999981, 3.0000000, 3.0000000 (odd) and 4.9998949, 4.9999999, 5.0000000 (even) at supports 8, 14, 24.
+- **What removes the loss of the unstructured problem (2.981 and 4.985) is not the coupling of the powers of a prime.** With the weights at p, p², p³, … decoupled (each in [−1, 1] times log p) the second review still finds 3.000000 and 5.000000 at support 24 (2.999998 and 4.998633 at support 8). The unstructured problem differs in that the positions are free and the object carries a pole; with the primes given and bounded weights there is no gap. (Our first reading, that tying the powers to one measure removes the gap, was wrong.)
 
 ## 4. Level 1 with the weight as a real number: 12, and Ramanujan's τ ([scan_hol.py](scan_hol.py), [levels.py](levels.py), [truth_hol.py](truth_hol.py))
 
@@ -63,7 +64,7 @@ Registered as the control of round 165. Four forms, support 8 ([hol_X8.jsonl](..
 | τ(p)/p^(11/2) | −0.5303 | +0.5987 | +0.6912 | −0.3765 |
 
 - Weight 14 carries no cusp form but is feasible in the convex problem at support 8 (t* = 0.165): the measures there are not point masses.
-- **Levels above 1.** The same curve read as a conductor: smallest admissible level 10.906, 4.963, 2.967, 1.951 at weights 2, 4, 6, 8 at support 8 and 10.936, 4.969, 2.983, 1.958 at support 16 ([levels_out.txt](../../../../data/study/maass/levels_out.txt), with Steinberg columns for primes dividing the level); the first newforms have levels 11, 5, 3, 2. Not exact at these supports: the optima are mixtures. The true newforms of levels 11, 5, 3, 2, 14, 15, 7 (coefficients from PARI) pass all four forms at their levels ([truth_hol_out.txt](../../../../data/study/maass/truth_hol_out.txt)).
+- **Levels above 1.** The same curve read as a conductor: smallest admissible level 10.906, 4.963, 2.967, 1.951 at weights 2, 4, 6, 8 at support 8 and 10.936, 4.969, 2.983, 1.958 at support 16 ([levels_out.txt](../../../../data/study/maass/levels_out.txt), every prime may also take the two Steinberg local factors of a prime that divides a squarefree level: a relaxation); the first newforms have levels 11, 5, 3, 2. Not exact at these supports: the optima are mixtures. The true newforms of levels 11, 5, 3, 2, 14, 15, 7 (coefficients from PARI) pass all four forms at their levels ([truth_hol_out.txt](../../../../data/study/maass/truth_hol_out.txt)).
 
 ## 5. Round 165: Maass forms of SL(2,ℤ) with one measure per prime ([round165.txt](../../../../data/study/preregister/round165.txt), [maass.py](maass.py), [scan.py](scan.py), [decide.py](decide.py))
 
@@ -108,12 +109,12 @@ Registered before any solve (commit 5e4ba0eb). Two forms: L(F), which is not sel
 
 - **Check of the engine and of the key** ([gl3_truth.py](gl3_truth.py)): the Hermitian engine agrees with [engine.py](engine.py) on two self-dual data to 2.5·10⁻¹⁴. The eight forms of smallest Laplace eigenvalue pass both forms (L(F) between 1.4·10⁻¹⁰ and 2.7·10⁻⁵, adjoint between 0.27 and 1.9); with conjugated coefficients seven of the eight fail (−0.26 to −1.25), the eighth is self-dual.
 - **G3, pass:** none of the 237 coarse grid points with λ₁² + λ₁λ₂ + λ₂² ≤ 180 is feasible. The smallest value on the feasible set is 222.25, at (13.5, 2.5); the lowest form has 239.31. In print: Miller's bound 87.
-- **The form (13.5966, 4.7647) is on the edge:** t* = +0.0016 at its exact parameters, an infeasible grid point at distance 0.035, and the optimum has a₂ = 1.040 − 0.382i against the true 1.048 − 0.375i (difference 0.011; a₃: 0.048).
+- **The form (13.5966, 4.7647) is close to the edge:** t* = +0.0016 at its exact parameters (so it lies inside the feasible set, by that much), an infeasible grid point at distance 0.035, and the optimum has a₂ = 1.040 − 0.382i against the true 1.048 − 0.375i (difference 0.011; a₃: 0.048).
 - **The others are not** (G2 and G4 fail): the nearest infeasible point of the local grid lies at 0.185, 0.348, 0.176 from forms 1, 2, 4 (smallest Laplace eigenvalue first), and form 5 has none within its 9 × 9 grid; a₂ is returned within 0.081 and 0.058 for forms 1 and 4 and not at all for forms 2 and 5 (1.31, 0.79). FKL's region, which assumes |a_p| ≤ 3, leaves 0.13 to 0.52.
 - G1 (truth feasible) passes: t* = +0.019, +0.167, +0.002, +0.030, +0.261 at the five forms.
 - Both forms are active at 844 of the 861 coarse points. On the self-dual line λ₂ = 0 the feasible set begins at λ₁ = 16.5; the first form there is the symmetric square of the first Maass form of SL(2,ℤ), at 2 × 9.5337.
 
-VERDICT of round 167 as registered: G1 pass, G2 fail, G3 pass, G4 fail. One of the five lowest forms is extremal for the convex problem at support 8 and returns its Hecke eigenvalue; the problem with genuine conjugacy classes was not run.
+VERDICT of round 167 as registered: G1 pass, G2 fail, G3 pass, G4 fail. One of the five lowest forms lies within 0.035 of the edge of the convex problem at support 8 and its Hecke eigenvalue is returned within 0.011; the problem with genuine conjugacy classes was not run.
 
 ## 8. Round 168: the central zero ([round168.txt](../../../../data/study/preregister/round168.txt), [decide168.py](decide168.py))
 
@@ -127,18 +128,19 @@ The review of round 165 (section 9) found that the registered problem left out a
 | 8 | [9.53, 9.54], [12.17, 12.19], [14.28, 14.43], [15.82, 20.00] | 9.5337, 12.1730, 14.3585, |
 | 16 | {9.54}, [12.17, 12.19], [14.35, 14.37], [15.93, 20.00] | 16.1381, 16.6443, 18.1809, 19.4847 |
 
-- **The three lowest odd eigenvalues are islands, and each returns its Hecke eigenvalues** (support 16, nearest grid point): a₂, a₃ = −1.068, −0.455 (true −1.068, −0.456); +0.288, −1.201 (true +0.289, −1.202); −0.230, +0.694 (true −0.231, +0.696).
+- "Feasible" means t* ≥ −0.002 at a grid point. At the grid points themselves t* is slightly negative (−0.0013, −0.0006, −0.0002 at 9.54, 12.17, 14.36 at support 16): the true islands are much narrower than the grid (t* = −1.2·10⁻⁶ at r = 14.3585 by the second review), and a piece narrower than the step that lies between two grid points cannot be excluded by a scan.
+- **The three lowest odd eigenvalues are islands in this sense, and each returns its Hecke eigenvalues** (support 16, nearest grid point): a₂, a₃ = −1.068, −0.455 (true −1.068, −0.456); +0.288, −1.201 (true +0.289, −1.202); −0.230, +0.694 (true −0.231, +0.696).
 - **Above 15.9 the stretch remains** (H2, H3, H4 fail there, as the declared weak spot at support 8 and also at support 16): 384 of the 415 feasible grid points at support 16 are farther than 0.03 from every eigenvalue, and the Hecke eigenvalues of the four forms inside the stretch are not returned.
 
 VERDICT of round 168 as registered: H1 pass; H2, H3, H4 fail (all failures above r = 15.9).
 
 **Controls with exact answers** (registered before their runs, commit 2c3b6f97):
-- *Level 1, weight as a real number, with the central zero* ([hol_X8_center.jsonl](../../../../data/study/maass/hol_X8_center.jsonl), [hol_X16_center.jsonl](../../../../data/study/maass/hol_X16_center.jsonl)). Cusp forms of level 1 with root number −1 exist at weights 18, 22, 26, … and not at 14. Found: t* = −0.470 at κ = 14, −0.026 at 17.75, +0.00001 at 18 and +0.026 at 18.25 (support 8); −0.027 at 17.75 and −0.0002 at 18 (support 16). So weight 14 is excluded and the smallest admissible weight is 18.00 within the grid: the prediction holds. The optimum at κ = 18: −1.4585, −0.3771, −1.1750 at p = 2, 3, 5 (support 8) and −1.4575, −0.3783, −1.1697, +0.2032 at p = 2, 3, 5, 7 (support 16), against the true −1.4584, −0.3770, −1.1745, +0.2115 (coefficients −528, −4284, −1025850, 3225992 from PARI).
+- *Level 1, weight as a real number, with the central zero* ([hol_X8_center.jsonl](../../../../data/study/maass/hol_X8_center.jsonl), [hol_X16_center.jsonl](../../../../data/study/maass/hol_X16_center.jsonl)). Cusp forms of level 1 with root number −1 exist at weights 18, 22, 26, … and not at 14. Found: t* = −0.470 at κ = 14, −0.026 at 17.75, +0.00001 at 18 and +0.026 at 18.25 (support 8); −0.027 at 17.75 and −0.0002 at 18 (support 16). So weight 14 is excluded and the smallest admissible weight is 18.00 within the grid: the prediction holds. The second review, with exact moments: smallest weight 11.9999983 and 17.99853 at support 8, 12.0000000 and 17.9999986 at support 16. The optimum at κ = 18: −1.4585, −0.3771, −1.1750 at p = 2, 3, 5 (support 8) and −1.4575, −0.3783, −1.1697, +0.2032 at p = 2, 3, 5, 7 (support 16), against the true −1.4584, −0.3770, −1.1745, +0.2115 (coefficients −528, −4284, −1025850, 3225992 from PARI). The agreement at support 8 is partly an accident of our angle grid: the true optimum there does better than the form by 1.5·10⁻⁴ and has a₅ = −1.182, a₇ = 0.186 (second review). At support 16 the optimum is the form's data within 0.01.
 - *Weight 2 with the central zero* ([levels_center_out.txt](../../../../data/study/maass/levels_center_out.txt)): smallest admissible level 32.46 at support 8 and 34.76 at support 16; the first newform of weight 2 with root number −1 has level 37. The prediction "below 37" holds; "within 3 % at support 16" fails (6.0 %).
 
 **Even forms on the fine grid** (not registered; [scan_eps0_X16_k2_J61.jsonl](../../../../data/study/maass/scan_eps0_X16_k2_J61.jsonl), [scan_eps0_X32_k2_J61.jsonl](../../../../data/study/maass/scan_eps0_X32_k2_J61.jsonl)). Convex problem of round 165, r = 13.00 to 20.00 in steps of 0.01, support 16: the feasible set is {13.78}, [17.69, 17.94], [19.32, 19.43], one piece for each of the three even eigenvalues 13.7798, 17.7386, 19.4235, and nothing else (round 165 covers r < 13). At support 32 the pieces are {13.78}, [17.70, 17.88], [19.38, 19.43]. Hecke eigenvalues at support 16: at 13.78: 1.549, 0.247, 0.736 (true 1.549, 0.247, 0.737); at 19.42: −0.698, 1.555, −0.039 (true −0.693, 1.562, −0.038); at 17.74, inside its wider piece, they are not returned.
 
-**Together, at support 16** (primes up to 13): of the ten eigenvalues below 20, six are isolated (9.53, 12.17, 13.78, 14.36, 17.74, 19.42), each in its own piece, with no piece that holds no eigenvalue; the four odd ones above 15.9 lie in one remaining stretch.
+**Together, at support 16** (primes up to 13), on the grids of step 0.01 (0.05 below r = 9 and, for even forms, below 13): of the ten eigenvalues below 20, six are isolated (9.53, 12.17, 13.78, 14.36, 17.74, 19.42), each in its own piece of {t* ≥ −0.002}, with no piece that holds no eigenvalue; the four odd ones above 15.9 lie in one remaining stretch.
 
 ## 8b. Round 170: weight 2 with whole-number a_p — conductors 11 and 37 ([round170.txt](../../../../data/study/preregister/round170.txt), [integral.py](integral.py))
 
@@ -177,15 +179,20 @@ An adversarial agent recomputed the problem with its own code (Legendre basis, t
 - With the wrong parity the first odd form fails (−0.94); the first even form with odd Gamma factors does not (+1.9·10⁻⁴), as the lemma says it must not.
 - Not checked by the review: the holomorphic control, supports above 8, anything beyond float64.
 
+**Second review** ([review2/review2.md](review2/review2.md)), of this note, again with its own code (Legendre basis, exact moments per prime, a barrier solver with a dual bound for every value):
+- reproduced: the characters (table of section 3), the holomorphic curves to 10⁻⁴, t* at nine values of r for the odd problem with the central zero at support 16 within 1.3·10⁻⁴, the seven odd forms passing with the central zero, and t* = +0.0017, a₂ = 1.039 − 0.383i for the SL(3) form (13.5966, 4.7647); the Gamma factors agree with PARI's lfunsympow at weight 2;
+- corrected, and taken over above: exactness for the characters only from support 14 and 24 on; our explanation of the loss of the unstructured problem (wrong); "feasible pieces" are pieces of {t* ≥ −0.002} on a grid; the agreement at weight 18 and support 8 was partly an accident of the angle grid; the hypotheses in section 10; the minimax statement; "on the edge" for the SL(3) form;
+- not checked by it: the fine scans as a whole, support 32, G2 and G3, rounds 166, 169, 170, 171, interval arithmetic.
+
 ## 10. Size of the result
 
 - **Known before:** the method, local corrections with a fixed kernel, and the remark that the bounds come close (section 1).
 - **New here, as far as two searches found** (numerical; nothing proved):
-  1. with the primes given and one measure per prime, the bound is exact to 9 digits for the two smallest real characters and to the grid for the first cusp form of level 1 of each sign (weights 12 and 18) and the first Maass form of each parity;
+  1. with the primes given and one measure per prime, the bound is exact to 9 digits for the two smallest real characters (from support 14 and 24 on) and to the grid for the first cusp form of level 1 of each sign (weights 12 and 18) and the first Maass form of each parity;
   2. the optimum is the local data of that form: the values of the character, τ(p), Hecke eigenvalues to 2–4 digits;
   3. for Maass forms of SL(2,ℤ) the feasible set at support 16 separates six of the ten eigenvalues below 20 into single pieces, once the parity and the root number are put in;
-  4. on SL(3,ℤ) one of the five lowest forms is extremal and returns a₂.
-- **What it is not.** Not a proof of anything about L-functions: feasibility of the true forms assumes their Riemann hypotheses (for L(f), Sym², the adjoint) and real Satake angles. Not exact above level 1 at the supports reached (10.94 against 11, 34.8 against 37). Not a set of islands for the odd forms above 15.9 at support 16. The registered claims in their strong forms failed: D2, D3, D4 (odd), D5 (odd), G2, G4, H2, H3, H4.
+  4. on SL(3,ℤ) one of the five lowest forms lies within 0.035 of the edge and its a₂ is returned within 0.011.
+- **What it is not.** Not a proof of anything about L-functions: feasibility of the true objects assumes the Riemann hypothesis of every L-function used (L(χ), L(f), Sym², and Sym³, Sym⁴, the adjoint, L(f × g) where they enter) and real Satake angles (a theorem of Deligne for holomorphic forms; for the Maass forms of the key it was checked on the data, |a_p| ≤ 1.74). Not exact above level 1 at the supports reached (10.94 against 11, 34.8 against 37). Not a set of islands for the odd forms above 15.9 at support 16. The registered claims in their strong forms failed: D2, D3, D4 (odd), D5 (odd), G2, G4, H2, H3, H4.
 - **Why it may matter.** A bound that is exact, with the extremal object as its optimum, is the situation of the Cohn–Elkies bound in dimensions 8 and 24 and of Johns' statement for ζ. If it holds in general for "the first form of each archimedean type", it is a converse theorem in which positivity replaces the functional equations of twists; and the method is a way to compute first eigenvalues and Hecke eigenvalues from the primes and the Gamma factor alone.
 
 ## 11. Open points

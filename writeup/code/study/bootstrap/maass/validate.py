@@ -201,6 +201,11 @@ true('depth table', all(sorted(D for D, k in depth.items() if k == kk) == sorted
 for D_, want_ in [(-19, 18.91), (28, 27.91), (37, 36.99), (-43, 19.7)]:
     l = [x for x in dl if re.match(r'D =\s*%d:' % D_, x)][0]; check('depth last value %d' % D_, float(re.findall(r'k=6: ([\d.]+)', l)[0]), want_, 0.06 if D_ == -43 else 6e-3)
 
+# --- corrections after the second review
+true('max |a_p| of the key forms in truth_out <= 1.74', max(float(re.search(r'max\|a_p\| ([\d.]+)', l).group(1)) for l in tr) <= 1.74)
+for r_, want in [(9.54, -0.0013), (12.17, -0.0006), (14.36, -0.0002)]: check('t* at the island grid points', at(C[16], r_)['t_lp'], want, 6e-5)
+check('x_7 at support 8, odd', float(re.search(r'kappa 1 X 8:.*? 7:([+-][\d.]+)', txt('chars_precise_out.txt')).group(1)), 0.9185, 6e-5)
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
