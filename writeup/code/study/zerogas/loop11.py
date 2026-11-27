@@ -15,16 +15,17 @@ def run(g, Sz, L, phase0, label):
         c = float(Szc @ W)/float(W @ W); e = np.array([float(Szc[i] @ W[i])/float(W[i] @ W[i]) for i in blk]).std(ddof=1)/np.sqrt(10)
         pred = cn(p, m, L); mat = float(cth(np.array([f/L]))[0])
         print('%s n = %d^%d = %3d (u = %.3f): c = %+.4f +- %.4f | matrices %+.4f | with the arithmetic correction %+.4f | z = %+.1f' % (label, p, m, p**m, f/L, c, e, mat, pred, (c - pred)/e), flush=True)
-which = sys.argv[1]
-if which in ('3', '4', '5'):
-    from loop3 import load, OFF
-    f_ = int(which); T0, n0 = OFF[f_]; g = load(f_); L = float(mp.log(T0/(2*mp.pi)))
-    th0 = mp.siegeltheta(T0); d1 = float(mp.log(T0/(2*mp.pi))/2); d2 = float(1/(2*T0)); k0 = mp.floor(th0/mp.pi); frac0 = float(th0/mp.pi - k0)
-    Sz = ((n0 + 1 - int(k0)) + np.arange(len(g))) - 0.5 - (frac0 + (d1*g + d2*g*g/2)/np.pi) - 1
-    run(g, Sz, L, [float(mp.fmod(T0*m*mp.log(p), 2*mp.pi)) for p, m in PP], 'zeros%d' % f_)
-else:
-    lo, hi = int(sys.argv[2]), int(sys.argv[3])
-    g = np.loadtxt('/home/bas/praime/writeup/data/riemann/odlyzko_zeros1.txt')[lo:hi]
-    theta = lambda t: t/2*np.log(t/(2*np.pi)) - t/2 - np.pi/8 + 1/(48*t) + 7/(5760*t**3)
-    Sz = np.arange(lo + 1, hi + 1) - 0.5 - (theta(g)/np.pi + 1); L = float(np.log(g/(2*np.pi)).mean())
-    run(g, Sz, L, [0.0]*len(PP), 'zeros %d..%d' % (lo + 1, hi))
+if __name__ == '__main__':
+    which = sys.argv[1]
+    if which in ('3', '4', '5'):
+        from loop3 import load, OFF
+        f_ = int(which); T0, n0 = OFF[f_]; g = load(f_); L = float(mp.log(T0/(2*mp.pi)))
+        th0 = mp.siegeltheta(T0); d1 = float(mp.log(T0/(2*mp.pi))/2); d2 = float(1/(2*T0)); k0 = mp.floor(th0/mp.pi); frac0 = float(th0/mp.pi - k0)
+        Sz = ((n0 + 1 - int(k0)) + np.arange(len(g))) - 0.5 - (frac0 + (d1*g + d2*g*g/2)/np.pi) - 1
+        run(g, Sz, L, [float(mp.fmod(T0*m*mp.log(p), 2*mp.pi)) for p, m in PP], 'zeros%d' % f_)
+    else:
+        lo, hi = int(sys.argv[2]), int(sys.argv[3])
+        g = np.loadtxt('/home/bas/praime/writeup/data/riemann/odlyzko_zeros1.txt')[lo:hi]
+        theta = lambda t: t/2*np.log(t/(2*np.pi)) - t/2 - np.pi/8 + 1/(48*t) + 7/(5760*t**3)
+        Sz = np.arange(lo + 1, hi + 1) - 0.5 - (theta(g)/np.pi + 1); L = float(np.log(g/(2*np.pi)).mean())
+        run(g, Sz, L, [0.0]*len(PP), 'zeros %d..%d' % (lo + 1, hi))

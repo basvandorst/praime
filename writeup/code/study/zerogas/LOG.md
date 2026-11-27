@@ -152,3 +152,41 @@ Nothing here is a claim until it is promoted (registration, independent check, l
   prime powers with a close to n b, must give the matrix term 1 - c(u). That is a Hardy-Littlewood sum: the place where
   the law of STUDY.md (the primes as a gas) and the gas of zeros meet. Next loops: (1) derive 1 - c(u) from the
   Hardy-Littlewood pair law for (b, n b + h); (2) the same for the midpoint curve b(u); (3) literature check before any claim.
+
+## Loop 12. How much of the position of a zero do the primes up to y fix? ([loop12.py](loop12.py))
+- Reasoning: the dual of STUDY section 15 (knowing p mod q for q <= y predicts the next prime). Here: knowing the phases
+  t ln p for p <= y. If the waves are orthogonal, the variance of S at the zeros explained by the prime powers n <= y is
+  E(y) = sum_{n <= y} c_n^2 alpha_n^2 / 2, with c_n from loops 9 and 11 (no parameter).
+- Prediction (before the run), zeros 80,001..100,000: the measured explained variance (regression on the waves in bands of
+  u, cumulated) equals E(y) within 3 % at u = 0.2, 0.4, 0.6, 0.8, 1.0; and by u = 1.5 it reaches Var(S at zeros) within
+  5 % (my guess: the zeros are driven linearly by the primes; this part may fail).
+- Result of loop 12 (zeros 80,001..100,000, Var S at the zeros 0.10137): explained by n = 2 alone 24.9 %, by n <= 6: 53.4 %,
+  n <= 16: 69.1 %, n <= 104: 86.8 %, n <= 10,833 (u < 1): 96.9 %. Data over theory: 1.036, 1.043, 1.049, 1.048, 1.047, 1.048,
+  1.051, 1.059, 1.069, 1.073. Both registered readings FAIL (3 %; and the total stops near 97 %, then falls at u < 1.3).
+- Lesson: two mistakes of mine. (1) The variance of a wave over the zeros is not alpha^2/2: by Landau-Gonek it is
+  alpha_n^2/2 (1 + 2 pi f_n alpha_{n^2}/L); for n = 2 that factor is 1.037, the whole first-band excess. (2) Fitting 10^4
+  waves to 2 10^4 zeros overfits; beyond u = 0.6 the "explained" variance is partly noise. Do not fit: predict.
+
+## Loop 13. Predict the zeros from the primes with the derived coefficients, nothing fitted ([loop13.py](loop13.py)).
+- Prediction (before the run): with S_pred = sum_{n <= y} c_n W_n (c_n from loops 9 and 11) the variance removed from S at
+  the zeros equals E(y) = sum c_n^2 alpha_n^2/2 (1 + 2 pi f_n alpha_{n^2}/L) within 2 % for u <= 1, on zeros 80,001..100,000
+  and, unchanged, on zeros 40,001..60,000; the residual at u = 1 is below 10 % of Var S (rms error of a predicted zero
+  below 0.1 mean spacing).
+- Result of loop 13 (nothing fitted). Zeros 80,001..100,000: variance removed over predicted = 0.999 (n = 2), 1.006, 1.013,
+  1.014, 1.015, 1.016, 1.019, 1.025, 1.029 (u < 0.9), 1.019 (u < 1), 1.007, 1.003. Residual: 75.1 % (n = 2 only), 46.6 %
+  (n <= 6), 31.0 % (n <= 16), 13.4 % (n <= 104), 6.8 % (n <= 667), 4.8 % (n <= 4,278, u < 0.9), then 5.5 %, 6.2 %, 6.4 %.
+  Rms error of a predicted zero: 0.070 mean spacings at u < 0.9. Zeros 40,001..60,000: 1.022, 1.027, 1.031, 1.021 at
+  u < 0.7..1.0, residual 4.6 % at u < 0.9. "Within 2 %" holds to u = 0.7 and fails narrowly at 0.8 and 0.9 (2.5 %, 2.9 %);
+  "residual below 10 % at u = 1" holds (5.5 %).
+- Lesson: the two formulas predict the position of every zero from the primes below (t/2 pi)^0.9 to 0.07 of a mean
+  spacing, with no fitted number. Adding primes beyond u = 0.9 makes it slightly worse: there c(u) changes sign and u was
+  computed with one L for the whole window (L runs from 9.2 to 9.4). Use the local L of each zero.
+
+## Loop 14. The same with u and the correction taken at the local height of each zero ([loop14.py](loop14.py)).
+- Prediction (before the run): the residual at u < 1.2 falls below the 4.8 % of loop 13 and no longer rises after u = 0.9.
+- Result of loop 14: no change (4.84 % at u < 0.9, 5.46 % at u < 1, 6.39 % at u < 1.2). The prediction FAILS: the local
+  height is not the cause.
+- Lesson (reasoning, to test): the window is 27,000 long in t, so waves of prime powers n and n' are orthogonal over it
+  only when |ln n - ln n'| > 1/27,000, that is for n below about 4,000: exactly where the residual starts to rise
+  (u = 0.9 is n = 4,278). Beyond that, single-wave coefficients cannot simply be added. The 4.8 % is an upper bound set
+  by the window, not by the law. Test: a longer window should move the turning point up.
