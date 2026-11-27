@@ -244,3 +244,61 @@ Nothing here is a claim until it is promoted (registration, independent check, l
 - Lesson: my hand estimate used the coefficient for the position of a zero (c < 1) where the coefficient for the
   DIFFERENCE of neighbouring positions was needed. The deficit of c comes from far pairs (modes beyond the matrix size),
   not from neighbours. Spacings follow the wave fully; positions do not. Round 147's 0.94 stays open.
+
+## Loop 17. Is the 0.94 of round 147 a property of the random-matrix gas itself? ([loop17.py](loop17.py))
+- Reasoning: in an L-function a prime switches the power of one Fourier mode of the zeros on or off. In Haar matrices
+  the power |rho_k|^2 of a mode varies from matrix to matrix, so the same response can be read there: the slope of the
+  spacing variance V of a matrix on |rho_k|^2. The closure of round 147 (an independent wave added to a fixed spectrum)
+  gives the slope (1 - E cos(2 pi k s/N))/(pi^2 k^2). Ratio a(u) = measured slope / closure slope.
+- Prediction (before the run; the outcome is open): if the 0.94 belongs to the gas, a(u) = 0.94 +- 0.03 for u in
+  [0.06, 0.25]; if a(u) is 1.00 to 1.03 there, the 0.94 is arithmetic or an artefact of that round. N = 60, 200,000 matrices.
+- Result of loop 17 (N = 60, 200,000 matrices): a = 0.956 +- 0.018 for u in [0.03, 0.08), then 1.005 +- 0.012, 1.022 +- 0.010,
+  1.030 +- 0.006, 1.053 +- 0.005, 1.056 +- 0.005, 0.999 +- 0.008 up to u = 0.5. Second branch of the prediction: in the gas the
+  response of the spacing variance is 1.00 to 1.06 of the closure, not 0.94 (only the lowest band is below 1, by 2.4
+  errors; a run at N = 120 for that band was started). Together with loop 16: the 0.94 of round 147 is not a property
+  of the random-matrix gas; it is arithmetic or belongs to that round's estimate. Stays open.
+- Lesson: two different routes (loops 16 and 17) agree on 1.02; when a hand estimate and a simulation disagree, the hand
+  estimate used the wrong statistic. Simulate the exact statistic first, then reason.
+
+## Loop 18. Do the low modes know the high modes? Random matrices first ([loop18.py](loop18.py)).
+- Reasoning (item 3 of the principle): for an N x N unitary matrix the traces beyond N are functions of the first N. If
+  primes are the modes, the primes below t/2 pi should carry the primes above it. Test the mechanism where it is exact:
+  take the modes k <= 0.9 N of a Haar matrix, rebuild the eigenvalue positions from them alone with the response law
+  (solve x + sum_k c_N(k) W_k(x) = n - 1/2), and ask how well the rebuilt positions reproduce the true modes ABOVE 0.9 N.
+- Prediction (before the run): the correlation between rebuilt and true modes is above 0.5 for k up to 1.2 N and falls
+  with k (the positions are rebuilt to 0.07 spacings, so a mode of frequency u keeps about exp(-(2 pi 0.07 u)^2/2)).
+- Result of loop 18 (N = 200, 150 matrices, modes k <= 180 used): rms error of a rebuilt position 0.036 spacings. Correlation
+  of rebuilt with true modes: 0.963 for u in (0.9, 1.0], 0.961 for (1.0, 1.1], 0.956 for (1.1, 1.2], 0.936 at 1.5, 0.902 at 2.0.
+  Prediction holds, far above 0.5. (One number is taken from the truth: the mean position.)
+- Lesson: in the matrix world the low modes fix the high modes almost completely, through the simple response law.
+  Mechanism (reasoning): a mode of frequency u > 1 seen on points near a lattice is the mode u - 1 of their displacements.
+
+## Loop 19. The same for the primes: do the primes below t/2 pi carry the primes above? ([loop19.py](loop19.py))
+- Method: zeros number 80,001..100,000 rebuilt from the prime powers n <= (t/2 pi)^0.9 only (solve theta(g)/pi + 1 +
+  sum c_n W_n(g) = n - 1/2, coefficients from loops 9 and 11, nothing fitted, no zero used). Then the spectrum
+  F(x) = sum over zeros of cos(g ln x) at every integer x from 4,500 to 30,000, for the rebuilt and for the true zeros.
+  By Landau's formula the true spectrum has a line -(T/2 pi) Lambda(x)/sqrt(x) at prime powers.
+- Prediction (before the run; open): for x above t/2 pi (about 11,000) the rebuilt spectrum correlates with the true
+  one above 0.5, and it correlates with the prime indicator Lambda(x)/sqrt(x) at more than half the value the true zeros
+  reach. If instead the correlation is near 0, the low primes do not carry the high ones in this way.
+- Result of loop 19 (zeros 80,001..100,000, t = 61,395..74,921; 578 prime powers n <= 3,899; no zero used, nothing fitted):
+  rms error of a zero 0.0379 mean spacings (0.3184 with no primes; the matrices of loop 18: 0.036). Spectrum at the integers
+  3,900..30,000: correlation rebuilt/true 0.966, 0.961, 0.971, 0.968 in four ranges; correlation with -Lambda(x)/sqrt(x):
+  true zeros 0.643, 0.490, 0.446, 0.381; rebuilt 0.586, 0.447, 0.418, 0.360; with no primes -0.03 to +0.01; line amplitude
+  rebuilt/true 0.80, 0.85, 0.91, 0.91. Prediction holds.
+- Lesson: solving the equation self-consistently halves the error of loop 13 (0.070 -> 0.038). The zeros rebuilt from
+  the prime powers up to 3,899 carry the primes up to 30,000 with 91-94 % of the strength the true zeros have. As
+  information this is no surprise (a sieve with the primes to 173 does it exactly); what is shown is the route: through
+  the zeros, with the universal response law, and with the same accuracy as for random matrices.
+
+## Loop 20. How much does the response law add? ([loop19.py](loop19.py) with the option "plain")
+- Prediction (before the run): with all coefficients set to 1 (the plain truncated prime sum) the rms error at the same
+  cut is clearly larger than 0.038 (I expect above 0.05).
+- Result of loop 20 (rms error of a rebuilt zero, cuts u = 0.5, 0.7, 0.9): plain coefficients 0.0911, 0.0631, 0.0477; matrix
+  curve c(u) alone 0.0866, 0.0493, 0.0346; matrix curve plus the arithmetic term 0.0878, 0.0514, 0.0379. The prediction
+  ("plain above 0.05") FAILS narrowly (0.0477). The response curve does help: the error variance at u = 0.9 falls by 47 %
+  against plain. And a surprise: the arithmetic term makes it WORSE.
+- Lesson: the arithmetic term is right for the regression at the true zeros (loop 11), but when the equation is solved
+  self-consistently the waves are evaluated at the solved positions, and that non-linearity already produces the
+  locking between p and p^2. Adding the term counts it twice. Rule for rebuilding: the matrix curve only. With it the
+  zeros of zeta are rebuilt to 0.0346, the eigenvalues of random matrices (loop 18) to 0.036: the same number.
