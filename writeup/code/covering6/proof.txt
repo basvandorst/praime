@@ -1,0 +1,192 @@
+STATUS (27 November 2026): NOT NEW. The same theorem was posted on Zenodo on 21 November 2026 ("Distinct covering
+systems of period dividing 45*2^a", DOI 10.5281/zenodo.24420167; a preprint, not refereed), found by our referee after
+this proof was written. What follows is an independent second proof (different finite enumeration: a branching tree at
+2-adic level 2 with integer weight certificates). The certificate was checked by two independent exact verifiers
+(verify2.py here and the referee's own, referee_verify.py), and the LP value 1 by two floating-point MILP models.
+Paths in the text below (code/, ../cert...) refer to the working folder; here the scripts are in this folder and the
+certificate is ../../data/covering6/cert_n2_size.json.
+
+NO DISTINCT COVERING SYSTEM WITH ALL MODULI >= 6 AND LCM DIVIDING 2^a * 3^2 * 5
+==============================================================================
+
+Source of the problem
+---------------------
+Harrington, Klein, Lowrance, Trifonov, "Covering systems where the prime divisors
+of all moduli are only 2, 3, or 5", arXiv:2605.18644v1 (18 May 2026), Section 2:
+
+  "Problem 2. Establish whether or not there exists a positive integer a such that
+   there exists a distinct covering system with minimum modulus 6 and an LCM of its
+   moduli 2^a 3^2 5.  We conjecture that such a covering does not exist."
+
+Definitions of the paper: a covering system is a finite set of congruences
+x = r_i (mod m_i) such that every integer satisfies at least one; "distinct" means
+the moduli m_i are pairwise different; m is the least modulus, L the LCM of the moduli.
+Data of the paper (Section 6, integer programming; all divisors >= 6 of L allowed,
+each at most once; minimised: the number of residues mod L in no chosen class):
+  L = 2^a*45, a = 0,1,2:   36, 40, 51 residues left uncovered
+  a = 3,...,9:             52 each time (run times 1 s ... 35738 s)
+  a = 10:                  aborted after 48 hours.
+
+Statement proved here
+---------------------
+THEOREM.  For no integer a >= 0 is there a covering system with pairwise distinct
+moduli, each modulus >= 6 and each modulus a divisor of 2^a * 45.
+In particular the answer to Problem 2 is no, for every a.
+
+Status of the steps:  Lemma 1 proved (elementary).  Lemma 2 computed with an exact
+certificate (integer arithmetic, checked by a separate script).  Theorem: follows.
+
+
+Notation
+--------
+n = 2, L2 = 2^2*45 = 180.
+B = {6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180}: all divisors of 180 that are >= 6.
+T = {4d : d | 45} = {4, 12, 20, 36, 60, 180}: the "top" moduli of level 2.
+For a modulus m = 2^k d (d odd) write v2(m) = k.
+
+
+Lemma 1 (projection of the high congruences).  PROVED.
+-------------------------------------------------------
+Let a >= 3 and let C be a set of congruences x = rho (mod m) with pairwise distinct
+moduli m | 2^a*45.  Call (m,rho) low if v2(m) <= 2 and high if v2(m) >= 3.
+For d | 45 and a residue r mod 4d put
+
+    y(d,r) = sum of 2^(2-k) over the high congruences (2^k d, rho) in C with rho = r (mod 4d).
+
+(i)  For every d:  sum_r y(d,r) <= sum_{k=3..a} 2^(2-k) = 1 - 2^(2-a) < 1.
+(ii) If C covers the integers, then for every integer b that lies in no low class of C:
+        sum_{d | 45} y(d, b mod 4d) >= 1.
+
+Proof.  (i) For fixed d there is at most one congruence with modulus 2^k d for each k
+(distinct moduli), and it contributes 2^(2-k) to exactly one y(d,r).
+(ii) Low moduli divide 180, so the 2^(a-2) integers b_j = b + 180 j (0 <= j < 2^(a-2))
+lie in no low class; they are pairwise incongruent mod 2^a*45; each lies in a high class.
+Fix a high congruence (2^k d, rho).  Since 4d | 180 and 4d | 2^k d, b_j = rho (mod 2^k d)
+forces b = rho (mod 4d).  If b = rho (mod 4d): the condition mod d holds for all j
+(d | 180), and the condition mod 2^k reads 45 j = (rho-b)/4 (mod 2^(k-2)), which has
+exactly one solution j mod 2^(k-2) (45 is odd), hence exactly 2^(a-2)/2^(k-2) = 2^(a-k)
+solutions in the range.  Counting the pairs (j, high congruence containing b_j):
+    2^(a-2) <= sum over high (2^k d, rho) with rho = b (mod 4d) of 2^(a-k).
+Divide by 2^(a-2).  QED.
+(Spot check with exact fractions on 402 systems: code/lemma_check.py.)
+
+
+Lemma 2 (the finite claim at level 2).  COMPUTED, EXACT CERTIFICATE.
+--------------------------------------------------------------------
+Let r assign to every m in B a residue class r_m mod m, and let y assign a real
+number y(d,r) >= 0 to every residue class r mod 4d, d | 45.  Assume that every
+b mod 180 lies in one of the classes r_m, or satisfies sum_d y(d, b mod 4d) >= 1.
+Then  sum_r y(d,r) >= 1  for at least one d | 45.
+
+(Equivalently: the mixed-integer program "minimise t subject to sum_r y(d,r) <= t"
+has optimum t = 1.  The value 1 is attained, e.g. by one whole class for each d.)
+
+How it is proved.  A search tree over the choices of r, with a weight certificate at
+every leaf.  A node carries restrictions r_m = rho_m (mod g_m), g_m | m; at the root
+g_m = 1.  m is "fixed" at the node when g_m = m.
+
+ (a) Branching.  An internal node names m in B and a prime q with g_m q | m; its q
+     children replace the restriction on m by r_m = rho_m + g_m j (mod g_m q),
+     j = 0..q-1.  The children exhaust the node.
+
+ (b) Leaves (weak LP duality).  A leaf gives integers W_b >= 0.  Let U be the set of
+     b mod 180 outside all fixed classes, W(S) = sum of W_b over S, and
+        N = W(U) - sum over non-fixed m of  max { W(U & class r mod m) : r = rho_m (mod g_m) },
+        D = sum over d | 45 of  max_r W(U & class r mod 4d).
+     The verifier checks D > 0 and N >= D.  Then every (r,y) allowed at the leaf has
+     t := max_d sum_r y(d,r) >= 1:  for b in U, b is in no fixed class, so
+        1 <= #{non-fixed m : b in class r_m} + sum_d y(d, b mod 4d).
+     Multiply by W_b and sum over b in U:
+        W(U) <= sum_{non-fixed m} W(U & class r_m) + sum_d sum_r y(d,r) W(U & class r mod 4d)
+             <= (W(U) - N) + t D,
+     so t >= N/D >= 1.
+
+ (c) Symmetry.  Under the Chinese remainder theorem Z/180 = Z/4 x Z/9 x Z/5.  Let pi be
+     a permutation of one factor Z/q^e that preserves congruence modulo every power of q,
+     and phi the bijection of Z/180 acting by pi on that factor.  phi maps every residue
+     class modulo every divisor of 180 onto a residue class of the same modulus (the
+     verifier checks this directly on Z/180 for each phi used).  So phi carries a pair
+     (r,y) to a pair (r',y') with the same covering property and the same sums
+     sum_r y(d,r).  A child j may be replaced by the note "same as child j2 via pi" when
+     phi maps every restriction set {b = rho_m (mod g_m)}, m in B, onto itself and the
+     set of child j onto the set of child j2; then phi maps the pairs allowed in child j
+     into those allowed in child j2.  The verifier checks these set equalities and that
+     child j2 is a real subtree.
+
+Certificate files and numbers (all produced by code/bb3.py, checked by code/verify2.py):
+  cert_n2_size.json   659 internal nodes, 986 leaves (162 with N = D), 372 symmetric
+                      children, 38 distinct phi, depth <= 31, largest weight 28069632.
+  cert_n2_level.json  a second tree (other branching order): 870 internal, 1415 leaves
+                      (281 with N = D), 704 symmetric children, 41 distinct phi.
+  verify2.py uses plain Python integers only (no solver, no floats, no numpy) and shares
+  no code with bb3.py.  Both trees: "CERTIFICATE VERIFIED".
+  Mutation tests: the same tree is REJECTED when modulus 5 is added to B (there the
+  claim is false: optimum 0.7778) and when one weight per leaf is lowered by 1.
+Second, independent computation of the same optimum (floating point):
+  code/tail.py, HiGHS through scipy.optimize.milp (scipy 1.18.1): optimum t = 1.0000000 with dual
+  bound 1.0000000, 971 nodes, 11-13 s.  (Sanity of the model, code/tail_sanity.py: with
+  least modulus 5 the optimum is 0.7778 <= 0.875 and with least modulus 4 it is
+  0.375 <= 0.5, as forced by the coverings with LCM 2^5*45 and 2^3*45 of Theorems
+  1.7(vii) and 1.6(iii) of the paper through Lemma 1.)
+
+
+Proof of the Theorem
+--------------------
+Suppose C is a covering system with distinct moduli, all >= 6, all dividing 2^a*45.
+The low congruences have moduli in B.  Define r_m as the class of the low congruence
+with modulus m, and r_m = 0 for the m in B that C does not use.
+
+Case a <= 2: there are no high congruences; put y = 0.  Every b lies in a class r_m.
+Lemma 2 gives a d with sum_r y(d,r) >= 1, but all sums are 0.  Contradiction.
+
+Case a >= 3: define y as in Lemma 1.  A residue b mod 180 lies in a low class (hence in
+a class r_m), or by Lemma 1(ii) has sum_d y(d, b mod 4d) >= 1.  So Lemma 2 applies and
+gives a d with sum_r y(d,r) >= 1.  This contradicts Lemma 1(i): the sum is at most
+1 - 2^(2-a) < 1.                                                                   QED
+
+
+Remarks
+-------
+1. Why the level is 2: from level 3 on every modulus 2^k d (d | 45) is allowed, so the
+   high part is the same "one unit of each d" at every depth; at levels 0, 1, 2 the
+   moduli 1, 3, 5, 2, 4 are missing.  All integrality that matters sits in the 13 low
+   moduli; the high part may be relaxed to real numbers.
+2. The bound is tight (t = 1 is attained).  This matches Theorem 1.10 of the paper: an
+   INFINITE distinct covering with least modulus 6 and moduli 2^a 3^b 5^c, b <= 2, c <= 1
+   exists.  A finite system has high mass 1 - 2^(2-a) < 1 for each d, and always falls
+   short.  Because the bound is tight, a floating-point optimum alone would not be a
+   proof; the integer certificate is needed.
+3. The number 52.  PROVED (construction): for every a >= 3 there is a system with distinct
+   moduli >= 6 dividing 2^a*45 that leaves at most 52 residues mod 2^a*45 uncovered
+   (code/steady52.py, data steady52.json; exactly 52 for a = 3..11 by direct count).  Take S_3 (one class for each of the 19 divisors
+   >= 6 of 360) and six classes K_d mod 8d, d | 45, such that every residue outside S_3 lies
+   in some K_d; 52 residues are outside S_3.  Step a-1 -> a: add for each d the congruence
+   modulo 2^a d that is one half of K_{a-1,d}; call the other half K_{a,d}.  An uncovered u
+   mod 2^(a-1)*45 has two lifts; if u is in K_{a-1,d}, one lift is in the new class (2^(a-1)*45
+   = 2^(a-1) d mod 2^a d), so at most one lift stays uncovered, and it lies in K_{a,d}.  Hence
+   the count never exceeds 52.
+   NOT proved here: that 52 is the minimum for every a >= 3 (the paper's table has it for
+   a = 3..9).  The relaxation for the count does not give it: the minimum of
+   sum_b u_b - 52 (1-s) over tail mass s is -1.6 at s = 0.8, both at level 2 (s in [1/2,1])
+   and at level 3 (s in [0,1]; HiGHS, optimal, 357 s) (code/count52.py).  What is proved
+   for all a: the minimum is between 1 and 52.
+4. Approach that failed first: a potential "cheapest set of whole classes of level n that
+   completes the cover, at prices p_d" with a single price vector for all states
+   (code/costmilp.py: no price vector exists at level 2, LP value -0.018).  Letting the
+   prices depend on the state and passing to the LP dual gives Lemma 2.
+
+
+How to reproduce (2 cores, < 1.5 GB, about 1 minute)
+----------------------------------------------------
+  cd code
+  python3 bb3.py 2 600 ../cert_n2_size.json size      # 23 s, writes the tree (scipy/HiGHS LPs)
+  python3 verify2.py ../cert_n2_size.json             # exact check, pure Python, 20 s
+  python3 verify2.py ../cert_n2_size.json 5           # must print REJECTED
+  python3 verify2.py ../cert_n2_size.json 6 perturb   # must print REJECTED
+  python3 tail.py 2 600                               # HiGHS MILP: min t = 1.0
+  python3 tail_sanity.py                              # least modulus 5 and 4: 0.7778, 0.375
+  python3 lemma_check.py                              # Lemma 1 on 402 systems
+  python3 sample_check.py                             # 4210 full assignments by LP: smallest t 1.0513
+  python3 steady52.py 11 ../steady52.json             # 52 uncovered for a = 3..11 (remark 3)
+  python3 count52.py 3 0.0 52 600                     # remark 3: -1.6 at s = 0.8 (6 minutes)
+Exploratory (remark 4, and the paper's table for a <= 3): costmilp.py, multi.py, costip.py, repro.py.
