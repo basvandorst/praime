@@ -238,6 +238,26 @@ for frag in ['| 8 | [5.136, 5.137]·10⁻⁷ | 3.082·10⁻⁶ |', '| 12 | [7.47
     true('exact3 table row', frag in ex3)
 true('exact3 tail bound quoted', '10⁻²⁹⁷' in ex3 and '600' in ex3)
 
+# --- section 8g: round 172 (the self-contained chain)
+fo = json.load(open(os.path.join(D, 'chain_X16_found.json'))); ch = [json.loads(l) for l in open(os.path.join(D, 'chain_X16.jsonl'))]
+true('172: 505 points, ten forms', len(ch) == 505 and len(fo) == 10); true('172: 1,700 s', '1700 s' in txt('chain_X16_out.txt'))
+tab72 = [(9.53443, 1, 9.53370, -1.0679, -1.0683, -0.4566, -0.4562, 0.0005, 0.0047), (12.17376, 1, 12.17301, 0.2895, 0.2893, -1.2017, -1.2019, 0.0005, 0.0120), (13.77916, 0, 13.77975, 1.5494, 1.5493, 0.2471, 0.2469, 0.0007, 0.0048),
+         (14.35814, 1, 14.35851, -0.2313, -0.2309, 0.6960, 0.6956, 0.0004, 0.0049), (16.13660, 1, 16.13807, 1.1613, 1.1619, -1.2816, -1.2820, 0.0022, 0.0050), (16.64339, 1, 16.64426, -1.5397, -1.5402, 0.9769, 0.9775, 0.0011, 0.0114),
+         (17.73718, 0, 17.73856, -0.7657, -0.7655, -0.9771, -0.9778, 0.0056, 0.0138), (18.17936, 1, 18.18092, 0.3745, 0.3741, 0.1012, 0.1020, 0.0008, 0.0056), (19.42290, 0, 19.42348, -0.6939, -0.6928, 1.5610, 1.5624, 0.0021, 0.0055),
+         (19.48992, 1, 19.48471, -1.6780, -1.7002, -0.6087, -0.6146, 0.0331, 0.0618)]
+errs_r = []; errs_a = []
+for g, (rh, e, rt, a2, t2, a3, t3, e7, e13) in zip(fo, tab72):
+    f = min([x for x in key if (x['parity'] == 'odd') == (g['eps'] == 1)], key=lambda x: abs(x['r'] - g['r']))
+    check('172 r^', g['r'], rh, 6e-6); true('172 parity', g['eps'] == e); check('172 true r', f['r'], rt, 6e-6)
+    check('172 a_2', g['ap']['2'], a2, 6e-5); check('172 true a_2', f['ap']['2'], t2, 6e-5); check('172 a_3', g['ap']['3'], a3, 6e-5); check('172 true a_3', f['ap']['3'], t3, 6e-5)
+    check('172 err p<=7', max(abs(g['ap'][p] - f['ap'][p]) for p in '2357'), e7, 6e-5); check('172 err 11,13', max(abs(g['ap'][p] - f['ap'][p]) for p in ('11', '13')), e13, 6e-5)
+    errs_r.append(abs(g['r'] - f['r'])); errs_a.append(max(abs(g['ap']['2'] - f['ap']['2']), abs(g['ap']['3'] - f['ap']['3'])))
+check('172 largest r error', max(errs_r), 0.0052, 6e-5); check('172 r error, first nine', max(errs_r[:9]), 0.0016, 6e-5)
+check('172 a_2, a_3 first nine', max(errs_a[:9]), 0.0014, 6e-5); check('172 tenth', errs_a[9], 0.022, 6e-4)
+fe72 = [d for d in ch if d['t_lp'] >= -0.002]; true('172: 28 feasible points', len(fe72) == 28)
+true('172 N3', all(any(f['r'] - 0.02 - 1e-9 <= d['r'] <= f['r'] + 0.15 + 1e-9 for f in key if f['r'] < 20 and (f['parity'] == 'odd') == (d['eps'] == 1)) for d in fe72))
+true('172 last piece [19.48, 19.53]', sorted(d['r'] for d in fe72 if d['eps'] == 1 and d['r'] > 19)[0] == 19.48 and sorted(d['r'] for d in fe72 if d['eps'] == 1)[-1] == 19.53)
+
 # --- END
 if __name__ == '__main__':
     print('%d checks pass, %d fail' % (ok, bad)); sys.exit(1 if bad else 0)
