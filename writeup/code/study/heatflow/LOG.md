@@ -147,3 +147,55 @@ Nothing here is a claim until it is promoted (independent check, literature chec
   sums and local statistics at t ~ 1/N^2 or 1/log^2 T: NOT FOUND; Rodgers-Tao p. 27 name this time scale but compute no
   statistics; Polymath Remark 1.6 expects a "liquid" below exp(C/t). NOT OPENED: the Polymath wiki and blog threads,
   the original papers of Landau, Gonek, Diaconis-Shahshahani. So "not found", with those unopened.
+
+## Loop 7. The other side, t < 0: how many zeros leave the line? ([loop7.py](loop7.py))
+- Reasoning: backwards in time two neighbours attract; alone they obey g^2(tau) = g_0^2 + 2 tau/pi^2 (g in mean spacings),
+  so a pair with g_0 < sqrt(2|tau|)/pi has collided and left the line. With the small-gap law of the sine process,
+  density (pi^2/3) s^2, the share of zeros off the line is f(tau) = (2/(9 pi)) (2|tau|)^(3/2) for small |tau|.
+  For zeta (if RH and the pair law hold): at t < 0 the share of zeros of H_t off the line near height T would be
+  (2/(9 pi)) (|t| ln^2(T/2 pi)/2)^(3/2): a count behind Newman's conjecture (Rodgers-Tao: Lambda >= 0).
+- Prediction (before the run): Haar matrices N = 100, 4,000 matrices, flowed to tau = -0.03, -0.06, -0.12: share of zeros
+  off the circle = f(tau) within 3 standard errors or 10 %; at tau = -0.25, -0.5 the two-body formula is off by more
+  than 10 % (my guess: the true share is higher, the neighbours press the pair together).
+
+## Loop 8. The whole form factor of zeta's flowed zeros at height 10^12 to 10^22 ([loop8.py](loop8.py))
+- Prediction (before the run): for the 9 blocks of loop 6, the form factor |sum e^{2 pi i u x}|^2 / M averaged over bins of
+  u of width 0.1 equals the series K_tau(u) (five cluster terms) for u in (0.2, 1.0) at tau = 1 and 4 within 3 errors
+  (errors from the 9 blocks), and the bin (0.95, 1.05) shows the Bragg peak (above 1 at tau = 1, above 2 at tau = 4).
+- Result of loop 7 (N = 100, 4,000 matrices; share of zeros off the circle against (2/(9 pi)) (2|tau|)^(3/2)):
+      tau      -0.03          -0.06          -0.12          -0.25          -0.5           -1       -2
+      share    0.00096        0.00282        0.00778        0.02265        0.05923        0.1426   0.2958
+      ratio    0.92 +- 0.07   0.96 +- 0.04   0.935 +- 0.024 0.906 +- 0.013 0.837 +- 0.007 0.713    0.523
+  First part holds (the three smallest |tau| within 10 % and 3 errors). Second part: the formula is indeed off by more
+  than 10 % from |tau| = 0.5 on, but my guess of the direction FAILS: the true share is lower, not higher. At tau = 0 no
+  zero is lost (check). At tau = -2 already 30 % of the zeros have left the circle.
+- Lesson: the count behind Newman's conjecture has a simple leading law, share = (2/(9 pi)) (2|tau|)^(3/2), and the
+  neighbours slow the collisions down rather than speeding them up (the next term of the small-gap law, a factor
+  1 - 0.16|tau|, explains about half of the deficit). For zeta this is a prediction, not a measurement: it needs RH and
+  the small-gap law of the sine process, and H_t for t < 0 was not computed here.
+- Result of loop 8 (9 blocks, middle 2,000 zeros of each; form factor averaged over bins of u; series with five terms):
+      u bin        tau = 0: zeta (u)        tau = 1: zeta (series)     tau = 4: zeta (series)
+      0.05-0.15    0.0936 +- 0.0025 (0.1)   0.0772 +- 0.0020 (0.0827)  0.0440 +- 0.0011 (0.0473)
+      0.25-0.35    0.2969 +- 0.0070 (0.3)   0.1955 +- 0.0044 (0.1976)  0.0575 +- 0.0011 (0.0582)
+      0.45-0.55    0.4979 +- 0.0123 (0.5)   0.3082 +- 0.0080 (0.3097)  0.0840 +- 0.0024 (0.0848)
+      0.65-0.75    0.6960 +- 0.0097 (0.7)   0.4902 +- 0.0066 (0.4926)  0.2303 +- 0.0035 (0.2326)
+      0.75-0.85    0.8108 +- 0.0120 (0.8)   0.6541 +- 0.0129 (0.6473)  0.4853 +- 0.0106 (0.4906)
+      0.85-0.95    0.8766 +- 0.0106 (0.9)   0.8542 +- 0.0144 (0.8817)  1.1419 +- 0.0176 (1.2056)
+      0.95-1.05    0.9739 +- 0.0217         1.2237 +- 0.0192           2.9828 +- 0.0334
+      1.25-1.35    0.9799 +- 0.0182         1.1717 +- 0.0239           1.0054 +- 0.0156
+  The seven bins from 0.15 to 0.85 agree within 1.2 errors at every tau. The registered reading ("within 3 errors on
+  (0.2, 1.0)") FAILS in one cell: bin 0.85-0.95 at tau = 4 is 3.6 errors low; the same bin is 2.2 errors low at tau = 0,
+  where the comparator is Montgomery's K = u (the known rounding of zeta's form factor near u = 1 at finite height).
+  The lowest bin is 2.5 to 3 errors low at every tau, also at tau = 0 (few prime powers in that bin). Bragg peak: 1.22 at
+  tau = 1 and 2.98 at tau = 4, as predicted (above 1, above 2).
+- Lesson: the cluster series describes the form factor of zeta's flowed zeros wherever zeta at tau = 0 follows K = u;
+  the two deviating bins deviate before the flow starts. A fair reading divides by the tau = 0 value.
+
+## Referee of theory/proof.md (27 November 2026, own code theory/referee/ref.py, 85 checks, 0 failed)
+- Cluster expansion, circle property for t >= 0, exact second moment for k <= N (k = N included; Diaconis-Evans Thm 2.1
+  read in the Berkeley tech report, the AMS PDF refused), limit K_tau(u) for 0 < u <= 1 and also tau < 0: NO FAILING STEP.
+- WRONG: the side remark "for k > N the full Hall norm is strictly larger" fails for t < 0 (gap 0 at N = 1, k = 2,
+  t = -0.346574; N = 2, k = 3, t = -0.464522 and -0.149050). Not yet corrected in proof.md.
+- Third-order term derived by the referee: -4/3 u^4 (1-u)^3 + 8/15 u^7 - 2/3 u^6 (matches the series to 1e-7).
+  K_2(0.7) = 0.3723234 (r <= 7); finite N = 10, 20, 40 converge as 1/N^2.
+- Summary written: [heatflow.md](heatflow.md).

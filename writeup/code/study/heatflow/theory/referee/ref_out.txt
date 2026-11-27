@@ -1,0 +1,121 @@
+=== A. Theorem 1: exact symbolic check ===
+PASS q_1 is homogeneous of weight 1 in the p-basis
+PASS q_2 is homogeneous of weight 2 in the p-basis
+PASS q_3 is homogeneous of weight 3 in the p-basis
+PASS q_4 is homogeneous of weight 4 in the p-basis
+PASS q_5 is homogeneous of weight 5 in the p-basis
+PASS q_6 is homogeneous of weight 6 in the p-basis
+PASS q_7 is homogeneous of weight 7 in the p-basis
+PASS connected graph counts r=1..6 | [1, 1, 4, 38, 728, 26704]
+PASS Theorem 1 (graph enumeration) == log route, all partitions k<=6, exact in Q | 29/29; dropping 1/prod m_i! breaks 16, sign (-1)^(k-1) breaks 12
+PASS Theorem 1 for k=7 (rooted-set recursion for Phi) == log route | 15/15
+PASS rooted-set recursion == enumeration for Phi, k<=6
+PASS k=2: q_2 = Q^4 p_2 - (Q^4-Q^2) p_1^2
+PASS Theorem 1 numerically vs roots of E_t, N=2,3, k=1..6 (k>N incl.), complex z and t | max rel err 5.4e-40
+=== B. roots of E_t ===
+PASS t=0.002: all roots on |x|=1 (400 Haar U, N=7) | max dev 4.0e-15
+PASS t=0.1: all roots on |x|=1 (400 Haar U, N=7) | max dev 4.0e-15
+PASS t=1: all roots on |x|=1 (400 Haar U, N=7) | max dev 3.3e-15
+PASS t=-0.05: some Haar U have roots off the circle | 337/400 off
+PASS zero dynamics dtheta/dt = sum cot((theta_i-theta_j)/2) | max abs diff 3.3e-10
+=== C. Theorem 3 (second moment) ===
+PASS Murnaghan-Nakayama characters: column orthogonality S_1..S_7
+  Weyl grid N=5, M=23: 6.7 s, normalisation 1.000000000000000
+PASS Weyl grid normalisation = 1 | 0.00e+00
+  N=5 t=0.02:  k | MC +- SE | Weyl grid | formula (trunc for k>N) | full Hall norm | z(MC) | r=1 term
+   1 | 0.852262 +- 0.002698 | 0.8521437890 | 0.8521437890 | 0.8521437890 | +0.04 | 0.852144
+PASS k=1: Weyl grid == formula (H_k) | rel 6.5e-16
+PASS k=1: MC within 4 SE of formula | z=0.04
+PASS k=1<=N: truncated == full Hall norm
+   2 | 1.570567 +- 0.004967 | 1.5756745526 | 1.5756745526 | 1.5756745526 | -1.03 | 1.573256
+PASS k=2: Weyl grid == formula (H_k) | rel 2.8e-16
+PASS k=2: MC within 4 SE of formula | z=-1.03
+PASS k=2<=N: truncated == full Hall norm
+   3 | 2.383102 +- 0.006853 | 2.3808316387 | 2.3808316387 | 2.3808316387 | +0.33 | 2.359884
+PASS k=3: Weyl grid == formula (H_k) | rel 1.9e-16
+PASS k=3: MC within 4 SE of formula | z=0.33
+PASS k=3<=N: truncated == full Hall norm
+   4 | 3.495411 +- 0.009600 | 3.5043966662 | 3.5043966662 | 3.5043966662 | -0.94 | 3.408575
+PASS k=4: Weyl grid == formula (H_k) | rel 5.1e-16
+PASS k=4: MC within 4 SE of formula | z=-0.94
+PASS k=4<=N: truncated == full Hall norm
+   5 | 5.362035 +- 0.014937 | 5.3303849471 | 5.3303849471 | 5.3303849471 | +2.12 | 5.000000
+PASS k=5: Weyl grid == formula (H_k) | rel 1.7e-16
+PASS k=5: MC within 4 SE of formula | z=2.12
+PASS k=5<=N: truncated == full Hall norm
+   6 | 5.308824 +- 0.014795 | 5.3407488720 | 5.3407488720 | 8.6147494522 | -2.16 | nan
+PASS k=6: Weyl grid == formula (truncated) | rel 1.7e-16
+PASS k=6: MC within 4 SE of formula | z=-2.16
+PASS k=6>N: full Hall norm differs from Haar value | full 8.614749 vs 5.340749; full rejected by MC at z=-223
+   7 | 5.340498 +- 0.014822 | 5.3296872752 | 5.3296872752 | 15.0015585853 | +0.73 | nan
+PASS k=7: Weyl grid == formula (truncated) | rel 3.3e-16
+PASS k=7: MC within 4 SE of formula | z=0.73
+PASS k=7>N: full Hall norm differs from Haar value | full 15.001559 vs 5.329687; full rejected by MC at z=-652
+PASS complex t=0.02+0.03i, k=3: e^{-2Re t Nk} sum |c|^2 z == Weyl grid | 2.4280569598 vs 2.4280569598
+PASS complex t=0.02+0.03i, k=5: e^{-2Re t Nk} sum |c|^2 z == Weyl grid | 6.0945767046 vs 6.0945767046
+PASS author example N=4,k=6,Q=11/10: truncated 428.570651, full 14529.767197 | 428.570651, 14529.767197
+PASS small t: (H_5 - 5e^{50t})/t^2 -> 25*120/3 = 1000 | 1000.792332, 1000.396083, Richardson 999.999834
+PASS H_6(0.3) <= k^2 e^{2tk^2} | ratio 0.8974
+PASS H_5(0.5) <= k^2 e^{2tk^2} | ratio 0.9614
+PASS H_4(1) <= k^2 e^{2tk^2} | ratio 0.9948
+PASS H_7(0.05) <= k^2 e^{2tk^2} | ratio 0.2833
+  -- k>N: is the full Hall norm always strictly larger? --
+PASS N=1,k=2,t*=-0.346574: Haar value == FULL Hall norm (equality, not strict) | grid 1.000000000000, full 1.000000000000; at t*+0.05: grid 1.000000, full 1.011061
+PASS N=2,k=3,t*=-0.464522: Haar value == FULL Hall norm (equality, not strict) | grid 27.023222359571, full 27.023222359571; at t*+0.05: grid 17.762686, full 17.805917
+PASS N=2,k=3,t*=-0.149050: Haar value == FULL Hall norm (equality, not strict) | grid 2.571289605292, full 2.571289605292; at t*+0.05: grid 2.196571, full 2.265452
+PASS t>=0: [y^k] log sum Q^{j^2} y^j > 0 for k<=40 (so strict inequality holds for t>=0)
+=== D. Theorem 4: K_tau(u) ===
+PASS simplex quadrature: vol = u^{r-1}/(r-1)!, int prod a = u^{2r-1}/(2r-1)! (r=4, d sigma = projected Lebesgue)
+  tau=2, u=0.7 terms T_r: 3.021973664004e-01 6.661170865056e-02 3.445418530649e-03 6.828252172378e-05 6.562069431321e-07 3.522177033268e-09 1.160871863278e-11 (1.0 s)
+  coarser quadrature diffs: 0.0e+00 8.3e-17 5.6e-18 2.6e-19 1.5e-21 1.0e-16 1.0e-14
+PASS quadrature converged for r<=7 (abs 1e-12)
+PASS r=1 term = u e^{-2 tau u (1-u)}
+PASS Phi_r: recursion == enumeration on nodes (r=3)
+PASS Phi_r: recursion == enumeration on nodes (r=5)
+  K_2(0.7): r<=4: 0.372322776103   r<=7: 0.372323435844   (T_5 = 6.56e-07, T_6 = 3.52e-09, T_7 = 1.16e-11)
+PASS two-sided term bound (4.6) r=2 | 1.36e-02 <= 6.66e-02 <= 8.02e+01
+PASS two-sided term bound (4.6) r=3 | 8.72e-04 <= 3.45e-03 <= 5.13e+00
+PASS two-sided term bound (4.6) r=4 | 2.00e-05 <= 6.83e-05 <= 1.17e-01
+PASS two-sided term bound (4.6) r=5 | 2.13e-07 <= 6.56e-07 <= 1.25e-03
+PASS two-sided term bound (4.6) r=6 | 1.24e-09 <= 3.52e-09 <= 7.29e-06
+PASS two-sided term bound (4.6) r=7 | 4.36e-12 <= 1.16e-11 <= 2.57e-08
+PASS finite-N value: log-recursion route == graph/CLAM route (N=10,k=7)
+PASS tau=2,u=0.7 N=10: every r-term below the uniform bound M_r
+  tau=2,u=0.7 N=10 k=7: E|p_k|^2/N = 0.369933880152  rel.err vs K -6.42e-03  (0.0 s)
+PASS tau=2,u=0.7 N=20: every r-term below the uniform bound M_r
+  tau=2,u=0.7 N=20 k=14: E|p_k|^2/N = 0.371718048169  rel.err vs K -1.63e-03  (0.0 s)
+PASS tau=2,u=0.7 N=30: every r-term below the uniform bound M_r
+  tau=2,u=0.7 N=30 k=21: E|p_k|^2/N = 0.372053700069  rel.err vs K -7.24e-04  (0.3 s)
+PASS tau=2,u=0.7: double vs 40-digit total at N=40 | 3.7e-14; but r=28 term: double 5.3e-46 vs 40-digit 1.6e-95 (rounding noise)
+PASS tau=2,u=0.7 N=40: every r-term below the uniform bound M_r
+  tau=2,u=0.7 N=40 k=28: E|p_k|^2/N = 0.372171575963  rel.err vs K -4.08e-04  (4.1 s)
+    Richardson 1/N^2 (10,20): 0.372312770842  rel.err -2.86e-05
+    Richardson 1/N^2 (20,30): 0.372322221589  rel.err -3.26e-06
+    Richardson 1/N^2 (30,40): 0.372323130685  rel.err -8.20e-07
+PASS tau=2,u=0.7: finite N -> K (raw error at N=40 < 2e-3, Richardson < 2e-5) | raw 4.08e-04, Richardson 8.20e-07
+  error ratio N=20 -> 40: 3.986 (1/N^2 predicts 4)
+PASS tau=-1.5 quadrature converged
+  K_{-1.5}(0.6) = 1.385538603334; terms 1.233e+00 1.496e-01 3.274e-03 2.456e-05 8.418e-08 1.554e-10 1.718e-13
+PASS tau=-1.5,u=0.6 N=10: every r-term below the uniform bound M_r
+  tau=-1.5,u=0.6 N=10 k=6: E|p_k|^2/N = 1.381788615881  rel.err vs K -2.71e-03  (0.0 s)
+PASS tau=-1.5,u=0.6 N=20: every r-term below the uniform bound M_r
+  tau=-1.5,u=0.6 N=20 k=12: E|p_k|^2/N = 1.384602803405  rel.err vs K -6.75e-04  (0.0 s)
+PASS tau=-1.5,u=0.6 N=30: every r-term below the uniform bound M_r
+  tau=-1.5,u=0.6 N=30 k=18: E|p_k|^2/N = 1.385122830981  rel.err vs K -3.00e-04  (0.1 s)
+PASS tau=-1.5,u=0.6: double vs 40-digit total at N=40 | 5.6e-14; but r=24 term: double 1.0e-42 vs 40-digit 2.2e-87 (rounding noise)
+PASS tau=-1.5,u=0.6 N=40: every r-term below the uniform bound M_r
+  tau=-1.5,u=0.6 N=40 k=24: E|p_k|^2/N = 1.385304758659  rel.err vs K -1.69e-04  (1.2 s)
+    Richardson 1/N^2 (10,20): 1.385540865913  rel.err 1.63e-06
+    Richardson 1/N^2 (20,30): 1.385538853043  rel.err 1.80e-07
+    Richardson 1/N^2 (30,40): 1.385538665673  rel.err 4.50e-08
+PASS tau=-1.5,u=0.6: finite N -> K (Richardson < 2e-5) | raw 1.69e-04, Richardson 4.50e-08
+  tau=2,u=1 terms r=6,7,8: 5.826e-06 7.451e-08 6.377e-10; coarse diffs 0e+00 3e-16 2e-16 3e-17 2e-16 3e-12 2e-10 3e-11
+PASS author table K_2(1) = 1.76699977 (r<=8) | 1.7669997689 (r<=6 alone: 1.7669996937)
+PASS u=0.7: tau^2 coefficient = 2u^3(1-u)^2 + u^5/3 | 0.117763333 vs 0.117763333
+PASS u=0.7: tau^3 coefficient = -4/3 u^4(1-u)^3 + 8/15 u^7 - 2/3 u^6 | -0.0431540 vs -0.0431540
+PASS u=0.35: tau^2 coefficient = 2u^3(1-u)^2 + u^5/3 | 0.037980104 vs 0.037980104
+PASS u=0.35: tau^3 coefficient = -4/3 u^4(1-u)^3 + 8/15 u^7 - 2/3 u^6 | -0.0063772 vs -0.0063772
+PASS u=1: tau^2 coefficient = 2u^3(1-u)^2 + u^5/3 | 0.333333333 vs 0.333333333
+PASS u=1: tau^3 coefficient = -4/3 u^4(1-u)^3 + 8/15 u^7 - 2/3 u^6 | -0.1333333 vs -0.1333333
+time 18.8 s
+85 checks, 0 failed
